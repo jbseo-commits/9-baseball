@@ -2,6 +2,7 @@ import React,{useLayoutEffect,useRef,useState} from 'react';
 import {CARDS} from './cards.js';
 import {publicProbabilities,V10_SWING_STACK_MAX} from './engine.js';
 import {intentLines,hpTicks,ZONE_WORDS} from './ballpark-copy.js';
+import {pitcherReleasePoint,PITCH_FLIGHT_MS} from './pitcher-sd.js';
 import './ballpark.css';
 
 /* V13 BALLPARK — the battle as one ballpark scene (docs/design/v13/BALLPARK.md).
@@ -35,16 +36,29 @@ export default function BallparkBattle({
     const set=()=>root.style.setProperty('--bp-top',(header?.getBoundingClientRect().height||0)+'px');
     set();window.addEventListener('resize',set);return()=>window.removeEventListener('resize',set);
   },[]);
-  /* the ball leaves the pitcher's glove and lands on its cell (or beside the zone) at the impact beat */
+  /* Release from frame 79's throwing hand, then reach the called zone at impact. */
   useLayoutEffect(()=>{
     const f=flightRef.current,scene=sceneRef.current,p=pitcherRef.current,zone=zoneRef.current;
     if(!f||!scene||!p||!zone||!r)return;
-    const sr=scene.getBoundingClientRect(),pr=p.getBoundingClientRect(),zr=zone.getBoundingClientRect();
-    const z=r.zone,x1=z===9?zr.right+zr.width*.18:zr.left+zr.width*((z%3)+.5)/3,y1=z===9?zr.top+zr.height*.5:zr.top+zr.height*(Math.floor(z/3)+.5)/3;
-    f.style.setProperty('--x0',(pr.left+pr.width*.45-sr.left)+'px');f.style.setProperty('--y0',(pr.top+pr.height*.42-sr.top)+'px');
-    f.style.setProperty('--x1',(x1-sr.left)+'px');f.style.setProperty('--y1',(y1-sr.top)+'px');
-    f.style.setProperty('--delay',Math.max(0,impactAt-360)+'ms');
-  },[playToken,judged,inFx]);
+    const point=pitcherReleasePoint(shot?.pitcherArtId);
+    const releaseAt=Math.max(0,shot?.motion?.ballReleaseAt??impactAt-PITCH_FLIGHT_MS);
+    const flightMs=Math.max(1,(impactAt||shot?.motion?.impactAt||PITCH_FLIGHT_MS)-releaseAt);
+    const place=()=>{
+      const sr=scene.getBoundingClientRect(),pr=p.getBoundingClientRect(),zr=zone.getBoundingClientRect();
+      const sprite=p.querySelector('.red-rush-frame.duel-sprite')?.getBoundingClientRect();
+      const hand=sprite?.width&&sprite?.height?sprite:pr;
+      const z=r.zone,x1=z===9?zr.right+zr.width*.18:zr.left+zr.width*((z%3)+.5)/3,y1=z===9?zr.top+zr.height*.5:zr.top+zr.height*(Math.floor(z/3)+.5)/3;
+      scene.style.setProperty('--x0',(hand.left+hand.width*(point?.x??.45)-sr.left)+'px');
+      scene.style.setProperty('--y0',(hand.top+hand.height*(point?.y??.42)-sr.top)+'px');
+      scene.style.setProperty('--x1',(x1-sr.left)+'px');
+      scene.style.setProperty('--y1',(y1-sr.top)+'px');
+    };
+    place();
+    scene.style.setProperty('--delay',releaseAt+'ms');
+    scene.style.setProperty('--flight-ms',flightMs+'ms');
+    window.addEventListener('resize',place);
+    return ()=>window.removeEventListener('resize',place);
+  },[playToken,judged,inFx,impactAt,shot?.motion?.ballReleaseAt,shot?.pitcherArtId,r?.zone]);
 
   const byId=id=>hand.find(x=>x.id===id);
   const swingCards=hand.filter(x=>!isSkill(x.entry)),prepCards=hand.filter(x=>isSkill(x.entry));
@@ -122,7 +136,7 @@ export default function BallparkBattle({
         <small aria-hidden="true">HP {judged&&!landed?(pitcher?.hp||0)+(pitcher?.lastDamage||0):pitcher?.hp} / {pitcher?.maxHp}</small>
       </div>
       {showVerdict&&<div className={'bp-verdict'+(good?' good':'')} key={'v'+playToken+(shot.title||'')} role="status">{r?.label&&judged&&<small>{r.label}</small>}<strong>{shot.title}</strong></div>}
-      {judged&&inFx&&!landed&&<i className="bp-flight" ref={flightRef} key={'f'+playToken} aria-hidden="true"/>}
+      {judged&&inFx&&!landed&&<><i className="bp-snap" aria-hidden="true"/><i className="bp-flight" ref={flightRef} key={'f'+playToken} aria-hidden="true"/></>}
       <div className="bp-batter" aria-hidden="true">{batterArt}</div>
 
       <div className="bp-zone" ref={zoneRef} role="group" aria-label="노릴 코스">

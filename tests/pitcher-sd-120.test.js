@@ -2,7 +2,7 @@ import {describe,expect,it} from 'vitest';
 import fs from 'node:fs';
 import {createRunMap} from '../src/duel/run-map.js';
 import {batterMotionV3Timeline} from '../src/duel/batterMotionV3.js';
-import {RED_RUSH_ASSET_ID,hasPitchVisual,redRushFrameAt,redRushTimeline,redRushBatterShot} from '../src/duel/pitcher-sd.js';
+import {RED_RUSH_ASSET_ID,hasPitchVisual,redRushFrameAt,redRushTimeline,redRushBatterShot,pitchFlightWindow,PITCH_BALL_RELEASE_MS,PITCH_FLIGHT_MS} from '../src/duel/pitcher-sd.js';
 
 const root=new URL('../assets/pitcher-sd-v1/',import.meta.url);
 const manifest=JSON.parse(fs.readFileSync(new URL('manifest.json',root),'utf8'));
@@ -47,8 +47,12 @@ describe('Red Rush SD pitcher asset',()=>{
     expect(redRushFrameAt(5000)).toBe(119);
     const base={impactAt:230,freeze:58,slowmo:100,releaseAt:388,settleAt:760,duration:1080};
     const full=redRushTimeline(base);
-    expect(full.impactAt).toBe(1320);
-    expect(full.releaseAt).toBe(1320+base.freeze+base.slowmo);
+    expect(full.ballReleaseAt).toBe(PITCH_BALL_RELEASE_MS);
+    expect(redRushFrameAt(full.ballReleaseAt)).toBe(79);
+    expect(full.impactAt-full.ballReleaseAt).toBe(PITCH_FLIGHT_MS);
+    expect(pitchFlightWindow(full)).toEqual({releaseAt:full.ballReleaseAt,contactAt:full.impactAt,flightMs:PITCH_FLIGHT_MS,startPhase:full.ballReleaseAt/full.impactAt});
+    expect(pitchFlightWindow(base).flightMs).toBe(PITCH_FLIGHT_MS);
+    expect(full.releaseAt).toBe(full.impactAt+base.freeze+base.slowmo);
     expect(full.settleAt).toBeGreaterThan(full.releaseAt);
     expect(full.duration).toBeGreaterThanOrEqual(2000);
     expect(redRushTimeline(base,true)).toBe(base);
@@ -56,8 +60,9 @@ describe('Red Rush SD pitcher asset',()=>{
     expect(hasPitchVisual({grade:'solid'})).toBe(true);
     const shot={grade:'solid',motion:base};
     const synchronized=batterMotionV3Timeline(redRushBatterShot(shot));
-    expect(synchronized.find(key=>key.pose==='load').at).toBe(1000);
+    expect(synchronized.find(key=>key.pose==='load').at).toBe(full.impactAt-320);
     expect(synchronized.find(key=>key.pose==='contact').at).toBe(full.impactAt);
+    expect(synchronized.find(key=>key.pose==='contact').at).toBeGreaterThan(full.ballReleaseAt);
     expect(synchronized.find(key=>key.pose==='settle').at).toBe(full.settleAt);
     expect(redRushBatterShot(shot,true)).toBe(shot);
   });

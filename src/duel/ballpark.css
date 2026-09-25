@@ -144,9 +144,12 @@
 .bp-battle.resolving .bp-hand{opacity:.45}
 .bp-battle.resolving .bp-card span{visibility:hidden}
 .bp-battle.resolving .bp-coach{color:var(--bp-bone)}
-.bp-flight{position:absolute;left:0;top:0;z-index:5;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px #0008,0 0 12px #fff;
-  transform:translate(var(--x0,0),var(--y0,0)) scale(.35);animation:bp-fly 360ms cubic-bezier(.55,0,.9,.6) var(--delay,0ms) forwards}
-@keyframes bp-fly{to{transform:translate(var(--x1,0),var(--y1,0)) scale(1.15)}}
+.bp-flight{position:absolute;left:0;top:0;z-index:5;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#fffbe9;box-shadow:8px -2px 0 -2px #f5d58c,17px -4px 0 -4px #dc995f,0 0 12px #fff;opacity:0;
+  transform:translate(var(--x0,0px),var(--y0,0px)) scale(.55);animation:bp-fly var(--flight-ms,160ms) cubic-bezier(.12,.58,.46,1) var(--delay,0ms) both}
+.bp-snap{position:absolute;left:0;top:0;z-index:4;width:22px;height:3px;background:#ffeab0;box-shadow:7px -5px #e8aa68,13px 4px #fff6d6,0 0 10px #ffd282;opacity:0;pointer-events:none;
+  transform:translate(var(--x0,0px),var(--y0,0px));animation:bp-snap 85ms steps(4,end) var(--delay,0ms) both}
+@keyframes bp-fly{0%{opacity:0;transform:translate(var(--x0,0px),var(--y0,0px)) scale(.55)}8%{opacity:1}85%{opacity:1}100%{opacity:0;transform:translate(var(--x1,0px),var(--y1,0px)) scale(1.15)}}
+@keyframes bp-snap{0%{opacity:0;transform:translate(var(--x0,0px),var(--y0,0px)) scaleX(.3)}20%{opacity:1}60%{opacity:.9;transform:translate(calc(var(--x0,0px) - 9px),calc(var(--y0,0px) + 2px)) scaleX(1.4)}100%{opacity:0;transform:translate(calc(var(--x0,0px) - 16px),calc(var(--y0,0px) + 3px)) scaleX(.3)}}
 .bp-cell.actual{border-color:#fff}
 .bp-cell.actual.good{background:#ffc86188}
 .bp-pitch-mark{position:absolute;left:50%;top:50%;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px #07080d,0 0 16px #fff;animation:bp-land 260ms ease-out both}
@@ -174,7 +177,7 @@
   .bp-verdict{top:auto;bottom:6%;left:60%}
   .bp-verbs.next .bp-verb.go small{display:block}
 }
-@media (prefers-reduced-motion:reduce){.bp-flight{display:none}}
+@media (prefers-reduced-motion:reduce){.bp-flight,.bp-snap{display:none}}
 
 /* portrait: a fixed 3:4 scene shows the park's full height, so the infield dirt starts at 64% and
    the actors are placed on it — the pitcher on the rubber (feet 66%), the batter at the front edge.

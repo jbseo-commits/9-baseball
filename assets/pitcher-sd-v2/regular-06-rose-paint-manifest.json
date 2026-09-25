@@ -67,7 +67,7 @@
     },
     {
       "frame": 68,
-      "pose": "arm-whip",
+      "pose": "loaded-snap",
       "source": "bridges",
       "cell": 4
     },
@@ -96,5 +96,9 @@
       "cell": 0
     }
   ],
-  "facingCorrections": []
+  "facingCorrections": [],
+  "handContinuityCorrections": [
+    "bridges:4<-bridges:3"
+  ],
+  "releaseHoldFrames": 6
 }

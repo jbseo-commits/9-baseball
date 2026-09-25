@@ -118,6 +118,17 @@ describe('V13 BALLPARK lean text',()=>{
 
 describe('V13 BALLPARK BP-2 pitch in the scene',()=>{
   afterEach(()=>{vi.useRealTimers()});
+  it('holds the ball until frame 79 and snaps to the called zone in 160ms',()=>{
+    begin();
+    fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);fireEvent.click(swingBtn());
+    const scene=document.querySelector('.bp-scene');
+    expect(scene.querySelector('.bp-flight')).not.toBeNull();
+    expect(scene.querySelector('.bp-snap')).not.toBeNull();
+    expect(scene.style.getPropertyValue('--delay')).toBe('1317ms');
+    expect(scene.style.getPropertyValue('--flight-ms')).toBe('160ms');
+    expect(scene.querySelector('.bp-flight').getAttribute('aria-hidden')).toBe('true');
+  });
+
   it('plays the pitch on the same screen: verdict word, the real ball on the zone, one button on',()=>{
     vi.useFakeTimers();
     begin();

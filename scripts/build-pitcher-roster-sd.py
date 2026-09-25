@@ -55,6 +55,20 @@ FACING_CORRECTIONS = {
     "elite-02-neon-trick": {"keys": (0, 1, 2), "bridges": (0, 1)},
 }
 
+# These source arm-whip silhouettes put the ball in front of the throwing
+# shoulder before release, and some overlap the glove/arm. Keep the clean
+# foot-plant drawing through frame 78 so the throw snaps left at frame 79.
+HAND_CONTINUITY_CORRECTIONS = {
+    "regular-04-ivory-ace",
+    "regular-05-violet-sting",
+    "regular-06-rose-paint",
+    "elite-01-cobalt-impact",
+    "elite-03-wine-bluff",
+    "boss-01-emerald-tyrant",
+    "boss-02-platinum-halo",
+    "boss-03-black-eclipse",
+}
+
 
 def connected_silhouettes(sheet: Image.Image) -> list[Image.Image]:
     """Find the six large characters on a transparent sheet, across cells."""
@@ -149,6 +163,9 @@ def fitted_poses(character: str) -> list[Image.Image]:
             canvas = Image.new("RGBA", (SIZE, SIZE))
             canvas.alpha_composite(scaled, ((SIZE - width) // 2, SIZE - height - 8))
             result.append(canvas)
+    if character in HAND_CONTINUITY_CORRECTIONS:
+        # bridges:3 and bridges:4 occupy slots 9 and 10 respectively.
+        result[10] = result[9].copy()
     return result
 
 
@@ -208,8 +225,22 @@ def build(character: str, loose_frames: bool = False) -> None:
     samples = []
     hashes: set[str] = set()
     frame = 0
-    for kind, pose_index, label, dwell in TIMELINE:
-        markers.append({"frame": frame, "pose": label, "source": kind, "cell": pose_index})
+    # Emerald's release drawing still has a ball at the fingertips. Hold it
+    # for the instant of release only; otherwise it duplicates the flying ball.
+    timeline = [
+        (kind, pose_index, label, (
+            1 if character == "boss-01-emerald-tyrant" and label == "release"
+            else 22 if character == "boss-01-emerald-tyrant" and label == "follow-through"
+            else dwell
+        ))
+        for kind, pose_index, label, dwell in TIMELINE
+    ]
+    for kind, pose_index, label, dwell in timeline:
+        shown_label = (
+            "loaded-snap" if character in HAND_CONTINUITY_CORRECTIONS and label == "arm-whip"
+            else label
+        )
+        markers.append({"frame": frame, "pose": shown_label, "source": kind, "cell": pose_index})
         base = poses[pose_index + (0 if kind == "keys" else 6)]
         for local in range(dwell):
             current = render(base, frame, local, dwell, hashes)
@@ -240,6 +271,10 @@ def build(character: str, loose_frames: bool = False) -> None:
             for kind, indices in FACING_CORRECTIONS.get(character, {}).items()
             for index in indices
         ],
+        "handContinuityCorrections": (
+            ["bridges:4<-bridges:3"] if character in HAND_CONTINUITY_CORRECTIONS else []
+        ),
+        "releaseHoldFrames": 1 if character == "boss-01-emerald-tyrant" else 6,
     }
     (ASSET / f"{character}-manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

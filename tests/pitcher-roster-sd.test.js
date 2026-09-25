@@ -1,6 +1,7 @@
 import {describe,expect,it} from 'vitest';
 import fs from 'node:fs';
 import {createRunMap} from '../src/duel/run-map.js';
+import {pitcherReleasePoint} from '../src/duel/pitcher-sd.js';
 
 const root=new URL('../assets/pitcher-sd-v2/',import.meta.url);
 const roster=JSON.parse(fs.readFileSync(new URL('../assets/pitcher-mobs-v1/roster.json',import.meta.url),'utf8'));
@@ -9,6 +10,12 @@ const expectedFacingCorrections={
   'elite-01-cobalt-impact':['keys:0','keys:1','keys:2','keys:3','bridges:0','bridges:1','bridges:2','bridges:3'],
   'elite-02-neon-trick':['keys:0','keys:1','keys:2','bridges:0','bridges:1'],
 };
+
+const handContinuityCorrections=new Set([
+  'regular-04-ivory-ace','regular-05-violet-sting','regular-06-rose-paint',
+  'elite-01-cobalt-impact','elite-03-wine-bluff','boss-01-emerald-tyrant',
+  'boss-02-platinum-halo','boss-03-black-eclipse',
+]);
 
 const dimensions=file=>{
   const data=fs.readFileSync(new URL(file,root));
@@ -29,6 +36,17 @@ describe('remaining pitcher SD roster',()=>{
       if(node.type==='boss')expect(entry.act).toBe(node.act);
     }
   });
+  it('anchors each pitch streak to its authored frame-79 hand position',()=>{
+    for(const entry of roster){
+      const point=pitcherReleasePoint(entry.id);
+      expect(point,entry.id).not.toBeNull();
+      expect(point.x).toBeGreaterThan(0);
+      expect(point.x).toBeLessThan(.2);
+      expect(point.y).toBeGreaterThan(.2);
+      expect(point.y).toBeLessThan(.55);
+    }
+    expect(pitcherReleasePoint('missing-pitcher')).toBeNull();
+  });
   it('packages every other pitcher with two transparent six-pose sheets',()=>{
     expect(remaining).toHaveLength(11);
     for(const entry of remaining){
@@ -44,6 +62,9 @@ describe('remaining pitcher SD roster',()=>{
       expect(manifest.facing).toBe('screen-left');
       expect(manifest.throws).toBe('screen-left');
       expect(manifest.facingCorrections).toEqual(expectedFacingCorrections[entry.id]??[]);
+      expect(manifest.handContinuityCorrections).toEqual(handContinuityCorrections.has(entry.id)?['bridges:4<-bridges:3']:[]);
+      expect(manifest.releaseHoldFrames).toBe(entry.id==='boss-01-emerald-tyrant'?1:6);
+      if(handContinuityCorrections.has(entry.id))expect(manifest.keyPoses.find(pose=>pose.frame===68)?.pose).toBe('loaded-snap');
       expect(manifest.frameCount).toBe(120);
       expect(manifest.uniqueFrameCount).toBe(120);
       expect(manifest.authoredPoseCount).toBe(12);
