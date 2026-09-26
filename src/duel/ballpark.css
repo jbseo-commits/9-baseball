@@ -31,6 +31,8 @@
 .bp-pitcher>*,.bp-batter>*{display:block;width:100%;height:100%;image-rendering:pixelated}
 .bp-pcol{position:absolute;left:43%;top:9%;width:32%;display:grid;gap:4px;align-content:start;z-index:2}
 .bp-ptag{display:grid;gap:4px;padding:6px 10px;font-size:13px;line-height:1;border:10px solid transparent;border-image:url('../../assets/ui-kit/A3-panel-base.png') 40 fill / 10px repeat;image-rendering:pixelated}
+.bp-ptag>span:first-child,.bp-voice-strip b,.bp-mtag{display:inline-block;padding:2px 8px;border:6px solid transparent;border-image:url('../../assets/ui-kit/A2-nametab-navy.png') 24 fill / 6px repeat;image-rendering:pixelated;color:var(--bp-bone);font-style:normal;font-weight:700}
+.bp-ptag.stitch>span:first-child,.bp-voice-strip.stitch b,.bp-mtag.stitch{border-image-source:url('../../assets/ui-kit/A2-nametab-stitch.png')}
 .bp-ticks{display:grid;grid-template-columns:repeat(12,1fr);gap:2px;padding:2px;border:3px solid transparent;border-image:url('../../assets/ui-kit/A9-hp-frame.png') 12 fill / 3px repeat;image-rendering:pixelated}
 .bp-ticks i{height:6px;background:url('../../assets/ui-kit/A9-hp-seg-full.png') center/100% 100% no-repeat;box-shadow:0 0 4px #fff4;image-rendering:pixelated}
 .bp-ticks i.lost{background:url('../../assets/ui-kit/A9-hp-seg-empty.png') center/100% 100% no-repeat;box-shadow:none}
