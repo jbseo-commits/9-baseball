@@ -308,10 +308,10 @@
   .bp-battle>.bp-hand{padding-top:12px}
   .bp-pcol{display:contents}
   .bp-ptag{position:absolute;right:8px;top:8px;width:46%;z-index:2;padding:5px 7px;gap:3px}
-  .bp-scene .bp-voice{position:absolute;left:4%;top:40%;max-width:54%;margin:0;z-index:6;padding:7px 10px 8px;border:2px solid #07080d;border-radius:12px 12px 3px 12px;background:#fff8ec;color:#16101a;font:400 15px/1.35 var(--bp-ko);box-shadow:3px 3px 0 #07080d,0 0 0 2px var(--bp-sodium);transform-origin:100% 100%;animation:bp-voice-pop 360ms cubic-bezier(.2,1.5,.35,1) both}
-  .bp-scene .bp-voice::before{color:#e2452f}
-  .bp-scene .bp-voice::after{content:"";position:absolute;right:-11px;bottom:5px;border:7px solid transparent;border-left:10px solid #07080d;margin:0}
-  .bp-scene .bp-voice.m-knockout,.bp-scene .bp-voice.m-homer{box-shadow:3px 3px 0 #07080d,0 0 0 2px #ff8a6a}
+  .bp-scene .bp-voice{position:absolute;left:4%;top:40%;max-width:54%;margin:0;z-index:6;padding:6px 12px 8px;border:12px solid transparent;border-image:url('../../assets/ui-kit/A1-bubble-tail-right.png') 48 fill / 12px repeat;image-rendering:pixelated;color:#16101a;font:400 15px/1.35 var(--bp-ko);filter:drop-shadow(3px 3px 0 #07080d) drop-shadow(0 0 2px var(--bp-sodium));transform-origin:100% 100%;animation:bp-voice-pop 360ms cubic-bezier(.2,1.5,.35,1) both}
+  .bp-scene .bp-voice::before{color:#d23a3a}
+  .bp-scene .bp-voice::after{display:none}
+  .bp-scene .bp-voice.m-knockout,.bp-scene .bp-voice.m-homer{filter:drop-shadow(3px 3px 0 #07080d) drop-shadow(0 0 4px #ff8a6a)}
   .bp-verdict{top:19%}
   .bp-batter{left:-15%;bottom:-1%;height:58%}
   .bp-zone{left:38%;top:auto;bottom:calc(4% + 22px);width:50%;height:32%}
@@ -539,10 +539,10 @@
 }
 
 /* reward: the knocked-out pitcher's last word — lands after a beat, big, with a heartbeat on her portrait */
-.bp-kovoice{position:relative;justify-self:start;max-width:100%;margin:0 0 6px;padding:10px 14px 11px;background:#fff8ec;border:2px solid #07080d;border-radius:14px 14px 4px 14px;box-shadow:4px 4px 0 #07080d,0 0 0 3px var(--bp-sodium),0 10px 28px #ff5a3a55;
+.bp-kovoice{position:relative;justify-self:start;max-width:100%;margin:0 0 6px;padding:8px 16px 10px;border:12px solid transparent;border-image:url('../../assets/ui-kit/A1-bubble-tail-right.png') 48 fill / 12px repeat;image-rendering:pixelated;filter:drop-shadow(4px 4px 0 #07080d) drop-shadow(0 0 4px var(--bp-sodium)) drop-shadow(0 8px 24px #ff5a3a55);
   font:400 clamp(17px,4.8vw,24px)/1.35 var(--bp-ko);color:#16101a;quotes:none;word-break:keep-all;text-wrap:balance;transform-origin:100% 100%;animation:bp-kovoice 520ms cubic-bezier(.2,1.5,.35,1) 380ms both}
-.bp-kovoice::before{content:"“";color:#e2452f;font-size:1.3em;line-height:0;margin-right:2px;vertical-align:-.2em}
-.bp-kovoice::after{content:"";position:absolute;right:-12px;bottom:6px;width:0;height:0;border:8px solid transparent;border-left:12px solid #07080d}
+.bp-kovoice::before{content:"“";color:#d23a3a;font-size:1.3em;line-height:0;margin-right:2px;vertical-align:-.2em}
+.bp-kovoice::after{display:none}
 @keyframes bp-kovoice{0%{opacity:0;transform:scale(.4) rotate(-4deg)}60%{opacity:1;transform:scale(1.08) rotate(1deg)}100%{opacity:1;transform:none}}
 .bp-stop.stop-reward .bp-sport img{animation:bp-heart 900ms ease-out 380ms both}
 @keyframes bp-heart{0%{transform:none;filter:drop-shadow(0 6px 8px #0008)}100%{transform:none;filter:drop-shadow(0 6px 8px #0008)}14%{transform:scale(1.05);filter:drop-shadow(0 0 18px #ff5a3aaa)}28%{transform:scale(.99)}42%{transform:scale(1.035);filter:drop-shadow(0 0 12px #ff5a3a88)}}
@@ -598,8 +598,8 @@
   .bp-stop.stop-reward .bp-sport img{object-position:center bottom;transform-origin:50% 100%}
   .bp-stop.stop-reward .bp-stitle{grid-area:title;max-width:min(100%,620px);padding:12px 16px 0 4px}
   .bp-stop.stop-reward .bp-stitle h1{justify-self:start}
-  .bp-stop.stop-reward .bp-kovoice{border-radius:14px 14px 14px 4px;transform-origin:0 100%}
-  .bp-stop.stop-reward .bp-kovoice::after{right:auto;left:-12px;border-left:8px solid transparent;border-right:12px solid #07080d}
+  .bp-stop.stop-reward .bp-kovoice{border-image-source:url('../../assets/ui-kit/A1-bubble-tail-left.png');transform-origin:0 100%}
+  .bp-stop.stop-reward .bp-kovoice::after{display:none}
   .bp-stop.stop-reward>.bp-offers{grid-area:offers;margin-top:0;padding:14px 16px 12px 4px;align-content:center;justify-content:flex-start}
   .bp-stop.stop-reward>.bp-verbs{grid-area:verbs}
 }
