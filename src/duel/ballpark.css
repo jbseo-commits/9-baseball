@@ -201,8 +201,9 @@
 .bp-verb small{font:400 12px/1.2 var(--bp-ko);opacity:.85}
 .bp-verb.go{background:var(--bp-sodium);color:#1a1204!important;box-shadow:0 0 30px #ffc86133;border:10px solid transparent;border-image:url('../../assets/ui-kit/A4-button-primary-normal.png') 40 fill / 10px repeat;image-rendering:pixelated}
 .bp-verb.go:active:not(:disabled){border-image-source:url('../../assets/ui-kit/A4-button-primary-pressed.png');transform:translateY(2px)}
-.bp-verb.go:disabled{background:transparent;color:var(--bp-slate)!important;box-shadow:none;cursor:default;border:10px solid transparent;border-image:url('../../assets/ui-kit/A4-button-primary-disabled.png') 40 fill / 10px repeat}
-.bp-verb.wait{background:transparent;border-color:#ece4cf55}
+.bp-verb.wait{border:10px solid transparent;border-image:url('../../assets/ui-kit/A5-button-secondary-normal.png') 40 fill / 10px repeat;image-rendering:pixelated;color:var(--bp-bone)}
+.bp-verb.wait:active:not(:disabled){border-image-source:url('../../assets/ui-kit/A5-button-secondary-pressed.png');transform:translateY(2px)}
+.bp-verb.wait:disabled{border-image-source:url('../../assets/ui-kit/A5-button-secondary-disabled.png');color:var(--bp-slate)!important;cursor:default}
 .bp-info{appearance:none;width:48px;border:1px solid var(--bp-line);border-radius:2px;background:none;cursor:pointer;font-size:18px!important}
 
 /* the app-wide `button:hover:not(:disabled)` (duel.css) paints every button teal; the scene keeps its own */
