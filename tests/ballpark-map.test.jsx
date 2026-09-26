@@ -47,4 +47,8 @@ describe('V13 BALLPARK map',()=>{
     expect(css).toMatch(/\.bp-battle>\.bp-bar\{grid-area:bar\}/);
     expect(css).not.toMatch(/(^|[;{}\s])\.bp-bar\{grid-area/);
   });
+  it('selected node has a distinct visible border or outline for mobile visibility',()=>{
+    const css=fs.readFileSync(path.resolve('src/duel/ballpark.css'),'utf8');
+    expect(css).toMatch(/\.bp-node\.sel\{[^}]*(?:outline:\s*2px solid|box-shadow:[^}]*#ffc861)/);
+  });
 });

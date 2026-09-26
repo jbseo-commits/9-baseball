@@ -334,7 +334,8 @@
 .bp-node em{font-style:normal;white-space:nowrap}
 .bp-node.reach{color:var(--bp-bone)}
 .bp-node.reach .bp-fig{filter:brightness(0) drop-shadow(0 0 1px var(--bp-sodium)) drop-shadow(0 0 7px #ffc861aa)}
-.bp-node.sel em{color:var(--bp-sodium)}
+.bp-node.sel{outline:2px solid var(--bp-sodium);outline-offset:2px;background:#ffc86118;box-shadow:0 0 12px #ffc86188,inset 0 0 8px #ffc86133;border-radius:6px}
+.bp-node.sel em{color:var(--bp-sodium);font-weight:700;text-shadow:0 0 6px #ffc861aa}
 .bp-node.sel .bp-fig{filter:brightness(0) drop-shadow(0 0 2px var(--bp-sodium)) drop-shadow(0 0 12px #ffc861)}
 .bp-node.done{opacity:.35}
 .bp-map .bp-node:hover:not(:disabled){background:#ffffff0d;border-color:transparent}

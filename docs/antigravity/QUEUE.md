@@ -16,10 +16,9 @@
 
 ## 큐
 
-<!-- 여기에 항목을 추가하세요. 예:
 - [ ] 지도 선택 노드 테두리를 모바일에서도 보이게
   - 무엇: BallparkMap 선택 노드(.bp-node.sel) 강조가 412×743에서 잘 안 보임
   - 완료 기준: 412×743 / 844×390 스크린샷에서 선택 노드가 한눈에 구분됨
   - 건드려도 되는 곳: src/duel/ballpark.css 의 .bp-node 규칙, tests/ballpark-map.test.jsx
   - 건드리면 안 되는 곳: run-map.js
--->
+
