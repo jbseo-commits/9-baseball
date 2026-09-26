@@ -31,7 +31,7 @@ main은 Vercel(https://9-baseball.vercel.app)과 GitHub Pages로 **바로 공개
 | X7 | 게임 수치(확률·피해·HP·카드 효과·런 구조) 변경 — QUEUE 항목에 명시된 경우 제외 | 밸런스는 시뮬레이션 근거가 필요하다 |
 | X8 | 저장 스키마(`9zone-v10-run`) 형태 변경 | 기존 세이브가 깨진다 |
 | X9 | `html`, `body`, `#root`, `.duel-app`, `button` 같은 전역 셀렉터 수정 | 다른 화면이 깨진다 (AGENTS.md §0 사례) |
-| X10 | 저품질 placeholder 그림·AI 생성 이미지 임의 추가 | AGENTS.md §6 그래픽 기준 |
+| X10 | 저품질 placeholder 그림·AI 생성 이미지 임의 추가 (§10 흐름과 검사를 통과한 UI 에셋은 예외) | AGENTS.md §6 그래픽 기준 |
 | X11 | 검증 안 한 것을 "확인했다/완료"라고 쓰기 | 다음 사람이 문서를 믿을 수 없게 된다 |
 | X12 | 한 브랜치·PR에 QUEUE 항목 여러 개 섞기 | 하나만 되돌리거나 하나만 머지할 수 없게 된다 |
 
@@ -164,7 +164,7 @@ node scripts/zone-report.js 10   # smoke
 | 기존 테스트를 고쳐야 통과 | 테스트가 **틀린 가정**을 한 경우만 고치고, PR 본문에 전/후와 이유를 적는다. 동작을 잃는 수정이면 하지 않는다 → 아래 `[!]` |
 | X6~X9 (패키지·수치·저장·전역 CSS)가 필요 | **하지 않는다.** 할 수 있는 범위만 구현하거나, 항목을 `[!] 막힘: <이유> · 제안: <방법>`으로 표시하고 다음 항목 |
 | 같은 실패를 3번 고쳐도 원인 모름 | 지금까지를 브랜치에 커밋·push, PR을 **Draft**로 열고 본문에 증상·시도·가설. 항목 `[!]`, 다음 항목 |
-| 새 이미지 자산 필요 (X10) | 만들지 않는다. `[!]` + 필요한 자산 명세를 적고 다음 항목 |
+| 새 이미지 자산 필요 (X10) | UI 에셋이면 §10 흐름으로 만든다. 캐릭터·배경 등 그 밖의 그림은 만들지 않고 `[!]` + 명세 |
 
 ---
 
@@ -195,6 +195,7 @@ GitHub 저장소 설정 권장 (사용자가 직접): Settings → Branches → 
 - 브랜치 / PR: ag/... / #번호 (Draft|Ready)
 - 바꾼 것: <한두 줄>
 - 검증: test <통과 N개|실패> · build <성공|실패> · smoke <성공|실패> · 스크린샷 <3뷰포트|일부|못 함>
+- 품질: <before 평균> → <after 평균> (IMPROVED|NOT_IMPROVED) · 가장 약한 축 <R?> (화면 변경 없으면 "해당 없음")
 - 못 한 것 / 위험: <없으면 "없음">
 - 프리뷰: <URL> (Vercel 체크 성공 | 실패 | 대기)
 - 다음: <다음 QUEUE 항목 | 큐 비어 있음 → 루프 종료>
@@ -238,5 +239,69 @@ docs/ANTIGRAVITY-LOOP.md 를 읽고 너는 §8.1의 구현 에이전트다. /ag-
 - 나에게 묻지 말고 진행해. 막히면 §5대로 안전한 쪽으로 결정하고 PR에 기록한 뒤 다음 항목으로.
 - main 에는 절대 push/merge 하지 마. PR도 머지·승인하지 마. ag/ 브랜치 + PR + Vercel 프리뷰 URL 까지만.
 - 각 항목의 검증·리뷰는 §8.1대로 검증/리뷰 에이전트를 직접 띄워서 (안 되면 역할을 바꿔서) 통과시켜.
-- 항목마다 §7 형식으로 한국어 보고를 남기고, 큐가 비면 전체 요약(항목·PR·프리뷰 URL 목록)으로 끝내.
+- 화면이 바뀌는 항목은 §11대로 전/후 스크린샷을 기준 이미지와 블라인드 비교해서 IMPROVED일 때만 Ready PR로 올려.
+- 큐가 비어도 품질이 BAR_MET이 아니면 §11.4대로 가장 약한 축을 개선하는 [auto] 항목을 만들어 계속해. BAR_MET이거나 연속 3번 개선 실패면 멈춰.
+- 항목마다 §7 형식으로 한국어 보고를 남기고, 끝나면 전체 요약(항목·PR·프리뷰 URL·품질 점수 추이)으로 끝내.
 ```
+
+---
+
+## 10. 그림 에셋 항목 — API 없이 자동화
+
+UI 그림(말풍선·버튼·카드 틀 …)이 필요한 QUEUE 항목은 이 흐름을 쓴다. **외부 API·API 키를 쓰지 않는다.**
+규격: [`docs/art/gemini/assets.json`](art/gemini/assets.json) · 프롬프트: [`docs/art/gemini/9ZONE-gemini-instructions.md`](art/gemini/9ZONE-gemini-instructions.md)
+
+1. **생성** — 안티그래비티 내장 이미지 생성으로, 지시서의 [공통 규칙] + 해당 [에셋 프롬프트]를 그대로 써서 만든다.
+   레퍼런스로 `assets/pitcher-mobs-v1/regular-01-red-rush.png`, `regular-02-teal-mirage.png`, `assets/duel/stadium.png`를 붙인다.
+   결과를 **PNG로** `assets/ui-kit/raw/<ID>-<시도번호>.png` 에 저장한다 (예: `A1-1.png`).
+   - 내장 생성 결과를 파일로 저장할 수 없으면: 항목을 `[!] 원본 필요: <ID>`로 두고 다음 항목. 사용자가 제미나이 앱에서 받은 PNG를 같은 폴더에 넣으면 다음 바퀴에 이어서 한다.
+2. **정리·검사** — `node scripts/asset-fix.mjs <ID>`
+   - 배경 제거 → 상태별 칸 나누기 → 네이티브 픽셀 격자로 재샘플 → 팔레트 강제 → ×4 → `assets/ui-kit/<이름>-<상태>.png`
+   - 검사: 칸 수, 잘림, 팔레트 이탈, 비율, 9-slice 가운데 평탄도. **REJECT면 적용하지 않는다.**
+   - REJECT 사유를 프롬프트 끝에 `Fix: <사유>`로 붙여 다시 생성. **최대 3회**. 그래도 안 되면 `[!]` + 마지막 리포트 첨부.
+3. **눈 검수** — `work/asset-fix/<ID>-preview.png`를 연다. 글자·숫자가 보이거나, 투수 그림 옆에서 화풍이 다르면(매끈한 벡터·페인팅 번짐) 기계가 통과시켜도 **다시 생성**.
+4. **적용** — `ballpark.css`에서 해당 `.bp-*` 요소에 `border-image`(9-slice는 `slice` 값 × 4 픽셀) 또는 `background-image`로 적용. `image-rendering:pixelated`. 기존 CSS 박스는 에셋이 없을 때의 대체로 남긴다.
+5. 이후는 §3 ⑥부터 동일 (테스트·빌드·qa-shots·검증·리뷰·PR·프리뷰). PR 본문에 preview 시트와 report 요약을 붙인다.
+
+에셋 PNG는 새 이미지 추가이지만 **이 흐름과 검사를 통과한 것만** X10 예외로 허용한다.
+
+---
+
+## 11. 품질 루프 — 상업 레퍼런스 수준이 될 때까지, 실제로 나아졌는지 증명하며
+
+기준: [`docs/art/QUALITY-BAR.md`](art/QUALITY-BAR.md) (8축, 기준 이미지 = 5점, 목표 평균 4.3·모든 축 4 이상).
+**화면에 보이는 변경이 있는 모든 항목**은 PR을 Ready로 올리기 전에 아래 증명을 통과해야 한다.
+
+### 11.1 전/후 스크린샷
+```bash
+# before = main
+git worktree add ../ag-before origin/main && (cd ../ag-before && ln -s ../9-baseball/node_modules node_modules)
+(cd ../ag-before && npx vite --port 5198 &) ; node scripts/qa-shots.mjs --url http://localhost:5198 --out work/qa-before
+# after = 이 브랜치
+(npx vite --port 5199 &) ; node scripts/qa-shots.mjs --url http://localhost:5199 --out work/qa-after
+node scripts/compare-shots.mjs --before work/qa-before --after work/qa-after
+```
+→ `work/compare/*.png` = **[기준 | A | B]**, A/B 순서 무작위, 정답은 `work/compare/.key.json`에 숨김.
+
+### 11.2 블라인드 판정 — 구현 에이전트가 하지 않는다
+- **리뷰 에이전트**(또는 새로 띄운 판정 에이전트)가 시트를 보고 `work/compare/judgement.json`의 모든 시트·8축에 A, B 점수(1~5)를 적는다.
+- `.key.json`을 **열지 않는다.** 코드·diff도 보지 않고 **그림만** 보고 판정한다.
+- 다른 에이전트를 띄울 수 없으면: 구현 에이전트가 판정하되 PR에 "자기 판정(블라인드 약함)"이라고 표시한다.
+- 다 적은 뒤 `node scripts/compare-shots.mjs --reveal` → 축별 before/after, **IMPROVED / NOT_IMPROVED**, BAR 여부가 나오고 `docs/art/QUALITY-LOG.md`에 한 줄 기록된다.
+
+### 11.3 판정에 따른 행동
+| 결과 | 행동 |
+| --- | --- |
+| IMPROVED | Ready PR. 본문에 폰 세로 시트 3장(`work/compare/phone-portrait-*.png`)을 `docs/art/quality/<브랜치>/`에 넣어 커밋·링크, reveal 출력 붙이기 |
+| NOT_IMPROVED | Ready 금지. 가장 많이 떨어진 축을 고쳐 11.1부터 다시 (**최대 3회**). 그래도 안 되면 Draft PR + "개선 증명 실패" + 판정 기록, 항목 `[!]` |
+| 기능 항목인데 점수가 떨어짐 (어떤 축이든 −1 초과) | 기능이 맞아도 Ready 금지. 화면 회귀부터 고친다 |
+
+### 11.4 품질 목표 루프 (큐가 비어도 계속)
+- QUEUE가 비었고 QUALITY-LOG 마지막 결과가 **BAR_MET이 아니면**, 새 일을 지어내지 말라는 §3 ①의 예외로 **`[auto]` 항목을 스스로 하나 만든다**:
+  - 대상은 reveal이 알려준 **가장 약한 축** 하나.
+  - 범위는 UI 에셋(§10), `ballpark.css`, 표시 컴포넌트(`Ballpark*.jsx`)만. 게임 규칙·수치·저장·전역 CSS는 금지(X7~X9 그대로).
+  - QUEUE에 `- [ ] [auto] <축>: <무엇을>` 으로 적고 일반 항목처럼 진행.
+- **멈춤 조건**
+  - BAR_MET → "기준 도달" 보고 후 종료.
+  - **연속 3개 항목이 NOT_IMPROVED** (정체) → 종료. 보고에 "무엇이 막고 있는지"를 적는다. 대개 UI 코드로는 못 넘는 부분이다: 캐릭터·배경 그림 자체, 동료 캐릭터 같은 기획. 필요한 그림 명세(§10 형식)와 기획 결정 목록을 남긴다.
+- 매 항목 보고(§7)에 `품질: before → after (IMPROVED|NOT_IMPROVED) · 가장 약한 축` 한 줄을 추가한다.
