@@ -399,13 +399,13 @@
 .bp-stop.stop-reward .bp-stitle h1{color:var(--bp-sodium)}
 .bp-stitle p{margin:0;padding:4px 10px;background:#07080dcc;border-radius:2px;justify-self:start;font:italic 400 15px/1.4 var(--bp-ko);color:var(--bp-bone)}
 .bp-offers{display:flex;flex-wrap:wrap;gap:10px;align-content:flex-start;justify-content:center;padding:22px 16px 12px}
-.bp-offer{position:relative;flex:0 1 150px;min-height:150px;display:grid;gap:8px;align-content:start;text-align:left;padding:14px 12px;border:1px solid var(--bp-line);border-radius:3px;background:#0d1122;cursor:pointer;transition:transform .15s,border-color .15s}
+.bp-offer{position:relative;flex:0 1 150px;min-height:150px;display:grid;gap:8px;align-content:start;text-align:left;padding:14px 12px;border:8px solid transparent;border-image:url('../../assets/ui-kit/A6-card-frame-common.png') 32 fill / 8px repeat;image-rendering:pixelated;cursor:pointer;transition:transform .15s}
 .bp-offer strong{font:400 17px/1.2 var(--bp-impact)}
 .bp-offer strong sup{color:var(--bp-sodium);font-size:12px}
 .bp-offer span{font-size:13px;line-height:1.4;color:var(--bp-bone-dim)}
 .bp-offer small{font:400 10px/1 var(--bp-led);letter-spacing:.08em;color:var(--bp-slate)}
-.bp-offer.on{transform:translateY(-8px);border-color:var(--bp-sodium);box-shadow:0 0 0 1px var(--bp-sodium),0 12px 30px #000}
-.bp-offer.skill{border-radius:24px}
+.bp-offer.on{transform:translateY(-8px);border-image-source:url('../../assets/ui-kit/A6-card-frame-selected.png');filter:drop-shadow(0 0 10px #ffc861aa)}
+.bp-offer.skill{border-image-source:url('../../assets/ui-kit/A6-card-frame-skill.png')}
 .bp-offer.relic{border-color:#4a5480;background:radial-gradient(circle at 50% 0,#232a52,#0d1122 70%)}
 .bp-mark{justify-self:start;padding:3px 7px;border:1px solid var(--bp-slate);border-radius:2px;font:400 11px/1 var(--bp-led);color:var(--bp-bone)}
 .bp-offer.on .bp-mark{border-color:var(--bp-sodium);color:var(--bp-sodium)}
@@ -616,14 +616,14 @@
 /* BP-12 reward reveal — offers arrive face down and flip one by one after her line lands (pixel-style
    scaleX flip: the back squeezes shut, the face opens). Signature cards burst gold, then keep a soft glow.
    fill-mode backwards only, so the selected card's lift (.on) still works once the flip is done. */
-.bp-offer-back{position:absolute;inset:-1px;z-index:4;display:grid;place-items:center;border:1px solid #3a4270;border-radius:inherit;
-  background:repeating-linear-gradient(45deg,#141a33 0 6px,#10152b 6px 12px);box-shadow:inset 0 0 0 3px #0d1122,inset 0 0 0 4px #ffc86155;opacity:0;pointer-events:none}
-.bp-offer-back .bp-glyph{grid-template-columns:repeat(3,10px)}.bp-offer-back .bp-glyph i{width:10px;height:10px}
+.bp-offer-back{position:absolute;inset:-1px;z-index:4;display:grid;place-items:center;border-radius:inherit;
+  background:url('../../assets/ui-kit/A7-card-back-back.png') center/cover no-repeat;image-rendering:pixelated;opacity:0;pointer-events:none}
+.bp-offer-back .bp-glyph{display:none}
 .bp-offers.reveal .bp-offer{animation:bp-flip 360ms steps(6) calc(760ms + var(--i,0) * 170ms) backwards}
 .bp-offers.reveal .bp-offer-back{animation:bp-back calc(760ms + var(--i,0) * 170ms + 180ms) step-end both}
 @keyframes bp-flip{0%{transform:scaleX(1)}50%{transform:scaleX(.04)}100%{transform:scaleX(1)}}
 @keyframes bp-back{0%{opacity:1}100%{opacity:0}}
-.bp-offer.rare,.bp-stop.stop-reward .bp-offer.rare{border-color:#8a6a2a;background:radial-gradient(circle at 50% 0,#3a2e12,#0d1122e8 72%)}
+.bp-offer.rare,.bp-stop.stop-reward .bp-offer.rare{border-image-source:url('../../assets/ui-kit/A6-card-frame-signature.png')}
 .bp-offer.rare::after{content:"";position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;box-shadow:0 0 0 1px #ffc86199,0 0 18px #ffc86155;animation:bp-rare-breathe 2.4s ease-in-out infinite alternate}
 .bp-offers.reveal .bp-offer.rare::after{animation:bp-rare-burst 700ms ease-out calc(760ms + var(--i,0) * 170ms + 200ms) both,bp-rare-breathe 2.4s ease-in-out calc(760ms + var(--i,0) * 170ms + 900ms) infinite alternate}
 @keyframes bp-rare-burst{0%{opacity:0;box-shadow:0 0 0 1px #ffc861,0 0 0 #ffc861}35%{opacity:1;box-shadow:0 0 0 2px #fff4c2,0 0 42px 8px #ffc861cc}100%{opacity:1;box-shadow:0 0 0 1px #ffc86199,0 0 18px #ffc86155}}
