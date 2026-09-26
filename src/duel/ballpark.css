@@ -332,6 +332,12 @@
 .bp-route line{stroke:#2e3660;stroke-width:1.4;stroke-dasharray:3 4;vector-effect:non-scaling-stroke}
 .bp-route line.live{stroke:var(--bp-sodium);stroke-dasharray:none;opacity:.8}
 .bp-node{position:absolute;transform:translate(-50%,-50%);display:grid;justify-items:center;gap:3px;min-width:44px;min-height:44px;padding:2px;background:none;border:0;border-radius:4px;color:var(--bp-slate);cursor:pointer;font:400 11px/1.1 var(--bp-ko)!important}
+.bp-node::before{content:"";position:absolute;inset:0;margin:auto;width:32px;height:32px;background:url('../../assets/ui-kit/A10-map-node-battle.png') center/contain no-repeat;image-rendering:pixelated;z-index:0;pointer-events:none}
+.bp-node.elite::before{width:38px;height:38px;background-image:url('../../assets/ui-kit/A10-map-node-elite.png')}
+.bp-node.boss::before{width:46px;height:46px;background-image:url('../../assets/ui-kit/A10-map-node-boss.png')}
+.bp-node.facility::before,.bp-node.shop::before,.bp-node.rest::before,.bp-node.event::before{background-image:url('../../assets/ui-kit/A10-map-node-facility.png')}
+.bp-node:not(.reach):not(.done):not(.sel)::before{background-image:url('../../assets/ui-kit/A10-map-node-locked.png')}
+.bp-node .bp-fig,.bp-node .bp-mglyph,.bp-node em{position:relative;z-index:1}
 .bp-node .bp-fig{display:block;height:38px;filter:brightness(0) drop-shadow(0 0 1px #4a5480) drop-shadow(0 0 4px #4a548088)}
 .bp-node.elite .bp-fig{height:46px}.bp-node.boss .bp-fig{height:62px}
 .bp-node em{font-style:normal;white-space:nowrap}
