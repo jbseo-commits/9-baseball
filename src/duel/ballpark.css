@@ -14,7 +14,9 @@
 .bp-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;font:400 11px/1 var(--bp-led);letter-spacing:.1em;color:var(--bp-slate);text-transform:uppercase}
 .bp-bar b{font:400 13px/1 var(--bp-ko);letter-spacing:0;color:var(--bp-bone)}
 .bp-piles{display:flex;gap:6px}
-.bp-piles button{appearance:none;background:none;border:1px solid var(--bp-line);border-radius:2px;padding:6px 8px;font:400 12px/1 var(--bp-ko)!important;color:var(--bp-bone-dim)!important;cursor:pointer;min-height:32px}
+.bp-piles button{display:inline-flex;align-items:center;gap:4px;appearance:none;background:none;border:1px solid var(--bp-line);border-radius:2px;padding:4px 8px;font:400 12px/1 var(--bp-ko)!important;color:var(--bp-bone-dim)!important;cursor:pointer;min-height:32px}
+.bp-piles button:first-child::before{content:"";display:inline-block;width:12px;height:12px;background:url('../../assets/ui-kit/A11-icons-deck.png') center/contain no-repeat;image-rendering:pixelated}
+.bp-piles button:last-child::before{content:"";display:inline-block;width:12px;height:12px;background:url('../../assets/ui-kit/A11-icons-discard.png') center/contain no-repeat;image-rendering:pixelated}
 
 /* scene */
 .bp-scene{position:relative;overflow:hidden;background:var(--bp-night)}
@@ -38,7 +40,10 @@
 .bp-ticks i.lost{background:url('../../assets/ui-kit/A9-hp-seg-empty.png') center/100% 100% no-repeat;box-shadow:none}
 .bp-ptag small{font:400 9px/1 var(--bp-led);letter-spacing:.1em;color:var(--bp-slate)}
 .bp-mental,.bp-press{display:flex;align-items:center;gap:5px;white-space:nowrap;font:400 11px/1 var(--bp-ko);color:var(--bp-bone-dim)}
-.bp-mental em,.bp-press em{font-style:normal}
+.bp-mental em{display:inline-flex;align-items:center;gap:3px;font-style:normal}
+.bp-mental em::before{content:"";display:inline-block;width:12px;height:12px;background:url('../../assets/ui-kit/A11-icons-shaken.png') center/contain no-repeat;image-rendering:pixelated}
+.bp-press em{display:inline-flex;align-items:center;gap:3px;font-style:normal}
+.bp-press em::before{content:"";display:inline-block;width:12px;height:12px;background:url('../../assets/ui-kit/A11-icons-runner.png') center/contain no-repeat;image-rendering:pixelated}
 .bp-mental>span{display:flex;gap:3px}
 .bp-mental i{width:12px;height:6px;border:1px solid var(--bp-bone-dim);border-radius:1px}
 .bp-mental i.on{background:#ff6a4d;border-color:#ff6a4d;box-shadow:0 0 6px #ff6a4d99}
@@ -340,6 +345,14 @@
 .bp-node.facility::before,.bp-node.shop::before,.bp-node.rest::before,.bp-node.event::before{background-image:url('../../assets/ui-kit/A10-map-node-facility.png')}
 .bp-node:not(.reach):not(.done):not(.sel)::before{background-image:url('../../assets/ui-kit/A10-map-node-locked.png')}
 .bp-node .bp-fig,.bp-node .bp-mglyph,.bp-node em{position:relative;z-index:1}
+.bp-node.training::after{content:"";position:absolute;width:12px;height:12px;background:url('../../assets/ui-kit/A11-icons-training.png') center/contain no-repeat;image-rendering:pixelated;z-index:2}
+.bp-node.shop::after{content:"";position:absolute;width:12px;height:12px;background:url('../../assets/ui-kit/A11-icons-shop.png') center/contain no-repeat;image-rendering:pixelated;z-index:2}
+.bp-node.rest::after{content:"";position:absolute;width:12px;height:12px;background:url('../../assets/ui-kit/A11-icons-rest.png') center/contain no-repeat;image-rendering:pixelated;z-index:2}
+.bp-node.locker::after{content:"";position:absolute;width:12px;height:12px;background:url('../../assets/ui-kit/A11-icons-locker.png') center/contain no-repeat;image-rendering:pixelated;z-index:2}
+.bp-card.signature strong::before,.bp-offer.rare strong::before{content:"";display:inline-block;width:12px;height:12px;background:url('../../assets/ui-kit/A11-icons-signature.png') center/contain no-repeat;image-rendering:pixelated;margin-right:4px}
+.bp-sound-btn.on{background-image:url('../../assets/ui-kit/A11-icons-sound-on.png')}
+.bp-sound-btn.off{background-image:url('../../assets/ui-kit/A11-icons-sound-off.png')}
+.bp-help-btn::before{content:"";display:inline-block;width:12px;height:12px;background:url('../../assets/ui-kit/A11-icons-help.png') center/contain no-repeat;image-rendering:pixelated}
 .bp-node .bp-fig{display:block;height:38px;filter:brightness(0) drop-shadow(0 0 1px #4a5480) drop-shadow(0 0 4px #4a548088)}
 .bp-node.elite .bp-fig{height:46px}.bp-node.boss .bp-fig{height:62px}
 .bp-node em{font-style:normal;white-space:nowrap}
