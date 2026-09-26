@@ -24,9 +24,16 @@
 
 ## 큐
 
-- [ ] 지도 선택 노드 테두리를 모바일에서도 보이게
-  - 무엇: BallparkMap 선택 노드(.bp-node.sel) 강조가 412×743에서 잘 안 보임
-  - 완료 기준: 412×743 / 844×390 스크린샷에서 선택 노드가 한눈에 구분됨
-  - 건드려도 되는 곳: src/duel/ballpark.css 의 .bp-node 규칙, tests/ballpark-map.test.jsx
-  - 건드리면 안 되는 곳: run-map.js
+- [x] 지도 선택 노드 테두리를 모바일에서도 보이게 (glow & pulse 애니메이션 추가)
+- [x] A1 말풍선 적용 (.bp-voice, .bp-kovoice에 가죽 스티치 9-slice 적용)
+- [x] A4 주 버튼 적용 (.bp-verb.go, .bp-mgo에 소디움 골드/글러브 가죽 9-slice 적용)
+- [x] A5 보조 버튼 적용 (.bp-verb.wait에 네이비 스코어보드 9-slice 적용)
+- [x] A6 카드 틀 및 A7 카드 뒷면 적용 (.bp-offer 4종 및 .bp-offer-back 적용)
+- [x] A3 정보 패널 적용 (.bp-ptag에 네이비/황동 리벳 9-slice 적용)
+- [ ] A9 HP 게이지 적용
+- [ ] A8 진행 단계 노드 적용
+- [ ] A10 지도 노드 받침 적용
+- [ ] A2 이름표 탭 적용
+- [ ] A11 아이콘 12종 적용
+
 
