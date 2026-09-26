@@ -199,8 +199,9 @@
 .bp-verbs{display:grid;grid-template-columns:1.5fr 1fr auto;gap:8px;padding:6px 16px calc(18px + env(safe-area-inset-bottom,0px))}
 .bp-verb{appearance:none;border:1px solid var(--bp-sodium);border-radius:2px;padding:12px 14px;display:grid;gap:4px;justify-items:start;text-align:left;cursor:pointer;font:400 20px/1 var(--bp-impact)!important;min-height:56px}
 .bp-verb small{font:400 12px/1.2 var(--bp-ko);opacity:.85}
-.bp-verb.go{background:var(--bp-sodium);color:#1a1204!important;box-shadow:0 0 30px #ffc86133}
-.bp-verb.go:disabled{background:transparent;color:var(--bp-slate)!important;border-color:var(--bp-line);box-shadow:none;cursor:default}
+.bp-verb.go{background:var(--bp-sodium);color:#1a1204!important;box-shadow:0 0 30px #ffc86133;border:10px solid transparent;border-image:url('../../assets/ui-kit/A4-button-primary-normal.png') 40 fill / 10px repeat;image-rendering:pixelated}
+.bp-verb.go:active:not(:disabled){border-image-source:url('../../assets/ui-kit/A4-button-primary-pressed.png');transform:translateY(2px)}
+.bp-verb.go:disabled{background:transparent;color:var(--bp-slate)!important;box-shadow:none;cursor:default;border:10px solid transparent;border-image:url('../../assets/ui-kit/A4-button-primary-disabled.png') 40 fill / 10px repeat}
 .bp-verb.wait{background:transparent;border-color:#ece4cf55}
 .bp-info{appearance:none;width:48px;border:1px solid var(--bp-line);border-radius:2px;background:none;cursor:pointer;font-size:18px!important}
 
@@ -360,9 +361,10 @@
 .bp-mhp i{height:4px;background:#e8e0c8}.bp-mhp i.lost{background:#e8e0c833}
 .bp-mhp b{margin-left:6px;font:400 10px/1 var(--bp-led);color:var(--bp-slate);font-weight:400}
 .bp-mrw{font-size:13px;color:var(--bp-bone-dim)}
-.bp-mgo{grid-column:1/-1;appearance:none;border:1px solid var(--bp-sodium);border-radius:2px;background:var(--bp-sodium);color:#1a1204!important;padding:14px;min-height:52px;font:400 19px/1 var(--bp-impact)!important;cursor:pointer}
-.bp-map .bp-mgo:hover:not(:disabled){background:#ffd584;border-color:var(--bp-sodium)}
-.bp-mgo:disabled{background:transparent;color:var(--bp-slate)!important;border-color:var(--bp-line);cursor:default}
+.bp-mgo{grid-column:1/-1;appearance:none;color:#1a1204!important;padding:10px 14px;min-height:52px;font:400 19px/1 var(--bp-impact)!important;cursor:pointer;border:10px solid transparent;border-image:url('../../assets/ui-kit/A4-button-primary-normal.png') 40 fill / 10px repeat;image-rendering:pixelated}
+.bp-map .bp-mgo:hover:not(:disabled){filter:brightness(1.08)}
+.bp-mgo:active:not(:disabled){border-image-source:url('../../assets/ui-kit/A4-button-primary-pressed.png');transform:translateY(2px)}
+.bp-mgo:disabled{background:transparent;color:var(--bp-slate)!important;cursor:default;border:10px solid transparent;border-image:url('../../assets/ui-kit/A4-button-primary-disabled.png') 40 fill / 10px repeat}
 /* landscape / desktop: route on the left running left→right, the pitcher panel on the right */
 .bp-map.wide .bp-mbody{grid-template-rows:none;grid-template-columns:minmax(0,1fr) clamp(240px,30vw,400px)}
 .bp-map.wide .bp-mleft{grid-template-rows:auto minmax(200px,1fr) auto}
