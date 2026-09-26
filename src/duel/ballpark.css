@@ -333,8 +333,10 @@
 .bp-node.elite .bp-fig{height:46px}.bp-node.boss .bp-fig{height:62px}
 .bp-node em{font-style:normal;white-space:nowrap}
 .bp-node.reach{color:var(--bp-bone)}
-.bp-node.reach .bp-fig{filter:brightness(0) drop-shadow(0 0 1px var(--bp-sodium)) drop-shadow(0 0 7px #ffc861aa)}
-.bp-node.sel{outline:2px solid var(--bp-sodium);outline-offset:2px;background:#ffc86118;box-shadow:0 0 12px #ffc86188,inset 0 0 8px #ffc86133;border-radius:6px}
+.bp-node:active{transform:translate(-50%,-50%) scale(.96)}
+.bp-node.sel{outline:2px solid var(--bp-sodium);outline-offset:2px;background:#ffc86118;box-shadow:0 0 12px #ffc86188,inset 0 0 8px #ffc86133;border-radius:6px;animation:bp-node-pulse 2s ease-in-out infinite alternate}
+@keyframes bp-node-pulse{from{box-shadow:0 0 8px #ffc86166,inset 0 0 4px #ffc86122}to{box-shadow:0 0 16px #ffc861aa,inset 0 0 10px #ffc86144}}
+@media (prefers-reduced-motion:reduce){.bp-node.sel{animation:none}}
 .bp-node.sel em{color:var(--bp-sodium);font-weight:700;text-shadow:0 0 6px #ffc861aa}
 .bp-node.sel .bp-fig{filter:brightness(0) drop-shadow(0 0 2px var(--bp-sodium)) drop-shadow(0 0 12px #ffc861)}
 .bp-node.done{opacity:.35}

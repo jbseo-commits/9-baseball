@@ -9,10 +9,11 @@
    Exit 1 when the image fails a check (wrong cell count, off palette, cropped, 9-slice centre not flat). */
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import {decodePNG,encodePNG} from './lib/png.mjs';
 import {fixAsset,upscale} from './lib/asset-fix.mjs';
 
-const ROOT=path.resolve(path.dirname(new URL(import.meta.url).pathname),'..');
+const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const id=(process.argv[2]||'').toUpperCase(),arg=k=>{const i=process.argv.indexOf('--'+k);return i>0?process.argv[i+1]:null;};
 const specs=JSON.parse(fs.readFileSync(path.join(ROOT,'docs/art/gemini/assets.json'),'utf8'));
 const spec=specs.assets[id];

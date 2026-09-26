@@ -51,4 +51,9 @@ describe('V13 BALLPARK map',()=>{
     const css=fs.readFileSync(path.resolve('src/duel/ballpark.css'),'utf8');
     expect(css).toMatch(/\.bp-node\.sel\{[^}]*(?:outline:\s*2px solid|box-shadow:[^}]*#ffc861)/);
   });
+  it('selected node has a pulse animation and active touch feedback with reduced-motion support',()=>{
+    const css=fs.readFileSync(path.resolve('src/duel/ballpark.css'),'utf8');
+    expect(css).toMatch(/@keyframes bp-node-pulse/);
+    expect(css).toMatch(/\.bp-node:active/);
+  });
 });

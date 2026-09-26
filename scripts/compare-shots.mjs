@@ -13,9 +13,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import { fileURLToPath } from 'node:url';
 import {decodePNG,encodePNG} from './lib/png.mjs';
 
-const ROOT=path.resolve(path.dirname(new URL(import.meta.url).pathname),'..');
+const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const arg=k=>{const i=process.argv.indexOf('--'+k);return i>0?process.argv[i+1]:null;};
 const OUT=path.join(ROOT,'work/compare'),KEY=path.join(OUT,'.key.json'),JUDGE=path.join(OUT,'judgement.json');
 export const AXES=['R1 화풍 통일','R2 UI 그림화','R3 빛·환경 통합','R4 캐릭터 존재감','R5 구도','R6 글자 가독','R7 정보 위계','R8 마감'];
@@ -49,7 +50,7 @@ export function verdict(scores){
   return {per,before:mean('before'),after:mean('after'),gain,worstDrop,wins,improved,barMet,weakest:[...per].sort((a,b)=>a.after-b.after)[0].axis};
 }
 
-if(process.argv[1]&&path.resolve(process.argv[1])===path.resolve(new URL(import.meta.url).pathname)){
+if(process.argv[1]&&path.resolve(process.argv[1])===path.resolve(fileURLToPath(import.meta.url))){
   fs.mkdirSync(OUT,{recursive:true});
   if(process.argv.includes('--reveal')){
     const key=JSON.parse(fs.readFileSync(KEY,'utf8')),judged=JSON.parse(fs.readFileSync(JUDGE,'utf8'));
