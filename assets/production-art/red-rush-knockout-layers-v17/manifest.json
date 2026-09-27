@@ -1,0 +1,31 @@
+{
+  "version": "red-rush-knockout-layers-v17-candidate",
+  "character": "regular-01-red-rush",
+  "identity": "female; preserves current runtime design",
+  "runtime_connected": false,
+  "source_scene": "../mockup-world-v15/knockout-red-rush-scene.png",
+  "layers_back_to_front": [
+    {
+      "file": "knockout-stadium-plate.png",
+      "role": "opaque stadium background",
+      "size_px": [1672, 941],
+      "alpha": false
+    },
+    {
+      "file": "red-rush-knockout-actor.png",
+      "role": "female Red Rush kneeling character",
+      "size_px": [1377, 1142],
+      "alpha": true,
+      "alpha_bounds_px": [73, 51, 1243, 1070],
+      "corner_alpha": [0, 0, 0, 0],
+      "preview_placement_normalized": {
+        "x": 0.03,
+        "y": 0.03,
+        "width": 0.57
+      }
+    }
+  ],
+  "safe_text_area_normalized": [0.58, 0.05, 0.39, 0.72],
+  "preview_only": "preview placement is approximate; full 3-viewport compositing and timing are unverified",
+  "qa_status": "visual candidate; alpha boundary verified; runtime, animation, and 8-axis blind score pending"
+}
