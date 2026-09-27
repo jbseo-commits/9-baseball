@@ -89,9 +89,10 @@
   - 건드려도 되는 곳: BallparkActors.jsx, presentation.js, ballpark.css/.bp-* 연출, VFX assets, 관련 테스트.
   - 건드리면 안 되는 곳: 판정 확률/피해/HP 공식.
 
-- [ ] P1-12 T7 전투 결과 연출 — HOME RUN / 강판 우선
+- [x] P1-12 T7 전투 결과 연출 — HOME RUN / 강판 우선
   - 무엇: 목업 수준의 홈런·강판 스플래시와 결과 타이포/VFX. 필요한 B5 production art가 없으면 직접 생성.
   - 완료 기준: 결과가 토스트가 아니라 '보상 장면'으로 읽힘 · 기존 연출 시간 계약 유지.
+  - 상태: HOME RUN 및 투수 강판 시 골드 더블 프레임의 대형 트라이엄프 스플래시 오버레이(.bp-verdict.splash), 상단 뱃지(★ HOME RUN ★ / ★ PITCHER KNOCKED OUT ★), 38px 전용 임팩트 폰트, 반응형/가로 세로 최적 배치 및 prefers-reduced-motion 완비.
   - 건드려도 되는 곳: battle result overlay, VFX/splash assets, 관련 테스트.
 
 ### 6. FINAL PORTRAIT GATE

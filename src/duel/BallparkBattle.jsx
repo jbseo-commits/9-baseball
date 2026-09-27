@@ -343,7 +343,15 @@ const CARD_DESC_MAP={
       </div>
       {voice&&<q className={'bp-voice m-'+moment} key={'q'+playToken+moment} data-testid="bp-voice">{voice}</q>}
       </div>
-      {showVerdict&&<div className={'bp-verdict'+(good?' good':'')} key={'v'+playToken+(shot.title||'')} role="status"><strong>{call||shot.title}</strong>{(outNote||call&&shot.title&&shot.title!==call)&&<small>{outNote||shot.title}</small>}</div>}
+      {showVerdict&&(()=>{
+        const isHomerSplash=Boolean(shot?.grade==='homer'||shot?.grade==='grand-slam'||(call&&call.includes('홈런')));
+        const isKoSplash=Boolean(judged&&(pitcher?.hp??1)===0);
+        const isSplash=isHomerSplash||isKoSplash;
+        return <div className={'bp-verdict'+(good?' good':'')+(isSplash?' splash':'')+(isHomerSplash?' homer':'')+(isKoSplash?' knockout':'')} key={'v'+playToken+(shot.title||'')} role="status">
+          <strong>{call||shot.title}</strong>
+          {(outNote||call&&shot.title&&shot.title!==call)&&<small>{outNote||shot.title}</small>}
+        </div>;
+      })()}
       {inFx&&vfx}
       {inFx&&<i className="bp-flash" key={'x'+playToken+fxStage} aria-hidden="true"/>}
       {fxStage==='slowmo'&&shot?.motion?.slowmo>0&&<span className="bp-slowmo" aria-hidden="true">{shot.grade==='near-miss'||shot.grade==='near-miss-k'?'ONE ZONE':shot.grade==='homer'||shot.grade==='grand-slam'?'TIME STOPS':'SLOW'}</span>}
