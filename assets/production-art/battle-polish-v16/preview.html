@@ -17,7 +17,7 @@
     .controls { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
     button { color: #fff; background: #253b5a; border: 1px solid #5a789e; border-radius: 6px; padding: 9px 13px; cursor: pointer; }
     button:hover, button:focus-visible { background: #35608b; }
-    .frames { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 7px; margin-top: 16px; }
+    .frames { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 7px; margin-top: 16px; }
     .frames div { background: #1c2837; border: 1px solid #344861; border-radius: 7px; text-align: center; padding: 5px; font-size: 11px; }
     .frames img { width: 100%; height: 140px; object-fit: contain; image-rendering: pixelated; }
     @media (max-width: 600px) { .frames { grid-template-columns: repeat(3, 1fr); } .frames img { height: 110px; } }
@@ -26,7 +26,7 @@
 <body>
   <main>
     <h1>RED RUSH · 투구 키포즈 미리보기</h1>
-    <p>기존 V15의 와인드업·스트라이드에 새 키포즈 3장을 연결한 타이밍 점검용 애니매틱입니다. 실제 게임 화면이나 최종 품질 판정은 아닙니다.</p>
+    <p>기존 V15의 와인드업·스트라이드에 새 키포즈 5장을 연결한 타이밍 점검용 애니매틱입니다. 실제 게임 화면이나 최종 품질 판정은 아닙니다.</p>
     <div class="stage">
       <img id="actor" src="../battle-portrait-v15/red-rush-windup.png" alt="레드 러시 투구 동작">
       <div class="caption" id="caption" aria-live="polite">windup</div>
@@ -40,9 +40,11 @@
   </main>
   <script>
     const frames = [
-      ['../battle-portrait-v15/red-rush-windup.png', 'windup · V15', 250],
-      ['../battle-portrait-v15/red-rush-stride.png', 'stride · V15', 100],
-      ['red-rush-late-cocking.png', 'late cocking · V16', 90],
+      ['../battle-portrait-v15/red-rush-windup.png', 'windup · V15', 220],
+      ['red-rush-coil-break.png', 'coil break · V16', 80],
+      ['../battle-portrait-v15/red-rush-stride.png', 'stride · V15', 85],
+      ['red-rush-late-cocking.png', 'late cocking · V16', 70],
+      ['red-rush-arm-whip.png', 'arm whip · V16', 60],
       ['red-rush-release-no-ball.png', 'release · V16', 75],
       ['red-rush-follow-through.png', 'follow through · V16', 230]
     ];
