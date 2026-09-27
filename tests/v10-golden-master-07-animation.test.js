@@ -25,9 +25,10 @@ describe('GM07 animation fluidity',()=>{
 
   it('preloads actor frames before the first result animation',()=>{
     expect(app).toContain('const ACTOR_ASSETS=[');
-    expect(app).toContain('function useActorAssetPreload()');
+    expect(app).toContain('function useActorAssetPreload(enabled)');
     expect(app).toContain("img.decoding='async'");
-    expect(app).toContain('useActorAssetPreload();');
+    /* only where the legacy actors play: tutorial (v9) runs; the ballpark main run never shows them */
+    expect(app).toContain('useActorAssetPreload(!!s&&!isV10);');
   });
 
   it('moves authored pitcher art to the intentional slowmo hold instead of abrupt impact swap',()=>{

@@ -176,6 +176,18 @@ describe('9-zone strategic UI',()=>{
     expect(document.querySelector('.bp-mpor img').getAttribute('src')).toContain('red-rush');
   });
 
+  it('the main run (v10, ballpark only) does not preload the legacy tutorial actor frames',()=>{
+    const Real=globalThis.Image;let made=0;
+    globalThis.Image=class extends Real{constructor(...a){super(...a);made++;}};
+    try{
+      saveV10Duel(localStorage,createV10Duel(1));
+      render(<Duel/>);
+      fireEvent.click(screen.getByRole('button',{name:'MAIN RUN 이어하기',exact:true}));
+      expect(document.querySelector('.bp-node')).toBeTruthy();
+      expect(made).toBe(0);
+    }finally{globalThis.Image=Real;}
+  });
+
   it('map node silhouettes use the transparent roster cutouts, never the opaque dex portraits',()=>{
     /* .bp-fig is drawn with brightness(0): an opaque portrait there turns into a black box */
     saveV10Duel(localStorage,createV10Duel(1));

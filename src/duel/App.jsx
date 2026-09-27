@@ -167,12 +167,16 @@ const BATTER_REBOOT_V3={
   settle:batterRebootSettleV3,
 };
 const ACTOR_ASSETS=[...new Set([...BATTER_SWING_V2,...BATTER_MISS_V2,...PITCHER_PITCH_V2,...PITCHER_K_V2,batterSwingV4,pitcherPitchV4,batterHomerHeroV3,...Object.values(BATTER_HERO_V5),...Object.values(BATTER_REBOOT_V3),...Object.values(PITCHER_RELEASE_V3)])];
-function useActorAssetPreload(){
+/* the legacy actor frames only play on the tutorial (v9) screens; the main run (v10) is all ballpark,
+   so preloading them there cost a phone ~5MB on the map for art it never shows */
+function useActorAssetPreload(enabled){
+  const done=useRef(false);
   useEffect(()=>{
-    if(typeof Image==='undefined')return;
+    if(!enabled||done.current||typeof Image==='undefined')return;
+    done.current=true;
     const images=ACTOR_ASSETS.map(src=>{const img=new Image();img.decoding='async';img.src=src;img.decode?.().catch(()=>{});return img;});
     return ()=>images.forEach(img=>{img.onload=null;img.onerror=null;});
-  },[]);
+  },[enabled]);
 }
 const authoredActorArt=(who,pose,stage,shot,variant)=>{
   if(who==='batter'&&pose==='homer'&&['release','settle'].includes(stage)&&['homer','grand-slam'].includes(shot?.grade))return batterHomerHeroV3;
@@ -783,7 +787,6 @@ function RunStory({s,compact=false}){
 }
 
 export default function Duel(){
-  useActorAssetPreload();
   const [initial]=useState(()=>{
     let v10=null;try{v10=readV10Duel(localStorage)}catch{}
     try{return {save:readDuel(localStorage),v10}}catch{return {error:'저장을 읽지 못했습니다. 새 런을 시작할 수 있습니다.',v10}}
@@ -817,6 +820,7 @@ export default function Duel(){
   const scoreboardRef=useRef(null),arenaRef=useRef(null),drawerRef=useRef(null),prepareRef=useRef(null),swingRef=useRef(null),watchRef=useRef(null),eventsRef=useRef(null);
   const showPreview=id=>{const p=previewCard(s,id);return {...p,coverageLabel:p.coverage?coverageText(s,id):undefined};};
   const b=s?.battle,isV10=s?.version===10,showBattle=screen==='run'&&b&&(['battle','pitch','between'].includes(s.phase)||fx),fxPresentation=fx?presentationFor(s):null,fxStakes=fx?stakesFor(s):null,resultPresentation=b?.revealed?presentationFor(s):null,byId=id=>s.deck.find(c=>c.id===id);
+  useActorAssetPreload(!!s&&!isV10);
   const perfTier=useAdaptivePerformance(!!(showBattle&&isV10&&fxStage));
   const pile=modal&&['draw','discard','deck'].includes(modal)?(modal==='deck'?s.deck:b[modal].map(byId).filter(Boolean)):null;
   // 손패 id는 덱 항목이 있을 때만 읽는다. 없는 id 하나가 화면 전체를 내렸다.
