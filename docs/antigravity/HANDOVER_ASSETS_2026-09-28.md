@@ -3,14 +3,14 @@
 ## 작업 위치와 사용자 의도
 
 - 저장소: `C:\Users\정현아\9-baseball-1`
-- 확인 당시 브랜치/HEAD: `ag/20260927-portrait-masterpiece` / `3f9f8cc`. 시작할 때 반드시 다시 확인한다.
+- 이 문서 작성 중 브랜치가 `ag/20260927-portrait-masterpiece` / `3f9f8cc`에서 `ag/20260928-p2-reward-masterpiece` / `0ca3f9e`로 바뀌었다. 다른 세션의 작업이 진행 중이므로 시작할 때 브랜치/HEAD와 작업 트리를 반드시 다시 확인한다.
 - 목표: `docs/art/benchmark/target/`의 10개 목업에 도달할 수 있도록 **이미지와 애니메이션의 품질을 높이는 작업**. 사용자는 특히 투수의 팔·손·얼굴 오류를 지적했다. UI 배치와 세부 통합은 제미나이가 맡는다는 사용자 지시가 있었다.
 - 이 인수인계는 아트 후보에 대한 기록이다. 후보를 게임에 연결했거나 목업 QUALITY-BAR를 통과했다고 간주하지 않는다.
 
 ## 먼저 읽을 파일
 
 1. `AGENTS.md` — 영향도 분석, 회귀 검증, 그래픽 품질 기준.
-2. `docs/ANTIGRAVITY-LOOP.md`, `docs/antigravity/QUEUE.md` — 안티그래비티의 브랜치/PR 규칙과 큐. 큐에서는 P1-13이 `[x]`, PHASE 2가 열렸고 맨 위 대기 항목은 P2-01이다.
+2. `docs/ANTIGRAVITY-LOOP.md`, `docs/antigravity/QUEUE.md` — 안티그래비티의 브랜치/PR 규칙과 큐. 2026-09-28 확인 시 P1-13과 P2-01이 `[x]`였고 맨 위 대기 항목은 P2-02였다. 시작 시 큐를 다시 확인한다.
 3. `docs/art/QUALITY-BAR.md`와 `docs/art/benchmark/target/` — 8축 평균 4.3 이상, 전축 4 이상이 최종 시각 게이트다.
 4. `assets/production-art/battle-portrait-v15/README.md`와 `assets/production-art/mockup-world-v15/README.md` — 실제 후보 파일과 제한 사항.
 

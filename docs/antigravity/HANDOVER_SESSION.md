@@ -1,5 +1,7 @@
 # 9ZONE HOMEBOUND — 다음 세션 인수인계서 (Handover)
 
+> **최신 아트 작업 인수인계:** [`HANDOVER_ASSETS_2026-09-28.md`](HANDOVER_ASSETS_2026-09-28.md). 아래 내용은 2026-09-27 당시 기록이며 브랜치·P1-13 다음 작업 정보는 현재 상태와 다르다.
+
 - **작성 일시**: 2026-09-27 18:57
 - **현재 작업 브랜치**: `ag/20260927-p1-result-splash` (최신 커밋: `816774b`)
 - **원격 저장소 반영**: `origin/ag/20260927-p1-result-splash` (push 완료, working tree clean)

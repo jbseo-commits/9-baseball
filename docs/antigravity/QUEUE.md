@@ -117,9 +117,12 @@
   - 건드려도 되는 곳: `ballpark.css`의 가로 미디어 쿼리, `BallparkBattle.jsx`.
   - 브랜치: `ag/20260928-p2-landscape-battle`
 
-- [ ] P2-02 보상 화면 (Reward Screen) 마스터피스 연동
+- [x] P2-02 보상 화면 (Reward Screen) 마스터피스 연동
   - 무엇: `reward-precision-blue.png`, `reward-flame-red.png`, `reward-relay-cyan.png`, `frame-reward-epic.png`, `frame-reward-rare.png` 에셋을 `BallparkStop.jsx`에 연결하여 단순 카드 목록을 감동적인 전리품 획득 화면으로 격상.
+  - 완료 기준: 16종 전용 카드 일러스트 매핑, 희귀도별 에픽/레어 프레임 발광, 코스트/존 미니맵/칩/설명 위계 확립, 113개 전체 테스트 통과, 27/27 visual QA 통과 (보상 화면 0px 오버플로).
+  - 상태: 구현 완료 및 `tests/v15-reward-masterpiece.test.js` 통과 (113개 파일 681/681 tests passed).
   - 건드려도 되는 곳: `BallparkStop.jsx`, `ballpark.css .bp-reward-*`.
+  - 브랜치: `ag/20260928-p2-reward-masterpiece`
 
 - [ ] P2-03 월드 런 지도 (Map Screen) 마스터피스 연동
   - 무엇: `map-island-city.png`, `map-node-battle.png`, `map-node-selected-stadium.png`를 `BallparkMap.jsx`에 연결하여 밤의 네온 아일랜드 시티 스타디움 로드맵 구현.

@@ -3,14 +3,49 @@ import {CARDS,upgradeText} from './cards.js';
 import {V10_RELICS} from './v10-relics.js';
 import {pitcherLine} from './pitcher-voice.js';
 import stadium from '../../assets/duel/stadium.png';
+import rewardPrecisionBlue from '../../assets/production-art/mockup-world-v15/reward-precision-blue.png';
+import rewardFlameRed from '../../assets/production-art/mockup-world-v15/reward-flame-red.png';
+import rewardRelayCyan from '../../assets/production-art/mockup-world-v15/reward-relay-cyan.png';
+import cardBunt from '../../assets/production-art/mockup-world-v15/card-bunt.png';
+import cardDefend from '../../assets/production-art/mockup-world-v15/card-defend.png';
+import cardWall from '../../assets/production-art/mockup-world-v15/card-wall.png';
+import cardLaser from '../../assets/production-art/mockup-world-v15/card-laser.png';
+import cardCommit from '../../assets/production-art/mockup-world-v15/card-commit.png';
+import cardSetup from '../../assets/production-art/mockup-world-v15/card-setup.png';
+import cardWatch from '../../assets/production-art/mockup-world-v15/card-watch.png';
+import cardScout from '../../assets/production-art/mockup-world-v15/card-scout.png';
+import cardLure from '../../assets/production-art/mockup-world-v15/card-lure.png';
+import cardCalm from '../../assets/production-art/mockup-world-v15/card-calm.png';
+import deckGroundHit from '../../assets/production-art/mockup-world-v15/deck-ground-hit.png';
+import deckPullGold from '../../assets/production-art/mockup-world-v15/deck-pull-gold.png';
+import deckComboBlue from '../../assets/production-art/mockup-world-v15/deck-combo-blue.png';
 import './ballpark.css';
 
 /* V13 BALLPARK BP-4 — reward and facility stops (docs/design/v13/BALLPARK.md).
    One scene header, one line, the offers as cards, one button. Engine calls stay in the parent:
    onPick(option) confirms, onSkip() passes. `options` are engine options ({type,kind,id,relic}). */
 
+const REWARD_CARD_ART = {
+  place: rewardPrecisionBlue,
+  rally: rewardRelayCyan,
+  finisher: rewardFlameRed,
+  strike: deckGroundHit,
+  slug: deckPullGold,
+  flow: deckComboBlue,
+  bunt: cardBunt,
+  defend: cardDefend,
+  wall: cardWall,
+  laser: cardLaser,
+  commit: cardCommit,
+  setup: cardSetup,
+  watch: cardWatch,
+  scout: cardScout,
+  lure: cardLure,
+  calm: cardCalm,
+};
+
 const COPY={
-  reward:{title:o=>(o?.name||'투수')+' 강판',line:'한 장 챙겨 가자.',go:'챙긴다',skip:'그냥 간다'},
+  reward:{title:o=>(o?.name||'투수')+' 강판',line:'새로운 힘으로, 다음 경기를 준비하세요.',go:'챙긴다',skip:'그냥 간다'},
   locker:{title:()=>'라커룸',line:'손에 안 붙는 배트는 두고 간다.',go:'뺀다',skip:'그냥 간다'},
   training:{title:()=>'타격 훈련',line:'한 장을 단련한다.',go:'단련한다',skip:'그냥 간다'},
   shop:{title:()=>'장비 상점',line:'하나만 들일 수 있다.',go:'들인다',skip:'그냥 간다'},
@@ -33,12 +68,17 @@ function Offer({o,on,count,onClick,reveal=null}){
   if(o.type==='rest')return <button type="button" className={'bp-offer rest'+(on?' on':'')} aria-pressed={on} onClick={onClick}>
     <b className="bp-mark">+8</b><strong>컨디션 회복</strong><span>다음 경기 타격 +8</span></button>;
   const def=CARDS[o.kind],skill=def?.type==='skill',rare=def?.rarity==='signature';
-  return <button type="button" className={'bp-offer'+(skill?' skill':'')+(rare?' rare':'')+(on?' on':'')} aria-pressed={on} onClick={onClick} data-card-kind={o.kind} {...rv}>
+  const art=REWARD_CARD_ART[o.kind]||rewardPrecisionBlue;
+  const cost=def?.cost||(def?.power>=2?2:1);
+  return <button type="button" className={'bp-offer reward-card'+(skill?' skill':'')+(rare?' rare':'')+(on?' on':'')} aria-pressed={on} onClick={onClick} data-card-kind={o.kind} {...rv}>
     {reveal!=null&&<Back/>}
+    <span className="bp-offer-cost" aria-label={`코스트 ${cost}`}>{cost}</span>
+    <div className="bp-offer-art" style={{backgroundImage:`url(${art})`}}/>
     {rare&&<em className="bp-rare-tag">시그니처</em>}
-    {skill?<b className="bp-mark">준비</b>:<Glyph zones={SHAPE[def?.shape]||[4]}/>}
-    <strong>{def?.name}{o.type==='upgrade'&&<sup>+</sup>}</strong>
-    <span>{o.type==='upgrade'?upgradeText(o.kind):effect(def)||def?.role}</span>
+    {skill?<b className="bp-mark">준비</b>:<div className="bp-offer-glyph"><Glyph zones={SHAPE[def?.shape]||[4]}/></div>}
+    <strong className="bp-offer-name">{def?.name}{o.type==='upgrade'&&<sup>+</sup>}</strong>
+    <span className="bp-offer-desc">{o.type==='upgrade'?upgradeText(o.kind):effect(def)||def?.role}</span>
+    <em className="bp-reward-rarity">{rare?'EPIC':'COMMON'}</em>
     {count>1&&<small>덱에 {count}장</small>}
   </button>;
 }
