@@ -33,8 +33,12 @@ export const pitcherAtlases={
   ...Object.fromEntries(Object.entries(rosterAtlases).map(([path,url])=>[idFrom(path,'-pitch-120-atlas.png'),url])),
 };
 
+/* transparent roster cutouts: for silhouettes and anything drawn over a scene (map nodes use brightness(0)) */
+export const pitcherFigures=Object.fromEntries(Object.entries(rosterPortraits).map(([path,url])=>[idFrom(path,'.png'),url]));
+
+/* opaque dex portraits: framed views only (map preview, reward, ending, portrait dialog) */
 export const pitcherPortraits={
-  ...Object.fromEntries(Object.entries(rosterPortraits).map(([path,url])=>[idFrom(path,'.png'),url])),
+  ...pitcherFigures,
   'regular-01-red-rush':dexRedRush,
   'regular-02-teal-mirage':dexTealMirage,
   'regular-03-amber-sinker':dexAmberSinker,

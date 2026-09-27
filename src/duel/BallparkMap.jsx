@@ -33,7 +33,7 @@ function useLandscape(){
   return on;
 }
 
-export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reachableIds=[],completedIds=[],deckCount=0,relicCount=0,portraits={},onEnter,onInspect}){
+export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reachableIds=[],completedIds=[],deckCount=0,relicCount=0,portraits={},figures={},onEnter,onInspect}){
   const wide=useLandscape();
   const reach=useMemo(()=>new Set(reachableIds),[reachableIds]),done=useMemo(()=>new Set(completedIds),[completedIds]);
   const byId=useMemo(()=>new Map(nodes.map(n=>[n.id,n])),[nodes]);
@@ -79,7 +79,7 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
               const live=(done.has(e.from)||e.from===currentNodeId)&&reach.has(e.to);
               return <line key={e.from+e.to} className={live?'live':''} x1={a.x} y1={a.y} x2={c.x} y2={c.y}/>;})}
           </svg>
-          {here.map(n=>{const p=pos(n),o=n.opponent,art=o&&portraits[o.artId];
+          {here.map(n=>{const p=pos(n),o=n.opponent,art=o&&(figures[o.artId]||portraits[o.artId]);
             return <button key={n.id} type="button" className={'bp-node '+n.type+(reach.has(n.id)?' reach':'')+(done.has(n.id)?' done':'')+(chosen?.id===n.id?' sel':'')}
               style={{left:p.x+'%',top:p.y+'%'}} aria-label={(TAG[n.type]||n.name)+(o?' '+o.name:'')+(reach.has(n.id)?' · 갈 수 있음':'')} aria-pressed={chosen?.id===n.id}
               data-node={n.id} onClick={()=>setPick(n.id)}>

@@ -176,6 +176,17 @@ describe('9-zone strategic UI',()=>{
     expect(document.querySelector('.bp-mpor img').getAttribute('src')).toContain('red-rush');
   });
 
+  it('map node silhouettes use the transparent roster cutouts, never the opaque dex portraits',()=>{
+    /* .bp-fig is drawn with brightness(0): an opaque portrait there turns into a black box */
+    saveV10Duel(localStorage,createV10Duel(1));
+    render(<Duel/>);
+    fireEvent.click(screen.getByRole('button',{name:'MAIN RUN 이어하기',exact:true}));
+    const figs=[...document.querySelectorAll('.bp-node img.bp-fig')];
+    expect(figs.length).toBeGreaterThan(0);
+    for(const img of figs)expect(img.getAttribute('src')).not.toMatch(/dex-/);
+    expect(document.querySelector('.bp-mpor img').getAttribute('src')).toMatch(/dex-red-rush/);
+  });
+
   it('retains the V4 pitcher for a saved encounter without an art ID',()=>{
     fakeAnimationFrame();
     let s=createV10Duel(2);
