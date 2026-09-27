@@ -1,0 +1,24 @@
+{
+  "version": "battle-polish-v16-candidate",
+  "runtime_connected": false,
+  "canvas_px": [1024, 1536],
+  "red_rush": {
+    "identity_reference": "../battle-portrait-v15/red-rush-windup.png",
+    "ball_is_separate": true,
+    "animatic": "red-rush-keypose-animatic.webp",
+    "animatic_frame_px": [256, 384],
+    "frames": [
+      {"file": "../battle-portrait-v15/red-rush-windup.png", "phase": "windup", "duration_ms": 250, "source": "v15"},
+      {"file": "../battle-portrait-v15/red-rush-stride.png", "phase": "stride", "duration_ms": 100, "source": "v15"},
+      {"file": "red-rush-late-cocking.png", "phase": "late_cocking", "duration_ms": 90, "source": "v16"},
+      {"file": "red-rush-release-no-ball.png", "phase": "release", "duration_ms": 75, "source": "v16"},
+      {"file": "red-rush-follow-through.png", "phase": "follow_through", "duration_ms": 230, "source": "v16"}
+    ],
+    "qa_status": "visual candidate; requires frame registration, small-scale anatomy review, in-between animation, and gameplay validation"
+  },
+  "vfx": {
+    "impact_slash": "impact-slash.png",
+    "purpose": "optional batter-contact VFX alternative",
+    "suggested_duration_ms": 90
+  }
+}

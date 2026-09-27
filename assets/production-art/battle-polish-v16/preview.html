@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Red Rush V16 key pose preview</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, sans-serif; }
+    body { margin: 0; min-height: 100vh; background: #080e19; color: #e9eef8; display: grid; place-items: center; }
+    main { width: min(94vw, 1000px); padding: 20px; }
+    h1 { font-size: 20px; margin: 0 0 12px; }
+    p { color: #aebbd0; line-height: 1.5; }
+    .stage { position: relative; aspect-ratio: 1.7; overflow: hidden; border: 1px solid #39465a; border-radius: 12px; background: #18283b url('../battle-portrait-v15/stadium-portrait.png') center 49% / cover; }
+    .stage::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(5,9,19,.25), transparent 50%, rgba(5,9,19,.18)); }
+    #actor { position: absolute; height: 79%; width: auto; right: 20%; bottom: 9%; object-fit: contain; image-rendering: pixelated; filter: drop-shadow(0 8px 7px rgba(0,0,0,.55)); }
+    .caption { position: absolute; z-index: 1; left: 14px; bottom: 12px; padding: 7px 10px; border-radius: 6px; background: rgba(4,10,22,.8); font-size: 13px; }
+    .controls { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    button { color: #fff; background: #253b5a; border: 1px solid #5a789e; border-radius: 6px; padding: 9px 13px; cursor: pointer; }
+    button:hover, button:focus-visible { background: #35608b; }
+    .frames { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 7px; margin-top: 16px; }
+    .frames div { background: #1c2837; border: 1px solid #344861; border-radius: 7px; text-align: center; padding: 5px; font-size: 11px; }
+    .frames img { width: 100%; height: 140px; object-fit: contain; image-rendering: pixelated; }
+    @media (max-width: 600px) { .frames { grid-template-columns: repeat(3, 1fr); } .frames img { height: 110px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>RED RUSH · 투구 키포즈 미리보기</h1>
+    <p>기존 V15의 와인드업·스트라이드에 새 키포즈 3장을 연결한 타이밍 점검용 애니매틱입니다. 실제 게임 화면이나 최종 품질 판정은 아닙니다.</p>
+    <div class="stage">
+      <img id="actor" src="../battle-portrait-v15/red-rush-windup.png" alt="레드 러시 투구 동작">
+      <div class="caption" id="caption" aria-live="polite">windup</div>
+    </div>
+    <div class="controls">
+      <button id="play" type="button">재생</button>
+      <button id="pause" type="button">정지</button>
+      <button id="slow" type="button">느리게 보기</button>
+    </div>
+    <div class="frames" id="frames"></div>
+  </main>
+  <script>
+    const frames = [
+      ['../battle-portrait-v15/red-rush-windup.png', 'windup · V15', 250],
+      ['../battle-portrait-v15/red-rush-stride.png', 'stride · V15', 100],
+      ['red-rush-late-cocking.png', 'late cocking · V16', 90],
+      ['red-rush-release-no-ball.png', 'release · V16', 75],
+      ['red-rush-follow-through.png', 'follow through · V16', 230]
+    ];
+    const actor = document.getElementById('actor');
+    const caption = document.getElementById('caption');
+    const strip = document.getElementById('frames');
+    frames.forEach(([src, label]) => {
+      const cell = document.createElement('div');
+      const image = document.createElement('img');
+      image.src = src;
+      image.alt = label;
+      cell.append(image, document.createElement('br'), label);
+      strip.append(cell);
+    });
+    let timer = 0;
+    let index = 0;
+    let speed = 1;
+    function stop() { window.clearTimeout(timer); timer = 0; }
+    function tick() {
+      const [src, label, duration] = frames[index];
+      actor.src = src;
+      caption.textContent = label;
+      index = (index + 1) % frames.length;
+      timer = window.setTimeout(tick, duration * speed + (index === 0 ? 500 * speed : 0));
+    }
+    document.getElementById('play').onclick = () => { stop(); index = 0; tick(); };
+    document.getElementById('pause').onclick = stop;
+    document.getElementById('slow').onclick = () => { speed = speed === 1 ? 3 : 1; document.getElementById('slow').textContent = speed === 1 ? '느리게 보기' : '보통 속도'; };
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) tick();
+  </script>
+</body>
+</html>
