@@ -8,7 +8,9 @@ describe('V10 landscape progressive disclosure',()=>{
     const media={matches:true,addEventListener:vi.fn(),removeEventListener:vi.fn()};
     window.matchMedia=vi.fn(()=>media);
     vi.resetModules();
-    await import('../src/duel/landscape-declutter.js');
+    /* portrait-only app: the sidecar no longer self-installs, so install it on the landscape media */
+    const {installLandscapeDeclutter}=await import('../src/duel/landscape-declutter.js');
+    installLandscapeDeclutter(document,media);
 
     document.body.innerHTML=`
       <main class="duel-combat">

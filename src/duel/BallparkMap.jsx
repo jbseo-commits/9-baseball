@@ -5,6 +5,7 @@ import mapIslandCity from '../../assets/production-art/mockup-world-v15/map-isla
 import mapNodeBattle from '../../assets/production-art/mockup-world-v15/map-node-battle.png';
 import mapNodeSelectedStadium from '../../assets/production-art/mockup-world-v15/map-node-selected-stadium.png';
 import mapNodeElite from '../../assets/production-art/mockup-world-v15/map-node-elite.png';
+import {landscapeMedia} from './layout-mode.js';
 import './ballpark.css';
 
 /* V13 BALLPARK BP-3 — the run map (docs/design/v13/BALLPARK.md).
@@ -27,9 +28,8 @@ const GLYPH={
 const Glyph=({type})=><span className="bp-mglyph" aria-hidden="true">{(GLYPH[type]||GLYPH.rest).join('').split('').map((c,i)=><i key={i} className={c==='#'?'on':''}/>)}</span>;
 
 function useLandscape(){
-  const q='(orientation: landscape)';
-  const [on,setOn]=useState(()=>typeof window!=='undefined'&&!!window.matchMedia?.(q).matches);
-  useEffect(()=>{const m=window.matchMedia?.(q);if(!m)return;const f=()=>setOn(m.matches);m.addEventListener?.('change',f);return()=>m.removeEventListener?.('change',f);},[]);
+  const [on,setOn]=useState(()=>landscapeMedia().matches);
+  useEffect(()=>{const m=landscapeMedia();if(!m)return;const f=()=>setOn(m.matches);m.addEventListener?.('change',f);return()=>m.removeEventListener?.('change',f);},[]);
   return on;
 }
 

@@ -2,6 +2,8 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import Duel from "./duel/App.jsx";
 import ErrorBoundary from "./duel/ErrorBoundary.jsx";
+import PortraitFrame from "./duel/PortraitFrame.jsx";
+import { layoutMode } from "./duel/layout-mode.js";
 import "./duel/stack-direct-tap.js";
 import "./duel/landscape-first.css";
 import "./duel/landscape-scroll-fix.css";
@@ -22,12 +24,16 @@ import "./duel/v12-help.css";
 import "./duel/pitcher-portrait.css";
 import "./duel/v12-polish.css";
 import "./duel/v14-portrait-master.css";
+import "./duel/portrait-lock.css";
 import "./duel/title-pixel.css";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ErrorBoundary>
-      <Duel />
-    </ErrorBoundary>
+    {/* portrait-only: a wide window plays the phone layout in a 9:16 frame (layout-mode.js) */}
+    {layoutMode() === "frame" ? <PortraitFrame /> : (
+      <ErrorBoundary>
+        <Duel />
+      </ErrorBoundary>
+    )}
   </React.StrictMode>,
 );

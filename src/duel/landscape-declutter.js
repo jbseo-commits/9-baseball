@@ -1,9 +1,10 @@
 /* Landscape progressive disclosure.
    The battle scene owns attention; secondary explanations only open on demand. */
 
-const defaultMedia=typeof window!=='undefined'&&window.matchMedia
-  ? window.matchMedia('(orientation: landscape)')
-  : {matches:false,addEventListener(){},removeEventListener(){}};
+import {landscapeMedia} from './layout-mode.js';
+
+/* portrait-only: never matches in the app; tests pass their own media to installLandscapeDeclutter */
+const defaultMedia=landscapeMedia();
 
 const raf=fn=>typeof requestAnimationFrame==='function'?requestAnimationFrame(fn):setTimeout(fn,0);
 

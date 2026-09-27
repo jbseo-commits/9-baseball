@@ -3,9 +3,10 @@
    open SWING automatically so all hand cards are immediately visible. Portrait
    keeps the existing guided flow. */
 
-const landscapeQuery = typeof window !== 'undefined'
-  ? window.matchMedia('(orientation: landscape)')
-  : null;
+import { landscapeMedia } from './layout-mode.js';
+
+/* portrait-only: landscapeMedia() never matches in the app (see layout-mode.js); was matchMedia('(orientation: landscape)') */
+const landscapeQuery = typeof window !== 'undefined' ? landscapeMedia() : null;
 
 let queued = false;
 
