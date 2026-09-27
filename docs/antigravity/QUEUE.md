@@ -138,9 +138,12 @@
   - 건드려도 되는 곳: `v12-collection.js`, `Card.jsx`, `App.jsx`, `CardDetailSheet.jsx`, 관련 CSS.
   - 브랜치: `ag/20260928-p2-deck-dex`
 
-- [ ] P2-05 타이틀 & 엔딩 & 승리 컷씬 (Title & Ending & Victory Cutscene) 완성
+- [x] P2-05 타이틀 & 엔딩 & 승리 컷씬 (Title & Ending & Victory Cutscene) 완성
   - 무엇: `title-keyart.png`, `ending-keyart.png`, `homerun-scene.png`, `knockout-red-rush-scene.png`를 타이틀/엔딩/홈런/강판 시네마틱 컷씬 레이어에 연결.
-  - 건드려도 되는 곳: `TitlePixel.jsx`, `BallparkEnd.jsx`, `BallparkBattle.jsx`.
+  - 완료 기준: 타이틀 키아트 배경, 완주 엔딩 키아트, 홈런 및 투수 강판 시네마틱 컷씬 연동, 116개 전체 테스트 통과, 27/27 visual QA 통과.
+  - 상태: 구현 완료 및 `tests/v15-title-ending-cutscene.test.js` 통과 (116개 파일 692/692 tests passed).
+  - 건드려도 되는 곳: `TitlePixel.jsx`, `BallparkEnd.jsx`, `BallparkBattle.jsx`, `ballpark.css`, `duel.css`.
+  - 브랜치: `ag/20260928-p2-title-ending-cutscenes`
 
 
 

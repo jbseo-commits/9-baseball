@@ -584,6 +584,8 @@
 .bp-verdict.splash::before{content:"★ TRIUMPH MOMENT ★";display:block;font:700 9px/1 var(--bp-led);color:var(--bp-sodium);letter-spacing:.25em;margin-bottom:4px;text-shadow:0 0 8px rgba(255,200,97,0.8)}
 .bp-verdict.splash.homer::before{content:"★ HOME RUN ★"}
 .bp-verdict.splash.knockout::before{content:"★ PITCHER KNOCKED OUT ★"}
+.bp-verdict.splash.homer{background:linear-gradient(135deg,rgba(16,22,46,0.92) 0%,rgba(7,10,22,0.95) 100%),url('../../assets/production-art/mockup-world-v15/homerun-scene.png') center/cover no-repeat}
+.bp-verdict.splash.knockout{background:linear-gradient(135deg,rgba(28,12,12,0.92) 0%,rgba(14,6,6,0.95) 100%),url('../../assets/production-art/mockup-world-v15/knockout-red-rush-scene.png') center/cover no-repeat}
 .bp-verdict.splash strong{font:900 38px/1 var(--bp-impact)!important;color:#fff!important;text-shadow:0 0 16px rgba(255,200,97,0.85),0 2px 4px #000;letter-spacing:.04em}
 .bp-verdict.splash.homer strong{color:#ffd32a!important;text-shadow:0 0 24px rgba(255,211,42,0.9),0 2px 6px #000}
 .bp-verdict.splash.knockout strong{color:#ff6a4d!important;text-shadow:0 0 24px rgba(255,106,77,0.85),0 2px 6px #000}
