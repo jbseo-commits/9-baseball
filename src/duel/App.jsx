@@ -32,7 +32,7 @@ import StackResolve,{stackResolveDuration} from './StackResolve.jsx';
 import StackRouteEcho from './StackRouteEcho.jsx';
 import BattleReadout from './BattleReadout.jsx';
 import BallparkBattle from './BallparkBattle.jsx';
-import batterV14PreviewSheet from '../../assets/ui-kit/batter/batter-v14-preview-sheet.png';
+import batterV14MasterSheet from '../../assets/ui-kit/batter/batter-v14-master-sheet.png';
 import BallparkMap from './BallparkMap.jsx';
 import BallparkStop from './BallparkStop.jsx';
 import BallparkEnd from './BallparkEnd.jsx';
@@ -986,7 +986,7 @@ export default function Duel(){
       pitcherArt={pitcherAtlas?<PitcherAtlasSprite atlas={pitcherAtlas} stage={fxStage} shot={fxPresentation} playToken={s.stats.pitches}/>:<Sprite who="pitcher" stage={fxStage} shot={fxPresentation} golden variant={pitcherForm} playToken={s.stats.pitches}/>}
       batterArt={<Sprite who="batter" stage={fxStage} shot={fxPresentation} golden playToken={s.stats.pitches} syncRedRush={redRushEncounter}/>}
       fxStage={fxStage} shot={fxPresentation||resultPresentation} impactAt={fxImpactAt} playToken={s.stats.pitches}
-      pitcherAtlas={pitcherAtlas} artId={v10Node?.opponent?.artId} batterPoses={BATTER_REBOOT_V3} batterSheet={batterV14PreviewSheet}
+      pitcherAtlas={pitcherAtlas} artId={v10Node?.opponent?.artId} batterPoses={BATTER_REBOOT_V3} batterSheet={batterV14MasterSheet}
       vfx={<PixelVFX stage={fxStage} shot={fxPresentation} token={s.stats.pitches} drawCore={false} quality={perfTier}/>}
       onNext={s.phase==='pitch'?()=>{setAutoPlan(null);act(doNextPitch)}:s.phase==='between'?()=>{setAutoPlan(null);act(doNextBatter)}:null}
       nextLabel={s.phase==='pitch'?'다음 공':s.phase==='between'?'다음 타자':''}
