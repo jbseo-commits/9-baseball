@@ -33,8 +33,8 @@
     background-size:125% auto!important;
   }
   /* the batter stands in the left batter's box beside the plate, not on it; the pitcher on the mound */
-  .v14-battle-portrait .bp-batter{left:-23%;bottom:1vw;height:78vw}
-  .v14-battle-portrait .bp-pitcher{right:1%;bottom:71vw;height:24vw;z-index:2}
+  .v14-battle-portrait .bp-batter{left:-27%;top:auto;bottom:1vw;height:78vw}
+  .v14-battle-portrait .bp-pitcher{left:auto;right:1%;top:auto;bottom:71vw;height:24vw;z-index:2}   /* top:auto: the base rule's top:18% must never win */
   /* HP panel top-left so the pitcher on the mound stays clear; her tell sits over her, top-right */
   .v14-battle-portrait .bp-scene .bp-tell{left:auto;right:8px;top:8px;max-width:46%;white-space:nowrap;font-size:12px}
   .v14-battle-portrait .bp-bases{left:auto;right:20px;top:auto;bottom:22%}

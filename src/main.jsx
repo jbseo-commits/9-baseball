@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import Duel from "./duel/App.jsx";
 import ErrorBoundary from "./duel/ErrorBoundary.jsx";
 import PortraitFrame from "./duel/PortraitFrame.jsx";
-import { layoutMode } from "./duel/layout-mode.js";
+import { layoutMode, watchLayoutMode } from "./duel/layout-mode.js";
 import "./duel/stack-direct-tap.js";
 import "./duel/landscape-first.css";
 import "./duel/landscape-scroll-fix.css";
@@ -26,6 +26,8 @@ import "./duel/v12-polish.css";
 import "./duel/v14-portrait-master.css";
 import "./duel/portrait-lock.css";
 import "./duel/title-pixel.css";
+
+watchLayoutMode();
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>

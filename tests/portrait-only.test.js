@@ -1,6 +1,6 @@
 import {describe,it,expect} from 'vitest';
 import fs from 'node:fs';
-import {layoutMode,landscapeMedia,PHONE_SIDEWAYS,PORTRAIT_ONLY} from '../src/duel/layout-mode.js';
+import {layoutMode,watchLayoutMode,landscapeMedia,PHONE_SIDEWAYS,PORTRAIT_ONLY} from '../src/duel/layout-mode.js';
 
 /* a fake window: which media queries match, and whether it sits inside a frame */
 const win=({landscape=false,sideways=false,framed=false}={})=>{
@@ -29,5 +29,15 @@ describe('portrait-only layout (2026-09-28)',()=>{
     const main=fs.readFileSync('src/main.jsx','utf8');
     expect(main.indexOf('portrait-lock.css')).toBeGreaterThan(main.indexOf('v14-portrait-master.css'));   // after the layout layers (title layer stays last)
     expect(main).toContain('layoutMode() === "frame" ? <PortraitFrame />');
+  });
+
+  it('the app reloads into the frame when its window turns wide — a landscape layout never shows',()=>{
+    let landscape=false,listener=null,reloads=0;
+    const w={matchMedia:q=>({matches:q==='(orientation: landscape)'?landscape:false,addEventListener:(_,f)=>{listener=f;},removeEventListener(){}}),location:{reload:()=>reloads++}};
+    w.self=w;w.top=w;
+    watchLayoutMode(w);
+    expect(listener).toBeTypeOf('function');
+    landscape=true;listener();
+    expect(reloads).toBe(1);
   });
 });

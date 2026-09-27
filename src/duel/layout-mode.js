@@ -23,3 +23,14 @@ export function layoutMode(win=typeof window!=='undefined'?window:null){
   const mm=q=>!!win.matchMedia?.(q).matches;
   return mm('(orientation: landscape)')&&!mm(PHONE_SIDEWAYS)?'frame':'app';
 }
+
+/* the app itself (not the frame): if the window turns wide, reload into the portrait frame so a
+   landscape layout never shows (a phone turned sideways stays in the app under the rotate hint) */
+export function watchLayoutMode(win=typeof window!=='undefined'?window:null){
+  if(!PORTRAIT_ONLY||!win?.matchMedia||layoutMode(win)!=='app')return ()=>{};
+  let framed=false;try{framed=win.self!==win.top;}catch{framed=true;}
+  if(framed)return ()=>{};
+  const m=win.matchMedia('(orientation: landscape)');
+  const f=()=>{if(layoutMode(win)==='frame')win.location.reload();};
+  m.addEventListener?.('change',f);return ()=>m.removeEventListener?.('change',f);
+}

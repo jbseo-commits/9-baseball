@@ -10,8 +10,8 @@ describe('V15 portrait battle camera matches the target mockup',()=>{
     /* 125% plate: home plate ~62%, mound ~85% — the zone floats right of the batter, over the plate */
     expect(css).toContain('background-position:left 0 bottom -31.2vw!important');
     expect(css).toContain('background-size:125% auto!important');
-    expect(css).toMatch(/\.bp-batter\{left:-23%;bottom:1vw;height:78vw\}/);   // V15 hero, front foot left of the zone
-    expect(css).toMatch(/\.bp-pitcher\{right:1%;bottom:71vw;height:24vw;z-index:2\}/);
+    expect(css).toMatch(/\.bp-batter\{left:-27%;top:auto;bottom:1vw;height:78vw\}/);   // V15 hero inside the box, off the chalk
+    expect(css).toMatch(/\.bp-pitcher\{left:auto;right:1%;top:auto;bottom:71vw;height:24vw;z-index:2\}/);   // top:auto, or the base top:18% drops her off the mound
     expect(css).toMatch(/\.bp-zone\{\s*left:44%;top:auto;bottom:19vw;width:36%;/);
   });
 
