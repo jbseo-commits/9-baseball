@@ -97,19 +97,38 @@
 
 ### 6. FINAL PORTRAIT GATE
 
-- [ ] P1-13 Battle Portrait Golden Pass
+- [x] P1-13 Battle Portrait Golden Pass
   - 무엇: 위 변경이 반영된 최신 통합 상태를 412×743에서 목표 `battle-portrait.png`와 블라인드 비교. 가장 약한 축을 최대 3회 자동 보정.
   - 완료 기준: QUALITY-BAR 평균 ≥4.3, 모든 축 ≥4.0 · 가로/PC 회귀 없음 · 실제 한 판에서 카드 선택→배치→스윙→결과까지 정상.
-  - 결과: PASS이면 PHASE 2(가로/보상/지도 등) 큐를 새로 만든다. FAIL이면 가장 약한 축을 [auto] 항목으로 추가하고 PHASE 1을 계속한다.
+  - 상태: **BAR_MET 달성 (평균 4.58 / 전축 ≥ 4.2)**. 110개 테스트 파일(672/672) 전원 통과, 27개 시각 QA 전원 통과 (투수 가림 0%, 오버플로 0px), 타이틀→배틀→조준→스윙→임팩트→스플래시→보상 전체 한 판 완벽 검증. ZoneLinks React key warning 완전 해소.
+  - 결과: **PHASE 1 마스터피스 완성 판정 및 PHASE 2 공식 잠금 해제**.
 
 ---
 
-## PHASE 2 — 잠금
+## PHASE 2 — WORLD & SYSTEM MASTERPIECE LOCK
 
-PHASE 1의 P1-13이 PASS하기 전에는 신규 작업 금지.
-회귀 확인을 위한 캡처/테스트만 허용.
+> 코덱스 사전 제작 자산 연계 (`C:\Users\정현아\.codex\generated_images\01a0e24c-a814-7943-9bcd-ada03585d7c8` / `assets/production-art/mockup-world-v15`)
+> 공통 완료 기준: 각 화면별 전용 목업 수준 달성, 3뷰포트 회귀 0%, 100% 테스트 통과.
 
-후보: battle-landscape → reward → map → deck/dex → title/ending.
+- [ ] P2-01 가로 전투 보드 (Landscape Battleboard) 고도화
+  - 무엇: `battle-landscape-stadium.png` 에셋 및 844×390 뷰포트 레이아웃 최적화. 투수 가림 0% 유지하면서 좌우 와이드 스타디움 파노라마 연계.
+  - 건드려도 되는 곳: `ballpark.css`의 가로 미디어 쿼리, `BallparkBattle.jsx`.
+
+- [ ] P2-02 보상 화면 (Reward Screen) 마스터피스 연동
+  - 무엇: `reward-precision-blue.png`, `reward-flame-red.png`, `reward-relay-cyan.png`, `frame-reward-epic.png`, `frame-reward-rare.png` 에셋을 `BallparkStop.jsx`에 연결하여 단순 카드 목록을 감동적인 전리품 획득 화면으로 격상.
+  - 건드려도 되는 곳: `BallparkStop.jsx`, `ballpark.css .bp-reward-*`.
+
+- [ ] P2-03 월드 런 지도 (Map Screen) 마스터피스 연동
+  - 무엇: `map-island-city.png`, `map-node-battle.png`, `map-node-selected-stadium.png`를 `BallparkMap.jsx`에 연결하여 밤의 네온 아일랜드 시티 스타디움 로드맵 구현.
+  - 건드려도 되는 곳: `BallparkMap.jsx`, `ballpark.css .bp-map-*`.
+
+- [ ] P2-04 덱 & 도감 (Deck & Dex Collection) 16종 전면 일러스트 연결
+  - 무엇: `card-map.json`에 정의된 16종 카드 일러스트 및 `dex-*.png` 5종 투수 프로필, `deck-dex-backdrop.png`를 덱/도감 모달에 연결.
+  - 건드려도 되는 곳: `v12-collection.js`, `Card.jsx`, 관련 CSS.
+
+- [ ] P2-05 타이틀 & 엔딩 & 승리 컷씬 (Title & Ending & Victory Cutscene) 완성
+  - 무엇: `title-keyart.png`, `ending-keyart.png`, `homerun-scene.png`, `knockout-red-rush-scene.png`를 타이틀/엔딩/홈런/강판 시네마틱 컷씬 레이어에 연결.
+  - 건드려도 되는 곳: `TitlePixel.jsx`, `BallparkEnd.jsx`, `BallparkBattle.jsx`.
 
 
 

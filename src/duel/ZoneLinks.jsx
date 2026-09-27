@@ -64,10 +64,10 @@ export default function ZoneLinks({links}){
   return <>
     <svg ref={ref} className="zone-links" aria-hidden="true" focusable="false" width={frame?.w||0} height={frame?.h||0} viewBox={'0 0 '+(frame?.w||1)+' '+(frame?.h||1)}>
       {marks.map((m,i)=>{
-        const common={key:i,'data-link':m.link.fromOrder+'-'+m.link.toOrder,'data-connected':m.connected?'1':'0'};
-        if(m.kind==='ring')return <circle {...common} className="zone-link-ring" cx={m.cx} cy={m.cy} r={Math.max(14,Math.min(frame?.w||0,frame?.h||0)/9)}/>;
-        if(m.kind==='line')return <line {...common} className="zone-link" x1={m.x1} y1={m.y1} x2={m.x2} y2={m.y2}/>;
-        return <g {...common} className="zone-link">{m.parts.map((p,j)=><line key={j} x1={p.x1} y1={p.y1} x2={p.x2} y2={p.y2}/>)}</g>;
+        const common={'data-link':m.link.fromOrder+'-'+m.link.toOrder,'data-connected':m.connected?'1':'0'};
+        if(m.kind==='ring')return <circle key={i} {...common} className="zone-link-ring" cx={m.cx} cy={m.cy} r={Math.max(14,Math.min(frame?.w||0,frame?.h||0)/9)}/>;
+        if(m.kind==='line')return <line key={i} {...common} className="zone-link" x1={m.x1} y1={m.y1} x2={m.x2} y2={m.y2}/>;
+        return <g key={i} {...common} className="zone-link">{m.parts.map((p,j)=><line key={j} x1={p.x1} y1={p.y1} x2={p.x2} y2={p.y2}/>)}</g>;
       })}
     </svg>
     <span className="zone-links-summary sr-only" role="status">{linkSummary(links)}</span>
