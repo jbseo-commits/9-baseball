@@ -6,6 +6,8 @@ import ZoneLinks from './ZoneLinks.jsx';
 import {pitcherLine,momentOf} from './pitcher-voice.js';
 import BallparkActors,{pixiAvailable} from './BallparkActors.jsx';
 import {lessonFor,planText} from './DecisionDebrief.jsx';
+import batterV14PreviewSheet from '../../assets/ui-kit/batter/batter-v14-preview-sheet.png';
+import cardArtSheet from '../../assets/ui-kit/cards/battle-core-v14-preview-sheet.png';
 import './ballpark.css';
 
 /* V13 BALLPARK — the battle as one ballpark scene (docs/design/v13/BALLPARK.md).
@@ -34,6 +36,17 @@ export const CAMERA={homer:'big','grand-slam':'big',extra:'mid','dead-center':'m
 export const STACK_COMMIT_MS=720;
 const lessonZoneName=z=>z===9?'존 밖':ZONE_WORDS[z]||'코스';
 
+const CARD_ART_POS={
+  strike:'0% 0%',     // 밀어치기 (정확)
+  rally:'100% 0%',    // 주자 연결 (진루)
+  slug:'0% 100%',     // 당겨 넘기기 (파워)
+  defend:'100% 100%', // 커트 스윙 (생존)
+  place:'0% 0%',      // 정타 노림
+  finisher:'0% 100%', // 갭 공략
+  laser:'0% 0%',      // 라인드라이브
+  commit:'0% 100%',   // 끝장 승부
+  wall:'100% 100%',   // 존 봉쇄
+};
 
 /* the glyph already draws the coverage; the face keeps only what it adds (정확 적중 HP +50% …) */
 const effect=def=>(def.gives||[]).filter(g=>!/커버$/.test(g)).slice(0,1).join('');
@@ -44,10 +57,11 @@ export default function BallparkBattle({
   s,hand,selected,swingStack,choice,locked=false,
   pitcher,label,pitcherArt,batterArt,
   fxStage=null,shot=null,impactAt=0,playToken=0,onNext=null,nextLabel='',vfx=null,pitcherAtlas=null,artId=null,batterPoses=null,
+  batterSheet=batterV14PreviewSheet,
   onSelect,onAim,onStack,onSwing,onTake,onDetail,onPile,
   autoLesson=false,autoPlan=null,onExitLesson=null,
 }){
-  const b=s.battle,rootRef=useRef(null),sceneRef=useRef(null),pitcherRef=useRef(null),zoneRef=useRef(null),flightRef=useRef(null);
+  const b=s.battle||{},rootRef=useRef(null),sceneRef=useRef(null),pitcherRef=useRef(null),zoneRef=useRef(null),flightRef=useRef(null);
   const [armed,setArmed]=useState(null),[commitBeat,setCommitBeat]=useState(null),commitTimer=useRef(null);
   const r=b.revealed,inFx=!!fxStage,deciding=s.phase==='battle'&&!inFx&&!locked&&!commitBeat;
   const judged=!!r&&s.last?.kind!=='skill'&&(inFx||s.phase!=='battle');
@@ -195,21 +209,54 @@ export default function BallparkBattle({
   const debriefDamage=showDebrief&&lessonCombat.damage>0?'HP -'+lessonCombat.damage:'';
 
   const cardButton=x=>{
-    const def=CARDS[x.entry.kind],problem=x.preview?.problem,inStack=stack.findIndex(y=>y.id===x.id);
+    const def=CARDS[x.entry.kind]||{},problem=x.preview?.problem,inStack=stack.findIndex(y=>y.id===x.id);
     const state=selected===x.id?' main':inStack>=0?' support':armed===x.id?' armed':'';
-    return <button key={x.id} type="button" className={'bp-card'+state+(problem?' off':'')} aria-pressed={selected===x.id||inStack>=0}
+    const isRare=x.entry.plus||def.type==='signature';
+    const isSkillCard=def.type==='skill';
+    const cardKindClass=(isRare?' signature':'')+(isSkillCard?' skill':'');
+    const artPos=CARD_ART_POS[x.entry.kind];
+    const cost=def.cost||(def.power>=2?2:1);
+    const roleTag=def.role||(isSkillCard?'집중':'정확');
+
+    return <button key={x.id} type="button" className={'bp-card'+state+(problem?' off':'')+cardKindClass} aria-pressed={selected===x.id||inStack>=0}
       data-card-kind={x.entry.kind} disabled={!deciding} onClick={()=>pickSwing(x.id)}>
-      <CardGlyph zones={x.preview?.coverage}/>
-      <strong>{def.name}{x.entry.plus&&<sup>+</sup>}</strong>
-      {(problem||effect(def))&&<span>{problem||effect(def)}</span>}
+      <span className="bp-card-cost" aria-label={`코스트 ${cost}`}>{cost}</span>
+      <div className="bp-card-art-box">
+        {artPos ? (
+          <div className="bp-card-art" style={{backgroundImage:`url(${cardArtSheet})`,backgroundPosition:artPos}}/>
+        ) : (
+          <CardGlyph zones={x.preview?.coverage}/>
+        )}
+      </div>
+      <div className="bp-card-header">
+        <strong>{def.name||x.entry.kind}{x.entry.plus&&<sup>+</sup>}</strong>
+        <div className="bp-card-chips">
+          <span className="bp-chip type">{isSkillCard?'준비':'공격'}</span>
+          <span className="bp-chip role">{roleTag}</span>
+        </div>
+      </div>
+      <span className="bp-card-desc">{problem||effect(def)||(def.text?def.text.slice(0,30):'')}</span>
       {selected===x.id&&<b className="bp-order">1</b>}{inStack>=0&&<b className="bp-order">{inStack+2}</b>}
     </button>;
   };
 
   return <main ref={rootRef} className={'bp-battle'+(autoLesson?' auto-lesson':'')+(commitBeat?' committing':'')+(deciding?'':' resolving')+(inFx?' fx-'+fxStage:'')} aria-label="타석">
     <div className="bp-bar">
-      <span>{label}</span>
-      <span className="bp-piles"><button type="button" onClick={()=>onPile?.('draw')}>덱 {b.draw?.length??0}</button><button type="button" onClick={()=>onPile?.('discard')}>버림 {b.discard?.length??0}</button></span>
+      <div className="bp-hud-brand">
+        <span className="bp-hud-logo" aria-label="9ZONE">9ZONE</span>
+        <span className="bp-hud-sub" aria-hidden="true">HOMEBOUND</span>
+        <b className="bp-hud-inning">{label}</b>
+      </div>
+      <div className="bp-bso-strip" aria-label={`볼 ${b.balls} 스트라이크 ${b.strikes} 아웃 ${b.outs}`}>
+        <div className="bp-bso-unit b"><b className="bp-bso-name">B</b><span className="bp-bso-leds">{Array.from({length:3},(_,i)=><i key={i} className={i<b.balls?'on':''}/>)}</span></div>
+        <div className="bp-bso-unit s"><b className="bp-bso-name">S</b><span className="bp-bso-leds">{Array.from({length:2},(_,i)=><i key={i} className={i<b.strikes?'on':''}/>)}</span></div>
+        <div className="bp-bso-unit o"><b className="bp-bso-name">O</b><span className="bp-bso-leds">{Array.from({length:2},(_,i)=><i key={i} className={i<b.outs?'on':''}/>)}</span></div>
+      </div>
+      <span className="bp-piles">
+        <button type="button" onClick={()=>onPile?.('draw')} className="bp-pile-btn"><i className="bp-pile-icon deck-icon" aria-hidden="true"/>덱 {b.draw?.length??0}</button>
+        <button type="button" onClick={()=>onPile?.('discard')} className="bp-pile-btn"><i className="bp-pile-icon discard-icon" aria-hidden="true"/>버림 {b.discard?.length??0}</button>
+        <button type="button" className="bp-pile-btn bp-settings-btn" aria-label="설정">⚙</button>
+      </span>
     </div>
 
     <section className={'bp-scene'+(pixi?.batter?' pixi-batter':'')+(pixi?.pitcher?' pixi-pitcher':'')+(inFx?' fx-stage-'+fxStage+(shot?' fx-'+(shot.grade||shot.kind):''):'')+(cam?' cam-'+cam:'')} ref={sceneRef} aria-label="승부 구장">
@@ -255,12 +302,18 @@ export default function BallparkBattle({
           {autoPlan?.coverage>0&&lessonPhase!=='plan'&&<i>{autoPlan.coverage}존 커버</i>}
         </div>}
       </aside>}
-      {canPixi&&<BallparkActors sceneRef={sceneRef} pitcherAtlas={pitcherAtlas} artId={artId} batterPoses={batterPoses} pitchZone={judged?r.zone:null} shot={shot} fxStage={fxStage} playToken={playToken} knockedOut={judged&&(pitcher?.hp??1)===0} onReady={setPixi}/>}
+      {canPixi&&<BallparkActors sceneRef={sceneRef} pitcherAtlas={pitcherAtlas} artId={artId} batterPoses={batterPoses} batterSheet={batterSheet} pitchZone={judged?r.zone:null} shot={shot} fxStage={fxStage} playToken={playToken} knockedOut={judged&&(pitcher?.hp??1)===0} onReady={setPixi}/>}
       <div className="bp-pitcher bp-cam" ref={pitcherRef} aria-hidden="true">{pitcherArt}</div>
       <div className="bp-pcol">
       <div className="bp-ptag" aria-label={`${pitcher?.name} 투수 HP ${pitcher?.hp} / ${pitcher?.maxHp}`}>
-        <span>{pitcher?.name}</span>
-        <span className="bp-ticks" aria-hidden="true">{Array.from({length:12},(_,i)=><i key={i} className={tickClass(i)}/>)}</span>
+        <div className="bp-pitcher-badge-row">
+          <span className="bp-pitcher-flame" aria-hidden="true">🔥</span>
+          <span className="bp-pitcher-title-name">{s.v10?.opponent?.archetype ? `${s.v10.opponent.archetype} · ${pitcher?.name}` : (pitcher?.name || '투수')}</span>
+        </div>
+        <div className="bp-hp-gauge-container">
+          <div className="bp-hp-gauge-bar" style={{'--hp-pct': `${Math.max(0, Math.min(100, Math.round(((judged&&!landed?(pitcher?.hp||0)+(pitcher?.lastDamage||0):pitcher?.hp)||0)/(pitcher?.maxHp||1)*100)))}%`}} />
+          <span className="bp-ticks" aria-hidden="true">{Array.from({length:12},(_,i)=><i key={i} className={tickClass(i)}/>)}</span>
+        </div>
         {damage>0&&<b className="bp-damage" key={'d'+playToken}>-{damage}</b>}
         <small aria-hidden="true">HP {judged&&!landed?(pitcher?.hp||0)+(pitcher?.lastDamage||0):pitcher?.hp} / {pitcher?.maxHp}</small>
         <span className={'bp-mental'+(shaken?' shaken':'')+(shaken>=mentalCap?' max':'')+(shakenRose?' rose':'')} data-testid="bp-mental"
@@ -307,7 +360,18 @@ export default function BallparkBattle({
       </div>
     </section>
 
-    <p className={'bp-coach'+(voice?' has-voice':'')}><span className="bp-coach-text">{coach}</span>{voice&&<q className={'bp-voice-strip m-'+moment} key={'qs'+playToken+moment}><b>{pitcher?.name}</b>{voice}</q>}</p>
+    <div className={'bp-coach-wrap'+(voice?' has-voice':'')}>
+      <div className="bp-coach-avatar-col">
+        <div className="bp-coach-badge" aria-hidden="true"/>
+        <span className="bp-coach-pill">COACH</span>
+      </div>
+      <div className="bp-coach-bubble">
+        <p className={'bp-coach'+(voice?' has-voice':'')}>
+          <span className="bp-coach-text">{coach}</span>
+          {voice&&<q className={'bp-voice-strip m-'+moment} key={'qs'+playToken+moment}><b>{pitcher?.name}</b>{voice}</q>}
+        </p>
+      </div>
+    </div>
 
     {showDebrief?<aside className={'bp-debrief tone-'+(debriefLesson?.tone||'neutral')} data-testid="bp-debrief" aria-label="이번 공 복기">
       <div className="bp-dstep plan">
@@ -329,7 +393,19 @@ export default function BallparkBattle({
       </div>
     </aside>:<div className="bp-hand" aria-label="손패">
       <button type="button" className={'bp-card basic'+(selected==='basic'?' main':'')} data-card-kind="basic" aria-pressed={selected==='basic'} disabled={!deciding} onClick={()=>pickSwing('basic')}>
-        <CardGlyph zones={[b.aimZone]}/><strong>맨손 스윙</strong>{selected==='basic'&&<b className="bp-order">1</b>}
+        <span className="bp-card-cost" aria-label="코스트 0">0</span>
+        <div className="bp-card-art-box">
+          <CardGlyph zones={[b.aimZone]}/>
+        </div>
+        <div className="bp-card-header">
+          <strong>맨손 스윙</strong>
+          <div className="bp-card-chips">
+            <span className="bp-chip type">기본</span>
+            <span className="bp-chip role">단타</span>
+          </div>
+        </div>
+        <span className="bp-card-desc">선택한 1존 · 카드 소비 없음</span>
+        {selected==='basic'&&<b className="bp-order">1</b>}
       </button>
       {swingCards.map(cardButton)}
       {prepCards.map(x=>{const def=CARDS[x.entry.kind],problem=x.preview?.problem;
