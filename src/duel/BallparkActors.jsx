@@ -83,6 +83,7 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
       const flash=new PIXI.Sprite(poseTex.ready);flash.anchor.set(.5,1);flash.blendMode='add';flash.alpha=0;world.addChild(flash);
       const arc=new PIXI.Graphics();world.addChild(arc);
       const dust=new PIXI.Container();world.addChild(dust);
+      const impactFx=new PIXI.Graphics();world.addChild(impactFx);
       const ball=new PIXI.Graphics();world.addChild(ball);
       let trail=[];
       const dustPool=[];
@@ -146,8 +147,8 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
         const {b,p}=boxes;
         const breath=reduced?0:Math.sin(now/IDLE_BREATH_MS*Math.PI*2);
         shadows.clear();
-
         whip.clear();
+        impactFx.clear();
         if(pitcher&&p){
           const fi=active?redRushFrameAt(t):0,{artId:aid0,knockedOut:ko}=live.current;
           pitcher.texture=pitchFrames[fi];
@@ -224,9 +225,34 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
           flash.alpha=active&&hit&&stopAt&&now<stopUntil+60?Math.max(0,.4-(now-stopAt)/300):0;
           if(active&&!dusted.stride&&t>=(timeline.find(k=>k.pose==='trigger')?.at??1e9)){dusted.stride=1;if(!reduced)spawnDust(x+b.w*.28,y-b.h*.02,10,b.h);}
           if(active&&hit&&!dusted.hit&&stopAt){dusted.hit=1;if(!reduced)spawnDust(x+b.w*.3,y-b.h*.02,16,b.h);}
+          // contact impact burst & shockwave at contact point (tx, ty)
+          if(active&&hit&&stopAt&&!reduced){
+            const elapsed=now-stopAt;
+            if(elapsed>=0&&elapsed<240){
+              const z=boxes.zone,bb=b||{x:z?.x-z?.w||0,y:z?.y||0,w:z?.h||0,h:z?.h||0},bh=bb.h,bxc=bb.x+bb.w/2,byb=bb.y+bb.h;
+              const pz=live.current.pitchZone;
+              const row=pz!=null&&pz<9?Math.floor(pz/3):2.4,col=pz!=null&&pz<9?pz%3:2.6;
+              const itx=bxc+bh*(.39-(col-1)*.03),ity=byb-bh*(.53-row*.07);
+              const isPower=/homer|grand|extra|dead/.test(sh?.grade||'');
+              // expanding shockwave ring
+              const prog=Math.min(1,elapsed/200);
+              const ringR=Math.max(6,bh*.06)+prog*bh*(isPower?.32:.22);
+              const ringAlpha=(1-prog)*(isPower?.9:.7);
+              impactFx.circle(itx,ity,ringR).stroke({width:Math.max(1.5,bh*.016*(1-prog*.5)),color:isPower?0xffd32a:0xffffff,alpha:ringAlpha});
+              // sharp 4-point starburst glint
+              if(elapsed<130){
+                const spk=1-elapsed/130;
+                const bw=bh*(isPower?.28:.2)*spk,thk=Math.max(1.5,bh*.022*spk);
+                impactFx.rect(itx-bw,ity-thk*.5,bw*2,thk).fill({color:0xffffff,alpha:spk*.95});
+                impactFx.rect(itx-thk*.5,ity-bw,thk,bw*2).fill({color:0xffffff,alpha:spk*.95});
+                impactFx.circle(itx,ity,bh*(isPower?.06:.04)*spk).fill({color:isPower?0xffe08a:0xffffff,alpha:spk});
+                impactFx.circle(itx,ity,bh*(isPower?.1:.07)*spk).fill({color:isPower?0xff9f43:0xffc861,alpha:spk*.45});
+              }
+            }
+          }
         }
         // what is on screen, for QA and tests
-        const host=hostRef.current;if(host){host.dataset.pose=prevPose;host.dataset.frame=pitcher?String(active?redRushFrameAt(t):0):'';host.dataset.stop=stopAt&&now<stopUntil?'1':'0';host.dataset.rate=String(rate);host.dataset.whip=whip.visible&&pGhosts.some(g=>g.alpha>0)?'1':'0';host.dataset.ko=pitcher&&pitcher.rotation>0?'1':'0';}
+        const host=hostRef.current;if(host){host.dataset.pose=prevPose;host.dataset.frame=pitcher?String(active?redRushFrameAt(t):0):'';host.dataset.stop=stopAt&&now<stopUntil?'1':'0';host.dataset.impact=active&&hit&&stopAt&&(now-stopAt<180)?'1':'0';host.dataset.rate=String(rate);host.dataset.whip=whip.visible&&pGhosts.some(g=>g.alpha>0)?'1':'0';host.dataset.ko=pitcher&&pitcher.rotation>0?'1':'0';}
         /* the pitch: out of the hand on the release frame, toward the camera (it grows), onto its cell at
            contact; a hit leaves into the field, anything else carries on into the catcher */
         ball.clear();
@@ -250,7 +276,14 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
             else{bx=tx-u*bh*.55;by=ty+u*bh*.06;r=unit*1.7;}
           }
           if(a>0){
-            trail.unshift({x:bx,y:by,r});trail=trail.slice(0,7);
+            trail.unshift({x:bx,y:by,r});trail=trail.slice(0,hit?10:7);
+            if(hit&&k>1&&trail.length>1){
+              const isPower=/homer|grand|extra|dead/.test(sh?.grade||'');
+              for(let i=0;i<Math.min(trail.length-1,6);i++){
+                const q0=trail[i],q1=trail[i+1],segAlpha=a*(.42-i*.06);
+                if(segAlpha>0)ball.moveTo(q0.x,q0.y).lineTo(q1.x,q1.y).stroke({width:q0.r*1.8*(1-i*.1),color:isPower?0xffd32a:0xffffff,alpha:segAlpha,cap:'round'});
+              }
+            }
             trail.forEach((q,i)=>{if(i)ball.circle(q.x,q.y,q.r*(1-i*.1)).fill({color:hit&&k>1?0xffe08a:0xffffff,alpha:a*(.32-i*.045)});});
             ball.circle(bx,by,r+1.5).fill({color:0x07080d,alpha:.6*a});
             ball.circle(bx,by,r).fill({color:0xffffff,alpha:a});

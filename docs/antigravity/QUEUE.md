@@ -82,9 +82,10 @@
 
 ### 5. FEEDBACK / ANIMATION PAYOFF
 
-- [ ] P1-11 타격 순간 polish — hit-stop / trail / impact / camera
+- [x] P1-11 타격 순간 polish — hit-stop / trail / impact / camera
   - 무엇: 기존 연출 인프라를 재사용해 투구→스윙→contact→finish가 하나의 액션으로 읽히게 한다. 필요한 VFX가 없으면 §10으로 단일 production VFX 생성.
   - 완료 기준: contact가 정지화면과 실제 플레이 모두 화면 최고점 · reduced-motion 대응 · 성능 예산 유지.
+  - 상태: contact 좌표 (tx, ty) 기반 동적 충격파 링 및 4방향 스타버스트 섬광 구현, 타구 비행 연결형 레이저 스피드 트레일 구현, 타격 강도별(homer/grand-slam/extra/dead-center/solid/jammed/lucky) 맞춤형 카메라 마이크로 쉐이크 및 prefers-reduced-motion 완비.
   - 건드려도 되는 곳: BallparkActors.jsx, presentation.js, ballpark.css/.bp-* 연출, VFX assets, 관련 테스트.
   - 건드리면 안 되는 곳: 판정 확률/피해/HP 공식.
 
