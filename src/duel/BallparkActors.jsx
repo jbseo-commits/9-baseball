@@ -3,6 +3,7 @@ import {batterMotionV3Timeline,BATTER_MOTION_V3_HIT_GRADES} from './batterMotion
 import {redRushBatterShot,redRushFrameAt,hasPitchVisual,RED_RUSH_RELEASE_MS,RED_RUSH_RELEASE_FRAME as RELEASE_FRAME} from './pitcher-sd.js';
 import RELEASE from './pitcher-release.json';
 import STRIDE from './pitcher-stride.json';
+import impactSlashVfx from '../../assets/production-art/battle-polish-v16/impact-slash.png';
 
 /* V13 C2 — the batter and the pitcher drawn by PixiJS (WebGL) over the CSS stadium.
    The art is the repository's: the pitcher's 120-frame atlas and the batter's ten authored key poses.
@@ -83,7 +84,13 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
       const flash=new PIXI.Sprite(poseTex.ready);flash.anchor.set(.5,1);flash.blendMode='add';flash.alpha=0;world.addChild(flash);
       const arc=new PIXI.Graphics();world.addChild(arc);
       const dust=new PIXI.Container();world.addChild(dust);
+      let impactSlashTex=null;
+      try{
+        impactSlashTex=await PIXI.Assets.load(impactSlashVfx);
+      }catch{}
       const impactFx=new PIXI.Graphics();world.addChild(impactFx);
+      const slashSprite=impactSlashTex?new PIXI.Sprite(impactSlashTex):null;
+      if(slashSprite){slashSprite.anchor.set(.5,.5);slashSprite.alpha=0;slashSprite.blendMode='add';world.addChild(slashSprite);}
       const ball=new PIXI.Graphics();world.addChild(ball);
       let trail=[];
       const dustPool=[];
@@ -149,6 +156,7 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
         shadows.clear();
         whip.clear();
         impactFx.clear();
+        if(slashSprite&&(!active||!hit||reduced))slashSprite.alpha=0;
         if(pitcher&&p){
           const fi=active?redRushFrameAt(t):0,{artId:aid0,knockedOut:ko}=live.current;
           pitcher.texture=pitchFrames[fi];
@@ -247,6 +255,18 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
                 impactFx.rect(itx-thk*.5,ity-bw,thk,bw*2).fill({color:0xffffff,alpha:spk*.95});
                 impactFx.circle(itx,ity,bh*(isPower?.06:.04)*spk).fill({color:isPower?0xffe08a:0xffffff,alpha:spk});
                 impactFx.circle(itx,ity,bh*(isPower?.1:.07)*spk).fill({color:isPower?0xff9f43:0xffc861,alpha:spk*.45});
+              }
+              if(slashSprite&&!reduced){
+                if(elapsed>=0&&elapsed<140){
+                  const spk=1-elapsed/140;
+                  slashSprite.position.set(itx,ity);
+                  const sBase=(bh*0.48)/Math.max(1,impactSlashTex?.width||1254);
+                  slashSprite.scale.set(sBase*(1+0.2*(1-spk)));
+                  slashSprite.alpha=spk*(isPower?0.95:0.75);
+                  slashSprite.rotation=(isPower?-0.15:0.1)*(1-spk);
+                }else{
+                  slashSprite.alpha=0;
+                }
               }
             }
           }

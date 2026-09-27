@@ -145,5 +145,12 @@
   - 건드려도 되는 곳: `TitlePixel.jsx`, `BallparkEnd.jsx`, `BallparkBattle.jsx`, `ballpark.css`, `duel.css`.
   - 브랜치: `ag/20260928-p2-title-ending-cutscenes`
 
+- [x] P2-06 V16 전투 타격 VFX & 12인 마스터피스 도감 초상 연동 (Battle Polish & Dex Portrait Masterpiece)
+  - 무엇: `assets/production-art/battle-polish-v16/`의 `impact-slash.png`를 타격 컨택트 히트스탑 VFX로 `BallparkActors.jsx`에 연동하고, `mockup-world-v15`의 12인 검수 완료 마스터피스 도감 초상(`dex-*.png` 및 `-v2` 8종)을 `pitcherPortraits`에 매핑. 7프레임 애니매틱 및 V16 키포즈 파이프라인 익스포트.
+  - 완료 기준: 12인 투수 전원 고해상도 도감 초상 매핑, 타격 순간 임팩트 슬래시 피드백 연동, 보상 카드 프레임 및 세로 정렬 최적화, 117개 전체 테스트 통과, 27/27 visual QA 통과.
+  - 상태: 구현 완료 및 `tests/v16-battle-polish-dex.test.js` 통과 (117개 파일 695/695 tests passed, 27/27 visual checks passed).
+  - 건드려도 되는 곳: `BallparkActors.jsx`, `pitcher-visuals.js`, `ballpark.css`, 관련 테스트.
+  - 브랜치: `ag/20260928-p2-title-ending-cutscenes`
+
 
 
