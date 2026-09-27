@@ -16,7 +16,7 @@
       "role": "female Red Rush kneeling character",
       "size_px": [1377, 1142],
       "alpha": true,
-      "alpha_bounds_px": [73, 51, 1243, 1070],
+      "visible_bounds_alpha_gt_16_px": [319, 125, 1085, 1043],
       "corner_alpha": [0, 0, 0, 0],
       "preview_placement_normalized": {
         "x": 0.03,
@@ -25,7 +25,18 @@
       }
     }
   ],
+  "optional_pre_kneel_keypose": {
+    "file": "red-rush-knockout-stagger.png",
+    "size_px": [1377, 1142],
+    "alpha": true,
+    "visible_bounds_alpha_gt_16_px": [406, 213, 1072, 1006]
+  },
   "safe_text_area_normalized": [0.58, 0.05, 0.39, 0.72],
+  "suggested_keypose_sequence": [
+    {"file": "red-rush-knockout-stagger.png", "phase": "stagger", "hold_ms": 120},
+    {"file": "red-rush-knockout-actor.png", "phase": "kneel", "hold_ms": 450}
+  ],
+  "alpha_note": "Both generated RGBA files include isolated alpha=1 speckles outside the visible silhouette; do not use raw nonzero-alpha bounds as a crop box. Edge cleanup remains required before runtime integration.",
   "preview_only": "preview placement is approximate; full 3-viewport compositing and timing are unverified",
-  "qa_status": "visual candidate; alpha boundary verified; runtime, animation, and 8-axis blind score pending"
+  "qa_status": "visual candidate; corner alpha and visible bounds inspected; alpha cleanup, in-betweens, runtime, and 8-axis blind score pending"
 }
