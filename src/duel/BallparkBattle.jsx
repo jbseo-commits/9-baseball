@@ -8,6 +8,7 @@ import BallparkActors,{pixiAvailable} from './BallparkActors.jsx';
 import {lessonFor,planText} from './DecisionDebrief.jsx';
 import batterV14MasterSheet from '../../assets/ui-kit/batter/batter-v14-master-sheet.png';
 import cardArtSheet from '../../assets/ui-kit/cards/battle-core-v14-master-sheet.png';
+import {cardArtFor} from './card-art.js';
 import './ballpark.css';
 
 /* V13 BALLPARK — the battle as one ballpark scene (docs/design/v13/BALLPARK.md).
@@ -232,6 +233,10 @@ const CARD_DESC_MAP={
     const isSkillCard=def.type==='skill';
     const cardKindClass=(isRare?' signature':'')+(isSkillCard?' skill':'');
     const artPos=CARD_ART_POS[x.entry.kind]||'0% 0%';
+    const customArt=cardArtFor(x.entry.kind);
+    const artStyle=customArt
+      ?{backgroundImage:`url(${customArt})`,backgroundPosition:'center',backgroundSize:'cover'}
+      :{backgroundImage:`url(${cardArtSheet})`,backgroundPosition:artPos};
     const cost=def.cost||(def.power>=2?2:1);
     const roleTag=def.role||(isSkillCard?'집중':'정확');
     const descLines=problem?[problem,'']:(CARD_DESC_MAP[x.entry.kind]||[effect(def)||def.gives?.[0]||'스윙 효과',def.gives?.[1]||'']);
@@ -240,7 +245,7 @@ const CARD_DESC_MAP={
       data-card-kind={x.entry.kind} disabled={!deciding} onClick={()=>pickSwing(x.id)}>
       <span className="bp-card-cost" aria-label={`코스트 ${cost}`}>{cost}</span>
       <div className="bp-card-art-box">
-        <div className="bp-card-art" style={{backgroundImage:`url(${cardArtSheet})`,backgroundPosition:artPos}}/>
+        <div className="bp-card-art" style={artStyle}/>
         <div className="bp-card-mini-map"><CardGlyph zones={x.preview?.coverage}/></div>
       </div>
       <div className="bp-card-header">

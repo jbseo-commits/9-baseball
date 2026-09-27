@@ -1,0 +1,309 @@
+{
+  "version": "v15-art-candidate",
+  "runtime_connected": false,
+  "batter": {
+    "sheet": "batter-sheet.png",
+    "frame_size": [
+      1024,
+      1536
+    ],
+    "atlas_columns": 4,
+    "baseline_px": 1527,
+    "frames": [
+      {
+        "file": "batter-ready.png",
+        "x": 0,
+        "y": 0,
+        "duration_ms": 280,
+        "offset_y_in_sheet": 1
+      },
+      {
+        "file": "batter-load.png",
+        "x": 1024,
+        "y": 0,
+        "duration_ms": 120,
+        "offset_y_in_sheet": 0
+      },
+      {
+        "file": "batter-swing-start.png",
+        "x": 2048,
+        "y": 0,
+        "duration_ms": 65,
+        "offset_y_in_sheet": 37
+      },
+      {
+        "file": "batter-swing-mid.png",
+        "x": 3072,
+        "y": 0,
+        "duration_ms": 55,
+        "offset_y_in_sheet": 106
+      },
+      {
+        "file": "batter-contact.png",
+        "x": 0,
+        "y": 1536,
+        "duration_ms": 95,
+        "offset_y_in_sheet": 86
+      },
+      {
+        "file": "batter-follow-early.png",
+        "x": 1024,
+        "y": 1536,
+        "duration_ms": 70,
+        "offset_y_in_sheet": 111
+      },
+      {
+        "file": "batter-follow-through.png",
+        "x": 2048,
+        "y": 1536,
+        "duration_ms": 260,
+        "offset_y_in_sheet": 74
+      }
+    ],
+    "preview": "batter-animatic.webp"
+  },
+  "red_rush": {
+    "sheet": "red-rush-sheet.png",
+    "frame_size": [
+      1024,
+      1536
+    ],
+    "atlas_columns": 3,
+    "baseline_px": 1516,
+    "frames": [
+      {
+        "file": "red-rush-windup.png",
+        "x": 0,
+        "y": 0,
+        "duration_ms": 260,
+        "offset_y_in_sheet": 0
+      },
+      {
+        "file": "red-rush-stride.png",
+        "x": 1024,
+        "y": 0,
+        "duration_ms": 100,
+        "offset_y_in_sheet": 45
+      },
+      {
+        "file": "red-rush-release.png",
+        "x": 2048,
+        "y": 0,
+        "duration_ms": 170,
+        "offset_y_in_sheet": 7
+      }
+    ],
+    "preview": "red-rush-animatic.webp"
+  },
+  "standalone": [
+    "stadium-portrait.png",
+    "impact-burst.png"
+  ],
+  "qa": {
+    "batter-ready.png": {
+      "size": [
+        1024,
+        1536
+      ],
+      "corner_alpha": 0,
+      "solid_bounds": [
+        59,
+        10,
+        1018,
+        1526
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ]
+    },
+    "batter-load.png": {
+      "size": [
+        1024,
+        1536
+      ],
+      "corner_alpha": 0,
+      "solid_bounds": [
+        63,
+        3,
+        1015,
+        1527
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ]
+    },
+    "batter-contact.png": {
+      "size": [
+        1024,
+        1536
+      ],
+      "corner_alpha": 0,
+      "solid_bounds": [
+        26,
+        191,
+        1014,
+        1441
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ]
+    },
+    "batter-follow-through.png": {
+      "size": [
+        1024,
+        1536
+      ],
+      "corner_alpha": 0,
+      "solid_bounds": [
+        24,
+        86,
+        1007,
+        1453
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ]
+    },
+    "red-rush-windup.png": {
+      "size": [
+        1024,
+        1536
+      ],
+      "corner_alpha": 0,
+      "solid_bounds": [
+        251,
+        11,
+        985,
+        1516
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ]
+    },
+    "red-rush-release.png": {
+      "size": [
+        1024,
+        1536
+      ],
+      "corner_alpha": 0,
+      "solid_bounds": [
+        80,
+        12,
+        986,
+        1509
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ]
+    },
+    "stadium-portrait.png": {
+      "size": [
+        941,
+        1672
+      ],
+      "corner_alpha": 255,
+      "solid_bounds": [
+        0,
+        0,
+        941,
+        1672
+      ],
+      "alpha_extrema": [
+        255,
+        255
+      ]
+    },
+    "impact-burst.png": {
+      "size": [
+        1254,
+        1254
+      ],
+      "corner_alpha": 1,
+      "solid_bounds": [
+        147,
+        39,
+        1208,
+        1226
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    "batter-swing-start.png": {
+      "size": [
+        1024,
+        1536
+      ],
+      "corner_alpha": 0,
+      "solid_bounds": [
+        75,
+        57,
+        1017,
+        1490
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ]
+    },
+    "batter-swing-mid.png": {
+      "size": [
+        1024,
+        1536
+      ],
+      "corner_alpha": 0,
+      "solid_bounds": [
+        44,
+        182,
+        1022,
+        1421
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ]
+    },
+    "batter-follow-early.png": {
+      "size": [
+        1024,
+        1536
+      ],
+      "corner_alpha": 0,
+      "solid_bounds": [
+        27,
+        28,
+        1016,
+        1416
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ]
+    },
+    "red-rush-stride.png": {
+      "size": [
+        1024,
+        1536
+      ],
+      "corner_alpha": 0,
+      "solid_bounds": [
+        24,
+        71,
+        1017,
+        1471
+      ],
+      "alpha_extrema": [
+        0,
+        254
+      ]
+    }
+  },
+  "preview_note": "Key-pose animatics are timing references, not finished high-frame-rate animation. Add hand-drawn in-betweens before runtime use."
+}
