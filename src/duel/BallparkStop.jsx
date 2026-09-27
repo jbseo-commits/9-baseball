@@ -1,5 +1,7 @@
 import React,{useState} from 'react';
-import {CARDS,upgradeText} from './cards.js';
+import {CARDS,upgradeText,FAMILIES} from './cards.js';
+import {shapeHas} from './engine.js';
+import {cardArtFor} from './card-art.js';
 import {V10_RELICS} from './v10-relics.js';
 import {pitcherLine} from './pitcher-voice.js';
 import stadium from '../../assets/duel/stadium.png';
@@ -55,8 +57,9 @@ const EMPTY={locker:'덱이 가장 얇다. 뺄 카드가 없다.',training:'더 
 
 const Glyph=({zones})=><span className="bp-glyph" aria-hidden="true">{Array.from({length:9},(_,z)=><i key={z} className={zones?.includes(z)?'on':''}/>)}</span>;
 /* coverage shape on a centred aim, for the card face */
-const SHAPE={point:[4],column:[1,4,7],row:[3,4,5],cross:[1,3,4,5,7],all:[0,1,2,3,4,5,6,7,8]};
-const effect=def=>(def?.gives||[]).filter(g=>!/커버$/.test(g)).slice(0,1).join('');
+const shapeZones=shape=>Array.from({length:9},(_,i)=>i).filter(i=>shapeHas(shape,4,i));
+/* V16 rarity: common / uncommon / rare, plus the three act signatures */
+const RARITY_LABEL={common:'COMMON',uncommon:'UNCOMMON',rare:'RARE',signature:'EPIC'};
 
 /* reward reveal (BP-12): each offer starts face down and flips in turn; signature cards burst gold */
 const Back=()=><i className="bp-offer-back" aria-hidden="true"><Glyph zones={[0,2,4,6,8]}/></i>;
@@ -67,18 +70,18 @@ function Offer({o,on,count,onClick,reveal=null}){
       {reveal!=null&&<Back/>}<b className="bp-mark">{r?.mark}</b><strong>{r?.name}</strong><span>{r?.text}</span></button>;}
   if(o.type==='rest')return <button type="button" className={'bp-offer rest'+(on?' on':'')} aria-pressed={on} onClick={onClick}>
     <b className="bp-mark">+8</b><strong>컨디션 회복</strong><span>다음 경기 타격 +8</span></button>;
-  const def=CARDS[o.kind],skill=def?.type==='skill',rare=def?.rarity==='signature';
-  const art=REWARD_CARD_ART[o.kind]||rewardPrecisionBlue;
-  const cost=def?.cost||(def?.power>=2?2:1);
-  return <button type="button" className={'bp-offer reward-card'+(skill?' skill':'')+(rare?' rare':'')+(on?' on':'')} aria-pressed={on} onClick={onClick} data-card-kind={o.kind} {...rv}>
+  const def=CARDS[o.kind],skill=def?.type==='skill',tier=def?.rarity||'common',rare=tier==='signature'||tier==='rare';
+  const art=REWARD_CARD_ART[o.kind]||cardArtFor(o.kind)||rewardPrecisionBlue;
+  const cost=def?.cost||(def?.power>=2?2:1),fam=FAMILIES[def?.family]?.name;
+  return <button type="button" className={'bp-offer reward-card'+(skill?' skill':'')+(rare?' rare':'')+' r-'+tier+(on?' on':'')} aria-pressed={on} onClick={onClick} data-card-kind={o.kind} {...rv}>
     {reveal!=null&&<Back/>}
     <span className="bp-offer-cost" aria-label={`코스트 ${cost}`}>{cost}</span>
     <div className="bp-offer-art" style={{backgroundImage:`url(${art})`}}/>
-    {rare&&<em className="bp-rare-tag">시그니처</em>}
-    {skill?<b className="bp-mark">준비</b>:<div className="bp-offer-glyph"><Glyph zones={SHAPE[def?.shape]||[4]}/></div>}
+    {rare&&<em className="bp-rare-tag">{tier==='signature'?'시그니처':'희귀'}</em>}
+    {skill?<b className="bp-mark">준비</b>:<div className="bp-offer-glyph"><Glyph zones={shapeZones(def?.shape)}/></div>}
     <strong className="bp-offer-name">{def?.name}{o.type==='upgrade'&&<sup>+</sup>}</strong>
-    <span className="bp-offer-desc">{o.type==='upgrade'?upgradeText(o.kind):effect(def)||def?.role}</span>
-    <em className="bp-reward-rarity">{rare?'EPIC':'COMMON'}</em>
+    <span className="bp-offer-desc">{o.type==='upgrade'?upgradeText(o.kind):(def?.gives||[]).slice(0,2).map((g,i)=><span key={i} className="bp-offer-line">{g}</span>)}</span>
+    <em className="bp-reward-rarity">{fam?fam+' · ':''}{RARITY_LABEL[tier]||'COMMON'}</em>
     {count>1&&<small>덱에 {count}장</small>}
   </button>;
 }

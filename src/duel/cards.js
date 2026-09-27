@@ -1,26 +1,33 @@
+import {CARDS_V16,CORE_FAMILY} from './cards-v16.js';
+export {FAMILIES} from './cards-v16.js';
 // Right-handed batter: screen-left is inside. Cards shape coverage, not a contact threshold.
 export const ZONES=['몸쪽 높음','가운데 높음','바깥 높음','몸쪽 중간','한가운데','바깥 중간','몸쪽 낮음','가운데 낮음','바깥 낮음'];
 // role/axis/gives/needs drive the deck screens. Every value here restates an engine rule, never a new one.
-export const CARDS={
+const CORE_CARDS={
   place:{name:'정타 노림',type:'attack',art:'bat',shape:'point',power:0,pressure:.50,role:'정타',axis:'point',gives:['1존 커버','정확 적중 HP +50%'],needs:[],text:'선택한 1존 커버. 메인 카드로 정확히 적중하면 투수 HP 압박 +50%. 좁게 읽은 공에 가장 효율적인 스타터 카드.',flavor:'넓게 휘두르지 않는다. 한 칸을 맞힌다.'},
-  strike:{name:'밀어치기',type:'attack',art:'bat',shape:'column',power:0,role:'범위',axis:'column',gives:['세로 3존 커버'],needs:[],text:'선택한 세로 3존 커버. 적중하면 안타 확정. 바깥쪽에서 타구 질 보너스.',flavor:'바깥 공을 끝까지 보고 반대편으로.'},
-  slug:{name:'당겨 넘기기',type:'attack',art:'comet',shape:'point',power:2,role:'장타',axis:'point',gives:['파워 +36'],needs:[],text:'선택한 1존 적중 시 안타 확정. 파워 +36으로 장타 베팅. 빗나가면 헛스윙 위험.',flavor:'내가 기다린 공 하나.'},
-  rally:{name:'주자 연결',type:'attack',art:'double',shape:'row',power:0,role:'진루',axis:'row',gives:['가로 3존 커버','주자 +2베이스 (2·3루 홈인)'],needs:[],text:'선택 가로 3존 커버. 안타 시 기존 주자 +2베이스 진루 (1루→3루, 2·3루→홈인).',flavor:'홈으로 부를 공을 기다린다.'},
-  bunt:{name:'희생 번트',type:'attack',art:'diamond',shape:'all',power:0,role:'진루',axis:'all',gives:['주자 진루'],needs:['아웃 지불'],text:'9존 대응. 스트라이크에 70% 희생 번트, 30% 파울. 2스트라이크 번트 파울은 삼진.',flavor:'세 번째 아웃이면 득점도 없다.'},
+  strike:{name:'밀어치기',type:'attack',art:'bat',shape:'column',power:0,zoneBonus:{cols:[2],technique:12},role:'범위',axis:'column',gives:['세로 3존 커버'],needs:[],text:'선택한 세로 3존 커버. 적중하면 안타 확정. 바깥쪽에서 타구 질 보너스.',flavor:'바깥 공을 끝까지 보고 반대편으로.'},
+  slug:{name:'당겨 넘기기',type:'attack',art:'comet',shape:'point',power:2,hrCap:true,role:'장타',axis:'point',gives:['파워 +36'],needs:[],text:'선택한 1존 적중 시 안타 확정. 파워 +36으로 장타 베팅. 빗나가면 헛스윙 위험.',flavor:'내가 기다린 공 하나.'},
+  rally:{name:'주자 연결',type:'attack',art:'double',shape:'row',power:0,advance:2,role:'진루',axis:'row',gives:['가로 3존 커버','주자 +2베이스 (2·3루 홈인)'],needs:[],text:'선택 가로 3존 커버. 안타 시 기존 주자 +2베이스 진루 (1루→3루, 2·3루→홈인).',flavor:'홈으로 부를 공을 기다린다.'},
+  bunt:{name:'희생 번트',type:'attack',art:'diamond',shape:'all',power:0,bunt:{sac:.70,foul:.30,plusSac:.85,plusFoul:.15},role:'진루',axis:'all',gives:['주자 진루'],needs:['아웃 지불'],text:'9존 대응. 스트라이크에 70% 희생 번트, 30% 파울. 2스트라이크 번트 파울은 삼진.',flavor:'세 번째 아웃이면 득점도 없다.'},
   finisher:{name:'갭 공략',type:'attack',art:'sun',shape:'row',power:1,role:'장타',axis:'row',gives:['가로 3존 커버','파워 +18'],needs:[],text:'가로 3존 커버. 안타 때 2루타·홈런 기회. 파워 +18.',flavor:'수비 사이를 가른다.'},
-  defend:{name:'커트 스윙',type:'attack',art:'shield',shape:'cross',power:-1,role:'생존',axis:'cross',gives:['십자 5존 커버','단타 확정','파울 생존'],needs:[],text:'선택 존과 상하좌우 커버. 범위 적중은 단타 확정. 범위 밖에서도 파울 생존에 유리.',flavor:'좋은 공까지 타석을 이어간다.'},
+  defend:{name:'커트 스윙',type:'attack',art:'shield',shape:'cross',power:-1,singles:true,foulMiss:.42,foulBall:.22,role:'생존',axis:'cross',gives:['십자 5존 커버','단타 확정','파울 생존'],needs:[],text:'선택 존과 상하좌우 커버. 범위 적중은 단타 확정. 범위 밖에서도 파울 생존에 유리.',flavor:'좋은 공까지 타석을 이어간다.'},
   wall:{name:'존 봉쇄',type:'attack',art:'shield',shape:'cross',power:0,role:'범위',axis:'cross',rarity:'signature',act:1,gives:['십자 5존 커버'],needs:[],text:'선택 존과 상하좌우 5존을 한 장으로 커버. 커트 스윙보다 장타 손실이 적지만 범위 밖 파울 보정은 없다.',flavor:'1막의 강적을 꺾은 타선이 처음 얻는 넓은 정답.'},
   laser:{name:'라인드라이브',type:'attack',art:'sun',shape:'column',power:1,role:'장타',axis:'column',rarity:'signature',act:2,gives:['세로 3존 커버','파워 +18'],needs:[],text:'선택한 세로 3존을 커버하면서 파워 +18. 밀어치기의 안정성과 갭 공략의 타구 질을 한 장에 묶은 2막 시그니처.',flavor:'읽은 세로선을 그대로 찢는다.'},
   commit:{name:'끝장 승부',type:'attack',art:'comet',shape:'point',power:3,role:'장타',axis:'point',rarity:'signature',act:3,gives:['1존 커버','파워 +54'],needs:[],text:'선택한 단 1존에 파워 +54. 커버를 넓히면 장점이 크게 줄어드는 3막 시그니처. 읽기와 덱 압축이 완성됐을 때 폭발한다.',flavor:'아홉 칸 중 하나. 마지막에는 그것으로 충분하다.'},
-  setup:{name:'타이밍 맞추기',type:'skill',art:'target',role:'집중',axis:null,gives:['집중 +1'],needs:[],text:'준비 1회 · 이번 타석 집중 +1. 타격 +8 · 파워 +5로 적중한 공의 안타 종류를 개선.',flavor:'위치를 못 읽은 스윙까지 구해주지는 않는다.'},
-  watch:{name:'작전 확인',type:'skill',art:'eye',role:'수급',axis:null,gives:['카드 +2'],needs:[],text:'준비 1회 · 카드 2장 뽑기. 준비는 타석당 최대 2회.',flavor:'한 타석에 쓸 선택지를 늘린다.'},
-  scout:{name:'릴리스 간파',type:'skill',art:'book',role:'관찰',axis:null,gives:['행 정보','카드 +1'],needs:[],text:'준비 1회 · 이번 공의 높음/중간/낮음 또는 볼 여부를 확인. 카드 1장 뽑기.',flavor:'정답 존이 아닌, 관찰 가능한 단서.'},
-  lure:{name:'코스 조정',type:'skill',art:'ball',role:'범위',axis:null,gives:['범위 +1'],needs:[],text:'준비 1회 · 다음 스윙 커버를 상하좌우 1칸 확장. 사용 후 소멸.',flavor:'투수의 공을 바꾸지 않고 내 대응을 바꾼다.'},
-  flow:{name:'히트앤드런 사인',type:'skill',art:'spark',role:'진루',axis:null,gives:['주자 +1루'],needs:['주자'],text:'준비 1회 · 이번 타석 안타 때 기존 주자 추가 1베이스. 주자가 있어야 사용.',flavor:'사인만으로 주자가 움직이지는 않는다.'},
-  calm:{name:'호흡 고르기',type:'skill',art:'moon',role:'생존',axis:null,gives:['파울 생존','카드 +1'],needs:[],text:'준비 1회 · 이번 타석 파울 생존력 증가. 카드 1장 뽑기.',flavor:'몰려도 승부는 끝나지 않았다.'},
+  setup:{name:'타이밍 맞추기',type:'skill',fx:{aim:1},plusFx:{aim:2},art:'target',role:'집중',axis:null,gives:['집중 +1'],needs:[],text:'준비 1회 · 이번 타석 집중 +1. 타격 +8 · 파워 +5로 적중한 공의 안타 종류를 개선.',flavor:'위치를 못 읽은 스윙까지 구해주지는 않는다.'},
+  watch:{name:'작전 확인',type:'skill',fx:{draw:2},plusFx:{draw:3},art:'eye',role:'수급',axis:null,gives:['카드 +2'],needs:[],text:'준비 1회 · 카드 2장 뽑기. 준비는 타석당 최대 2회.',flavor:'한 타석에 쓸 선택지를 늘린다.'},
+  scout:{name:'릴리스 간파',type:'skill',fx:{scout:'row',draw:1},plusFx:{scout:'full',draw:1},art:'book',role:'관찰',axis:null,gives:['행 정보','카드 +1'],needs:[],text:'준비 1회 · 이번 공의 높음/중간/낮음 또는 볼 여부를 확인. 카드 1장 뽑기.',flavor:'정답 존이 아닌, 관찰 가능한 단서.'},
+  lure:{name:'코스 조정',type:'skill',fx:{expand:1},plusFx:{expand:2},art:'ball',role:'범위',axis:null,gives:['범위 +1'],needs:[],text:'준비 1회 · 다음 스윙 커버를 상하좌우 1칸 확장. 사용 후 소멸.',flavor:'투수의 공을 바꾸지 않고 내 대응을 바꾼다.'},
+  flow:{name:'히트앤드런 사인',type:'skill',requires:'runner',fx:{run:1},plusFx:{run:2},art:'spark',role:'진루',axis:null,gives:['주자 +1루'],needs:['주자'],text:'준비 1회 · 이번 타석 안타 때 기존 주자 추가 1베이스. 주자가 있어야 사용.',flavor:'사인만으로 주자가 움직이지는 않는다.'},
+  calm:{name:'호흡 고르기',type:'skill',fx:{patient:1,draw:1},plusFx:{patient:1,draw:2},art:'moon',role:'생존',axis:null,gives:['파울 생존','카드 +1'],needs:[],text:'준비 1회 · 이번 타석 파울 생존력 증가. 카드 1장 뽑기.',flavor:'몰려도 승부는 끝나지 않았다.'},
 };
+/* the 16 core cards keep their V9 rules; V16 adds 124 keyword cards for the MAIN RUN draft */
+export const CORE_KINDS=Object.freeze(Object.keys(CORE_CARDS));
+for(const [k,fam] of Object.entries(CORE_FAMILY))CORE_CARDS[k].family=fam;
+export const CARDS={...CORE_CARDS,...CARDS_V16};
 export const ROLES=['관찰','정타','범위','장타','진루','생존','집중','수급'];
-export const AXES=[['point','1존'],['row','가로 3존'],['column','세로 3존'],['cross','십자 5존'],['all','9존']];
+export const AXES=[['point','1존'],['row','가로 3존'],['column','세로 3존'],['cross','십자 5존'],['all','9존'],
+  ['pairH','가로 2존'],['pairV','세로 2존'],['diag','대각선'],['x','X 5존'],['box','주변 9존'],['corners','네 모서리']];
 export const AXIS_NAMES=Object.fromEntries(AXES);
 // A `+` card never turns a covered pitch into an out. It only widens range, power, information or advancement.
 export const UPGRADES={
@@ -28,7 +35,7 @@ export const UPGRADES={
 };
 export const upgradeText=kind=>UPGRADES[kind]||(CARDS[kind]?.type==='attack'?'파워 +18':null);
 export const canUpgrade=entry=>!!entry&&!entry.plus&&!!upgradeText(entry.kind);
-export const cardPower=entry=>(CARDS[entry?.kind]?.power||0)+(entry?.plus&&CARDS[entry.kind].type==='attack'&&!['bunt','defend'].includes(entry.kind)?1:0);
+export const cardPower=entry=>{const d=CARDS[entry?.kind];return (d?.power||0)+(entry?.plus&&d.type==='attack'&&!d.bunt&&!d.singles?1:0);};
 export function cardText(kind,plus=false){
   if(!plus)return CARDS[kind].text;
   const special={

@@ -42,6 +42,8 @@ describe('V12 P0-1 baseline contract',()=>{
       delete copy.pitcher.hp;delete copy.pitcher.maxHp;
       delete copy.battle.intent;
       delete copy.v10.opponent;
+      // V16 card keywords add per-plate-appearance prep fields (all zero at battle start); the fixture predates them.
+      for(const k of ['scoutBall','bonusPower','bonusDmg','bonusPressure','bonusBall','bonusWalk','bonusFoul'])delete copy.battle[k];
       return copy;
     };
     expect(gameplayState(actual)).toEqual(gameplayState(expected));

@@ -9,7 +9,7 @@ function pitch(s,zone,roll=.5,powerRoll=.95){s.battle.pending={zone,roll,powerRo
 function roundtrip(s){const store=memory();saveDuel(store,s);expect(readDuel(store)).toEqual(s);if(s.battle){const b=s.battle,ids=[...b.hand,...b.draw,...b.discard];expect(ids).toHaveLength(s.deck.length);expect(new Set(ids).size).toBe(s.deck.length);expect(b.bases.filter(Boolean).every(id=>LINEUP.some(p=>p.id===id))).toBe(true);}}
 describe('9-zone read success is guaranteed; stats only choose hit type',()=>{
   it('every covered zone, swing, build and random roll is a hit, including BASIC',()=>{
-    for(const build of Object.keys(BUILDS))for(const kind of ['basic',...Object.keys(CARDS).filter(k=>CARDS[k].type==='attack'&&k!=='bunt')]){
+    for(const build of Object.keys(BUILDS))for(const kind of ['basic',...Object.keys(CARDS).filter(k=>CARDS[k].type==='attack'&&!CARDS[k].bunt)]){
       let s=fixture(kind==='basic'?'strike':kind,build);const id=kind==='basic'?'basic':'c0';
       for(let aim=0;aim<9;aim++){s=setAimZone(s,aim);for(const z of coverage(s,id))for(const roll of [0,.25,.6,.999999]){
         const n=playCard(pitch(s,z,roll),'basic'===kind?'basic':'c0');expect(n.stats.hits).toBe(1);expect(n.stats.outs).toBe(0);expect(n.stats.appearances).toBe(1);

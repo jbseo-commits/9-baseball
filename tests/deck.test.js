@@ -102,7 +102,7 @@ describe('reward actions compete: add, remove, upgrade and skip share one rule s
 
 describe('upgrades widen range, power, information and advancement — never the hit contract',()=>{
   it('never turns a covered pitch into an out',()=>{
-    for(const kind of Object.keys(CARDS).filter(k=>CARDS[k].type==='attack'&&k!=='bunt')){
+    for(const kind of Object.keys(CARDS).filter(k=>CARDS[k].type==='attack'&&!CARDS[k].bunt)){
       const s=held(kind,true),zone=coverage(s,'c0')[0];
       expect(swingOdds(s,'c0',zone)).toMatchObject({hit:1,covered:true});
     }

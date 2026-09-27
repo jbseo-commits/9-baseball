@@ -1,10 +1,10 @@
 import {describe,it,expect} from 'vitest';
 import {cardArtFor} from '../src/duel/card-art.js';
-import {CARDS} from '../src/duel/cards.js';
+import {CORE_KINDS} from '../src/duel/cards.js';
 
 describe('V15 Portrait Masterpiece - Card Art & Pitcher Framing', () => {
   it('resolves unique authored artwork for all 16 core card kinds', () => {
-    const kinds = Object.keys(CARDS);
+    const kinds = [...CORE_KINDS];   // V16 keyword cards reuse their concept art until drawn
     expect(kinds.length).toBe(16);
     for (const kind of kinds) {
       const art = cardArtFor(kind);

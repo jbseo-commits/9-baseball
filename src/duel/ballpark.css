@@ -1145,3 +1145,7 @@
 @media (prefers-reduced-motion:reduce){.bp-tell,.bp-band.lure{animation:none}}
 /* BP-14 role tones on the V15 card chip */
 .bp-chip.role.r-gold{color:var(--bp-sodium)}.bp-chip.role.r-red{color:#ff8a6a}.bp-chip.role.r-bone{color:var(--bp-bone)}.bp-chip.role.r-brass{color:#c8923a}
+/* V16 reward cards: two effect lines, concept + rarity chip (uncommon teal, rare gold) */
+.bp-stop.stop-reward .bp-offer-desc{display:flex;flex-direction:column;gap:2px;-webkit-line-clamp:unset}
+.bp-stop.stop-reward .bp-offer-line{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bp-stop.stop-reward .bp-offer.r-uncommon .bp-reward-rarity{background:#10313a;color:#7fe0d8;border-color:#2f7f86}

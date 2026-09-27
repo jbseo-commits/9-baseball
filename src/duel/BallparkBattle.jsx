@@ -246,7 +246,7 @@ const CARD_DESC_MAP={
       :{backgroundImage:`url(${cardArtSheet})`,backgroundPosition:artPos};
     const cost=def.cost||(def.power>=2?2:1);
     const roleTag=def.role||(isSkillCard?'집중':'정확');
-    const descLines=problem?[problem,'']:(CARD_DESC_MAP[x.entry.kind]||[effect(def)||def.gives?.[0]||'스윙 효과',def.gives?.[1]||'']);
+    const descLines=problem?[problem,'']:(CARD_DESC_MAP[x.entry.kind]||[def.gives?.[0]||'스윙 효과',def.gives?.[1]||'']);
 
     return <button key={x.id} type="button" className={'bp-card'+state+(problem?' off':'')+cardKindClass} aria-pressed={selected===x.id||inStack>=0}
       data-card-kind={x.entry.kind} disabled={!deciding} onClick={()=>pickSwing(x.id)}>
