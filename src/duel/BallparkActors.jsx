@@ -56,10 +56,12 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
       const poseNames=Object.keys(batterPoses);
       const poseTex={};
       if(batterSheet){
-        const sheet=await PIXI.Assets.load(batterSheet);sheet.source.scaleMode='nearest';
-        const fw=sheet.width/3,fh=sheet.height/3;
-        const frames=Array.from({length:9},(_,k)=>new PIXI.Texture({source:sheet.source,frame:new PIXI.Rectangle((k%3)*fw,Math.floor(k/3)*fh,fw,fh)}));
-        const order={ready:0,load:0,trigger:1,'swing-start':2,'swing-mid':3,contact:4,'follow-through-early':5,'follow-through-late':6,finish:7,settle:8};
+        /* a URL is the V14 3x3 pixel sheet; an object names its grid, pose order and sampling (V15) */
+        const layout=typeof batterSheet==='string'?{src:batterSheet,cols:3,rows:3}:batterSheet;
+        const sheet=await PIXI.Assets.load(layout.src);sheet.source.scaleMode=layout.smooth?'linear':'nearest';
+        const cols=layout.cols||3,rows=layout.rows||3,fw=sheet.width/cols,fh=sheet.height/rows;
+        const frames=Array.from({length:cols*rows},(_,k)=>new PIXI.Texture({source:sheet.source,frame:new PIXI.Rectangle((k%cols)*fw,Math.floor(k/cols)*fh,fw,fh)}));
+        const order=layout.order||{ready:0,load:0,trigger:1,'swing-start':2,'swing-mid':3,contact:4,'follow-through-early':5,'follow-through-late':6,finish:7,settle:8};
         for(const n of poseNames)poseTex[n]=frames[order[n]??0];
       }else{
         await Promise.all(poseNames.map(async n=>{poseTex[n]=await PIXI.Assets.load(batterPoses[n]);poseTex[n].source.scaleMode='nearest';}));
