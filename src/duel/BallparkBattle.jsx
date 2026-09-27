@@ -58,7 +58,7 @@ export default function BallparkBattle({
   pitcher,label,pitcherArt,batterArt,
   fxStage=null,shot=null,impactAt=0,playToken=0,onNext=null,nextLabel='',vfx=null,pitcherAtlas=null,artId=null,batterPoses=null,
   batterSheet=batterV14MasterSheet,
-  onSelect,onAim,onStack,onSwing,onTake,onDetail,onPile,
+  onSelect,onAim,onStack,onSwing,onTake,onDetail,onPile,onHome,onHelp,onToggleSound,sound=false,
   autoLesson=false,autoPlan=null,onExitLesson=null,
 }){
   const b=s.battle||{},rootRef=useRef(null),sceneRef=useRef(null),pitcherRef=useRef(null),zoneRef=useRef(null),flightRef=useRef(null);
@@ -208,25 +208,40 @@ export default function BallparkBattle({
   const debriefActual=showDebrief?(lessonCombat.pitchLabel||lessonZoneName(r?.zone)):'';
   const debriefDamage=showDebrief&&lessonCombat.damage>0?'HP -'+lessonCombat.damage:'';
 
+const CARD_DESC_MAP={
+  basic:['선택 1존 집중 타격','카드 소모 없음 · 기본 스윙'],
+  place:['선택 1존 정타 노림','정확 적중 시 투수 HP +50%'],
+  strike:['세로 3존 결대로 밀어치기','범위 적중 시 안타 확정'],
+  slug:['1존 강한 당겨치기','파워 +36 · 홈런/장타 노림'],
+  rally:['가로 3존 연결 스윙','안타 시 기존 주자 2루 전진'],
+  defend:['십자 5존 커트 스윙','단타 확정 · 파울 생존율 증가'],
+  bunt:['9존 전체 번트 작전','주자 1루 진루 · 1아웃 지불'],
+  finisher:['가로 3존 갭 공략','외야를 가르는 2루타 기회'],
+  wall:['십자 5존 봉쇄','넓은 수비형 스윙 범위'],
+  laser:['세로 3존 라인드라이브','안정성과 타구 질 동시 확보'],
+  commit:['단 1존 끝장 승부','극대화된 파워 · 결정타'],
+  setup:['타이밍 집중','집중 +1 · 파워 +5'],
+  watch:['작전 간파','카드 2장 보충'],
+  scout:['투수 릴리스 간파','구종 힌트 · 카드 1장'],
+};
+
   const cardButton=x=>{
     const def=CARDS[x.entry.kind]||{},problem=x.preview?.problem,inStack=stack.findIndex(y=>y.id===x.id);
     const state=selected===x.id?' main':inStack>=0?' support':armed===x.id?' armed':'';
     const isRare=x.entry.plus||def.type==='signature';
     const isSkillCard=def.type==='skill';
     const cardKindClass=(isRare?' signature':'')+(isSkillCard?' skill':'');
-    const artPos=CARD_ART_POS[x.entry.kind];
+    const artPos=CARD_ART_POS[x.entry.kind]||'0% 0%';
     const cost=def.cost||(def.power>=2?2:1);
     const roleTag=def.role||(isSkillCard?'집중':'정확');
+    const descLines=problem?[problem,'']:(CARD_DESC_MAP[x.entry.kind]||[effect(def)||def.gives?.[0]||'스윙 효과',def.gives?.[1]||'']);
 
     return <button key={x.id} type="button" className={'bp-card'+state+(problem?' off':'')+cardKindClass} aria-pressed={selected===x.id||inStack>=0}
       data-card-kind={x.entry.kind} disabled={!deciding} onClick={()=>pickSwing(x.id)}>
       <span className="bp-card-cost" aria-label={`코스트 ${cost}`}>{cost}</span>
       <div className="bp-card-art-box">
-        {artPos ? (
-          <div className="bp-card-art" style={{backgroundImage:`url(${cardArtSheet})`,backgroundPosition:artPos}}/>
-        ) : (
-          <CardGlyph zones={x.preview?.coverage}/>
-        )}
+        <div className="bp-card-art" style={{backgroundImage:`url(${cardArtSheet})`,backgroundPosition:artPos}}/>
+        <div className="bp-card-mini-map"><CardGlyph zones={x.preview?.coverage}/></div>
       </div>
       <div className="bp-card-header">
         <strong>{def.name||x.entry.kind}{x.entry.plus&&<sup>+</sup>}</strong>
@@ -235,7 +250,10 @@ export default function BallparkBattle({
           <span className="bp-chip role">{roleTag}</span>
         </div>
       </div>
-      <span className="bp-card-desc">{problem||effect(def)||(def.text?def.text.slice(0,30):'')}</span>
+      <div className="bp-card-desc">
+        <p>{descLines[0]}</p>
+        {descLines[1]&&<p>{descLines[1]}</p>}
+      </div>
       {selected===x.id&&<b className="bp-order">1</b>}{inStack>=0&&<b className="bp-order">{inStack+2}</b>}
     </button>;
   };
@@ -243,7 +261,7 @@ export default function BallparkBattle({
   return <main ref={rootRef} className={'bp-battle'+(autoLesson?' auto-lesson':'')+(commitBeat?' committing':'')+(deciding?'':' resolving')+(inFx?' fx-'+fxStage:'')} aria-label="타석">
     <div className="bp-bar">
       <div className="bp-hud-brand">
-        <span className="bp-hud-logo" aria-label="9ZONE">9ZONE</span>
+        <button type="button" className="bp-hud-logo" aria-label="타이틀로 돌아가기" onClick={onHome}>9ZONE</button>
         <span className="bp-hud-sub" aria-hidden="true">HOMEBOUND</span>
         <b className="bp-hud-inning">{label}</b>
       </div>
@@ -255,7 +273,8 @@ export default function BallparkBattle({
       <span className="bp-piles">
         <button type="button" onClick={()=>onPile?.('draw')} className="bp-pile-btn"><i className="bp-pile-icon deck-icon" aria-hidden="true"/>덱 {b.draw?.length??0}</button>
         <button type="button" onClick={()=>onPile?.('discard')} className="bp-pile-btn"><i className="bp-pile-icon discard-icon" aria-hidden="true"/>버림 {b.discard?.length??0}</button>
-        <button type="button" className="bp-pile-btn bp-settings-btn" aria-label="설정">⚙</button>
+        <button type="button" className="bp-pile-btn bp-sound-btn" aria-label={sound?'소리 끄기':'소리 켜기'} onClick={onToggleSound}>{sound?'♪':'♩'}</button>
+        <button type="button" className="bp-pile-btn bp-settings-btn" aria-label="설정 및 도움말" onClick={onHelp}>⚙</button>
       </span>
     </div>
 
@@ -395,7 +414,8 @@ export default function BallparkBattle({
       <button type="button" className={'bp-card basic'+(selected==='basic'?' main':'')} data-card-kind="basic" aria-pressed={selected==='basic'} disabled={!deciding} onClick={()=>pickSwing('basic')}>
         <span className="bp-card-cost" aria-label="코스트 0">0</span>
         <div className="bp-card-art-box">
-          <CardGlyph zones={[b.aimZone]}/>
+          <div className="bp-card-art" style={{backgroundImage:`url(${cardArtSheet})`,backgroundPosition:'100% 100%'}}/>
+          <div className="bp-card-mini-map"><CardGlyph zones={[b.aimZone]}/></div>
         </div>
         <div className="bp-card-header">
           <strong>맨손 스윙</strong>
@@ -404,7 +424,10 @@ export default function BallparkBattle({
             <span className="bp-chip role">단타</span>
           </div>
         </div>
-        <span className="bp-card-desc">선택한 1존 · 카드 소비 없음</span>
+        <div className="bp-card-desc">
+          <p>선택 1존 집중 타격</p>
+          <p>카드 소모 없음 · 기본 스윙</p>
+        </div>
         {selected==='basic'&&<b className="bp-order">1</b>}
       </button>
       {swingCards.map(cardButton)}

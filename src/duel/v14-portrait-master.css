@@ -1,0 +1,183 @@
+/* V14 portrait battle: place the authored art at the target's in-play scale.
+   This class exists only while the V10 ballpark battle is mounted. */
+@media (orientation:portrait){
+  .v14-battle-portrait>.duel-header{display:none}
+  .v14-battle-portrait>.bp-battle{
+    --bp-top:0px;height:100dvh;min-height:calc(595px + env(safe-area-inset-bottom,0px));
+    grid-template-rows:39px minmax(280px,1fr) 48px 148px calc(83px + env(safe-area-inset-bottom,0px));
+  }
+  .v14-battle-portrait .bp-bar{height:39px;padding:3px 6px;gap:3px;min-width:0}
+  .v14-battle-portrait .bp-hud-brand{gap:4px;align-items:center;min-width:0}
+  .v14-battle-portrait .bp-hud-sub{display:inline-block;font-size:8px;color:#c9a96e;letter-spacing:0.5px;font-family:var(--bp-impact)}
+  .v14-battle-portrait .bp-hud-logo{font-size:12px;padding:2px 4px;color:var(--bp-sodium)!important;border-radius:2px}
+  .v14-battle-portrait .bp-hud-inning{font-size:9px;padding:1px 5px;border:1px solid var(--bp-sodium);border-radius:9px;color:var(--bp-sodium);background:rgba(255,200,97,0.1)}
+  .v14-battle-portrait .bp-bso-strip{gap:3px;padding:3px 4px}
+  .v14-battle-portrait .bp-bso-unit{gap:2px}
+  .v14-battle-portrait .bp-bso-leds{gap:2px}
+  .v14-battle-portrait .bp-bso-leds i{width:6px;height:6px}
+  .v14-battle-portrait .bp-piles{gap:2px}
+  .v14-battle-portrait .bp-piles button{font-size:10px!important;padding:3px;min-height:28px}
+  .v14-battle-portrait .bp-piles button .deck-icon,.v14-battle-portrait .bp-piles button .discard-icon{width:10px;height:10px}
+
+  .v14-battle-portrait .bp-scene{height:100%;max-height:none;min-height:280px;aspect-ratio:auto}
+  .v14-battle-portrait .bp-batter{left:-12%;bottom:-3%;height:78%}
+  .v14-battle-portrait .bp-pitcher{right:5%;bottom:35%;height:31%}
+  .v14-battle-portrait .bp-ptag{
+    right:8px;top:16%;width:48%;padding:4px 8px;gap:3px;
+    background:rgba(13,17,34,0.94)!important;border:1.5px solid #38426d!important;
+    border-radius:4px!important;box-shadow:0 6px 18px rgba(0,0,0,0.85)!important;
+    border-image:none!important;
+  }
+  .v14-battle-portrait .bp-pitcher-badge-row{gap:4px;height:20px}
+  .v14-battle-portrait .bp-pitcher-title-name{font-size:11px;padding:2px 5px;border-width:2px}
+  .v14-battle-portrait .bp-pitcher-flame{font-size:12px}
+  .v14-battle-portrait .bp-hp-gauge-container{height:9px;border-radius:2px;background:#07080d;border:1px solid #2a3152}
+  .v14-battle-portrait .bp-hp-gauge-bar{background:linear-gradient(90deg,#ff4d4d 0%,#ff9f43 55%,#ffd32a 100%)}
+  .v14-battle-portrait .bp-ptag small{font-size:9px;color:var(--bp-bone);font-weight:600}
+  .v14-battle-portrait .bp-mental{font-size:9px;gap:3px}
+  .v14-battle-portrait .bp-mental em{font-size:0}
+  .v14-battle-portrait .bp-mental em::before{width:10px;height:10px}
+  .v14-battle-portrait .bp-mental i{width:10px;height:6px;border-radius:1px}
+
+  /* 9ZONE: Blue Glassmorphism */
+  .v14-battle-portrait .bp-zone{
+    left:54%;top:auto;bottom:10%;width:42%;height:clamp(136px,40%,184px);
+    background:radial-gradient(ellipse at 50% 50%,rgba(20,28,60,0.72) 0%,rgba(8,12,24,0.9) 100%)!important;
+    border:2px solid #5a6fa8!important;border-radius:4px!important;
+    box-shadow:0 0 0 1px #07080d,inset 0 0 20px rgba(30,45,95,0.7),0 8px 32px rgba(0,0,0,0.85)!important;
+    backdrop-filter:blur(6px)!important;
+  }
+  .v14-battle-portrait .bp-cell{
+    border:1px solid rgba(120,150,225,0.3)!important;
+    box-shadow:inset 0 0 8px rgba(100,140,240,0.08)!important;
+  }
+  .v14-battle-portrait .bp-cell .bp-pct{color:var(--bp-sodium)!important;font-weight:700;text-shadow:0 0 4px rgba(255,200,97,0.7)}
+  .v14-battle-portrait .bp-count{display:none}
+  .v14-battle-portrait .bp-scene .bp-voice{display:none}
+
+  .v14-battle-portrait .bp-coach-wrap{height:48px;padding:3px 8px 0;gap:8px}
+  .v14-battle-portrait .bp-coach-avatar-col{flex-basis:37px}
+  .v14-battle-portrait .bp-coach-badge{width:34px;height:34px}
+  .v14-battle-portrait .bp-coach-pill{font-size:7px}
+  .v14-battle-portrait .bp-coach-bubble{padding:5px 8px}
+  .v14-battle-portrait .bp-coach{font-size:11px}
+  .v14-battle-portrait .bp-coach.has-voice .bp-coach-text{display:none}
+  .v14-battle-portrait .bp-voice-strip{display:inline;quotes:none;font:italic 400 11px/1.3 var(--bp-ko);color:var(--bp-bone)}
+  .v14-battle-portrait .bp-voice-strip b{font-style:normal;font-weight:400;color:var(--bp-sodium);margin-right:4px}
+
+  /* Hand & Cards: Dark Metallic & Rich 2-Line Content */
+  .v14-battle-portrait .bp-hand{height:148px;padding:6px 8px 4px;gap:6px;align-items:stretch}
+  .v14-battle-portrait .bp-card{
+    flex:0 0 98px;height:138px;min-height:138px;padding:8px 5px 5px;gap:2px;
+    background:linear-gradient(180deg,#181f3b 0%,#0c1022 100%)!important;
+    border:1.5px solid #3d4a7a!important;border-radius:4px!important;
+    border-image:none!important;
+    box-shadow:0 6px 16px rgba(0,0,0,0.8),inset 0 0 10px rgba(120,150,255,0.08)!important;
+    transition:transform .16s ease-out,border-color .16s ease-out,box-shadow .16s ease-out;
+  }
+  .v14-battle-portrait .bp-card.main{
+    transform:translateY(-12px) scale(1.02);
+    border-color:var(--bp-sodium)!important;
+    box-shadow:0 0 0 2px var(--bp-sodium),0 12px 28px rgba(0,0,0,0.95),0 0 16px rgba(255,200,97,0.6)!important;
+    z-index:5;
+  }
+  .v14-battle-portrait .bp-card-cost{
+    position:absolute;left:4px;top:4px;width:17px;height:17px;
+    background:linear-gradient(135deg,#ffd32a 0%,#ff9f43 100%);
+    border:1px solid #fff;border-radius:2px;
+    display:grid;place-items:center;
+    color:#07080d;font:700 10px/1 var(--bp-led);
+    box-shadow:0 0 6px rgba(255,200,97,0.9);
+    z-index:4;
+  }
+  .v14-battle-portrait .bp-card-art-box{
+    position:relative;width:100%;height:50px;flex:0 0 50px;
+    background:#070a16;border-radius:2px;overflow:hidden;
+    border:1px solid rgba(123,132,166,0.35);
+  }
+  .v14-battle-portrait .bp-card-art{
+    width:100%;height:100%;background-size:200% 200%;image-rendering:pixelated;
+  }
+  .v14-battle-portrait .bp-card-mini-map{
+    position:absolute;right:3px;top:3px;padding:2px;
+    background:rgba(7,10,22,0.85);border:1px solid rgba(255,200,97,0.4);border-radius:2px;
+    z-index:3;
+  }
+  .v14-battle-portrait .bp-card-mini-map .bp-glyph{display:grid;grid-template-columns:repeat(3,4px);gap:1.5px}
+  .v14-battle-portrait .bp-card-mini-map .bp-glyph i{width:4px;height:4px;background:rgba(236,228,207,0.25);border-radius:0.5px}
+  .v14-battle-portrait .bp-card-mini-map .bp-glyph i.on{background:var(--bp-sodium);box-shadow:0 0 3px var(--bp-sodium)}
+
+  .v14-battle-portrait .bp-card-header{margin-top:2px;display:flex;flex-direction:column;gap:1px}
+  .v14-battle-portrait .bp-card strong{
+    font:700 12px/1.15 var(--bp-ko)!important;color:#ffffff!important;
+    text-shadow:0 1px 2px #000!important;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
+  .v14-battle-portrait .bp-card-chips{display:flex;gap:3px;margin:1px 0}
+  .v14-battle-portrait .bp-chip{font:700 8px/1 var(--bp-ko);padding:1px 3px;border-radius:1px}
+  .v14-battle-portrait .bp-chip.type{background:#23305a;color:#9fb4ff}
+  .v14-battle-portrait .bp-chip.role{background:#423014;color:var(--bp-sodium)}
+  .v14-battle-portrait .bp-card-desc{
+    display:flex;flex-direction:column;gap:1px;margin-top:1px;
+  }
+  .v14-battle-portrait .bp-card-desc p{
+    margin:0;font:400 8.5px/1.2 var(--bp-ko);color:#b2bccc!important;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+
+  /* Verbs: Golden Double Frame Primary & Deep Navy Secondary */
+  .v14-battle-portrait .bp-verbs{
+    height:calc(83px + env(safe-area-inset-bottom,0px));
+    padding:6px 8px calc(8px + env(safe-area-inset-bottom,0px));
+    gap:6px;background:#07080d;border-top:1px solid #161c36;
+  }
+  .v14-battle-portrait .bp-verb{
+    position:relative;border-radius:4px!important;padding:8px 12px!important;
+    display:flex!important;flex-direction:column!important;justify-content:center!important;
+    align-items:flex-start!important;min-height:64px!important;
+    box-shadow:0 6px 18px rgba(0,0,0,0.8)!important;
+    border-image:none!important;
+  }
+  .v14-battle-portrait .bp-verb::before{
+    content:"";display:block;position:absolute;right:10px;top:50%;transform:translateY(-50%);
+    width:28px;height:28px;background-size:contain;background-repeat:no-repeat;background-position:center;
+    opacity:0.35;pointer-events:none;
+  }
+  .v14-battle-portrait .bp-verb.go::before{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffd32a'%3E%3Cpath d='M21.7 2.3c-.4-.4-1-.4-1.4 0l-9.9 9.9c-.3.3-.5.7-.5 1.1v2.1l-6.6 6.6c-.4.4-.4 1 0 1.4.4.4 1 .4 1.4 0l6.6-6.6h2.1c.4 0 .8-.2 1.1-.5l9.9-9.9c.4-.4.4-1 0-1.4l-2.7-2.7z'/%3E%3C/svg%3E");
+    opacity:0.85;
+  }
+  .v14-battle-portrait .bp-verb.wait::before{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239fb4ff'%3E%3Cpath d='M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z'/%3E%3C/svg%3E");
+    opacity:0.75;
+  }
+  .v14-battle-portrait .bp-verb::after{
+    display:block;font:400 9.5px/1.2 var(--bp-ko);margin-top:2px;letter-spacing:0;
+  }
+  .v14-battle-portrait .bp-verb.go::after{
+    content:"조준 구역을 힘차게 타격";color:#ffeaa7;
+  }
+  .v14-battle-portrait .bp-verb.wait::after{
+    content:"투구를 흘려보낸다";color:#8898bf;
+  }
+  .v14-battle-portrait .bp-verb.go{
+    flex:1.6!important;
+    background:linear-gradient(180deg,#ffc861 0%,#d9822b 100%)!important;
+    border:2px solid #fff!important;outline:1px solid #d9822b!important;
+    color:#1a1204!important;box-shadow:0 0 24px rgba(255,200,97,0.4),0 6px 18px rgba(0,0,0,0.85)!important;
+  }
+  .v14-battle-portrait .bp-verb.go:disabled{
+    opacity:1!important;color:#e8cf92!important;
+    background:linear-gradient(180deg,#423318 0%,#241a0d 100%)!important;
+    border:1.5px solid #8c6d32!important;outline:none!important;
+    box-shadow:inset 0 0 12px rgba(0,0,0,0.8)!important;
+  }
+  .v14-battle-portrait .bp-verb.go:disabled::before{opacity:0.3}
+  .v14-battle-portrait .bp-verb.go:disabled::after{color:#a89363}
+  .v14-battle-portrait .bp-verb.wait{
+    flex:1!important;
+    background:linear-gradient(180deg,#1c2342 0%,#0f1326 100%)!important;
+    border:1.5px solid #3d4a7a!important;color:var(--bp-bone)!important;
+  }
+  .v14-battle-portrait .bp-verb.wait:hover:not(:disabled){border-color:#9fb4ff!important;color:#fff!important}
+}
+

@@ -260,3 +260,20 @@ describe('V13 BP-10 the pitcher stays visible',()=>{
     expect(css).toMatch(/\.bp-pitcher\{left:auto;right:5%;top:auto;bottom:35%;height:31%\}/);
   });
 });
+
+describe('V14 portrait in-play HUD',()=>{
+  it('keeps sound, help, and the menu reachable from the compact battle header',()=>{
+    begin();
+    expect(document.querySelector('.duel-app').classList.contains('v14-battle-portrait')).toBe(true);
+    const soundButton=document.querySelector('.bp-sound-btn');
+    expect(soundButton).not.toBeNull();
+    fireEvent.click(soundButton);
+    expect(soundButton.getAttribute('aria-label')).toBe('소리 끄기');
+    fireEvent.click(document.querySelector('.bp-settings-btn'));
+    expect(screen.getByRole('dialog',{name:'플레이 방법'})).not.toBeNull();
+    fireEvent.click(screen.getByRole('button',{name:'닫기'}));
+    fireEvent.click(document.querySelector('.bp-hud-logo'));
+    expect(document.querySelector('.bp-battle')).toBeNull();
+    expect(document.querySelector('.duel-app').classList.contains('v14-battle-portrait')).toBe(false);
+  });
+});

@@ -21,6 +21,7 @@ import "./duel/v12-overflow-safe.css";
 import "./duel/v12-help.css";
 import "./duel/pitcher-portrait.css";
 import "./duel/v12-polish.css";
+import "./duel/v14-portrait-master.css";
 import "./duel/title-pixel.css";
 
 createRoot(document.getElementById("root")).render(

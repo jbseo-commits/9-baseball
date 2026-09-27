@@ -22,7 +22,9 @@ const VIEWPORTS=[[412,743,'phone-portrait'],[844,390,'phone-landscape'],[1440,90
 fs.mkdirSync(OUT,{recursive:true});
 
 async function loadPlaywright(){
+  const antigravityPw = 'C:/Users/정현아/AppData/Local/Programs/Antigravity IDE/resources/app/node_modules/playwright/index.mjs';
   const tries=[process.env.PLAYWRIGHT_MODULE,'playwright'];
+  if(fs.existsSync(antigravityPw)) tries.push(pathToFileURL(antigravityPw).href);
   try{tries.push(pathToFileURL(path.join(execSync('npm root -g').toString().trim(),'playwright/index.mjs')).href);}catch{}
   for(const t of tries.filter(Boolean)){try{return await import(t);}catch{}}
   console.error('Playwright not found. Install it globally (npm i -g playwright) or set PLAYWRIGHT_MODULE.');process.exit(2);
@@ -36,7 +38,9 @@ const SAVES={map:createV10Duel(1),battle:battleSave(),reward:rewardSave()};
 const overlap=(a,b)=>{if(!a||!b)return 0;const w=Math.max(0,Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x)),h=Math.max(0,Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y));return a.w*a.h?w*h/(a.w*a.h):0;};
 
 const {chromium}=await loadPlaywright();
-const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||undefined,args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+const chromeExe = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+const executablePath = process.env.CHROMIUM_PATH || (fs.existsSync(chromeExe) ? chromeExe : undefined);
+const browser=await chromium.launch({executablePath,args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
 const report=[];let failed=0;
 const check=(name,ok,detail)=>{report.push({name,ok,detail});if(!ok){failed++;console.log('FAIL',name,detail||'');}};
 
