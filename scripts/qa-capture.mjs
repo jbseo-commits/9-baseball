@@ -36,9 +36,31 @@ async function capture() {
   await p.getByRole('button', { name: 'MAIN RUN 이어하기', exact: true }).click();
   await p.waitForTimeout(1500);
 
-  const shotPath = path.join(OUT, 'phone-portrait-battle-decide.png');
-  await p.screenshot({ path: shotPath });
-  console.log('Saved screenshot to:', shotPath);
+  const shotDecide = path.join(OUT, 'phone-portrait-battle-decide.png');
+  await p.screenshot({ path: shotDecide });
+  console.log('Saved screenshot to:', shotDecide);
+
+  // Arm card 2 (정타 노림)
+  const card2 = p.locator('.bp-card:not(.basic)').first();
+  await card2.click();
+  await p.waitForTimeout(600);
+  const shotArmed = path.join(OUT, 'phone-portrait-battle-armed.png');
+  await p.screenshot({ path: shotArmed });
+  console.log('Saved screenshot to:', shotArmed);
+
+  // Swing at the pitch and capture impact beat
+  const swingBtn = p.getByTestId('bp-swing');
+  await swingBtn.click();
+  await p.waitForTimeout(380);
+  const shotImpact = path.join(OUT, 'phone-portrait-battle-impact.png');
+  await p.screenshot({ path: shotImpact });
+  console.log('Saved screenshot to:', shotImpact);
+
+  // Wait for result settle
+  await p.waitForTimeout(2800);
+  const shotResult = path.join(OUT, 'phone-portrait-battle-result.png');
+  await p.screenshot({ path: shotResult });
+  console.log('Saved screenshot to:', shotResult);
 
   await browser.close();
 }
