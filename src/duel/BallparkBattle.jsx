@@ -59,7 +59,7 @@ export default function BallparkBattle({
   pitcher,label,pitcherArt,batterArt,
   fxStage=null,shot=null,impactAt=0,playToken=0,onNext=null,nextLabel='',vfx=null,pitcherAtlas=null,artId=null,batterPoses=null,
   batterSheet=batterV14MasterSheet,
-  onSelect,onAim,onStack,onSwing,onTake,onDetail,onPile,onHome,onHelp,onToggleSound,sound=false,
+  onSelect,onAim,onStack,onSwing,onTake,onDetail,onPile,onHome,onHelp,onToggleSound,sound=false,onJukebox=null,
   autoLesson=false,autoPlan=null,onExitLesson=null,
 }){
   const b=s.battle||{},rootRef=useRef(null),sceneRef=useRef(null),pitcherRef=useRef(null),zoneRef=useRef(null),flightRef=useRef(null);
@@ -279,6 +279,7 @@ const CARD_DESC_MAP={
         <button type="button" onClick={()=>onPile?.('draw')} className="bp-pile-btn"><i className="bp-pile-icon deck-icon" aria-hidden="true"/>덱 {b.draw?.length??0}</button>
         <button type="button" onClick={()=>onPile?.('discard')} className="bp-pile-btn"><i className="bp-pile-icon discard-icon" aria-hidden="true"/>버림 {b.discard?.length??0}</button>
         <button type="button" className="bp-pile-btn bp-sound-btn" aria-label={sound?'소리 끄기':'소리 켜기'} onClick={onToggleSound}>{sound?'♪':'♩'}</button>
+        <button type="button" className="bp-pile-btn bp-jukebox-btn" aria-label="BGM 주크박스" onClick={onJukebox||onHelp}>🎧</button>
         <button type="button" className="bp-pile-btn bp-settings-btn" aria-label="설정 및 도움말" onClick={onHelp}>⚙</button>
       </span>
     </div>

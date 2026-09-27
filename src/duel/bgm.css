@@ -1,0 +1,450 @@
+/* 9ZONE HOMEBOUND - 16-Bit Arcade BGM Jukebox Styling */
+
+.bgm-jukebox-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 620px;
+  width: 100%;
+  max-height: 78vh;
+  box-sizing: border-box;
+  color: #e6f4f1;
+}
+
+.jukebox-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid rgba(82, 142, 134, 0.35);
+  padding-bottom: 10px;
+}
+
+.jukebox-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.jukebox-tag {
+  font-size: 9px;
+  letter-spacing: 1.8px;
+  color: #dfb15b;
+  font-weight: 800;
+}
+
+.jukebox-title {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: #fff;
+  text-shadow: 0 0 12px rgba(108, 222, 203, 0.45);
+}
+
+.jukebox-sub {
+  margin: 0;
+  font-size: 11px;
+  color: #9cb8b2;
+  line-height: 1.4;
+}
+
+.jukebox-controls-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.jukebox-sound-toggle {
+  background: #193139;
+  border: 1px solid #3c6e67;
+  color: #a3c2bc;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.jukebox-sound-toggle.sound-on {
+  background: #174d47;
+  border-color: #55d6be;
+  color: #7ef5dd;
+  box-shadow: 0 0 8px rgba(85, 214, 190, 0.3);
+}
+
+.jukebox-vol-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(12, 32, 40, 0.7);
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(60, 110, 103, 0.4);
+}
+
+.vol-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #8faea8;
+  letter-spacing: 0.5px;
+}
+
+.jukebox-vol-slider {
+  width: 64px;
+  height: 4px;
+  accent-color: #55d6be;
+  cursor: pointer;
+}
+
+.jukebox-track-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  padding-right: 4px;
+  max-height: calc(78vh - 170px);
+  scrollbar-width: thin;
+  scrollbar-color: #38615a transparent;
+}
+
+.jukebox-track-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: linear-gradient(135deg, rgba(16, 38, 46, 0.85), rgba(12, 28, 35, 0.95));
+  border: 1px solid rgba(66, 120, 112, 0.35);
+  border-radius: 8px;
+  padding: 9px 12px;
+  transition: all 0.18s ease;
+}
+
+.jukebox-track-card:hover {
+  border-color: rgba(98, 186, 172, 0.6);
+  background: linear-gradient(135deg, rgba(20, 48, 58, 0.9), rgba(14, 34, 42, 0.98));
+}
+
+.jukebox-track-card.selected {
+  border-color: #dfb15b;
+  box-shadow: 0 0 10px rgba(223, 177, 91, 0.18);
+}
+
+.jukebox-track-card.playing {
+  border-color: #55d6be;
+  background: linear-gradient(135deg, rgba(18, 52, 58, 0.92), rgba(13, 36, 44, 0.98));
+  box-shadow: 0 0 14px rgba(85, 214, 190, 0.25);
+}
+
+.track-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.track-num-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #112830;
+  border: 1px solid #335952;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #7ba69e;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.jukebox-track-card.playing .track-num-badge {
+  border-color: #55d6be;
+  background: #113835;
+}
+
+.track-eq-anim {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+}
+
+.eq-bar {
+  display: inline-block;
+  width: 2.5px;
+  background: #55d6be;
+  border-radius: 1px;
+}
+
+.eq-1 {
+  height: 6px;
+  animation: eqBounce 0.5s ease-in-out infinite alternate;
+}
+.eq-2 {
+  height: 12px;
+  animation: eqBounce 0.7s ease-in-out infinite alternate 0.15s;
+}
+.eq-3 {
+  height: 8px;
+  animation: eqBounce 0.6s ease-in-out infinite alternate 0.3s;
+}
+
+@keyframes eqBounce {
+  0% { height: 3px; }
+  100% { height: 14px; }
+}
+
+.track-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.track-headline {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.track-name-ko {
+  font-size: 13px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.3px;
+}
+
+.track-name-en {
+  font-size: 10px;
+  color: #8daea8;
+}
+
+.track-current-badge {
+  font-size: 8px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(223, 177, 91, 0.2);
+  border: 1px solid rgba(223, 177, 91, 0.6);
+  color: #f7ca72;
+}
+
+.track-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: #6da79c;
+  flex-wrap: wrap;
+}
+
+.meta-genre {
+  color: #72cfbf;
+  font-weight: 600;
+}
+
+.meta-bpm {
+  font-weight: 700;
+  color: #dfb15b;
+}
+
+.meta-dur {
+  color: #a7ccc4;
+}
+
+.meta-key {
+  color: #8ba8a2;
+}
+
+.meta-sep {
+  opacity: 0.4;
+}
+
+.track-desc {
+  margin: 2px 0 0 0;
+  font-size: 10px;
+  color: #8da4a0;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.track-actions {
+  flex-shrink: 0;
+}
+
+.track-play-btn {
+  background: #173b42;
+  border: 1px solid #3c776f;
+  color: #9fe2d5;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 7px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.track-play-btn:hover {
+  background: #204e57;
+  border-color: #5ce6cd;
+  color: #fff;
+}
+
+.track-play-btn.btn-active {
+  background: #3e2621;
+  border-color: #db7460;
+  color: #ffb7a8;
+  box-shadow: 0 0 8px rgba(219, 116, 96, 0.4);
+}
+
+.jukebox-now-playing {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #09171e;
+  border: 1px solid #2d554e;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-top: 2px;
+}
+
+.np-visualizer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.np-track-name {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.np-label {
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  color: #55d6be;
+}
+
+.np-track-name strong {
+  font-size: 12px;
+  color: #fff;
+}
+
+.np-track-name small {
+  font-size: 9px;
+  color: #79a19a;
+}
+
+.np-time-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: monospace;
+}
+
+.np-time {
+  font-size: 10px;
+  color: #d1deda;
+  font-weight: 700;
+}
+
+.np-loop-badge {
+  font-size: 9px;
+  color: #dfb15b;
+  background: rgba(223, 177, 91, 0.15);
+  border: 1px solid rgba(223, 177, 91, 0.4);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.np-progress-bar-bg {
+  width: 100%;
+  height: 4px;
+  background: #142e37;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.np-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3aa390, #55d6be, #e6c173);
+  transition: width 0.08s linear;
+}
+
+/* Header & HUD BGM Quick Trigger Buttons */
+.jukebox-header-btn {
+  background: linear-gradient(135deg, #12343c, #0d252b) !important;
+  border: 1px solid #4a8279 !important;
+  color: #8be0d0 !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 8px !important;
+  border-radius: 6px !important;
+  transition: all 0.15s ease;
+}
+
+.jukebox-header-btn:hover {
+  border-color: #5ce6cd !important;
+  color: #fff !important;
+  box-shadow: 0 0 8px rgba(92, 230, 205, 0.35);
+}
+
+.bp-jukebox-btn {
+  background: #112830 !important;
+  border: 1px solid #3c6e67 !important;
+  color: #6ce0cc !important;
+  font-size: 10px !important;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 6px !important;
+  border-radius: 5px !important;
+}
+
+.bp-jukebox-btn:hover {
+  border-color: #55d6be !important;
+  color: #fff !important;
+}
+
+@media (max-width: 600px) {
+  .bgm-jukebox-container {
+    max-height: 82vh;
+    gap: 10px;
+  }
+  .jukebox-track-list {
+    max-height: calc(82vh - 160px);
+  }
+  .jukebox-title {
+    font-size: 16px;
+  }
+  .track-name-ko {
+    font-size: 12px;
+  }
+  .track-desc {
+    display: none;
+  }
+}

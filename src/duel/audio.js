@@ -36,7 +36,7 @@ const CUES={
   'rival-champion':{type:'square',gain:.05,noise:.032,noiseDur:.065,swell:.15,echo:.18,notes:[[220,0,.08,1.05,-.18],[330,.08,.1,1.04,.16],[440,.19,.14,1.03,-.08],[660,.36,.18,1.02,.18],[880,.58,.24,1.01,0]]},
   'game-loss':{type:'triangle',gain:.042,noise:.016,noiseDur:.04,notes:[[220,0,.08,.78,.08],[165,.11,.12,.7,-.06],[110,.27,.18,.62,0]]},
 };
-function audio(){
+export function audio(){
   const Audio=globalThis.AudioContext||globalThis.webkitAudioContext;if(!Audio)return null;
   context??=new Audio();
   if(!master){
@@ -46,6 +46,8 @@ function audio(){
   }
   context.resume().catch(()=>{});return context;
 }
+export function getAudioContext(){return audio();}
+export function getMasterNode(){audio();return master;}
 function panNode(ctx,pan){
   if(!ctx.createStereoPanner)return null;const p=ctx.createStereoPanner();p.pan.value=Math.max(-1,Math.min(1,pan||0));return p;
 }
