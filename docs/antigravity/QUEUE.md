@@ -110,9 +110,12 @@
 > 코덱스 사전 제작 자산 연계 (`C:\Users\정현아\.codex\generated_images\01a0e24c-a814-7943-9bcd-ada03585d7c8` / `assets/production-art/mockup-world-v15`)
 > 공통 완료 기준: 각 화면별 전용 목업 수준 달성, 3뷰포트 회귀 0%, 100% 테스트 통과.
 
-- [ ] P2-01 가로 전투 보드 (Landscape Battleboard) 고도화
+- [x] P2-01 가로 전투 보드 (Landscape Battleboard) 고도화
   - 무엇: `battle-landscape-stadium.png` 에셋 및 844×390 뷰포트 레이아웃 최적화. 투수 가림 0% 유지하면서 좌우 와이드 스타디움 파노라마 연계.
+  - 완료 기준: `stadium-landscape.png` 배경 및 마운드 러버 위 투수 안착, 우측 9존 글래스모피즘, 상단 투수 HUD 및 하단 메탈릭 카드/대형 스윙 버튼 연동. 27/27 QA 샷 전원 통과, 투수 가림 0~2%, 오버플로 0px.
+  - 상태: 구현 완료 및 `tests/v15-landscape-battleboard.test.js` 통과 (112개 파일 678/678 tests passed).
   - 건드려도 되는 곳: `ballpark.css`의 가로 미디어 쿼리, `BallparkBattle.jsx`.
+  - 브랜치: `ag/20260928-p2-landscape-battle`
 
 - [ ] P2-02 보상 화면 (Reward Screen) 마스터피스 연동
   - 무엇: `reward-precision-blue.png`, `reward-flame-red.png`, `reward-relay-cyan.png`, `frame-reward-epic.png`, `frame-reward-rare.png` 에셋을 `BallparkStop.jsx`에 연결하여 단순 카드 목록을 감동적인 전리품 획득 화면으로 격상.
