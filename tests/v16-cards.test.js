@@ -128,3 +128,14 @@ describe('V16 reward draft',()=>{
     expect(seen.size/eligible.length).toBeGreaterThan(.95);
   });
 });
+
+describe('V16 card art hand-off (docs/art/PHONE_ASSET_QUEUE.md queue C)',()=>{
+  it('a new card borrows its concept art until family-<concept>.png or card-<key>.png lands',async()=>{
+    const src=(await import('node:fs')).readFileSync('src/duel/card-art.js','utf8');
+    expect(src).toContain('card-${kind}.png');
+    expect(src).toContain('family-${fam}.png');
+    const {FAMILY_ART}=await import('../src/duel/card-art.js');
+    for(const f of Object.keys(FAMILIES))expect(FAMILY_ART[f],f).toBeTruthy();
+    expect(cardArtFor('pinpoint')).toMatch(/reward-precision-blue/);   // borrowed until C01 is uploaded
+  });
+});
