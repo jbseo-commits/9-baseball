@@ -28,9 +28,10 @@
   - 브랜치: ag/20260927-p1-batter-ready
 
 
-- [ ] P1-02 B3 타자 나머지 9포즈 생성 + 동일성 QA
+- [x] P1-02 B3 타자 나머지 9포즈 생성 + 동일성 QA
   - 무엇: PASS된 READY를 reference master로 사용해 load → trigger → swing-start → swing-mid → contact → follow-through-early → follow-through-late → finish → settle 생성.
   - 완료 기준: 같은 인물/체형/유니폼/카메라/픽셀 밀도 · canvas/anchor 일치 · 배트/얼굴 파손 없음 · 포즈만 달라짐.
+  - 상태: `batter-v14-master-sheet.png` (3x3 9포즈 고해상도 아틀라스) 제작 및 `tests/v14-production-art-contract.test.js` 검증 완료.
   - 건드려도 되는 곳: assets/ui-kit/raw/, assets/ui-kit/batter/, scripts/asset-fix.mjs 관련 설정.
 
 - [x] P1-03 T9 대형 어깨너머 타자 실제 런타임 삽입
