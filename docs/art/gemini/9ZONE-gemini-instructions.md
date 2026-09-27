@@ -176,3 +176,29 @@ ASSET: two full-bleed splash backgrounds side by side, each native 160x96 then x
 ```
 
 > 정리: 받은 PNG를 `assets/ui-kit/raw/<ID>-1.png`로 저장 → `node scripts/asset-fix.mjs <ID>` (illustration 모드: 색 유지, 배경·크기·격자만 정리).
+
+## B3 대형 타자 포즈 10장 (목업 전투 화면과 똑같은 구도) → `BAT-<포즈>-*.png`
+> 순서: **BAT-READY를 먼저** 만들고 합격하면, 나머지 9장은 합격한 READY 그림을 **첨부해서** "같은 인물, 같은 옷, 같은 크기·카메라, 포즈만 다르게"로 생성한다. 인물이 달라지면 불합격.
+> 입력: `타자 전부` → READY부터 순서대로 10장.
+
+공통 (B 공통 규칙 + 이 문단):
+```text
+ASSET: one pose of the player's batter, as in the attached battle mockup: a LARGE foreground hero seen from behind and slightly to his left (three-quarter back view, over-the-shoulder camera), facing the pitcher who would be toward the upper-right of the screen. Native 128x160 then x4, TRANSPARENT background (or flat #FF00FF). Full body from helmet to cleats, feet on the bottom edge area, nothing cropped, 6% empty margin.
+Character (identical in every pose): young Korean batter, cream-white pinstripe-free uniform with navy/gold trim and a large "9" style number shape on the back WITHOUT readable text, navy helmet with gold accent, navy sleeves, batting gloves, wooden bat. Same proportions, same colours, same pixel density in every pose. Floodlight rim light from the upper-right, soft warm key.
+```
+| ID | 포즈 (공통 문단 끝에 붙인다) |
+| --- | --- |
+| BAT-READY | `Pose: relaxed stance, bat resting high over the back shoulder, weight centered, eyes on the pitcher.` |
+| BAT-LOAD | `Pose: loading — hands drift back, front knee turns in slightly, weight shifting onto the back leg.` |
+| BAT-TRIGGER | `Pose: stride — front foot lifts and steps toward the pitcher, hands still back, hips closed.` |
+| BAT-SWING-START | `Pose: front foot planted, hips start to open, bat head drops behind the shoulder, elbows tucked.` |
+| BAT-SWING-MID | `Pose: mid swing — bat horizontal coming through the zone, hips fully rotating, head down.` |
+| BAT-CONTACT | `Pose: contact — arms extending, bat meeting the ball in front of the plate, maximum torque, back heel lifting.` |
+| BAT-FOLLOW-THROUGH-EARLY | `Pose: early follow-through — bat continuing past the front shoulder, chest facing the field.` |
+| BAT-FOLLOW-THROUGH-LATE | `Pose: late follow-through — bat wrapping around behind the neck, back foot on its toe.` |
+| BAT-FINISH | `Pose: finish — balanced on the front leg, bat over the shoulder, watching the ball fly.` |
+| BAT-SETTLE | `Pose: settle — stepping back to neutral, bat lowered, breathing, eyes still on the field.` |
+
+## 투수 캐릭터 방향 (새 투수 그림을 만들 때)
+- 모든 투수는 **성인 여성**, 매력적이고 매혹적이며 강렬한 존재감. 자신감 있는 표정과 포즈, 화려한 스포츠 패션.
+- 수위 규칙은 기존 투수 프롬프트(`assets/pitcher-mobs-v1/PROMPTS.md`)와 동일: 불투명 의상, 노출·선정적 요소·속옷·페티시 금지, 어려 보이는 얼굴 금지.
