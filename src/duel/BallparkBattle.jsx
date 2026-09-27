@@ -35,6 +35,10 @@ const LANDED=new Set(['impact','slowmo','release','settle']);
 /* camera: which results push the lens in (BP-9). big = homer, mid = extra/dead-center, near = one-zone miss */
 export const CAMERA={homer:'big','grand-slam':'big',extra:'mid','dead-center':'mid','near-miss':'near','near-miss-k':'near'};
 export const STACK_COMMIT_MS=720;
+/* BP-14: the ball band turns into a lure warning at this share of pitches */
+export const LURE_PCT=30;
+/* card role chip colours, inside the ballpark palette */
+const ROLE_TONE={'장타':'gold','정타':'red','범위':'bone','진루':'brass'};
 const lessonZoneName=z=>z===9?'존 밖':ZONE_WORDS[z]||'코스';
 
 const CARD_ART_POS={
@@ -157,11 +161,14 @@ export default function BallparkBattle({
   const mainName=selected==='basic'?'맨손 스윙':mainEntry?CARDS[mainEntry.kind].name:null;
   const rate=choice?.damageRate!=null?'피해 ×'+Number(choice.damageRate).toFixed(2).replace(/0$/,''):'';
   const verb=mainIsSkill?'준비한다':'휘두른다';
-  /* only what the board does not already show: the HP multiplier, or the prepare uses left */
-  const verbSub=!selected?'':mainIsSkill?prepLeft+'회 남음':rate;
+  /* the verdict before the swing (BP-14): the share of pitches the chosen cells cover, then the HP multiplier */
+  const hitChance=selected&&!mainIsSkill&&choice?.coverage?.length?Math.round(choice.coverage.reduce((a,z)=>a+(z<9?probs[z]||0:0),0)*100):null;
+  const verbSub=!selected?'':mainIsSkill?prepLeft+'회 남음':[hitChance!=null?'적중권 '+hitChance+'%':'',rate].filter(Boolean).join(' · ');
   /* where the pitch is likely to go, as numbers: the share of every pitch (balls included), shown while deciding */
   const pct=z=>Math.round((probs[z]||0)*100);
   const topCell=live.reduce((a,z)=>(probs[z]||0)>(probs[a]||0)?z:a,live[0]);
+  /* the lure warning: when a third of the pitches or more go to the ball band, the band says so */
+  const lure=deciding&&pct(9)>=LURE_PCT;
   const tokens=judged?[r.coverage?.length?{z:r.aimZone,n:1}:null,...(r.supportZones||[]).map((z,i)=>({z,n:i+2}))].filter(Boolean)
     :[selected&&!mainIsSkill?{z:b.aimZone,n:1}:null,...stack.map((x,i)=>({z:x.aimZone,n:i+2}))].filter(Boolean);
   const call=judged?callOf(r,shot):'';
@@ -252,7 +259,7 @@ const CARD_DESC_MAP={
         <strong>{def.name||x.entry.kind}{x.entry.plus&&<sup>+</sup>}</strong>
         <div className="bp-card-chips">
           <span className="bp-chip type">{isSkillCard?'준비':'공격'}</span>
-          <span className="bp-chip role">{roleTag}</span>
+          <span className={"bp-chip role r-"+(ROLE_TONE[roleTag]||"plain")}>{roleTag}</span>
         </div>
       </div>
       <div className="bp-card-desc">
@@ -348,6 +355,7 @@ const CARD_DESC_MAP={
         {deciding&&runners>0&&<span className="bp-press" data-testid="bp-press" aria-label={`주자 ${runners}명 · 안타 피해 +${runnerPct}%`}><em>주자 압박</em><b>+{runnerPct}%</b></span>}
       </div>
       {voice&&<q className={'bp-voice m-'+moment} key={'q'+playToken+moment} data-testid="bp-voice">{voice}</q>}
+      {deciding&&lines.whisper&&<span className="bp-tell" data-testid="bp-tell">{lines.whisper}</span>}
       </div>
       {showVerdict&&(()=>{
         const isHomerSplash=Boolean(shot?.grade==='homer'||shot?.grade==='grand-slam'||(call&&call.includes('홈런')));
@@ -381,7 +389,7 @@ const CARD_DESC_MAP={
         <span className="bp-side l">몸쪽</span><span className="bp-side r">바깥쪽</span>
         {/* the ball band: the ring around the nine cells is where balls go. Swing at one = a whiff,
             watch one = a ball. It is drawn so the out-of-zone pitch has a place players can see. */}
-        <span className={'bp-band'+(outside&&landed?' hit':'')} aria-hidden="true"><em>바깥 띠 = 볼{deciding?' '+pct(9)+'%':''}</em></span>
+        <span className={'bp-band'+(outside&&landed?' hit':'')+(lure?' lure':'')} data-testid="bp-band" aria-hidden="true"><em>{lure?'유인구 주의 · 볼 '+pct(9)+'%':'바깥 띠 = 볼'+(deciding?' '+pct(9)+'%':'')}</em></span>
         {judged&&landed&&outside&&<i className="bp-pitch-mark outside" aria-label="실제 공 · 볼"/>}
       </div>
 

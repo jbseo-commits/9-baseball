@@ -1,6 +1,7 @@
 # 품질 기준 — 상업 게임 레퍼런스 대비 블라인드 판정
 
-> 기준 이미지: [`benchmark/ref-01-commercial.png`](benchmark/ref-01-commercial.png) (사용자 제공, 2026-09-26). **이 이미지 = 모든 축 5점.**
+> 기준 이미지: **우리 게임 완성형 목업** [`benchmark/target/`](benchmark/target/) (사용자 제공, 2026-09-27) — 화면별로 매칭(전투 세로·가로, 지도, 보상, 강판, 타이틀). **목업 = 모든 축 5점.** 차이 분석: [`docs/design/v14/TARGET-MOCKUP.md`](../design/v14/TARGET-MOCKUP.md)
+> 보조: [`benchmark/ref-01-commercial.png`](benchmark/ref-01-commercial.png) (다른 장르 상업 게임, 매칭 목업이 없는 화면에만).
 > 목표(BAR_MET): 8축 평균 **4.3 이상**, 모든 축 **4 이상**.
 > 도구: `scripts/qa-shots.mjs` (스크린샷) → `scripts/compare-shots.mjs` (블라인드 시트·판정) → `QUALITY-LOG.md` (기록).
 > 이 기준 이미지는 내부 비교용이다. 게임 빌드에 포함하지 않는다.

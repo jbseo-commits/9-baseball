@@ -213,7 +213,10 @@
     "seg-full",
     "seg-lost",
     "seg-empty"
-   ]
+   ],
+   "sliceCells": {
+    "frame": 3
+   }
   },
   "A10": {
    "name": "A10-map-node",
@@ -583,8 +586,8 @@
     ]
    ],
    "states": [
-     "homerun",
-     "knockout"
+    "homerun",
+    "knockout"
    ]
   },
   "B3": {
@@ -599,6 +602,146 @@
    ],
    "states": [
     "ready"
+   ]
+  },
+  "BAT-READY": {
+   "name": "batter/ready",
+   "mode": "illustration",
+   "slice": 0,
+   "cells": [
+    [
+     128,
+     160
+    ]
+   ],
+   "states": [
+    "pose"
+   ]
+  },
+  "BAT-LOAD": {
+   "name": "batter/load",
+   "mode": "illustration",
+   "slice": 0,
+   "cells": [
+    [
+     128,
+     160
+    ]
+   ],
+   "states": [
+    "pose"
+   ]
+  },
+  "BAT-TRIGGER": {
+   "name": "batter/trigger",
+   "mode": "illustration",
+   "slice": 0,
+   "cells": [
+    [
+     128,
+     160
+    ]
+   ],
+   "states": [
+    "pose"
+   ]
+  },
+  "BAT-SWING-START": {
+   "name": "batter/swing-start",
+   "mode": "illustration",
+   "slice": 0,
+   "cells": [
+    [
+     128,
+     160
+    ]
+   ],
+   "states": [
+    "pose"
+   ]
+  },
+  "BAT-SWING-MID": {
+   "name": "batter/swing-mid",
+   "mode": "illustration",
+   "slice": 0,
+   "cells": [
+    [
+     128,
+     160
+    ]
+   ],
+   "states": [
+    "pose"
+   ]
+  },
+  "BAT-CONTACT": {
+   "name": "batter/contact",
+   "mode": "illustration",
+   "slice": 0,
+   "cells": [
+    [
+     128,
+     160
+    ]
+   ],
+   "states": [
+    "pose"
+   ]
+  },
+  "BAT-FOLLOW-THROUGH-EARLY": {
+   "name": "batter/follow-through-early",
+   "mode": "illustration",
+   "slice": 0,
+   "cells": [
+    [
+     128,
+     160
+    ]
+   ],
+   "states": [
+    "pose"
+   ]
+  },
+  "BAT-FOLLOW-THROUGH-LATE": {
+   "name": "batter/follow-through-late",
+   "mode": "illustration",
+   "slice": 0,
+   "cells": [
+    [
+     128,
+     160
+    ]
+   ],
+   "states": [
+    "pose"
+   ]
+  },
+  "BAT-FINISH": {
+   "name": "batter/finish",
+   "mode": "illustration",
+   "slice": 0,
+   "cells": [
+    [
+     128,
+     160
+    ]
+   ],
+   "states": [
+    "pose"
+   ]
+  },
+  "BAT-SETTLE": {
+   "name": "batter/settle",
+   "mode": "illustration",
+   "slice": 0,
+   "cells": [
+    [
+     128,
+     160
+    ]
+   ],
+   "states": [
+    "pose"
    ]
   }
  }
