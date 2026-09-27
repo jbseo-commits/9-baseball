@@ -131,9 +131,12 @@
   - 건드려도 되는 곳: `BallparkMap.jsx`, `ballpark.css .bp-map-*`.
   - 브랜치: `ag/20260928-p2-map-masterpiece`
 
-- [ ] P2-04 덱 & 도감 (Deck & Dex Collection) 16종 전면 일러스트 연결
+- [x] P2-04 덱 & 도감 (Deck & Dex Collection) 16종 전면 일러스트 연결
   - 무엇: `card-map.json`에 정의된 16종 카드 일러스트 및 `dex-*.png` 5종 투수 프로필, `deck-dex-backdrop.png`를 덱/도감 모달에 연결.
-  - 건드려도 되는 곳: `v12-collection.js`, `Card.jsx`, 관련 CSS.
+  - 완료 기준: 16종 카드 일러스트를 일반 카드 및 상세 시트에 연결, 도감/덱 배경에 `deck-dex-backdrop.png` 적용, 12명 투수 포트레이트 계약 유지, 115개 전체 테스트 통과, 27/27 visual QA 통과.
+  - 상태: 구현 완료 및 `tests/v15-deck-dex-masterpiece.test.js` 통과 (115개 파일 689/689 tests passed).
+  - 건드려도 되는 곳: `v12-collection.js`, `Card.jsx`, `App.jsx`, `CardDetailSheet.jsx`, 관련 CSS.
+  - 브랜치: `ag/20260928-p2-deck-dex`
 
 - [ ] P2-05 타이틀 & 엔딩 & 승리 컷씬 (Title & Ending & Victory Cutscene) 완성
   - 무엇: `title-keyart.png`, `ending-keyart.png`, `homerun-scene.png`, `knockout-red-rush-scene.png`를 타이틀/엔딩/홈런/강판 시네마틱 컷씬 레이어에 연결.

@@ -29,3 +29,8 @@
 /* the explicit way in: one button for the selected card, in the execute strip */
 .duel-combat .card-detail-open{min-height:44px;padding:0 12px;border:2px solid #235060;border-radius:2px;background:#07141B;color:#F4ECD8;font:inherit;font-size:13px;line-height:18px;font-weight:800;cursor:pointer;white-space:nowrap}
 .duel-combat .card-detail-open:focus-visible{outline:3px solid #FFE4A2;outline-offset:2px}
+
+/* V15 Deck & Dex Masterpiece Connections */
+.card-detail-art{width:100%;height:140px;border-radius:4px;overflow:hidden;margin:0 0 12px;border:1px solid #235060;box-shadow:inset 0 0 16px rgba(0,0,0,.6)}
+.card-detail-art img{width:100%;height:100%;object-fit:cover}
+

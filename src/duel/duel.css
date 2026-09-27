@@ -1303,3 +1303,12 @@ button.stack-slot{cursor:pointer}
 @media (prefers-reduced-motion:reduce){
   .sprite-stage.v4-sequence,.sprite-stage.v4-sequence *{animation:none!important;transition:none!important}
 }
+
+/* V15 Deck & Dex Masterpiece Connections */
+.card-art-img{width:100%;height:100%;object-fit:cover;border-radius:3px}
+.duel-modal:has(.collection){
+  background:linear-gradient(180deg, rgba(14,24,38,0.88) 0%, rgba(6,10,18,0.96) 100%),
+    url('../../assets/cards-v15/deck-dex-backdrop.png') center/cover no-repeat;
+  border-color:#3a5472;
+}
+

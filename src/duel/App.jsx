@@ -38,6 +38,7 @@ import BallparkStop from './BallparkStop.jsx';
 import BallparkEnd from './BallparkEnd.jsx';
 import DecisionDebrief from './DecisionDebrief.jsx';
 import CardDetailSheet,{cardDetailOf,installCardDetailGestures} from './CardDetailSheet.jsx';
+import {cardArtFor} from './card-art.js';
 import {installCoverPreview,coverMapOf} from './cover-preview.js';
 import ZoneLinks from './ZoneLinks.jsx';
 import OrderSheet from './OrderSheet.jsx';
@@ -130,11 +131,12 @@ function PixelIcon({art}){return <svg viewBox="0 0 32 32" aria-hidden="true" sha
 // A card is a deck part, not a command button: role, coverage axis and what it produces are always visible.
 function Card({kind,plus,onClick,selected,problem,preview,label,relation,note,disabled,coverMap,uses}){
   const c=CARDS[kind];
+  const art=cardArtFor(kind);
   return <button type="button" disabled={disabled} className={`duel-card ${c.type} ${selected?'selected':''} ${problem||disabled?'unavailable':''} ${relation?'rel-'+relation.kind:''}`}
     onClick={onClick} aria-label={(label||c.name)+(plus?' 강화':'')} aria-pressed={!!selected} data-card-kind={kind} data-card-plus={plus?1:0} data-card-problem={problem||undefined} data-cover-map={coverMap||undefined} aria-keyshortcuts="i">
     <span className="card-cost">{c.type==='skill'?'준비':'스윙'}</span>
     <span className="card-type">{c.role} · {c.axis?AXIS_NAMES[c.axis]:'타석 준비'}</span>
-    <div className="card-art">{preview?.coverage?<CoverageMini zones={preview.coverage}/>:<PixelIcon art={c.art}/>}</div>
+    <div className="card-art">{preview?.coverage?<CoverageMini zones={preview.coverage}/>:art?<img src={art} alt="" className="card-art-img"/>:<PixelIcon art={c.art}/>}</div>
     <strong>{c.name}{plus&&<i className="card-plus" aria-label="강화됨">+</i>}</strong>
     {uses&&<span className="card-uses">{uses}</span>}
     <span className="card-gives">{(plus?[]:c.gives).map(g=><i key={g}>{g}</i>)}{c.needs.map(n=><i key={n} className="need">{n}</i>)}</span>

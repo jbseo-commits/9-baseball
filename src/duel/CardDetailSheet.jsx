@@ -1,5 +1,6 @@
 import React,{useEffect,useRef} from 'react';
 import {CARDS,AXIS_NAMES,cardText,upgradeText} from './cards.js';
+import {cardArtFor} from './card-art.js';
 import './card-detail.css';
 
 /*
@@ -78,6 +79,7 @@ export default function CardDetailSheet({detail,onClose}){
   const closeRef=useRef(null),sheetRef=useRef(null);
   useEffect(()=>{closeRef.current?.focus();},[detail?.kind,detail?.plus]);
   if(!detail)return null;
+  const art=cardArtFor(detail.kind);
   const titleId='card-detail-title';
   const onKeyDown=e=>{
     if(e.key==='Escape'){e.preventDefault();e.stopPropagation();onClose();return;}
@@ -96,6 +98,7 @@ export default function CardDetailSheet({detail,onClose}){
         <h2 id={titleId}>{detail.name}<span className="card-detail-sr"> 카드 설명</span></h2>
         <button ref={closeRef} type="button" className="card-detail-close" onClick={onClose}>닫기</button>
       </header>
+      {art&&<div className="card-detail-art"><img src={art} alt="" /></div>}
       {detail.problem&&<p className="card-detail-problem" role="note">지금 사용할 수 없음 · {detail.problem}</p>}
       <p className="card-detail-rule">{detail.rule}</p>
       {(detail.gives.length>0||detail.needs.length>0)&&<ul className="card-detail-tags" aria-label="효과와 조건">
