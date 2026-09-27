@@ -16,7 +16,7 @@ const ROOT=path.resolve(path.dirname(new URL(import.meta.url).pathname),'..');
 const id=(process.argv[2]||'').toUpperCase(),arg=k=>{const i=process.argv.indexOf('--'+k);return i>0?process.argv[i+1]:null;};
 const specs=JSON.parse(fs.readFileSync(path.join(ROOT,'docs/art/gemini/assets.json'),'utf8'));
 const spec=specs.assets[id];
-if(!spec){console.error('usage: node scripts/asset-fix.mjs <A1..A11> [--in file.png]');process.exit(2);}
+if(!spec){console.error('usage: node scripts/asset-fix.mjs <A1..A11|CARD-PLACE|B2|B4|B5> [--in file.png]');process.exit(2);}
 
 let input=arg('in');
 if(!input){
@@ -32,7 +32,7 @@ const outDir=path.join(ROOT,'assets/ui-kit'),workDir=path.join(ROOT,'work/asset-
 fs.mkdirSync(outDir,{recursive:true});fs.mkdirSync(workDir,{recursive:true});
 const files=[];
 if(res.ok||process.argv.includes('--force')){
-  for(const o of res.outputs){const f=path.join(outDir,`${spec.name}-${o.state}.png`);fs.writeFileSync(f,encodePNG(upscale(o.native,specs.scale)));files.push(path.relative(ROOT,f));}
+  for(const o of res.outputs){const f=path.join(outDir,`${spec.name}-${o.state}.png`);fs.mkdirSync(path.dirname(f),{recursive:true});fs.writeFileSync(f,encodePNG(upscale(o.native,specs.scale)));files.push(path.relative(ROOT,f));}
 }
 /* preview: every state on the night panel colour, side by side, ×scale */
 const k=specs.scale,gap=4,W=res.outputs.reduce((s,o)=>s+o.native.width+gap,gap),H=Math.max(1,...res.outputs.map(o=>o.native.height))+gap*2;

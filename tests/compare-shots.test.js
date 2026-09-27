@@ -1,6 +1,6 @@
 import {describe,it,expect} from 'vitest';
 import fs from 'node:fs';
-import {verdict,AXES,BAR} from '../scripts/compare-shots.mjs';
+import {verdict,AXES,BAR,refFor} from '../scripts/compare-shots.mjs';
 
 // V14 QUALITY — blind before/after judging against the commercial reference (docs/art/QUALITY-BAR.md).
 const scores=(before,after)=>Object.fromEntries(AXES.map((a,i)=>[a,{before:[before[i]],after:[after[i]]}]));
@@ -25,5 +25,12 @@ describe('quality verdict',()=>{
     expect(fs.existsSync('docs/art/benchmark/ref-01-commercial.png')).toBe(true);
     const bar=fs.readFileSync('docs/art/QUALITY-BAR.md','utf8');
     for(const a of AXES)expect(bar).toContain(a);
+  });
+  it('each screenshot is judged against its own target mockup, and every target file exists',()=>{
+    expect(refFor('phone-portrait-battle-decide.png')).toMatch(/battle-portrait\.png$/);
+    expect(refFor('phone-landscape-battle-result.png')).toMatch(/battle-landscape\.png$/);
+    expect(refFor('pc-map.png')).toMatch(/target\/map\.png$/);
+    expect(refFor('phone-portrait-reward.png')).toMatch(/target\/reward\.png$/);
+    for(const f of ['phone-portrait-battle-decide.png','pc-battle-result.png','pc-map.png','pc-reward.png','x.png'])expect(fs.existsSync(refFor(f)),f).toBe(true);
   });
 });

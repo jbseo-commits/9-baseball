@@ -56,12 +56,16 @@ export function resampleCell(img,cell,nw,nh,pal){
     const sx0=cell.x+Math.floor(nx*cell.w/nw),sx1=Math.max(sx0+1,cell.x+Math.floor((nx+1)*cell.w/nw));
     const sy0=cell.y+Math.floor(ny*cell.h/nh),sy1=Math.max(sy0+1,cell.y+Math.floor((ny+1)*cell.h/nh));
     const votes=new Map();let opaque=0,total=0;
+    const sum=[0,0,0];
     for(let y=sy0;y<sy1;y++)for(let x=sx0;x<sx1;x++){
       const o=(y*W+x)*4;total++;if(data[o+3]<128)continue;opaque++;
+      if(!pal){sum[0]+=data[o];sum[1]+=data[o+1];sum[2]+=data[o+2];continue;}
       const [i,d]=nearest(data[o],data[o+1],data[o+2],pal);offSum+=Math.sqrt(d/9);offN++;votes.set(i,(votes.get(i)||0)+1);
     }
     const q=(ny*nw+nx)*4;
-    if(opaque*2<total||!votes.size){out[q+3]=0;continue;}
+    if(opaque*2<total||(pal&&!votes.size)){out[q+3]=0;continue;}
+    /* illustration mode (card art, portraits): keep the full colour, averaged per native pixel */
+    if(!pal){out[q]=Math.round(sum[0]/opaque);out[q+1]=Math.round(sum[1]/opaque);out[q+2]=Math.round(sum[2]/opaque);out[q+3]=255;continue;}
     const [pi]=[...votes.entries()].sort((a,b)=>b[1]-a[1])[0];const c=pal[pi];out[q]=c[0];out[q+1]=c[1];out[q+2]=c[2];out[q+3]=255;
   }
   return {img:{width:nw,height:nh,data:out},offPalette:offN?offSum/offN:0};
@@ -84,7 +88,7 @@ export function centreFlatness({width:w,height:h,data},inset){
 export const LIMITS={offPalette:40,aspect:.18,centreFlat:.85};
 
 export function fixAsset(raw,spec,paletteHex){
-  const pal=paletteRamp(paletteHex),clean=removeBackground(raw),cells=splitCells(clean),problems=[],outputs=[];
+  const pal=spec.mode==='illustration'?null:paletteRamp(paletteHex),clean=removeBackground(raw),cells=splitCells(clean),problems=[],outputs=[];
   if(cells.length!==spec.cells.length)problems.push(`cells: found ${cells.length}, expected ${spec.cells.length} (states side by side with clear gaps?)`);
   const touching=cells.some(c=>c.x===0||c.y===0||c.x+c.w>=raw.width||c.y+c.h>=raw.height);
   if(touching)problems.push('art touches the image edge (cropped?)');

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* Blind before/after comparison against the commercial reference (docs/art/QUALITY-BAR.md).
+/* Blind before/after comparison against the target mockups (docs/art/QUALITY-BAR.md).
 
    1) sheets:  node scripts/compare-shots.mjs --before work/qa-before --after work/qa-after
       For every screenshot that exists in both folders (qa-shots.mjs names), writes
@@ -20,6 +20,16 @@ const arg=k=>{const i=process.argv.indexOf('--'+k);return i>0?process.argv[i+1]:
 const OUT=path.join(ROOT,'work/compare'),KEY=path.join(OUT,'.key.json'),JUDGE=path.join(OUT,'judgement.json');
 export const AXES=['R1 화풍 통일','R2 UI 그림화','R3 빛·환경 통합','R4 캐릭터 존재감','R5 구도','R6 글자 가독','R7 정보 위계','R8 마감'];
 export const BAR={avg:4.3,min:4},IMPROVE={avgGain:.25,maxDrop:1};
+/* the target is our own finished-game mockup (user, 2026-09-27); ref-01 stays as a craft-only fallback */
+const T='docs/art/benchmark/target/';
+export function refFor(shot){
+  if(/battle/.test(shot))return T+(/portrait/.test(shot)?'battle-portrait.png':'battle-landscape.png');
+  if(/map/.test(shot))return T+'map.png';
+  if(/reward/.test(shot))return T+'reward.png';
+  if(/knockout/.test(shot))return T+'knockout.png';
+  if(/title/.test(shot))return T+'title.png';
+  return 'docs/art/benchmark/ref-01-commercial.png';
+}
 
 /* box-filter resize to height h */
 function resize(img,h){
@@ -73,13 +83,13 @@ if(process.argv[1]&&path.resolve(process.argv[1])===path.resolve(new URL(import.
   }
   const before=arg('before'),after=arg('after');
   if(!before||!after){console.error('usage: --before <qa dir> --after <qa dir>  |  --reveal');process.exit(2);}
-  const ref=decodePNG(fs.readFileSync(path.join(ROOT,'docs/art/benchmark/ref-01-commercial.png')));
+  const refCache={},ref=f=>{const n=refFor(f);return refCache[n]??=decodePNG(fs.readFileSync(path.join(ROOT,n)));};
   const key={},template={change:'<무엇을 바꿨나>',judge:'<판정 에이전트>',note:'A/B는 무작위. .key.json 열지 말 것. 각 축 1~5 (기준 이미지=5)',sheets:{}};
   for(const f of fs.readdirSync(before).filter(f=>f.endsWith('.png')&&fs.existsSync(path.join(after,f)))){
     const b=decodePNG(fs.readFileSync(path.join(before,f))),a=decodePNG(fs.readFileSync(path.join(after,f)));
     const H=Math.min(720,Math.max(b.height,a.height)),flip=crypto.randomInt(2)===1;
     const [A,B]=flip?[a,b]:[b,a];
-    fs.writeFileSync(path.join(OUT,f),encodePNG(row([resize(ref,H),resize(A,H),resize(B,H)])));
+    fs.writeFileSync(path.join(OUT,f),encodePNG(row([resize(ref(f),H),resize(A,H),resize(B,H)])));
     key[f]={A:flip?'after':'before',B:flip?'before':'after'};
     template.sheets[f]=Object.fromEntries(AXES.map(x=>[x,{A:null,B:null}]));
   }

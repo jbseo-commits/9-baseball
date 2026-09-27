@@ -74,7 +74,16 @@ describe('asset-fix',()=>{
   it('every asset in the spec names its states and native sizes consistently',()=>{
     for(const [id,a] of Object.entries(specs.assets)){
       expect(a.cells.length,id).toBe(a.states.length);
-      expect(a.name.startsWith(id+'-'),id).toBe(true);
+      if(a.mode!=='illustration')expect(a.name.startsWith(id+'-'),id).toBe(true);
     }
+  });
+  it('illustration mode keeps colours outside the UI palette (card art, portraits)',()=>{
+    const native={width:20,height:28,data:new Uint8Array(20*28*4)};
+    for(let i=0;i<20*28;i++)native.data.set([40,160,230,255],i*4);   // a sky blue the UI palette does not have
+    const gen={width:20*6+40,height:28*6+40,data:new Uint8Array((20*6+40)*(28*6+40)*4)};
+    for(let i=0;i<gen.width*gen.height;i++)gen.data.set([255,0,255,255],i*4);
+    for(let y=0;y<28*6;y++)for(let x=0;x<20*6;x++)gen.data.set([40,160,230,255],((y+20)*gen.width+x+20)*4);
+    const res=fixAsset(gen,{name:'B1-x',mode:'illustration',slice:0,cells:[[20,28]],states:['art']},specs.palette);
+    expect(res.ok).toBe(true);expect([...res.outputs[0].native.data.slice(0,4)]).toEqual([40,160,230,255]);
   });
 });

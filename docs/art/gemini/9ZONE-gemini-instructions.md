@@ -117,3 +117,62 @@ ASSET: icon set, 12 icons, each native 12x12, in one row (or 2 rows of 6) with m
 Icons: (1) deck — stack of three cards; (2) discard — card with a small downward arrow; (3) sound on — stadium speaker with two waves; (4) sound off — speaker with a small cross; (5) help — round baseball with a question-mark-shaped stitch (not a letter, a stitch curve); (6) locker room — locker door; (7) training — baseball bat and ball; (8) shop — equipment bag; (9) rest — crescent moon over a cap; (10) runner — small running figure silhouette on a base; (11) shaken — a baseball with a crack line; (12) signature — four-point star in gold.
 Cream and gold on transparent, 1px #07080d outline.
 ```
+
+---
+
+# [B 트랙] 완성형 목업용 일러스트 에셋
+
+> 기준: 사용자가 준 **9ZONE 완성형 목업**(카드 일러스트, 코치, 지도, 스플래시). 목업 이미지를 같이 올리면 가장 좋다.
+> UI 킷(A)과 달리 **색 제한 없음**(일러스트). 대신 투수 그림과 같은 고밀도 애니 픽셀 아트 화풍, 글자 없음, 배경 규칙은 동일.
+> 사용자 입력: `CARD-PLACE` 같은 ID 하나 → 그 그림 1장 생성. `카드 전부` → 아래 카드 16장을 순서대로 한 장씩.
+
+## [B 공통 규칙]
+```text
+You are creating one illustration asset for 9ZONE HOMEBOUND, a premium anime pixel-art baseball roguelike.
+Match the attached target mockup and pitcher images in rendering: exquisite high-density 2D anime pixel art, visible square pixels, crisp stair-stepped highlights, 4–6 step hue-shifted cel shading, dramatic lighting, strong silhouette readable at small size. Never 3D, never photo, never blurry painting with a pixel filter.
+Our batter: young Korean baseball player in a CREAM uniform with TEAL helmet and teal sleeves, dark hair, determined face. Night stadium world with warm floodlights.
+ABSOLUTELY NO text, letters, numbers, logos or watermark in the image. No frame or border (the game draws the frame).
+OUTPUT: PNG. Background as described per asset; if a transparent background is requested and impossible, use flat #FF00FF.
+```
+
+## 카드 일러스트 16장 — 공통 (각 카드 프롬프트 앞에 [B 공통 규칙] + 이 줄)
+```text
+ASSET: trading-card illustration, landscape 4:3, native grid 96x72 then x4. Full-bleed scene (no transparency): a close dynamic action moment with a dark vignette and ONE dominant energy colour glow, composed so the subject reads in a 90px-wide thumbnail. Same batter character in every card.
+```
+| ID | 카드 | 장면 (프롬프트 끝에 붙인다) |
+| --- | --- | --- |
+| CARD-PLACE | 정타 노림 | `Scene: the batter's bat meets the ball dead-center, a starburst of GOLD sparks at the sweet spot, ball deforming, extreme close-up on bat and ball.` |
+| CARD-STRIKE | 밀어치기 | `Scene: the batter slaps an outside pitch to the opposite field, ball streaking right with a BLUE-WHITE wind trail, bat extended.` |
+| CARD-SLUG | 당겨 넘기기 | `Scene: full pull swing, massive hip rotation, the ball rocketing left wrapped in RED-ORANGE fire, silhouette against flames.` |
+| CARD-RALLY | 주자 연결 | `Scene: a runner sliding into second base under TEAL light trails while the batter follows through in the background.` |
+| CARD-BUNT | 희생 번트 | `Scene: the batter squares to bunt, bat horizontal, ball dropping softly at his feet with a calm CREAM glow, dust at the plate.` |
+| CARD-FINISHER | 갭 공략 | `Scene: a line drive splitting two outfielders in the gap, GOLD streak cutting across a dark outfield.` |
+| CARD-DEFEND | 커트 스윙 | `Scene: the batter fouls off a nasty pitch with a short defensive swing, ball deflecting backward with VIOLET sparks, gritty expression.` |
+| CARD-WALL | 존 봉쇄 | `Scene: a glowing 3x3 strike-zone lattice of BRASS-GOLD light in front of the batter like a shield, pitch shattering against it.` |
+| CARD-LASER | 라인드라이브 | `Scene: a razor-straight line drive leaving a BRIGHT CYAN-WHITE laser beam from bat to horizon.` |
+| CARD-COMMIT | 끝장 승부 | `Scene: the batter alone in a spotlight, eyes locked, bat raised, a single glowing target square in front of him, CRIMSON aura, everything else dark.` |
+| CARD-SETUP | 타이밍 맞추기 | `Scene: the batter's front foot tapping, faint clock-like rings of GOLD light around the stride, calm focus.` |
+| CARD-WATCH | 작전 확인 | `Scene: the batter glancing at the third-base coach giving hand signs, TEAL signal glints, dugout lights behind.` |
+| CARD-SCOUT | 릴리스 간파 | `Scene: over-the-shoulder view of a pitcher's release point, the grip highlighted by a BLUE analytic glow in the batter's eyes.` |
+| CARD-LURE | 코스 조정 | `Scene: the batter shifting in the box, feet sliding, GOLD guide lines on the dirt showing a new stance.` |
+| CARD-FLOW | 히트앤드런 사인 | `Scene: a runner breaking from first on the pitch, TEAL motion streaks, batter preparing to swing.` |
+| CARD-CALM | 호흡 고르기 | `Scene: the batter stepping out of the box, eyes closed, breathing out a soft CREAM mist, gentle warm light.` |
+
+## B2 코치 초상 → `B2-*.png`
+```text
+ASSET: bust portrait of the team's veteran coach for dialogue, native 64x64 then x4, transparent background (or flat #FF00FF). A weathered Korean man in his 50s, navy team cap with a small gold 9, grey stubble, sunglasses pushed up on the cap or dark shades, navy windbreaker, a knowing half-smile. Facing right toward the dialogue box, 3/4 view, shoulders cut at the bottom edge.
+```
+
+## B4 원정 지도 배경 → `B4-*.png`
+```text
+ASSET: illustrated world map background for the run map, native 240x160 then x4, full-bleed (no transparency). Top-down 3/4 view of a coastal Korean city at dusk: a river with bridges, districts, and several small baseball stadiums as landmarks connected by empty space where route paths will be drawn by code. Warm city lights, purple-orange sky at the top edge. No icons, no paths, no text.
+```
+
+## B5 스플래시 2종 → `B5-*.png` (한 이미지에 두 칸 나란히, 사이 마젠타 간격)
+```text
+ASSET: two full-bleed splash backgrounds side by side, each native 160x96 then x4, separated by a flat #FF00FF gap.
+(1) HOME RUN: the batter at the end of a huge swing seen from behind-right, ball rocketing into a night sky full of fireworks, blue-white light beams radiating from the bat, stadium lights flaring. Leave the upper-right third calm for a big title drawn by code.
+(2) KNOCKOUT: dramatic red-toned stadium, blurred crowd, empty pitcher's mound with a dropped glove and cap under a single spotlight (NO pitcher figure). Leave the right half calm for text drawn by code.
+```
+
+> 정리: 받은 PNG를 `assets/ui-kit/raw/<ID>-1.png`로 저장 → `node scripts/asset-fix.mjs <ID>` (illustration 모드: 색 유지, 배경·크기·격자만 정리).
