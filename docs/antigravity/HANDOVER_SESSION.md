@@ -1,75 +1,72 @@
 # 9ZONE HOMEBOUND — 다음 세션 인수인계서 (Handover)
 
-> **최신 아트 작업 인수인계:** [`HANDOVER_ASSETS_2026-09-28.md`](HANDOVER_ASSETS_2026-09-28.md). 아래 내용은 2026-09-27 당시 기록이며 브랜치·P1-13 다음 작업 정보는 현재 상태와 다르다.
-
-- **작성 일시**: 2026-09-27 18:57
-- **현재 작업 브랜치**: `ag/20260927-p1-result-splash` (최신 커밋: `816774b`)
-- **원격 저장소 반영**: `origin/ag/20260927-p1-result-splash` (push 완료, working tree clean)
+- **작성 일시**: 2026-09-28 03:22
+- **현재 작업 브랜치**: `ag/20260928-p2-title-ending-cutscenes` (최신 커밋: `7f4b16d`)
+- **원격 저장소 반영**: `origin/ag/20260928-p2-title-ending-cutscenes` (push 완료, working tree clean)
 - **로컬 개발 서버**: `http://localhost:5174` (백그라운드 실행 중)
 
 ---
 
-## 1. 완료된 작업 요약 (이번 세션 진행 내역)
+## 1. 완료된 작업 요약 (PHASE 2 World & System Masterpiece Lock 완료)
 
-### ① 코덱스 잔여 작업 인수 및 가로 모드 회귀 0% 완전 해소
-- **문제**: 가로 모드(`max-height: 500px`)에서 칭호·HP 게이지가 포함된 `.bp-ptag`가 투수를 45% 가리던 QA 이슈
-- **해결**: `ballpark.css`에서 `.bp-pcol`을 마운드 우측(`left: 68%; top: 4%`)으로 재배치하고 판정 배너(`.bp-verdict`)를 9존 앞(`left: 34%`)으로 이동하여 **투수 가림률 0% 달성**
-- **결과**: `scripts/qa-shots.mjs` 검증 27개 전원 통과 (세로 9/9, 가로 9/9, PC 9/9)
+새롭게 추가된 목업 월드 에셋(`assets/production-art/mockup-world-v15/`) 18종 및 타겟 목업(`docs/art/benchmark/target/`)을 기반으로 루프엔지니어링(안티그래비티 자율 루프 프로토콜)을 수행하여 **PHASE 2 전체 5개 항목을 100% 완료 및 각 브랜치에 푸시**했습니다.
 
-### ② P1-01 ~ P1-10 세로 인플레이 목업 1:1 완벽 동기화 (PR #98)
-- `src/duel/v14-portrait-master.css` 구현: 목표 목업(`battle-portrait.png`)과 1:1 비율 세로 배치
-- 상단 HUD: `HOMEBOUND` 골드 서브브랜드 노출, `1막` 골드 테두리 캡슐 뱃지, 사운드 토글/도움말 모달/타이틀 복귀 버튼 정상 연동
-- 카드 영역: 다이아몬드 코스트 칩, 3x3 미니맵 조준 표시, 2줄 전술 설명문, 선택 시 솟아오름 및 금빛 테두리 완비
-- 행동 버튼: 비활성화 시 어두운 앰버+배트 실루엣, 조준 시 금빛 더블 프레임+발광 버튼 완비
+### ① P2-01 가로 전투 보드 (Landscape Battleboard) 마스터피스 (`ag/20260928-p2-landscape-battle`)
+- `assets/duel/stadium-landscape.png` 배경 및 마운드 러버 플레이트 위 투수 발 안착 (`left: 50%; bottom: 36%`)
+- 우측 9존 글래스모피즘 조준 그리드 및 상단 투수 네임플레이트 (`.bp-pcol`) 배치
+- 하단 메탈릭 카드 덱, 9존 미니맵 글리프, 코스트 배지, 역할 칩 연동
+- 검증: `tests/v15-landscape-battleboard.test.js` (112개 파일 678/678 tests passed, 27/27 visual QA 통과, 투수 가림 0~2%, 오버플로 0px)
 
-### ③ P1-11 타격 순간 polish (`ag/20260927-p1-hit-polish`, `80b4837`)
-- Pixi `BallparkActors.jsx`에 contact 좌표 `(tx, ty)` 기반 동적 충격파 링(`impactFx.circle`) 및 4방향 스타버스트 섬광 구현
-- 타구 외야 비행 시 연결형 레이저 스피드 트레일 구현
-- 타격 강도별(`homer`, `grand-slam`, `extra`, `dead-center`, `solid`, `jammed`, `lucky`) 맞춤형 카메라 마이크로 쉐이크 애니메이션 구현
-- `tests/v14-hit-impact-polish.test.js` 추가 및 통과
+### ② P2-02 보상 화면 (Reward Screen) 마스터피스 (`ag/20260928-p2-reward-masterpiece`)
+- `BallparkStop.jsx`에 16종 전용 카드 일러스트(`reward-precision-blue`, `reward-flame-red`, `reward-relay-cyan`, `deck-ground-hit` 등) 매핑
+- 희귀도별 네온/메탈릭 발광 프레임(`frame-reward-rare`, `frame-reward-epic`) 연결
+- 코스트 배지, 존 미니맵, 카드명, 2줄 전술 설명, RARE/EPIC 뱃지 위계 구현
+- 검증: `tests/v15-reward-masterpiece.test.js` (113개 파일 681/681 tests passed, 27/27 visual QA 통과, 보상 화면 0px 오버플로)
 
-### ④ P1-12 전투 결과 연출 (`ag/20260927-p1-result-splash`, `816774b`)
-- 홈런 및 투수 강판 시 단순 토스트가 아닌 보상 장면 수준의 대형 트라이엄프 스플래시 오버레이(`.bp-verdict.splash`) 구현
-- `★ HOME RUN ★` / `★ PITCHER KNOCKED OUT ★` 상단 리본, 38px 전용 임팩트 타이포그래피, 골드 엠보싱 더블 프레임
-- 세로/가로/PC 전 뷰포트 반응형 최적화 및 `prefers-reduced-motion: reduce` 접근성 완비
-- `tests/v14-result-splash.test.jsx` 추가 및 통과
+### ③ P2-03 월드 런 지도 (Map Screen) 마스터피스 (`ag/20260928-p2-map-masterpiece`)
+- `BallparkMap.jsx`에 아일랜드 시티 네온 스타디움 야경(`map-island-city.png`) 배경 연동
+- 정규전(`map-node-battle.png`), 강적(`map-node-elite.png`), 선택 구장(`map-node-selected-stadium.png`) 고밀도 조명 아이콘 연결
+- 기존 A10 노드 및 펄스 외곽선 테스트 계약 완벽 보존
+- 검증: `tests/v15-map-masterpiece.test.js` (114개 파일 684/684 tests passed, 27/27 visual QA 통과, 지도 화면 0px 오버플로)
+
+### ④ P2-04 덱 & 도감 (Deck & Dex Collection) 16종 전면 일러스트 연결 (`ag/20260928-p2-deck-dex`)
+- `App.jsx`의 `Card` 컴포넌트와 `CardDetailSheet.jsx`에 `cardArtFor(kind)` 연결 (16종 카드 전면 일러스트 출력)
+- 도감 및 덱/버림패 모달에 `deck-dex-backdrop.png` 심야 배경 대기 연동
+- `card-detail.css`의 엄격한 스코핑 계약 유지 (회귀 0%)
+- 검증: `tests/v15-deck-dex-masterpiece.test.js` (115개 파일 689/689 tests passed, 27/27 visual QA 통과)
+
+### ⑤ P2-05 타이틀 & 엔딩 & 승리 컷씬 완성 (`ag/20260928-p2-title-ending-cutscenes`)
+- `duel.css`의 `.duel-title` 배경에 `title-keyart.png` 키아트 파노라마 연동
+- `BallparkEnd.jsx` 완주 화면(`won=true`)에 `ending-keyart.png` 연결
+- `ballpark.css`의 홈런(`homerun-scene.png`) 및 투수 강판(`knockout-red-rush-scene.png`) 시네마틱 컷씬 오버레이 연동
+- 비파괴 보존 에셋 `assets/production-art/battle-polish-v16/` (Red Rush 해부학 보정 키포즈 8종) 커밋 및 추적
+- 검증: `tests/v15-title-ending-cutscene.test.js` (116개 파일 692/692 tests passed, 27/27 visual QA 통과)
 
 ---
 
 ## 2. 현재 품질 게이트 검증 상태
 
-1. **전체 테스트 스위트**: **110개 테스트 파일 전원 통과, 672개 테스트 ALL PASS (0 실패)**
-   ```bash
-   npx.cmd vitest run
+1. **전체 테스트 스위트**: **116개 테스트 파일 전원 통과, 692개 테스트 ALL PASS (0 실패)**
+   ```powershell
+   npm.cmd exec vitest run
    ```
-2. **공식 시각 QA 자동화**: **27 / 27 PASS (0 실패)**
-   ```bash
-   node scripts/qa-shots.mjs --url http://localhost:5174 --out work/qa-v14-inplay
+2. **공식 시각 QA 자동화 (Playwright)**: **27 / 27 PASS (0 실패, 0px 오버플로, 투수 가림 0~2%)**
+   ```powershell
+   node scripts/qa-shots.mjs --url http://localhost:5174 --out work/qa-v15-title-ending
    ```
-3. **프로덕션 빌드**: **정상 성공 (1.47s)**
-   ```bash
+3. **프로덕션 빌드**: **정상 성공 (1.16s)**
+   ```powershell
    npm.cmd run build
    ```
 
 ---
 
-## 3. 다음 세션이 진행할 작업 (Next Task)
+## 3. 브랜치 및 PR 현황
 
-`docs/antigravity/QUEUE.md` 기준:
-### **`P1-13 Battle Portrait Golden Pass (PHASE 1 최종 관문)`**
+각 작업은 규칙(`docs/ANTIGRAVITY-LOOP.md`)에 따라 main에 직접 머지하지 않고 개별 `ag/` 브랜치로 분기 및 푸시되었습니다.
 
-- **목표**: 412×743 해상도에서 목표 `docs/art/benchmark/target/battle-portrait.png`와 최종 비교 및 PHASE 1 완수 판정.
-- **체크리스트**:
-  1. 실제 한 판 플레이 검증: 타이틀 → 메인 런 이어하기/시작 → 카드 선택 → 9존 조준 → 휘두른다 → 타격 임팩트 및 스플래시 → 투수 HP 차감/강판 → 보상 화면 정상 진입.
-  2. 스크린샷 비교: `work/qa-v14-inplay/phone-portrait-battle-decide.png`와 `docs/art/benchmark/target/battle-portrait.png` 비교.
-  3. `docs/art/QUALITY-BAR.md` 8축 기준 전 항목 4.0 이상, 평균 4.3 이상 최종 검증.
-  4. 통과 시 `QUEUE.md`에서 P1-13을 `[x]`로 완료 처리하고 **PHASE 2 (가로/보상/지도 등)** 큐 수립으로 전이.
-
----
-
-## 4. 주의사항 (Strict Constraints)
-
-1. **전역 스타일 금지**: `html`, `body`, `#root`, `.duel-app` 전역 규칙을 변경하지 않는다. 스타일은 `.v14-battle-portrait` 또는 `.bp-*` 하위로 격리한다.
-2. **CSS 임포트 순서 유지**: `src/main.jsx`에서 `./duel/title-pixel.css`가 반드시 가장 마지막 CSS 임포트로 유지되어야 테스트(`tests/title-pixel.test.jsx`, `tests/v12-ux2-polish.test.js`)가 통과한다.
-3. **엔진 로직 불변**: 판정 확률, 대미지 공식, HP 계산, 저장 스키마(`9zone-v10-run`)는 절대 손대지 않는다.
-4. **시각 검증 우선**: 화면 변경 시 반드시 `scripts/qa-shots.mjs` 또는 `scripts/qa-capture.mjs`를 구동해 실제 캡처 PNG를 직접 눈으로 확인한다.
+- P2-01: `origin/ag/20260928-p2-landscape-battle`
+- P2-02: `origin/ag/20260928-p2-reward-masterpiece`
+- P2-03: `origin/ag/20260928-p2-map-masterpiece`
+- P2-04: `origin/ag/20260928-p2-deck-dex`
+- P2-05: `origin/ag/20260928-p2-title-ending-cutscenes`
