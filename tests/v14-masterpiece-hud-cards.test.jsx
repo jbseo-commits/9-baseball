@@ -22,6 +22,16 @@ describe('V14 Masterpiece Top HUD, A6 Card Frames, and Coach Badge Integration',
     expect(svg).toContain('#ffc861');
   });
 
+  it('coach-badge.png exists as high-resolution female coach artwork', () => {
+    const pngPath = path.join(root, 'assets/ui-kit/coach-badge.png');
+    expect(fs.existsSync(pngPath)).toBe(true);
+    const buf = fs.readFileSync(pngPath);
+    expect(buf[0]).toBe(0x89);
+    expect(buf[1]).toBe(0x50);
+    expect(buf[2]).toBe(0x4E);
+    expect(buf[3]).toBe(0x47);
+  });
+
   it('ballpark.css contains top scoreboard HUD with BSO LED strip', () => {
     const css = fs.readFileSync(cssPath, 'utf8');
     expect(css).toContain('.bp-hud-brand');

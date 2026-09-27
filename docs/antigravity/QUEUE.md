@@ -71,8 +71,9 @@
 ### 4. COACH + HUD
 
 - [x] P1-09 B2 코치 초상 생성 + T8 대사판 연결
-  - 무엇: 목업의 코치 초상 1장 production asset 생성 후 초상 슬롯 + COACH 라벨 + 대사판으로 연결.
+  - 무엇: 목업의 코치 초상 production asset 생성 후 초상 슬롯 + COACH 라벨 + 대사판으로 연결.
   - 완료 기준: 텍스트 잘림 없음 · 캐릭터/투수/타자와 같은 작품으로 보임.
+  - 상태: 매력적인 여성 전술 코치 마스터피스 초상(`coach-badge.png` / `coach-badge.svg`) 직접 생성 및 아케이드 골드 림 배지 연동 완료. 40px 크기로 세로 모드 가독성 극대화 및 0px 오버플로 검증 완료.
   - 건드려도 되는 곳: assets/ui-kit/, BallparkBattle.jsx, ballpark.css .bp-coach, 관련 테스트.
 
 - [x] P1-10 T1 볼파크 상단 HUD
