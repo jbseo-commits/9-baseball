@@ -62,7 +62,7 @@ describe('V13 BALLPARK battle',()=>{
     fireEvent.click(cells()[5]);
     expect(readV10Duel(localStorage).battle.aimZone).toBe(5);
     expect(swingBtn().disabled).toBe(false);
-    expect(swingBtn().textContent).toMatch(/^휘두른다피해 ×/);
+    expect(swingBtn().textContent).toMatch(/^휘두른다적중권 \d+% · 피해 ×/);
     expect(cells()[5].classList.contains('aim')).toBe(true);
   });
 
@@ -258,5 +258,41 @@ describe('V13 BP-10 the pitcher stays visible',()=>{
     expect(css).toMatch(/\.bp-ptag\{position:absolute;right:8px;top:8px/);
     expect(css).toMatch(/\.bp-scene \.bp-voice\{position:absolute;left:4%/);
     expect(css).toMatch(/\.bp-pitcher\{left:auto;right:5%;top:auto;bottom:35%;height:31%\}/);
+  });
+});
+
+
+describe('V13 BP-14 read the pitch at a glance',()=>{
+  it('the swing verb shows the share of pitches the chosen cells cover, from the public odds',async()=>{
+    const {publicProbabilities}=await import('../src/duel/engine.js');
+    begin();fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
+    const s=readV10Duel(localStorage),cov=[...document.querySelectorAll('.bp-cell.cover')].map(c=>cells().indexOf(c));
+    const probs=s.battle.pending?publicProbabilities(s):s.battle.intent.probabilities;
+    const want=Math.round(cov.reduce((a,z)=>a+(probs[z]||0),0)*100);
+    expect(swingBtn().textContent).toContain('적중권 '+want+'%');
+  });
+  it('her tell sits beside her while deciding, short',()=>{
+    const s=begin();const tell=screen.queryByTestId('bp-tell');
+    const w=intentLines(s.battle.intent).whisper;
+    if(w){expect(tell.textContent).toBe(w);expect(w.length).toBeLessThan(16);}
+  });
+  it('every swing card wears its role chip in the ballpark palette',()=>{
+    begin();
+    for(const c of cards()){const role=CARDS[c.dataset.cardKind].role;if(role)expect(c.querySelector('.bp-role').textContent).toBe(role);}
+    const css=fs.readFileSync(path.resolve('src/duel/ballpark.css'),'utf8');
+    expect(css).toMatch(/\.bp-role\.r-gold\{color:var\(--bp-sodium\)\}/);
+  });
+  it('the ball band turns into a lure warning at 30% balls, and not below',async()=>{
+    const {default:BallparkBattle,LURE_PCT}=await import('../src/duel/BallparkBattle.jsx');
+    expect(LURE_PCT).toBe(30);
+    const make=ball=>{let s=createV10Duel(1);s=enterV10Node(s,'a1-entry');const rest=(1-ball)/9;
+      s={...s,battle:{...s.battle,pending:null,intent:{...s.battle.intent,probabilities:[...Array(9).fill(rest),ball]}}};return s;};
+    for(const [ball,on] of [[.4,true],[.2,false]]){
+      const s=make(ball);cleanup();
+      render(<BallparkBattle s={s} hand={[]} pitcher={s.pitcher}/>);
+      const band=screen.getByTestId('bp-band');
+      expect(band.classList.contains('lure'),String(ball)).toBe(on);
+      if(on)expect(band.textContent).toBe('유인구 주의 · 볼 40%');
+    }
   });
 });

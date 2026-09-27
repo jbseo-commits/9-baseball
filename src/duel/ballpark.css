@@ -624,3 +624,21 @@
 @keyframes bp-rare-breathe{from{box-shadow:0 0 0 1px #ffc86199,0 0 14px #ffc86144}to{box-shadow:0 0 0 1px #ffc861cc,0 0 26px #ffc86177}}
 .bp-rare-tag{justify-self:start;padding:2px 6px;border:1px solid var(--bp-sodium);border-radius:2px;font:normal 400 10px/1 var(--bp-led);letter-spacing:.1em;color:var(--bp-sodium)}
 @media (prefers-reduced-motion:reduce){.bp-offers.reveal .bp-offer,.bp-offers.reveal .bp-offer-back,.bp-offer.rare::after{animation:none!important}.bp-offers.reveal .bp-offer-back{opacity:0}}
+
+/* BP-14 — read the pitch at a glance: her tell beside her, the lure warning on the ball band,
+   the hit share on the swing verb, a role chip on each card. Palette colours only. */
+.bp-tell{display:block;justify-self:end;margin-top:4px;padding:4px 9px 5px;border-left:3px solid var(--bp-sodium);border-radius:2px;background:#07080de0;
+  font:400 13px/1.3 var(--bp-ko);color:var(--bp-sodium);white-space:nowrap;animation:bp-voice 320ms ease-out both}
+.bp-tell::before{content:"▸ ";color:var(--bp-bone-dim)}
+@media (orientation:portrait){
+  .bp-scene .bp-tell{position:absolute;right:8px;top:calc(8px + 60px);z-index:2;max-width:46%;white-space:normal;text-align:right}
+}
+@media (orientation:landscape){.bp-pcol>.bp-tell{position:absolute;left:calc(100% + 10px);top:0;margin:0}}   /* beside the HP strip, never over her head */
+@media (orientation:landscape) and (max-height:500px){.bp-tell{font-size:12px;padding:3px 7px}}
+.bp-band.lure{border-color:#d23a3acc;background:#d23a3a1f;animation:bp-lure 1.6s ease-in-out infinite}
+.bp-band.lure em{background:#d23a3a;color:#fff8ec}
+@keyframes bp-lure{50%{border-color:#d23a3a;background:#d23a3a33}}
+.bp-role{justify-self:start;padding:1px 5px;border:1px solid currentColor;border-radius:2px;font:normal 400 10px/1.3 var(--bp-ko);color:var(--bp-slate)}
+.bp-role.r-gold{color:var(--bp-sodium)}.bp-role.r-red{color:#ff8a6a}.bp-role.r-bone{color:var(--bp-bone)}.bp-role.r-brass{color:#c8923a}
+@media (orientation:landscape) and (max-height:500px){.bp-role{display:none}}
+@media (prefers-reduced-motion:reduce){.bp-tell,.bp-band.lure{animation:none}}
