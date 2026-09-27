@@ -935,7 +935,7 @@
 .bp-stop.stop-reward .bp-sport img{width:100%;height:100%;object-fit:contain;object-position:right bottom;transform-origin:70% 100%}
 .bp-stop.stop-reward .bp-stitle{max-width:58%;z-index:2}
 .bp-stop.stop-reward .bp-stitle h1{word-break:keep-all}
-.bp-stop.stop-reward .bp-offers{position:relative;z-index:3;margin-top:-86px;padding-top:0}
+.bp-stop.stop-reward .bp-offers{position:relative;z-index:3;margin-top:-86px;padding:0 8px 12px;gap:8px;flex-wrap:nowrap;justify-content:center}
 .bp-stop.stop-reward .bp-offer{min-height:124px;background:#0d1122e8;backdrop-filter:blur(3px);box-shadow:0 8px 24px #000a}
 /* landscape: the stadium fills the whole stop, she stands in the left column, her line + the offers on the right */
 @media (orientation:landscape){
@@ -984,11 +984,13 @@
   display:flex;
   flex-direction:column;
   align-items:stretch;
-  width:clamp(130px,26vw,176px);
-  min-height:clamp(200px,34dvh,270px);
-  padding:10px 8px 10px;
-  background:linear-gradient(180deg,#12172bcc 0%,#080a14f0 100%);
-  border:2px solid #2a3560;
+  flex:0 0 clamp(108px,28vw,140px);
+  width:clamp(108px,28vw,140px);
+  min-height:clamp(168px,24dvh,200px);
+  padding:5px 5px 6px;
+  background:linear-gradient(180deg,#12172bcc 0%,#080a14f5 100%);
+  border:1px solid #2a3560;
+  border-image:none;
   border-radius:6px;
   box-shadow:0 8px 24px rgba(0,0,0,0.7),inset 0 1px 0 rgba(255,255,255,0.15);
   overflow:hidden;
@@ -1014,7 +1016,7 @@
   inset:0;
   pointer-events:none;
   background:url('../../assets/production-art/mockup-world-v15/frame-reward-rare.png') center/100% 100% no-repeat;
-  z-index:3;
+  z-index:1;
   opacity:0.95;
 }
 .bp-stop.stop-reward .bp-offer.reward-card:not(.rare)::before{
@@ -1023,40 +1025,40 @@
   inset:0;
   pointer-events:none;
   background:url('../../assets/production-art/mockup-world-v15/frame-reward-epic.png') center/100% 100% no-repeat;
-  z-index:3;
-  opacity:0.4;
+  z-index:1;
+  opacity:0.28;
 }
 .bp-stop.stop-reward .bp-offer-cost{
   position:absolute;
-  top:6px;
-  left:6px;
+  top:5px;
+  left:5px;
   z-index:5;
-  width:22px;
-  height:22px;
+  width:20px;
+  height:20px;
   border-radius:4px;
   background:linear-gradient(135deg,#3255a4,#1b2854);
   border:1px solid #7ea5f6;
   color:#fff;
-  font:700 12px/22px var(--bp-led,monospace);
+  font:700 11px/20px var(--bp-led,monospace);
   text-align:center;
   box-shadow:0 2px 6px rgba(0,0,0,0.6),0 0 8px rgba(80,140,255,0.5);
 }
 .bp-stop.stop-reward .bp-offer-art{
   position:relative;
-  width:100%;
-  height:92px;
+  width:calc(100% - 4px);
+  height:clamp(92px,13dvh,112px);
+  margin:2px auto 6px;
   border-radius:4px;
   background-size:cover;
   background-position:center;
   border:1px solid #28345c;
   box-shadow:inset 0 0 12px rgba(0,0,0,0.6);
-  margin-bottom:6px;
-  z-index:2;
+  z-index:3;
 }
 .bp-stop.stop-reward .bp-offer-glyph{
   position:absolute;
-  top:6px;
-  right:6px;
+  top:5px;
+  right:5px;
   z-index:5;
   background:rgba(8,12,24,0.85);
   padding:2px;
@@ -1064,35 +1066,43 @@
   border:1px solid #3c4b7a;
 }
 .bp-stop.stop-reward .bp-offer-name{
+  position:relative;
   font:700 clamp(12px,1.8vw,14px)/1.2 var(--bp-impact);
   color:#f0f4fc;
-  margin:2px 0 3px;
-  z-index:4;
+  margin:0 0 3px;
+  padding:0 4px;
+  z-index:3;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
+  text-align:center;
 }
 .bp-stop.stop-reward .bp-offer-desc{
-  font:400 11px/1.3 var(--bp-ko,sans-serif);
+  position:relative;
+  font:500 clamp(10px,1.4vw,11px)/1.35 var(--bp-ko,sans-serif);
   color:#a2b0d0;
-  flex:1;
-  z-index:4;
+  margin:0 0 4px;
+  padding:0 4px;
+  z-index:3;
   display:-webkit-box;
   -webkit-line-clamp:3;
   -webkit-box-orient:vertical;
   overflow:hidden;
+  text-align:center;
 }
 .bp-stop.stop-reward .bp-reward-rarity{
-  align-self:flex-start;
-  margin-top:4px;
-  padding:1px 5px;
+  position:relative;
+  align-self:center;
+  margin-top:auto;
+  margin-bottom:2px;
+  padding:1px 6px;
   font:700 9px/1.2 var(--bp-led,monospace);
   letter-spacing:0.08em;
   border-radius:2px;
   background:#1e2646;
   color:#7ea5f6;
   border:1px solid #3d4f88;
-  z-index:4;
+  z-index:3;
 }
 .bp-stop.stop-reward .bp-offer.rare .bp-reward-rarity{
   background:#3b2a0c;

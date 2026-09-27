@@ -5,7 +5,7 @@ export const CARDS={
   place:{name:'정타 노림',type:'attack',art:'bat',shape:'point',power:0,pressure:.50,role:'정타',axis:'point',gives:['1존 커버','정확 적중 HP +50%'],needs:[],text:'선택한 1존 커버. 메인 카드로 정확히 적중하면 투수 HP 압박 +50%. 좁게 읽은 공에 가장 효율적인 스타터 카드.',flavor:'넓게 휘두르지 않는다. 한 칸을 맞힌다.'},
   strike:{name:'밀어치기',type:'attack',art:'bat',shape:'column',power:0,role:'범위',axis:'column',gives:['세로 3존 커버'],needs:[],text:'선택한 세로 3존 커버. 적중하면 안타 확정. 바깥쪽에서 타구 질 보너스.',flavor:'바깥 공을 끝까지 보고 반대편으로.'},
   slug:{name:'당겨 넘기기',type:'attack',art:'comet',shape:'point',power:2,role:'장타',axis:'point',gives:['파워 +36'],needs:[],text:'선택한 1존 적중 시 안타 확정. 파워 +36으로 장타 베팅. 빗나가면 헛스윙 위험.',flavor:'내가 기다린 공 하나.'},
-  rally:{name:'주자 연결',type:'attack',art:'double',shape:'row',power:0,role:'진루',axis:'row',gives:['가로 3존 커버','주자 2베이스'],needs:[],text:'선택한 가로 3존 커버. 안타 때 기존 주자는 최소 두 베이스 전진.',flavor:'홈으로 부를 공을 기다린다.'},
+  rally:{name:'주자 연결',type:'attack',art:'double',shape:'row',power:0,role:'진루',axis:'row',gives:['가로 3존 커버','안타 시 주자 2루 진루'],needs:[],text:'선택한 가로 3존 커버. 안타 적중 시 기존 주자는 최소 2루씩 진루(1루 주자→3루, 2·3루 주자→홈인).',flavor:'홈으로 부를 공을 기다린다.'},
   bunt:{name:'희생 번트',type:'attack',art:'diamond',shape:'all',power:0,role:'진루',axis:'all',gives:['주자 진루'],needs:['아웃 지불'],text:'9존 대응. 스트라이크에 70% 희생 번트, 30% 파울. 2스트라이크 번트 파울은 삼진.',flavor:'세 번째 아웃이면 득점도 없다.'},
   finisher:{name:'갭 공략',type:'attack',art:'sun',shape:'row',power:1,role:'장타',axis:'row',gives:['가로 3존 커버','파워 +18'],needs:[],text:'가로 3존 커버. 안타 때 2루타·홈런 기회. 파워 +18.',flavor:'수비 사이를 가른다.'},
   defend:{name:'커트 스윙',type:'attack',art:'shield',shape:'cross',power:-1,role:'생존',axis:'cross',gives:['십자 5존 커버','단타 확정','파울 생존'],needs:[],text:'선택 존과 상하좌우 커버. 범위 적중은 단타 확정. 범위 밖에서도 파울 생존에 유리.',flavor:'좋은 공까지 타석을 이어간다.'},
