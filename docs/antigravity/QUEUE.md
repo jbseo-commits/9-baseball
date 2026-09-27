@@ -124,9 +124,12 @@
   - 건드려도 되는 곳: `BallparkStop.jsx`, `ballpark.css .bp-reward-*`.
   - 브랜치: `ag/20260928-p2-reward-masterpiece`
 
-- [ ] P2-03 월드 런 지도 (Map Screen) 마스터피스 연동
-  - 무엇: `map-island-city.png`, `map-node-battle.png`, `map-node-selected-stadium.png`를 `BallparkMap.jsx`에 연결하여 밤의 네온 아일랜드 시티 스타디움 로드맵 구현.
+- [x] P2-03 월드 런 지도 (Map Screen) 마스터피스 연동
+  - 무엇: `map-island-city.png`, `map-node-battle.png`, `map-node-selected-stadium.png`, `map-node-elite.png`를 `BallparkMap.jsx`에 연결하여 밤의 네온 아일랜드 시티 스타디움 로드맵 구현.
+  - 완료 기준: 아일랜드 시티 네온 스타디움 배경, 정규전/강적/선택 구장 전용 고밀도 조명 아이콘, 114개 전체 테스트 통과, 27/27 visual QA 통과 (지도 화면 0px 오버플로).
+  - 상태: 구현 완료 및 `tests/v15-map-masterpiece.test.js` 통과 (114개 파일 684/684 tests passed).
   - 건드려도 되는 곳: `BallparkMap.jsx`, `ballpark.css .bp-map-*`.
+  - 브랜치: `ag/20260928-p2-map-masterpiece`
 
 - [ ] P2-04 덱 & 도감 (Deck & Dex Collection) 16종 전면 일러스트 연결
   - 무엇: `card-map.json`에 정의된 16종 카드 일러스트 및 `dex-*.png` 5종 투수 프로필, `deck-dex-backdrop.png`를 덱/도감 모달에 연결.

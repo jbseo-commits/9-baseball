@@ -1,6 +1,10 @@
 import React,{useEffect,useMemo,useState} from 'react';
 import {hpTicks} from './ballpark-copy.js';
 import stadium from '../../assets/duel/stadium.png';
+import mapIslandCity from '../../assets/production-art/mockup-world-v15/map-island-city.png';
+import mapNodeBattle from '../../assets/production-art/mockup-world-v15/map-node-battle.png';
+import mapNodeSelectedStadium from '../../assets/production-art/mockup-world-v15/map-node-selected-stadium.png';
+import mapNodeElite from '../../assets/production-art/mockup-world-v15/map-node-elite.png';
 import './ballpark.css';
 
 /* V13 BALLPARK BP-3 — the run map (docs/design/v13/BALLPARK.md).
@@ -69,7 +73,7 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
         <header className="bp-mhead" style={{'--bp-sky':`url(${stadium})`}}>
           <h1>{first?'어느 마운드부터 무너뜨릴까.':'다음 마운드.'}</h1>
         </header>
-        <div className="bp-route">
+        <div className="bp-route" style={{'--bp-map-bg':`url(${mapIslandCity})`}}>
           <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
             {edges.filter(e=>byId.get(e.from)?.act===act&&byId.get(e.to)?.act===act).map(e=>{const a=pos(byId.get(e.from)),c=pos(byId.get(e.to));
               const live=(done.has(e.from)||e.from===currentNodeId)&&reach.has(e.to);
