@@ -25,17 +25,18 @@
   .v14-battle-portrait .bp-bg{
     background-image:url('../../assets/duel/stadium-portrait.png')!important;
     /* target camera: plate right of the batter with the zone floating over it, mound behind the zone.
-       115% wide, pinned left and to the scene bottom in vw, so the painted plate (x 42-72%) and mound
-       (rubber x ~78%) keep one geometry with the actors on every phone height:
-       plate bottom 3vw / plate top ~16vw / mound front ~66vw above the scene bottom. */
-    background-position:left 0 bottom -28.4vw!important;
-    background-size:115% auto!important;
+       125% wide, pinned left and to the scene bottom in vw, so the painted plate (x 46-78%, centre ~62%)
+       and mound (rubber x ~85%) keep one geometry with the actors on every phone height:
+       plate bottom 3vw / plate top ~17vw / mound front ~71vw above the scene bottom.
+       Like the mockup, the zone floats right of the batter over the plate and never covers him. */
+    background-position:left 0 bottom -31.2vw!important;
+    background-size:125% auto!important;
   }
   /* the batter stands in the left batter's box beside the plate, not on it; the pitcher on the mound */
-  .v14-battle-portrait .bp-batter{left:-25%;bottom:1vw;height:88vw}
-  .v14-battle-portrait .bp-pitcher{right:8%;bottom:63vw;height:28vw;z-index:2}
+  .v14-battle-portrait .bp-batter{left:-23%;bottom:1vw;height:78vw}
+  .v14-battle-portrait .bp-pitcher{right:1%;bottom:71vw;height:24vw;z-index:2}
   /* HP panel top-left so the pitcher on the mound stays clear; her tell sits over her, top-right */
-  .v14-battle-portrait .bp-scene .bp-tell{left:auto;right:8px;top:8px}
+  .v14-battle-portrait .bp-scene .bp-tell{left:auto;right:8px;top:8px;max-width:46%;white-space:nowrap;font-size:12px}
   .v14-battle-portrait .bp-bases{left:auto;right:20px;top:auto;bottom:22%}
   .v14-battle-portrait .bp-ptag{
     left:8px;right:auto;top:6px;width:46%;padding:4px 8px;gap:3px;
@@ -57,7 +58,7 @@
 
   /* 9ZONE: Blue Glassmorphism */
   .v14-battle-portrait .bp-zone{
-    left:35%;top:auto;bottom:18vw;width:44%;height:clamp(126px,37%,168px);   /* the strike zone sits over home plate */
+    left:44%;top:auto;bottom:19vw;width:36%;height:clamp(126px,37%,168px);   /* the strike zone sits over home plate */
     background:radial-gradient(ellipse at 50% 50%,rgba(20,28,60,0.72) 0%,rgba(8,12,24,0.9) 100%)!important;
     border:2px solid #5a6fa8!important;border-radius:4px!important;
     box-shadow:0 0 0 1px #07080d,inset 0 0 20px rgba(30,45,95,0.7),0 8px 32px rgba(0,0,0,0.85)!important;

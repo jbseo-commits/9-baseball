@@ -7,16 +7,17 @@ const css=fs.readFileSync('src/duel/v14-portrait-master.css','utf8');
 
 describe('V15 portrait battle camera matches the target mockup',()=>{
   it('batter in the left box, zone over the plate, pitcher on the mound — one vw geometry with the stadium plate',()=>{
-    expect(css).toContain('background-position:left 0 bottom -28.4vw!important');
-    expect(css).toContain('background-size:115% auto!important');
-    expect(css).toMatch(/\.bp-batter\{left:-25%;bottom:1vw;height:88vw\}/);   // V15 hero (2:3 cells) at the mockup scale
-    expect(css).toMatch(/\.bp-pitcher\{right:8%;bottom:63vw;height:28vw;z-index:2\}/);
-    expect(css).toMatch(/\.bp-zone\{\s*left:35%;top:auto;bottom:18vw;/);
+    /* 125% plate: home plate ~62%, mound ~85% — the zone floats right of the batter, over the plate */
+    expect(css).toContain('background-position:left 0 bottom -31.2vw!important');
+    expect(css).toContain('background-size:125% auto!important');
+    expect(css).toMatch(/\.bp-batter\{left:-23%;bottom:1vw;height:78vw\}/);   // V15 hero, front foot left of the zone
+    expect(css).toMatch(/\.bp-pitcher\{right:1%;bottom:71vw;height:24vw;z-index:2\}/);
+    expect(css).toMatch(/\.bp-zone\{\s*left:44%;top:auto;bottom:19vw;width:36%;/);
   });
 
   it('the HP panel moves top-left and the tell sits top-right, so neither hides the pitcher',()=>{
     expect(css).toMatch(/\.bp-ptag\{\s*left:8px;right:auto;top:6px;width:46%;/);
-    expect(css).toContain('.v14-battle-portrait .bp-scene .bp-tell{left:auto;right:8px;top:8px}');
+    expect(css).toContain('.v14-battle-portrait .bp-scene .bp-tell{left:auto;right:8px;top:8px;max-width:46%;white-space:nowrap;font-size:12px}');
   });
 
   it('verbs: heavy display verb, one readable sans hint; battle body copy is Noto Sans KR, not Gowun Dodum',()=>{
