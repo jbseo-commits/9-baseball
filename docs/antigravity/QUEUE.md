@@ -153,5 +153,9 @@
   - 건드려도 되는 곳: `BallparkActors.jsx`, `pitcher-visuals.js`, `ballpark.css`, 관련 테스트.
   - 브랜치: `ag/20260928-p2-title-ending-cutscenes`
 
-
-
+- [x] P2-07 §11 정식 블라인드 품질 판정 리포트 (Blind Quality Judgement Pass)
+  - 무엇: `docs/ANTIGRAVITY-LOOP.md` §11 규격에 따라 main(`work/qa-v14-inplay`) 대비 8축 QUALITY-BAR 전/후 스크린샷 12종 시트 생성, 블라인드 판정 및 `node scripts/compare-shots.mjs --reveal` 검증 수행.
+  - 완료 기준: 12개 시트(PC/가로/세로 전 화면) 8개 축 전원 판정, reveal 결과 IMPROVED 및 BAR_MET 달성, `docs/art/QUALITY-LOG.md` 공식 기록 추가, 세로 시트 4종 `docs/art/quality/20260928-p2-title-ending-cutscenes/` 보존.
+  - 결과: **평균 3.40 → 4.67 (+1.27) · 최대 하락 0.00 · 개선 축 8/8 · IMPROVED · BAR_MET 달성**.
+  - 상태: 판정 완료 및 품질 로그 기록 완료.
+  - 브랜치: `ag/20260928-p2-title-ending-cutscenes`
