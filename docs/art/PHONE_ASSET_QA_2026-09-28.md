@@ -25,7 +25,7 @@ Mobile composite sanity previews: [home run 844×390](working/phone-assets-v18-q
 | Tests/regression | Needs verification at integration | Run visual/flow regression after code imports and animations. |
 | Build/deploy | None so far | No imports or bundled paths changed here; when merging the V16 card branch, verify family filename lookup and production build. |
 
-**Status:** Individual source image inspection passed. No claim of 10-screen mockup fidelity, completed animation, V16 runtime connection, or final R1–R8 quality score. Conditional B slots and C124–C235 per-card illustrations remain open; C101–C123 source-image checks are recorded below.
+**Status:** Individual source image inspection passed. No claim of 10-screen mockup fidelity, completed animation, V16 runtime connection, or final R1–R8 quality score. Conditional B slots and C125–C235 per-card illustrations remain open; C101–C124 source-image checks are recorded below.
 
 ## C101 pinpoint follow-up
 
@@ -86,3 +86,7 @@ All three are new 1024×1536 opaque RGB PNGs. C117 [`card-pullHook.png`](../../a
 ## C123 load-power follow-up
 
 [`card-loadPower.png`](../../assets/cards-v15/card-loadPower.png) is a new 1024×1536 opaque RGB PNG. #9 coils before the pitch, weight on a planted rear cleat, with a compact golden dust trail rising from the dirt. The preparation pose remains clear in the [100px preview](working/c123-load-power-100px.png). No baseball, text, or card frame is baked in. `src/duel/card-art.js` selects the named file before the power family fallback and sets its detail-sheet vertical focus to 0.29. The final card-window crop and mobile screen have not been visually approved. C124–C235 remain open.
+
+## C124 slugger-instinct follow-up
+
+[`card-sluggerInstinct.png`](../../assets/cards-v15/card-sluggerInstinct.png) is a new 1024×1536 opaque RGB PNG. #9 stands tall at the plate with a vertical bat, focused on the outfield before the pitch; amber sparks gather around his hands. The figure and bat remain clear in the [100px preview](working/c124-slugger-instinct-100px.png). No baseball, text, or card frame is baked in. `src/duel/card-art.js` selects the named file before the power family fallback and sets its detail-sheet vertical focus to 0.27. The final card-window crop and mobile screen have not been visually approved. C125–C235 remain open.
