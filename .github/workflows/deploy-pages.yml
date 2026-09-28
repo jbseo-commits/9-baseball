@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - claude/integrate-ag-v15
   workflow_dispatch:
   workflow_run:
     workflows:
@@ -50,6 +51,12 @@ jobs:
           ref: codex/batter-asset-loop-v1
           path: batter-v1-src
 
+      - name: Check out AG V15 preview
+        uses: actions/checkout@v6
+        with:
+          ref: claude/integrate-ag-v15
+          path: ag-v15-src
+
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -90,17 +97,27 @@ jobs:
           pnpm install --frozen-lockfile
           pnpm run build
 
+      - name: Build AG V15 preview subpath
+        working-directory: ag-v15-src
+        env:
+          VITE_BASE: /9-baseball/ag-v15/
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm run build
+
       - name: Compose stable root plus previews
         run: |
-          mkdir -p site/preview site/gm12 site/batter-v1
+          mkdir -p site/preview site/gm12 site/batter-v1 site/ag-v15
           cp -a stable/dist/. site/
           cp -a preview-src/dist/. site/preview/
           cp -a gm12-src/dist/. site/gm12/
           cp -a batter-v1-src/dist/. site/batter-v1/
+          cp -a ag-v15-src/dist/. site/ag-v15/
           test -f site/index.html
           test -f site/preview/index.html
           test -f site/gm12/index.html
           test -f site/batter-v1/index.html
+          test -f site/ag-v15/index.html
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
