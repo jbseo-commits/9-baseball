@@ -341,6 +341,7 @@
 .bp-glyph i{width:7px;height:7px;background:#ece4cf22}
 .bp-glyph i.on{background:var(--bp-sodium)}
 .bp-token-card{flex:0 0 92px;aspect-ratio:1;display:grid;place-content:center;gap:4px;text-align:center;border-radius:50%;border:1px solid var(--bp-line);background:radial-gradient(circle at 50% 35%,#1d2448,#0d1122);cursor:pointer;padding:8px}
+.bp-card.bp-token-card{flex:0 0 112px;aspect-ratio:auto;display:flex;flex-direction:column;place-content:initial;gap:4px;text-align:left;border-radius:2px;padding:12px 8px 8px}
 .bp-token-card strong{font:400 13px/1.15 var(--bp-impact)}
 .bp-token-card span{font-size:12px;color:var(--bp-bone-dim)}
 .bp-token-card.main{border-color:var(--bp-sodium);box-shadow:0 0 0 1px var(--bp-sodium)}
@@ -1144,7 +1145,7 @@
 @media (orientation:landscape) and (max-height:500px){.bp-role{display:none}}
 @media (prefers-reduced-motion:reduce){.bp-tell,.bp-band.lure{animation:none}}
 /* BP-14 role tones on the V15 card chip */
-.bp-chip.role.r-gold{color:var(--bp-sodium)}.bp-chip.role.r-red{color:#ff8a6a}.bp-chip.role.r-bone{color:var(--bp-bone)}.bp-chip.role.r-brass{color:#c8923a}
+.bp-chip.role.r-gold{color:var(--bp-sodium)}.bp-chip.role.r-red{color:#ff8a6a}.bp-chip.role.r-bone{color:var(--bp-bone)}.bp-chip.role.r-brass{color:#c8923a}.bp-chip.role.r-cyan{color:#5eead4}.bp-chip.role.r-teal{color:#38d9a9}.bp-chip.role.r-purple{color:#c084fc}
 /* V16 reward cards: two effect lines, concept + rarity chip (uncommon teal, rare gold) */
 .bp-stop.stop-reward .bp-offer-desc{display:flex;flex-direction:column;gap:2px;-webkit-line-clamp:unset}
 .bp-stop.stop-reward .bp-offer-line{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}

@@ -54,7 +54,7 @@ export function sceneUnit(w,h){
 /* BP-14: the ball band turns into a lure warning at this share of pitches */
 export const LURE_PCT=30;
 /* card role chip colours, inside the ballpark palette */
-const ROLE_TONE={'장타':'gold','정타':'red','범위':'bone','진루':'brass'};
+const ROLE_TONE={'장타':'gold','정타':'red','범위':'bone','진루':'brass','집중':'cyan','수급':'teal','관찰':'purple','생존':'bone','준비':'teal'};
 /* the line under the next-step verb: pitch = same batter, next ball; between = the plate appearance ended */
 export const nextHint=phase=>phase==='pitch'?'같은 타자 · 다음 공을 기다린다':phase==='between'?'타석 종료 · 다음 타자가 들어선다':'';
 const lessonZoneName=z=>z===9?'존 밖':ZONE_WORDS[z]||'코스';
@@ -265,6 +265,9 @@ const CARD_DESC_MAP={
   setup:['타이밍 집중','집중 +1 · 파워 +5'],
   watch:['작전 간파','카드 2장 보충'],
   scout:['투수 릴리스 간파','구종 힌트 · 카드 1장'],
+  lure:['코스 조정','스윙 범위 1칸 확장'],
+  flow:['히트앤드런','안타 시 주자 +1베이스'],
+  calm:['호흡 고르기','파울 생존 · 카드 +1'],
 };
 
   const cardButton=x=>{
@@ -497,11 +500,43 @@ const CARD_DESC_MAP={
         {selected==='basic'&&<b className="bp-order">1</b>}
       </button>
       {swingCards.map(cardButton)}
-      {prepCards.map(x=>{const def=CARDS[x.entry.kind],problem=x.preview?.problem;
-        return <button key={x.id} type="button" className={'bp-token-card'+(selected===x.id?' main':'')+(problem||!prepLeft?' off':'')} aria-pressed={selected===x.id}
-          data-card-kind={x.entry.kind} disabled={!deciding} onClick={()=>pickPrep(x.id)}>
-          <strong>{def.name}</strong><span>{problem||'준비 '+prepLeft+'회'}</span>
-        </button>;})}
+      {prepCards.map(x=>{
+        const def=CARDS[x.entry.kind]||{},problem=x.preview?.problem;
+        const customArt=cardArtFor(x.entry.kind);
+        const artStyle=customArt
+          ?{backgroundImage:`url(${customArt})`,backgroundPosition:'center',backgroundSize:'cover'}
+          :{backgroundImage:`url(${cardArtSheet})`,backgroundPosition:'0% 0%'};
+        const roleTag=def.role||'준비';
+        const descLines=problem?[problem,'']:(CARD_DESC_MAP[x.entry.kind]||[def.gives?.[0]||'준비 작전',def.gives?.[1]||'']);
+        const isOff=Boolean(problem||!prepLeft);
+
+        return <button key={x.id} type="button"
+          className={'bp-card skill prep-card bp-token-card'+(selected===x.id?' main':'')+(isOff?' off':'')}
+          aria-pressed={selected===x.id}
+          data-card-kind={x.entry.kind}
+          disabled={!deciding}
+          onClick={()=>pickPrep(x.id)}>
+          <span className="bp-card-cost prep" aria-label={`준비 ${prepLeft}회 남음`}>⚡</span>
+          <div className="bp-card-art-box">
+            <div className="bp-card-art" style={artStyle}/>
+            <div className="bp-card-mini-map prep-badge">
+              <span className="bp-prep-glyph" aria-hidden="true">✦</span>
+            </div>
+          </div>
+          <div className="bp-card-header">
+            <strong>{def.name||x.entry.kind}{x.entry.plus&&<sup>+</sup>}</strong>
+            <div className="bp-card-chips">
+              <span className="bp-chip type prep">준비</span>
+              <span className={"bp-chip role r-"+(ROLE_TONE[roleTag]||"plain")}>{roleTag}</span>
+            </div>
+          </div>
+          <div className="bp-card-desc">
+            <p>{descLines[0]}</p>
+            {descLines[1]?<p>{descLines[1]}</p>:<p className="bp-prep-left">준비 {prepLeft}회 가능</p>}
+          </div>
+          {selected===x.id&&<b className="bp-order prep">준비</b>}
+        </button>;
+      })}
     </div>}
 
     {onNext&&!deciding&&s.phase!=='battle'?<div className="bp-verbs next">
