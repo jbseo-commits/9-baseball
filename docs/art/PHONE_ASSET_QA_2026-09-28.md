@@ -25,7 +25,7 @@ Mobile composite sanity previews: [home run 844×390](working/phone-assets-v18-q
 | Tests/regression | Needs verification at integration | Run visual/flow regression after code imports and animations. |
 | Build/deploy | None so far | No imports or bundled paths changed here; when merging the V16 card branch, verify family filename lookup and production build. |
 
-**Status:** Individual source image inspection passed. No claim of 10-screen mockup fidelity, completed animation, V16 runtime connection, or final R1–R8 quality score. Conditional B slots and C105–C235 per-card illustrations remain open; C101–C104 source-image checks are recorded below.
+**Status:** Individual source image inspection passed. No claim of 10-screen mockup fidelity, completed animation, V16 runtime connection, or final R1–R8 quality score. Conditional B slots and C106–C235 per-card illustrations remain open; C101–C105 source-image checks are recorded below.
 
 ## C101 pinpoint follow-up
 
@@ -42,3 +42,7 @@ Mobile composite sanity previews: [home run 844×390](working/phone-assets-v18-q
 ## C104 readStrike follow-up
 
 `assets/cards-v15/card-readStrike.png` is a new 1024×1536 opaque RGB PNG for the `readStrike` card. It shows #9 driving one read pitch off the bat, with a restrained cobalt trajectory from the mound and a warm contact burst. Both gloved hands hold the bat; the hitter, ball and contrasting read/impact lights remain legible in the [100px preview](working/c104-read-strike-100px.png). No text or card frame is baked in. `src/duel/card-art.js` selects this file before the precision family fallback. The final card-window crop and full mobile screen have not been visually approved. C105–C235 remain open.
+
+## C105 surgeon follow-up
+
+`assets/cards-v15/card-surgeon.png` is a new 1024×1536 opaque RGB PNG for the `surgeon` card. From over the catcher's shoulder, #9 meets one baseball at the bat's sweet spot and sends a thin gold line toward fair territory. The joined gloved hands, grounded feet and single contact point remain readable in the [100px preview](working/c105-surgeon-100px.png). No text or card frame is baked in. `src/duel/card-art.js` selects this file before the precision family fallback. The final card-window crop and full mobile screen have not been visually approved. C106–C235 remain open.
