@@ -270,8 +270,8 @@ describe('V14 portrait in-play HUD',()=>{
     fireEvent.click(soundButton);
     expect(soundButton.getAttribute('aria-label')).toBe('소리 끄기');
     fireEvent.click(document.querySelector('.bp-settings-btn'));
-    expect(screen.getByRole('dialog',{name:'플레이 방법'})).not.toBeNull();
-    fireEvent.click(screen.getByRole('button',{name:'닫기'}));
+    expect(screen.getByRole('dialog',{name:'게임 방법'})).not.toBeNull();   // the main run's help is the rules guide
+    fireEvent.click(screen.getByRole('button',{name:'건너뛰기'}));
     fireEvent.click(document.querySelector('.bp-hud-logo'));
     expect(document.querySelector('.bp-battle')).toBeNull();
     expect(document.querySelector('.duel-app').classList.contains('v14-battle-portrait')).toBe(false);

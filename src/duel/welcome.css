@@ -1,0 +1,95 @@
+/* 게임 방법 (WelcomeGuide.jsx) — a night-game rulebook: the ballpark's navy glass, sodium gold, and the
+   same 9존 / 카드 / 기세 pieces the player will meet in the battle. Scoped under .wg-*. */
+.wg-backdrop{position:fixed;inset:0;z-index:80;display:grid;place-items:end center;background:rgba(4,6,14,.72);backdrop-filter:blur(3px);
+  animation:wg-fade .25s ease-out both}
+.wg-sheet{--wg-gold:#ffc861;--wg-bone:#ece4cf;--wg-slate:#9aa3bd;
+  width:min(100%,480px);max-height:min(94dvh,760px);display:grid;grid-template-rows:auto 1fr auto;overflow:hidden;
+  margin:0;padding:14px 16px calc(12px + env(safe-area-inset-bottom,0px));border-radius:14px 14px 0 0;
+  background:linear-gradient(180deg,#141b36 0%,#0a0f22 100%);border:1.5px solid #3a4676;border-bottom:0;
+  box-shadow:0 -12px 40px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.06);color:var(--wg-bone);
+  font-family:"Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;touch-action:pan-y;animation:wg-up .35s cubic-bezier(.2,.9,.3,1) both}
+@media (min-height:760px) and (min-width:520px){.wg-backdrop{place-items:center}.wg-sheet{border-radius:14px;border-bottom:1.5px solid #3a4676}}
+.wg-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.wg-eyebrow{font:700 11px/1 "Noto Sans KR",sans-serif;letter-spacing:.1em;color:var(--wg-gold)}
+.wg-skip{appearance:none;min-height:36px;padding:6px 12px;border-radius:6px;border:1px solid #3a4676;background:transparent;color:var(--wg-slate);font:600 12px/1 "Noto Sans KR",sans-serif;cursor:pointer}
+.wg-page{overflow-y:auto;overscroll-behavior:contain;padding:6px 2px 4px;animation:wg-page .3s ease-out both}
+.wg-page h2{margin:6px 0 10px;font:400 26px/1.15 var(--bp-impact,"Black Han Sans",sans-serif);color:#fff;letter-spacing:.01em}
+.wg-art{display:grid;place-items:center;min-height:132px;margin:0 0 12px;padding:12px;border-radius:10px;
+  background:radial-gradient(ellipse at 50% 0%,#23305e 0%,#0c1128 75%);border:1px solid #2c3764}
+.wg-body{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.wg-body li{position:relative;padding-left:14px;font:500 14px/1.55 "Noto Sans KR",sans-serif;color:#d9ddea;word-break:keep-all}
+.wg-body li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;background:var(--wg-gold);box-shadow:0 0 6px var(--wg-gold)}
+.wg-body b{color:#fff;font-weight:800}
+.wg-words{margin:0;display:grid;gap:6px}
+.wg-words div{display:grid;grid-template-columns:minmax(96px,34%) 1fr;gap:10px;padding:7px 10px;border-radius:6px;background:#10162e;border:1px solid #232c52}
+.wg-words dt{font:800 12px/1.35 "Noto Sans KR",sans-serif;color:var(--wg-gold)}
+.wg-words dd{margin:0;font:500 12.5px/1.45 "Noto Sans KR",sans-serif;color:#d9ddea;word-break:keep-all}
+.wg-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:10px;border-top:1px solid #232c52}
+.wg-foot button{appearance:none;min-height:44px;padding:8px 16px;border-radius:8px;cursor:pointer;font:700 14px/1 "Noto Sans KR",sans-serif}
+.wg-prev,.wg-cards{border:1px solid #3a4676;background:#141b36;color:var(--wg-bone)}
+.wg-prev:disabled{opacity:.35;cursor:default}
+.wg-next{border:2px solid #e2b04e;background:linear-gradient(180deg,#3b2a10,#1d1407);color:#ffd76a;box-shadow:0 0 16px rgba(255,190,80,.25)}
+.wg-end{display:flex;gap:8px}
+.wg-dots{display:flex;gap:5px;flex-wrap:wrap;justify-content:center}
+.wg-dots i{width:7px;height:7px;border-radius:50%;background:#2f3a66;cursor:pointer}
+.wg-dots i.on{width:18px;border-radius:4px;background:var(--wg-gold);box-shadow:0 0 8px var(--wg-gold)}
+
+/* ---- diagrams ---- */
+.wg-zone{position:relative;display:grid;place-items:center;padding:14px 14px 20px}
+.wg-zone.small{padding:8px}
+.wg-grid{display:grid;grid-template-columns:repeat(3,56px);grid-template-rows:repeat(3,44px);border:2px solid #5a6fa8;border-radius:4px;background:rgba(8,12,24,.9)}
+.wg-zone.small .wg-grid{grid-template-columns:repeat(3,34px);grid-template-rows:repeat(3,28px)}
+.wg-grid i{position:relative;display:grid;place-items:center;border:1px solid rgba(120,150,225,.28);font:700 11px/1.1 "Noto Sans KR",sans-serif;color:var(--wg-gold);text-align:center;font-style:normal;white-space:pre-line}
+.wg-grid i.dead{color:#8791ad;font-weight:500;font-size:10px}
+.wg-grid i.top{background:rgba(255,200,97,.14)}
+.wg-grid i.cover{background:rgba(255,200,97,.3)}
+.wg-grid i.aim{background:rgba(255,200,97,.55);box-shadow:inset 0 0 0 2px #ffc861}
+.wg-grid i.support{background:rgba(111,180,255,.3);color:#cfe4ff}
+.wg-band{position:absolute;inset:4px;border:1.5px dashed #6d7aa8;border-radius:6px;display:flex;align-items:flex-end;justify-content:center;pointer-events:none}
+.wg-band em{font-style:normal;transform:translateY(55%);padding:2px 7px;border-radius:3px;background:#0c1128;border:1px solid #3a4676}
+.wg-zone .wg-band{font:500 10px/1 "Noto Sans KR",sans-serif;color:#c3cbe3;padding-bottom:0;transform:translateY(0)}
+.wg-ball{position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px #07080d,0 0 12px #fff}
+.wg-ball.out{right:-2px;top:50%;margin-top:-7px}
+.wg-links{position:absolute;inset:8px;width:calc(100% - 16px);height:calc(100% - 16px);pointer-events:none}
+.wg-links line{stroke-width:.09;stroke-linecap:round}
+.wg-links line.ok{stroke:#6FD7C6}
+.wg-links line.no{stroke:#AA7E67;stroke-dasharray:.16 .14}
+.wg-pair{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:4px 10px}
+.wg-verdict{font:400 17px/1.1 var(--bp-impact,sans-serif);color:#c9cfe2}
+.wg-verdict.good{color:var(--wg-gold);text-shadow:0 0 12px rgba(255,200,97,.5)}
+.wg-goal{display:grid;gap:12px;width:100%;max-width:300px}
+.wg-hp{display:grid;gap:4px;padding:8px 10px;border-radius:6px;background:#0d1224;border:1.5px solid #38426d}
+.wg-hp span{font:700 12px/1 "Noto Sans KR",sans-serif}
+.wg-hp i{display:block;height:9px;border-radius:2px;background:#07080d;border:1px solid #2a3152;overflow:hidden}
+.wg-hp i b{display:block;height:100%;background:linear-gradient(90deg,#ff4d4d,#ff9f43 55%,#ffd32a);animation:wg-drain 2.4s ease-in-out infinite}
+.wg-hp small{font:700 11px/1 "Noto Sans KR",sans-serif;color:#ff8a6a}
+.wg-outs,.wg-bso{display:flex;align-items:center;gap:6px;font:400 16px/1 var(--bp-impact,sans-serif)}
+.wg-outs small{font:700 12px/1 "Noto Sans KR",sans-serif;color:#ff8a6a;margin-left:6px}
+.wg-outs i,.wg-bso i{width:12px;height:12px;border-radius:50%;background:#1d2440;box-shadow:inset 0 0 0 1px #3a4676}
+.wg-outs i.on{background:#ff5a3c;box-shadow:0 0 8px #ff5a3c}
+.wg-bso span{margin-left:8px}
+.wg-bso i.on{background:#ffc861;box-shadow:0 0 8px #ffc861}
+.wg-bso span:nth-of-type(1)~i.on{background:#6fd7c6;box-shadow:0 0 8px #6fd7c6}
+.wg-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%;margin:0;padding:0;list-style:none;counter-reset:s}
+.wg-steps li{display:grid;justify-items:center;gap:6px;padding:10px 4px;border-radius:8px;background:#10162e;border:1px solid #2c3764;font:700 12px/1 "Noto Sans KR",sans-serif}
+.wg-steps li i{font-style:normal;font-size:22px;line-height:1;filter:drop-shadow(0 0 6px rgba(255,200,97,.4))}
+.wg-momentum{display:grid;gap:8px}
+.wg-mrow{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;background:rgba(9,12,26,.9);border:1.5px solid #3a4468}
+.wg-mrow em{font-style:normal;font:700 11px/1 "Noto Sans KR",sans-serif;color:#aab3cc}
+.wg-mrow b{font:400 16px/1 var(--bp-impact,sans-serif);color:#aab3cc;min-width:36px}
+.wg-mrow small{font:600 11px/1 "Noto Sans KR",sans-serif;color:#ffd9a8}
+.wg-mrow.lit{border-color:#b8642a}.wg-mrow.lit b{color:#ffd24a}
+.wg-mrow.max{border-color:#ff8a1f;box-shadow:0 0 18px rgba(255,120,40,.5)}.wg-mrow.max b{color:#ffd24a}
+.wg-flames{display:flex;gap:3px}
+.wg-flames i{width:10px;height:13px;border-radius:50% 50% 50% 50% / 62% 62% 38% 38%;background:#2a3150}
+.wg-flames i.on{background:radial-gradient(circle at 50% 72%,#fff6c8 0 18%,#ffd24a 30%,#ff8a1f 58%,#e3401a 100%);box-shadow:0 0 6px #ff8a1f}
+.wg-nodes{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%;margin:0;padding:0;list-style:none}
+.wg-nodes li{display:grid;justify-items:center;gap:5px;padding:9px 2px;border-radius:8px;background:#10162e;border:1px solid #2c3764;font-size:20px;line-height:1}
+.wg-nodes li span{font:700 11px/1 "Noto Sans KR",sans-serif;color:#d9ddea}
+.wg-nodes li.elite{border-color:#8a6a2a}.wg-nodes li.boss{border-color:#c0452e;box-shadow:0 0 10px rgba(255,90,60,.3)}
+
+@keyframes wg-fade{from{opacity:0}to{opacity:1}}
+@keyframes wg-up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+@keyframes wg-page{from{transform:translateX(14px);opacity:0}to{transform:none;opacity:1}}
+@keyframes wg-drain{0%{width:100%}70%,100%{width:0}}
+@media (prefers-reduced-motion:reduce){.wg-backdrop,.wg-sheet,.wg-page,.wg-hp i b{animation:none}}

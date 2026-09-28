@@ -1,0 +1,19 @@
+/* First-battle coach marks (BallparkCoach.jsx): a gold spotlight ring that dims the rest of the park,
+   and a navy card with the one line that matters. Non-modal: the dim layer lets taps through. */
+.bp-coach-layer{position:fixed;inset:0;z-index:60;pointer-events:none}
+.bp-coach-spot{position:fixed;border-radius:8px;border:2px solid #ffc861;box-shadow:0 0 0 9999px rgba(4,6,14,.62),0 0 18px rgba(255,200,97,.65);
+  transition:left .28s cubic-bezier(.2,.8,.2,1),top .28s cubic-bezier(.2,.8,.2,1),width .28s,height .28s;animation:bp-coach-pulse 1.4s ease-in-out infinite alternate}
+.bp-coach-card{position:fixed;left:12px;right:12px;max-width:420px;margin:0 auto;pointer-events:auto;display:grid;gap:6px;
+  padding:12px 14px;border-radius:10px;background:linear-gradient(180deg,#18214a,#0c1128);border:1.5px solid #e2b04e;
+  box-shadow:0 10px 30px rgba(0,0,0,.8),0 0 20px rgba(255,190,80,.2);color:#ece4cf;font-family:"Noto Sans KR",system-ui,sans-serif;
+  animation:bp-coach-in .28s cubic-bezier(.2,.9,.3,1) both}
+.bp-coach-step{font:700 10px/1 "Noto Sans KR",sans-serif;letter-spacing:.1em;color:#ffc861}
+.bp-coach-card strong{font:400 20px/1.1 var(--bp-impact,"Black Han Sans",sans-serif);color:#fff}
+.bp-coach-card p{margin:0;font:500 13.5px/1.5 "Noto Sans KR",sans-serif;color:#d9ddea;word-break:keep-all}
+.bp-coach-actions{display:flex;justify-content:space-between;gap:8px;margin-top:4px}
+.bp-coach-actions button{appearance:none;min-height:40px;padding:8px 14px;border-radius:7px;cursor:pointer;font:700 13px/1 "Noto Sans KR",sans-serif}
+.bp-coach-skip{border:1px solid #3a4676;background:transparent;color:#9aa3bd}
+.bp-coach-next{border:2px solid #e2b04e;background:linear-gradient(180deg,#3b2a10,#1d1407);color:#ffd76a}
+@keyframes bp-coach-pulse{from{box-shadow:0 0 0 9999px rgba(4,6,14,.62),0 0 10px rgba(255,200,97,.45)}to{box-shadow:0 0 0 9999px rgba(4,6,14,.62),0 0 24px rgba(255,200,97,.85)}}
+@keyframes bp-coach-in{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.bp-coach-spot,.bp-coach-card{animation:none;transition:none}}

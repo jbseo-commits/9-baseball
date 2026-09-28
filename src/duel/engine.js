@@ -20,6 +20,20 @@ const v10Opponent=s=>s?.version===10?s.v10?.opponent:null;
 export const V10_RUNNER_PRESSURE=.10;
 export const V10_MENTAL=Object.freeze({ballBoost:.35,capByAct:Object.freeze({1:3,2:2,3:1})});
 export const v10MentalCap=s=>V10_MENTAL.capByAct[v10Opponent(s)?.act]??V10_MENTAL.capByAct[1];
+/* 기세 (MOMENTUM) — the only thing that lifts the damage rate past ×1. Good at-bats build it inside a battle:
+   a hit or a walk +1, an extra-base hit (2루타 이상) +2, up to MAX steps; a strikeout puts the fire out (0).
+   Each step multiplies HP damage by +STEP. It starts at 0 every battle; the pitch that builds it does not
+   use the new step (it counts from the next pitch). */
+export const V10_MOMENTUM={step:.10,max:5,hit:1,xbh:2,walk:1};
+export const v10Momentum=s=>s?.version===10&&Number.isInteger(s.battle?.momentum)?Math.max(0,Math.min(V10_MOMENTUM.max,s.battle.momentum)):0;
+export const v10MomentumRate=m=>1+V10_MOMENTUM.step*Math.max(0,Math.min(V10_MOMENTUM.max,m|0));
+export function v10MomentumAfter(before,result){
+  const {kind,label='',bases=0}=result||{};
+  if(/삼진/.test(label))return 0;
+  if(kind==='hit')return Math.min(V10_MOMENTUM.max,before+(bases>=2?V10_MOMENTUM.xbh:V10_MOMENTUM.hit));
+  if(/볼넷/.test(label))return Math.min(V10_MOMENTUM.max,before+V10_MOMENTUM.walk);
+  return before;
+}
 export const v10Shaken=s=>s?.version===10&&Number.isInteger(s.battle?.shaken)?Math.max(0,Math.min(v10MentalCap(s),s.battle.shaken)):0;
 export const BALL_BY_ACT=Object.freeze({1:.35,2:1,3:1});
 const livePitchConfig=s=>{
@@ -828,7 +842,10 @@ export function playV10Action(state,action){
   const outcome={kind:r.kind,label:r.label,bases:v10BasesForReveal(r),zone:r.zone,aimZone:r.aimZone,
     covered:Array.isArray(r.coverage)&&r.coverage.includes(r.zone)};
   const pitchInPA=Math.max(1,(next.battle?.history||[]).filter(h=>h.turn===next.battle.turn).length);
-  const relicPlan=v10RelicDamagePlan({relics:next.relics||[],outcome,cardCount:stackCardCount,damageRate:stackDamageRate,pitchInPA});
+  const relicPlan0=v10RelicDamagePlan({relics:next.relics||[],outcome,cardCount:stackCardCount,damageRate:stackDamageRate,pitchInPA});
+  /* 기세: the rate this pitch hits with = the stack/relic rate × the momentum built before it */
+  const momentumBefore=v10Momentum(state),momentumRate=v10MomentumRate(momentumBefore);
+  const relicPlan={...relicPlan0,damageRate:relicPlan0.damageRate*momentumRate};
   const precisionRate=action.type==='card'&&r.kind==='hit'&&!r.assistOnly&&Array.isArray(r.primaryCoverage)&&r.primaryCoverage.includes(r.zone)
     ?(CARDS[choice]?.pressure||0)+(state.battle?.bonusPressure||0):0;
   const fxPlan=v10CardFxPlan(state,next,action.type==='card'?choice:null,r,pitchInPA);
@@ -850,6 +867,8 @@ export function playV10Action(state,action){
   }
   if(next.battle&&fxPlan.shake){const cap=v10MentalCap(next),was=v10Shaken(next);next.battle.shaken=Math.min(cap,was+fxPlan.shake);if(next.battle.shaken>was)fxPlan.events.push('투수 흔들림 '+next.battle.shaken+'/'+cap);shakenAfter=next.battle.shaken;}
   next.pitcher=applied.pitcher;
+  const momentumAfter=next.battle?v10MomentumAfter(momentumBefore,{kind:r.kind,label:r.label||'',bases:outcome.bases}):momentumBefore;
+  if(next.battle)next.battle.momentum=momentumAfter;
   const supportNames=(r.supportKinds||[]).map(k=>CARDS[k]?.name||k);
   const supportAims=(r.supportZones||[]).map(v10ZoneLabel);
   next.v10={...next.v10,lastCombat:{
@@ -860,10 +879,13 @@ export function playV10Action(state,action){
     connectCount:r.stackConnectCount||0,connectBonus:r.stackConnectBonus||0,stackLinks:r.stackLinks||[],stackSteps:r.stackSteps||[],
     relicBonus:relicPlan.damageBonus,precisionRate,precisionBonus,cardFxBonus:fxPlan.bonus,totalDamageBonus:relicPlan.damageBonus+precisionBonus+runnerBonus+fxPlan.bonus,
     runnersBefore,runnerRate,runnerBonus,runsScored,shakenBefore,shakenAfter,
+    momentumBefore,momentumAfter,momentumRate,stackRate:relicPlan0.damageRate,
     relicEvents:relicPlan.events,cardCount:stackCardCount,hpAfter:applied.result.hpAfter,
   }};
   const pressureEvents=[
     ...fxPlan.events,
+    ...(momentumBefore>0&&applied.result.damage>0?['기세 '+momentumBefore+'단계 · 피해 ×'+momentumRate.toFixed(1)]:[]),
+    ...(momentumAfter>momentumBefore?['기세 상승 '+momentumBefore+' → '+momentumAfter+' · 다음 공부터 ×'+v10MomentumRate(momentumAfter).toFixed(1)]:momentumAfter<momentumBefore?['기세 꺼짐 · 삼진']:[]),
     ...(precisionBonus?['정타 노림 · 정확 적중 +'+precisionBonus+' HP']:[]),
     ...(runnerBonus?['주자 '+runnersBefore+'명 압박 · +'+Math.round(runnerRate*100)+'% · +'+runnerBonus+' HP']:[]),
     ...(shakenAfter>shakenBefore?['투수 흔들림 '+shakenAfter+'/'+v10MentalCap(next)+' · 볼 증가 · 읽기 +1']

@@ -72,7 +72,8 @@ export function applyPitcherOutcome(pitcher,outcome,opts={}){
   if(pitchId!==null&&pitcher.lastPitchId===pitchId)
     return {pitcher,result:{damage:0,hpAfter:pitcher.hp,locked:false,duplicate:true}};
   const calc=damageForOutcome(outcome,pitcher.foulStreak||0);
-  const damageMultiplier=Number.isFinite(opts.damageMultiplier)?clamp(opts.damageMultiplier,0,1):1;
+  /* up to ×2: stacking lowers it, 기세 (engine V10_MOMENTUM) raises it past ×1 */
+  const damageMultiplier=Number.isFinite(opts.damageMultiplier)?clamp(opts.damageMultiplier,0,2):1;
   const damageBonus=Number.isFinite(opts.damageBonus)?clamp(Math.round(opts.damageBonus),0,99):0;
   const damage=calc.damage>0?Math.max(1,Math.round(calc.damage*damageMultiplier)+damageBonus):0;
   const hpAfter=Math.max(0,pitcher.hp-damage);

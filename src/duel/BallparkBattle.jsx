@@ -1,6 +1,6 @@
 import React,{useLayoutEffect,useRef,useState} from 'react';
 import {CARDS} from './cards.js';
-import {publicProbabilities,V10_SWING_STACK_MAX,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap} from './engine.js';
+import {publicProbabilities,V10_SWING_STACK_MAX,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
 import {intentLines,hpTicks,ZONE_WORDS} from './ballpark-copy.js';
 import ZoneLinks from './ZoneLinks.jsx';
 import {pitcherLine,momentOf} from './pitcher-voice.js';
@@ -12,6 +12,8 @@ import {cardArtFor} from './card-art.js';
 import {HomeRunCut,KnockoutCut} from './phone-art-v18.jsx';
 import {pitcherFigures} from './pitcher-visuals.js';
 import './ballpark.css';
+import './momentum.css';
+import BallparkCoach,{coachSeen} from './BallparkCoach.jsx';
 
 /* V13 BALLPARK — the battle as one ballpark scene (docs/design/v13/BALLPARK.md).
    Same engine contract as the legacy screen: `selected` + battle.aimZone is the main card,
@@ -91,6 +93,8 @@ export default function BallparkBattle({
   /* which actors Pixi has taken over (null = DOM actors only) */
   const [pixi,setPixi]=useState(null);
   const [canPixi]=useState(()=>!!batterPoses&&pixiAvailable());
+  /* first-battle coach marks: once per player, on the run's very first decision */
+  const [coachOn,setCoachOn]=useState(()=>!coachSeen());
   useLayoutEffect(()=>()=>{if(commitTimer.current)clearTimeout(commitTimer.current);},[]);
   useLayoutEffect(()=>{
     const root=rootRef.current,header=document.querySelector('.duel-header');
@@ -140,6 +144,9 @@ export default function BallparkBattle({
   const mentalCap=v10MentalCap(s),combat=s.v10?.lastCombat;
   const shaken=judged&&!landed&&Number.isInteger(combat?.shakenBefore)?combat.shakenBefore:v10Shaken(s);
   const shakenRose=judged&&landed&&combat?.shakenAfter>combat?.shakenBefore;
+  /* 기세: the batter's hot streak. Until the ball lands the gauge holds what this pitch was thrown into */
+  const momentum=judged&&!landed&&Number.isInteger(combat?.momentumBefore)?combat.momentumBefore:v10Momentum(s);
+  const momentumRose=judged&&landed&&combat?.momentumAfter>combat?.momentumBefore,momentumOut=judged&&landed&&combat?.momentumAfter<combat?.momentumBefore;
   /* 주자 압박: 지금 루상 주자로 안타를 치면 붙는 피해 배율 */
   const runners=(b.bases||[]).filter(Boolean).length,runnerPct=Math.round(runners*V10_RUNNER_PRESSURE*100);
 
@@ -183,7 +190,8 @@ export default function BallparkBattle({
   }
 
   const mainName=selected==='basic'?'맨손 스윙':mainEntry?CARDS[mainEntry.kind].name:null;
-  const rate=choice?.damageRate!=null?'피해 ×'+Number(choice.damageRate).toFixed(2).replace(/0$/,''):'';
+  const liveRate=choice?.damageRate!=null?choice.damageRate*v10MomentumRate(v10Momentum(s)):null;
+  const rate=liveRate!=null?'피해 ×'+Number(liveRate).toFixed(2).replace(/0$/,''):'';
   const verb=mainIsSkill?'준비한다':'휘두른다';
   /* the verdict before the swing (BP-14): the share of pitches the chosen cells cover, then the HP multiplier */
   const hitChance=selected&&!mainIsSkill&&choice?.coverage?.length?Math.round(choice.coverage.reduce((a,z)=>a+(z<9?probs[z]||0:0),0)*100):null;
@@ -240,7 +248,7 @@ export default function BallparkBattle({
   const debriefLesson=showDebrief?lessonFor(lessonCombat,r):null;
   const debriefPlan=showDebrief?planText(lessonCombat):'';
   const debriefActual=showDebrief?(lessonCombat.pitchLabel||lessonZoneName(r?.zone)):'';
-  const debriefDamage=showDebrief&&lessonCombat.damage>0?'투수 HP -'+lessonCombat.damage:'';
+  const debriefDamage=showDebrief&&lessonCombat.damage>0?'투수 HP -'+lessonCombat.damage+(lessonCombat.momentumBefore>0?' · 기세 ×'+v10MomentumRate(lessonCombat.momentumBefore).toFixed(1):''):'';
 
 const CARD_DESC_MAP={
   basic:['선택 1존 집중 타격','카드 소모 없음 · 기본 스윙'],
@@ -400,6 +408,14 @@ const CARD_DESC_MAP={
       {cam==='near'&&fxStage==='slowmo'&&<i className="bp-letterbox" key={'lb'+playToken} aria-hidden="true"/>}
       {judged&&inFx&&!landed&&!pixi?.pitcher&&<i className="bp-flight" ref={flightRef} key={'f'+playToken} aria-hidden="true"/>}
       <div className="bp-batter bp-cam" aria-hidden="true">{batterArt}</div>
+      {/* 기세 gauge by the batter: five flames, the multiplier they add, a burst when it rises, smoke when a strikeout puts it out */}
+      <div className={'bp-momentum'+(momentum?' lit':'')+(momentum>=V10_MOMENTUM.max?' max':'')+(momentumRose?' rose':'')+(momentumOut?' out':'')} data-testid="bp-momentum" data-momentum={momentum}
+        key={'mo'+momentum+(momentumOut?'x':'')} role="status" aria-label={`기세 ${momentum} / ${V10_MOMENTUM.max} · 피해 ×${v10MomentumRate(momentum).toFixed(1)}`}>
+        <em>기세</em>
+        <span className="bp-momentum-pips" aria-hidden="true">{Array.from({length:V10_MOMENTUM.max},(_,i)=><i key={i} className={i<momentum?'on':''}/>)}</span>
+        <b>×{v10MomentumRate(momentum).toFixed(1)}</b>
+        {momentumRose&&<small className="bp-momentum-pop" aria-hidden="true">+{combat.momentumAfter-combat.momentumBefore}</small>}
+      </div>
 
       <div className={'bp-zone'+(cover.size?' has-cover':'')} ref={zoneRef} role="group" aria-label="노릴 코스">
         {ZONE_WORDS.map((word,z)=>{
@@ -498,5 +514,6 @@ const CARD_DESC_MAP={
       <button type="button" className="bp-verb wait" data-testid="bp-take" disabled={!deciding} onClick={onTake}><span className="bp-verb-word">지켜본다</span></button>
       {mainEntry&&deciding&&<button type="button" className="bp-info" aria-label={mainName+' 카드 설명'} onClick={e=>onDetail?.(mainEntry,e.currentTarget)}>ⓘ</button>}
     </div>}
+    {coachOn&&deciding&&!autoLesson&&b.turn===1&&!(b.history?.length)&&<BallparkCoach rootRef={rootRef} onDone={()=>setCoachOn(false)}/>}
   </main>;
 }
