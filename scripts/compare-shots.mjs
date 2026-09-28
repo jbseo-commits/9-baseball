@@ -50,6 +50,58 @@ export function verdict(scores){
   return {per,before:mean('before'),after:mean('after'),gain,worstDrop,wins,improved,barMet,weakest:[...per].sort((a,b)=>a.after-b.after)[0].axis};
 }
 
+export function getTargetReference(filename) {
+  const targetDir = path.join(ROOT, 'docs/art/benchmark/target');
+  const lower = String(filename || '').toLowerCase();
+
+  // Screen-specific 1:1 matching with docs/art/benchmark/target/*.png
+  if (lower.includes('battle')) {
+    if (lower.includes('landscape')) {
+      const p = path.join(targetDir, 'battle-landscape.png');
+      if (fs.existsSync(p)) return p;
+    }
+    const p = path.join(targetDir, 'battle-portrait.png');
+    if (fs.existsSync(p)) return p;
+  }
+  if (lower.includes('map')) {
+    const p = path.join(targetDir, 'map.png');
+    if (fs.existsSync(p)) return p;
+  }
+  if (lower.includes('reward')) {
+    const p = path.join(targetDir, 'reward.png');
+    if (fs.existsSync(p)) return p;
+  }
+  if (lower.includes('title')) {
+    const p = path.join(targetDir, 'title.png');
+    if (fs.existsSync(p)) return p;
+  }
+  if (lower.includes('deck')) {
+    const p = path.join(targetDir, 'deck.png');
+    if (fs.existsSync(p)) return p;
+  }
+  if (lower.includes('dex')) {
+    const p = path.join(targetDir, 'dex.png');
+    if (fs.existsSync(p)) return p;
+  }
+  if (lower.includes('homerun')) {
+    const p = path.join(targetDir, 'homerun.png');
+    if (fs.existsSync(p)) return p;
+  }
+  if (lower.includes('knockout')) {
+    const p = path.join(targetDir, 'knockout.png');
+    if (fs.existsSync(p)) return p;
+  }
+  if (lower.includes('ending')) {
+    const p = path.join(targetDir, 'ending.png');
+    if (fs.existsSync(p)) return p;
+  }
+
+  // Fallback: 9ZONE flagship reference (battle portrait) or ref-01
+  const flagship = path.join(targetDir, 'battle-portrait.png');
+  if (fs.existsSync(flagship)) return flagship;
+  return path.join(ROOT, 'docs/art/benchmark/ref-01-commercial.png');
+}
+
 if(process.argv[1]&&path.resolve(process.argv[1])===path.resolve(fileURLToPath(import.meta.url))){
   fs.mkdirSync(OUT,{recursive:true});
   if(process.argv.includes('--reveal')){
@@ -74,18 +126,19 @@ if(process.argv[1]&&path.resolve(process.argv[1])===path.resolve(fileURLToPath(i
   }
   const before=arg('before'),after=arg('after');
   if(!before||!after){console.error('usage: --before <qa dir> --after <qa dir>  |  --reveal');process.exit(2);}
-  const ref=decodePNG(fs.readFileSync(path.join(ROOT,'docs/art/benchmark/ref-01-commercial.png')));
   const key={},template={change:'<무엇을 바꿨나>',judge:'<판정 에이전트>',note:'A/B는 무작위. .key.json 열지 말 것. 각 축 1~5 (기준 이미지=5)',sheets:{}};
   for(const f of fs.readdirSync(before).filter(f=>f.endsWith('.png')&&fs.existsSync(path.join(after,f)))){
     const b=decodePNG(fs.readFileSync(path.join(before,f))),a=decodePNG(fs.readFileSync(path.join(after,f)));
+    const refPath=getTargetReference(f);
+    const ref=decodePNG(fs.readFileSync(refPath));
     const H=Math.min(720,Math.max(b.height,a.height)),flip=crypto.randomInt(2)===1;
     const [A,B]=flip?[a,b]:[b,a];
     fs.writeFileSync(path.join(OUT,f),encodePNG(row([resize(ref,H),resize(A,H),resize(B,H)])));
-    key[f]={A:flip?'after':'before',B:flip?'before':'after'};
+    key[f]={A:flip?'after':'before',B:flip?'before':'after',ref:path.basename(refPath)};
     template.sheets[f]=Object.fromEntries(AXES.map(x=>[x,{A:null,B:null}]));
   }
   fs.writeFileSync(KEY,JSON.stringify(key));
   fs.writeFileSync(JUDGE,JSON.stringify(template,null,1));   // new random order → old scores are void
-  console.log(`${Object.keys(key).length} sheets → work/compare/*.png  (왼쪽=기준, 가운데=A, 오른쪽=B)`);
+  console.log(`${Object.keys(key).length} sheets → work/compare/*.png  (왼쪽=각 화면별 9ZONE 기준 목업, 가운데=A, 오른쪽=B)`);
   console.log('판정: work/compare/judgement.json 채운 뒤 --reveal');
 }

@@ -1,6 +1,7 @@
 import {describe,it,expect} from 'vitest';
 import fs from 'node:fs';
-import {verdict,AXES,BAR} from '../scripts/compare-shots.mjs';
+import path from 'node:path';
+import {verdict,AXES,BAR,getTargetReference} from '../scripts/compare-shots.mjs';
 
 // V14 QUALITY — blind before/after judging against the commercial reference (docs/art/QUALITY-BAR.md).
 const scores=(before,after)=>Object.fromEntries(AXES.map((a,i)=>[a,{before:[before[i]],after:[after[i]]}]));
@@ -25,5 +26,13 @@ describe('quality verdict',()=>{
     expect(fs.existsSync('docs/art/benchmark/ref-01-commercial.png')).toBe(true);
     const bar=fs.readFileSync('docs/art/QUALITY-BAR.md','utf8');
     for(const a of AXES)expect(bar).toContain(a);
+  });
+  it('maps each screenshot 1:1 to its designated 9ZONE benchmark target mockup',()=>{
+    expect(path.basename(getTargetReference('phone-portrait-battle-decide.png'))).toBe('battle-portrait.png');
+    expect(path.basename(getTargetReference('phone-landscape-battle-decide.png'))).toBe('battle-landscape.png');
+    expect(path.basename(getTargetReference('phone-portrait-map.png'))).toBe('map.png');
+    expect(path.basename(getTargetReference('phone-portrait-reward.png'))).toBe('reward.png');
+    expect(path.basename(getTargetReference('pc-map.png'))).toBe('map.png');
+    expect(path.basename(getTargetReference('runtime-title.png'))).toBe('title.png');
   });
 });

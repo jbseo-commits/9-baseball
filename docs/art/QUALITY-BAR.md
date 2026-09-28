@@ -1,8 +1,8 @@
 # 품질 기준 — 상업 게임 레퍼런스 대비 블라인드 판정
 
-> 기준 이미지: [`benchmark/ref-01-commercial.png`](benchmark/ref-01-commercial.png) (사용자 제공, 2026-09-26). **이 이미지 = 모든 축 5점.**
+> 기준 이미지: 9ZONE 전용 완성형 마스터피스 목업군 [`benchmark/target/*.png`](benchmark/target/) 및 플래그십 레퍼런스 [`benchmark/ref-01-commercial.png`](benchmark/ref-01-commercial.png). **화면별 목표 목업 = 해당 화면 8축 5점 기준.**
 > 목표(BAR_MET): 8축 평균 **4.3 이상**, 모든 축 **4 이상**.
-> 도구: `scripts/qa-shots.mjs` (스크린샷) → `scripts/compare-shots.mjs` (블라인드 시트·판정) → `QUALITY-LOG.md` (기록).
+> 도구: `scripts/qa-shots.mjs` (스크린샷) → `scripts/compare-shots.mjs` (각 화면 1:1 자동 매핑 블라인드 시트·판정) → `QUALITY-LOG.md` (기록).
 > 이 기준 이미지는 내부 비교용이다. 게임 빌드에 포함하지 않는다.
 
 ## 왜 블라인드인가
