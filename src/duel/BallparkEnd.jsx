@@ -2,6 +2,7 @@ import React from 'react';
 import stadium from '../../assets/duel/stadium.png';
 import endingKeyart from '../../assets/production-art/mockup-world-v15/ending-keyart.png';
 import './ballpark.css';
+import {EndingHero} from './phone-art-v18.jsx';
 
 /* V13 BALLPARK BP-5 — the end of a run. Players said the old screen had "too many strange options":
    a stats line, the path list, a cause chain and three buttons. Now: who stopped you, three numbers,
@@ -10,6 +11,7 @@ export default function BallparkEnd({won=false,pitcher=null,portrait=null,cleare
   return <main className={'bp-stop bp-end'+(won?' won':'')} aria-label={won?'런 완주':'런 종료'}>
     <div className="bp-bar"><span>{won?'완주':'경기 종료'}</span><span/></div>
     <header className="bp-shead" style={{'--bp-sky':`url(${won?endingKeyart:stadium})`}}>
+      {won&&<EndingHero/>}
       {portrait&&<button type="button" className="bp-sport" aria-label={pitcher?.name+' 초상 크게 보기'} onClick={e=>onInspect?.(pitcher,e)}><img alt="" src={portrait}/></button>}
       <div className="bp-stitle"><h1>{won?'전원 생환 · EVERYBODY HOME':'쓰리 아웃.'}</h1>
         <p>{won?'타순을 연결해, 경기를 뒤집었다. 모든 투수를 끌어내리고 완주를 달성했습니다.':pitcher?`${pitcher.name}에게 막혔다. HP ${pitcher.hp} 남았다.`:'여기까지.'}</p></div>

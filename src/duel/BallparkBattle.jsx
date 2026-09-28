@@ -9,6 +9,8 @@ import {lessonFor,planText} from './DecisionDebrief.jsx';
 import batterV14MasterSheet from '../../assets/ui-kit/batter/batter-v14-master-sheet.png';
 import cardArtSheet from '../../assets/ui-kit/cards/battle-core-v14-master-sheet.png';
 import {cardArtFor} from './card-art.js';
+import {HomeRunCut,KnockoutCut} from './phone-art-v18.jsx';
+import {pitcherFigures} from './pitcher-visuals.js';
 import './ballpark.css';
 
 /* V13 BALLPARK — the battle as one ballpark scene (docs/design/v13/BALLPARK.md).
@@ -387,6 +389,7 @@ const CARD_DESC_MAP={
         const isKoSplash=Boolean(judged&&(pitcher?.hp??1)===0);
         const isSplash=isHomerSplash||isKoSplash;
         return <div className={'bp-verdict'+(good?' good':'')+(isSplash?' splash':'')+(isHomerSplash?' homer':'')+(isKoSplash?' knockout':'')} key={'v'+playToken+(shot.title||'')} role="status">
+          {isKoSplash?<KnockoutCut artId={artId} figure={pitcherFigures[artId]}/>:isHomerSplash&&<HomeRunCut/>}
           <strong>{call||shot.title}</strong>
           {(outNote||call&&shot.title&&shot.title!==call)&&<small>{outNote||shot.title}</small>}
         </div>;

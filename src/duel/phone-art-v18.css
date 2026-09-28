@@ -1,0 +1,73 @@
+/* Phone asset queue A01–A09 composed in-game (phone-art-v18.jsx). Every rule is scoped under the screen
+   that owns it (.duel-title, .bp-end, .bp-verdict.splash), so no other screen is touched.
+   Targets: docs/art/benchmark/target/{title,ending,homerun,knockout}.png */
+
+/* ---- title: A06 plate, A05 coach behind, A04 batter in front; copy and menu stay above (z 3) ---- */
+.duel-title .title-hero{position:absolute;left:0;right:0;top:0;height:min(64vh,560px);z-index:1;pointer-events:none;overflow:hidden}
+.duel-title .title-hero .th-plate{position:absolute;inset:0;background-size:cover;background-position:58% 40%;background-repeat:no-repeat}
+.duel-title .title-hero .th-coach{position:absolute;right:26%;bottom:22%;height:52%;width:auto;opacity:.92;filter:brightness(.82) saturate(.95)}
+.duel-title .title-hero .th-batter{position:absolute;right:-8%;bottom:0;height:96%;width:auto;filter:drop-shadow(0 10px 18px #000a)}
+/* the copy reads over the sky on the left; the hero melts into the menu's dark body */
+.duel-title .title-hero .th-fade{position:absolute;inset:0;background:linear-gradient(90deg,#091c25e6 0%,#091c2599 34%,#091c2500 62%),linear-gradient(180deg,#091c2500 55%,#091c25 100%)}
+.duel-title:has(.title-hero) .title-actor{display:none}
+@media (min-width:900px){
+  .duel-title .title-hero{left:auto;width:min(62vw,980px);height:100%}
+  .duel-title .title-hero .th-batter{right:4%;height:88%}
+  .duel-title .title-hero .th-coach{right:38%;height:58%}
+}
+@media (orientation:landscape) and (max-height:500px){
+  .duel-title .title-hero{left:auto;width:58vw;height:100%}
+  .duel-title .title-hero .th-coach{display:none}
+}
+
+/* ---- ending: A08 plate, A07 batter from behind on the left third; the right sky holds the copy ---- */
+.bp-stop.bp-end.won .bp-shead{background:none;min-height:clamp(260px,44dvh,440px);align-items:flex-end;justify-content:flex-end}
+.bp-stop.bp-end .end-hero{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bp-stop.bp-end .end-hero .eh-plate{position:absolute;inset:0;background-size:cover;background-position:50% 60%;image-rendering:auto}
+.bp-stop.bp-end .end-hero .eh-batter{position:absolute;left:4%;bottom:-2%;height:94%;width:auto;filter:drop-shadow(0 8px 16px #000b)}
+.bp-stop.bp-end .end-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#07080d00 30%,#07080d99 100%),linear-gradient(180deg,#07080d00 60%,#07080d 100%)}
+.bp-stop.bp-end.won .bp-stitle{position:relative;z-index:1;max-width:58%;text-align:right}
+
+/* ---- home-run cut-in: the verdict card becomes a 16:9 shot — A02 plate, A01 swing, A03 ball + trail
+   leaving the bat. The card's text sits on a bottom gradient. The code draws no second ball here. ---- */
+.bp-verdict.splash.homer:has(.hr-cut),.bp-verdict.splash.knockout:has(.ko-cut){
+  width:min(92%,400px);aspect-ratio:16/9;padding:0 14px 12px;align-content:end;overflow:hidden;background:#07080d!important;white-space:normal;isolation:isolate}
+.bp-verdict.splash:has(.hr-cut)>:not(.hr-cut),.bp-verdict.splash:has(.ko-cut)>:not(.ko-cut),
+.bp-verdict.splash:has(.hr-cut)::before,.bp-verdict.splash:has(.ko-cut)::before{position:relative;z-index:2}
+.bp-verdict .hr-cut,.bp-verdict .ko-cut{position:absolute;inset:0;z-index:0;overflow:hidden}
+.bp-verdict .hr-cut::after,.bp-verdict .ko-cut::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#07080d00 45%,#07080dd9 100%)}
+.bp-verdict .hr-plate,.bp-verdict .ko-plate{position:absolute;inset:0;background-size:cover;background-position:50% 50%}
+.bp-verdict .hr-batter{position:absolute;left:-2%;bottom:-6%;height:112%;width:auto;animation:hr-batter 520ms cubic-bezier(.2,.9,.3,1) both}
+.bp-verdict .hr-trail{position:absolute;left:26%;top:-4%;width:82%;height:auto;transform-origin:0% 100%;animation:hr-trail 560ms cubic-bezier(.16,.84,.3,1) 120ms both}
+@keyframes hr-batter{from{transform:translateX(-10%) scale(1.06);opacity:0}to{transform:none;opacity:1}}
+@keyframes hr-trail{from{clip-path:inset(0 100% 0 0);opacity:.2}60%{opacity:1}to{clip-path:inset(0 0 0 0);opacity:1}}
+
+/* ---- knockout: Red Rush staggers (v17), folds (A09), kneels (v17) on one canvas; text to the right
+   (the plate's safe area x .58–.97). Other pitchers sink in their own cutout. ---- */
+.bp-verdict.splash.knockout:has(.ko-cut),.bp-verdict.splash.homer:has(.hr-cut){justify-items:end;text-align:right}
+.bp-verdict .ko-pose{position:absolute;left:-2%;bottom:-4%;height:112%;width:auto;opacity:0}
+.bp-verdict .ko-stagger{animation:ko-stagger 1.1s linear both}
+.bp-verdict .ko-mid{animation:ko-mid 1.1s linear both}
+.bp-verdict .ko-kneel{animation:ko-kneel 1.1s linear both}
+@keyframes ko-stagger{0%,15%{opacity:1}17%,100%{opacity:0}}
+@keyframes ko-mid{0%,15%{opacity:0}17%,33%{opacity:1}35%,100%{opacity:0}}
+@keyframes ko-kneel{0%,33%{opacity:0}35%,100%{opacity:1}}
+.bp-verdict .ko-figure{position:absolute;left:2%;bottom:-8%;height:108%;width:auto;filter:brightness(.8) saturate(.8) drop-shadow(0 0 14px #ff3a2a88);animation:ko-sink 900ms cubic-bezier(.4,0,.2,1) both}
+@keyframes ko-sink{from{transform:none}to{transform:translateY(8%) rotate(6deg)}}
+
+@media (prefers-reduced-motion:reduce){
+  .bp-verdict .hr-batter,.bp-verdict .hr-trail,.bp-verdict .ko-figure{animation:none}
+  .bp-verdict .ko-stagger,.bp-verdict .ko-mid{animation:none;opacity:0}
+  .bp-verdict .ko-kneel{animation:none;opacity:1}
+}
+
+/* portrait phones: the hero gets its own 430px band (batter full height, feet on the menu card's top
+   edge) and the headline moves down onto the band's dark lower-left, so neither covers his face */
+@media (max-width:899px) and (orientation:portrait){
+  .duel-title .title-hero{height:430px}
+  .duel-title .title-hero .th-batter{right:-12%;height:93%}
+  .duel-title .title-hero .th-coach{right:30%;bottom:30%;height:50%}
+  .duel-title .title-hero .th-fade{background:linear-gradient(180deg,#091c2500 40%,#091c25cc 78%,#091c25 100%),linear-gradient(90deg,#091c25b3 0%,#091c2500 55%)}
+  .duel-title:has(.title-hero) .title-copy{padding-top:max(0px,calc(282px - 12vh))}
+  .duel-title:has(.title-hero) .title-copy h1{text-shadow:3px 3px #06151c,0 0 18px #06151c}
+}

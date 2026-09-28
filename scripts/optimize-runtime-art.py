@@ -28,6 +28,10 @@ RULES = [
     (r'^ui-kit/.*master-sheet\.png$',               dict(keep=True, lossless=True)),
     (r'^production-art/battle-polish-v16/.*\.png$', dict(keep=True, q=90)),
     (r'^production-art/battle-portrait-v15/batter-sheet\.png$', dict(long=2048, q=88)),  # 4x2 cells -> 512x768; hero box ~310px tall
+    (r'^production-art/battle-portrait-v15/batter-sheet-runtime\.png$', dict(keep=True, q=88)),  # already 512x768 cells (#103 M09)
+    (r'^production-art/phone-assets-v18/A0[1-3].*\.png$', dict(long=1024, q=84)),  # home-run cut-in card <=400px wide
+    (r'^production-art/phone-assets-v18/.*\.png$',  dict(long=1200, q=84)),  # title / ending heroes: <=560px tall
+    (r'^production-art/red-rush-knockout-layers-v17/.*\.png$', dict(long=1024, q=84)),  # knockout cut-in card
     (r'^cards-v15/deck-dex-backdrop\.png$',         dict(keep=True, q=80)),
     (r'^cards-v15/.*\.png$',                        dict(long=768, q=82)),   # hand/reward/deck cards: <=180px wide on screen
     (r'^production-art/mockup-world-v15/dex-.*\.png$', dict(long=800, q=84)),  # portrait dialog, map preview, reward
