@@ -55,4 +55,23 @@ describe('V16 Battle Polish & Dex Masterpiece Integration Contract', () => {
     expect(actorsJsx).toMatch(/impactSlashVfx/);
     expect(actorsJsx).toMatch(/slashSprite/);
   });
+
+  it('PitcherPortraitDialog renders 12-pitcher Dex shelf matching benchmark dex.png', () => {
+    const dialogJsx = fs.readFileSync(new URL('../src/duel/PitcherPortraitDialog.jsx', import.meta.url), 'utf8');
+    expect(dialogJsx).toMatch(/pitcher-dex-shelf/);
+    expect(dialogJsx).toMatch(/pitcher-dex-card/);
+    expect(dialogJsx).toMatch(/PITCHER ROSTER \(12명\)/);
+  });
+
+  it('App.jsx provides header dex button and deck modal subtitle', () => {
+    const appJsx = fs.readFileSync(new URL('../src/duel/App.jsx', import.meta.url), 'utf8');
+    expect(appJsx).toMatch(/dex-header-btn/);
+    expect(appJsx).toMatch(/deck-modal-sub/);
+  });
+
+  it('BallparkEnd.jsx celebrates 3-Act clear with EVERYBODY HOME headline', () => {
+    const endJsx = fs.readFileSync(new URL('../src/duel/BallparkEnd.jsx', import.meta.url), 'utf8');
+    expect(endJsx).toMatch(/전원 생환 · EVERYBODY HOME/);
+  });
 });
+

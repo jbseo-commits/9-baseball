@@ -11,8 +11,8 @@ export default function BallparkEnd({won=false,pitcher=null,portrait=null,cleare
     <div className="bp-bar"><span>{won?'완주':'경기 종료'}</span><span/></div>
     <header className="bp-shead" style={{'--bp-sky':`url(${won?endingKeyart:stadium})`}}>
       {portrait&&<button type="button" className="bp-sport" aria-label={pitcher?.name+' 초상 크게 보기'} onClick={e=>onInspect?.(pitcher,e)}><img alt="" src={portrait}/></button>}
-      <div className="bp-stitle"><h1>{won?'마지막 마운드까지.':'쓰리 아웃.'}</h1>
-        <p>{won?'모든 투수를 끌어내렸다.':pitcher?`${pitcher.name}에게 막혔다. HP ${pitcher.hp} 남았다.`:'여기까지.'}</p></div>
+      <div className="bp-stitle"><h1>{won?'전원 생환 · EVERYBODY HOME':'쓰리 아웃.'}</h1>
+        <p>{won?'타순을 연결해, 경기를 뒤집었다. 모든 투수를 끌어내리고 완주를 달성했습니다.':pitcher?`${pitcher.name}에게 막혔다. HP ${pitcher.hp} 남았다.`:'여기까지.'}</p></div>
     </header>
     <dl className="bp-endstats">
       <div><dt>지나온 곳</dt><dd>{cleared}</dd></div>

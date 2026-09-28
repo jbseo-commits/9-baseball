@@ -401,7 +401,7 @@ const CARD_DESC_MAP={
       <div className="bp-coach-bubble">
         <p className={'bp-coach'+(voice?' has-voice':'')}>
           <span className="bp-coach-text">{coach}</span>
-          {voice&&<q className={'bp-voice-strip m-'+moment} key={'qs'+playToken+moment}><b>{pitcher?.name}</b>{voice}</q>}
+          {voice&&<q className={'bp-voice-strip m-'+moment} key={'qs'+playToken+moment}><b>{pitcher?.name}</b> {voice}</q>}
         </p>
       </div>
     </div>
@@ -455,9 +455,7 @@ const CARD_DESC_MAP={
     {onNext&&!deciding&&s.phase!=='battle'?<div className="bp-verbs next">
       <button type="button" className="bp-verb go" data-testid="bp-next" disabled={inFx} onClick={onNext}>{nextLabel}</button>
     </div>:<div className="bp-verbs">
-      <button type="button" className="bp-verb go" data-testid="bp-swing" disabled={!deciding||!selected||!!choice?.problem} onClick={commitSwing}>
-        {verb}{verbSub&&<small>{verbSub}</small>}
-      </button>
+      <button type="button" className="bp-verb go" data-testid="bp-swing" disabled={!deciding||!selected||!!choice?.problem} onClick={commitSwing}><strong>{verb}</strong>{verbSub&&<small>{verbSub}</small>}</button>
       <button type="button" className="bp-verb wait" data-testid="bp-take" disabled={!deciding} onClick={onTake}>지켜본다</button>
       {mainEntry&&deciding&&<button type="button" className="bp-info" aria-label={mainName+' 카드 설명'} onClick={e=>onDetail?.(mainEntry,e.currentTarget)}>ⓘ</button>}
     </div>}
