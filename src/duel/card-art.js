@@ -44,6 +44,8 @@ export const ART_FOCUS_Y = {
   'family-intel.png': 0.27, 'family-lane.png': 0.36, 'family-mental.png': 0.21, 'family-power.png': 0.27,
   'family-precision.png': 0.26, 'family-relay.png': 0.42, 'family-stack.png': 0.30, 'family-tempo.png': 0.18,
   'reward-flame-red.png': 0.20, 'reward-precision-blue.png': 0.16, 'reward-relay-cyan.png': 0.19,
+  // C101–C104 (Codex, 2026-09-28): the face, with the eye-level pair / the swing's hands inside the frame
+  'card-pinpoint.png': 0.24, 'card-eyeLevel.png': 0.26, 'card-verticalRead.png': 0.28, 'card-readStrike.png': 0.22,
 };
 /* per card key, for a card that should frame a shared illustration differently from the file default */
 export const CARD_ART_FOCUS_Y = {};

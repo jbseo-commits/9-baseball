@@ -1,4 +1,5 @@
 import {describe,it,expect} from 'vitest';
+import fs from 'node:fs';
 import {CARDS,CORE_KINDS,FAMILIES,AXIS_NAMES} from '../src/duel/cards.js';
 import {createV10Duel,enterV10Node,playV10Action,coverageAt,swingOdds,playCard,knownPitchZones,
   v16DraftChoices,V16_STARTER_KINDS,v10Shaken} from '../src/duel/engine.js';
@@ -136,6 +137,9 @@ describe('V16 card art hand-off (docs/art/PHONE_ASSET_QUEUE.md queue C)',()=>{
     expect(src).toContain('family-${fam}.png');
     const {FAMILY_ART}=await import('../src/duel/card-art.js');
     for(const f of Object.keys(FAMILIES))expect(FAMILY_ART[f],f).toBeTruthy();
-    expect(cardArtFor('pinpoint')).toMatch(/reward-precision-blue/);   // borrowed until C01 is uploaded
+    /* the chain: a card's own card-<key>.png (C101 pinpoint has landed), else its family-<concept>.png, else the borrowed concept art */
+    expect(cardArtFor('pinpoint')).toMatch(/card-pinpoint/);
+    const noOwn=Object.keys(CARDS).find(k=>CARDS[k].family&&!fs.existsSync('assets/cards-v15/card-'+k+'.png'));
+    if(noOwn)expect(cardArtFor(noOwn)).toMatch(/family-|reward-|deck-|card-/);
   });
 });
