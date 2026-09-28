@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Violet Nocturne · 포수 시점 투구 검수</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#091017;color:#f4e5ca;font:14px system-ui,sans-serif;display:grid;place-items:center;min-height:100vh;padding:16px}
+    main{width:min(100%,460px)}h1{font-size:20px;margin:0 0 5px}p{margin:0 0 14px;color:#c8b8aa;line-height:1.5}
+    .scene{position:relative;width:min(100%,390px);aspect-ratio:390/570;margin:auto;overflow:hidden;background:#13202b url('../duel/stadium-portrait.png') center 45%/cover;box-shadow:0 8px 35px #0008}
+    .scene:after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 45%,#150c10aa 100%);pointer-events:none}
+    .batter{position:absolute;height:57%;bottom:1%;left:-16%;filter:drop-shadow(4px 6px 4px #0008)}
+    .mound{position:absolute;right:11%;top:42%;width:32%;height:4%;border-radius:50%;background:#24171677;filter:blur(5px)}
+    canvas{position:absolute;right:5%;top:22%;width:42%;height:auto;image-rendering:pixelated;filter:drop-shadow(2px 4px 4px #000a)}
+    .zone{position:absolute;left:42%;top:55%;width:28%;aspect-ratio:1;border:1px solid #b9d2d9aa;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);z-index:2}
+    .zone i{border:1px solid #b9d2d955;background:#24445522}
+    .controls{display:flex;align-items:center;gap:10px;margin:16px auto 0;max-width:390px}.controls input{flex:1}.controls button{background:#3d2645;color:white;border:1px solid #ab81b8;border-radius:6px;padding:7px 12px}
+    small{display:block;margin:10px auto;max-width:390px;color:#cabdac;line-height:1.4}
+  </style>
+</head>
+<body>
+<main>
+  <h1>Violet Nocturne · 포수 시점 검수</h1>
+  <p>캐릭터와 투구 방향을 경기 화면 크기에 놓아 확인하는 독립 시제품입니다. 게임에는 아직 연결되지 않았습니다.</p>
+  <div class="scene">
+    <img class="batter" src="../production-art/battle-portrait-v15/batter-ready.png" alt="">
+    <div class="mound"></div>
+    <canvas id="pitcher" width="256" height="256" aria-label="포수 쪽을 보는 투수 애니메이션"></canvas>
+    <div class="zone" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+  <div class="controls"><button id="play" type="button">재생</button><input id="frame" type="range" min="0" max="119" value="0" aria-label="투구 프레임"><output id="count">0 / 119</output></div>
+  <small>현재 키포즈 전환에는 눈에 띄는 점프가 있습니다. 동작 품질 합격용이 아니라 카메라 방향과 화면 크기 검수용입니다.</small>
+</main>
+<script>
+  const image=new Image();image.src='atlases/violet-nocturne-pitch-120-atlas.png';
+  const canvas=document.querySelector('#pitcher'),context=canvas.getContext('2d'),range=document.querySelector('#frame'),count=document.querySelector('#count'),play=document.querySelector('#play');
+  let playing=false,start=0,timer=0;
+  function draw(index){if(!image.complete||!image.naturalWidth)return;context.clearRect(0,0,256,256);context.imageSmoothingEnabled=false;context.drawImage(image,(index%10)*256,Math.floor(index/10)*256,256,256,0,0,256,256);range.value=index;count.value=`${index} / 119`;}
+  image.onload=()=>draw(0);range.oninput=()=>{playing=false;play.textContent='재생';cancelAnimationFrame(timer);draw(Number(range.value));};
+  function tick(now){if(!playing)return;draw(Math.min(119,Math.floor((now-start)/1000*60)));if(Number(range.value)>=119){playing=false;play.textContent='재생';return}timer=requestAnimationFrame(tick)}
+  play.onclick=()=>{playing=!playing;play.textContent=playing?'정지':'재생';cancelAnimationFrame(timer);if(playing){start=performance.now()-Number(range.value)/60*1000;timer=requestAnimationFrame(tick)}};
+</script>
+</body>
+</html>
