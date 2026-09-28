@@ -25,6 +25,7 @@ import "./duel/pitcher-portrait.css";
 import "./duel/v12-polish.css";
 import "./duel/v14-portrait-master.css";
 import "./duel/portrait-lock.css";
+import "./duel/battle-clarity.css";
 import "./duel/title-pixel.css";
 
 watchLayoutMode();
