@@ -25,7 +25,7 @@ Mobile composite sanity previews: [home run 844×390](working/phone-assets-v18-q
 | Tests/regression | Needs verification at integration | Run visual/flow regression after code imports and animations. |
 | Build/deploy | None so far | No imports or bundled paths changed here; when merging the V16 card branch, verify family filename lookup and production build. |
 
-**Status:** Individual source image inspection passed. No claim of 10-screen mockup fidelity, completed animation, V16 runtime connection, or final R1–R8 quality score. Conditional B slots and C125–C235 per-card illustrations remain open; C101–C124 source-image checks are recorded below.
+**Status:** Individual source image inspection passed. No claim of 10-screen mockup fidelity, completed animation, V16 runtime connection, or final R1–R8 quality score. Conditional B slots and C126–C235 per-card illustrations remain open; C101–C125 source-image checks are recorded below.
 
 ## C101 pinpoint follow-up
 
@@ -90,3 +90,7 @@ All three are new 1024×1536 opaque RGB PNGs. C117 [`card-pullHook.png`](../../a
 ## C124 slugger-instinct follow-up
 
 [`card-sluggerInstinct.png`](../../assets/cards-v15/card-sluggerInstinct.png) is a new 1024×1536 opaque RGB PNG. #9 stands tall at the plate with a vertical bat, focused on the outfield before the pitch; amber sparks gather around his hands. The figure and bat remain clear in the [100px preview](working/c124-slugger-instinct-100px.png). No baseball, text, or card frame is baked in. `src/duel/card-art.js` selects the named file before the power family fallback and sets its detail-sheet vertical focus to 0.27. The final card-window crop and mobile screen have not been visually approved. C125–C235 remain open.
+
+## C125 called-shot follow-up
+
+[`card-calledShot.png`](../../assets/cards-v15/card-calledShot.png) is a new 1024×1536 opaque RGB PNG. From behind home plate, #9 extends the bat toward one point on the outfield fence; a slim gold line makes the target visible without a baseball or swing. The pointing pose reads in the [100px preview](working/c125-called-shot-100px.png). No text or card frame is baked in. `src/duel/card-art.js` selects the named file before the power family fallback and sets its detail-sheet vertical focus to 0.29. The final card-window crop and mobile screen have not been visually approved. C126–C235 remain open.
