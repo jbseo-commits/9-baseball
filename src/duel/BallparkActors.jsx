@@ -4,6 +4,7 @@ import {redRushBatterShot,redRushFrameAt,hasPitchVisual,RED_RUSH_RELEASE_MS,RED_
 import RELEASE from './pitcher-release.json';
 import STRIDE from './pitcher-stride.json';
 import impactSlashVfx from '../../assets/production-art/battle-polish-v16/impact-slash.png';
+import {computeBatterPoseTransition,computeBatterWeightShift,computePitcherWeightShift} from './motion-interpolation.js';
 
 /* V13 C2 — the batter and the pitcher drawn by PixiJS (WebGL) over the CSS stadium.
    The art is the repository's: the pitcher's 120-frame atlas and the batter's ten authored key poses.
@@ -81,6 +82,7 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
       const whip=new PIXI.Graphics();world.addChild(whip);
       const ghosts=[0,1].map(()=>{const g=new PIXI.Sprite(poseTex.ready);g.anchor.set(.5,1);g.alpha=0;world.addChild(g);return g;});
       const batter=new PIXI.Sprite(poseTex.ready);batter.anchor.set(.5,1);world.addChild(batter);
+      const inBetweenBatter=new PIXI.Sprite(poseTex.ready);inBetweenBatter.anchor.set(.5,1);inBetweenBatter.alpha=0;world.addChild(inBetweenBatter);
       const flash=new PIXI.Sprite(poseTex.ready);flash.anchor.set(.5,1);flash.blendMode='add';flash.alpha=0;world.addChild(flash);
       const arc=new PIXI.Graphics();world.addChild(arc);
       const dust=new PIXI.Container();world.addChild(dust);
@@ -161,10 +163,11 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
           const fi=active?redRushFrameAt(t):0,{artId:aid0,knockedOut:ko}=live.current;
           pitcher.texture=pitchFrames[fi];
           const sc=crisp(p.h/pitcher.texture.height,app.renderer.resolution);
-          const px=p.x+p.w/2,py=p.y+p.h,tw=pitcher.texture.width*sc,th=pitcher.texture.height*sc;
-          pitcher.scale.set(sc,sc*(active?1:1+breath*.008));
-          pitcher.position.set(px,py);pitcher.rotation=0;pitcher.alpha=1;pitcher.tint=0xffffff;
-          let shadowW=p.w*.26;
+          const pShift=(!reduced&&active)?computePitcherWeightShift(fi,ko):{dx:0,dy:0,rot:0,sx:1,sy:1};
+          const px=p.x+p.w/2+p.w*pShift.dx,py=p.y+p.h+p.h*pShift.dy,tw=pitcher.texture.width*sc,th=pitcher.texture.height*sc;
+          pitcher.scale.set(sc*pShift.sx,sc*(active?pShift.sy:1+breath*.008));
+          pitcher.position.set(px,py);pitcher.rotation=pShift.rot;pitcher.alpha=1;pitcher.tint=0xffffff;
+          let shadowW=p.w*.26*pShift.sx;
           // stride: dirt where the front foot lands
           const st=STRIDE[aid0]||[51,.05,.95];
           if(active&&!dusted.plant&&fi>=st[0]){dusted.plant=1;if(!reduced)spawnDust(px-tw/2+st[1]*tw,py-th+st[2]*th,7,p.h*1.4);}
@@ -199,20 +202,43 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
               if(!dusted.ko&&since>KO_FALL_MS*.7){dusted.ko=1;spawnDust(px,py-p.h*.02,12,p.h*1.6);}
             }
           }
-          shadows.ellipse(px,py-p.h*.03,shadowW,p.h*.035).fill({color:0x000000,alpha:.35});
+          shadows.ellipse(px-p.w*pShift.dx*.3,py-p.h*.03,shadowW,p.h*.035).fill({color:0x000000,alpha:.35});
         }
         if(b){
           // hit-stop always holds the contact pose (the no-skip rule may still be a pose behind)
           const inStop=active&&hit&&stopAt&&now<stopUntil;
+          const stopElapsed=inStop?now-stopAt:0;
           if(inStop){const ci=timeline.findIndex(k=>k.pose==='contact');if(ci>=0)shownIndex=ci;}
+          const transition=active?computeBatterPoseTransition(timeline,t):{currentPose:'ready',nextPose:'ready',progress:0};
           const pose=active?(inStop?'contact':poseAt(t)):(shownIndex=0,'ready');
+          const nextPose=inStop?'contact':transition.nextPose;
+          const bShift=(!reduced&&active)?computeBatterWeightShift({
+            currentPose:pose,nextPose,progress:transition.progress,inStop,stopElapsed,hit
+          }):{dx:0,dy:0,rot:0,sx:1,sy:1};
+
           if(pose!==prevPose){prevPoses.unshift({pose:prevPose,at:now});prevPoses=prevPoses.slice(0,2);prevPose=pose;}
           const tex=poseTex[pose]||poseTex.ready;
           batter.texture=tex;flash.texture=tex;
-          const sc=crisp(b.h/tex.height,app.renderer.resolution),x=Math.round(b.x+b.w/2),y=Math.round(b.y+b.h);
-          batter.scale.set(sc,sc*(active?1:1+breath*.006));batter.position.set(x,y);
+          const sc=crisp(b.h/tex.height,app.renderer.resolution);
+          const x=Math.round(b.x+b.w/2+b.w*bShift.dx),y=Math.round(b.y+b.h+b.h*bShift.dy);
+          batter.scale.set(sc*bShift.sx,sc*(active?bShift.sy:1+breath*.006));batter.position.set(x,y);
+          batter.rotation=bShift.rot;
           flash.scale.copyFrom(batter.scale);flash.position.copyFrom(batter.position);
-          shadows.ellipse(x,y-b.h*.04,b.w*.3,b.h*.035).fill({color:0x000000,alpha:.35});
+          flash.rotation=batter.rotation;
+
+          if(inBetweenBatter){
+            if(active&&!reduced&&!inStop&&nextPose!==pose&&poseTex[nextPose]&&transition.progress>0.06&&transition.progress<0.94){
+              inBetweenBatter.texture=poseTex[nextPose];
+              inBetweenBatter.scale.copyFrom(batter.scale);
+              inBetweenBatter.position.set(x+b.w*0.015*(transition.progress-.5),y);
+              inBetweenBatter.rotation=batter.rotation;
+              inBetweenBatter.alpha=Math.sin(transition.progress*Math.PI)*0.36;
+            }else{
+              inBetweenBatter.alpha=0;
+            }
+          }
+
+          shadows.ellipse(x-b.w*bShift.dx*.3,y-b.h*.04,b.w*.3*bShift.sx,b.h*.035).fill({color:0x000000,alpha:.35});
           // smear: during the fast part of the swing the last poses trail behind, on twos
           const fast=active&&swing&&t>=(timeline.find(k=>k.pose==='swing-start')?.at??1e9)&&t<impactAt+160;
           ghosts.forEach((g,i)=>{
