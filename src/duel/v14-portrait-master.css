@@ -25,16 +25,20 @@
   .v14-battle-portrait .bp-bg{
     background-image:url('../../assets/duel/stadium-portrait.png')!important;
     /* target camera: plate right of the batter with the zone floating over it, mound behind the zone.
-       125% wide, pinned left and to the scene bottom in vw, so the painted plate (x 46-78%, centre ~62%)
-       and mound (rubber x ~85%) keep one geometry with the actors on every phone height:
-       plate bottom 3vw / plate top ~17vw / mound front ~71vw above the scene bottom.
-       Like the mockup, the zone floats right of the batter over the plate and never covers him. */
-    background-position:left 0 bottom -31.2vw!important;
-    background-size:125% auto!important;
+       Everything on the field is laid out in --u, the scene's camera unit (BallparkBattle sceneUnit:
+       1% of the scene width, less when the scene is too short to show the pitcher on the mound).
+       The 941x1672 plate is 125u wide, pinned left and 31.2u below the scene bottom, so measured on
+       the painting: plate x 46-78u (centre 62u), bottom 3u / top ~17u; rubber x 85.4u, 79.1u up;
+       mound front edge ~71u up. Like the mockup, the zone floats right of the batter over the plate. */
+    background-position:left 0 bottom calc(-31.2 * var(--u,1vw))!important;
+    background-size:calc(125 * var(--u,1vw)) auto!important;
   }
-  /* the batter stands in the left batter's box beside the plate, not on it; the pitcher on the mound */
-  .v14-battle-portrait .bp-batter{left:-27%;top:auto;bottom:1vw;height:78vw}
-  .v14-battle-portrait .bp-pitcher{left:auto;right:1%;top:auto;bottom:71vw;height:24vw;z-index:2}   /* top:auto: the base rule's top:18% must never win */
+  /* the batter stands in the left batter's box beside the plate, not on it */
+  .v14-battle-portrait .bp-batter{left:calc(-27 * var(--u,1vw));top:auto;bottom:var(--u,1vw);height:calc(78 * var(--u,1vw))}
+  /* #103 M10: the pitcher stands ON the rubber. The box's bottom centre is the spot her feet take in
+     the set position (x 85.4u, just in front of the rubber at 78.4u); the renderers put each pitcher's
+     measured stance point there (pitcher-stance.json), so every pitcher shares the same footing. */
+  .v14-battle-portrait .bp-pitcher{left:calc(73.4 * var(--u,1vw));right:auto;top:auto;bottom:calc(78.4 * var(--u,1vw));height:calc(24 * var(--u,1vw));z-index:2}   /* top:auto: the base rule's top:18% must never win */
   /* HP panel top-left so the pitcher on the mound stays clear; her tell sits over her, top-right */
   .v14-battle-portrait .bp-scene .bp-tell{left:auto;right:8px;top:8px;max-width:46%;white-space:nowrap;font-size:12px}
   .v14-battle-portrait .bp-bases{left:auto;right:20px;top:auto;bottom:22%}
@@ -58,7 +62,7 @@
 
   /* 9ZONE: Blue Glassmorphism */
   .v14-battle-portrait .bp-zone{
-    left:44%;top:auto;bottom:19vw;width:36%;height:clamp(126px,37%,168px);   /* the strike zone sits over home plate */
+    left:calc(44 * var(--u,1vw));top:auto;bottom:calc(19 * var(--u,1vw));width:calc(36 * var(--u,1vw));height:clamp(126px,37%,168px);   /* the strike zone sits over home plate (centre 62u) */
     background:radial-gradient(ellipse at 50% 50%,rgba(20,28,60,0.72) 0%,rgba(8,12,24,0.9) 100%)!important;
     border:2px solid #5a6fa8!important;border-radius:4px!important;
     box-shadow:0 0 0 1px #07080d,inset 0 0 20px rgba(30,45,95,0.7),0 8px 32px rgba(0,0,0,0.85)!important;
@@ -216,5 +220,48 @@
   .v14-battle-portrait .bp-verb.wait{grid-template-columns:24px minmax(0,1fr);column-gap:6px;padding-left:8px!important;padding-right:8px!important}
   .v14-battle-portrait .bp-verb.wait::before{width:24px;height:24px}
   .v14-battle-portrait .bp-verb.wait::after{white-space:normal;word-break:keep-all;text-overflow:clip;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.2}
+
+  /* ---- #103 mobile playtest ---- */
+  /* M03: verbs never break inside a word. With the card-info button the row is three columns; the wait
+     verb keeps the room its one-line title needs, titles scale with the phone width, and the swing
+     numbers wrap between each other (two short lines) instead of ending in "피해 …". */
+  .v14-battle-portrait .bp-verb-word{grid-column:2;white-space:nowrap;min-width:0}
+  .v14-battle-portrait .bp-verb small.bp-verb-sub{display:flex;flex-wrap:wrap;column-gap:6px;row-gap:0;white-space:normal;overflow:visible;text-overflow:clip;line-height:1.2}
+  .v14-battle-portrait .bp-verb-sub>span{white-space:nowrap}
+  .v14-battle-portrait .bp-verb-sep{display:none}
+  .v14-battle-portrait .bp-verbs:has(.bp-info){grid-template-columns:minmax(0,1.45fr) minmax(136px,1fr) 40px}
+  .v14-battle-portrait .bp-verbs:has(.bp-info) .bp-verb{font-size:clamp(19px,5.6vw,24px)!important;padding-right:8px!important}
+  .v14-battle-portrait .bp-verbs:has(.bp-info) .bp-verb.go{grid-template-columns:24px minmax(0,1fr);column-gap:6px}
+  .v14-battle-portrait .bp-verbs:has(.bp-info) .bp-verb.go::before{width:24px;height:24px}
+  .v14-battle-portrait .bp-info{width:40px;min-height:64px;color:var(--bp-bone);border-color:#4a5a94;border-radius:6px;background:linear-gradient(180deg,#1f2749 0%,#0f1326 100%)}
+  /* the next-step verb is the only one: the whole row (the three-column template left it half wide) */
+  .v14-battle-portrait .bp-verbs.next{grid-template-columns:minmax(0,1fr)}
+  .v14-battle-portrait .bp-verbs.next .bp-verb.go{justify-items:start}
+
+  /* M04: the debrief lives in the 148px hand row. It is laid out to fit there (plan → actual on one
+     row, the lesson under it at full width) and scrolls inside itself if a long lesson still runs
+     over — it never slides under the verbs. The floating damage rises inside the HP panel. */
+  .v14-battle-portrait .bp-debrief{
+    grid-template-columns:minmax(0,1fr) auto minmax(0,.8fr);grid-template-areas:"plan arrow actual" "next next next";
+    grid-template-rows:auto auto;align-content:start;gap:4px;padding:6px 8px 6px;min-height:0;
+    overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;
+  }
+  .v14-battle-portrait .bp-dstep{padding:5px 8px;gap:2px}
+  .v14-battle-portrait .bp-dstep>span{font-size:8px}
+  .v14-battle-portrait .bp-dstep>strong{font-size:12px;line-height:1.2;word-break:keep-all}
+  .v14-battle-portrait .bp-dstep>small{font:500 10.5px/1.3 "Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;word-break:keep-all}
+  .v14-battle-portrait .bp-dstep.next>small{font-size:11px;color:#d7dcea}
+  .v14-battle-portrait .bp-damage{top:auto;bottom:4px;right:8px;font-size:20px;z-index:2}
+
+  /* M08: the zone keeps readable cells on short phones (the camera unit shrinks it with the field);
+     it stays centred on the plate at 62u. Cell words never split ("안 던
+짐"). */
+  .v14-battle-portrait .bp-zone{width:max(calc(36 * var(--u,1vw)),138px);left:calc(62 * var(--u,1vw) - max(calc(18 * var(--u,1vw)),69px))}
+  .v14-battle-portrait .bp-cell{white-space:nowrap;word-break:keep-all}
+  .v14-battle-portrait .bp-pitcher-badge-row{min-width:0}
+  .v14-battle-portrait .bp-pitcher-title-name{display:flex;align-items:baseline;min-width:0;max-width:100%;overflow:hidden;white-space:nowrap}
+  .v14-battle-portrait .bp-ptype{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:9.5px;font-weight:500;color:#b9c1d9}
+  .v14-battle-portrait .bp-ptype>i{font-style:normal}
+  .v14-battle-portrait .bp-pname{flex:0 0 auto;margin-left:3px;font-weight:700;color:#fff}
 }
 

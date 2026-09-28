@@ -110,7 +110,7 @@ describe('9-zone strategic UI',()=>{
     act(()=>vi.advanceTimersByTime(timeline.impactAt+1));
     expect(arena.className).toContain('fx-stage-impact');
     expect(arena.querySelector('.bp-flash')).toBeTruthy();
-    expect(arena.querySelector('.sprite-batter.batter-reboot-v3 img.batter-reboot-art')).toBeTruthy();
+    expect(arena.querySelector('.sprite-batter.batter-sheet-actor .batter-sheet-frame')).toBeTruthy();
     finish();
   });
 
@@ -154,7 +154,7 @@ describe('9-zone strategic UI',()=>{
     fireEvent.click(document.querySelector('.bp-card[data-card-kind="strike"]'));
     fireEvent.click(document.querySelectorAll('.bp-cell')[5]);
     fireEvent.click(screen.getByTestId('bp-swing'));
-    expect(document.querySelector('.sprite-batter.batter-reboot-v3.reboot-pose-ready img.batter-reboot-art')).toBeTruthy();
+    expect(document.querySelector('.sprite-batter.batter-sheet-actor.pose-ready .batter-sheet-frame')).toBeTruthy();
     expect(document.querySelector('.sprite-pitcher.red-rush-actor.pose-legkick .red-rush-frame.duel-sprite')).toBeTruthy();
     const shot=presentationFor(readV10Duel(localStorage));
     const timeline=redRushTimeline(presentationTimeline(shot));
@@ -162,7 +162,7 @@ describe('9-zone strategic UI',()=>{
     expect(motion.map(x=>x.pose)).toContain('swing-mid');
     expect(motion.map(x=>x.pose)).toContain('follow-through-late');
     act(()=>vi.advanceTimersByTime(timeline.impactAt+1));
-    expect(document.querySelector('.sprite-batter.batter-reboot-v3 img.batter-reboot-art')).toBeTruthy();
+    expect(document.querySelector('.sprite-batter.batter-sheet-actor .batter-sheet-frame')).toBeTruthy();
     expect(document.querySelector('.sprite-pitcher.red-rush-actor.pose-release .red-rush-frame.duel-sprite')).toBeTruthy();
     finish();
     expect(document.querySelector('.bp-cell.actual .bp-pitch-mark')).toBeTruthy();

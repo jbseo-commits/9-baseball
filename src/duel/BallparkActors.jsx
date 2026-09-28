@@ -3,6 +3,7 @@ import {batterMotionV3Timeline,BATTER_MOTION_V3_HIT_GRADES} from './batterMotion
 import {redRushBatterShot,redRushFrameAt,hasPitchVisual,RED_RUSH_RELEASE_MS,RED_RUSH_RELEASE_FRAME as RELEASE_FRAME} from './pitcher-sd.js';
 import RELEASE from './pitcher-release.json';
 import STRIDE from './pitcher-stride.json';
+import STANCE from './pitcher-stance.json';
 import impactSlashVfx from '../../assets/production-art/battle-polish-v16/impact-slash.png';
 
 /* V13 C2 — the batter and the pitcher drawn by PixiJS (WebGL) over the CSS stadium.
@@ -32,6 +33,22 @@ const crisp=(sc,dpr)=>sc*dpr>=2?Math.max(1,Math.floor(sc*dpr))/dpr:sc;
 const IDLE_BREATH_MS=2600;
 /* pitcher effects (BP-11): the whip runs from WHIP_FROM frames before release to WHIP_TO after */
 export const WHIP_FROM=8,WHIP_TO=3,KO_DELAY_MS=120,KO_FALL_MS=380;
+/* #103 M10: where a pitcher's feet meet the ground in the set position, as [x, y] fractions of her
+   256 px frame (pitcher-stance.json, measured from frame 0 of each atlas). The .bp-pitcher box's
+   bottom centre is the spot on the mound; this point of the drawing is put on it, so every pitcher
+   stands on the rubber whatever padding her frames carry. */
+export const pitcherStance=artId=>STANCE[artId]||[.5,1];
+/* layout boxes, relative to the scene, from offsets: CSS transforms (the camera zoom, an actor's
+   entrance animation) never leak into where Pixi draws. getBoundingClientRect did, so a box measured
+   while the pitcher was still sliding in stayed wrong for the whole battle. */
+export function layoutBox(el,scene){
+  if(!el||!scene)return null;
+  let x=0,y=0,n=el;
+  while(n&&n!==scene){x+=n.offsetLeft||0;y+=n.offsetTop||0;n=n.offsetParent;}
+  if(n!==scene){const sr=scene.getBoundingClientRect(),r=el.getBoundingClientRect();return {x:r.left-sr.left,y:r.top-sr.top,w:r.width,h:r.height};}
+  return {x,y,w:el.offsetWidth,h:el.offsetHeight};
+}
+const REMEASURE_MS=400;
 
 export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterPoses,batterSheet=null,shot,fxStage,playToken,pitchZone=null,knockedOut=false,onReady}){
   const hostRef=useRef(null),live=useRef({});
@@ -54,10 +71,12 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
       /* textures — V14 preview uses one 3x3 authored sheet. The runtime still exposes the
          existing ten-pose contract; READY is reused for LOAD so timing/gameplay stay untouched. */
       const poseNames=Object.keys(batterPoses);
+      let batterBaseline=1;
       const poseTex={};
       if(batterSheet){
         /* a URL is the V14 3x3 pixel sheet; an object names its grid, pose order and sampling (V15) */
         const layout=typeof batterSheet==='string'?{src:batterSheet,cols:3,rows:3}:batterSheet;
+        batterBaseline=layout.baseline??1;
         const sheet=await PIXI.Assets.load(layout.src);sheet.source.scaleMode=layout.smooth?'linear':'nearest';
         const cols=layout.cols||3,rows=layout.rows||3,fw=sheet.width/cols,fh=sheet.height/rows;
         const frames=Array.from({length:cols*rows},(_,k)=>new PIXI.Texture({source:sheet.source,frame:new PIXI.Rectangle((k%cols)*fw,Math.floor(k/cols)*fh,fw,fh)}));
@@ -97,15 +116,21 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
       let trail=[];
       const dustPool=[];
 
-      /* layout: read the DOM actor boxes, so CSS keeps owning where the actors stand */
-      const boxes={b:null,p:null};
+      /* layout: read the DOM actor boxes, so CSS keeps owning where the actors stand. Re-read while idle
+         too: fonts, the HUD and the address bar settle after mount without resizing the scene. */
+      const boxes={b:null,p:null};let measuredAt=0;
       const measure=()=>{
         const scene=sceneRef.current;if(!scene)return;
-        const sr=scene.getBoundingClientRect(),rel=el=>{if(!el)return null;const r=el.getBoundingClientRect();return {x:r.left-sr.left,y:r.top-sr.top,w:r.width,h:r.height};};
+        const rel=el=>layoutBox(el,scene);
         boxes.b=rel(scene.querySelector('.bp-batter'));boxes.p=rel(scene.querySelector('.bp-pitcher'));
         boxes.cells=[...scene.querySelectorAll('.bp-cell')].map(rel);boxes.zone=rel(scene.querySelector('.bp-zone'));
+        measuredAt=performance.now();
       };
       measure();
+      /* a lost WebGL context (phone backgrounded, GPU reset) hands the actors back to the DOM, which
+         draws the same art on the same boxes */
+      const onLost=e=>{e.preventDefault?.();onReady?.(null);};
+      app.canvas.addEventListener('webglcontextlost',onLost);cleanup.push(()=>app.canvas.removeEventListener('webglcontextlost',onLost));
       ro=typeof ResizeObserver!=='undefined'?new ResizeObserver(measure):null;
       ro?.observe(sceneRef.current);
       window.addEventListener('resize',measure);cleanup.push(()=>window.removeEventListener('resize',measure));
@@ -153,6 +178,7 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
           if(!stopAt&&t>=impactAt){stopAt=now;stopUntil=now+HIT_STOP_MS;}
           if(stopAt){t=now<stopUntil?impactAt:t-HIT_STOP_MS;}
         }
+        if(!active&&now-measuredAt>REMEASURE_MS)measure();
         const {b,p}=boxes;
         const breath=reduced?0:Math.sin(now/IDLE_BREATH_MS*Math.PI*2);
         shadows.clear();
@@ -163,7 +189,9 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
           const fi=active?redRushFrameAt(t):0,{artId:aid0,knockedOut:ko}=live.current;
           pitcher.texture=pitchFrames[fi];
           const sc=crisp(p.h/pitcher.texture.height,app.renderer.resolution);
-          const px=p.x+p.w/2,py=p.y+p.h,tw=pitcher.texture.width*sc,th=pitcher.texture.height*sc;
+          const [fx0,fy0]=pitcherStance(aid0),tw=pitcher.texture.width*sc,th=pitcher.texture.height*sc;
+          /* px,py = the frame's bottom centre, placed so the stance point lands on the box's bottom centre */
+          const px=p.x+p.w/2+(.5-fx0)*tw,py=p.y+p.h+(1-fy0)*th;
           pitcher.scale.set(sc,sc*(active?1:1+breath*.008));
           pitcher.position.set(px,py);pitcher.rotation=0;pitcher.alpha=1;pitcher.tint=0xffffff;
           let shadowW=p.w*.26;
@@ -201,7 +229,7 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
               if(!dusted.ko&&since>KO_FALL_MS*.7){dusted.ko=1;spawnDust(px,py-p.h*.02,12,p.h*1.6);}
             }
           }
-          shadows.ellipse(px,py-p.h*.03,shadowW,p.h*.035).fill({color:0x000000,alpha:.35});
+          shadows.ellipse(p.x+p.w/2,p.y+p.h-p.h*.01,shadowW,p.h*.035).fill({color:0x000000,alpha:.35});
         }
         if(b){
           // hit-stop always holds the contact pose (the no-skip rule may still be a pose behind)
@@ -211,10 +239,11 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
           if(pose!==prevPose){prevPoses.unshift({pose:prevPose,at:now});prevPoses=prevPoses.slice(0,2);prevPose=pose;}
           const tex=poseTex[pose]||poseTex.ready;
           batter.texture=tex;flash.texture=tex;
-          const sc=crisp(b.h/tex.height,app.renderer.resolution),x=Math.round(b.x+b.w/2),y=Math.round(b.y+b.h);
+          /* the sheet's feet sit on its baseline, not the cell's bottom edge */
+          const sc=crisp(b.h/tex.height,app.renderer.resolution),x=Math.round(b.x+b.w/2),y=Math.round(b.y+b.h+(1-batterBaseline)*b.h);
           batter.scale.set(sc,sc*(active?1:1+breath*.006));batter.position.set(x,y);
           flash.scale.copyFrom(batter.scale);flash.position.copyFrom(batter.position);
-          shadows.ellipse(x,y-b.h*.04,b.w*.3,b.h*.035).fill({color:0x000000,alpha:.35});
+          shadows.ellipse(x,b.y+b.h-b.h*.02,b.w*.3,b.h*.035).fill({color:0x000000,alpha:.35});
           // smear: during the fast part of the swing the last poses trail behind, on twos
           const fast=active&&swing&&t>=(timeline.find(k=>k.pose==='swing-start')?.at??1e9)&&t<impactAt+160;
           ghosts.forEach((g,i)=>{

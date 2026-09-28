@@ -9,7 +9,7 @@ function planText(combat){
   if(!combat)return '';
   const count=combat.cardCount||1,kind=combat.choice||'basic';
   if(kind==='take')return '지켜보기 · 카드/스윙 보존';
-  if(count>1)return count+'장 STACK · CONNECT '+(combat.connectCount||0)+'/'+Math.max(0,count-1)+' · HP '+pct(combat.damageRate)+'%';
+  if(count>1)return count+'장 STACK · CONNECT '+(combat.connectCount||0)+'/'+Math.max(0,count-1)+' · 피해 효율 '+pct(combat.damageRate)+'%';
   if(kind==='place')return '1존 정타 · 정확 적중 ×1.5';
   if(kind==='strike')return '세로 3존 · 안정 커버';
   if(kind==='basic')return '카드 보존 · 1존 승부';

@@ -155,7 +155,7 @@ describe('V13 BALLPARK BP-2 pitch in the scene',()=>{
     if(r.zone<9)expect(cells()[r.zone].classList.contains('actual')).toBe(true);
     else{expect(document.querySelector('.bp-pitch-mark.outside')).not.toBeNull();expect(document.querySelector('.bp-band.hit')).not.toBeNull();}
     const next=screen.getByTestId('bp-next');
-    expect(['다음 공','다음 타자']).toContain(next.textContent);
+    expect(['다음 공','다음 타자']).toContain(next.querySelector('.bp-verb-word').textContent);
     expect(next.disabled).toBe(false);
     expect(document.querySelector('[data-testid=bp-swing]')).toBeNull();
     fireEvent.click(next);

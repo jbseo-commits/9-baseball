@@ -1149,3 +1149,11 @@
 .bp-stop.stop-reward .bp-offer-desc{display:flex;flex-direction:column;gap:2px;-webkit-line-clamp:unset}
 .bp-stop.stop-reward .bp-offer-line{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bp-stop.stop-reward .bp-offer.r-uncommon .bp-reward-rarity{background:#10313a;color:#7fe0d8;border-color:#2f7f86}
+
+/* #103 M09/M10 — DOM actors (no WebGL, or before Pixi is ready) draw exactly what Pixi draws:
+   the V15 batter's sheet cell centred on the box, feet on its baseline; each pitcher's frame shifted
+   so her measured stance point sits on the box's bottom centre (--stance-x/--stance-y). */
+.bp-batter .batter-sheet-actor{position:relative;display:block;width:100%;height:100%}
+.bp-batter .batter-sheet-actor::before{content:"";position:absolute;left:50%;bottom:0;width:60%;height:7%;translate:-50% 50%;border-radius:50%;background:#0000005a;pointer-events:none}
+.bp-batter .batter-sheet-frame{position:absolute;left:50%;bottom:0;height:100%;aspect-ratio:2/3;translate:-50% calc((1 - var(--baseline,1)) * 100%);background-repeat:no-repeat;image-rendering:auto}
+.bp-pitcher>.sprite-stage{translate:calc((.5 - var(--stance-x,.5)) * 100%) calc((1 - var(--stance-y,1)) * 100%)}

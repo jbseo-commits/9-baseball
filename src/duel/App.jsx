@@ -33,7 +33,7 @@ import StackRouteEcho from './StackRouteEcho.jsx';
 import BattleReadout from './BattleReadout.jsx';
 import BallparkBattle from './BallparkBattle.jsx';
 /* the main-run batter is the V15 target-mockup hero (batter-v15.js); the V14 3x3 sheet stays BallparkBattle's default */
-import {BATTER_V15_SHEET} from './batter-v15.js';
+import {BATTER_V15_SHEET,sheetCellStyle} from './batter-v15.js';
 import BallparkMap from './BallparkMap.jsx';
 import BallparkStop from './BallparkStop.jsx';
 import BallparkEnd from './BallparkEnd.jsx';
@@ -334,12 +334,19 @@ function useRedRushFrame(active,token){
   },[active,token]);
   return frame;
 }
-function Sprite({who,stage=null,shot=null,golden=false,variant=null,playToken=0,syncRedRush=false}){
+function Sprite({who,stage=null,shot=null,golden=false,variant=null,playToken=0,syncRedRush=false,sheet=null}){
   const rebootEnabled=golden&&who==='batter';
   const rebootPose=useBatterMotionV3Pose(stage,shot,playToken,rebootEnabled,syncRedRush);
   const qaPose=rebootEnabled&&typeof window!=='undefined'&&new URLSearchParams(window.location.search).get('cinema')==='1'
     ?new URLSearchParams(window.location.search).get('batterPose'):null;
   const displayedRebootPose=qaPose&&BATTER_REBOOT_V3[qaPose]?qaPose:rebootPose;
+  /* #103 M09: with a sheet, the DOM batter is the same drawing Pixi shows (BallparkActors), cell for
+     cell on the same baseline, so a WebGL fallback or a slow Pixi start never swaps the batter */
+  if(rebootEnabled&&sheet){
+    return <span data-batter-pose={displayedRebootPose} className={'sprite-stage sprite-batter batter-sheet-actor pose-'+displayedRebootPose}>
+      <span aria-hidden="true" className="batter-sheet-frame" style={{...sheetCellStyle(sheet,displayedRebootPose),'--baseline':sheet.baseline??1}}/>
+    </span>;
+  }
   if(rebootEnabled){
     const rebootSrc=BATTER_REBOOT_V3[displayedRebootPose]||BATTER_REBOOT_V3.ready;
     return <span data-batter-pose={displayedRebootPose} className={'sprite-stage sprite-batter golden-actor batter-reboot-v3 reboot-pose-'+displayedRebootPose}>
@@ -1004,7 +1011,7 @@ export default function Duel(){
 :showBattle&&isV10?<BallparkBattle key="screen-bp-battle" s={s} hand={hand} selected={selected} swingStack={swingStack} choice={choice} locked={!!stackResolve}
       label={v10Node?.act+'막'} pitcher={s.pitcher}
       pitcherArt={pitcherAtlas?<PitcherAtlasSprite atlas={pitcherAtlas} stage={fxStage} shot={fxPresentation} playToken={s.stats.pitches}/>:<Sprite who="pitcher" stage={fxStage} shot={fxPresentation} golden variant={pitcherForm} playToken={s.stats.pitches}/>}
-      batterArt={<Sprite who="batter" stage={fxStage} shot={fxPresentation} golden playToken={s.stats.pitches} syncRedRush={redRushEncounter}/>}
+      batterArt={<Sprite who="batter" stage={fxStage} shot={fxPresentation} golden playToken={s.stats.pitches} syncRedRush={redRushEncounter} sheet={BATTER_V15_SHEET}/>}
       fxStage={fxStage} shot={fxPresentation||resultPresentation} impactAt={fxImpactAt} playToken={s.stats.pitches}
       pitcherAtlas={pitcherAtlas} artId={v10Node?.opponent?.artId} batterPoses={BATTER_REBOOT_V3} batterSheet={BATTER_V15_SHEET}
       vfx={<PixelVFX stage={fxStage} shot={fxPresentation} token={s.stats.pitches} drawCore={false} quality={perfTier}/>}

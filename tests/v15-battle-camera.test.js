@@ -6,13 +6,16 @@ import fs from 'node:fs';
 const css=fs.readFileSync('src/duel/v14-portrait-master.css','utf8');
 
 describe('V15 portrait battle camera matches the target mockup',()=>{
-  it('batter in the left box, zone over the plate, pitcher on the mound — one vw geometry with the stadium plate',()=>{
-    /* 125% plate: home plate ~62%, mound ~85% — the zone floats right of the batter, over the plate */
-    expect(css).toContain('background-position:left 0 bottom -31.2vw!important');
-    expect(css).toContain('background-size:125% auto!important');
-    expect(css).toMatch(/\.bp-batter\{left:-27%;top:auto;bottom:1vw;height:78vw\}/);   // V15 hero inside the box, off the chalk
-    expect(css).toMatch(/\.bp-pitcher\{left:auto;right:1%;top:auto;bottom:71vw;height:24vw;z-index:2\}/);   // top:auto, or the base top:18% drops her off the mound
-    expect(css).toMatch(/\.bp-zone\{\s*left:44%;top:auto;bottom:19vw;width:36%;/);
+  it('batter in the left box, zone over the plate, pitcher on the mound — one camera unit (--u) with the stadium plate',()=>{
+    /* 125u plate: home plate centre 62u, rubber 85.4u across / 79.1u up — the zone floats right of the batter, over the plate.
+       #103 M10: --u (BallparkBattle sceneUnit) replaces vw, so a short scene pulls the whole camera back together */
+    expect(css).toContain('background-position:left 0 bottom calc(-31.2 * var(--u,1vw))!important');
+    expect(css).toContain('background-size:calc(125 * var(--u,1vw)) auto!important');
+    expect(css).toContain('.bp-batter{left:calc(-27 * var(--u,1vw));top:auto;bottom:var(--u,1vw);height:calc(78 * var(--u,1vw))}');   // V15 hero inside the box, off the chalk
+    /* feet on the rubber: box bottom centre (73.4 + 24/2 = 85.4u, 78.4u up); top:auto, or the base top:18% drops her off the mound */
+    expect(css).toContain('.bp-pitcher{left:calc(73.4 * var(--u,1vw));right:auto;top:auto;bottom:calc(78.4 * var(--u,1vw));height:calc(24 * var(--u,1vw));z-index:2}');
+    expect(css).toMatch(/\.bp-zone\{\s*left:calc\(44 \* var\(--u,1vw\)\);top:auto;bottom:calc\(19 \* var\(--u,1vw\)\);width:calc\(36 \* var\(--u,1vw\)\);/);
+    expect(css.split('var(--u,1vw)').join('U')).not.toMatch(/\.bp-(batter|pitcher)\{[^}]*\dvw/);
   });
 
   it('the HP panel moves top-left and the tell sits top-right, so neither hides the pitcher',()=>{

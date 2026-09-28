@@ -4,7 +4,7 @@ import {publicProbabilities,V10_SWING_STACK_MAX,V10_RUNNER_PRESSURE,v10Shaken,v1
 import {intentLines,hpTicks,ZONE_WORDS} from './ballpark-copy.js';
 import ZoneLinks from './ZoneLinks.jsx';
 import {pitcherLine,momentOf} from './pitcher-voice.js';
-import BallparkActors,{pixiAvailable} from './BallparkActors.jsx';
+import BallparkActors,{pixiAvailable,pitcherStance} from './BallparkActors.jsx';
 import {lessonFor,planText} from './DecisionDebrief.jsx';
 import batterV14MasterSheet from '../../assets/ui-kit/batter/batter-v14-master-sheet.png';
 import cardArtSheet from '../../assets/ui-kit/cards/battle-core-v14-master-sheet.png';
@@ -35,10 +35,24 @@ const LANDED=new Set(['impact','slowmo','release','settle']);
 /* camera: which results push the lens in (BP-9). big = homer, mid = extra/dead-center, near = one-zone miss */
 export const CAMERA={homer:'big','grand-slam':'big',extra:'mid','dead-center':'mid','near-miss':'near','near-miss-k':'near'};
 export const STACK_COMMIT_MS=720;
+/* #103 M10 — one camera unit for the portrait scene. The stadium, the batter, the pitcher on the mound
+   and the zone over the plate are laid out in --u (v14-portrait-master.css). --u is 1% of the scene
+   width, unless the scene is too short to show the mound with the pitcher standing on it (Chrome's
+   address bar, short phones): then the whole camera pulls back so SCENE_UNITS_TALL units fit, never
+   below 80% (the 125u-wide stadium must still cover the width). */
+export const SCENE_UNITS_TALL=112;
+export function sceneUnit(w,h){
+  if(!(w>0))return 0;
+  const full=w/100;
+  if(!(h>0))return full;
+  return Math.max(full*.8,Math.min(full,h/SCENE_UNITS_TALL));
+}
 /* BP-14: the ball band turns into a lure warning at this share of pitches */
 export const LURE_PCT=30;
 /* card role chip colours, inside the ballpark palette */
 const ROLE_TONE={'장타':'gold','정타':'red','범위':'bone','진루':'brass'};
+/* the line under the next-step verb: pitch = same batter, next ball; between = the plate appearance ended */
+export const nextHint=phase=>phase==='pitch'?'같은 타자 · 다음 공을 기다린다':phase==='between'?'타석 종료 · 다음 타자가 들어선다':'';
 const lessonZoneName=z=>z===9?'존 밖':ZONE_WORDS[z]||'코스';
 
 const CARD_ART_POS={
@@ -81,6 +95,14 @@ export default function BallparkBattle({
     if(!root)return;
     const set=()=>root.style.setProperty('--bp-top',(header?.getBoundingClientRect().height||0)+'px');
     set();window.addEventListener('resize',set);return()=>window.removeEventListener('resize',set);
+  },[]);
+  useLayoutEffect(()=>{
+    const scene=sceneRef.current;if(!scene)return;
+    const set=()=>{const u=sceneUnit(scene.clientWidth,scene.clientHeight);if(u)scene.style.setProperty('--u',u.toFixed(3)+'px');};
+    set();
+    const ro=typeof ResizeObserver!=='undefined'?new ResizeObserver(set):null;ro?.observe(scene);
+    window.addEventListener('resize',set);
+    return ()=>{ro?.disconnect();window.removeEventListener('resize',set);};
   },[]);
   /* the ball leaves the pitcher's glove and lands on its cell (or beside the zone) at the impact beat */
   useLayoutEffect(()=>{
@@ -164,6 +186,8 @@ export default function BallparkBattle({
   /* the verdict before the swing (BP-14): the share of pitches the chosen cells cover, then the HP multiplier */
   const hitChance=selected&&!mainIsSkill&&choice?.coverage?.length?Math.round(choice.coverage.reduce((a,z)=>a+(z<9?probs[z]||0:0),0)*100):null;
   const verbSub=!selected?'':mainIsSkill?prepLeft+'회 남음':[hitChance!=null?'적중권 '+hitChance+'%':'',rate].filter(Boolean).join(' · ');
+  /* #103 M03: the two numbers break between each other, never inside one ("피해 …" was cut off) */
+  const verbSubParts=verbSub.split(' · ');
   /* where the pitch is likely to go, as numbers: the share of every pitch (balls included), shown while deciding */
   const pct=z=>Math.round((probs[z]||0)*100);
   const topCell=live.reduce((a,z)=>(probs[z]||0)>(probs[a]||0)?z:a,live[0]);
@@ -214,7 +238,7 @@ export default function BallparkBattle({
   const debriefLesson=showDebrief?lessonFor(lessonCombat,r):null;
   const debriefPlan=showDebrief?planText(lessonCombat):'';
   const debriefActual=showDebrief?(lessonCombat.pitchLabel||lessonZoneName(r?.zone)):'';
-  const debriefDamage=showDebrief&&lessonCombat.damage>0?'HP -'+lessonCombat.damage:'';
+  const debriefDamage=showDebrief&&lessonCombat.damage>0?'투수 HP -'+lessonCombat.damage:'';
 
 const CARD_DESC_MAP={
   basic:['선택 1존 집중 타격','카드 소모 없음 · 기본 스윙'],
@@ -335,12 +359,13 @@ const CARD_DESC_MAP={
         </div>}
       </aside>}
       {canPixi&&<BallparkActors sceneRef={sceneRef} pitcherAtlas={pitcherAtlas} artId={artId} batterPoses={batterPoses} batterSheet={batterSheet} pitchZone={judged?r.zone:null} shot={shot} fxStage={fxStage} playToken={playToken} knockedOut={judged&&(pitcher?.hp??1)===0} onReady={setPixi}/>}
-      <div className="bp-pitcher bp-cam" ref={pitcherRef} aria-hidden="true">{pitcherArt}</div>
+      <div className="bp-pitcher bp-cam" ref={pitcherRef} aria-hidden="true" style={{'--stance-x':pitcherStance(artId)[0],'--stance-y':pitcherStance(artId)[1]}}>{pitcherArt}</div>
       <div className="bp-pcol">
       <div className="bp-ptag" aria-label={`${pitcher?.name} 투수 HP ${pitcher?.hp} / ${pitcher?.maxHp}`}>
         <div className="bp-pitcher-badge-row">
           <span className="bp-pitcher-flame" aria-hidden="true">🔥</span>
-          <span className="bp-pitcher-title-name">{s.v10?.opponent?.archetype ? `${s.v10.opponent.archetype} · ${pitcher?.name}` : (pitcher?.name || '투수')}</span>
+          {/* #103 M08: the name is never cut; only the pitch-type prefix gives way on a narrow panel */}
+          <span className="bp-pitcher-title-name">{s.v10?.opponent?.archetype&&<span className="bp-ptype">{s.v10.opponent.archetype}<i aria-hidden="true"> · </i></span>}<b className="bp-pname">{pitcher?.name||'투수'}</b></span>
         </div>
         <div className="bp-hp-gauge-container">
           <div className="bp-hp-gauge-bar" style={{'--hp-pct': `${Math.max(0, Math.min(100, Math.round(((judged&&!landed?(pitcher?.hp||0)+(pitcher?.lastDamage||0):pitcher?.hp)||0)/(pitcher?.maxHp||1)*100)))}%`}} />
@@ -461,12 +486,13 @@ const CARD_DESC_MAP={
     </div>}
 
     {onNext&&!deciding&&s.phase!=='battle'?<div className="bp-verbs next">
-      <button type="button" className="bp-verb go" data-testid="bp-next" disabled={inFx} onClick={onNext}>{nextLabel}</button>
+      {/* #103 M04: the hint names the same step as the verb (it said "next pitch" under "next batter") */}
+      <button type="button" className="bp-verb go" data-testid="bp-next" disabled={inFx} onClick={onNext}><span className="bp-verb-word">{nextLabel}</span>{nextHint(s.phase)&&<small className="bp-verb-sub"><span>{nextHint(s.phase)}</span></small>}</button>
     </div>:<div className="bp-verbs">
       <button type="button" className="bp-verb go" data-testid="bp-swing" disabled={!deciding||!selected||!!choice?.problem} onClick={commitSwing}>
-        {verb}{verbSub&&<small>{verbSub}</small>}
+        <span className="bp-verb-word">{verb}</span>{verbSub&&<small className="bp-verb-sub">{verbSubParts.map((x,i)=><React.Fragment key={i}>{i>0&&<i className="bp-verb-sep" aria-hidden="true"> · </i>}<span>{x}</span></React.Fragment>)}</small>}
       </button>
-      <button type="button" className="bp-verb wait" data-testid="bp-take" disabled={!deciding} onClick={onTake}>지켜본다</button>
+      <button type="button" className="bp-verb wait" data-testid="bp-take" disabled={!deciding} onClick={onTake}><span className="bp-verb-word">지켜본다</span></button>
       {mainEntry&&deciding&&<button type="button" className="bp-info" aria-label={mainName+' 카드 설명'} onClick={e=>onDetail?.(mainEntry,e.currentTarget)}>ⓘ</button>}
     </div>}
   </main>;
