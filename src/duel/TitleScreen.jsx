@@ -1,5 +1,7 @@
 import React,{useRef} from 'react';
 import plate from '../../assets/production-art/phone-assets-v18/A06-title-stadium-plate.png';
+import batter9 from '../../assets/production-art/phone-assets-v18/A04-title-batter-9.png';
+import coach from '../../assets/production-art/phone-assets-v18/A05-title-coach.png';
 import {pitcherFigures} from './pitcher-visuals.js';
 import './title-screen.css';
 
@@ -44,7 +46,13 @@ export default function TitleScreen({run=null,onNew,onContinue,onDeck,onDex,onSe
   };
   return <main className="title-screen" aria-label="타이틀" style={{'--ts-art':`url(${plate})`}}>
     <i className="ts-art" aria-hidden="true"/>
-    <div className="ts-cast" aria-hidden="true">{TITLE_CAST.map(c=>pitcherFigures[c.id]&&<img key={c.id} className={'ts-fig '+c.slot} alt="" src={pitcherFigures[c.id]}/>)}</div>
+    <div className="ts-cast" aria-hidden="true">
+      {TITLE_CAST.map(c=>pitcherFigures[c.id]&&<img key={c.id} className={'ts-fig '+c.slot} alt="" src={pitcherFigures[c.id]}/>)}
+    </div>
+    <div className="ts-protagonists" aria-hidden="true">
+      <img className="ts-actor ts-coach" alt="" src={coach}/>
+      <img className="ts-actor ts-batter" alt="" src={batter9}/>
+    </div>
     <i className="ts-shade" aria-hidden="true"/>
     <header className="ts-brand">
       <h1 className="ts-logo" aria-label="9ZONE HOMEBOUND"><span className="ts-nine" aria-hidden="true">9</span><span className="ts-zone" aria-hidden="true">Z<Ball/>NE</span></h1>

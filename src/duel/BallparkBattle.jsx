@@ -8,7 +8,7 @@ import BallparkActors,{pixiAvailable,pitcherStance} from './BallparkActors.jsx';
 import {lessonFor,planText} from './DecisionDebrief.jsx';
 import batterV14MasterSheet from '../../assets/ui-kit/batter/batter-v14-master-sheet.png';
 import cardArtSheet from '../../assets/ui-kit/cards/battle-core-v14-master-sheet.png';
-import {cardArtFor} from './card-art.js';
+import {cardArtFor,cardArtFocusFor} from './card-art.js';
 import {HomeRunCut,KnockoutCut} from './phone-art-v18.jsx';
 import {pitcherFigures} from './pitcher-visuals.js';
 import './ballpark.css';
@@ -268,6 +268,30 @@ const CARD_DESC_MAP={
   lure:['코스 조정','스윙 범위 1칸 확장'],
   flow:['히트앤드런','안타 시 주자 +1베이스'],
   calm:['호흡 고르기','파울 생존 · 카드 +1'],
+  // V16 Precision (C101-C113)
+  pinpoint:['핀포인트 타격','1존 커버 · 정확 적중 HP +70%'],
+  eyeLevel:['눈높이 컨택','가로 2존 커버 · 정확 적중 HP +35%'],
+  verticalRead:['위아래 노림','세로 2존 커버 · 정확 적중 HP +35%'],
+  readStrike:['읽은 공 강타','1존 · 파워 +18 · 간파 성공 +6 HP'],
+  surgeon:['외과의 스윙','1존 · 정확 HP +50% · 안타 +3 HP'],
+  needle:['바늘구멍 스윙','1존 · 파워 -18 · 정확 적중 HP +100%'],
+  counterRead:['볼카운트 역이용','1존 · 정확 HP +30% · 유리 카운트 +5 HP'],
+  onePatience:['한 칸의 인내','1존 · 정확 HP +40% · 안타 시 카드 +1'],
+  laserEye:['대각선 레이저','대각선 커버 · 정확 적중 HP +30%'],
+  coldRead:['냉정한 판독','높이·안팎 확인 · 정확 HP +20%'],
+  focusBreath:['집중 호흡','준비 1회 · 집중 +1 · 정확 HP +40%'],
+  markZone:['존 마킹','칠 곳 마킹 · 정확 HP +25% · 카드 +1'],
+  perfectRead:['완벽한 판독','1존 · 파워 +36 · 간파 성공 +10 HP'],
+  // V16 Power (C114-C122)
+  fullSwing:['풀스윙','1존 · 파워 +36 · 홈런 상한 해제'],
+  moonshot:['문샷','1존 · 파워 +54 · 장타 안타 +4 HP'],
+  gapHunter:['좌중간 가르기','가로 2존 · 파워 +18 · 장타 +3 HP'],
+  pullHook:['잡아당기기','세로 3존 · 파워 +18 · 몸쪽 파워 +18'],
+  oppoPower:['밀어서 넘기기','세로 3존 · 파워 +18 · 바깥쪽 파워 +18'],
+  upperCut:['어퍼컷 스윙','가로 3존 · 파워 +18 · 낮은 공 파워 +18'],
+  highHeat:['하이볼 강타','가로 3존 · 파워 +18 · 높은 공 파워 +18'],
+  cleanup:['4번 타자의 해결','1존 · 파워 +36 · 주자당 안타 +3 HP'],
+  soloShot:['솔로포 각','1존 · 파워 +36 · 주자 없을 때 +6 HP'],
 };
 
   const cardButton=x=>{
@@ -278,8 +302,9 @@ const CARD_DESC_MAP={
     const cardKindClass=(isRare?' signature':'')+(isSkillCard?' skill':'');
     const artPos=CARD_ART_POS[x.entry.kind]||'0% 0%';
     const customArt=cardArtFor(x.entry.kind);
+    const focus=customArt?cardArtFocusFor(x.entry.kind):null;
     const artStyle=customArt
-      ?{backgroundImage:`url(${customArt})`,backgroundPosition:'center',backgroundSize:'cover'}
+      ?{backgroundImage:`url(${customArt})`,backgroundPosition:focus?.objectPosition||'center 25%',backgroundSize:'cover'}
       :{backgroundImage:`url(${cardArtSheet})`,backgroundPosition:artPos};
     const cost=def.cost||(def.power>=2?2:1);
     const roleTag=def.role||(isSkillCard?'집중':'정확');
@@ -503,8 +528,9 @@ const CARD_DESC_MAP={
       {prepCards.map(x=>{
         const def=CARDS[x.entry.kind]||{},problem=x.preview?.problem;
         const customArt=cardArtFor(x.entry.kind);
+        const focus=customArt?cardArtFocusFor(x.entry.kind):null;
         const artStyle=customArt
-          ?{backgroundImage:`url(${customArt})`,backgroundPosition:'center',backgroundSize:'cover'}
+          ?{backgroundImage:`url(${customArt})`,backgroundPosition:focus?.objectPosition||'center 25%',backgroundSize:'cover'}
           :{backgroundImage:`url(${cardArtSheet})`,backgroundPosition:'0% 0%'};
         const roleTag=def.role||'준비';
         const descLines=problem?[problem,'']:(CARD_DESC_MAP[x.entry.kind]||[def.gives?.[0]||'준비 작전',def.gives?.[1]||'']);

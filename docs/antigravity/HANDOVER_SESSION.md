@@ -1,13 +1,26 @@
 # 9ZONE HOMEBOUND — 다음 세션 인수인계서 (Handover)
 
-- **작성 일시**: 2026-09-29 05:48
-- **현재 작업 브랜치**: `ag/portrait-css-refine` (최신 커밋: `6e2debc`)
-- **원격 저장소 반영**: `origin/ag/portrait-css-refine` (push 완료, working tree clean)
+- **작성 일시**: 2026-09-29 06:05
+- **현재 작업 브랜치**: `ag/apply-new-card-assets`
+- **원격 저장소 반영**: `ag/apply-new-card-assets`
 - **로컬 개발 서버**: `http://localhost:5173` (백그라운드 실행 중)
 
 ---
 
 ## 1. 완료된 작업 요약 (PHASE 2 World & System Masterpiece Lock 완료)
+
+### ⓟ 신규 에셋(C101~C122 카드 22종 & A04/A05 타이틀 주연 캐스트) 게임 연동 (`ag/apply-new-card-assets`)
+- **C101~C122 신규 카드 22종 일러스트 & 전술 설명 연동**:
+  - `assets/cards-v15/card-map.json`에 신규 카드 22종(`pinpoint`~`soloShot`) 파일명 직접 매핑 등록
+  - `BallparkBattle.jsx`의 `CARD_DESC_MAP`에 신규 22종 카드의 2줄 전술 설명 등록 (손패 렌더링 시 전용 설명 출력)
+  - `BallparkBattle.jsx`의 카드 썸네일 아트에 `cardArtFocusFor` 포커스 Y값 연동 (`backgroundPosition: focus.objectPosition`)
+- **A04 타자 #9 & A05 코치 타이틀 화면 전경 합성**:
+  - `TitleScreen.jsx`에 `A04-title-batter-9.png`, `A05-title-coach.png` 임포트 및 `.ts-protagonists` 레이어로 합성
+  - `title-screen.css`에 코치(좌측 중경 관망)와 타자(우측 전경 당당한 포즈) 레이아웃 및 림라이트/그림자 애니메이션 적용
+- **품질 게이트**:
+  - `tests/new-assets-integration.test.jsx` 회귀 테스트 신설 (5/5 PASS)
+  - 전체 테스트 130개 파일 815/815 ALL PASS (0 실패)
+  - Production build 정상 통과 (2.07s)
 
 ### ⓪ 준비카드(스킬 카드) 마스터피스 리디자인 (`ag/portrait-css-refine`)
 - **문제점 해결**: 기존 동그란 원형(`border-radius: 50%`)의 조잡한 토큰 형태에서 탈피하여, 손패의 공격 카드와 동일한 규격(높이 138px / 너비 98px)의 직사각형 전술 스킬 카드로 승격.
