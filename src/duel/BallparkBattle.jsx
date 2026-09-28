@@ -434,7 +434,7 @@ const CARD_DESC_MAP={
       <div className="bp-coach-bubble">
         <p className={'bp-coach'+(voice?' has-voice':'')}>
           <span className="bp-coach-text">{coach}</span>
-          {voice&&<q className={'bp-voice-strip m-'+moment} key={'qs'+playToken+moment}><b>{pitcher?.name}</b>{voice}</q>}
+          {voice&&<q className={'bp-voice-strip m-'+moment} key={'qs'+playToken+moment}><b>{pitcher?.name}</b> {voice}</q>}
         </p>
       </div>
     </div>

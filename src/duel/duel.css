@@ -1311,4 +1311,28 @@ button.stack-slot{cursor:pointer}
     url('../../assets/cards-v15/deck-dex-backdrop.png') center/cover no-repeat;
   border-color:#3a5472;
 }
+.deck-modal-sub{
+  font-size:14px;
+  font-weight:500;
+  color:#ffd77c;
+  margin-left:6px;
+  opacity:0.9;
+}
+.dex-header-btn{
+  background:rgba(30,48,72,0.65);
+  border:1px solid #4a6d94;
+  color:#f6d288;
+  border-radius:4px;
+  padding:3px 8px;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+  transition:all 0.15s ease;
+}
+.dex-header-btn:hover{
+  background:rgba(45,75,115,0.85);
+  border-color:#ffd77c;
+  color:#ffffff;
+}
+
 

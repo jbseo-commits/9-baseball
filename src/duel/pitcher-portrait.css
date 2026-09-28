@@ -22,4 +22,22 @@
 .pitcher-portrait-dialog header button{min-width:60px;min-height:44px;padding:6px 10px;border:1px solid #dfbd78;background:#213c42;color:#fff2cf;font-size:14px;cursor:pointer}
 .pitcher-portrait-dialog header button:focus-visible{outline:3px solid #fff2bf;outline-offset:2px}
 .pitcher-portrait-frame{display:grid;place-items:center;min-height:0;overflow:auto;padding:8px;background:radial-gradient(ellipse at 50% 40%,#5b343c 0,#172a33 55%,#071217 100%)}
-.pitcher-portrait-frame img{display:block;width:auto;max-width:100%;height:auto;max-height:calc(100dvh - 142px - env(safe-area-inset-top) - env(safe-area-inset-bottom));object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 12px 14px #000b)}
+.pitcher-portrait-frame img{display:block;width:auto;max-width:100%;height:auto;max-height:calc(100dvh - 250px - env(safe-area-inset-top) - env(safe-area-inset-bottom));object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 12px 14px #000b)}
+
+/* V16 Dex Roster Shelf matching benchmark target dex.png */
+.pitcher-dex-dialog{max-height:calc(100dvh - 16px);border-radius:12px;border:2px solid #dfbd78}
+.pitcher-dex-dialog header h2 small{font-size:12px;color:#a2b8b0;font-weight:400;margin-left:6px}
+.pitcher-dex-shelf{background:#0c1920;border-top:1px solid #3c5450;padding:8px 12px 10px;display:flex;flex-direction:column;gap:6px}
+.pitcher-dex-bar{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.pitcher-dex-bar strong{font:700 12px/1 var(--bp-impact, sans-serif);color:#f2d48f;letter-spacing:1px}
+.pitcher-dex-bar span{font-size:10px;color:#8ea49c}
+.pitcher-dex-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.pitcher-dex-card{flex:0 0 100px;width:100px;display:flex;flex-direction:column;align-items:center;padding:5px 4px 6px;border:1px solid #3d5854;border-radius:6px;background:#13262d;color:#e8ede6;cursor:pointer;transition:transform .14s,border-color .14s;text-align:center}
+.pitcher-dex-card:hover{transform:translateY(-2px);border-color:#e8c37d;background:#19323a}
+.pitcher-dex-card.active{border-color:#ffd77c;background:#1e3d3f;box-shadow:0 0 0 1px #ffd77c,0 0 12px rgba(255,215,124,0.4)}
+.dex-card-thumb{width:64px;height:64px;border-radius:4px;overflow:hidden;background:#091519;margin-bottom:4px;border:1px solid #4d6662;display:grid;place-items:center}
+.dex-card-thumb img{width:100%;height:100%;object-fit:cover;image-rendering:pixelated}
+.dex-card-info{display:flex;flex-direction:column;gap:2px;width:100%}
+.dex-card-tier{font:700 8px/1 var(--bp-led, monospace);padding:1px 3px;border-radius:2px;background:#20383b;color:#f0cf88;align-self:center}
+.dex-card-name{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dex-card-hp{font-size:9px;color:#a2b5ad}
