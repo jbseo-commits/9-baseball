@@ -25,7 +25,7 @@ Mobile composite sanity previews: [home run 844×390](working/phone-assets-v18-q
 | Tests/regression | Needs verification at integration | Run visual/flow regression after code imports and animations. |
 | Build/deploy | None so far | No imports or bundled paths changed here; when merging the V16 card branch, verify family filename lookup and production build. |
 
-**Status:** Individual source image inspection passed. No claim of 10-screen mockup fidelity, completed animation, V16 runtime connection, or final R1–R8 quality score. Conditional B slots and C107–C235 per-card illustrations remain open; C101–C106 source-image checks are recorded below.
+**Status:** Individual source image inspection passed. No claim of 10-screen mockup fidelity, completed animation, V16 runtime connection, or final R1–R8 quality score. Conditional B slots and C108–C235 per-card illustrations remain open; C101–C107 source-image checks are recorded below.
 
 ## C101 pinpoint follow-up
 
@@ -50,3 +50,7 @@ Mobile composite sanity previews: [home run 844×390](working/phone-assets-v18-q
 ## C106 needle follow-up
 
 `assets/cards-v15/card-needle.png` is a new 1024×1536 opaque RGB PNG for the `needle` card. #9 uses a restrained swing to send one baseball through a narrow luminous aperture, with a thin trajectory and no large power burst. The batter, ball and aperture remain distinct in the [100px preview](working/c106-needle-100px.png). No text or card frame is baked in. `src/duel/card-art.js` selects this file before the precision family fallback. The final card-window crop and full mobile screen have not been visually approved. C107–C235 remain open.
+
+## C107 counterRead follow-up
+
+`assets/cards-v15/card-counterRead.png` is a new 1024×1536 opaque RGB PNG for the `counterRead` card. #9 redirects one anticipated pitch toward the open opposite-field gap, with female Red Rush small and off balance on the mound. Her red ponytail, black/red top, long white pants and brown glove match the established identity. The batter, outgoing ball and secondary pitcher remain readable in the [100px preview](working/c107-counter-read-100px.png). No text or card frame is baked in. `src/duel/card-art.js` selects this file before the precision family fallback. The final card-window crop and full mobile screen have not been visually approved. C108–C235 remain open.
