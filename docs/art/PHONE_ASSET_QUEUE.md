@@ -1,5 +1,7 @@
 # 휴대폰 제작·업로드용 남은 아트 에셋 목록
 
+> **2026-09-28 제작 현황:** A01–A09 원본과 C01–C11 콘셉트 대표 카드 그림을 `ag/20260928-red-rush-female-art`에 추가하고 각 파일의 규격·투명도·100px 판독을 확인했다. A 묶음은 `assets/production-art/phone-assets-v18/`, C 묶음은 `assets/cards-v15/family-*.png`에 있다. [QA 기록](PHONE_ASSET_QA_2026-09-28.md)을 참고한다. 다음 확정 제작 순서는 `V16-CARD-ART-QUEUE.md`의 C101부터다. B01–B23은 정체성·기존 재사용/합성 결과를 먼저 판단하는 조건부 슬롯이다. **런타임 연결·모바일 최종 배치·10화면 목업 합격·카드별 C101–C235 제작은 아직 끝나지 않았다.**
+
 기준: 2026-09-28, GitHub 브랜치 `ag/20260928-red-rush-female-art`. **이 파일의 A01–A09만으로 10개 목업은 완성되지 않는다.** 2026-09-28에 **C항목(V16 보상 카드 일러스트 C01–C11, C101~)**이 추가됐다. 전체 화면별 기존/부족/검수 목록은 [`FULL_MOCKUP_ASSET_AUDIT_2026-09-28.md`](FULL_MOCKUP_ASSET_AUDIT_2026-09-28.md)에 있다. 새 채팅은 두 파일과 `docs/art/MOCKUP_FIDELITY_PLAN_2026-09-28.md`, `docs/art/working/RED_RUSH_REUSE_GAP_MATRIX_2026-09-28.md`를 읽고 **현재 GitHub 파일과 새 업로드를 다시 확인**한 뒤 확정·조건부·기존 검수 항목을 모두 보여준다. 코드 연결과 10화면 품질 통과 여부는 별도다.
 
 ## 새 채팅에서 쓸 문장
@@ -19,15 +21,15 @@
 
 | 순서 | 상태 | 한 장에 만들 것 | 참조·용도 | 업로드할 파일명 |
 | --- | --- | --- | --- | --- |
-| A01 | [ ] 업로드 필요 | **홈런 타자 #9 투명 컷아웃**. 좌측 뒤에서 본 타격 직후 자세. 흰 유니폼, 남색 헬멧, 배트와 양손 연결. | `docs/art/benchmark/target/homerun.png`, `assets/production-art/mockup-world-v15/homerun-scene.png`. 가로 휴대폰 컷의 왼쪽 주연. | `A01-homerun-batter-9.png` |
-| A02 | [ ] 업로드 필요 | **홈런 빈 경기장 배경판**. A01 타자·타구·문자 없는 조명·관중·도시 경기장. | 같은 목업/기존 장면. 가로 `844×390` 크롭에서 하늘·외야와 오른쪽 여백 유지. | `A02-homerun-stadium-plate.png` |
-| A03 | [ ] 업로드 필요 | **홈런 청색 타구 궤적/VFX 단독 레이어**. 공 한 개와 섬광·속도선만. | `homerun.png`의 청색 타구. A01/A02 위에 독립 합성. 투명 배경. | `A03-homerun-ball-trail.png` |
-| A04 | [ ] 업로드 필요 | **타이틀 주인공 #9 투명 컷아웃**. 기존 타자와 같은 얼굴·남색 헬멧·흰 유니폼·배트. | `docs/art/benchmark/target/title.png`, `assets/production-art/mockup-world-v15/title-keyart.png`. 세로 모바일 크롭에서 얼굴과 로고 공간 분리. | `A04-title-batter-9.png` |
-| A05 | [ ] 업로드 필요 | **타이틀 코치 투명 컷아웃**. 현행 코치와 같은 얼굴·모자·안경/수염·복장. | `title.png`와 `assets/ui-kit/coach-badge.svg`의 인물 정체성. A04와 별도 레이어. | `A05-title-coach.png` |
-| A06 | [ ] 업로드 필요 | **타이틀 빈 경기장·도시 배경판**. 인물과 텍스트 없는 석양 구장. | `title.png`, `title-keyart.png`. 세로 화면의 로고·메뉴 여백 확보. | `A06-title-stadium-plate.png` |
-| A07 | [ ] 업로드 필요 | **엔딩 타자 #9 뒷모습 투명 컷아웃**. 운동장 중앙에서 석양을 바라보는 전신. | `docs/art/benchmark/target/ending.png`, `assets/production-art/mockup-world-v15/ending-keyart.png`. 유니폼 번호 9가 읽히게. | `A07-ending-batter-9.png` |
-| A08 | [ ] 업로드 필요 | **엔딩 빈 경기장·도시 배경판**. 인물/문구/로고 없는 원경. | 같은 목업/기존 장면. 모바일 세로 크롭에서도 석양 중심 유지. | `A08-ending-stadium-plate.png` |
-| A09 | [ ] 업로드 필요 | **여성 레드 러시 강판 중간 포즈 1장**. 기존 `stagger`에서 `kneel`로 내려가는 순간. | `assets/production-art/red-rush-knockout-layers-v17/`의 두 투명 포즈. 같은 여성형 얼굴·검정/빨강 유니폼·긴 흰 바지·갈색 왼손 글러브. | `A09-red-rush-mid-collapse.png` |
+| A01 | [x] 원본·규격 검수 완료 | **홈런 타자 #9 투명 컷아웃**. 좌측 뒤에서 본 타격 직후 자세. 흰 유니폼, 남색 헬멧, 배트와 양손 연결. | `docs/art/benchmark/target/homerun.png`, `assets/production-art/mockup-world-v15/homerun-scene.png`. 가로 휴대폰 컷의 왼쪽 주연. | `A01-homerun-batter-9.png` |
+| A02 | [x] 원본·규격 검수 완료 | **홈런 빈 경기장 배경판**. A01 타자·타구·문자 없는 조명·관중·도시 경기장. | 같은 목업/기존 장면. 가로 `844×390` 크롭에서 하늘·외야와 오른쪽 여백 유지. | `A02-homerun-stadium-plate.png` |
+| A03 | [x] 원본·규격 검수 완료 | **홈런 청색 타구 궤적/VFX 단독 레이어**. 공 한 개와 섬광·속도선만. | `homerun.png`의 청색 타구. A01/A02 위에 독립 합성. 투명 배경. | `A03-homerun-ball-trail.png` |
+| A04 | [x] 원본·규격 검수 완료 | **타이틀 주인공 #9 투명 컷아웃**. 기존 타자와 같은 얼굴·남색 헬멧·흰 유니폼·배트. | `docs/art/benchmark/target/title.png`, `assets/production-art/mockup-world-v15/title-keyart.png`. 세로 모바일 크롭에서 얼굴과 로고 공간 분리. | `A04-title-batter-9.png` |
+| A05 | [x] 원본·규격 검수 완료 | **타이틀 코치 투명 컷아웃**. 현행 코치와 같은 얼굴·모자·안경/수염·복장. | `title.png`와 `assets/ui-kit/coach-badge.svg`의 인물 정체성. A04와 별도 레이어. | `A05-title-coach.png` |
+| A06 | [x] 원본·규격 검수 완료 | **타이틀 빈 경기장·도시 배경판**. 인물과 텍스트 없는 석양 구장. | `title.png`, `title-keyart.png`. 세로 화면의 로고·메뉴 여백 확보. | `A06-title-stadium-plate.png` |
+| A07 | [x] 원본·규격 검수 완료 | **엔딩 타자 #9 뒷모습 투명 컷아웃**. 운동장 중앙에서 석양을 바라보는 전신. | `docs/art/benchmark/target/ending.png`, `assets/production-art/mockup-world-v15/ending-keyart.png`. 유니폼 번호 9가 읽히게. | `A07-ending-batter-9.png` |
+| A08 | [x] 원본·규격 검수 완료 | **엔딩 빈 경기장·도시 배경판**. 인물/문구/로고 없는 원경. | 같은 목업/기존 장면. 모바일 세로 크롭에서도 석양 중심 유지. | `A08-ending-stadium-plate.png` |
+| A09 | [x] 원본·규격 검수 완료 | **여성 레드 러시 강판 중간 포즈 1장**. 기존 `stagger`에서 `kneel`로 내려가는 순간. | `assets/production-art/red-rush-knockout-layers-v17/`의 두 투명 포즈. 같은 여성형 얼굴·검정/빨강 유니폼·긴 흰 바지·갈색 왼손 글러브. | `A09-red-rush-mid-collapse.png` |
 
 위 목록은 **바로 업로드를 받을 수 있는 첫 묶음**이다. A01부터 순서대로 받고, 같은 화면의 앞 항목이 합격하면 다음 항목을 안내한다. A09까지 받아도 목업이나 애니메이션이 완성되는 것은 아니다. 아래 B항목, 기존 자산 검수, 실제 통합이 남는다.
 
@@ -73,17 +75,17 @@
 
 | 순서 | 상태 | 콘셉트 (카드 수) | 한 장에 그릴 장면 | 업로드할 파일명 |
 | --- | --- | --- | --- | --- |
-| C01 | [ ] 업로드 필요 | 정밀 precision (13) | #9 타자가 공 한 개에 시선을 고정한 클로즈업. 배트 끝과 공 사이에 가느다란 금빛 조준선, 주변은 흐리게. | `family-precision.png` |
-| C02 | [ ] 업로드 필요 | 장타 power (13) | 풀스윙 직후 하늘로 솟는 타구와 휘어진 배트, 담장 너머로 날아가는 공의 궤적. 금·주황 강한 역광. | `family-power.png` |
-| C03 | [ ] 업로드 필요 | 연결 relay (13) | 2루에서 3루로 슬라이딩하는 주자와 흙먼지, 뒤로 다음 주자가 뛰는 실루엣. 청록 톤. | `family-relay.png` |
-| C04 | [ ] 업로드 필요 | 소모전 grind (12) | 몸쪽 공을 배트로 걷어내 파울을 만드는 순간. 공이 뒤로 튀고 투수는 지친 표정(작게). 차분한 남색. | `family-grind.png` |
-| C05 | [ ] 업로드 필요 | 선구안 eye (12) | 배트를 내리고 존 밖으로 빠지는 공을 지켜보는 타자의 옆얼굴. 공 주변에 흐릿한 존 격자. | `family-eye.png` |
-| C06 | [ ] 업로드 필요 | 클러치 clutch (12) | 투스트라이크의 긴장. 붉은 조명 아래 배트를 짧게 쥐고 이를 악문 타자, 관중석은 어둡게. | `family-clutch.png` |
-| C07 | [ ] 업로드 필요 | 속공 tempo (12) | 초구에 바로 방망이가 나가는 역동적인 순간. 속도선, 불꽃 같은 궤적, 빨강·주황. | `family-tempo.png` |
-| C08 | [ ] 업로드 필요 | 연계 stack (12) | 여러 겹의 반투명 배트 궤적이 서로 이어져 하나의 스윙이 되는 장면. 금색 연결선. | `family-stack.png` |
-| C09 | [ ] 업로드 필요 | 분석 intel (12) | 더그아웃 태블릿과 투구 차트, 그 위로 비치는 투수의 릴리스 포인트 잔상. 푸른 화면광. | `family-intel.png` |
-| C10 | [ ] 업로드 필요 | 흔들기 mental (12) | 마운드 위에서 흔들리는 레드 러시(여성형 유지)와 금 간 공, 관중석의 함성. 보라·빨강. | `family-mental.png` |
-| C11 | [ ] 업로드 필요 | 코스 lane (12) | 9칸 스트라이크 존 중 한 줄이 빛나고 그 줄로 들어오는 공을 노리는 타자 시점. | `family-lane.png` |
+| C01 | [x] 원본·규격 검수 완료 | 정밀 precision (13) | #9 타자가 공 한 개에 시선을 고정한 클로즈업. 배트 끝과 공 사이에 가느다란 금빛 조준선, 주변은 흐리게. | `family-precision.png` |
+| C02 | [x] 원본·규격 검수 완료 | 장타 power (13) | 풀스윙 직후 하늘로 솟는 타구와 휘어진 배트, 담장 너머로 날아가는 공의 궤적. 금·주황 강한 역광. | `family-power.png` |
+| C03 | [x] 원본·규격 검수 완료 | 연결 relay (13) | 2루에서 3루로 슬라이딩하는 주자와 흙먼지, 뒤로 다음 주자가 뛰는 실루엣. 청록 톤. | `family-relay.png` |
+| C04 | [x] 원본·규격 검수 완료 | 소모전 grind (12) | 몸쪽 공을 배트로 걷어내 파울을 만드는 순간. 공이 뒤로 튀고 투수는 지친 표정(작게). 차분한 남색. | `family-grind.png` |
+| C05 | [x] 원본·규격 검수 완료 | 선구안 eye (12) | 배트를 내리고 존 밖으로 빠지는 공을 지켜보는 타자의 옆얼굴. 공 주변에 흐릿한 존 격자. | `family-eye.png` |
+| C06 | [x] 원본·규격 검수 완료 | 클러치 clutch (12) | 투스트라이크의 긴장. 붉은 조명 아래 배트를 짧게 쥐고 이를 악문 타자, 관중석은 어둡게. | `family-clutch.png` |
+| C07 | [x] 원본·규격 검수 완료 | 속공 tempo (12) | 초구에 바로 방망이가 나가는 역동적인 순간. 속도선, 불꽃 같은 궤적, 빨강·주황. | `family-tempo.png` |
+| C08 | [x] 원본·규격 검수 완료 | 연계 stack (12) | 여러 겹의 반투명 배트 궤적이 서로 이어져 하나의 스윙이 되는 장면. 금색 연결선. | `family-stack.png` |
+| C09 | [x] 원본·규격 검수 완료 | 분석 intel (12) | 더그아웃 태블릿과 투구 차트, 그 위로 비치는 투수의 릴리스 포인트 잔상. 푸른 화면광. | `family-intel.png` |
+| C10 | [x] 원본·규격 검수 완료 | 흔들기 mental (12) | 마운드 위에서 흔들리는 레드 러시(여성형 유지)와 금 간 공, 관중석의 함성. 보라·빨강. | `family-mental.png` |
+| C11 | [x] 원본·규격 검수 완료 | 코스 lane (12) | 9칸 스트라이크 존 중 한 줄이 빛나고 그 줄로 들어오는 공을 노리는 타자 시점. | `family-lane.png` |
 
 C01–C11이 모두 합격한 뒤 **C101~C235: 카드별 전용 그림**을 [`V16-CARD-ART-QUEUE.md`](V16-CARD-ART-QUEUE.md)의 순서(콘셉트별 표, 위에서 아래로)대로 한 장씩 받는다. 번호는 그 문서의 카드 순서를 따른다(정밀 첫 카드 `pinpoint` = C101). 파일명은 `card-<카드키>.png`. 희귀(rare) 카드를 먼저 만들어도 된다.
 
