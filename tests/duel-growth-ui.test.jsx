@@ -3,6 +3,9 @@ import React from 'react';
 import {render,screen,fireEvent,cleanup,act} from '@testing-library/react';
 import {afterEach,beforeEach,describe,it,expect,vi} from 'vitest';
 import Duel from '../src/duel/App.jsx';
+
+/* the tutorials moved into the title's 설정 sheet (2026-09-28 title screen) */
+const openSettings=()=>{const b=screen.queryByRole('button',{name:'설정'});if(b&&!screen.queryByRole('dialog',{name:'설정'}))fireEvent.click(b);};
 import {createDuel,startBattle,playCard,chooseReward,saveDuel,readDuel} from '../src/duel/engine.js';
 const finish=()=>act(()=>vi.runAllTimers());
 beforeEach(()=>{localStorage.clear();localStorage.setItem('9zone-zones-tour-v5','done');vi.useFakeTimers()});
@@ -58,7 +61,7 @@ describe('growth reward and in-game controls',()=>{
   });
   it('older local saves are not overwritten by a new v9 run',()=>{
     localStorage.setItem('9zone-zones-v5','keep-v5');localStorage.setItem('9zone-growth-v6','keep-v6');localStorage.setItem('9zone-deck-v7','keep-v7');localStorage.setItem('9zone-read-v8','keep-v8');
-    render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'기존 튜토리얼'}));
+    render(<Duel/>);fireEvent.click((openSettings(),screen.getByRole('button',{name:'기존 튜토리얼'})));
     expect(readDuel(localStorage).version).toBe(9);
     expect(localStorage.getItem('9zone-zones-v5')).toBe('keep-v5');expect(localStorage.getItem('9zone-growth-v6')).toBe('keep-v6');
     expect(localStorage.getItem('9zone-deck-v7')).toBe('keep-v7');expect(localStorage.getItem('9zone-read-v8')).toBe('keep-v8');

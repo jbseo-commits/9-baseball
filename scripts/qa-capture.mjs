@@ -33,7 +33,7 @@ async function capture() {
   }, JSON.stringify(battleSave()));
 
   await p.reload();
-  await p.getByRole('button', { name: 'MAIN RUN 이어하기', exact: true }).click();
+  await p.getByRole('button', { name: '이어하기', exact: true }).click();
   await p.waitForTimeout(1500);
 
   const shotDecide = path.join(OUT, 'phone-portrait-battle-decide.png');

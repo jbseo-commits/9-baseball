@@ -58,7 +58,7 @@ async function setupPage(viewport, state, action) {
       localStorage.setItem('9zone-hint-chase', 'done');
     }, JSON.stringify(state));
     await p.reload();
-    const resumeBtn = p.getByRole('button', { name: 'MAIN RUN 이어하기', exact: true });
+    const resumeBtn = p.getByRole('button', { name: '이어하기', exact: true });
     if (await resumeBtn.isVisible()) {
       await resumeBtn.click();
       await p.waitForTimeout(1000);

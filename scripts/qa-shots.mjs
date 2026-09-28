@@ -50,7 +50,7 @@ for(const [w,h,label] of VIEWPORTS){
     const errors=[];p.on('pageerror',e=>errors.push(e.message));
     await p.goto(URL_+'/?qa=1');
     await p.evaluate(s=>{localStorage.clear();localStorage.setItem('9zone-v10-run',s);localStorage.setItem('9zone-hint-chase','done');},JSON.stringify(SAVES[key]));
-    await p.reload();await p.getByRole('button',{name:'MAIN RUN 이어하기',exact:true}).click();await p.waitForTimeout(1500);
+    await p.reload();await p.getByRole('button',{name:'이어하기',exact:true}).click();await p.waitForTimeout(1500);
     return {p,errors};
   };
   const measure=p=>p.evaluate(()=>{

@@ -2,23 +2,7 @@
    that owns it (.duel-title, .bp-end, .bp-verdict.splash), so no other screen is touched.
    Targets: docs/art/benchmark/target/{title,ending,homerun,knockout}.png */
 
-/* ---- title: A06 plate, A05 coach behind, A04 batter in front; copy and menu stay above (z 3) ---- */
-.duel-title .title-hero{position:absolute;left:0;right:0;top:0;height:min(64vh,560px);z-index:1;pointer-events:none;overflow:hidden}
-.duel-title .title-hero .th-plate{position:absolute;inset:0;background-size:cover;background-position:58% 40%;background-repeat:no-repeat}
-.duel-title .title-hero .th-coach{position:absolute;right:26%;bottom:22%;height:52%;width:auto;opacity:.92;filter:brightness(.82) saturate(.95)}
-.duel-title .title-hero .th-batter{position:absolute;right:-8%;bottom:0;height:96%;width:auto;filter:drop-shadow(0 10px 18px #000a)}
-/* the copy reads over the sky on the left; the hero melts into the menu's dark body */
-.duel-title .title-hero .th-fade{position:absolute;inset:0;background:linear-gradient(90deg,#091c25e6 0%,#091c2599 34%,#091c2500 62%),linear-gradient(180deg,#091c2500 55%,#091c25 100%)}
-.duel-title:has(.title-hero) .title-actor{display:none}
-@media (min-width:900px){
-  .duel-title .title-hero{left:auto;width:min(62vw,980px);height:100%}
-  .duel-title .title-hero .th-batter{right:4%;height:88%}
-  .duel-title .title-hero .th-coach{right:38%;height:58%}
-}
-@media (orientation:landscape) and (max-height:500px){
-  .duel-title .title-hero{left:auto;width:58vw;height:100%}
-  .duel-title .title-hero .th-coach{display:none}
-}
+/* (the title moved to TitleScreen.jsx: A06 plate + the female pitcher cast) */
 
 /* ---- ending: A08 plate, A07 batter from behind on the left third; the right sky holds the copy ---- */
 .bp-stop.bp-end.won .bp-shead{background:none;min-height:clamp(260px,44dvh,440px);align-items:flex-end;justify-content:flex-end}
@@ -61,13 +45,3 @@
   .bp-verdict .ko-kneel{animation:none;opacity:1}
 }
 
-/* portrait phones: the hero gets its own 430px band (batter full height, feet on the menu card's top
-   edge) and the headline moves down onto the band's dark lower-left, so neither covers his face */
-@media (max-width:899px) and (orientation:portrait){
-  .duel-title .title-hero{height:430px}
-  .duel-title .title-hero .th-batter{right:-12%;height:93%}
-  .duel-title .title-hero .th-coach{right:30%;bottom:30%;height:50%}
-  .duel-title .title-hero .th-fade{background:linear-gradient(180deg,#091c2500 40%,#091c25cc 78%,#091c25 100%),linear-gradient(90deg,#091c25b3 0%,#091c2500 55%)}
-  .duel-title:has(.title-hero) .title-copy{padding-top:max(0px,calc(282px - 12vh))}
-  .duel-title:has(.title-hero) .title-copy h1{text-shadow:3px 3px #06151c,0 0 18px #06151c}
-}

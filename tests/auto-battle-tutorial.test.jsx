@@ -2,13 +2,16 @@
 import React from 'react';
 import {afterEach,describe,it,expect} from 'vitest';
 import {cleanup,fireEvent,render,screen} from '@testing-library/react';
+
+/* the tutorials moved into the title's 설정 sheet (2026-09-28 title screen) */
+const openSettings=()=>{const b=screen.queryByRole('button',{name:'설정'});if(b&&!screen.queryByRole('dialog',{name:'설정'}))fireEvent.click(b);};
 import Duel from '../src/duel/App.jsx';
 
 describe('strategy to autobattle tutorial',()=>{
   afterEach(()=>{cleanup();localStorage.clear();});
   it('enters the real V10 ballpark immediately and does not replace the main save',()=>{
     render(<Duel/>);
-    fireEvent.click(screen.getByRole('button',{name:'전략 → 자동전투 체험'}));
+    fireEvent.click((openSettings(),screen.getByRole('button',{name:'전략 → 자동전투 체험'})));
     expect(screen.getByTestId('bp-auto-lesson')).toBeTruthy();
     expect(screen.getByText('BUILD → BATTLE')).toBeTruthy();
     expect(screen.getByText('설계')).toBeTruthy();
@@ -17,9 +20,9 @@ describe('strategy to autobattle tutorial',()=>{
   });
   it('can leave the experiment and return to the title without touching the run',()=>{
     render(<Duel/>);
-    fireEvent.click(screen.getByRole('button',{name:'전략 → 자동전투 체험'}));
+    fireEvent.click((openSettings(),screen.getByRole('button',{name:'전략 → 자동전투 체험'})));
     fireEvent.click(screen.getByRole('button',{name:'체험 종료'}));
-    expect(screen.getByRole('button',{name:'MAIN RUN 시작 · 투수 HP'})).toBeTruthy();
+    expect(screen.getByRole('button',{name:'새로운 게임'})).toBeTruthy();
     expect(screen.queryByTestId('bp-auto-lesson')).toBeNull();
   });
 });

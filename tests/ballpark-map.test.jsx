@@ -14,7 +14,7 @@ afterEach(()=>{cleanup()});
 function open(park=true){
   const s=createV10Duel(7);saveV10Duel(localStorage,s);
   
-  render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'MAIN RUN 이어하기',exact:true}));
+  render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
   return s;
 }
 const go=()=>screen.getByTestId('bp-map-go');

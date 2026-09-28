@@ -120,7 +120,7 @@ function beginV10(){
   s.build='away';s.deck=BUILDS.away.cards.map((kind,i)=>({id:'c'+i,kind}));s.nextId=BUILDS.away.cards.length;
   s=enterV10Node(s,'a1-entry');
   saveV10Duel(localStorage,s);
-  render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'MAIN RUN 이어하기',exact:true}));
+  render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
   return s;
 }
 

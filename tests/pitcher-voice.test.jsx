@@ -33,7 +33,7 @@ describe('pitcher voice lines',()=>{
   it('she greets the batter on the first pitch and answers the result',()=>{
     vi.useFakeTimers();
     let s=createV10Duel(1);s=enterV10Node(s,'a1-entry');s.battle.pending={zone:9,roll:.5,powerRoll:.5};saveV10Duel(localStorage,s);
-    render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'MAIN RUN 이어하기',exact:true}));
+    render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
     const id=s.v10.opponent.artId;
     expect(PITCHER_VOICE[id].entry).toContain(screen.getByTestId('bp-voice').textContent);
     fireEvent.click(document.querySelector('.bp-card.basic'));fireEvent.click(document.querySelectorAll('.bp-cell')[4]);

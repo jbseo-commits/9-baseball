@@ -1,0 +1,102 @@
+/* Game entry (TitleScreen.jsx), target docs/art/benchmark/target/title.png.
+   Everything is scoped under .title-screen (the old .duel-title sheets do not reach it) and the one
+   outside rule hides the app header while the title is up. */
+.duel-app.title-mode>.duel-header{display:none}
+
+.title-screen{
+  --ts-gold:#ffc861;--ts-red:#ff5a3c;--ts-ink:#070a16;
+  position:relative;isolation:isolate;overflow:hidden;
+  min-height:100dvh;display:grid;grid-template-rows:auto 1fr auto;
+  padding:calc(env(safe-area-inset-top,0px) + clamp(20px,5dvh,44px)) 20px calc(env(safe-area-inset-bottom,0px) + clamp(18px,4dvh,36px));
+  background:var(--ts-ink);color:#fff;font-family:"Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+}
+/* the key art: the batter sits right of centre on a phone, the cast fills behind him */
+.title-screen .ts-art{position:absolute;left:0;right:0;top:0;height:min(70%,620px);z-index:-2;background:var(--ts-art) 55% 45%/cover no-repeat;
+  animation:ts-art-in 1.4s cubic-bezier(.2,.7,.2,1) both}
+/* the cast: full-body cutouts cropped at the thigh by the fade; the rivals are dimmed and warm-rimmed */
+.title-screen .ts-cast{position:absolute;left:0;right:0;top:0;height:min(70%,620px);z-index:-2;pointer-events:none;overflow:hidden}
+.title-screen .ts-fig{position:absolute;bottom:0;width:auto;animation:ts-fig-in .9s cubic-bezier(.2,.8,.2,1) both}
+.title-screen .ts-fig.back-l{left:-12%;height:70%;bottom:-4%;filter:brightness(.5) saturate(.85) drop-shadow(0 0 10px #ff8a3a55);animation-delay:.2s}
+.title-screen .ts-fig.back-r{right:-24%;height:72%;bottom:2%;filter:brightness(.45) saturate(.85) drop-shadow(0 0 10px #ff8a3a55);animation-delay:.28s}
+.title-screen .ts-fig.mid{left:16%;height:74%;bottom:-10%;filter:brightness(.62) saturate(.9) drop-shadow(0 0 12px #ff8a3a66);animation-delay:.36s}
+.title-screen .ts-fig.hero{right:-10%;height:98%;bottom:-26%;filter:drop-shadow(0 0 18px #ff5a3c55) drop-shadow(0 12px 18px #000c);animation-delay:.45s}
+@keyframes ts-fig-in{from{transform:translateY(6%);opacity:0}to{transform:none;opacity:1}}
+.title-screen .ts-shade{position:absolute;inset:0;z-index:-1;pointer-events:none;background:
+  linear-gradient(180deg,#070a16cc 0%,#070a1633 20%,#070a1600 36%,#070a1600 46%,#070a16cc 62%,#070a16 70%),
+  linear-gradient(90deg,#070a16cc 0%,#070a1666 38%,#070a1600 62%)}
+
+/* ---- wordmark: a heavy italic 9 in fire gold, ZONE in steel with a baseball for its O ---- */
+.title-screen .ts-brand{animation:ts-drop .7s cubic-bezier(.2,1.3,.35,1) .15s both}
+.title-screen .ts-logo{margin:0;display:flex;align-items:center;gap:.02em;line-height:.9;
+  font:400 clamp(64px,19vw,112px)/.9 "Black Han Sans","Noto Sans KR",sans-serif;font-style:italic;letter-spacing:-.02em;transform:skewX(-6deg)}
+.title-screen .ts-nine{
+  background:linear-gradient(180deg,#fff2b8 0%,#ffc53d 38%,#ff7a1a 72%,#c2320e 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  -webkit-text-stroke:3px #1b1030;filter:drop-shadow(3px 4px 0 #1b1030) drop-shadow(0 0 14px #ff8a2a66);margin-right:.04em}
+.title-screen .ts-zone{display:inline-flex;align-items:center;
+  background:linear-gradient(180deg,#ffffff 0%,#e7ecf7 48%,#9aa6c4 52%,#dfe5f2 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  -webkit-text-stroke:3px #141b3a;filter:drop-shadow(3px 4px 0 #141b3a)}
+.title-screen .ts-ball{width:.74em;height:.74em;margin:0 .03em;transform:skewX(6deg) rotate(-18deg);filter:drop-shadow(0 0 10px #ffffff55);
+  animation:ts-spin 1.1s cubic-bezier(.2,.8,.2,1) .35s both}
+.title-screen .ts-sub{margin:.35em 0 0 .3em;font:700 clamp(12px,3.6vw,17px)/1 "Black Han Sans","Noto Sans KR",sans-serif;letter-spacing:.14em;color:#fff;
+  text-shadow:2px 2px 0 #141b3a,0 0 10px #000}
+
+/* ---- menu: bullet, label, one-line hint; the lit item gets the red bar and a fading plate ---- */
+.title-screen .ts-menu{grid-row:3;align-self:end;max-width:min(300px,78%)}
+.title-screen .ts-menu ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.title-screen .ts-menu li{animation:ts-item .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.45s + var(--i) * 70ms)}
+.title-screen .ts-item{
+  appearance:none;position:relative;width:100%;min-height:48px;padding:7px 14px 7px 26px;border:0;border-radius:0;
+  display:grid;align-content:center;gap:2px;text-align:left;cursor:pointer;background:transparent;color:#fff;
+  -webkit-tap-highlight-color:transparent;transition:background .18s ease,transform .18s ease;
+}
+.title-screen .ts-item::before{content:"";position:absolute;left:10px;top:50%;width:6px;height:6px;margin-top:-3px;background:#dfe5f2;box-shadow:0 0 0 1px #070a16;transition:background .18s,box-shadow .18s}
+.title-screen .ts-item b{font:700 17px/1.2 "Noto Sans KR",sans-serif;text-shadow:0 2px 3px #000,0 0 12px #000c}
+.title-screen .ts-item small{font:500 11px/1.25 "Noto Sans KR",sans-serif;color:#c6cde0;text-shadow:0 1px 2px #000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.title-screen .ts-item.lead,.title-screen .ts-item:hover:not(:disabled),.title-screen .ts-item:focus-visible{
+  background:linear-gradient(90deg,#ff5a3c59 0%,#ff5a3c1f 55%,#ff5a3c00 100%);outline:none}
+.title-screen .ts-item.lead::after,.title-screen .ts-item:hover:not(:disabled)::after,.title-screen .ts-item:focus-visible::after{
+  content:"";position:absolute;left:0;top:4px;bottom:4px;width:4px;background:var(--ts-red);box-shadow:0 0 12px var(--ts-red)}
+.title-screen .ts-item.lead::before,.title-screen .ts-item:hover:not(:disabled)::before,.title-screen .ts-item:focus-visible::before{background:var(--ts-gold);box-shadow:0 0 8px var(--ts-gold)}
+.title-screen .ts-item.lead b{color:#fff4d6}
+.title-screen .ts-item:active:not(:disabled){transform:translateX(3px)}
+.title-screen .ts-item:focus-visible{box-shadow:inset 0 0 0 2px #ffc86199}
+/* a menu row that has nothing to open yet stays readable and says why */
+.title-screen .ts-item:disabled{cursor:default}
+.title-screen .ts-item:disabled b{color:#8d95ad}
+.title-screen .ts-item:disabled::before{background:#5b637d}
+.title-screen .ts-item:disabled small{color:#8d95ad}
+
+@keyframes ts-art-in{from{transform:scale(1.08);filter:brightness(.4)}to{transform:none;filter:none}}
+@keyframes ts-drop{from{transform:translateY(-18px);opacity:0}to{transform:none;opacity:1}}
+@keyframes ts-spin{from{transform:skewX(6deg) rotate(-300deg) scale(.4);opacity:0}to{transform:skewX(6deg) rotate(-18deg);opacity:1}}
+@keyframes ts-item{from{transform:translateX(-16px);opacity:0}to{transform:none;opacity:1}}
+
+/* wide frames (the portrait app runs framed on desktop; a landscape phone): the target's layout —
+   brand and menu stacked on the left, the cast to the right */
+@media (min-aspect-ratio:4/3){
+  .title-screen{grid-template-rows:auto auto 1fr;align-content:start;padding-left:max(5vw,24px)}
+  .title-screen .ts-art,.title-screen .ts-cast{height:100%}
+  .title-screen .ts-art{background-position:50% 40%}
+  .title-screen .ts-fig.back-l{left:auto;right:44%}
+  .title-screen .ts-fig.mid{left:auto;right:26%}
+  .title-screen .ts-fig.back-r{right:-4%}
+  .title-screen .ts-fig.hero{right:6%;height:120%;bottom:-24%}
+  .title-screen .ts-shade{background:linear-gradient(90deg,#070a16e6 0%,#070a1699 34%,#070a1600 60%),linear-gradient(180deg,#070a1600 70%,#070a16 100%)}
+  .title-screen .ts-menu{grid-row:2;align-self:start;margin-top:clamp(16px,5dvh,40px)}
+  .title-screen .ts-logo{font-size:clamp(56px,11dvh,104px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .title-screen .ts-art,.title-screen .ts-brand,.title-screen .ts-ball,.title-screen .ts-menu li,.title-screen .ts-fig{animation:none}
+}
+
+/* ---- 설정 sheet (opened from the title): sound, help, and the tutorials that used to crowd the title ---- */
+.duel-modal .title-settings,.duel-modal .title-confirm{display:grid;gap:14px}
+.duel-modal .title-settings h2,.duel-modal .title-confirm h2{margin:0}
+.duel-modal .ts-set-group{display:grid;gap:8px;padding-top:12px;border-top:1px solid #ffffff1f}
+.duel-modal .ts-set-group h3{margin:0;font-size:12px;letter-spacing:.08em;color:#c6cde0}
+.duel-modal .ts-set-row{display:flex;flex-wrap:wrap;gap:8px}
+.duel-modal .ts-set-row button{min-height:44px}
+.duel-modal .title-settings .title-tutorial{padding-top:12px;border-top:1px solid #ffffff1f}
+.duel-modal .title-settings .title-tutorial-label{font-size:12px;letter-spacing:.08em;color:#c6cde0;font-weight:700}
+.duel-modal .title-confirm p{margin:0;line-height:1.5}
+.duel-modal .title-settings .title-tutorial>p{font-size:13px;line-height:1.5;color:#c6cde0;margin:6px 0 0}

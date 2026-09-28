@@ -30,9 +30,11 @@ describe('title pixel panel (INBOX #10)',()=>{
   });
   it('keeps one English brand mark and no stale version footer on the title',()=>{
     render(<Duel/>);
-    const title=document.querySelector('.duel-title');
+    const title=document.querySelector('.title-screen');
     expect(title.textContent).not.toMatch(/READ → BET → REVEAL → IMPACT|TUTORIAL ·|V9\.2 \/ 4경기/);
-    expect(screen.getByText('메인 런')).toBeTruthy();
-    expect(screen.getByRole('button',{name:'MAIN RUN 시작 · 투수 HP'}).classList.contains('primary')).toBe(true);
+    /* 2026-09-28 entry screen (target title.png): one wordmark and the five-row menu */
+    expect(screen.getByRole('heading',{name:'9ZONE HOMEBOUND'})).toBeTruthy();
+    expect([...document.querySelectorAll('.ts-item b')].map(b=>b.textContent)).toEqual(['새로운 게임','이어하기','덱 관리','도감','설정']);
+    expect(screen.getByRole('button',{name:'새로운 게임'}).classList.contains('lead')).toBe(true);
   });
 });

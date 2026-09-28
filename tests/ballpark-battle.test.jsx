@@ -21,7 +21,7 @@ function begin(ng=true){
   s=enterV10Node(s,'a1-entry');
   saveV10Duel(localStorage,s);
   
-  render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'MAIN RUN 이어하기',exact:true}));
+  render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
   return s;
 }
 const swingBtn=()=>screen.getByTestId('bp-swing');
@@ -231,7 +231,7 @@ describe('V13 BALLPARK BP-7 read the pitcher',()=>{
     s.build='away';s.deck=BUILDS.away.cards.filter(k=>CARDS[k].type!=='skill').map((kind,i)=>({id:'c'+i,kind}));s.nextId=s.deck.length;
     s=enterV10Node(s,'a1-entry');s.battle.pending={zone:9,roll:.5,powerRoll:.5};
     saveV10Duel(localStorage,s);
-    render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'MAIN RUN 이어하기',exact:true}));
+    render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);fireEvent.click(swingBtn());
     act(()=>{vi.advanceTimersByTime(6000)});
     expect(document.querySelector('.bp-coach-text').textContent).toContain('볼은 참으면 볼넷');

@@ -1,14 +1,10 @@
 import React from 'react';
 /* Phone asset queue A01–A09 (assets/production-art/phone-assets-v18) + the v17 Red Rush knockout layers,
-   composed as separate layers the way their README asks: title (A04 batter, A05 coach, A06 plate),
-   ending (A07 batter, A08 plate), home-run cut-in (A01 batter, A02 plate, A03 ball + trail — the code
+   composed as separate layers the way their README asks: ending (A07 batter, A08 plate), home-run cut-in (A01 batter, A02 plate, A03 ball + trail — the code
    draws no second ball there), knockout (v17 stagger -> A09 mid-collapse -> v17 kneel, one canvas). */
 import hrBatter from '../../assets/production-art/phone-assets-v18/A01-homerun-batter-9.png';
 import hrPlate from '../../assets/production-art/phone-assets-v18/A02-homerun-stadium-plate.png';
 import hrTrail from '../../assets/production-art/phone-assets-v18/A03-homerun-ball-trail.png';
-import titleBatter from '../../assets/production-art/phone-assets-v18/A04-title-batter-9.png';
-import titleCoach from '../../assets/production-art/phone-assets-v18/A05-title-coach.png';
-import titlePlate from '../../assets/production-art/phone-assets-v18/A06-title-stadium-plate.png';
 import endBatter from '../../assets/production-art/phone-assets-v18/A07-ending-batter-9.png';
 import endPlate from '../../assets/production-art/phone-assets-v18/A08-ending-stadium-plate.png';
 import koMid from '../../assets/production-art/phone-assets-v18/A09-red-rush-mid-collapse.png';
@@ -17,18 +13,9 @@ import koStagger from '../../assets/production-art/red-rush-knockout-layers-v17/
 import koKneel from '../../assets/production-art/red-rush-knockout-layers-v17/red-rush-knockout-actor.png';
 import './phone-art-v18.css';
 
-export const PHONE_ART_V18={hrBatter,hrPlate,hrTrail,titleBatter,titleCoach,titlePlate,endBatter,endPlate,koMid,koPlate,koStagger,koKneel};
+export const PHONE_ART_V18={hrBatter,hrPlate,hrTrail,endBatter,endPlate,koMid,koPlate,koStagger,koKneel};
 /* the knockout keyposes are the female Red Rush; other pitchers keep the plate and their own cutout */
 export const KO_POSE_ART_ID='regular-01-red-rush';
-
-export function TitleHero(){
-  return <div className="title-hero" aria-hidden="true">
-    <i className="th-plate" style={{backgroundImage:`url(${titlePlate})`}}/>
-    <img className="th-coach" alt="" src={titleCoach}/>
-    <img className="th-batter" alt="" src={titleBatter}/>
-    <i className="th-fade"/>
-  </div>;
-}
 
 export function EndingHero(){
   return <div className="end-hero" aria-hidden="true">

@@ -3,7 +3,7 @@ import React from 'react';
 import fs from 'node:fs';
 import {render,cleanup} from '@testing-library/react';
 import {afterEach,describe,it,expect} from 'vitest';
-import {TitleHero,EndingHero,HomeRunCut,KnockoutCut,KO_POSE_ART_ID,PHONE_ART_V18} from '../src/duel/phone-art-v18.jsx';
+import {EndingHero,HomeRunCut,KnockoutCut,KO_POSE_ART_ID,PHONE_ART_V18} from '../src/duel/phone-art-v18.jsx';
 import BallparkEnd from '../src/duel/BallparkEnd.jsx';
 
 /* phone asset queue A01–A09 (assets/production-art/phone-assets-v18) connected to the runtime */
@@ -14,15 +14,14 @@ describe('phone assets v18 in the game',()=>{
   it('imports every A01–A09 file plus the v17 knockout layers',()=>{
     const m=JSON.parse(fs.readFileSync('assets/production-art/phone-assets-v18/manifest.json','utf8'));
     const src=fs.readFileSync('src/duel/phone-art-v18.jsx','utf8');
-    for(const a of m.assets)expect(src,a.id).toContain(a.file);
+    const title=fs.readFileSync('src/duel/TitleScreen.jsx','utf8');
+    for(const a of m.assets)if(!['A04','A05'].includes(a.id))expect(src+title,a.id).toContain(a.file);
     expect(Object.values(PHONE_ART_V18).every(Boolean)).toBe(true);
   });
-  it('title: plate, coach behind, batter in front; the old faded sprite steps aside',()=>{
-    render(<TitleHero/>);
-    const hero=document.querySelector('.title-hero');
-    expect([...hero.children].map(x=>x.className)).toEqual(['th-plate','th-coach','th-batter','th-fade']);
-    expect(css).toContain('.duel-title:has(.title-hero) .title-actor{display:none}');
-    expect(fs.readFileSync('src/duel/App.jsx','utf8')).toContain('<TitleHero/>');
+  it('title: the A06 plate carries the female pitcher cast (TitleScreen); A04/A05 were superseded by it',()=>{
+    const t=fs.readFileSync('src/duel/TitleScreen.jsx','utf8');
+    expect(t).toContain('A06-title-stadium-plate.png');
+    expect(fs.readFileSync('src/duel/App.jsx','utf8')).not.toContain('<TitleHero/>');
   });
   it('ending: the won screen gets the A08 plate and the A07 batter; a loss keeps its old header',()=>{
     render(<BallparkEnd won/>);

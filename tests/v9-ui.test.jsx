@@ -4,6 +4,9 @@ import {afterEach,beforeEach,describe,it,expect} from 'vitest';
 import {cleanup,fireEvent,render,screen,within} from '@testing-library/react';
 import Duel from '../src/duel/App.jsx';
 import {createDuel,startBattle,chooseRoute,battleTarget,playCard,saveDuel,readDuel} from '../src/duel/engine.js';
+
+/* the tutorials moved into the title's 설정 sheet (2026-09-28 title screen) */
+const openSettings=()=>{const b=screen.queryByRole('button',{name:'설정'});if(b&&!screen.queryByRole('dialog',{name:'설정'}))fireEvent.click(b);};
 import {DECKBUILDER_BUILD,STAGES,ROUTE_CHOICES} from '../src/duel/cards.js';
 
 const pitch=(s,zone=s.battle.aimZone,roll=.1,powerRoll=.99)=>{
@@ -31,7 +34,7 @@ afterEach(()=>cleanup());
 describe('V9 main-run UI',()=>{
   it('presents every V9 deck as a tutorial now that the main run is the pitcher-HP run',()=>{
     render(<Duel/>);
-    const starter=screen.getByRole('button',{name:/무명 타선/});
+    const starter=(openSettings(),screen.getByRole('button',{name:/무명 타선/}));
     expect(starter.getAttribute('aria-pressed')).toBe('true');
     expect(within(starter).getByText('튜토리얼 · 덱 만들기')).toBeTruthy();
     for(const name of ['몸쪽 장타','바깥 연결','끈질긴 컨택']){
@@ -39,13 +42,13 @@ describe('V9 main-run UI',()=>{
       expect(within(button).getByText('튜토리얼 · 완성형 체험')).toBeTruthy();
     }
     /* 메인런은 따로, 그리고 제일 밝게 들어간다. */
-    const main=screen.getByRole('button',{name:/MAIN RUN 시작/});
-    expect(main.classList.contains('primary')).toBe(true);
+    const main=screen.getByRole('button',{name:'새로운 게임'});
+    expect(main.classList.contains('lead')).toBe(true);   // the title's lit row (no run yet → 새로운 게임)
   });
 
   it('makes the map an actual opponent choice before a main-run battle',()=>{
     render(<Duel/>);
-    fireEvent.click(screen.getByRole('button',{name:'기존 튜토리얼'}));
+    fireEvent.click((openSettings(),screen.getByRole('button',{name:'기존 튜토리얼'})));
     const routes=screen.getByRole('region',{name:'상대 경로 선택'});
     expect(routes).toBeTruthy();
     expect(screen.queryByRole('button',{name:'이 상대와 승부 시작'})).toBeNull();

@@ -63,7 +63,7 @@ describe('V12 P0-1 baseline contract',()=>{
     const collector=readFileSync(path.join(ROOT,meta.collector),'utf8');
     expect(collector).toContain('createV10Duel');
     expect(collector).toContain('enterV10Node');
-    expect(collector).toContain('MAIN RUN 이어하기');
+    expect(collector).toContain("name:'이어하기'");
   });
   it('commits the canonical three-viewport Before shot set at exact viewport dimensions',()=>{
     const shots=[

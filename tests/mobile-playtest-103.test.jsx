@@ -25,7 +25,7 @@ function begin(){
   s.nextId=s.deck.length;
   s=enterV10Node(s,'a1-entry');
   saveV10Duel(localStorage,s);
-  render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'MAIN RUN 이어하기',exact:true}));
+  render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
   return s;
 }
 const portrait=fs.readFileSync('src/duel/v14-portrait-master.css','utf8');

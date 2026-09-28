@@ -13,7 +13,7 @@ function open({act=1,shaken,bases=[null,null,null]}={}){
   let s=createV10Duel(1);s=clone(enterV10Node(s,'a1-entry'));
   s.v10.opponent.act=act;s.battle.bases=bases;if(shaken!==undefined)s.battle.shaken=shaken;
   saveV10Duel(localStorage,s);
-  render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'MAIN RUN 이어하기',exact:true}));
+  render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
 }
 const gauge=()=>screen.getByTestId('bp-mental');
 

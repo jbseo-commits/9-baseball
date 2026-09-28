@@ -44,7 +44,7 @@ describe('#103 M06 no-select policy',()=>{
     let s=createV10Duel(1);
     s.build='away';s.deck=BUILDS.away.cards.map((kind,i)=>({id:'c'+i,kind}));s.nextId=BUILDS.away.cards.length;
     s=enterV10Node(s,'a1-entry');saveV10Duel(localStorage,s);
-    render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'MAIN RUN 이어하기',exact:true}));
+    render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
     const cards=[...document.querySelectorAll('.bp-hand [data-card-kind]')];
     expect(cards.length).toBeGreaterThan(1);
     const covered=el=>policySelectors.some(sel=>el.matches(sel));

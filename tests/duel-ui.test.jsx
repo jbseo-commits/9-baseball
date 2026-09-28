@@ -8,6 +8,9 @@ import {planAction} from '../src/duel/policy.js';
 import {presentationFor,presentationTimeline} from '../src/duel/presentation.js';
 import {redRushTimeline} from '../src/duel/pitcher-sd.js';
 import {batterMotionV3Timeline} from '../src/duel/batterMotionV3.js';
+
+/* the tutorials moved into the title's 설정 sheet (2026-09-28 title screen) */
+const openSettings=()=>{const b=screen.queryByRole('button',{name:'설정'});if(b&&!screen.queryByRole('dialog',{name:'설정'}))fireEvent.click(b);};
 import {BUILDS,CARDS,ZONES,DECKBUILDER_BUILD,ROUTE_CHOICES} from '../src/duel/cards.js';
 beforeEach(()=>{localStorage.clear();vi.useFakeTimers()});
 afterEach(()=>{cleanup();vi.useRealTimers();vi.unstubAllGlobals()});
@@ -26,15 +29,15 @@ function beginV10(zone=5,roll=.5,build='away'){
   s=enterV10Node(s,'a1-entry');
   s.battle.pending={zone,roll,powerRoll:.95};
   saveV10Duel(localStorage,s);
-  render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'MAIN RUN 이어하기',exact:true}));
+  render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
 }
 function useCard(kind){fireEvent.click(screen.getByRole('button',{name:CARDS[kind].type==='skill'?'준비하기':'스윙하기',exact:true}));fireEvent.click(screen.getAllByRole('button',{name:CARDS[kind].name,exact:true})[0]);fireEvent.click(screen.getByTestId('execute-action'));finish();}
 describe('9-zone strategic UI',()=>{
   it('selects a distinct starter deck and trial seed without overwriting legacy saves',()=>{
     localStorage.setItem('9zone-lineup-v3','legacy');render(<Duel/>);
-    fireEvent.click(screen.getByRole('button',{name:/몸쪽 장타/}));
-    fireEvent.change(screen.getByLabelText('비교용 시드'),{target:{value:'42'}});
-    fireEvent.click(screen.getByRole('button',{name:'기존 튜토리얼'}));
+    fireEvent.click((openSettings(),screen.getByRole('button',{name:/몸쪽 장타/})));
+    fireEvent.change((openSettings(),screen.getByLabelText('비교용 시드')),{target:{value:'42'}});
+    fireEvent.click((openSettings(),screen.getByRole('button',{name:'기존 튜토리얼'})));
     expect(readDuel(localStorage).build).toBe('pull');expect(readDuel(localStorage).initialSeed).toBe(42);expect(localStorage.getItem('9zone-lineup-v3')).toBe('legacy');
   });
   it('tour walks six real targets; escape dismisses and does not reopen',()=>{
@@ -99,7 +102,7 @@ describe('9-zone strategic UI',()=>{
     s.battle.pending={zone:s.battle.aimZone,roll:.1,powerRoll:.99};
     saveV10Duel(localStorage,s);
     render(<Duel/>);
-    fireEvent.click(screen.getByRole('button',{name:'MAIN RUN 이어하기',exact:true}));
+    fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
     fireEvent.click(document.querySelector('.bp-card.basic'));
     fireEvent.click(screen.getByTestId('bp-swing'));
     const arena=screen.getByRole('region',{name:'승부 구장'});
@@ -171,7 +174,7 @@ describe('9-zone strategic UI',()=>{
   it('shows Red Rush art on the first selectable route',()=>{
     saveV10Duel(localStorage,createV10Duel(1));
     render(<Duel/>);
-    fireEvent.click(screen.getByRole('button',{name:'MAIN RUN 이어하기',exact:true}));
+    fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
     expect(document.querySelector('.bp-node[data-node="a1-entry"] img.bp-fig').getAttribute('src')).toContain('red-rush');
     expect(document.querySelector('.bp-mpor img').getAttribute('src')).toContain('red-rush');
   });
@@ -182,7 +185,7 @@ describe('9-zone strategic UI',()=>{
     try{
       saveV10Duel(localStorage,createV10Duel(1));
       render(<Duel/>);
-      fireEvent.click(screen.getByRole('button',{name:'MAIN RUN 이어하기',exact:true}));
+      fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
       expect(document.querySelector('.bp-node')).toBeTruthy();
       expect(made).toBe(0);
     }finally{globalThis.Image=Real;}
@@ -192,7 +195,7 @@ describe('9-zone strategic UI',()=>{
     /* .bp-fig is drawn with brightness(0): an opaque portrait there turns into a black box */
     saveV10Duel(localStorage,createV10Duel(1));
     render(<Duel/>);
-    fireEvent.click(screen.getByRole('button',{name:'MAIN RUN 이어하기',exact:true}));
+    fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
     const figs=[...document.querySelectorAll('.bp-node img.bp-fig')];
     expect(figs.length).toBeGreaterThan(0);
     for(const img of figs)expect(img.getAttribute('src')).not.toMatch(/dex-/);
@@ -206,7 +209,7 @@ describe('9-zone strategic UI',()=>{
     delete s.runMap.nodes.find(node=>node.id==='a1-entry').opponent.artId;
     saveV10Duel(localStorage,s);
     render(<Duel/>);
-    fireEvent.click(screen.getByRole('button',{name:'MAIN RUN 이어하기',exact:true}));
+    fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
     expect(document.querySelector('.sprite-pitcher.golden-actor')).toBeTruthy();
     expect(document.querySelector('.sprite-pitcher.red-rush-actor')).toBeNull();
   });

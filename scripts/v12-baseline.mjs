@@ -63,7 +63,7 @@ async function capture(outDir,{viewportOnly=false}={}){
     page.on('console',message=>message.type()==='error'&&errors.push(message.text()));
     page.on('pageerror',error=>errors.push(String(error)));
     await page.goto(baseUrl,{waitUntil:'networkidle'});
-    await page.getByRole('button',{name:'MAIN RUN 이어하기'}).click();
+    await page.getByRole('button',{name:'이어하기',exact:true}).click();
     await page.waitForSelector('.duel-combat');
     await page.waitForTimeout(300);
     const metrics=await page.evaluate(()=>({

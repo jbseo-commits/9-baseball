@@ -33,7 +33,8 @@ describe('main run entry',()=>{
     const seeds=[];
     for(let i=0;i<2;i++){
       render(<Duel/>);
-      fireEvent.click(screen.getByRole('button',{name:'MAIN RUN 시작 · 투수 HP'}));
+      fireEvent.click(screen.getByRole('button',{name:'새로운 게임'}));
+      if(i>0){expect(readV10Duel(localStorage).initialSeed).toBe(seeds[0]);fireEvent.click(screen.getByRole('button',{name:'처음부터 시작'}));}   // the run in progress is only replaced after the confirm
       seeds.push(readV10Duel(localStorage).initialSeed);
       cleanup();
     }

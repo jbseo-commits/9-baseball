@@ -64,7 +64,7 @@ describe('V12 P3-2 on the ballpark board',()=>{
     let s=createV10Duel(1);
     s.build='away';s.deck=['strike','place','place','place','strike','place','place','place'].map((kind,i)=>({id:'c'+i,kind}));s.nextId=s.deck.length;
     s=enterV10Node(s,'a1-entry');saveV10Duel(localStorage,s);
-    render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'MAIN RUN 이어하기',exact:true}));
+    render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
     const cells=()=>[...document.querySelectorAll('.bp-cell')];
     const cards=[...document.querySelectorAll('.bp-hand .bp-card:not(.basic)')];
     fireEvent.click(cards.find(c=>c.dataset.cardKind==='strike'));fireEvent.click(cells()[2]);

@@ -46,7 +46,7 @@ async function runGoldenPass() {
       localStorage.setItem('9zone-hint-chase', 'done');
     }, JSON.stringify(saveState));
     await p.reload();
-    await p.getByRole('button', { name: 'MAIN RUN 이어하기', exact: true }).click();
+    await p.getByRole('button', { name: '이어하기', exact: true }).click();
     await p.waitForTimeout(1500);
     return p;
   };

@@ -84,7 +84,7 @@ async function getStyles(page, selector) {
     localStorage.setItem('9zone-hint-chase', 'done');
   }, JSON.stringify(battleSave()));
   await p.reload();
-  await p.getByRole('button', { name: 'MAIN RUN 이어하기', exact: true }).click();
+  await p.getByRole('button', { name: '이어하기', exact: true }).click();
   await p.waitForTimeout(1000);
 
   console.log('--- 2. Battle Portrait Elements ---');
@@ -108,7 +108,7 @@ async function getStyles(page, selector) {
     localStorage.setItem('9zone-hint-chase', 'done');
   }, JSON.stringify(createV10Duel(1)));
   await p.reload();
-  await p.getByRole('button', { name: 'MAIN RUN 이어하기', exact: true }).click();
+  await p.getByRole('button', { name: '이어하기', exact: true }).click();
   await p.waitForTimeout(1000);
 
   console.log('--- 3. Map Elements ---');
@@ -128,7 +128,7 @@ async function getStyles(page, selector) {
     localStorage.setItem('9zone-hint-chase', 'done');
   }, JSON.stringify(rewardSave()));
   await p.reload();
-  await p.getByRole('button', { name: 'MAIN RUN 이어하기', exact: true }).click();
+  await p.getByRole('button', { name: '이어하기', exact: true }).click();
   await p.waitForTimeout(1000);
 
   console.log('--- 4. Reward Elements ---');

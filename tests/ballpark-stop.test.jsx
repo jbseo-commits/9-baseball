@@ -16,7 +16,7 @@ function won(){
 }
 function open(s,park=true){
   saveV10Duel(localStorage,s);
-  render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'MAIN RUN 이어하기',exact:true}));
+  render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
 }
 const go=()=>screen.getByTestId('bp-stop-go'),skip=()=>screen.getByTestId('bp-stop-skip');
 const offers=()=>[...document.querySelectorAll('.bp-offer')];
