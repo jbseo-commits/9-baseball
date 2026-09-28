@@ -51,3 +51,6 @@ jobs:
 
       - name: Build production site
         run: pnpm run build
+
+      - name: Shipped-size budget (heavy art must ship as WebP)
+        run: node scripts/check-dist-budget.mjs
