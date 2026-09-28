@@ -25,7 +25,7 @@ Mobile composite sanity previews: [home run 844×390](working/phone-assets-v18-q
 | Tests/regression | Needs verification at integration | Run visual/flow regression after code imports and animations. |
 | Build/deploy | None so far | No imports or bundled paths changed here; when merging the V16 card branch, verify family filename lookup and production build. |
 
-**Status:** Individual source image inspection passed. No claim of 10-screen mockup fidelity, completed animation, V16 runtime connection, or final R1–R8 quality score. Conditional B slots and C122–C235 per-card illustrations remain open; C101–C121 source-image checks are recorded below.
+**Status:** Individual source image inspection passed. No claim of 10-screen mockup fidelity, completed animation, V16 runtime connection, or final R1–R8 quality score. Conditional B slots and C123–C235 per-card illustrations remain open; C101–C122 source-image checks are recorded below.
 
 ## C101 pinpoint follow-up
 
@@ -78,3 +78,7 @@ All three are new 1024×1536 opaque RGB PNGs. C117 [`card-pullHook.png`](../../a
 ## C121 cleanup follow-up
 
 [`card-cleanup.png`](../../assets/cards-v15/card-cleanup.png) is a new 1024×1536 opaque RGB PNG. #9 waits in a strong cleanup-hitter stance while two small teammates occupy distant bases. The batter and baserunners remain readable in the [100px preview](working/c121-cleanup-100px.png). No text or card frame is baked in. `src/duel/card-art.js` selects the named file before the power family fallback and sets its detail-sheet vertical focus to 0.25. The final card-window crop and mobile screen have not been visually approved. C122–C235 remain open.
+
+## C122 solo-shot follow-up
+
+[`card-soloShot.png`](../../assets/cards-v15/card-soloShot.png) is a new 1024×1536 opaque RGB PNG. A single batter finishes his swing at home plate while one baseball climbs over the outfield fence; the bases and field behind him are empty. The solo hitter and golden flight path remain readable in the [100px preview](working/c122-solo-shot-100px.png). No text or card frame is baked in. `src/duel/card-art.js` selects the named file before the power family fallback and sets its detail-sheet vertical focus to 0.29. The final card-window crop and mobile screen have not been visually approved. C123–C235 remain open.
