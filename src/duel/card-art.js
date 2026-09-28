@@ -50,10 +50,11 @@ export const ART_FOCUS_Y = {
   'card-surgeon.png': 0.29, 'card-needle.png': 0.30, 'card-counterRead.png': 0.24,
   'card-onePatience.png': 0.30, 'card-laserEye.png': 0.31, 'card-coldRead.png': 0.33,
   'card-focusBreath.png': 0.30, 'card-markZone.png': 0.36, 'card-perfectRead.png': 0.30,
-  // C114–C122: face and outgoing ball; moonshot focuses on the high flight
+  // C114–C123: face and outgoing ball; moonshot focuses on the high flight
   'card-fullSwing.png': 0.32, 'card-moonshot.png': 0.18, 'card-gapHunter.png': 0.33,
   'card-pullHook.png': 0.31, 'card-oppoPower.png': 0.25, 'card-upperCut.png': 0.32,
   'card-highHeat.png': 0.29, 'card-cleanup.png': 0.25, 'card-soloShot.png': 0.29,
+  'card-loadPower.png': 0.29,
 };
 /* per card key, for a card that should frame a shared illustration differently from the file default */
 export const CARD_ART_FOCUS_Y = {};
