@@ -25,7 +25,7 @@ Mobile composite sanity previews: [home run 844×390](working/phone-assets-v18-q
 | Tests/regression | Needs verification at integration | Run visual/flow regression after code imports and animations. |
 | Build/deploy | None so far | No imports or bundled paths changed here; when merging the V16 card branch, verify family filename lookup and production build. |
 
-**Status:** Individual source image inspection passed. No claim of 10-screen mockup fidelity, completed animation, V16 runtime connection, or final R1–R8 quality score. Conditional B slots and C114–C235 per-card illustrations remain open; C101–C113 source-image checks are recorded below.
+**Status:** Individual source image inspection passed. No claim of 10-screen mockup fidelity, completed animation, V16 runtime connection, or final R1–R8 quality score. Conditional B slots and C117–C235 per-card illustrations remain open; C101–C116 source-image checks are recorded below.
 
 ## C101 pinpoint follow-up
 
@@ -62,3 +62,7 @@ All three are new 1024×1536 opaque RGB PNGs. C108 [`card-onePatience.png`](../.
 ## C111–C113 precision follow-up
 
 All three are new 1024×1536 opaque RGB PNGs. C111 [`card-focusBreath.png`](../../assets/cards-v15/card-focusBreath.png) is a still preparation moment: #9's breath narrows toward a tiny glint on the bat tip; [100px preview](working/c111-focus-breath-100px.png). C112 [`card-markZone.png`](../../assets/cards-v15/card-markZone.png) shows the back of #9 as the bat points at one gold dot in the center strike-zone cell; the first version's dot was in the wrong cell and was rejected, while the [100px preview](working/c112-mark-zone-100px.png) uses the corrected point. C113 [`card-perfectRead.png`](../../assets/cards-v15/card-perfectRead.png) shows one baseball at bat contact with compact cobalt prediction and gold impact rings; [100px preview](working/c113-perfect-read-100px.png). No text or card frame is baked in. `src/duel/card-art.js` selects these named files before the precision family fallback. Final card-window crops and mobile screens have not been visually approved. C114–C235 remain open.
+
+## C114–C116 power follow-up
+
+All three are new 1024×1536 opaque RGB PNGs. C114 [`card-fullSwing.png`](../../assets/cards-v15/card-fullSwing.png) shows a full-body rotational swing at one contact point, with an amber bat arc; [100px preview](working/c114-full-swing-100px.png). C115 [`card-moonshot.png`](../../assets/cards-v15/card-moonshot.png) shows one towering baseball passing a crescent moon against an indigo sky; [100px preview](working/c115-moonshot-100px.png). C116 [`card-gapHunter.png`](../../assets/cards-v15/card-gapHunter.png) shows one ball heading between two distant outfielders; [100px preview](working/c116-gap-hunter-100px.png). No text or card frame is baked in. `src/duel/card-art.js` selects these named files before the power family fallback. Final card-window crops and mobile screens have not been visually approved. C117–C235 remain open.
