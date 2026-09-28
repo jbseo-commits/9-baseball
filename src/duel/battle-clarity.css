@@ -1,0 +1,63 @@
+/* Portrait battle clarity pass (phone playtest 2026-09-29): nothing on the battle screen covers
+   what the player reads. Scoped to .v14-battle-portrait (the V10 ballpark battle only) and loaded
+   last so it wins over the earlier portrait layers without !important creep. */
+@media (orientation:portrait){
+  /* header: "1막" stays one line inside its pill (it wrapped into two stacked glyphs) */
+  .v14-battle-portrait .bp-hud-inning{white-space:nowrap;line-height:1.3;flex:0 0 auto}
+
+  /* 9존: the order badge moves to the cell corner, so the share under it stays readable
+     ("1" sat on top of "38%") and the actual-pitch mark shows after the pitch */
+  .v14-battle-portrait .bp-cell .bp-token{
+    width:18px!important;height:18px!important;left:3px!important;top:3px!important;
+    right:auto!important;bottom:auto!important;transform:none!important;
+    font-size:10px!important;line-height:14px!important;border-width:1.5px!important;
+    box-shadow:0 0 6px rgba(255,170,34,.8),0 1px 3px rgba(0,0,0,.7)!important;
+  }
+  .v14-battle-portrait .bp-cell:has(.bp-token) .bp-pct{top:64%}
+  /* a 0% cell is still a live cell, but it should not shout the same as 24% */
+  .v14-battle-portrait .bp-cell .bp-pct.zero{opacity:.32;text-shadow:none}
+
+  /* verdict: a plate over the infield between the pitcher panel and the zone, clear of the
+     batter's helmet and bat (it sat on them at the left edge) */
+  .v14-battle-portrait .bp-verdict:not(.splash){
+    left:calc(50 * var(--u,1vw));top:auto;
+    bottom:calc(19 * var(--u,1vw) + clamp(126px,37%,168px) + 22px);
+    translate:-50% 0;transform-origin:center bottom;justify-items:center;text-align:center;
+    padding:8px 22px 10px;border-radius:4px;
+    background:linear-gradient(180deg,rgba(22,28,54,.94) 0%,rgba(8,10,22,.96) 100%);
+    border:1.5px solid rgba(240,232,210,.35);
+    box-shadow:0 0 0 1px #07080d,0 10px 24px rgba(0,0,0,.75);
+  }
+  .v14-battle-portrait .bp-verdict.good:not(.splash){
+    border-color:var(--bp-sodium);
+    box-shadow:0 0 0 1px #07080d,0 0 22px rgba(255,200,97,.35),0 10px 24px rgba(0,0,0,.75);
+  }
+  .v14-battle-portrait .bp-verdict:not(.splash) strong{font-size:30px}
+  .v14-battle-portrait .bp-verdict:not(.splash) small{font-size:12px}
+
+  /* speech: the speaker's name is a small label on the line, not a boxed tab that pushes the
+     line down to a different baseline */
+  .v14-battle-portrait .bp-voice-strip b{
+    display:inline;padding:0;border:0;border-image:none;background:none;
+    font:700 11px/1.3 "Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;color:var(--bp-sodium);
+  }
+  .v14-battle-portrait .bp-voice-strip{font-size:12px}
+  /* the pitcher speaking wears her own face */
+  .v14-battle-portrait .speaker-pitcher .bp-coach-badge{
+    background-size:cover;background-position:50% 10%;background-repeat:no-repeat;image-rendering:auto;
+    box-shadow:0 0 0 2px #07080d,0 0 0 3px #ff6a4d,0 0 10px rgba(255,106,77,.45);
+  }
+  .v14-battle-portrait .speaker-pitcher .bp-coach-pill{background:#ff6a4d;color:#fff}
+
+  /* nobody speaks while the ball is in the air: the empty bubble recedes instead of reading as broken */
+  .v14-battle-portrait .bp-coach-bubble:has(.bp-coach-text:empty):not(:has(.bp-voice-strip)){opacity:.25}
+  /* while the pitch resolves the hand steps back instead of showing half-cut greyed-out text */
+  .v14-battle-portrait .bp-battle.resolving>.bp-hand{opacity:.3;filter:saturate(.35);pointer-events:none}
+
+  /* 지켜본다: one line under the title (it broke into "투구를 / 흘려보낸다") */
+  .v14-battle-portrait .bp-verb.wait::after{content:"흘려보낸다";white-space:nowrap;display:block;-webkit-line-clamp:unset}
+
+  /* bases: filled diamonds with a light edge, readable over the dirt */
+  .v14-battle-portrait .bp-bases i{border:1.5px solid rgba(240,232,210,.8);background:rgba(7,8,13,.6)}
+  .v14-battle-portrait .bp-bases i.on{background:var(--bp-sodium);border-color:#fff3c4}
+}

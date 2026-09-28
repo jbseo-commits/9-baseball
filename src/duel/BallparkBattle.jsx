@@ -10,7 +10,7 @@ import batterV14MasterSheet from '../../assets/ui-kit/batter/batter-v14-master-s
 import cardArtSheet from '../../assets/ui-kit/cards/battle-core-v14-master-sheet.png';
 import {cardArtFor,cardArtFocusFor} from './card-art.js';
 import {HomeRunCut,KnockoutCut} from './phone-art-v18.jsx';
-import {pitcherFigures} from './pitcher-visuals.js';
+import {pitcherFigures,pitcherPortraits} from './pitcher-visuals.js';
 import './ballpark.css';
 import './momentum.css';
 import BallparkCoach,{coachSeen} from './BallparkCoach.jsx';
@@ -56,7 +56,7 @@ export const LURE_PCT=30;
 /* card role chip colours, inside the ballpark palette */
 const ROLE_TONE={'장타':'gold','정타':'red','범위':'bone','진루':'brass','집중':'cyan','수급':'teal','관찰':'purple','생존':'bone','준비':'teal'};
 /* the line under the next-step verb: pitch = same batter, next ball; between = the plate appearance ended */
-export const nextHint=phase=>phase==='pitch'?'같은 타자 · 다음 공을 기다린다':phase==='between'?'타석 종료 · 다음 타자가 들어선다':'';
+export const nextHint=(phase,judging=false)=>judging?'판정 중…':phase==='pitch'?'같은 타자 · 다음 공을 기다린다':phase==='between'?'타석 종료 · 다음 타자가 들어선다':'';
 const lessonZoneName=z=>z===9?'존 밖':ZONE_WORDS[z]||'코스';
 
 const CARD_ART_POS={
@@ -230,6 +230,7 @@ export default function BallparkBattle({
   const moment=showVerdict&&judged&&landed?momentOf({call,chased:outNote==='볼에 손이 나갔다',knockedOut:(pitcher?.hp??1)===0})
     :deciding&&!(b.history?.length)&&b.turn===1?'entry':null;
   const voice=moment?pitcherLine(artId,moment,playToken):'';
+  const speakerFace=pitcherPortraits[artId]||null;
 
   /* Experimental lesson: keep the real battle, but explicitly separate the Slay-the-Spire
      decision from the autobattler payoff. The player plans; once the verb is pressed,
@@ -298,7 +299,7 @@ const CARD_DESC_MAP={
 };
 
   const cardButton=x=>{
-    const def=CARDS[x.entry.kind]||{},problem=x.preview?.problem,inStack=stack.findIndex(y=>y.id===x.id);
+    const def=CARDS[x.entry.kind]||{},problem=deciding?x.preview?.problem:null,inStack=stack.findIndex(y=>y.id===x.id);
     const state=selected===x.id?' main':inStack>=0?' support':armed===x.id?' armed':'';
     const isRare=x.entry.plus||def.type==='signature';
     const isSkillCard=def.type==='skill';
@@ -456,7 +457,7 @@ const CARD_DESC_MAP={
             aria-label={word+(dead?' · 던지지 않는 코스':'')+(b.aimZone===z?' · 노림':'')} aria-pressed={b.aimZone===z}
             className={'bp-cell'+(dead?' dead':'')+(cover.has(z)?' cover':'')+(support.has(z)?' assist':'')+(aimAt===z?' aim':'')+(armed?' target':'')+(actual?' actual'+(good?' good':''):'')}
             style={{'--heat':dead?0:Math.min(1,share*3).toFixed(2)}}>
-            {dead&&!cover.has(z)&&<small className="bp-dead">안 던짐</small>}{!dead&&deciding&&<span className={'bp-pct'+(z===topCell?' top':'')}>{pct(z)}%</span>}{tok.map(t=><b key={t.n} className="bp-token" data-board-order={t.n}>{t.n}</b>)}{actual&&<i className="bp-pitch-mark" aria-label="실제 공"/>}
+            {dead&&!cover.has(z)&&<small className="bp-dead">안 던짐</small>}{!dead&&deciding&&<span className={'bp-pct'+(z===topCell?' top':'')+(pct(z)===0?' zero':'')}>{pct(z)}%</span>}{tok.map(t=><b key={t.n} className="bp-token" data-board-order={t.n}>{t.n}</b>)}{actual&&<i className="bp-pitch-mark" aria-label="실제 공"/>}
           </button>;
         })}
         {/* CONNECT: the order links the engine scored, solid = connected (+HP back), dashed = broken */}
@@ -477,9 +478,10 @@ const CARD_DESC_MAP={
     </section>
 
     <div className={'bp-coach-wrap'+(voice?' has-voice':'')}>
-      <div className="bp-coach-avatar-col">
-        <div className="bp-coach-badge" aria-hidden="true"/>
-        <span className="bp-coach-pill">COACH</span>
+      {/* whoever speaks wears the avatar: the pitcher's line shows her face, not the coach's */}
+      <div className={'bp-coach-avatar-col'+(voice&&speakerFace?' speaker-pitcher':'')}>
+        <div className="bp-coach-badge" aria-hidden="true" style={voice&&speakerFace?{backgroundImage:`url(${speakerFace})`}:undefined}/>
+        <span className="bp-coach-pill">{voice&&speakerFace?'투수':'COACH'}</span>
       </div>
       <div className="bp-coach-bubble">
         <p className={'bp-coach'+(voice?' has-voice':'')}>
@@ -570,7 +572,7 @@ const CARD_DESC_MAP={
 
     {onNext&&!deciding&&s.phase!=='battle'?<div className="bp-verbs next">
       {/* #103 M04: the hint names the same step as the verb (it said "next pitch" under "next batter") */}
-      <button type="button" className="bp-verb go" data-testid="bp-next" disabled={inFx} onClick={onNext}><span className="bp-verb-word">{nextLabel}</span>{nextHint(s.phase)&&<small className="bp-verb-sub"><span>{nextHint(s.phase)}</span></small>}</button>
+      <button type="button" className="bp-verb go" data-testid="bp-next" disabled={inFx} onClick={onNext}><span className="bp-verb-word">{nextLabel}</span>{nextHint(s.phase,inFx)&&<small className="bp-verb-sub"><span>{nextHint(s.phase,inFx)}</span></small>}</button>
     </div>:<div className="bp-verbs">
       <button type="button" className="bp-verb go" data-testid="bp-swing" disabled={!deciding||!selected||!!choice?.problem} onClick={commitSwing}>
         <span className="bp-verb-word">{verb}</span>{verbSub&&<small className="bp-verb-sub">{verbSubParts.map((x,i)=><React.Fragment key={i}>{i>0&&<i className="bp-verb-sep" aria-hidden="true"> · </i>}<span>{x}</span></React.Fragment>)}</small>}
