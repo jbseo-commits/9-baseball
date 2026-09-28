@@ -208,6 +208,47 @@
     margin:0;font:400 8.5px/1.2 var(--bp-ko);color:#b2bccc!important;
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   }
+  /* Prep / Skill Card Masterpiece Styling */
+  .v14-battle-portrait .bp-card.prep-card,
+  .v14-battle-portrait .bp-card.skill{
+    background:linear-gradient(180deg,#122538 0%,#0a1424 100%)!important;
+    border:1.5px solid #285868!important;
+    box-shadow:0 6px 16px rgba(0,0,0,0.8),inset 0 0 12px rgba(46,196,182,0.1)!important;
+  }
+  .v14-battle-portrait .bp-card.prep-card.main,
+  .v14-battle-portrait .bp-card.skill.main{
+    border-color:#5eead4!important;
+    box-shadow:0 0 0 2px #5eead4,0 12px 28px rgba(0,0,0,0.95),0 0 16px rgba(94,234,212,0.65)!important;
+  }
+  .v14-battle-portrait .bp-card-cost.prep{
+    background:linear-gradient(135deg,#2ec4b6 0%,#0f7a75 100%)!important;
+    border:1px solid #7fe0d8!important;
+    color:#ffffff!important;
+    font-size:10px!important;
+    box-shadow:0 0 8px rgba(46,196,182,0.7)!important;
+  }
+  .v14-battle-portrait .bp-card-mini-map.prep-badge{
+    border-color:rgba(94,234,212,0.5)!important;
+    background:rgba(8,20,32,0.88)!important;
+    display:grid;place-items:center;min-width:18px;min-height:18px;padding:1px 3px;
+  }
+  .v14-battle-portrait .bp-prep-glyph{
+    font-size:10px;line-height:1;color:#5eead4;
+    text-shadow:0 0 4px rgba(94,234,212,0.8);
+  }
+  .v14-battle-portrait .bp-chip.type.prep{
+    background:#103b38!important;color:#5eead4!important;border:0.5px solid rgba(94,234,212,0.3);
+  }
+  .v14-battle-portrait .bp-order.prep{
+    position:absolute;right:4px;top:4px;width:auto;min-width:18px;height:18px;padding:0 3px;
+    background:#081f26;border:1.5px solid #5eead4;border-radius:2px;
+    font:700 9px/1.8 var(--bp-ko);color:#5eead4;
+    box-shadow:0 0 6px rgba(94,234,212,0.8);
+    display:grid;place-items:center;z-index:4;
+  }
+  .v14-battle-portrait .bp-card-desc .bp-prep-left{
+    color:#7fe0d8!important;font-weight:600;
+  }
 
   /* Verbs: Golden Double Frame Primary & Deep Navy Secondary */
   .v14-battle-portrait .bp-verbs{
