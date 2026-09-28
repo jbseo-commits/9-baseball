@@ -3,8 +3,8 @@ import {CARDS} from './cards.js';
 
 const cardFiles = import.meta.glob('../../assets/cards-v15/*.png', { eager: true, query: '?url', import: 'default' });
 
-/* V16 keyword cards have no illustration of their own yet (docs/art/V16-CARD-ART-QUEUE.md):
-   each concept borrows one V15 illustration, a different one per concept. */
+/* V16 cards use their own illustration when present, then a family illustration;
+   these V15 files remain the fallback for families without dedicated art. */
 export const FAMILY_ART = {
   precision: 'reward-precision-blue.png', power: 'deck-pull-gold.png', relay: 'reward-relay-cyan.png',
   grind: 'card-defend.png', eye: 'card-watch.png', clutch: 'card-commit.png', tempo: 'reward-flame-red.png',
@@ -44,8 +44,15 @@ export const ART_FOCUS_Y = {
   'family-intel.png': 0.27, 'family-lane.png': 0.36, 'family-mental.png': 0.21, 'family-power.png': 0.27,
   'family-precision.png': 0.26, 'family-relay.png': 0.42, 'family-stack.png': 0.30, 'family-tempo.png': 0.18,
   'reward-flame-red.png': 0.20, 'reward-precision-blue.png': 0.16, 'reward-relay-cyan.png': 0.19,
-  // C101–C104 (Codex, 2026-09-28): the face, with the eye-level pair / the swing's hands inside the frame
+  // C101–C104: the face, with the eye-level pair / the swing's hands inside the frame
   'card-pinpoint.png': 0.24, 'card-eyeLevel.png': 0.26, 'card-verticalRead.png': 0.28, 'card-readStrike.png': 0.22,
+  // C105–C113: batter's face or, on preparation cards, the bat tip / marked zone
+  'card-surgeon.png': 0.29, 'card-needle.png': 0.30, 'card-counterRead.png': 0.24,
+  'card-onePatience.png': 0.30, 'card-laserEye.png': 0.31, 'card-coldRead.png': 0.33,
+  'card-focusBreath.png': 0.30, 'card-markZone.png': 0.36, 'card-perfectRead.png': 0.30,
+  // C114–C119: face and outgoing ball; moonshot focuses on the high flight
+  'card-fullSwing.png': 0.32, 'card-moonshot.png': 0.18, 'card-gapHunter.png': 0.33,
+  'card-pullHook.png': 0.31, 'card-oppoPower.png': 0.25, 'card-upperCut.png': 0.32,
 };
 /* per card key, for a card that should frame a shared illustration differently from the file default */
 export const CARD_ART_FOCUS_Y = {};
