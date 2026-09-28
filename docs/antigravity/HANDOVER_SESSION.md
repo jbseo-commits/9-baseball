@@ -1,15 +1,26 @@
 # 9ZONE HOMEBOUND — 다음 세션 인수인계서 (Handover)
 
-- **작성 일시**: 2026-09-28 03:22
-- **현재 작업 브랜치**: `ag/20260928-p2-title-ending-cutscenes` (최신 커밋: `7f4b16d`)
-- **원격 저장소 반영**: `origin/ag/20260928-p2-title-ending-cutscenes` (push 완료, working tree clean)
-- **로컬 개발 서버**: `http://localhost:5174` (백그라운드 실행 중)
+- **작성 일시**: 2026-09-29 05:48
+- **현재 작업 브랜치**: `ag/portrait-css-refine` (최신 커밋: `6e2debc`)
+- **원격 저장소 반영**: `origin/ag/portrait-css-refine` (push 완료, working tree clean)
+- **로컬 개발 서버**: `http://localhost:5173` (백그라운드 실행 중)
 
 ---
 
 ## 1. 완료된 작업 요약 (PHASE 2 World & System Masterpiece Lock 완료)
 
-새롭게 추가된 목업 월드 에셋(`assets/production-art/mockup-world-v15/`) 18종 및 타겟 목업(`docs/art/benchmark/target/`)을 기반으로 루프엔지니어링(안티그래비티 자율 루프 프로토콜)을 수행하여 **PHASE 2 전체 5개 항목을 100% 완료 및 각 브랜치에 푸시**했습니다.
+### ⓪ 준비카드(스킬 카드) 마스터피스 리디자인 (`ag/portrait-css-refine`)
+- **문제점 해결**: 기존 동그란 원형(`border-radius: 50%`)의 조잡한 토큰 형태에서 탈피하여, 손패의 공격 카드와 동일한 규격(높이 138px / 너비 98px)의 직사각형 전술 스킬 카드로 승격.
+- **비주얼 강화**:
+  - 카드 고유 일러스트(`card-setup.png`, `card-watch.png`, `card-scout.png`, `card-calm.png`, `card-lure.png` 등) 연동
+  - 신비로운 사파이어-시안 메탈릭 그라데이션 및 글라스모피즘 프레임 적용
+  - 준비 전용 ⚡ 코스트 배지, `✦` 스킬 글리프, `준비` / 세부 역할(`집중`, `수급`, `관찰` 등) 칩
+  - 2줄 전술 설명 및 남은 준비 횟수(`준비 N회 가능`) 가독성 제공
+  - 선택 시 골드-시안 오라 광채 (`box-shadow: 0 0 0 2px #5eead4, 0 12px 28px rgba(0,0,0,0.95), 0 0 16px rgba(94,234,212,0.65)`)
+- **품질 게이트**:
+  - `tests/v14-prep-card-masterpiece.test.jsx` 회귀 테스트 신설 (3/3 PASS)
+  - 전체 테스트 129개 파일 810/810 ALL PASS (0 실패)
+  - Production build 정상 통과 (1.76s)
 
 ### ① P2-01 가로 전투 보드 (Landscape Battleboard) 마스터피스 (`ag/20260928-p2-landscape-battle`)
 - `assets/duel/stadium-landscape.png` 배경 및 마운드 러버 플레이트 위 투수 발 안착 (`left: 50%; bottom: 36%`)
