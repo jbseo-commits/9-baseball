@@ -292,6 +292,9 @@ const CARD_DESC_MAP={
   highHeat:['하이볼 강타','가로 3존 · 파워 +18 · 높은 공 파워 +18'],
   cleanup:['4번 타자의 해결','1존 · 파워 +36 · 주자당 안타 +3 HP'],
   soloShot:['솔로포 각','1존 · 파워 +36 · 주자 없을 때 +6 HP'],
+  loadPower:['힘 모으기','이번 타석 파워 +18'],
+  sluggerInstinct:['거포 본능','이번 타석 파워 +36'],
+  calledShot:['예고 홈런','파워 +36 · 이번 타석 안타 +6 HP'],
 };
 
   const cardButton=x=>{

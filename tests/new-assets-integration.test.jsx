@@ -17,7 +17,7 @@ describe('New Assets Integration (C101-C122 Card Arts & A04-A05 Title Cast)', ()
     'needle', 'counterRead', 'onePatience', 'laserEye', 'coldRead',
     'focusBreath', 'markZone', 'perfectRead', 'fullSwing', 'moonshot',
     'gapHunter', 'pullHook', 'oppoPower', 'upperCut', 'highHeat',
-    'cleanup', 'soloShot',
+    'cleanup', 'soloShot', 'loadPower', 'sluggerInstinct', 'calledShot',
   ];
 
   it('card-map.json contains all 22 new card mappings (C101-C122)', () => {
