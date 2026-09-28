@@ -25,7 +25,7 @@ Mobile composite sanity previews: [home run 844×390](working/phone-assets-v18-q
 | Tests/regression | Needs verification at integration | Run visual/flow regression after code imports and animations. |
 | Build/deploy | None so far | No imports or bundled paths changed here; when merging the V16 card branch, verify family filename lookup and production build. |
 
-**Status:** Individual source image inspection passed. No claim of 10-screen mockup fidelity, completed animation, V16 runtime connection, or final R1–R8 quality score. Conditional B slots and C108–C235 per-card illustrations remain open; C101–C107 source-image checks are recorded below.
+**Status:** Individual source image inspection passed. No claim of 10-screen mockup fidelity, completed animation, V16 runtime connection, or final R1–R8 quality score. Conditional B slots and C111–C235 per-card illustrations remain open; C101–C110 source-image checks are recorded below.
 
 ## C101 pinpoint follow-up
 
@@ -54,3 +54,7 @@ Mobile composite sanity previews: [home run 844×390](working/phone-assets-v18-q
 ## C107 counterRead follow-up
 
 `assets/cards-v15/card-counterRead.png` is a new 1024×1536 opaque RGB PNG for the `counterRead` card. #9 redirects one anticipated pitch toward the open opposite-field gap, with female Red Rush small and off balance on the mound. Her red ponytail, black/red top, long white pants and brown glove match the established identity. The batter, outgoing ball and secondary pitcher remain readable in the [100px preview](working/c107-counter-read-100px.png). No text or card frame is baked in. `src/duel/card-art.js` selects this file before the precision family fallback. The final card-window crop and full mobile screen have not been visually approved. C108–C235 remain open.
+
+## C108–C110 precision follow-up
+
+All three are new 1024×1536 opaque RGB PNGs. C108 [`card-onePatience.png`](../../assets/cards-v15/card-onePatience.png) shows a controlled follow-through, one baseball and the next empty target cell becoming visible; [100px preview](working/c108-one-patience-100px.png). C109 [`card-laserEye.png`](../../assets/cards-v15/card-laserEye.png) connects one fully visible baseball to the bat tip with a narrow diagonal sightline; the first version was rejected because the ball touched the image edge, and the [100px preview](working/c109-laser-eye-100px.png) uses the corrected composition. C110 [`card-coldRead.png`](../../assets/cards-v15/card-coldRead.png) shows #9 holding the bat still while reading one pitch at the crossing height/side guides; [100px preview](working/c110-cold-read-100px.png). No text or card frame is baked in. `src/duel/card-art.js` selects these named files before the precision family fallback. Final card-window crops and mobile screens have not been visually approved. C111–C235 remain open.
