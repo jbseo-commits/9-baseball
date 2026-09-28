@@ -4,7 +4,9 @@
 > 순서: 먼저 콘셉트 대표 그림 C01–C11(`family-<콘셉트>.png`, 한 장이면 그 콘셉트 전체가 바뀜) → 카드별 C101~C235(`card-<카드키>.png`). 진행은 `docs/art/PHONE_ASSET_QUEUE.md` C 섹션 규칙을 따른다.
 > 한 장이 완성되면 `assets/cards-v15/`에 파일명 규칙(`family-<콘셉트>.png`, `card-<카드키>.png`)대로 넣기만 하면 코드·매핑 수정 없이 바로 연결된다. 규격: 기존 카드 원화와 같은 세로 2:3, 인물·배경 밀도 동일, 글자 없음.
 
-> **2026-09-28 추가 진행:** C01–C11 대표 그림 11장은 이 브랜치의 `assets/cards-v15/family-*.png`에 제작·규격 검수 완료. 이 브랜치의 구형 `src/duel/card-art.js`는 아직 family 매핑을 사용하지 않으므로, 통합 브랜치에서 연결 확인이 필요하다. 개별 카드 C101–C235는 계속 미제작이며, 번호·효과·그림 방향은 아래 표가 기준이다.
+**제작 상태:** C01–C11 콘셉트 그림과 C101 `pinpoint`, C102 `eyeLevel`, C103 `verticalRead` 전용 그림은 통합 작업 폴더에 있다. `assets/cards-v15/card-pinpoint.png`, `assets/cards-v15/card-eyeLevel.png`, `assets/cards-v15/card-verticalRead.png`로 저장하고 원본·100px 판독을 검수했다. 다음 번호는 C104 `readStrike`다.
+
+> **2026-09-28 추가 진행:** C01–C11 대표 그림 11장은 `assets/cards-v15/family-*.png`에 제작·규격 검수 완료. 통합 브랜치의 `src/duel/card-art.js`는 카드별 파일을 family 그림보다 우선한다. C101–C103은 제작·원본 검수 완료이며 C104–C235의 번호·효과·그림 방향은 아래 표가 기준이다.
 
 | 콘셉트 | 장수 | 지금 빌려 쓰는 그림 |
 |---|---|---|
