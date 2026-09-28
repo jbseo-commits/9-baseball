@@ -1,0 +1,19 @@
+/* #103 M06 — touch policy for game-control surfaces.
+   A long-press on a hand card is a game gesture (it opens the card detail), so neither the card nor
+   the sheet it opens may start the browser's own long-press: text selection handles, the
+   copy/share/web-search menu, Android "Touch to Search", the iOS callout.
+   Policy: card rules text in the detail sheet is read, not copied, so the whole sheet is
+   non-selectable. user-select only affects selection: screen readers still read every node, the
+   sheet still scrolls (overflow:auto on .card-detail-sheet), and buttons keep focus and taps.
+   Scope: the .game-noselect class (the detail sheet carries it) plus the hand surfaces this module's
+   long-press listens on, which are rendered by other components. Never html/body/#root. */
+.game-noselect,
+.bp-hand [data-card-kind],
+.duel-hand .duel-card[data-card-kind],
+.bp-info,
+.card-detail-open{
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
+.game-noselect img{-webkit-user-drag:none}
