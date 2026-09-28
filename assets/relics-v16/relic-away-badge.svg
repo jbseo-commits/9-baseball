@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="100%" height="100%">
+  <defs>
+    <radialGradient id="ab-bg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0e172e"/>
+      <stop offset="70%" stop-color="#080c19"/>
+      <stop offset="100%" stop-color="#02040a"/>
+    </radialGradient>
+    <radialGradient id="ab-glow" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.8"/>
+      <stop offset="40%" stop-color="#1d4ed8" stop-opacity="0.4"/>
+      <stop offset="80%" stop-color="#1e3a8a" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#1e3a8a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="badge-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fffbeb"/>
+      <stop offset="30%" stop-color="#fef08a"/>
+      <stop offset="60%" stop-color="#eab308"/>
+      <stop offset="100%" stop-color="#854d0e"/>
+    </linearGradient>
+    <linearGradient id="badge-enamel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e40af"/>
+      <stop offset="50%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <filter id="badge-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="256" height="256" fill="url(#ab-bg)"/>
+  <circle cx="128" cy="128" r="116" fill="none" stroke="url(#badge-gold)" stroke-width="2" opacity="0.4"/>
+  <circle cx="128" cy="128" r="108" fill="none" stroke="#60a5fa" stroke-width="1" stroke-dasharray="6,6" opacity="0.5"/>
+
+  <!-- Cobalt Energy Glow -->
+  <circle cx="128" cy="128" r="92" fill="url(#ab-glow)"/>
+
+  <!-- 8-Point Starburst Military Order Base -->
+  <g transform="translate(128, 120)">
+    <path d="
+      M 0 -72 L 18 -32 L 62 -42 L 36 -6 L 68 22 L 24 26 L 22 70 L -4 36
+      L -44 56 L -30 16 L -68 -8 L -24 -22 L -34 -64 L -4 -32 Z
+    " fill="url(#badge-gold)" stroke="#78350f" stroke-width="2" filter="url(#badge-glow)"/>
+    <path d="
+      M 0 -64 L 14 -28 L 54 -36 L 30 -4 L 58 20 L 20 22 L 18 60 L -4 30
+      L -38 48 L -26 14 L -58 -6 L -20 -18 L -30 -54 L -4 -28 Z
+    " fill="#ca8a04" opacity="0.8"/>
+  </g>
+
+  <!-- Enamel Medallion Center -->
+  <circle cx="128" cy="120" r="44" fill="url(#badge-enamel)" stroke="url(#badge-gold)" stroke-width="3"/>
+  <circle cx="128" cy="120" r="38" fill="none" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Opposite Field Vector Arrow (Push to Right Field) -->
+  <g transform="translate(128, 120)">
+    <!-- Field Boundary Lines -->
+    <path d="M -24 24 L 0 0 L 24 24" fill="none" stroke="#fef08a" stroke-width="2" opacity="0.4"/>
+    <!-- Dynamic Curved Arrow to Right Corner -->
+    <path d="M -16 12 Q 4 -12 24 -16" fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round"/>
+    <!-- Arrowhead -->
+    <path d="M 16 -24 L 28 -16 L 22 -6 Z" fill="#ffffff" stroke="#fef08a" stroke-width="1.5"/>
+    <!-- Trailing Sparkles -->
+    <circle cx="-8" cy="8" r="2.5" fill="#fef08a"/>
+    <circle cx="2" cy="0" r="2" fill="#93c5fd"/>
+    <circle cx="12" cy="-8" r="2.5" fill="#fef08a"/>
+  </g>
+
+  <!-- Relic Emblem Badge (OUT) -->
+  <g transform="translate(128, 206)">
+    <rect x="-30" y="-12" width="60" height="24" rx="4" fill="#0f172a" stroke="url(#badge-gold)" stroke-width="1.5"/>
+    <text x="0" y="5" font-family="-apple-system, sans-serif" font-weight="900" font-size="12" fill="#fde047" text-anchor="middle" letter-spacing="1.5">OUT</text>
+  </g>
+
+  <!-- Title Top Arch -->
+  <text x="128" y="32" font-family="-apple-system, sans-serif" font-weight="800" font-size="9" fill="#93c5fd" text-anchor="middle" letter-spacing="2" opacity="0.9">OPPOSITE FIELD BADGE</text>
+</svg>

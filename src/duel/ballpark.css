@@ -1126,3 +1126,130 @@
   }
 }
 
+/* V16 Relic Masterpiece Presentation */
+.bp-offer.relic{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  flex:0 0 clamp(118px,28vw,144px);
+  width:clamp(118px,28vw,144px);
+  min-height:clamp(168px,24dvh,200px);
+  padding:6px 6px 8px;
+  background:radial-gradient(circle at 50% 15%,#1c2446,#090d1c 80%);
+  border:1px solid #4a5d99;
+  border-radius:6px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.7),0 0 12px rgba(99,134,222,0.25);
+  overflow:hidden;
+  transition:transform 0.18s cubic-bezier(0.2,0.8,0.2,1),box-shadow 0.18s ease;
+}
+.bp-offer.relic:hover{
+  transform:translateY(-6px);
+  border-color:#7b9bf6;
+  box-shadow:0 12px 28px rgba(0,0,0,0.85),0 0 20px rgba(123,155,246,0.45);
+}
+.bp-offer.relic.on{
+  transform:translateY(-10px);
+  border-color:#ffd166;
+  box-shadow:0 14px 32px rgba(0,0,0,0.9),0 0 24px rgba(255,209,102,0.7);
+}
+.bp-offer.relic .bp-relic-art{
+  position:relative;
+  width:calc(100% - 4px);
+  height:clamp(80px,12dvh,100px);
+  margin:2px auto 6px;
+  border-radius:4px;
+  background-size:contain;
+  background-repeat:no-repeat;
+  background-position:center;
+  border:1px solid #334477;
+  box-shadow:inset 0 0 10px rgba(0,0,0,0.7);
+  z-index:3;
+}
+.bp-offer.relic .bp-mark{
+  position:absolute;
+  top:6px;
+  left:6px;
+  z-index:5;
+  padding:1px 5px;
+  border-radius:3px;
+  background:rgba(12,18,36,0.9);
+  border:1px solid #ffd166;
+  color:#ffd166;
+  font:700 10px/1.4 var(--bp-led,monospace);
+  letter-spacing:0.06em;
+}
+.bp-offer.relic .bp-relic-name{
+  position:relative;
+  font:700 clamp(12px,1.8vw,14px)/1.2 var(--bp-impact);
+  color:#f6f8fe;
+  margin:0 0 3px;
+  padding:0 4px;
+  z-index:3;
+  text-align:center;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.bp-offer.relic .bp-relic-desc{
+  position:relative;
+  font:500 clamp(10px,1.4vw,11px)/1.35 var(--bp-ko,sans-serif);
+  color:#b0c0e8;
+  margin:0 0 4px;
+  padding:0 4px;
+  z-index:3;
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  text-align:center;
+}
+.bp-offer.relic .bp-reward-rarity.relic{
+  position:relative;
+  align-self:center;
+  margin-top:auto;
+  margin-bottom:2px;
+  padding:1px 6px;
+  font:700 9px/1.2 var(--bp-led,monospace);
+  letter-spacing:0.08em;
+  border-radius:2px;
+  background:#261d42;
+  color:#c084fc;
+  border:1px solid #8b5cf6;
+  z-index:3;
+}
+.bp-signature-act{
+  position:absolute;
+  top:5px;
+  right:5px;
+  z-index:5;
+  padding:1px 4px;
+  border-radius:2px;
+  background:rgba(120,53,15,0.9);
+  border:1px solid #fde047;
+  color:#fde047;
+  font:700 9px/1.2 var(--bp-led,monospace);
+  letter-spacing:0.04em;
+}
+.bp-chip.signature{
+  background:linear-gradient(135deg,#78350f,#451a03);
+  color:#fde047;
+  border:1px solid #ca8a04;
+}
+@media (orientation:landscape) and (max-height:500px){
+  .bp-offer.relic{
+    flex:0 0 125px;
+    width:125px;
+    min-height:140px;
+    padding:6px 6px 8px;
+  }
+  .bp-offer.relic .bp-relic-art{
+    height:50px;
+    margin-bottom:4px;
+  }
+  .bp-offer.relic .bp-relic-desc{
+    -webkit-line-clamp:2;
+    font-size:10px;
+  }
+}
+

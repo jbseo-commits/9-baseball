@@ -1,5 +1,5 @@
 import React from 'react';
-import {CARDS,cardText,upgradeText,DECK_MIN,DECK_MAX} from './cards.js';
+import {CARDS,RELICS,cardText,upgradeText,DECK_MIN,DECK_MAX} from './cards.js';
 import {V10_RELICS} from './v10-relics.js';
 import './v12-rewards.css';
 
@@ -19,7 +19,7 @@ export function choiceOutcomeOf(s,option){
   }
   if(option.type==='upgrade')return {title:'강화 · '+name(option.kind)+' → '+name(option.kind)+'+',lines:['강화 효과 · '+upgradeText(option.kind)],
     before:cardText(option.kind,false),after:cardText(option.kind,true)};
-  if(option.type==='relic'){const r=V10_RELICS[option.relic];return r?{title:'유물 · '+r.name,lines:[r.text]}:null;}
+  if(option.type==='relic'){const r=V10_RELICS[option.relic]||RELICS[option.relic];return r?{title:'유물 · '+r.name,lines:[r.text]}:null;}
   if(option.type==='rest')return {title:'휴식',lines:['다음 전투에서 타격 기술 +8']};
   return null;
 }

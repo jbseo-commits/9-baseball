@@ -1,14 +1,21 @@
 import {V10_RELICS} from './v10-relics.js';
+import {RELICS} from './cards.js';
+import {relicArtFor} from './relic-art.js';
 const SAVE='9zone-v10-run';
 let scheduled=false,lastTrigger='';
 const state=()=>{try{return JSON.parse(localStorage.getItem(SAVE)||'null')}catch{return null}};
-const owned=s=>(s?.relics||[]).filter(k=>V10_RELICS[k]);
+const owned=s=>(s?.relics||[]).filter(k=>V10_RELICS[k]||RELICS[k]);
 function rack(){
   const combat=document.querySelector('.duel-combat');if(!combat)return;
   const s=state(),keys=owned(s);let el=combat.querySelector('.v10-relic-rack');
   if(!keys.length){el?.remove();return;}
   if(!el){el=document.createElement('div');el.className='v10-relic-rack';el.setAttribute('aria-label','보유 유물');combat.prepend(el);}
-  el.innerHTML=keys.map(k=>{const r=V10_RELICS[k];return '<span class="v10-relic-chip" title="'+r.name+' · '+r.text+'"><i>'+r.mark+'</i><b>'+r.name+'</b></span>';}).join('');
+  el.innerHTML=keys.map(k=>{
+    const r=V10_RELICS[k]||RELICS[k];
+    const art=relicArtFor(k);
+    const iconAttr=art?` data-relic-art="${art}" style="background-image:url(${art});background-size:contain;background-repeat:no-repeat;background-position:center"`:'';
+    return '<span class="v10-relic-chip" title="'+r.name+' · '+r.text+'"><i'+iconAttr+'>'+(r.mark||'★')+'</i><b>'+r.name+'</b></span>';
+  }).join('');
 }
 function shop(){
   document.querySelectorAll('.reward-screen .duel-card.skill strong').forEach(strong=>{

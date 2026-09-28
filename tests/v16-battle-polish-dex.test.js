@@ -73,5 +73,47 @@ describe('V16 Battle Polish & Dex Masterpiece Integration Contract', () => {
     const endJsx = fs.readFileSync(new URL('../src/duel/BallparkEnd.jsx', import.meta.url), 'utf8');
     expect(endJsx).toMatch(/전원 생환 · EVERYBODY HOME/);
   });
+
+  it('relicArtFor maps all 8 relics to high-density masterpiece SVG illustrations', async () => {
+    const {relicArtFor, RELIC_ARTS, RELIC_MASTERPIECE_META} = await import('../src/duel/relic-art.js');
+    const relicIds = ['firstPitch', 'twoStack', 'foulTape', 'awayBadge', 'slugBand', 'scope', 'ledger', 'radar'];
+
+    for (const id of relicIds) {
+      const art = relicArtFor(id);
+      expect(art, `relicArtFor(${id}) should be defined`).toBeDefined();
+      expect(typeof art).toBe('string');
+      expect(art).toMatch(/(\.svg|data:image\/svg\+xml)/);
+      expect(RELIC_ARTS[id]).toBeDefined();
+      expect(RELIC_MASTERPIECE_META[id]).toBeDefined();
+      expect(RELIC_MASTERPIECE_META[id].mark).toBeDefined();
+    }
+  });
+
+  it('Act 1-3 signature cards connect to dedicated masterpiece art and signature badges', async () => {
+    const {CARDS} = await import('../src/duel/cards.js');
+    const {cardArtFor} = await import('../src/duel/card-art.js');
+    const {cardDetailOf} = await import('../src/duel/CardDetailSheet.jsx');
+
+    const signatures = [
+      {id: 'wall', act: 1},
+      {id: 'laser', act: 2},
+      {id: 'commit', act: 3},
+    ];
+
+    for (const {id, act} of signatures) {
+      const card = CARDS[id];
+      expect(card, `CARDS[${id}] should exist`).toBeDefined();
+      expect(card.rarity).toBe('signature');
+      expect(card.act).toBe(act);
+
+      const art = cardArtFor(id);
+      expect(art, `cardArtFor(${id}) should be defined`).toBeDefined();
+      expect(art).toMatch(/card-(wall|laser|commit)\.png/);
+
+      const detail = cardDetailOf(id);
+      expect(detail.rarity).toBe('signature');
+      expect(detail.act).toBe(act);
+    }
+  });
 });
 

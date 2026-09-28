@@ -229,7 +229,8 @@ const CARD_DESC_MAP={
   const cardButton=x=>{
     const def=CARDS[x.entry.kind]||{},problem=x.preview?.problem,inStack=stack.findIndex(y=>y.id===x.id);
     const state=selected===x.id?' main':inStack>=0?' support':armed===x.id?' armed':'';
-    const isRare=x.entry.plus||def.type==='signature';
+    const isRare=x.entry.plus||def.rarity==='signature'||def.type==='signature';
+    const isSignature=def.rarity==='signature'||def.type==='signature';
     const isSkillCard=def.type==='skill';
     const cardKindClass=(isRare?' signature':'')+(isSkillCard?' skill':'');
     const artPos=CARD_ART_POS[x.entry.kind]||'0% 0%';
@@ -251,6 +252,7 @@ const CARD_DESC_MAP={
       <div className="bp-card-header">
         <strong>{def.name||x.entry.kind}{x.entry.plus&&<sup>+</sup>}</strong>
         <div className="bp-card-chips">
+          {isSignature&&<span className="bp-chip signature">{def.act?`${def.act}막`:''}시그니처</span>}
           <span className="bp-chip type">{isSkillCard?'준비':'공격'}</span>
           <span className="bp-chip role">{roleTag}</span>
         </div>

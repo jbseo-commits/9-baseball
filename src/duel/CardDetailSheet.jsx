@@ -36,6 +36,7 @@ export function cardDetailOf(kind,plus=false,problem=null){
     upgrade:up?(plus?'강화됨 · ':'강화하면 · ')+up:null,
     gives:c.gives,needs:c.needs,flavor:c.flavor||null,problem:problem||null,
     stack:c.type==='skill'?STACK.none:kind==='bunt'?STACK.bunt:STACK.attack,
+    rarity:c.rarity||'common',act:c.act||null,
   };
 }
 
@@ -90,14 +91,16 @@ export default function CardDetailSheet({detail,onClose}){
     if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
     else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
   };
+  const isSignature=detail.rarity==='signature';
   return <div className="card-detail-backdrop" onClick={onClose}>
-    <section ref={sheetRef} className={'card-detail-sheet '+(detail.kindLabel==='준비 카드'?'skill':'attack')} role="dialog" aria-modal="true" aria-labelledby={titleId}
+    <section ref={sheetRef} className={'card-detail-sheet '+(detail.kindLabel==='준비 카드'?'skill':'attack')+(isSignature?' signature':'')} role="dialog" aria-modal="true" aria-labelledby={titleId}
       onClick={e=>e.stopPropagation()} onKeyDown={onKeyDown}>
       <header className="card-detail-head">
         <span className="card-detail-kind">{detail.kindLabel} · {detail.role} · {detail.axis}</span>
         <h2 id={titleId}>{detail.name}<span className="card-detail-sr"> 카드 설명</span></h2>
         <button ref={closeRef} type="button" className="card-detail-close" onClick={onClose}>닫기</button>
       </header>
+      {isSignature&&<div className="card-detail-signature-badge">★ {detail.act?`${detail.act}막 전용 `:''}시그니처 마스터피스</div>}
       {art&&<div className="card-detail-art"><img src={art} alt="" /></div>}
       {detail.problem&&<p className="card-detail-problem" role="note">지금 사용할 수 없음 · {detail.problem}</p>}
       <p className="card-detail-rule">{detail.rule}</p>

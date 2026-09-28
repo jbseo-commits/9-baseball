@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
-import {CARDS,upgradeText} from './cards.js';
+import {CARDS,RELICS,upgradeText} from './cards.js';
 import {V10_RELICS} from './v10-relics.js';
+import {relicArtFor} from './relic-art.js';
 import {pitcherLine} from './pitcher-voice.js';
 import stadium from '../../assets/duel/stadium.png';
 import rewardPrecisionBlue from '../../assets/production-art/mockup-world-v15/reward-precision-blue.png';
@@ -62,9 +63,18 @@ const effect=def=>(def?.gives||[]).filter(g=>!/커버$/.test(g)).slice(0,1).join
 const Back=()=><i className="bp-offer-back" aria-hidden="true"><Glyph zones={[0,2,4,6,8]}/></i>;
 function Offer({o,on,count,onClick,reveal=null}){
   const rv=reveal==null?{}:{style:{'--i':reveal}};
-  if(o.type==='relic'){const r=V10_RELICS[o.relic];
-    return <button type="button" className={'bp-offer relic'+(on?' on':'')} aria-pressed={on} onClick={onClick} {...rv}>
-      {reveal!=null&&<Back/>}<b className="bp-mark">{r?.mark}</b><strong>{r?.name}</strong><span>{r?.text}</span></button>;}
+  if(o.type==='relic'){
+    const r=V10_RELICS[o.relic]||RELICS[o.relic];
+    const art=relicArtFor(o.relic);
+    return <button type="button" className={'bp-offer relic'+(on?' on':'')} aria-pressed={on} onClick={onClick} data-relic-id={o.relic} {...rv}>
+      {reveal!=null&&<Back/>}
+      {art&&<div className="bp-offer-art bp-relic-art" style={{backgroundImage:`url(${art})`}}/>}
+      <b className="bp-mark">{r?.mark}</b>
+      <strong className="bp-offer-name bp-relic-name">{r?.name}</strong>
+      <span className="bp-offer-desc bp-relic-desc">{r?.text}</span>
+      <em className="bp-reward-rarity relic">RELIC</em>
+    </button>;
+  }
   if(o.type==='rest')return <button type="button" className={'bp-offer rest'+(on?' on':'')} aria-pressed={on} onClick={onClick}>
     <b className="bp-mark">+8</b><strong>컨디션 회복</strong><span>다음 경기 타격 +8</span></button>;
   const def=CARDS[o.kind],skill=def?.type==='skill',rare=def?.rarity==='signature';
@@ -75,6 +85,7 @@ function Offer({o,on,count,onClick,reveal=null}){
     <span className="bp-offer-cost" aria-label={`코스트 ${cost}`}>{cost}</span>
     <div className="bp-offer-art" style={{backgroundImage:`url(${art})`}}/>
     {rare&&<em className="bp-rare-tag">시그니처</em>}
+    {rare&&def?.act&&<span className="bp-signature-act">{def.act}막 전용</span>}
     {skill?<b className="bp-mark">준비</b>:<div className="bp-offer-glyph"><Glyph zones={SHAPE[def?.shape]||[4]}/></div>}
     <strong className="bp-offer-name">{def?.name}{o.type==='upgrade'&&<sup>+</sup>}</strong>
     <span className="bp-offer-desc">{o.type==='upgrade'?upgradeText(o.kind):effect(def)||def?.role}</span>
