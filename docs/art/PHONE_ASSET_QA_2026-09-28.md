@@ -25,7 +25,7 @@ Mobile composite sanity previews: [home run 844×390](working/phone-assets-v18-q
 | Tests/regression | Needs verification at integration | Run visual/flow regression after code imports and animations. |
 | Build/deploy | None so far | No imports or bundled paths changed here; when merging the V16 card branch, verify family filename lookup and production build. |
 
-**Status:** Individual source image inspection passed. No claim of 10-screen mockup fidelity, completed animation, V16 runtime connection, or final R1–R8 quality score. Conditional B slots and C120–C235 per-card illustrations remain open; C101–C119 source-image checks are recorded below.
+**Status:** Individual source image inspection passed. No claim of 10-screen mockup fidelity, completed animation, V16 runtime connection, or final R1–R8 quality score. Conditional B slots and C121–C235 per-card illustrations remain open; C101–C120 source-image checks are recorded below.
 
 ## C101 pinpoint follow-up
 
@@ -70,3 +70,7 @@ All three are new 1024×1536 opaque RGB PNGs. C114 [`card-fullSwing.png`](../../
 ## C117–C119 power follow-up
 
 All three are new 1024×1536 opaque RGB PNGs. C117 [`card-pullHook.png`](../../assets/cards-v15/card-pullHook.png) shows #9 pulling one inside pitch toward the left foul pole on a curved path; [100px preview](working/c117-pull-hook-100px.png). C118 [`card-oppoPower.png`](../../assets/cards-v15/card-oppoPower.png) shows one outside pitch driven toward the opposite right-field fence; [100px preview](working/c118-oppo-power-100px.png). C119 [`card-upperCut.png`](../../assets/cards-v15/card-upperCut.png) shows a low pitch lifted from near home plate by an upward swing; [100px preview](working/c119-upper-cut-100px.png). No text or card frame is baked in. `src/duel/card-art.js` selects these named files before the power family fallback. Final card-window crops and mobile screens have not been visually approved. C120–C235 remain open.
+
+## C120 high-heat follow-up
+
+[`card-highHeat.png`](../../assets/cards-v15/card-highHeat.png) is a new 1024×1536 opaque RGB PNG. #9 makes a level swing at one eye-level fastball, with the ball and bat safely inside the canvas. The high-pitch contact remains clear in the [100px preview](working/c120-high-heat-100px.png). No text or card frame is baked in. `src/duel/card-art.js` selects the named file before the power family fallback and sets its detail-sheet vertical focus to 0.29. The final card-window crop and mobile screen have not been visually approved. C121–C235 remain open.
