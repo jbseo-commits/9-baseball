@@ -22,11 +22,14 @@
   .v14-battle-portrait .bp-scene{height:100%;max-height:none;min-height:280px;aspect-ratio:auto}
   .v14-battle-portrait .bp-bg{
     background-image:url('../../assets/duel/stadium-portrait.png')!important;
-    background-position:center 65%!important;
+    background-position:center 18%!important;
     background-size:cover!important;
   }
-  .v14-battle-portrait .bp-batter{left:-12%;bottom:-3%;height:78%}
-  .v14-battle-portrait .bp-pitcher{right:16.5%;bottom:60%;height:27%;z-index:2}
+  .v14-battle-portrait .bp-batter{
+    left:-8%;bottom:-4%;height:90%;aspect-ratio:2/3;z-index:3;
+    filter:drop-shadow(4px 4px 12px rgba(0,0,0,0.85));
+  }
+  .v14-battle-portrait .bp-pitcher{right:18%;bottom:54%;height:30%;z-index:2}
   .v14-battle-portrait .bp-ptag{
     right:8px;top:6px;width:46%;padding:4px 8px;gap:3px;
     background:rgba(13,17,34,0.94)!important;border:1.5px solid #38426d!important;
@@ -45,13 +48,13 @@
   .v14-battle-portrait .bp-mental em::before{width:10px;height:10px}
   .v14-battle-portrait .bp-mental i{width:10px;height:6px;border-radius:1px}
 
-  /* 9ZONE: Blue Glassmorphism */
+  /* 9ZONE: Blue Glassmorphism & Gold Energy Cover */
   .v14-battle-portrait .bp-zone{
-    left:52%;top:auto;bottom:4%;width:44%;height:clamp(126px,37%,168px);
-    background:radial-gradient(ellipse at 50% 50%,rgba(20,28,60,0.72) 0%,rgba(8,12,24,0.9) 100%)!important;
-    border:2px solid #5a6fa8!important;border-radius:4px!important;
-    box-shadow:0 0 0 1px #07080d,inset 0 0 20px rgba(30,45,95,0.7),0 8px 32px rgba(0,0,0,0.85)!important;
-    backdrop-filter:blur(6px)!important;
+    left:54%;top:auto;bottom:6%;width:42%;height:clamp(138px,38%,176px);
+    background:radial-gradient(ellipse at 50% 50%,rgba(20,36,80,0.65) 0%,rgba(6,12,30,0.88) 100%)!important;
+    border:1.5px solid rgba(110,175,255,0.55)!important;border-radius:6px!important;
+    box-shadow:0 0 0 1px rgba(10,20,45,0.9),0 8px 32px rgba(0,0,0,0.85),inset 0 0 18px rgba(50,110,230,0.25)!important;
+    backdrop-filter:blur(8px)!important;
     z-index:4;
   }
   .v14-battle-portrait .bp-band{
@@ -66,8 +69,27 @@
     padding:1px 5px!important;
   }
   .v14-battle-portrait .bp-cell{
-    border:1px solid rgba(120,150,225,0.3)!important;
-    box-shadow:inset 0 0 8px rgba(100,140,240,0.08)!important;
+    border:1px solid rgba(100,160,255,0.22)!important;
+    background:rgba(14,24,52,0.25)!important;
+    box-shadow:inset 0 0 8px rgba(80,130,240,0.1)!important;
+    transition:border-color .15s ease,background-color .15s ease,box-shadow .15s ease;
+  }
+  .v14-battle-portrait .bp-cell.aim,.v14-battle-portrait .bp-cell.cover{
+    border:2px solid #ffbe3b!important;
+    background:rgba(255,190,59,0.18)!important;
+    box-shadow:0 0 14px rgba(255,190,59,0.65),inset 0 0 12px rgba(255,190,59,0.3)!important;
+  }
+  .v14-battle-portrait .bp-cell.support{
+    border:2px solid #64d2ff!important;
+    background:rgba(100,210,255,0.16)!important;
+    box-shadow:0 0 14px rgba(100,210,255,0.55),inset 0 0 10px rgba(100,210,255,0.25)!important;
+  }
+  .v14-battle-portrait .bp-token{
+    width:26px;height:26px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#ffe699 0%,#ffaa22 65%,#c86e00 100%)!important;
+    border:1.5px solid #fff!important;
+    color:#1a0f00!important;font-weight:900!important;font-size:14px!important;
+    box-shadow:0 0 10px rgba(255,170,34,0.9),0 3px 6px rgba(0,0,0,0.6)!important;
   }
   .v14-battle-portrait .bp-cell .bp-pct{color:var(--bp-sodium)!important;font-weight:700;text-shadow:0 0 4px rgba(255,200,97,0.7)}
   .v14-battle-portrait .bp-count{display:none}
@@ -174,31 +196,57 @@
   .v14-battle-portrait .bp-verb::after{
     display:block;font:400 9.5px/1.2 var(--bp-ko);margin-top:2px;letter-spacing:0;
   }
-  .v14-battle-portrait .bp-verb.go::after{
-    content:"조준 구역을 힘차게 타격";color:#ffeaa7;
-  }
-  .v14-battle-portrait .bp-verb.wait::after{
-    content:"투구를 흘려보낸다";color:#8898bf;
-  }
   .v14-battle-portrait .bp-verb.go{
     flex:1.6!important;
-    background:linear-gradient(180deg,#ffc861 0%,#d9822b 100%)!important;
-    border:2px solid #fff!important;outline:1px solid #d9822b!important;
-    color:#1a1204!important;box-shadow:0 0 24px rgba(255,200,97,0.4),0 6px 18px rgba(0,0,0,0.85)!important;
+    background:radial-gradient(circle at 25% 30%, #ffde6b 0%, #d4821a 70%, #995000 100%)!important;
+    border:2px solid #fff3c4!important;
+    color:#1a0f02!important;
+    box-shadow:0 0 24px rgba(255,200,97,0.5), inset 0 1px 0 rgba(255,255,255,0.8), 0 6px 18px rgba(0,0,0,0.85)!important;
+  }
+  .v14-battle-portrait .bp-verb.go strong{
+    font:900 18px/1.2 var(--bp-ko)!important;
+    color:#1a0f02!important;
+    text-shadow:0 1px 0 rgba(255,255,255,0.4)!important;
+    letter-spacing:-0.5px;
+  }
+  .v14-battle-portrait .bp-verb.go::after{
+    content:"선택한 카드를 배치하고 공격합니다.";color:#3b2400!important;font-weight:600!important;
   }
   .v14-battle-portrait .bp-verb.go:disabled{
-    opacity:1!important;color:#e8cf92!important;
-    background:linear-gradient(180deg,#423318 0%,#241a0d 100%)!important;
-    border:1.5px solid #8c6d32!important;outline:none!important;
-    box-shadow:inset 0 0 12px rgba(0,0,0,0.8)!important;
+    opacity:1!important;
+    background:radial-gradient(circle at 25% 30%, #4a361a 0%, #2b1d0c 100%)!important;
+    border:1.5px solid #d4a34b!important;outline:none!important;
+    box-shadow:inset 0 0 14px rgba(0,0,0,0.8), 0 0 12px rgba(212,163,75,0.25)!important;
   }
-  .v14-battle-portrait .bp-verb.go:disabled::before{opacity:0.3}
-  .v14-battle-portrait .bp-verb.go:disabled::after{color:#a89363}
+  .v14-battle-portrait .bp-verb.go:disabled strong{
+    color:#ffd680!important;text-shadow:0 1px 2px #000!important;
+  }
+  .v14-battle-portrait .bp-verb.go:disabled::before{opacity:0.6}
+  .v14-battle-portrait .bp-verb.go:disabled::after{color:#d4a34b!important}
   .v14-battle-portrait .bp-verb.wait{
     flex:1!important;
-    background:linear-gradient(180deg,#1c2342 0%,#0f1326 100%)!important;
-    border:1.5px solid #3d4a7a!important;color:var(--bp-bone)!important;
+    background:linear-gradient(180deg,#101932 0%,#080c1a 100%)!important;
+    border:1.5px solid #334e80!important;color:var(--bp-bone)!important;
+    box-shadow:0 4px 14px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.1)!important;
+  }
+  .v14-battle-portrait .bp-verb.wait strong{
+    font:800 16px/1.2 var(--bp-ko)!important;color:#e4eeff!important;
+  }
+  .v14-battle-portrait .bp-verb.wait::after{
+    content:"이번 공은 그대로 지켜봅니다.";color:#7d93be!important;
   }
   .v14-battle-portrait .bp-verb.wait:hover:not(:disabled){border-color:#9fb4ff!important;color:#fff!important}
+
+  /* Zone connected lines in portrait */
+  .v14-battle-portrait .zone-links line{
+    stroke:#ffbe3b!important;
+    stroke-width:5px!important;
+    filter:drop-shadow(0 0 4px #ff9f1a) drop-shadow(0 0 8px rgba(255,190,59,0.8))!important;
+  }
+  .v14-battle-portrait .zone-links .zone-link-ring{
+    stroke:#ffbe3b!important;
+    stroke-width:4px!important;
+    filter:drop-shadow(0 0 4px #ff9f1a)!important;
+  }
 }
 

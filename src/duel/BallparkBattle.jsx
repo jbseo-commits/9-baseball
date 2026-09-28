@@ -6,7 +6,7 @@ import ZoneLinks from './ZoneLinks.jsx';
 import {pitcherLine,momentOf} from './pitcher-voice.js';
 import BallparkActors,{pixiAvailable} from './BallparkActors.jsx';
 import {lessonFor,planText} from './DecisionDebrief.jsx';
-import batterV14MasterSheet from '../../assets/ui-kit/batter/batter-v14-master-sheet.png';
+import batterV15HeroSheet from '../../assets/production-art/battle-portrait-v15/batter-sheet.png';
 import cardArtSheet from '../../assets/ui-kit/cards/battle-core-v14-master-sheet.png';
 import {cardArtFor} from './card-art.js';
 import './ballpark.css';
@@ -58,7 +58,7 @@ export default function BallparkBattle({
   s,hand,selected,swingStack,choice,locked=false,
   pitcher,label,pitcherArt,batterArt,
   fxStage=null,shot=null,impactAt=0,playToken=0,onNext=null,nextLabel='',vfx=null,pitcherAtlas=null,artId=null,batterPoses=null,
-  batterSheet=batterV14MasterSheet,
+  batterSheet=batterV15HeroSheet,
   onSelect,onAim,onStack,onSwing,onTake,onDetail,onPile,onHome,onHelp,onToggleSound,sound=false,onJukebox=null,
   autoLesson=false,autoPlan=null,onExitLesson=null,
 }){
@@ -430,7 +430,7 @@ const CARD_DESC_MAP={
       <button type="button" className={'bp-card basic'+(selected==='basic'?' main':'')} data-card-kind="basic" aria-pressed={selected==='basic'} disabled={!deciding} onClick={()=>pickSwing('basic')}>
         <span className="bp-card-cost" aria-label="코스트 0">0</span>
         <div className="bp-card-art-box">
-          <div className="bp-card-art" style={{backgroundImage:`url(${cardArtSheet})`,backgroundPosition:'100% 100%'}}/>
+          <div className="bp-card-art" style={cardArtFor('basic')?{backgroundImage:`url(${cardArtFor('basic')})`,backgroundSize:'cover',backgroundPosition:'center'}:{backgroundImage:`url(${cardArtSheet})`,backgroundPosition:'100% 100%'}}/>
           <div className="bp-card-mini-map"><CardGlyph zones={[b.aimZone]}/></div>
         </div>
         <div className="bp-card-header">

@@ -33,7 +33,7 @@ import StackResolve,{stackResolveDuration} from './StackResolve.jsx';
 import StackRouteEcho from './StackRouteEcho.jsx';
 import BattleReadout from './BattleReadout.jsx';
 import BallparkBattle from './BallparkBattle.jsx';
-import batterV14MasterSheet from '../../assets/ui-kit/batter/batter-v14-master-sheet.png';
+import batterHeroSheet from '../../assets/production-art/battle-portrait-v15/batter-sheet.png';
 import BallparkMap from './BallparkMap.jsx';
 import BallparkStop from './BallparkStop.jsx';
 import BallparkEnd from './BallparkEnd.jsx';
@@ -87,6 +87,13 @@ import batterRebootSwingMidV3 from '../../assets/batter-reboot-v3/batter-swing-m
 import batterRebootFollowEarlyV3 from '../../assets/batter-reboot-v3/batter-follow-through-early.png';
 import batterRebootFollowLateV3 from '../../assets/batter-reboot-v3/batter-follow-through-late.png';
 import batterRebootSettleV3 from '../../assets/batter-reboot-v3/batter-settle.png';
+import batterHeroReady from '../../assets/production-art/battle-portrait-v15/batter-ready.png';
+import batterHeroLoad from '../../assets/production-art/battle-portrait-v15/batter-load.png';
+import batterHeroSwingStart from '../../assets/production-art/battle-portrait-v15/batter-swing-start.png';
+import batterHeroSwingMid from '../../assets/production-art/battle-portrait-v15/batter-swing-mid.png';
+import batterHeroContact from '../../assets/production-art/battle-portrait-v15/batter-contact.png';
+import batterHeroFollowEarly from '../../assets/production-art/battle-portrait-v15/batter-follow-early.png';
+import batterHeroFollowThrough from '../../assets/production-art/battle-portrait-v15/batter-follow-through.png';
 
 /* 엔진은 lastCombat.choice를 카드 kind로, actualPitch를 존 번호로 준다. 화면 문구로 옮기는 건 연결부 일이다. */
 const v10ZoneName=zone=>zone===9?'존 밖':ZONES[zone]||'코스 미확인';
@@ -167,7 +174,19 @@ const BATTER_REBOOT_V3={
   finish:batterRebootFinish,
   settle:batterRebootSettleV3,
 };
-const ACTOR_ASSETS=[...new Set([...BATTER_SWING_V2,...BATTER_MISS_V2,...PITCHER_PITCH_V2,...PITCHER_K_V2,batterSwingV4,pitcherPitchV4,batterHomerHeroV3,...Object.values(BATTER_HERO_V5),...Object.values(BATTER_REBOOT_V3),...Object.values(PITCHER_RELEASE_V3)])];
+const BATTER_HERO_V15={
+  ready:batterHeroReady,
+  load:batterHeroLoad,
+  trigger:batterHeroLoad,
+  'swing-start':batterHeroSwingStart,
+  'swing-mid':batterHeroSwingMid,
+  contact:batterHeroContact,
+  'follow-through-early':batterHeroFollowEarly,
+  'follow-through-late':batterHeroFollowThrough,
+  finish:batterHeroFollowThrough,
+  settle:batterHeroReady,
+};
+const ACTOR_ASSETS=[...new Set([...BATTER_SWING_V2,...BATTER_MISS_V2,...PITCHER_PITCH_V2,...PITCHER_K_V2,batterSwingV4,pitcherPitchV4,batterHomerHeroV3,...Object.values(BATTER_HERO_V5),...Object.values(BATTER_REBOOT_V3),...Object.values(BATTER_HERO_V15),...Object.values(PITCHER_RELEASE_V3)])];
 function useActorAssetPreload(){
   useEffect(()=>{
     if(typeof Image==='undefined')return;
@@ -330,15 +349,15 @@ function useRedRushFrame(active,token){
   },[active,token]);
   return frame;
 }
-function Sprite({who,stage=null,shot=null,golden=false,variant=null,playToken=0,syncRedRush=false}){
+function Sprite({who,stage=null,shot=null,golden=false,variant=null,playToken=0,syncRedRush=false,isMasterpiece=false}){
   const rebootEnabled=golden&&who==='batter';
   const rebootPose=useBatterMotionV3Pose(stage,shot,playToken,rebootEnabled,syncRedRush);
   const qaPose=rebootEnabled&&typeof window!=='undefined'&&new URLSearchParams(window.location.search).get('cinema')==='1'
     ?new URLSearchParams(window.location.search).get('batterPose'):null;
   const displayedRebootPose=qaPose&&BATTER_REBOOT_V3[qaPose]?qaPose:rebootPose;
   if(rebootEnabled){
-    const rebootSrc=BATTER_REBOOT_V3[displayedRebootPose]||BATTER_REBOOT_V3.ready;
-    return <span data-batter-pose={displayedRebootPose} className={'sprite-stage sprite-batter golden-actor batter-reboot-v3 reboot-pose-'+displayedRebootPose}>
+    const rebootSrc=isMasterpiece?(BATTER_HERO_V15[displayedRebootPose]||BATTER_HERO_V15.ready):(BATTER_REBOOT_V3[displayedRebootPose]||BATTER_REBOOT_V3.ready);
+    return <span data-batter-pose={displayedRebootPose} className={'sprite-stage sprite-batter golden-actor batter-reboot-v3 reboot-pose-'+displayedRebootPose+(isMasterpiece?' is-masterpiece':'')}>
       <i className="actor-contact-shadow" aria-hidden="true"/>
       <img aria-hidden="true" className="duel-sprite batter-reboot-art" src={rebootSrc}/>
     </span>;
@@ -1000,9 +1019,9 @@ export default function Duel(){
 :showBattle&&isV10?<BallparkBattle key="screen-bp-battle" s={s} hand={hand} selected={selected} swingStack={swingStack} choice={choice} locked={!!stackResolve}
       label={v10Node?.act+'막'} pitcher={s.pitcher}
       pitcherArt={pitcherAtlas?<PitcherAtlasSprite atlas={pitcherAtlas} stage={fxStage} shot={fxPresentation} playToken={s.stats.pitches}/>:<Sprite who="pitcher" stage={fxStage} shot={fxPresentation} golden variant={pitcherForm} playToken={s.stats.pitches}/>}
-      batterArt={<Sprite who="batter" stage={fxStage} shot={fxPresentation} golden playToken={s.stats.pitches} syncRedRush={redRushEncounter}/>}
+      batterArt={<Sprite who="batter" stage={fxStage} shot={fxPresentation} golden isMasterpiece playToken={s.stats.pitches} syncRedRush={redRushEncounter}/>}
       fxStage={fxStage} shot={fxPresentation||resultPresentation} impactAt={fxImpactAt} playToken={s.stats.pitches}
-      pitcherAtlas={pitcherAtlas} artId={v10Node?.opponent?.artId} batterPoses={BATTER_REBOOT_V3} batterSheet={batterV14MasterSheet}
+      pitcherAtlas={pitcherAtlas} artId={v10Node?.opponent?.artId} batterPoses={BATTER_HERO_V15} batterSheet={batterHeroSheet}
       vfx={<PixelVFX stage={fxStage} shot={fxPresentation} token={s.stats.pitches} drawCore={false} quality={perfTier}/>}
       onNext={s.phase==='pitch'?()=>{setAutoPlan(null);act(doNextPitch)}:s.phase==='between'?()=>{setAutoPlan(null);act(doNextBatter)}:null}
       nextLabel={s.phase==='pitch'?'다음 공':s.phase==='between'?'다음 타자':''}
