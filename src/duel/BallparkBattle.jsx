@@ -80,7 +80,7 @@ export default function BallparkBattle({
   s,hand,selected,swingStack,choice,locked=false,
   pitcher,label,pitcherArt,batterArt,
   fxStage=null,shot=null,impactAt=0,playToken=0,onNext=null,nextLabel='',vfx=null,pitcherAtlas=null,artId=null,batterPoses=null,
-  batterSheet=batterV14MasterSheet,
+  batterSheet=batterV14MasterSheet,batterRig=null,
   onSelect,onAim,onStack,onSwing,onTake,onDetail,onPile,onHome,onHelp,onToggleSound,sound=false,onJukebox=null,
   autoLesson=false,autoPlan=null,onExitLesson=null,
 }){
@@ -400,7 +400,7 @@ const CARD_DESC_MAP={
           {autoPlan?.coverage>0&&lessonPhase!=='plan'&&<i>{autoPlan.coverage}존 커버</i>}
         </div>}
       </aside>}
-      {canPixi&&<BallparkActors sceneRef={sceneRef} pitcherAtlas={pitcherAtlas} artId={artId} batterPoses={batterPoses} batterSheet={batterSheet} pitchZone={judged?r.zone:null} shot={shot} fxStage={fxStage} playToken={playToken} knockedOut={judged&&(pitcher?.hp??1)===0} onReady={setPixi}/>}
+      {canPixi&&<BallparkActors sceneRef={sceneRef} pitcherAtlas={pitcherAtlas} artId={artId} batterPoses={batterPoses} batterSheet={batterSheet} batterRig={batterRig} pitchZone={judged?r.zone:null} shot={shot} fxStage={fxStage} playToken={playToken} knockedOut={judged&&(pitcher?.hp??1)===0} onReady={setPixi}/>}
       <div className="bp-pitcher bp-cam" ref={pitcherRef} aria-hidden="true" style={{'--stance-x':pitcherStance(artId)[0],'--stance-y':pitcherStance(artId)[1]}}>{pitcherArt}</div>
       <div className="bp-pcol">
       <div className="bp-ptag" aria-label={`${pitcher?.name} 투수 HP ${pitcher?.hp} / ${pitcher?.maxHp}`}>
