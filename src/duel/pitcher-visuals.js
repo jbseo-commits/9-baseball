@@ -31,6 +31,7 @@ const pixellabAtlases=import.meta.glob('../../assets/pitcher-pixellab-v1/atlases
 const rosterAtlases=import.meta.glob([
   '../../assets/pitcher-sd-v2/atlases/*-pitch-120-atlas.png',
   '!../../assets/pitcher-sd-v2/atlases/regular-02-teal-mirage-pitch-120-atlas.png',
+  '!../../assets/pitcher-sd-v2/atlases/regular-03-amber-sinker-pitch-120-atlas.png',
 ],{eager:true,query:'?url',import:'default'});
 const rosterPortraits=import.meta.glob('../../assets/pitcher-mobs-v1/*.png',{eager:true,query:'?url',import:'default'});
 const idFrom=(path,suffix)=>path.split('/').pop().replace(suffix,'');

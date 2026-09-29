@@ -15,8 +15,16 @@ const png=url=>{
 };
 
 describe('PixelLab pitch animations',()=>{
-  it('ships at least the Teal Mirage pilot',()=>{
-    expect(ids).toContain('regular-02-teal-mirage');
+  it('ships the act-1 pair Teal Mirage and Amber Sinker',()=>{
+    expect(ids).toEqual(expect.arrayContaining(['regular-02-teal-mirage','regular-03-amber-sinker']));
+  });
+
+  it('plants her foot on the ground line in every drawing (PixelLab can float the whole figure)',()=>{
+    for(const id of ids){
+      const m=json(`../assets/pitcher-pixellab-v1/${id}-manifest.json`);
+      expect(m.stance[1],id).toBeCloseTo(.969,2); // the set frame's cleats sit on y=247 of 256
+      expect(m.stride[2],id).toBeGreaterThan(.93);
+    }
   });
 
   it('packs every sequence into the runtime contract: 120 frames at 60fps, release on the shared frame',()=>{
@@ -51,7 +59,7 @@ describe('PixelLab pitch animations',()=>{
       expect(String(pitcherAtlases[id])).toContain('pitcher-pixellab-v1');
       expect(visuals).toContain(`'!../../assets/pitcher-sd-v2/atlases/${id}-pitch-120-atlas.png'`);
     }
-    expect(String(pitcherAtlases['regular-03-amber-sinker'])).toContain('pitcher-sd-v2');
+    expect(String(pitcherAtlases['regular-04-ivory-ace'])).toContain('pitcher-sd-v2');
     expect(Object.keys(pitcherAtlases)).toHaveLength(12);
   });
 

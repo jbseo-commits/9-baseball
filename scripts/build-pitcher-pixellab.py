@@ -32,12 +32,18 @@ BACKDROP = (22, 30, 44, 255)  # night-field navy for previews only
 
 
 # ---------- shoe marks: model-drawn swoosh-like marks -> the design's plain copper panel ----------
+def _in_box(r, g, b, lo, hi):
+    return (r >= lo[0]) & (r <= hi[0]) & (g >= lo[1]) & (g <= hi[1]) & (b >= lo[2]) & (b <= hi[2])
+
+
 def _classes(a, cfg):
     r, g, b = (a[:, :, i].astype(int) for i in range(3))
     op = a[:, :, 3] > 0
-    mark = op & (r > 140) & (g > 60) & (g < 160) & (b < 115) & (r - b > 80) & (r - g > 35)
-    lo, hi = cfg['shoeRgbMin'], cfg['shoeRgbMax']
-    shoe = op & (r >= lo[0]) & (r <= hi[0]) & (g >= lo[1]) & (g <= hi[1]) & (b >= lo[2]) & (b <= hi[2])
+    if 'markRgbMin' in cfg:
+        mark = op & _in_box(r, g, b, cfg['markRgbMin'], cfg['markRgbMax'])
+    else:  # copper/orange marks (the first pilot's cleats)
+        mark = op & (r > 140) & (g > 60) & (g < 160) & (b < 115) & (r - b > 80) & (r - g > 35)
+    shoe = op & _in_box(r, g, b, cfg['shoeRgbMin'], cfg['shoeRgbMax'])
     cream = op & (r > 195) & (g > 185) & (b > 150) & (r - b < 70)
     skin = op & (r > 200) & (g > 140) & (g < 215) & (b > 100) & (r - b > 45) & ~mark
     return op, mark, shoe, cream, skin
@@ -76,14 +82,21 @@ def _ring(pts, inside):
     return np.array(sorted(ring))
 
 
-def shoe_marks(a, cfg):
-    """copper clusters in the lower body that sit inside a shoe (shoe colour around them, no sock/skin)"""
+def shoe_marks(a, cfg, boxes=None):
+    """mark-coloured clusters that sit inside a shoe (shoe colour around them, no sock/skin): in the lower
+    half of the body, or — when the shoe colour also appears elsewhere on the outfit — inside the given foot boxes"""
     op, mark, shoe, cream, skin = _classes(a, cfg)
     ys = np.nonzero(op)[0]
     top, height = ys.min(), ys.max() - ys.min() + 1
     found = []
     for pts in _components(mark):
-        if len(pts) < 4 or (pts[:, 0].mean() - top) / height < 0.5:
+        if len(pts) < 4 or len(pts) > cfg.get('markMaxSize', 10 ** 9):
+            continue
+        cy, cx = pts.mean(axis=0)
+        if boxes is not None:
+            if not any(x0 <= cx <= x1 and y0 <= cy <= y1 for x0, y0, x1, y1 in boxes):
+                continue
+        elif (cy - top) / height < 0.5:
             continue
         ring = _ring(pts, mark)
         share = lambda m: float(m[ring[:, 0], ring[:, 1]].mean())
@@ -92,21 +105,48 @@ def shoe_marks(a, cfg):
     return found
 
 
-def fix_shoe_marks(a, cfg, panel):
+def design_stamp(design, cfg, boxes=None):
+    """the design frame's own shoe emblem (largest mark cluster) as (dy, dx, rgb) around its centre"""
+    pts, _ = max(shoe_marks(design, cfg, boxes), key=lambda m: len(m[0]))
+    cy, cx = np.round(pts.mean(axis=0)).astype(int)
+    return [(int(y - cy), int(x - cx), design[y, x, :3].copy()) for y, x in pts]
+
+
+def fix_shoe_marks(a, cfg, panel, stamp=None, boxes=None):
+    """repaint each mark with its shoe colour, then put back the design's panel (a 3-row bar) or emblem stamp"""
     a = a.copy()
-    for pts, shoe_ring in shoe_marks(a, cfg):
+    for pts, shoe_ring in shoe_marks(a, cfg, boxes):
         cols, counts = np.unique(a[shoe_ring[:, 0], shoe_ring[:, 1], :3], axis=0, return_counts=True)
         a[pts[:, 0], pts[:, 1], :3] = cols[counts.argmax()]
         inside = np.zeros(a.shape[:2], bool)
         inside[pts[:, 0], pts[:, 1]] = True
         inside[shoe_ring[:, 0], shoe_ring[:, 1]] = True
         cy, cx = np.round(pts.mean(axis=0)).astype(int)
+        if stamp:
+            for dy, dx, rgb in stamp:
+                if inside[cy + dy, cx + dx]:
+                    a[cy + dy, cx + dx, :3] = rgb
+            continue
         w = int(np.clip(round(np.sqrt(len(pts) * 1.6)), 4, 6))
         for yy in range(cy - 1, cy + 2):
             for xx in range(cx - w // 2, cx - w // 2 + w):
                 if inside[yy, xx]:
                     a[yy, xx, :3] = panel
     return a
+
+
+def snap_to_ground(a, ground_y):
+    """PixelLab can lift the whole figure off the ground line; the planted foot goes back onto it"""
+    op = a[:, :, 3] > 0
+    shift = ground_y - int(np.where(op.any(axis=1))[0].max())
+    if shift == 0:
+        return a
+    out = np.zeros_like(a)
+    if shift > 0:
+        out[shift:] = a[:-shift]
+    else:
+        out[:shift] = a[-shift:]
+    return out
 
 
 # ---------- one palette for every drawing, so colours never flicker between frames ----------
@@ -186,13 +226,19 @@ def build(pid):
             raw[src] = np.array(Image.open(folder / 'source' / src).convert('RGBA'))
             assert raw[src].shape[:2] == (FRAME, FRAME), f'{pid}/{src} must be {FRAME}x{FRAME}'
     cleanup = seq.get('cleanup', {})
+    if 'groundY' in cleanup:
+        raw = {src: snap_to_ground(a, cleanup['groundY']) for src, a in raw.items()}
     shoe = cleanup.get('shoeMarks')
     if shoe:
-        design = raw[shoe['designFrame']]
-        marks = np.concatenate([design[p[:, 0], p[:, 1], :3] for p, _ in shoe_marks(design, shoe)])
+        design_src = shoe['designFrame']
+        # foot boxes (frame coordinates after the ground snap) confine the fix when given
+        box = (lambda src: shoe['markBoxes'].get(src, [])) if 'markBoxes' in shoe else (lambda src: None)
+        design = raw[design_src]
+        marks = np.concatenate([design[p[:, 0], p[:, 1], :3] for p, _ in shoe_marks(design, shoe, box(design_src))])
         cols, counts = np.unique(marks, axis=0, return_counts=True)
         panel = cols[counts.argmax()]
-        raw = {src: (a if src == shoe['designFrame'] else fix_shoe_marks(a, shoe, panel)) for src, a in raw.items()}
+        stamp = design_stamp(design, shoe, box(design_src)) if shoe.get('panel') == 'stamp' else None
+        raw = {src: (a if src == design_src else fix_shoe_marks(a, shoe, panel, stamp, box(src))) for src, a in raw.items()}
     pal, pal_lab = shared_palette(list(raw.values()), cleanup.get('paletteDeltaE', 4.5))
     clean = {src: snap(a, pal, pal_lab) for src, a in raw.items()}
 

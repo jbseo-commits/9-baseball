@@ -1,0 +1,209 @@
+{
+ "id": "regular-03-amber-sinker-pitch-pixellab-v1",
+ "character": "regular-03-amber-sinker",
+ "facing": "screen-left",
+ "throws": "screen-left",
+ "frameCount": 120,
+ "uniqueDrawingCount": 16,
+ "fps": 60,
+ "durationMs": 2000,
+ "releaseFrame": 76,
+ "frameSize": [
+  256,
+  256
+ ],
+ "atlas": "atlases/regular-03-amber-sinker-pitch-120-atlas.png",
+ "atlasColumns": 10,
+ "atlasRows": 12,
+ "paletteColors": 127,
+ "keyPoses": [
+  {
+   "frame": 0,
+   "ticks": 14,
+   "pose": "set",
+   "drawing": 0
+  },
+  {
+   "frame": 14,
+   "ticks": 8,
+   "pose": "turn",
+   "drawing": 1
+  },
+  {
+   "frame": 22,
+   "ticks": 8,
+   "pose": "gather",
+   "drawing": 2
+  },
+  {
+   "frame": 30,
+   "ticks": 14,
+   "pose": "knee-lift",
+   "drawing": 3
+  },
+  {
+   "frame": 44,
+   "ticks": 8,
+   "pose": "coil",
+   "drawing": 4
+  },
+  {
+   "frame": 52,
+   "ticks": 6,
+   "pose": "stride",
+   "drawing": 5
+  },
+  {
+   "frame": 58,
+   "ticks": 6,
+   "pose": "plant",
+   "drawing": 6
+  },
+  {
+   "frame": 64,
+   "ticks": 5,
+   "pose": "cocked",
+   "drawing": 7
+  },
+  {
+   "frame": 69,
+   "ticks": 4,
+   "pose": "layback",
+   "drawing": 8
+  },
+  {
+   "frame": 73,
+   "ticks": 3,
+   "pose": "whip",
+   "drawing": 9
+  },
+  {
+   "frame": 76,
+   "ticks": 4,
+   "pose": "release",
+   "drawing": 10
+  },
+  {
+   "frame": 80,
+   "ticks": 7,
+   "pose": "follow-through",
+   "drawing": 11
+  },
+  {
+   "frame": 87,
+   "ticks": 12,
+   "pose": "finish",
+   "drawing": 12
+  },
+  {
+   "frame": 99,
+   "ticks": 6,
+   "pose": "recover-1",
+   "drawing": 13
+  },
+  {
+   "frame": 105,
+   "ticks": 6,
+   "pose": "recover-2",
+   "drawing": 14
+  },
+  {
+   "frame": 111,
+   "ticks": 5,
+   "pose": "recover-3",
+   "drawing": 15
+  },
+  {
+   "frame": 116,
+   "ticks": 4,
+   "pose": "set",
+   "drawing": 0
+  }
+ ],
+ "stance": [
+  0.673,
+  0.969
+ ],
+ "stride": [
+  52,
+  0.188,
+  0.965
+ ],
+ "release": [
+  0.18,
+  0.59
+ ],
+ "generator": {
+  "service": "PixelLab MCP (api.pixellab.ai/mcp), trial plan",
+  "generations": 13,
+  "canvas": "animations run on a crop of the 256 frame that holds the whole motion (cost is by canvas area) and are pasted back at the same offset",
+  "steps": [
+   {
+    "tool": "image_to_pixelart",
+    "job": "b042b782-2b1a-4b70-8ed0-d5ce0820dffc",
+    "cost": 1,
+    "seed": 9,
+    "input": "pitcher-mobs-v1/regular-03-amber-sinker.png laid out 212px tall, cleats at y=248, centred at x=150 (sent 4x on navy #0f1424)",
+    "params": {
+     "output": [
+      256,
+      256
+     ],
+     "faithful": true,
+     "init_image_strength": 200
+    },
+    "result": "set.png after cutting the navy out with the source alpha (>=50%)"
+   },
+   {
+    "tool": "animate_image",
+    "job": "b0f770ab-09bb-4ff4-918e-9728d3c0f10d",
+    "cost": 7,
+    "seed": 23,
+    "frames": 10,
+    "canvas": [
+     24,
+     26,
+     200,
+     224
+    ],
+    "first": "set.png",
+    "action": "One complete right-handed three-quarter pitch of a sinkerball pitcher, thrown toward the LEFT edge of the frame, in this order: from her ready stance she brings the ball into the glove at her chest and turns sideways; she lifts her left knee; she drives low and long to the left and lands on her bent left leg; her right arm swings back behind her, then whips through at a three-quarter angle between overhand and sidearm; she releases the ball low in front of her body toward the left, the empty hand pointing at the target; she finishes low and bent forward, the throwing arm swinging down past her left knee while her right leg rises behind her. The ball is not drawn once it leaves her hand. Her whole body, braid and visor stay inside the frame.",
+    "result": "delivery-f1..f10; f8 is not used (throwing arm hidden behind the head, two balls drawn)"
+   },
+   {
+    "tool": "animate_image",
+    "job": "8b3d0455-daf1-41c7-a036-ae353a33c74d",
+    "cost": 3,
+    "seed": 33,
+    "frames": 4,
+    "canvas": [
+     30,
+     26,
+     196,
+     224
+    ],
+    "first": "delivery-f7.png",
+    "last": "delivery-f9.png",
+    "action": "Release of a three-quarter sinker pitch: her right arm whips forward from behind her head at a three-quarter angle, the elbow leading; she releases the ball out in front of her face toward the left with the arm fully extended, then the empty hand sweeps down across her body. Her planted left leg stays fixed, her torso rotates to face forward and leans toward the left. The released ball is never drawn.",
+    "result": "release-f1..f3 (layback, whip with the ball, release low in front with the empty hand); f4 matched the end frame"
+   },
+   {
+    "tool": "animate_image",
+    "job": "4f05339d-7735-47ff-b723-3e06d2fe0831",
+    "cost": 2,
+    "seed": 43,
+    "frames": 4,
+    "canvas": [
+     68,
+     32,
+     148,
+     216
+    ],
+    "first": "delivery-f10.png",
+    "last": "set.png",
+    "action": "She recovers from the pitching follow-through: she lowers her raised right leg to the ground, straightens up to standing, turns back toward the viewer and returns to her ready stance holding a new ball near her shoulder with the glove on her hip.",
+    "result": "recover-f1..f3; f4 matched the set frame"
+   }
+  ]
+ }
+}
