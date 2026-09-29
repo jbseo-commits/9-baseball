@@ -1,0 +1,68 @@
+{
+ "character": "regular-02-teal-mirage",
+ "releasePose": "release",
+ "sequence": [
+  ["set", "set.png", 14],
+  ["rock", "delivery-f1.png", 8],
+  ["turn", "delivery-f2.png", 8],
+  ["knee-lift", "delivery-f3.png", 16],
+  ["reach", "delivery-f4.png", 7],
+  ["stride", "delivery-f5.png", 6],
+  ["arm-extend", "release-a-f1.png", 5],
+  ["cocked", "delivery-f6.png", 5],
+  ["over-the-top", "release-a-f2.png", 3],
+  ["layback", "release-b-f1.png", 2],
+  ["whip", "release-b-f2.png", 2],
+  ["release", "release-b-f3.png", 3],
+  ["arm-down", "release-a-f3.png", 4],
+  ["follow-through", "delivery-f7-noball.png", 6],
+  ["finish", "delivery-f8-noball.png", 12],
+  ["recover-1", "recover-f1.png", 5],
+  ["recover-2", "recover-f2.png", 5],
+  ["recover-3", "recover-f3.png", 5],
+  ["set", "set.png", 4]
+ ],
+ "cleanup": {
+  "paletteDeltaE": 4.5,
+  "shoeMarks": {
+   "why": "the animation model redrew the cleat panels as swoosh-like marks; pitcher-mobs-v1 README requires the plain copper panel",
+   "designFrame": "set.png",
+   "shoeRgbMin": [0, 51, 61],
+   "shoeRgbMax": [74, 124, 129]
+  }
+ },
+ "generator": {
+  "service": "PixelLab MCP (api.pixellab.ai/mcp), trial plan",
+  "generations": 24,
+  "steps": [
+   {"tool": "image_to_pixelart", "job": "b09dcd08-5a22-40b3-a910-8357a523b434", "cost": 1, "seed": 9,
+    "input": "pitcher-mobs-v1/regular-02-teal-mirage.png laid out 212px tall, cleats at y=248, centred at x=150 on the 256 frame (sent 4x, on navy #0f1424)",
+    "params": {"output": [256, 256], "faithful": true, "init_image_strength": 200},
+    "result": "set.png after cutting the navy out with the source alpha (>=50%)"},
+   {"tool": "animate_image", "job": "2127723a-d6a2-4ef2-9893-5bddd0af5f87", "cost": 8, "seed": 21, "frames": 8,
+    "first": "set.png",
+    "action": "One complete right-handed overhand baseball pitch thrown toward the LEFT edge of the frame, in this order: from the set position she rocks her weight back onto her right leg, turns her body sideways and lifts her left knee high toward her chest; then she drives forward in a long stride to the left and plants her left foot far ahead on the same ground line; her hips and torso rotate hard to the left while her right throwing arm whips up over the top from behind her head; she releases the ball far out in front of her toward the left; she finishes with a strong follow-through, bending forward as the throwing arm swings down across her body past her left knee and her right leg lifts behind her. The ball is not drawn after it leaves her hand. Whole body stays inside the frame.",
+    "result": "delivery-f1..f8"},
+   {"tool": "edit_image_pixen", "job": "e63c9a03-e6ac-4d89-b1cf-d516b5e0116a", "cost": 1, "seed": 5,
+    "input": "delivery-f7", "description": "Remove the white baseball from her right throwing hand. The ball has already been thrown, so the throwing hand is empty, relaxed and open with fingers extended forward. Keep everything else exactly the same.",
+    "result": "only box x30-52,y118-140 (the throwing hand) pasted back, enclosed gap filled with skin shadow -> delivery-f7-noball.png (the edit also erased the glove, so the rest is the original frame)"},
+   {"tool": "edit_image_pixen", "job": "97bcf330-4685-4ebc-951d-0b3f1e884133", "cost": 1, "seed": 5,
+    "input": "delivery-f8", "description": "same as above",
+    "result": "only box x17-44,y120-148 pasted back -> delivery-f8-noball.png"},
+   {"tool": "edit_image_pixen", "job": "9cb65e6f-402e-4c5c-b6fb-1ed40450c80a", "cost": 1, "seed": 11,
+    "input": "delivery-f7", "result": "rejected: moved the whole arm and erased the glove"},
+   {"tool": "animate_image", "job": "604374d1-8835-432d-8425-e5e125c7ac17", "cost": 4, "seed": 31, "frames": 4,
+    "first": "delivery-f6.png", "last": "delivery-f7-noball.png",
+    "action": "Her right throwing arm whips forward over the top of her shoulder: the elbow drives forward first, the forearm snaps past her head, she releases the ball in front of her face toward the left, then the empty hand continues down across her body. Her planted left leg stays fixed on the ground while her torso tilts forward and her back leg starts to rise. The released ball is not drawn.",
+    "result": "release-a-f1..f3 (f4 matched the end frame and is not used); f1 plays before delivery-f6 so the arm swings back, then up"},
+   {"tool": "animate_image", "job": "5b238db3-c582-44e0-a244-c7600d6332ce", "cost": 4, "seed": 51, "frames": 4,
+    "first": "release-a-f2.png", "last": "release-a-f3.png",
+    "action": "Release moment of an overhand pitch: her right arm snaps forward over the top, the hand passes just above her cap and reaches out in front of her face at head height toward the left, then the arm continues sweeping down across her body. Her hand is already empty: the ball has been thrown and is never drawn in these frames. Legs stay planted, torso leans forward.",
+    "result": "release-b-f1..f3 (f3 = the release drawing, arm out in front at head height, empty hand)"},
+   {"tool": "animate_image", "job": "9dae4392-d35d-4600-9ee5-22c0ef55b080", "cost": 4, "seed": 41, "frames": 4,
+    "first": "delivery-f8-noball.png", "last": "set.png",
+    "action": "She recovers from the pitching follow-through: she lowers her raised back leg to the ground beside her front leg, straightens up to standing, turns her body back toward the viewer and brings the glove and her throwing hand together at her chest in the set position.",
+    "result": "recover-f1..f3 (f4 matched the set frame and is not used)"}
+  ]
+ }
+}

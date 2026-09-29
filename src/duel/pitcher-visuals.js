@@ -24,13 +24,22 @@ import redRushReleaseNoBall from '../../assets/production-art/battle-polish-v16/
 import redRushFollowThrough from '../../assets/production-art/battle-polish-v16/red-rush-follow-through.png';
 import impactSlashVfx from '../../assets/production-art/battle-polish-v16/impact-slash.png';
 
-const rosterAtlases=import.meta.glob('../../assets/pitcher-sd-v2/atlases/*-pitch-120-atlas.png',{eager:true,query:'?url',import:'default'});
+/* PixelLab pitch animations drawn from the pitcher-mobs-v1 designs (assets/pitcher-pixellab-v1): same 120-frame
+   atlas contract, so each one replaces that pitcher's SD atlas as it lands. The replaced SD atlas is excluded
+   below as well, or the eager glob would still ship it (~1.1MB each) unused. */
+const pixellabAtlases=import.meta.glob('../../assets/pitcher-pixellab-v1/atlases/*-pitch-120-atlas.png',{eager:true,query:'?url',import:'default'});
+const rosterAtlases=import.meta.glob([
+  '../../assets/pitcher-sd-v2/atlases/*-pitch-120-atlas.png',
+  '!../../assets/pitcher-sd-v2/atlases/regular-02-teal-mirage-pitch-120-atlas.png',
+],{eager:true,query:'?url',import:'default'});
 const rosterPortraits=import.meta.glob('../../assets/pitcher-mobs-v1/*.png',{eager:true,query:'?url',import:'default'});
 const idFrom=(path,suffix)=>path.split('/').pop().replace(suffix,'');
+const byId=atlases=>Object.fromEntries(Object.entries(atlases).map(([path,url])=>[idFrom(path,'-pitch-120-atlas.png'),url]));
 
 export const pitcherAtlases={
   'regular-01-red-rush':redRushAtlas,
-  ...Object.fromEntries(Object.entries(rosterAtlases).map(([path,url])=>[idFrom(path,'-pitch-120-atlas.png'),url])),
+  ...byId(rosterAtlases),
+  ...byId(pixellabAtlases),
 };
 
 /* transparent roster cutouts: for silhouettes and anything drawn over a scene (map nodes use brightness(0)) */

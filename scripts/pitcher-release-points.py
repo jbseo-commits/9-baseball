@@ -12,7 +12,9 @@ from PIL import Image
 ROOT=Path(__file__).resolve().parents[1]
 FRAME=77
 out={}
-for f in [ROOT/'assets/pitcher-sd-v1/red-rush-pitch-120-atlas.png']+sorted(map(Path,glob.glob(str(ROOT/'assets/pitcher-sd-v2/atlases/*.png')))):
+# a PixelLab atlas (assets/pitcher-pixellab-v1) replaces the SD atlas of the same pitcher, as in pitcher-visuals.js
+pixellab={f.name:f for f in map(Path,glob.glob(str(ROOT/'assets/pitcher-pixellab-v1/atlases/*.png')))}
+for f in [ROOT/'assets/pitcher-sd-v1/red-rush-pitch-120-atlas.png']+[pixellab.get(g.name,g) for g in sorted(map(Path,glob.glob(str(ROOT/'assets/pitcher-sd-v2/atlases/*.png'))))]:
     A=np.array(Image.open(f).convert('RGBA'));fh=A.shape[0]//12;fw=A.shape[1]//10
     r,c=divmod(FRAME,10);a=A[r*fh:(r+1)*fh,c*fw:(c+1)*fw,3]>40
     y0,y1=int(fh*.2),int(fh*.6);band=a[y0:y1]

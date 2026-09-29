@@ -1,0 +1,239 @@
+{
+ "id": "regular-02-teal-mirage-pitch-pixellab-v1",
+ "character": "regular-02-teal-mirage",
+ "facing": "screen-left",
+ "throws": "screen-left",
+ "frameCount": 120,
+ "uniqueDrawingCount": 18,
+ "fps": 60,
+ "durationMs": 2000,
+ "releaseFrame": 76,
+ "frameSize": [
+  256,
+  256
+ ],
+ "atlas": "atlases/regular-02-teal-mirage-pitch-120-atlas.png",
+ "atlasColumns": 10,
+ "atlasRows": 12,
+ "paletteColors": 128,
+ "keyPoses": [
+  {
+   "frame": 0,
+   "ticks": 14,
+   "pose": "set",
+   "drawing": 0
+  },
+  {
+   "frame": 14,
+   "ticks": 8,
+   "pose": "rock",
+   "drawing": 1
+  },
+  {
+   "frame": 22,
+   "ticks": 8,
+   "pose": "turn",
+   "drawing": 2
+  },
+  {
+   "frame": 30,
+   "ticks": 16,
+   "pose": "knee-lift",
+   "drawing": 3
+  },
+  {
+   "frame": 46,
+   "ticks": 7,
+   "pose": "reach",
+   "drawing": 4
+  },
+  {
+   "frame": 53,
+   "ticks": 6,
+   "pose": "stride",
+   "drawing": 5
+  },
+  {
+   "frame": 59,
+   "ticks": 5,
+   "pose": "arm-extend",
+   "drawing": 6
+  },
+  {
+   "frame": 64,
+   "ticks": 5,
+   "pose": "cocked",
+   "drawing": 7
+  },
+  {
+   "frame": 69,
+   "ticks": 3,
+   "pose": "over-the-top",
+   "drawing": 8
+  },
+  {
+   "frame": 72,
+   "ticks": 2,
+   "pose": "layback",
+   "drawing": 9
+  },
+  {
+   "frame": 74,
+   "ticks": 2,
+   "pose": "whip",
+   "drawing": 10
+  },
+  {
+   "frame": 76,
+   "ticks": 3,
+   "pose": "release",
+   "drawing": 11
+  },
+  {
+   "frame": 79,
+   "ticks": 4,
+   "pose": "arm-down",
+   "drawing": 12
+  },
+  {
+   "frame": 83,
+   "ticks": 6,
+   "pose": "follow-through",
+   "drawing": 13
+  },
+  {
+   "frame": 89,
+   "ticks": 12,
+   "pose": "finish",
+   "drawing": 14
+  },
+  {
+   "frame": 101,
+   "ticks": 5,
+   "pose": "recover-1",
+   "drawing": 15
+  },
+  {
+   "frame": 106,
+   "ticks": 5,
+   "pose": "recover-2",
+   "drawing": 16
+  },
+  {
+   "frame": 111,
+   "ticks": 5,
+   "pose": "recover-3",
+   "drawing": 17
+  },
+  {
+   "frame": 116,
+   "ticks": 4,
+   "pose": "set",
+   "drawing": 0
+  }
+ ],
+ "stance": [
+  0.617,
+  0.969
+ ],
+ "stride": [
+  53,
+  0.176,
+  0.953
+ ],
+ "release": [
+  0.121,
+  0.387
+ ],
+ "generator": {
+  "service": "PixelLab MCP (api.pixellab.ai/mcp), trial plan",
+  "generations": 24,
+  "steps": [
+   {
+    "tool": "image_to_pixelart",
+    "job": "b09dcd08-5a22-40b3-a910-8357a523b434",
+    "cost": 1,
+    "seed": 9,
+    "input": "pitcher-mobs-v1/regular-02-teal-mirage.png laid out 212px tall, cleats at y=248, centred at x=150 on the 256 frame (sent 4x, on navy #0f1424)",
+    "params": {
+     "output": [
+      256,
+      256
+     ],
+     "faithful": true,
+     "init_image_strength": 200
+    },
+    "result": "set.png after cutting the navy out with the source alpha (>=50%)"
+   },
+   {
+    "tool": "animate_image",
+    "job": "2127723a-d6a2-4ef2-9893-5bddd0af5f87",
+    "cost": 8,
+    "seed": 21,
+    "frames": 8,
+    "first": "set.png",
+    "action": "One complete right-handed overhand baseball pitch thrown toward the LEFT edge of the frame, in this order: from the set position she rocks her weight back onto her right leg, turns her body sideways and lifts her left knee high toward her chest; then she drives forward in a long stride to the left and plants her left foot far ahead on the same ground line; her hips and torso rotate hard to the left while her right throwing arm whips up over the top from behind her head; she releases the ball far out in front of her toward the left; she finishes with a strong follow-through, bending forward as the throwing arm swings down across her body past her left knee and her right leg lifts behind her. The ball is not drawn after it leaves her hand. Whole body stays inside the frame.",
+    "result": "delivery-f1..f8"
+   },
+   {
+    "tool": "edit_image_pixen",
+    "job": "e63c9a03-e6ac-4d89-b1cf-d516b5e0116a",
+    "cost": 1,
+    "seed": 5,
+    "input": "delivery-f7",
+    "description": "Remove the white baseball from her right throwing hand. The ball has already been thrown, so the throwing hand is empty, relaxed and open with fingers extended forward. Keep everything else exactly the same.",
+    "result": "only box x30-52,y118-140 (the throwing hand) pasted back, enclosed gap filled with skin shadow -> delivery-f7-noball.png (the edit also erased the glove, so the rest is the original frame)"
+   },
+   {
+    "tool": "edit_image_pixen",
+    "job": "97bcf330-4685-4ebc-951d-0b3f1e884133",
+    "cost": 1,
+    "seed": 5,
+    "input": "delivery-f8",
+    "description": "same as above",
+    "result": "only box x17-44,y120-148 pasted back -> delivery-f8-noball.png"
+   },
+   {
+    "tool": "edit_image_pixen",
+    "job": "9cb65e6f-402e-4c5c-b6fb-1ed40450c80a",
+    "cost": 1,
+    "seed": 11,
+    "input": "delivery-f7",
+    "result": "rejected: moved the whole arm and erased the glove"
+   },
+   {
+    "tool": "animate_image",
+    "job": "604374d1-8835-432d-8425-e5e125c7ac17",
+    "cost": 4,
+    "seed": 31,
+    "frames": 4,
+    "first": "delivery-f6.png",
+    "last": "delivery-f7-noball.png",
+    "action": "Her right throwing arm whips forward over the top of her shoulder: the elbow drives forward first, the forearm snaps past her head, she releases the ball in front of her face toward the left, then the empty hand continues down across her body. Her planted left leg stays fixed on the ground while her torso tilts forward and her back leg starts to rise. The released ball is not drawn.",
+    "result": "release-a-f1..f3 (f4 matched the end frame and is not used); f1 plays before delivery-f6 so the arm swings back, then up"
+   },
+   {
+    "tool": "animate_image",
+    "job": "5b238db3-c582-44e0-a244-c7600d6332ce",
+    "cost": 4,
+    "seed": 51,
+    "frames": 4,
+    "first": "release-a-f2.png",
+    "last": "release-a-f3.png",
+    "action": "Release moment of an overhand pitch: her right arm snaps forward over the top, the hand passes just above her cap and reaches out in front of her face at head height toward the left, then the arm continues sweeping down across her body. Her hand is already empty: the ball has been thrown and is never drawn in these frames. Legs stay planted, torso leans forward.",
+    "result": "release-b-f1..f3 (f3 = the release drawing, arm out in front at head height, empty hand)"
+   },
+   {
+    "tool": "animate_image",
+    "job": "9dae4392-d35d-4600-9ee5-22c0ef55b080",
+    "cost": 4,
+    "seed": 41,
+    "frames": 4,
+    "first": "delivery-f8-noball.png",
+    "last": "set.png",
+    "action": "She recovers from the pitching follow-through: she lowers her raised back leg to the ground beside her front leg, straightens up to standing, turns her body back toward the viewer and brings the glove and her throwing hand together at her chest in the set position.",
+    "result": "recover-f1..f3 (f4 matched the set frame and is not used)"
+   }
+  ]
+ }
+}
