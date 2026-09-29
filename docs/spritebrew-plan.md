@@ -3,7 +3,9 @@
 > 2026-09-29. 목표 목업 `docs/art/benchmark/target/battle-portrait.png`에 맞춰 SpriteBrew(spritebrew.com)에서 타자·투수 스프라이트 애니메이션을 만들기 위한 준비 문서.
 > 생성은 사용자가 사이트에서 직접 한다. 이 문서와 코드(`SpritePlayer`, 프레임 레지스트리, 폴더 구조)는 **에셋이 들어오기 전 준비**다. 현재 런타임 아트는 아무것도 교체하지 않았다.
 >
-> 주의: 이 세션에서는 spritebrew.com 접속이 네트워크 정책으로 막혀 사이트 화면을 직접 확인하지 못했다. 토큰 가격(Fast 3 / Plus 10 / Pro 40 / 짧은 애니 15 / 긴 애니 50), 스타일 21종, 기본 64×64, Raw Frames ZIP / TexturePacker JSON은 **사용자가 알려준 값** 기준이다. 메뉴 이름이 다르면 사이트 기준으로 맞춘다.
+> 확인 출처: spritebrew.com은 이 세션 네트워크 정책으로 막혀 있어 공개 README([GAlbanese09/spritebrew](https://github.com/GAlbanese09/spritebrew), AGPL-3.0, 코드 복사 없음)로 확인했다.
+> - 확인됨: 토큰 Fast 3 / Plus 10 / Pro 40 / Anim-short 15 / Anim-long 50. 캐릭터 스타일은 Pro Fantasy, Sci-fi, Horror, Painterly, Simple, Default, Top Down, Platformer. 애니메이션 종류는 4-Angle Walking, Walking & Idle, Small Sprites, VFX Effects, **Custom Animation**, 8-Direction Rotation. 캐릭터 준비 단계는 "pixel-perfect resize to 64×64". 배경 제거는 토글 + 허용치 조절. Export는 TexturePacker JSON Hash, Aseprite JSON, GameMaker strip, RPG Maker 3×4, Godot SpriteFrames, **Raw Frames ZIP**.
+> - README에 없음: short/long 구분 기준(프레임 수), 64보다 큰 해상도 옵션, ZIP 안 파일 이름 규칙. 사이트에서 직접 확인한다.
 
 ## 1. 목업 조사 결과
 
@@ -116,7 +118,7 @@ Custom Animation 프롬프트 (그대로 붙여넣기):
 - homerun: `home run celebration, three-quarter back view facing up-right: finish the swing, hold the follow-through pose, watch the ball fly, drop the bat to the side, raise right fist high, proud stance`
 
 해상도: 64×64 → **×5 nearest-neighbor** (320 CSS px ≈ `.bp-batter` 300px 박스, DPR 2에서 한 픽셀 = 10 기기 픽셀).
-⚠ 품질 경고: 목업 타자는 약 140 아트 픽셀 높이다. 64px 캔버스는 그보다 2배 이상 거칠다. 사이트에 **128×128 이상 옵션이 있으면 타자는 128로** 뽑고 ×2.5 배율(DPR 2에서 ×5 정수)을 쓴다. 64 결과가 V15 HD 타자보다 거칠면 **교체하지 않는다**(AGENTS §6 저품질 placeholder 금지).
+⚠ 품질 경고: 목업 타자는 약 140 아트 픽셀 높이다. 64px 캔버스는 그보다 2배 이상 거칠다. README 기준 준비 단계가 64×64 고정이라 128 옵션은 없을 가능성이 크다. 사이트에 **128×128 이상 옵션이 있으면 타자는 128로** 뽑고 ×2.5 배율(DPR 2에서 ×5 정수)을 쓴다. 64 결과가 V15 HD 타자보다 거칠면 **교체하지 않는다**(AGENTS §6 저품질 placeholder 금지).
 
 ### 2-2. 투수 (레드 러시, 여성 — 결정 D1)
 
@@ -172,7 +174,7 @@ Custom Animation 프롬프트 (그대로 붙여넣기):
   node scripts/import-spritebrew.mjs <압축 푼 폴더> batter swing
   ```
   파일 이름 자연 정렬 순서로 `public/sprites/batter/swing/frame_00.png …`에 복사하고, 넣은 개수를 출력한다. 그 숫자를 `src/duel/spritebrew-frames.js`의 `frames`에 적으면 `SpritePlayer`가 기존 아트 대신 새 프레임을 재생한다.
-- **TexturePacker JSON**: `SpritePlayer`는 파싱하지 않는다(개별 PNG 배열 전용). 대신 Pixi 경로(`BallparkActors`)는 설치된 `pixi.js` 8의 `Assets.load()`가 TexturePacker JSON(Hash·Array)을 그대로 읽으므로, Pixi에 직접 붙일 때는 새 파서·의존성 없이 쓸 수 있다. 같은 모션을 두 형식으로 받을 필요는 없다 — Raw ZIP 하나로 둘 다 가능(Pixi도 PNG 배열을 텍스처로 로드).
+- **TexturePacker JSON (Hash)**: `SpritePlayer`는 파싱하지 않는다(개별 PNG 배열 전용). 대신 Pixi 경로(`BallparkActors`)는 설치된 `pixi.js` 8의 `Assets.load()`가 TexturePacker JSON(Hash·Array)을 그대로 읽으므로, Pixi에 직접 붙일 때는 새 파서·의존성 없이 쓸 수 있다. 같은 모션을 두 형식으로 받을 필요는 없다 — Raw ZIP 하나로 둘 다 가능(Pixi도 PNG 배열을 텍스처로 로드).
 - 받은 PNG는 **원본 해상도 그대로**. 업스케일본을 넣지 않는다.
 
 ### 5. 생성 우선순위 (목업 인상 영향 순)
