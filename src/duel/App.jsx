@@ -799,12 +799,23 @@ function RunStory({s,compact=false}){
 
 export default function Duel(){
   const [initial]=useState(()=>{
+    // Local art preview enters a real V10 battle without touching the player's save.
+    const previewId=import.meta.env.DEV&&typeof window!=='undefined'
+      ?new URLSearchParams(window.location.search).get('previewPitcher'):null;
+    if(previewId==='tide-vesper'){
+      const preview=createV10Duel(7);
+      const node=preview.runMap.nodes.find(n=>n.opponent?.artId===previewId);
+      if(node){
+        preview.runMap.reachableIds=[node.id];
+        return {save:enterV10Node(preview,node.id),preview:true};
+      }
+    }
     let v10=null;try{v10=readV10Duel(localStorage)}catch{}
     try{return {save:readDuel(localStorage),v10}}catch{return {error:'저장을 읽지 못했습니다. 새 런을 시작할 수 있습니다.',v10}}
   });
   const [growthChoice,setGrowthChoice]=useState(null),[rewardAction,setRewardAction]=useState(null),[facilityChoice,setFacilityChoice]=useState(null);
   const [build,setBuild]=useState(DECKBUILDER_BUILD),[trialSeed,setTrialSeed]=useState('20260910');
-  const [s,setS]=useState(initial.save),[screen,setScreen]=useState(()=>typeof window!=='undefined'&&new URLSearchParams(window.location.search).get('cinema')==='1'?'cinema':'menu'),[modal,setModal]=useState(null),[selected,setSelected]=useState(null),[swingStack,setSwingStack]=useState([]),[stackEdit,setStackEdit]=useState(null),[decisionMode,setDecisionMode]=useState(null),[tour,setTour]=useState({open:false,step:0}),[tourRect,setTourRect]=useState(null),[fx,setFx]=useState(null),[fxStage,setFxStage]=useState(null),[stackResolve,setStackResolve]=useState(null),[frame,setFrame]=useState(0),[error,setError]=useState(initial.error||''),[sound,setSound]=useState(false);
+  const [s,setS]=useState(initial.save),[screen,setScreen]=useState(()=>initial.preview?'run':typeof window!=='undefined'&&new URLSearchParams(window.location.search).get('cinema')==='1'?'cinema':'menu'),[modal,setModal]=useState(null),[selected,setSelected]=useState(null),[swingStack,setSwingStack]=useState([]),[stackEdit,setStackEdit]=useState(null),[decisionMode,setDecisionMode]=useState(null),[tour,setTour]=useState({open:false,step:0}),[tourRect,setTourRect]=useState(null),[fx,setFx]=useState(null),[fxStage,setFxStage]=useState(null),[stackResolve,setStackResolve]=useState(null),[frame,setFrame]=useState(0),[error,setError]=useState(initial.error||''),[sound,setSound]=useState(false);
   const current=useRef(s),lock=useRef(false),timers=useRef([]),tourDismissed=useRef(false);
   const [cardDetail,setCardDetail]=useState(null),detailOpener=useRef(null);
   const [fxImpactAt,setFxImpactAt]=useState(0);
@@ -904,7 +915,7 @@ export default function Duel(){
     current.current=next;setS(next);
     // The strategy -> auto-battle lesson is a disposable sandbox. Using the real
     // V10 engine here is important, but replacing a player's MAIN RUN save is not.
-    if(autoLesson){setError('');return;}
+    if(autoLesson||initial.preview){setError('');return;}
     try{next.version===10?saveV10Duel(localStorage,next):saveDuel(localStorage,next);setError('')}catch{setError('저장 실패: 이 창을 닫으면 진행을 잃을 수 있습니다.');}
   }
   function rememberTour(){tourDismissed.current=true;try{localStorage.setItem(TOUR_KEY,'done')}catch{}}
@@ -1033,7 +1044,7 @@ export default function Duel(){
       nextLabel={s.phase==='pitch'?'다음 공':s.phase==='between'?'다음 타자':''}
       onSelect={setSelected} onStack={setSwingStack} onAim={z=>{if(!lock.current)persist(setAimZone(current.current,z));}}
       onSwing={()=>{captureAutoPlan(CARDS[selectedEntry?.kind]?.type==='skill'?'prepare':'swing');act(doPlay,true,choice?.stackPlan)}} onTake={()=>{captureAutoPlan('take');act(doTake,true)}}
-      autoLesson={autoLesson} autoPlan={autoPlan} onExitLesson={exitAutoLesson}
+      autoLesson={autoLesson} autoPlan={autoPlan} onExitLesson={exitAutoLesson} previewMode={!!initial.preview}
       onDetail={(e,el)=>{detailOpener.current=el;setCardDetail(cardDetailOf(e.kind,e.plus,null));}} onPile={w=>setModal(w)}
       onHome={()=>{if(!lock.current)(autoLesson?exitAutoLesson():setScreen('menu'))}} onHelp={()=>isV10?setGuide({start:0}):setModal('help')}
       onToggleSound={handleToggleSound} sound={sound} onJukebox={()=>setModal('jukebox')}/>

@@ -34,9 +34,9 @@ export default function PitcherPortraitDialog({opponent,src,onClose}){
       <div className="pitcher-portrait-frame">
         <img src={activeArt} alt={`${name} 투수 전신 원화`}/>
       </div>
-      <div className="pitcher-dex-shelf" aria-label="12인 투수 명단">
+      <div className="pitcher-dex-shelf" aria-label={`${pitcherRoster.length}인 투수 명단`}>
         <div className="pitcher-dex-bar">
-          <strong>PITCHER ROSTER (12명)</strong>
+          <strong>PITCHER ROSTER ({pitcherRoster.length}명)</strong>
           <span>카드를 선택하여 투수 프로필을 전환합니다</span>
         </div>
         <div className="pitcher-dex-scroll">
