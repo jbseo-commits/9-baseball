@@ -399,6 +399,7 @@ export function battingResult(s,id,opts={}){
 function resolve(state,id,supports=[]){
   if(cardProblem(state,id||'basic')||stackSupportProblem(state,id||'basic',supports))return state;
   const s=clone(state),b=s.battle,before={runs:b.runs,outs:b.outs},events=[],growthEvents=[],pending=b.pending,mode=b.growthMode;
+  const basesBefore=[...b.bases]; // who stood where before this pitch: the result screen names every move
   const mainCoverage=id?coverage(s,id):[];
   const supportItems=(supports||[]).map(x=>({id:x.id,aimZone:x.aimZone,entry:card(s,x.id),coverage:coverageAt(s,x.id,x.aimZone)}));
   const supportCoverage=supportItems.flatMap(x=>x.coverage);
@@ -458,7 +459,7 @@ function resolve(state,id,supports=[]){
     stackBaseDamageRate:stackPlan?.baseDamageRate??1,stackOrderedDamageRate:stackPlan?.orderedDamageRate??1,
     stackLinks:stackPlan?.links||[],stackSteps:stackPlan?.steps||[],
     assistCoverage:firstSupport?.coverage||[],assistZone:firstSupport?.aimZone??null,assistKind:firstSupport?.entry?.kind||null,
-    assistOnly:!!result.assistOnly,aimZone:id?b.aimZone:null,action:k||'take',ballsBefore:countBefore.balls,strikesBefore:countBefore.strikes,growthEvents};
+    assistOnly:!!result.assistOnly,aimZone:id?b.aimZone:null,action:k||'take',ballsBefore:countBefore.balls,strikesBefore:countBefore.strikes,growthEvents,basesBefore};
   b.history.push({zone:pending.zone,label:result.label,aimZone:id?b.aimZone:null,turn:b.turn,...countBefore});
   b.history=b.history.slice(-18);b.pending=null;b.scouted=false;b.scoutPlus=false;b.scoutBall=false;
   // Upgraded 코스 조정 survives the swing and lasts the rest of the plate appearance.

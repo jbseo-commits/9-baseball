@@ -22,3 +22,23 @@ export function hpTicks(hp,maxHp,ticks=12){
   if(!max||!cur)return 0;
   return Math.max(1,Math.round(cur/max*ticks));
 }
+
+/* who moved on this pitch, in plain words (playtest 2026-09-29: "삼진인데 출루한 것 같은데" — the
+   screen never said who stood where). before/after are battle.bases ([1루,2루,3루] player ids).
+   At most two lines so the verdict plate stays clear of the HP panel: the batter, then the runners
+   from third down. */
+export function runnerMoves(before,after,batterId,label,nameOf){
+  if(!Array.isArray(before)||!Array.isArray(after))return [];
+  const lines=[],runners=[],name=id=>nameOf?.(id)||id,at=after.indexOf(batterId);
+  if(at>=0)lines.push(name(batterId)+' 출루 · '+(at+1)+'루');
+  else if(/홈런/.test(label||''))lines.push(name(batterId)+' 홈인');
+  for(let i=2;i>=0;i--){
+    const id=before[i];if(!id)continue;
+    const j=after.indexOf(id);
+    if(j===i)continue;
+    if(j>i)runners.push(name(id)+' '+(i+1)+'→'+(j+1)+'루');
+    else if(j<0)runners.push(name(id)+(/병살/.test(label||'')&&i===0?' 아웃':' 홈인'));
+  }
+  if(runners.length)lines.push(runners.join(' · '));
+  return lines;
+}
