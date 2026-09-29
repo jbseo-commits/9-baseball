@@ -52,6 +52,7 @@
 | 타자 (런타임) | `assets/production-art/battle-portrait-v15/batter-sheet-runtime.png` | 2048×1536, 4×2 셀 512×768 | 키포즈 7장: ready, load, swing-start, swing-mid, contact, follow-early, follow-through | Pixi `BallparkActors` + DOM 폴백 `Sprite`(App.jsx). `src/duel/batter-v15.js`가 10포즈 계약에 매핑. **smooth 샘플링**(HD 일러스트) |
 | 타자 원본 | `battle-portrait-v15/batter-*.png` | 1024×1536 투명 | 위 7장 개별 | — |
 | 투수 (런타임, 최신) | `assets/pitcher-pixellab-v1/atlases/regular-0{2,3}-*-pitch-120-atlas.png` (청록 미라주 18원화, 앰버 싱커 16원화) | 10×12 셀 **256×256**, 인물 키 212px, 스파이크 y=247 | 120틱 60fps 2초, 릴리스 76틱, 왼쪽 향함. 고유 원화를 틱 단위로 붙잡는 방식 | `pitcher-visuals.js`가 SD v2보다 **우선** 사용. 1막 첫 갈림길 두 투수 |
+| 투수 타이드 베스퍼 (PR #111) | `assets/pitcher-study-v2/atlases/tide-vesper-pitch-120-atlas.png`, 원화 `source/tide-vesper-release.png`(1024×1536), 포즈 시트 `source/tide-vesper-{keys,bridges}.png` | 10×12 셀 **256×256** | 120프레임 60fps, 릴리스 76. **포수 뒤 시점, 카메라 쪽으로 던짐**(다른 투수는 화면 왼쪽). 우완·좌손 글러브, 로우 쓰리쿼터. **HD 일러스트**(도트 아님), 작화 포즈 12장 사이는 보간 없이 점프 | `pitcher-visuals.js`, `?previewPitcher=tide-vesper`(DEV) |
 | 투수 (런타임) | `assets/pitcher-sd-v1/red-rush-pitch-120-atlas.png`, `assets/pitcher-sd-v2/atlases/*-pitch-120-atlas.png` (나머지) | 2560×3072, 10×12 셀 256×256 | 120프레임 60fps 2초 투구, 왼쪽 향함 | Pixi, `redRushFrameAt(t)`, 릴리스 frame 76 |
 | 투수 HD 후보 | `battle-portrait-v15/red-rush-{windup,stride,release}.png`, `battle-polish-v16/red-rush-*.png` | 1024×1536 | 키포즈 3+5장 | 미연결 |
 | 홈런 컷 | `assets/production-art/phone-assets-v18/A01-homerun-batter-9.png` | 1512×1399 | 정지 1장 | `HomeRunCut` (phone-art-v18.jsx) |
@@ -130,6 +131,7 @@ Custom Animation 프롬프트 (그대로 붙여넣기):
 **a) 기준 이미지**
 
 - **먼저 확인: 청록 미라주·앰버 싱커는 이미 256 PixelLab 투구(와인드업+릴리스+복귀, 120틱)가 있다.** 이 둘은 windup/release를 새로 만들지 않는다. 필요한 건 **idle 루프**뿐이고, 기준 이미지는 `assets/pitcher-pixellab-v1/<id>/frames/u00-set.png`(256, 이미 도트) — 투구 첫 프레임과 정확히 이어진다.
+- **타이드 베스퍼**: 투구 120프레임이 이미 있다. windup/release를 새로 만들지 않는다. 부족한 것은 (1) idle 루프, (2) 작화 포즈 12장 사이 인비트윈(README가 "포즈 사이 점프"를 미검증 과제로 남김). 단 이 투수는 **HD 일러스트**라 PixelLab(도트 출력)으로 인비트윈을 만들면 화풍이 섞인다 → PixelLab을 쓰려면 청록 미라주처럼 **전체를 256 도트로 다시 만드는 경우에만**. 그때 기준 이미지는 `source/tide-vesper-release.png`의 set 자세가 아니라 `tide-vesper-keys.png` 첫 칸(set)을 잘라 쓰고, 방향은 `toward the camera (catcher view)`로 명시한다(다른 투수의 `facing left` 프롬프트를 그대로 쓰면 안 됨).
 - 나머지 투수(레드 러시 등 SD 아틀라스): `assets/pitcher-mobs-v1/<id>.png` 정체성 마스터 전신 컷(1086×1448, 투명). PixelLab README 1단계처럼 256 프레임 안에 키 212px·x=150·발 y=247로 배치한 뒤 도트화해서 기준으로 쓴다.
 - 대안: `assets/production-art/battle-portrait-v15/red-rush-windup.png` — 목업 톤의 HD 버전이나 와인드업 자세라 idle 기준으로는 부적합.
 - 비율: PixelLab v1이 이미 성인 전신 비율로 정해졌다. 새 투수도 그 비율을 따른다(SD 비율로 새로 만들지 않는다).
@@ -202,6 +204,7 @@ Custom Animation 프롬프트 (그대로 붙여넣기):
 - [ ] 타자 swing 먼저 1회 생성 → V15 HD 타자와 390×844에서 비교. 거칠면 중단하고 해상도/스타일 재결정
 - [ ] 합격 시 타자 idle → homerun → miss 순서로 생성 (배경 제거 ON, 프롬프트는 §2-1 그대로)
 - [ ] 투수 idle: 청록 미라주·앰버 싱커 `pixellab-v1/<id>/frames/u00-set.png` 업로드 → idle 루프만 생성 (windup/release는 이미 있음)
+- [ ] 타이드 베스퍼: 투구는 완료(#111). 도트 재제작 여부 먼저 결정 → 할 때만 idle·인비트윈 생성 (포수 시점 프롬프트)
 - [ ] (선택) SD 아틀라스 투수 교체 시에만 windup → release (§2-2)
 - [ ] 모션마다 Export → **Raw Frames ZIP**, 폴더 이름 `{character}-{animation}`로 압축 해제
 - [ ] 방향(타자 오른쪽 위 / 투수 왼쪽)·발 기준선·크기가 모션 간 같은지 눈으로 확인, 어긋난 모션은 재생성
