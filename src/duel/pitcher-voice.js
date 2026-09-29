@@ -95,6 +95,21 @@ export const PITCHER_VOICE={
     homer:['...멋있었어. 조금만.'],
     knockout:['졌다~ 다음엔 네 얼굴 그려줄게, 꼭.'],
   },
+  // 타이드 베스퍼 — 28, teal braid, low three-quarter righty. Calm and exacting.
+  'tide-vesper':{
+    entry:['물결은 조용할 때 더 깊어.','내 공의 끝을 읽어봐.'],
+    chase:['벌써 따라왔어?','조금 더 기다렸어야지.'],
+    whiff:['파도는 한 박자 늦게 와.','손끝을 놓쳤네.'],
+    strikeout:['여기서 물러나.','끝까지 보긴 했네.'],
+    looking:['그냥 지나가게 둘 거야?','눈으로는 못 잡아.'],
+    walk:['오늘은 길을 내줬어.'],
+    foul:['닿았네. 다음엔?'],
+    out:['밀려났어.'],
+    hit:['흐름을 바꿨네.'],
+    extra:['제법 멀리 보냈어.'],
+    homer:['이번 파도는 네 거야.'],
+    knockout:['졌어. 다음엔 더 깊이 던질게.'],
+  },
   // 코발트 임팩트 — 29, cobalt twin braids, power arm. Bold, loud, generous, loves strength.
   'elite-01-cobalt-impact':{
     entry:['힘 대 힘. 좋지?','피하지 마. 정면으로 와.'],

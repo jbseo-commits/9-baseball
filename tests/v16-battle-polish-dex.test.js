@@ -60,7 +60,7 @@ describe('V16 Battle Polish & Dex Masterpiece Integration Contract', () => {
     const dialogJsx = fs.readFileSync(new URL('../src/duel/PitcherPortraitDialog.jsx', import.meta.url), 'utf8');
     expect(dialogJsx).toMatch(/pitcher-dex-shelf/);
     expect(dialogJsx).toMatch(/pitcher-dex-card/);
-    expect(dialogJsx).toMatch(/PITCHER ROSTER \(12명\)/);
+    expect(dialogJsx).toMatch(/PITCHER ROSTER \(\{pitcherRoster\.length\}명\)/);
   });
 
   it('App.jsx provides header dex button and deck modal subtitle', () => {

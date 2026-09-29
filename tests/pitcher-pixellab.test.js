@@ -60,7 +60,8 @@ describe('PixelLab pitch animations',()=>{
       expect(visuals).toContain(`'!../../assets/pitcher-sd-v2/atlases/${id}-pitch-120-atlas.png'`);
     }
     expect(String(pitcherAtlases['regular-04-ivory-ace'])).toContain('pitcher-sd-v2');
-    expect(Object.keys(pitcherAtlases)).toHaveLength(12);
+    expect(String(pitcherAtlases['tide-vesper'])).toContain('pitcher-study-v2');
+    expect(Object.keys(pitcherAtlases)).toHaveLength(13);
   });
 
   it('puts her feet on the rubber, the stride dust under her front foot and the ball in her hand',()=>{
