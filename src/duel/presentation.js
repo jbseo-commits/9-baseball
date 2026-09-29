@@ -106,7 +106,7 @@ export function presentationFor(state){
     if(grade==='homer')return withMotion({kind:'homer',grade,cue:'homer',kicker:'PERFECT CONTACT',title:'넘겼다',detail:`${zone} · 기다린 공을 가장 크게 돌려줬다`},MOTION.homer);
     if(grade==='extra')return withMotion({kind:'extra',grade,cue:'extra',kicker:'GAP SHOT',title:'갈랐다',detail:`${zone} · 수비 사이를 찢은 장타`},MOTION.extra);
     if(grade==='lucky')return withMotion({kind:'lucky',grade,cue:'lucky',kicker:'JUST ENOUGH',title:'떨어졌다',detail:`${zone} · 빗맞았지만 수비 사이에 떨어졌다`},MOTION.lucky);
-    if(grade==='jammed')return withMotion({kind:'jammed',grade,cue:'jammed',kicker:'JAM SHOT',title:'빠졌다',detail:`${zone} · 빗맞았지만 코스는 읽었다`},MOTION.jammed);
+    if(grade==='jammed')return withMotion({kind:'jammed',grade,cue:'jammed',kicker:'JAM SHOT',title:'빗맞았다',detail:`${zone} · 빗맞았지만 코스는 읽었다`},MOTION.jammed);
     if(grade==='dead-center')return withMotion({kind:'dead-center',grade,cue:'deadCenter',kicker:'DEAD CENTER',title:'정확히 맞혔다',detail:`${zone} · 노린 존과 실제 공이 정확히 겹쳤다`},MOTION.deadCenter);
     return withMotion({kind:'hit',grade,cue:'hit',kicker:covered(revealed)?'READ CONFIRMED':'CONTACT',title:'맞혔다',detail:`${zone} · ${label}`},MOTION.solid);
   }

@@ -1,7 +1,7 @@
 import React,{useLayoutEffect,useRef,useState} from 'react';
-import {CARDS} from './cards.js';
+import {CARDS,LINEUP} from './cards.js';
 import {publicProbabilities,V10_SWING_STACK_MAX,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
-import {intentLines,hpTicks,ZONE_WORDS} from './ballpark-copy.js';
+import {intentLines,hpTicks,ZONE_WORDS,runnerMoves} from './ballpark-copy.js';
 import ZoneLinks from './ZoneLinks.jsx';
 import {pitcherLine,momentOf} from './pitcher-voice.js';
 import BallparkActors,{pixiAvailable,pitcherStance} from './BallparkActors.jsx';
@@ -149,6 +149,10 @@ export default function BallparkBattle({
   const momentumRose=judged&&landed&&combat?.momentumAfter>combat?.momentumBefore,momentumOut=judged&&landed&&combat?.momentumAfter<combat?.momentumBefore;
   /* 주자 압박: 지금 루상 주자로 안타를 치면 붙는 피해 배율 */
   const runners=(b.bases||[]).filter(Boolean).length,runnerPct=Math.round(runners*V10_RUNNER_PRESSURE*100);
+  /* who moved on this pitch, once the ball has landed; the diamond pulses the bases that just filled */
+  const basesBefore=judged&&landed?r.basesBefore:null;
+  const moves=basesBefore?runnerMoves(basesBefore,b.bases||[],LINEUP[b.batterIndex]?.id,r.label,id=>LINEUP.find(p=>p.id===id)?.name):[];
+  const baseNew=i=>!!basesBefore&&!!b.bases?.[i]&&b.bases[i]!==basesBefore[i];
 
   function pickSwing(id){
     if(locked)return;
@@ -431,7 +435,9 @@ const CARD_DESC_MAP={
         return <div className={'bp-verdict'+(good?' good':'')+(isSplash?' splash':'')+(isHomerSplash?' homer':'')+(isKoSplash?' knockout':'')} key={'v'+playToken+(shot.title||'')} role="status">
           {isKoSplash?<KnockoutCut artId={artId} figure={pitcherFigures[artId]}/>:isHomerSplash&&<HomeRunCut/>}
           <strong>{call||shot.title}</strong>
-          {(outNote||call&&shot.title&&shot.title!==call)&&<small>{outNote||shot.title}</small>}
+          {/* with runner moves to show, the flavour line gives its room to them (the plate must clear the HP panel) */}
+          {(outNote||!moves.length&&call&&shot.title&&shot.title!==call)&&<small>{outNote||shot.title}</small>}
+          {!!moves.length&&<ul className="bp-moves" data-testid="bp-moves">{moves.map((m,i)=><li key={i}>{m}</li>)}</ul>}
         </div>;
       })()}
       {inFx&&vfx}
@@ -473,7 +479,7 @@ const CARD_DESC_MAP={
         {[['B',b.balls,4],['S',b.strikes,3],['O',b.outs,3]].map(([k,v,n])=><div key={k}>{k}{Array.from({length:n-1},(_,i)=><u key={i} className={i<v?'on':''}/>)}</div>)}
       </div>
       <div className="bp-bases" aria-label={'주자 '+[0,1,2].filter(i=>b.bases?.[i]).map(i=>i+1+'루').join(', ')||'주자 없음'}>
-        {[1,2,0].map(i=><i key={i} className={'base-'+(i+1)+(b.bases?.[i]?' on':'')}/>)}
+        {[1,2,0].map(i=><i key={i} className={'base-'+(i+1)+(b.bases?.[i]?' on':'')+(baseNew(i)?' new':'')}/>)}
       </div>
     </section>
 

@@ -16,7 +16,7 @@ describe('master presentation language',()=>{
   it('reserves different success language for power, jammed and lucky contact',()=>{
     expect(presentationFor(state('hit','2루타',5,[5],5))).toMatchObject({kind:'extra',title:'갈랐다',cue:'extra'});
     expect(presentationFor(state('hit','홈런',3,[3],3))).toMatchObject({kind:'homer',title:'넘겼다',cue:'homer'});
-    expect(presentationFor(state('hit','땅볼 안타',5,[5],4))).toMatchObject({kind:'jammed',title:'빠졌다',cue:'jammed'});
+    expect(presentationFor(state('hit','땅볼 안타',5,[5],4))).toMatchObject({kind:'jammed',title:'빗맞았다',cue:'jammed'});
     expect(presentationFor(state('hit','바가지 안타 · 행운의 단타',2,[2],1))).toMatchObject({kind:'lucky',title:'떨어졌다',cue:'lucky'});
     expect(presentationFor(state('hit','중전안타',5,[5],4))).toMatchObject({kind:'hit',grade:'solid',title:'맞혔다'});
   });
