@@ -5,13 +5,14 @@
 >
 > 확인 출처: spritebrew.com은 이 세션 네트워크 정책으로 막혀 있어 공개 README([GAlbanese09/spritebrew](https://github.com/GAlbanese09/spritebrew), AGPL-3.0, 코드 복사 없음)로 확인했다.
 > - 확인됨: 토큰 Fast 3 / Plus 10 / Pro 40 / Anim-short 15 / Anim-long 50. 캐릭터 스타일은 Pro Fantasy, Sci-fi, Horror, Painterly, Simple, Default, Top Down, Platformer. 애니메이션 종류는 4-Angle Walking, Walking & Idle, Small Sprites, VFX Effects, **Custom Animation**, 8-Direction Rotation. 캐릭터 준비 단계는 "pixel-perfect resize to 64×64". 배경 제거는 토글 + 허용치 조절. Export는 TexturePacker JSON Hash, Aseprite JSON, GameMaker strip, RPG Maker 3×4, Godot SpriteFrames, **Raw Frames ZIP**.
+> - 과제 설명의 "스타일 21종"은 README에 8종만 나온다. 사이트 목록이 더 많으면 아래 추천(Pro Fantasy → Platformer, Simple 제외) 순서만 지키면 된다.
 > - README에 없음: short/long 구분 기준(프레임 수), 64보다 큰 해상도 옵션, ZIP 안 파일 이름 규칙. 사이트에서 직접 확인한다.
 
 ## 1. 목업 조사 결과
 
 ### 찾은 목업 · 레퍼런스 (main 기준)
 
-`codex/v9-deckbuilder`(2026-09-15)에는 목업이 없고, main(111커밋 앞)에만 있다. 사용자 결정에 따라 main 기준으로 작업했다.
+`codex/v9-deckbuilder`(2026-09-15)에는 목업이 없고, main(116커밋 앞)에만 있다. 사용자 결정에 따라 main 기준으로 작업했다.
 
 | 경로 | 화면 / 내용 |
 | --- | --- |
@@ -188,7 +189,20 @@ Custom Animation 프롬프트 (그대로 붙여넣기):
 
 1번의 Fast 시안에서 64px 품질이 V15 HD 타자보다 떨어지면 2~7번 진행 전에 해상도/스타일부터 다시 정한다.
 
-## 6. 적용 준비 (코드, 에셋 없이 완료)
+## 6. 사이트 작업 체크리스트 (사용자)
+
+- [ ] 사이트에서 확인: 짧은/긴 애니 기준(프레임 수), 64×64 외 해상도 옵션, Raw ZIP 파일 이름 규칙, 실제 스타일 목록
+- [ ] 토큰 확보: 기본 ≈245, 권장 ≈370 (Text-to-Sprite 포함 최대 ≈470)
+- [ ] 타자 기준 이미지 `battle-portrait-v15/batter-ready.png` 정사각 패딩(1536×1536) 후 업로드
+- [ ] 타자 swing 먼저 1회 생성 → V15 HD 타자와 390×844에서 비교. 거칠면 중단하고 해상도/스타일 재결정
+- [ ] 합격 시 타자 idle → homerun → miss 순서로 생성 (배경 제거 ON, 프롬프트는 §2-1 그대로)
+- [ ] 투수 기준 이미지 `pitcher-mobs-v1/regular-01-red-rush.png` 패딩 후 업로드, Fast 시안으로 SD/6등신 결정
+- [ ] 투수 windup → release → idle 생성 (§2-2)
+- [ ] 모션마다 Export → **Raw Frames ZIP**, 폴더 이름 `{character}-{animation}`로 압축 해제
+- [ ] 방향(타자 오른쪽 위 / 투수 왼쪽)·발 기준선·크기가 모션 간 같은지 눈으로 확인, 어긋난 모션은 재생성
+- [ ] ZIP들을 전달 → 이후 import·`frames` 수 기입·연결·회귀 검증은 코드 작업(별도 PR)
+
+## 7. 적용 준비 (코드, 에셋 없이 완료)
 
 | 파일 | 내용 |
 | --- | --- |
