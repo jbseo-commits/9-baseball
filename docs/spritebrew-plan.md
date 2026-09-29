@@ -7,6 +7,8 @@
 > - 확인됨: 토큰 Fast 3 / Plus 10 / Pro 40 / Anim-short 15 / Anim-long 50. 캐릭터 스타일은 Pro Fantasy, Sci-fi, Horror, Painterly, Simple, Default, Top Down, Platformer. 애니메이션 종류는 4-Angle Walking, Walking & Idle, Small Sprites, VFX Effects, **Custom Animation**, 8-Direction Rotation. 캐릭터 준비 단계는 "pixel-perfect resize to 64×64". 배경 제거는 토글 + 허용치 조절. Export는 TexturePacker JSON Hash, Aseprite JSON, GameMaker strip, RPG Maker 3×4, Godot SpriteFrames, **Raw Frames ZIP**.
 > - 과제 설명의 "스타일 21종"은 README에 8종만 나온다. 사이트 목록이 더 많으면 아래 추천(Pro Fantasy → Platformer, Simple 제외) 순서만 지키면 된다.
 > - README에 없음: short/long 구분 기준(프레임 수), 64보다 큰 해상도 옵션, ZIP 안 파일 이름 규칙. 사이트에서 직접 확인한다.
+>
+> **⚠ 해상도 정정 (2026-09-29 재조사).** 게임 투수는 이미 **256×256 프레임**(인물 키 212px)으로 돈다 — `assets/pitcher-pixellab-v1`(PixelLab, 청록 미라주·앰버 싱커)과 `pitcher-sd-v1/v2` 모두. 타자도 과거 도트 컷은 192×192(`assets/batter-reboot-v1~v3`)였다. 따라서 **목표 해상도는 256×256**이고, SpriteBrew의 64×64 고정은 현재 런타임보다 한 변 4배(면적 16배) 거칠다. 사이트에서 **256(최소 192) 출력이 확인될 때만** SpriteBrew로 진행하고, 아니면 이미 검증된 PixelLab 파이프라인(`assets/pitcher-pixellab-v1/README.md`, 256 출력·잘라낸 캔버스로 비용 절감)을 쓴다.
 
 ## 1. 목업 조사 결과
 
@@ -49,15 +51,17 @@
 | --- | --- | --- | --- | --- |
 | 타자 (런타임) | `assets/production-art/battle-portrait-v15/batter-sheet-runtime.png` | 2048×1536, 4×2 셀 512×768 | 키포즈 7장: ready, load, swing-start, swing-mid, contact, follow-early, follow-through | Pixi `BallparkActors` + DOM 폴백 `Sprite`(App.jsx). `src/duel/batter-v15.js`가 10포즈 계약에 매핑. **smooth 샘플링**(HD 일러스트) |
 | 타자 원본 | `battle-portrait-v15/batter-*.png` | 1024×1536 투명 | 위 7장 개별 | — |
-| 투수 (런타임) | `assets/pitcher-sd-v1/red-rush-pitch-120-atlas.png`, `assets/pitcher-sd-v2/atlases/*-pitch-120-atlas.png` (11명) | 2560×3072, 10×12 셀 256×256 | 120프레임 60fps 2초 투구, 왼쪽 향함 | Pixi, `redRushFrameAt(t)`, 릴리스 frame 76 |
+| 투수 (런타임, 최신) | `assets/pitcher-pixellab-v1/atlases/regular-0{2,3}-*-pitch-120-atlas.png` (청록 미라주 18원화, 앰버 싱커 16원화) | 10×12 셀 **256×256**, 인물 키 212px, 스파이크 y=247 | 120틱 60fps 2초, 릴리스 76틱, 왼쪽 향함. 고유 원화를 틱 단위로 붙잡는 방식 | `pitcher-visuals.js`가 SD v2보다 **우선** 사용. 1막 첫 갈림길 두 투수 |
+| 투수 (런타임) | `assets/pitcher-sd-v1/red-rush-pitch-120-atlas.png`, `assets/pitcher-sd-v2/atlases/*-pitch-120-atlas.png` (나머지) | 2560×3072, 10×12 셀 256×256 | 120프레임 60fps 2초 투구, 왼쪽 향함 | Pixi, `redRushFrameAt(t)`, 릴리스 frame 76 |
 | 투수 HD 후보 | `battle-portrait-v15/red-rush-{windup,stride,release}.png`, `battle-polish-v16/red-rush-*.png` | 1024×1536 | 키포즈 3+5장 | 미연결 |
 | 홈런 컷 | `assets/production-art/phone-assets-v18/A01-homerun-batter-9.png` | 1512×1399 | 정지 1장 | `HomeRunCut` (phone-art-v18.jsx) |
+| 타자 도트 | `assets/batter-reboot-v1~v3` | **192×192** | ready·trigger·contact·finish·load 등 키포즈 | App.jsx가 import (V15 이전 타자 경로) |
 | 레거시 | `assets/sprites-v1`, `sprites-v2/frames`(36장), `sprites-v4` | 소형 측면 도트 | 튜토리얼(v9) 화면만 | App.jsx `Sprite` |
 
 **목업과 차이점**
 
 - 타자: 구도·의상은 V15가 목업과 일치. 다만 7키포즈뿐이라 인비트윈이 없고(스윙이 뚝뚝 끊김), idle 호흡·헛스윙 전용·홈런 세리머니 동작이 없다. HD 일러스트 스무딩이라 목업의 "선명한 픽셀 클러스터"와 질감이 다르다.
-- 투수: 120프레임으로 부드럽지만 **SD(치비) 비율**이라 목업의 6등신 투수와 다르다. idle 루프 전용 동작이 없다(set 프레임 정지).
+- 투수: PixelLab v1 두 명은 이미 성인 전신 비율의 256 도트 원화 투구(와인드업~릴리스~복귀)가 있다. 나머지는 **SD(치비) 비율** 아틀라스. 모두 idle 루프 전용 동작이 없다(set 프레임 정지).
 - 둘 다 대기 동작이 없어 판정 사이 화면이 정지 사진처럼 보인다.
 
 ### 게임 타이밍 (코드 상수)
@@ -82,8 +86,9 @@
 ### 공통 규칙
 
 - **배경 제거: ON** (모든 모션). 경기장은 별도 배경 플레이트이고, 액터는 투명 컷아웃이어야 한다. 업로드 이미지가 이미 투명이면 입력 쪽 제거는 필요 없다.
-- **해상도:** 사이트 기본 64×64. 게임은 **원본 해상도 그대로 저장**하고 화면에서 nearest-neighbor로 키운다(미리 키운 PNG 금지 — dist 예산이 46.0/50MB라 여유 4MB).
-  - `BallparkActors`의 `crisp()`가 "CSS 배율 × devicePixelRatio"를 정수로 맞추므로, 아래 배율은 DPR 2에서 정수 픽셀이 된다.
+- **해상도: 256×256 프레임, 인물 키 약 212px, 발 기준선 y≈247** (현재 투수 런타임과 같은 규격 — 타자·투수가 같은 픽셀 밀도로 보인다). 원본 해상도 그대로 저장, 미리 키운 PNG 금지(dist 예산 여유 약 4MB).
+  - 화면 배율: 타자 박스 ≈300 CSS px → DPR 3 폰에서 ≈900 기기 px = 256의 ×3.5 → `crisp()`가 ×3 정수로 내린다. 투수 박스 ≈94 CSS px → 기기 px ≈ 256의 ×1.1 (거의 1:1, 축소 없음에 가깝다).
+  - SpriteBrew가 64×64만 내면: 타자 ×14, 투수 ×4.4 확대가 되어 목업(타자 약 140 아트 픽셀)과 현재 런타임보다 명백히 거칠다 → **사용하지 않는다**(AGENTS §6).
 - **모든 모션에 방향·시점을 반복 명시**한다. 한 모션만 다른 방향으로 나오면 폐기.
 - 같은 캐릭터의 모든 모션은 **같은 기준 이미지 한 장**에서 만든다 (얼굴·유니폼·크기 일관성).
 
@@ -118,16 +123,16 @@ Custom Animation 프롬프트 (그대로 붙여넣기):
 - miss: `baseball swing and miss, over-the-shoulder three-quarter back view, facing up-right: load, stride, fast swing that passes under the ball, off-balance follow-through, front knee buckles, head turns to look back at the catcher`
 - homerun: `home run celebration, three-quarter back view facing up-right: finish the swing, hold the follow-through pose, watch the ball fly, drop the bat to the side, raise right fist high, proud stance`
 
-해상도: 64×64 → **×5 nearest-neighbor** (320 CSS px ≈ `.bp-batter` 300px 박스, DPR 2에서 한 픽셀 = 10 기기 픽셀).
-⚠ 품질 경고: 목업 타자는 약 140 아트 픽셀 높이다. 64px 캔버스는 그보다 2배 이상 거칠다. README 기준 준비 단계가 64×64 고정이라 128 옵션은 없을 가능성이 크다. 사이트에 **128×128 이상 옵션이 있으면 타자는 128로** 뽑고 ×2.5 배율(DPR 2에서 ×5 정수)을 쓴다. 64 결과가 V15 HD 타자보다 거칠면 **교체하지 않는다**(AGENTS §6 저품질 placeholder 금지).
+해상도: **256×256**, 인물 키 약 212px (목업 타자 약 140 아트 픽셀보다 촘촘 → HD V15 타자 대비 질감 손실 최소). 256이 안 되면 192가 하한(과거 `batter-reboot` 규격). 그보다 작으면 생성하지 않는다. 결과가 V15 HD 타자보다 거칠면 **교체하지 않는다**(AGENTS §6).
 
 ### 2-2. 투수 (레드 러시, 여성 — 결정 D1)
 
 **a) 기준 이미지**
 
-- 1순위: `assets/pitcher-mobs-v1/regular-01-red-rush.png` — 정체성 마스터 전신 컷(1086×1448, 투명). 정사각형 패딩 후 업로드.
+- **먼저 확인: 청록 미라주·앰버 싱커는 이미 256 PixelLab 투구(와인드업+릴리스+복귀, 120틱)가 있다.** 이 둘은 windup/release를 새로 만들지 않는다. 필요한 건 **idle 루프**뿐이고, 기준 이미지는 `assets/pitcher-pixellab-v1/<id>/frames/u00-set.png`(256, 이미 도트) — 투구 첫 프레임과 정확히 이어진다.
+- 나머지 투수(레드 러시 등 SD 아틀라스): `assets/pitcher-mobs-v1/<id>.png` 정체성 마스터 전신 컷(1086×1448, 투명). PixelLab README 1단계처럼 256 프레임 안에 키 212px·x=150·발 y=247로 배치한 뒤 도트화해서 기준으로 쓴다.
 - 대안: `assets/production-art/battle-portrait-v15/red-rush-windup.png` — 목업 톤의 HD 버전이나 와인드업 자세라 idle 기준으로는 부적합.
-- 게임 비율 유지용 참고: `assets/pitcher-sd-v1/frames/`의 frame 0 (256×256 SD, 왼쪽 향함). SD 비율로 갈지 목업 6등신으로 갈지는 **첫 Fast 시안을 보고 결정**(아래 체크리스트).
+- 비율: PixelLab v1이 이미 성인 전신 비율로 정해졌다. 새 투수도 그 비율을 따른다(SD 비율로 새로 만들지 않는다).
 - Text-to-Sprite 대체 프롬프트 (기존 이미지 불합격 시):
   ```
   pixel art female baseball pitcher, adult, three-quarter front view facing left toward the batter,
@@ -149,8 +154,8 @@ Custom Animation 프롬프트 (그대로 붙여넣기):
 - windup: `baseball pitcher windup, three-quarter front view facing left: hands together at chest, rock back, lift front knee high, coil the hips, begin long stride toward the left`
 - release: `baseball pitcher release and follow-through, three-quarter front view facing left: throwing arm whips over the top, ball leaves the hand toward the left, body bends forward, back leg swings up, recover to balance`
 
-해상도: 64×64 → **×1.5** (96 CSS px ≈ `.bp-pitcher` 94px 박스, DPR 2에서 ×3 정수). 가로 모드 박스가 더 크면 `crisp()`가 정수로 맞춘다.
-⚠ 지금 120프레임(60fps) 아틀라스보다 프레임 수가 적어 **동작이 덜 부드러워질 수 있다.** 비율(6등신)·팔레트가 목업에 더 가까울 때만 교체 가치가 있다. 아니면 idle만 추가하고 투구는 아틀라스 유지.
+해상도: **256×256, 인물 키 212px, 스파이크 y=247, 중심 x=150** — PixelLab v1 규격 그대로. 이 규격이 아니면 아틀라스·`pitcher-stance.json`·릴리스 좌표와 어긋난다.
+⚠ windup/release는 PixelLab 투수 두 명에게는 **만들지 않는다**(이미 더 좋은 120틱 원화가 있음). SD 아틀라스 투수를 교체할 때만 만든다.
 
 ### 3. 토큰 예산
 
@@ -184,20 +189,20 @@ Custom Animation 프롬프트 (그대로 붙여넣기):
 2. **타자 idle** — 플레이 시간 대부분 보이는 화면. 정지 사진 느낌 제거.
 3. **타자 homerun** — 최고 보상 연출(1.7~2.2초).
 4. **타자 miss** — 빈도 높은 실패 판정.
-5. **투수 windup** → 6. **투수 release** — 아틀라스가 이미 있어 차이가 작다. 비율 결정 후.
-7. **투수 idle** — 원경이라 영향 가장 작다.
+5. **투수 idle** (청록 미라주·앰버 싱커) — `u00-set.png` 기준, 256 규격.
+6. **투수 windup** → 7. **release** — SD 아틀라스 투수를 PixelLab 규격으로 바꿀 때만.
 
-1번의 Fast 시안에서 64px 품질이 V15 HD 타자보다 떨어지면 2~7번 진행 전에 해상도/스타일부터 다시 정한다.
+1번 시안의 해상도가 256(최소 192)이 아니거나 품질이 V15 HD 타자보다 떨어지면 2~7번 진행 전에 해상도/스타일부터 다시 정한다.
 
 ## 6. 사이트 작업 체크리스트 (사용자)
 
-- [ ] 사이트에서 확인: 짧은/긴 애니 기준(프레임 수), 64×64 외 해상도 옵션, Raw ZIP 파일 이름 규칙, 실제 스타일 목록
+- [ ] **사이트에서 먼저 확인: 256×256(최소 192) 출력 가능 여부.** 64만 되면 SpriteBrew 중단 → PixelLab으로. 짧은/긴 애니 기준(프레임 수), Raw ZIP 파일 이름 규칙, 실제 스타일 목록
 - [ ] 토큰 확보: 기본 ≈245, 권장 ≈370 (Text-to-Sprite 포함 최대 ≈470)
 - [ ] 타자 기준 이미지 `battle-portrait-v15/batter-ready.png` 정사각 패딩(1536×1536) 후 업로드
 - [ ] 타자 swing 먼저 1회 생성 → V15 HD 타자와 390×844에서 비교. 거칠면 중단하고 해상도/스타일 재결정
 - [ ] 합격 시 타자 idle → homerun → miss 순서로 생성 (배경 제거 ON, 프롬프트는 §2-1 그대로)
-- [ ] 투수 기준 이미지 `pitcher-mobs-v1/regular-01-red-rush.png` 패딩 후 업로드, Fast 시안으로 SD/6등신 결정
-- [ ] 투수 windup → release → idle 생성 (§2-2)
+- [ ] 투수 idle: 청록 미라주·앰버 싱커 `pixellab-v1/<id>/frames/u00-set.png` 업로드 → idle 루프만 생성 (windup/release는 이미 있음)
+- [ ] (선택) SD 아틀라스 투수 교체 시에만 windup → release (§2-2)
 - [ ] 모션마다 Export → **Raw Frames ZIP**, 폴더 이름 `{character}-{animation}`로 압축 해제
 - [ ] 방향(타자 오른쪽 위 / 투수 왼쪽)·발 기준선·크기가 모션 간 같은지 눈으로 확인, 어긋난 모션은 재생성
 - [ ] ZIP들을 전달 → 이후 import·`frames` 수 기입·연결·회귀 검증은 코드 작업(별도 PR)
