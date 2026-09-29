@@ -1,5 +1,6 @@
 import React,{useEffect,useRef} from 'react';
 import {batterMotionV3Timeline,BATTER_MOTION_V3_HIT_GRADES} from './batterMotionV3.js';
+import {batterRigIdle,batterRigLoad} from './batter-v15.js';
 import {redRushBatterShot,redRushFrameAt,hasPitchVisual,RED_RUSH_RELEASE_MS,RED_RUSH_RELEASE_FRAME as RELEASE_FRAME} from './pitcher-sd.js';
 import RELEASE from './pitcher-release.json';
 import STRIDE from './pitcher-stride.json';
@@ -50,7 +51,7 @@ export function layoutBox(el,scene){
 }
 const REMEASURE_MS=400;
 
-export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterPoses,batterSheet=null,shot,fxStage,playToken,pitchZone=null,knockedOut=false,onReady}){
+export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterPoses,batterSheet=null,batterRig=null,shot,fxStage,playToken,pitchZone=null,knockedOut=false,onReady}){
   const hostRef=useRef(null),live=useRef({});
   live.current={shot,fxStage,playToken,pitchZone,artId,knockedOut};
 
@@ -85,6 +86,14 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
       }else{
         await Promise.all(poseNames.map(async n=>{poseTex[n]=await PIXI.Assets.load(batterPoses[n]);poseTex[n].source.scaleMode='nearest';}));
       }
+      /* cutout rig of the READY pose (batter-v15.js): waits and loads as moving parts, not a still */
+      let rigTex=null;
+      if(batterRig){
+        try{
+          const names=['legs','upper','arms','bat'],tx=await Promise.all(names.map(n=>PIXI.Assets.load(batterRig.layers[n])));
+          rigTex=Object.fromEntries(names.map((n,i)=>{tx[i].source.scaleMode=batterSheet?.smooth?'linear':'nearest';return [n,tx[i]];}));
+        }catch{rigTex=null;}
+      }
       let pitchFrames=null;
       if(pitcherAtlas){
         const atlas=await PIXI.Assets.load(pitcherAtlas);atlas.source.scaleMode='nearest';
@@ -102,6 +111,20 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
       const whip=new PIXI.Graphics();world.addChild(whip);
       const ghosts=[0,1].map(()=>{const g=new PIXI.Sprite(poseTex.ready);g.anchor.set(.5,1);g.alpha=0;world.addChild(g);return g;});
       const batter=new PIXI.Sprite(poseTex.ready);batter.anchor.set(.5,1);world.addChild(batter);
+      /* rig: root (anchored like the batter: bottom centre of the cell) > legs, upper(waist) > arms(shoulder) > bat(hands) */
+      let rig=null;
+      if(rigTex){
+        const [cw,ch]=batterRig.cell,pv=batterRig.pivots,root=new PIXI.Container(),body=new PIXI.Container();
+        body.position.set(-cw/2,-ch);root.addChild(body);
+        const joint=(parent,at)=>{const c=new PIXI.Container();c.pivot.set(at[0],at[1]);c.position.set(at[0],at[1]);parent.addChild(c);return c;};
+        body.addChild(new PIXI.Sprite(rigTex.legs));
+        const upper=joint(body,pv.waist);upper.addChild(new PIXI.Sprite(rigTex.upper));
+        const arms=joint(upper,pv.shoulder);arms.addChild(new PIXI.Sprite(rigTex.arms));
+        const bat=joint(arms,pv.hands);bat.addChild(new PIXI.Sprite(rigTex.bat));
+        root.visible=false;world.addChild(root);
+        const deg=Math.PI/180;
+        rig={root,set(m){upper.position.set(pv.waist[0]+m.ux,pv.waist[1]+m.uy);upper.rotation=m.ur*deg;arms.rotation=m.ar*deg;bat.rotation=m.br*deg;}};
+      }
       const flash=new PIXI.Sprite(poseTex.ready);flash.anchor.set(.5,1);flash.blendMode='add';flash.alpha=0;world.addChild(flash);
       const arc=new PIXI.Graphics();world.addChild(arc);
       const dust=new PIXI.Container();world.addChild(dust);
@@ -242,6 +265,16 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
           /* the sheet's feet sit on its baseline, not the cell's bottom edge */
           const sc=crisp(b.h/tex.height,app.renderer.resolution),x=Math.round(b.x+b.w/2),y=Math.round(b.y+b.h+(1-batterBaseline)*b.h);
           batter.scale.set(sc,sc*(active?1:1+breath*.006));batter.position.set(x,y);
+          /* rig while waiting and loading; the sheet from TRIGGER on (and whenever motion is reduced) */
+          const rigOn=!!rig&&!reduced&&!inStop&&(pose==='ready'||pose==='load');
+          if(rig){
+            rig.root.visible=rigOn;batter.visible=!rigOn;
+            if(rigOn){
+              const la=timeline.find(k=>k.pose==='load')?.at,ta=timeline.find(k=>k.pose==='trigger')?.at;
+              rig.set(active&&pose==='load'&&la!=null&&ta!=null?batterRigLoad(now,(t-la)/Math.max(1,ta-la)):batterRigIdle(now));
+              rig.root.scale.set(crisp(b.h/(batterRig.cell[1]),app.renderer.resolution));rig.root.position.set(x,y);
+            }
+          }
           flash.scale.copyFrom(batter.scale);flash.position.copyFrom(batter.position);
           shadows.ellipse(x,b.y+b.h-b.h*.02,b.w*.3,b.h*.035).fill({color:0x000000,alpha:.35});
           // smear: during the fast part of the swing the last poses trail behind, on twos
