@@ -14,18 +14,16 @@
     "check:dist": "node scripts/check-dist-budget.mjs"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "latest",
     "pixi.js": "^8.21.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "vite": "latest"
+    "vite": "^8.2.2"
   },
   "devDependencies": {
     "@testing-library/react": "^16.3.3",
-    "autoprefixer": "latest",
+    "autoprefixer": "^10.5.4",
     "happy-dom": "^20.12.0",
-    "postcss": "latest",
-    "tailwindcss": "^3.4.17",
-    "vitest": "latest"
+    "postcss": "^8.5.26",
+    "vitest": "^4.1.11"
   }
 }
