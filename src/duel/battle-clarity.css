@@ -14,6 +14,24 @@
     box-shadow:0 0 6px rgba(255,170,34,.8),0 1px 3px rgba(0,0,0,.7)!important;
   }
   .v14-battle-portrait .bp-cell:has(.bp-token) .bp-pct{top:64%}
+  /* selection reads at a glance (playtest 2026-09-29: "선택 안보임", "두장 고를때 선택 이상하게 보임").
+     The glass layer faded every cell to ~15% and styled supports as .support, a class the board never
+     sets (it sets .assist), so a second card's cell showed nothing. Main = gold, supports = blue,
+     on dead cells too; the order badges sit above the link line. */
+  .v14-battle-portrait .bp-zone .bp-cell.cover,.v14-battle-portrait .bp-zone .bp-cell.aim{
+    background:rgba(255,190,59,.34)!important;border:2px solid #ffbe3b!important;
+  }
+  .v14-battle-portrait .bp-zone .bp-cell.assist{
+    background:rgba(100,190,255,.3)!important;border:2px solid #64d2ff!important;
+    box-shadow:0 0 12px rgba(100,210,255,.45),inset 0 0 10px rgba(100,210,255,.2)!important;
+  }
+  .v14-battle-portrait .bp-zone .bp-cell{z-index:auto!important}
+  .v14-battle-portrait .bp-zone .bp-cell .bp-token{z-index:6!important}
+  .v14-battle-portrait .bp-cell .bp-token:not([data-board-order="1"]){
+    background:radial-gradient(circle at 35% 35%,#d8f1ff 0%,#64d2ff 60%,#2a7fc0 100%)!important;color:#07203a!important;
+    box-shadow:0 0 6px rgba(100,210,255,.8),0 1px 3px rgba(0,0,0,.7)!important;
+  }
+  .v14-battle-portrait .zone-links line{stroke-width:3px!important}
   /* a 0% cell is still a live cell, but it should not shout the same as 24% */
   .v14-battle-portrait .bp-cell .bp-pct.zero{opacity:.32;text-shadow:none}
 

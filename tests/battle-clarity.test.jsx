@@ -62,6 +62,18 @@ describe('battle clarity',()=>{
     if(speaking)expect(col.querySelector('.bp-coach-badge').style.backgroundImage).toMatch(/url\(/);
   });
 
+  it('a second card lights its own cell: the board sets .assist and the portrait layer styles .assist (it styled .support)',()=>{
+    begin();
+    fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
+    fireEvent.click(cards()[1]);fireEvent.click(cells()[2]);
+    expect(cells()[4].classList.contains('cover')).toBe(true);
+    expect(cells()[2].classList.contains('assist')).toBe(true);
+    expect(cells()[2].querySelector('.bp-token')?.dataset.boardOrder).toBe('2');
+    const css=fs.readFileSync(path.resolve('src/duel/battle-clarity.css'),'utf8');
+    expect(css).toMatch(/\.bp-cell\.assist\{[^}]*background:rgba\(100,190,255/);
+    expect(css).toMatch(/\.bp-token:not\(\[data-board-order="1"\]\)/);
+  });
+
   it('the clarity layer is portrait-only, scoped to the ballpark battle, and loads before the title layer',()=>{
     const css=fs.readFileSync(path.resolve('src/duel/battle-clarity.css'),'utf8');
     expect(css).toMatch(/@media \(orientation:portrait\)/);
