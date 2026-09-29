@@ -137,3 +137,122 @@ main과 공통 조상이 없음 (main 루트 `82eefcb`, 2026-09-26). 연결된 P
 - `main`, `backup/main-before-v15-20260928`, `archive/pre-reset-2026-09-26`
 - 열린 PR head 브랜치 전부 (고아 PR #1·#82·#86은 닫았지만 브랜치 유지)
 - 진행 중 세션 브랜치 `ccr-*`, PR 없는 최근 작업 `ag/20260927-a1-bubble`, `ag/20260928-hero-batter-glass-9zone`, `codex/gemini-ui-capture`
+
+## 삭제 실행 (로컬에서 한 번)
+
+Claude 세션의 git 프록시가 원격 브랜치 삭제를 막아서(403) 삭제는 아직 안 됐다. `archive/pre-reset-2026-09-26`은 이미 push 됨. 로컬 클론에서:
+
+```sh
+git push origin --delete \
+  ag/20260927-p1-batter-ready \
+  ag/20260927-p1-golden-pass \
+  ag/20260927-p1-hit-polish \
+  ag/20260927-p1-result-splash \
+  ag/20260927-portrait-masterpiece \
+  ag/20260928-p2-deck-dex \
+  ag/20260928-p2-landscape-battle \
+  ag/20260928-p2-map-masterpiece \
+  ag/20260928-p2-reward-masterpiece \
+  ag/20260928-red-rush-female-art \
+  ag/apply-new-card-assets \
+  ag/portrait-css-refine \
+  claude/game-ui-ux-improvement-y7lyq3 \
+  claude/integrate-ag-v15 \
+  claude/pixellab-pitch-anim \
+  codex/card-docking-assets-v1 \
+  codex/v14-batter-production-art \
+  claude/batter-motion-v3 \
+  claude/feedback-review-plan-vw24at \
+  claude/fix-locker-hand-crash \
+  claude/github-task-assignment-review-a5bx4i \
+  claude/progress-check-ydvdeo \
+  claude/ux-small-phone \
+  claude/v10-map-merge \
+  claude/v10-ui-shell \
+  codex/actor-animation-runtime-smoothness \
+  codex/adaptive-60fps-budget \
+  codex/auto-battle-tutorial-v1 \
+  codex/ballpark-commit-beat-v1 \
+  codex/ballpark-debrief-loop-v1 \
+  codex/batter-asset-loop-v1 \
+  codex/batter-motion-loop-v2 \
+  codex/batter-motion-loop-v3 \
+  codex/combat-readability-hp-impact \
+  codex/combat-readability-hp-impact-v2 \
+  codex/fix-landscape-run-scroll \
+  codex/fix-landscape-scroll-final \
+  codex/fix-landscape-scroll-hotfix \
+  codex/fix-landscape-scroll-live \
+  codex/fix-landscape-scroll-v2 \
+  codex/fix-landscape-scroll-v3 \
+  codex/fix-scroll-actual \
+  codex/fix-scroll-actual-2 \
+  codex/fix-scroll-actual-3 \
+  codex/fix-scroll-actual-4 \
+  codex/fix-scroll-actual-5 \
+  codex/fix-scroll-actual-6 \
+  codex/fix-scroll-final-final \
+  codex/fix-stack-remove-deadlock \
+  codex/gm07-animation-fluidity \
+  codex/gm08-v4-60fps-atlas \
+  codex/gm10-actor-focus-relay \
+  codex/gm11-batter-hero-poses \
+  codex/golden-master-01-polish \
+  codex/golden-master-02-choreography-v2 \
+  codex/golden-master-02-duel-choreography \
+  codex/golden-master-03-stadium-depth \
+  codex/golden-master-04-cinematic-timing \
+  codex/golden-master-05-actor-silhouettes \
+  codex/golden-master-06-authored-actor-art \
+  codex/hotfix-v4-canvas-60hz \
+  codex/hotfix-v4-real-60frame-sprites \
+  codex/landscape-progressive-disclosure \
+  codex/mandatory-impact-analysis \
+  codex/mobile-landscape-hand-first \
+  codex/protagonist-visibility-zone-english \
+  codex/responsive-master-character-pass \
+  codex/sprite-gen-batter-pipeline-v1 \
+  codex/sts-landscape-battleboard \
+  codex/v10-act23-deckbuilding-masterpiece \
+  codex/v10-assist-cover \
+  codex/v10-direct-multicard-tap \
+  codex/v10-engine-map \
+  codex/v10-integration \
+  codex/v10-landscape-first \
+  codex/v10-map-magnum-slice \
+  codex/v10-map-masterpiece \
+  codex/v10-map-rebuild-main \
+  codex/v10-relic-builds \
+  codex/v10-swing-stack-masterpiece \
+  codex/v10-swipe-stack \
+  codex/v11-battle-readout \
+  codex/v11-direct-zone-edit \
+  codex/v11-drag-reorder \
+  codex/v11-reorder-guidance \
+  codex/v11-resolve-commit-beat \
+  codex/v11-result-debrief \
+  codex/v11-stack-balance-report \
+  codex/v11-stack-balance-tune \
+  codex/v11-stack-board-integrate \
+  codex/v11-stack-board-ux \
+  codex/v11-stack-order-core \
+  codex/v11-stack-resolve-cinematic \
+  codex/v11-stack-result-echo \
+  codex/v11-starter-identity \
+  codex/v8-release \
+  codex/v9-deckbuilder \
+  codex/visual-loop1-batter-gm12 \
+  codex/visual-loop4-outcome-director \
+  codex/visual-reboot-golden-master \
+  codex/visual-reboot-golden-master-1 \
+  codex/zone-card-board-ux \
+  codex/zone-magnetic-polish \
+  codex/zone-placement-impact \
+  codex/zone-touch-targets \
+  deckbuilding-v8 \
+  docs/visual-reset-handoff \
+  feat/all-pitcher-sd \
+  feat/pitcher-red-rush-main \
+  homebound-v4-mobile-ux \
+  visual-loop-batter
+```
