@@ -4,7 +4,7 @@ import {createRunMap} from '../src/duel/run-map.js';
 
 const root=new URL('../assets/pitcher-sd-v2/',import.meta.url);
 const roster=JSON.parse(fs.readFileSync(new URL('../assets/pitcher-mobs-v1/roster.json',import.meta.url),'utf8'));
-const remaining=roster.filter(entry=>entry.id!=='regular-01-red-rush');
+const remaining=roster.filter(entry=>entry.id!=='regular-01-red-rush'&&entry.id!=='tide-vesper');
 const expectedFacingCorrections={
   'elite-01-cobalt-impact':['keys:0','keys:1','keys:2','keys:3','bridges:0','bridges:1','bridges:2','bridges:3'],
   'elite-02-neon-trick':['keys:0','keys:1','keys:2','bridges:0','bridges:1'],
@@ -53,5 +53,16 @@ describe('remaining pitcher SD roster',()=>{
       expect(dimensions(manifest.atlas)).toEqual([2560,3072,6]);
       expect(dimensions(`previews/${entry.id}-poses.png`)).toEqual([1536,512,6]);
     }
+  });
+  it('registers Tide Vesper with a catcher-facing 120-frame atlas and frame-76 release',()=>{
+    const study=new URL('../assets/pitcher-study-v2/',import.meta.url);
+    const manifest=JSON.parse(fs.readFileSync(new URL('tide-vesper-manifest.json',study),'utf8'));
+    const data=fs.readFileSync(new URL(manifest.atlas,study));
+    expect(roster.some(entry=>entry.id==='tide-vesper'&&entry.runtimeIntegrated)).toBe(true);
+    expect(manifest.facing).toBe('toward-camera');
+    expect(manifest.frameCount).toBe(120);
+    expect(manifest.releaseFrame).toBe(76);
+    expect(manifest.keyPoses.find(pose=>pose.pose==='release')?.frame).toBe(76);
+    expect([data.readUInt32BE(16),data.readUInt32BE(20),data[25]]).toEqual([2560,3072,6]);
   });
 });

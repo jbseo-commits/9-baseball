@@ -1,5 +1,7 @@
 import redRushAtlas from '../../assets/pitcher-sd-v1/red-rush-pitch-120-atlas.png';
 import redRushPortrait from '../../assets/pitcher-mobs-v1/regular-01-red-rush.png';
+import tideVesperAtlas from '../../assets/pitcher-study-v2/atlases/tide-vesper-pitch-120-atlas.png';
+import tideVesperPortrait from '../../assets/pitcher-study-v2/source/tide-vesper-release.png';
 
 // V15 & V16 Masterpiece Dex portraits (verified via DEX_QA_V16.md)
 import dexRedRush from '../../assets/production-art/mockup-world-v15/dex-red-rush.png';
@@ -41,14 +43,19 @@ export const pitcherAtlases={
   'regular-01-red-rush':redRushAtlas,
   ...byId(rosterAtlases),
   ...byId(pixellabAtlases),
+  'tide-vesper':tideVesperAtlas,
 };
 
 /* transparent roster cutouts: for silhouettes and anything drawn over a scene (map nodes use brightness(0)) */
-export const pitcherFigures=Object.fromEntries(Object.entries(rosterPortraits).map(([path,url])=>[idFrom(path,'.png'),url]));
+export const pitcherFigures={
+  ...Object.fromEntries(Object.entries(rosterPortraits).map(([path,url])=>[idFrom(path,'.png'),url])),
+  'tide-vesper':tideVesperPortrait,
+};
 
 /* opaque dex portraits: framed views only (map preview, reward, ending, portrait dialog) */
 export const pitcherPortraits={
   ...pitcherFigures,
+  'tide-vesper':tideVesperPortrait,
   'regular-01-red-rush':dexRedRush,
   'regular-02-teal-mirage':dexTealMirage,
   'regular-03-amber-sinker':dexAmberSinker,
