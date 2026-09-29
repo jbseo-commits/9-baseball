@@ -35,10 +35,10 @@
   }
   /* the batter stands in the left batter's box beside the plate, not on it */
   .v14-battle-portrait .bp-batter{left:calc(-27 * var(--u,1vw));top:auto;bottom:var(--u,1vw);height:calc(78 * var(--u,1vw))}
-  /* #103 M10: the pitcher stands ON the rubber. The box's bottom centre is the spot her feet take in
-     the set position (x 85.4u, just in front of the rubber at 78.4u); the renderers put each pitcher's
-     measured stance point there (pitcher-stance.json), so every pitcher shares the same footing. */
-  .v14-battle-portrait .bp-pitcher{left:calc(73.4 * var(--u,1vw));right:auto;top:auto;bottom:calc(78.4 * var(--u,1vw));height:calc(24 * var(--u,1vw));z-index:2}   /* top:auto: the base rule's top:18% must never win */
+  /* #103 M10: the pitcher stands on the rubber. The box's bottom centre places the set stance
+     at x 83.4u, 78.4u above the scene bottom. Renderers align each pitcher's measured stance point
+     there (pitcher-stance.json), so every pitcher shares the same footing. */
+  .v14-battle-portrait .bp-pitcher{left:calc(67.4 * var(--u,1vw));right:auto;top:auto;bottom:calc(78.4 * var(--u,1vw));height:calc(32 * var(--u,1vw));z-index:2}   /* larger mockup silhouette; footing remains over the rubber, with room for wide follow-throughs */
   /* HP panel top-left so the pitcher on the mound stays clear; her tell sits over her, top-right */
   .v14-battle-portrait .bp-scene .bp-tell{left:auto;right:8px;top:8px;max-width:46%;white-space:nowrap;font-size:12px}
   .v14-battle-portrait .bp-bases{left:auto;right:20px;top:auto;bottom:22%}
@@ -355,3 +355,7 @@
   .v14-battle-portrait .bp-pname{flex:0 0 auto;margin-left:3px;font-weight:700;color:#fff}
 }
 
+@media (orientation:portrait) and (max-height:760px){
+  /* A short phone has no headroom above the rubber; retain the compact mound scale. */
+  .v14-battle-portrait .bp-pitcher{left:calc(73.4 * var(--u,1vw));height:calc(24 * var(--u,1vw))}
+}

@@ -12,8 +12,11 @@ describe('V15 portrait battle camera matches the target mockup',()=>{
     expect(css).toContain('background-position:left 0 bottom calc(-31.2 * var(--u,1vw))!important');
     expect(css).toContain('background-size:calc(125 * var(--u,1vw)) auto!important');
     expect(css).toContain('.bp-batter{left:calc(-27 * var(--u,1vw));top:auto;bottom:var(--u,1vw);height:calc(78 * var(--u,1vw))}');   // V15 hero inside the box, off the chalk
-    /* feet on the rubber: box bottom centre (73.4 + 24/2 = 85.4u, 78.4u up); top:auto, or the base top:18% drops her off the mound */
-    expect(css).toContain('.bp-pitcher{left:calc(73.4 * var(--u,1vw));right:auto;top:auto;bottom:calc(78.4 * var(--u,1vw));height:calc(24 * var(--u,1vw));z-index:2}');
+    /* The larger frame stays within the rubber's width (83.4u), leaving room for a wide follow-through. */
+    expect(67.4+32/2).toBeCloseTo(83.4);
+    expect(css).toContain('.bp-pitcher{left:calc(67.4 * var(--u,1vw));right:auto;top:auto;bottom:calc(78.4 * var(--u,1vw));height:calc(32 * var(--u,1vw));z-index:2}');
+    expect(css).toContain('@media (orientation:portrait) and (max-height:760px)');
+    expect(css).toContain('.bp-pitcher{left:calc(73.4 * var(--u,1vw));height:calc(24 * var(--u,1vw))}');
     expect(css).toMatch(/\.bp-zone\{\s*left:calc\(44 \* var\(--u,1vw\)\);top:auto;bottom:calc\(19 \* var\(--u,1vw\)\);width:calc\(36 \* var\(--u,1vw\)\);/);
     expect(css.split('var(--u,1vw)').join('U')).not.toMatch(/\.bp-(batter|pitcher)\{[^}]*\dvw/);
   });
