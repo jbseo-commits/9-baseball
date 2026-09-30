@@ -94,3 +94,13 @@ All three are new 1024×1536 opaque RGB PNGs. C117 [`card-pullHook.png`](../../a
 ## C125 called-shot follow-up
 
 [`card-calledShot.png`](../../assets/cards-v15/card-calledShot.png) is a new 1024×1536 opaque RGB PNG. From behind home plate, #9 extends the bat toward one point on the outfield fence; a slim gold line makes the target visible without a baseball or swing. The pointing pose reads in the [100px preview](working/c125-called-shot-100px.png). No text or card frame is baked in. `src/duel/card-art.js` selects the named file before the power family fallback and sets its detail-sheet vertical focus to 0.29. The final card-window crop and mobile screen have not been visually approved. C126–C235 remain open.
+
+## C126 thunder follow-up
+
+[`card-thunder.png`](../../assets/cards-v15/card-thunder.png) is a new 1024×1536 opaque RGB PNG made with the built-in image generator using `family-power.png` and `card-calledShot.png` as visual references. The #9 batter misses one ball while the bat's golden shockwave crosses the strike-zone lights. The joined hands, bat, ball, and silhouette remain readable in the [100px preview](working/c126-thunder-100px.png). No text or card frame is baked in. `src/duel/card-art.js` selects this file before the power family fallback and sets its detail-sheet focus to 0.31. Final card-window crop and mobile screen remain unapproved. C127–C235 remain open.
+
+The female Red Rush knockout cut-in now plays stagger → mid-collapse → kneel with small camera movement and landing dust over 1.2 seconds; reduced-motion mode shows the kneeling pose without animation. This is a scoped timing pass, not final 10-screen animation approval.
+
+## C127 advance-hit follow-up
+
+[`card-advanceHit.png`](../../assets/cards-v15/card-advanceHit.png) is a new 1024×1536 opaque RGB PNG made with the built-in image generator using `family-relay.png` and `card-calledShot.png` as visual references. #9 drives one low ball to the right while one teammate rounds the bases on a cyan route. Batter, ball, and runner are distinguishable in the [100px preview](working/c127-advance-hit-100px.png), though the runner is small. No card frame or UI text is baked in. `src/duel/card-art.js` selects this file before the relay family fallback and sets its detail-sheet focus to 0.32. Final card-window crop and mobile screen remain unapproved. C128–C235 remain open.
