@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {CARDS,upgradeText,FAMILIES} from './cards.js';
+import {CARDS,upgradeText,FAMILIES,DECK_MAX} from './cards.js';
 import {shapeHas} from './engine.js';
 import {cardArtFor} from './card-art.js';
 import {V10_RELICS} from './v10-relics.js';
@@ -58,7 +58,8 @@ const COPY={
 /* what the go button names once an offer is picked */
 const offerName=o=>!o?'':o.type==='relic'?(V10_RELICS[o.relic]?.name||''):o.type==='rest'?'컨디션 회복':
   (CARDS[o.kind]?.name||'')+(o.type==='upgrade'?'+':'');
-const EMPTY={locker:'덱이 가장 얇다. 뺄 카드가 없다.',training:'더 단련할 카드가 없다.',shop:'덱이 가득 찼다.',rest:'쉴 것이 없다.'};
+const EMPTY={locker:'덱이 가장 얇다. 뺄 카드가 없다.',training:'더 단련할 카드가 없다.',shop:'덱이 가득 찼다.',rest:'쉴 것이 없다.',
+  reward:`덱이 가득 찼다 (${DECK_MAX}장). 라커룸에서 카드를 빼면 다시 받을 수 있다.`};
 
 const Glyph=({zones})=><span className="bp-glyph" aria-hidden="true">{Array.from({length:9},(_,z)=><i key={z} className={zones?.includes(z)?'on':''}/>)}</span>;
 /* coverage shape on a centred aim, for the card face */
