@@ -38,6 +38,9 @@ describe('V12 P0-1 baseline contract',()=>{
         // structure (map, deck, hand, pending pitch) still has to match.
         delete node.opponent.maxHp;
         delete node.opponent.escalation;
+        // Elite/boss gimmicks postdate this fixture; their copy is appended to threat/reward.
+        delete node.opponent.gimmicks;delete node.opponent.killZone;
+        if(node.type!=='battle'){delete node.opponent.threat;delete node.opponent.reward;delete node.reward;}
       }
       delete copy.pitcher.hp;delete copy.pitcher.maxHp;
       delete copy.battle.intent;

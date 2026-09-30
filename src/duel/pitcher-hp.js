@@ -82,10 +82,12 @@ export function applyPitcherOutcome(pitcher,outcome,opts={}){
   return {pitcher:next,result:{...calc,baseDamage:calc.damage,damage,damageMultiplier,damageBonus,hpAfter,locked:hpAfter<=0,duplicate:false}};
 }
 
-export const pitcherSelector=p=>p?({name:p.name,hp:p.hp,maxHp:p.maxHp,phase:p.phase,lastDamage:p.lastDamage}):null;
+export const pitcherSelector=p=>p?({name:p.name,hp:p.hp,maxHp:p.maxHp,phase:p.phase,lastDamage:p.lastDamage,
+  ...(int(p.armorMax)?{armor:p.armor||0,armorMax:p.armorMax}:{})}):null;
 
 export function isPitcherHp(p){
   return !!p&&typeof p.name==='string'&&int(p.hp)&&int(p.maxHp)&&p.maxHp>0&&p.hp>=0&&p.hp<=p.maxHp
     &&['steady','pressured','critical','defeated'].includes(p.phase)&&p.phase===pitcherPhase(p.hp,p.maxHp)
-    &&int(p.lastDamage)&&p.lastDamage>=0&&Array.isArray(p.pattern);
+    &&int(p.lastDamage)&&p.lastDamage>=0&&Array.isArray(p.pattern)
+    &&(p.armor===undefined||int(p.armor)&&p.armor>=0&&p.armor<=(p.armorMax??p.armor));
 }

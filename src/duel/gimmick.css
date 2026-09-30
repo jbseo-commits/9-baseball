@@ -1,0 +1,18 @@
+/* 강적·보스 기믹 배지 (GimmickBadges.jsx). 흐름 안 요소라 고정 레이어가 아니다. */
+.bp-gimmick{display:flex;flex-direction:column;gap:3px;max-width:100%;pointer-events:auto}
+.bp-gimmick-row{display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:0;margin:0;border:0;background:none;color:inherit;cursor:pointer;text-align:left;min-height:24px}
+.bp-gimmick-chip{display:inline-flex;align-items:center;gap:3px;padding:2px 5px;border:1px solid #c9523a;border-radius:3px;background:rgba(60,14,10,.82);font:400 10px/1.2 var(--bp-ko);color:#ffd9c9;white-space:nowrap}
+.bp-gimmick-chip i{font-style:normal;color:#ff8a5c}
+.bp-gimmick-chip b{font:400 10px/1 var(--bp-led,monospace);color:#ffdf72}
+.bp-gimmick-chip.on{border-color:#ff4d2e;box-shadow:0 0 6px rgba(255,77,46,.7)}
+.bp-gimmick-chip.broken{opacity:.55;text-decoration:line-through}
+.bp-gimmick-hits{font:400 10px/1 var(--bp-ko);color:var(--bp-bone-dim,#b7c2bb);white-space:nowrap}
+.bp-gimmick-hits.done{color:#ffdf72}
+.bp-gimmick-detail{list-style:none;margin:0;padding:5px 6px;border:1px solid rgba(201,82,58,.6);border-radius:3px;background:rgba(18,10,12,.92);display:flex;flex-direction:column;gap:4px;max-width:260px;font:400 10px/1.35 var(--bp-ko);color:#e9e2d6;white-space:normal}
+.bp-gimmick-detail li{display:flex;flex-direction:column;gap:1px}
+.bp-gimmick-detail .risk{color:#ff9f8a}
+.bp-gimmick-detail .reward{color:#9fe3a8}
+.bp-gimmick-bonus{color:#ffdf72}
+/* 결정구 존: 9존 칸 모서리 표식 */
+.bp-cell.kill{box-shadow:inset 0 0 0 2px rgba(255,77,46,.75)}
+.bp-kill-mark{position:absolute;top:2px;right:3px;font-style:normal;font-size:11px;line-height:1;color:#ff6a45;pointer-events:none}

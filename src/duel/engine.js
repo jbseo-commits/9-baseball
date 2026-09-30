@@ -1,6 +1,7 @@
 import {CARDS,SAVE_KEY,STAGES,LINEUP,BUILDS,ZONES,GROWTHS,growthCost,rewardChoices,cardPower,cardText,DECK_MIN,DECK_MAX,
   ZONE_ORDER,WIDEN_EVERY,PUTAWAY_REACH,READ_THRESHOLDS,observeScore,RELICS,RELIC_OFFERS,DECKBUILDER_BUILD,FACILITY_ROUTES,ROUTE_CHOICES,routeChoice,canUpgrade} from './cards.js';
 import {applyRewardToDeck,rewardProblem} from './deck.js';
+import {hasGimmick,isEnraged,armorFor,gimmickPlan,settleGimmicks,GIMMICK_TUNING} from './pitcher-gimmicks.js';
 const clone=s=>JSON.parse(JSON.stringify(s));
 const card=(s,id)=>s.deck.find(c=>c.id===id);
 const unit=(s,key)=>{s[key]=(Math.imul(s[key],1664525)+1013904223)>>>0;return s[key]/4294967296;};
@@ -60,7 +61,9 @@ export const activeRoute=s=>s?.build===DECKBUILDER_BUILD?routeChoice(s.stage,s.r
 export const battleTarget=s=>STAGES[s.stage].target+(activeRoute(s)?.targetDelta||0);
 export const pitcherProfile=s=>{
   const base=STAGES[s.stage].stats,routeBonus=s.version===10?0:(activeRoute(s)?.statBonus||0),opponentBonus=v10Opponent(s)?.statBonus||0;
-  const bonus=routeBonus+opponentBonus;
+  // 분노 기믹: HP 50% 이하로 몰린 투수는 능력이 오른다.
+  const rageBonus=s?.version===10&&isEnraged(v10Opponent(s),s.pitcher)?GIMMICK_TUNING.rageStat:0;
+  const bonus=routeBonus+opponentBonus+rageBonus;
   return {stuff:base.stuff+bonus,movement:base.movement+bonus,command:base.command+bonus};
 };
 export function baseIntent(s){
@@ -80,6 +83,9 @@ export function baseIntent(s){
   // V10 멘탈: 실점으로 흔들린 투수는 볼이 늘어난다. 공개 확률은 그대로 실제 분포다.
   const shaken=v10Shaken(s);
   if(shaken){weights[9]*=1+V10_MENTAL.ballBoost*shaken;detail+=` 실점으로 흔들림 ${shaken}단계 · 볼이 늘어납니다.`;}
+  // 결정구 기믹: 투스트라이크에서 결정구 존을 더 자주 던진다. 공개 확률은 그대로 실제 분포다.
+  const foe=v10Opponent(s);
+  if(b.strikes===2&&hasGimmick(foe,'killZone')&&Number.isInteger(foe.killZone)){weights[foe.killZone]+=GIMMICK_TUNING.killZoneWeight;detail+=' 투스트라이크 · 결정구 존을 노립니다.';}
   if(b.balls===3){weights[9]*=.4;detail+=' 3볼에서는 스트라이크 비중이 높아집니다.';}
   // Zones outside the repertoire are not thrown at all. This is what makes the first pitcher readable.
   const live=repertoire(s),width=repertoireWidth(s);
@@ -648,7 +654,7 @@ export function readDuel(storage){
 // ---- V10 additive run contract -------------------------------------------------
 // V9 remains untouched above. V10 UI must use these entry points so score-target
 // transitions cannot bypass pitcher HP or the deterministic run map.
-import {createPitcherHp,applyPitcherOutcome,pitcherSelector,damageForOutcome} from './pitcher-hp.js';
+import {createPitcherHp,applyPitcherOutcome,pitcherSelector,damageForOutcome,pitcherPhase} from './pitcher-hp.js';
 import {createRunMap,selectRunNode,completeRunNode,getRunNode,isCombatNode,runMapSelector} from './run-map.js';
 import {V10_SAVE_KEY as V10_STORAGE_KEY,saveV10State,readV10State} from './v10-storage.js';
 import {V10_RELICS,v10RelicOffers,v10RelicDamagePlan,v10RelicDamageRate} from './v10-relics.js';
@@ -672,8 +678,8 @@ export function v16DeckFamilies(deck=[]){
   for(const c of deck){if(V16_STARTER_KINDS.includes(c.kind))continue;const f=CARDS[c.kind]?.family;if(f)count[f]=(count[f]||0)+1;}
   return count;
 }
-export function v16DraftChoices({deck=[],act=1,tier=1,seed=0,count=3}={}){
-  const w={...(V16_RARITY_WEIGHTS[act]||V16_RARITY_WEIGHTS[1])};if(tier>=2)w.rare+=2;
+export function v16DraftChoices({deck=[],act=1,tier=1,seed=0,count=3,rareBoost=0}={}){
+  const w={...(V16_RARITY_WEIGHTS[act]||V16_RARITY_WEIGHTS[1])};if(tier>=2)w.rare+=2;w.rare+=rareBoost;
   const pool=Object.keys(CARDS).filter(k=>!V16_STARTER_KINDS.includes(k)&&w[rarityOf(CARDS[k])]>0
     &&!(CARDS[k].rarity==='signature'&&CARDS[k].act>act));
   let r=draftMix(seed>>>0)||1;const rnd=()=>{r=draftMix(r+0x9e3779b9);return r/4294967296;};
@@ -690,11 +696,14 @@ export function v16DraftChoices({deck=[],act=1,tier=1,seed=0,count=3}={}){
 }
 const v10RewardPool=s=>{
   const node=currentV10Node(s),tier=node?.opponent?.rewardTier||1;
-  const act=node?.act||1,picks=v16DraftChoices({deck:s.deck,act,tier,seed:(s.initialSeed^(node?.seed||0))>>>0,count:3});
+  // 기믹을 충분히 공략했으면 보상 등급 +1: 희귀 카드 비중이 크게 오른다
+  const rareBoost=v10GimmickRewardUp(s)?GIMMICK_TUNING.rareBoost:0;
+  const act=node?.act||1,picks=v16DraftChoices({deck:s.deck,act,tier,seed:(s.initialSeed^(node?.seed||0))>>>0,count:3,rareBoost});
   // elite/boss keep the act signature (wall / laser / commit) as the fourth candidate
   const sig=tier>=2?routeChoice(v10StageForNode(node),v10RouteForNode(node)?.id)?.rewardBonus:null;
-  return sig&&!picks.includes(sig)?[...picks,sig]:tier>=2?v16DraftChoices({deck:s.deck,act,tier,seed:(s.initialSeed^(node?.seed||0))>>>0,count:4}):picks;
+  return sig&&!picks.includes(sig)?[...picks,sig]:tier>=2?v16DraftChoices({deck:s.deck,act,tier,seed:(s.initialSeed^(node?.seed||0))>>>0,count:4,rareBoost}):picks;
 };
+export const v10GimmickRewardUp=s=>(s?.battle?.gimmickHits||0)>=GIMMICK_TUNING.rewardAt;
 const v10ShopPool=s=>{
   const node=currentV10Node(s);
   return v16DraftChoices({deck:s.deck,act:node?.act||1,tier:1,seed:(s.initialSeed^(node?.seed||0)^0x5f3759df)>>>0,count:3});
@@ -750,6 +759,8 @@ export function enterV10Node(state,nodeId){
   started.pitcher=createPitcherHp({
     name:node.opponent?.name||route.name,maxHp:v10HpForNode(node),seed:(node.seed^started.initialSeed)>>>0,style:node.opponent?.style||STAGES[stage].style,
   });
+  const armor=armorFor(node.opponent,started.pitcher.maxHp);
+  if(armor)started.pitcher={...started.pitcher,armor,armorMax:armor};
   started.v10={...started.v10,nodeId:node.id,opponent:clone(node.opponent),lastCombat:null,rewardChoices:[]};
   return started;
 }
@@ -867,7 +878,14 @@ export function playV10Action(state,action){
     next.battle.shaken=shakenAfter;
   }
   if(next.battle&&fxPlan.shake){const cap=v10MentalCap(next),was=v10Shaken(next);next.battle.shaken=Math.min(cap,was+fxPlan.shake);if(next.battle.shaken>was)fxPlan.events.push('투수 흔들림 '+next.battle.shaken+'/'+cap);shakenAfter=next.battle.shaken;}
-  next.pitcher=applied.pitcher;
+  // 강적·보스 기믹: 추가 피해 → 철갑 흡수 → 회복. 공략(보상 쪽 발동)은 보상 등급을 올린다.
+  const foe=next.v10?.opponent;
+  const gPlan=gimmickPlan({opponent:foe,pitcher:state.pitcher,strikesBefore:state.battle?.strikes||0,r,damage:applied.result.damage,bases:outcome.bases});
+  const gSettled=foe?.gimmicks?.length?settleGimmicks({opponent:foe,before:state.pitcher,after:applied.pitcher,plan:gPlan,bases:outcome.bases,phaseOf:pitcherPhase})
+    :{pitcher:applied.pitcher,damage:applied.result.damage,events:[]};
+  if(next.battle&&gPlan.exploit)next.battle.gimmickHits=(next.battle.gimmickHits||0)+gPlan.exploit;
+  applied.result={...applied.result,damage:gSettled.damage,hpAfter:gSettled.pitcher.hp,locked:gSettled.pitcher.hp<=0};
+  next.pitcher=gSettled.pitcher;
   const momentumAfter=next.battle?v10MomentumAfter(momentumBefore,{kind:r.kind,label:r.label||'',bases:outcome.bases}):momentumBefore;
   if(next.battle)next.battle.momentum=momentumAfter;
   const supportNames=(r.supportKinds||[]).map(k=>CARDS[k]?.name||k);
@@ -882,8 +900,10 @@ export function playV10Action(state,action){
     runnersBefore,runnerRate,runnerBonus,runsScored,shakenBefore,shakenAfter,
     momentumBefore,momentumAfter,momentumRate,stackRate:relicPlan0.damageRate,
     relicEvents:relicPlan.events,cardCount:stackCardCount,hpAfter:applied.result.hpAfter,
+    gimmickBonus:gPlan.bonus,gimmickHeal:gPlan.heal,gimmickEvents:[...gPlan.events,...gSettled.events],armor:next.pitcher.armor??null,
   }};
   const pressureEvents=[
+    ...gPlan.events,...gSettled.events,
     ...fxPlan.events,
     ...(momentumBefore>0&&applied.result.damage>0?['기세 '+momentumBefore+'단계 · 피해 ×'+momentumRate.toFixed(1)]:[]),
     ...(momentumAfter>momentumBefore?['기세 상승 '+momentumBefore+' → '+momentumAfter+' · 다음 공부터 ×'+v10MomentumRate(momentumAfter).toFixed(1)]:momentumAfter<momentumBefore?['기세 꺼짐 · 삼진']:[]),

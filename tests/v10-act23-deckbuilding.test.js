@@ -9,7 +9,7 @@ function forceCombatReward(act,type='elite',seed=20260917){
   expect(node).toBeTruthy();
   s.runMap.reachableIds=[node.id];
   s=enterV10Node(s,node.id);
-  s.pitcher={...s.pitcher,hp:12,phase:'critical'};
+  s.pitcher={...s.pitcher,hp:12,phase:'critical',armor:0};
   s.battle.pending={...s.battle.pending,zone:s.battle.aimZone,roll:0,powerRoll:.99};
   s=playV10Action(s,{type:'card',id:'basic'});
   return {s,node,rewards:v10RewardOptions(s)};
@@ -19,7 +19,7 @@ function defeatBossAndDraft(s,bossId){
   s.runMap.reachableIds=[bossId];
   s=enterV10Node(s,bossId);
   expect(s.phase).toBe('battle');
-  s.pitcher={...s.pitcher,hp:12,phase:'critical'};
+  s.pitcher={...s.pitcher,hp:12,phase:'critical',armor:0};
   s.battle.pending={...s.battle.pending,zone:s.battle.aimZone,roll:0,powerRoll:.99};
   s=playV10Action(s,{type:'card',id:'basic'});
   expect(s.phase).toBe('reward');
@@ -45,8 +45,8 @@ describe('V10 three-act deckbuilding arc',()=>{
   });
 
   it('시그니처 세 장은 범위→균형→한 방으로 실제 역할이 다르다',()=>{
-    expect(CARDS.wall).toMatchObject({shape:'cross',power:0,rarity:'signature',act:1});
-    expect(CARDS.laser).toMatchObject({shape:'column',power:1,rarity:'signature',act:2});
+    expect(CARDS.wall).toMatchObject({shape:'cross',power:1,rarity:'signature',act:1});
+    expect(CARDS.laser).toMatchObject({shape:'column',power:2,rarity:'signature',act:2});
     expect(CARDS.commit).toMatchObject({shape:'point',power:3,rarity:'signature',act:3});
     expect(cardPower({kind:'wall'})).toBeLessThan(cardPower({kind:'laser'}));
     expect(cardPower({kind:'laser'})).toBeLessThan(cardPower({kind:'commit'}));

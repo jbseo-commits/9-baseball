@@ -11,6 +11,9 @@ import cardArtSheet from '../../assets/ui-kit/cards/battle-core-v14-master-sheet
 import {cardArtFor,cardArtFocusFor} from './card-art.js';
 import {HomeRunCut,KnockoutCut} from './phone-art-v18.jsx';
 import {pitcherFigures,pitcherPortraits} from './pitcher-visuals.js';
+import GimmickBadges from './GimmickBadges.jsx';
+import './gimmick.css';
+import {hasGimmick} from './pitcher-gimmicks.js';
 import './ballpark.css';
 import './momentum.css';
 import BallparkCoach,{coachSeen} from './BallparkCoach.jsx';
@@ -84,6 +87,7 @@ export default function BallparkBattle({
   onSelect,onAim,onStack,onSwing,onTake,onDetail,onPile,onHome,onHelp,onToggleSound,sound=false,onJukebox=null,
   autoLesson=false,autoPlan=null,onExitLesson=null,previewMode=false,
 }){
+  const foe=s.v10?.opponent,killZone=hasGimmick(foe,'killZone')&&Number.isInteger(foe.killZone)?foe.killZone:null;
   const b=s.battle||{},rootRef=useRef(null),sceneRef=useRef(null),pitcherRef=useRef(null),zoneRef=useRef(null),flightRef=useRef(null);
   const [armed,setArmed]=useState(null),[commitBeat,setCommitBeat]=useState(null),commitTimer=useRef(null);
   const r=b.revealed,inFx=!!fxStage,deciding=s.phase==='battle'&&!inFx&&!locked&&!commitBeat;
@@ -423,6 +427,7 @@ const CARD_DESC_MAP={
           data-shaken={shaken} data-cap={mentalCap} key={'m'+shaken} aria-label={`투수 흔들림 ${shaken} / ${mentalCap}`+(shaken?' · 볼 증가 · 읽기 +1':'')}>
           <em>흔들림</em><span aria-hidden="true">{Array.from({length:mentalCap},(_,i)=><i key={i} className={i<shaken?'on':''}/>)}</span>
         </span>
+        <GimmickBadges opponent={s.v10?.opponent} pitcher={pitcher} hits={b.gimmickHits||0}/>
         {deciding&&runners>0&&<span className="bp-press" data-testid="bp-press" aria-label={`주자 ${runners}명 · 안타 피해 +${runnerPct}%`}><em>주자 압박</em><b>+{runnerPct}%</b></span>}
       </div>
       {voice&&<q className={'bp-voice m-'+moment} key={'q'+playToken+moment} data-testid="bp-voice">{voice}</q>}
@@ -460,10 +465,10 @@ const CARD_DESC_MAP={
           const share=(probs[z]||0)/inZone,dead=!live.includes(z),tok=tokens.filter(t=>t.z===z);
           const actual=judged&&landed&&r.zone===z;
           return <button key={z} type="button" disabled={!deciding} onClick={()=>pickZone(z)}
-            aria-label={word+(dead?' · 던지지 않는 코스':'')+(b.aimZone===z?' · 노림':'')} aria-pressed={b.aimZone===z}
-            className={'bp-cell'+(dead?' dead':'')+(cover.has(z)?' cover':'')+(support.has(z)?' assist':'')+(aimAt===z?' aim':'')+(armed?' target':'')+(actual?' actual'+(good?' good':''):'')}
+            aria-label={word+(dead?' · 던지지 않는 코스':'')+(b.aimZone===z?' · 노림':'')+(killZone===z?' · 결정구 존':'')} aria-pressed={b.aimZone===z}
+            className={'bp-cell'+(dead?' dead':'')+(cover.has(z)?' cover':'')+(support.has(z)?' assist':'')+(aimAt===z?' aim':'')+(armed?' target':'')+(actual?' actual'+(good?' good':''):'')+(killZone===z?' kill':'')}
             style={{'--heat':dead?0:Math.min(1,share*3).toFixed(2)}}>
-            {dead&&!cover.has(z)&&<small className="bp-dead">안 던짐</small>}{!dead&&deciding&&<span className={'bp-pct'+(z===topCell?' top':'')+(pct(z)===0?' zero':'')}>{pct(z)}%</span>}{tok.map(t=><b key={t.n} className="bp-token" data-board-order={t.n}>{t.n}</b>)}{actual&&<i className="bp-pitch-mark" aria-label="실제 공"/>}
+            {dead&&!cover.has(z)&&<small className="bp-dead">안 던짐</small>}{!dead&&deciding&&<span className={'bp-pct'+(z===topCell?' top':'')+(pct(z)===0?' zero':'')}>{pct(z)}%</span>}{tok.map(t=><b key={t.n} className="bp-token" data-board-order={t.n}>{t.n}</b>)}{actual&&<i className="bp-pitch-mark" aria-label="실제 공"/>}{killZone===z&&<i className="bp-kill-mark" aria-hidden="true">◎</i>}
           </button>;
         })}
         {/* CONNECT: the order links the engine scored, solid = connected (+HP back), dashed = broken */}
