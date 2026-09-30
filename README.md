@@ -1,13 +1,13 @@
 # 9ZONE SHOWDOWN
 
-**플레이: https://9-baseball.vercel.app/** (Vercel, main push 시 자동 배포 · PR마다 미리보기 URL 자동 생성)
-기존 GitHub Pages(`jjsjb88-alt.github.io/9-baseball/`)는 전환 확인 기간 동안 병행 유지한다. 세이브는 도메인별이라 두 주소 간 이어지지 않는다.
+**플레이: https://jbseo-commits.github.io/9-baseball/** (GitHub Pages, main push 시 자동 배포)
+저장소는 2026-10-01 `jjsjb88-alt/9-baseball`(계정 제한)에서 `jbseo-commits/9-baseball`로 옮겼다. 옛 주소(`jjsjb88-alt.github.io/9-baseball/`, `9-baseball.vercel.app`)는 갱신되지 않는다. 세이브는 도메인별이라 주소 간 이어지지 않는다.
 
 ## 배포 V8.10 · 덱 설계와 신뢰성 개선 (2026-09-15)
 
 현행 진입점은 `src/main.jsx → src/duel/App.jsx`. GitHub `deckbuilding-v8@87cba77`을 기준으로 통합했다.
 아래의 v8/v7 “미배포” 표시는 당시 기록이다. 코드 `5d1be77`의 [Actions 배포 성공](https://github.com/jjsjb88-alt/9-baseball/actions/runs/34896681529)과 공개 사이트의 동일 번들을 확인했다.
-[웹에서 플레이](https://jjsjb88-alt.github.io/9-baseball/). 공개 사이트에서 새 런·이어하기·첫 안타까지 검수했다.
+[웹에서 플레이](https://jbseo-commits.github.io/9-baseball/). 당시 공개 사이트에서 새 런·이어하기·첫 안타까지 검수했다.
 
 - 존 커버 적중 = 안타, 한 공 한 스윙, 선수/카드 분리를 유지한다.
 - 카드 추가·제거·강화·유물·건너뛰기 중 보상당 하나. 현재 덱, 다음 투수, 변경 전후를 비교한다.

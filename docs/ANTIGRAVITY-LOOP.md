@@ -5,6 +5,8 @@
 >
 > 이 문서는 `AGENTS.md`(저장소 공통 규칙)를 상속한다. 충돌하면 **이 문서가 더 엄격한 쪽으로 우선**한다.
 > 작업 목록은 [`docs/antigravity/QUEUE.md`](./antigravity/QUEUE.md)에 있다.
+>
+> **2026-10-01 저장소 이전 이후 (임시 규칙)**: 저장소는 `jbseo-commits/9-baseball`, main 배포는 GitHub Pages(https://jbseo-commits.github.io/9-baseball/)만 한다. Vercel은 새 저장소에 연결되지 않아 **브랜치 프리뷰 URL이 없다.** Vercel이 다시 연결될 때까지 §3 ⑧의 프리뷰 단계는 `node scripts/qa-shots.mjs`(로컬 `pnpm preview` 대상) 결과를 PR 본문에 붙이는 것으로 대신하고, 본문 맨 위에 "프리뷰 없음 — Vercel 미연결"이라고 적는다.
 
 ---
 
@@ -12,7 +14,7 @@
 
 **브랜치에서 하나 만들고 → 전부 검증하고 → PR + 프리뷰 URL 남기고 → 다음 항목. 머지는 절대 하지 않는다. 사용자에게 묻지 않는다.**
 
-main은 Vercel(https://9-baseball.vercel.app)과 GitHub Pages로 **바로 공개 배포**된다.
+main은 GitHub Pages(https://jbseo-commits.github.io/9-baseball/)로 **바로 공개 배포**된다. (Vercel 재연결 시 Vercel도)
 안티그래비티가 main에 닿는 순간 실수가 그대로 사용자에게 나간다. 그래서 main은 사람 문이다.
 대신 모든 `ag/` 브랜치는 push하면 Vercel이 **프리뷰 사이트**를 자동으로 만든다 (§3 ⑧). 사용자는 그 URL로 폰에서 직접 확인하고, 마음에 드는 것만 머지한다.
 

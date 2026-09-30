@@ -68,4 +68,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh api repos/${{ github.repository }}/issues/22/comments \
-            -f body='✅ MAIN BATTER STAND-IN DEPLOYED — https://jjsjb88-alt.github.io/9-baseball/ — unfinished batter character removed from production'
+            -f body='✅ MAIN BATTER STAND-IN DEPLOYED — https://jbseo-commits.github.io/9-baseball/ — unfinished batter character removed from production'
