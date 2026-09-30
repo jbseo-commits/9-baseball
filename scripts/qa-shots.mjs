@@ -4,7 +4,7 @@
    Usage:  npx vite --port 5199 &          (or any running dev/preview server)
            node scripts/qa-shots.mjs --url http://localhost:5199 --out work/qa
 
-   For each viewport (phone portrait 412×743, phone landscape 844×390, PC 1440×900) it loads a
+   For each viewport (phone portrait 412×743, small phone 375×667) it loads a
    fixed save from the engine and captures: map, battle (deciding), battle (result), reward.
    It checks what broke before: horizontal scroll, the page growing taller than the screen, and the
    pitcher being covered by the HUD. Writes PNGs + report.json; exits 1 when a check fails.
@@ -18,7 +18,9 @@ import {createV10Duel,enterV10Node,setAimZone,playV10Action} from '../src/duel/e
 
 const arg=(k,d)=>{const i=process.argv.indexOf('--'+k);return i>0?process.argv[i+1]:d;};
 const URL_=arg('url','http://localhost:5199'),OUT=arg('out','work/qa');
-const VIEWPORTS=[[412,743,'phone-portrait'],[844,390,'phone-landscape'],[1440,900,'pc']];
+/* portrait-only since 2026-09-28 (src/duel/layout-mode.js): a wide window renders the game inside a portrait
+   iframe, so landscape/PC viewports would show the same phone layout the top-level locators can't reach */
+const VIEWPORTS=[[412,743,'phone-portrait'],[375,667,'phone-small']];
 fs.mkdirSync(OUT,{recursive:true});
 
 async function loadPlaywright(){
@@ -49,7 +51,7 @@ for(const [w,h,label] of VIEWPORTS){
     const p=await browser.newPage({viewport:{width:w,height:h}});
     const errors=[];p.on('pageerror',e=>errors.push(e.message));
     await p.goto(URL_+'/?qa=1');
-    await p.evaluate(s=>{localStorage.clear();localStorage.setItem('9zone-v10-run',s);localStorage.setItem('9zone-hint-chase','done');},JSON.stringify(SAVES[key]));
+    await p.evaluate(s=>{localStorage.clear();localStorage.setItem('9zone-v10-run',s);localStorage.setItem('9zone-hint-chase','done');localStorage.setItem('9zone-bp-coach-v1','done');},JSON.stringify(SAVES[key]));
     await p.reload();await p.getByRole('button',{name:'이어하기',exact:true}).click();await p.waitForTimeout(1500);
     return {p,errors};
   };

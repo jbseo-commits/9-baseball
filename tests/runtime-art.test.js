@@ -26,7 +26,7 @@ describe('runtime art derivatives',()=>{
       expect(fs.existsSync(webp),m.file).toBe(true);
       expect(fs.statSync(webp).size).toBeLessThan(fs.statSync(src).size);
     }
-  });
+  },30000); // hashes every art master (~50 PNGs): over the 5s default on a busy runner
 
   it('swaps a matching PNG for its WebP and rewrites JS and CSS references',()=>{
     const [h,m]=Object.entries(manifest).find(([,m])=>/dex-red-rush/.test(m.src));

@@ -11,7 +11,9 @@ const expectedFacingCorrections={
 };
 
 const dimensions=file=>{
-  const data=fs.readFileSync(new URL(file,root));
+  /* the IHDR header is all we need: reading whole ~2MB sheets timed out on a cold disk */
+  const data=Buffer.alloc(26),fd=fs.openSync(new URL(file,root),'r');
+  try{fs.readSync(fd,data,0,26,0);}finally{fs.closeSync(fd);}
   expect(data.subarray(0,8).toString('hex')).toBe('89504e470d0a1a0a');
   return [data.readUInt32BE(16),data.readUInt32BE(20),data[25]];
 };

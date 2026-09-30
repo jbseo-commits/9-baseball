@@ -924,7 +924,7 @@ export function advanceV10Batter(state){
 export function claimV10Reward(state,action){
   if(state?.version!==10||state.phase!=='reward'||state.pitcher?.hp!==0||!action)return state;
   const pool=state.v10?.rewardChoices||[];
-  if(action.type==='add'&&!pool.includes(action.kind))return state;
+  if(action.type==='add'&&(!pool.includes(action.kind)||state.deck.length>=DECK_MAX))return state;
   if(!['add','skip'].includes(action.type))return state;
   const s=clone(state);
   if(action.type==='add'){
@@ -940,7 +940,8 @@ export function claimV10Reward(state,action){
   return s;
 }
 
-export const v10RewardOptions=state=>state?.version===10?[...(state.v10?.rewardChoices||[])]:[];
+/* a full deck (DECK_MAX) takes no more cards, same as the shop: the reward can only be passed */
+export const v10RewardOptions=state=>state?.version===10&&state.deck?.length<DECK_MAX?[...(state.v10?.rewardChoices||[])]:[];
 export const selectV10Pitcher=state=>state?.version===10?pitcherSelector(state.pitcher):null;
 export const selectV10Combat=state=>state?.version===10&&state.v10?.lastCombat?{...state.v10.lastCombat}:null;
 export const selectV10Map=state=>state?.version===10?runMapSelector(state.runMap):null;

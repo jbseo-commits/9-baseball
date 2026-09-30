@@ -694,6 +694,11 @@
 .bp-acts span:not(:last-child)::after{content:"";display:inline-block;width:16px;height:4px;margin-left:6px;background:url('../../assets/ui-kit/A8-steps-line-off.png') center/contain no-repeat;image-rendering:pixelated}
 .bp-acts span.live::after{background-image:url('../../assets/ui-kit/A8-steps-line-on.png')}
 .bp-msheet{display:grid;grid-template-columns:104px 1fr;gap:12px;padding:14px 16px calc(16px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--bp-line);background:#0b0e1c}
+/* the go button never falls below the fold on short phones (412x743, 375x667): the sheet is pinned to the
+   bottom (fixed — sticky can't work, .duel-app/body clip overflow-x and so own the scroll) and the body
+   keeps the sheet's measured height (--bp-msheet-h, BallparkMap) free so scrolling still shows the whole map */
+.bp-map:not(.wide) .bp-msheet{position:fixed;left:0;right:0;bottom:0;z-index:5;box-shadow:0 -10px 18px #07080dcc}
+.bp-map:not(.wide) .bp-mbody{padding-bottom:var(--bp-msheet-h,260px)}
 .bp-mpor{position:relative;height:150px;overflow:hidden;border:1px solid var(--bp-line);background:radial-gradient(ellipse at 50% 30%,#232a52,#0b0e1c);display:grid;place-items:center}
 .bp-mpor .bp-mglyph{transform:scale(2.2)}
 .bp-mpor-btn{position:absolute;inset:0;padding:0;border:0;background:none;cursor:zoom-in}

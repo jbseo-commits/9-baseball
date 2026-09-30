@@ -1,4 +1,4 @@
-import React,{useEffect,useMemo,useState} from 'react';
+import React,{useEffect,useLayoutEffect,useMemo,useRef,useState} from 'react';
 import {hpTicks} from './ballpark-copy.js';
 import stadium from '../../assets/duel/stadium.png';
 import mapIslandCity from '../../assets/production-art/mockup-world-v15/map-island-city.png';
@@ -42,6 +42,14 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
   const rows=Math.max(1,...here.map(n=>n.row+1)),lanes=Math.max(1,...here.map(n=>(n.lane??0)+1));
   const pos=n=>{const a=((n.lane??0)+.5)/lanes,b=rows>1?n.row/(rows-1):.5;return wide?{x:7+b*86,y:12+a*80}:{x:6+a*88,y:10+b*80};};
   const [pick,setPick]=useState(null);
+  /* the portrait sheet is pinned to the bottom (ballpark.css): keep its height free under the map */
+  const mapRef=useRef(null),sheetRef=useRef(null);
+  useLayoutEffect(()=>{
+    const m=mapRef.current,el=sheetRef.current;if(!m||!el)return;
+    const set=()=>m.style.setProperty('--bp-msheet-h',Math.ceil(el.getBoundingClientRect().height)+'px');
+    set();if(typeof ResizeObserver==='undefined')return;
+    const ro=new ResizeObserver(set);ro.observe(el);return ()=>ro.disconnect();
+  },[]);
   const chosen=byId.get(pick)||byId.get(reachableIds[0])||here[0];
   const later=[...new Set(nodes.map(n=>n.act))].filter(k=>k>act).map(k=>{
     const hp=nodes.filter(n=>n.act===k&&n.opponent).map(n=>n.opponent.maxHp);
@@ -66,7 +74,7 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
     </>;
   };
 
-  return <main className={'bp-map'+(wide?' wide':'')} aria-label="원정 지도">
+  return <main ref={mapRef} className={'bp-map'+(wide?' wide':'')} aria-label="원정 지도">
     <div className="bp-bar"><span>{act}막</span><span>덱 <b>{deckCount}</b>{relicCount?<> · 유물 <b>{relicCount}</b></>:null}</span></div>
     <div className="bp-mbody">
       <div className="bp-mleft">
@@ -89,7 +97,7 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
         </div>
         {!!later.length&&<p className="bp-acts">{later.map(l=><span key={l.k}>{l.k}막 · 투수 HP {l.lo}~{l.hi}</span>)}</p>}
       </div>
-      <aside className="bp-msheet" aria-live="polite">{sheet(chosen)}</aside>
+      <aside ref={sheetRef} className="bp-msheet" aria-live="polite">{sheet(chosen)}</aside>
     </div>
   </main>;
 }
