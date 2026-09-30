@@ -6,7 +6,7 @@
 
 ## 새 채팅에서 쓸 문장
 
-> `jjsjb88-alt/9-baseball`의 `ag/20260928-red-rush-female-art` 브랜치에 있는 `docs/art/FULL_MOCKUP_ASSET_AUDIT_2026-09-28.md`와 `docs/art/PHONE_ASSET_QUEUE.md`를 읽고 현재 GitHub와 대조해 **10개 목업 전체의 기존/확정 부족/조건부 에셋과 C항목(V16 카드 일러스트)**을 보여줘. 첫 번째 확정 미완료 항목만 휴대폰에서 만들 수 있도록 구체적인 이미지 제작 프롬프트를 줘. 내가 PNG를 한 장씩 올리면 원본과 목업을 비교해 검수하고, 합격한 파일만 새 버전 폴더와 체크리스트에 반영해. 레드 러시는 여성형을 유지해.
+> `jbseo-commits/9-baseball`의 `main` 브랜치에 있는 `docs/art/FULL_MOCKUP_ASSET_AUDIT_2026-09-28.md`, `docs/art/PHONE_ASSET_QUEUE.md`, `docs/art/V16-CARD-ART-QUEUE.md`를 읽고 현재 GitHub와 대조해 **10개 목업 전체의 기존/확정 부족/조건부 에셋과 C항목(V16 카드 일러스트)**을 보여줘. 이미 제작된 파일과 연결 상태를 다시 확인하고, 첫 번째 확정 미완료 항목만 휴대폰에서 만들 수 있도록 구체적인 이미지 제작 프롬프트를 줘. 내가 PNG를 한 장씩 올리면 원본과 목업을 비교해 검수하고, 합격한 파일만 새 버전 폴더와 체크리스트에 반영해. 레드 러시는 여성형을 유지해.
 
 ## 진행 규칙
 
