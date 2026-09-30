@@ -7,10 +7,12 @@
 /* ---- ending: A08 plate, A07 batter from behind on the left third; the right sky holds the copy ---- */
 .bp-stop.bp-end.won .bp-shead{background:none;min-height:clamp(260px,44dvh,440px);align-items:flex-end;justify-content:flex-end}
 .bp-stop.bp-end .end-hero{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.bp-stop.bp-end .end-hero .eh-plate{position:absolute;inset:0;background-size:cover;background-position:50% 60%;image-rendering:auto}
-.bp-stop.bp-end .end-hero .eh-batter{position:absolute;left:4%;bottom:-2%;height:94%;width:auto;filter:drop-shadow(0 8px 16px #000b)}
+.bp-stop.bp-end .end-hero .eh-plate{position:absolute;inset:0;background-size:cover;background-position:50% 60%;image-rendering:auto;animation:end-sky 12s ease-in-out infinite alternate}
+.bp-stop.bp-end .end-hero .eh-batter{position:absolute;left:4%;bottom:-2%;height:94%;width:auto;filter:drop-shadow(0 8px 16px #000b);animation:end-breath 5s ease-in-out infinite alternate}
 .bp-stop.bp-end .end-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#07080d00 30%,#07080d99 100%),linear-gradient(180deg,#07080d00 60%,#07080d 100%)}
 .bp-stop.bp-end.won .bp-stitle{position:relative;z-index:1;max-width:58%;text-align:right}
+@keyframes end-sky{from{transform:scale(1.03) translateX(-.5%)}to{transform:scale(1.05) translateX(.5%)}}
+@keyframes end-breath{from{transform:translateY(0)}to{transform:translateY(-.7%)}}
 
 /* ---- home-run cut-in: the verdict card becomes a 16:9 shot — A02 plate, A01 swing, A03 ball + trail
    leaving the bat. The card's text sits on a bottom gradient. The code draws no second ball here. ---- */
@@ -45,6 +47,7 @@
 @keyframes ko-sink{from{transform:none}to{transform:translateY(8%) rotate(6deg)}}
 
 @media (prefers-reduced-motion:reduce){
+  .bp-stop.bp-end .end-hero .eh-plate,.bp-stop.bp-end .end-hero .eh-batter{animation:none}
   .bp-verdict .hr-batter,.bp-verdict .hr-trail,.bp-verdict .ko-figure{animation:none}
   .bp-verdict .ko-stagger,.bp-verdict .ko-mid{animation:none;opacity:0}
   .bp-verdict .ko-kneel{animation:none;opacity:1}

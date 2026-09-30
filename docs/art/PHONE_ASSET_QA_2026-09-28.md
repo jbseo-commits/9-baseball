@@ -104,3 +104,13 @@ The female Red Rush knockout cut-in now plays stagger → mid-collapse → kneel
 ## C127 advance-hit follow-up
 
 [`card-advanceHit.png`](../../assets/cards-v15/card-advanceHit.png) is a new 1024×1536 opaque RGB PNG made with the built-in image generator using `family-relay.png` and `card-calledShot.png` as visual references. #9 drives one low ball to the right while one teammate rounds the bases on a cyan route. Batter, ball, and runner are distinguishable in the [100px preview](working/c127-advance-hit-100px.png), though the runner is small. No card frame or UI text is baked in. `src/duel/card-art.js` selects this file before the relay family fallback and sets its detail-sheet focus to 0.32. Final card-window crop and mobile screen remain unapproved. C128–C235 remain open.
+
+## C128–C129 relay follow-up
+
+Both are new 1024×1536 opaque RGB PNGs made with the built-in image generator. C128 [`card-hitAndRun.png`](../../assets/cards-v15/card-hitAndRun.png) shows #9 swinging as a teammate has already left the base, with a vertical three-cell light behind the pitch; [100px preview](working/c128-hit-and-run-100px.png). C129 [`card-squeeze.png`](../../assets/cards-v15/card-squeeze.png) shows a low bunt contact and one runner breaking from third toward home; [100px preview](working/c129-squeeze-100px.png). Both use `family-relay.png` as a style reference; C128 also uses C127, and C129 also uses `card-bunt.png`. No card frame or UI text is baked in. `src/duel/card-art.js` selects the named files and sets detail-sheet vertical focus to 0.31 and 0.34. Final card-window crops and mobile screens remain unapproved. C130–C235 remain open.
+
+The ending's existing A07 batter and A08 stadium plate now have subtle independent motion: a 12-second sky drift and 5-second breathing movement. Reduced-motion mode leaves both still. This is a scoped timing pass, not final 10-screen animation approval.
+
+## C130 table-setter follow-up
+
+[`card-tableSetter.png`](../../assets/cards-v15/card-tableSetter.png) is a new 1024×1536 opaque RGB PNG made with the built-in image generator using `card-calledShot.png` and `family-relay.png` as visual references. #9 drops the bat safely and accelerates toward first while one low ball reaches open outfield; the bases are empty. The sprint silhouette, first-base path, and ball direction read in the [100px preview](working/c130-table-setter-100px.png). No card frame or UI text is baked in. `src/duel/card-art.js` selects this file before the relay fallback and sets its detail-sheet focus to 0.30. Final card-window crop and mobile screen remain unapproved. C131–C235 remain open.
