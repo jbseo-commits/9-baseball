@@ -1167,44 +1167,13 @@
 .bp-pitcher>.sprite-stage{translate:calc((.5 - var(--stance-x,.5)) * 100%) calc((1 - var(--stance-y,1)) * 100%)}
 
 /* ── 엘리트·보스 시각 효과 ──────────────────────────────────────────
-   모두 장식(pointer-events:none)이고 .bp-scene[data-gimmick] 속성만 읽는다. 투수 뒤 오라(::before of .bp-pitcher)와
-   장면 가장자리 연출(.bp-scene::before)로 이루어지며, HP 단계(data-gphase)가 내려갈수록 빨라지고 진해진다. */
-.bp-scene[data-gimmick]{--g:#6fb7ff;--g2:#2a5cff;--gi:.8;--gdur:3.4s;--gscale:1}
-.bp-scene[data-gtier=boss]{--gi:1;--gscale:1.25}
-.bp-scene[data-gphase=pressured]{--gdur:2.2s;--gi:.95}
-.bp-scene[data-gphase=critical]{--gdur:1.2s;--gi:1}
-.bp-scene[data-gtier=boss][data-gphase=pressured]{--gi:.95}
-.bp-scene[data-gimmick=pressure]{--g:#6fb7ff;--g2:#2a5cff}
-.bp-scene[data-gimmick=trick]{--g:#ff5fe0;--g2:#27e6ff}
-.bp-scene[data-gimmick=bluff]{--g:#d4325a;--g2:#7a2ad1}
-.bp-scene[data-gimmick=tyrant]{--g:#34e8a0;--g2:#0b8a5a}
-.bp-scene[data-gimmick=halo]{--g:#eef6ff;--g2:#8fb8ff}
-.bp-scene[data-gimmick=eclipse]{--g:#ffb347;--g2:#7a2ad1}
-.bp-scene[data-gimmick] .bp-pitcher{isolation:isolate}
-.bp-scene[data-gimmick] .bp-pitcher::before{content:"";position:absolute;inset:-40%;z-index:-1;pointer-events:none;border-radius:50%;
-  transform:scale(var(--gscale));opacity:var(--gi);
-  background:radial-gradient(circle,color-mix(in srgb,var(--g) 85%,transparent) 0,color-mix(in srgb,var(--g2) 60%,transparent) 28%,#05060cb0 50%,transparent 70%);
-  animation:bp-gpulse var(--gdur) ease-in-out infinite}
-@keyframes bp-gpulse{0%{opacity:calc(var(--gi)*.6);transform:scale(calc(var(--gscale)*.94))}50%{opacity:var(--gi);transform:scale(calc(var(--gscale)*1.06))}100%{opacity:calc(var(--gi)*.6);transform:scale(calc(var(--gscale)*.94))}}
-/* 장면 가장자리: 단계가 내려가면 테두리가 조여 온다 */
-.bp-scene[data-gimmick]::before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;
-  background:radial-gradient(ellipse 80% 78% at 50% 50%,transparent 62%,color-mix(in srgb,var(--g2) 38%,transparent) 100%);opacity:calc(var(--gi)*.7)}
-.bp-scene[data-gphase=critical]::before{animation:bp-gedge var(--gdur) ease-in-out infinite}
-@keyframes bp-gedge{50%{opacity:calc(var(--gi)*1.1)}}
-/* 캐릭터별 모양 */
-.bp-scene[data-gimmick=trick] .bp-pitcher::before{animation:bp-gglitch var(--gdur) steps(6,end) infinite;
-  background:conic-gradient(from 0deg,color-mix(in srgb,var(--g) 55%,transparent),color-mix(in srgb,var(--g2) 55%,transparent),color-mix(in srgb,var(--g) 55%,transparent));filter:blur(10px)}
-@keyframes bp-gglitch{0%{transform:translate(0,0) scale(var(--gscale))}20%{transform:translate(4%,-2%) scale(var(--gscale))}40%{transform:translate(-3%,3%) scale(var(--gscale))}60%{transform:translate(2%,1%) scale(var(--gscale));filter:blur(10px) hue-rotate(60deg)}100%{transform:translate(0,0) scale(var(--gscale))}}
-.bp-scene[data-gimmick=bluff] .bp-pitcher::before{animation:bp-gswirl calc(var(--gdur)*3) linear infinite;filter:blur(8px);
-  background:conic-gradient(color-mix(in srgb,var(--g) 60%,transparent),transparent 25%,color-mix(in srgb,var(--g2) 60%,transparent) 50%,transparent 75%,color-mix(in srgb,var(--g) 60%,transparent))}
-@keyframes bp-gswirl{to{transform:rotate(360deg) scale(var(--gscale))}}
-.bp-scene[data-gimmick=pressure] .bp-pitcher::before{border-radius:0;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);filter:blur(6px)}
-.bp-scene[data-gimmick=tyrant]::before{background:linear-gradient(0deg,#052a1cd9 0,color-mix(in srgb,var(--g2) 65%,transparent) 14%,transparent calc(24% + 12%*var(--gi)));opacity:1}
-.bp-scene[data-gimmick=halo] .bp-pitcher::after{content:"";position:absolute;left:12%;right:12%;top:-34%;height:26%;z-index:-1;pointer-events:none;border-radius:50%;
-  border:3px solid color-mix(in srgb,var(--g) 90%,transparent);box-shadow:0 0 14px var(--g),inset 0 0 10px var(--g2);opacity:var(--gi);animation:bp-gpulse var(--gdur) ease-in-out infinite}
-.bp-scene[data-gimmick=eclipse] .bp-pitcher::before{inset:-30%;border-radius:50%;
-  background:radial-gradient(circle,#05030a 0,#05030a 34%,color-mix(in srgb,var(--g) 85%,transparent) 38%,color-mix(in srgb,var(--g2) 45%,transparent) 52%,transparent 70%);opacity:calc(var(--gi)*.9)}
-.bp-scene[data-gimmick=eclipse][data-gphase=critical] .bp-pitcher::before{inset:-45%}
+   도트 캔버스(GimmickVfx, gimmick-vfx.js)가 투수 뒤에 그려진다. 여기서는 배치와 단계별 화면 가장자리 연출만 맡는다.
+   모두 장식(pointer-events:none)이며 .bp-scene[data-gimmick][data-gtier][data-gphase] 속성만 읽는다. */
+.bp-scene[data-gimmick] .bp-pitcher{isolation:isolate;z-index:1} /* 도트 VFX가 pixi 투수 스프라이트(z 2) 뒤로 가게 */
+.bp-scene.pixi-pitcher .bp-pitcher>canvas.bp-gvfx,.bp-pitcher>canvas.bp-gvfx{visibility:visible;position:absolute;left:-60%;top:-62%;width:220%;height:220%;z-index:-1;pointer-events:none;image-rendering:pixelated}
+.bp-scene[data-gphase=critical]::before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:radial-gradient(ellipse 80% 78% at 50% 50%,transparent 66%,#0a0a1ccc 100%);animation:bp-gedge 1.4s ease-in-out infinite}
+@keyframes bp-gedge{0%{opacity:.5}50%{opacity:1}100%{opacity:.5}}
 /* 이름표 줄 라벨 */
 .bp-gtier{font:400 10px/1 var(--bp-led);font-style:normal;letter-spacing:.12em;padding:2px 5px;border:1px solid var(--g,#f5c04a);color:var(--g,#f5c04a);border-radius:2px}
 .bp-scene[data-gtier=boss]~* .bp-gtier,.bp-pcol .bp-gtier{--g:#f5c04a}
@@ -1217,5 +1186,5 @@
 .bp-node:not(.reach):not(.done):not(.sel)[data-gm]::after{opacity:.3;animation:none}
 @keyframes bp-gring{50%{opacity:.25;transform:scale(1.12)}}
 @media (prefers-reduced-motion:reduce){
-  .bp-scene[data-gimmick] .bp-pitcher::before,.bp-scene[data-gimmick] .bp-pitcher::after,.bp-scene[data-gimmick]::before,.bp-node[data-gm]::after{animation:none!important}
+  .bp-scene[data-gimmick]::before,.bp-node[data-gm]::after{animation:none!important}
 }
