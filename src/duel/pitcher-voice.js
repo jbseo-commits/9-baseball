@@ -140,7 +140,7 @@ export const PITCHER_VOICE={
     homer:['태풍을 정면으로 깼어... 인정할게.'],
     knockout:['돌풍도 잠잠해질 때가 있지. 다음엔 더 거세게 몰아칠 거야.'],
   },
-  // 볼칸 듀란 — 29, massive hulking flamethrower closer. Fierce, roaring, overpowering with a 103mph splinker.
+  // 볼칸 블레이즈 — 28, female flamethrower closer. Fierce, roaring, overpowering with a 103mph splinker.
   'vulcan-blaze':{
     entry:['눈 깜빡이지 마라. 103마일이 꽂힌다.','타석이 녹아내릴 테니 조심해.'],
     chase:['방금 봤나? 볼 수도 없이 지나갔을 텐데.','바람만 갈랐군.'],

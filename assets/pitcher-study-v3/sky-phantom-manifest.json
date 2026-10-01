@@ -1,101 +1,109 @@
 {
-  "id": "sky-phantom-pitch-v1",
   "character": "sky-phantom",
-  "facing": "toward-camera",
-  "throws": "toward-camera",
+  "atlas": "atlases/sky-phantom-pitch-120-atlas.png",
   "frameCount": 120,
   "uniqueFrameCount": 120,
   "fps": 60,
-  "durationMs": 2000,
-  "releaseFrame": 76,
-  "frameSize": [
-    256,
-    256
-  ],
-  "atlas": "atlases/sky-phantom-pitch-120-atlas.png",
-  "atlasColumns": 10,
-  "atlasRows": 12,
-  "authoredPoseCount": 12,
+  "cols": 10,
+  "rows": 12,
+  "cellWidth": 256,
+  "cellHeight": 256,
   "keyPoses": [
     {
       "frame": 0,
       "pose": "set",
       "source": "keys",
-      "cell": 0
+      "cell": 0,
+      "ticks": 9
     },
     {
       "frame": 9,
       "pose": "hands-rise",
       "source": "bridges",
-      "cell": 0
+      "cell": 0,
+      "ticks": 8
     },
     {
       "frame": 17,
       "pose": "coil",
       "source": "keys",
-      "cell": 1
+      "cell": 1,
+      "ticks": 9
     },
     {
       "frame": 26,
       "pose": "deeper-coil",
       "source": "bridges",
-      "cell": 1
+      "cell": 1,
+      "ticks": 8
     },
     {
       "frame": 34,
-      "pose": "high-leg-lift",
+      "pose": "high-leg-kick",
       "source": "keys",
-      "cell": 2
+      "cell": 2,
+      "ticks": 9
     },
     {
       "frame": 43,
       "pose": "knee-lower",
       "source": "bridges",
-      "cell": 2
+      "cell": 2,
+      "ticks": 8
     },
     {
       "frame": 51,
       "pose": "stride",
       "source": "keys",
-      "cell": 3
+      "cell": 3,
+      "ticks": 9
     },
     {
       "frame": 60,
       "pose": "foot-plant",
       "source": "bridges",
-      "cell": 3
+      "cell": 3,
+      "ticks": 8
     },
     {
       "frame": 68,
       "pose": "arm-whip",
       "source": "bridges",
-      "cell": 4
+      "cell": 4,
+      "ticks": 8
     },
     {
       "frame": 76,
       "pose": "release",
       "source": "keys",
-      "cell": 4
+      "cell": 4,
+      "ticks": 6
     },
     {
       "frame": 82,
       "pose": "follow-through",
       "source": "keys",
-      "cell": 5
+      "cell": 5,
+      "ticks": 18
     },
     {
       "frame": 100,
       "pose": "recovery",
       "source": "bridges",
-      "cell": 5
+      "cell": 5,
+      "ticks": 20
     }
   ],
-  "facingCorrections": [],
+  "authoredPoseCount": 12,
+  "id": "sky-phantom-pitch-v1",
   "name": "스카이 팬텀",
+  "facing": "toward-camera",
+  "throws": "toward-camera",
   "viewpoint": "catcher-behind-home-plate",
   "throwsWith": "right",
   "gloveHand": "left",
   "armSlot": "high-overhand",
   "signaturePitch": "ghost-fork",
+  "releaseFrame": 76,
   "runtimeIntegrated": true
 }
