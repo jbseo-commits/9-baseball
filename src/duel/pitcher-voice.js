@@ -125,6 +125,21 @@ export const PITCHER_VOICE={
     homer:['하늘 끝까지 날려버렸네... 인정해.'],
     knockout:['유령도 지칠 때가 있지. 다음엔 더 높이서 떨어뜨려 줄게.'],
   },
+  // 게일 트위스터 — 27, jade braided ponytail, high three-quarter righty. Fierce, teasing, unpredictable with an Airbender changeup.
+  'gale-twister':{
+    entry:['어디로 꺾일지 맞혀볼래?','바람을 가르는 소리 들려?'],
+    chase:['방금 건 미끼였는데~','공이 도망가는 게 보였어?'],
+    whiff:['공기만 베어버렸네!','눈 깜빡하면 놓쳐.'],
+    strikeout:['잡을 수 없는 바람이야.','손끝 회전, 따라올 수 있겠어?'],
+    looking:['서서 얼어버렸네?','지켜보기만 해도 어지럽지.'],
+    walk:['회전이 좀 넘쳤나 보네.'],
+    foul:['빗겨 맞았네. 아깝다~'],
+    out:['회전 속에 갇혀버렸어.'],
+    hit:['어라? 바람을 뚫었네.','조금은 방심했어.'],
+    extra:['내 역회전을 받아쳐? 대단한데.'],
+    homer:['태풍을 정면으로 깼어... 인정할게.'],
+    knockout:['돌풍도 잠잠해질 때가 있지. 다음엔 더 거세게 몰아칠 거야.'],
+  },
   // 코발트 임팩트 — 29, cobalt twin braids, power arm. Bold, loud, generous, loves strength.
   'elite-01-cobalt-impact':{
     entry:['힘 대 힘. 좋지?','피하지 마. 정면으로 와.'],
