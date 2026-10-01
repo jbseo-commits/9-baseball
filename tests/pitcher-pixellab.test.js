@@ -63,7 +63,8 @@ describe('PixelLab pitch animations',()=>{
     expect(String(pitcherAtlases['tide-vesper'])).toContain('pitcher-study-v2');
     expect(String(pitcherAtlases['sky-phantom'])).toContain('pitcher-study-v3');
     expect(String(pitcherAtlases['gale-twister'])).toContain('pitcher-study-v4');
-    expect(Object.keys(pitcherAtlases)).toHaveLength(15);
+    expect(String(pitcherAtlases['vulcan-blaze'])).toContain('pitcher-study-v5');
+    expect(Object.keys(pitcherAtlases)).toHaveLength(16);
   });
 
   it('puts her feet on the rubber, the stride dust under her front foot and the ball in her hand',()=>{

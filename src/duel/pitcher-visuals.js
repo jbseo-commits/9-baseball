@@ -6,6 +6,8 @@ import skyPhantomAtlas from '../../assets/pitcher-study-v3/atlases/sky-phantom-p
 import skyPhantomPortrait from '../../assets/pitcher-study-v3/source/sky-phantom-release.png';
 import galeTwisterAtlas from '../../assets/pitcher-study-v4/atlases/gale-twister-pitch-120-atlas.png';
 import galeTwisterPortrait from '../../assets/pitcher-study-v4/source/gale-twister-release.png';
+import vulcanBlazeAtlas from '../../assets/pitcher-study-v5/atlases/vulcan-blaze-pitch-120-atlas.png';
+import vulcanBlazePortrait from '../../assets/pitcher-study-v5/source/vulcan-blaze-release.png';
 
 // V15 & V16 Masterpiece Dex portraits (verified via DEX_QA_V16.md)
 import dexRedRush from '../../assets/production-art/mockup-world-v15/dex-red-rush.png';
@@ -50,6 +52,7 @@ export const pitcherAtlases={
   'tide-vesper':tideVesperAtlas,
   'sky-phantom':skyPhantomAtlas,
   'gale-twister':galeTwisterAtlas,
+  'vulcan-blaze':vulcanBlazeAtlas,
 };
 
 /* transparent roster cutouts: for silhouettes and anything drawn over a scene (map nodes use brightness(0)) */
@@ -58,6 +61,7 @@ export const pitcherFigures={
   'tide-vesper':tideVesperPortrait,
   'sky-phantom':skyPhantomPortrait,
   'gale-twister':galeTwisterPortrait,
+  'vulcan-blaze':vulcanBlazePortrait,
 };
 
 /* opaque dex portraits: framed views only (map preview, reward, ending, portrait dialog) */
@@ -66,6 +70,7 @@ export const pitcherPortraits={
   'tide-vesper':tideVesperPortrait,
   'sky-phantom':skyPhantomPortrait,
   'gale-twister':galeTwisterPortrait,
+  'vulcan-blaze':vulcanBlazePortrait,
   'regular-01-red-rush':dexRedRush,
   'regular-02-teal-mirage':dexTealMirage,
   'regular-03-amber-sinker':dexAmberSinker,

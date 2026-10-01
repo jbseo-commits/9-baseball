@@ -140,6 +140,21 @@ export const PITCHER_VOICE={
     homer:['태풍을 정면으로 깼어... 인정할게.'],
     knockout:['돌풍도 잠잠해질 때가 있지. 다음엔 더 거세게 몰아칠 거야.'],
   },
+  // 볼칸 듀란 — 29, massive hulking flamethrower closer. Fierce, roaring, overpowering with a 103mph splinker.
+  'vulcan-blaze':{
+    entry:['눈 깜빡이지 마라. 103마일이 꽂힌다.','타석이 녹아내릴 테니 조심해.'],
+    chase:['방금 봤나? 볼 수도 없이 지나갔을 텐데.','바람만 갈랐군.'],
+    whiff:['공의 열기에 방망이가 녹았나?','늦었어. 한참 늦었어.'],
+    strikeout:['타석 뒤로 물러서라.','이 구속은 인간의 눈으로 못 친다.'],
+    looking:['그냥 얼어붙었군.','칠 엄두도 안 났겠지.'],
+    walk:['손끝에 불이 너무 붙었군.'],
+    foul:['파울로 버티는 것도 여기까지다.'],
+    out:['내 강속구에 눌렸군.'],
+    hit:['...103마일을 건드렸다고?','제법 단단한 방망이군.'],
+    extra:['내 불꽃을 받아쳤군. 인정하지.'],
+    homer:['...화염을 뚫고 넘겼다고?! 대단한 녀석이다.'],
+    knockout:['화염이 식었군. 하지만 다음엔 마운드가 완전히 불타오를 거다.'],
+  },
   // 코발트 임팩트 — 29, cobalt twin braids, power arm. Bold, loud, generous, loves strength.
   'elite-01-cobalt-impact':{
     entry:['힘 대 힘. 좋지?','피하지 마. 정면으로 와.'],
