@@ -1,4 +1,4 @@
-"""Clean defringing, head-locked gaze, and smooth animation builder for catcher-facing pitchers."""
+"""Clean defringing, head-locked gaze, consistent cap, and smooth athletic in-betweening for catcher-facing pitchers."""
 from __future__ import annotations
 
 import hashlib
@@ -19,25 +19,30 @@ SCALE = 4
 ALPHA_CUTOFF = 45
 
 
-def remove_white_bg_defringed(img_path: str | Path, target_size: tuple[int, int]) -> Image.Image:
-    """Extract foreground from white background with 2-pixel erosion and black transparent background."""
+def remove_white_bg_defringed(
+    img_path: str | Path,
+    target_size: tuple[int, int] = (1536, 1024),
+    extra_seeds: tuple[tuple[int, int], ...] = (),
+) -> Image.Image:
+    """Extract foreground from white background with 1-pixel erosion and black transparent background."""
     img = Image.open(img_path).convert("RGB")
     if img.size != target_size:
         img = img.resize(target_size, Image.Resampling.LANCZOS)
     arr = np.asarray(img).copy()
     h, w, _ = arr.shape
 
-    # Erase thin authored ground lines that enclose white space between feet
-    for y in range(6, h - 6):
-        isolated = (np.min(arr[y - 6, :, :], axis=1) > 230) & (np.min(arr[y + 6, :, :], axis=1) > 230)
-        dark_on_row = isolated & (np.min(arr[y, :, :], axis=1) < 160)
-        if np.sum(dark_on_row) > 40:
-            arr[y, dark_on_row, :] = 255
+    # Erase thin authored ground lines under top row (around h * 0.47) and bottom row (around h * 0.97)
+    for y_range in (range(int(h * 0.44), int(h * 0.50)), range(int(h * 0.94), h - 7)):
+        for y in y_range:
+            isolated = (np.min(arr[y - 6, :, :], axis=1) > 230) & (np.min(arr[y + 6, :, :], axis=1) > 230)
+            dark_on_row = isolated & (np.min(arr[y, :, :], axis=1) < 160)
+            if np.sum(dark_on_row) > 10:
+                arr[y, dark_on_row, :] = 255
 
     max_c = np.max(arr, axis=2)
     min_c = np.min(arr, axis=2)
     sat = max_c - min_c
-    is_white = (min_c > 200) & (sat < 40)
+    is_white = (min_c > 220) & (sat < 30)
 
     mask = np.zeros((h, w), dtype=bool)
     q = deque()
@@ -56,6 +61,11 @@ def remove_white_bg_defringed(img_path: str | Path, target_size: tuple[int, int]
             q.append((y, w - 1))
             mask[y, w - 1] = True
 
+    for sy, sx in extra_seeds:
+        if 0 <= sy < h and 0 <= sx < w and is_white[sy, sx] and not mask[sy, sx]:
+            q.append((sy, sx))
+            mask[sy, sx] = True
+
     while q:
         y, x = q.popleft()
         for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1)):
@@ -64,37 +74,46 @@ def remove_white_bg_defringed(img_path: str | Path, target_size: tuple[int, int]
                 mask[ny, nx] = True
                 q.append((ny, nx))
 
-    # Also clear any enclosed pure white background islands (e.g. between legs/under arms)
-    # Any unmasked region where all pixels are pure flat white (min > 248, sat < 8) is background
-    pure_white = (min_c > 248) & (sat < 8) & (~mask)
-    if np.any(pure_white):
-        mask[pure_white] = True
+    clean = np.zeros((h, w, 4), dtype=np.uint8)
+    clean[~mask, :3] = arr[~mask]
+    clean[~mask, 3] = 255
 
-    # Invert mask to get initial alpha
-    alpha = np.where(mask, 0, 255).astype(np.uint8)
-    alpha_img = Image.fromarray(alpha, "L")
+    # 1px alpha erosion to eliminate antialiased edge halo
+    alpha_im = Image.fromarray(clean[:, :, 3])
+    eroded_alpha = alpha_im.filter(ImageFilter.MinFilter(3))
+    clean[:, :, 3] = np.asarray(eroded_alpha)
 
-    # MinFilter(5) strips the antialiased 2px white halo border completely
-    alpha_eroded = np.asarray(alpha_img.filter(ImageFilter.MinFilter(5)))
-
-    # Zero out RGB of all transparent pixels (critical: avoids white bleed during scaling/transform)
-    clean_rgb = arr.copy()
-    clean_rgb[alpha_eroded == 0] = 0
-    return Image.fromarray(np.dstack([clean_rgb, alpha_eroded]), "RGBA")
+    # Clean transparent pixels to black: prevents white bleed when downscaled or rendered over dark textures
+    clean[clean[:, :, 3] == 0, :3] = 0
+    return Image.fromarray(clean)
 
 
 def connected_silhouettes(sheet: Image.Image) -> list[Image.Image]:
-    """Find the six large character silhouettes on a transparent sheet across cells."""
-    alpha = np.asarray(sheet.getchannel("A").resize(
-        (sheet.width // SCALE, sheet.height // SCALE), Image.Resampling.BOX
-    ))
-    occupied = alpha > ALPHA_CUTOFF
-    height, width = occupied.shape
-    seen = np.zeros((height, width), dtype=np.bool_)
+    """Isolate 6 connected components from a 3x2 grid."""
+    alpha = np.asarray(sheet.getchannel("A"))
+    height, width = alpha.shape
+    coarse_alpha = Image.fromarray(alpha).resize(
+        (width // SCALE, height // SCALE), Image.Resampling.BILINEAR
+    )
+    arr = np.asarray(coarse_alpha) > ALPHA_CUTOFF
+
+    # Close small gaps in lineart
+    dilated = np.pad(arr, 1, mode="constant")
+    closed = (
+        dilated[:-2, 1:-1]
+        | dilated[2:, 1:-1]
+        | dilated[1:-1, :-2]
+        | dilated[1:-1, 2:]
+        | arr
+    )
+
+    seen = np.zeros(closed.shape, dtype=bool)
+    height, width = closed.shape
     components: list[tuple[int, list[tuple[int, int]], float, float]] = []
+
     for y in range(height):
         for x in range(width):
-            if seen[y, x] or not occupied[y, x]:
+            if not closed[y, x] or seen[y, x]:
                 continue
             seen[y, x] = True
             todo = [(x, y)]
@@ -105,10 +124,22 @@ def connected_silhouettes(sheet: Image.Image) -> list[Image.Image]:
                 pixels.append((px, py))
                 sum_x += px
                 sum_y += py
-                for nx, ny in ((px - 1, py), (px + 1, py), (px, py - 1),
-                               (px, py + 1), (px - 1, py - 1), (px + 1, py + 1),
-                               (px - 1, py + 1), (px + 1, py - 1)):
-                    if 0 <= nx < width and 0 <= ny < height and occupied[ny, nx] and not seen[ny, nx]:
+                for nx, ny in (
+                    (px - 1, py),
+                    (px + 1, py),
+                    (px, py - 1),
+                    (px, py + 1),
+                    (px - 1, py - 1),
+                    (px + 1, py + 1),
+                    (px - 1, py + 1),
+                    (px + 1, py - 1),
+                ):
+                    if (
+                        0 <= nx < width
+                        and 0 <= ny < height
+                        and closed[ny, nx]
+                        and not seen[ny, nx]
+                    ):
                         seen[ny, nx] = True
                         todo.append((nx, ny))
             if len(pixels) >= 500:
@@ -170,7 +201,6 @@ def fit_poses(key_poses: list[Image.Image], bridge_poses: list[Image.Image]) -> 
         canvas = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
         # Place head at X = SIZE // 2 (128)
         place_x = (SIZE // 2) - hx
-        # Clamp place_x so sprite stays comfortably on canvas
         place_x = max(4, min(SIZE - w - 4, place_x))
         # Anchor bottom to ground cleat baseline
         place_y = SIZE - h - 12
@@ -179,13 +209,85 @@ def fit_poses(key_poses: list[Image.Image], bridge_poses: list[Image.Image]) -> 
     return result
 
 
-def blend_poses(pose_a: Image.Image, pose_b: Image.Image, t: float) -> Image.Image:
-    """Alpha blend between two poses for silky-smooth in-between transition."""
-    if t <= 0.0:
+def ensure_consistent_caps(key_poses: list[Image.Image], bridge_poses: list[Image.Image]) -> list[Image.Image]:
+    """Ensure Vulcan Blaze has the baseball cap consistently attached in all bridge poses."""
+    # Cap 0 from k_poses[0] (front-facing)
+    ka0 = np.asarray(key_poses[0])
+    ys0, xs0 = np.where(ka0[:50, :, 3] > 100)
+    cap0 = key_poses[0].crop((np.min(xs0), 0, np.max(xs0) + 1, 50))
+
+    # Cap 1 from k_poses[1] (clean 3/4 facing)
+    ka1 = np.asarray(key_poses[1])
+    ys1, xs1 = np.where(ka1[:50, :, 3] > 100)
+    cap1 = key_poses[1].crop((np.min(xs1), 0, np.max(xs1) + 1, 50))
+
+    capped_bridges = []
+    for i, bp in enumerate(bridge_poses):
+        bp_clean = bp.copy()
+        ba = np.asarray(bp_clean)
+        cap = cap0 if i == 0 else cap1
+        head_ys, head_xs = np.where(ba[:45, :, 3] > 100)
+        b_cx = (np.min(head_xs) + np.max(head_xs)) // 2 if len(head_xs) else bp_clean.width // 2
+        b_top = np.min(head_ys) if len(head_ys) else 0
+
+        dest_x = b_cx - cap.width // 2 + (12 if i == 4 else 2 if i > 0 else 0)
+        dest_y = b_top - 2
+        comp = Image.new(
+            "RGBA",
+            (max(bp_clean.width, dest_x + cap.width + 20), max(bp_clean.height, dest_y + cap.height)),
+            (0, 0, 0, 0),
+        )
+        comp.alpha_composite(bp_clean, (max(0, -dest_x), max(0, -dest_y)))
+        comp.alpha_composite(cap, (max(0, dest_x), max(0, dest_y)))
+        comp_arr = np.asarray(comp)
+        c_ys, c_xs = np.where(comp_arr[:, :, 3] > 10)
+        capped_bridges.append(comp.crop((np.min(c_xs), np.min(c_ys), np.max(c_xs) + 1, np.max(c_ys) + 1)))
+    return capped_bridges
+
+
+def vector_morph_blend(pose_a: Image.Image, pose_b: Image.Image, t: float) -> Image.Image:
+    """Continuous athletic in-betweening: aligns silhouettes along motion vector and eases smoothly."""
+    if t <= 0.001:
         return pose_a
-    if t >= 1.0:
+    if t >= 0.999:
         return pose_b
-    return Image.blend(pose_a, pose_b, t)
+
+    # Hermite / Smoothstep non-linear easing for natural body acceleration
+    smooth_t = t * t * (3.0 - 2.0 * t)
+
+    arr_a = np.asarray(pose_a)
+    arr_b = np.asarray(pose_b)
+
+    ys_a, xs_a = np.where(arr_a[:, :, 3] > 40)
+    ys_b, xs_b = np.where(arr_b[:, :, 3] > 40)
+
+    if len(ys_a) == 0 or len(ys_b) == 0:
+        return Image.blend(pose_a, pose_b, smooth_t)
+
+    ca_x, ca_y = np.mean(xs_a), np.mean(ys_a)
+    cb_x, cb_y = np.mean(xs_b), np.mean(ys_b)
+
+    shift_x = (cb_x - ca_x) * smooth_t
+    shift_y = (cb_y - ca_y) * smooth_t
+
+    a_shifted = pose_a.transform(
+        pose_a.size,
+        Image.Transform.AFFINE,
+        (1, 0, -round(shift_x), 0, 1, -round(shift_y)),
+        resample=Image.Resampling.BILINEAR,
+        fillcolor=(0, 0, 0, 0),
+    )
+    b_shift_x = -(cb_x - ca_x) * (1.0 - smooth_t)
+    b_shift_y = -(cb_y - ca_y) * (1.0 - smooth_t)
+    b_shifted = pose_b.transform(
+        pose_b.size,
+        Image.Transform.AFFINE,
+        (1, 0, -round(b_shift_x), 0, 1, -round(b_shift_y)),
+        resample=Image.Resampling.BILINEAR,
+        fillcolor=(0, 0, 0, 0),
+    )
+
+    return Image.blend(a_shifted, b_shifted, smooth_t)
 
 
 def build_catcher_atlas(
@@ -194,7 +296,7 @@ def build_catcher_atlas(
     timeline: list[tuple[str, int, str, int]],
     manifest_meta: dict,
 ) -> None:
-    """Build a complete 120-frame SD atlas with stable catcher-facing downhill motion."""
+    """Build a complete 120-frame SD atlas with continuous in-betweening and athletic pitching rhythm."""
     source_dir = asset_dir / "source"
     atlases_dir = asset_dir / "atlases"
     previews_dir = asset_dir / "previews"
@@ -206,6 +308,10 @@ def build_catcher_atlas(
 
     key_cells = connected_silhouettes(keys_sheet)
     bridge_cells = connected_silhouettes(bridges_sheet)
+
+    if character == "vulcan-blaze":
+        bridge_cells = ensure_consistent_caps(key_cells, bridge_cells)
+
     fitted = fit_poses(key_cells, bridge_cells)
 
     # Save 6x2 pose preview sheet
@@ -230,26 +336,28 @@ def build_catcher_atlas(
         next_pose = fitted[next_pose_idx]
 
         for local in range(dwell):
-            # Smooth 2-frame cross-dissolve at the end of each held pose
-            rem = dwell - local
-            if rem <= 2 and dwell >= 4:
-                blend_t = (3 - rem) / 3.0  # 0.33, 0.66
-                frame_img = blend_poses(cur_pose, next_pose, blend_t)
-            else:
+            # Continuous athletic in-betweening across ALL frames:
+            # t progresses smoothly from 0.0 to 1.0 throughout the dwell
+            if slot_idx == 0 and local < 6:
+                # Initial set stance breathing: micro 1px breath
+                t = 0.0
                 frame_img = cur_pose
+            else:
+                t = local / float(dwell)
+                frame_img = vector_morph_blend(cur_pose, next_pose, t)
 
             # Catcher-facing downhill perspective motion:
-            # During windup (0~42): subtle breathing (dy: -1 to 0)
+            # During windup (0~42): subtle breathing rhythm (dy: -1 to 0)
             # During stride (42~76): forward drive downhill (dy: 0 to +2)
-            # After release (76~100): follow-through and recoil back to 0
+            # After release (76~100): follow-through deceleration and recoil back to 0
             if current_frame_idx < 42:
                 dy = round(-1.0 * math.sin(math.pi * current_frame_idx / 42.0))
             elif current_frame_idx < 76:
-                t = (current_frame_idx - 42) / 34.0
-                dy = round(2.0 * t)
+                prog = (current_frame_idx - 42) / 34.0
+                dy = round(2.0 * prog)
             elif current_frame_idx < 100:
-                t = (current_frame_idx - 76) / 24.0
-                dy = round(2.0 * (1.0 - t))
+                prog = (current_frame_idx - 76) / 24.0
+                dy = round(2.0 * (1.0 - prog))
             else:
                 dy = 0
 
@@ -298,10 +406,18 @@ def build_catcher_atlas(
     # Manifest update
     manifest_path = asset_dir / f"{character}-manifest.json"
     key_pose_data = []
-    running_f = 0
-    for kind, pose_index, label, dwell in timeline:
-        key_pose_data.append({"frame": running_f, "pose": label, "source": kind, "cell": pose_index, "ticks": dwell})
-        running_f += dwell
+    frame_counter = 0
+    for kind, p_idx, p_name, dwell in timeline:
+        key_pose_data.append(
+            {
+                "frame": frame_counter,
+                "pose": p_name,
+                "source": kind,
+                "cell": p_idx,
+                "duration": dwell,
+            }
+        )
+        frame_counter += dwell
 
     manifest = {
         "character": character,
@@ -309,13 +425,16 @@ def build_catcher_atlas(
         "frameCount": FRAMES,
         "uniqueFrameCount": len(hashes),
         "fps": FPS,
-        "cols": COLS,
-        "rows": ROWS,
-        "cellWidth": SIZE,
-        "cellHeight": SIZE,
-        "keyPoses": key_pose_data,
+        "durationMs": 2000,
+        "releaseFrame": manifest_meta.get("releaseFrame", 76),
+        "frameSize": [SIZE, SIZE],
+        "atlasColumns": COLS,
+        "atlasRows": ROWS,
         "authoredPoseCount": 12,
+        "keyPoses": key_pose_data,
+        "grid": {"cols": COLS, "rows": ROWS, "cellWidth": SIZE, "cellHeight": SIZE},
+        **manifest_meta,
     }
-    manifest.update(manifest_meta)
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Successfully built catcher-facing atlas for {character} at {atlas_path}")
+

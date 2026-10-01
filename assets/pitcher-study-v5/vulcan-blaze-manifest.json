@@ -4,97 +4,107 @@
   "frameCount": 120,
   "uniqueFrameCount": 120,
   "fps": 60,
-  "cols": 10,
-  "rows": 12,
-  "cellWidth": 256,
-  "cellHeight": 256,
+  "durationMs": 2000,
+  "releaseFrame": 76,
+  "frameSize": [
+    256,
+    256
+  ],
+  "atlasColumns": 10,
+  "atlasRows": 12,
+  "authoredPoseCount": 12,
   "keyPoses": [
     {
       "frame": 0,
       "pose": "set",
       "source": "keys",
       "cell": 0,
-      "ticks": 9
+      "duration": 9
     },
     {
       "frame": 9,
       "pose": "hands-rise",
       "source": "bridges",
       "cell": 0,
-      "ticks": 8
+      "duration": 8
     },
     {
       "frame": 17,
       "pose": "coil",
       "source": "keys",
       "cell": 1,
-      "ticks": 9
+      "duration": 9
     },
     {
       "frame": 26,
       "pose": "deeper-coil",
       "source": "bridges",
       "cell": 1,
-      "ticks": 8
+      "duration": 8
     },
     {
       "frame": 34,
       "pose": "downhill-drive",
       "source": "keys",
       "cell": 2,
-      "ticks": 9
+      "duration": 9
     },
     {
       "frame": 43,
       "pose": "lead-foot-descend",
       "source": "bridges",
       "cell": 2,
-      "ticks": 8
+      "duration": 8
     },
     {
       "frame": 51,
       "pose": "stride-plant",
       "source": "keys",
       "cell": 3,
-      "ticks": 9
+      "duration": 9
     },
     {
       "frame": 60,
       "pose": "foot-plant",
       "source": "bridges",
       "cell": 3,
-      "ticks": 8
+      "duration": 8
     },
     {
       "frame": 68,
       "pose": "arm-acceleration",
       "source": "bridges",
       "cell": 4,
-      "ticks": 8
+      "duration": 8
     },
     {
       "frame": 76,
       "pose": "release",
       "source": "keys",
       "cell": 4,
-      "ticks": 6
+      "duration": 6
     },
     {
       "frame": 82,
       "pose": "follow-through",
       "source": "keys",
       "cell": 5,
-      "ticks": 18
+      "duration": 18
     },
     {
       "frame": 100,
       "pose": "recovery",
       "source": "bridges",
       "cell": 5,
-      "ticks": 20
+      "duration": 20
     }
   ],
-  "authoredPoseCount": 12,
+  "grid": {
+    "cols": 10,
+    "rows": 12,
+    "cellWidth": 256,
+    "cellHeight": 256
+  },
   "id": "vulcan-blaze-pitch-v1",
   "name": "볼칸 블레이즈",
   "facing": "toward-camera",
@@ -104,6 +114,5 @@
   "gloveHand": "left",
   "armSlot": "high-three-quarter",
   "signaturePitch": "splinker-103",
-  "releaseFrame": 76,
   "runtimeIntegrated": true
 }

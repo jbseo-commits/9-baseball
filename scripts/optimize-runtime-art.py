@@ -25,6 +25,7 @@ MIN_BYTES = 150_000
 RULES = [
     (r'^pitcher-sd-v\d/.*-atlas\.png$',            dict(keep=True, lossless=True)),
     (r'^pitcher-pixellab-v\d/atlases/.*-atlas\.png$', dict(keep=True, lossless=True)),  # PixelLab pitch atlases
+    (r'^pitcher-study-v\d/atlases/.*-atlas\.png$',    dict(keep=True, q=92)),  # study pitch atlases
     (r'^sprites-v4/.*-60\.png$',                    dict(keep=True, lossless=True)),
     (r'^ui-kit/.*master-sheet\.png$',               dict(keep=True, lossless=True)),
     (r'^production-art/battle-polish-v16/.*\.png$', dict(keep=True, q=90)),
