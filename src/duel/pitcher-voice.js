@@ -110,6 +110,21 @@ export const PITCHER_VOICE={
     homer:['이번 파도는 네 거야.'],
     knockout:['졌어. 다음엔 더 깊이 던질게.'],
   },
+  // 스카이 팬텀 — 26, silver high ponytail, 12 o'clock high overhand righty. Ethereal, chilling, aloof ace with a ghost fork.
+  'sky-phantom':{
+    entry:['하늘에서 떨어지는 공, 본 적 있어?','시야에서 사라져도 놀라지 마.'],
+    chase:['방금 어디를 휘두른 거야?','유령이라도 본 표정이네.'],
+    whiff:['공은 이미 미트에 있어.','그 높이에선 안 맞아.'],
+    strikeout:['신기하지? 분명 거기 있었는데.','추락하는 궤적은 못 쫓아와.'],
+    looking:['얼어붙었네.','너무 높아서 안 보였어?'],
+    walk:['바람이 조금 거셌네.'],
+    foul:['빗맞은 걸 다행으로 알아.'],
+    out:['하늘에 닿지 못했어.'],
+    hit:['...내 궤적을 읽었다고?'],
+    extra:['방금 건 제법 높게 띄웠네.'],
+    homer:['하늘 끝까지 날려버렸네... 인정해.'],
+    knockout:['유령도 지칠 때가 있지. 다음엔 더 높이서 떨어뜨려 줄게.'],
+  },
   // 코발트 임팩트 — 29, cobalt twin braids, power arm. Bold, loud, generous, loves strength.
   'elite-01-cobalt-impact':{
     entry:['힘 대 힘. 좋지?','피하지 마. 정면으로 와.'],
