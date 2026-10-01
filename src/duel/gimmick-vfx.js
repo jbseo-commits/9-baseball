@@ -17,6 +17,8 @@ export const VFX_PALETTES={
 
 const rnd=seed=>{let x=(seed>>>0)||1;return ()=>{x^=x<<13;x>>>=0;x^=x>>>17;x^=x<<5;x>>>=0;return x/4294967296;};};
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+/* 투수 몸통 자리. 면(빛·원판)은 여기를 비워 둬서, 어떤 기기에서 레이어 순서가 달라도 투수가 가려지지 않는다. */
+export const inBody=(x,y)=>((x-CX)/18)**2+((y-(CY+2))/31)**2<1;
 
 function px(ctx,x,y,color,a=1,w=1,h=1){
   if(a<=0)return;ctx.globalAlpha=a>1?1:a;ctx.fillStyle=color;ctx.fillRect(Math.round(x),Math.round(y),w,h);
@@ -31,7 +33,7 @@ function glow(ctx,cx,cy,rx,ry,tones,strength=1,t=0){
   const x0=Math.max(0,Math.floor(cx-rx)),x1=Math.min(VFX_SIZE-1,Math.ceil(cx+rx));
   const y0=Math.max(0,Math.floor(cy-ry)),y1=Math.min(VFX_SIZE-1,Math.ceil(cy+ry));
   for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){
-    const d=Math.hypot((x-cx)/rx,(y-cy)/ry);if(d>=1)continue;
+    const d=Math.hypot((x-cx)/rx,(y-cy)/ry);if(d>=1||inBody(x,y))continue;
     const v=Math.pow(1-d,1.4)*strength;
     const th=(BAYER[(y&3)*4+(x&3)]+.5)/16;
     if(v<=th*.85)continue;
@@ -178,7 +180,7 @@ function drawEclipse(ctx,t,lv,boss){ // 블랙 이클립스: 검은 태양 + 코
   }
   for(let y=Math.floor(cy-R-3);y<=cy+R+3;y++)for(let x=Math.floor(cx-R-3);x<=cx+R+3;x++){ // 원판
     const d=Math.hypot(x-cx,y-cy);
-    if(d<=R)px(ctx,x,y,P.dark,1);
+    if(d<=R){if(!inBody(x,y))px(ctx,x,y,P.dark,1);}
     else if(d<=R+1.6)px(ctx,x,y,P.core,1);
     else if(d<=R+3.2)px(ctx,x,y,P.edge,(BAYER[(y&3)*4+(x&3)]+.5)/16<.7?1:0);
   }
