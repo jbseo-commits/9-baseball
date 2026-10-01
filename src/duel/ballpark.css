@@ -712,6 +712,8 @@
 .bp-mhp i{height:6px;background:url('../../assets/ui-kit/A9-hp-seg-full.png') center/100% 100% no-repeat;image-rendering:pixelated}.bp-mhp i.lost{background:url('../../assets/ui-kit/A9-hp-seg-empty.png') center/100% 100% no-repeat}
 .bp-mhp b{margin-left:6px;font:400 10px/1 var(--bp-led);color:var(--bp-slate);font-weight:400}
 .bp-mrw{font-size:13px;color:var(--bp-bone-dim)}
+.bp-mgm{font-size:12px;line-height:1.35;color:var(--bp-bone)}.bp-mgm b{color:#f5c04a;font-weight:700}
+.bp-gimmick{margin:4px 0 0;font-size:12px;line-height:1.3;color:var(--bp-bone-dim);pointer-events:none}.bp-gimmick b{color:#f5c04a}
 .bp-mgo{grid-column:1/-1;appearance:none;color:#1a1204!important;padding:10px 14px;min-height:52px;font:400 19px/1 var(--bp-impact)!important;cursor:pointer;border:10px solid transparent;border-image:url('../../assets/ui-kit/A4-button-primary-normal.png') 40 fill / 10px repeat;image-rendering:pixelated}
 .bp-map .bp-mgo:hover:not(:disabled){filter:brightness(1.08)}
 .bp-mgo:active:not(:disabled){border-image-source:url('../../assets/ui-kit/A4-button-primary-pressed.png');transform:translateY(2px)}

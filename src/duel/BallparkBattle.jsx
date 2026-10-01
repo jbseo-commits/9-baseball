@@ -1,6 +1,6 @@
 import React,{useLayoutEffect,useRef,useState} from 'react';
 import {CARDS,LINEUP} from './cards.js';
-import {publicProbabilities,V10_SWING_STACK_MAX,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
+import {publicProbabilities,v10StackMax,v10PrepMax,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
 import {intentLines,hpTicks,ZONE_WORDS,runnerMoves} from './ballpark-copy.js';
 import ZoneLinks from './ZoneLinks.jsx';
 import {pitcherLine,momentOf} from './pitcher-voice.js';
@@ -127,7 +127,7 @@ export default function BallparkBattle({
   const mainIsSkill=isSkill(mainEntry);
   const canStack=!!(mainEntry&&!mainIsSkill&&mainEntry.kind!=='bunt'&&b.growthMode!=='patience');
   const stack=canStack?swingStack.filter(x=>x.id!==selected&&byId(x.id)):[];
-  const prepLeft=Math.max(0,2-(b.preparations||0));
+  const prepLeft=Math.max(0,v10PrepMax(s)-(b.preparations||0));
 
   const probs=b.pending?publicProbabilities(s):b.intent?.probabilities||[];
   const live=b.intent?.repertoire||[0,1,2,3,4,5,6,7,8];
@@ -161,7 +161,7 @@ export default function BallparkBattle({
     if(stack.some(x=>x.id===id)){onStack(stack.filter(x=>x.id!==id));return;}
     const kind=byId(id)?.entry?.kind;
     /* with a main card on the board, another swing card becomes a support: it waits for a zone */
-    if(canStack&&id!=='basic'&&kind!=='bunt'&&stack.length<V10_SWING_STACK_MAX-1){setArmed(id);return;}
+    if(canStack&&id!=='basic'&&kind!=='bunt'&&stack.length<v10StackMax(s)-1){setArmed(id);return;}
     onSelect(id);onStack([]);
   }
   function pickPrep(id){if(locked)return;setArmed(null);onStack([]);onSelect(selected===id?null:id);}
@@ -417,6 +417,7 @@ const CARD_DESC_MAP={
           <div className="bp-hp-gauge-bar" style={{'--hp-pct': `${Math.max(0, Math.min(100, Math.round(((judged&&!landed?(pitcher?.hp||0)+(pitcher?.lastDamage||0):pitcher?.hp)||0)/(pitcher?.maxHp||1)*100)))}%`}} />
           <span className="bp-ticks" aria-hidden="true">{Array.from({length:12},(_,i)=><i key={i} className={tickClass(i)}/>)}</span>
         </div>
+        {s.v10?.opponent?.gimmick&&<p className="bp-gimmick" data-testid="bp-gimmick"><b>{s.v10.opponent.gimmick.label}</b> {s.v10.opponent.gimmick.summary}{s.v10.opponent.gimmick.phases&&['pressured','critical'].filter(k=>s.v10.opponent.gimmick.phases[k]&&(pitcher?.phase===k||(k==='pressured'&&pitcher?.phase==='critical'))).map(k=><span key={k}> {s.v10.opponent.gimmick.phases[k]}</span>)}</p>}
         {damage>0&&<b className="bp-damage" key={'d'+playToken}>-{damage}</b>}
         <small aria-hidden="true">HP {judged&&!landed?(pitcher?.hp||0)+(pitcher?.lastDamage||0):pitcher?.hp} / {pitcher?.maxHp}</small>
         <span className={'bp-mental'+(shaken?' shaken':'')+(shaken>=mentalCap?' max':'')+(shakenRose?' rose':'')} data-testid="bp-mental"

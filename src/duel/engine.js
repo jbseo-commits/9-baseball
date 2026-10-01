@@ -1,6 +1,7 @@
 import {CARDS,SAVE_KEY,STAGES,LINEUP,BUILDS,ZONES,GROWTHS,growthCost,rewardChoices,cardPower,cardText,DECK_MIN,DECK_MAX,
   ZONE_ORDER,WIDEN_EVERY,PUTAWAY_REACH,READ_THRESHOLDS,observeScore,RELICS,RELIC_OFFERS,DECKBUILDER_BUILD,FACILITY_ROUTES,ROUTE_CHOICES,routeChoice,canUpgrade} from './cards.js';
 import {applyRewardToDeck,rewardProblem} from './deck.js';
+import {gimmickRules,addShare,trickNeighbors} from './gimmick.js';
 const clone=s=>JSON.parse(JSON.stringify(s));
 const card=(s,id)=>s.deck.find(c=>c.id===id);
 const unit=(s,key)=>{s[key]=(Math.imul(s[key],1664525)+1013904223)>>>0;return s[key]/4294967296;};
@@ -13,6 +14,10 @@ function draw(s,n){const b=s.battle;while(n-->0&&b.hand.length<9){if(!b.draw.len
 // PUBLIC is the actual sampling distribution. No false odds, no input-dependent reroll.
 // V10 opponents advertise their actual pitch identity on the map; V9 keeps stage defaults.
 const v10Opponent=s=>s?.version===10?s.v10?.opponent:null;
+/* 엘리트·보스 기믹: 상대 기믹 id와 지금 HP 단계에서 나온 보정. 기믹이 없으면 전부 중립. */
+export const v10GimmickRules=s=>gimmickRules(v10Opponent(s)?.gimmick?.id,s?.pitcher?.phase);
+export const v10StackMax=s=>Math.min(V10_SWING_STACK_MAX,v10GimmickRules(s).stackMax);
+export const v10PrepMax=s=>v10GimmickRules(s).prepMax;
 /* V10 주자·멘탈 (2026-09-26)
    - 주자 압박: 안타 직전 루상 주자 1명당 기본 피해 +10%.
    - 멘탈: 실점 1점당 흔들림 +1. 흔들림 단계마다 볼 비중 +35%, 1단계 이상이면 읽기 +1.
@@ -46,7 +51,7 @@ export const repertoireWidth=s=>{
   return Math.min(cfg.zoneMax,cfg.zoneOpen+Math.floor((s.battle.turn-1)/WIDEN_EVERY));
 };
 export function repertoire(s){
-  const cfg=livePitchConfig(s),count=Math.min(9,repertoireWidth(s)+(s.battle.strikes===2?PUTAWAY_REACH:0));
+  const cfg=livePitchConfig(s),count=Math.min(9,repertoireWidth(s)+(s.battle.strikes===2?PUTAWAY_REACH+v10GimmickRules(s).putawayExtra:0));
   return ZONE_ORDER[cfg.style].slice(0,count).sort((a,z)=>a-z);
 }
 // Information is earned. A lower level hides digits; it never shows a false number.
@@ -71,7 +76,7 @@ export function baseIntent(s){
   if(b.strikes===2){weights=[11,5,6,18,5,6,13,5,6,25];name='몸쪽 승부구';detail='투스트라이크 몸쪽 경향. 존 밖 유인구도 섞습니다.';}
   if(style==='closer'&&b.history.some(h=>h.aimZone!=null)){
     const recent=b.history.filter(h=>h.aimZone!=null).slice(-3),col=recent.at(-1).aimZone%3;
-    weights=[6,6,6,6,6,6,6,6,6,25];for(let z=0;z<9;z++)if(z%3===2-col)weights[z]+=10;
+    weights=[6,6,6,6,6,6,6,6,6,25];for(let z=0;z<9;z++)if(z%3===2-col)weights[z]+=10+v10GimmickRules(s).oppCol;
     name='이전 노림의 반대편';detail='마무리는 이전 스윙 위치의 반대 열을 선호합니다. 지금 고르는 존에는 반응하지 않습니다.';
   }
   /* V13: balls (pitches outside the nine cells) come in by act. Act 1 teaches reading, so the first
@@ -81,6 +86,10 @@ export function baseIntent(s){
   const shaken=v10Shaken(s);
   if(shaken){weights[9]*=1+V10_MENTAL.ballBoost*shaken;detail+=` 실점으로 흔들림 ${shaken}단계 · 볼이 늘어납니다.`;}
   if(b.balls===3){weights[9]*=.4;detail+=' 3볼에서는 스트라이크 비중이 높아집니다.';}
+  /* 기믹: 공개된 규칙으로만 분포를 바꾼다(문구는 gimmick.js, 화면은 같은 문구를 보여준다). */
+  const gr=v10GimmickRules(s);
+  if(b.strikes===2)weights[9]*=gr.putawayBallMul;
+  addShare(weights,[9],gr.ballShare);addShare(weights,[6,7,8],gr.lowShare);
   // Zones outside the repertoire are not thrown at all. This is what makes the first pitcher readable.
   const live=repertoire(s),width=repertoireWidth(s);
   for(let z=0;z<9;z++)if(!live.includes(z))weights[z]=0;
@@ -93,6 +102,11 @@ export function baseIntent(s){
 function dealPitch(s){
   const b=s.battle;b.intent=baseIntent(s);let r=unit(s,'pitchSeed'),zone=9;
   for(let i=0;i<10;i++){r-=b.intent.probabilities[i];if(r<0){zone=i;break;}}
+  /* 속임수 코스: 타석 첫 공만, 공개된 확률로 예고 코스 옆 칸으로 밀린다. */
+  const trick=v10GimmickRules(s).trickRate;
+  if(trick&&zone<9&&b.strikes===0&&b.balls===0&&unit(s,'pitchSeed')<trick){
+    const near=trickNeighbors(zone);zone=near[Math.floor(unit(s,'pitchSeed')*near.length)%near.length];
+  }
   b.pending={zone,roll:unit(s,'pitchSeed'),powerRoll:unit(s,'pitchSeed')};
   b.scouted=false;b.scoutPlus=false;b.scoutBall=false;b.revealed=null;
 }
@@ -203,7 +217,7 @@ export function stackSupportProblem(s,primaryId,supports=[]){
   const primary=card(s,primaryId);
   if(CARDS[primary?.kind]?.bunt)return '희생 번트에는 다른 카드를 겹칠 수 없습니다.';
   if(s.battle.growthMode==='patience')return '기다린 한 공은 한 존 승부라 카드를 겹칠 수 없습니다.';
-  if(supports.length>V10_SWING_STACK_MAX-1)return '한 번의 스윙에는 최대 '+V10_SWING_STACK_MAX+'장까지 겹칠 수 있습니다.';
+  if(supports.length>v10StackMax(s)-1)return '한 번의 스윙에는 최대 '+v10StackMax(s)+'장까지 겹칠 수 있습니다.';
   const seen=new Set([primaryId]);
   for(const support of supports){
     if(!support?.id||!Number.isInteger(support.aimZone)||support.aimZone<0||support.aimZone>8)return '겹친 카드마다 노릴 존을 고르세요.';
@@ -232,7 +246,7 @@ export function cardProblem(s,id){
   if(s.phase!=='battle')return '먼저 투구 결과를 확인하고 다음 공/타자를 진행하세요.';
   if(id==='basic')return null;const c=card(s,id),b=s.battle;
   if(!c||!b.hand.includes(id))return '손패에 없는 카드입니다.';
-  if(CARDS[c.kind].type==='skill'&&b.preparations>=2)return '이번 타석의 준비 2회를 모두 사용했습니다.';
+  if(CARDS[c.kind].type==='skill'&&b.preparations>=v10PrepMax(s))return '이번 타석의 준비 '+v10PrepMax(s)+'회를 모두 사용했습니다.';
   const need=CARDS[c.kind].requires;
   if(need==='runner'&&!b.bases.some(Boolean))return '먼저 베이스에 주자가 필요합니다.';
   if(need==='twoStrike'&&b.strikes!==2)return '투스트라이크에서만 쓸 수 있습니다.';
@@ -497,7 +511,7 @@ export function playCard(state,id,opts={}){
   const s=clone(state),entry=card(s,id),k=entry.kind,plus=!!entry.plus,b=s.battle,before={runs:b.runs,outs:b.outs},events=[];
   b.hand.splice(b.hand.indexOf(id),1);b.discard.push(id);s.stats.cards++;b.preparations++;
   applySkillFx(s,(plus&&CARDS[k].plusFx)||CARDS[k].fx||{},events);
-  return finalize(s,before,'skill',CARDS[k].name+(plus?'+':'')+' · 준비 '+b.preparations+'/2',events);
+  return finalize(s,before,'skill',CARDS[k].name+(plus?'+':'')+' · 준비 '+b.preparations+'/'+v10PrepMax(s),events);
 }
 export const endTurn=state=>state.phase==='battle'?resolve(state,null):state;
 export function advancePitch(state){

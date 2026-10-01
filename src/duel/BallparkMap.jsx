@@ -68,6 +68,7 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
         <strong className="bp-mname">{fight?o?.name:TAG[d.type]||d.name}</strong>
         <em className="bp-mline">{fight?HABIT[o?.archetypeKey]||o?.archetype:PLACE[d.type]||d.reward}</em>
         {fight&&o&&<span className="bp-mhp" aria-label={'HP '+o.maxHp}>{Array.from({length:12},(_,i)=><i key={i} className={i<hpTicks(o.maxHp,actMax)?'':'lost'}/>)}<b>HP {o.maxHp}</b></span>}
+        {fight&&o?.gimmick&&<span className="bp-mgm" data-testid="bp-map-gimmick"><b>{o.gimmick.label}</b> {o.gimmick.summary}{o.gimmick.phases&&<><br/>{o.gimmick.phases.pressured}<br/>{o.gimmick.phases.critical}</>}</span>}
         {fight&&<span className="bp-mrw">{REWARD[d.type]}</span>}
       </div>
       <button type="button" className="bp-mgo" data-testid="bp-map-go" disabled={!can} onClick={()=>onEnter?.(d.id)}>{!can?(done.has(d.id)?'지나온 곳':'아직 길이 없다'):fight?'이 구장으로 간다':'들른다'}</button>

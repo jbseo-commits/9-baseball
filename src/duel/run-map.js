@@ -1,4 +1,5 @@
 import {ZONE_ORDER} from './cards.js';
+import {gimmickFor} from './gimmick.js';
 import pitcherRoster from '../../assets/pitcher-mobs-v1/roster.json' with {type:'json'};
 
 const RED_RUSH_ID='regular-01-red-rush';
@@ -185,6 +186,7 @@ export function createRunMap(seed=0){
     repeats.set(pitcher.id,seen+1);
     node.opponent.name=pitcher.name+(seen?' '+(seen+1):'');
     node.opponent.artId=pitcher.id;
+    const gimmick=gimmickFor(pitcher.id);if(gimmick)node.opponent.gimmick=gimmick;
   }
   for(const node of nodes)if(node.opponent)node.preview=`${node.opponent.name} · ${node.opponent.archetype} · HP ${node.opponent.maxHp}`;
   return {seed:seed>>>0,nodes,edges,currentNodeId:null,completedNodeIds:[],reachableIds:['a1-entry']};
