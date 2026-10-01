@@ -91,7 +91,7 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
           {here.map(n=>{const p=pos(n),o=n.opponent,art=o&&(figures[o.artId]||portraits[o.artId]);
             return <button key={n.id} type="button" className={'bp-node '+n.type+(reach.has(n.id)?' reach':'')+(done.has(n.id)?' done':'')+(chosen?.id===n.id?' sel':'')}
               style={{left:p.x+'%',top:p.y+'%'}} aria-label={(TAG[n.type]||n.name)+(o?' '+o.name:'')+(reach.has(n.id)?' · 갈 수 있음':'')} aria-pressed={chosen?.id===n.id}
-              data-node={n.id} onClick={()=>setPick(n.id)}>
+              data-node={n.id} data-gm={o?.gimmick?.id} onClick={()=>setPick(n.id)}>
               {FIGHTS.has(n.type)&&art?<img className="bp-fig" alt="" src={art}/>:<Glyph type={n.type}/>}
               <em>{o?o.name:TAG[n.type]||n.name}</em>
             </button>;})}

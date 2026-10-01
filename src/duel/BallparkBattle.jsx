@@ -340,6 +340,8 @@ const CARD_DESC_MAP={
     </button>;
   };
 
+  /* 엘리트·보스 시각 효과: CSS가 data 속성만 읽는다(.bp-scene[data-gimmick]). 단계는 투수 HP 단계. */
+  const gm=s.v10?.opponent?.gimmick,gtier=gm?(s.v10?.opponent?.rewardTier===3?'boss':'elite'):null;
   return <main ref={rootRef} className={'bp-battle'+(autoLesson?' auto-lesson':'')+(commitBeat?' committing':'')+(deciding?'':' resolving')+(inFx?' fx-'+fxStage:'')} aria-label="타석">
     <div className="bp-bar">
       <div className="bp-hud-brand">
@@ -361,7 +363,7 @@ const CARD_DESC_MAP={
       </span>
     </div>
 
-    <section className={'bp-scene'+(pixi?.batter?' pixi-batter':'')+(pixi?.pitcher?' pixi-pitcher':'')+(inFx?' fx-stage-'+fxStage+(shot?' fx-'+(shot.grade||shot.kind):''):'')+(cam?' cam-'+cam:'')} ref={sceneRef} aria-label="승부 구장">
+    <section className={'bp-scene'+(pixi?.batter?' pixi-batter':'')+(pixi?.pitcher?' pixi-pitcher':'')+(inFx?' fx-stage-'+fxStage+(shot?' fx-'+(shot.grade||shot.kind):''):'')+(cam?' cam-'+cam:'')} ref={sceneRef} aria-label="승부 구장" data-gimmick={gm?.id} data-gtier={gtier} data-gphase={gm?(pitcher?.phase||'steady'):undefined}>
       <div className="bp-bg bp-cam" aria-hidden="true"/>
       <div className="bp-haze" aria-hidden="true"/>
       {commitBeat&&<aside className="bp-commit" data-testid="bp-commit" role="status" aria-live="assertive">
@@ -417,7 +419,7 @@ const CARD_DESC_MAP={
           <div className="bp-hp-gauge-bar" style={{'--hp-pct': `${Math.max(0, Math.min(100, Math.round(((judged&&!landed?(pitcher?.hp||0)+(pitcher?.lastDamage||0):pitcher?.hp)||0)/(pitcher?.maxHp||1)*100)))}%`}} />
           <span className="bp-ticks" aria-hidden="true">{Array.from({length:12},(_,i)=><i key={i} className={tickClass(i)}/>)}</span>
         </div>
-        {s.v10?.opponent?.gimmick&&<p className="bp-gimmick" data-testid="bp-gimmick"><b>{s.v10.opponent.gimmick.label}</b> {s.v10.opponent.gimmick.summary}{s.v10.opponent.gimmick.phases&&['pressured','critical'].filter(k=>s.v10.opponent.gimmick.phases[k]&&(pitcher?.phase===k||(k==='pressured'&&pitcher?.phase==='critical'))).map(k=><span key={k}> {s.v10.opponent.gimmick.phases[k]}</span>)}</p>}
+        {s.v10?.opponent?.gimmick&&<p className="bp-gimmick" data-testid="bp-gimmick"><i className="bp-gtier">{gtier==='boss'?'BOSS':'ELITE'}</i> <b>{s.v10.opponent.gimmick.label}</b> {s.v10.opponent.gimmick.summary}{s.v10.opponent.gimmick.phases&&['pressured','critical'].filter(k=>s.v10.opponent.gimmick.phases[k]&&(pitcher?.phase===k||(k==='pressured'&&pitcher?.phase==='critical'))).map(k=><span key={k}> {s.v10.opponent.gimmick.phases[k]}</span>)}</p>}
         {damage>0&&<b className="bp-damage" key={'d'+playToken}>-{damage}</b>}
         <small aria-hidden="true">HP {judged&&!landed?(pitcher?.hp||0)+(pitcher?.lastDamage||0):pitcher?.hp} / {pitcher?.maxHp}</small>
         <span className={'bp-mental'+(shaken?' shaken':'')+(shaken>=mentalCap?' max':'')+(shakenRose?' rose':'')} data-testid="bp-mental"
