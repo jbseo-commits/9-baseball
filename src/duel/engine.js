@@ -59,7 +59,7 @@ export function readLevel(s){
   const score=observeScore(s.deck);
   const base=score>=READ_THRESHOLDS[1]?2:score>=READ_THRESHOLDS[0]?1:0;
   const facilityScout=s.build===DECKBUILDER_BUILD&&s.stage>0&&s.facilities?.[s.stage-1]?.type==='scouting'?1:0;
-  return Math.min(2,base+((s.relics||[]).includes('scope')?1:0)+facilityScout+(v10Shaken(s)?1:0));
+  return Math.min(2,base+((s.relics||[]).includes('scope')?1:0)+((s.relics||[]).includes('hawkEye')?1:0)+facilityScout+(v10Shaken(s)?1:0));
 }
 export const activeRoute=s=>s?.build===DECKBUILDER_BUILD?routeChoice(s.stage,s.route):null;
 export const battleTarget=s=>STAGES[s.stage].target+(activeRoute(s)?.targetDelta||0);
@@ -665,7 +665,7 @@ export function readDuel(storage){
 import {createPitcherHp,applyPitcherOutcome,pitcherSelector,damageForOutcome} from './pitcher-hp.js';
 import {createRunMap,selectRunNode,completeRunNode,getRunNode,isCombatNode,runMapSelector} from './run-map.js';
 import {V10_SAVE_KEY as V10_STORAGE_KEY,saveV10State,readV10State} from './v10-storage.js';
-import {V10_RELICS,v10RelicOffers,v10RelicDamagePlan,v10RelicDamageRate} from './v10-relics.js';
+import {V10_RELICS,V10_ALL_RELICS,v10RelicOffers,v10TierRelicOffers,v10RelicDamagePlan,v10RelicDamageRate} from './v10-relics.js';
 
 const V10_UTILITY_PHASES=new Set(['training','locker','shop','rest']);
 const v10StageForNode=node=>node?.type==='boss'?Math.min(3,node.act):Math.min(2,Math.max(0,(node?.act||1)-1));
@@ -712,6 +712,12 @@ const v10RewardPool=s=>{
 const v10ShopPool=s=>{
   const node=currentV10Node(s);
   return v16DraftChoices({deck:s.deck,act:node?.act||1,tier:1,seed:(s.initialSeed^(node?.seed||0)^0x5f3759df)>>>0,count:3});
+};
+/* 강적(rewardTier 2)·보스(3)를 이기면 받는 전용 유물 후보. 일반 전투와 상점에는 없다. */
+export const v10TierRelicPool=s=>{
+  const node=currentV10Node(s),tier=node?.opponent?.rewardTier||1;
+  if(tier<2)return [];
+  return v10TierRelicOffers({tier:tier===3?'boss':'elite',seed:s.initialSeed,nodeSeed:node?.seed||0,act:node?.act||1,owned:s.relics||[]});
 };
 const v10RelicPool=s=>{
   const node=currentV10Node(s);
@@ -857,7 +863,8 @@ export function playV10Action(state,action){
   const outcome={kind:r.kind,label:r.label,bases:v10BasesForReveal(r),zone:r.zone,aimZone:r.aimZone,
     covered:Array.isArray(r.coverage)&&r.coverage.includes(r.zone)};
   const pitchInPA=Math.max(1,(next.battle?.history||[]).filter(h=>h.turn===next.battle.turn).length);
-  const relicPlan0=v10RelicDamagePlan({relics:next.relics||[],outcome,cardCount:stackCardCount,damageRate:stackDamageRate,pitchInPA});
+  const relicPlan0=v10RelicDamagePlan({relics:next.relics||[],outcome,cardCount:stackCardCount,damageRate:stackDamageRate,pitchInPA,
+    runnersBefore:(state.battle?.bases||[]).filter(Boolean).length,pitcherPhase:state.pitcher?.phase||'steady'});
   /* 기세: the rate this pitch hits with = the stack/relic rate × the momentum built before it */
   const momentumBefore=v10Momentum(state),momentumRate=v10MomentumRate(momentumBefore);
   const relicPlan={...relicPlan0,damageRate:relicPlan0.damageRate*momentumRate};
@@ -917,7 +924,7 @@ export function playV10Action(state,action){
       next.runMap=completeRunNode(next.runMap);
       next.phase='won';next.v10={...next.v10,rewardChoices:[],runComplete:true,activeBattleBonus:null};
     }else{
-      next.phase='reward';next.v10.rewardChoices=v10RewardPool(next);
+      next.phase='reward';next.v10.rewardChoices=v10RewardPool(next);next.v10.relicChoices=v10TierRelicPool(next);
     }
   }else if(['reward','won'].includes(next.phase)){
     next.phase=next.battle.outs>=3?'lost':v10EndedPA(r)?'between':'pitch';
@@ -940,17 +947,22 @@ export function claimV10Reward(state,action){
   const pool=state.v10?.rewardChoices||[];
   if(action.type==='add'&&(!pool.includes(action.kind)||state.deck.length>=DECK_MAX))return state;
   if(!['add','skip'].includes(action.type))return state;
+  /* 강적·보스는 유물을 반드시 준다: 고르지 않으면 첫 후보가 자동으로 들어온다. 후보 밖의 유물은 거절한다. */
+  const relicPool=state.v10?.relicChoices||[];
+  if(action.relic!=null&&!relicPool.includes(action.relic))return state;
+  const relic=relicPool.length?(action.relic??relicPool[0]):null;
   const s=clone(state);
+  if(relic&&!s.relics.includes(relic))s.relics.push(relic);
   if(action.type==='add'){
     const moved=applyRewardToDeck(s.deck,{type:'add',kind:action.kind},s.nextId);
     s.deck=moved.deck;s.nextId=moved.nextId;
   }
-  s.rewards.push({nodeId:s.runMap.currentNodeId,type:action.type,...(action.type==='add'?{kind:action.kind}:{})});
+  s.rewards.push({nodeId:s.runMap.currentNodeId,type:action.type,...(action.type==='add'?{kind:action.kind}:{}),...(relic?{relic}:{})});
   s.runMap=completeRunNode(s.runMap);
   const here=getRunNode(s.runMap,s.runMap.currentNodeId);
   const finished=here?.type==='boss'&&here.act===3&&s.runMap.reachableIds.length===0;
   s.phase=finished?'won':'map';s.battle=null;s.pitcher=null;s.route=null;s.last=null;
-  s.v10={...s.v10,nodeId:null,opponent:null,lastCombat:null,rewardChoices:[],runComplete:finished,activeBattleBonus:null};
+  s.v10={...s.v10,nodeId:null,opponent:null,lastCombat:null,rewardChoices:[],relicChoices:[],runComplete:finished,activeBattleBonus:null};
   return s;
 }
 

@@ -1188,3 +1188,25 @@
 @media (prefers-reduced-motion:reduce){
   .bp-scene[data-gimmick]::before,.bp-node[data-gm]::after{animation:none!important}
 }
+
+/* 강적·보스 보상: 카드 줄 아래 전용 유물 줄 */
+.bp-relics{display:grid;gap:6px;padding:6px 12px 0}
+.bp-relics-h{margin:0;font:400 14px/1.2 var(--bp-ko);color:var(--bp-bone)}
+.bp-relic-tier{font:400 10px/1 var(--bp-led);font-style:normal;letter-spacing:.12em;padding:2px 6px;border:1px solid #f5c04a;color:#f5c04a;border-radius:2px;margin-right:4px}
+.bp-relic-tier.boss{background:#f5c04a;color:#1a1204}
+.bp-relic-offers{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:6px}
+.bp-relic-offers .bp-offer.relic{min-height:96px}
+/* 유물 줄이 있는 보상 화면: 카드 줄이 눌리지 않게 세로로 늘어나고, 버튼은 아래에 붙는다 */
+.bp-stop.stop-reward:has(.bp-relics){height:auto;min-height:calc(100dvh - var(--bp-top));grid-template-rows:auto auto minmax(190px,auto) auto auto}
+.bp-stop.stop-reward:has(.bp-relics) .bp-verbs{position:sticky;bottom:0;z-index:5;background:var(--bp-night,#07080d);padding-top:6px}
+.bp-relic-offers{grid-template-columns:1fr}
+.bp-relic-offers .bp-tile-kind{display:none}
+.bp-relic-offers .bp-offer.relic{min-height:0;padding:6px 10px}
+.bp-relic-offers .bp-offer-desc{font-size:12px;line-height:1.25}
+
+.bp-stop .bp-relic-offers{grid-template-columns:repeat(3,1fr)}
+main.bp-stop.bp-choice .bp-relic-offers .bp-offer.bp-tile{grid-column:auto;grid-template-columns:1fr;grid-template-rows:auto auto;justify-items:center;align-content:start;row-gap:6px;padding:8px 4px;min-height:96px;text-align:center}
+main.bp-stop.bp-choice .bp-relic-offers .bp-offer.bp-tile .bp-mark{grid-row:1;grid-column:1;justify-self:center;width:46px;height:34px;font-size:11px}
+main.bp-stop.bp-choice .bp-relic-offers .bp-offer.bp-tile .bp-tile-kind,main.bp-stop.bp-choice .bp-relic-offers .bp-offer.bp-tile .bp-offer-desc{display:none}
+main.bp-stop.bp-choice .bp-relic-offers .bp-offer.bp-tile .bp-offer-name{grid-column:1;grid-row:2;padding:0;align-self:start;font-size:14px;line-height:1.15;text-align:center}
+.bp-relic-desc{margin:0;min-height:32px;font-size:13px;line-height:1.3;color:var(--bp-bone)}

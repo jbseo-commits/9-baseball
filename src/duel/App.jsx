@@ -1053,8 +1053,8 @@ export default function Duel(){
     :isV10&&s.phase==='map'?<BallparkMap key="screen-bp-map" {...selectV10Map(s)} completedIds={s.runMap.completedNodeIds} deckCount={s.deck.length} relicCount={s.relics.length}
       portraits={pitcherPortraits} figures={pitcherFigures} onInspect={openPitcher} onEnter={id=>{const why=v10NodeProblem(current.current,id);if(why){setError(why);return}setError('');act(x=>enterV10Node(x,id))}}/>
     :isV10&&s.phase==='reward'?<BallparkStop key="screen-bp-reward" kind="reward" opponent={s.v10?.opponent} portrait={pitcherPortraits[s.v10?.opponent?.artId]}
-      options={v10RewardOptions(s).map(kind=>({type:'add',kind}))} deck={s.deck} deckCount={s.deck.length} onDeck={()=>setModal('deck')} onInspect={openPitcher}
-      onPick={o=>act(x=>claimV10Reward(x,{type:'add',kind:o.kind}))} onSkip={()=>act(x=>claimV10Reward(x,{type:'skip'}))}/>
+      options={v10RewardOptions(s).map(kind=>({type:'add',kind}))} relics={s.v10?.relicChoices||[]} relicTier={s.v10?.opponent?.rewardTier===3?'boss':'elite'} deck={s.deck} deckCount={s.deck.length} onDeck={()=>setModal('deck')} onInspect={openPitcher}
+      onPick={(o,relic)=>act(x=>claimV10Reward(x,o.type==='skip'?{type:'skip',relic}:{type:'add',kind:o.kind,relic}))} onSkip={()=>act(x=>claimV10Reward(x,{type:'skip'}))}/>
     :isV10&&V10_UTILITY_PHASES.includes(s.phase)?<BallparkStop key={'screen-bp-'+s.phase} kind={s.phase}
       options={v10UtilityOptions(s)} deck={s.deck} deckCount={s.deck.length} onDeck={()=>setModal('deck')}
       onPick={o=>act(x=>completeV10UtilityNode(x,o))} onSkip={()=>act(x=>completeV10UtilityNode(x,{type:'skip'}))}/>

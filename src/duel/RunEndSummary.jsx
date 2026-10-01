@@ -1,6 +1,6 @@
 import React from 'react';
 import {CARDS} from './cards.js';
-import {V10_RELICS} from './v10-relics.js';
+import {V10_ALL_RELICS} from './v10-relics.js';
 import ResultChain from './ResultChain.jsx';
 import './v12-run-end.css';
 
@@ -13,10 +13,11 @@ const cardName=kind=>CARDS[kind]?.name||kind;
 function choiceText(entry){
   if(!entry)return null;
   const a=entry.action||entry;
+  if(entry.relic&&(a.type==='add'||a.type==='skip'))return (a.type==='add'?cardName(a.kind)+' 추가 · ':'')+'유물 · '+(V10_ALL_RELICS[entry.relic]?.name||entry.relic);
   if(a.type==='add')return cardName(a.kind)+' 추가';
   if(a.type==='remove')return (a.name||cardName(a.kind))+' 제거';
   if(a.type==='upgrade')return (a.name||cardName(a.kind))+' 강화';
-  if(a.type==='relic')return '유물 · '+(V10_RELICS[a.relic]?.name||a.relic);
+  if(a.type==='relic')return '유물 · '+(V10_ALL_RELICS[a.relic]?.name||a.relic);
   if(a.type==='rest')return '휴식 · 다음 전투 타격 +8';
   if(a.type==='skip')return null;
   return null;
