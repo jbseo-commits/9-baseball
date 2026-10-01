@@ -18,6 +18,8 @@ function open(s,park=true){
   saveV10Duel(localStorage,s);
   render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
 }
+/* The route is generated per seed: aim the run at a locker stop instead of a fixed node id. */
+function toLocker(s){const n=s.runMap.nodes.find(x=>x.type==='locker');expect(n).toBeTruthy();return enterV10Node({...s,runMap:{...s.runMap,reachableIds:[n.id]}},n.id);}
 const go=()=>screen.getByTestId('bp-stop-go'),skip=()=>screen.getByTestId('bp-stop-skip');
 const offers=()=>[...document.querySelectorAll('.bp-offer')];
 
@@ -40,7 +42,7 @@ describe('V13 BALLPARK stops',()=>{
     const t=readV10Duel(localStorage);expect(t.phase).toBe('map');expect(t.deck.length).toBe(s.deck.length);
   });
   it('locker lists each card kind once and removes the picked copy',()=>{
-    let s=won();s=claimV10Reward(s,{type:'add',kind:v10RewardOptions(s)[0]});s=enterV10Node(s,'a1-craft');
+    let s=won();s=claimV10Reward(s,{type:'add',kind:v10RewardOptions(s)[0]});s=toLocker(s);
     expect(s.phase).toBe('locker');open(s);
     const kinds=[...new Set(v10UtilityOptions(s).map(o=>o.kind))];
     expect(offers().map(o=>o.dataset.cardKind)).toEqual(kinds);
@@ -48,7 +50,7 @@ describe('V13 BALLPARK stops',()=>{
     const t=readV10Duel(localStorage);expect(t.phase).toBe('map');expect(t.deck.length).toBe(s.deck.length-1);
   });
   it('an empty stop has one button back to the map',()=>{
-    let s=won();s=claimV10Reward(s,{type:'skip'});s=enterV10Node(s,'a1-craft');
+    let s=won();s=claimV10Reward(s,{type:'skip'});s=toLocker(s);
     expect(v10UtilityOptions(s)).toHaveLength(0);open(s);
     expect(document.querySelector('[data-testid=bp-stop-go]')).toBeNull();
     expect(skip().textContent).toBe('지도로');

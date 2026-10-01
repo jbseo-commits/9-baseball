@@ -1,6 +1,7 @@
 import {ZONE_ORDER} from './cards.js';
 import pitcherRoster from '../../assets/pitcher-mobs-v1/roster.json' with {type:'json'};
 
+const RED_RUSH_ID='regular-01-red-rush';
 const TYPES=new Set(['battle','elite','training','locker','shop','rest','boss']);
 const COMBAT_TYPES=new Set(['battle','elite','boss']);
 const LABELS={
@@ -82,119 +83,73 @@ function makeNode(seed,act,spec){
   return {...base,utility:{...utility},risk:utility.risk,reward:utility.reward,preview:`${utility.effect} · ${utility.detail}`};
 }
 
-const A1=[
-  {
-    nodes:[
-      ['entry',0,1,'battle','steady'],
-      ['develop',1,0,'training','development'],['road',1,3,'elite','gauntlet'],
-      ['develop-game',2,0,'battle','development'],['road-game',2,3,'battle','gauntlet'],
-      ['develop-rest',3,0,'rest','development'],['develop-push',3,1,'elite','gauntlet'],
-      ['road-cash',3,2,'shop','craft'],['road-push',3,3,'elite','gauntlet'],
-      ['boss',4,1,'boss','playoff'],
-    ],
-    edges:[
-      ['entry','develop'],['entry','road'],['develop','develop-game'],['road','road-game'],
-      ['develop-game','develop-rest'],['develop-game','develop-push'],
-      ['road-game','road-cash'],['road-game','road-push'],
-      ['develop-rest','boss'],['develop-push','boss'],['road-cash','boss'],['road-push','boss'],
-    ],
-  },
-  {
-    nodes:[
-      ['entry',0,1,'battle','steady'],
-      ['craft',1,0,'locker','craft'],['steady',1,1,'training','development'],['risk',1,3,'elite','gauntlet'],
-      ['craft-game',2,0,'battle','craft'],['steady-game',2,1,'battle','steady'],['risk-game',2,3,'elite','gauntlet'],
-      ['craft-shop',3,0,'shop','craft'],['steady-rest',3,1,'rest','steady'],['risk-shop',3,2,'shop','gauntlet'],['risk-elite',3,3,'elite','gauntlet'],
-      ['boss',4,1,'boss','playoff'],
-    ],
-    edges:[
-      ['entry','craft'],['entry','steady'],['entry','risk'],
-      ['craft','craft-game'],['steady','steady-game'],['risk','risk-game'],
-      ['craft-game','craft-shop'],['steady-game','steady-rest'],
-      ['risk-game','risk-shop'],['risk-game','risk-elite'],
-      ['craft-shop','boss'],['steady-rest','boss'],['risk-shop','boss'],['risk-elite','boss'],
-    ],
-  },
-];
+/* 슬더스식 길 생성: 막마다 시드로 칸 수·자리·연결·종류를 새로 뽑는다.
+   고정 규칙: 입구(a{act}-entry)와 보스(a{act}-boss)는 한 칸, 모든 칸은 앞으로만 이어져 보스에 닿는다. */
+const LANES=4;
+const ACT_ROWS={1:3,2:4,3:3};
+const ACT_REQUIRED={1:['elite','shop','rest','training|locker'],2:['elite','shop','rest','training|locker'],3:['elite','shop','rest']};
+const ROUTE_BY_TYPE={battle:'steady',elite:'gauntlet',training:'development',locker:'craft',shop:'craft',rest:'steady',boss:'playoff'};
+const routeFor=(act,type)=>act===1?ROUTE_BY_TYPE[type]:type==='elite'?(act===2?'ace':'playoff'):type==='battle'&&act===3?'playoff':type==='shop'?'scout':ROUTE_BY_TYPE[type];
+const makeRng=seed=>{let s=seed>>>0;return ()=>{s=mix(s+0x9e3779b9>>>0);return s/0x100000000;};};
+const pickWeighted=(rng,table)=>{const total=table.reduce((a,[,w])=>a+w,0);let r=rng()*total;for(const [k,w] of table){r-=w;if(r<0)return k;}return table[0][0];};
+const shuffle=(rng,list)=>{const a=[...list];for(let i=a.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
 
-const A2=[
-  {
-    nodes:[
-      ['entry',0,1,'battle','steady'],
-      ['recover',1,0,'rest','steady'],['analyze',1,1,'locker','scout'],['hunt',1,3,'elite','ace'],
-      ['recover-game',2,0,'battle','steady'],['analyze-game',2,1,'battle','scout'],['hunt-game',2,3,'elite','ace'],
-      ['recover-train',3,0,'training','development'],['analyze-shop',3,1,'shop','scout'],
-      ['hunt-cash',3,2,'shop','ace'],['hunt-ace',3,3,'elite','ace'],
-      ['boss',4,1,'boss','playoff'],
-    ],
-    edges:[
-      ['entry','recover'],['entry','analyze'],['entry','hunt'],
-      ['recover','recover-game'],['analyze','analyze-game'],['hunt','hunt-game'],
-      ['recover-game','recover-train'],['analyze-game','analyze-shop'],
-      ['hunt-game','hunt-cash'],['hunt-game','hunt-ace'],
-      ['recover-train','boss'],['analyze-shop','boss'],['hunt-cash','boss'],['hunt-ace','boss'],
-    ],
-  },
-  {
-    nodes:[
-      ['entry',0,1,'battle','steady'],
-      ['prep',1,0,'locker','craft'],['rival',1,3,'elite','gauntlet'],
-      ['prep-game',2,0,'battle','craft'],['rival-game',2,3,'battle','gauntlet'],
-      ['prep-train',3,0,'training','development'],['prep-push',3,1,'elite','playoff'],
-      ['rival-rest',3,2,'rest','steady'],['rival-ace',3,3,'elite','ace'],
-      ['shop',4,1,'shop','scout'],['boss',5,1,'boss','playoff'],
-    ],
-    edges:[
-      ['entry','prep'],['entry','rival'],['prep','prep-game'],['rival','rival-game'],
-      ['prep-game','prep-train'],['prep-game','prep-push'],
-      ['rival-game','rival-rest'],['rival-game','rival-ace'],
-      ['prep-train','shop'],['prep-push','shop'],['rival-rest','shop'],['rival-ace','shop'],['shop','boss'],
-    ],
-  },
-];
+function rowTable(act,row,last,counts){
+  if(row===1)return [['battle',60],['training',20],['locker',20]];
+  const elite=counts.elite>=2?0:act===3?26:act===2?20:16;
+  const shop=counts.shop>=2?0:12;
+  if(last)return [['rest',32],['shop',shop?26:0],['battle',28],['elite',elite?14:0]];
+  return [['battle',46],['elite',elite],['shop',shop],['rest',10],['training',9],['locker',8]];
+}
 
-const A3=[
-  {
-    nodes:[
-      ['entry',0,1,'battle','playoff'],
-      ['series',1,0,'battle','playoff'],['ace-hunt',1,3,'elite','ace'],
-      ['series-elite',2,0,'elite','playoff'],['ace-hunt-2',2,3,'elite','ace'],
-      ['series-rest',3,0,'rest','steady'],['series-push',3,1,'elite','playoff'],
-      ['ace-shop',3,2,'shop','ace'],['ace-final',3,3,'elite','ace'],
-      ['boss',4,1,'boss','ace'],
-    ],
-    edges:[
-      ['entry','series'],['entry','ace-hunt'],['series','series-elite'],['ace-hunt','ace-hunt-2'],
-      ['series-elite','series-rest'],['series-elite','series-push'],
-      ['ace-hunt-2','ace-shop'],['ace-hunt-2','ace-final'],
-      ['series-rest','boss'],['series-push','boss'],['ace-shop','boss'],['ace-final','boss'],
-    ],
-  },
-  {
-    nodes:[
-      ['entry',0,1,'battle','playoff'],
-      ['wildcard',1,0,'battle','playoff'],['rival',1,1,'elite','playoff'],['ace',1,3,'elite','ace'],
-      ['wildcard-2',2,0,'battle','playoff'],['rival-2',2,1,'elite','playoff'],['ace-2',2,3,'elite','ace'],
-      ['wildcard-rest',3,0,'rest','steady'],['rival-shop',3,1,'shop','playoff'],['ace-3',3,3,'elite','ace'],
-      ['boss',4,1,'boss','ace'],
-    ],
-    edges:[
-      ['entry','wildcard'],['entry','rival'],['entry','ace'],
-      ['wildcard','wildcard-2'],['rival','rival-2'],['ace','ace-2'],
-      ['wildcard-2','wildcard-rest'],['rival-2','rival-shop'],['ace-2','ace-3'],
-      ['wildcard-rest','boss'],['rival-shop','boss'],['ace-3','boss'],
-    ],
-  },
-];
-
-const TEMPLATES={1:A1,2:A2,3:A3};
+function planAct(seed,act){
+  const rng=makeRng(mix((seed>>>0)^Math.imul(act+7,0x85ebca6b)));
+  const mid=ACT_ROWS[act],rows=[[{row:0,lane:1,type:'battle'}]],counts={elite:0,shop:0};
+  for(let row=1;row<=mid;row++){
+    const size=row===1?pickWeighted(rng,[[2,35],[3,65]]):pickWeighted(rng,[[2,10],[3,45],[4,45]]);
+    const lanes=shuffle(rng,[...Array(LANES).keys()]).slice(0,size).sort((a,b)=>a-b);
+    const cells=lanes.map(lane=>{
+      const type=pickWeighted(rng,rowTable(act,row,row===mid,counts).filter(([,w])=>w>0));
+      if(counts[type]!==undefined)counts[type]++;
+      return {row,lane,type};
+    });
+    if(!cells.some(c=>c.type==='battle'))cells[Math.floor(rng()*cells.length)].type='battle';
+    if(row===mid&&!cells.some(c=>c.type==='rest'||c.type==='shop'))cells[Math.floor(rng()*cells.length)].type='rest';
+    rows.push(cells);
+  }
+  /* 한 막에 꼭 한 번은 만나야 하는 칸. 시드가 나빠도 막이 전투만으로 채워지지 않게 빈 종류를 전투 칸에서 바꿔 채운다. */
+  for(const want of ACT_REQUIRED[act]){
+    const alts=want.split('|'),cells=rows.flat();
+    if(cells.some(c=>alts.includes(c.type)))continue;
+    const type=alts[Math.floor(rng()*alts.length)];
+    const dup=c=>cells.filter(o=>o.type===c.type).length>1;
+    const swap=cells.filter(c=>c.row>=(type==='elite'?2:1)&&(c.type==='battle'?rows[c.row].filter(o=>o.type==='battle').length>1:dup(c)));
+    if(swap.length)swap[Math.floor(rng()*swap.length)].type=type;
+  }
+  rows.push([{row:mid+1,lane:1,type:'boss'}]);
+  const key=c=>c.row===0?'entry':c.type==='boss'?'boss':`r${c.row}l${c.lane}`;
+  const edges=[];
+  for(let r=0;r<rows.length-1;r++){
+    const from=rows[r],to=rows[r+1],has=new Set();
+    const link=(a,b)=>{const k=key(a)+'>'+key(b);if(!has.has(k)){has.add(k);edges.push([key(a),key(b)]);}};
+    if(from.length===1||to.length===1){for(const a of from)for(const b of to)link(a,b);continue;}
+    const nearest=(c,list)=>[...list].sort((x,y)=>Math.abs(x.lane-c.lane)-Math.abs(y.lane-c.lane)||(rng()<.5?-1:1));
+    for(const a of from){
+      const near=nearest(a,to);link(a,near[0]);
+      if(rng()<.4)link(a,near[1]);
+    }
+    for(const b of to)if(!edges.some(e=>e[1]===key(b)&&from.some(a=>key(a)===e[0])))link(nearest(b,from)[0],b);
+  }
+  return {cells:rows.flat().map(c=>({...c,key:key(c)})),edges};
+}
 
 function buildAct(seed,act){
-  const choices=TEMPLATES[act],template=choices[mix((seed>>>0)^Math.imul(act,0x85ebca6b))%choices.length];
-  const nodes=template.nodes.map(([key,row,lane,type,route])=>makeNode(seed,act,{key,row,lane,type,route}));
-  const edges=template.edges.map(([from,to])=>({from:`a${act}-${from}`,to:`a${act}-${to}`}));
+  const plan=planAct(seed,act);
+  const nodes=plan.cells.map(c=>makeNode(seed,act,{key:c.key,row:c.row,lane:c.lane,type:c.type,route:c.row===0?(act===3?'playoff':'steady'):c.type==='boss'&&act===3?'ace':routeFor(act,c.type)}));
+  const edges=plan.edges.map(([from,to])=>({from:`a${act}-${from}`,to:`a${act}-${to}`}));
   return {nodes,edges};
 }
+
 
 /* 이름 풀이 전투 칸보다 짧다. 시드에서 시작점을 정해 돌려 쓰되, 한 바퀴 안에서는 겹치지 않게 한다. */
 function nameOpponents(seed,nodes){
@@ -211,16 +166,20 @@ export function createRunMap(seed=0){
     if(act<3)edges.push({from:`a${act}-boss`,to:`a${act+1}-entry`});
   }
   nameOpponents(seed,nodes);
-  // Assign a same-tier authored character without changing opponent stats.
+  // Same-tier authored characters, shuffled per seed so faces and order change every run.
   // Pool repeats receive numbered names to preserve unique names per run.
-  const pools=Object.fromEntries(['battle','elite','boss'].map(type=>[type,pitcherRoster.filter(p=>p.tier===type)]));
+  const crng=makeRng(mix((seed>>>0)^0x2c1b3c6d));
+  const pools=Object.fromEntries(['battle','elite','boss'].map(type=>[type,shuffle(crng,pitcherRoster.filter(p=>p.tier===type))]));
+  // The very first battle stays the Red Rush introduction (one named encounter per run); everything after is shuffled.
+  pools.battle=[...pitcherRoster.filter(p=>p.tier==='battle'&&p.id===RED_RUSH_ID),...pools.battle.filter(p=>p.id!==RED_RUSH_ID)];
   const counts={battle:0,elite:0,boss:0};
   const repeats=new Map();
   for(const node of nodes){
     if(!node.opponent)continue;
     const pool=pools[node.type];
     const index=counts[node.type]++;
-    const pitcher=node.type==='boss'?pool.find(p=>p.act===node.act):node.type==='battle'?pool[index===0?0:1+(index-1)%(pool.length-1)]:pool[index%pool.length];
+    const bosses=pool.filter(p=>p.act===node.act);
+    const pitcher=node.type==='boss'?bosses[Math.floor(crng()*bosses.length)]:(node.type==='battle'?pool[index===0?0:1+(index-1)%(pool.length-1)]:pool[index%pool.length]);
     if(!pitcher)continue;
     const seen=repeats.get(pitcher.id)||0;
     repeats.set(pitcher.id,seen+1);

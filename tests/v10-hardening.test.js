@@ -185,7 +185,8 @@ describe('라커룸 제거 후 손패 불변식', ()=>{
     s=claimV10Reward(s,offer?{type:'add',kind:offer.kind||offer}:{type:'skip'});
     expect(s.deck.length).toBeGreaterThan(9);
 
-    const locker=enterV10Node(s,'a1-craft');
+    const lockerNode=s.runMap.nodes.find(x=>x.type==='locker'&&x.act===1)||s.runMap.nodes.find(x=>x.type==='locker');
+    const locker=enterV10Node({...s,runMap:{...s.runMap,reachableIds:[lockerNode.id]}},lockerNode.id);
     expect(locker.phase).toBe('locker');
     const removed=completeV10UtilityNode(locker,{type:'remove',id:'c0'});
     expect(removed.deck.some(c=>c.id==='c0')).toBe(false);
