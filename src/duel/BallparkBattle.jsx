@@ -4,6 +4,7 @@ import {publicProbabilities,v10StackMax,v10PrepMax,V10_RUNNER_PRESSURE,v10Shaken
 import {intentLines,hpTicks,ZONE_WORDS,runnerMoves} from './ballpark-copy.js';
 import ZoneLinks from './ZoneLinks.jsx';
 import GimmickVfx from './GimmickVfx.jsx';
+import ImpactFx from './ImpactFx.jsx';
 import {pitcherLine,momentOf} from './pitcher-voice.js';
 import BallparkActors,{pixiAvailable,pitcherStance} from './BallparkActors.jsx';
 import {lessonFor,planText} from './DecisionDebrief.jsx';
@@ -451,6 +452,7 @@ const CARD_DESC_MAP={
         </div>;
       })()}
       {inFx&&vfx}
+      {inFx&&shot&&judged&&<ImpactFx key={'ifx'+playToken} sceneRef={sceneRef} stage={fxStage} grade={shot.grade||shot.kind} zone={r?.zone} token={playToken}/>}
       {inFx&&<i className="bp-flash" key={'x'+playToken+fxStage} aria-hidden="true"/>}
       {fxStage==='slowmo'&&shot?.motion?.slowmo>0&&<span className="bp-slowmo" aria-hidden="true">{shot.grade==='near-miss'||shot.grade==='near-miss-k'?'ONE ZONE':shot.grade==='homer'||shot.grade==='grand-slam'?'TIME STOPS':'SLOW'}</span>}
       {cam==='near'&&fxStage==='slowmo'&&<i className="bp-letterbox" key={'lb'+playToken} aria-hidden="true"/>}
