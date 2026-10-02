@@ -3,6 +3,7 @@ import {CARDS,upgradeText,FAMILIES,DECK_MAX} from './cards.js';
 import {shapeHas} from './engine.js';
 import {cardArtFor} from './card-art.js';
 import {V10_ALL_RELICS} from './v10-relics.js';
+import {relicArtFor} from './relic-art.js';
 import {pitcherLine} from './pitcher-voice.js';
 import stadium from '../../assets/duel/stadium.png';
 import rewardPrecisionBlue from '../../assets/production-art/mockup-world-v15/reward-precision-blue.png';
@@ -73,8 +74,8 @@ function Offer({o,on,count,onClick,reveal=null}){
   const rv=reveal==null?{}:{style:{'--i':reveal}};
   /* relic / rest: a wide equipment tile — medal mark, name, the whole effect line (M01) */
   if(o.type==='relic'){const r=V10_ALL_RELICS[o.relic];
-    return <button type="button" className={'bp-offer relic bp-tile'+(on?' on':'')} aria-pressed={on} onClick={onClick} data-relic={o.relic} {...rv}>
-      {reveal!=null&&<Back/>}<b className="bp-mark">{r?.mark}</b><em className="bp-tile-kind">{r?.tier==='boss'?'보스 유물':r?.tier==='elite'?'엘리트 유물':'장비'}</em>
+    return <button type="button" className={'bp-offer relic bp-tile'+(relicArtFor(o.relic)?' has-art':'')+(on?' on':'')} aria-pressed={on} onClick={onClick} data-relic={o.relic} {...rv}>
+      {reveal!=null&&<Back/>}{relicArtFor(o.relic)&&<i className="bp-relic-ico" aria-hidden="true" style={{backgroundImage:`url(${relicArtFor(o.relic)})`}}/>}<b className="bp-mark">{r?.mark}</b><em className="bp-tile-kind">{r?.tier==='boss'?'보스 유물':r?.tier==='elite'?'엘리트 유물':'장비'}</em>
       <strong className="bp-offer-name">{r?.name}</strong><span className="bp-offer-desc">{r?.text}</span></button>;}
   if(o.type==='rest')return <button type="button" className={'bp-offer rest bp-tile'+(on?' on':'')} aria-pressed={on} onClick={onClick}>
     <b className="bp-mark">+8</b><em className="bp-tile-kind">휴식</em>

@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="100%" height="100%">
+  <defs>
+    <radialGradient id="ld-bg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1c1917"/>
+      <stop offset="70%" stop-color="#0c0a09"/>
+      <stop offset="100%" stop-color="#030303"/>
+    </radialGradient>
+    <radialGradient id="parchment-glow" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#d97706" stop-opacity="0.6"/>
+      <stop offset="40%" stop-color="#92400e" stop-opacity="0.3"/>
+      <stop offset="80%" stop-color="#78350f" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#451a03" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ledger-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef3c7"/>
+      <stop offset="30%" stop-color="#fde047"/>
+      <stop offset="60%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#78350f"/>
+    </linearGradient>
+    <linearGradient id="cover-leather" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#522510"/>
+      <stop offset="50%" stop-color="#361709"/>
+      <stop offset="100%" stop-color="#1f0c05"/>
+    </linearGradient>
+    <linearGradient id="page-stack" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fef3c7"/>
+      <stop offset="50%" stop-color="#fde68a"/>
+      <stop offset="100%" stop-color="#d4af37"/>
+    </linearGradient>
+    <filter id="ledger-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="256" height="256" fill="url(#ld-bg)"/>
+  <circle cx="128" cy="128" r="116" fill="none" stroke="url(#ledger-gold)" stroke-width="2" opacity="0.4"/>
+  <circle cx="128" cy="128" r="108" fill="none" stroke="#d97706" stroke-width="1" stroke-dasharray="6,6" opacity="0.5"/>
+
+  <!-- Amber Parchment Glow -->
+  <circle cx="128" cy="120" r="88" fill="url(#parchment-glow)"/>
+
+  <!-- Scout Notebook Ledger -->
+  <g transform="translate(128, 120) rotate(-6)">
+    <!-- Back Cover Shadow -->
+    <rect x="-56" y="-62" width="112" height="126" rx="8" fill="#140804" opacity="0.8"/>
+    
+    <!-- Paper Page Edges (Gilded Pages) -->
+    <rect x="-52" y="-58" width="108" height="120" rx="6" fill="url(#page-stack)" stroke="#b45309" stroke-width="1.5"/>
+    <line x1="52" y1="-54" x2="52" y2="58" stroke="#78350f" stroke-width="2" opacity="0.4"/>
+    <line x1="54" y1="-52" x2="54" y2="56" stroke="#451a03" stroke-width="1" opacity="0.3"/>
+
+    <!-- Front Leather Cover -->
+    <rect x="-58" y="-64" width="104" height="128" rx="8" fill="url(#cover-leather)" stroke="url(#ledger-gold)" stroke-width="2.5"/>
+    
+    <!-- Spine Binding Stitching -->
+    <line x1="-48" y1="-60" x2="-48" y2="60" stroke="#fde047" stroke-width="2" stroke-dasharray="6,4" opacity="0.7"/>
+
+    <!-- Embossed Gold Baseball Diamond on Cover -->
+    <g transform="translate(-6, 0)">
+      <!-- Outer Diamond -->
+      <polygon points="0,-28 28,0 0,28 -28,0" fill="none" stroke="url(#ledger-gold)" stroke-width="2.5" filter="url(#ledger-glow)"/>
+      <polygon points="0,-24 24,0 0,24 -24,0" fill="#291107" stroke="#ca8a04" stroke-width="1"/>
+      
+      <!-- 9-Zone Strikezone Grid inside diamond -->
+      <g transform="translate(-10, -10)" stroke="#fde047" stroke-width="1.2" opacity="0.75">
+        <rect x="0" y="0" width="20" height="20" fill="none"/>
+        <line x1="6.6" y1="0" x2="6.6" y2="20"/>
+        <line x1="13.3" y1="0" x2="13.3" y2="20"/>
+        <line x1="0" y1="6.6" x2="20" y2="6.6"/>
+        <line x1="0" y1="13.3" x2="20" y2="13.3"/>
+      </g>
+    </g>
+
+    <!-- Silk Bookmark Ribbon Hanging Out -->
+    <path d="M 0 60 Q 8 75 4 90 L 14 86 L 24 92 Q 18 75 12 60 Z" fill="#b91c1c" stroke="#7f1d1d" stroke-width="1"/>
+  </g>
+
+  <!-- Scout Brass Pencil laying across corner -->
+  <g transform="translate(164, 154) rotate(42)">
+    <rect x="-4" y="-30" width="8" height="60" rx="1" fill="#eab308" stroke="#713f12" stroke-width="1.2"/>
+    <polygon points="-4,-30 0,-42 4,-30" fill="#fde68a" stroke="#713f12" stroke-width="1"/>
+    <polygon points="-1.5,-38 0,-42 1.5,-38" fill="#1e293b"/>
+    <rect x="-4" y="24" width="8" height="6" fill="#ef4444" stroke="#713f12" stroke-width="1"/>
+  </g>
+
+  <!-- Relic Emblem Badge (LEDGER) -->
+  <g transform="translate(128, 206)">
+    <rect x="-42" y="-12" width="84" height="24" rx="4" fill="#1c1917" stroke="url(#ledger-gold)" stroke-width="1.5"/>
+    <text x="0" y="5" font-family="-apple-system, sans-serif" font-weight="900" font-size="12" fill="#fde047" text-anchor="middle" letter-spacing="1.5">LEDGER</text>
+  </g>
+
+  <!-- Title Top Arch -->
+  <text x="128" y="32" font-family="-apple-system, sans-serif" font-weight="800" font-size="9" fill="#fde68a" text-anchor="middle" letter-spacing="2" opacity="0.9">SCOUT PITCH LOG</text>
+</svg>
