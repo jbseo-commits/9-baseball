@@ -97,7 +97,7 @@ function Offer({o,on,count,onClick,reveal=null}){
   </button>;
 }
 
-export default function BallparkStop({kind,opponent=null,portrait=null,options=[],relics=[],relicTier='elite',deck=[],deckCount=0,onPick,onSkip,onDeck,onInspect}){
+export default function BallparkStop({kind,opponent=null,portrait=null,options=[],relics=[],relicTier='elite',runOuts=0,canRecover=false,onRecover,deck=[],deckCount=0,onPick,onSkip,onDeck,onInspect}){
   const [sel,setSel]=useState(null),[selR,setSelR]=useState(null);
   /* 강적·보스 보상: 전용 유물을 반드시 하나 고른다. 카드는 고르거나 넘길 수 있다. */
   const needRelic=kind==='reward'&&relics.length>0;
@@ -124,12 +124,15 @@ export default function BallparkStop({kind,opponent=null,portrait=null,options=[
     </div>
     {needRelic&&<section className="bp-relics" aria-label="전용 유물" data-testid="bp-relics"><h2 className="bp-relics-h"><i className={'bp-relic-tier '+relicTier}>{relicTier==='boss'?'보스 유물':'엘리트 유물'}</i> 하나를 고른다</h2>
       <div className="bp-relic-offers">{relics.map((k,i)=><Offer key={k} o={{type:'relic',relic:k}} on={selR===i} onClick={()=>setSelR(selR===i?null:i)}/>)}</div>
+      {kind==='reward'&&runOuts>0&&<p className="bp-outs-note" data-testid="bp-outs-note">이어지는 아웃 {runOuts}/2{canRecover?' · 보스 보상 대신 0으로 회복할 수 있다.':' · 보스를 잡아야 회복할 수 있다.'}</p>}
       <p className="bp-relic-desc" data-testid="bp-relic-desc">{selR!=null?V10_ALL_RELICS[relics[selR]]?.text:'유물을 눌러 효과를 확인한다.'}</p></section>}
     <div className="bp-verbs stop">
       {/* the verb is always on the button; the second line guides (nothing picked) or names the pick */}
       {(!!options.length||needRelic)&&<button type="button" className={'bp-verb go'+(goOk?' picked':'')} data-testid="bp-stop-go" disabled={!goOk} onClick={()=>goOk&&(needRelic?onPick?.(o||{type:'skip'},relics[selR]):onPick?.(o))}
         aria-label={c.go+' · '+goSub}>
         <span className="bp-go-verb">{c.go}</span><span className="bp-go-sub" data-testid="bp-stop-go-sub">{goSub}</span></button>}
+      {needRelic&&canRecover&&<button type="button" className="bp-verb wait bp-recover" data-testid="bp-recover" onClick={()=>onRecover?.()}
+        aria-label={'아웃 회복 · 보상 포기 · 아웃 '+runOuts+' → 0'}><span className="bp-go-verb">아웃 회복</span><span className="bp-go-sub">보상 포기 · 아웃 {runOuts}→0</span></button>}
       {!needRelic&&<button type="button" className={'bp-verb '+(options.length?'wait':'go')} data-testid="bp-stop-skip" onClick={onSkip}>{options.length?c.skip:'지도로'}</button>}
     </div>
   </main>;

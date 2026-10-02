@@ -33,7 +33,7 @@ function useLandscape(){
   return on;
 }
 
-export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reachableIds=[],completedIds=[],deckCount=0,relicCount=0,portraits={},figures={},onEnter,onInspect}){
+export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reachableIds=[],completedIds=[],deckCount=0,relicCount=0,runOuts=0,portraits={},figures={},onEnter,onInspect}){
   const wide=useLandscape();
   const reach=useMemo(()=>new Set(reachableIds),[reachableIds]),done=useMemo(()=>new Set(completedIds),[completedIds]);
   const byId=useMemo(()=>new Map(nodes.map(n=>[n.id,n])),[nodes]);
@@ -76,7 +76,7 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
   };
 
   return <main ref={mapRef} className={'bp-map'+(wide?' wide':'')} aria-label="원정 지도">
-    <div className="bp-bar"><span>{act}막</span><span>덱 <b>{deckCount}</b>{relicCount?<> · 유물 <b>{relicCount}</b></>:null}</span></div>
+    <div className="bp-bar"><span>{act}막</span><span>덱 <b>{deckCount}</b>{relicCount?<> · 유물 <b>{relicCount}</b></>:null}{runOuts?<> · 아웃 <b data-testid="bp-map-outs">{runOuts}/2</b></>:null}</span></div>
     <div className="bp-mbody">
       <div className="bp-mleft">
         <header className="bp-mhead" style={{'--bp-sky':`url(${stadium})`}}>

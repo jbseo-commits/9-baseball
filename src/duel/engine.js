@@ -9,7 +9,9 @@ const clamp=(x,a,b)=>Math.min(b,Math.max(a,x));
 export const currentBatter=s=>LINEUP[s.battle.batterIndex];
 const playerName=id=>LINEUP.find(p=>p.id===id)?.name||'선수';
 function shuffle(s,a){for(let i=a.length-1;i>0;i--){const j=Math.floor(unit(s,'seed')*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function draw(s,n){const b=s.battle;while(n-->0&&b.hand.length<9){if(!b.draw.length)b.draw=shuffle(s,b.discard.splice(0));if(!b.draw.length)break;b.hand.push(b.draw.pop());}}
+/* 손패: 전투는 5장으로 시작하고 타석마다 4장까지 채우며, 어떤 경우에도 5장을 넘지 못한다(전엔 최대 9장). 손패가 많으면 존을 다 덮어 승부가 사라진다. */
+export const HAND_OPEN=5,HAND_REFILL=4,HAND_MAX=5;
+function draw(s,n){const b=s.battle;while(n-->0&&b.hand.length<HAND_MAX){if(!b.draw.length)b.draw=shuffle(s,b.discard.splice(0));if(!b.draw.length)break;b.hand.push(b.draw.pop());}}
 
 // PUBLIC is the actual sampling distribution. No false odds, no input-dependent reroll.
 // V10 opponents advertise their actual pitch identity on the map; V9 keeps stage defaults.
@@ -116,7 +118,7 @@ export function createDuel(seed=Date.now()>>>0,build='away'){
   return {version:9,seed:seed>>>0,pitchSeed:(seed^0x9e3779b9)>>>0,initialSeed:seed>>>0,build,phase:'map',stage:0,
     growth:{patience:0,relay:0,fortune:0},growthHistory:[],fortune:0,relics:[],
     growthStats:{waitStrikes:0,patienceSwings:0,relayCreated:0,relayHits:0,fortuneEarned:0,fortuneUses:0},
-    deck:baseDeck.map((kind,i)=>({id:'c'+i,kind})),nextId:baseDeck.length,rewards:[],facilities:[],route:null,routeHistory:[],victories:0,battle:null,last:null,
+    deck:baseDeck.map((kind,i)=>({id:'c'+i,kind})),nextId:baseDeck.length,rewards:[],facilities:[],route:null,routeHistory:[],victories:0,runOuts:0,battle:null,last:null,
     stats:{cards:0,pitches:0,runs:0,outs:0,appearances:0,hits:0,walks:0,fouls:0,whiffs:0,totalBases:0}};
 }
 export function chooseRoute(state,routeId){
@@ -125,7 +127,7 @@ export function chooseRoute(state,routeId){
 }
 export function startBattle(state){
   if(state.phase!=='map'||state.build===DECKBUILDER_BUILD&&!routeChoice(state.stage,state.route))return state;const s=clone(state);s.phase='battle';
-  s.battle={turn:1,batterIndex:0,preparations:0,runSignal:false,results:[],history:[],outs:0,runs:0,strikes:0,balls:0,
+  s.battle={turn:1,batterIndex:0,preparations:0,runSignal:false,results:[],history:[],outs:Math.min(2,Math.max(0,s.runOuts|0)),runs:0,strikes:0,balls:0,
     aim:0,aimZone:s.build==='pull'?3:s.build==='away'?5:4,expanded:false,patient:false,scouted:false,
     expandedPlus:false,scoutPlus:false,runSignalPlus:false,scoutBall:false,
     bonusPower:0,bonusDmg:0,bonusPressure:0,bonusBall:0,bonusWalk:0,bonusFoul:0,
@@ -140,8 +142,8 @@ export function startBattle(state){
   if(s.stage===0){
     const opening=['c0','c1','c2','c3','c4'].filter(id=>s.deck.some(c=>c.id===id));
     s.battle.hand=opening;s.battle.draw=s.battle.draw.filter(id=>!opening.includes(id));
-    if(opening.length<5)draw(s,5-opening.length);
-  }else draw(s,5);
+    if(opening.length<HAND_OPEN)draw(s,HAND_OPEN-opening.length);
+  }else draw(s,HAND_OPEN);
   dealPitch(s);s.last={kind:'start',text:'1번 강한결 입장 · 경향을 읽고 노릴 존과 스윙을 고르세요.',events:[],runs:0,outs:0};return s;
 }
 export function setAimZone(state,zone){
@@ -525,7 +527,7 @@ export function advanceBatter(state){
   b.expandedPlus=false;b.scoutPlus=false;b.runSignalPlus=false;
   b.bonusPower=0;b.bonusDmg=0;b.bonusPressure=0;b.bonusBall=0;b.bonusWalk=0;b.bonusFoul=0;
   b.waitCharge=0;b.growthMode='normal';b.relayActive=b.relayPending;b.relayPending=0;
-  s.phase='battle';draw(s,Math.max(0,5-b.hand.length));dealPitch(s);
+  s.phase='battle';draw(s,Math.max(0,HAND_REFILL-b.hand.length));dealPitch(s);
   const widthAfter=repertoireWidth(s),entry=(index+1)+'번 '+currentBatter(s).name+' 타석 입장',events=[];
   if(widthAfter>widthBefore){
     const opened=ZONE_ORDER[livePitchConfig(s).style].slice(widthBefore,widthAfter).map(z=>ZONES[z]).join(' · ');
@@ -925,6 +927,7 @@ export function playV10Action(state,action){
       next.runMap=completeRunNode(next.runMap);
       next.phase='won';next.v10={...next.v10,rewardChoices:[],runComplete:true,activeBattleBonus:null};
     }else{
+      next.runOuts=Math.min(2,next.battle.outs);/* 아웃은 런이 끝날 때까지 이어진다. 보스 보상에서만 회복할 수 있다. */
       next.phase='reward';next.v10.rewardChoices=v10RewardPool(next);next.v10.relicChoices=v10TierRelicPool(next);
     }
   }else if(['reward','won'].includes(next.phase)){
@@ -947,12 +950,17 @@ export function claimV10Reward(state,action){
   if(state?.version!==10||state.phase!=='reward'||state.pitcher?.hp!==0||!action)return state;
   const pool=state.v10?.rewardChoices||[];
   if(action.type==='add'&&(!pool.includes(action.kind)||state.deck.length>=DECK_MAX))return state;
-  if(!['add','skip'].includes(action.type))return state;
+  if(!['add','skip','recover'].includes(action.type))return state;
+  const bossNode=currentV10Node(state)?.type==='boss';
+  if(action.type==='recover'&&(!bossNode||!(state.runOuts>0)))return state;
   /* 강적·보스는 유물을 반드시 준다: 고르지 않으면 첫 후보가 자동으로 들어온다. 후보 밖의 유물은 거절한다. */
   const relicPool=state.v10?.relicChoices||[];
   if(action.relic!=null&&!relicPool.includes(action.relic))return state;
-  const relic=relicPool.length?(action.relic??relicPool[0]):null;
+  const recover=action.type==='recover';
+  const relic=!recover&&relicPool.length?(action.relic??relicPool[0]):null;
   const s=clone(state);
+  /* 보스 승리: 카드·유물 보상을 받거나, 보상을 모두 포기하고 아웃카운트를 0으로 회복하거나 둘 중 하나. */
+  if(recover)s.runOuts=0;
   if(relic&&!s.relics.includes(relic))s.relics.push(relic);
   if(action.type==='add'){
     const moved=applyRewardToDeck(s.deck,{type:'add',kind:action.kind},s.nextId);
