@@ -1223,3 +1223,8 @@
 .bp-scene:is(.fx-dead-center,.fx-extra) .bp-verdict.good strong{font-size:38px}
 @keyframes bp-slam{0%{transform:scale(2.4) rotate(-4deg);opacity:0}35%{transform:scale(.9) rotate(1deg);opacity:1}60%{transform:scale(1.08) rotate(0)}100%{transform:scale(1)}}
 @media (prefers-reduced-motion:reduce){.bp-verdict:not(.splash){animation:none!important}}
+
+/* relic medal art (SVG) on reward tiles */
+.bp-relic-ico{display:block;width:52px;height:52px;background:center/contain no-repeat;filter:drop-shadow(0 2px 0 #000a)}
+.bp-stop.bp-choice .bp-relic-offers .bp-offer.bp-tile .bp-relic-ico{grid-row:1;grid-column:1;justify-self:center}
+.bp-offer.relic.has-art .bp-mark{display:none}
