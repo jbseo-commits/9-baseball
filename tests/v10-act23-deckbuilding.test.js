@@ -4,6 +4,8 @@ import {createRunMap,getRunNode,validateRunMap} from '../src/duel/run-map.js';
 import {createV10Duel,enterV10Node,playV10Action,v10RewardOptions,claimV10Reward} from '../src/duel/engine.js';
 
 function forceCombatReward(act,type='elite',seed=20260917){
+  /* routes are generated per seed: take the first seed from here whose three acts all have the node type */
+  while(![1,2,3].every(a=>createRunMap(seed).nodes.some(n=>n.act===a&&n.type===type)))seed++;
   let s=createV10Duel(seed);
   const node=s.runMap.nodes.find(n=>n.act===act&&n.type===type);
   expect(node).toBeTruthy();

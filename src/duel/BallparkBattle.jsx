@@ -1,8 +1,10 @@
 import React,{useLayoutEffect,useRef,useState} from 'react';
 import {CARDS,LINEUP} from './cards.js';
-import {publicProbabilities,V10_SWING_STACK_MAX,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
+import {publicProbabilities,v10StackMax,v10PrepMax,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
 import {intentLines,hpTicks,ZONE_WORDS,runnerMoves} from './ballpark-copy.js';
 import ZoneLinks from './ZoneLinks.jsx';
+import GimmickVfx from './GimmickVfx.jsx';
+import ImpactFx from './ImpactFx.jsx';
 import {pitcherLine,momentOf} from './pitcher-voice.js';
 import BallparkActors,{pixiAvailable,pitcherStance} from './BallparkActors.jsx';
 import {lessonFor,planText} from './DecisionDebrief.jsx';
@@ -127,7 +129,7 @@ export default function BallparkBattle({
   const mainIsSkill=isSkill(mainEntry);
   const canStack=!!(mainEntry&&!mainIsSkill&&mainEntry.kind!=='bunt'&&b.growthMode!=='patience');
   const stack=canStack?swingStack.filter(x=>x.id!==selected&&byId(x.id)):[];
-  const prepLeft=Math.max(0,2-(b.preparations||0));
+  const prepLeft=Math.max(0,v10PrepMax(s)-(b.preparations||0));
 
   const probs=b.pending?publicProbabilities(s):b.intent?.probabilities||[];
   const live=b.intent?.repertoire||[0,1,2,3,4,5,6,7,8];
@@ -137,7 +139,13 @@ export default function BallparkBattle({
   const aimAt=judged?(r.coverage?.length?r.aimZone:null):(selected&&!mainIsSkill?b.aimZone:null);
   const lines=intentLines(b.intent);
   const damage=judged&&landed?Math.max(0,pitcher?.lastDamage||0):0;
-  const ticks=hpTicks(pitcher?.hp,pitcher?.maxHp),ticksWere=judged?hpTicks((pitcher?.hp||0)+(pitcher?.lastDamage||0),pitcher?.maxHp):ticks;
+  /* 공이 닿기 전(pre)에는 결과를 미리 보여주지 않는다: HP·주자·카운트는 이 공을 던지기 전 값이다.
+     오버킬이면 hp+피해가 원래 HP보다 커져 막대가 다시 차 보이므로 엔진이 적어 둔 hpBefore를 쓴다. */
+  const pre=judged&&!landed;
+  const hpWas=judged?Math.min(pitcher?.maxHp||0,Number.isInteger(s.v10?.lastCombat?.hpBefore)?s.v10.lastCombat.hpBefore:(pitcher?.hp||0)+(pitcher?.lastDamage||0)):pitcher?.hp;
+  const ticks=hpTicks(pitcher?.hp,pitcher?.maxHp),ticksWere=judged?hpTicks(hpWas,pitcher?.maxHp):ticks;
+  const shownBases=pre&&Array.isArray(r.basesBefore)?r.basesBefore:(b.bases||[]);
+  const shownCount={balls:pre&&Number.isInteger(r.ballsBefore)?r.ballsBefore:b.balls,strikes:pre&&Number.isInteger(r.strikesBefore)?r.strikesBefore:b.strikes,outs:pre&&Number.isInteger(r.outsBefore)?r.outsBefore:b.outs};
   /* lit, lit until the ball lands, then dropping, then gone */
   const tickClass=i=>i<ticks?'':i<ticksWere?(landed?'drop':''):'lost';
   /* 멘탈 게이지: 실점으로 쌓이는 흔들림. 칸 수 = 막별 상한(1막 3 · 2막 2 · 3막 1). 공이 닿기 전엔 이전 값. */
@@ -148,7 +156,7 @@ export default function BallparkBattle({
   const momentum=judged&&!landed&&Number.isInteger(combat?.momentumBefore)?combat.momentumBefore:v10Momentum(s);
   const momentumRose=judged&&landed&&combat?.momentumAfter>combat?.momentumBefore,momentumOut=judged&&landed&&combat?.momentumAfter<combat?.momentumBefore;
   /* 주자 압박: 지금 루상 주자로 안타를 치면 붙는 피해 배율 */
-  const runners=(b.bases||[]).filter(Boolean).length,runnerPct=Math.round(runners*V10_RUNNER_PRESSURE*100);
+  const runners=shownBases.filter(Boolean).length,runnerPct=Math.round(runners*V10_RUNNER_PRESSURE*100);
   /* who moved on this pitch, once the ball has landed; the diamond pulses the bases that just filled */
   const basesBefore=judged&&landed?r.basesBefore:null;
   const moves=basesBefore?runnerMoves(basesBefore,b.bases||[],LINEUP[b.batterIndex]?.id,r.label,id=>LINEUP.find(p=>p.id===id)?.name):[];
@@ -161,7 +169,7 @@ export default function BallparkBattle({
     if(stack.some(x=>x.id===id)){onStack(stack.filter(x=>x.id!==id));return;}
     const kind=byId(id)?.entry?.kind;
     /* with a main card on the board, another swing card becomes a support: it waits for a zone */
-    if(canStack&&id!=='basic'&&kind!=='bunt'&&stack.length<V10_SWING_STACK_MAX-1){setArmed(id);return;}
+    if(canStack&&id!=='basic'&&kind!=='bunt'&&stack.length<v10StackMax(s)-1){setArmed(id);return;}
     onSelect(id);onStack([]);
   }
   function pickPrep(id){if(locked)return;setArmed(null);onStack([]);onSelect(selected===id?null:id);}
@@ -340,6 +348,8 @@ const CARD_DESC_MAP={
     </button>;
   };
 
+  /* 엘리트·보스 시각 효과: CSS가 data 속성만 읽는다(.bp-scene[data-gimmick]). 단계는 투수 HP 단계. */
+  const gm=s.v10?.opponent?.gimmick,gtier=gm?(s.v10?.opponent?.rewardTier===3?'boss':'elite'):null;
   return <main ref={rootRef} className={'bp-battle'+(autoLesson?' auto-lesson':'')+(commitBeat?' committing':'')+(deciding?'':' resolving')+(inFx?' fx-'+fxStage:'')} aria-label="타석">
     <div className="bp-bar">
       <div className="bp-hud-brand">
@@ -347,10 +357,10 @@ const CARD_DESC_MAP={
         <span className="bp-hud-sub" aria-hidden="true">HOMEBOUND</span>
         <b className="bp-hud-inning">{label}</b>
       </div>
-      <div className="bp-bso-strip" aria-label={`볼 ${b.balls} 스트라이크 ${b.strikes} 아웃 ${b.outs}`}>
-        <div className="bp-bso-unit b"><b className="bp-bso-name">B</b><span className="bp-bso-leds">{Array.from({length:3},(_,i)=><i key={i} className={i<b.balls?'on':''}/>)}</span></div>
-        <div className="bp-bso-unit s"><b className="bp-bso-name">S</b><span className="bp-bso-leds">{Array.from({length:2},(_,i)=><i key={i} className={i<b.strikes?'on':''}/>)}</span></div>
-        <div className="bp-bso-unit o"><b className="bp-bso-name">O</b><span className="bp-bso-leds">{Array.from({length:2},(_,i)=><i key={i} className={i<b.outs?'on':''}/>)}</span></div>
+      <div className="bp-bso-strip" aria-label={`볼 ${shownCount.balls} 스트라이크 ${shownCount.strikes} 아웃 ${shownCount.outs}`}>
+        <div className="bp-bso-unit b"><b className="bp-bso-name">B</b><span className="bp-bso-leds">{Array.from({length:3},(_,i)=><i key={i} className={i<shownCount.balls?'on':''}/>)}</span></div>
+        <div className="bp-bso-unit s"><b className="bp-bso-name">S</b><span className="bp-bso-leds">{Array.from({length:2},(_,i)=><i key={i} className={i<shownCount.strikes?'on':''}/>)}</span></div>
+        <div className="bp-bso-unit o"><b className="bp-bso-name">O</b><span className="bp-bso-leds">{Array.from({length:2},(_,i)=><i key={i} className={i<shownCount.outs?'on':''}/>)}</span></div>
       </div>
       <span className="bp-piles">
         <button type="button" onClick={()=>onPile?.('draw')} className="bp-pile-btn"><i className="bp-pile-icon deck-icon" aria-hidden="true"/>덱 {b.draw?.length??0}</button>
@@ -361,7 +371,7 @@ const CARD_DESC_MAP={
       </span>
     </div>
 
-    <section className={'bp-scene'+(pixi?.batter?' pixi-batter':'')+(pixi?.pitcher?' pixi-pitcher':'')+(inFx?' fx-stage-'+fxStage+(shot?' fx-'+(shot.grade||shot.kind):''):'')+(cam?' cam-'+cam:'')} ref={sceneRef} aria-label="승부 구장">
+    <section className={'bp-scene'+(pixi?.batter?' pixi-batter':'')+(pixi?.pitcher?' pixi-pitcher':'')+(inFx?' fx-stage-'+fxStage+(shot?' fx-'+(shot.grade||shot.kind):''):'')+(cam?' cam-'+cam:'')} ref={sceneRef} aria-label="승부 구장" data-gimmick={gm?.id} data-gtier={gtier} data-gphase={gm?(pitcher?.phase||'steady'):undefined}>
       <div className="bp-bg bp-cam" aria-hidden="true"/>
       <div className="bp-haze" aria-hidden="true"/>
       {commitBeat&&<aside className="bp-commit" data-testid="bp-commit" role="status" aria-live="assertive">
@@ -405,7 +415,7 @@ const CARD_DESC_MAP={
         </div>}
       </aside>}
       {canPixi&&<BallparkActors sceneRef={sceneRef} pitcherAtlas={pitcherAtlas} artId={artId} batterPoses={batterPoses} batterSheet={batterSheet} batterRig={batterRig} pitchZone={judged?r.zone:null} shot={shot} fxStage={fxStage} playToken={playToken} knockedOut={judged&&(pitcher?.hp??1)===0} onReady={setPixi}/>}
-      <div className="bp-pitcher bp-cam" ref={pitcherRef} aria-hidden="true" style={{'--stance-x':pitcherStance(artId)[0],'--stance-y':pitcherStance(artId)[1]}}>{pitcherArt}</div>
+      <div className="bp-pitcher bp-cam" ref={pitcherRef} aria-hidden="true" style={{'--stance-x':pitcherStance(artId)[0],'--stance-y':pitcherStance(artId)[1]}}>{pitcherArt}{gm&&<GimmickVfx id={gm.id} tier={gtier} phase={pitcher?.phase||'steady'}/>}</div>
       <div className="bp-pcol">
       <div className="bp-ptag" aria-label={`${pitcher?.name} 투수 HP ${pitcher?.hp} / ${pitcher?.maxHp}`}>
         <div className="bp-pitcher-badge-row">
@@ -414,11 +424,12 @@ const CARD_DESC_MAP={
           <span className="bp-pitcher-title-name">{s.v10?.opponent?.archetype&&<span className="bp-ptype">{s.v10.opponent.archetype}<i aria-hidden="true"> · </i></span>}<b className="bp-pname">{pitcher?.name||'투수'}</b></span>
         </div>
         <div className="bp-hp-gauge-container">
-          <div className="bp-hp-gauge-bar" style={{'--hp-pct': `${Math.max(0, Math.min(100, Math.round(((judged&&!landed?(pitcher?.hp||0)+(pitcher?.lastDamage||0):pitcher?.hp)||0)/(pitcher?.maxHp||1)*100)))}%`}} />
+          <div className="bp-hp-gauge-bar" style={{'--hp-pct': `${Math.max(0, Math.min(100, Math.round(((pre?hpWas:pitcher?.hp)||0)/(pitcher?.maxHp||1)*100)))}%`}} />
           <span className="bp-ticks" aria-hidden="true">{Array.from({length:12},(_,i)=><i key={i} className={tickClass(i)}/>)}</span>
         </div>
+        {s.v10?.opponent?.gimmick&&<p className="bp-gimmick" data-testid="bp-gimmick"><i className="bp-gtier">{gtier==='boss'?'BOSS':'ELITE'}</i> <b>{s.v10.opponent.gimmick.label}</b> {s.v10.opponent.gimmick.summary}{s.v10.opponent.gimmick.phases&&['pressured','critical'].filter(k=>s.v10.opponent.gimmick.phases[k]&&(pitcher?.phase===k||(k==='pressured'&&pitcher?.phase==='critical'))).map(k=><span key={k}> {s.v10.opponent.gimmick.phases[k]}</span>)}</p>}
         {damage>0&&<b className="bp-damage" key={'d'+playToken}>-{damage}</b>}
-        <small aria-hidden="true">HP {judged&&!landed?(pitcher?.hp||0)+(pitcher?.lastDamage||0):pitcher?.hp} / {pitcher?.maxHp}</small>
+        <small aria-hidden="true">HP {pre?hpWas:pitcher?.hp} / {pitcher?.maxHp}</small>
         <span className={'bp-mental'+(shaken?' shaken':'')+(shaken>=mentalCap?' max':'')+(shakenRose?' rose':'')} data-testid="bp-mental"
           data-shaken={shaken} data-cap={mentalCap} key={'m'+shaken} aria-label={`투수 흔들림 ${shaken} / ${mentalCap}`+(shaken?' · 볼 증가 · 읽기 +1':'')}>
           <em>흔들림</em><span aria-hidden="true">{Array.from({length:mentalCap},(_,i)=><i key={i} className={i<shaken?'on':''}/>)}</span>
@@ -441,6 +452,7 @@ const CARD_DESC_MAP={
         </div>;
       })()}
       {inFx&&vfx}
+      {inFx&&shot&&judged&&<ImpactFx key={'ifx'+playToken} sceneRef={sceneRef} stage={fxStage} grade={shot.grade||shot.kind} zone={r?.zone} token={playToken}/>}
       {inFx&&<i className="bp-flash" key={'x'+playToken+fxStage} aria-hidden="true"/>}
       {fxStage==='slowmo'&&shot?.motion?.slowmo>0&&<span className="bp-slowmo" aria-hidden="true">{shot.grade==='near-miss'||shot.grade==='near-miss-k'?'ONE ZONE':shot.grade==='homer'||shot.grade==='grand-slam'?'TIME STOPS':'SLOW'}</span>}
       {cam==='near'&&fxStage==='slowmo'&&<i className="bp-letterbox" key={'lb'+playToken} aria-hidden="true"/>}
@@ -475,11 +487,11 @@ const CARD_DESC_MAP={
         {judged&&landed&&outside&&<i className="bp-pitch-mark outside" aria-label="실제 공 · 볼"/>}
       </div>
 
-      <div className="bp-count" aria-label={`볼 ${b.balls} 스트라이크 ${b.strikes} 아웃 ${b.outs}`}>
-        {[['B',b.balls,4],['S',b.strikes,3],['O',b.outs,3]].map(([k,v,n])=><div key={k}>{k}{Array.from({length:n-1},(_,i)=><u key={i} className={i<v?'on':''}/>)}</div>)}
+      <div className="bp-count" aria-label={`볼 ${shownCount.balls} 스트라이크 ${shownCount.strikes} 아웃 ${shownCount.outs}`}>
+        {[['B',shownCount.balls,4],['S',shownCount.strikes,3],['O',shownCount.outs,3]].map(([k,v,n])=><div key={k}>{k}{Array.from({length:n-1},(_,i)=><u key={i} className={i<v?'on':''}/>)}</div>)}
       </div>
-      <div className="bp-bases" aria-label={'주자 '+[0,1,2].filter(i=>b.bases?.[i]).map(i=>i+1+'루').join(', ')||'주자 없음'}>
-        {[1,2,0].map(i=><i key={i} className={'base-'+(i+1)+(b.bases?.[i]?' on':'')+(baseNew(i)?' new':'')}/>)}
+      <div className="bp-bases" aria-label={'주자 '+[0,1,2].filter(i=>shownBases[i]).map(i=>i+1+'루').join(', ')||'주자 없음'}>
+        {[1,2,0].map(i=><i key={i} className={'base-'+(i+1)+(shownBases[i]?' on':'')+(baseNew(i)?' new':'')}/>)}
       </div>
     </section>
 

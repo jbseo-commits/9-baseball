@@ -39,6 +39,8 @@ describe('V12 P0-1 baseline contract',()=>{
         delete node.opponent.maxHp;
         delete node.opponent.escalation;
       }
+      // The route is generated per seed now (Slay-the-Spire style); the pre-P0 topology is history.
+      delete copy.runMap.nodes;delete copy.runMap.edges;delete copy.runMap.reachableIds;delete copy.v10.reachableIds;
       delete copy.pitcher.hp;delete copy.pitcher.maxHp;
       delete copy.battle.intent;
       delete copy.v10.opponent;

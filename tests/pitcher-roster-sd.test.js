@@ -22,8 +22,10 @@ describe('remaining pitcher SD roster',()=>{
   it('assigns authored pitcher art across map battles, elites and bosses',()=>{
     const map=createRunMap(7);
     const opponents=map.nodes.filter(node=>node.opponent);
-    const ids=new Set(opponents.map(node=>node.opponent.artId));
     expect(opponents[0].opponent.artId).toBe('regular-01-red-rush');
+    /* faces are shuffled per seed: across many runs every authored pitcher shows up */
+    const ids=new Set();
+    for(let seed=1;seed<=40;seed++)for(const node of createRunMap(seed).nodes)if(node.opponent)ids.add(node.opponent.artId);
     expect(ids).toEqual(new Set(roster.map(entry=>entry.id)));
     for(const node of opponents){
       const entry=roster.find(pitcher=>pitcher.id===node.opponent.artId);
