@@ -4,16 +4,21 @@
 
 export const GIMMICKS=Object.freeze({
   'elite-01-cobalt-impact':{id:'pressure',label:'압박 투구',
-    summary:'2스트라이크가 되면 코스가 2개 더 열리고, 존 밖 공이 절반으로 줄어 기다리기가 어려워진다.'},
+    summary:'1스트라이크부터 코스가 1개, 2스트라이크면 3개 더 열리고, 존 밖 공이 크게 줄어 기다리기가 어려워진다.',
+    phases:{pressured:'압박: 준비는 타석당 1회로 줄어든다.'}},
   'elite-02-neon-trick':{id:'trick',label:'속임수 코스',
-    summary:'타석 첫 공은 30% 확률로 예고된 코스 옆 칸으로 밀려 들어온다.'},
+    summary:'첫 공은 60% 확률로, 이후 공도 25% 확률로 예고된 코스 옆 칸으로 밀려 들어온다.',
+    phases:{pressured:'흔들기: 한 번에 겹칠 수 있는 카드가 3장으로 줄어든다.'}},
   'elite-03-wine-bluff':{id:'bluff',label:'볼 유인',
-    summary:'존 밖 볼이 평소보다 20%p 늘어난다. 치지 않고 기다리는 선택이 값지다.'},
+    summary:'존 밖 볼이 평소보다 35%p 늘어난다. 치지 않고 기다리는 선택이 값지다.',
+    phases:{pressured:'독기: 존 밖 볼이 45%p로 늘고, 준비는 타석당 1회로 줄어든다.'}},
   /* 신규 엘리트(2026-10-02 합류 예정)는 어울리는 기존 기믹을 쓴다: 에어벤더=속임수, 스플링커 파이어볼러=압박 */
   'gale-twister':{id:'trick',label:'속임수 코스',
-    summary:'타석 첫 공은 30% 확률로 예고된 코스 옆 칸으로 밀려 들어온다.'},
+    summary:'첫 공은 60% 확률로, 이후 공도 25% 확률로 예고된 코스 옆 칸으로 밀려 들어온다.',
+    phases:{pressured:'흔들기: 한 번에 겹칠 수 있는 카드가 3장으로 줄어든다.'}},
   'vulcan-blaze':{id:'pressure',label:'압박 투구',
-    summary:'2스트라이크가 되면 코스가 2개 더 열리고, 존 밖 공이 절반으로 줄어 기다리기가 어려워진다.'},
+    summary:'1스트라이크부터 코스가 1개, 2스트라이크면 3개 더 열리고, 존 밖 공이 크게 줄어 기다리기가 어려워진다.',
+    phases:{pressured:'압박: 준비는 타석당 1회로 줄어든다.'}},
   'boss-01-emerald-tyrant':{id:'tyrant',label:'낮은 벽',
     summary:'낮은 3코스 비중 +10%p.',
     phases:{pressured:'지배: 준비는 타석당 1회로 줄어든다.',critical:'낮은 3코스 비중이 +20%p로 커진다.'}},
@@ -27,14 +32,14 @@ export const GIMMICKS=Object.freeze({
 const LEVEL={steady:0,pressured:1,critical:2};
 export const gimmickFor=artId=>{const g=GIMMICKS[artId];return g?{id:g.id,label:g.label,summary:g.summary,phases:g.phases?{...g.phases}:null}:null;};
 
-const NONE=Object.freeze({putawayExtra:0,putawayBallMul:1,ballShare:0,lowShare:0,oppCol:0,prepMax:2,stackMax:4,trickRate:0});
+const NONE=Object.freeze({putawayExtra:0,putawayBallMul:1,ballShare:0,lowShare:0,oppCol:0,prepMax:2,stackMax:4,trickRate:0,trickLate:0,earlyExtra:0});
 /* 기믹 id + HP 단계 → 엔진이 더하거나 곱할 보정. 기믹이 없으면 모두 중립이다. */
 export function gimmickRules(id,phase='steady'){
   const lv=LEVEL[phase]??0;
   switch(id){
-    case 'pressure':return {...NONE,putawayExtra:2,putawayBallMul:.5};
-    case 'trick':return {...NONE,trickRate:.3};
-    case 'bluff':return {...NONE,ballShare:.2};
+    case 'pressure':return {...NONE,earlyExtra:1,putawayExtra:3,putawayBallMul:.35,prepMax:lv>=1?1:2};
+    case 'trick':return {...NONE,trickRate:.6,trickLate:.25,stackMax:lv>=1?3:4};
+    case 'bluff':return {...NONE,ballShare:lv>=1?.45:.35,prepMax:lv>=1?1:2};
     case 'tyrant':return {...NONE,lowShare:lv>=2?.2:.1,prepMax:lv>=1?1:2};
     case 'halo':return {...NONE,stackMax:lv>=1?3:4,ballShare:lv>=2?.1:0};
     case 'eclipse':return {...NONE,oppCol:lv>=1?6:0,prepMax:lv>=2?1:2};

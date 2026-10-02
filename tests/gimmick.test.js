@@ -62,7 +62,16 @@ describe('엘리트·보스 기믹',()=>{
     expect(low('critical')).toBeGreaterThan(low('steady'));
   });
 
-  it('속임수 코스: 첫 공만, 인접 코스로, 대략 30%만 밀린다',()=>{
+  it('엘리트도 HP 단계에 따라 강해진다',()=>{
+    expect(gimmickRules('pressure','steady')).toMatchObject({earlyExtra:1,putawayExtra:3,prepMax:2});
+    expect(gimmickRules('pressure','pressured').prepMax).toBe(1);
+    expect(gimmickRules('trick','steady')).toMatchObject({trickRate:.6,trickLate:.25,stackMax:4});
+    expect(gimmickRules('trick','pressured').stackMax).toBe(3);
+    expect(gimmickRules('bluff','steady').ballShare).toBe(.35);
+    expect(gimmickRules('bluff','pressured')).toMatchObject({ballShare:.45,prepMax:1});
+  });
+
+  it('속임수 코스: 첫 공만, 인접 코스로, 대략 60% 밀린다',()=>{
     let moved=0,total=0;
     for(let seed=1;seed<=400;seed++){
       const a=fight(seed,null),b=fight(seed,'trick');
@@ -72,7 +81,7 @@ describe('엘리트·보스 기믹',()=>{
         moved++;expect(trickNeighbors(a.battle.pending.zone)).toContain(b.battle.pending.zone);
       }
     }
-    expect(moved/total).toBeGreaterThan(.15);expect(moved/total).toBeLessThan(.45);
+    expect(moved/total).toBeGreaterThan(.45);expect(moved/total).toBeLessThan(.75);
     for(const z of [0,4,8])for(const n of trickNeighbors(z))expect(n>=0&&n<=8).toBe(true);
   });
 
