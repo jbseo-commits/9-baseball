@@ -252,8 +252,12 @@ def vector_morph_blend(pose_a: Image.Image, pose_b: Image.Image, t: float) -> Im
     if t >= 0.999:
         return pose_b
 
-    # Hermite / Smoothstep non-linear easing for natural body acceleration
-    smooth_t = t * t * (3.0 - 2.0 * t)
+    # Ease-in-out cubic for a more explosive whip-like acceleration
+    if t < 0.5:
+        smooth_t = 4.0 * t * t * t
+    else:
+        f = (2.0 * t - 2.0)
+        smooth_t = 1.0 + 0.5 * f * f * f
 
     arr_a = np.asarray(pose_a)
     arr_b = np.asarray(pose_b)
@@ -267,8 +271,11 @@ def vector_morph_blend(pose_a: Image.Image, pose_b: Image.Image, t: float) -> Im
     ca_x, ca_y = np.mean(xs_a), np.mean(ys_a)
     cb_x, cb_y = np.mean(xs_b), np.mean(ys_b)
 
+    # Add a slight vertical arc to the motion to prevent flat ghosting
+    arc = math.sin(t * math.pi) * 3.0
+
     shift_x = (cb_x - ca_x) * smooth_t
-    shift_y = (cb_y - ca_y) * smooth_t
+    shift_y = (cb_y - ca_y) * smooth_t - arc
 
     a_shifted = pose_a.transform(
         pose_a.size,
@@ -278,7 +285,7 @@ def vector_morph_blend(pose_a: Image.Image, pose_b: Image.Image, t: float) -> Im
         fillcolor=(0, 0, 0, 0),
     )
     b_shift_x = -(cb_x - ca_x) * (1.0 - smooth_t)
-    b_shift_y = -(cb_y - ca_y) * (1.0 - smooth_t)
+    b_shift_y = -(cb_y - ca_y) * (1.0 - smooth_t) - arc
     b_shifted = pose_b.transform(
         pose_b.size,
         Image.Transform.AFFINE,
