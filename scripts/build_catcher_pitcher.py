@@ -252,12 +252,9 @@ def vector_morph_blend(pose_a: Image.Image, pose_b: Image.Image, t: float) -> Im
     if t >= 0.999:
         return pose_b
 
-    # Ease-in-out cubic for a more explosive whip-like acceleration
-    if t < 0.5:
-        smooth_t = 4.0 * t * t * t
-    else:
-        f = (2.0 * t - 2.0)
-        smooth_t = 1.0 + 0.5 * f * f * f
+    # Use linear easing to prevent the character from stopping at every single waypoint.
+    # The global acceleration rhythm is dictated by the timeline's dwell times.
+    smooth_t = t 
 
     arr_a = np.asarray(pose_a)
     arr_b = np.asarray(pose_b)
@@ -271,11 +268,8 @@ def vector_morph_blend(pose_a: Image.Image, pose_b: Image.Image, t: float) -> Im
     ca_x, ca_y = np.mean(xs_a), np.mean(ys_a)
     cb_x, cb_y = np.mean(xs_b), np.mean(ys_b)
 
-    # Add a slight vertical arc to the motion to prevent flat ghosting
-    arc = math.sin(t * math.pi) * 3.0
-
     shift_x = (cb_x - ca_x) * smooth_t
-    shift_y = (cb_y - ca_y) * smooth_t - arc
+    shift_y = (cb_y - ca_y) * smooth_t
 
     a_shifted = pose_a.transform(
         pose_a.size,
@@ -285,7 +279,7 @@ def vector_morph_blend(pose_a: Image.Image, pose_b: Image.Image, t: float) -> Im
         fillcolor=(0, 0, 0, 0),
     )
     b_shift_x = -(cb_x - ca_x) * (1.0 - smooth_t)
-    b_shift_y = -(cb_y - ca_y) * (1.0 - smooth_t) - arc
+    b_shift_y = -(cb_y - ca_y) * (1.0 - smooth_t)
     b_shifted = pose_b.transform(
         pose_b.size,
         Image.Transform.AFFINE,
@@ -294,7 +288,17 @@ def vector_morph_blend(pose_a: Image.Image, pose_b: Image.Image, t: float) -> Im
         fillcolor=(0, 0, 0, 0),
     )
 
-    return Image.blend(a_shifted, b_shifted, smooth_t)
+    # Blend and threshold the alpha to create a solid "in-between" drawing effect
+    # rather than a blurry ghost crossfade.
+    blended = Image.blend(a_shifted, b_shifted, smooth_t)
+    blended_arr = np.asarray(blended).copy()
+    
+    # Sharp alpha cutoff
+    alpha = blended_arr[:, :, 3]
+    # If the combined alpha is decent, make it solid
+    blended_arr[:, :, 3] = np.where(alpha > 60, 255, 0)
+    
+    return Image.fromarray(blended_arr)
 
 
 def build_catcher_atlas(
