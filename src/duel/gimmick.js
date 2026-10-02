@@ -9,6 +9,11 @@ export const GIMMICKS=Object.freeze({
     summary:'타석 첫 공은 30% 확률로 예고된 코스 옆 칸으로 밀려 들어온다.'},
   'elite-03-wine-bluff':{id:'bluff',label:'볼 유인',
     summary:'존 밖 볼이 평소보다 20%p 늘어난다. 치지 않고 기다리는 선택이 값지다.'},
+  /* 신규 엘리트(2026-10-02 합류 예정)는 어울리는 기존 기믹을 쓴다: 에어벤더=속임수, 스플링커 파이어볼러=압박 */
+  'gale-twister':{id:'trick',label:'속임수 코스',
+    summary:'타석 첫 공은 30% 확률로 예고된 코스 옆 칸으로 밀려 들어온다.'},
+  'vulcan-blaze':{id:'pressure',label:'압박 투구',
+    summary:'2스트라이크가 되면 코스가 2개 더 열리고, 존 밖 공이 절반으로 줄어 기다리기가 어려워진다.'},
   'boss-01-emerald-tyrant':{id:'tyrant',label:'낮은 벽',
     summary:'낮은 3코스 비중 +10%p.',
     phases:{pressured:'지배: 준비는 타석당 1회로 줄어든다.',critical:'낮은 3코스 비중이 +20%p로 커진다.'}},

@@ -24,8 +24,7 @@ describe('엘리트·보스 기믹',()=>{
         else{expect(n.opponent.gimmick?.id).toBe(GIMMICKS[n.opponent.artId].id);expect(n.opponent.gimmick.summary.length).toBeGreaterThan(5);}
       }
     }
-    expect(Object.keys(GIMMICKS)).toHaveLength(6);
-    expect(new Set(Object.values(GIMMICKS).map(g=>g.id)).size).toBe(6);
+    expect(new Set(Object.values(GIMMICKS).map(g=>g.id)).size).toBe(6); // 기믹 종류는 6가지, 캐릭터가 늘면 같은 기믹을 공유할 수 있다
   });
 
   it('기믹이 없거나 모르는 id면 규칙은 중립이다',()=>{

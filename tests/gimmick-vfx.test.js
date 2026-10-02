@@ -11,7 +11,7 @@ function fakeCtx(){
 }
 describe('엘리트·보스 도트 VFX',()=>{
   it('모든 기믹 id가 그림 함수를 가진다',()=>{
-    expect([...VFX_IDS].sort()).toEqual(Object.values(GIMMICKS).map(g=>g.id).sort());
+    expect([...VFX_IDS].sort()).toEqual([...new Set(Object.values(GIMMICKS).map(g=>g.id))].sort());
     expect(drawGimmickVfx(fakeCtx(),'nope',0)).toBe(false);
   });
   it('각 캐릭터는 그림을 그리고 화면 밖으로 크게 새지 않는다',()=>{
