@@ -51,7 +51,7 @@ export const repertoireWidth=s=>{
   return Math.min(cfg.zoneMax,cfg.zoneOpen+Math.floor((s.battle.turn-1)/WIDEN_EVERY));
 };
 export function repertoire(s){
-  const cfg=livePitchConfig(s),count=Math.min(9,repertoireWidth(s)+(s.battle.strikes===2?PUTAWAY_REACH+v10GimmickRules(s).putawayExtra:0));
+  const cfg=livePitchConfig(s),count=Math.min(9,repertoireWidth(s)+(s.battle.strikes===2?PUTAWAY_REACH+v10GimmickRules(s).putawayExtra:s.battle.strikes===1?v10GimmickRules(s).earlyExtra:0));
   return ZONE_ORDER[cfg.style].slice(0,count).sort((a,z)=>a-z);
 }
 // Information is earned. A lower level hides digits; it never shows a false number.
@@ -102,9 +102,9 @@ export function baseIntent(s){
 function dealPitch(s){
   const b=s.battle;b.intent=baseIntent(s);let r=unit(s,'pitchSeed'),zone=9;
   for(let i=0;i<10;i++){r-=b.intent.probabilities[i];if(r<0){zone=i;break;}}
-  /* 속임수 코스: 타석 첫 공만, 공개된 확률로 예고 코스 옆 칸으로 밀린다. */
-  const trick=v10GimmickRules(s).trickRate;
-  if(trick&&zone<9&&b.strikes===0&&b.balls===0&&unit(s,'pitchSeed')<trick){
+  /* 속임수 코스: 첫 공은 높은 확률로, 이후 공도 공개된 확률로 예고 코스 옆 칸으로 밀린다. */
+  const gr0=v10GimmickRules(s),trick=b.strikes===0&&b.balls===0?gr0.trickRate:gr0.trickLate;
+  if(trick&&zone<9&&unit(s,'pitchSeed')<trick){
     const near=trickNeighbors(zone);zone=near[Math.floor(unit(s,'pitchSeed')*near.length)%near.length];
   }
   b.pending={zone,roll:unit(s,'pitchSeed'),powerRoll:unit(s,'pitchSeed')};
