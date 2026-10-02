@@ -25,6 +25,7 @@ MIN_BYTES = 150_000
 RULES = [
     (r'^pitcher-sd-v\d/.*-atlas\.png$',            dict(keep=True, lossless=True)),
     (r'^pitcher-pixellab-v\d/atlases/.*-atlas\.png$', dict(keep=True, lossless=True)),  # PixelLab pitch atlases
+    (r'^pitcher-study-v\d/atlases/.*-atlas\.png$',    dict(keep=True, q=92)),  # study pitch atlases
     (r'^sprites-v4/.*-60\.png$',                    dict(keep=True, lossless=True)),
     (r'^ui-kit/.*master-sheet\.png$',               dict(keep=True, lossless=True)),
     (r'^production-art/battle-polish-v16/.*\.png$', dict(keep=True, q=90)),
@@ -39,7 +40,7 @@ RULES = [
     (r'^production-art/mockup-world-v15/map-node-.*\.png$', dict(long=256, q=85)),  # ~60px nodes
     (r'^production-art/mockup-world-v15/frame-reward-.*\.png$', dict(long=512, q=90)),  # card-size frame overlay
     (r'^production-art/mockup-world-v15/.*\.png$',  dict(keep=True, q=80)),  # full-screen keyart / map plate
-    (r'^pitcher-study-v2/source/.*-release\.png$', dict(long=720, q=85)),  # study pitcher cutout, same use as pitcher-mobs-v1
+    (r'^pitcher-study-v\d/source/.*-release\.png$', dict(long=720, q=85)),  # study pitcher cutout, same use as pitcher-mobs-v1
     (r'^pitcher-mobs-v1/.*\.png$',                  dict(long=720, q=85)),   # transparent roster cutouts
     (r'^duel/stadium.*\.png$',                      dict(keep=True, q=80)),  # full-screen stadium plates
 ]

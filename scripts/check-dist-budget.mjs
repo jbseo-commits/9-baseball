@@ -9,7 +9,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const DIST = path.resolve('dist');
-const TOTAL_MB = 50;
+const TOTAL_MB = 55;
 const PNG_KB = 600;
 // PNGs the optimizer leaves as-is on purpose (lossless WebP saves <10%; lossy blurs the frames)
 const PNG_ALLOW = [/-pitch-120-atlas-[\w-]+\.png$/];
