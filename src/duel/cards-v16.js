@@ -57,7 +57,7 @@ export const CARDS_V16={
   loadPower:S({family:'power',rarity:'common',name:'힘 모으기',art:'target',role:'장타',fx:{power:1},gives:['이번 타석 파워 +18'],text:'준비 1회 · 이번 타석 모든 스윙 파워 +18.',flavor:'하체에 힘을 싣는다.'}),
   sluggerInstinct:S({family:'power',rarity:'uncommon',name:'거포 본능',art:'comet',role:'장타',fx:{power:2},gives:['이번 타석 파워 +36'],text:'준비 1회 · 이번 타석 모든 스윙 파워 +36.',flavor:'짧게 치는 법은 잊었다.'}),
   calledShot:S({family:'power',rarity:'rare',name:'예고 홈런',art:'comet',role:'장타',fx:{power:2,dmg:6},gives:['파워 +36','이번 타석 안타 +6 HP'],text:'준비 1회 · 이번 타석 파워 +36, 안타면 +6 HP.',flavor:'배트 끝으로 담장을 가리킨다.'}),
-  thunder:A({family:'power',rarity:'uncommon',name:'천둥 스윙',art:'sun',shape:'cross',power:1,role:'장타',axis:'cross',fx:{miss:3},gives:['십자 5존 · 파워 +18','헛스윙도 +3 HP'],text:'십자 5존 커버 · 파워 +18. 헛스윙해도 바람 소리에 투수 HP -3.',flavor:'못 맞혀도 무섭게.'}),
+  thunder:A({family:'power',rarity:'signature',name:'천둥 스윙',art:'sun',shape:'cross',power:1,role:'장타',axis:'cross',fx:{miss:3},gives:['십자 5존 · 파워 +18','헛스윙도 +3 HP'],text:'십자 5존 커버 · 파워 +18. 헛스윙해도 바람 소리에 투수 HP -3.',flavor:'못 맞혀도 무섭게.'}),
 
   /* ---------------- 연결 relay ---------------- */
   advanceHit:A({family:'relay',rarity:'common',name:'진루타',art:'double',shape:'row',advance:2,role:'진루',axis:'row',fx:{perRunner:1},gives:['가로 3존 · 주자 +2베이스','주자 1명당 +1 HP'],text:'가로 3존 커버. 안타면 기존 주자 최소 2베이스 진루, 주자 1명당 +1 HP.',flavor:'한 베이스 더.'}),

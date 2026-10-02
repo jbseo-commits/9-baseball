@@ -678,8 +678,9 @@ const currentV10Node=s=>getRunNode(s.runMap,s.v10?.nodeId);
 /* V16 draft: every non-starter card is a reward. Rarity weights rise by act (and on elite/boss nodes);
    the first choice follows the deck's strongest concept, the rest show other concepts, all distinct. */
 export const V16_STARTER_KINDS=Object.freeze(['place','strike','setup','watch']);
-export const V16_RARITY_WEIGHTS=Object.freeze({1:{common:6,uncommon:2,rare:0},2:{common:4,uncommon:4,rare:1},3:{common:3,uncommon:4,rare:3}});
-const rarityOf=def=>def.rarity==='signature'?'rare':def.rarity||'common';
+export const V16_RARITY_WEIGHTS=Object.freeze({1:{common:6,uncommon:2,rare:0,signature:0},2:{common:4,uncommon:4,rare:1,signature:.3},3:{common:3,uncommon:4,rare:3,signature:.7}});
+/* signature cards are the scarce tier: far below rare, none in act 1, a little more on elite/boss rewards */
+const rarityOf=def=>def.rarity||'common';
 const draftMix=x=>{x=(x^61)^(x>>>16);x=(x+Math.imul(x,8))>>>0;x^=x>>>4;x=Math.imul(x,0x27d4eb2d)>>>0;x^=x>>>15;return x>>>0;};
 export function v16DeckFamilies(deck=[]){
   const count={};
@@ -687,7 +688,7 @@ export function v16DeckFamilies(deck=[]){
   return count;
 }
 export function v16DraftChoices({deck=[],act=1,tier=1,seed=0,count=3}={}){
-  const w={...(V16_RARITY_WEIGHTS[act]||V16_RARITY_WEIGHTS[1])};if(tier>=2)w.rare+=2;
+  const w={...(V16_RARITY_WEIGHTS[act]||V16_RARITY_WEIGHTS[1])};if(tier>=2){w.rare+=2;if(act>=2)w.signature+=.3;}
   const pool=Object.keys(CARDS).filter(k=>!V16_STARTER_KINDS.includes(k)&&w[rarityOf(CARDS[k])]>0
     &&!(CARDS[k].rarity==='signature'&&CARDS[k].act>act));
   let r=draftMix(seed>>>0)||1;const rnd=()=>{r=draftMix(r+0x9e3779b9);return r/4294967296;};

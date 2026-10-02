@@ -28,7 +28,7 @@ describe('V16 reward expansion: 120+ cards across real deck concepts',()=>{
     for(const k of NEW){
       const c=CARDS[k];
       expect(['attack','skill'],k).toContain(c.type);
-      expect(['common','uncommon','rare'],k).toContain(c.rarity);
+      expect(['common','uncommon','rare','signature'],k).toContain(c.rarity);
       expect(c.gives.length,k).toBeGreaterThan(0);expect(c.text.length,k).toBeGreaterThan(8);
       if(c.type==='attack')expect(AXIS_NAMES[c.axis],k).toBeTruthy();
       expect(cardArtFor(k),k).toBeTruthy();
