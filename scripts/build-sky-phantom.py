@@ -16,18 +16,18 @@ def main() -> None:
     from build_catcher_pitcher import build_catcher_atlas
 
     timeline = [
-        ("keys", 0, "set", 9),
-        ("bridges", 0, "hands-rise", 8),
-        ("keys", 1, "coil", 9),
-        ("bridges", 1, "deeper-coil", 8),
-        ("keys", 2, "high-leg-kick", 9),
-        ("bridges", 2, "knee-lower", 8),
-        ("keys", 3, "stride", 9),
-        ("bridges", 3, "foot-plant", 8),
-        ("bridges", 4, "arm-whip", 8),
-        ("keys", 4, "release", 6),
-        ("keys", 5, "follow-through", 18),
-        ("bridges", 5, "recovery", 20),
+        ("keys", 0, "set", 14),
+        ("bridges", 0, "hands-rise", 12),
+        ("keys", 1, "coil", 13),
+        ("bridges", 1, "deeper-coil", 12),
+        ("keys", 2, "high-leg-kick", 10),
+        ("bridges", 2, "knee-lower", 6),
+        ("keys", 3, "stride", 4),
+        ("bridges", 3, "foot-plant", 3),
+        ("bridges", 4, "arm-whip", 2),
+        ("keys", 4, "release", 4),
+        ("keys", 5, "follow-through", 14),
+        ("bridges", 5, "recovery", 26),
     ]
     meta = {
         "id": "sky-phantom-pitch-v1",
