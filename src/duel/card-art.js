@@ -57,7 +57,9 @@ export const ART_FOCUS_Y = {
   'card-loadPower.png': 0.29, 'card-sluggerInstinct.png': 0.27, 'card-calledShot.png': 0.29,
   'card-thunder.png': 0.31, 'card-advanceHit.png': 0.32,
   'card-hitAndRun.png': 0.31, 'card-squeeze.png': 0.34,
-  'card-tableSetter.png': 0.30,
+  'card-tableSetter.png': 0.30, 'card-rbiMachine.png': 0.32, 'card-steppingStone.png': 0.34,
+  'card-basesLoaded.png': 0.43, 'card-leadOff.png': 0.31,
+  'card-stealSign.png': 0.41, 'card-thirdCoach.png': 0.29, 'card-chainSign.png': 0.38,
 };
 /* per card key, for a card that should frame a shared illustration differently from the file default */
 export const CARD_ART_FOCUS_Y = {};

@@ -114,3 +114,23 @@ The ending's existing A07 batter and A08 stadium plate now have subtle independe
 ## C130 table-setter follow-up
 
 [`card-tableSetter.png`](../../assets/cards-v15/card-tableSetter.png) is a new 1024×1536 opaque RGB PNG made with the built-in image generator using `card-calledShot.png` and `family-relay.png` as visual references. #9 drops the bat safely and accelerates toward first while one low ball reaches open outfield; the bases are empty. The sprint silhouette, first-base path, and ball direction read in the [100px preview](working/c130-table-setter-100px.png). No card frame or UI text is baked in. `src/duel/card-art.js` selects this file before the relay fallback and sets its detail-sheet focus to 0.30. Final card-window crop and mobile screen remain unapproved. C131–C235 remain open.
+
+## C131–C132 relay follow-up
+
+Both are new 1024×1536 opaque RGB PNGs made with the built-in image generator and the relay family artwork as a style reference. C131 [`card-rbiMachine.png`](../../assets/cards-v15/card-rbiMachine.png) shows #9 striking one ball while two teammates wait on occupied bases; [100px preview](working/c131-rbi-machine-100px.png). C132 [`card-steppingStone.png`](../../assets/cards-v15/card-steppingStone.png) shows one runner linking two bases along a cyan path while #9 completes the hit in the background; [100px preview](working/c132-stepping-stone-100px.png). Both keep the card frame and UI text out of the artwork. `src/duel/card-art.js` selects the dedicated files and sets detail-sheet focus to 0.32 and 0.34. Final card-window crops and mobile screens remain unapproved. C133–C235 remain open.
+
+## C133 bases-loaded follow-up
+
+[`card-basesLoaded.png`](../../assets/cards-v15/card-basesLoaded.png) is a new 1024×1536 opaque RGB PNG made with the built-in image generator using `family-relay.png` and `card-rbiMachine.png` as visual references. #9 swings in the foreground while one teammate occupies each of first, second, and third base. The diamond and three occupied bags are identifiable in the [100px preview](working/c133-bases-loaded-100px.png), though individual runner details are small. No card frame or UI text is baked in. `src/duel/card-art.js` selects the dedicated file and sets detail-sheet focus to 0.43. Final card-window crop and mobile screen remain unapproved. C134–C235 remain open.
+
+## C134 lead-off follow-up
+
+[`card-leadOff.png`](../../assets/cards-v15/card-leadOff.png) is a new 1024×1536 opaque RGB PNG made with the built-in image generator using `card-tableSetter.png` and `card-hitAndRun.png` as visual references. #9 attacks one early pitch through two vertically stacked glowing cells while the bases are empty. Batter, single ball, and two-cell column read in the [100px preview](working/c134-lead-off-100px.png). No card frame or UI text is baked in. `src/duel/card-art.js` selects the dedicated file and sets detail-sheet focus to 0.31. Final card-window crop and mobile screen remain unapproved. C135–C235 remain open.
+
+## C135–C136 relay follow-up
+
+Both are new 1024×1536 opaque RGB PNGs made with the built-in image generator. C135 [`card-stealSign.png`](../../assets/cards-v15/card-stealSign.png) shows one runner breaking from first as a distant pitcher lifts a leg, with #9 waiting at home plate and no ball in flight; [100px preview](working/c135-steal-sign-100px.png). C136 [`card-thirdCoach.png`](../../assets/cards-v15/card-thirdCoach.png) preserves the coach's navy cap, salt-and-pepper beard and gold-trim jacket from A05 while he directs one runner around third; [100px preview](working/c136-third-coach-100px.png). The coach's animated gesture is illustrated as a single card pose, not a new motion sequence. Both keep card frames and UI text out of the artwork. `src/duel/card-art.js` selects the dedicated files and sets detail-sheet focus to 0.41 and 0.29. Final card-window crops and mobile screens remain unapproved. C137–C235 remain open.
+
+## C137 chain-sign follow-up
+
+[`card-chainSign.png`](../../assets/cards-v15/card-chainSign.png) is a new 1024×1536 opaque RGB PNG made with the built-in image generator using `family-relay.png` and `card-calledShot.png` as visual references. #9 signals to the next batter across a cyan relay streak. Two earlier versions were rejected for cropped shoes and bat; the selected version keeps both full figures and the complete bat in frame. The handoff reads in the [100px preview](working/c137-chain-sign-100px.png). No card frame or UI text is baked in. `src/duel/card-art.js` selects the dedicated file and sets detail-sheet focus to 0.38. Final card-window crop and mobile screen remain unapproved. C138–C235 remain open.
