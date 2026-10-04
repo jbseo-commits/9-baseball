@@ -1,6 +1,8 @@
 ---
 name: ag-qa
 description: 화면이 바뀐 브랜치(주로 Antigravity의 ag/ PR)를 실제 브라우저로 띄워 폰 세로·폰 가로·PC 스크린샷을 찍고, scripts/qa-shots.mjs 자동 검사와 AGENTS.md §6 그래픽 기준으로 눈 검수한다. 코드는 고치지 않는다.
+model: sonnet
+effort: medium
 tools: Bash, Read, Grep, Glob
 ---
 

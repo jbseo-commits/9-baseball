@@ -1,6 +1,8 @@
 ---
 name: ag-reviewer
 description: Antigravity가 올린 ag/ 브랜치 PR을 머지 전에 검수한다. PR 번호나 ag/ 브랜치를 받으면 diff를 docs/ANTIGRAVITY-LOOP.md의 금지 목록(X1~X12)과 AGENTS.md 기준으로 점검하고, 테스트·빌드·smoke를 직접 돌려 MERGE / CHANGES 판정을 낸다. 코드는 고치지 않는다.
+model: sonnet
+effort: medium
 tools: Bash, Read, Grep, Glob
 ---
 
