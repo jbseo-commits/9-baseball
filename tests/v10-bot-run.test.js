@@ -7,7 +7,7 @@ import {planAction} from '../src/duel/policy.js';
 // 봇 선택은 고정(전투 planAction, 보상 풀 첫 장, 유틸리티 건너뜀, 맵 첫 도달).
 // 측정 베이스라인용이며 인간 재미·밸런스 주장이 아니다.
 const UTILITY=new Set(['training','locker','shop','rest']);
-export function driveRun(seed=1,guardMax=20000){
+function driveRun(seed=1,guardMax=20000){
   let s=createV10Duel(seed);
   s=enterV10Node(s,'a1-entry');
   let guard=0;
