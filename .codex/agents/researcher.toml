@@ -1,0 +1,6 @@
+name = "researcher"
+description = "Read-only official documentation and repository research"
+model = "gpt-6-luna"
+model_reasoning_effort = "high"
+sandbox_mode = "read-only"
+developer_instructions = "Read AGENTS.md first. Research the assigned question using primary sources and exact repository references. Return concise evidence with links. Do not edit files or spawn agents."

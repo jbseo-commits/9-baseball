@@ -102,3 +102,8 @@
 ## Claude 모델 분업
 
 Claude Code에서 이 루프를 수행하면 [모델 분업](docs/MODEL-ROUTING.md)의 역할·advisor 상담·실행 확인을 함께 따른다. 이 지침은 기존 품질·권한·중단 조건을 대체하지 않는다.
+
+
+## Codex 모델 분업과 진행 기록
+
+Codex에서는 [Codex 분업·대시보드](docs/codex-loop.md)를 함께 따른다. 큰 계획 전·동일 오류 두 번째·긴 작업 완료 전에는 별도 reviewer에게 근거를 전달해 검토받는다. 범위가 명확한 작업은 explorer/worker/researcher에 위임하며 동시에 쓰는 worker는 하나로 제한한다. 기존 품질·작가 승인·수정 횟수·브랜치 규칙을 우선한다. 상태는 실제 실행 결과만 기록하며 viewer를 여는 것만으로 실행하지 않는다.

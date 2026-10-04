@@ -1,0 +1,24 @@
+name: Agent Loop Checks
+on:
+  pull_request:
+    paths:
+      - '.codex/**'
+      - 'scripts/codex-loop.mjs'
+      - 'scripts/agent-dashboard.mjs'
+      - 'scripts/loop-status.mjs'
+      - 'scripts/lib/loop-events.mjs'
+      - 'scripts/lib/codex-command.mjs'
+      - 'tools/agent-dashboard/**'
+      - '.github/workflows/agent-loop-checks.yml'
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify dashboard and launcher without AI calls
+        run: node --test tools/agent-dashboard/agent-loop.node.mjs
