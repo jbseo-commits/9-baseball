@@ -1,5 +1,19 @@
 # STATUS
 
+## 현재 상태 · 2026-10-05 — 지속 개선 루프 (INBOX 6 완료, 7 착수)
+
+- 브랜치 `claude/feedback-review-plan-vw24at`, 로컬 커밋만 (push·배포 없음).
+- V12 P0~P8 완료·사용자 검수 대기 (단일 기준 `docs/V12-PROGRESS.md`).
+- INBOX 6 접근성 4줄 완료: 9존 키보드 회귀 고정(버그 없음, `4de623b`) ·
+  보상 04단계见出し+polite 낭독(`17bf0eb`) · 9존 명암 WCAG AA
+  (shade-3 `#2f7186`→`#265e72`, 보조글 `#a6bbae`→`#c3d4cb`, `fd1459d`) ·
+  reduced 해소 스킵-동일 공개 고정(버그 없음, `f75acbd`).
+- INBOX 7 첫 조각: 봇 전용 `planReward`(유물>강화>건너뜀, 제거 강제 시만,
+  막히면 합법 폴백, 게임 호출자 0, `81d1a8c`). 다음은 V10 헤드리스 완주 하네스.
+- 게이트: 전체 90파일/592테스트 + production build + `zone-report 30` 불변.
+  3뷰포트 브라우저 캡처는 playwright 미설치로 미검증 (로직·테스트 변경 위주).
+- INBOX 9 라이선스는 사용자 결정 필요 — 파일 만들지 않음.
+
 ## 현재 V12 UI/UX 루프 엔지니어링 · 2026-09-23
 
 - 브랜치 `claude/feedback-review-plan-vw24at` · [PR #83](https://github.com/jjsjb88-alt/9-baseball/pull/83) · 추적 이슈 #84.
