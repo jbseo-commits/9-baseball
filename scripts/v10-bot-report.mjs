@@ -32,16 +32,24 @@ function utilityAction(s,used,variant){
 }
 
 export function driveVariant(seed,variant='base',guardMax=20000){
+  try{
+    return driveInner(seed,variant,guardMax);
+  }catch(e){
+    return {seed,variant,phase:'error',nodes:0,pitches:0,forced:false,exitReason:'exception:'+((e&&e.message)||e)};
+  }
+}
+
+function driveInner(seed,variant='base',guardMax=20000){
   let s=createV10Duel(seed);
   s=enterV10Node(s,'a1-entry');
   const used={};
-  let guard=0;
+  let guard=0,exitReason='terminal';
   while(!['won','lost'].includes(s.phase)&&guard++<guardMax){
     if(s.phase==='pitch')s=advanceV10Pitch(s);
     else if(s.phase==='between')s=advanceV10Batter(s);
     else if(s.phase==='battle'){
       const a=planAction(s);
-      if(!a)break;
+      if(!a){exitReason='no-action';break;}
       s=setGrowthMode(setAimZone(s,a.zone),a.mode);
       if(!a.id)s=playV10Action(s,{type:'take'});
       else if(variant!=='support')s=playV10Action(s,{type:'card',id:a.id});
@@ -61,13 +69,14 @@ export function driveVariant(seed,variant='base',guardMax=20000){
     else if(UTILITY.has(s.phase))s=completeV10UtilityNode(s,utilityAction(s,used,variant));
     else if(s.phase==='map'){
       const next=selectV10Map(s).reachableIds[0];
-      if(!next)break;
+      if(!next){exitReason='map-stall';break;}
       s=enterV10Node(s,next);
     }
-    else break;
+    else{exitReason='unknown:'+s.phase;break;}
   }
+  if(guard>=guardMax)exitReason='guard';
   return {seed,variant,phase:s.phase,nodes:s.runMap.completedNodeIds.length,
-    pitches:s.stats.pitches,forced:!!used[variant]};
+    pitches:s.stats.pitches,forced:!!used[variant],exitReason};
 }
 
 const seeds=Math.max(1,Number(process.argv[2]||10));
@@ -79,6 +88,7 @@ for(const v of variants){
   rows[v]={seeds,won:runs.filter(r=>r.phase==='won').length,
     lost:runs.filter(r=>r.phase==='lost').length,
     unfinished:runs.filter(r=>!['won','lost'].includes(r.phase)).length,
+    exits:runs.reduce((m,r)=>(m[r.exitReason]=(m[r.exitReason]||0)+1,m),{}),
     avgNodes:runs.reduce((a,r)=>a+r.nodes,0)/runs.length,
     avgPitches:runs.reduce((a,r)=>a+r.pitches,0)/runs.length,
     forcedRuns:runs.filter(r=>r.forced).length};
