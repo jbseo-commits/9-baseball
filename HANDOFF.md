@@ -1,5 +1,13 @@
 # 9ZONE SHOWDOWN — Codex 인수인계
 
+## 최우선 · 2026-10-05 — 지속 개선 루프 (INBOX 6·9 완료, 7 측정기반·병목 확인)
+
+- 브랜치 `claude/feedback-review-plan-vw24at`, 로컬 커밋만. 단일 기준: `docs/STATUS.md` 현재 상태절 + `docs/V12-PROGRESS.md`(V12).
+- INBOX 6 접근성 완료(수정 2·고정 2), 9 라이선스 사용자 결정 대기, 10 V12 사용자 검수·배포 대기.
+- INBOX 7: 봇 `planReward`·`planFacility`, headless 전투/풀런 주행, 변형 측정 스크립트 완비.
+  병목: 고정 봇 10시드 전 변형 0승·4~5노드 lost라 강화·유물 상대가치 측정 불가. 다음 epic은 데미지 인식 전투 봇.
+- 게이트: 94파일/603테스트 + build + `zone-report 30` 불변. 브라우저 캡처만 미검증.
+
 ## 최우선 · 2026-09-24 — V12 P0~P8 전 단계 체크, 사용자 검수·배포 판단 대기
 
 - 브랜치 `claude/feedback-review-plan-vw24at` (main으로 병합·배포 없음). 단일 기준: [docs/V12-PROGRESS.md](docs/V12-PROGRESS.md) — 줄마다 영향도·검증·캡처·SHA. 최신: P8-2 `01e423d` · main→브랜치 병합 `211a703` · 전체 87파일/571테스트 + production build 통과 · `zone-report 30` 불변(2026-10-05 확인).
