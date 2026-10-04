@@ -600,8 +600,9 @@ function RewardScreen({s,growthChoice,onGrowth,action,onAction,target,onTarget,o
       </section>}
       <section className="deck-section confirm" aria-label="변화 확인">
         <span className="eyebrow">{deckbuilder?'03':'04'} · 이 선택이 덱을 어떻게 바꾸나</span>
+        <h2>이대로 진행할지 확인하세요</h2>
         {problem?<p className="reward-hold">{problem}</p>:<>
-          <ul className="delta-list">{delta.length?delta.map(r=><li key={r.label} className={r.delta>0?'up':'down'}>
+          <ul className="delta-list" aria-live="polite">{delta.length?delta.map(r=><li key={r.label} className={r.delta>0?'up':'down'}>
             <b>{r.label}</b><span>{r.from} → {r.to}</span><i>{r.delta>0?'+'+r.delta:r.delta}</i></li>):<li className="flat">{pending?.type==='relic'?RELICS[pending.kind].name+' · '+RELICS[pending.kind].text:pending?.type==='upgrade'?'강화 효과 · '+upgradeText(s.deck.find(c=>c.id===pending.id).kind):deckbuilder?'이번 경기에서는 덱 구성을 유지합니다.':'덱 구성은 그대로입니다. 성장만 받습니다.'}</li>}</ul>
           {(()=>{const now=diagnose(s.deck,grown),next=diagnose(after,grown);
             const fixed=now.filter(x=>!next.some(y=>y.text===x.text));

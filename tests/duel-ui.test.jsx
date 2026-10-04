@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
 import React from 'react';
-import {render,screen,fireEvent,cleanup,act} from '@testing-library/react';
+import {render,screen,fireEvent,cleanup,act,within} from '@testing-library/react';
 import {afterEach,beforeEach,describe,it,expect,vi} from 'vitest';
 import Duel from '../src/duel/App.jsx';
 import {createDuel,startBattle,chooseRoute,playCard,advanceBatter,readDuel,saveDuel,createV10Duel,enterV10Node,saveV10Duel,readV10Duel} from '../src/duel/engine.js';
@@ -107,6 +107,15 @@ describe('9-zone strategic UI',()=>{
     fireEvent.click(screen.getByRole('button',{name:'끝까지 기다린 한 공',exact:true}));
     const flow=screen.getByRole('group',{name:'보상 선택 4단계'});
     expect([...flow.querySelectorAll(':scope > section')].map(x=>x.getAttribute('aria-label'))).toEqual(['다음 상대 리포트','성장 선택','내 덱 구성','덱 변경 방식','변화 확인']);
+  });
+  it('gives the reward confirm step a heading and announces deck changes',()=>{
+    const s=startBattle(createDuel(1));s.battle.runs=1;s.battle.bases[2]='p8';s.battle.pending={zone:5,roll:.5,powerRoll:.99};
+    saveDuel(localStorage,playCard(s,'c0'));render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기'}));
+    fireEvent.click(screen.getByRole('button',{name:'끝까지 기다린 한 공',exact:true}));
+    fireEvent.click(screen.getByRole('button',{name:'덱 그대로',exact:true}));
+    const confirm=screen.getByRole('region',{name:'변화 확인'});
+    expect(within(confirm).getByRole('heading').textContent).toBeTruthy();
+    expect(confirm.querySelector('.delta-list').getAttribute('aria-live')).toBe('polite');
   });
   it('shortens result effects when reduced motion is requested',()=>{
     vi.stubGlobal('matchMedia',vi.fn(()=>({matches:true,addEventListener:vi.fn(),removeEventListener:vi.fn()})));
