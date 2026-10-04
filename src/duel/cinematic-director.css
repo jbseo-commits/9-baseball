@@ -3,7 +3,7 @@
 .bp-scene[class*="fx-stage-"],
 .bp-battle[class*="cinema-"] .bp-scene{isolation:isolate;perspective:900px;background:#080d1b;}
 
-/* Recompose the field into readable depth planes. */
+/* Recompose depth without moving actor anchors. Actor geometry stays owned by ballpark.css/Pixi. */
 .bp-scene[class*="fx-stage-"] .bp-bg,
 .bp-battle[class*="cinema-"] .bp-bg{
   transform:scale(1.055);transform-origin:52% 66%;
@@ -50,7 +50,7 @@
 .bp-battle.cinema-exit .bp-bg{filter:brightness(.62) saturate(.82) contrast(1.12);transform:scale(1.08)}
 .bp-battle.cinema-recovery .bp-bg{filter:brightness(.78) saturate(.9) contrast(1.08);transform:scale(1.055)}
 
-/* Contact is the single visual apex: two concentric light impulses around the plate corridor. */
+/* Contact is the single visual apex. */
 .bp-scene.fx-stage-slowmo::after,
 .bp-battle.cinema-contact .bp-scene::after{
   content:"";position:absolute;inset:-8%;z-index:4;pointer-events:none;
@@ -61,25 +61,14 @@
 }
 @keyframes bp-cinema-v2-contact{0%{opacity:0;transform:scale(.82)}28%{opacity:1;transform:scale(1)}100%{opacity:.08;transform:scale(1.14)}}
 
-/* Decision UI recedes during autoplay; the field owns the eye. */
 .bp-battle.cinema-coil .bp-hand,
 .bp-battle.cinema-release .bp-hand,
 .bp-battle.cinema-anticipation .bp-hand,
 .bp-battle.cinema-contact .bp-hand,
 .bp-battle.cinema-exit .bp-hand{filter:saturate(.55) brightness(.62);opacity:.68;transition:filter 120ms linear,opacity 120ms linear;}
 
-/* Phone portrait: foreground batter is the hero silhouette, pitcher stays grounded in mid-field. */
-@media (max-width:600px) and (orientation:portrait){
-  .bp-scene[class*="fx-stage-"] .bp-batter{left:-20%;bottom:-3%;height:73%;}
-  .bp-scene[class*="fx-stage-"] .bp-pitcher{left:43%;top:17%;height:25%;}
-  .bp-scene[class*="fx-stage-"] .bp-pcol{left:46%;top:6%;width:49%;}
-}
-
-/* Short landscape: preserve controls and avoid increasing scene dimensions. */
-@media (orientation:landscape) and (max-height:520px){
-  .bp-scene[class*="fx-stage-"] .bp-batter{left:-12%;bottom:-5%;height:72%;}
-  .bp-scene[class*="fx-stage-"] .bp-pitcher{left:46%;top:14%;height:27%;}
-}
+/* Actor positions deliberately NOT overridden here. The original mound/plate anchors are invariant
+   across idle, windup, impact, slowmo, release and settle. */
 
 @media (prefers-reduced-motion:reduce){
   .bp-scene[class*="fx-stage-"] .bp-bg,
