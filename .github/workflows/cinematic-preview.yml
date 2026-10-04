@@ -1,0 +1,47 @@
+name: Cinematic Branch Preview
+
+on:
+  push:
+    branches:
+      - ag/20261004-cinematic-vertical-slice
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out cinematic branch
+        uses: actions/checkout@v6
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build browser preview
+        run: |
+          pnpm run build
+          test -f dist/index.html
+
+      - name: Upload browser preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: cinematic-browser-preview
+          path: dist
+          if-no-files-found: error
+          retention-days: 7
