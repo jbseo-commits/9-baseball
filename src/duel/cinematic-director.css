@@ -1,0 +1,66 @@
+/* Cinematic vertical-slice scene direction.
+   Live bridge: existing BallparkBattle already emits .fx-stage-* on .bp-scene, so the slice can
+   ship without inventing a second runtime clock. The .cinema-* parent tokens remain supported for
+   the later semantic-director handoff. No gameplay hit targets or layout dimensions change. */
+.bp-scene[class*="fx-stage-"],
+.bp-battle[class*="cinema-"] .bp-scene{isolation:isolate;}
+
+.bp-scene[class*="fx-stage-"] .bp-bg,
+.bp-battle[class*="cinema-"] .bp-bg{
+  transform:scale(1.012);transform-origin:50% 62%;
+  transition:filter 120ms linear,transform 220ms ease-out;
+}
+.bp-scene[class*="fx-stage-"] .bp-haze,
+.bp-battle[class*="cinema-"] .bp-haze{z-index:1;opacity:.72;}
+.bp-scene[class*="fx-stage-"] .bp-pitcher,
+.bp-battle[class*="cinema-"] .bp-pitcher{z-index:2;}
+.bp-scene[class*="fx-stage-"] .bp-zone,
+.bp-battle[class*="cinema-"] .bp-zone{z-index:3;}
+.bp-scene[class*="fx-stage-"] .bp-batter,
+.bp-battle[class*="cinema-"] .bp-batter{z-index:4;}
+.bp-scene[class*="fx-stage-"] .bp-pixi,
+.bp-battle[class*="cinema-"] .bp-pixi{z-index:5;}
+
+/* Existing runtime bridge.
+   windup = hold/coil, impact = anticipation/contact, slowmo = contact/exit,
+   release = exit, settle = recovery. The pure JS director owns the eventual seven semantic tokens;
+   this bridge makes the composition active now while preserving the established FX timing. */
+.bp-scene.fx-stage-windup .bp-bg{filter:brightness(.86) saturate(.88);}
+.bp-scene.fx-stage-impact .bp-bg{filter:brightness(.76) saturate(.74);}
+.bp-scene.fx-stage-slowmo .bp-bg{filter:brightness(.68) saturate(.72) contrast(1.08);transform:scale(1.025);}
+.bp-scene.fx-stage-release .bp-bg{filter:brightness(.78) saturate(.88);transform:scale(1.018);}
+.bp-scene.fx-stage-settle .bp-bg{filter:brightness(.92) saturate(.94);}
+
+/* Semantic tokens for the director handoff. */
+.bp-battle.cinema-coil .bp-bg{filter:brightness(.86) saturate(.88);}
+.bp-battle.cinema-release .bp-bg{filter:brightness(.82) saturate(.8);}
+.bp-battle.cinema-anticipation .bp-bg{filter:brightness(.78) saturate(.76);}
+.bp-battle.cinema-contact .bp-bg{filter:brightness(.68) saturate(.72) contrast(1.08);transform:scale(1.025);}
+.bp-battle.cinema-exit .bp-bg{filter:brightness(.78) saturate(.88);transform:scale(1.018);}
+.bp-battle.cinema-recovery .bp-bg{filter:brightness(.92) saturate(.94);}
+
+/* Contact is the only scene-wide light apex. Precise slash/ring/ball origin remains owned by Pixi.
+   The live bridge uses slowmo because the current presentation clock reaches that stage at the
+   result apex; semantic .cinema-contact will replace it when BallparkActors exposes the token. */
+.bp-scene.fx-stage-slowmo::before,
+.bp-battle.cinema-contact .bp-scene::before{
+  content:"";position:absolute;inset:0;z-index:4;pointer-events:none;
+  background:radial-gradient(circle at 35% 54%,rgba(255,240,188,.28) 0 4%,rgba(255,200,97,.13) 9%,transparent 31%);
+  mix-blend-mode:screen;animation:bp-cinema-contact-bloom 150ms ease-out both;
+}
+@keyframes bp-cinema-contact-bloom{from{opacity:0;transform:scale(.92)}35%{opacity:1}to{opacity:.18;transform:scale(1.06)}}
+
+/* Keep the field readable during autoplay without hiding information. The hand sits outside
+   .bp-scene, so the semantic parent path handles it once the seven-phase token is attached. */
+.bp-battle.cinema-coil .bp-hand,
+.bp-battle.cinema-release .bp-hand,
+.bp-battle.cinema-anticipation .bp-hand,
+.bp-battle.cinema-contact .bp-hand,
+.bp-battle.cinema-exit .bp-hand{filter:saturate(.72) brightness(.78);opacity:.82;transition:filter 120ms linear,opacity 120ms linear;}
+
+@media (prefers-reduced-motion:reduce){
+  .bp-scene[class*="fx-stage-"] .bp-bg,
+  .bp-battle[class*="cinema-"] .bp-bg{transform:none!important;transition:none!important}
+  .bp-scene.fx-stage-slowmo::before,
+  .bp-battle.cinema-contact .bp-scene::before{animation:none;opacity:.18}
+}
