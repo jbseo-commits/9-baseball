@@ -10,11 +10,13 @@
 | explorer | sonnet / medium | 파일·계약·설정 위치와 근거 검색. 읽기만 수행 |
 | worker | sonnet / medium | 범위가 명확한 편집, 테스트·빌드·실행. 지정 파일만 수정 |
 | researcher | sonnet / medium | 공식 문서·레퍼런스·저장소 문서 조사. 읽기만 수행 |
-| advisor | fable | 중요한 접근법, 반복 실패, 완료 전 누락 검토 |
+| advisor | opus | 별도 Opus 호출로 접근법, 반복 실패, 완료 전 누락 검토 |
 
 모델 이름은 Claude Code의 별칭입니다. 실제 버전은 설치·계정·조직 정책에 따라 달라집니다. 시작할 때 메인 헤더와 `/tasks`에서 실제 모델·effort를 확인하고 결과 기록에 남깁니다. 기존에 다른 모델로 고정된 에이전트는 임의로 바꾸지 않고 목록으로 보고합니다.
 
 탐색·작업·조사 중 필요한 역할만 호출합니다. 파일 존재 확인이나 명령 한 번에 별도 에이전트를 띄우지 않습니다. 독립적인 읽기는 병렬화할 수 있지만 같은 파일에 대한 쓰기, 통합, 최종 검수는 순서대로 수행합니다. 한 번에 쓰는 작업자는 하나입니다.
+
+메인과 advisor가 같은 Opus 모델이어도 별도의 상담 호출로 계획과 결과를 다시 검토할 수 있습니다. 작업량이 큰 탐색·편집·테스트는 Sonnet에 맡기고 Opus 상담은 아래 세 지점에 집중합니다.
 
 ## 메인의 advisor 상담
 
@@ -43,7 +45,7 @@ advisor는 호출된 대화 전체와 도구 결과를 읽습니다. 메인 상�
 
 ## 설정과 실행
 
-프로젝트 `.claude/settings.json`에 `model: opus`, `effortLevel: high`, `advisorModel: fable`를 두고 역할 파일에는 `model: sonnet`, `effort: medium`을 지정합니다. 사용자 홈 설정은 고치지 않습니다. 최신 Claude Code에서 프로젝트 수준 `effortLevel`은 Opus 5.5에도 적용됩니다.
+프로젝트 `.claude/settings.json`에 `model: opus`, `effortLevel: high`, `advisorModel: opus`를 두고 역할 파일에는 `model: sonnet`, `effort: medium`을 지정합니다. 사용자 홈 설정은 고치지 않습니다. 최신 Claude Code에서 프로젝트 수준 `effortLevel`은 Opus 5.5에도 적용됩니다.
 
 저장소 루트에서:
 
@@ -54,13 +56,13 @@ node scripts/claude-loop.mjs --run
 
 첫 명령은 모델을 호출하지 않고 설치·원격 저장소·브랜치·환경변수·기존 에이전트를 확인합니다. 두 번째는 이미 선택한 작업 브랜치에서 **한 바퀴**를 수행하는 Claude 세션을 시작합니다. main/master 또는 detached HEAD에서는 실행을 거부합니다. 연속 작업은 현재 세션의 다음 지시와 기존 루프의 중단 조건을 따릅니다. 예약 작업·데몬·GitHub Actions의 AI 실행을 새로 켜지 않습니다.
 
-권한 모드나 로그인 설정은 자동으로 바꾸지 않습니다. Claude Code 설치, Fable 접근 권한, 해당 계정에서 필요한 사용 크레딧 동의는 실행 환경에 있어야 합니다. advisor가 지원되지 않으면 활성화됐다고 기록하지 말고 BLOCKED로 보고합니다. 계정의 사전 승인이 없는 추가 과금 동의를 자동으로 수락하지 않습니다.
+권한 모드나 로그인 설정은 자동으로 바꾸지 않습니다. Claude Code 설치와 Opus 사용 권한이 있는 환경에서 실행합니다. advisor도 Opus를 사용합니다. advisor가 지원되지 않으면 활성화됐다고 기록하지 말고 BLOCKED로 보고합니다. 계정의 사전 승인이 없는 추가 과금 동의를 자동으로 수락하지 않습니다.
 
 `CLAUDE_CODE_DISABLE_ADVISOR_TOOL`, `DISABLE_TELEMETRY`, `CLAUDE_CODE_EFFORT_LEVEL`와 모델 강제 변수는 보고만 합니다. 실행을 방해하면 런처는 멈추며 삭제·unset·설정 수정을 하지 않습니다. 사용자·로컬·프로젝트 settings의 env 및 기본 shell 초기화 파일에 있는 해당 변수도 확인합니다. 조직 관리 설정·다른 shell·부모 프로세스의 전체 설정은 진단 범위 밖이므로 최종 적용값은 `/tasks`와 advisor 활성화 알림으로 확인합니다.
 
 ## 사용량
 
-advisor는 대기 중 무료로 세션을 감시하는 프로세스가 아닙니다. 호출할 때마다 입력·출력 사용량이 생기고, 전체 대화를 읽는 advisor 입력은 상담 간 캐시를 재사용하지 않습니다. 일부 플랜의 Fable은 별도 사용 크레딧으로 청구됩니다. 작업 전후 `/usage`를 비교하고, 추가 과금·접근 권한 문제는 재시도하지 않고 보고합니다.
+advisor는 대기 중 무료로 세션을 감시하는 프로세스가 아닙니다. 호출할 때마다 입력·출력 사용량이 생기고, 전체 대화를 읽는 advisor 입력은 상담 간 캐시를 재사용하지 않습니다. Opus advisor 사용량도 메인 사용량에 추가됩니다. 작업 전후 `/usage`를 비교하고, 사용량 제한·접근 권한 문제는 재시도하지 않고 보고합니다.
 
 ## 근거 문서
 

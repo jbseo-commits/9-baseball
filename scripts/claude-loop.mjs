@@ -37,7 +37,7 @@ const variables = [
   'CLAUDE_CODE_DISABLE_ADVISOR_TOOL', 'DISABLE_TELEMETRY',
   'CLAUDE_CODE_EFFORT_LEVEL', 'CLAUDE_CODE_SUBAGENT_MODEL',
   'CLAUDE_CODE_SUBAGENT_MODEL_FORCE', 'ANTHROPIC_DEFAULT_OPUS_MODEL',
-  'ANTHROPIC_DEFAULT_SONNET_MODEL', 'ANTHROPIC_DEFAULT_FABLE_MODEL',
+  'ANTHROPIC_DEFAULT_SONNET_MODEL',
   'ANTHROPIC_MODEL', 'CLAUDE_CODE_USE_BEDROCK', 'CLAUDE_CODE_USE_VERTEX',
   'CLAUDE_CODE_USE_FOUNDRY'
 ];
@@ -72,7 +72,7 @@ if (effort !== undefined && !['', 'auto'].includes(String(effort).toLowerCase())
 if (enabled(effectiveEnv.CLAUDE_CODE_SUBAGENT_MODEL_FORCE)) {
   blocked.push('CLAUDE_CODE_SUBAGENT_MODEL_FORCE overrides role models');
 }
-for (const name of ['ANTHROPIC_DEFAULT_OPUS_MODEL', 'ANTHROPIC_DEFAULT_SONNET_MODEL', 'ANTHROPIC_DEFAULT_FABLE_MODEL']) {
+for (const name of ['ANTHROPIC_DEFAULT_OPUS_MODEL', 'ANTHROPIC_DEFAULT_SONNET_MODEL']) {
   if (effectiveEnv[name] !== undefined) report(name + ' pins an alias; verify actual model in /tasks (not changed).');
 }
 for (const rc of ['.bashrc', '.bash_profile', '.zshrc', '.profile']) {
@@ -111,13 +111,13 @@ if (version.status !== 0 || !parsed) {
   report('Claude Code version: ' + parts.join('.'));
   if (!supported) blocked.push('Claude Code >= 2.1.257 required for this profile');
 }
-report('Profile: opus/high + sonnet/medium roles + fable advisor; no env or home settings were changed.');
+report('Profile: opus/high + sonnet/medium roles + opus advisor; no env or home settings were changed.');
 report('Managed policies, account access and billing consent still require runtime verification.');
 if (blocked.length) {
   blocked.forEach(message => console.error('BLOCKED: ' + message));
   process.exit(1);
 }
-const invocation = ['--model', 'opus', '--effort', 'high', '--advisor', 'fable'];
+const invocation = ['--model', 'opus', '--effort', 'high', '--advisor', 'opus'];
 report('Launch: claude ' + invocation.join(' ') + ' <one-round prompt>');
 if (mode !== '--run') process.exit(0);
 
