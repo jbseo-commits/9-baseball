@@ -1,5 +1,5 @@
 /* CINEMATIC V2 — scene-first battle direction.
-   Scope is intentionally presentation-only: no hit targets, engine values, save schema or game flow. */
+   Scope is presentation-only: no actor anchor, hit target, engine value, save schema or game flow changes. */
 .bp-scene[class*="fx-stage-"],
 .bp-battle[class*="cinema-"] .bp-scene{isolation:isolate;perspective:900px;background:#080d1b;}
 
@@ -42,6 +42,17 @@
 .bp-scene.fx-stage-release .bp-bg{filter:brightness(.62) saturate(.82) contrast(1.12);transform:scale(1.08) translate(.35%,.15%);}
 .bp-scene.fx-stage-settle .bp-bg{filter:brightness(.78) saturate(.9) contrast(1.08);transform:scale(1.055);}
 
+/* Pixi exposes the exact contact window through data-impact/data-stop. Use that clock rather than
+   guessing from the broader FX stage. This changes light/focus only; actor coordinates stay fixed. */
+.bp-scene:has(.bp-pixi[data-impact="1"]) .bp-bg{
+  filter:brightness(.4) saturate(.48) contrast(1.24);transform:scale(1.105) translate(-.7%,.55%);
+}
+.bp-scene:has(.bp-pixi[data-impact="1"]) .bp-zone{
+  filter:drop-shadow(0 0 7px rgba(255,224,138,.72)) drop-shadow(0 5px 10px #0009);
+}
+.bp-scene:has(.bp-pixi[data-impact="1"]) .bp-pcol{opacity:.58;filter:saturate(.55) brightness(.7);}
+.bp-scene:has(.bp-pixi[data-stop="1"]) .bp-haze{opacity:.42;}
+
 /* Semantic tokens retained for the later director handoff. */
 .bp-battle.cinema-coil .bp-bg{filter:brightness(.66) saturate(.72) contrast(1.1);transform:scale(1.065)}
 .bp-battle.cinema-release .bp-bg{filter:brightness(.62) saturate(.82) contrast(1.12);transform:scale(1.08)}
@@ -50,7 +61,8 @@
 .bp-battle.cinema-exit .bp-bg{filter:brightness(.62) saturate(.82) contrast(1.12);transform:scale(1.08)}
 .bp-battle.cinema-recovery .bp-bg{filter:brightness(.78) saturate(.9) contrast(1.08);transform:scale(1.055)}
 
-/* Contact is the single visual apex. */
+/* Contact apex. The broad stage fallback works everywhere; on browsers with :has the exact Pixi
+   impact window above supplies the matching field focus while Pixi owns slash/ring/ball origin. */
 .bp-scene.fx-stage-slowmo::after,
 .bp-battle.cinema-contact .bp-scene::after{
   content:"";position:absolute;inset:-8%;z-index:4;pointer-events:none;
