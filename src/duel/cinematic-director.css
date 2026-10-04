@@ -1,7 +1,8 @@
 /* CINEMATIC V2 — scene-first battle direction.
    Scope is presentation-only: no actor anchor, hit target, engine value, save schema or game flow changes. */
 .bp-scene[class*="fx-stage-"],
-.bp-battle[class*="cinema-"] .bp-scene{isolation:isolate;perspective:900px;background:#080d1b;}
+.bp-battle[class*="cinema-"] .bp-scene,
+.cinema-lab-stage[class*="fx-stage-"]{isolation:isolate;perspective:900px;background:#080d1b;}
 
 /* Recompose depth without moving actor anchors. Actor geometry stays owned by ballpark.css/Pixi. */
 .bp-scene[class*="fx-stage-"] .bp-bg,
@@ -25,7 +26,8 @@
 
 /* Stadium light: keep the plate corridor bright and push the stands backward. */
 .bp-scene[class*="fx-stage-"]::before,
-.bp-battle[class*="cinema-"] .bp-scene::before{
+.bp-battle[class*="cinema-"] .bp-scene::before,
+.cinema-lab-stage[class*="fx-stage-"]::before{
   content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
     linear-gradient(90deg,rgba(4,7,15,.44) 0%,transparent 28%,transparent 72%,rgba(4,7,15,.38) 100%),
@@ -42,14 +44,23 @@
 .bp-scene.fx-stage-release .bp-bg{filter:brightness(.62) saturate(.82) contrast(1.12);transform:scale(1.08) translate(.35%,.15%);}
 .bp-scene.fx-stage-settle .bp-bg{filter:brightness(.78) saturate(.9) contrast(1.08);transform:scale(1.055);}
 
-/* Pixi exposes the exact contact window through data-impact/data-stop. */
+/* Cinema Lab mirrors every V2 stage so visual work can be reviewed without playing a run. */
+.cinema-lab-stage.fx-stage-windup{filter:brightness(.72) saturate(.78) contrast(1.08);}
+.cinema-lab-stage.fx-stage-impact{filter:brightness(.62) saturate(.7) contrast(1.12);}
+.cinema-lab-stage.fx-stage-slowmo{filter:brightness(.54) saturate(.64) contrast(1.18);}
+.cinema-lab-stage.fx-stage-release{filter:brightness(.72) saturate(.9) contrast(1.12);}
+.cinema-lab-stage.fx-stage-settle{filter:brightness(.9) saturate(.94) contrast(1.06);}
+.cinema-lab-stage.fx-stage-windup .actor-right{filter:drop-shadow(0 9px 6px #000c) drop-shadow(0 0 18px #9fb4ff38);}
+.cinema-lab-stage.fx-stage-impact .actor-left,
+.cinema-lab-stage.fx-stage-slowmo .actor-left{filter:drop-shadow(0 13px 7px #000d) drop-shadow(0 0 22px #ffc86144);}
+
+/* Pixi exposes the exact contact window through data-impact/data-stop in live battle. */
 .bp-scene:has(.bp-pixi[data-impact="1"]) .bp-bg{filter:brightness(.4) saturate(.48) contrast(1.24);transform:scale(1.105) translate(-.7%,.55%);}
 .bp-scene:has(.bp-pixi[data-impact="1"]) .bp-zone{filter:drop-shadow(0 0 7px rgba(255,224,138,.72)) drop-shadow(0 5px 10px #0009);}
 .bp-scene:has(.bp-pixi[data-impact="1"]) .bp-pcol{opacity:.58;filter:saturate(.55) brightness(.7);}
 .bp-scene:has(.bp-pixi[data-stop="1"]) .bp-haze{opacity:.42;}
 
-/* EXIT LANGUAGE — result grades now have different silhouettes after contact.
-   No actor geometry changes: only field framing/light and the existing Pixi ball/trail plane. */
+/* EXIT LANGUAGE — result grades now have different silhouettes after contact. */
 .bp-scene.fx-stage-release.fx-hit .bp-bg,
 .bp-scene.fx-stage-release.fx-single .bp-bg{filter:brightness(.7) saturate(.9) contrast(1.1);transform:scale(1.075) translate(.2%,.05%);}
 .bp-scene.fx-stage-release.fx-extra .bp-bg{filter:brightness(.62) saturate(1.02) contrast(1.16);transform:scale(1.09) translate(.65%,-.35%);}
@@ -60,9 +71,20 @@
 .bp-scene.fx-stage-release.fx-homer .bp-pixi,
 .bp-scene.fx-stage-release.fx-grand .bp-pixi,
 .bp-scene.fx-stage-release.fx-dead .bp-pixi{filter:drop-shadow(0 0 8px rgba(255,196,72,.86)) drop-shadow(0 0 18px rgba(255,122,48,.38));}
+
+/* The lab already exposes all judgement cases. Give its POWER outcomes the same V2 exit hierarchy. */
+.cinema-lab.fx-hit .cinema-lab-stage.fx-stage-release{filter:brightness(.78) saturate(.94) contrast(1.08);}
+.cinema-lab.fx-extra .cinema-lab-stage.fx-stage-release{filter:brightness(.68) saturate(1.04) contrast(1.14);transform:scale(1.012);}
+.cinema-lab.fx-homer .cinema-lab-stage.fx-stage-release,
+.cinema-lab.fx-grand-slam .cinema-lab-stage.fx-stage-release,
+.cinema-lab.fx-dead-center .cinema-lab-stage.fx-stage-release{filter:brightness(.58) saturate(1.14) contrast(1.2);transform:scale(1.024);}
+
 .bp-scene.fx-stage-release.fx-homer::after,
 .bp-scene.fx-stage-release.fx-grand::after,
-.bp-scene.fx-stage-release.fx-dead::after{
+.bp-scene.fx-stage-release.fx-dead::after,
+.cinema-lab.fx-homer .cinema-lab-stage.fx-stage-release::after,
+.cinema-lab.fx-grand-slam .cinema-lab-stage.fx-stage-release::after,
+.cinema-lab.fx-dead-center .cinema-lab-stage.fx-stage-release::after{
   content:"";position:absolute;inset:-10%;z-index:4;pointer-events:none;
   background:linear-gradient(118deg,transparent 31%,rgba(255,238,174,.08) 43%,rgba(255,176,67,.2) 48%,transparent 55%);
   mix-blend-mode:screen;animation:bp-cinema-v2-exit 420ms ease-out both;
@@ -77,9 +99,10 @@
 .bp-battle.cinema-exit .bp-bg{filter:brightness(.62) saturate(.82) contrast(1.12);transform:scale(1.08)}
 .bp-battle.cinema-recovery .bp-bg{filter:brightness(.78) saturate(.9) contrast(1.08);transform:scale(1.055)}
 
-/* Contact apex. */
+/* Contact apex — same authored beat is visible in the no-play Cinema Lab. */
 .bp-scene.fx-stage-slowmo::after,
-.bp-battle.cinema-contact .bp-scene::after{
+.bp-battle.cinema-contact .bp-scene::after,
+.cinema-lab-stage.fx-stage-slowmo::after{
   content:"";position:absolute;inset:-8%;z-index:4;pointer-events:none;
   background:
     radial-gradient(circle at 35% 55%,rgba(255,250,218,.92) 0 1.5%,rgba(255,211,112,.46) 3.5%,rgba(255,154,67,.18) 9%,transparent 24%),
@@ -100,7 +123,11 @@
   .bp-battle[class*="cinema-"] .bp-bg{transform:none!important;transition:none!important}
   .bp-scene.fx-stage-slowmo::after,
   .bp-battle.cinema-contact .bp-scene::after,
+  .cinema-lab-stage.fx-stage-slowmo::after,
   .bp-scene.fx-stage-release.fx-homer::after,
   .bp-scene.fx-stage-release.fx-grand::after,
-  .bp-scene.fx-stage-release.fx-dead::after{animation:none;opacity:.12}
+  .bp-scene.fx-stage-release.fx-dead::after,
+  .cinema-lab.fx-homer .cinema-lab-stage.fx-stage-release::after,
+  .cinema-lab.fx-grand-slam .cinema-lab-stage.fx-stage-release::after,
+  .cinema-lab.fx-dead-center .cinema-lab-stage.fx-stage-release::after{animation:none;opacity:.12}
 }
