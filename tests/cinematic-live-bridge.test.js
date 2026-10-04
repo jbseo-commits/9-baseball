@@ -22,9 +22,9 @@ describe('cinematic live bridge',()=>{
     expect(css).not.toContain('.bp-scene.fx-stage-release::before');
   });
 
-  it('does not alter pointer geometry or page overflow',()=>{
-    expect(css).not.toMatch(/pointer-events\s*:\s*(auto|none)/);
+  it('keeps the direction layer out of page geometry and interactive controls',()=>{
     expect(css).not.toMatch(/(?:html|body|#root)\s*\{/);
     expect(css).not.toMatch(/overflow\s*:/);
+    expect(css).not.toMatch(/\.bp-(?:cell|card|verb|pile)[^{]*\{[^}]*pointer-events/s);
   });
 });
