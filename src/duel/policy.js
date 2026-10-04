@@ -1,6 +1,6 @@
-import {CARDS,rangeFor,shadeFor,GROWTHS,RELIC_OFFERS,DECKBUILDER_BUILD,DECK_MIN,canUpgrade,cardPower} from './cards.js';
+import {CARDS,rangeFor,shadeFor,GROWTHS,RELIC_OFFERS,FACILITY_ROUTES,DECKBUILDER_BUILD,DECK_MIN,canUpgrade,cardPower} from './cards.js';
 import {rewardProblem} from './deck.js';
-import {previewCard,cardProblem,publicProbabilities,readLevel,setAimZone,setGrowthMode,growthProblem,knownPitchZones} from './engine.js';
+import {previewCard,cardProblem,publicProbabilities,readLevel,setAimZone,setGrowthMode,growthProblem,knownPitchZones,facilityProblem} from './engine.js';
 
 // Public-information baseline, not an oracle or a human-fun metric.
 // This module never reads pending pitch, RNG seed, or resolved future states.
@@ -70,4 +70,25 @@ export function planReward(s,{force=null}={}){
     .map(k=>candidates[k]).find(a=>a&&!rewardProblem(deck,a,stage,growthKey,relics,s.build,s.route))
     ||{type:'skip'};
   return {action,growthKey};
+}
+
+// Bot-only facility picker (INBOX 7). Same contract as planReward:
+// greedy, deterministic, route-gated, falls back to a legal path.
+export function planFacility(s,{force=null}={}){
+  const deck=Array.isArray(s.deck)?s.deck:[],relics=s.relics||[];
+  const route=FACILITY_ROUTES[(s.stage||1)-1]||[];
+  const rank=(a,b)=>cardPower(b)-cardPower(a)||deck.indexOf(a)-deck.indexOf(b);
+  const strongest=[...deck.filter(canUpgrade)].sort(rank)[0];
+  const weakest=[...deck].sort((a,b)=>-rank(a,b))[0];
+  const gear=(RELIC_OFFERS[(s.stage||1)-1]||[]).find(k=>!relics.includes(k));
+  const candidates={
+    equipment:gear?{type:'equipment',kind:gear}:null,
+    training:strongest?{type:'training',id:strongest.id}:null,
+    release:deck.length>DECK_MIN&&weakest?{type:'release',id:weakest.id}:null,
+    scouting:{type:'scouting'},
+  };
+  const inRoute=t=>route.includes(t);
+  return [force,'equipment','training','scouting']
+    .map(k=>candidates[k]).find(a=>a&&inRoute(a.type)&&!facilityProblem(s,a))
+    ||{type:'scouting'};
 }
