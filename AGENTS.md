@@ -98,3 +98,7 @@
 
 안티그래비티는 `main`에 직접 push·merge하지 않는다. 항목마다 `ag/` 브랜치 + PR + Vercel 프리뷰까지만 하고, 사용자에게 묻지 않고 다음 항목으로 넘어간다.
 작업 절차·금지 목록·막힘 처리는 [`docs/ANTIGRAVITY-LOOP.md`](docs/ANTIGRAVITY-LOOP.md), 작업 목록은 `docs/antigravity/QUEUE.md`.
+
+## Claude 모델 분업
+
+Claude Code에서 이 루프를 수행하면 [모델 분업](docs/MODEL-ROUTING.md)의 역할·advisor 상담·실행 확인을 함께 따른다. 이 지침은 기존 품질·권한·중단 조건을 대체하지 않는다.
