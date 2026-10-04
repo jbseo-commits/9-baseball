@@ -65,6 +65,34 @@ describe('9-zone strategic UI',()=>{
     fireEvent.keyDown(document.activeElement,{key:'End'});expect(document.activeElement).toBe(screen.getByRole('button',{name:/바깥 낮음/}));
     expect(readDuel(localStorage).battle.aimZone).toBe(8);
   });
+  it('moves the 9-zone grid with Left, Down, and Home keys and clamps at edges',()=>{
+    begin();const middle=screen.getByRole('button',{name:'한가운데',exact:true});middle.focus();
+    fireEvent.keyDown(middle,{key:'ArrowLeft'});
+    expect(document.activeElement).toBe(screen.getByRole('button',{name:'몸쪽 중간',exact:true}));
+    expect(readDuel(localStorage).battle.aimZone).toBe(3);
+    fireEvent.keyDown(document.activeElement,{key:'ArrowUp'});
+    const topLeft=screen.getByRole('button',{name:'몸쪽 높음',exact:true});
+    expect(document.activeElement).toBe(topLeft);
+    expect(readDuel(localStorage).battle.aimZone).toBe(0);
+    fireEvent.keyDown(topLeft,{key:'ArrowLeft'});
+    expect(document.activeElement).toBe(topLeft);
+    expect(readDuel(localStorage).battle.aimZone).toBe(0);
+    fireEvent.keyDown(topLeft,{key:'ArrowUp'});
+    expect(document.activeElement).toBe(topLeft);
+    expect(readDuel(localStorage).battle.aimZone).toBe(0);
+    fireEvent.keyDown(topLeft,{key:'End'});
+    expect(document.activeElement).toBe(screen.getByRole('button',{name:'바깥 낮음',exact:true}));
+    expect(readDuel(localStorage).battle.aimZone).toBe(8);
+    fireEvent.keyDown(document.activeElement,{key:'Home'});
+    expect(document.activeElement).toBe(screen.getByRole('button',{name:'몸쪽 높음',exact:true}));
+    expect(readDuel(localStorage).battle.aimZone).toBe(0);
+    fireEvent.keyDown(document.activeElement,{key:'ArrowDown'});
+    expect(document.activeElement).toBe(screen.getByRole('button',{name:'몸쪽 중간',exact:true}));
+    expect(readDuel(localStorage).battle.aimZone).toBe(3);
+    const cells=screen.getByRole('group',{name:'노릴 코스'}).querySelectorAll('button');
+    expect(cells).toHaveLength(9);
+    cells.forEach((c,z)=>expect(c.tabIndex).toBe(z===3?0:-1));
+  });
   it('renders an unused zone like a rare zone at read level zero',()=>{
     const s=startBattle(createDuel(1,'away'));
     s.battle.intent.probabilities=[0,.02,.13,.14,.27,.28,.04,.04,.04,.04];
