@@ -9,7 +9,7 @@ describe('v10-bot-report structure',()=>{
   it('emits terminal-only rows for every variant',{timeout:30000},()=>{
     const out=execFileSync('node',['scripts/v10-bot-report.mjs','2'],{encoding:'utf8',timeout:120000});
     const {rows}=JSON.parse(out);
-    expect(Object.keys(rows).sort()).toEqual(['base','relic','remove','upgrade']);
+    expect(Object.keys(rows).sort()).toEqual(['base','relic','remove','support','upgrade']);
     for(const r of Object.values(rows)){
       expect(r.seeds).toBe(2);
       expect(r.won+r.lost+r.unfinished).toBe(2);
