@@ -1,4 +1,5 @@
-import {CARDS,rangeFor,shadeFor} from './cards.js';
+import {CARDS,rangeFor,shadeFor,GROWTHS,RELIC_OFFERS,DECKBUILDER_BUILD,DECK_MIN,canUpgrade,cardPower} from './cards.js';
+import {rewardProblem} from './deck.js';
 import {previewCard,cardProblem,publicProbabilities,readLevel,setAimZone,setGrowthMode,growthProblem,knownPitchZones} from './engine.js';
 
 // Public-information baseline, not an oracle or a human-fun metric.
@@ -47,3 +48,26 @@ export function planAction(s,{level=readLevel(s)}={}){
   return {id:best.id,zone:best.zone,mode:best.mode};
 }
 export const planTurn=s=>{const action=planAction(s);return action?[action.id]:[];};
+
+// Bot-only reward picker for headless measurement (INBOX 7). Greedy and
+// deterministic; never a balance claim. Every proposal satisfies rewardProblem;
+// a blocked forced path falls back to the default priority. No game caller yet.
+export function planReward(s,{force=null}={}){
+  const deck=Array.isArray(s.deck)?s.deck:[],relics=s.relics||[],stage=s.stage||0;
+  const growthKey=s.build===DECKBUILDER_BUILD?null
+    :Object.keys(GROWTHS).reduce((a,k)=>((s.growth||{})[k]||0)<((s.growth||{})[a]||0)?k:a,Object.keys(GROWTHS)[0]);
+  const rank=(a,b)=>cardPower(b)-cardPower(a)||deck.indexOf(a)-deck.indexOf(b);
+  const strongest=[...deck.filter(canUpgrade)].sort(rank)[0];
+  const weakest=[...deck].sort((a,b)=>-rank(a,b))[0];
+  const offer=(RELIC_OFFERS[stage]||[]).find(k=>!relics.includes(k));
+  const candidates={
+    relic:offer?{type:'relic',kind:offer}:null,
+    upgrade:strongest?{type:'upgrade',id:strongest.id}:null,
+    remove:deck.length>DECK_MIN&&weakest?{type:'remove',id:weakest.id}:null,
+    skip:{type:'skip'},
+  };
+  const action=[force,'relic','upgrade','skip']
+    .map(k=>candidates[k]).find(a=>a&&!rewardProblem(deck,a,stage,growthKey,relics,s.build,s.route))
+    ||{type:'skip'};
+  return {action,growthKey};
+}
