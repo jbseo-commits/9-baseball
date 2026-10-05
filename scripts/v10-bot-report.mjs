@@ -3,6 +3,7 @@ import {createV10Duel,enterV10Node,playV10Action,advanceV10Pitch,advanceV10Batte
   v10UtilityOptions,cardProblem,previewV10Stack} from '../src/duel/engine.js';
 import {planAction,evaluateTake,scoreV10Swing,pickBestSolo,pickBestSupport} from '../src/duel/policy.js';
 import {cardPower, CARDS} from '../src/duel/cards.js';
+import {V10_RELICS} from '../src/duel/v10-relics.js';
 
 // INBOX 7: baseline bot with ONE forced utility path per variant, then identical play.
 // Scope: bot-behavior deltas only; NOT human fun or balance proof.
@@ -46,6 +47,11 @@ function driveInner(seed,variant='base',guardMax=20000){
   let s=createV10Duel(seed);
   s=enterV10Node(s,'a1-entry');
   const used={};
+  if(variant.startsWith('relic:')&&V10_RELICS[variant.slice(6)]){
+    // E4a: granted at start — measures the relic effect, not acquisition.
+    s={...s,relics:[variant.slice(6)]};
+    used[variant]=true;
+  }
   let guard=0,exitReason='terminal';
   while(!['won','lost'].includes(s.phase)&&guard++<guardMax){
     if(s.phase==='pitch')s=advanceV10Pitch(s);
@@ -53,7 +59,7 @@ function driveInner(seed,variant='base',guardMax=20000){
     else if(s.phase==='battle'){
       const a=planAction(s);
       if(!a){exitReason='no-action';break;}
-      if(variant==='damage'){
+      if(variant==='damage'||variant.startsWith('relic:')){
         // E2: skill picks stay planAction's; solo/support/take compete
         // in selection units. Supports only on positive marginal gain.
         let pick;
@@ -102,7 +108,8 @@ function driveInner(seed,variant='base',guardMax=20000){
 }
 
 const seeds=Math.max(1,Number(process.argv[2]||10));
-const variants=['base','damage','upgrade','relic','remove','support'];
+const variants=['base','damage','upgrade','relic','remove','support',
+  ...Object.keys(V10_RELICS).map(k=>'relic:'+k)];
 const rows={};
 for(const v of variants){
   const runs=[];
