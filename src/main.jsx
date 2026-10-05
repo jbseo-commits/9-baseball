@@ -30,6 +30,7 @@ import "./duel/battle-clarity.css";
 import "./duel/title-pixel.css";
 import "./duel/cinematic-director.css";
 import "./duel/cinematic-commit-handoff.css";
+import "./duel/cinematic-pitch-handoff.css";
 
 watchLayoutMode();
 const showcase=new URLSearchParams(window.location.search).get("showcase")==="cinematic-v2";
