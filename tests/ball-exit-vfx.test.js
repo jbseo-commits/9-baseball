@@ -10,10 +10,12 @@ describe('ball exit cinematic hierarchy',()=>{
 
     expect(single.trailCap).toBe(10);
     expect(extra.trailCap).toBe(12);
-    expect(homer.trailCap).toBe(16);
-    expect(grand.trailCap).toBe(16);
+    expect(homer.trailCap).toBe(20);
+    expect(grand.trailCap).toBe(20);
+    expect(homer.segmentCap).toBe(14);
     expect(homer.segmentCap).toBeGreaterThan(extra.segmentCap);
     expect(homer.coreWidth).toBeGreaterThan(extra.coreWidth);
+    expect(homer.coreAlpha).toBeGreaterThan(extra.coreAlpha);
     expect(homer.homer).toBe(true);
     expect(grand.homer).toBe(true);
   });
