@@ -40,7 +40,7 @@ export default function OrderSheet({plan,plusOf=()=>false,onMove,onRecall,onClos
         <h2 id="order-sheet-title">스윙 순서 · {steps.length}장</h2>
         <button ref={closeRef} type="button" className="card-detail-close" onClick={onClose}>닫기</button>
       </header>
-      <p className="order-rate" role="status">피해 효율 {Math.round((plan.damageRate??1)*100)}% · 이어진 순서는 카드 수로 잃은 효율을 일부 되찾습니다.</p>
+      <p className="order-rate" role="status">피해 효율 {Math.round((plan.damageRate??1)*100)}% · 이어진 순서는 카드 수로 잃은 효율을 일부 되찾습니다{plan.sameZoneConnections>0?` · 같은 존 집중 +${Math.round((plan.sameZoneBonus??0)*100)}%p`:''}.</p>
       <ol className="order-list">
         {steps.map((step,i)=>{
           const link=i>0?links[i-1]:null,name=nameOf(step,plusOf),support=supports.indexOf(step);
