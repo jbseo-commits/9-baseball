@@ -20,6 +20,16 @@ describe('ball exit cinematic hierarchy',()=>{
     expect(grand.homer).toBe(true);
   });
 
+  it('separates the short contact burst from the longer exit wake',()=>{
+    const single=ballExitProfile('single');
+    const extra=ballExitProfile('extra');
+    const homer=ballExitProfile('homer');
+
+    expect(homer.burstMs).toBeLessThan(homer.wakeMs);
+    expect(homer.wakeMs).toBeGreaterThan(extra.wakeMs);
+    expect(extra.wakeMs).toBeGreaterThan(single.wakeMs);
+  });
+
   it('keeps dead-center power-colored without stealing the homer flare tier',()=>{
     const dead=ballExitProfile('dead-center');
     expect(dead.power).toBe(true);
