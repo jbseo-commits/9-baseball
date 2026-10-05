@@ -1,6 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import Duel from "./duel/App.jsx";
+import CinematicV2Showcase from "./duel/CinematicV2Showcase.jsx";
 import ErrorBoundary from "./duel/ErrorBoundary.jsx";
 import PortraitFrame from "./duel/PortraitFrame.jsx";
 import { layoutMode, watchLayoutMode } from "./duel/layout-mode.js";
@@ -29,11 +30,13 @@ import "./duel/battle-clarity.css";
 import "./duel/title-pixel.css";
 
 watchLayoutMode();
+const showcase=new URLSearchParams(window.location.search).get("showcase")==="cinematic-v2";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* portrait-only: a wide window plays the phone layout in a 9:16 frame (layout-mode.js) */}
-    {layoutMode() === "frame" ? <PortraitFrame /> : (
+    {showcase ? (
+      <ErrorBoundary><CinematicV2Showcase /></ErrorBoundary>
+    ) : layoutMode() === "frame" ? <PortraitFrame /> : (
       <ErrorBoundary>
         <Duel />
       </ErrorBoundary>
