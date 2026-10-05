@@ -1,6 +1,7 @@
 import {CARDS,rangeFor,shadeFor,GROWTHS,RELIC_OFFERS,FACILITY_ROUTES,DECKBUILDER_BUILD,DECK_MIN,canUpgrade,cardPower} from './cards.js';
 import {rewardProblem} from './deck.js';
-import {previewCard,cardProblem,publicProbabilities,readLevel,setAimZone,setGrowthMode,growthProblem,knownPitchZones,facilityProblem} from './engine.js';
+import {previewCard,cardProblem,publicProbabilities,readLevel,setAimZone,setGrowthMode,growthProblem,knownPitchZones,facilityProblem,previewV10Stack} from './engine.js';
+import {damageForOutcome} from './pitcher-hp.js';
 
 // Public-information baseline, not an oracle or a human-fun metric.
 // This module never reads pending pitch, RNG seed, or resolved future states.
@@ -48,6 +49,23 @@ export function planAction(s,{level=readLevel(s)}={}){
   return {id:best.id,zone:best.zone,mode:best.mode};
 }
 export const planTurn=s=>{const action=planAction(s);return action?[action.id]:[];};
+
+// E0: expected pitcher damage for one swing (bot-only approximation).
+// Reads previewV10Stack + damageForOutcome only (C6); no relic/precision
+// refinement (E3). take and illegal actions score null, never a number.
+export function evaluateV10Action(s,action,{level}={}){
+  if(!action||action.type!=='card'||!action.id)return null;
+  if(action.id!=='basic'&&!s.deck?.some(c=>c.id===action.id))return null;
+  const aimed=setGrowthMode(setAimZone(s,action.zone??s.battle?.aimZone),action.mode||'normal');
+  const p=previewV10Stack(aimed,action.id,action.supports||[],perceivedProbabilities(s,level));
+  if(!p||p.problem)return null;
+  const hitDmg=(p.types||[]).reduce((acc,t)=>acc+(t.p||0)*damageForOutcome({kind:'hit',bases:t.bases||1}).damage,0);
+  const expectedDamage=(p.damageRate||1)*((((p.hit||0)*hitDmg)
+    +(p.foul||0)*damageForOutcome({kind:'foul'}).damage
+    +(p.whiff||0)*damageForOutcome({kind:'whiff'}).damage
+    +(p.out||0)*damageForOutcome({kind:'out'}).damage));
+  return Number.isFinite(expectedDamage)?{expectedDamage:Math.max(0,expectedDamage)}:null;
+};
 
 // Bot-only reward picker for headless measurement (INBOX 7). Greedy and
 // deterministic; never a balance claim. Every proposal satisfies rewardProblem;
