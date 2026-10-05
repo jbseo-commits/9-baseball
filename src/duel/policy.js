@@ -89,6 +89,54 @@ export function evaluateTake(s,{level}={}){
   return Number.isFinite(expectedDamage)?{expectedDamage,qBall:q9}:null;
 };
 
+// E2 shared pricing: strike-fraction out cost, state-derived, no constants.
+// A whiff spends (S+1)/3 of an out; a non-bunt foul below two strikes the same,
+// nothing at 2S; a bunt foul at 2S is a full out.
+function swingOutCost(s,r,bunt){
+  const need=(s.pitcher?.hp??0)/Math.max(1,3-(s.battle?.outs??0));
+  const strikes=Math.min(2,s.battle?.strikes??0);
+  const buntFoul=bunt&&(s.battle?.strikes??0)>=2?(r.pFoul||0):0;
+  const foul=(bunt||strikes>=2)?0:(r.pFoul||0)*(strikes+1)/3;
+  return need*((r.pOut||0)+(r.pWhiff||0)*(strikes+1)/3+foul+buntFoul);
+}
+const kindOfId=(s,id)=>id==='basic'?'basic':s.deck?.find(c=>c.id===id)?.kind;
+const isAttackId=(s,id)=>id==='basic'||CARDS[kindOfId(s,id)]?.type==='attack';
+
+// E2: one swing scored in selection units (damage net of out cost).
+export function scoreV10Swing(s,action,{level}={}){
+  const r=evaluateV10Action(s,action,{level});
+  if(!r)return null;
+  const value=r.expectedDamage-swingOutCost(s,r,kindOfId(s,action.id)==='bunt');
+  return {...r,value};
+}
+
+// E2: best solo attack (card × zone). Supports are pickBestSupport.
+export function pickBestSolo(s,mode,{level}={}){
+  const ids=['basic',...(s.battle?.hand||[]).filter(id=>id!=='basic'&&!cardProblem(s,id)&&isAttackId(s,id))];
+  let best=null;
+  for(const id of ids)for(let zone=0;zone<9;zone++){
+    const r=scoreV10Swing(s,{type:'card',id,zone,mode},{level});
+    if(r&&(!best||r.value>best.value))best={id,zone,value:r.value};
+  }
+  return best;
+}
+
+// E2: best single support (card × aimZone) with strictly positive marginal
+// gain over solo; null keeps solo. Problem-checked by the engine (C6).
+export function pickBestSupport(s,main,{level}={}){
+  const solo=scoreV10Swing(s,{type:'card',id:main.id,zone:main.zone,mode:main.mode,supports:[]},{level});
+  if(!solo)return null;
+  const pool=(s.battle?.hand||[]).filter(id=>id!==main.id&&!cardProblem(s,id));
+  let best=null;
+  for(const id of pool)for(let aimZone=0;aimZone<9;aimZone++){
+    const r=scoreV10Swing(s,{type:'card',id:main.id,zone:main.zone,mode:main.mode,supports:[{id,aimZone}]},{level});
+    if(!r)continue;
+    if(r.value>solo.value&&(!best||r.value>best.value))
+      best={supports:[{id,aimZone}],value:r.value,expectedDamage:r.expectedDamage};
+  }
+  return best;
+};
+
 // Bot-only reward picker for headless measurement (INBOX 7). Greedy and
 // deterministic; never a balance claim. Every proposal satisfies rewardProblem;
 // a blocked forced path falls back to the default priority. No game caller yet.
