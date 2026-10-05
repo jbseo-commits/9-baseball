@@ -10,6 +10,7 @@ const POSES={ready:1,load:1,trigger:1,'swing-start':1,'swing-mid':1,contact:1,'f
 const SHOT={grade:'homer',kind:'homer',title:'HOME RUN',motion:{impactAt:620,settleAt:1760,duration:1900,freeze:90,slowmo:true}};
 const STAGES=[['windup',0],['impact',520],['slowmo',620],['release',790],['settle',1650]];
 const CAMERA={windup:'hold',impact:'contact',slowmo:'contact',release:'track',settle:'recover'};
+const EXIT_MS=650;
 
 export default function CinematicV2Showcase(){
   const sceneRef=useRef(null);
@@ -28,21 +29,24 @@ export default function CinematicV2Showcase(){
     return()=>clearInterval(id);
   },[auto]);
   useEffect(()=>{
-    if(stage!=='release'||!sceneRef.current||!cameraRef.current)return;
-    if(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)return;
+    const cam=cameraRef.current;
+    if(!cam)return;
+    if(stage!=='release'||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){
+      cam.style.removeProperty('--track-x');
+      cam.style.removeProperty('--track-y');
+      cam.style.removeProperty('--track-scale');
+      return;
+    }
+    const started=performance.now();
     let raf=0;
-    const follow=()=>{
-      const host=sceneRef.current?.querySelector('.bp-pixi');
-      const cam=cameraRef.current;
-      if(!host||!cam)return;
-      const x=Number(host.dataset.ballX),y=Number(host.dataset.ballY);
-      if(Number.isFinite(x)&&Number.isFinite(y)){
-        const dx=Math.max(-7,Math.min(1,(50-x)*.14));
-        const dy=Math.max(-1,Math.min(6,(52-y)*.12));
-        cam.style.setProperty('--track-x',`${dx.toFixed(2)}%`);
-        cam.style.setProperty('--track-y',`${dy.toFixed(2)}%`);
-      }
-      raf=requestAnimationFrame(follow);
+    const follow=now=>{
+      const u=Math.max(0,Math.min(1,(now-started)/EXIT_MS));
+      const ease=1-Math.pow(1-u,3);
+      const arc=Math.sin(Math.PI*u);
+      cam.style.setProperty('--track-x',`${(-1.2-5.4*ease).toFixed(2)}%`);
+      cam.style.setProperty('--track-y',`${(.4+4.4*ease-1.15*arc).toFixed(2)}%`);
+      cam.style.setProperty('--track-scale',(1.055+.055*ease).toFixed(3));
+      if(u<1)raf=requestAnimationFrame(follow);
     };
     raf=requestAnimationFrame(follow);
     return()=>cancelAnimationFrame(raf);
