@@ -5,7 +5,12 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (p) => fs.readFileSync(path.join(root, p), 'utf8');
 
-const ids = ['regular-10-sky-phantom', 'regular-11-gale-twister', 'regular-12-vulcan-blaze'];
+const ids = ['sky-phantom', 'gale-twister', 'vulcan-blaze'];
+const atlasPaths = [
+  'assets/pitcher-study-v3/atlases/sky-phantom-pitch-120-atlas.png',
+  'assets/pitcher-study-v4/atlases/gale-twister-pitch-120-atlas.png',
+  'assets/pitcher-study-v5/atlases/vulcan-blaze-pitch-120-atlas.png',
+];
 
 describe('autonomous pitcher port', () => {
   it('keeps all three pitchers wired through roster and authored geometry', () => {
@@ -23,6 +28,7 @@ describe('autonomous pitcher port', () => {
       expect(visuals).toContain(id);
       expect(voice).toContain(id);
     }
+    for (const atlasPath of atlasPaths) expect(fs.existsSync(path.join(root, atlasPath))).toBe(true);
   });
 
   it('does not replace Cinematic V2 battle orchestration', () => {
