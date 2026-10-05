@@ -122,6 +122,7 @@ export function v10SwingDamageRate(cardCount=1){
   return V10_SWING_DAMAGE_RATES[n-1];
 }
 export const V11_STACK_CONNECT_BONUS=.07;
+export const V11_SAME_ZONE_CONNECT_BONUS=.05;
 export function v11StackZonesConnect(a,b){
   if(!Number.isInteger(a)||!Number.isInteger(b)||a<0||a>8||b<0||b>8)return false;
   const ar=Math.floor(a/3),ac=a%3,br=Math.floor(b/3),bc=b%3;
@@ -137,9 +138,11 @@ export function v11StackPlan(s,primaryId,supports=[]){
     connected:v11StackZonesConnect(steps[i].aimZone,step.aimZone),
   }));
   const connectCount=links.filter(x=>x.connected).length,connectBonus=connectCount*V11_STACK_CONNECT_BONUS;
-  const orderedDamageRate=Math.min(1,baseDamageRate+connectBonus);
+  const sameZoneConnections=links.filter(x=>x.connected&&x.fromZone===x.toZone).length;
+  const sameZoneBonus=sameZoneConnections*V11_SAME_ZONE_CONNECT_BONUS;
+  const orderedDamageRate=Math.min(1,baseDamageRate+connectBonus+sameZoneBonus);
   const damageRate=v10RelicDamageRate(s?.relics||[],cardCount,orderedDamageRate);
-  return {steps,links,cardCount,connectCount,baseDamageRate,connectBonus,orderedDamageRate,damageRate,perfect:links.length>0&&connectCount===links.length};
+  return {steps,links,cardCount,connectCount,baseDamageRate,connectBonus,sameZoneConnections,sameZoneBonus,orderedDamageRate,damageRate,perfect:links.length>0&&connectCount===links.length};
 }
 export function stackSupportProblem(s,primaryId,supports=[]){
   if(!Array.isArray(supports)||!supports.length)return null;
@@ -269,7 +272,7 @@ export function previewCard(s,id,probabilities=publicProbabilities(s)){
 export function previewV10Stack(s,id,supports=[],probabilities=publicProbabilities(s)){
   if(!supports?.length){
     const solo=previewCard(s,id,probabilities),stackPlan=v11StackPlan(s,id,[]),precisionPressure=id==='basic'?0:(CARDS[card(s,id)?.kind]?.pressure||0);
-    return {...solo,cardCount:1,damageRate:stackPlan.damageRate,stackPlan,connectCount:0,connectBonus:0,precisionPressure,
+    return {...solo,cardCount:1,damageRate:stackPlan.damageRate,stackPlan,connectCount:0,connectBonus:0,sameZoneConnections:0,sameZoneBonus:0,precisionPressure,
       baseStackDamageRate:1,orderedStackDamageRate:1,primaryCoverage:solo.coverage||[],supportCoverages:[]};
   }
   const problem=cardProblem(s,id)||stackSupportProblem(s,id,supports);if(problem)return {problem};
@@ -292,7 +295,7 @@ export function previewV10Stack(s,id,supports=[],probabilities=publicProbabiliti
   const hr=types.find(t=>t.bases===4)?.p||0,stackPlan=v11StackPlan(s,id,supports),cardCount=stackPlan.cardCount,damageRate=stackPlan.damageRate,
     precisionPressure=CARDS[card(s,id)?.kind]?.pressure||0;
   return {...base,label:'스윙 스택 · '+cardCount+'장 · CONNECT '+stackPlan.connectCount+'/'+Math.max(0,cardCount-1),coverage:combined,primaryCoverage:main,supportCoverages,
-    supports:supportCoverages.map(({coverage,...x})=>x),cardCount,damageRate,stackPlan,connectCount:stackPlan.connectCount,connectBonus:stackPlan.connectBonus,precisionPressure,
+    supports:supportCoverages.map(({coverage,...x})=>x),cardCount,damageRate,stackPlan,connectCount:stackPlan.connectCount,connectBonus:stackPlan.connectBonus,sameZoneConnections:stackPlan.sameZoneConnections,sameZoneBonus:stackPlan.sameZoneBonus,precisionPressure,
     baseStackDamageRate:stackPlan.baseDamageRate,orderedStackDamageRate:stackPlan.orderedDamageRate,hit,foul,whiff,out,sacrifice:0,types,
     matchup:matchup(s,id,s.battle.aimZone,combined.length),expectedBases:hit*types.reduce((v,t)=>v+t.p*t.bases,0),
     fortuneChance:s.battle.growthMode==='fortune'?hit*(1-hr):0};

@@ -61,6 +61,17 @@ describe('V11 9ZONE STACK ORDER',()=>{
     expect(p.label).toContain('CONNECT 3/3');
   });
 
+  it('같은 존 CONNECT는 장타 집중 보너스를 더한다',()=>{
+    const s=armed();
+    const p=previewV10Stack(s,'c4',[{id:'c0',aimZone:0},{id:'c1',aimZone:1}]);
+    expect(p.connectCount).toBe(2);
+    expect(p.sameZoneConnections).toBe(1);
+    expect(p.sameZoneBonus).toBeCloseTo(.05);
+    expect(p.baseStackDamageRate).toBe(.65);
+    expect(p.orderedStackDamageRate).toBeCloseTo(.65+.14+.05);
+    expect(p.damageRate).toBeCloseTo(.84);
+  });
+
   it('실제 투수 HP도 preview와 같은 ordered damageRate를 사용한다',()=>{
     let s=armed();
     s.battle.pending={...s.battle.pending,zone:4,roll:.99,powerRoll:.99};
