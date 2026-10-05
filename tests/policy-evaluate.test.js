@@ -47,7 +47,7 @@ describe('evaluateV10Action',()=>{
     const target=s.battle.hand.map(id=>({id,entry:s.deck.find(c=>c.id===id)}))
       .find(x=>x.entry&&CARDS[x.entry.kind]?.type==='attack');
     const r=evaluateV10Action(s,{type:'card',id:target.id,zone:4,mode:'normal'});
-    for(const k of ['pOut','pWhiff']){
+    for(const k of ['pOut','pWhiff','pFoul']){
       expect(r[k]).toBeGreaterThanOrEqual(0);
       expect(r[k]).toBeLessThanOrEqual(1);
     }
@@ -69,5 +69,13 @@ describe('evaluateV10Action',()=>{
     s.battle.balls=0;s.battle.strikes=2;
     const edge=evaluateTake(s).expectedDamage;
     expect(walk).toBeGreaterThan(edge);
+  });
+  it('charges called-strike advancement symmetrically with whiffs',()=>{
+    const s=battle();
+    s.battle.balls=0;s.battle.strikes=0;
+    const fresh=evaluateTake(s).expectedDamage;
+    s.battle.strikes=1;
+    const loaded=evaluateTake(s).expectedDamage;
+    expect(fresh).toBeGreaterThan(loaded);
   });
 });
