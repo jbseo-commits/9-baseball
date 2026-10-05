@@ -8,9 +8,10 @@
   보상 04단계见出し+polite 낭독(`17bf0eb`) · 9존 명암 WCAG AA
   (shade-3 `#2f7186`→`#265e72`, 보조글 `#a6bbae`→`#c3d4cb`, `fd1459d`) ·
   reduced 해소 스킵-동일 공개 고정(버그 없음, `f75acbd`).
-- INBOX 7 측정 기반 완비: 봇 전용 `planReward`(`81d1a8c`)·`planFacility`(`022218b`) ·
-  headless 전투 주행 고정(`33cd85b`)·풀런 주행 고정(`c028cce`) ·
-  변형 측정 스크립트 `scripts/v10-bot-report.mjs`(`cbcd440`, support 변형 `b8083c3`).
+- INBOX 7 측정 기반: 봇 `planReward`·`planFacility`, headless 전투/풀런 주행,
+  E0~E2 도입(E1·E3a take는 음성·무의미로 판정)으로 damage 봇 25승·7.85노드
+  (동일 200시드, base 1승·3.24). E4a 유물 5종 damage 측정이 백그라운드에서
+  완료를 기다리는 중(2026-10-05, 100시드×11변형).
 - INBOX 7 병목(수치): 고정 봇 10시드 전 변형 0승·약 4~5노드 lost.
   1000회(200시드×5변형) 확대 측정: 1000/1000 종료·무예외·무스톨·세이브 왕복 400/400.
   2승(베이스·업그레이드 각 1, 전 변형 평균 3.2노드). support 변형이히려 후퇴(2.8노드).
