@@ -19,13 +19,17 @@ export const BATTER_MOTION_V3_MISS_GRADES=new Set([
   'near-miss','near-miss-k','chase','chase-k','fooled','strikeout',
 ]);
 
+const POWER_HIT_GRADES=new Set(['dead-center','extra','homer','grand-slam']);
+const HOME_RUN_GRADES=new Set(['homer','grand-slam']);
 const clamp=(value,min,max)=>Math.min(max,Math.max(min,value));
 const rounded=value=>Math.max(0,Math.round(value));
 
 /*
  * V3 keeps contact aligned to the presentation impact while inserting two
  * authored bridge silhouettes around the fastest part of the swing.
- * Runtime still swaps authored PNGs only; this is intentionally not 60 Hz yet.
+ * Power contact now owns more screen time after impact: the runtime still
+ * swaps authored poses only, but home runs read as a committed follow-through
+ * rather than returning through the same cadence as a routine hit.
  */
 export function batterMotionV3Timeline(shot){
   if(!shot)return [{pose:'ready',at:0}];
@@ -41,10 +45,15 @@ export function batterMotionV3Timeline(shot){
   const swingMidAt=rounded(Math.max(swingStartAt+38,impact-58));
 
   if(BATTER_MOTION_V3_HIT_GRADES.has(grade)){
-    const contactHold=rounded(clamp(Math.max(150,(Number(motion.freeze)||0)+(Number(motion.slowmo)||0)*0.50),150,235));
+    const power=POWER_HIT_GRADES.has(grade),homer=HOME_RUN_GRADES.has(grade);
+    const baseHold=Math.max(150,(Number(motion.freeze)||0)+(Number(motion.slowmo)||0)*0.50);
+    const contactHold=rounded(clamp(baseHold+(power?22:0)+(homer?24:0),150,homer?275:245));
     const followEarlyAt=impact+contactHold;
-    const followLateAt=followEarlyAt+rounded(clamp((settleAt-followEarlyAt)*0.28,105,165));
-    const finishAt=Math.max(followLateAt+110,Math.min(settleAt-125,followLateAt+190));
+    const followWindow=Math.max(1,settleAt-followEarlyAt);
+    const followLateAt=followEarlyAt+rounded(clamp(followWindow*(homer?.38:power?.33:.28),105,homer?205:180));
+    const finishGap=homer?155:power?130:110;
+    const finishCap=homer?230:power?205:190;
+    const finishAt=Math.max(followLateAt+finishGap,Math.min(settleAt-110,followLateAt+finishCap));
     return [
       {pose:'ready',at:0},
       {pose:'load',at:loadAt},
