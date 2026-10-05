@@ -85,11 +85,19 @@
 - 드라이버·리포트에 신봇 탑재 (`--bot=base|damage` 플래그).
 - 완료조건: 1000회 전 종료·무예외 + base 대비 개선 수치 기록.
 
-### E4a. 유물 5종 각각의 완주율 (damage 봇 기준)
+### E4a. 유물 5종 각각의 완주율 (damage 봇 기준) — ✅ 100시드 측정
 
-- `relic:firstPitch|twoStack|foulTape|awayBadge|slugBand` 변형: 각 유물을
-  런 시작에 지급(획득 경로가 아니라 효과 측정), damage 전투로 동일 주행.
-- 100시드×11변형(1100런) 백그라운드 측정 중(2026-10-05). 완료 시 효과 표.
+- `relic:firstPitch|twoStack|foulTape|awayBadge|slugBand`: 각 유물을 런 시작
+  지급(획득 경로가 아니라 효과 측정), damage 전투로 동일 주행. 결과(100시드):
+  - firstPitch **29승·10.30노드** · twoStack 12승·8.54 · foulTape 11승·8.19
+  - awayBadge 10승·7.94 · slugBand 10승·7.68 · (유물 없음 damage 14승·8.04)
+  - 대조군(base 봇): base 0승·3.18, upgrade 0승·3.20(강제 40), relic 0승·3.19(강제35),
+    remove 0승·3.25(강제46), support 0승·3.08.
+- 판정: damage 봇에서 firstPitch가 가장 크다(타석 첫 공마다 +3, 빈도형).
+  나머지 4종은 유물 없음(14승)과 비슷하거나 약간 아래 — 조건부 발동이라 빈도가 낮음.
+  base 봇 강제(upgrade/relic/remove)는 전부 0승 — 봇 전투력이 병목이었음이 재확인.
+- 측정 방법: `VARIANTS=... node scripts/v10-bot-report.mjs 100`. 유물 변형은
+  damage 봇이 오래 살아 느려서 개별 100시드로 분할 실행(timeout 회피).
 
 ### E5. INBOX 7 답변
 

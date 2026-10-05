@@ -108,8 +108,10 @@ function driveInner(seed,variant='base',guardMax=20000){
 }
 
 const seeds=Math.max(1,Number(process.argv[2]||10));
-const variants=['base','damage','upgrade','relic','remove','support',
+const allVariants=['base','damage','upgrade','relic','remove','support',
   ...Object.keys(V10_RELICS).map(k=>'relic:'+k)];
+const only=process.env.VARIANTS?process.env.VARIANTS.split(',').filter(v=>allVariants.includes(v)):allVariants;
+const variants=only.length?only:allVariants;
 const rows={};
 for(const v of variants){
   const runs=[];
