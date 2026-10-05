@@ -13,6 +13,7 @@ const CAMERA={windup:'hold',impact:'contact',slowmo:'contact',release:'track',se
 
 export default function CinematicV2Showcase(){
   const sceneRef=useRef(null);
+  const cameraRef=useRef(null);
   const [token,setToken]=useState(1);
   const [stage,setStage]=useState('windup');
   const [auto,setAuto]=useState(true);
@@ -26,6 +27,26 @@ export default function CinematicV2Showcase(){
     const id=setInterval(replay,3000);
     return()=>clearInterval(id);
   },[auto]);
+  useEffect(()=>{
+    if(stage!=='release'||!sceneRef.current||!cameraRef.current)return;
+    if(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)return;
+    let raf=0;
+    const follow=()=>{
+      const host=sceneRef.current?.querySelector('.bp-pixi');
+      const cam=cameraRef.current;
+      if(!host||!cam)return;
+      const x=Number(host.dataset.ballX),y=Number(host.dataset.ballY);
+      if(Number.isFinite(x)&&Number.isFinite(y)){
+        const dx=Math.max(-7,Math.min(1,(50-x)*.14));
+        const dy=Math.max(-1,Math.min(6,(52-y)*.12));
+        cam.style.setProperty('--track-x',`${dx.toFixed(2)}%`);
+        cam.style.setProperty('--track-y',`${dy.toFixed(2)}%`);
+      }
+      raf=requestAnimationFrame(follow);
+    };
+    raf=requestAnimationFrame(follow);
+    return()=>cancelAnimationFrame(raf);
+  },[stage,token]);
   const camera=CAMERA[stage]||'hold';
   return <main className="cinematic-v2-showcase">
     <header className="cinematic-v2-showcase__bar">
@@ -34,7 +55,7 @@ export default function CinematicV2Showcase(){
       <button type="button" aria-pressed={auto} onClick={()=>setAuto(v=>!v)}>{auto?'자동 ON':'자동 OFF'}</button>
     </header>
     <section ref={sceneRef} data-camera={camera} className={`bp-scene cinematic-v2-showcase__scene fx-stage-${stage} fx-homer cam-${camera}`}>
-      <div className="cinematic-v2-showcase__camera">
+      <div ref={cameraRef} className="cinematic-v2-showcase__camera">
         <div className="bp-bg" aria-hidden="true"/>
         <div className="bp-haze" aria-hidden="true"/>
         <div className="bp-pitcher cinematic-v2-showcase__pitcher" aria-hidden="true"/>
