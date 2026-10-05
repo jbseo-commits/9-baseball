@@ -1,6 +1,6 @@
 import {describe,it,expect} from 'vitest';
 import {createV10Duel,enterV10Node,setAimZone,setGrowthMode} from '../src/duel/engine.js';
-import {evaluateV10Action} from '../src/duel/policy.js';
+import {evaluateV10Action,evaluateTake} from '../src/duel/policy.js';
 import {CARDS} from '../src/duel/cards.js';
 
 // E0: 기대 투수 피해 평가. 봇 전용·근사치 (유물·정타 보너스는 E3).
@@ -51,5 +51,23 @@ describe('evaluateV10Action',()=>{
       expect(r[k]).toBeGreaterThanOrEqual(0);
       expect(r[k]).toBeLessThanOrEqual(1);
     }
+  });
+  it('scores take from the public ball rate, never an oracle',()=>{
+    const s=battle();
+    const t=evaluateTake(s);
+    expect(t).toBeTruthy();
+    expect(Number.isFinite(t.expectedDamage)).toBe(true);
+    expect(t.qBall).toBeGreaterThanOrEqual(0);
+    expect(t.qBall).toBeLessThanOrEqual(1);
+    const t2=evaluateTake(s);
+    expect(t2).toEqual(t);
+  });
+  it('values take higher with three balls than with two strikes',()=>{
+    const s=battle();
+    s.battle.balls=3;s.battle.strikes=0;
+    const walk=evaluateTake(s).expectedDamage;
+    s.battle.balls=0;s.battle.strikes=2;
+    const edge=evaluateTake(s).expectedDamage;
+    expect(walk).toBeGreaterThan(edge);
   });
 });

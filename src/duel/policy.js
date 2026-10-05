@@ -71,6 +71,21 @@ export function evaluateV10Action(s,action,{level}={}){
   return {expectedDamage:Math.max(0,expectedDamage),pOut,pWhiff};
 };
 
+// E3a: take value in E1-selection units (damage net of out cost).
+// Weighs only public info (perceived ball rate) plus engine tables —
+// no tuned constants, no oracle (never resolves the pending pitch).
+export function evaluateTake(s,{level}={}){
+  if(!s?.battle)return null;
+  const q9=perceivedProbabilities(s,level)[9]??0;
+  const need=(s.pitcher?.hp??0)/Math.max(1,3-(s.battle?.outs??0));
+  const takeDmg=q9*((s.battle?.balls??0)>=3
+    ?damageForOutcome({kind:'walk'}).damage
+    :damageForOutcome({kind:'ball'}).damage);
+  const takeOuts=(1-q9)*((s.battle?.strikes??0)>=2?1:0);
+  const expectedDamage=takeDmg-need*takeOuts;
+  return Number.isFinite(expectedDamage)?{expectedDamage,qBall:q9}:null;
+};
+
 // Bot-only reward picker for headless measurement (INBOX 7). Greedy and
 // deterministic; never a balance claim. Every proposal satisfies rewardProblem;
 // a blocked forced path falls back to the default priority. No game caller yet.
