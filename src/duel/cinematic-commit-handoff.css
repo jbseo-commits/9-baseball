@@ -1,0 +1,15 @@
+/* CINEMATIC V2 — decision-to-action handoff.
+   Presentation only: the existing .committing state owns this beat; no game timing,
+   actor anchors, hit logic, save data, or input semantics are changed. */
+.bp-battle.committing .bp-scene{isolation:isolate;}
+.bp-battle.committing .bp-hand,
+.bp-battle.committing .bp-verbs{opacity:.34;filter:saturate(.42) brightness(.58);transform:translateY(5px) scale(.985);transition:opacity 150ms ease,filter 150ms ease,transform 190ms cubic-bezier(.2,.8,.2,1);}
+.bp-battle.committing .bp-bar{opacity:.7;filter:saturate(.58) brightness(.78);transition:opacity 150ms ease,filter 150ms ease;}
+.bp-battle.committing .bp-zone{opacity:.62;filter:saturate(.58) brightness(.72) drop-shadow(0 4px 8px #0008);transition:opacity 150ms ease,filter 150ms ease;}
+.bp-battle.committing .bp-pitcher{filter:brightness(1.08) saturate(1.08) drop-shadow(0 10px 7px #000c) drop-shadow(0 0 22px rgba(132,166,255,.42));transition:filter 170ms ease;}
+.bp-battle.committing .bp-pcol{opacity:.72;transition:opacity 150ms ease;}
+.bp-battle.committing .bp-commit{animation:bp-cinematic-plan-lock 720ms cubic-bezier(.18,.78,.2,1) both;}
+.bp-battle.committing .bp-scene::after{content:"";position:absolute;inset:0;z-index:7;pointer-events:none;background:radial-gradient(ellipse 34% 40% at 70% 39%,rgba(143,174,255,.18),transparent 72%),linear-gradient(90deg,rgba(5,8,18,.22),transparent 48%,rgba(5,8,18,.04));mix-blend-mode:screen;animation:bp-cinematic-handoff 720ms cubic-bezier(.16,.76,.18,1) both;}
+@keyframes bp-cinematic-plan-lock{0%{opacity:0;transform:translateY(8px) scale(.985)}18%{opacity:1;transform:translateY(0) scale(1)}62%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-5px) scale(.99)}}
+@keyframes bp-cinematic-handoff{0%{opacity:0}20%{opacity:.28}58%{opacity:.72}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.bp-battle.committing .bp-hand,.bp-battle.committing .bp-verbs,.bp-battle.committing .bp-bar,.bp-battle.committing .bp-zone,.bp-battle.committing .bp-pitcher,.bp-battle.committing .bp-pcol{transition:none!important;transform:none!important}.bp-battle.committing .bp-commit,.bp-battle.committing .bp-scene::after{animation:none!important}}

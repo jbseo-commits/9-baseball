@@ -1,0 +1,31 @@
+/* CINEMATIC V2 — live pitch focus handoff.
+   Presentation only: no actor anchors, hit targets, timing constants, input, balance or save state. */
+
+/* Windup: the field yields to the pitcher without moving the authored mound anchor. */
+.bp-battle.fx-windup .bp-scene::after{
+  content:"";position:absolute;inset:0;z-index:4;pointer-events:none;
+  background:radial-gradient(ellipse 24% 34% at 70% 37%,rgba(145,178,255,.16),transparent 72%),linear-gradient(90deg,rgba(3,7,17,.22),transparent 42%,transparent 82%,rgba(3,7,17,.08));
+  mix-blend-mode:screen;animation:bp-live-pitch-focus 260ms ease-out both;
+}
+.bp-battle.fx-windup .bp-pcol{filter:brightness(1.08) saturate(1.08) drop-shadow(0 0 13px rgba(140,174,255,.2));transition:filter 150ms ease-out,opacity 150ms ease-out}
+.bp-battle.fx-windup .bp-zone,.bp-battle.fx-windup .bp-batter{filter:brightness(.82) saturate(.72);transition:filter 150ms ease-out}
+
+/* The actual Pixi ball owns the next beat. A narrow lane replaces the broad pitcher glow. */
+.bp-battle.fx-windup .bp-pixi{filter:drop-shadow(0 0 4px rgba(198,220,255,.28));transition:filter 120ms linear}
+.bp-battle.fx-impact .bp-scene::before{
+  background:linear-gradient(112deg,rgba(3,7,17,.32) 0%,transparent 31%,rgba(210,228,255,.08) 48%,transparent 63%,rgba(3,7,17,.22) 100%),radial-gradient(ellipse 44% 48% at 39% 55%,rgba(255,218,148,.1),transparent 70%);
+}
+.bp-battle.fx-impact .bp-pcol{opacity:.62;filter:brightness(.76) saturate(.66);transition:filter 110ms linear,opacity 110ms linear}
+.bp-battle.fx-impact .bp-batter{filter:brightness(1.08) saturate(1.05) drop-shadow(0 12px 7px #000b) drop-shadow(0 0 12px rgba(255,205,110,.18));transition:filter 110ms linear}
+.bp-battle.fx-impact .bp-zone{filter:brightness(1.04) drop-shadow(0 0 6px rgba(216,232,255,.28));transition:filter 110ms linear}
+
+/* Contact is the first warm peak; windup/release remain cool so the eye reads the sequence. */
+.bp-battle.fx-slowmo .bp-batter{filter:brightness(1.12) saturate(1.12) drop-shadow(0 12px 7px #000b) drop-shadow(0 0 18px rgba(255,194,76,.32))}
+.bp-battle.fx-slowmo .bp-pcol{opacity:.5;filter:brightness(.68) saturate(.58)}
+
+@keyframes bp-live-pitch-focus{0%{opacity:0}100%{opacity:1}}
+
+@media (prefers-reduced-motion:reduce){
+  .bp-battle.fx-windup .bp-scene::after{animation:none}
+  .bp-battle.fx-windup .bp-pcol,.bp-battle.fx-windup .bp-zone,.bp-battle.fx-windup .bp-batter,.bp-battle.fx-windup .bp-pixi,.bp-battle.fx-impact .bp-pcol,.bp-battle.fx-impact .bp-batter,.bp-battle.fx-impact .bp-zone{transition:none}
+}
