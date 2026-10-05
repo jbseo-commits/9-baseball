@@ -27,9 +27,10 @@ const rounded=value=>Math.max(0,Math.round(value));
 /*
  * V3 keeps contact aligned to the presentation impact while inserting two
  * authored bridge silhouettes around the fastest part of the swing.
- * Home runs deliberately leave contact sooner, travel through both authored
- * follow-through poses, then hold the finish. The stronger cadence makes the
- * body read as carrying momentum through the ball instead of posing at impact.
+ * Home runs release from contact quickly, spend more time travelling through
+ * the authored follow-through silhouettes, then hold a committed finish before
+ * settling. That preserves the sense that the hitter's mass continues after
+ * the ball has already accelerated away.
  */
 export function batterMotionV3Timeline(shot){
   if(!shot)return [{pose:'ready',at:0}];
@@ -47,13 +48,13 @@ export function batterMotionV3Timeline(shot){
   if(BATTER_MOTION_V3_HIT_GRADES.has(grade)){
     const power=POWER_HIT_GRADES.has(grade),homer=HOME_RUN_GRADES.has(grade);
     const baseHold=Math.max(150,(Number(motion.freeze)||0)+(Number(motion.slowmo)||0)*0.50);
-    const contactHold=rounded(homer?clamp(baseHold+12,145,190):clamp(baseHold+(power?22:0),150,245));
+    const contactHold=rounded(homer?clamp(baseHold-4,132,170):clamp(baseHold+(power?22:0),150,245));
     const followEarlyAt=impact+contactHold;
     const followWindow=Math.max(1,settleAt-followEarlyAt);
-    const followLateAt=followEarlyAt+rounded(clamp(followWindow*(homer?.27:power?.33:.28),homer?90:105,homer?150:180));
-    const finishGap=homer?115:power?130:110;
-    const finishCap=homer?170:power?205:190;
-    const finishAt=Math.max(followLateAt+finishGap,Math.min(settleAt-(homer?180:110),followLateAt+finishCap));
+    const followLateAt=followEarlyAt+rounded(clamp(followWindow*(homer?.34:power?.33:.28),homer?112:105,homer?178:180));
+    const finishGap=homer?138:power?130:110;
+    const finishCap=homer?205:power?205:190;
+    const finishAt=Math.max(followLateAt+finishGap,Math.min(settleAt-(homer?145:110),followLateAt+finishCap));
     return [
       {pose:'ready',at:0},
       {pose:'load',at:loadAt},
