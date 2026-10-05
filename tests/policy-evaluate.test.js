@@ -42,4 +42,14 @@ describe('evaluateV10Action',()=>{
     expect(zs.every(Boolean)).toBe(true);
     expect(new Set(zs.map(z=>z.expectedDamage)).size).toBeGreaterThan(1);
   });
+  it('exposes out-risk probabilities in [0,1] for resource-aware selection',()=>{
+    const s=battle();
+    const target=s.battle.hand.map(id=>({id,entry:s.deck.find(c=>c.id===id)}))
+      .find(x=>x.entry&&CARDS[x.entry.kind]?.type==='attack');
+    const r=evaluateV10Action(s,{type:'card',id:target.id,zone:4,mode:'normal'});
+    for(const k of ['pOut','pWhiff']){
+      expect(r[k]).toBeGreaterThanOrEqual(0);
+      expect(r[k]).toBeLessThanOrEqual(1);
+    }
+  });
 });

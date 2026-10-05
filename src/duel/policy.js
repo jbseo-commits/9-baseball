@@ -53,6 +53,7 @@ export const planTurn=s=>{const action=planAction(s);return action?[action.id]:[
 // E0: expected pitcher damage for one swing (bot-only approximation).
 // Reads previewV10Stack + damageForOutcome only (C6); no relic/precision
 // refinement (E3). take and illegal actions score null, never a number.
+// pOut/pWhiff expose out-risk for resource-aware selection (E1).
 export function evaluateV10Action(s,action,{level}={}){
   if(!action||action.type!=='card'||!action.id)return null;
   if(action.id!=='basic'&&!s.deck?.some(c=>c.id===action.id))return null;
@@ -60,11 +61,14 @@ export function evaluateV10Action(s,action,{level}={}){
   const p=previewV10Stack(aimed,action.id,action.supports||[],perceivedProbabilities(s,level));
   if(!p||p.problem)return null;
   const hitDmg=(p.types||[]).reduce((acc,t)=>acc+(t.p||0)*damageForOutcome({kind:'hit',bases:t.bases||1}).damage,0);
+  const pOut=p.out||0,pWhiff=p.whiff||0;
   const expectedDamage=(p.damageRate||1)*((((p.hit||0)*hitDmg)
     +(p.foul||0)*damageForOutcome({kind:'foul'}).damage
     +(p.whiff||0)*damageForOutcome({kind:'whiff'}).damage
-    +(p.out||0)*damageForOutcome({kind:'out'}).damage));
-  return Number.isFinite(expectedDamage)?{expectedDamage:Math.max(0,expectedDamage)}:null;
+    +(p.out||0)*damageForOutcome({kind:'out'}).damage
+    +(p.sacrifice||0)*damageForOutcome({kind:'sacrifice'}).damage));
+  if(!Number.isFinite(expectedDamage))return null;
+  return {expectedDamage:Math.max(0,expectedDamage),pOut,pWhiff};
 };
 
 // Bot-only reward picker for headless measurement (INBOX 7). Greedy and
