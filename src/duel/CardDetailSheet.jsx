@@ -20,7 +20,7 @@ const STACK={
   none:null,
   bunt:'겹치기 불가 · 희생 번트에는 다른 카드를 겹칠 수 없고, 겹치기 카드로도 쓸 수 없습니다.',
   basic:'메인 전용 · 다른 카드를 놓으면 BASIC SWING이 교체됩니다.',
-  attack:'겹치기 가능 · 메인 또는 지원 카드로 놓을 수 있습니다.',
+  attack:'겹치기 가능 · 메인 또는 지원 카드로 놓을 수 있습니다. 같은 존에 이어 놓으면 CONNECT에 추가로 같은 존 집중 +5%p.',
 };
 const BASIC={name:'BASIC SWING',kindLabel:'스윙 카드',role:'기본',axis:'1존',rule:'선택한 1존을 칩니다. 카드 소비 없음 — 카드가 없어도 승부할 수 있습니다.',gives:['항상 사용'],needs:[],flavor:null};
 

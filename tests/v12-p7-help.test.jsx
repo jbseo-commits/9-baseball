@@ -5,7 +5,7 @@ import {afterEach,beforeEach,describe,it,expect} from 'vitest';
 import Duel from '../src/duel/App.jsx';
 import {helpFacts} from '../src/duel/help-facts.js';
 import {CARDS,GLOSSARY} from '../src/duel/cards.js';
-import {V10_SWING_DAMAGE_RATES,V11_STACK_CONNECT_BONUS,V10_SWING_STACK_MAX} from '../src/duel/engine.js';
+import {V10_SWING_DAMAGE_RATES,V11_STACK_CONNECT_BONUS,V11_SAME_ZONE_CONNECT_BONUS,V10_SWING_STACK_MAX} from '../src/duel/engine.js';
 
 // V12 P7-1 — help says only what is verified, with numbers read from the engine: card count, stack
 // efficiency (incl. the connect bonus), plate-appearance endings seen in the P4-2 audit, and the input
@@ -19,7 +19,8 @@ describe('V12 P7-1 help facts',()=>{
   it('counts cards and states stack efficiency from the engine',()=>{
     expect(f.cardCount).toBe(Object.keys(CARDS).length);
     expect(f.stack).toBe(V10_SWING_DAMAGE_RATES.slice(0,V10_SWING_STACK_MAX).map((r,i)=>(i+1)+'장 '+Math.round(r*100)+'%').join(' · ')
-      +' · 이어진 순서 한 번마다 +'+Math.round(V11_STACK_CONNECT_BONUS*100)+'%p');
+      +' · 이어진 순서 한 번마다 +'+Math.round(V11_STACK_CONNECT_BONUS*100)+'%p'
+      +' · 같은 존이면 추가 +'+Math.round(V11_SAME_ZONE_CONNECT_BONUS*100)+'%p');
   });
   it('lists the plate-appearance endings, sacrifice bunt included',()=>{
     expect(f.endsAtBat).toEqual(['안타','인플레이 아웃','희생 번트','삼진','볼넷']);

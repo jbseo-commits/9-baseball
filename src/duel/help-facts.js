@@ -1,5 +1,5 @@
 import {CARDS} from './cards.js';
-import {V10_SWING_DAMAGE_RATES,V11_STACK_CONNECT_BONUS,V10_SWING_STACK_MAX} from './engine.js';
+import {V10_SWING_DAMAGE_RATES,V11_STACK_CONNECT_BONUS,V11_SAME_ZONE_CONNECT_BONUS,V10_SWING_STACK_MAX} from './engine.js';
 
 /*
  * V12 P7-1 — the help screen says only what has been verified, and reads its numbers from the engine.
@@ -11,7 +11,8 @@ export function helpFacts(){
   return {
     cardCount:Object.keys(CARDS).length,
     stack:V10_SWING_DAMAGE_RATES.slice(0,V10_SWING_STACK_MAX).map((r,i)=>(i+1)+'장 '+pct(r)+'%').join(' · ')
-      +' · 이어진 순서 한 번마다 +'+pct(V11_STACK_CONNECT_BONUS)+'%p',
+      +' · 이어진 순서 한 번마다 +'+pct(V11_STACK_CONNECT_BONUS)+'%p'
+      +' · 같은 존이면 추가 +'+pct(V11_SAME_ZONE_CONNECT_BONUS)+'%p',
     endsAtBat:['안타','인플레이 아웃','희생 번트','삼진','볼넷'],
     continuesAtBat:['볼','스트라이크','헛스윙','파울'],
     controls:[
