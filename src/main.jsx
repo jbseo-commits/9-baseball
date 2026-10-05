@@ -28,6 +28,7 @@ import "./duel/v14-portrait-master.css";
 import "./duel/portrait-lock.css";
 import "./duel/battle-clarity.css";
 import "./duel/title-pixel.css";
+import "./duel/cinematic-director.css";
 
 watchLayoutMode();
 const showcase=new URLSearchParams(window.location.search).get("showcase")==="cinematic-v2";
