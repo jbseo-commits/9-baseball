@@ -4,9 +4,9 @@
 
 - 브랜치 `claude/feedback-review-plan-vw24at`, 로컬 커밋만. 단일 기준: `docs/STATUS.md` 현재 상태절 + `docs/V12-PROGRESS.md`(V12).
 - INBOX 6 접근성 완료(수정 2·고정 2), 9 라이선스 사용자 결정 대기, 10 V12 사용자 검수·배포 대기.
-- INBOX 7: damage 봇(E0~E2)으로 병목 해소. 동일 200시드 damage 25승·7.85노드
-  vs base 1승·3.24. E1/E3a take는 음성 기록으로 제외. E4a 유물 5종 damage 측정
-  백그라운드 진행 중(100시드×11변형). 다음 E5: 변형×봇 완주율표.
+- INBOX 7: damage 봇(E0~E2, `99190a7`)으로 병목 해소. 동일 200시드 damage
+  25승·7.85노드 vs base 1승·3.24. E4a 유물 판정: firstPitch 최대. scout+ 가설
+  n=1로 유지. 에이전트 측 측정 닫힘.
 - 게이트: 94파일/603테스트 + build + `zone-report 30` 불변. 브라우저 캡처만 미검증.
 
 ## 최우선 · 2026-09-24 — V12 P0~P8 전 단계 체크, 사용자 검수·배포 판단 대기
