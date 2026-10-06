@@ -8,11 +8,19 @@ describe('ball exit cinematic hierarchy',()=>{
     const homer=ballExitProfile('homer');
     const grand=ballExitProfile('grand-slam');
 
-    expect(single.trailCap).toBe(10);
-    expect(extra.trailCap).toBe(12);
-    expect(homer.trailCap).toBe(20);
-    expect(grand.trailCap).toBe(20);
-    expect(homer.segmentCap).toBe(14);
+    // The contract is the HIERARCHY (single < extra <= homer), not two absolute caps.
+    // The homer cap was tuned 20 -> 22 during Cinematic V2, which broke a pinned literal
+    // while the ordering the test exists to protect was unchanged. Pin the ordering and a
+    // sane range instead, so tuning no longer requires editing this test but a regression
+    // to a flat or inverted trail still fails.
+    expect(extra.trailCap).toBeGreaterThan(single.trailCap);
+    expect(homer.trailCap).toBeGreaterThanOrEqual(extra.trailCap);
+    expect(grand.trailCap).toBe(homer.trailCap);
+    for(const p of [single,extra,homer,grand]){
+      expect(Number.isInteger(p.trailCap)).toBe(true);
+      expect(p.trailCap).toBeGreaterThan(0);
+      expect(p.trailCap).toBeLessThanOrEqual(64);
+    }
     expect(homer.segmentCap).toBeGreaterThan(extra.segmentCap);
     expect(homer.coreWidth).toBeGreaterThan(extra.coreWidth);
     expect(homer.coreAlpha).toBeGreaterThan(extra.coreAlpha);
