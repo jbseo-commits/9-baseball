@@ -44,6 +44,7 @@ jobs:
         working-directory: production
         run: |
           pnpm install --frozen-lockfile
+          pnpm test
           VITE_BASE=/9-baseball/ pnpm run build
           test -f dist/index.html
 
