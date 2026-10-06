@@ -14,23 +14,60 @@
 @keyframes end-sky{from{transform:scale(1.03) translateX(-.5%)}to{transform:scale(1.05) translateX(.5%)}}
 @keyframes end-breath{from{transform:translateY(0)}to{transform:translateY(-.7%)}}
 
-/* ---- home-run cut-in: the verdict card becomes a 16:9 shot — A02 plate, A01 swing, A03 ball + trail
-   leaving the bat. The card's text sits on a bottom gradient. The code draws no second ball here. ---- */
-.bp-verdict.splash.homer:has(.hr-cut),.bp-verdict.splash.knockout:has(.ko-cut){
-  width:min(92%,400px);aspect-ratio:16/9;padding:0 14px 12px;align-content:end;overflow:hidden;background:#07080d!important;white-space:normal;isolation:isolate}
-.bp-verdict.splash:has(.hr-cut)>:not(.hr-cut),.bp-verdict.splash:has(.ko-cut)>:not(.ko-cut),
-.bp-verdict.splash:has(.hr-cut)::before,.bp-verdict.splash:has(.ko-cut)::before{position:relative;z-index:2}
-.bp-verdict .hr-cut,.bp-verdict .ko-cut{position:absolute;inset:0;z-index:0;overflow:hidden}
-.bp-verdict .hr-cut::after,.bp-verdict .ko-cut::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#07080d00 45%,#07080dd9 100%)}
-.bp-verdict .hr-plate,.bp-verdict .ko-plate{position:absolute;inset:0;background-size:cover;background-position:50% 50%}
-.bp-verdict .hr-batter{position:absolute;left:-2%;bottom:-6%;height:112%;width:auto;animation:hr-batter 520ms cubic-bezier(.2,.9,.3,1) both}
-.bp-verdict .hr-trail{position:absolute;left:26%;top:-4%;width:82%;height:auto;transform-origin:0% 100%;animation:hr-trail 560ms cubic-bezier(.16,.84,.3,1) 120ms both}
-@keyframes hr-batter{from{transform:translateX(-10%) scale(1.06);opacity:0}to{transform:none;opacity:1}}
-@keyframes hr-trail{from{clip-path:inset(0 100% 0 0);opacity:.2}60%{opacity:1}to{clip-path:inset(0 0 0 0);opacity:1}}
+/* ---- home-run V2 takeover -------------------------------------------------
+   A homer is not another verdict card. For one beat it owns the whole field:
+   world/HUD recede -> A02/A01/A03 fill the scene -> HOME RUN peaks -> the
+   normal review UI returns. No game state or actor geometry is changed. ---- */
+.bp-scene:has(.bp-verdict.splash.homer .hr-cut){isolation:isolate}
+.bp-scene:has(.bp-verdict.splash.homer .hr-cut) > :not(.bp-verdict):not(.bp-bg):not(.bp-haze){
+  animation:hr-world-yield 1.72s ease both;
+}
+.bp-battle:has(.bp-verdict.splash.homer .hr-cut) > .bp-coach-wrap,
+.bp-battle:has(.bp-verdict.splash.homer .hr-cut) > .bp-debrief,
+.bp-battle:has(.bp-verdict.splash.homer .hr-cut) > .bp-hand,
+.bp-battle:has(.bp-verdict.splash.homer .hr-cut) > .bp-verbs{
+  animation:hr-review-yield 1.72s ease both;
+}
+.bp-verdict.splash.homer:has(.hr-cut){
+  position:absolute;inset:0;z-index:80;width:auto;max-width:none;aspect-ratio:auto;
+  margin:0;padding:0;display:grid;place-items:end end;align-content:end;justify-items:end;
+  overflow:hidden;border:0;border-radius:0;background:#050711!important;box-shadow:none;
+  white-space:normal;isolation:isolate;pointer-events:none;
+  animation:hr-takeover 1.72s cubic-bezier(.2,.72,.18,1) both;
+}
+.bp-verdict.splash.homer:has(.hr-cut) > :not(.hr-cut),
+.bp-verdict.splash.homer:has(.hr-cut)::before{position:relative;z-index:5}
+.bp-verdict.splash.homer:has(.hr-cut) > strong{
+  margin:0 clamp(20px,6vw,54px) clamp(22px,5.5vh,46px) 0;
+  font-size:clamp(42px,12vw,92px);line-height:.82;letter-spacing:.04em;text-align:right;
+  color:#ffe06a;text-shadow:0 3px 0 #7c3d00,0 0 18px #ff9b1a99,0 8px 28px #000;
+  transform-origin:100% 100%;animation:hr-title-pop 1.72s cubic-bezier(.16,.9,.2,1) both;
+}
+.bp-verdict.splash.homer:has(.hr-cut) > small,
+.bp-verdict.splash.homer:has(.hr-cut) > .bp-moves{display:none}
+.bp-verdict.splash.homer .hr-cut{position:absolute;inset:0;z-index:0;overflow:hidden;background:#050711}
+.bp-verdict.splash.homer .hr-cut::before{content:"";position:absolute;inset:0;z-index:3;background:radial-gradient(circle at 67% 34%,#d9f5ff38 0 7%,transparent 28%),linear-gradient(180deg,transparent 54%,#03040acc 100%);pointer-events:none}
+.bp-verdict.splash.homer .hr-cut::after{content:"";position:absolute;inset:0;z-index:4;background:linear-gradient(90deg,transparent 46%,#05071120 68%,#0507119c 100%),linear-gradient(180deg,transparent 56%,#050711d9 100%)}
+.bp-verdict.splash.homer .hr-plate{position:absolute;inset:-3%;background-size:cover;background-position:50% 50%;animation:hr-camera 1.72s cubic-bezier(.16,.84,.3,1) both}
+.bp-verdict.splash.homer .hr-batter{position:absolute;z-index:2;left:-4%;bottom:-7%;height:108%;width:auto;filter:drop-shadow(0 12px 18px #000b);transform-origin:35% 80%;animation:hr-batter-v2 1.72s cubic-bezier(.16,.84,.3,1) both}
+.bp-verdict.splash.homer .hr-trail{position:absolute;z-index:2;left:24%;top:-5%;width:88%;height:auto;transform-origin:0% 100%;animation:hr-trail-v2 1.72s cubic-bezier(.16,.84,.3,1) both}
+
+@keyframes hr-world-yield{0%{opacity:1;filter:none}8%,72%{opacity:.06;filter:brightness(.35) saturate(.55)}100%{opacity:1;filter:none}}
+@keyframes hr-review-yield{0%,74%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:none}}
+@keyframes hr-takeover{0%{opacity:0;transform:scale(.94)}10%,76%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.025);visibility:hidden}}
+@keyframes hr-camera{0%{transform:scale(1.12) translate3d(-2%,1%,0)}18%{transform:scale(1.02) translate3d(0,0,0)}76%{transform:scale(1.055) translate3d(-.8%,-.5%,0)}100%{transform:scale(1.08) translate3d(-1%,-1%,0)}}
+@keyframes hr-batter-v2{0%{opacity:0;transform:translate3d(-9%,3%,0) scale(1.08)}13%{opacity:1;transform:translate3d(0,0,0) scale(1)}72%{opacity:1;transform:translate3d(1%,-.5%,0) scale(1.015)}100%{opacity:0;transform:translate3d(2%,-1%,0) scale(1.025)}}
+@keyframes hr-trail-v2{0%,10%{clip-path:inset(0 100% 0 0);opacity:0;transform:scale(.84)}28%{clip-path:inset(0 18% 0 0);opacity:1;transform:scale(1)}48%,78%{clip-path:inset(0 0 0 0);opacity:1;transform:scale(1.035)}100%{clip-path:inset(0 0 0 0);opacity:0;transform:scale(1.08)}}
+@keyframes hr-title-pop{0%,27%{opacity:0;transform:translate3d(0,22px,0) scale(.72)}39%{opacity:1;transform:translate3d(0,0,0) scale(1.08)}48%,76%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-8px) scale(1.02)}}
 
 /* ---- knockout: Red Rush staggers (v17), folds (A09), kneels (v17) on one canvas; text to the right
    (the plate's safe area x .58–.97). Other pitchers sink in their own cutout. ---- */
-.bp-verdict.splash.knockout:has(.ko-cut),.bp-verdict.splash.homer:has(.hr-cut){justify-items:end;text-align:right}
+.bp-verdict.splash.knockout:has(.ko-cut){
+  width:min(92%,400px);aspect-ratio:16/9;padding:0 14px 12px;align-content:end;overflow:hidden;background:#07080d!important;white-space:normal;isolation:isolate;justify-items:end;text-align:right}
+.bp-verdict.splash.knockout:has(.ko-cut)>:not(.ko-cut),.bp-verdict.splash.knockout:has(.ko-cut)::before{position:relative;z-index:2}
+.bp-verdict .ko-cut{position:absolute;inset:0;z-index:0;overflow:hidden}
+.bp-verdict .ko-cut::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#07080d00 45%,#07080dd9 100%)}
+.bp-verdict .ko-plate{position:absolute;inset:0;background-size:cover;background-position:50% 50%}
 .bp-verdict .ko-pose{position:absolute;left:-2%;bottom:-4%;height:112%;width:auto;opacity:0}
 .bp-verdict .ko-cut.poses .ko-plate{animation:ko-camera 1.2s ease-out both}
 .bp-verdict .ko-cut.poses::before{content:"";position:absolute;z-index:1;left:15%;bottom:0;width:45%;height:23%;border-radius:50%;background:radial-gradient(ellipse at center,#e0a16b99 0%,#7e2d1b66 35%,#7e2d1b00 72%);opacity:0;transform:scale(.35);animation:ko-dust 1.2s ease-out both}
@@ -46,11 +83,20 @@
 .bp-verdict .ko-figure{position:absolute;left:2%;bottom:-8%;height:108%;width:auto;filter:brightness(.8) saturate(.8) drop-shadow(0 0 14px #ff3a2a88);animation:ko-sink 900ms cubic-bezier(.4,0,.2,1) both}
 @keyframes ko-sink{from{transform:none}to{transform:translateY(8%) rotate(6deg)}}
 
+@media (max-aspect-ratio:3/4){
+  .bp-verdict.splash.homer .hr-plate{background-position:54% 50%}
+  .bp-verdict.splash.homer .hr-batter{left:-13%;bottom:-3%;height:92%}
+  .bp-verdict.splash.homer .hr-trail{left:17%;top:7%;width:105%}
+  .bp-verdict.splash.homer:has(.hr-cut) > strong{margin-right:18px;margin-bottom:28px;font-size:clamp(46px,14vw,72px)}
+}
+
 @media (prefers-reduced-motion:reduce){
   .bp-stop.bp-end .end-hero .eh-plate,.bp-stop.bp-end .end-hero .eh-batter{animation:none}
-  .bp-verdict .hr-batter,.bp-verdict .hr-trail,.bp-verdict .ko-figure{animation:none}
+  .bp-scene:has(.bp-verdict.splash.homer .hr-cut) > :not(.bp-verdict):not(.bp-bg):not(.bp-haze){animation:none;opacity:.12}
+  .bp-battle:has(.bp-verdict.splash.homer .hr-cut) > .bp-coach-wrap,.bp-battle:has(.bp-verdict.splash.homer .hr-cut) > .bp-debrief,.bp-battle:has(.bp-verdict.splash.homer .hr-cut) > .bp-hand,.bp-battle:has(.bp-verdict.splash.homer .hr-cut) > .bp-verbs{animation:none}
+  .bp-verdict.splash.homer:has(.hr-cut),.bp-verdict.splash.homer .hr-plate,.bp-verdict.splash.homer .hr-batter,.bp-verdict.splash.homer .hr-trail,.bp-verdict.splash.homer:has(.hr-cut) > strong{animation:none}
+  .bp-verdict .ko-figure{animation:none}
   .bp-verdict .ko-stagger,.bp-verdict .ko-mid{animation:none;opacity:0}
   .bp-verdict .ko-kneel{animation:none;opacity:1}
   .bp-verdict .ko-cut.poses .ko-plate,.bp-verdict .ko-cut.poses::before{animation:none}
 }
-
