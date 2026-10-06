@@ -1,31 +1,87 @@
-import redRushAtlas from '../../assets/pitcher-mobs-v1/atlases/regular-01-red-rush-pitch-120-atlas.png';
-import redRushPortrait from '../../assets/pitcher-mobs-v1/portraits/regular-01-red-rush-portrait.png';
-import tealMirageAtlas from '../../assets/pitcher-mobs-v1/atlases/regular-02-teal-mirage-pitch-120-atlas.png';
-import tealMiragePortrait from '../../assets/pitcher-mobs-v1/portraits/regular-02-teal-mirage-portrait.png';
-import amberSinkerAtlas from '../../assets/pitcher-mobs-v1/atlases/regular-03-amber-sinker-pitch-120-atlas.png';
-import amberSinkerPortrait from '../../assets/pitcher-mobs-v1/portraits/regular-03-amber-sinker-portrait.png';
-import ivoryAceAtlas from '../../assets/pitcher-mobs-v1/atlases/regular-04-ivory-ace-pitch-120-atlas.png';
-import ivoryAcePortrait from '../../assets/pitcher-mobs-v1/portraits/regular-04-ivory-ace-portrait.png';
-import cobaltImpactAtlas from '../../assets/pitcher-mobs-v1/atlases/elite-01-cobalt-impact-pitch-120-atlas.png';
-import cobaltImpactPortrait from '../../assets/pitcher-mobs-v1/portraits/elite-01-cobalt-impact-portrait.png';
-import emeraldTyrantAtlas from '../../assets/pitcher-mobs-v1/atlases/boss-01-emerald-tyrant-pitch-120-atlas.png';
-import emeraldTyrantPortrait from '../../assets/pitcher-mobs-v1/portraits/boss-01-emerald-tyrant-portrait.png';
+import redRushAtlas from '../../assets/pitcher-sd-v1/red-rush-pitch-120-atlas.png';
+import redRushPortrait from '../../assets/pitcher-mobs-v1/regular-01-red-rush.png';
+import tideVesperAtlas from '../../assets/pitcher-study-v2/atlases/tide-vesper-pitch-120-atlas.png';
+import tideVesperPortrait from '../../assets/pitcher-study-v2/source/tide-vesper-release.png';
 import skyPhantomAtlas from '../../assets/pitcher-study-v3/atlases/sky-phantom-pitch-120-atlas.png';
 import galeTwisterAtlas from '../../assets/pitcher-study-v4/atlases/gale-twister-pitch-120-atlas.png';
 import vulcanBlazeAtlas from '../../assets/pitcher-study-v5/atlases/vulcan-blaze-pitch-120-atlas.png';
 
-export const PITCHER_VISUALS = {
-  'regular-01-red-rush': { atlas: redRushAtlas, portrait: redRushPortrait, frames: 120, cols: 10, rows: 12, fps: 60 },
-  'regular-02-teal-mirage': { atlas: tealMirageAtlas, portrait: tealMiragePortrait, frames: 120, cols: 10, rows: 12, fps: 60 },
-  'regular-03-amber-sinker': { atlas: amberSinkerAtlas, portrait: amberSinkerPortrait, frames: 120, cols: 10, rows: 12, fps: 60 },
-  'regular-04-ivory-ace': { atlas: ivoryAceAtlas, portrait: ivoryAcePortrait, frames: 120, cols: 10, rows: 12, fps: 60 },
-  'elite-01-cobalt-impact': { atlas: cobaltImpactAtlas, portrait: cobaltImpactPortrait, frames: 120, cols: 10, rows: 12, fps: 60 },
-  'boss-01-emerald-tyrant': { atlas: emeraldTyrantAtlas, portrait: emeraldTyrantPortrait, frames: 120, cols: 10, rows: 12, fps: 60 },
-  'sky-phantom': { atlas: skyPhantomAtlas, portrait: null, frames: 120, cols: 10, rows: 12, fps: 60 },
-  'gale-twister': { atlas: galeTwisterAtlas, portrait: null, frames: 120, cols: 10, rows: 12, fps: 60 },
-  'vulcan-blaze': { atlas: vulcanBlazeAtlas, portrait: null, frames: 120, cols: 10, rows: 12, fps: 60 },
+// V15 & V16 Masterpiece Dex portraits (verified via DEX_QA_V16.md)
+import dexRedRush from '../../assets/production-art/mockup-world-v15/dex-red-rush.png';
+import dexTealMirage from '../../assets/production-art/mockup-world-v15/dex-teal-mirage.png';
+import dexAmberSinker from '../../assets/production-art/mockup-world-v15/dex-amber-sinker.png';
+import dexIvoryAce from '../../assets/production-art/mockup-world-v15/dex-ivory-ace-v2.png';
+import dexVioletSting from '../../assets/production-art/mockup-world-v15/dex-violet-sting.png';
+import dexRosePaint from '../../assets/production-art/mockup-world-v15/dex-rose-paint-v2.png';
+import dexCobaltImpact from '../../assets/production-art/mockup-world-v15/dex-cobalt-impact-v2.png';
+import dexNeonTrick from '../../assets/production-art/mockup-world-v15/dex-neon-trick-v2.png';
+import dexWineBluff from '../../assets/production-art/mockup-world-v15/dex-wine-bluff-v2.png';
+import dexEmeraldTyrant from '../../assets/production-art/mockup-world-v15/dex-emerald-tyrant-v2.png';
+import dexPlatinumHalo from '../../assets/production-art/mockup-world-v15/dex-platinum-halo-v2.png';
+import dexBlackEclipse from '../../assets/production-art/mockup-world-v15/dex-black-eclipse-v2.png';
+
+// V16 Battle Polish keyposes & animatics
+import redRushAnimaticWebp from '../../assets/production-art/battle-polish-v16/red-rush-keypose-animatic.webp';
+import redRushCoilBreak from '../../assets/production-art/battle-polish-v16/red-rush-coil-break.png';
+import redRushLateCocking from '../../assets/production-art/battle-polish-v16/red-rush-late-cocking.png';
+import redRushArmWhip from '../../assets/production-art/battle-polish-v16/red-rush-arm-whip.png';
+import redRushReleaseNoBall from '../../assets/production-art/battle-polish-v16/red-rush-release-no-ball.png';
+import redRushFollowThrough from '../../assets/production-art/battle-polish-v16/red-rush-follow-through.png';
+import impactSlashVfx from '../../assets/production-art/battle-polish-v16/impact-slash.png';
+
+/* PixelLab pitch animations drawn from the pitcher-mobs-v1 designs (assets/pitcher-pixellab-v1): same 120-frame
+   atlas contract, so each one replaces that pitcher's SD atlas as it lands. The replaced SD atlas is excluded
+   below as well, or the eager glob would still ship it (~1.1MB each) unused. */
+const pixellabAtlases=import.meta.glob('../../assets/pitcher-pixellab-v1/atlases/*-pitch-120-atlas.png',{eager:true,query:'?url',import:'default'});
+const rosterAtlases=import.meta.glob([
+  '../../assets/pitcher-sd-v2/atlases/*-pitch-120-atlas.png',
+  '!../../assets/pitcher-sd-v2/atlases/regular-02-teal-mirage-pitch-120-atlas.png',
+  '!../../assets/pitcher-sd-v2/atlases/regular-03-amber-sinker-pitch-120-atlas.png',
+],{eager:true,query:'?url',import:'default'});
+const rosterPortraits=import.meta.glob('../../assets/pitcher-mobs-v1/*.png',{eager:true,query:'?url',import:'default'});
+const idFrom=(path,suffix)=>path.split('/').pop().replace(suffix,'');
+const byId=atlases=>Object.fromEntries(Object.entries(atlases).map(([path,url])=>[idFrom(path,'-pitch-120-atlas.png'),url]));
+
+export const pitcherAtlases={
+  'regular-01-red-rush':redRushAtlas,
+  ...byId(rosterAtlases),
+  ...byId(pixellabAtlases),
+  'tide-vesper':tideVesperAtlas,
+  'sky-phantom':skyPhantomAtlas,
+  'gale-twister':galeTwisterAtlas,
+  'vulcan-blaze':vulcanBlazeAtlas,
 };
 
-export function getPitcherVisual(artId) {
-  return PITCHER_VISUALS[artId] || PITCHER_VISUALS['regular-01-red-rush'];
-}
+/* transparent roster cutouts: for silhouettes and anything drawn over a scene (map nodes use brightness(0)) */
+export const pitcherFigures={
+  ...Object.fromEntries(Object.entries(rosterPortraits).map(([path,url])=>[idFrom(path,'.png'),url])),
+  'tide-vesper':tideVesperPortrait,
+};
+
+/* opaque dex portraits: framed views only (map preview, reward, ending, portrait dialog) */
+export const pitcherPortraits={
+  ...pitcherFigures,
+  'tide-vesper':tideVesperPortrait,
+  'regular-01-red-rush':dexRedRush,
+  'regular-02-teal-mirage':dexTealMirage,
+  'regular-03-amber-sinker':dexAmberSinker,
+  'regular-04-ivory-ace':dexIvoryAce,
+  'regular-05-violet-sting':dexVioletSting,
+  'regular-06-rose-paint':dexRosePaint,
+  'elite-01-cobalt-impact':dexCobaltImpact,
+  'elite-02-neon-trick':dexNeonTrick,
+  'elite-03-wine-bluff':dexWineBluff,
+  'boss-01-emerald-tyrant':dexEmeraldTyrant,
+  'boss-02-platinum-halo':dexPlatinumHalo,
+  'boss-03-black-eclipse':dexBlackEclipse,
+};
+
+export const RED_RUSH_V16_ANIMATIC = redRushAnimaticWebp;
+export const RED_RUSH_V16_KEYPOSES = {
+  coilBreak: redRushCoilBreak,
+  lateCocking: redRushLateCocking,
+  armWhip: redRushArmWhip,
+  release: redRushReleaseNoBall,
+  followThrough: redRushFollowThrough,
+};
+export const IMPACT_SLASH_VFX = impactSlashVfx;
