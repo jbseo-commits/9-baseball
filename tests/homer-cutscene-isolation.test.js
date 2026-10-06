@@ -17,8 +17,9 @@ describe('home run cutscene v2 isolation',()=>{
     expect(battle).toContain('<BallparkActors');
   });
 
-  it('keeps reduced-motion support for the home-run layers',()=>{
+  it('keeps reduced-motion support for the V2 home-run layers',()=>{
     expect(css).toContain('@media (prefers-reduced-motion:reduce)');
-    expect(css).toContain('.bp-verdict .hr-batter,.bp-verdict .hr-trail');
+    expect(css).toContain('.bp-verdict.splash.homer:has(.hr-cut),.bp-verdict.splash.homer .hr-plate,.bp-verdict.splash.homer .hr-batter,.bp-verdict.splash.homer .hr-trail');
+    expect(css).toContain('animation:none');
   });
 });
