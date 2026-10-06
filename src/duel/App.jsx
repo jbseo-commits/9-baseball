@@ -90,6 +90,7 @@ import batterRebootSwingMidV3 from '../../assets/batter-reboot-v3/batter-swing-m
 import batterRebootFollowEarlyV3 from '../../assets/batter-reboot-v3/batter-follow-through-early.png';
 import batterRebootFollowLateV3 from '../../assets/batter-reboot-v3/batter-follow-through-late.png';
 import batterRebootSettleV3 from '../../assets/batter-reboot-v3/batter-settle.png';
+import {GAME_VERSION_LABEL} from './version.js';
 
 /* 엔진은 lastCombat.choice를 카드 kind로, actualPitch를 존 번호로 준다. 화면 문구로 옮기는 건 연결부 일이다. */
 const v10ZoneName=zone=>zone===9?'존 밖':ZONES[zone]||'코스 미확인';
@@ -737,7 +738,7 @@ function RouteBranches({s,onChoose,onStart}){
   if(s.build!==DECKBUILDER_BUILD)return null;
   const options=ROUTE_CHOICES[s.stage]||[],picked=routeChoice(s.stage,s.route);
   return <section className="v92-branches" aria-label="상대 경로 선택">
-    <div className="branch-head"><span className="eyebrow">V9.2 · CHOOSE THE OPPONENT</span><h2>누구를 이길지 고르면, 무엇을 얻을지도 달라집니다.</h2><p>안전한 경기로 덱을 안정시키거나, 한 점과 투수 능력을 더 감수하고 다음 드래프트의 선택지를 넓히세요.</p></div>
+    <div className="branch-head"><span className="eyebrow">{GAME_VERSION_LABEL} · CHOOSE THE OPPONENT</span><h2>누구를 이길지 고르면, 무엇을 얻을지도 달라집니다.</h2><p>안전한 경기로 덱을 안정시키거나, 한 점과 투수 능력을 더 감수하고 다음 드래프트의 선택지를 넓히세요.</p></div>
     <div className="branch-grid">{options.map(r=><button key={r.id} type="button" className={'opponent-route '+(s.route===r.id?'selected':'')+(r.statBonus?' danger':' safe')} aria-pressed={s.route===r.id} onClick={()=>onChoose(r.id)}>
       <span className="route-tag">{r.tag}</span><strong>{r.name}</strong><p>{r.text}</p><small>{r.risk}</small><b>{r.reward}</b>
     </button>)}</div>
@@ -1029,7 +1030,7 @@ export default function Duel(){
   }
 
   return <div className={'duel-app diamond-app'+(fxPresentation?' presentation-'+fxPresentation.kind:'')+(fxStage?' presentation-stage-'+fxStage:'')+(stackResolve?' stack-resolving':'')+(showBattle&&isV10?' v14-battle-portrait':'')+(screen==='menu'?' title-mode':'')}>
-    <header className="duel-header"><button className="wordmark" onClick={()=>{if(!lock.current)(autoLesson?exitAutoLesson():setScreen('menu'))}}>9ZONE<span> HOMEBOUND</span></button><span className="edition">BUILD YOUR BASEBALL · V9.2</span><nav><button aria-label={'소리 '+(sound?'켜짐':'꺼짐')} onClick={handleToggleSound}>♪ {sound?'ON':'OFF'}</button><button className="jukebox-header-btn" aria-label="BGM 음악 주크박스" onClick={()=>setModal('jukebox')}>🎧 BGM {getCurrentTrackIndex()+1}</button><button className="dex-header-btn" aria-label="투수 도감" onClick={()=>openPitcher(pitcherRoster[0])}>도감</button>{s&&<button onClick={()=>setModal('deck')}>덱</button>}<button onClick={()=>setModal('help')}>?</button></nav></header>
+    <header className="duel-header"><button className="wordmark" onClick={()=>{if(!lock.current)(autoLesson?exitAutoLesson():setScreen('menu'))}}>9ZONE<span> HOMEBOUND</span></button><span className="edition">BUILD YOUR BASEBALL · {GAME_VERSION_LABEL}</span><nav><button aria-label={'소리 '+(sound?'켜짐':'꺼짐')} onClick={handleToggleSound}>♪ {sound?'ON':'OFF'}</button><button className="jukebox-header-btn" aria-label="BGM 음악 주크박스" onClick={()=>setModal('jukebox')}>🎧 BGM {getCurrentTrackIndex()+1}</button><button className="dex-header-btn" aria-label="투수 도감" onClick={()=>openPitcher(pitcherRoster[0])}>도감</button>{s&&<button onClick={()=>setModal('deck')}>덱</button>}<button onClick={()=>setModal('help')}>?</button></nav></header>
     {error&&<div className="save-error" role="alert">{error}<button onClick={()=>s&&persist(s)}>저장 재시도</button></div>}
     {screen==='cinema'?<CinemaLab sound={sound} onBack={()=>setScreen('menu')}/>
     :screen==='menu'?<TitleScreen key="screen-title" run={titleRun||titleTutorial} onNew={()=>titleRun&&!titleRun.ended?setModal('new10'):freshV10()} onContinue={()=>{if(titleRun){persist(titleSave);setScreen('run')}else if(titleTutorial)setScreen('run')}} onDeck={()=>{if(titleRun)persist(titleSave);if(titleRun||titleTutorial)setModal('deck')}} onDex={e=>openPitcher(pitcherRoster[0],e)} onSettings={()=>setModal('settings')}/>
