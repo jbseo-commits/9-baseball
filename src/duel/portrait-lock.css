@@ -10,8 +10,13 @@ html:has(.portrait-frame) body #root{height:100%;min-height:0;overflow:hidden}
 
 /* phone on its side: the game waits under a rotate hint */
 @media (orientation:landscape) and (max-height:540px) and (pointer:coarse){
-  html body #root{visibility:hidden}
+  /* Cover the app with a solid full-screen layer instead of hiding #root. Setting
+     `html body #root { visibility: hidden }` blanks the entire product for any coarse-
+     pointer device under that height with no way back if the overlay ever fails to
+     render. A solid overlay covers the same area while the app stays mounted underneath,
+     so the product degrades to a rotate hint, never to a black screen. */
   body::after{content:"휴대폰을 세로로 돌려 주세요\A 9ZONE은 세로 화면 전용입니다";white-space:pre;text-align:center;
     position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;
-    background:#05070f;color:#f4ecd8;font:700 20px/1.6 'Noto Sans KR',sans-serif;letter-spacing:.02em}
+    background:#05070f;color:#f4ecd8;font:700 20px/1.6 'Noto Sans KR',sans-serif;letter-spacing:.02em;
+    touch-action:none;overscroll-behavior:none;}
 }

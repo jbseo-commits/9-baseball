@@ -24,8 +24,13 @@ describe('portrait-only layout (2026-09-28)',()=>{
   it('the frame is 9:16 and the sideways phone gets a rotate hint instead of a landscape layout',()=>{
     const css=fs.readFileSync('src/duel/portrait-lock.css','utf8');
     expect(css).toContain('calc(100dvh * 9 / 16)');
-    expect(css).toMatch(/@media \(orientation:landscape\) and \(max-height:540px\) and \(pointer:coarse\)\{\s*html body #root\{visibility:hidden\}/);
-    expect(css).toContain('세로로 돌려 주세요');
+    // The sideways-phone overlay must NOT hide #root. An earlier version set
+    // `html body #root{visibility:hidden}`, which could blank the entire product for a
+    // coarse-pointer device under that height if the overlay ever failed to paint. The
+    // contract is now: a solid overlay covers the app, and #root keeps rendering.
+    expect(css).not.toContain('visibility:hidden');
+    expect(css).toMatch(/@media \(orientation:landscape\) and \(max-height:540px\) and \(pointer:coarse\)\{/);
+    expect(css).toMatch(/body::after\{content:"휴대폰을 세로로 돌려/);
     const main=fs.readFileSync('src/main.jsx','utf8');
     expect(main.indexOf('portrait-lock.css')).toBeGreaterThan(main.indexOf('v14-portrait-master.css'));   // after the layout layers (title layer stays last)
     expect(main).toContain('layoutMode() === "frame" ? <PortraitFrame />');
