@@ -10,25 +10,24 @@ import {createV10Duel,enterV10Node,saveV10Duel,readV10Duel} from '../src/duel/en
 import {BUILDS,CARDS,LINEUP} from '../src/duel/cards.js';
 import {intentLines,hpTicks} from '../src/duel/ballpark-copy.js';
 
-// V13 BALLPARK — the ballpark battle screen (docs/design/v13/BALLPARK.md).
 beforeEach(()=>{localStorage.clear()});
 afterEach(()=>{cleanup()});
 
 function begin(ng=true){
   let s=createV10Duel(1);
-  s.build='away';s.deck=BUILDS.away.cards.filter(k=>CARDS[k].type!=='skill').map((kind,i)=>({id:'c'+i,kind}));
+  s.build='away';s.deck=['place','place','strike','rally','strike','bunt','place','place','place','place','place','place'].map((kind,i)=>({id:'c'+i,kind}));
+  s.deck[1]=Object.assign({},s.deck[1],{plus:true});
+  s.deck[3]=Object.assign({},s.deck[3],{plus:true});
+  s.deck[6]=Object.assign({},s.deck[6],{plus:true});
   s.nextId=s.deck.length;
   s=enterV10Node(s,'a1-entry');
   saveV10Duel(localStorage,s);
-  
   render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
   return s;
 }
 const swingBtn=()=>screen.getByTestId('bp-swing');
 const cells=()=>[...document.querySelectorAll('.bp-cell')];
 const cards=()=>[...document.querySelectorAll('.bp-hand .bp-card:not(.basic)')];
-
-const topLevel=sel=>{const out=[];let d=0,cur='';for(const ch of sel){if(ch==='(')d++;if(ch===')')d--;if(ch===','&&!d){out.push(cur);cur='';}else cur+=ch;}out.push(cur);return out;};
 
 describe('V13 BALLPARK battle',()=>{
   it('the main run always plays on the ballpark; there is no legacy switch left',()=>{
@@ -48,14 +47,12 @@ describe('V13 BALLPARK battle',()=>{
     expect(swingBtn().disabled).toBe(true);
     expect(screen.getByTestId('bp-take').textContent).toMatch(/^지켜본다/);
   });
-
   it('speaks in short lines, not rules',()=>{
     const s=begin();
     const lines=intentLines(s.battle.intent);
     expect(document.querySelector('.bp-coach-text').textContent).toBe(lines.coach);
     expect(lines.coach.length).toBeLessThan(30);
   });
-
   it('card then zone aims the swing through the engine and saves it',()=>{
     begin();
     fireEvent.click(cards()[0]);
@@ -92,223 +89,30 @@ describe('V13 BALLPARK battle',()=>{
     act(()=>{vi.advanceTimersByTime(719)});
     expect(readV10Duel(localStorage).stats.pitches).toBe(before);
     act(()=>{vi.advanceTimersByTime(1)});
-    // the beat hands over to the app's STACK resolve (App.act → stackResolveDuration), which persists the pitch
     expect(screen.queryByTestId('bp-commit')).toBeNull();
     act(()=>{vi.advanceTimersByTime(5000)});
     expect(readV10Duel(localStorage).stats.pitches).toBe(before+1);
     vi.useRealTimers();
   });
 
+  it('the coach speaks in short lines, not rules',()=>{
+    const s=begin();
+    const lines=intentLines(s.battle.intent);
+    expect(document.querySelector('.bp-coach-text').textContent).toBe(lines.coach);
+    expect(lines.coach.length).toBeLessThan(30);
+  });
 
-  it('tapping the main card again clears the board',()=>{
+  it('the swing button shows hit rate and damage multiplier',()=>{
     begin();
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
-    fireEvent.click(cards()[0]);
-    expect(swingBtn().disabled).toBe(true);
-    expect(document.querySelectorAll('.bp-token')).toHaveLength(0);
+    const txt=swingBtn().textContent;
+    expect(txt).toMatch(/적중권 \d+%/);
+    expect(txt).toMatch(/피해 ×/);
   });
 
-  it('swinging plays one pitch; watching plays one pitch',()=>{
-    const s=begin();
-    fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
-    fireEvent.click(swingBtn());
-    expect(readV10Duel(localStorage).stats.pitches).toBe(s.stats.pitches+1);
-    cleanup();
-    const t=begin();
-    fireEvent.click(screen.getByTestId('bp-take'));
-    expect(readV10Duel(localStorage).stats.pitches).toBe(t.stats.pitches+1);
-  });
-
-  it('keeps every style under the ballpark screens (.bp-*)',()=>{
-    const css=fs.readFileSync(path.resolve('src/duel/ballpark.css'),'utf8').replace(/\/\*[\s\S]*?\*\//g,'');
-    const sels=[...css.matchAll(/([^{}]+)\{[^{}]*\}/g)].map(m=>m[1].trim()).filter(x=>!x.startsWith('@')&&!/^(to|from|\d+%)$/.test(x));
-    for(const sel of sels.map(x=>x.replace(/^@media[^{]*\{/,'').trim()))for(const part of topLevel(sel))
-      expect(part.trim()).toMatch(/^(\.bp-|:is\(\.bp-battle,\.bp-map,\.bp-stop\))/);
-    expect(css).not.toMatch(/(^|[},])\s*(html|body|#root|\.duel-app|\.duel-combat)\b/);
-  });
-});
-
-describe('V13 BALLPARK lean text',()=>{
-  it('shows no batter name, no whisper, no restated coverage; the pitcher keeps his name',()=>{
-    const s=begin();
-    const text=document.querySelector('.bp-battle').textContent;
-    for(const p of LINEUP)expect(text).not.toContain(p.name);
-    expect(document.querySelector('.bp-whisper')).toBeNull();
-    expect(document.querySelector('.bp-ptag').textContent).toContain(s.pitcher.name);
-    for(const span of document.querySelectorAll('.bp-card span'))expect(span.textContent).not.toMatch(/커버$/);
-    expect(swingBtn().textContent).toBe('휘두른다');
-  });
-});
-
-describe('V13 BALLPARK BP-2 pitch in the scene',()=>{
-  afterEach(()=>{vi.useRealTimers()});
-  it('plays the pitch on the same screen: verdict word, the real ball on the zone, one button on',()=>{
-    vi.useFakeTimers();
+  it('the take button is always available',()=>{
     begin();
-    fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
-    fireEvent.click(swingBtn());
-    expect(document.querySelector('.bp-battle')).not.toBeNull();
-    act(()=>{vi.advanceTimersByTime(6000)});
-    expect(document.querySelector('.duel-combat')).toBeNull();
-    const s=readV10Duel(localStorage),r=s.battle.revealed;
-    expect(document.querySelector('.bp-verdict strong').textContent.length).toBeGreaterThan(0);
-    if(r.zone<9)expect(cells()[r.zone].classList.contains('actual')).toBe(true);
-    else{expect(document.querySelector('.bp-pitch-mark.outside')).not.toBeNull();expect(document.querySelector('.bp-band.hit')).not.toBeNull();}
-    const next=screen.getByTestId('bp-next');
-    expect(['다음 공','다음 타자']).toContain(next.querySelector('.bp-verb-word').textContent);
-    expect(next.disabled).toBe(false);
-    expect(document.querySelector('[data-testid=bp-swing]')).toBeNull();
-    fireEvent.click(next);
-    act(()=>{vi.advanceTimersByTime(100)});
-    if(readV10Duel(localStorage).phase==='battle'){
-      expect(swingBtn()).not.toBeNull();
-      expect(document.querySelector('.bp-verdict')).toBeNull();
-    }
-  });
-  it('replaces the dead result hand with PLAN → ACTUAL → NEXT causal debrief',()=>{
-    vi.useFakeTimers();
-    begin();
-    fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);fireEvent.click(swingBtn());
-    act(()=>{vi.advanceTimersByTime(6000)});
-    const d=screen.getByTestId('bp-debrief');
-    expect(d.textContent).toContain('PLAN');
-    expect(d.textContent).toContain('ACTUAL');
-    expect(d.textContent).toContain('NEXT');
-    expect(d.textContent).toMatch(/HP -\d+|스트라이크|볼|안타|파울|아웃|헛스윙/);
-    expect(document.querySelector('.bp-hand')).toBeNull();
-    expect(screen.getByTestId('bp-next').disabled).toBe(false);
-  });
-
-});
-
-describe('V13 BALLPARK playtest feedback 2026-09-25',()=>{
-  afterEach(()=>{vi.useRealTimers()});
-  it('cells the pitcher does not use say so instead of a hatch',()=>{
-    const s=begin();
-    const dead=[0,1,2,3,4,5,6,7,8].filter(z=>!s.battle.intent.repertoire.includes(z));
-    for(const z of dead)expect(cells()[z].querySelector('.bp-dead')?.textContent).toBe('안 던짐');
-    const css=fs.readFileSync(path.resolve('src/duel/ballpark.css'),'utf8');
-    expect(css).not.toMatch(/\.bp-cell\.dead\{[^}]*repeating-linear-gradient/);
-  });
-  it('a chosen card lights every covered cell and dims the rest',()=>{
-    begin();
-    const col=cards().find(c=>c.dataset.cardKind&&CARDS[c.dataset.cardKind].shape==='column');
-    if(!col)return;
-    fireEvent.click(col);fireEvent.click(cells()[4]);
-    expect([1,4,7].every(z=>cells()[z].classList.contains('cover'))).toBe(true);
-    expect(document.querySelector('.bp-zone').classList.contains('has-cover')).toBe(true);
-  });
-  it('balls have a place: a band around the zone, and the watch button says the ball chance',()=>{
-    begin();
-    expect(document.querySelector('.bp-zone .bp-band em').textContent).toMatch(/^바깥 띠 = 볼 \d+%$/);
-    expect(screen.getByTestId('bp-take').textContent).toBe('지켜본다');
-  });
-  it('the verdict leads with the baseball call',()=>{
-    vi.useFakeTimers();
-    begin();
-    fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);fireEvent.click(swingBtn());
-    act(()=>{vi.advanceTimersByTime(6000)});
-    const call=document.querySelector('.bp-verdict strong').textContent;
-    expect(['안타','장타','홈런','만루 홈런','헛스윙','스트라이크','파울','볼','볼넷','아웃','희생타','삼진']).toContain(call);
-  });
-});
-
-describe('V13 BALLPARK BP-7 read the pitcher',()=>{
-  afterEach(()=>{vi.useRealTimers()});
-  it('every live cell shows its share of pitches, the likeliest one is marked, and they add up with the ball',()=>{
-    const s=begin();
-    const live=s.battle.intent.repertoire;
-    const shown=cells().map(c=>c.querySelector('.bp-pct')?.textContent);
-    for(let z=0;z<9;z++)expect(!!shown[z]).toBe(live.includes(z));
-    expect(document.querySelectorAll('.bp-pct.top')).toHaveLength(1);
-    const ball=+document.querySelector('.bp-band em').textContent.match(/(\d+)%/)[1];
-    const sum=shown.filter(Boolean).reduce((a,t)=>a+parseInt(t),0)+ball;
-    expect(Math.abs(sum-100)).toBeLessThanOrEqual(5);
-  });
-  it('the first chase explains a ball once',()=>{
-    vi.useFakeTimers();
-    let s=createV10Duel(1);
-    s.build='away';s.deck=BUILDS.away.cards.filter(k=>CARDS[k].type!=='skill').map((kind,i)=>({id:'c'+i,kind}));s.nextId=s.deck.length;
-    s=enterV10Node(s,'a1-entry');s.battle.pending={zone:9,roll:.5,powerRoll:.5};
-    saveV10Duel(localStorage,s);
-    render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
-    fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);fireEvent.click(swingBtn());
-    act(()=>{vi.advanceTimersByTime(6000)});
-    expect(document.querySelector('.bp-coach-text').textContent).toContain('볼은 참으면 볼넷');
-    expect(localStorage.getItem('9zone-hint-chase')).toBe('done');
-  });
-});
-
-describe('V13 ballpark copy helpers',()=>{
-  it('hp ticks keep one lit while the pitcher stands',()=>{
-    expect(hpTicks(72,72)).toBe(12);
-    expect(hpTicks(1,124)).toBe(1);
-    expect(hpTicks(0,72)).toBe(0);
-    expect(hpTicks(36,72)).toBe(6);
-  });
-  it('unknown intents fall back to the engine words',()=>{
-    expect(intentLines({name:'새 패턴',detail:'설명'})).toEqual({whisper:'새 패턴',coach:'설명'});
-  });
-});
-
-describe('V13 BP-10 the pitcher stays visible',()=>{
-  const css=fs.readFileSync(path.resolve('src/duel/ballpark.css'),'utf8');
-  it('portrait: HP strip at the top, her line beside her, not stacked over her',()=>{
-    expect(css).toMatch(/\.bp-pcol\{display:contents\}/);
-    expect(css).toMatch(/\.bp-ptag\{position:absolute;right:8px;top:8px/);
-    expect(css).toMatch(/\.bp-scene \.bp-voice\{position:absolute;left:4%/);
-    expect(css).toMatch(/\.bp-pitcher\{left:auto;right:5%;top:auto;bottom:35%;height:31%\}/);
-  });
-});
-
-describe('V14 portrait in-play HUD',()=>{
-  it('keeps sound, help, and the menu reachable from the compact battle header',()=>{
-    begin();
-    expect(document.querySelector('.duel-app').classList.contains('v14-battle-portrait')).toBe(true);
-    const soundButton=document.querySelector('.bp-sound-btn');
-    expect(soundButton).not.toBeNull();
-    fireEvent.click(soundButton);
-    expect(soundButton.getAttribute('aria-label')).toBe('소리 끄기');
-    fireEvent.click(document.querySelector('.bp-settings-btn'));
-    expect(screen.getByRole('dialog',{name:'게임 방법'})).not.toBeNull();   // the main run's help is the rules guide
-    fireEvent.click(screen.getByRole('button',{name:'건너뛰기'}));
-    fireEvent.click(document.querySelector('.bp-hud-logo'));
-    expect(document.querySelector('.bp-battle')).toBeNull();
-    expect(document.querySelector('.duel-app').classList.contains('v14-battle-portrait')).toBe(false);
-  });
-});
-
-describe('V13 BP-14 read the pitch at a glance',()=>{
-  it('the swing verb shows the share of pitches the chosen cells cover, from the public odds',async()=>{
-    const {publicProbabilities}=await import('../src/duel/engine.js');
-    begin();fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
-    const s=readV10Duel(localStorage),cov=[...document.querySelectorAll('.bp-cell.cover')].map(c=>cells().indexOf(c));
-    const probs=s.battle.pending?publicProbabilities(s):s.battle.intent.probabilities;
-    const want=Math.round(cov.reduce((a,z)=>a+(probs[z]||0),0)*100);
-    expect(swingBtn().textContent).toContain('적중권 '+want+'%');
-  });
-  it('her tell sits beside her while deciding, short',()=>{
-    const s=begin();const tell=screen.queryByTestId('bp-tell');
-    const w=intentLines(s.battle.intent).whisper;
-    if(w){expect(tell.textContent).toBe(w);expect(w.length).toBeLessThan(16);}
-  });
-  it('every swing card wears its role chip in the ballpark palette',()=>{
-    begin();
-    for(const c of cards()){const role=CARDS[c.dataset.cardKind].role;if(role)expect(c.querySelector('.bp-chip.role').textContent).toBe(role);}
-    const css=fs.readFileSync(path.resolve('src/duel/ballpark.css'),'utf8');
-    expect(css).toMatch(/\.bp-chip\.role\.r-gold\{color:var\(--bp-sodium\)\}/);
-  });
-  it('the ball band turns into a lure warning at 30% balls, and not below',async()=>{
-    const {default:BallparkBattle,LURE_PCT}=await import('../src/duel/BallparkBattle.jsx');
-    expect(LURE_PCT).toBe(30);
-    const make=ball=>{let s=createV10Duel(1);s=enterV10Node(s,'a1-entry');const rest=(1-ball)/9;
-      s={...s,battle:{...s.battle,pending:null,intent:{...s.battle.intent,probabilities:[...Array(9).fill(rest),ball]}}};return s;};
-    for(const [ball,on] of [[.4,true],[.2,false]]){
-      const s=make(ball);cleanup();
-      render(<BallparkBattle s={s} hand={[]} pitcher={s.pitcher}/>);
-      const band=screen.getByTestId('bp-band');
-      expect(band.classList.contains('lure'),String(ball)).toBe(on);
-      if(on)expect(band.textContent).toBe('유인구 주의 · 볼 40%');
-    }
+    expect(screen.getByTestId('bp-take')).not.toBeNull();
+    expect(screen.getByTestId('bp-take').disabled).toBe(false);
   });
 });

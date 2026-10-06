@@ -1,4 +1,4 @@
-import {CARDS,SAVE_KEY,STAGES,LINEUP,BUILDS,ZONES,GROWTHS,growthCost,rewardChoices,cardPower,cardText,DECK_MIN,DECK_MAX,
+import {CARDS,SAVE_KEY,STAGES,LINEUP,BUILDS,ZONES,GROWTHS,growthCost,rewardChoices,cardPower,cardText,DECK_MIN,DECK_MAX,cardCost,
   ZONE_ORDER,WIDEN_EVERY,PUTAWAY_REACH,READ_THRESHOLDS,observeScore,RELICS,RELIC_OFFERS,DECKBUILDER_BUILD,FACILITY_ROUTES,ROUTE_CHOICES,routeChoice,canUpgrade} from './cards.js';
 import {applyRewardToDeck,rewardProblem} from './deck.js';
 import {gimmickRules,addShare,trickNeighbors} from './gimmick.js';
@@ -185,6 +185,8 @@ export function coverageAt(s,id='basic',aimZone=s.battle.aimZone){
 export const coverage=(s,id='basic')=>coverageAt(s,id,s.battle.aimZone);
 
 export const V10_SWING_STACK_MAX=4;
+export const V10_SWING_ENERGY=4;
+export const V11_SWING_ENERGY=6;
 export const V10_SWING_DAMAGE_RATES=Object.freeze([1,.80,.65,.50]);
 export function v10SwingDamageRate(cardCount=1){
   const n=Math.max(1,Math.min(V10_SWING_STACK_MAX,Number(cardCount)||1));
@@ -212,7 +214,7 @@ export function v11StackPlan(s,primaryId,supports=[]){
 }
 export function stackSupportProblem(s,primaryId,supports=[]){
   if(!Array.isArray(supports)||!supports.length)return null;
-  if(s?.version!==10)return '카드 겹치기는 MAIN RUN에서만 사용할 수 있습니다.';
+  if(!(s?.version===10||s?.version===11))return '카드 겹치기는 MAIN RUN에서만 사용할 수 있습니다.';
   if(s.phase!=='battle')return '지금은 카드를 겹칠 수 없습니다.';
   if(primaryId==='basic')return 'BASIC SWING에는 카드를 겹칠 수 없습니다. 공격 카드를 메인으로 고르세요.';
   if(cardProblem(s,primaryId))return cardProblem(s,primaryId);
@@ -220,6 +222,11 @@ export function stackSupportProblem(s,primaryId,supports=[]){
   if(CARDS[primary?.kind]?.bunt)return '희생 번트에는 다른 카드를 겹칠 수 없습니다.';
   if(s.battle.growthMode==='patience')return '기다린 한 공은 한 존 승부라 카드를 겹칠 수 없습니다.';
   if(supports.length>v10StackMax(s)-1)return '한 번의 스윙에는 최대 '+v10StackMax(s)+'장까지 겹칠 수 있습니다.';
+  const energyLimit=s?.version===11?V11_SWING_ENERGY:V10_SWING_ENERGY;
+  if(s?.version===10||s?.version===11){
+    const total=cardCost(card(s,primaryId))+supports.reduce((n,sup)=>n+cardCost(card(s,sup.id)),0);
+    if(total>energyLimit)return '이번 스윙의 카드 코스트가 에너지 '+energyLimit+'을 넘습니다.';
+  }
   const seen=new Set([primaryId]);
   for(const support of supports){
     if(!support?.id||!Number.isInteger(support.aimZone)||support.aimZone<0||support.aimZone>8)return '겹친 카드마다 노릴 존을 고르세요.';
@@ -848,7 +855,7 @@ export function v10CardFxPlan(state,next,choice,r,pitchInPA){
   return {bonus,shake,events};
 }
 export function playV10Action(state,action){
-  if(state?.version!==10||state.phase!=='battle'||!state.pitcher||state.pitcher.hp<=0||!action)return state;
+  if(!(state?.version===10||state?.version===11)||state.phase!=='battle'||!state.pitcher||state.pitcher.hp<=0||!action)return state;
   const beforePitches=state.stats.pitches;
   const choice=action.type==='take'?'take':action.type==='card'
     ?(action.id==='basic'?'basic':card(state,action.id)?.kind||String(action.id||'')):'';
@@ -978,7 +985,7 @@ export function claimV10Reward(state,action){
 /* a full deck (DECK_MAX) takes no more cards, same as the shop: the reward can only be passed */
 export const v10RewardOptions=state=>state?.version===10&&state.deck?.length<DECK_MAX?[...(state.v10?.rewardChoices||[])]:[];
 export const selectV10Pitcher=state=>state?.version===10?pitcherSelector(state.pitcher):null;
-export const selectV10Combat=state=>state?.version===10&&state.v10?.lastCombat?{...state.v10.lastCombat}:null;
+export const selectV10Combat=state=>(state?.version===10||state?.version===11)&&state.v10?.lastCombat?{...state.v10.lastCombat}:null;
 export const selectV10Map=state=>state?.version===10?runMapSelector(state.runMap):null;
 
 export const V10_SAVE_KEY=V10_STORAGE_KEY;

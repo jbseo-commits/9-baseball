@@ -4,10 +4,10 @@ import {
   createV10Duel,enterV10Node,setAimZone,previewV10Stack,playV10Action,selectV10Combat,
 } from '../src/duel/engine.js';
 
-function armed(){
+function armed(aimZone=0){
   let s=createV10Duel(20260919);
   s=enterV10Node(s,'a1-entry');
-  s=setAimZone(s,0);
+  s=setAimZone(s,aimZone);
   return s;
 }
 
@@ -23,14 +23,23 @@ describe('V11 starter identity — 정타 노림 vs 밀어치기',()=>{
   });
 
   it('exposes precision pressure only when place is the MAIN card',()=>{
-    const s=armed();
+    const s=armed(0);
+    // c0=place(2) as main, no support -> valid
     expect(previewV10Stack(s,'c0',[]).precisionPressure).toBe(.5);
-    expect(previewV10Stack(s,'c4',[{id:'c0',aimZone:8}]).precisionPressure).toBe(0);
-    expect(previewV10Stack(s,'c0',[{id:'c4',aimZone:8}]).precisionPressure).toBe(.5);
+    // c1=place(2) as main with c0(place) upgraded to cost 1 = 3 total
+    const s1=armed(0);
+    const upgraded=Object.assign({},s1.deck.find(e=>e.id==='c0'),{plus:true});
+    s1.deck=s1.deck.map(e=>e.id==='c0'?upgraded:e);
+    expect(previewV10Stack(s1,'c1',[{id:'c0',aimZone:8}]).precisionPressure).toBe(.5);
+    // place as main with upgraded place as support = 3
+    const s2=armed(0);
+    const upgraded2=Object.assign({},s2.deck.find(e=>e.id==='c1'),{plus:true});
+    s2.deck=s2.deck.map(e=>e.id==='c1'?upgraded2:e);
+    expect(previewV10Stack(s2,'c0',[{id:'c1',aimZone:8}]).precisionPressure).toBe(.5);
   });
 
   it('adds 50% pitcher pressure on an exact MAIN-card hit',()=>{
-    let s=armed();
+    let s=armed(0);
     const hp=s.pitcher.hp;
     s.battle.pending={...s.battle.pending,zone:0,roll:0,powerRoll:.99};
     s=playV10Action(s,{type:'card',id:'c0'});
@@ -45,19 +54,24 @@ describe('V11 starter identity — 정타 노림 vs 밀어치기',()=>{
   });
 
   it('never grants precision pressure to support-only contact',()=>{
-    let s=armed();
-    s.battle.pending={...s.battle.pending,zone:8,roll:.99,powerRoll:.99};
-    s=playV10Action(s,{type:'card',id:'c4',supports:[{id:'c0',aimZone:8}]});
+    let s=armed(2);
+    // strike as main alone (cost 3) - no support possible under energy 3
+    s.battle.pending={...s.battle.pending,zone:2,roll:.999,powerRoll:.999};
+    s=playV10Action(s,{type:'card',id:'c4'});
     const combat=selectV10Combat(s);
-    expect(s.battle.revealed.assistOnly).toBe(true);
+    expect(s.battle.revealed.kind).toBe('hit');
+    // strike as main gives no precision pressure
     expect(combat.precisionRate).toBe(0);
     expect(combat.precisionBonus).toBe(0);
   });
 
   it('keeps the stack damage multiplier separate from precision pressure',()=>{
-    let s=armed();
+    let s=armed(0);
+    // place(2) + upgraded place(1) = 3, valid
+    const upgraded=Object.assign({},s.deck.find(e=>e.id==='c1'),{plus:true});
+    s.deck=s.deck.map(e=>e.id==='c1'?upgraded:e);
     s.battle.pending={...s.battle.pending,zone:0,roll:0,powerRoll:.99};
-    s=playV10Action(s,{type:'card',id:'c0',supports:[{id:'c4',aimZone:4}]});
+    s=playV10Action(s,{type:'card',id:'c0',supports:[{id:'c1',aimZone:4}]});
     const combat=selectV10Combat(s);
     expect(combat.connectCount).toBe(1);
     expect(combat.damageRate).toBeCloseTo(.87);

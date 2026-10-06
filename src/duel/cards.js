@@ -35,6 +35,15 @@ export const UPGRADES={
 };
 export const upgradeText=kind=>UPGRADES[kind]||(CARDS[kind]?.type==='attack'?'파워 +18':null);
 export const canUpgrade=entry=>!!entry&&!entry.plus&&!!upgradeText(entry.kind);
+
+const COST_BY_SHAPE={point:2,row:3,column:3,pairH:3,pairV:3,diag:3,corners:3,cross:3,x:3,box:3,all:3};
+export function cardCost(entry){
+  const d=CARDS[entry?.kind];if(!d||d.type==='skill')return 0;
+  let c=COST_BY_SHAPE[d.shape]??3;
+  if(d.rarity==='signature')c=2;
+  if(entry?.plus)c=Math.max(1,c-1);
+  return c;
+}
 export const cardPower=entry=>{const d=CARDS[entry?.kind];return (d?.power||0)+(entry?.plus&&d.type==='attack'&&!d.bunt&&!d.singles?1:0);};
 export function cardText(kind,plus=false){
   if(!plus)return CARDS[kind].text;

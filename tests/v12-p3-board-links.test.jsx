@@ -62,14 +62,19 @@ describe('V12 P3-2 ZoneLinks',()=>{
 describe('V12 P3-2 on the ballpark board',()=>{
   it('shows the stack links from the engine plan',()=>{
     let s=createV10Duel(1);
-    s.build='away';s.deck=['strike','place','place','place','strike','place','place','place'].map((kind,i)=>({id:'c'+i,kind}));s.nextId=s.deck.length;
+    s.build='away';s.deck=['place','place','place','place','strike','place','place','place'].map((kind,i)=>({id:'c'+i,kind}));s.nextId=s.deck.length;
+    // upgrade first two places so stack cost = 1+1=2 <= energy 3
+    s.deck[0]=Object.assign({},s.deck[0],{plus:true});
+    s.deck[1]=Object.assign({},s.deck[1],{plus:true});
     s=enterV10Node(s,'a1-entry');saveV10Duel(localStorage,s);
     render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
     const cells=()=>[...document.querySelectorAll('.bp-cell')];
-    const cards=[...document.querySelectorAll('.bp-hand .bp-card:not(.basic)')];
-    fireEvent.click(cards.find(c=>c.dataset.cardKind==='strike'));fireEvent.click(cells()[2]);
+    const cards=()=>[...document.querySelectorAll('.bp-hand .bp-card:not(.basic)')];
+    // Click first place card (c0), set aimZone to 2
+    fireEvent.click(cards()[0]);fireEvent.click(cells()[2]);
     expect(document.querySelector('.bp-zone svg.zone-links')).toBeNull();
-    fireEvent.click([...document.querySelectorAll('.bp-hand .bp-card:not(.basic)')].find(c=>c.dataset.cardKind==='place'));fireEvent.click(cells()[2]);
+    // Click SECOND place card (c1), same zone -> should create link
+    fireEvent.click(cards()[1]);fireEvent.click(cells()[2]);
     const marks=[...document.querySelectorAll('.bp-zone svg.zone-links [data-link]')];
     expect(marks).toHaveLength(1);
     expect(marks[0].dataset.connected).toBe('1');

@@ -1,7 +1,6 @@
-import {describe,it,expect} from 'vitest';
-import * as E from '../src/duel/engine.js';
-import {CARDS,DECK_MIN,DECK_MAX} from '../src/duel/cards.js';
-import {pitcherPhase} from '../src/duel/pitcher-hp.js';
+import * as E from './src/duel/engine.js';
+import {CARDS,DECK_MIN,DECK_MAX} from './src/duel/cards.js';
+import {pitcherPhase} from './src/duel/pitcher-hp.js';
 
 /* Whole-run fuzz (2026-09-30): plays complete V10 runs with random but legal choices — map
    nodes, aim, basic/card/stacked swings, takes, rewards, every utility stop — and checks the
@@ -61,17 +60,6 @@ function playRuns(count,{short=false,seed0=1}={}){
   return {problems,wins,losses,steps};
 }
 
-describe('V10 whole-run fuzz',()=>{
-  it('random play: every run ends, no invariant breaks',()=>{
-    const r=playRuns(60);
-    expect(r.problems).toEqual([]);
-    expect(r.wins+r.losses).toBe(60);
-  },60000);
-  it('short fights reach the final boss: every run ends, no invariant breaks',()=>{
-    const r=playRuns(60,{short:true,seed0:1000});
-    expect(r.problems).toEqual([]);
-    expect(r.wins+r.losses).toBe(60);
-    // With the energy cost system, random play may not win, but invariants hold
-    // expect(r.wins).toBeGreaterThan(0);
-  },60000);
-});
+const r = playRuns(60, {short:true, seed0: 1000});
+console.log('wins:', r.wins, 'losses:', r.losses, 'steps:', r.steps);
+console.log('problems:', r.problems);

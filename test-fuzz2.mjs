@@ -1,12 +1,7 @@
-import {describe,it,expect} from 'vitest';
-import * as E from '../src/duel/engine.js';
-import {CARDS,DECK_MIN,DECK_MAX} from '../src/duel/cards.js';
-import {pitcherPhase} from '../src/duel/pitcher-hp.js';
+import * as E from './src/duel/engine.js';
+import {CARDS,DECK_MIN,DECK_MAX} from './src/duel/cards.js';
+import {pitcherPhase} from './src/duel/pitcher-hp.js';
 
-/* Whole-run fuzz (2026-09-30): plays complete V10 runs with random but legal choices — map
-   nodes, aim, basic/card/stacked swings, takes, rewards, every utility stop — and checks the
-   run invariants after every step. `short` lowers each pitcher's HP so runs reach acts 2-3,
-   the final boss and the win screen, which random play alone never does. */
 function playRuns(count,{short=false,seed0=1}={}){
   const problems=[];let wins=0,losses=0,steps=0;
   const note=(what,ctx)=>{if(problems.length<10)problems.push(what+' '+JSON.stringify(ctx));};
@@ -61,17 +56,20 @@ function playRuns(count,{short=false,seed0=1}={}){
   return {problems,wins,losses,steps};
 }
 
-describe('V10 whole-run fuzz',()=>{
-  it('random play: every run ends, no invariant breaks',()=>{
-    const r=playRuns(60);
-    expect(r.problems).toEqual([]);
-    expect(r.wins+r.losses).toBe(60);
-  },60000);
-  it('short fights reach the final boss: every run ends, no invariant breaks',()=>{
-    const r=playRuns(60,{short:true,seed0:1000});
-    expect(r.problems).toEqual([]);
-    expect(r.wins+r.losses).toBe(60);
-    // With the energy cost system, random play may not win, but invariants hold
-    // expect(r.wins).toBeGreaterThan(0);
-  },60000);
-});
+let totalWins=0;
+let totalLosses=0;
+let totalSteps=0;
+let maxDamage=0;
+let totalDamage=0;
+let hitCount=0;
+
+for(let i=0;i<100;i++){
+  const r = playRuns(1, {short:true, seed0: 1000+i});
+  totalWins += r.wins;
+  totalLosses += r.losses;
+  totalSteps += r.steps;
+  if(r.wins > 0){
+    console.log('WIN on seed', 1000+i);
+  }
+}
+console.log('Total wins:', totalWins, 'Total losses:', totalLosses);

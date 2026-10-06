@@ -66,7 +66,14 @@ describe('battle clarity',()=>{
   });
 
   it('a second card lights its own cell: the board sets .assist and the portrait layer styles .assist (it styled .support)',()=>{
-    begin();
+    let s=createV10Duel(1);
+    // Use place cards that fit within energy 3: place(2) + upgraded place(1) = 3
+    s.build='away';s.deck=['place','place','strike','rally','strike','bunt'].map((kind,i)=>({id:'c'+i,kind}));
+    s.deck[1]=Object.assign({},s.deck[1],{plus:true}); // upgrade second place
+    s.nextId=s.deck.length;
+    s=enterV10Node(s,'a1-entry');
+    saveV10Duel(localStorage,s);
+    render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
     fireEvent.click(cards()[1]);fireEvent.click(cells()[2]);
     expect(cells()[4].classList.contains('cover')).toBe(true);
