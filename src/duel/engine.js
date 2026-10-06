@@ -312,7 +312,7 @@ export function matchup(s,id='basic',zone=s.battle.aimZone,coverageSize=null){
 export function hitProfile(s,id,zone,coverageSize=null){
   const k=id==='basic'?'basic':card(s,id).kind,def=CARDS[k],m=matchup(s,id,zone,coverageSize);
   const limited=(k==='basic'||!!def?.singles)&&!m.growthPower;
-  let hr=limited?0:clamp(.025+m.powerEdge*.006,0,(def?.hrCap||m.growthPower>0)?.65:.12);
+  let hr=limited?0:clamp(.07+m.powerEdge*.009,0,(def?.hrCap||m.growthPower>0)?.65:.26);
   let double=limited?0:clamp(.14+m.powerEdge*.005,.02,Math.min(.38,.95-hr));
   if(s.battle.intent.kind==='deep')double=0;
   const singles=1-hr-double;
