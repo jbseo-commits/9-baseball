@@ -1,5 +1,5 @@
 import React,{useLayoutEffect,useRef,useState} from 'react';
-import {CARDS,LINEUP,bandFor,rangeFor,shadeNameFor} from './cards.js';
+import {CARDS,LINEUP,bandFor,rangeFor,shadeNameFor,cardCost} from './cards.js';
 import {publicProbabilities,readLevel,knownPitchZones,v10StackMax,v10PrepMax,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
 import {probabilityBounds} from './information.js';
 import {intentLines,hpTicks,ZONE_WORDS,runnerMoves} from './ballpark-copy.js';
@@ -350,7 +350,7 @@ const CARD_DESC_MAP={
     const artStyle=customArt
       ?{backgroundImage:`url(${customArt})`,backgroundPosition:focus?.objectPosition||'center 25%',backgroundSize:'cover'}
       :{backgroundImage:`url(${cardArtSheet})`,backgroundPosition:artPos};
-    const cost=def.cost||(def.power>=2?2:1);
+    const cost=cardCost(x.entry);
     const roleTag=def.role||(isSkillCard?'집중':'정확');
     const descLines=problem?[problem,'']:(CARD_DESC_MAP[x.entry.kind]||[def.gives?.[0]||'스윙 효과',def.gives?.[1]||'']);
 

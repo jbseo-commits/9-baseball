@@ -8,6 +8,7 @@ import path from 'node:path';
 import Duel from '../src/duel/App.jsx';
 import {createV10Duel,enterV10Node,saveV10Duel,readLevel} from '../src/duel/engine.js';
 import {COACH_STEPS} from '../src/duel/BallparkCoach.jsx';
+import {cardCost} from '../src/duel/cards.js';
 import {BUILDS,CARDS} from '../src/duel/cards.js';
 import {nextHint} from '../src/duel/BallparkBattle.jsx';
 import {runnerMoves} from '../src/duel/ballpark-copy.js';
@@ -100,6 +101,18 @@ describe('battle clarity',()=>{
     expect(zone).toContain('자주');
     expect(zone).not.toContain('실제 확률');
     expect(COACH_STEPS.find(x=>x.title==='카드 놓기').text).toContain('희생 번트');
+  });
+
+  it('hand cost badges bill what the engine charges',()=>{
+    // Before: badges used def.cost (a field no card defines) with a power-based
+    // fallback, so strike/rally showed 1 while the engine bills 3 and rejects
+    // stacks the badges said were legal.
+    begin();
+    for(const card of cards()){
+      const kind=card.dataset.cardKind;
+      expect(card.querySelector('.bp-card-cost').textContent).toBe(String(cardCost({kind})));
+    }
+    expect(cards().length).toBeGreaterThan(0);
   });
 
   it('the pitcher speaking wears her face; the coach keeps the badge otherwise',()=>{
