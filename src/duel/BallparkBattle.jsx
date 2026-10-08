@@ -1,6 +1,6 @@
 import React,{useLayoutEffect,useRef,useState} from 'react';
 import {CARDS,LINEUP,bandFor,rangeFor,shadeNameFor,cardCost} from './cards.js';
-import {publicProbabilities,readLevel,knownPitchZones,v10StackMax,v10PrepMax,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
+import {publicProbabilities,readLevel,knownPitchZones,v10StackMax,v10PrepMax,V10_SWING_ENERGY,V11_SWING_ENERGY,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
 import {probabilityBounds} from './information.js';
 import {intentLines,hpTicks,ZONE_WORDS,runnerMoves} from './ballpark-copy.js';
 import ZoneLinks from './ZoneLinks.jsx';
@@ -235,7 +235,14 @@ export default function BallparkBattle({
   const verb=mainIsSkill?'준비한다':'휘두른다';
   /* the verdict before the swing (BP-14): the share of pitches the chosen cells cover, then the HP multiplier */
   const hitCover=selected&&!mainIsSkill&&choice?.coverage?.length?choice.coverage.filter(z=>z<9):[];
-  const verbSub=!selected?'':mainIsSkill?prepLeft+'회 남음':[hitCover.length?'적중권 '+hitFaceFor(hitCover):'',rate].filter(Boolean).join(' · ');
+  /* stack energy is learned only from the rejection text today: show the running total
+     beside the verdict while a stack is built (solo swings can never exceed it) */
+  const energyLimit=s?.version===11?V11_SWING_ENERGY:V10_SWING_ENERGY;
+  const stackCost=selected&&!mainIsSkill
+    ?cardCost(selected==='basic'?{kind:'basic'}:byId(selected)?.entry)+stack.reduce((n,x)=>n+cardCost(byId(x.id)?.entry),0)
+    :0;
+  const energyPart=selected&&!mainIsSkill&&stack.length?'에너지 '+stackCost+'/'+energyLimit:'';
+  const verbSub=!selected?'':mainIsSkill?prepLeft+'회 남음':[hitCover.length?'적중권 '+hitFaceFor(hitCover):'',rate,energyPart].filter(Boolean).join(' · ');
   /* #103 M03: the two numbers break between each other, never inside one ("피해 …" was cut off) */
   const verbSubParts=verbSub.split(' · ');
   /* where the pitch is likely to go, as numbers: the share of every pitch (balls included), shown while deciding */

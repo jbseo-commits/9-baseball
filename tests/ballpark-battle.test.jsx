@@ -114,6 +114,16 @@ describe('V13 BALLPARK battle',()=>{
     expect(txt).toMatch(/피해 ×/);
   });
 
+  it('a growing stack names its running energy total against the budget',()=>{
+    // Before: the budget (4) appeared only inside the rejection text, so the
+    // player learned it after a refused stack. place(2) + place+(1) = 3/4.
+    begin();
+    fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
+    expect(swingBtn().textContent).not.toMatch(/에너지/);
+    fireEvent.click(cards()[1]);fireEvent.click(cells()[2]);
+    expect(swingBtn().textContent).toMatch(/에너지 3\/4/);
+  });
+
   it('the take button is always available',()=>{
     begin();
     expect(screen.getByTestId('bp-take')).not.toBeNull();
