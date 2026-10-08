@@ -50,6 +50,17 @@ describe('battle clarity',()=>{
     }
   });
 
+  it('a watched pitch debrief says there was no aim, not an unknown course',()=>{
+    vi.useFakeTimers();
+    begin();
+    fireEvent.click(screen.getByTestId('bp-take'));
+    act(()=>{vi.advanceTimersByTime(6000)});
+    const debrief=screen.getByTestId('bp-debrief');
+    expect(debrief.textContent).toContain('지켜보기');
+    expect(debrief.textContent).toContain('노림 없음');
+    expect(debrief.textContent).not.toContain('코스 미확인');
+    vi.useRealTimers();
+  });
   it('a live cell with a 0% share is marked so it recedes',()=>{
     begin();
     for(const pct of document.querySelectorAll('.bp-cell .bp-pct')){

@@ -904,7 +904,7 @@ export function playV10Action(state,action){
   const supportNames=(r.supportKinds||[]).map(k=>CARDS[k]?.name||k);
   const supportAims=(r.supportZones||[]).map(v10ZoneLabel);
   next.v10={...next.v10,lastCombat:{
-    hpBefore:state.pitcher?.hp,choice,choiceLabel:[v10ChoiceLabel(choice),...supportNames].join(' + '),aimZone:r.aimZone,aimLabel:[v10ZoneLabel(r.aimZone),...supportAims].join(' + '),
+    hpBefore:state.pitcher?.hp,choice,choiceLabel:[v10ChoiceLabel(choice),...supportNames].join(' + '),aimZone:r.aimZone,aimLabel:choice==='take'?'노림 없음':[v10ZoneLabel(r.aimZone),...supportAims].join(' + '),
     actualPitch:r.zone,pitchLabel:v10ZoneLabel(r.zone),pitchName:next.battle?.intent?.name||'',
     verdict:r.label,damage:applied.result.damage,baseDamage:applied.result.baseDamage,damageRate:relicPlan.damageRate,
     baseStackDamageRate:r.stackBaseDamageRate??v10SwingDamageRate(stackCardCount),orderedStackDamageRate:stackDamageRate,
