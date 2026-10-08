@@ -57,8 +57,8 @@ const COPY={
   rest:{title:()=>'휴식일',line:'하루 쉬면 다음 경기 타격 +8.',go:'쉰다',pick:'휴식을 고르세요',skip:'그냥 간다'},
 };
 /* what the go button names once an offer is picked */
-const offerName=o=>!o?'':o.type==='relic'?(V10_ALL_RELICS[o.relic]?.name||''):o.type==='rest'?'컨디션 회복':
-  (CARDS[o.kind]?.name||'')+(o.type==='upgrade'?'+':'');
+const offerName=(o,plus)=>!o?'':o.type==='relic'?(V10_ALL_RELICS[o.relic]?.name||''):o.type==='rest'?'컨디션 회복':
+  (CARDS[o.kind]?.name||'')+((o.type==='upgrade'||plus)?'+':'');
 const EMPTY={locker:'덱이 가장 얇다. 뺄 카드가 없다.',training:'더 단련할 카드가 없다.',shop:'덱이 가득 찼다.',rest:'쉴 것이 없다.',
   reward:`덱이 가득 찼다 (${DECK_MAX}장). 라커룸에서 카드를 빼면 다시 받을 수 있다.`};
 
@@ -70,7 +70,7 @@ const RARITY_LABEL={common:'COMMON',uncommon:'UNCOMMON',rare:'RARE',signature:'E
 
 /* reward reveal (BP-12): each offer starts face down and flips in turn; signature cards burst gold */
 const Back=()=><i className="bp-offer-back" aria-hidden="true"><Glyph zones={[0,2,4,6,8]}/></i>;
-function Offer({o,on,count,onClick,reveal=null}){
+function Offer({o,on,count,onClick,plus=false,reveal=null}){
   const rv=reveal==null?{}:{style:{'--i':reveal}};
   /* relic / rest: a wide equipment tile — medal mark, name, the whole effect line (M01) */
   if(o.type==='relic'){const r=V10_ALL_RELICS[o.relic];
@@ -89,7 +89,7 @@ function Offer({o,on,count,onClick,reveal=null}){
     <div className="bp-offer-art" style={{backgroundImage:`url(${art})`}}/>
     {rare&&<em className="bp-rare-tag">{tier==='signature'?'시그니처':'희귀'}</em>}
     {skill?<b className="bp-mark">준비</b>:<div className="bp-offer-glyph"><Glyph zones={shapeZones(def?.shape)}/></div>}
-    <strong className="bp-offer-name">{def?.name}{o.type==='upgrade'&&<sup>+</sup>}</strong>
+    <strong className="bp-offer-name">{def?.name}{(o.type==='upgrade'||plus)&&<sup>+</sup>}</strong>
     {/* every effect line, in full: it wraps at the card width instead of being cut (M05) */}
     <span className="bp-offer-desc">{o.type==='upgrade'?<span className="bp-offer-line bp-offer-up">{upgradeText(o.kind)}</span>:(def?.gives||[]).map((g,i)=><span key={i} className="bp-offer-line">{g}</span>)}</span>
     <em className="bp-reward-rarity">{fam&&<span className="bp-fam">{fam}</span>}{fam&&<i className="bp-sep"> · </i>}<span className="bp-tier">{RARITY_LABEL[tier]||'COMMON'}</span></em>
@@ -102,16 +102,16 @@ export default function BallparkStop({kind,opponent=null,portrait=null,options=[
   /* 강적·보스 보상: 전용 유물을 반드시 하나 고른다. 카드는 고르거나 넘길 수 있다. */
   const needRelic=kind==='reward'&&relics.length>0;
   const c=COPY[kind]||COPY.rest,o=options[sel];
-  /* the locker lists the whole deck: one button per card kind, not one per copy */
-  const shown=kind==='locker'?options.filter((x,i)=>options.findIndex(y=>y.kind===x.kind)===i):options;
-  const count=k=>deck.filter(d=>d.kind===k).length;
+  /* the locker lists every copy, not one tile per kind: removal targets one id,
+     and a base copy and its + copy must stay distinguishable and separately pickable */
+  const shown=options;
   /* the knocked-out pitcher gets the last word: her line lands big, next to her portrait */
   const voice=kind==='reward'?pitcherLine(opponent?.artId,'knockout',deckCount):'';
   const after=o?(o.type==='add'?deckCount+1:o.type==='remove'?deckCount-1:deckCount):deckCount;
   /* layout hints for stop-readability.css: how many cards share the row, and whether the reward row scrolls */
   const cards=shown.filter(x=>x.type!=='relic'&&x.type!=='rest').length;
   const relicName=selR!=null?V10_ALL_RELICS[relics[selR]]?.name:'';
-  const goSub=needRelic?(selR!=null?relicName+(o?' + '+offerName(o):''):'유물을 고르세요'):o?offerName(o):c.pick;
+  const goSub=needRelic?(selR!=null?relicName+(o?' + '+offerName(o):''):'유물을 고르세요'):o?offerName(o,kind==='locker'?deck.some(d=>d.id===o.id&&d.plus):false):c.pick;
   const goOk=needRelic?selR!=null:!!o;
   return <main className={'bp-stop bp-choice stop-'+kind} aria-label={c.title(opponent)} style={{'--bp-sky':`url(${stadium})`}}>
     <div className="bp-bar"><span>{kind==='reward'?'승리':'쉬어 가는 곳'}</span><span className="bp-piles"><button type="button" onClick={onDeck}>덱 {deckCount}{after!==deckCount&&<> → <b>{after}</b></>}</button></span></div>
@@ -120,7 +120,7 @@ export default function BallparkStop({kind,opponent=null,portrait=null,options=[
       <div className={'bp-stitle'+(voice?' has-voice':'')}>{voice&&<q className="bp-kovoice" data-testid="bp-kovoice">{voice}</q>}<h1>{c.title(opponent)}</h1><p>{options.length?c.line:EMPTY[kind]||''}</p></div>
     </header>
     <div className={'bp-offers'+(kind==='reward'?' reveal':'')} data-cards={cards} data-many={cards>3?'':undefined} style={{'--n':Math.max(1,Math.min(cards,3))}}>
-      {shown.map(x=>{const i=options.indexOf(x);return <Offer key={i} o={x} on={sel===i} count={kind==='locker'?count(x.kind):0} reveal={kind==='reward'?shown.indexOf(x):null} onClick={()=>setSel(sel===i?null:i)}/>;})}
+      {shown.map(x=>{const i=options.indexOf(x);const plus=kind==='locker'?deck.some(d=>d.id===x.id&&d.plus):false;return <Offer key={i} o={x} on={sel===i} plus={plus} reveal={kind==='reward'?shown.indexOf(x):null} onClick={()=>setSel(sel===i?null:i)}/>;})}
     </div>
     {needRelic&&<section className="bp-relics" aria-label="전용 유물" data-testid="bp-relics"><h2 className="bp-relics-h"><i className={'bp-relic-tier '+relicTier}>{relicTier==='boss'?'보스 유물':'엘리트 유물'}</i> 하나를 고른다</h2>
       <div className="bp-relic-offers">{relics.map((k,i)=><Offer key={k} o={{type:'relic',relic:k}} on={selR===i} onClick={()=>setSelR(selR===i?null:i)}/>)}</div>
