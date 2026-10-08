@@ -103,6 +103,24 @@ describe('battle clarity',()=>{
     expect(COACH_STEPS.find(x=>x.title==='카드 놓기').text).toContain('희생 번트');
   });
 
+  it('hand buttons carry plus so long-press detail opens the upgraded card',()=>{
+    // Before: ballpark hand buttons wrote only data-card-kind, so the gesture
+    // reader always opened the base card even for + cards (legacy hand writes
+    // data-card-plus/problem; App.jsx Card).
+    let s=createV10Duel(1);
+    s.build='away';
+    s.deck=['place','scout','strike','rally','flow','lure','bunt','strike','rally'].map((kind,i)=>({id:'c'+i,kind}));
+    s.deck[0]={...s.deck[0],plus:true};
+    s.deck[1]={...s.deck[1],plus:true};
+    s.nextId=s.deck.length;
+    s=enterV10Node(s,'a1-entry');
+    s.battle.hand=['c0','c1','c2','c3','c4'];
+    saveV10Duel(localStorage,s);
+    render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
+    expect(document.querySelector('.bp-card[data-card-kind="place"]').dataset.cardPlus).toBe('1');
+    expect(document.querySelector('.bp-card[data-card-kind="scout"]').dataset.cardPlus).toBe('1');
+  });
+
   it('hand cost badges bill what the engine charges',()=>{
     // Before: badges used def.cost (a field no card defines) with a power-based
     // fallback, so strike/rally showed 1 while the engine bills 3 and rejects

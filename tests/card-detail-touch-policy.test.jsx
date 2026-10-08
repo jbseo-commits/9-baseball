@@ -70,6 +70,13 @@ const fire=(el,type,Ctor=Event)=>{const e=new Ctor(type,{bubbles:true,cancelable
 const selectText=el=>{const r=document.createRange();r.selectNodeContents(el);const sel=window.getSelection();sel.removeAllRanges();sel.addRange(r);return sel;};
 
 describe('#103 M06 the opening long-press never selects the sheet text',()=>{
+  it('passes the upgraded flag through, so a + card opens its + detail',()=>{
+    document.body.innerHTML=`<div class="bp-hand"><button class="bp-card" data-card-kind="place" data-card-plus="1"><strong>x</strong></button></div>`;
+    const card=document.querySelector('.bp-card'),open=vi.fn(),off=installCardDetailGestures(window,open);
+    pointer('pointerdown',card);vi.advanceTimersByTime(LONG_PRESS_MS);
+    expect(open).toHaveBeenCalledWith({kind:'place',plus:true,problem:null},card);
+    off();
+  });
   it('clears the selection when a long-press opens the sheet and again when the finger lifts',()=>{
     const {card,rule}=setup(),open=vi.fn(),off=installCardDetailGestures(window,open);
     const sel=selectText(rule);

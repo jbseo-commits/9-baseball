@@ -362,7 +362,7 @@ const CARD_DESC_MAP={
     const descLines=problem?[problem,'']:(CARD_DESC_MAP[x.entry.kind]||[def.gives?.[0]||'스윙 효과',def.gives?.[1]||'']);
 
     return <button key={x.id} type="button" className={'bp-card'+state+(problem?' off':'')+cardKindClass} aria-pressed={selected===x.id||inStack>=0}
-      data-card-kind={x.entry.kind} disabled={!deciding} onClick={()=>pickSwing(x.id)}>
+      data-card-kind={x.entry.kind} data-card-plus={x.entry.plus?1:0} data-card-problem={problem||undefined} disabled={!deciding} onClick={()=>pickSwing(x.id)}>
       <span className="bp-card-cost" aria-label={`코스트 ${cost}`}>{cost}</span>
       <div className="bp-card-art-box">
         <div className="bp-card-art" style={artStyle}/>
@@ -597,7 +597,7 @@ const CARD_DESC_MAP={
         return <button key={x.id} type="button"
           className={'bp-card skill prep-card bp-token-card'+(selected===x.id?' main':'')+(isOff?' off':'')}
           aria-pressed={selected===x.id}
-          data-card-kind={x.entry.kind}
+          data-card-kind={x.entry.kind} data-card-plus={x.entry.plus?1:0} data-card-problem={problem||undefined}
           disabled={!deciding}
           onClick={()=>pickPrep(x.id)}>
           <span className="bp-card-cost prep" aria-label={`준비 ${prepLeft}회 남음`}>⚡</span>
