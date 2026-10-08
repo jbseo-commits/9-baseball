@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import Duel from "./duel/App.jsx";
 import CinematicV2Showcase from "./duel/CinematicV2Showcase.jsx";
 import {HomeRunCut} from "./duel/phone-art-v18.jsx";
+import HomerV3 from "./duel/HomerV3.jsx";
 import ErrorBoundary from "./duel/ErrorBoundary.jsx";
 import PortraitFrame from "./duel/PortraitFrame.jsx";
 import { layoutMode, watchLayoutMode } from "./duel/layout-mode.js";
@@ -37,6 +38,7 @@ watchLayoutMode();
 const params=new URLSearchParams(window.location.search);
 const showcase=params.get("showcase")==="cinematic-v2";
 const homerQa=params.get("qa")==="homer";
+const homerV3Qa=params.get("qa")==="homer-v3";
 
 function HomerQa(){
   const [token,setToken]=React.useState(0);
@@ -61,7 +63,7 @@ function HomerQa(){
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {homerQa ? <ErrorBoundary><HomerQa /></ErrorBoundary> : showcase ? (
+    {homerV3Qa ? <ErrorBoundary><HomerV3 /></ErrorBoundary> : homerQa ? <ErrorBoundary><HomerQa /></ErrorBoundary> : showcase ? (
       <ErrorBoundary><CinematicV2Showcase /></ErrorBoundary>
     ) : layoutMode() === "frame" ? <PortraitFrame /> : (
       <ErrorBoundary>
