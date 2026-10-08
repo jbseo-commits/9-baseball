@@ -87,7 +87,7 @@ export default function WelcomeGuide({start=0,onClose,onCards}){
       <footer className="wg-foot">
         <button type="button" className="wg-prev" onClick={()=>go(-1)} disabled={i===0}>이전</button>
         <span className="wg-dots" aria-hidden="true">{WELCOME_CHAPTERS.map((_,k)=><i key={k} className={k===i?'on':''} onClick={()=>setI(k)}/>)}</span>
-        {last?<span className="wg-end">{onCards&&<button type="button" className="wg-cards" onClick={onCards}>카드 도감</button>}<button type="button" className="wg-next primary" onClick={done}>플레이 시작</button></span>
+        {last?<span className="wg-end">{onCards&&<button type="button" className="wg-cards" onClick={()=>{try{localStorage.setItem(WELCOME_SEEN_KEY,'seen')}catch{}onCards?.()}}>카드 도감</button>}<button type="button" className="wg-next primary" onClick={done}>플레이 시작</button></span>
           :<button type="button" className="wg-next primary" onClick={()=>go(1)}>다음</button>}
       </footer>
     </section>
