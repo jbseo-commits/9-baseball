@@ -1,6 +1,6 @@
 import React,{useLayoutEffect,useRef,useState} from 'react';
 import {CARDS,LINEUP,cardCost} from './cards.js';
-import {publicProbabilities,v10StackMax,v10PrepMax,v10Energy,v10ActionCost,V10_ENERGY_MAX,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
+import {publicProbabilities,v10StackMax,v10PrepMax,v10Energy,v10EnergyCap,v10ActionCost,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
 import {intentLines,hpTicks,ZONE_WORDS,runnerMoves} from './ballpark-copy.js';
 import ZoneLinks from './ZoneLinks.jsx';
 import GimmickVfx from './GimmickVfx.jsx';
@@ -130,11 +130,11 @@ export default function BallparkBattle({
   const canStack=!!(mainEntry&&!mainIsSkill&&mainEntry.kind!=='bunt'&&b.growthMode!=='patience');
   const stack=canStack?swingStack.filter(x=>x.id!==selected&&byId(x.id)):[];
   const prepLeft=Math.max(0,v10PrepMax(s)-(b.preparations||0));
-  const energy=v10Energy(s),actionCost=selected?choice?.cost??(selected==='basic'?0:cardCost(byId(selected)?.entry)):null;
-  const energyHud=<div className="bp-energy" data-testid="bp-energy" aria-label={`에너지 ${energy}/${V10_ENERGY_MAX}`}>
-    <span>ENERGY</span><strong>{energy}<i>/{V10_ENERGY_MAX}</i></strong>
-    <span className="bp-energy-leds" aria-hidden="true">{Array.from({length:V10_ENERGY_MAX},(_,i)=><i key={i} className={i<energy?'on':''}/>)}</span>
-    <small>{s.phase==='battle'?(selected?`비용 ${actionCost} · 남음 ${Math.max(0,energy-(actionCost||0))}${actionCost>energy?` · 에너지 부족 ${actionCost-energy}`:''}`:'기본 0 · 지켜보기 0'):'다음 공에 3 충전'}</small>
+  const energy=v10Energy(s),energyCap=v10EnergyCap(s),actionCost=selected?choice?.cost??(selected==='basic'?0:cardCost(byId(selected)?.entry)):null;
+  const energyHud=<div className="bp-energy" data-testid="bp-energy" aria-label={`에너지 ${energy}/${energyCap}`}>
+    <span>ENERGY</span><strong>{energy}<i>/{energyCap}</i></strong>
+    <span className="bp-energy-leds" aria-hidden="true">{Array.from({length:energyCap},(_,i)=><i key={i} className={i<energy?'on':''}/>)}</span>
+    <small>{s.phase==='battle'?(selected?`비용 ${actionCost} · 남음 ${Math.max(0,energy-(actionCost||0))}${actionCost>energy?` · 에너지 부족 ${actionCost-energy}`:''}`:`기본 0 · 지켜보기 0${energyCap===4?' · 보너스 공':''}`):s.battle?.takeEnergyBonus===1?(s.phase==='between'?'다음 타자 첫 공 4 (+1)':'다음 공 4 (+1) 충전'):'다음 공에 3 충전'}</small>
   </div>;
 
   const probs=b.pending?publicProbabilities(s):b.intent?.probabilities||[];
@@ -605,7 +605,7 @@ const CARD_DESC_MAP={
       <button type="button" className="bp-verb go" data-testid="bp-swing" disabled={!deciding||!selected||!!choice?.problem} onClick={commitSwing}>
         <span className="bp-verb-word">{verb}</span>{verbSub&&<small className="bp-verb-sub">{verbSubParts.map((x,i)=><React.Fragment key={i}>{i>0&&<i className="bp-verb-sep" aria-hidden="true"> · </i>}<span>{x}</span></React.Fragment>)}</small>}
       </button>
-      <button type="button" className="bp-verb wait" data-testid="bp-take" disabled={!deciding} onClick={onTake}><span className="bp-verb-word">지켜본다</span></button>
+      <button type="button" className="bp-verb wait" data-testid="bp-take" disabled={!deciding} onClick={onTake}><span className="bp-verb-word">지켜본다</span>{s.version===10&&<small>{b.strikes===2?'볼 +1 · 삼진 0':'다음 공 +1'}</small>}</button>
       {mainEntry&&deciding&&<button type="button" className="bp-info" aria-label={mainName+' 카드 설명'} onClick={e=>onDetail?.(mainEntry,e.currentTarget)}>ⓘ</button>}
     </div>}
     {coachOn&&deciding&&!autoLesson&&!previewMode&&b.turn===1&&!(b.history?.length)&&<BallparkCoach rootRef={rootRef} onDone={()=>setCoachOn(false)}/>}

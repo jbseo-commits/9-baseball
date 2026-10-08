@@ -18,13 +18,26 @@ describe('V10 ballpark energy UI',()=>{
     const supports=[{id:'c0',aimZone:8},{id:'c1',aimZone:7},{id:'c2',aimZone:2}];
     const choice=previewV10Stack(s,'c4',supports);
     const onStack=vi.fn();
-    const {container}=render(<BallparkBattle s={s} hand={hand} selected="c4" swingStack={supports} choice={choice}
+    const {container,rerender}=render(<BallparkBattle s={s} hand={hand} selected="c4" swingStack={supports} choice={choice}
       pitcher={s.pitcher} onStack={onStack} onSelect={()=>{}} onAim={()=>{}} onSwing={()=>{}} onTake={()=>{}}/>);
     expect(screen.getByTestId('bp-energy').getAttribute('aria-label')).toBe('에너지 3/3');
+    expect(screen.getByTestId('bp-take').textContent).toContain('다음 공 +1');
     expect(container.querySelector('.bp-card-cost.prep').textContent).toBe(String(cardCost('setup')));
     expect(container.querySelector('.bp-verbs .bp-verb.go').disabled).toBe(true);
     fireEvent.click(container.querySelector('.bp-card[data-card-kind="place"]'));
     expect(onStack).toHaveBeenCalledWith([{id:'c1',aimZone:7},{id:'c2',aimZone:2}]);
+    const twoStrike=structuredClone(s);twoStrike.battle.strikes=2;
+    rerender(<BallparkBattle s={twoStrike} hand={hand} selected="c4" swingStack={supports} choice={choice}
+      pitcher={twoStrike.pitcher} onStack={onStack} onSelect={()=>{}} onAim={()=>{}} onSwing={()=>{}} onTake={()=>{}}/>);
+    expect(screen.getByTestId('bp-take').textContent).toContain('볼 +1 · 삼진 0');
+    const boosted=structuredClone(s);boosted.battle.energy=0;boosted.battle.energyCap=4;
+    rerender(<BallparkBattle s={boosted} hand={hand} selected="c4" swingStack={supports} choice={choice}
+      pitcher={boosted.pitcher} onStack={onStack} onSelect={()=>{}} onAim={()=>{}} onSwing={()=>{}} onTake={()=>{}}/>);
+    expect(screen.getByTestId('bp-energy').getAttribute('aria-label')).toBe('에너지 0/4');
+    boosted.phase='pitch';boosted.battle.takeEnergyBonus=1;
+    rerender(<BallparkBattle s={boosted} hand={hand} selected="c4" swingStack={supports} choice={choice}
+      pitcher={boosted.pitcher} onStack={onStack} onSelect={()=>{}} onAim={()=>{}} onSwing={()=>{}} onTake={()=>{}}/>);
+    expect(screen.getByTestId('bp-energy').textContent).toContain('다음 공 4 (+1)');
   });
 
   it('keeps MAIN RUN energy details on a real App long-press after fresh V10 begins from a non-V10 menu',()=>{

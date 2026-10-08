@@ -201,7 +201,8 @@ describe('V13 BALLPARK playtest feedback 2026-09-25',()=>{
   it('balls have a place: a band around the zone, and the watch button says the ball chance',()=>{
     begin();
     expect(document.querySelector('.bp-zone .bp-band em').textContent).toMatch(/^바깥 띠 = 볼 \d+%$/);
-    expect(screen.getByTestId('bp-take').textContent).toBe('지켜본다');
+    expect(screen.getByTestId('bp-take').textContent).toContain('지켜본다');
+    expect(screen.getByTestId('bp-take').textContent).toContain('다음 공 +1');
   });
   it('the verdict leads with the baseball call',()=>{
     vi.useFakeTimers();

@@ -60,6 +60,29 @@ describe('V11 result debrief',()=>{
     expect(strike.title).toContain('스트라이크를 확인했습니다');
   });
 
+  it('shows only the persisted TAKE bonus and explains strikeout and pitcher-out exceptions',()=>{
+    const rewardedBall=lessonFor(
+      {choice:'take',verdict:'볼',takeEnergyBonus:1,hpAfter:20},
+      {zone:9,primaryCoverage:[],assistOnly:false,label:'볼'}
+    );
+    const rewardedWalk=lessonFor(
+      {choice:'take',verdict:'볼넷',takeEnergyBonus:1,hpAfter:20},
+      {zone:9,primaryCoverage:[],assistOnly:false,label:'볼넷'}
+    );
+    const strikeout=lessonFor(
+      {choice:'take',verdict:'루킹 삼진',takeEnergyBonus:0,hpAfter:20},
+      {zone:4,primaryCoverage:[],assistOnly:false,label:'루킹 삼진'}
+    );
+    const pitcherOut=lessonFor(
+      {choice:'take',verdict:'볼',takeEnergyBonus:0,hpAfter:0},
+      {zone:9,primaryCoverage:[],assistOnly:false,label:'볼'}
+    );
+    expect(rewardedBall.title).toContain('다음 공 4 (+1)');
+    expect(rewardedWalk.title).toContain('다음 타자 첫 공 4 (+1)');
+    expect(strikeout.title).toContain('보상 없음');
+    expect(pitcherOut.title).toContain('보상 없음');
+  });
+
   it('calls out chasing a pitch outside the zone',()=>{
     const lesson=lessonFor(
       {choice:'strike',cardCount:1,damageRate:1},

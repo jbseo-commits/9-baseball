@@ -4,8 +4,10 @@ import {applyRewardToDeck,rewardProblem} from './deck.js';
 import {gimmickRules,addShare,trickNeighbors} from './gimmick.js';
 const clone=s=>JSON.parse(JSON.stringify(s));
 const card=(s,id)=>s.deck.find(c=>c.id===id);
-export const V10_ENERGY_MAX=3;
-export const v10Energy=state=>Number.isInteger(state?.battle?.energy)?state.battle.energy:V10_ENERGY_MAX;
+export const V10_ENERGY_BASE=3;
+export const V10_ENERGY_MAX=4;
+export const v10Energy=state=>Number.isInteger(state?.battle?.energy)?state.battle.energy:V10_ENERGY_BASE;
+export const v10EnergyCap=state=>state?.version===10&&(state?.battle?.energyCap===V10_ENERGY_BASE||state?.battle?.energyCap===V10_ENERGY_MAX)?state.battle.energyCap:V10_ENERGY_BASE;
 export function v10ActionCost(state,id,supports=[]){
   if(id==null||id==='basic'||id==='take')return 0;
   const main=card(state,id);if(!main)return 0;
@@ -135,7 +137,7 @@ export function chooseRoute(state,routeId){
 }
 export function startBattle(state){
   if(state.phase!=='map'||state.build===DECKBUILDER_BUILD&&!routeChoice(state.stage,state.route))return state;const s=clone(state);s.phase='battle';
-  s.battle={turn:1,batterIndex:0,preparations:0,runSignal:false,results:[],history:[],outs:Math.min(2,Math.max(0,s.runOuts|0)),runs:0,strikes:0,balls:0,...(s.version===10?{energy:V10_ENERGY_MAX}:{}),
+  s.battle={turn:1,batterIndex:0,preparations:0,runSignal:false,results:[],history:[],outs:Math.min(2,Math.max(0,s.runOuts|0)),runs:0,strikes:0,balls:0,...(s.version===10?{energy:V10_ENERGY_BASE,energyCap:V10_ENERGY_BASE,takeEnergyBonus:0}:{}),
     aim:0,aimZone:s.build==='pull'?3:s.build==='away'?5:4,expanded:false,patient:false,scouted:false,
     expandedPlus:false,scoutPlus:false,runSignalPlus:false,scoutBall:false,
     bonusPower:0,bonusDmg:0,bonusPressure:0,bonusBall:0,bonusWalk:0,bonusFoul:0,
@@ -481,6 +483,8 @@ function resolve(state,id,supports=[]){
   if(id&&mode==='patience'){growthEvents.unshift('기다린 한 공 · '+b.waitCharge+'중첩 사용');b.waitCharge=0;s.growthStats.patienceSwings++;}
   if(id&&!(mode==='fortune'&&result.kind!=='hit'))b.growthMode='normal';
   const firstSupport=supportItems[0]||null,stackPlan=id?v11StackPlan(s,id,supports):null;
+  const takeEnergyReward=s.version===10&&!id&&!/삼진/.test(result.label)&&s.phase!=='lost'?1:0;
+  if(s.version===10){b.takeEnergyBonus=takeEnergyReward;if(takeEnergyReward)events.push('지켜보기 보상 · 다음 실제 공 에너지 +1');}
   b.revealed={zone:pending.zone,label:result.label,kind:result.kind,coverage:usedCoverage,primaryCoverage:mainCoverage,
     supportCoverages:supportItems.map(x=>({id:x.id,kind:x.entry.kind,aimZone:x.aimZone,coverage:x.coverage})),
     supportKinds:supportItems.map(x=>x.entry.kind),supportZones:supportItems.map(x=>x.aimZone),stackCardCount:id?1+supportItems.length:0,
@@ -488,7 +492,7 @@ function resolve(state,id,supports=[]){
     stackBaseDamageRate:stackPlan?.baseDamageRate??1,stackOrderedDamageRate:stackPlan?.orderedDamageRate??1,
     stackLinks:stackPlan?.links||[],stackSteps:stackPlan?.steps||[],
     assistCoverage:firstSupport?.coverage||[],assistZone:firstSupport?.aimZone??null,assistKind:firstSupport?.entry?.kind||null,
-    assistOnly:!!result.assistOnly,aimZone:id?b.aimZone:null,action:k||'take',ballsBefore:countBefore.balls,strikesBefore:countBefore.strikes,outsBefore:before.outs,growthEvents,basesBefore};
+    assistOnly:!!result.assistOnly,aimZone:id?b.aimZone:null,action:k||'take',...(s.version===10?{takeEnergyBonus:takeEnergyReward}:{}),ballsBefore:countBefore.balls,strikesBefore:countBefore.strikes,outsBefore:before.outs,growthEvents,basesBefore};
   b.history.push({zone:pending.zone,label:result.label,aimZone:id?b.aimZone:null,turn:b.turn,...countBefore});
   b.history=b.history.slice(-18);b.pending=null;b.scouted=false;b.scoutPlus=false;b.scoutBall=false;
   // Upgraded 코스 조정 survives the swing and lasts the rest of the plate appearance.
@@ -532,13 +536,13 @@ export function playCard(state,id,opts={}){
 }
 export const endTurn=state=>state.phase==='battle'?resolve(state,null):state;
 export function advancePitch(state){
-  if(state.phase!=='pitch')return state;const s=clone(state);s.phase='battle';if(s.version===10)s.battle.energy=V10_ENERGY_MAX;draw(s,1);dealPitch(s);
+  if(state.phase!=='pitch')return state;const s=clone(state);s.phase='battle';if(s.version===10){const bonus=s.battle.takeEnergyBonus===1?1:0;s.battle.energyCap=V10_ENERGY_BASE+bonus;s.battle.energy=s.battle.energyCap;s.battle.takeEnergyBonus=0;}draw(s,1);dealPitch(s);
   s.last={kind:'entry',text:currentBatter(s).name+' · 다음 공을 읽으세요.',events:[],runs:0,outs:0};return s;
 }
 export function advanceBatter(state){
   if(state.phase!=='between')return state;const s=clone(state),b=s.battle,index=(b.batterIndex+1)%9,widthBefore=repertoireWidth(s);
   if(b.bases.includes(LINEUP[index].id))return state;
-  b.batterIndex=index;b.turn++;b.strikes=0;b.balls=0;b.aim=0;b.preparations=0;b.runSignal=false;b.expanded=false;b.patient=false;if(s.version===10)b.energy=V10_ENERGY_MAX;
+  b.batterIndex=index;b.turn++;b.strikes=0;b.balls=0;b.aim=0;b.preparations=0;b.runSignal=false;b.expanded=false;b.patient=false;if(s.version===10){const bonus=b.takeEnergyBonus===1?1:0;b.energyCap=V10_ENERGY_BASE+bonus;b.energy=b.energyCap;b.takeEnergyBonus=0;}
   b.expandedPlus=false;b.scoutPlus=false;b.runSignalPlus=false;
   b.bonusPower=0;b.bonusDmg=0;b.bonusPressure=0;b.bonusBall=0;b.bonusWalk=0;b.bonusFoul=0;
   b.waitCharge=0;b.growthMode='normal';b.relayActive=b.relayPending;b.relayPending=0;
@@ -920,7 +924,7 @@ export function playV10Action(state,action){
     relicBonus:relicPlan.damageBonus,precisionRate,precisionBonus,cardFxBonus:fxPlan.bonus,totalDamageBonus:relicPlan.damageBonus+precisionBonus+runnerBonus+fxPlan.bonus,
     runnersBefore,runnerRate,runnerBonus,runsScored,shakenBefore,shakenAfter,
     momentumBefore,momentumAfter,momentumRate,stackRate:relicPlan0.damageRate,
-    relicEvents:relicPlan.events,cardCount:stackCardCount,hpAfter:applied.result.hpAfter,
+    relicEvents:relicPlan.events,cardCount:stackCardCount,hpAfter:applied.result.hpAfter,takeEnergyBonus:r.takeEnergyBonus||0,
   }};
   const pressureEvents=[
     ...fxPlan.events,
@@ -935,6 +939,9 @@ export function playV10Action(state,action){
   if((relicPlan.events.length||pressureEvents.length)&&next.last?.events)
     next.last.events=[...pressureEvents,...relicPlan.events.map(e=>'유물 · '+e),...next.last.events];
   if(next.pitcher.hp<=0){
+    if(next.battle){next.battle.takeEnergyBonus=0;next.v10.lastCombat.takeEnergyBonus=0;next.battle.revealed.takeEnergyBonus=0;
+      if(next.last?.events)next.last.events=next.last.events.filter(e=>e!=='지켜보기 보상 · 다음 실제 공 에너지 +1');
+      if(next.battle.log)next.battle.log=next.battle.log.filter(e=>e!=='지켜보기 보상 · 다음 실제 공 에너지 +1');}
     const node=currentV10Node(next),finalBoss=node?.type==='boss'&&node.act===3;
     const events=[...(next.last?.events||[]),next.pitcher.name+' HP 0 · 강판'];
     next.last={...(next.last||{kind:'pitch',text:'투수 강판',runs:0,outs:0}),events};
@@ -1002,7 +1009,9 @@ export function saveV10Duel(storage,state){saveV10State(storage,state);}
 export function v10NormalizeHand(state){
   const hand=state?.battle?.hand;if(!Array.isArray(hand)||!Array.isArray(state.deck))return state;
   const ids=new Set(state.deck.map(c=>c.id)),kept=hand.filter(id=>ids.has(id));
-  if(kept.length===hand.length&&Number.isInteger(state.battle.energy))return state;
-  return {...state,battle:{...state.battle,hand:kept,energy:Number.isInteger(state.battle.energy)?state.battle.energy:V10_ENERGY_MAX}};
+  if(kept.length===hand.length&&Number.isInteger(state.battle.energy)&&Number.isInteger(state.battle.energyCap)&&Number.isInteger(state.battle.takeEnergyBonus))return state;
+  return {...state,battle:{...state.battle,hand:kept,energy:Number.isInteger(state.battle.energy)?state.battle.energy:V10_ENERGY_BASE,
+    energyCap:Number.isInteger(state.battle.energyCap)?state.battle.energyCap:V10_ENERGY_BASE,
+    takeEnergyBonus:Number.isInteger(state.battle.takeEnergyBonus)?state.battle.takeEnergyBonus:0}};
 }
 export function readV10Duel(storage){return v10NormalizeHand(readV10State(storage));}
