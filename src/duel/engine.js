@@ -1,9 +1,17 @@
-import {CARDS,SAVE_KEY,STAGES,LINEUP,BUILDS,ZONES,GROWTHS,growthCost,rewardChoices,cardPower,cardText,DECK_MIN,DECK_MAX,
+import {CARDS,SAVE_KEY,STAGES,LINEUP,BUILDS,ZONES,GROWTHS,growthCost,rewardChoices,cardPower,cardText,cardCost,DECK_MIN,DECK_MAX,
   ZONE_ORDER,WIDEN_EVERY,PUTAWAY_REACH,READ_THRESHOLDS,observeScore,RELICS,RELIC_OFFERS,DECKBUILDER_BUILD,FACILITY_ROUTES,ROUTE_CHOICES,routeChoice,canUpgrade} from './cards.js';
 import {applyRewardToDeck,rewardProblem} from './deck.js';
 import {gimmickRules,addShare,trickNeighbors} from './gimmick.js';
 const clone=s=>JSON.parse(JSON.stringify(s));
 const card=(s,id)=>s.deck.find(c=>c.id===id);
+export const V10_ENERGY_MAX=3;
+export const v10Energy=state=>Number.isInteger(state?.battle?.energy)?state.battle.energy:V10_ENERGY_MAX;
+export function v10ActionCost(state,id,supports=[]){
+  if(id==null||id==='basic'||id==='take')return 0;
+  const main=card(state,id);if(!main)return 0;
+  return cardCost(main)+(Array.isArray(supports)?supports.reduce((sum,x)=>sum+cardCost(card(state,x?.id)),0):0);
+}
+const v10EnergyProblem=(state,cost)=>state?.version===10&&cost>v10Energy(state)?`에너지가 부족합니다 · ${cost}/${v10Energy(state)} 필요`:null;
 const unit=(s,key)=>{s[key]=(Math.imul(s[key],1664525)+1013904223)>>>0;return s[key]/4294967296;};
 const clamp=(x,a,b)=>Math.min(b,Math.max(a,x));
 export const currentBatter=s=>LINEUP[s.battle.batterIndex];
@@ -127,7 +135,7 @@ export function chooseRoute(state,routeId){
 }
 export function startBattle(state){
   if(state.phase!=='map'||state.build===DECKBUILDER_BUILD&&!routeChoice(state.stage,state.route))return state;const s=clone(state);s.phase='battle';
-  s.battle={turn:1,batterIndex:0,preparations:0,runSignal:false,results:[],history:[],outs:Math.min(2,Math.max(0,s.runOuts|0)),runs:0,strikes:0,balls:0,
+  s.battle={turn:1,batterIndex:0,preparations:0,runSignal:false,results:[],history:[],outs:Math.min(2,Math.max(0,s.runOuts|0)),runs:0,strikes:0,balls:0,...(s.version===10?{energy:V10_ENERGY_MAX}:{}),
     aim:0,aimZone:s.build==='pull'?3:s.build==='away'?5:4,expanded:false,patient:false,scouted:false,
     expandedPlus:false,scoutPlus:false,runSignalPlus:false,scoutBall:false,
     bonusPower:0,bonusDmg:0,bonusPressure:0,bonusBall:0,bonusWalk:0,bonusFoul:0,
@@ -217,6 +225,7 @@ export function stackSupportProblem(s,primaryId,supports=[]){
   if(primaryId==='basic')return 'BASIC SWING에는 카드를 겹칠 수 없습니다. 공격 카드를 메인으로 고르세요.';
   if(cardProblem(s,primaryId))return cardProblem(s,primaryId);
   const primary=card(s,primaryId);
+  if(CARDS[primary?.kind]?.type!=='attack')return '준비 카드는 스윙 메인으로 겹칠 수 없습니다.';
   if(CARDS[primary?.kind]?.bunt)return '희생 번트에는 다른 카드를 겹칠 수 없습니다.';
   if(s.battle.growthMode==='patience')return '기다린 한 공은 한 존 승부라 카드를 겹칠 수 없습니다.';
   if(supports.length>v10StackMax(s)-1)return '한 번의 스윙에는 최대 '+v10StackMax(s)+'장까지 겹칠 수 있습니다.';
@@ -230,6 +239,7 @@ export function stackSupportProblem(s,primaryId,supports=[]){
     if(CARDS[entry.kind]?.type!=='attack')return '스윙 카드만 겹칠 수 있습니다.';
     if(CARDS[entry.kind]?.bunt)return '희생 번트는 겹치기 카드로 사용할 수 없습니다.';
   }
+  const energyProblem=v10EnergyProblem(s,v10ActionCost(s,primaryId,supports));if(energyProblem)return energyProblem;
   return null;
 }
 export function assistProblem(s,primaryId,assistId,assistZone){
@@ -256,6 +266,7 @@ export function cardProblem(s,id){
   if(need==='first'&&(b.strikes||b.balls))return '타석 첫 공에서만 쓸 수 있습니다.';
   if(need==='empty'&&b.bases.some(Boolean))return '주자가 없을 때만 쓸 수 있습니다.';
   if(CARDS[c.kind].bunt&&b.growthMode!=='normal')return '희생 작전에는 강화 스윙을 적용할 수 없습니다. 성장 사용을 해제하세요.';
+  const energyProblem=v10EnergyProblem(s,v10ActionCost(s,id));if(energyProblem)return energyProblem;
   return null;
 }
 export function growthProblem(s,mode){
@@ -332,25 +343,26 @@ export function swingOdds(s,id,zone){
   return {hit:1,foul:0,out:0,whiff:0,power:0,covered:true};
 }
 export function previewCard(s,id,probabilities=publicProbabilities(s)){
-  const problem=cardProblem(s,id);if(problem)return {problem};
-  if(id!=='basic'&&CARDS[card(s,id).kind].type==='skill')return {label:cardText(card(s,id).kind,card(s,id).plus)};
+  const problem=cardProblem(s,id);if(problem)return {problem,cost:v10ActionCost(s,id),energy:v10Energy(s)};
+  if(id!=='basic'&&CARDS[card(s,id).kind].type==='skill')return {label:cardText(card(s,id).kind,card(s,id).plus),cost:v10ActionCost(s,id),energy:v10Energy(s)};
   const odds=probabilities.map((p,z)=>({p,o:swingOdds(s,id,z)}));
   const sum=key=>odds.reduce((v,{p,o})=>v+p*(o[key]||0),0);
   const hit=sum('hit'),types=hitProfile(s,id,s.battle.aimZone).map((t,i)=>({...t,p:hit?odds.reduce((v,{p,o},z)=>v+p*o.hit*hitProfile(s,id,z)[i].p,0)/hit:0}));
   const active=s.battle.relayActive;
   const growthText=s.battle.growthMode==='patience'?'기다림 '+s.battle.waitCharge+' 소비 · 한 존 · 파워 +'+matchup(s,id).growthPower:
     s.battle.growthMode==='fortune'?'비홈런 적중 시 행운 '+growthCost(s.growth.fortune)+' 소비 → 타자·기존 주자 추가 1베이스':'';
-  return {label:id!=='basic'&&CARDS[card(s,id).kind].bunt?'희생 작전 · 안타 보장 예외':'타격 범위 적중 = 안타 확정',coverage:coverage(s,id),hit,foul:sum('foul'),whiff:sum('whiff'),out:sum('out'),sacrifice:sum('sacrifice'),types,matchup:matchup(s,id),expectedBases:hit*types.reduce((v,t)=>v+t.p*t.bases,0),
+  return {label:id!=='basic'&&CARDS[card(s,id).kind].bunt?'희생 작전 · 안타 보장 예외':'타격 범위 적중 = 안타 확정',cost:v10ActionCost(s,id),energy:v10Energy(s),coverage:coverage(s,id),hit,foul:sum('foul'),whiff:sum('whiff'),out:sum('out'),sacrifice:sum('sacrifice'),types,matchup:matchup(s,id),expectedBases:hit*types.reduce((v,t)=>v+t.p*t.bases,0),
     growthText:growthText+(active?' · 연결 사인: 기존 주자 추가 '+(active>=3?2:1)+'베이스':''),fortuneChance:s.battle.growthMode==='fortune'?hit*(1-types[0].p):0};
 }
 
 export function previewV10Stack(s,id,supports=[],probabilities=publicProbabilities(s)){
+  const cost=v10ActionCost(s,id,supports),energy=v10Energy(s);
   if(!supports?.length){
     const solo=previewCard(s,id,probabilities),stackPlan=v11StackPlan(s,id,[]),precisionPressure=id==='basic'?0:(CARDS[card(s,id)?.kind]?.pressure||0);
-    return {...solo,cardCount:1,damageRate:stackPlan.damageRate,stackPlan,connectCount:0,connectBonus:0,precisionPressure,
+    return {...solo,cost,energy,cardCount:1,damageRate:stackPlan.damageRate,stackPlan,connectCount:0,connectBonus:0,precisionPressure,
       baseStackDamageRate:1,orderedStackDamageRate:1,primaryCoverage:solo.coverage||[],supportCoverages:[]};
   }
-  const problem=cardProblem(s,id)||stackSupportProblem(s,id,supports);if(problem)return {problem};
+  const problem=stackSupportProblem(s,id,supports);if(problem)return {problem,cost,energy};
   const base=previewCard(s,id,probabilities),main=coverage(s,id);
   const supportCoverages=supports.map(x=>({id:x.id,kind:card(s,x.id).kind,aimZone:x.aimZone,coverage:coverageAt(s,x.id,x.aimZone)}));
   const combined=[...new Set([...main,...supportCoverages.flatMap(x=>x.coverage)])].sort((a,b)=>a-b),mass=new Map();
@@ -369,7 +381,7 @@ export function previewV10Stack(s,id,supports=[],probabilities=publicProbabiliti
   const types=[...mass].map(([label,m])=>({label,bases:basesFor(label),p:hit?m/hit:0}));
   const hr=types.find(t=>t.bases===4)?.p||0,stackPlan=v11StackPlan(s,id,supports),cardCount=stackPlan.cardCount,damageRate=stackPlan.damageRate,
     precisionPressure=CARDS[card(s,id)?.kind]?.pressure||0;
-  return {...base,label:'스윙 스택 · '+cardCount+'장 · CONNECT '+stackPlan.connectCount+'/'+Math.max(0,cardCount-1),coverage:combined,primaryCoverage:main,supportCoverages,
+  return {...base,cost,energy,label:'스윙 스택 · '+cardCount+'장 · CONNECT '+stackPlan.connectCount+'/'+Math.max(0,cardCount-1),coverage:combined,primaryCoverage:main,supportCoverages,
     supports:supportCoverages.map(({coverage,...x})=>x),cardCount,damageRate,stackPlan,connectCount:stackPlan.connectCount,connectBonus:stackPlan.connectBonus,precisionPressure,
     baseStackDamageRate:stackPlan.baseDamageRate,orderedStackDamageRate:stackPlan.orderedDamageRate,hit,foul,whiff,out,sacrifice:0,types,
     matchup:matchup(s,id,s.battle.aimZone,combined.length),expectedBases:hit*types.reduce((v,t)=>v+t.p*t.bases,0),
@@ -415,6 +427,7 @@ export function battingResult(s,id,opts={}){
 function resolve(state,id,supports=[]){
   if(cardProblem(state,id||'basic')||stackSupportProblem(state,id||'basic',supports))return state;
   const s=clone(state),b=s.battle,before={runs:b.runs,outs:b.outs},events=[],growthEvents=[],pending=b.pending,mode=b.growthMode;
+  if(s.version===10)b.energy=Math.max(0,v10Energy(s)-v10ActionCost(s,id,supports));
   const basesBefore=[...b.bases]; // who stood where before this pitch: the result screen names every move
   const mainCoverage=id?coverage(s,id):[];
   const supportItems=(supports||[]).map(x=>({id:x.id,aimZone:x.aimZone,entry:card(s,x.id),coverage:coverageAt(s,x.id,x.aimZone)}));
@@ -506,24 +519,26 @@ function applySkillFx(s,fx,events){
 }
 export function playCard(state,id,opts={}){
   if(cardProblem(state,id))return state;
+  const supports=Array.isArray(opts.supports)?opts.supports:(opts.assist?[opts.assist]:[]);
   if(id==='basic'||CARDS[card(state,id).kind].type==='attack'){
-    const supports=Array.isArray(opts.supports)?opts.supports:(opts.assist?[opts.assist]:[]);
     return resolve(state,id,supports);
   }
+  if(state.version===10&&supports.length)return state;
   const s=clone(state),entry=card(s,id),k=entry.kind,plus=!!entry.plus,b=s.battle,before={runs:b.runs,outs:b.outs},events=[];
   b.hand.splice(b.hand.indexOf(id),1);b.discard.push(id);s.stats.cards++;b.preparations++;
+  if(s.version===10)b.energy=Math.max(0,v10Energy(s)-v10ActionCost(s,id));
   applySkillFx(s,(plus&&CARDS[k].plusFx)||CARDS[k].fx||{},events);
   return finalize(s,before,'skill',CARDS[k].name+(plus?'+':'')+' · 준비 '+b.preparations+'/'+v10PrepMax(s),events);
 }
 export const endTurn=state=>state.phase==='battle'?resolve(state,null):state;
 export function advancePitch(state){
-  if(state.phase!=='pitch')return state;const s=clone(state);s.phase='battle';draw(s,1);dealPitch(s);
+  if(state.phase!=='pitch')return state;const s=clone(state);s.phase='battle';if(s.version===10)s.battle.energy=V10_ENERGY_MAX;draw(s,1);dealPitch(s);
   s.last={kind:'entry',text:currentBatter(s).name+' · 다음 공을 읽으세요.',events:[],runs:0,outs:0};return s;
 }
 export function advanceBatter(state){
   if(state.phase!=='between')return state;const s=clone(state),b=s.battle,index=(b.batterIndex+1)%9,widthBefore=repertoireWidth(s);
   if(b.bases.includes(LINEUP[index].id))return state;
-  b.batterIndex=index;b.turn++;b.strikes=0;b.balls=0;b.aim=0;b.preparations=0;b.runSignal=false;b.expanded=false;b.patient=false;
+  b.batterIndex=index;b.turn++;b.strikes=0;b.balls=0;b.aim=0;b.preparations=0;b.runSignal=false;b.expanded=false;b.patient=false;if(s.version===10)b.energy=V10_ENERGY_MAX;
   b.expandedPlus=false;b.scoutPlus=false;b.runSignalPlus=false;
   b.bonusPower=0;b.bonusDmg=0;b.bonusPressure=0;b.bonusBall=0;b.bonusWalk=0;b.bonusFoul=0;
   b.waitCharge=0;b.growthMode='normal';b.relayActive=b.relayPending;b.relayPending=0;
@@ -987,6 +1002,7 @@ export function saveV10Duel(storage,state){saveV10State(storage,state);}
 export function v10NormalizeHand(state){
   const hand=state?.battle?.hand;if(!Array.isArray(hand)||!Array.isArray(state.deck))return state;
   const ids=new Set(state.deck.map(c=>c.id)),kept=hand.filter(id=>ids.has(id));
-  return kept.length===hand.length?state:{...state,battle:{...state.battle,hand:kept}};
+  if(kept.length===hand.length&&Number.isInteger(state.battle.energy))return state;
+  return {...state,battle:{...state.battle,hand:kept,energy:Number.isInteger(state.battle.energy)?state.battle.energy:V10_ENERGY_MAX}};
 }
 export function readV10Duel(storage){return v10NormalizeHand(readV10State(storage));}

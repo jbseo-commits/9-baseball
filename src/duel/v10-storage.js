@@ -6,6 +6,7 @@ const PHASES=new Set(['map','battle','pitch','between','reward','lost','won','tr
 
 export function validateV10State(s){
   if(!s||s.version!==10||!Number.isInteger(s.initialSeed)||!PHASES.has(s.phase)||!validateRunMap(s.runMap))return false;
+  if(s.battle?.energy!==undefined&&(!Number.isInteger(s.battle.energy)||s.battle.energy<0||s.battle.energy>3))return false;
   if(!Array.isArray(s.deck)||s.deck.some(c=>!c||typeof c.id!=='string'||typeof c.kind!=='string'))return false;
   if(!Array.isArray(s.rewards)||!s.v10||typeof s.v10!=='object'||!Array.isArray(s.v10.utilityHistory))return false;
   const validBonus=b=>b===null||b===undefined||(b&&Number.isInteger(b.technique)&&b.technique>=0&&b.technique<=100&&typeof b.source==='string');

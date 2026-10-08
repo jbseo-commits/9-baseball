@@ -20,6 +20,14 @@
   position:relative;z-index:10;
 }
 .bp-hud-brand{display:flex;align-items:center;gap:8px}
+.bp-energy{display:flex;align-items:center;justify-content:center;gap:8px;flex:0 0 auto;color:#b7b09e;font:700 10px/1 var(--bp-led);letter-spacing:.04em}
+.bp-verbs .bp-energy{grid-column:1/-1;min-height:24px;padding:3px 8px;border-bottom:1px solid #2a3152;background:#0d1122}
+.bp-energy>strong{font:700 15px/1 var(--bp-led);color:var(--bp-sodium)}
+.bp-energy>strong i{font-style:normal;color:#7b84a6}
+.bp-energy-leds{display:flex;gap:2px}
+.bp-energy-leds i{display:block;width:8px;height:8px;border:1px solid #48506d;border-radius:1px;background:#141a33}
+.bp-energy-leds i.on{background:var(--bp-sodium);border-color:var(--bp-sodium);box-shadow:0 0 4px #ffc86180}
+.bp-energy>small{font:400 10px/1 var(--bp-ko);color:#b7b09e;letter-spacing:0;text-transform:none;white-space:nowrap}
 .bp-hud-logo{
   font:700 13px/1 var(--bp-impact);color:var(--bp-sodium);letter-spacing:.1em;
   text-shadow:0 0 8px rgba(255,200,97,0.7);padding:3px 7px;background:#07080d;

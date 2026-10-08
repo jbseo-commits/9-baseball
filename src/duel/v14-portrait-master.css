@@ -8,6 +8,12 @@
     --bp-top:0px;height:100dvh;min-height:calc(595px + env(safe-area-inset-bottom,0px));
     grid-template-rows:39px minmax(280px,1fr) 48px 148px calc(83px + env(safe-area-inset-bottom,0px));
   }
+  /* MAIN RUN energy adds a compact row above the actions. Preserve the scene, hand and
+     touch target minimums by taking its 30px from the flexible scene track. */
+  .v14-battle-portrait>.bp-battle:has(.bp-energy){
+    min-height:calc(628px + env(safe-area-inset-bottom,0px));
+    grid-template-rows:39px minmax(280px,1fr) 48px 148px calc(113px + env(safe-area-inset-bottom,0px));
+  }
   .v14-battle-portrait .bp-bar{height:39px;padding:3px 6px;gap:3px;min-width:0}
   .v14-battle-portrait .bp-hud-brand{gap:4px;align-items:center;min-width:0}
   .v14-battle-portrait .bp-hud-sub{display:inline-block;font-size:8px;color:#c9a96e;letter-spacing:0.5px;font-family:var(--bp-impact)}
@@ -256,6 +262,7 @@
     padding:6px 8px calc(8px + env(safe-area-inset-bottom,0px));
     gap:6px;background:#07080d;border-top:1px solid #161c36;
   }
+  .v14-battle-portrait .bp-battle:has(.bp-energy) .bp-verbs{height:calc(113px + env(safe-area-inset-bottom,0px))}
   /* Verbs, masterpiece hierarchy (target battle-portrait.png): icon left, a heavy display verb,
      one readable sans line under it. The hit share (BP-14 <small>) replaces the hint line when it exists. */
   .v14-battle-portrait .bp-verb{

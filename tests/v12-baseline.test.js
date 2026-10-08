@@ -43,6 +43,8 @@ describe('V12 P0-1 baseline contract',()=>{
       delete copy.runMap.nodes;delete copy.runMap.edges;delete copy.runMap.reachableIds;delete copy.v10.reachableIds;
       delete copy.pitcher.hp;delete copy.pitcher.maxHp;
       delete copy.battle.intent;
+      // The historical fixture predates the additive V10 energy field.
+      delete copy.battle.energy;
       delete copy.v10.opponent;
       // V16 card keywords add per-plate-appearance prep fields (all zero at battle start); the fixture predates them.
       for(const k of ['scoutBall','bonusPower','bonusDmg','bonusPressure','bonusBall','bonusWalk','bonusFoul'])delete copy.battle[k];

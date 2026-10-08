@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {CARDS,upgradeText,FAMILIES,DECK_MAX} from './cards.js';
+import {CARDS,cardCost,upgradeText,FAMILIES,DECK_MAX} from './cards.js';
 import {shapeHas} from './engine.js';
 import {cardArtFor} from './card-art.js';
 import {V10_ALL_RELICS} from './v10-relics.js';
@@ -82,7 +82,7 @@ function Offer({o,on,count,onClick,reveal=null}){
     <strong className="bp-offer-name">컨디션 회복</strong><span className="bp-offer-desc">다음 경기 타격 +8</span></button>;
   const def=CARDS[o.kind],skill=def?.type==='skill',tier=def?.rarity||'common',rare=tier==='signature'||tier==='rare';
   const art=REWARD_CARD_ART[o.kind]||cardArtFor(o.kind)||rewardPrecisionBlue;
-  const cost=def?.cost||(def?.power>=2?2:1),fam=FAMILIES[def?.family]?.name;
+  const cost=cardCost(o.kind),fam=FAMILIES[def?.family]?.name;
   return <button type="button" className={'bp-offer reward-card'+(skill?' skill':'')+(rare?' rare':'')+' r-'+tier+(on?' on':'')} aria-pressed={on} onClick={onClick} data-card-kind={o.kind} {...rv}>
     {reveal!=null&&<Back/>}
     <span className="bp-offer-cost" aria-label={`코스트 ${cost}`}>{cost}</span>
