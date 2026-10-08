@@ -542,7 +542,7 @@ function ZoneBoard({s,id,onZone,disabled,coveredOverride=null,matchupOverride=nu
       })}
       {!b.revealed&&<ZoneLinks links={links}/>}
     </div>
-    <p className="zone-legend"><b className="zone-outside">존 밖 {pct(p[9])}</b> 왼쪽 몸쪽 / 오른쪽 바깥 · 테두리 = 커버 · ★ 4숙련존 · 밝기는 존 안에서의 몫</p>
+    <p className="zone-legend"><b className="zone-outside">존 밖 {exactBall||level===2?pct(p[9]):level===1?rangeFor(p[9]):bandFor(p[9])}</b> 왼쪽 몸쪽 / 오른쪽 바깥 · 테두리 = 커버 · ★ 4숙련존 · 밝기는 존 안에서의 몫</p>
     <details className="zone-details"><summary>투수 기록 · 타구 질 · 읽기 {READ_LEVELS[level].short}</summary>
       <p>존 선택은 공을 다시 뽑지 않습니다. 레퍼토리 {b.intent.repertoire?.length||9}/9 · 숙련존은 타구 질과 장타력 +12.</p>
       <div className="matchup-stats" aria-label="타자 투수 스탯"><span>타격 {duel.hitter.technique} / 투수 변화 {duel.pitcher.movement}</span><span>파워 {duel.hitter.power} + 성장 {duel.growthPower} / 구위 {duel.pitcher.stuff}</span><span>행운 {duel.hitter.luck} / 제구 {duel.pitcher.command}</span><small>스탯은 안타 종류만 결정 · 안타 취소 없음</small></div>
