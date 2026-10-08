@@ -45,4 +45,15 @@ describe('portrait-only layout (2026-09-28)',()=>{
     landscape=true;listener();
     expect(reloads).toBe(1);
   });
+
+  it('a sub-320px portrait window fits instead of clipping (short-desktop frame)',()=>{
+    // Before: body kept duel.css's 320px floor in every viewport, so a short
+    // desktop's portrait iframe (~281px wide) pushed ~39px of the game out of
+    // reach under the phone rules' overflow-x:hidden.
+    const css=fs.readFileSync('src/duel/responsive-master.css','utf8');
+    const first=css.indexOf('@media (max-width:900px) and (orientation:portrait){');
+    expect(first).toBeGreaterThanOrEqual(0);
+    const block=css.slice(first,css.indexOf('@media',first+1));
+    expect(block).toMatch(/html,body\{[^}]*min-width:0!important/);
+  });
 });
