@@ -21,8 +21,9 @@ export function validateV10State(s){
   if(s.stats!==undefined&&(!s.stats||typeof s.stats!=='object'||Array.isArray(s.stats)))return false;
   /* A save that claims to be mid-battle must carry a battle object. */
   if(['battle','pitch','between'].includes(s.phase)&&(!s.battle||typeof s.battle!=='object'))return false;
+  if(!s.v10||typeof s.v10!=='object')return false;
   if(s.v10.relicChoices!==undefined&&!Array.isArray(s.v10.relicChoices))return false;
-  if(!Array.isArray(s.rewards)||!s.v10||typeof s.v10!=='object'||!Array.isArray(s.v10.utilityHistory))return false;
+  if(!Array.isArray(s.rewards)||!Array.isArray(s.v10.utilityHistory))return false;
   const validBonus=b=>b===null||b===undefined||(b&&Number.isInteger(b.technique)&&b.technique>=0&&b.technique<=100&&typeof b.source==='string');
   if(!validBonus(s.v10.nextBattleBonus)||!validBonus(s.v10.activeBattleBonus))return false;
   if(s.v10.nodeId!==null&&s.v10.nodeId!==undefined&&typeof s.v10.nodeId!=='string')return false;

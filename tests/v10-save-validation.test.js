@@ -44,6 +44,17 @@ describe('V10 save validation rejects card kinds that are not in CARDS',()=>{
     expect(validateV10State(s)).toBe(false);
   });
 
+  it('returns false (never throws) when v10 is missing or not an object',()=>{
+    // Before: `s.v10.relicChoices` was read before the `!s.v10` guard,
+    // so a v10-less save threw TypeError instead of a clean reject.
+    for(const v10 of [undefined,null,42,'v10',[]]){
+      const s=validBattleSave();
+      s.v10=v10;
+      expect(()=>validateV10State(s)).not.toThrow();
+      expect(validateV10State(s)).toBe(false);
+    }
+  });
+
   it('still accepts the pinned pre-runOuts historical fixture',()=>{
     // The P0-1 baseline fixture predates runOuts. The engine coerces it via `s.runOuts|0`,
     // so an absent optional field must not invalidate an otherwise sound save.
