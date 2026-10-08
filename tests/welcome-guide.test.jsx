@@ -20,4 +20,24 @@ describe('welcome guide first-run persistence',()=>{
     fireEvent.click(screen.getByRole('button',{name:'건너뛰기'}));
     expect(localStorage.getItem(WELCOME_SEEN_KEY)).toBe('seen');
   });
+  it('teaches gated reading, the bunt exception, and the lure boundary',()=>{
+    // Zone chapter (index 2): no exact-% norm, boundary is >= 30%.
+    render(<WelcomeGuide start={2} onClose={()=>{}} onCards={()=>{}}/>);
+    let text=document.querySelector('.wg-page').textContent;
+    expect(text).toContain('처음엔 낱말로');
+    expect(text).toContain('30% 이상이면');
+    expect(text).not.toContain('30%를 넘으면');
+    cleanup();
+    // Cover chapter (index 3): no unconditional cover-equals-hit.
+    render(<WelcomeGuide start={3} onClose={()=>{}} onCards={()=>{}}/>);
+    text=document.querySelector('.wg-page').textContent + document.querySelector('.wg-sheet h2').textContent;
+    expect(text).toContain('희생 번트');
+    expect(text).not.toContain('무조건 안타');
+    cleanup();
+    // Flow chapter (index 1): numbers only as far as earned.
+    render(<WelcomeGuide start={1} onClose={()=>{}} onCards={()=>{}}/>);
+    text=document.querySelector('.wg-page').textContent;
+    expect(text).toContain('읽은 만큼만');
+    expect(text).not.toContain('%는 실제 확률');
+  });
 });
