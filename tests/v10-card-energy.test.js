@@ -98,16 +98,21 @@ describe('V10 MAIN RUN energy',()=>{
     strikeout=E.playV10Action(strikeout,{type:'take'});
     expect(strikeout.phase).toBe('between');expect(strikeout.battle.takeEnergyBonus).toBe(0);
     expect(strikeout.v10.lastCombat.takeEnergyBonus).toBe(0);
+    expect(strikeout.v10.lastCombat.takeDrawBonus).toBe(0);expect(strikeout.battle.revealed.takeDrawBonus).toBe(0);
     const afterStrikeout=E.advanceV10Batter(strikeout);
     expect(afterStrikeout.battle.energy).toBe(3);expect(afterStrikeout.battle.energyCap).toBe(3);
+    expect(afterStrikeout.battle.hand).toHaveLength(5);expect(afterStrikeout.last.takeDrawn).toBeUndefined();
     const lastOut=battle(888);lastOut.battle.pending.zone=0;lastOut.battle.strikes=2;lastOut.battle.outs=2;
     const lost=E.playV10Action(lastOut,{type:'take'});
     expect(lost.phase).toBe('lost');expect(lost.battle.takeEnergyBonus).toBe(0);
+    expect(lost.v10.lastCombat.takeDrawBonus).toBe(0);
     expect(E.advanceV10Batter(lost)).toBe(lost);
     let hpZero=battle(889);hpZero.battle.pending.zone=9;hpZero.battle.balls=3;hpZero.pitcher.hp=1;
     hpZero=E.playV10Action(hpZero,{type:'take'});
     expect(hpZero.pitcher.hp).toBe(0);expect(hpZero.phase).toBe('reward');expect(hpZero.battle.takeEnergyBonus).toBe(0);
     expect(hpZero.v10.lastCombat.takeEnergyBonus).toBe(0);
+    expect(hpZero.v10.lastCombat.takeDrawBonus).toBe(0);expect(hpZero.battle.revealed.takeDrawBonus).toBe(0);
+    expect(E.advanceV10Batter(hpZero)).toBe(hpZero);
     expect(hpZero.last.events).not.toContain('지켜보기 보상 · 다음 실제 공 에너지 +1');
     expect(hpZero.battle.log).not.toContain('지켜보기 보상 · 다음 실제 공 에너지 +1');
     const map=E.claimV10Reward(hpZero,{type:'skip'});
@@ -116,6 +121,7 @@ describe('V10 MAIN RUN energy',()=>{
     const newBattle=E.enterV10Node(map,node.id);
     expect(newBattle.phase).toBe('battle');
     expect(newBattle.battle.energy).toBe(3);expect(newBattle.battle.energyCap).toBe(3);expect(newBattle.battle.takeEnergyBonus).toBe(0);
+    expect(newBattle.battle.hand).toHaveLength(5);
   });
 
   it('allows a four-cost stack at 4 energy and keeps five-cost actions rejected without mutation',()=>{

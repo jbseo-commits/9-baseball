@@ -28,6 +28,8 @@ export function validateV10State(s){
     const labels=['choiceLabel','aimLabel','pitchLabel','pitchName'];
     if(labels.some(key=>last[key]!==undefined&&typeof last[key]!=='string'))return false;
     if(last.takeEnergyBonus!==undefined&&(!Number.isInteger(last.takeEnergyBonus)||![0,1].includes(last.takeEnergyBonus)))return false;
+    if(last.takeDrawBonus!==undefined&&(!Number.isInteger(last.takeDrawBonus)||![0,1].includes(last.takeDrawBonus)))return false;
+    if(last.takeDrawReason!==undefined&&!['full','empty'].includes(last.takeDrawReason))return false;
     /* 지켜보기는 노린 존이 없어 null이다. 그 외에는 0~9 정수여야 한다. */
     if(last.aimZone!==undefined&&last.aimZone!==null&&(!Number.isInteger(last.aimZone)||last.aimZone<0||last.aimZone>9))return false;
   }

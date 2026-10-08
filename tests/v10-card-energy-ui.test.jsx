@@ -10,6 +10,7 @@ import Duel from '../src/duel/App.jsx';
 import {WELCOME_SEEN_KEY} from '../src/duel/WelcomeGuide.jsx';
 import {COACH_KEY} from '../src/duel/BallparkCoach.jsx';
 import {LONG_PRESS_MS} from '../src/duel/CardDetailSheet.jsx';
+import {lessonFor} from '../src/duel/DecisionDebrief.jsx';
 
 describe('V10 ballpark energy UI',()=>{
   it('shows remaining energy, a numeric prep cost, the selected stack total, and preserves support removal',()=>{
@@ -37,7 +38,37 @@ describe('V10 ballpark energy UI',()=>{
     boosted.phase='pitch';boosted.battle.takeEnergyBonus=1;
     rerender(<BallparkBattle s={boosted} hand={hand} selected="c4" swingStack={supports} choice={choice}
       pitcher={boosted.pitcher} onStack={onStack} onSelect={()=>{}} onAim={()=>{}} onSwing={()=>{}} onTake={()=>{}}/>);
-    expect(screen.getByTestId('bp-energy').textContent).toContain('다음 공 4 (+1)');
+    expect(screen.getByTestId('bp-energy').textContent).toContain('다음 공 4 · 카드+1');
+  });
+
+  it('reports only the actual result-phase card outcome and keeps pre-action hints generic',()=>{
+    let s=enterV10Node(createV10Duel(442),'a1-entry');
+    const hand=s.battle.hand.map(id=>({id,entry:s.deck.find(c=>c.id===id),preview:previewCard(s,id)}));
+    const props={hand,selected:null,swingStack:[],choice:null,pitcher:s.pitcher,onStack:()=>{},onSelect:()=>{},onAim:()=>{},onSwing:()=>{},onTake:()=>{}};
+    const {container,rerender}=render(<BallparkBattle s={s} {...props}/>);
+    expect([...container.querySelectorAll('[data-testid="bp-take"]')].every(x=>x.textContent.includes('다음 공 +1'))).toBe(true);
+    const result=structuredClone(s);result.phase='pitch';result.battle.takeEnergyBonus=1;
+    rerender(<BallparkBattle s={result} {...props}/>);
+    expect(container.querySelector('[data-testid="bp-energy"]').textContent).toContain('다음 공 4 · 카드+1');
+    const full=structuredClone(result);full.battle.hand=[...full.battle.hand,...full.deck.slice(5,6).map(c=>c.id)];
+    rerender(<BallparkBattle s={full} {...props}/>);
+    expect(container.querySelector('[data-testid="bp-energy"]').textContent).toContain('6장 한도');
+    const empty=structuredClone(result);empty.battle.hand=empty.battle.hand.slice(0,3);empty.battle.draw=[];empty.battle.discard=[];
+    rerender(<BallparkBattle s={empty} {...props}/>);
+    expect(container.querySelector('[data-testid="bp-energy"]').textContent).toContain('추가 0');
+    const between=structuredClone(result);between.phase='between';
+    rerender(<BallparkBattle s={between} {...props}/>);
+    expect(container.querySelector('[data-testid="bp-energy"]').textContent).toContain('다음 타자 4 · 카드+1');
+  });
+
+  it('does not promise a card in debrief for old metadata or a blocked draw',()=>{
+    const combat={choice:'take',verdict:'볼',takeEnergyBonus:1,hpAfter:20};
+    const ball=lessonFor(combat,{zone:9,primaryCoverage:[],label:'볼'});
+    const walk=lessonFor({...combat,verdict:'볼넷',takeDrawBonus:1},{zone:9,primaryCoverage:[],label:'볼넷'});
+    const full=lessonFor({...combat,takeDrawBonus:0,takeDrawReason:'full'},{zone:4,primaryCoverage:[],label:'루킹 스트라이크'});
+    expect(ball.title).not.toContain('카드 +1');
+    expect(walk.title).toContain('다음 타자 첫 공 4');expect(walk.title).toContain('카드 +1');
+    expect(full.title).toContain('6장 한도');
   });
 
   it('keeps MAIN RUN energy details on a real App long-press after fresh V10 begins from a non-V10 menu',()=>{

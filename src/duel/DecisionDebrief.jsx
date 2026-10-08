@@ -24,15 +24,16 @@ function lessonFor(combat,revealed){
   const main=new Set(revealed.primaryCoverage||[]);
   if(combat.choice==='take'){
     const reward=combat.takeEnergyBonus===1;
+    const drawLabel=combat.takeDrawBonus===1?'카드 +1':combat.takeDrawReason==='full'?'6장 한도':combat.takeDrawReason==='empty'?'추가 카드 0':'';
     if(/삼진/.test(combat.verdict||''))return {tone:'danger',title:'삼진 · 에너지 보상 없음',text:'2스트라이크에서 지켜본 공이 스트라이크였습니다. 다음 공 에너지 +1은 예약되지 않습니다.'};
     if(combat.hpAfter===0)return {tone:'neutral',title:'투수 강판 · 에너지 보상 없음',text:'HP 0으로 승부가 끝났습니다. 다음 공 에너지는 예약되지 않습니다.'};
     if(actual===9){
       const walk= combat.verdict==='볼넷'||revealed.label==='볼넷';
-      if(reward&&walk)return {tone:'success',title:'볼넷 · 다음 타자 첫 공 4 (+1)',text:'지켜보기 보상은 다음 타자의 첫 실제 공에 적용됩니다. 현재 잔량은 그대로입니다.'};
-      if(reward)return {tone:'success',title:'다음 공 4 (+1)',text:'지켜보기 보상은 같은 타자의 다음 실제 공에서 충전됩니다. 현재 잔량은 그대로입니다.'};
+      if(reward&&walk)return {tone:'success',title:'볼넷 · 다음 타자 첫 공 4'+(drawLabel?' · '+drawLabel:''),text:'지켜보기 보상은 다음 타자의 첫 실제 공에 적용됩니다. '+(combat.takeDrawBonus===1?'기본 보충 뒤 카드 1장을 더 뽑습니다.':combat.takeDrawReason==='full'?'손패가 6장 한도라 추가로 뽑지 않습니다.':combat.takeDrawReason==='empty'?'기본 보충 뒤 추가 카드는 없습니다.':'보너스는 다음 타자의 첫 실제 공에서 충전됩니다.')+' 현재 잔량은 그대로입니다.'};
+      if(reward)return {tone:'success',title:'다음 공 4'+(drawLabel?' · '+drawLabel:''),text:'볼 보상은 같은 타자의 다음 실제 공에서 충전됩니다. '+(combat.takeDrawBonus===1?'기본 드로우 뒤 카드 1장을 더 뽑습니다.':combat.takeDrawReason==='full'?'손패가 6장 한도라 추가로 뽑지 않습니다.':combat.takeDrawReason==='empty'?'기본 드로우 뒤 추가 카드는 없습니다.':'보너스는 다음 실제 공에서 충전됩니다.')+' 현재 잔량은 그대로입니다.'};
       return {tone:'success',title:'볼을 골라냈습니다.',text:'스윙하지 않고 볼카운트와 다음 선택을 확보했습니다. 존 밖 확률이 높을 때 지켜보기의 값입니다.'};
     }
-    if(reward)return {tone:'success',title:'다음 공 4 (+1)',text:'지켜보기 보상은 다음 실제 공에서 충전됩니다. 현재 잔량은 그대로입니다.'};
+    if(reward)return {tone:'success',title:'다음 공 4'+(drawLabel?' · '+drawLabel:''),text:'보너스는 다음 실제 공에서 충전합니다. '+(combat.takeDrawBonus===1?'그때 카드 1장도 추가로 뽑습니다.':combat.takeDrawReason==='full'?'손패가 6장 한도라 추가로 뽑지 않습니다.':combat.takeDrawReason==='empty'?'기본 드로우 뒤 추가 카드는 없습니다.':'보너스는 다음 실제 공에서 충전됩니다.')+' 현재 잔량은 그대로입니다.'};
     return {tone:'neutral',title:'스트라이크를 확인했습니다.',text:'카운트 하나를 지불했지만 카드를 쓰지 않았습니다. 다음 공에는 읽기와 남은 스트라이크를 함께 보세요.'};
   }
   const supportOnly=!!revealed.assistOnly||revealed.label==='겹친 카드 단타';

@@ -3,7 +3,7 @@
 **플레이: https://9-baseball.vercel.app/** (Vercel, main push 시 자동 배포 · PR마다 미리보기 URL 자동 생성)
 기존 GitHub Pages(`jjsjb88-alt.github.io/9-baseball/`)는 전환 확인 기간 동안 병행 유지한다. 세이브는 도메인별이라 두 주소 간 이어지지 않는다.
 
-작업 브랜치 `codex/card-energy-20261008`에는 [MAIN RUN 카드 에너지](docs/CARD-ENERGY.md)가 추가됐다. 기본 에너지 3 안에서 준비와 스윙 카드의 비용을 배분하고, [지켜보기 보상](docs/TAKE-REWARD.md)으로 다음 공에 4를 쓸 수 있다. 이 브랜치는 공개 main 배포 전이다.
+작업 브랜치 `codex/card-energy-20261008`에는 [MAIN RUN 카드 에너지](docs/CARD-ENERGY.md)가 추가됐다. 기본 에너지 3 안에서 준비와 스윙 카드의 비용을 배분하고, [지켜보기 보상](docs/TAKE-REWARD.md)으로 다음 공에 4를 쓸 수 있다. [추가 드로우](docs/TAKE-DRAW.md)는 기본 보충 뒤 1장을 더 뽑으며, 이 보상만 손패 6장까지 허용한다. 이 브랜치는 공개 main 배포 전이다.
 
 ## 배포 V8.10 · 덱 설계와 신뢰성 개선 (2026-09-15)
 

@@ -1,6 +1,6 @@
 import React,{useLayoutEffect,useRef,useState} from 'react';
 import {CARDS,LINEUP,cardCost} from './cards.js';
-import {publicProbabilities,v10StackMax,v10PrepMax,v10Energy,v10EnergyCap,v10ActionCost,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
+import {publicProbabilities,v10StackMax,v10PrepMax,v10Energy,v10EnergyCap,v10ActionCost,v10TakeDrawPreview,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
 import {intentLines,hpTicks,ZONE_WORDS,runnerMoves} from './ballpark-copy.js';
 import ZoneLinks from './ZoneLinks.jsx';
 import GimmickVfx from './GimmickVfx.jsx';
@@ -131,10 +131,12 @@ export default function BallparkBattle({
   const stack=canStack?swingStack.filter(x=>x.id!==selected&&byId(x.id)):[];
   const prepLeft=Math.max(0,v10PrepMax(s)-(b.preparations||0));
   const energy=v10Energy(s),energyCap=v10EnergyCap(s),actionCost=selected?choice?.cost??(selected==='basic'?0:cardCost(byId(selected)?.entry)):null;
+  const takeDrawPreview=v10TakeDrawPreview(s),drawHint=takeDrawPreview.count===1?'카드+1':takeDrawPreview.reason==='full'?'6장 한도':'추가 0';
+  const pendingEnergyText=s.phase==='between'?`다음 타자 4 · ${drawHint}`:`다음 공 4 · ${drawHint}`;
   const energyHud=<div className="bp-energy" data-testid="bp-energy" aria-label={`에너지 ${energy}/${energyCap}`}>
     <span>ENERGY</span><strong>{energy}<i>/{energyCap}</i></strong>
     <span className="bp-energy-leds" aria-hidden="true">{Array.from({length:energyCap},(_,i)=><i key={i} className={i<energy?'on':''}/>)}</span>
-    <small>{s.phase==='battle'?(selected?`비용 ${actionCost} · 남음 ${Math.max(0,energy-(actionCost||0))}${actionCost>energy?` · 에너지 부족 ${actionCost-energy}`:''}`:`기본 0 · 지켜보기 0${energyCap===4?' · 보너스 공':''}`):s.battle?.takeEnergyBonus===1?(s.phase==='between'?'다음 타자 첫 공 4 (+1)':'다음 공 4 (+1) 충전'):'다음 공에 3 충전'}</small>
+    <small>{s.phase==='battle'?(selected?`비용 ${actionCost} · 남음 ${Math.max(0,energy-(actionCost||0))}${actionCost>energy?` · 에너지 부족 ${actionCost-energy}`:''}`:s.last?.takeDrawn===1?'충전 · 카드 +1':`기본 0 · 지켜보기 0${energyCap===4?' · 보너스 공':''}`):s.battle?.takeEnergyBonus===1?pendingEnergyText:'다음 공에 3 충전'}</small>
   </div>;
 
   const probs=b.pending?publicProbabilities(s):b.intent?.probabilities||[];
@@ -415,7 +417,7 @@ const CARD_DESC_MAP={
         </div>}
         {lessonPhase==='review'&&<div className="bp-auto-copy review">
           <strong>{reviewText}</strong>
-          <small>{lessonCombat?.connectCount?'CONNECT '+lessonCombat.connectCount+' · 연결 보너스가 실제 피해에 반영됐다.':autoPlan?.kind==='take'?'지켜보기 역시 하나의 빌드 선택이다. 다음 공의 정보와 손패를 산다.':'노린 코스와 실제 공을 비교하고 다음 설계를 바꾼다.'}</small>
+          <small>{lessonCombat?.connectCount?'CONNECT '+lessonCombat.connectCount+' · 연결 보너스가 실제 피해에 반영됐다.':autoPlan?.kind==='take'?(lessonCombat?.takeEnergyBonus===1?'다음 공 에너지 +1을 예약했다. '+(lessonCombat.takeDrawBonus===1?'카드도 한 장 더 뽑는다.':lessonCombat.takeDrawReason==='full'?'손패가 6장 한도라 추가 카드는 없다.':lessonCombat.takeDrawReason==='empty'?'기본 드로우 뒤 추가 카드는 없다.':'다음 공에서 보너스를 사용한다.'):'지켜보기 결과를 확인하고 다음 선택으로 이어간다.'):'노린 코스와 실제 공을 비교하고 다음 설계를 바꾼다.'}</small>
         </div>}
         {!!lessonCards.length&&<div className="bp-auto-plan" aria-label="현재 빌드">
           {lessonCards.map((name,i)=><span key={i}><b>{i+1}</b>{name}{lessonZones[i]?<em>{lessonZones[i]}</em>:null}</span>)}

@@ -62,11 +62,11 @@ describe('V11 result debrief',()=>{
 
   it('shows only the persisted TAKE bonus and explains strikeout and pitcher-out exceptions',()=>{
     const rewardedBall=lessonFor(
-      {choice:'take',verdict:'볼',takeEnergyBonus:1,hpAfter:20},
+      {choice:'take',verdict:'볼',takeEnergyBonus:1,takeDrawBonus:1,hpAfter:20},
       {zone:9,primaryCoverage:[],assistOnly:false,label:'볼'}
     );
     const rewardedWalk=lessonFor(
-      {choice:'take',verdict:'볼넷',takeEnergyBonus:1,hpAfter:20},
+      {choice:'take',verdict:'볼넷',takeEnergyBonus:1,takeDrawBonus:1,hpAfter:20},
       {zone:9,primaryCoverage:[],assistOnly:false,label:'볼넷'}
     );
     const strikeout=lessonFor(
@@ -77,10 +77,19 @@ describe('V11 result debrief',()=>{
       {choice:'take',verdict:'볼',takeEnergyBonus:0,hpAfter:0},
       {zone:9,primaryCoverage:[],assistOnly:false,label:'볼'}
     );
-    expect(rewardedBall.title).toContain('다음 공 4 (+1)');
-    expect(rewardedWalk.title).toContain('다음 타자 첫 공 4 (+1)');
+    expect(rewardedBall.title).toContain('다음 공 4');expect(rewardedBall.title).toContain('카드 +1');
+    expect(rewardedWalk.title).toContain('다음 타자 첫 공 4');expect(rewardedWalk.title).toContain('카드 +1');
     expect(strikeout.title).toContain('보상 없음');
     expect(pitcherOut.title).toContain('보상 없음');
+  });
+
+  it('keeps old draw metadata unknown and explains a confirmed blocked bonus',()=>{
+    const old=lessonFor({choice:'take',verdict:'볼',takeEnergyBonus:1,hpAfter:20},
+      {zone:9,primaryCoverage:[],assistOnly:false,label:'볼'});
+    const full=lessonFor({choice:'take',verdict:'볼',takeEnergyBonus:1,takeDrawBonus:0,takeDrawReason:'full',hpAfter:20},
+      {zone:9,primaryCoverage:[],assistOnly:false,label:'볼'});
+    expect(old.title).not.toContain('카드 +1');expect(old.text).toContain('다음 실제 공에서 충전');
+    expect(full.title).toContain('6장 한도');expect(full.text).toContain('6장 한도');
   });
 
   it('calls out chasing a pitch outside the zone',()=>{
