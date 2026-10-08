@@ -1,6 +1,7 @@
 import React,{useLayoutEffect,useRef,useState} from 'react';
-import {CARDS,LINEUP} from './cards.js';
-import {publicProbabilities,v10StackMax,v10PrepMax,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
+import {CARDS,LINEUP,bandFor,rangeFor,shadeNameFor} from './cards.js';
+import {publicProbabilities,readLevel,knownPitchZones,v10StackMax,v10PrepMax,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
+import {probabilityBounds} from './information.js';
 import {intentLines,hpTicks,ZONE_WORDS,runnerMoves} from './ballpark-copy.js';
 import ZoneLinks from './ZoneLinks.jsx';
 import GimmickVfx from './GimmickVfx.jsx';
@@ -134,6 +135,33 @@ export default function BallparkBattle({
   const probs=b.pending?publicProbabilities(s):b.intent?.probabilities||[];
   const live=b.intent?.repertoire||[0,1,2,3,4,5,6,7,8];
   const inZone=probs.slice(0,9).reduce((a,x)=>a+x,0)||1;
+  /* 읽은 만큼만 숫자로 보인다(레거시 ZoneBoard와 같은 계약): 0등급 명암 낱말 → 1등급 구간 → 2등급 정확한 확률.
+     원천은 같은 publicProbabilities이며, 낮은 등급에 틀린 숫자를 보여주지 않는다.
+     (아래 `pct`보다 먼저 선언되므로 반올림을 직접 계산한다.) */
+  const level=readLevel(s),known=knownPitchZones(s);
+  const showUnused=(s.relics||[]).includes('radar'),exactBall=(s.relics||[]).includes('ledger');
+  const exactPct=z=>Math.round((probs[z]||0)*100);
+  const cellFace=z=>{
+    const dead=!live.includes(z);
+    if(!known.includes(z))return '단서 밖';
+    if(known.length===1&&known.includes(z))return '확정';
+    if(dead&&showUnused)return '안 씀';
+    if(level===0)return shadeNameFor((probs[z]||0)/inZone);
+    if(dead)return '0%';
+    if(level===1)return rangeFor(probs[z]||0);
+    return exactPct(z)+'%';
+  };
+  const bandFace=exactBall||level===2?exactPct(9)+'%':level===1?rangeFor(probs[9]||0):bandFor(probs[9]||0);
+  const hitFaceFor=zones=>{
+    const list=(zones||[]).filter(z=>z<9);
+    if(!list.length)return '';
+    if(level===2)return Math.round(list.reduce((a,z)=>a+(probs[z]||0),0)*100)+'%';
+    const bounds=probabilityBounds(s);let lo=0,hi=0;
+    for(const z of list){lo+=bounds[z][0];hi+=bounds[z][1];}
+    if(hi<1e-9)return '범위 밖';
+    if(lo>1-1e-9)return '확정';
+    return Math.floor(lo*100+1e-9)+'–'+Math.ceil(hi*100-1e-9)+'%';
+  };
   const cover=new Set(judged?r.primaryCoverage||r.coverage||[]:stack.length?choice?.primaryCoverage||[]:(!mainIsSkill&&selected?choice?.coverage||[]:[]));
   const support=new Set(judged?(r.supportCoverages||[]).flatMap(x=>x.coverage):stack.length?(choice?.supportCoverages||[]).flatMap(x=>x.coverage):[]);
   const aimAt=judged?(r.coverage?.length?r.aimZone:null):(selected&&!mainIsSkill?b.aimZone:null);
@@ -189,7 +217,7 @@ export default function BallparkBattle({
     setArmed(null);
     setCommitBeat({
       cards,zones,coverage:coverage.length,
-      hitChance:Math.round(coverage.reduce((sum,z)=>sum+(probs[z]||0),0)*100),
+      hitChance:hitFaceFor(coverage),
       efficiency:Math.round((choice?.damageRate??1)*100),
       connect:links.filter(x=>x.connected).length,
       linkCount:links.length,
@@ -206,8 +234,8 @@ export default function BallparkBattle({
   const rate=liveRate!=null?'피해 ×'+Number(liveRate).toFixed(2).replace(/0$/,''):'';
   const verb=mainIsSkill?'준비한다':'휘두른다';
   /* the verdict before the swing (BP-14): the share of pitches the chosen cells cover, then the HP multiplier */
-  const hitChance=selected&&!mainIsSkill&&choice?.coverage?.length?Math.round(choice.coverage.reduce((a,z)=>a+(z<9?probs[z]||0:0),0)*100):null;
-  const verbSub=!selected?'':mainIsSkill?prepLeft+'회 남음':[hitChance!=null?'적중권 '+hitChance+'%':'',rate].filter(Boolean).join(' · ');
+  const hitCover=selected&&!mainIsSkill&&choice?.coverage?.length?choice.coverage.filter(z=>z<9):[];
+  const verbSub=!selected?'':mainIsSkill?prepLeft+'회 남음':[hitCover.length?'적중권 '+hitFaceFor(hitCover):'',rate].filter(Boolean).join(' · ');
   /* #103 M03: the two numbers break between each other, never inside one ("피해 …" was cut off) */
   const verbSubParts=verbSub.split(' · ');
   /* where the pitch is likely to go, as numbers: the share of every pitch (balls included), shown while deciding */
@@ -381,7 +409,7 @@ const CARD_DESC_MAP={
           {commitBeat.cards.map((name,i)=><span key={i}><b>{i+1}</b>{name}<em>{commitBeat.zones[i]}</em></span>)}
         </div>
         <div className="bp-commit-stats">
-          <span><small>적중권</small><b>{commitBeat.hitChance}%</b></span>
+          <span><small>적중권</small><b>{commitBeat.hitChance}</b></span>
           <span><small>커버</small><b>{commitBeat.coverage}존</b></span>
           <span><small>HP 효율</small><b>{commitBeat.efficiency}%</b></span>
           <span><small>CONNECT</small><b>{commitBeat.connect}/{commitBeat.linkCount}</b></span>
@@ -475,7 +503,7 @@ const CARD_DESC_MAP={
             aria-label={word+(dead?' · 던지지 않는 코스':'')+(b.aimZone===z?' · 노림':'')} aria-pressed={b.aimZone===z}
             className={'bp-cell'+(dead?' dead':'')+(cover.has(z)?' cover':'')+(support.has(z)?' assist':'')+(aimAt===z?' aim':'')+(armed?' target':'')+(actual?' actual'+(good?' good':''):'')}
             style={{'--heat':dead?0:Math.min(1,share*3).toFixed(2)}}>
-            {dead&&!cover.has(z)&&<small className="bp-dead">안 던짐</small>}{!dead&&deciding&&<span className={'bp-pct'+(z===topCell?' top':'')+(pct(z)===0?' zero':'')}>{pct(z)}%</span>}{tok.map(t=><b key={t.n} className="bp-token" data-board-order={t.n}>{t.n}</b>)}{actual&&<i className="bp-pitch-mark" aria-label="실제 공"/>}
+            {dead&&!cover.has(z)&&<small className="bp-dead">안 던짐</small>}{!dead&&deciding&&<span className={'bp-pct'+(z===topCell?' top':'')+(pct(z)===0?' zero':'')}>{cellFace(z)}</span>}{tok.map(t=><b key={t.n} className="bp-token" data-board-order={t.n}>{t.n}</b>)}{actual&&<i className="bp-pitch-mark" aria-label="실제 공"/>}
           </button>;
         })}
         {/* CONNECT: the order links the engine scored, solid = connected (+HP back), dashed = broken */}
@@ -483,7 +511,7 @@ const CARD_DESC_MAP={
         <span className="bp-side l">몸쪽</span><span className="bp-side r">바깥쪽</span>
         {/* the ball band: the ring around the nine cells is where balls go. Swing at one = a whiff,
             watch one = a ball. It is drawn so the out-of-zone pitch has a place players can see. */}
-        <span className={'bp-band'+(outside&&landed?' hit':'')+(lure?' lure':'')} data-testid="bp-band" aria-hidden="true"><em>{lure?'유인구 주의 · 볼 '+pct(9)+'%':'바깥 띠 = 볼'+(deciding?' '+pct(9)+'%':'')}</em></span>
+        <span className={'bp-band'+(outside&&landed?' hit':'')+(lure?' lure':'')} data-testid="bp-band" aria-hidden="true"><em>{lure?'유인구 주의 · 볼 '+bandFace:'바깥 띠 = 볼'+(deciding?' '+bandFace:'')}</em></span>
         {judged&&landed&&outside&&<i className="bp-pitch-mark outside" aria-label="실제 공 · 볼"/>}
       </div>
 

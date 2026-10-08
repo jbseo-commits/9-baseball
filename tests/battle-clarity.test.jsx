@@ -6,7 +6,8 @@ import {act} from 'react';
 import fs from 'node:fs';
 import path from 'node:path';
 import Duel from '../src/duel/App.jsx';
-import {createV10Duel,enterV10Node,saveV10Duel} from '../src/duel/engine.js';
+import {createV10Duel,enterV10Node,saveV10Duel,readLevel} from '../src/duel/engine.js';
+import {COACH_STEPS} from '../src/duel/BallparkCoach.jsx';
 import {BUILDS,CARDS} from '../src/duel/cards.js';
 import {nextHint} from '../src/duel/BallparkBattle.jsx';
 import {runnerMoves} from '../src/duel/ballpark-copy.js';
@@ -54,6 +55,40 @@ describe('battle clarity',()=>{
     for(const pct of document.querySelectorAll('.bp-cell .bp-pct')){
       expect(pct.classList.contains('zero')).toBe(pct.textContent==='0%');
     }
+  });
+
+  it('low reading shows no exact digits on the live board: shades, then ranges, then exact',()=>{
+    // Regression: BallparkBattle rendered raw publicProbabilities as exact % at every
+    // level, bypassing the readLevel contract the legacy ZoneBoard honors.
+    const s=begin();
+    expect(readLevel(s)).toBe(0);
+    const faces=[...document.querySelectorAll('.bp-cell .bp-pct')].map(e=>e.textContent);
+    expect(faces.length).toBeGreaterThan(0);
+    for(const f of faces)expect(f).not.toMatch(/^\d+%$/);
+    expect(document.querySelector('[data-testid="bp-band"]').textContent).not.toMatch(/\d+%/);
+    fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
+    expect(document.querySelector('.bp-verb-sub').textContent).not.toMatch(/적중권 \d+%/);
+  });
+
+  it('a full observation deck earns exact digits back on the same board',()=>{
+    let s=createV10Duel(1);
+    s.build='away';
+    s.deck=['scout','scout','scout','scout','strike','rally','flow','lure','bunt'].map((kind,i)=>({id:'c'+i,kind}));
+    s.nextId=s.deck.length;
+    s=enterV10Node(s,'a1-entry');
+    expect(readLevel(s)).toBe(2);
+    saveV10Duel(localStorage,s);
+    render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
+    const faces=[...document.querySelectorAll('.bp-cell .bp-pct')].map(e=>e.textContent);
+    expect(faces.length).toBeGreaterThan(0);
+    expect(faces.some(f=>/^\d+%$/.test(f))).toBe(true);
+  });
+
+  it('the first-battle coach teaches gated reading and names the bunt exception',()=>{
+    const zone=COACH_STEPS.find(x=>x.title==='9존').text;
+    expect(zone).toContain('자주');
+    expect(zone).not.toContain('실제 확률');
+    expect(COACH_STEPS.find(x=>x.title==='카드 놓기').text).toContain('희생 번트');
   });
 
   it('the pitcher speaking wears her face; the coach keeps the badge otherwise',()=>{

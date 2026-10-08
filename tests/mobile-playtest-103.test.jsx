@@ -102,7 +102,8 @@ describe('#103 M03/M04/M08 — battle text reads whole',()=>{
     fireEvent.click(document.querySelector('.bp-hand .bp-card:not(.basic)'));
     expect(screen.getByTestId('bp-take').querySelector('.bp-verb-word').textContent).toBe('지켜본다');
     const parts=[...screen.getByTestId('bp-swing').querySelectorAll('.bp-verb-sub>span')].map(x=>x.textContent);
-    expect(parts[0]).toMatch(/^적중권 \d+%$/);
+    // Level-0 deck (no observation cards): public range per the readLevel contract.
+    expect(parts[0]).toMatch(/^적중권 \d+–\d+%$/);
     expect(parts[1]).toMatch(/^피해 ×/);
     expect(portrait).toContain('.v14-battle-portrait .bp-verb-word{grid-column:2;white-space:nowrap;min-width:0}');
     expect(portrait).toMatch(/\.bp-verbs:has\(\.bp-info\)\{grid-template-columns:minmax\(0,1\.45fr\) minmax\(136px,1fr\) 40px\}/);

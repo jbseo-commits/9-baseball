@@ -59,7 +59,10 @@ describe('V13 BALLPARK battle',()=>{
     fireEvent.click(cells()[5]);
     expect(readV10Duel(localStorage).battle.aimZone).toBe(5);
     expect(swingBtn().disabled).toBe(false);
-    expect(swingBtn().textContent).toMatch(/^휘두른다적중권 \d+% · 피해 ×/);
+    // Level-0 reading (no observation cards): the board shows the public range,
+    // never exact digits — same contract as the legacy ZoneBoard (App.jsx) and
+    // information.js coverageText. The old /적중권 \d+%/ assertion encoded the leak.
+    expect(swingBtn().textContent).toMatch(/^휘두른다적중권 \d+–\d+% · 피해 ×/);
     expect(cells()[5].classList.contains('aim')).toBe(true);
   });
 
@@ -106,7 +109,8 @@ describe('V13 BALLPARK battle',()=>{
     begin();
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
     const txt=swingBtn().textContent;
-    expect(txt).toMatch(/적중권 \d+%/);
+    // Level-0 deck: gated range, not the exact digit the old assertion pinned.
+    expect(txt).toMatch(/적중권 \d+–\d+%/);
     expect(txt).toMatch(/피해 ×/);
   });
 
