@@ -302,6 +302,7 @@
 .bp-chip.type{background:#2a3152;color:#ece4cf}
 .bp-chip.role{background:#3a2f18;color:var(--bp-sodium)}
 .bp-card-desc{font-size:10px;line-height:1.25;color:#141a33;font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bp-card-desc.over p:last-child{color:#a31212}
 .bp-card span:not(.bp-card-cost):not(.bp-chip):not(.bp-card-desc){font-size:10px;line-height:1.25;color:#141a33;font-weight:600}
 .bp-card.main{
   transform:translateY(-12px) scale(1.02);

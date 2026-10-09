@@ -118,13 +118,25 @@ describe('V13 BALLPARK battle',()=>{
   });
 
   it('a growing stack names its running energy total against the budget',()=>{
-    // Before: the budget (4) appeared only inside the rejection text, so the
-    // player learned it after a refused stack. place(2) + place+(1) = 3/4.
+    // The budget used to appear only inside the rejection text. place(2) alone
+    // already shows it, and place(2) + place+(1) = 3/4 while stacking.
     begin(['c0','c1','c2','c3','c4']);
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
-    expect(swingBtn().textContent).not.toMatch(/에너지/);
+    expect(swingBtn().textContent).toMatch(/에너지 2\/4/);
     fireEvent.click(cards()[1]);fireEvent.click(cells()[2]);
     expect(swingBtn().textContent).toMatch(/에너지 3\/4/);
+  });
+
+  it('a support candidate that would overflow says so with the exact sum',()=>{
+    // strike(3) main + strike(3) candidate = 6/4: the candidate carries the
+    // verdict instead of failing silently at the swing button.
+    begin(['c2','c3','c4','c0','c1']);
+    fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
+    expect(swingBtn().textContent).toMatch(/에너지 3\/4/);
+    expect(cards()[2].textContent).toContain('합치면 3+3=6/4 초과');
+    fireEvent.click(cards()[2]);fireEvent.click(cells()[2]);
+    expect(swingBtn().textContent).toMatch(/에너지 6\/4/);
+    expect(swingBtn().disabled).toBe(true);
   });
 
   it('the take button is always available',()=>{

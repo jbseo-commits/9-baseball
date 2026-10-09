@@ -236,12 +236,12 @@ export default function BallparkBattle({
   /* the verdict before the swing (BP-14): the share of pitches the chosen cells cover, then the HP multiplier */
   const hitCover=selected&&!mainIsSkill&&choice?.coverage?.length?choice.coverage.filter(z=>z<9):[];
   /* stack energy is learned only from the rejection text today: show the running total
-     beside the verdict while a stack is built (solo swings can never exceed it) */
+     beside the verdict whenever a swing is planned, so the budget is visible before adding */
   const energyLimit=s?.version===11?V11_SWING_ENERGY:V10_SWING_ENERGY;
   const stackCost=selected&&!mainIsSkill
     ?cardCost(selected==='basic'?{kind:'basic'}:byId(selected)?.entry)+stack.reduce((n,x)=>n+cardCost(byId(x.id)?.entry),0)
     :0;
-  const energyPart=selected&&!mainIsSkill&&stack.length?'에너지 '+stackCost+'/'+energyLimit:'';
+  const energyPart=selected&&!mainIsSkill?'에너지 '+stackCost+'/'+energyLimit:'';
   const verbSub=!selected?'':mainIsSkill?prepLeft+'회 남음':[hitCover.length?'적중권 '+hitFaceFor(hitCover):'',rate,energyPart].filter(Boolean).join(' · ');
   /* #103 M03: the two numbers break between each other, never inside one ("피해 …" was cut off) */
   const verbSubParts=verbSub.split(' · ');
@@ -358,8 +358,11 @@ const CARD_DESC_MAP={
       ?{backgroundImage:`url(${customArt})`,backgroundPosition:focus?.objectPosition||'center 25%',backgroundSize:'cover'}
       :{backgroundImage:`url(${cardArtSheet})`,backgroundPosition:artPos};
     const cost=cardCost(x.entry);
+    /* a support candidate that would overflow tells so on its face, with the exact sum */
+    const supportCandidate=canStack&&selected&&!mainIsSkill&&selected!==x.id&&inStack<0&&x.entry.kind!=='bunt';
+    const overBudget=supportCandidate&&stackCost+cost>energyLimit;
     const roleTag=def.role||(isSkillCard?'집중':'정확');
-    const descLines=problem?[problem,'']:(CARD_DESC_MAP[x.entry.kind]||[def.gives?.[0]||'스윙 효과',def.gives?.[1]||'']);
+    const descLines=problem?[problem,'']:overBudget?[(CARD_DESC_MAP[x.entry.kind]||[def.gives?.[0]||'스윙 효과'])[0],'합치면 '+stackCost+'+'+cost+'='+(stackCost+cost)+'/'+energyLimit+' 초과']:(CARD_DESC_MAP[x.entry.kind]||[def.gives?.[0]||'스윙 효과',def.gives?.[1]||'']);
 
     return <button key={x.id} type="button" className={'bp-card'+state+(problem?' off':'')+cardKindClass} aria-pressed={selected===x.id||inStack>=0}
       data-card-kind={x.entry.kind} data-card-plus={x.entry.plus?1:0} data-card-problem={problem||undefined} disabled={!deciding} onClick={()=>pickSwing(x.id)}>
@@ -375,7 +378,7 @@ const CARD_DESC_MAP={
           <span className={"bp-chip role r-"+(ROLE_TONE[roleTag]||"plain")}>{roleTag}</span>
         </div>
       </div>
-      <div className="bp-card-desc">
+      <div className={'bp-card-desc'+(overBudget?' over':'')}>
         <p>{descLines[0]}</p>
         {descLines[1]&&<p>{descLines[1]}</p>}
       </div>
