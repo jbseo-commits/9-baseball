@@ -16,9 +16,9 @@ describe('cinematic live bridge',()=>{
   });
 
   it('keeps contact as the only live scene-wide bloom apex',()=>{
-    expect(css).toContain('.bp-scene.fx-stage-slowmo::before');
-    expect(css).not.toContain('.bp-scene.fx-stage-windup::before');
-    expect(css).not.toContain('.bp-scene.fx-stage-impact::before');
+    expect(css).toContain('.bp-scene.fx-stage-slowmo::after');
+    expect(css).not.toContain('.bp-scene.fx-stage-windup::after');
+    expect(css).not.toContain('.bp-scene.fx-stage-impact::after');
     expect(css).not.toContain('.bp-scene.fx-stage-release::before');
   });
 

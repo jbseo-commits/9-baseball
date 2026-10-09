@@ -1,0 +1,114 @@
+.bp-homer-video {
+  box-sizing: border-box;
+  position: fixed;
+  z-index: 2147483000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  padding: max(env(safe-area-inset-top), 12px) max(env(safe-area-inset-right), 12px)
+    max(env(safe-area-inset-bottom), 12px) max(env(safe-area-inset-left), 12px);
+  overflow: hidden;
+  background: #030508;
+  color: #fff8db;
+  isolation: isolate;
+}
+
+.bp-homer-video__media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  background: #030508;
+}
+
+.bp-homer-video__controls {
+  position: absolute;
+  right: max(env(safe-area-inset-right), 18px);
+  bottom: max(env(safe-area-inset-bottom), 18px);
+  display: flex;
+  align-items: end;
+  gap: 12px;
+  max-width: calc(100% - 36px);
+}
+
+.bp-homer-video__status {
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid #796b4d;
+  border-radius: 8px;
+  background: rgb(8 13 18 / 88%);
+  color: #fff8db;
+  font: 600 13px/1.4 system-ui, sans-serif;
+}
+
+.bp-homer-video__skip,
+.bp-homer-preview__actions button {
+  min-width: 104px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid #f1c568;
+  border-radius: 8px;
+  background: #171b20;
+  color: #fff8db;
+  font: 700 15px/1.2 system-ui, sans-serif;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.bp-homer-video__skip:hover,
+.bp-homer-preview__actions button:hover {
+  background: #30343a;
+}
+
+.bp-homer-video__skip:focus-visible,
+.bp-homer-preview a:focus-visible,
+.bp-homer-preview button:focus-visible {
+  outline: 3px solid #ffe29a;
+  outline-offset: 3px;
+}
+
+.bp-homer-preview {
+  box-sizing: border-box;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: max(env(safe-area-inset-top), 24px) 20px max(env(safe-area-inset-bottom), 24px);
+  background: #0b1017;
+  color: #fff8db;
+  font-family: system-ui, sans-serif;
+}
+
+.bp-homer-preview__back {
+  display: inline-block;
+  margin-bottom: 28px;
+  color: #f1c568;
+}
+
+.bp-homer-preview h1 {
+  margin: 0 0 8px;
+  font-size: clamp(24px, 5vw, 40px);
+}
+
+.bp-homer-preview p {
+  color: #d1d3d5;
+}
+
+.bp-homer-preview__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bp-homer-video,
+  .bp-homer-video * {
+    scroll-behavior: auto;
+    animation: none !important;
+    transition: none !important;
+  }
+}
