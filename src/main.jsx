@@ -5,6 +5,7 @@ import CinematicV2Showcase from "./duel/CinematicV2Showcase.jsx";
 import ErrorBoundary from "./duel/ErrorBoundary.jsx";
 import PortraitFrame from "./duel/PortraitFrame.jsx";
 import { layoutMode, watchLayoutMode } from "./duel/layout-mode.js";
+import "./duel/tokens.css";
 import "./duel/stack-direct-tap.js";
 import "./duel/landscape-first.css";
 import "./duel/landscape-scroll-fix.css";
@@ -31,6 +32,7 @@ import "./duel/title-pixel.css";
 import "./duel/cinematic-director.css";
 import "./duel/cinematic-commit-handoff.css";
 import "./duel/cinematic-pitch-handoff.css";
+import "./duel/hud-clarity.css";
 
 watchLayoutMode();
 const showcase=new URLSearchParams(window.location.search).get("showcase")==="cinematic-v2";
