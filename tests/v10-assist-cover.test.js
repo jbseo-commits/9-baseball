@@ -9,6 +9,10 @@ function armed(aimZone=0){
   let s=createV10Duel(20260917);
   s=enterV10Node(s,'a1-entry');
   s=setAimZone(s,aimZone);
+  // Stack/assist mechanics under test need c0/c1 in hand; the opening deal
+  // is seeded since P1, so pin them here instead of assuming the old fixed hand.
+  const b=s.battle,pool=[...b.hand,...b.draw,...b.discard].filter(id=>id!=='c0'&&id!=='c1');
+  b.hand=['c0','c1',...pool.slice(0,3)];b.draw=pool.slice(3);b.discard=[];
   return s;
 }
 

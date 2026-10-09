@@ -137,13 +137,11 @@ export function startBattle(state){
   const live=repertoire(s);
   if(!live.includes(s.battle.aimZone))
     s.battle.aimZone=live.reduce((best,z)=>Math.abs(z-s.battle.aimZone)<Math.abs(best-s.battle.aimZone)?z:best,live[0]);
-  // The fixed opening hand only holds while those cards are still in the deck. 1막의 모든 노드가
-  // stage 0이라 라커룸에서 c0을 빼면 그 뒤 전투가 덱에 없는 id를 손패에 얹고 화면이 죽었다.
-  if(s.stage===0){
-    const opening=['c0','c1','c2','c3','c4'].filter(id=>s.deck.some(c=>c.id===id));
-    s.battle.hand=opening;s.battle.draw=s.battle.draw.filter(id=>!opening.includes(id));
-    if(opening.length<HAND_OPEN)draw(s,HAND_OPEN-opening.length);
-  }else draw(s,HAND_OPEN);
+  // Opening hands are dealt, not fixed: every battle opens with a seeded shuffle of its
+  // live deck, so no two seeds start alike and earned cards can appear from the first fight.
+  // Dealing only from deck ids keeps the old crash (a hand id missing from the deck)
+  // impossible by construction; loads additionally drop stale ids (v10NormalizeHand).
+  draw(s,HAND_OPEN);
   dealPitch(s);s.last={kind:'start',text:'1번 강한결 입장 · 경향을 읽고 노릴 존과 스윙을 고르세요.',events:[],runs:0,outs:0};return s;
 }
 export function setAimZone(state,zone){

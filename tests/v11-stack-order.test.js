@@ -8,6 +8,10 @@ function armed(version=10){
   let s=createV10Duel(20260919);
   s=enterV10Node(s,'a1-entry');
   s.version=version;
+  // Order/connect mechanics under test address c0–c4; the opening deal is
+  // seeded since P1, so pin them here instead of assuming the old fixed hand.
+  const b=s.battle,ids=['c0','c1','c2','c3','c4'],pool=[...b.hand,...b.draw,...b.discard].filter(id=>!ids.includes(id));
+  b.hand=[...ids,...pool.slice(0,0)];b.draw=pool;b.discard=[];
   return setAimZone(s,0);
 }
 

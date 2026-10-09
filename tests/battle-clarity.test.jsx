@@ -149,6 +149,10 @@ describe('battle clarity',()=>{
     s.deck[1]=Object.assign({},s.deck[1],{plus:true}); // upgrade second place
     s.nextId=s.deck.length;
     s=enterV10Node(s,'a1-entry');
+    // Stack addressing needs c0(place)/c1(place+) in hand; the opening deal
+    // is seeded since P1, so pin them here.
+    s.battle.hand=['c0','c1','c2','c3','c4'];
+    s.battle.draw=s.battle.draw.filter(id=>!s.battle.hand.includes(id));
     saveV10Duel(localStorage,s);
     render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);

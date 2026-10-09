@@ -56,7 +56,7 @@ describe('9-zone strategic UI',()=>{
     begin();expect(screen.getByRole('group',{name:'노릴 코스'}).querySelectorAll('button')).toHaveLength(9);
     expect(screen.getByRole('group',{name:'노릴 코스'}).textContent.match(/★ 숙련/g)).toHaveLength(4);
     expect(screen.getByLabelText('타자 투수 스탯').textContent).toContain('안타 취소 없음');
-    fireEvent.click(screen.getByRole('button',{name:'스윙하기',exact:true}));fireEvent.click(screen.getByRole('button',{name:'밀어치기',exact:true}));
+    fireEvent.click(screen.getByRole('button',{name:'스윙하기',exact:true}));fireEvent.click(screen.getAllByRole('button',{name:'밀어치기',exact:true})[0]);
     expect(screen.getByText('타격 범위 적중 = 안타 확정')).toBeTruthy();
     const before=readDuel(localStorage).battle.pending;fireEvent.click(screen.getByRole('button',{name:'몸쪽 중간',exact:true}));
     expect(readDuel(localStorage).battle.pending).toEqual(before);expect(readDuel(localStorage).battle.aimZone).toBe(3);
@@ -140,7 +140,7 @@ describe('9-zone strategic UI',()=>{
     expect(arena.querySelector('.pixel-cinema')).toBeNull();
     expect(arena.querySelector('canvas.pixel-vfx-canvas')).toBeNull();
     fireEvent.click(screen.getByRole('button',{name:'스윙하기',exact:true}));
-    fireEvent.click(screen.getByRole('button',{name:'밀어치기',exact:true}));
+    fireEvent.click(screen.getAllByRole('button',{name:'밀어치기',exact:true})[0]);
     fireEvent.click(screen.getByTestId('execute-action'));
     expect([...arena.classList].some(c=>c.startsWith('shake-'))).toBe(false);
     expect(document.querySelector('.slowmo-mark')).toBeNull();

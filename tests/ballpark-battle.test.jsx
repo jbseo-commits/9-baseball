@@ -13,7 +13,7 @@ import {intentLines,hpTicks} from '../src/duel/ballpark-copy.js';
 beforeEach(()=>{localStorage.clear()});
 afterEach(()=>{cleanup()});
 
-function begin(ng=true){
+function begin(hand){
   let s=createV10Duel(1);
   s.build='away';s.deck=['place','place','strike','rally','strike','bunt','place','place','place','place','place','place'].map((kind,i)=>({id:'c'+i,kind}));
   s.deck[1]=Object.assign({},s.deck[1],{plus:true});
@@ -21,6 +21,9 @@ function begin(ng=true){
   s.deck[6]=Object.assign({},s.deck[6],{plus:true});
   s.nextId=s.deck.length;
   s=enterV10Node(s,'a1-entry');
+  // Stack mechanics under test address c0(place)/c1(place+); the opening deal
+  // is seeded since P1, so pin the hand here instead of assuming deck order.
+  if(hand){const pool=[...s.battle.hand,...s.battle.draw,...s.battle.discard].filter(id=>!hand.includes(id));s.battle.hand=[...hand,...pool.slice(0,5-hand.length)];s.battle.draw=pool.slice(5-hand.length);s.battle.discard=[];}
   saveV10Duel(localStorage,s);
   render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
   return s;
@@ -67,7 +70,7 @@ describe('V13 BALLPARK battle',()=>{
   });
 
   it('a second card waits for its own zone and joins as support ②',()=>{
-    begin();
+    begin(['c0','c1','c2','c3','c4']);
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
     fireEvent.click(cards()[1]);
     expect(cards()[1].classList.contains('armed')).toBe(true);
@@ -79,7 +82,7 @@ describe('V13 BALLPARK battle',()=>{
   });
   it('locks a multi-card plan before the pitch actually resolves',()=>{
     vi.useFakeTimers();
-    const before=begin().stats.pitches;
+    const before=begin(['c0','c1','c2','c3','c4']).stats.pitches;
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
     fireEvent.click(cards()[1]);fireEvent.click(cells()[2]);
     fireEvent.click(swingBtn());
@@ -117,7 +120,7 @@ describe('V13 BALLPARK battle',()=>{
   it('a growing stack names its running energy total against the budget',()=>{
     // Before: the budget (4) appeared only inside the rejection text, so the
     // player learned it after a refused stack. place(2) + place+(1) = 3/4.
-    begin();
+    begin(['c0','c1','c2','c3','c4']);
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
     expect(swingBtn().textContent).not.toMatch(/에너지/);
     fireEvent.click(cards()[1]);fireEvent.click(cells()[2]);
