@@ -64,7 +64,7 @@ describe('V12 P0-3 design-token definitions',()=>{
   it('is imported exactly once, from main.jsx, before every other stylesheet',()=>{
     let found='';
     try{
-      found=execFileSync('git',['grep','-n','tokens.css','--','src'],{cwd:ROOT,encoding:'utf8'});
+      found=execFileSync('git',['grep','-nE','import .*tokens\.css','--','src'],{cwd:ROOT,encoding:'utf8'});
     }catch(error){
       if(error.status!==1)throw error;
     }
