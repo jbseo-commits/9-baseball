@@ -590,7 +590,7 @@ const CARD_DESC_MAP={
 
     {onNext&&!deciding&&s.phase!=='battle'?<div className="bp-verbs next">
       {/* #103 M04: the hint names the same step as the verb (it said "next pitch" under "next batter") */}
-      <button type="button" className="bp-verb go" data-testid="bp-next" disabled={inFx} onClick={onNext}><span className="bp-verb-word">{nextLabel}</span>{nextHint(s.phase,inFx)&&<small className="bp-verb-sub"><span>{nextHint(s.phase,inFx)}</span></small>}</button>
+      <button type="button" className="bp-verb go" data-testid="bp-next" disabled={inFx||locked} onClick={onNext}><span className="bp-verb-word">{nextLabel}</span>{nextHint(s.phase,inFx||locked)&&<small className="bp-verb-sub"><span>{nextHint(s.phase,inFx||locked)}</span></small>}</button>
     </div>:<div className="bp-verbs">
       <button type="button" className="bp-verb go" data-testid="bp-swing" disabled={!deciding||!selected||!!choice?.problem} onClick={commitSwing}>
         <span className="bp-verb-word">{verb}</span>{verbSub&&<small className="bp-verb-sub">{verbSubParts.map((x,i)=><React.Fragment key={i}>{i>0&&<i className="bp-verb-sep" aria-hidden="true"> · </i>}<span>{x}</span></React.Fragment>)}</small>}

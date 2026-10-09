@@ -2,6 +2,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import Duel from "./duel/App.jsx";
 import CinematicV2Showcase from "./duel/CinematicV2Showcase.jsx";
+import {HomerunVideoPreview} from "./duel/HomerunVideo.jsx";
 import ErrorBoundary from "./duel/ErrorBoundary.jsx";
 import PortraitFrame from "./duel/PortraitFrame.jsx";
 import { layoutMode, watchLayoutMode } from "./duel/layout-mode.js";
@@ -27,17 +28,18 @@ import "./duel/v12-polish.css";
 import "./duel/v14-portrait-master.css";
 import "./duel/portrait-lock.css";
 import "./duel/battle-clarity.css";
-import "./duel/title-pixel.css";
 import "./duel/cinematic-director.css";
 import "./duel/cinematic-commit-handoff.css";
 import "./duel/cinematic-pitch-handoff.css";
+import "./duel/title-pixel.css";
 
 watchLayoutMode();
 const showcase=new URLSearchParams(window.location.search).get("showcase")==="cinematic-v2";
+const homerPreview=new URLSearchParams(window.location.search).get("showcase")==="homer-video";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {showcase ? (
+    {homerPreview ? <ErrorBoundary><HomerunVideoPreview /></ErrorBoundary> : showcase ? (
       <ErrorBoundary><CinematicV2Showcase /></ErrorBoundary>
     ) : layoutMode() === "frame" ? <PortraitFrame /> : (
       <ErrorBoundary>

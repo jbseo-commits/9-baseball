@@ -33,6 +33,7 @@ import StackResolve,{stackResolveDuration} from './StackResolve.jsx';
 import StackRouteEcho from './StackRouteEcho.jsx';
 import BattleReadout from './BattleReadout.jsx';
 import BallparkBattle from './BallparkBattle.jsx';
+import HomerunVideo,{isHomerVideoEligible} from './HomerunVideo.jsx';
 /* the main-run batter is the V15 target-mockup hero (batter-v15.js); the V14 3x3 sheet stays BallparkBattle's default */
 import {BATTER_V15_SHEET,BATTER_V15_RIG,sheetCellStyle} from './batter-v15.js';
 import BallparkMap from './BallparkMap.jsx';
@@ -817,6 +818,7 @@ export default function Duel(){
   const [build,setBuild]=useState(DECKBUILDER_BUILD),[trialSeed,setTrialSeed]=useState('20260910');
   const [s,setS]=useState(initial.save),[screen,setScreen]=useState(()=>initial.preview?'run':typeof window!=='undefined'&&new URLSearchParams(window.location.search).get('cinema')==='1'?'cinema':'menu'),[modal,setModal]=useState(null),[selected,setSelected]=useState(null),[swingStack,setSwingStack]=useState([]),[stackEdit,setStackEdit]=useState(null),[decisionMode,setDecisionMode]=useState(null),[tour,setTour]=useState({open:false,step:0}),[tourRect,setTourRect]=useState(null),[fx,setFx]=useState(null),[fxStage,setFxStage]=useState(null),[stackResolve,setStackResolve]=useState(null),[frame,setFrame]=useState(0),[error,setError]=useState(initial.error||''),[sound,setSound]=useState(false);
   const current=useRef(s),lock=useRef(false),timers=useRef([]),tourDismissed=useRef(false);
+  const [homerVideo,setHomerVideo]=useState(null),homerVideoActive=useRef(false),presentationActive=useRef(false);
   const [cardDetail,setCardDetail]=useState(null),detailOpener=useRef(null);
   const [fxImpactAt,setFxImpactAt]=useState(0);
   // Experimental tutorial: keep the real V10 rules, but teach the loop as
@@ -896,7 +898,7 @@ export default function Duel(){
   // switching swing <-> prepare reorders the hand; keep the chosen card (or the start of the row) in view
   useEffect(()=>{if(!decisionMode||decisionMode==='watch')return;const id=requestAnimationFrame(()=>{const hand=document.querySelector('.card-drawer .duel-hand');if(!hand)return;const sel=hand.querySelector('.duel-card.selected');if(sel)sel.scrollIntoView?.({block:'nearest',inline:'nearest'});else hand.scrollLeft=0;});return()=>cancelAnimationFrame(id);},[decisionMode]);
   useEffect(()=>installCardDetailGestures(window,(d,el)=>{detailOpener.current=el;setCardDetail(cardDetailOf(d.kind,d.plus,d.problem));}),[]);
-  useEffect(()=>{const close=e=>{if(e.key==='Escape'){setModal(null);setDecisionMode(null);setSelected(null);setSwingStack([]);setStackEdit(null);tourDismissed.current=true;try{localStorage.setItem(TOUR_KEY,'done')}catch{}setTour(t=>t.open?{open:false,step:0}:t);}};window.addEventListener('keydown',close);return()=>window.removeEventListener('keydown',close)},[]);
+  useEffect(()=>{const close=e=>{if(homerVideoActive.current)return;if(e.key==='Escape'){setModal(null);setDecisionMode(null);setSelected(null);setSwingStack([]);setStackEdit(null);tourDismissed.current=true;try{localStorage.setItem(TOUR_KEY,'done')}catch{}setTour(t=>t.open?{open:false,step:0}:t);}};window.addEventListener('keydown',close);return()=>window.removeEventListener('keydown',close)},[]);
   useEffect(()=>{if(!showBattle||isV10||s?.phase!=='battle'||tour.open||tourDismissed.current)return;try{if(localStorage.getItem(TOUR_KEY)==='done')return;}catch{}setTour({open:true,step:0});},[showBattle,s?.phase,tour.open]);
   useEffect(()=>{
     if(!tour.open||!tourStep){setTourRect(null);return;}
@@ -933,22 +935,30 @@ export default function Duel(){
   }
   function startPresentation(next){
     const shot=presentationFor(next),reduced=next.version!==10||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    const withVideo=isHomerVideoEligible({version:next.version,grade:shot?.grade,reduced});
+    presentationActive.current=true;homerVideoActive.current=withVideo;
+    setHomerVideo(withVideo?{token:(next.stats?.pitches||0)+'-'+Date.now()}:null);
     const pitchJudgement=!!next.battle?.revealed&&next.last?.kind!=='skill';
     const nextNode=next.runMap?.nodes?.find(n=>n.id===next.runMap.currentNodeId);
     const baseTimeline=presentationTimeline(shot,reduced);
     const timeline=withKnockoutHold(pitcherAtlases[nextNode?.opponent?.artId]&&pitchJudgement?redRushTimeline(baseTimeline,reduced):baseTimeline,next.version===10&&pitchJudgement&&!reduced&&next.pitcher?.hp===0);
     lock.current=true;revealArena();setFxImpactAt(timeline.impactAt||0);setFx(next.last);setFxStage('windup');setFrame(1);
-    if(sound)cue(pitchJudgement?'pitch':shot?.cue||next.last.kind);
+    if(sound&&!withVideo)cue(pitchJudgement?'pitch':shot?.cue||next.last.kind);
     const stakes=stakesFor(next),scheduled=[
-      setTimeout(()=>{setFxStage('impact');setFrame(2);if(sound&&pitchJudgement)cue(shot?.cue||next.last.kind);haptic(timeline.haptic);},timeline.impactAt)
+      setTimeout(()=>{setFxStage('impact');setFrame(2);if(sound&&pitchJudgement&&!withVideo)cue(shot?.cue||next.last.kind);haptic(timeline.haptic);},timeline.impactAt)
     ];
     if(timeline.slowmo>0)scheduled.push(setTimeout(()=>setFxStage('slowmo'),timeline.impactAt+timeline.freeze));
     scheduled.push(
       setTimeout(()=>setFxStage('release'),timeline.releaseAt),
-      setTimeout(()=>{setFxStage('settle');if(sound&&stakes)cue(stakes);if(stakes==='game-win')haptic([12,22,28]);if(stakes==='champion'||stakes==='rival-champion')haptic([18,18,38,24,58]);},timeline.settleAt),
-      setTimeout(()=>{setFx(null);setFxStage(null);setFrame(0);lock.current=false;timers.current=[]},timeline.duration)
+      setTimeout(()=>{setFxStage('settle');if(sound&&stakes&&!withVideo)cue(stakes);if(stakes==='game-win')haptic([12,22,28]);if(stakes==='champion'||stakes==='rival-champion')haptic([18,18,38,24,58]);},timeline.settleAt),
+      setTimeout(()=>{setFx(null);setFxStage(null);setFrame(0);presentationActive.current=false;lock.current=homerVideoActive.current;timers.current=[]},timeline.duration)
     );
     timers.current.push(...scheduled);
+  }
+  function finishHomerVideo(){
+    homerVideoActive.current=false;setHomerVideo(null);
+    // A very early skip still waits for the original short result presentation.
+    lock.current=presentationActive.current;
   }
   function act(fn,animate=false,resolvePlan=null){
     if(lock.current||tour.open)return;
@@ -1033,7 +1043,7 @@ export default function Duel(){
     {error&&<div className="save-error" role="alert">{error}<button onClick={()=>s&&persist(s)}>저장 재시도</button></div>}
     {screen==='cinema'?<CinemaLab sound={sound} onBack={()=>setScreen('menu')}/>
     :screen==='menu'?<TitleScreen key="screen-title" run={titleRun||titleTutorial} onNew={()=>titleRun&&!titleRun.ended?setModal('new10'):freshV10()} onContinue={()=>{if(titleRun){persist(titleSave);setScreen('run')}else if(titleTutorial)setScreen('run')}} onDeck={()=>{if(titleRun)persist(titleSave);if(titleRun||titleTutorial)setModal('deck')}} onDex={e=>openPitcher(pitcherRoster[0],e)} onSettings={()=>setModal('settings')}/>
-:showBattle&&isV10?<BallparkBattle key="screen-bp-battle" s={s} hand={hand} selected={selected} swingStack={swingStack} choice={choice} locked={!!stackResolve}
+:showBattle&&isV10?<BallparkBattle key="screen-bp-battle" s={s} hand={hand} selected={selected} swingStack={swingStack} choice={choice} locked={!!stackResolve||!!homerVideo}
       label={v10Node?.act+'막'} pitcher={s.pitcher}
       pitcherArt={pitcherAtlas?<PitcherAtlasSprite atlas={pitcherAtlas} stage={fxStage} shot={fxPresentation} playToken={s.stats.pitches}/>:<Sprite who="pitcher" stage={fxStage} shot={fxPresentation} golden variant={pitcherForm} playToken={s.stats.pitches}/>}
       batterArt={<Sprite who="batter" stage={fxStage} shot={fxPresentation} golden playToken={s.stats.pitches} syncRedRush={redRushEncounter} sheet={BATTER_V15_SHEET}/>}
@@ -1073,6 +1083,7 @@ export default function Duel(){
       cleared={s.runMap.completedNodeIds.length} hits={s.stats.hits} pitches={s.stats.pitches} onAgain={freshV10} onTitle={()=>setScreen('menu')} onInspect={(p,e)=>openPitcher(s.v10?.opponent,e)}/>
     :<main key="screen-result-b" className="duel-result stadium"><span className="eyebrow">{s.phase==='won'?'EVERYBODY HOME':'THREE OUTS'}</span><h1>{s.phase==='won'?'타순을 연결해, 경기를 뒤집었다.':'베이스에 남겨 둔 가능성.'}</h1><p>{s.victories}/4 승부 · 총 {s.stats.runs}득점 · 완료 타석 {s.stats.appearances}회 · {s.stats.pitches}구</p><p>{BUILDS[s.build].name} · 안타 {s.stats.hits} · 볼넷 {s.stats.walks} · 파울 {s.stats.fouls} · 헛스윙 {s.stats.whiffs}</p><GrowthSummary s={s}/><RunStory s={s}/>{s.build===DECKBUILDER_BUILD?<><p className="growth-run-summary">내가 만든 덱 · 시작 9장 → 최종 {s.deck.length}장 · 카드 추가 {s.rewards.filter(r=>r.type==='add').length} / 시설 {s.facilities?.length||0}회 / 유물 {s.relics.length}</p><p className="route-run-summary">상대 선택 · {s.routeHistory?.map((id,i)=>routeChoice(i,id)?.name).filter(Boolean).join(' → ')||'없음'} · 고위험 승리 {s.routeHistory?.filter((id,i)=>(routeChoice(i,id)?.statBonus||0)>0).length||0}회</p></> :<p className="growth-run-summary">성장이 만든 플레이 · 기다림 승부 {s.growthStats.patienceSwings}회 / 연결 안타 {s.growthStats.relayHits}회 / 행운 해방 {s.growthStats.fortuneUses}회</p>}{s.phase==='lost'&&<p>잔루 {b.bases.filter(Boolean).length}명. 출루는 성공했지만, 홈으로 돌려보내지 못했습니다.</p>}<button className="primary" onClick={fresh}>다시 도전</button><button onClick={()=>setModal('deck')}>덱 보기</button></main>}
     <CardDetailSheet detail={cardDetail} onClose={closeCardDetail}/>
+    {homerVideo&&<HomerunVideo key={homerVideo.token} sound={sound} onFinish={finishHomerVideo}/>}
     {guide&&<WelcomeGuide start={guide.start} onClose={()=>setGuide(null)} onCards={()=>{setGuide(null);setModal('help')}}/>}
     {orderOpen&&decisionMode==='swing'&&choice?.stackPlan&&<OrderSheet plan={choice.stackPlan} plusOf={id=>!!byId(id)?.plus} onMove={moveStackOrder} onRecall={id=>{setSwingStack(xs=>xs.filter(x=>x.id!==id));if(stackEdit===id)setStackEdit(null);}} onClose={closeOrder}/>}
     {modal&&<div className="duel-backdrop" onClick={()=>setModal(null)}><section className="duel-modal" role="dialog" aria-modal="true" aria-label={modal==='help'?'플레이 방법':modal==='lineup'?'타순':modal==='jukebox'?'BGM 주크박스':modal==='settings'?'설정':modal==='new10'?'새로운 게임':'카드 정보'} onClick={e=>e.stopPropagation()}><button className="modal-close" aria-label="닫기" onClick={()=>setModal(null)}>×</button>{modal==='settings'?<div className="title-settings"><h2>설정</h2><section className="ts-set-group" aria-label="사운드"><h3>사운드</h3><div className="ts-set-row"><button aria-label={'소리 '+(sound?'켜짐':'꺼짐')} aria-pressed={sound} onClick={handleToggleSound}>효과음 {sound?'켜짐':'꺼짐'}</button><button aria-label="BGM 음악 주크박스" onClick={()=>setModal('jukebox')}>BGM 주크박스 · {getCurrentTrackIndex()+1}번</button></div></section><section className="ts-set-group" aria-label="도움말"><h3>도움말</h3><div className="ts-set-row"><button onClick={()=>{setModal(null);setGuide({start:0})}}>게임 방법</button><button onClick={()=>setModal('help')}>카드 도감 · 상세 규칙</button></div></section><section className="title-tutorial" aria-label="튜토리얼"><span className="title-tutorial-label">튜토리얼 · 규칙 익히기</span><p>규칙만 빠르게 익히거나, 실제 MAIN RUN 전투로 ‘설계 → 자동 실행 → 복기’ 흐름을 먼저 체험할 수 있습니다.</p><div className="build-picker v9-build-picker" aria-label="런 방식">{Object.entries(BUILDS).map(([key,d])=><button key={key} aria-pressed={build===key} onClick={()=>setBuild(key)}><span className="build-mode">{key===DECKBUILDER_BUILD?'튜토리얼 · 덱 만들기':'튜토리얼 · 완성형 체험'}</span><strong>{d.name}</strong><small>{d.description}</small></button>)}</div><label className="trial-seed">비교용 시드 <input aria-label="비교용 시드" type="number" min="0" max="4294967295" value={trialSeed} onChange={e=>setTrialSeed(e.target.value)}/><span>같은 시드 = 같은 첫 투구 · 이후 카운트에 따라 변화</span></label><div className="title-actions"><button className="auto-tutorial-entry" onClick={()=>freshAutoLesson()}>전략 → 자동전투 체험</button><button onClick={()=>s&&!['won','lost'].includes(s.phase)?setModal('new'):fresh()}>기존 튜토리얼</button>{typeof window!=='undefined'&&window.location.pathname.includes('/preview/')&&<button className="cinema-entry" onClick={()=>setScreen('cinema')}>✦ 연출 검수실</button>}</div></section></div>:modal==='new10'?<div className="title-confirm"><h2>새 런을 시작할까요?</h2><p>진행 중인 런{titleRun?` (${titleRun.act}막 · 덱 ${titleRun.deck}장)`:''}은 지워지고 1막부터 다시 시작합니다.</p><div className="ts-set-row"><button className="primary" onClick={()=>{setModal(null);freshV10()}}>처음부터 시작</button><button onClick={()=>setModal(null)}>취소</button></div></div>:modal==='jukebox'?<BgmJukebox sound={sound} onToggleSound={handleToggleSound} onClose={()=>setModal(null)}/>:modal==='new'?<><h2>진행 중인 런을 새로 시작할까요?</h2><p>현재 V9 개발 저장만 교체합니다. 배포된 V8 및 이전 v5/v6/v7 저장은 유지됩니다.</p><button className="primary" onClick={fresh}>새 런으로 교체</button></>:modal==='lineup'?<><span className="eyebrow">BATTING ORDER</span><h2>오늘의 9명 타순</h2><div className="lineup-modal">{LINEUP.map((p,i)=><div key={p.id} className={b&&i===b.batterIndex?'at-bat':b?.bases.includes(p.id)?'on-base':''}><span>{i+1}</span><strong>#{p.number} {p.name}</strong><small>{b&&i===b.batterIndex?'현재 타자':b?.bases.includes(p.id)?'출루':'대기'}</small></div>)}</div></>:modal==='help'?<><span className="eyebrow">READ → BET → REVEAL → IMPACT</span><h2>주자와 아웃을 보고, 손패의 조합을 비교하세요.</h2><div className="combo-example">① 전광판과 투수 의도를 읽기<br/>② 준비하기 / 스윙하기 / 한 구 지켜보기 중 하나 선택<br/>③ 스윙 카드를 9존에 놓기 → 커버 확인 → 스윙<br/>④ 실제 공 확인 → 다음 공 또는 다음 타자 입장</div>{(()=>{const f=helpFacts();return <><p>준비 카드는 한 타석 최대 2회이며 투구를 소비하지 않습니다. MAIN RUN은 공격 카드를 9존에 직접 놓습니다. 첫 카드는 타격 효과를 내고 추가 카드는 커버가 됩니다. 피해 효율은 {f.stack}이며 배치한 카드는 모두 소비됩니다. {f.continuesAtBat.join('·')}이면 같은 타자가 계속, {f.endsAtBat.join('·')}이면 타석 종료.</p><h3>조작</h3><dl className="help-controls">{f.controls.map(([k,v])=><div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl></>;})()}<button className="primary" disabled={!showBattle||s?.phase!=='battle'} onClick={reopenTour}>웰컴 가이드 다시 보기</button>{(!showBattle||s?.phase!=='battle')&&<p>승부 중 다음 공을 선택하는 화면에서 가이드를 열 수 있습니다.</p>}<h3>성장 · 같은 카드를 다르게 쓴다</h3>{Object.entries(GROWTHS).map(([key,g])=><p key={key}><b>{g.name}</b> — {g.ranks[0]}</p>)}{GLOSSARY.map(([term,text])=><p key={term}><b>{term}</b> — {text}</p>)}<h3>카드 도감 · {helpFacts().cardCount}종</h3><p className="collection-hint">카드를 누르면 원문 규칙 · 강화 · 겹치기 규칙이 열립니다.</p><div className="collection">{Object.keys(CARDS).map(kind=><Card key={kind} kind={kind} onClick={e=>{detailOpener.current=e.currentTarget;setCardDetail(cardDetailOf(kind,false));}}/>)}</div></>:pile?<><h2>{modal==='deck'?<>행동 카드 덱 <small className="deck-modal-sub">({pile.length}장)</small></>:{deck:'행동 카드 덱 · 선수와 별개',draw:'뽑을 카드 · 순서 비공개',discard:'버린 카드'}[modal]}</h2><div className="collection">{[...pile].sort((a,b)=>a.kind.localeCompare(b.kind)).map(c=><Card key={c.id} kind={c.kind} plus={c.plus} onClick={e=>{detailOpener.current=e.currentTarget;setCardDetail(cardDetailOf(c.kind,!!c.plus));}}/>)}</div>{!pile.length&&<p>비어 있습니다.</p>}</>:null}</section></div>}
