@@ -165,15 +165,28 @@ describe('V13 BALLPARK BP-2 pitch in the scene',()=>{
       expect(document.querySelector('.bp-verdict')).toBeNull();
     }
   });
-  it('replaces the dead result hand with PLAN → ACTUAL → NEXT causal debrief',()=>{
+  it('names the HP a non-hit cost on the verdict plate, using the engine damage',()=>{
+    vi.useFakeTimers();
+    let s=createV10Duel(1);s=enterV10Node(s,'a1-entry');s.battle.pending={zone:5,roll:.99,powerRoll:.5};
+    saveV10Duel(localStorage,s);
+    render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
+    fireEvent.click(document.querySelector('.bp-hand .bp-card.basic'));fireEvent.click(cells()[4]);fireEvent.click(swingBtn());
+    let seen='';
+    for(let t=0;t<40&&!seen;t++){act(()=>{vi.advanceTimersByTime(150)});seen=document.querySelector('.bp-verdict small')?.textContent||'';}
+    const dmg=readV10Duel(localStorage).v10.lastCombat.damage;
+    expect(readV10Duel(localStorage).battle.revealed.kind).toBe('whiff');
+    expect(dmg).toBeGreaterThan(0);
+    expect(seen).toContain('투수 HP -'+dmg);
+  });
+  it('replaces the dead result hand with 내 선택 → 실제 공 → 다음엔 causal debrief',()=>{
     vi.useFakeTimers();
     begin();
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);fireEvent.click(swingBtn());
     act(()=>{vi.advanceTimersByTime(6000)});
     const d=screen.getByTestId('bp-debrief');
-    expect(d.textContent).toContain('PLAN');
-    expect(d.textContent).toContain('ACTUAL');
-    expect(d.textContent).toContain('NEXT');
+    expect(d.textContent).toContain('내 선택');
+    expect(d.textContent).toContain('실제 공');
+    expect(d.textContent).toContain('다음엔');
     expect(d.textContent).toMatch(/HP -\d+|스트라이크|볼|안타|파울|아웃|헛스윙/);
     expect(document.querySelector('.bp-hand')).toBeNull();
     expect(screen.getByTestId('bp-next').disabled).toBe(false);

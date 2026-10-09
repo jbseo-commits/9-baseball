@@ -1,0 +1,22 @@
+/* Battle readability · portrait ballpark battle.
+   Scope: .v14-battle-portrait .bp-battle … only. No !important, no global selectors. Values from tokens.css.
+   - 흔들림: the label was font-size:0, leaving three unexplained boxes under the HP bar.
+   - dead cells: say "안 던짐" again instead of a dash that reads as 0% or empty.
+   - debrief: Korean step labels (내 선택 / 실제 공 / 다음엔) need a Korean face, not the 9px LED face. */
+@media (orientation:portrait){
+  .v14-battle-portrait .bp-battle .bp-mental em{font-size:var(--t-micro);line-height:1;color:var(--ink-2)}
+  .v14-battle-portrait .bp-battle .bp-mental.shaken em{color:#ffb3a3}
+
+  /* ballpark.css says it: "a hatch meant nothing to players" — dead cells must say so in words.
+     The portrait master turned the words into a dash with !important on .bp-dead, so the words ride on
+     the cell's own ::before and the dash is dropped (its content is not !important). */
+  .v14-battle-portrait .bp-battle .bp-zone .bp-cell.dead .bp-dead::after{content:none}
+  .v14-battle-portrait .bp-battle .bp-zone .bp-cell.dead:not(.cover):not(.assist)::before{
+    content:"안 던짐";position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);pointer-events:none;
+    font:400 var(--t-micro)/1 var(--bp-ko);color:var(--ink-3);text-align:center;
+  }
+
+  .v14-battle-portrait .bp-battle .bp-dstep>span{
+    font:700 var(--t-micro)/var(--t-micro-line) var(--bp-ko);letter-spacing:var(--tracking-body);color:var(--ink-3);
+  }
+}

@@ -32,6 +32,7 @@ import "./duel/cinematic-director.css";
 import "./duel/cinematic-commit-handoff.css";
 import "./duel/cinematic-pitch-handoff.css";
 import "./duel/hud-clarity.css";
+import "./duel/battle-readability.css";
 import "./duel/title-pixel.css";
 
 watchLayoutMode();
