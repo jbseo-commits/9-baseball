@@ -6,6 +6,7 @@ import './homerun-video.css';
 
 export const HOMER_VIDEO_URL = 'https://raw.githubusercontent.com/jbseo-commits/9-baseball/1b207e16d25b62412467ffe26ea5830e5a170485/assets/production-art/homer-video-v1/homer-v1.mp4';
 const NO_PROGRESS_MS = 8000;
+const INITIAL_LOAD_MS = 30000;
 const MAX_PLAY_MS = 45000;
 
 export function isHomerVideoEligible({ version, grade, reduced } = {}) {
@@ -103,7 +104,8 @@ export default function HomerunVideo({ sound = false, onFinish = () => {} }) {
           lastProgressAt = Date.now();
         }
         if (Date.now() - startedAt >= MAX_PLAY_MS) finish('timeout');
-        else if (Date.now() - lastProgressAt >= NO_PROGRESS_MS) finish('stalled');
+        else if (lastTime === 0 && Date.now() - startedAt >= INITIAL_LOAD_MS) finish('load-timeout');
+        else if (lastTime > 0 && Date.now() - lastProgressAt >= NO_PROGRESS_MS) finish('stalled');
       }, 1000);
     };
 

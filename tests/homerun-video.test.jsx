@@ -121,9 +121,22 @@ describe('HomerunVideo modal lifecycle', () => {
     vi.useFakeTimers();
     const stalled = vi.fn();
     render(<HomerunVideo onFinish={stalled} />);
+    const video = document.querySelector('.bp-homer-video video');
+    video.currentTime = 1;
+    vi.advanceTimersByTime(1000);
     vi.advanceTimersByTime(8000);
     expect(stalled).toHaveBeenCalledTimes(1);
     expect(stalled).toHaveBeenCalledWith('stalled');
+  });
+
+  it('allows initial buffering longer than a playback stall but bounds loading', () => {
+    vi.useFakeTimers();
+    const finish = vi.fn();
+    render(<HomerunVideo onFinish={finish} />);
+    vi.advanceTimersByTime(8000);
+    expect(finish).not.toHaveBeenCalled();
+    vi.advanceTimersByTime(22000);
+    expect(finish).toHaveBeenCalledWith('load-timeout');
   });
 
   it('pauses and releases when the page becomes hidden; unmount cleanup does not finish', () => {
