@@ -16,7 +16,10 @@
     font:400 var(--t-micro)/1 var(--bp-ko);color:var(--ink-3);text-align:center;
   }
 
+  /* 8px LED labels → 12px Korean: give back the 8px the two step rows grow by, so a long STACK plan
+     still fits the fixed 148px hand row (measured at 360/375/390 with a 3-card stack) */
+  .v14-battle-portrait .bp-battle .bp-dstep{padding-top:3px;padding-bottom:3px}
   .v14-battle-portrait .bp-battle .bp-dstep>span{
-    font:700 var(--t-micro)/var(--t-micro-line) var(--bp-ko);letter-spacing:var(--tracking-body);color:var(--ink-3);
+    font:700 var(--t-micro)/1 var(--bp-ko);letter-spacing:var(--tracking-body);color:var(--ink-3);
   }
 }
