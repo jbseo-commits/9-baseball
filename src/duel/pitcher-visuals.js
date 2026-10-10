@@ -2,6 +2,9 @@ import redRushAtlas from '../../assets/pitcher-sd-v1/red-rush-pitch-120-atlas.pn
 import redRushPortrait from '../../assets/pitcher-mobs-v1/regular-01-red-rush.png';
 import tideVesperAtlas from '../../assets/pitcher-study-v2/atlases/tide-vesper-pitch-120-atlas.png';
 import tideVesperPortrait from '../../assets/pitcher-study-v2/source/tide-vesper-release.png';
+import skyPhantomAtlas from '../../assets/pitcher-study-v3/atlases/sky-phantom-pitch-120-atlas.png';
+import galeTwisterAtlas from '../../assets/pitcher-study-v4/atlases/gale-twister-pitch-120-atlas.png';
+import vulcanBlazeAtlas from '../../assets/pitcher-study-v5/atlases/vulcan-blaze-pitch-120-atlas.png';
 
 // V15 & V16 Masterpiece Dex portraits (verified via DEX_QA_V16.md)
 import dexRedRush from '../../assets/production-art/mockup-world-v15/dex-red-rush.png';
@@ -44,6 +47,9 @@ export const pitcherAtlases={
   ...byId(rosterAtlases),
   ...byId(pixellabAtlases),
   'tide-vesper':tideVesperAtlas,
+  'sky-phantom':skyPhantomAtlas,
+  'gale-twister':galeTwisterAtlas,
+  'vulcan-blaze':vulcanBlazeAtlas,
 };
 
 /* transparent roster cutouts: for silhouettes and anything drawn over a scene (map nodes use brightness(0)) */
@@ -79,4 +85,3 @@ export const RED_RUSH_V16_KEYPOSES = {
   followThrough: redRushFollowThrough,
 };
 export const IMPACT_SLASH_VFX = impactSlashVfx;
-
