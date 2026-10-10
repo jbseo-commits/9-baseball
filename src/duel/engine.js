@@ -142,6 +142,19 @@ export function startBattle(state){
   // Dealing only from deck ids keeps the old crash (a hand id missing from the deck)
   // impossible by construction; loads additionally drop stale ids (v10NormalizeHand).
   draw(s,HAND_OPEN);
+  // Start-pack taste (P2): the run's first battle always holds at least one pack
+  // card, so the chosen direction is experienced immediately. Later battles deal
+  // normally; V9 states carry no v10 record and skip this entirely.
+  if(s.version===10&&s.stats?.pitches===0){
+    const taste=(s.v10?.startPack?.ids||[]).filter(id=>s.deck.some(c=>c.id===id)&&!s.battle.hand.includes(id));
+    if(taste.length){
+      const pick=shuffle(s,[...taste])[0],b=s.battle;
+      const out=b.hand.find(id=>!s.v10.startPack.ids.includes(id))??b.hand[0];
+      b.hand=b.hand.filter(id=>id!==out);b.hand.push(pick);
+      for(const pile of [b.draw,b.discard]){const at=pile.indexOf(pick);if(at>=0){pile.splice(at,1);break;}}
+      b.draw.push(out);
+    }
+  }
   dealPitch(s);s.last={kind:'start',text:'1번 강한결 입장 · 경향을 읽고 노릴 존과 스윙을 고르세요.',events:[],runs:0,outs:0};return s;
 }
 export function setAimZone(state,zone){
@@ -740,6 +753,35 @@ const v10BasesForReveal=r=>{
 const v10ZoneLabel=zone=>zone===9?'존 밖':ZONES[zone]||'코스 미확인';
 const v10ChoiceLabel=choice=>choice==='take'?'한 구 지켜보기':choice==='basic'?'기본 스윙':CARDS[choice]?.name||String(choice||'');
 const v10EndedPA=r=>['hit','out','sacrifice'].includes(r?.kind)||r?.label==='볼넷';
+
+/* P2 start packs (2026-10-09 analysis): 6 common cards plus one 3-card direction
+   pack, chosen before the first battle. Packs are tastes, not locked builds —
+   later rewards can shift or mix freely. Common core keeps 2 place, 1 strike
+   and the 3 preparation cards; each pack replaces 2 place + 1 strike. */
+export const START_PACKS=[
+  {id:'power',name:'한 방 승부',desc:'장타 3종 — 좁게 겨냥하고 크게 넘긴다',kinds:['slug','place','strike']},
+  {id:'link',name:'연결 야구',desc:'진루 3종 — 주자를 내보내고 불러들인다',kinds:['rally','flow','strike']},
+  {id:'hold',name:'버티기',desc:'생존 3종 — 맞히고 살아남아 다음을 기약한다',kinds:['defend','calm','strike']},
+];
+const START_PACK_DROP=['place','place','strike'];
+export function startPackOffers(seed=0){
+  const order=START_PACKS.map(p=>p.id);
+  let r=draftMix(seed>>>0)||1;
+  for(let i=order.length-1;i>0;i--){r=draftMix(r+0x9e3779b9);const j=Math.floor(r/4294967296*(i+1));[order[i],order[j]]=[order[j],order[i]];}
+  return order.map(id=>START_PACKS.find(p=>p.id===id));
+}
+export function applyStartPack(state,packId){
+  const pack=START_PACKS.find(p=>p.id===packId);
+  if(!pack||state?.version!==10||state.phase!=='map'||state.battle||state.stats?.pitches!==0
+    ||(state.rewards?.length||0)>0||state.deck?.length!==9||state.v10?.startPack)return state;
+  const drop=[...START_PACK_DROP],ids=[];
+  for(const entry of state.deck){const at=drop.indexOf(entry.kind);if(at>=0){drop.splice(at,1);ids.push(entry.id);}if(ids.length===3)break;}
+  if(ids.length<3)return state;
+  const s=clone(state);
+  ids.forEach((id,i)=>{s.deck.find(c=>c.id===id).kind=pack.kinds[i];});
+  s.v10={...s.v10,startPack:{pack:packId,ids:[...ids]}};
+  return s;
+}
 
 export function createV10Duel(seed=Date.now()>>>0){
   const s=createDuel(seed,DECKBUILDER_BUILD);
