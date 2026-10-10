@@ -3,7 +3,7 @@ import {isPitcherHp} from './pitcher-hp.js';
 import {CARDS} from './cards.js';
 
 export const V10_SAVE_KEY='9zone-v10-run';
-const PHASES=new Set(['map','battle','pitch','between','reward','lost','won','training','locker','shop','rest']);
+const PHASES=new Set(['map','battle','pitch','between','reward','lost','won','training','locker','shop','rest','event']);
 
 export function validateV10State(s){
   if(!s||s.version!==10||!Number.isInteger(s.initialSeed)||!PHASES.has(s.phase)||!validateRunMap(s.runMap))return false;

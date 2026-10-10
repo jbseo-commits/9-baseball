@@ -23,6 +23,7 @@ export const WELCOME_CHAPTERS=[
   {key:'goal',eyebrow:'목표',title:'투수를 강판시켜라',
     body:[<>한 경기는 <b>1이닝</b>입니다. <b>3아웃</b>이 되기 전에 투수 HP를 0으로 만들면 <b>강판</b> · 승리.</>,
       <>3아웃을 당하면 <b>런이 끝납니다</b>. 득점은 승패가 아니라 투수를 <b>흔드는</b> 데 쓰입니다.</>,
+      <>승리해도 <b>아웃은 다음 상대로 이어집니다</b>. 보스 보상 포기로 <b>0으로 회복</b>할 수 있습니다.</>,
       <>3막 지도를 지나 마지막 보스까지 끌어내리면 완주.</>],
     art:()=><div className="wg-goal"><div className="wg-hp"><span>레드 러시</span><i><b/></i><small>HP 0 / 60 · 강판</small></div><div className="wg-outs"><span>O</span><i className="on"/><i className="on"/><i/><small>3아웃 전에!</small></div></div>},
   {key:'flow',eyebrow:'한 공의 흐름',title:'읽고, 놓고, 친다',

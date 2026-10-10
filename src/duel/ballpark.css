@@ -1256,3 +1256,20 @@
 .bp-read-up small{font:700 11px/1.3 var(--bp-ko);color:var(--bp-bone)}
 @keyframes bp-read-up{0%{opacity:0;transform:translateY(50%) scale(.9)}10%,78%{opacity:1;transform:translateY(50%) scale(1)}100%{opacity:0;transform:translateY(50%) scale(1)}}
 @media (prefers-reduced-motion:reduce){.bp-read-up{animation:none}}
+/* Act 1 strategic route (2026-10-10): a taller board for seven rows, an event marker, and a route preview —
+   the chosen place lights every line and place it can still lead to; the rest of the act dims. */
+.bp-map:not(.wide) .bp-route{min-height:max(360px,calc(var(--bp-rows,5) * 70px))}
+.bp-node.event .bp-mglyph i.on{background:#b493ff}
+.bp-node.reach.event .bp-mglyph{border-color:#b493ff}
+.bp-route line.ahead{stroke:#ffc861;stroke-dasharray:none;opacity:.55;stroke-width:1.8}
+.bp-route line.live.ahead{opacity:.95}
+.bp-route.previewing .bp-node:not(.ahead):not(.sel):not(.reach):not(.done){opacity:.45}
+.bp-node.ahead:not(.reach):not(.done){color:var(--bp-bone-dim)}
+.bp-mahead{display:flex;flex-wrap:wrap;align-items:center;gap:4px 5px;font-size:11px;line-height:1.3;color:var(--bp-bone-dim)}
+.bp-mahead b{font:400 10px/1 var(--bp-led);letter-spacing:.06em;color:var(--bp-slate);font-weight:400;margin-right:2px}
+.bp-mahead i{font-style:normal;padding:1px 6px;border:1px solid #2e3660;border-radius:4px;background:#0d1122;color:var(--bp-bone)}
+.bp-mahead i.t-elite{border-color:#a5463a;color:#ffb4a4}
+.bp-mahead i.t-event{border-color:#6a4fb0;color:#d6c4ff}
+.bp-mahead i.t-shop,.bp-mahead i.t-rest{border-color:#3d6b5a;color:#bde8cf}
+@media (prefers-reduced-motion:reduce){.bp-route line.ahead{transition:none}}
+.bp-map:not(.wide) .bp-node{scroll-margin-top:72px;scroll-margin-bottom:calc(var(--bp-msheet-h,260px) + 16px)}
