@@ -78,7 +78,7 @@ describe('V10 ballpark energy UI',()=>{
     vi.useFakeTimers();
     try{
       render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'새로운 게임',exact:true}));
-      fireEvent.click(screen.getAllByTestId('start-pack')[0]);
+      fireEvent.click(screen.getAllByTestId('start-pack')[0]);fireEvent.click(screen.getByTestId('start-pack-go'));
       fireEvent.click(screen.getByTestId('bp-map-go'));
       const card=document.querySelector('.bp-hand [data-card-kind]:not([data-card-kind="basic"])');
       expect(card).toBeTruthy();

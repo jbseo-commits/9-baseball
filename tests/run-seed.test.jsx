@@ -37,7 +37,7 @@ describe('main run entry',()=>{
       // The run in progress is only replaced after the confirm, and the new
       // run only starts after a start pack is picked.
       if(i>0){expect(readV10Duel(localStorage).initialSeed).toBe(seeds[0]);fireEvent.click(screen.getByRole('button',{name:'처음부터 시작'}));}
-      fireEvent.click(screen.getAllByTestId('start-pack')[0]);
+      fireEvent.click(screen.getAllByTestId('start-pack')[0]);fireEvent.click(screen.getByTestId('start-pack-go'));
       seeds.push(readV10Duel(localStorage).initialSeed);
       cleanup();
     }

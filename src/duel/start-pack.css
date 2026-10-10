@@ -1,0 +1,109 @@
+/* Start-pack pick (StartPackPick.jsx). Scoped to .sp-* — no global selectors.
+   Mounted only while open, so the fixed layer never blocks taps when hidden. */
+.sp-root{
+  --sp-ink:#07080d;--sp-navy:#141a33;--sp-bone:#ece4cf;--sp-dim:#b7b09e;--sp-slate:#7b84a6;--sp-gold:#ffc861;
+  --sp-ko:"Gowun Dodum","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;
+  --sp-impact:"Black Han Sans","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;
+  --sp-led:"Silkscreen",ui-monospace,Menlo,monospace;
+  position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;overflow:hidden;
+  background:var(--sp-ink);color:var(--sp-bone);font:15px/1.5 var(--sp-ko);
+  padding:max(10px,env(safe-area-inset-top)) 14px max(12px,env(safe-area-inset-bottom));
+  animation:sp-in .32s ease-out both;
+}
+.sp-bg{position:absolute;inset:0 0 auto;height:min(46%,340px);background-size:cover;background-position:50% 30%;opacity:.55;
+  -webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 100%);mask-image:linear-gradient(180deg,#000 30%,transparent 100%);pointer-events:none}
+.sp-root::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(120% 60% at 50% 0%,#2a3a7a33 0%,transparent 60%),linear-gradient(180deg,#07080d00 0%,#07080dcc 38%,#07080d 60%)}
+.sp-root>:not(.sp-bg):not(.sp-close){position:relative}
+.sp-close{position:absolute;top:max(10px,env(safe-area-inset-top));right:12px;z-index:3;width:40px;height:40px;
+  display:grid;place-items:center;font:400 24px/1 var(--sp-ko);color:var(--sp-bone);background:#0b0e1ccc;border:1px solid #2a3152;border-radius:10px;cursor:pointer}
+
+/* coach beat: portrait + speech plate, the same pair the title screen uses */
+.sp-head{display:flex;align-items:flex-end;gap:10px;margin-top:clamp(8px,6vh,64px);padding-right:44px}
+.sp-coach{flex:0 0 auto;width:72px;height:96px;object-fit:cover;object-position:50% 12%;
+  border:2px solid #3a4475;border-radius:10px;background:#0b0e1c;box-shadow:0 6px 18px #000a;image-rendering:auto}
+.sp-bubble{position:relative;flex:1 1 auto;padding:10px 12px;border:2px solid #d8c9a4;border-radius:10px;
+  background:#f1e7cf;color:#1d1a14;box-shadow:0 4px 0 #8a7a55,0 8px 20px #0009}
+.sp-bubble::before{content:"";position:absolute;left:-9px;bottom:16px;width:14px;height:14px;background:#f1e7cf;
+  border-left:2px solid #d8c9a4;border-bottom:2px solid #d8c9a4;transform:rotate(45deg)}
+.sp-eyebrow{display:block;font:700 10px/1 var(--sp-led);letter-spacing:.12em;color:#8a5a12;margin-bottom:5px}
+.sp-bubble p{margin:0;font:400 15px/1.4 var(--sp-ko);font-weight:700}
+
+.sp-title{margin:14px 0 4px;font:400 28px/1.15 var(--sp-impact);color:var(--sp-gold);letter-spacing:.01em;
+  text-shadow:0 2px 0 #6b3d00,0 0 18px #ffb43a44}
+.sp-rule{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;margin:0 0 10px;font-size:12px;color:var(--sp-dim)}
+.sp-rule b{padding:2px 7px;border:1px solid #3a4475;border-radius:6px;background:#141a33;color:var(--sp-bone);font-weight:700}
+.sp-rule i{font-style:normal;color:var(--sp-gold);font-weight:700}
+.sp-rule span{flex-basis:100%;font-size:11px;color:var(--sp-slate)}
+
+/* pack list: scrolls on short phones, the commit button stays put */
+.sp-list{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;display:grid;align-content:start;gap:10px;padding:2px 2px 8px;-webkit-overflow-scrolling:touch}
+.sp-pack{--tone:#e0503a;--tone-dim:#e0503a33;
+  appearance:none;position:relative;display:grid;grid-template-columns:132px minmax(0,1fr);gap:10px;align-items:center;
+  width:100%;min-height:132px;padding:12px 12px 12px 10px;text-align:left;color:inherit;cursor:pointer;
+  border:8px solid transparent;border-image:url('../../assets/ui-kit/A6-card-frame-common.png') 32 / 8px repeat;image-rendering:pixelated;
+  background:linear-gradient(90deg,var(--tone-dim),transparent 60%),#0d1124;background-clip:padding-box;
+  transition:transform .16s ease,filter .16s ease;animation:sp-rise .4s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*70ms + 80ms)}
+.sp-pack.t-power{--tone:#ff6a3d;--tone-dim:#ff6a3d2e}
+.sp-pack.t-link{--tone:#3fd6e8;--tone-dim:#3fd6e82b}
+.sp-pack.t-hold{--tone:#7ad66a;--tone-dim:#7ad66a29}
+.sp-pack:active{transform:scale(.985)}
+.sp-pack.on{border-image-source:url('../../assets/ui-kit/A6-card-frame-selected.png');filter:drop-shadow(0 0 10px #ffc86155)}
+.sp-root:has(.sp-pack.on) .sp-pack:not(.on){filter:saturate(.6) brightness(.72)}
+.sp-pack:focus-visible{outline:2px solid var(--sp-bone);outline-offset:2px}
+
+/* three real card illustrations, fanned like a hand */
+.sp-fan{position:relative;height:108px}
+.sp-mini{position:absolute;top:6px;width:62px;height:92px;border-radius:6px;overflow:hidden;border:2px solid #0b0e1c;
+  box-shadow:0 0 0 1px #c9b27a,0 6px 12px #000c;background:#141a33;transform-origin:50% 120%;transition:transform .2s ease}
+.sp-mini.c0{left:2px;transform:rotate(-7deg);z-index:1}
+.sp-mini.c1{left:30px;transform:rotate(0deg) translateY(-4px);z-index:2}
+.sp-mini.c2{left:60px;transform:rotate(7deg);z-index:3}
+.sp-pack.on .sp-mini.c0{transform:rotate(-10deg) translateX(-2px)}
+.sp-pack.on .sp-mini.c1{transform:translateY(-8px)}
+.sp-pack.on .sp-mini.c2{transform:rotate(10deg) translateX(1px)}
+.sp-mini-art{position:absolute;inset:0;background-size:cover;background-repeat:no-repeat}
+.sp-mini-cost{position:absolute;left:3px;top:3px;min-width:16px;height:16px;padding:0 3px;display:grid;place-items:center;
+  font:700 11px/1 var(--sp-led);color:#1a1204;background:var(--sp-gold);border-radius:4px;box-shadow:0 1px 0 #6b3d00}
+
+.sp-info{display:grid;gap:3px;min-width:0;padding-right:18px}
+.sp-info>*{display:block}
+.sp-info>.sp-cards{display:flex}
+.sp-tag{justify-self:start;padding:2px 7px;border-radius:5px;font:700 10px/1.3 var(--sp-ko);color:#0b0e1c;background:var(--tone)}
+.sp-info strong{font:400 22px/1.15 var(--sp-impact);color:var(--sp-bone);text-shadow:0 2px 0 #000}
+.sp-pack.on .sp-info strong{color:var(--sp-gold)}
+.sp-info em{font-style:normal;font-size:12px;line-height:1.45;color:var(--sp-dim)}
+.sp-cards{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
+.sp-cards>span{display:inline-flex;align-items:baseline;gap:4px;padding:2px 6px;border:1px solid #3a4475;border-radius:5px;
+  background:#0b0e1ccc;font-size:11px;line-height:1.35;color:var(--sp-bone)}
+.sp-cards>span.skill{border-color:#3d6b5a}
+.sp-cards small{font-size:9px;color:var(--tone)}
+.sp-check{position:absolute;right:6px;top:6px;width:22px;height:22px;border-radius:50%;border:2px solid #3a4475;background:#0b0e1c}
+.sp-pack.on .sp-check{border-color:var(--sp-gold);background:var(--sp-gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3 3 7-7' fill='none' stroke='%231a1204' stroke-width='2.4'/%3E%3C/svg%3E") center/14px no-repeat}
+
+.sp-foot{flex:0 0 auto;padding-top:10px}
+.sp-go{appearance:none;width:100%;min-height:62px;display:grid;place-items:center;gap:2px;cursor:pointer;color:#1a1204;
+  border:10px solid transparent;border-image:url('../../assets/ui-kit/A4-button-primary-normal.png') 40 fill / 10px repeat;image-rendering:pixelated;
+  background:var(--sp-gold);box-shadow:0 0 30px #ffc86133;font:400 20px/1.1 var(--sp-impact)}
+.sp-go small{font:700 11px/1.2 var(--sp-ko);opacity:.8}
+.sp-go:active:not(:disabled){border-image-source:url('../../assets/ui-kit/A4-button-primary-pressed.png')}
+.sp-go:disabled{cursor:default;color:var(--sp-bone);background:#1b2140;box-shadow:none;border:2px dashed #5a6496;border-image:none;font-size:17px;opacity:.92}
+
+@keyframes sp-in{from{opacity:0}to{opacity:1}}
+@keyframes sp-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+@media (max-height:700px){
+  .sp-head{margin-top:2px}.sp-coach{width:58px;height:76px}
+  .sp-title{margin-top:10px;font-size:24px}
+  .sp-pack{min-height:118px;padding-top:8px;padding-bottom:8px}
+  .sp-fan{height:96px}.sp-mini{width:56px;height:82px}
+}
+@media (max-width:374px){
+  .sp-pack{grid-template-columns:112px minmax(0,1fr);gap:8px}
+  .sp-mini{width:52px;height:76px}.sp-fan{height:90px}
+  .sp-mini.c1{left:26px}.sp-mini.c2{left:52px}
+  .sp-info strong{font-size:19px}
+}
+@media (prefers-reduced-motion:reduce){
+  .sp-root,.sp-pack{animation:none}.sp-mini,.sp-pack{transition:none}
+}
