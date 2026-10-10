@@ -14,7 +14,7 @@ import './ballpark.css';
    Same data and entry as the legacy RunMap: selectV10Map(s) and onEnter(id). */
 
 const FIGHTS=new Set(['battle','elite','boss']);
-const TAG={battle:'정규전',elite:'강적',boss:'막 보스',locker:'라커룸',training:'타격 훈련',shop:'장비 상점',rest:'휴식일'};
+const TAG={battle:'정규전',elite:'강적',boss:'막 보스',locker:'라커룸',training:'타격 훈련',shop:'장비 상점',rest:'휴식일',event:'이벤트'};
 const REWARD={battle:'이기면 카드 3장 중 1장',elite:'이기면 카드 4장 중 1장 · 시그니처',boss:'이기면 다음 막 · 시그니처'};
 const PLACE={locker:'손에 안 붙는 배트는 두고 간다.',training:'카드 한 장을 단련한다.',shop:'새 카드를 들인다.',rest:'하루 쉰다. 다음 경기 타격 +8.'};
 const HABIT={outside:'바깥쪽을 좋아한다.',sinker:'낮게, 더 낮게.',high:'높은 공으로 띄운다.',closer:'네가 노린 반대쪽을 찌른다.'};
