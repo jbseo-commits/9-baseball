@@ -6,9 +6,10 @@
     <meta name="theme-color" content="#0c141b" />
     <title>9ZONE — HOMEBOUND</title>
     <!-- V13 night-game faces (only .ng-battle uses them) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Black+Han+Sans&family=Silkscreen&display=swap" />
+    <!-- Fonts are self-hosted from /public/fonts via src/duel/fonts.css (SIL OFL 1.1,
+         see NOTICE.md). Previously they came from fonts.googleapis.com at runtime; the
+         CDN dependency, and the render-blocking @import, are both gone. -->
+    <link rel="stylesheet" href="/src/duel/fonts.css" />
     <!-- Cinematic vertical slice: scoped .bp-scene/.bp-battle direction only. Vite processes this
          source stylesheet as part of the app build; no global geometry or interaction rules live here. -->
     <link rel="stylesheet" href="/src/duel/cinematic-director.css" />

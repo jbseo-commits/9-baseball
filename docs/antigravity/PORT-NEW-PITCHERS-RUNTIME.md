@@ -1,0 +1,1 @@
+Runtime integration copies the three authored atlases and the additive roster/visual/voice/release/stance/stride metadata from the autonomous branch. It intentionally does not copy App.jsx, BallparkActors.jsx, BallparkBattle.jsx, engine.js, run-map.js, or any Cinematic V2 presentation file.

@@ -60,6 +60,19 @@ export const ART_FOCUS_Y = {
   'card-tableSetter.png': 0.30, 'card-rbiMachine.png': 0.32, 'card-steppingStone.png': 0.34,
   'card-basesLoaded.png': 0.43, 'card-leadOff.png': 0.31,
   'card-stealSign.png': 0.41, 'card-thirdCoach.png': 0.29, 'card-chainSign.png': 0.38,
+  // V16 C138–C175: batter's face; benchCheer/cutMaster/homeRush/grinder hold the play element,
+  // gripTape the taped grip, scoreSheet the face over the sheet
+  'card-aheadSwing.png': 0.33, 'card-attrition.png': 0.27, 'card-benchCheer.png': 0.45,
+  'card-comebackSwing.png': 0.32, 'card-countBattle.png': 0.38, 'card-counterPrep.png': 0.30,
+  'card-cutMaster.png': 0.45, 'card-discipline.png': 0.38, 'card-edgeSwing.png': 0.40,
+  'card-eyeTest.png': 0.36, 'card-fightOff.png': 0.40, 'card-fightingSpirit.png': 0.30,
+  'card-foulTip.png': 0.37, 'card-goodEye.png': 0.27, 'card-grinder.png': 0.40,
+  'card-gripTape.png': 0.48, 'card-hawkEye.png': 0.38, 'card-holdOn.png': 0.38,
+  'card-homeRush.png': 0.45, 'card-iceVeins.png': 0.25, 'card-longAtBat.png': 0.23,
+  'card-nerveOfSteel.png': 0.20, 'card-relayBat.png': 0.38, 'card-scoreSheet.png': 0.33,
+  'card-shieldBat.png': 0.30, 'card-sitFastball.png': 0.27, 'card-threeOh.png': 0.32,
+  'card-timeOut.png': 0.27, 'card-walkHunter.png': 0.16, 'card-walkOff.png': 0.30,
+  'card-wearDown.png': 0.25, 'card-zoneJudge.png': 0.33, 'card-zoneProtect.png': 0.36,
 };
 /* per card key, for a card that should frame a shared illustration differently from the file default */
 export const CARD_ART_FOCUS_Y = {};

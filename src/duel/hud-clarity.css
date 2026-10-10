@@ -1,0 +1,40 @@
+/* HUD clarity · portrait battle top bar.
+   Scope: .v14-battle-portrait .bp-bar only (battle screen, portrait). No global selectors.
+   Values come from tokens.css (V12 spec §3). New rules carry no !important.
+
+   Fixes measured on 390×844 / 360×740 (before):
+   - inning badge (right 149px) sat under the BSO strip (left 137px); at 360px fully covered.
+   - inning 9px, HOMEBOUND 8px, out LEDs 6px — below the 12px micro token.
+   Outs end the run at 3, so the out unit is the loudest part of the strip. */
+@media (orientation:portrait){
+  /* brand never shrinks under the strip; the decorative subtitle goes so the inning fits */
+  .v14-battle-portrait .bp-bar .bp-hud-brand{flex:0 0 auto;gap:var(--space-1)}
+  .v14-battle-portrait .bp-bar .bp-hud-sub{display:none}
+  .v14-battle-portrait .bp-bar .bp-hud-inning{
+    font-size:var(--t-micro);line-height:var(--t-micro-line);padding:0 var(--space-2);
+  }
+
+  /* the strip takes the remaining middle and centres itself */
+  .v14-battle-portrait .bp-bar .bp-bso-strip{
+    flex:1 1 auto;min-width:0;justify-content:center;gap:var(--space-2);padding:var(--space-1) var(--space-2);
+  }
+  .v14-battle-portrait .bp-bar .bp-bso-unit{gap:3px}
+  .v14-battle-portrait .bp-bar .bp-bso-name{font-size:var(--t-micro);line-height:1}
+  .v14-battle-portrait .bp-bar .bp-bso-leds{gap:3px}
+  .v14-battle-portrait .bp-bar .bp-bso-leds i{width:8px;height:8px}
+
+  /* outs: bigger lamps, red name, divider — the run-ending number reads first */
+  .v14-battle-portrait .bp-bar .bp-bso-unit.o{padding-left:var(--space-2);border-left:1px solid var(--edge)}
+  .v14-battle-portrait .bp-bar .bp-bso-unit.o .bp-bso-name{color:#ff6b6b}
+  .v14-battle-portrait .bp-bar .bp-bso-unit.o .bp-bso-leds i{width:11px;height:11px;border-color:#7a3340}
+}
+
+/* compact phones (≤374px, e.g. 360×740): same hierarchy, tighter spacing so nothing clips */
+@media (orientation:portrait) and (max-width:374px){
+  .v14-battle-portrait .bp-bar .bp-bso-strip{gap:var(--space-1);padding:var(--space-1)}
+  .v14-battle-portrait .bp-bar .bp-bso-unit{gap:2px}
+  .v14-battle-portrait .bp-bar .bp-bso-leds{gap:2px}
+  .v14-battle-portrait .bp-bar .bp-bso-leds i{width:7px;height:7px}
+  .v14-battle-portrait .bp-bar .bp-bso-unit.o{padding-left:var(--space-1)}
+  .v14-battle-portrait .bp-bar .bp-bso-unit.o .bp-bso-leds i{width:10px;height:10px}
+}

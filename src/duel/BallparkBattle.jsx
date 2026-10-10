@@ -1,6 +1,7 @@
 import React,{useLayoutEffect,useRef,useState} from 'react';
-import {CARDS,LINEUP} from './cards.js';
-import {publicProbabilities,v10StackMax,v10PrepMax,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
+import {CARDS,LINEUP,bandFor,rangeFor,shadeNameFor,cardCost} from './cards.js';
+import {publicProbabilities,readLevel,knownPitchZones,v10StackMax,v10PrepMax,v10Energy,v10EnergyCap,v10ActionCost,v10TakeDrawPreview,V11_SWING_ENERGY,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
+import {probabilityBounds} from './information.js';
 import {intentLines,hpTicks,ZONE_WORDS,runnerMoves} from './ballpark-copy.js';
 import ZoneLinks from './ZoneLinks.jsx';
 import GimmickVfx from './GimmickVfx.jsx';
@@ -130,10 +131,45 @@ export default function BallparkBattle({
   const canStack=!!(mainEntry&&!mainIsSkill&&mainEntry.kind!=='bunt'&&b.growthMode!=='patience');
   const stack=canStack?swingStack.filter(x=>x.id!==selected&&byId(x.id)):[];
   const prepLeft=Math.max(0,v10PrepMax(s)-(b.preparations||0));
+  const energy=v10Energy(s),energyCap=v10EnergyCap(s),actionCost=selected?choice?.cost??(selected==='basic'?0:cardCost(byId(selected)?.entry)):null;
+  const takeDrawPreview=v10TakeDrawPreview(s),drawHint=takeDrawPreview.count===1?'카드+1':takeDrawPreview.reason==='full'?'6장 한도':'추가 0';
+  const pendingEnergyText=s.phase==='between'?`다음 타자 4 · ${drawHint}`:`다음 공 4 · ${drawHint}`;
+  const energyHud=<div className="bp-energy" data-testid="bp-energy" aria-label={`에너지 ${energy}/${energyCap}`}>
+    <span>ENERGY</span><strong>{energy}<i>/{energyCap}</i></strong>
+    <span className="bp-energy-leds" aria-hidden="true">{Array.from({length:energyCap},(_,i)=><i key={i} className={i<energy?'on':''}/>)}</span>
+    <small>{s.phase==='battle'?(selected?`비용 ${actionCost} · 남음 ${Math.max(0,energy-(actionCost||0))}${actionCost>energy?` · 에너지 부족 ${actionCost-energy}`:''}`:s.last?.takeDrawn===1?'충전 · 카드 +1':`기본 0 · 지켜보기 0${energyCap===4?' · 보너스 공':''}`):s.battle?.takeEnergyBonus===1?pendingEnergyText:'다음 공에 3 충전'}</small>
+  </div>;
 
   const probs=b.pending?publicProbabilities(s):b.intent?.probabilities||[];
   const live=b.intent?.repertoire||[0,1,2,3,4,5,6,7,8];
   const inZone=probs.slice(0,9).reduce((a,x)=>a+x,0)||1;
+  /* 읽은 만큼만 숫자로 보인다(레거시 ZoneBoard와 같은 계약): 0등급 명암 낱말 → 1등급 구간 → 2등급 정확한 확률.
+     원천은 같은 publicProbabilities이며, 낮은 등급에 틀린 숫자를 보여주지 않는다.
+     (아래 `pct`보다 먼저 선언되므로 반올림을 직접 계산한다.) */
+  const level=readLevel(s),known=knownPitchZones(s);
+  const showUnused=(s.relics||[]).includes('radar'),exactBall=(s.relics||[]).includes('ledger');
+  const exactPct=z=>Math.round((probs[z]||0)*100);
+  const cellFace=z=>{
+    const dead=!live.includes(z);
+    if(!known.includes(z))return '단서 밖';
+    if(known.length===1&&known.includes(z))return '확정';
+    if(dead&&showUnused)return '안 씀';
+    if(level===0)return shadeNameFor((probs[z]||0)/inZone);
+    if(dead)return '0%';
+    if(level===1)return rangeFor(probs[z]||0);
+    return exactPct(z)+'%';
+  };
+  const bandFace=exactBall||level===2?exactPct(9)+'%':level===1?rangeFor(probs[9]||0):bandFor(probs[9]||0);
+  const hitFaceFor=zones=>{
+    const list=(zones||[]).filter(z=>z<9);
+    if(!list.length)return '';
+    if(level===2)return Math.round(list.reduce((a,z)=>a+(probs[z]||0),0)*100)+'%';
+    const bounds=probabilityBounds(s);let lo=0,hi=0;
+    for(const z of list){lo+=bounds[z][0];hi+=bounds[z][1];}
+    if(hi<1e-9)return '범위 밖';
+    if(lo>1-1e-9)return '확정';
+    return Math.floor(lo*100+1e-9)+'–'+Math.ceil(hi*100-1e-9)+'%';
+  };
   const cover=new Set(judged?r.primaryCoverage||r.coverage||[]:stack.length?choice?.primaryCoverage||[]:(!mainIsSkill&&selected?choice?.coverage||[]:[]));
   const support=new Set(judged?(r.supportCoverages||[]).flatMap(x=>x.coverage):stack.length?(choice?.supportCoverages||[]).flatMap(x=>x.coverage):[]);
   const aimAt=judged?(r.coverage?.length?r.aimZone:null):(selected&&!mainIsSkill?b.aimZone:null);
@@ -169,7 +205,9 @@ export default function BallparkBattle({
     if(stack.some(x=>x.id===id)){onStack(stack.filter(x=>x.id!==id));return;}
     const kind=byId(id)?.entry?.kind;
     /* with a main card on the board, another swing card becomes a support: it waits for a zone */
-    if(canStack&&id!=='basic'&&kind!=='bunt'&&stack.length<v10StackMax(s)-1){setArmed(id);return;}
+    const nextStack=[...stack,{id,aimZone:b.aimZone}];
+    if(canStack&&id!=='basic'&&kind!=='bunt'&&stack.length<v10StackMax(s)-1
+      &&v10ActionCost(s,selected,nextStack)<=energy){setArmed(id);return;}
     onSelect(id);onStack([]);
   }
   function pickPrep(id){if(locked)return;setArmed(null);onStack([]);onSelect(selected===id?null:id);}
@@ -189,7 +227,7 @@ export default function BallparkBattle({
     setArmed(null);
     setCommitBeat({
       cards,zones,coverage:coverage.length,
-      hitChance:Math.round(coverage.reduce((sum,z)=>sum+(probs[z]||0),0)*100),
+      hitChance:hitFaceFor(coverage),
       efficiency:Math.round((choice?.damageRate??1)*100),
       connect:links.filter(x=>x.connected).length,
       linkCount:links.length,
@@ -206,8 +244,15 @@ export default function BallparkBattle({
   const rate=liveRate!=null?'피해 ×'+Number(liveRate).toFixed(2).replace(/0$/,''):'';
   const verb=mainIsSkill?'준비한다':'휘두른다';
   /* the verdict before the swing (BP-14): the share of pitches the chosen cells cover, then the HP multiplier */
-  const hitChance=selected&&!mainIsSkill&&choice?.coverage?.length?Math.round(choice.coverage.reduce((a,z)=>a+(z<9?probs[z]||0:0),0)*100):null;
-  const verbSub=!selected?'':mainIsSkill?prepLeft+'회 남음':[hitChance!=null?'적중권 '+hitChance+'%':'',rate].filter(Boolean).join(' · ');
+  const hitCover=selected&&!mainIsSkill&&choice?.coverage?.length?choice.coverage.filter(z=>z<9):[];
+  /* the planned swing names its running cost against what it can spend: the pitch's remaining
+     energy pool in the MAIN RUN (V10), the fixed swing cap in V11 */
+  const energyLimit=s?.version===11?V11_SWING_ENERGY:energy;
+  const stackCost=selected&&!mainIsSkill
+    ?(selected==='basic'?0:cardCost(byId(selected)?.entry))+stack.reduce((n,x)=>n+cardCost(byId(x.id)?.entry),0)
+    :0;
+  const energyPart=selected&&!mainIsSkill?'에너지 '+stackCost+'/'+energyLimit:'';
+  const verbSub=!selected?'':mainIsSkill?prepLeft+'회 남음':[hitCover.length?'적중권 '+hitFaceFor(hitCover):'',rate,energyPart].filter(Boolean).join(' · ');
   /* #103 M03: the two numbers break between each other, never inside one ("피해 …" was cut off) */
   const verbSubParts=verbSub.split(' · ');
   /* where the pitch is likely to go, as numbers: the share of every pitch (balls included), shown while deciding */
@@ -236,7 +281,7 @@ export default function BallparkBattle({
     for(const el of scene.querySelectorAll('.bp-cam')){el.style.setProperty('--ox',el.offsetLeft+'px');el.style.setProperty('--oy',el.offsetTop+'px');}
   },[cam,playToken]);
   useLayoutEffect(()=>{if(chased&&chaseHint){setHintAt(playToken);setChaseHint(false);try{localStorage.setItem('9zone-hint-chase','done');}catch{}}},[chased,chaseHint,playToken]);
-  const coach=firstChase?'볼은 참으면 볼넷이 된다. 바깥 띠로 올 것 같으면 지켜본다.':!deciding?'':choice?.problem||(armed?'덮을 칸을 누른다':lines.coach);
+  const coach=deciding&&choice?.problem?choice.problem:firstChase?'볼은 참으면 볼넷이 된다. 바깥 띠로 올 것 같으면 지켜본다.':!deciding?'':armed?'덮을 칸을 누른다':lines.coach;
   const good=judged&&(r.kind==='hit'||r.kind==='sacrifice'||call==='볼넷');
   /* the pitcher's one-liner: once when she takes the mound, then after each pitch that lands */
   const moment=showVerdict&&judged&&landed?momentOf({call,chased:outNote==='볼에 손이 나갔다',knockedOut:(pitcher?.hp??1)===0})
@@ -322,12 +367,15 @@ const CARD_DESC_MAP={
     const artStyle=customArt
       ?{backgroundImage:`url(${customArt})`,backgroundPosition:focus?.objectPosition||'center 25%',backgroundSize:'cover'}
       :{backgroundImage:`url(${cardArtSheet})`,backgroundPosition:artPos};
-    const cost=def.cost||(def.power>=2?2:1);
+    const cost=cardCost(x.entry);
+    /* a support candidate that would overflow tells so on its face, with the exact sum */
+    const supportCandidate=canStack&&selected&&!mainIsSkill&&selected!==x.id&&inStack<0&&x.entry.kind!=='bunt';
+    const overBudget=supportCandidate&&stackCost+cost>energyLimit;
     const roleTag=def.role||(isSkillCard?'집중':'정확');
-    const descLines=problem?[problem,'']:(CARD_DESC_MAP[x.entry.kind]||[def.gives?.[0]||'스윙 효과',def.gives?.[1]||'']);
+    const descLines=problem?[problem,'']:overBudget?[(CARD_DESC_MAP[x.entry.kind]||[def.gives?.[0]||'스윙 효과'])[0],'합치면 '+stackCost+'+'+cost+'='+(stackCost+cost)+'/'+energyLimit+' 초과']:(CARD_DESC_MAP[x.entry.kind]||[def.gives?.[0]||'스윙 효과',def.gives?.[1]||'']);
 
     return <button key={x.id} type="button" className={'bp-card'+state+(problem?' off':'')+cardKindClass} aria-pressed={selected===x.id||inStack>=0}
-      data-card-kind={x.entry.kind} disabled={!deciding} onClick={()=>pickSwing(x.id)}>
+      data-card-kind={x.entry.kind} data-card-plus={x.entry.plus?1:0} data-card-problem={problem||undefined} disabled={!deciding} onClick={()=>pickSwing(x.id)}>
       <span className="bp-card-cost" aria-label={`코스트 ${cost}`}>{cost}</span>
       <div className="bp-card-art-box">
         <div className="bp-card-art" style={artStyle}/>
@@ -340,7 +388,7 @@ const CARD_DESC_MAP={
           <span className={"bp-chip role r-"+(ROLE_TONE[roleTag]||"plain")}>{roleTag}</span>
         </div>
       </div>
-      <div className="bp-card-desc">
+      <div className={'bp-card-desc'+(overBudget?' over':'')}>
         <p>{descLines[0]}</p>
         {descLines[1]&&<p>{descLines[1]}</p>}
       </div>
@@ -381,7 +429,7 @@ const CARD_DESC_MAP={
           {commitBeat.cards.map((name,i)=><span key={i}><b>{i+1}</b>{name}<em>{commitBeat.zones[i]}</em></span>)}
         </div>
         <div className="bp-commit-stats">
-          <span><small>적중권</small><b>{commitBeat.hitChance}%</b></span>
+          <span><small>적중권</small><b>{commitBeat.hitChance}</b></span>
           <span><small>커버</small><b>{commitBeat.coverage}존</b></span>
           <span><small>HP 효율</small><b>{commitBeat.efficiency}%</b></span>
           <span><small>CONNECT</small><b>{commitBeat.connect}/{commitBeat.linkCount}</b></span>
@@ -407,7 +455,7 @@ const CARD_DESC_MAP={
         </div>}
         {lessonPhase==='review'&&<div className="bp-auto-copy review">
           <strong>{reviewText}</strong>
-          <small>{lessonCombat?.connectCount?'CONNECT '+lessonCombat.connectCount+' · 연결 보너스가 실제 피해에 반영됐다.':autoPlan?.kind==='take'?'지켜보기 역시 하나의 빌드 선택이다. 다음 공의 정보와 손패를 산다.':'노린 코스와 실제 공을 비교하고 다음 설계를 바꾼다.'}</small>
+          <small>{lessonCombat?.connectCount?'CONNECT '+lessonCombat.connectCount+' · 연결 보너스가 실제 피해에 반영됐다.':autoPlan?.kind==='take'?(lessonCombat?.takeEnergyBonus===1?'다음 공 에너지 +1을 예약했다. '+(lessonCombat.takeDrawBonus===1?'카드도 한 장 더 뽑는다.':lessonCombat.takeDrawReason==='full'?'손패가 6장 한도라 추가 카드는 없다.':lessonCombat.takeDrawReason==='empty'?'기본 드로우 뒤 추가 카드는 없다.':'다음 공에서 보너스를 사용한다.'):'지켜보기 결과를 확인하고 다음 선택으로 이어간다.'):'노린 코스와 실제 공을 비교하고 다음 설계를 바꾼다.'}</small>
         </div>}
         {!!lessonCards.length&&<div className="bp-auto-plan" aria-label="현재 빌드">
           {lessonCards.map((name,i)=><span key={i}><b>{i+1}</b>{name}{lessonZones[i]?<em>{lessonZones[i]}</em>:null}</span>)}
@@ -447,7 +495,12 @@ const CARD_DESC_MAP={
           {isKoSplash?<KnockoutCut artId={artId} figure={pitcherFigures[artId]}/>:isHomerSplash&&<HomeRunCut/>}
           <strong>{call||shot.title}</strong>
           {/* with runner moves to show, the flavour line gives its room to them (the plate must clear the HP panel) */}
-          {(outNote||!moves.length&&call&&shot.title&&shot.title!==call)&&<small>{outNote||shot.title}</small>}
+          {/* a pitch that is not a hit can still cost the pitcher HP (near miss, foul, ball): say so on the
+              plate, from the engine's own number, so "헛스윙" next to a falling HP bar does not read as a bug */}
+          {(()=>{const flavour=outNote||(!moves.length&&call&&shot.title&&shot.title!==call?shot.title:'');
+            const hpNote=!good&&!moves.length&&judged&&landed&&combat?.damage>0?'투수 HP -'+combat.damage:'';
+            const line=[flavour,hpNote].filter(Boolean).join(' · ');
+            return line?<small>{line}</small>:null;})()}
           {!!moves.length&&<ul className="bp-moves" data-testid="bp-moves">{moves.map((m,i)=><li key={i}>{m}</li>)}</ul>}
         </div>;
       })()}
@@ -475,7 +528,7 @@ const CARD_DESC_MAP={
             aria-label={word+(dead?' · 던지지 않는 코스':'')+(b.aimZone===z?' · 노림':'')} aria-pressed={b.aimZone===z}
             className={'bp-cell'+(dead?' dead':'')+(cover.has(z)?' cover':'')+(support.has(z)?' assist':'')+(aimAt===z?' aim':'')+(armed?' target':'')+(actual?' actual'+(good?' good':''):'')}
             style={{'--heat':dead?0:Math.min(1,share*3).toFixed(2)}}>
-            {dead&&!cover.has(z)&&<small className="bp-dead">안 던짐</small>}{!dead&&deciding&&<span className={'bp-pct'+(z===topCell?' top':'')+(pct(z)===0?' zero':'')}>{pct(z)}%</span>}{tok.map(t=><b key={t.n} className="bp-token" data-board-order={t.n}>{t.n}</b>)}{actual&&<i className="bp-pitch-mark" aria-label="실제 공"/>}
+            {dead&&!cover.has(z)&&<small className="bp-dead">안 던짐</small>}{!dead&&deciding&&<span className={'bp-pct'+(z===topCell?' top':'')+(pct(z)===0?' zero':'')}>{cellFace(z)}</span>}{tok.map(t=><b key={t.n} className="bp-token" data-board-order={t.n}>{t.n}</b>)}{actual&&<i className="bp-pitch-mark" aria-label="실제 공"/>}
           </button>;
         })}
         {/* CONNECT: the order links the engine scored, solid = connected (+HP back), dashed = broken */}
@@ -483,7 +536,7 @@ const CARD_DESC_MAP={
         <span className="bp-side l">몸쪽</span><span className="bp-side r">바깥쪽</span>
         {/* the ball band: the ring around the nine cells is where balls go. Swing at one = a whiff,
             watch one = a ball. It is drawn so the out-of-zone pitch has a place players can see. */}
-        <span className={'bp-band'+(outside&&landed?' hit':'')+(lure?' lure':'')} data-testid="bp-band" aria-hidden="true"><em>{lure?'유인구 주의 · 볼 '+pct(9)+'%':'바깥 띠 = 볼'+(deciding?' '+pct(9)+'%':'')}</em></span>
+        <span className={'bp-band'+(outside&&landed?' hit':'')+(lure?' lure':'')} data-testid="bp-band" aria-hidden="true"><em>{lure?'유인구 주의 · 볼 '+bandFace:'바깥 띠 = 볼'+(deciding?' '+bandFace:'')}</em></span>
         {judged&&landed&&outside&&<i className="bp-pitch-mark outside" aria-label="실제 공 · 볼"/>}
       </div>
 
@@ -511,19 +564,19 @@ const CARD_DESC_MAP={
 
     {showDebrief?<aside className={'bp-debrief tone-'+(debriefLesson?.tone||'neutral')} data-testid="bp-debrief" aria-label="이번 공 복기">
       <div className="bp-dstep plan">
-        <span>PLAN</span>
+        <span>내 선택</span>
         <strong>{debriefPlan}</strong>
         <small>{lessonCombat.aimLabel||'노림 코스'}</small>
       </div>
       <i aria-hidden="true">→</i>
       <div className="bp-dstep actual">
-        <span>ACTUAL</span>
+        <span>실제 공</span>
         <strong>{debriefActual}</strong>
         <small>{debriefDamage||lessonCombat.verdict||call}</small>
       </div>
       <i aria-hidden="true">→</i>
       <div className="bp-dstep next">
-        <span>NEXT</span>
+        <span>다음엔</span>
         <strong>{debriefLesson?.title}</strong>
         <small>{debriefLesson?.text}</small>
       </div>
@@ -562,10 +615,10 @@ const CARD_DESC_MAP={
         return <button key={x.id} type="button"
           className={'bp-card skill prep-card bp-token-card'+(selected===x.id?' main':'')+(isOff?' off':'')}
           aria-pressed={selected===x.id}
-          data-card-kind={x.entry.kind}
+          data-card-kind={x.entry.kind} data-card-plus={x.entry.plus?1:0} data-card-problem={problem||undefined}
           disabled={!deciding}
           onClick={()=>pickPrep(x.id)}>
-          <span className="bp-card-cost prep" aria-label={`준비 ${prepLeft}회 남음`}>⚡</span>
+          <span className="bp-card-cost prep" aria-label={`에너지 코스트 ${cardCost(x.entry)} · 준비 ${prepLeft}회 남음`}>{cardCost(x.entry)}</span>
           <div className="bp-card-art-box">
             <div className="bp-card-art" style={artStyle}/>
             <div className="bp-card-mini-map prep-badge">
@@ -589,13 +642,15 @@ const CARD_DESC_MAP={
     </div>}
 
     {onNext&&!deciding&&s.phase!=='battle'?<div className="bp-verbs next">
+      {s.version===10&&energyHud}
       {/* #103 M04: the hint names the same step as the verb (it said "next pitch" under "next batter") */}
       <button type="button" className="bp-verb go" data-testid="bp-next" disabled={inFx||locked} onClick={onNext}><span className="bp-verb-word">{nextLabel}</span>{nextHint(s.phase,inFx||locked)&&<small className="bp-verb-sub"><span>{nextHint(s.phase,inFx||locked)}</span></small>}</button>
     </div>:<div className="bp-verbs">
+      {s.version===10&&energyHud}
       <button type="button" className="bp-verb go" data-testid="bp-swing" disabled={!deciding||!selected||!!choice?.problem} onClick={commitSwing}>
         <span className="bp-verb-word">{verb}</span>{verbSub&&<small className="bp-verb-sub">{verbSubParts.map((x,i)=><React.Fragment key={i}>{i>0&&<i className="bp-verb-sep" aria-hidden="true"> · </i>}<span>{x}</span></React.Fragment>)}</small>}
       </button>
-      <button type="button" className="bp-verb wait" data-testid="bp-take" disabled={!deciding} onClick={onTake}><span className="bp-verb-word">지켜본다</span></button>
+      <button type="button" className="bp-verb wait" data-testid="bp-take" disabled={!deciding} onClick={onTake}><span className="bp-verb-word">지켜본다</span>{s.version===10&&<small>{b.strikes===2?'볼 +1 · 삼진 0':'다음 공 +1'}</small>}</button>
       {mainEntry&&deciding&&<button type="button" className="bp-info" aria-label={mainName+' 카드 설명'} onClick={e=>onDetail?.(mainEntry,e.currentTarget)}>ⓘ</button>}
     </div>}
     {coachOn&&deciding&&!autoLesson&&!previewMode&&b.turn===1&&!(b.history?.length)&&<BallparkCoach rootRef={rootRef} onDone={()=>setCoachOn(false)}/>}

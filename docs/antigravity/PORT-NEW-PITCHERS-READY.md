@@ -1,0 +1,1 @@
+Ready to attach verified autonomous pitcher blobs to the isolated integration branch.

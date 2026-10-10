@@ -5,9 +5,11 @@ import {
 } from '../src/duel/engine.js';
 import {validateV10State} from '../src/duel/v10-storage.js';
 
+/* the opening hand is a seeded deal since autodev P1; these contracts address c0-c4, so pin them */
+function pinHand(s,ids=['c0','c1','c2','c3','c4']){const b=s.battle,pool=[...b.hand,...b.draw,...b.discard].filter(id=>!ids.includes(id));b.hand=[...ids];b.draw=pool;b.discard=[];return s;}
 function armed(){
   let s=createV10Duel(20260917);
-  s=enterV10Node(s,'a1-entry');
+  s=pinHand(enterV10Node(s,'a1-entry'));
   s=setAimZone(s,0);
   return s;
 }
@@ -18,51 +20,51 @@ describe('V10 스윙 스택',()=>{
     expect([1,2,3,4].map(v10SwingDamageRate)).toEqual([1,.8,.65,.5]);
   });
 
-  it('최대 네 장의 커버를 합치고 넓어진 만큼 장타 페널티도 커진다',()=>{
+  it('에너지 예산 안에서 세 장의 커버를 합치고 넓어진 만큼 장타 페널티도 커진다',()=>{
     const s=armed();
     const main=previewCard(s,'c4');
     const stack=previewV10Stack(s,'c4',[
       {id:'c0',aimZone:8},
       {id:'c1',aimZone:7},
-      {id:'c2',aimZone:2},
     ]);
     expect(main.coverage).toEqual([0,3,6]);
     expect(stack.primaryCoverage).toEqual([0,3,6]);
-    expect(stack.supportCoverages.map(x=>x.coverage)).toEqual([[8],[7],[2]]);
-    expect(stack.coverage).toEqual([0,2,3,6,7,8]);
-    expect(stack.cardCount).toBe(4);
-    expect(stack.damageRate).toBeCloseTo(.57);
+    expect(stack.supportCoverages.map(x=>x.coverage)).toEqual([[8],[7]]);
+    expect(stack.coverage).toEqual([0,3,6,7,8]);
+    expect(stack.cardCount).toBe(3);
+    expect(stack.cost).toBe(3);
+    expect(stack.damageRate).toBeCloseTo(.72);
     expect(stack.connectCount).toBe(1);
     expect(stack.connectBonus).toBeCloseTo(.07);
-    expect(stack.matchup.widthPenalty).toBe(main.matchup.widthPenalty+21);
-    expect(stack.label).toContain('4장');
+    expect(stack.matchup.widthPenalty).toBe(main.matchup.widthPenalty+14);
+    expect(stack.label).toContain('3장');
   });
 
-  it('추가 카드 범위에만 맞으면 단타가 되고 네 장을 모두 소비하며 HP 피해는 절반만 준다',()=>{
+  it('추가 카드 범위에만 맞으면 단타가 되고 합산 비용을 내며 스택 피해 효율을 적용한다',()=>{
     let s=armed();
     const hp=s.pitcher.hp,cards=s.stats.cards,pitches=s.stats.pitches;
     s.battle.pending={...s.battle.pending,zone:8,roll:.99,powerRoll:.99};
     s=playV10Action(s,{type:'card',id:'c4',supports:[
       {id:'c0',aimZone:8},
       {id:'c1',aimZone:7},
-      {id:'c2',aimZone:2},
     ]});
     expect(s.battle.revealed.label).toBe('겹친 카드 단타');
     expect(s.battle.revealed.assistOnly).toBe(true);
-    expect(s.battle.revealed.stackCardCount).toBe(4);
-    expect(s.battle.revealed.coverage).toEqual([0,2,3,6,7,8]);
-    expect(s.battle.hand).not.toEqual(expect.arrayContaining(['c4','c0','c1','c2']));
-    expect(s.battle.discard).toEqual(expect.arrayContaining(['c4','c0','c1','c2']));
-    expect(s.stats.cards-cards).toBe(4);
+    expect(s.battle.revealed.stackCardCount).toBe(3);
+    expect(s.battle.revealed.coverage).toEqual([0,3,6,7,8]);
+    expect(s.battle.energy).toBe(0);
+    expect(s.battle.hand).not.toEqual(expect.arrayContaining(['c4','c0','c1']));
+    expect(s.battle.discard).toEqual(expect.arrayContaining(['c4','c0','c1']));
+    expect(s.stats.cards-cards).toBe(3);
     expect(s.stats.pitches-pitches).toBe(1);
-    expect(hp-s.pitcher.hp).toBe(7);
+    expect(hp-s.pitcher.hp).toBe(9);
     const combat=selectV10Combat(s);
-    expect(combat.damage).toBe(7);
+    expect(combat.damage).toBe(9);
     expect(combat.baseDamage).toBe(12);
-    expect(combat.damageRate).toBeCloseTo(.57);
+    expect(combat.damageRate).toBeCloseTo(.72);
     expect(combat.connectCount).toBe(1);
-    expect(combat.cardCount).toBe(4);
-    expect(combat.choiceLabel).toBe('밀어치기 + 정타 노림 + 정타 노림 + 정타 노림');
+    expect(combat.cardCount).toBe(3);
+    expect(combat.choiceLabel).toBe('밀어치기 + 정타 노림 + 정타 노림');
     expect(combat.aimLabel).toContain('바깥 낮음');
     expect(validateV10State(s)).toBe(true);
   });

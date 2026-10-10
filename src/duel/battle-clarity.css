@@ -74,6 +74,7 @@
 
   /* 지켜본다: one line under the title (it broke into "투구를 / 흘려보낸다") */
   .v14-battle-portrait .bp-verb.wait::after{content:"흘려보낸다";white-space:nowrap;display:block;-webkit-line-clamp:unset}
+  .v14-battle-portrait .bp-verb.wait:has(small)::after{content:none;display:none}
 
   /* runner moves under the verdict word, and the bases that just filled pulse (playtest: a strikeout
      "looked like" it put the batter on, because nothing said who stood where) */

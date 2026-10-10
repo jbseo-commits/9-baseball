@@ -1,0 +1,1 @@
+Integration scope finalized: three pitcher atlases plus roster/visual/voice/release/stance/stride metadata only.

@@ -25,6 +25,17 @@ const CORE_CARDS={
 export const CORE_KINDS=Object.freeze(Object.keys(CORE_CARDS));
 for(const [k,fam] of Object.entries(CORE_FAMILY))CORE_CARDS[k].family=fam;
 export const CARDS={...CORE_CARDS,...CARDS_V16};
+// Fixed V10 cost overrides. Keep this list in sync with docs/CARD-ENERGY.md.
+// setup is the free preparation card; upgrades keep the same cost.
+const V10_COST_TWO=new Set(['slug','wall','laser','commit','needle','perfectRead','fullSwing','moonshot','cleanup','soloShot','calledShot',
+  'thunder','basesLoaded','homeRush','shieldBat','attrition','timeOut','threeOh','hawkEye','lastChance','edgeSwing','walkOff','hotStart',
+  'allIn','fullStack','teamwork','analyst','fullScout','killerInstinct','collapse','laneMaster','sinkerBuster']);
+for(const [kind,def] of Object.entries(CARDS))def.cost=kind==='setup'?0:V10_COST_TWO.has(kind)?2:1;
+export function cardCost(kindOrEntry){
+  const kind=typeof kindOrEntry==='string'?kindOrEntry:kindOrEntry?.kind;
+  const def=CARDS[kind];
+  return Number.isInteger(def?.cost)&&def.cost>=0?def.cost:0;
+}
 export const ROLES=['관찰','정타','범위','장타','진루','생존','집중','수급'];
 export const AXES=[['point','1존'],['row','가로 3존'],['column','세로 3존'],['cross','십자 5존'],['all','9존'],
   ['pairH','가로 2존'],['pairV','세로 2존'],['diag','대각선'],['x','X 5존'],['box','주변 9존'],['corners','네 모서리']];
@@ -35,6 +46,7 @@ export const UPGRADES={
 };
 export const upgradeText=kind=>UPGRADES[kind]||(CARDS[kind]?.type==='attack'?'파워 +18':null);
 export const canUpgrade=entry=>!!entry&&!entry.plus&&!!upgradeText(entry.kind);
+
 export const cardPower=entry=>{const d=CARDS[entry?.kind];return (d?.power||0)+(entry?.plus&&d.type==='attack'&&!d.bunt&&!d.singles?1:0);};
 export function cardText(kind,plus=false){
   if(!plus)return CARDS[kind].text;

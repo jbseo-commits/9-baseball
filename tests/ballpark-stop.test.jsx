@@ -41,13 +41,16 @@ describe('V13 BALLPARK stops',()=>{
     const s=won();open(s);fireEvent.click(skip());
     const t=readV10Duel(localStorage);expect(t.phase).toBe('map');expect(t.deck.length).toBe(s.deck.length);
   });
-  it('locker lists each card kind once and removes the picked copy',()=>{
+  it('locker lists every copy and removes the picked one',()=>{
+    // Engine removal targets one id, so one tile per kind hid + copies and
+    // always removed the first id. Tiles are per copy now.
     let s=won();s=claimV10Reward(s,{type:'add',kind:v10RewardOptions(s)[0]});s=toLocker(s);
     expect(s.phase).toBe('locker');open(s);
-    const kinds=[...new Set(v10UtilityOptions(s).map(o=>o.kind))];
-    expect(offers().map(o=>o.dataset.cardKind)).toEqual(kinds);
+    const ids=v10UtilityOptions(s).map(o=>o.id);
+    expect(offers()).toHaveLength(ids.length);
     fireEvent.click(offers()[0]);fireEvent.click(go());
     const t=readV10Duel(localStorage);expect(t.phase).toBe('map');expect(t.deck.length).toBe(s.deck.length-1);
+    expect(t.deck.map(c=>c.id)).not.toContain(ids[0]);
   });
   it('an empty stop has one button back to the map',()=>{
     let s=won();s=claimV10Reward(s,{type:'skip'});s=toLocker(s);

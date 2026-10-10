@@ -4,7 +4,7 @@ import {planAction} from '../src/duel/policy.js';
 import {SAVE_KEY,LINEUP,CARDS,BUILDS,DECKBUILDER_BUILD,ROUTE_CHOICES} from '../src/duel/cards.js';
 const memory=()=>{const d={};return {setItem:(k,v)=>d[k]=v,getItem:k=>d[k]??null}};
 function battle(seed,build){let s=createDuel(seed,build);if(build===DECKBUILDER_BUILD)s=chooseRoute(s,ROUTE_CHOICES[0][0].id);return startBattle(s);}
-function fixture(kind='strike',build='away'){const s=battle(1,build);s.deck[0].kind=kind;return s;}
+function fixture(kind='strike',build='away'){const s=battle(1,build);s.deck[0].kind=kind;const b=s.battle,pile=[...b.hand,...b.draw,...b.discard].filter(id=>id!=='c0'&&id!=='c1'&&id!=='c2');b.hand=['c0','c1','c2',...pile.slice(0,2)];b.draw=pile.slice(2);b.discard=[];return s;}
 function pitch(s,zone,roll=.5,powerRoll=.95){s.battle.pending={zone,roll,powerRoll};return s;}
 function roundtrip(s){const store=memory();saveDuel(store,s);expect(readDuel(store)).toEqual(s);if(s.battle){const b=s.battle,ids=[...b.hand,...b.draw,...b.discard];expect(ids).toHaveLength(s.deck.length);expect(new Set(ids).size).toBe(s.deck.length);expect(b.bases.filter(Boolean).every(id=>LINEUP.some(p=>p.id===id))).toBe(true);}}
 describe('9-zone read success is guaranteed; stats only choose hit type',()=>{

@@ -204,15 +204,21 @@ describe('라커룸 제거 후 손패 불변식', ()=>{
     for(const id of battle.battle.hand)expect(battle.deck.find(c=>c.id===id)).toBeTruthy();
   });
 
-  it('덱이 온전하면 1막 첫 손패는 그대로 c0..c4다',()=>{
-    const s=enterV10Node(createV10Duel(0),'a1-entry');
-    expect(s.battle.hand).toEqual(['c0','c1','c2','c3','c4']);
+  it('덱이 온전해도 1막 첫 손패는 고정 c0..c4가 아니라 분배다',()=>{
+    // P1(2026-10-09 분석서): 고정 첫 손패 해제. 손패는 live deck의 seeded 분배.
+    const a=enterV10Node(createV10Duel(0),'a1-entry');
+    const b=enterV10Node(createV10Duel(0),'a1-entry');
+    expect(a.battle.hand).toEqual(b.battle.hand);
+    expect(a.battle.hand).toHaveLength(5);
+    const ids=new Set(a.deck.map(c=>c.id));
+    for(const id of a.battle.hand)expect(ids.has(id)).toBe(true);
   });
 
   it('이미 오염된 저장은 불러올 때 유령 id를 버린다',()=>{
     const s=enterV10Node(createV10Duel(0),'a1-entry');
-    const poisoned={...s,deck:s.deck.filter(c=>c.id!=='c0')};
-    expect(v10NormalizeHand(poisoned).battle.hand).toEqual(['c1','c2','c3','c4']);
+    const victim=s.battle.hand[0];
+    const poisoned={...s,deck:s.deck.filter(c=>c.id!==victim)};
+    expect(v10NormalizeHand(poisoned).battle.hand).toEqual(s.battle.hand.filter(id=>id!==victim));
     // 온전한 상태는 같은 객체를 그대로 돌려준다.
     expect(v10NormalizeHand(s)).toBe(s);
   });

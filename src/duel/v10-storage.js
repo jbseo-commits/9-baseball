@@ -1,13 +1,34 @@
 import {validateRunMap} from './run-map.js';
 import {isPitcherHp} from './pitcher-hp.js';
+import {CARDS} from './cards.js';
 
 export const V10_SAVE_KEY='9zone-v10-run';
 const PHASES=new Set(['map','battle','pitch','between','reward','lost','won','training','locker','shop','rest']);
 
 export function validateV10State(s){
   if(!s||s.version!==10||!Number.isInteger(s.initialSeed)||!PHASES.has(s.phase)||!validateRunMap(s.runMap))return false;
+  if(s.battle?.energy!==undefined&&(!Number.isInteger(s.battle.energy)||s.battle.energy<0||s.battle.energy>4))return false;
+  const energyCap=s.battle?.energyCap===undefined?3:s.battle.energyCap;
+  const takeEnergyBonus=s.battle?.takeEnergyBonus===undefined?0:s.battle.takeEnergyBonus;
+  if(!Number.isInteger(energyCap)||![3,4].includes(energyCap)||!Number.isInteger(takeEnergyBonus)||![0,1].includes(takeEnergyBonus))return false;
+  if(s.battle?.energy!==undefined&&s.battle.energy>energyCap)return false;
   if(!Array.isArray(s.deck)||s.deck.some(c=>!c||typeof c.id!=='string'||typeof c.kind!=='string'))return false;
-  if(!Array.isArray(s.rewards)||!s.v10||typeof s.v10!=='object'||!Array.isArray(s.v10.utilityHistory))return false;
+  /* kind must exist in CARDS. Checking only `typeof kind === 'string'` let real saves
+     through, and the deck modal then reads CARDS[kind] -> TypeError -> ErrorBoundary,
+     with no recovery because nothing clears the save. The V9 validator already does this. */
+  if(s.deck.some(c=>!Object.hasOwn(CARDS,c.kind)))return false;
+  /* Run-level fields. runOuts and stats were added after the first V10 saves shipped, and the
+     engine already coerces a missing runOuts to 0 (`s.runOuts|0`). Rejecting an otherwise valid
+     save because an optional field is absent would brick real players, so validate them only
+     when present. The CARDS membership check above is the one that must never be relaxed. */
+  if(s.runOuts!==undefined&&(!Number.isInteger(s.runOuts)||s.runOuts<0||s.runOuts>3))return false;
+  if(s.nextId!==undefined&&s.nextId!==null&&!Number.isInteger(s.nextId))return false;
+  if(s.stats!==undefined&&(!s.stats||typeof s.stats!=='object'||Array.isArray(s.stats)))return false;
+  /* A save that claims to be mid-battle must carry a battle object. */
+  if(['battle','pitch','between'].includes(s.phase)&&(!s.battle||typeof s.battle!=='object'))return false;
+  if(!s.v10||typeof s.v10!=='object')return false;
+  if(s.v10.relicChoices!==undefined&&!Array.isArray(s.v10.relicChoices))return false;
+  if(!Array.isArray(s.rewards)||!Array.isArray(s.v10.utilityHistory))return false;
   const validBonus=b=>b===null||b===undefined||(b&&Number.isInteger(b.technique)&&b.technique>=0&&b.technique<=100&&typeof b.source==='string');
   if(!validBonus(s.v10.nextBattleBonus)||!validBonus(s.v10.activeBattleBonus))return false;
   if(s.v10.nodeId!==null&&s.v10.nodeId!==undefined&&typeof s.v10.nodeId!=='string')return false;
@@ -22,6 +43,9 @@ export function validateV10State(s){
     /* 표시용 이름은 나중에 붙었다. 있으면 문자열이어야 하고, 없는 예전 기록도 그대로 읽는다. */
     const labels=['choiceLabel','aimLabel','pitchLabel','pitchName'];
     if(labels.some(key=>last[key]!==undefined&&typeof last[key]!=='string'))return false;
+    if(last.takeEnergyBonus!==undefined&&(!Number.isInteger(last.takeEnergyBonus)||![0,1].includes(last.takeEnergyBonus)))return false;
+    if(last.takeDrawBonus!==undefined&&(!Number.isInteger(last.takeDrawBonus)||![0,1].includes(last.takeDrawBonus)))return false;
+    if(last.takeDrawReason!==undefined&&!['full','empty'].includes(last.takeDrawReason))return false;
     /* 지켜보기는 노린 존이 없어 null이다. 그 외에는 0~9 정수여야 한다. */
     if(last.aimZone!==undefined&&last.aimZone!==null&&(!Number.isInteger(last.aimZone)||last.aimZone<0||last.aimZone>9))return false;
   }

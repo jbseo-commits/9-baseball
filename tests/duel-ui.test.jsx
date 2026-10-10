@@ -56,7 +56,7 @@ describe('9-zone strategic UI',()=>{
     begin();expect(screen.getByRole('group',{name:'노릴 코스'}).querySelectorAll('button')).toHaveLength(9);
     expect(screen.getByRole('group',{name:'노릴 코스'}).textContent.match(/★ 숙련/g)).toHaveLength(4);
     expect(screen.getByLabelText('타자 투수 스탯').textContent).toContain('안타 취소 없음');
-    fireEvent.click(screen.getByRole('button',{name:'스윙하기',exact:true}));fireEvent.click(screen.getByRole('button',{name:'밀어치기',exact:true}));
+    fireEvent.click(screen.getByRole('button',{name:'스윙하기',exact:true}));fireEvent.click(screen.getAllByRole('button',{name:'밀어치기',exact:true})[0]);
     expect(screen.getByText('타격 범위 적중 = 안타 확정')).toBeTruthy();
     const before=readDuel(localStorage).battle.pending;fireEvent.click(screen.getByRole('button',{name:'몸쪽 중간',exact:true}));
     expect(readDuel(localStorage).battle.pending).toEqual(before);expect(readDuel(localStorage).battle.aimZone).toBe(3);
@@ -140,7 +140,7 @@ describe('9-zone strategic UI',()=>{
     expect(arena.querySelector('.pixel-cinema')).toBeNull();
     expect(arena.querySelector('canvas.pixel-vfx-canvas')).toBeNull();
     fireEvent.click(screen.getByRole('button',{name:'스윙하기',exact:true}));
-    fireEvent.click(screen.getByRole('button',{name:'밀어치기',exact:true}));
+    fireEvent.click(screen.getAllByRole('button',{name:'밀어치기',exact:true})[0]);
     fireEvent.click(screen.getByTestId('execute-action'));
     expect([...arena.classList].some(c=>c.startsWith('shake-'))).toBe(false);
     expect(document.querySelector('.slowmo-mark')).toBeNull();
@@ -228,7 +228,9 @@ describe('9-zone strategic UI',()=>{
     act(()=>vi.advanceTimersByTime(timeline.slowmo+1));expect(arena.className).toContain('fx-stage-release');
     finish();
     expect(document.querySelector('.bp-verdict strong').textContent).toBe('헛스윙');
-    expect(document.querySelector('.bp-verdict small').textContent).toBe('한 칸 차이');
+    // the plate also names the HP the miss cost, from the engine's own number
+    const missDamage=readV10Duel(localStorage).v10.lastCombat.damage;
+    expect(document.querySelector('.bp-verdict small').textContent).toBe('한 칸 차이'+(missDamage>0?' · 투수 HP -'+missDamage:''));
   });
 
   it('uncovered whiff keeps same batter and requires next pitch confirmation',()=>{

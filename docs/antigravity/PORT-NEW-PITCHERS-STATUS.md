@@ -1,0 +1,1 @@
+Implementation target is ready for runtime blob integration. Current main remains untouched; integration branch retains Cinematic V2 and adds regression guards before runtime assets are attached.

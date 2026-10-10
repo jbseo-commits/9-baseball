@@ -1,5 +1,5 @@
 import React,{useEffect,useRef,useState} from 'react';
-import {V10_SWING_DAMAGE_RATES,V11_STACK_CONNECT_BONUS,V10_MOMENTUM,V10_RUNNER_PRESSURE} from './engine.js';
+import {V10_SWING_DAMAGE_RATES,V11_STACK_CONNECT_BONUS,V10_MOMENTUM,V10_RUNNER_PRESSURE,V10_ENERGY_BASE,V10_ENERGY_MAX,V10_SWING_STACK_MAX} from './engine.js';
 import './welcome.css';
 
 /* 게임 방법 — the rules of the main run, one idea per page, each drawn with the game's own pieces
@@ -26,16 +26,16 @@ export const WELCOME_CHAPTERS=[
       <>3막 지도를 지나 마지막 보스까지 끌어내리면 완주.</>],
     art:()=><div className="wg-goal"><div className="wg-hp"><span>레드 러시</span><i><b/></i><small>HP 0 / 60 · 강판</small></div><div className="wg-outs"><span>O</span><i className="on"/><i className="on"/><i/><small>3아웃 전에!</small></div></div>},
   {key:'flow',eyebrow:'한 공의 흐름',title:'읽고, 놓고, 친다',
-    body:[<><b>① 읽기</b> — 투수 속마음 한 줄과 9존의 %를 봅니다.</>,<><b>② 놓기</b> — 카드를 고르고 노릴 칸을 누릅니다.</>,<><b>③ 결정</b> — <b>휘두른다</b> 또는 <b>지켜본다</b>. 공은 이미 정해져 있고 %는 실제 확률입니다.</>],
+    body:[<><b>① 읽기</b> — 투수 속마음 한 줄과 9존을 봅니다. 처음엔 자주·가끔·드묾 낱말로 보입니다.</>,<><b>② 놓기</b> — 카드를 고르고 노릴 칸을 누릅니다.</>,<><b>③ 결정</b> — <b>휘두른다</b> 또는 <b>지켜본다</b>. 공은 이미 정해져 있고, 숫자는 읽은 만큼만 보입니다.</>],
     art:()=><ol className="wg-steps"><li><i>👁</i>읽기</li><li><i>🂠</i>놓기</li><li><i>⚾</i>결정</li><li><i>★</i>결과</li></ol>},
   {key:'zone',eyebrow:'9존 읽기',title:'공이 어디로 올까',
-    body:[<>칸의 <b>%</b>는 전체 공 중 그 칸으로 올 확률, <b>최다</b>는 가장 높은 칸.</>,<><b>안 던짐</b> — 이 투수가 아직 쓰지 않는 칸. 타석이 길어지면 늘어납니다.</>,<>9칸을 둘러싼 <b>바깥 띠 = 볼</b>. 30%를 넘으면 <b>유인구 주의</b>로 붉어집니다.</>],
+    body:[<>칸의 숫자는 전체 공 중 그 칸으로 올 확률. <b>최다</b>는 가장 높은 칸. 처음엔 낱말로, 읽기가 쌓이면 구간·정확한 확률로 보입니다.</>,<><b>안 던짐</b> — 이 투수가 아직 쓰지 않는 칸. 타석이 길어지면 늘어납니다.</>,<>9칸을 둘러싼 <b>바깥 띠 = 볼</b>. 30% 이상이면 <b>유인구 주의</b>로 붉어집니다.</>],
     art:()=><Zone band="바깥 띠 = 볼 16%" cells={{0:{cls:'dead',text:'안 던짐'},1:{cls:'dead',text:'안 던짐'},2:{text:'19%'},4:{text:'15%'},5:{cls:'top',text:'28% 최다'},8:{text:'22%'}}}/>},
-  {key:'cover',eyebrow:'커버 = 안타',title:'덮은 칸에 오면 무조건 안타',
-    body:[<>카드의 작은 3×3 그림이 <b>덮는 칸</b>입니다. 그 칸으로 공이 오면 <b>안타 확정</b>.</>,<>덮지 못한 스트라이크는 헛스윙이나 파울. <b>볼에 휘두르면 대부분 헛스윙</b> — 볼은 지켜보면 볼입니다.</>,<>넓게 덮을수록 힘이 분산돼 <b>장타가 줄어듭니다</b>.</>],
+  {key:'cover',eyebrow:'커버 = 안타',title:'덮은 칸에 오면 안타',
+    body:[<>카드의 작은 3×3 그림이 <b>덮는 칸</b>입니다. 그 칸으로 공이 오면 <b>안타 확정</b>(희생 번트는 작전 성공을 노립니다).</>,<>덮지 못한 스트라이크는 헛스윙이나 파울. <b>볼에 휘두르면 대부분 헛스윙</b> — 볼은 지켜보면 볼입니다.</>,<>넓게 덮을수록 힘이 분산돼 <b>장타가 줄어듭니다</b>.</>],
     art:()=><div className="wg-pair"><Zone small cells={{2:{cls:'cover'},5:{cls:'cover aim'},8:{cls:'cover'}}} ball={5}/><span className="wg-verdict good">안타</span><Zone small cells={{2:{cls:'cover'},5:{cls:'cover aim'},8:{cls:'cover'}}} ball={9}/><span className="wg-verdict">볼 · 지켜보면 볼</span></div>},
   {key:'stack',eyebrow:'STACK · CONNECT',title:'여러 장 겹치기',
-    body:[<>메인 카드 위에 최대 {V10_SWING_DAMAGE_RATES.length-1}장을 더 놓으면 덮는 칸이 넓어지지만 <b>피해 배율이 내려갑니다</b>: {V10_SWING_DAMAGE_RATES.map((r,i)=>(i+1)+'장 '+pct(r)+'%').join(' · ')}.</>,
+    body:[<>메인 카드와 지원을 합쳐 최대 {Math.min(V10_SWING_DAMAGE_RATES.length,V10_SWING_STACK_MAX)}장까지 놓을 수 있습니다. 일부 투수 기믹에서는 더 적게 놓을 수 있습니다. 합산 에너지 비용이 남은 에너지보다 크면 실행할 수 없습니다. 덮는 칸이 넓어지면 <b>피해 배율이 내려갑니다</b>: {V10_SWING_DAMAGE_RATES.slice(0,V10_SWING_STACK_MAX).map((r,i)=>(i+1)+'장 '+pct(r)+'%').join(' · ')}.</>,
       <>놓은 순서(①→②→③)대로 <b>노린 칸이 붙어 있으면 CONNECT</b> — 실선, 한 번마다 +{pct(V11_STACK_CONNECT_BONUS)}%p를 되찾습니다(최대 100%). 떨어지면 점선 <b>BREAK</b>.</>,
       <>메인 카드가 못 덮은 공을 지원 카드가 덮으면 단타로 막아 줍니다.</>],
     art:()=><div className="wg-pair"><Zone small cells={{4:{cls:'cover aim',text:'①'},5:{cls:'support',text:'②'},8:{cls:'support',text:'③'}}} links={[[4,5,1],[5,8,1]]}/><span className="wg-verdict good">CONNECT 2/2</span><Zone small cells={{0:{cls:'cover aim',text:'①'},8:{cls:'support',text:'②'}}} links={[[0,8,0]]}/><span className="wg-verdict">BREAK</span></div>},
@@ -48,7 +48,7 @@ export const WELCOME_CHAPTERS=[
   {key:'count',eyebrow:'카운트',title:'볼카운트와 준비',
     body:[<><b>볼 4개 = 볼넷</b>(진루), <b>스트라이크 3개 = 삼진</b>(아웃). 2스트라이크 뒤 파울은 카운트가 늘지 않습니다.</>,
       <>안타·볼넷·삼진·희생 번트면 타석 종료, 볼·스트라이크·파울이면 같은 타자가 다음 공.</>,
-      <><b>준비 카드</b>는 공을 쓰지 않고 이번 타석을 돕습니다 — 타석당 2번까지.</>,
+      <><b>준비 카드</b>는 에너지 비용을 내고 공을 쓰지 않은 채 이번 타석을 돕습니다 — 타석당 2번까지. 기본 스윙과 지켜보기는 무료. 지켜본 볼·삼진 전 스트라이크는 다음 실제 공 에너지 +1을 예약하고, 기본 보충 뒤 자리가 있고 더미에 카드가 있으면 한 장 더 뽑습니다(손패 최대 6). 손패가 가득하거나 더미가 비면 카드 보상은 없습니다.</>,
       <>점수를 내면 투수가 <b>흔들려</b> 볼이 늘고, 무득점 타석마다 한 단계씩 진정합니다.</>],
     art:()=><div className="wg-bso"><span>B</span><i className="on"/><i className="on"/><i/><span>S</span><i className="on"/><i/><span>O</span><i/><i/></div>},
   {key:'road',eyebrow:'원정',title:'지도를 골라 3막으로',
@@ -58,7 +58,7 @@ export const WELCOME_CHAPTERS=[
     art:()=><ul className="wg-nodes"><li>⚔<span>정규</span></li><li className="elite">⚔<span>강적</span></li><li className="boss">♛<span>보스</span></li><li>🛒<span>상점</span></li><li>🗄<span>라커룸</span></li><li>⤴<span>훈련</span></li><li>☾<span>휴식</span></li></ul>},
   {key:'words',eyebrow:'용어',title:'화면의 말들',
     body:null,
-    words:[['적중권 N%','고른 카드가 덮은 칸으로 공이 올 확률'],['피해 ×N','이번 스윙이 투수 HP에 들어가는 배율 (겹치기 · 기세 반영)'],['STACK','메인 + 지원 카드를 겹쳐 치기'],['CONNECT / BREAK','순서대로 노린 칸이 붙음(실선) / 떨어짐(점선)'],['정확 적중','메인 카드 커버 안으로 온 안타 — 카드별 추가 피해'],['주자 압박','주자가 있을 때 안타 피해 추가'],['흔들림','실점한 투수의 점 표시 — 볼이 늘어남'],['기세','좋은 타석이 쌓는 피해 배율, 삼진이면 꺼짐'],['PLAN → ACTUAL → NEXT','결과 뒤 복기: 내 선택 → 실제 공 → 다음에 할 일'],['ⓘ · 길게 누르기','카드의 원문 규칙 보기']]},
+    words:[[`에너지 ${V10_ENERGY_BASE}/${V10_ENERGY_BASE}`,`기본은 공마다 ${V10_ENERGY_BASE} 충전. 지켜본 볼·삼진 전 스트라이크는 다음 실제 공만 ${V10_ENERGY_MAX}로 충전하며, 기본 보충 뒤 자리가 있고 카드 더미가 있으면 한 장 더 뽑습니다(손패 최대 6). 준비·공격·지원 비용은 실행할 때 합산하고 부족하면 기본 스윙(0)이나 지켜보기(0).`],['적중권 N%','고른 카드가 덮은 칸으로 공이 올 확률'],['피해 ×N','이번 스윙이 투수 HP에 들어가는 배율 (겹치기 · 기세 반영)'],['STACK','메인 + 지원 카드를 겹쳐 치기'],['CONNECT / BREAK','순서대로 노린 칸이 붙음(실선) / 떨어짐(점선)'],['정확 적중','메인 카드 커버 안으로 온 안타 — 카드별 추가 피해'],['주자 압박','주자가 있을 때 안타 피해 추가'],['흔들림','실점한 투수의 점 표시 — 볼이 늘어남'],['기세','좋은 타석이 쌓는 피해 배율, 삼진이면 꺼짐'],['내 선택 → 실제 공 → 다음엔','결과 뒤 복기: 무엇을 노렸고, 공이 어디로 왔고, 다음엔 뭘 할지'],['ⓘ · 길게 누르기','카드의 원문 규칙 보기']]},
 ];
 
 export default function WelcomeGuide({start=0,onClose,onCards}){
@@ -87,7 +87,7 @@ export default function WelcomeGuide({start=0,onClose,onCards}){
       <footer className="wg-foot">
         <button type="button" className="wg-prev" onClick={()=>go(-1)} disabled={i===0}>이전</button>
         <span className="wg-dots" aria-hidden="true">{WELCOME_CHAPTERS.map((_,k)=><i key={k} className={k===i?'on':''} onClick={()=>setI(k)}/>)}</span>
-        {last?<span className="wg-end">{onCards&&<button type="button" className="wg-cards" onClick={onCards}>카드 도감</button>}<button type="button" className="wg-next primary" onClick={done}>플레이 시작</button></span>
+        {last?<span className="wg-end">{onCards&&<button type="button" className="wg-cards" onClick={()=>{try{localStorage.setItem(WELCOME_SEEN_KEY,'seen')}catch{}onCards?.()}}>카드 도감</button>}<button type="button" className="wg-next primary" onClick={done}>플레이 시작</button></span>
           :<button type="button" className="wg-next primary" onClick={()=>go(1)}>다음</button>}
       </footer>
     </section>

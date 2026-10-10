@@ -1,5 +1,5 @@
 import {describe,it,expect} from 'vitest';
-import {createV10Duel,enterV10Node,claimV10Reward,HAND_MAX,HAND_OPEN} from '../src/duel/engine.js';
+import {createV10Duel,enterV10Node,claimV10Reward,HAND_MAX,HAND_OPEN,V10_TAKE_HAND_MAX} from '../src/duel/engine.js';
 
 const atReward=(outs,rewardTier,type)=>{
   let s=enterV10Node(createV10Duel(7),'a1-entry');
@@ -30,8 +30,9 @@ describe('이어지는 아웃',()=>{
 });
 
 describe('손패 상한',()=>{
-  it('손패는 5장을 넘지 않는다',()=>{
+  it('일반 시작 손패는 5장이고 보통 드로우 한도도 5장이다',()=>{
     expect(HAND_OPEN).toBe(5);expect(HAND_MAX).toBe(5);
+    expect(V10_TAKE_HAND_MAX).toBe(6); // 지켜보기 보너스 드로우만 한 장 더 허용한다.
     const s=enterV10Node(createV10Duel(5),'a1-entry');expect(s.battle.hand.length).toBeLessThanOrEqual(HAND_MAX);
   });
 });

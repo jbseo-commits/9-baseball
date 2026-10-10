@@ -1,0 +1,1 @@
+Binary atlas files cannot be safely recreated as text; the integration uses the existing Git blob SHAs from the autonomous branch so the art bytes remain exactly unchanged.

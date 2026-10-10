@@ -61,13 +61,18 @@ describe('V12 P0-3 design-token definitions',()=>{
     expect(css).not.toContain('!important');
   });
 
-  it('is not imported by runtime source during P0',()=>{
+  it('is imported exactly once, from main.jsx, before every other stylesheet',()=>{
     let found='';
     try{
-      found=execFileSync('git',['grep','-n','tokens.css','--','src'],{cwd:ROOT,encoding:'utf8'});
+      found=execFileSync('git',['grep','-nE','import .*tokens\.css','--','src'],{cwd:ROOT,encoding:'utf8'});
     }catch(error){
       if(error.status!==1)throw error;
     }
-    expect(found.trim()).toBe('');
+    const hits=found.trim().split('\n').filter(Boolean);
+    expect(hits).toHaveLength(1);
+    expect(hits[0]).toMatch(/^src\/main\.jsx:/);
+    const main=readFileSync(path.join(ROOT,'src/main.jsx'),'utf8');
+    const cssImports=[...main.matchAll(/import "(\.\/duel\/[^"]+\.css)"/g)].map(m=>m[1]);
+    expect(cssImports[0]).toBe('./duel/tokens.css');
   });
 });

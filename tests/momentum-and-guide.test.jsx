@@ -66,13 +66,17 @@ describe('게임 방법 guide',()=>{
     render(<WelcomeGuide/>);
     expect(screen.getByRole('dialog',{name:'게임 방법'}).textContent).toMatch(/3아웃이 되기 전에 투수 HP를 0/);
     for(let k=0;k<4;k++)fireEvent.click(screen.getByRole('button',{name:'다음'}));
-    expect(document.querySelector('.wg-page').textContent).toContain(V10_SWING_DAMAGE_RATES.map((r,i)=>(i+1)+'장 '+Math.round(r*100)+'%').join(' · '));
+    expect(document.querySelector('.wg-page').textContent).toContain(V10_SWING_DAMAGE_RATES.slice(0,3).map((r,i)=>(i+1)+'장 '+Math.round(r*100)+'%').join(' · '));
+    expect(document.querySelector('.wg-page').textContent).toMatch(/합산 에너지 비용이 남은 에너지보다 크면 실행할 수 없습니다/);
     fireEvent.click(screen.getByRole('button',{name:'다음'}));
     expect(document.querySelector('.wg-page').textContent).toMatch(/삼진을 당하면 기세가 꺼집니다/);
   });
   it('opens by itself before the first main run, once, and from 설정 any time',()=>{
     render(<Duel/>);
     fireEvent.click(screen.getByRole('button',{name:'새로운 게임'}));
+    // New games go through the start-pack pick first; the guide still opens
+    // by itself once the run is created.
+    fireEvent.click(screen.getAllByTestId('start-pack')[0]);
     expect(screen.getByRole('dialog',{name:'게임 방법'})).toBeTruthy();
     fireEvent.click(screen.getByRole('button',{name:'건너뛰기'}));
     expect(localStorage.getItem(WELCOME_SEEN_KEY)).toBe('seen');

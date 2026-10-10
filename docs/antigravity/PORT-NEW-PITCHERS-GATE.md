@@ -1,0 +1,1 @@
+Pre-integration gate: current Cinematic V2 main is the base; autonomous battle orchestration remains excluded. Runtime pitcher metadata was verified as additive relative to the old merge base.

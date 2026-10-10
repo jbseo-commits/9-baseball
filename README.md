@@ -3,6 +3,14 @@
 **플레이: https://9-baseball.vercel.app/** (Vercel, main push 시 자동 배포 · PR마다 미리보기 URL 자동 생성)
 기존 GitHub Pages(`jjsjb88-alt.github.io/9-baseball/`)는 전환 확인 기간 동안 병행 유지한다. 세이브는 도메인별이라 두 주소 간 이어지지 않는다.
 
+## 게임 전체 자율개발
+
+[개발 루프](loop/GAME-AUTODEV.md) · [복사할 시작 프롬프트](loop/game-autodev-prompt.md) · [병목 큐](loop/autodev/QUEUE.md) · [사람 플레이 계획](loop/autodev/PLAYTEST.md).
+
+총괄·구현·플레이/UX 검수·독립 코드 검수가 실제 병목 하나씩 개선한다. 저장소와 도구가 연결된 세션에서 “게임 자율개발 시작해. loop/GAME-AUTODEV.md를 따라”라고 요청한다. 기본 최대 6회차/120분, 승인 범위 안에서는 매회 재확인하지 않는다. 기존 한 회 런처·예약 실행은 자동 전환되지 않는다. 기본 공개 배포 권한은 없다. 문서만 추가된 현재 상태는 개발 루프 실행 전이다.
+
+main에는 [MAIN RUN 카드 에너지](docs/CARD-ENERGY.md)가 추가됐다. 기본 에너지 3 안에서 준비와 스윙 카드의 비용을 배분하고, [지켜보기 보상](docs/TAKE-REWARD.md)으로 다음 공에 4를 쓸 수 있다. [추가 드로우](docs/TAKE-DRAW.md)는 기본 보충 뒤 1장을 더 뽑으며, 이 보상만 손패 6장까지 허용한다. 이 브랜치는 공개 main 배포 전이다.
+
 ## 배포 V8.10 · 덱 설계와 신뢰성 개선 (2026-09-15)
 
 현행 진입점은 `src/main.jsx → src/duel/App.jsx`. GitHub `deckbuilding-v8@87cba77`을 기준으로 통합했다.
