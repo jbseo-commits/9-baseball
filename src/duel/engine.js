@@ -215,7 +215,6 @@ export function coverageAt(s,id='basic',aimZone=s.battle.aimZone){
 export const coverage=(s,id='basic')=>coverageAt(s,id,s.battle.aimZone);
 
 export const V10_SWING_STACK_MAX=4;
-export const V10_SWING_ENERGY=4;
 export const V11_SWING_ENERGY=6;
 export const V10_SWING_DAMAGE_RATES=Object.freeze([1,.80,.65,.50]);
 export function v10SwingDamageRate(cardCount=1){
