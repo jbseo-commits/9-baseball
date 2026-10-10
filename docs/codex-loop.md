@@ -4,6 +4,8 @@
 
 ## 채팅에서 시작
 
+게임 전체 반복 개발은 [GAME-AUTODEV.md](../loop/GAME-AUTODEV.md)와 [시작 프롬프트](../loop/game-autodev-prompt.md)를 활성 세션에 전달한다. 아래 CLI `scripts/codex-loop.mjs`는 계속 `loop/codex-prompt.md`로 **한 회만** 실행하며 새 모드를 읽거나 자동 반복하지 않는다. 두 실행 경로를 동시에 돌리지 않는다.
+
 Work/Codex 채팅에서는 [채팅 분업 지침](chat-loop.md)과 [시작 프롬프트](../loop/chat-prompt.md)를 사용합니다. 현재 채팅의 네이티브 서브에이전트로 진행하며 메인 모델은 사용자 선택을 유지합니다. 아래 역할 모델 표와 런처는 컴퓨터의 Codex CLI 설정입니다.
 
 ## 역할

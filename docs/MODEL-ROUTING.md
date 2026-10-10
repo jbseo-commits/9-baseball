@@ -75,6 +75,8 @@ advisor는 대기 중 무료로 세션을 감시하는 프로세스가 아닙니
 
 ## 야구 루프 연결
 
+- 게임 전체 반복 개발은 [GAME-AUTODEV.md](../loop/GAME-AUTODEV.md)와 [시작 프롬프트](../loop/game-autodev-prompt.md)의 별도 모드다. Claude에서는 기존 worker·ag-qa·ag-reviewer·advisor 역할을 연결하되 실제 지원을 확인한다. 아래 한 회 런처나 예약 작업은 자동 전환되지 않는다.
+
 - 기존 `loop/loop.sh`와 Windows 작업 스케줄러는 **Codex 런처**다. Claude 설정을 읽거나 Claude로 자동 전환하지 않는다.
 - 기존 Codex 경로: `loop/PROMPT.md`의 push·배포 금지 등 권한을 그대로 지킨다. Claude 전용 모델을 사용할 수 있다고 주장하지 않는다.
 - Claude 경로: `loop/CLAUDE-PROMPT.md`와 `scripts/claude-loop.mjs`를 사용한다. 브랜치 PR·프리뷰까지이며 main merge·auto-merge는 하지 않는다. 안티그래비티 큐는 기존 절차·금지 X1~X12를 따른다.
