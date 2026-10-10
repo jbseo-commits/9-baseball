@@ -9,7 +9,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const DIST = path.resolve('dist');
-const TOTAL_MB = 50;
+const TOTAL_MB = 60; // 50 → 60 (2026-10-10, owner-approved): self-hosted font slices + V16 cards + 3 pitcher atlases
 const PNG_KB = 600;
 // PNGs the optimizer leaves as-is on purpose (lossless WebP saves <10%; lossy blurs the frames)
 const PNG_ALLOW = [/-pitch-120-atlas-[\w-]+\.png$/];
