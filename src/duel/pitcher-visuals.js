@@ -5,6 +5,11 @@ import tideVesperPortrait from '../../assets/pitcher-study-v2/source/tide-vesper
 import skyPhantomAtlas from '../../assets/pitcher-study-v3/atlases/sky-phantom-pitch-120-atlas.png';
 import galeTwisterAtlas from '../../assets/pitcher-study-v4/atlases/gale-twister-pitch-120-atlas.png';
 import vulcanBlazeAtlas from '../../assets/pitcher-study-v5/atlases/vulcan-blaze-pitch-120-atlas.png';
+/* set-pose cutouts (frame 0 of each atlas, trimmed): the new pitchers have no roster portrait yet, so the map
+   silhouette and framed views use their own approved battle frame instead of a place glyph */
+import skyPhantomFigure from '../../assets/pitcher-study-v3/sky-phantom-figure.png';
+import galeTwisterFigure from '../../assets/pitcher-study-v4/gale-twister-figure.png';
+import vulcanBlazeFigure from '../../assets/pitcher-study-v5/vulcan-blaze-figure.png';
 
 // V15 & V16 Masterpiece Dex portraits (verified via DEX_QA_V16.md)
 import dexRedRush from '../../assets/production-art/mockup-world-v15/dex-red-rush.png';
@@ -56,6 +61,9 @@ export const pitcherAtlases={
 export const pitcherFigures={
   ...Object.fromEntries(Object.entries(rosterPortraits).map(([path,url])=>[idFrom(path,'.png'),url])),
   'tide-vesper':tideVesperPortrait,
+  'sky-phantom':skyPhantomFigure,
+  'gale-twister':galeTwisterFigure,
+  'vulcan-blaze':vulcanBlazeFigure,
 };
 
 /* opaque dex portraits: framed views only (map preview, reward, ending, portrait dialog) */

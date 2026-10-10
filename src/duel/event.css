@@ -1,0 +1,74 @@
+/* Road event (BallparkEvent.jsx). Scoped to .ev-* — no global selectors.
+   Mounted only while an event or its result is on screen, so the fixed layer never blocks taps when hidden.
+   z 45: above the map, below the deck modal (.duel-backdrop z 50); top offset = measured header bottom. */
+.ev-root{
+  --ev-ink:#07080d;--ev-bone:#ece4cf;--ev-dim:#b7b09e;--ev-slate:#7b84a6;--ev-gold:#ffc861;--ev-violet:#b493ff;
+  --ev-ko:"Gowun Dodum","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;
+  --ev-impact:"Black Han Sans","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;
+  --ev-led:"Silkscreen",ui-monospace,Menlo,monospace;
+  position:fixed;inset:var(--ev-top,0px) 0 0;z-index:45;display:flex;flex-direction:column;overflow:hidden;
+  background:var(--ev-ink);color:var(--ev-bone);font:15px/1.5 var(--ev-ko);
+  padding:max(14px,calc(env(safe-area-inset-top) - var(--ev-top,0px))) 14px max(12px,env(safe-area-inset-bottom));
+  animation:ev-in .3s ease-out both;
+}
+.ev-bg{position:absolute;inset:0 0 auto;height:min(44%,330px);background-size:cover;background-position:50% 30%;opacity:.42;
+  filter:hue-rotate(28deg) saturate(.8);pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg,#000 25%,transparent 100%);mask-image:linear-gradient(180deg,#000 25%,transparent 100%)}
+.ev-root::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(110% 55% at 50% 0%,#5a3aa833 0%,transparent 60%),linear-gradient(180deg,#07080d00 0%,#07080dcc 36%,#07080d 58%)}
+.ev-root>:not(.ev-bg){position:relative}
+
+.ev-head{margin-top:clamp(6px,5vh,52px)}
+.ev-eyebrow{display:block;font:700 10px/1 var(--ev-led);letter-spacing:.14em;color:var(--ev-violet)}
+.ev-title{margin:6px 0 10px;font:400 30px/1.12 var(--ev-impact);color:var(--ev-gold);text-shadow:0 2px 0 #6b3d00,0 0 18px #ffb43a44}
+
+/* the story on a paper plate, the same paper as the coach bubble */
+.ev-paper{position:relative;margin:0 0 12px;padding:12px 14px 12px 46px;border:2px solid #d8c9a4;border-radius:10px;
+  background:#f1e7cf;color:#1d1a14;box-shadow:0 4px 0 #8a7a55,0 8px 20px #0009}
+.ev-paper p{margin:0;font:700 15px/1.5 var(--ev-ko)}
+.ev-mark{position:absolute;left:10px;top:10px;width:26px;height:26px;display:grid;place-items:center;border-radius:6px;
+  font:700 16px/1 var(--ev-led);color:#f1e7cf;background:#4a3590;box-shadow:0 2px 0 #241a48}
+.ev-outcome p+p{margin-top:4px}
+.ev-outcome p{animation:ev-rise .36s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*160ms + 120ms)}
+.is-result .ev-mark{background:#8a5a12;box-shadow:0 2px 0 #3e2806}
+
+/* choices scroll on short phones; the footer stays put */
+.ev-list{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;display:grid;align-content:start;gap:8px;padding:2px 2px 8px;-webkit-overflow-scrolling:touch}
+.ev-choice{--tone:#ffc861;appearance:none;position:relative;display:grid;gap:3px;justify-items:start;width:100%;min-height:64px;
+  padding:10px 12px 10px 14px;text-align:left;color:inherit;cursor:pointer;font:inherit;
+  border:1px solid #2a3152;border-left:4px solid var(--tone);border-radius:8px;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--tone) 16%,transparent),transparent 65%),#0d1124;
+  transition:transform .14s ease,filter .14s ease;animation:ev-rise .38s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*60ms + 80ms)}
+.ev-choice.t-gain{--tone:#7ad66a}
+.ev-choice.t-trade{--tone:#ff8a5c}
+.ev-choice.t-gamble{--tone:#b493ff}
+.ev-choice.t-leave{--tone:#5a6496}
+.ev-choice:active:not(:disabled){transform:scale(.985)}
+.ev-choice:focus-visible{outline:2px solid var(--ev-bone);outline-offset:2px}
+.ev-choice:disabled{cursor:default;filter:saturate(.35) brightness(.7)}
+.ev-tag{padding:1px 7px;border-radius:5px;font:700 10px/1.4 var(--ev-ko);color:#0b0e1c;background:var(--tone)}
+.ev-choice strong{font:400 20px/1.15 var(--ev-impact);color:var(--ev-bone);text-shadow:0 2px 0 #000}
+.ev-choice em{font-style:normal;font-size:12px;line-height:1.4;color:var(--ev-dim)}
+.ev-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.ev-chips i{font-style:normal;padding:1px 6px;border:1px solid #3d6b5a;border-radius:5px;background:#0b0e1ccc;font-size:11px;line-height:1.4;color:#d4f3df}
+.ev-chips i.loss{border-color:#a5463a;color:#ffc2b4}
+.ev-why{font-size:11px;font-weight:700;color:#ffb4a4}
+
+.ev-foot{flex:0 0 auto;display:grid;padding-top:10px}
+.is-result .ev-foot{margin-top:auto}
+.ev-go{appearance:none;width:100%;min-height:58px;display:grid;place-items:center;cursor:pointer;color:#1a1204;
+  border:10px solid transparent;border-image:url('../../assets/ui-kit/A4-button-primary-normal.png') 40 fill / 10px repeat;image-rendering:pixelated;
+  background:var(--ev-gold);box-shadow:0 0 30px #ffc86133;font:400 20px/1.1 var(--ev-impact)}
+.ev-go:active{border-image-source:url('../../assets/ui-kit/A4-button-primary-pressed.png')}
+.ev-deck{appearance:none;justify-self:center;min-height:44px;padding:8px 18px;cursor:pointer;color:var(--ev-bone);font:700 13px/1 var(--ev-ko);
+  background:#0b0e1ccc;border:1px solid #3a4475;border-radius:8px}
+
+@keyframes ev-in{from{opacity:0}to{opacity:1}}
+@keyframes ev-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media (max-height:700px){
+  .ev-head{margin-top:0}.ev-title{font-size:25px;margin-bottom:8px}
+  .ev-paper{padding-top:9px;padding-bottom:9px}.ev-paper p{font-size:14px}
+  .ev-choice{min-height:56px;padding-top:8px;padding-bottom:8px}.ev-choice strong{font-size:18px}
+}
+@media (min-width:720px){.ev-root{padding-left:max(14px,calc(50% - 300px));padding-right:max(14px,calc(50% - 300px))}}
+@media (prefers-reduced-motion:reduce){.ev-root,.ev-choice,.ev-outcome p{animation:none}.ev-choice{transition:none}}

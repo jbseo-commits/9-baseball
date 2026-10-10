@@ -16,7 +16,9 @@ import './ballpark.css';
 const FIGHTS=new Set(['battle','elite','boss']);
 const TAG={battle:'정규전',elite:'강적',boss:'막 보스',locker:'라커룸',training:'타격 훈련',shop:'장비 상점',rest:'휴식일',event:'이벤트'};
 const REWARD={battle:'이기면 카드 3장 중 1장',elite:'이기면 카드 4장 중 1장 · 시그니처',boss:'이기면 다음 막 · 시그니처'};
-const PLACE={locker:'손에 안 붙는 배트는 두고 간다.',training:'카드 한 장을 단련한다.',shop:'새 카드를 들인다.',rest:'하루 쉰다. 다음 경기 타격 +8.'};
+const PLACE={locker:'손에 안 붙는 배트는 두고 간다.',training:'카드 한 장을 단련한다.',shop:'새 카드를 들인다.',rest:'하루 쉰다. 다음 경기 타격 +8.',event:'길 위의 사건. 무엇을 내주고 무엇을 얻을지 고른다.'};
+/* the route preview counts what the chosen place still leads to, in the order a player weighs it */
+const AHEAD=[['elite','강적'],['event','이벤트'],['shop','상점'],['rest','휴식'],['training','훈련'],['locker','라커룸']];
 const HABIT={outside:'바깥쪽을 좋아한다.',sinker:'낮게, 더 낮게.',high:'높은 공으로 띄운다.',closer:'네가 노린 반대쪽을 찌른다.'};
 /* 7×7 pixel glyphs for the places that are not fights */
 const GLYPH={
@@ -24,6 +26,7 @@ const GLYPH={
   training:['......#','.....#.','....#..','...#...','..#....','.#.....','#......'],
   shop:['.......','..###..','.#...#.','#######','#.....#','#######','.......'],
   rest:['..###..','.##....','##.....','##.....','##.....','.##....','..###..'],
+  event:['..###..','.#...#.','.....#.','...##..','...#...','.......','...#...'],
 };
 const Glyph=({type})=><span className="bp-mglyph" aria-hidden="true">{(GLYPH[type]||GLYPH.rest).join('').split('').map((c,i)=><i key={i} className={c==='#'?'on':''}/>)}</span>;
 
@@ -51,6 +54,18 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
     const ro=new ResizeObserver(set);ro.observe(el);return ()=>ro.disconnect();
   },[]);
   const chosen=byId.get(pick)||byId.get(reachableIds[0])||here[0];
+  /* route preview: every place and line the chosen node can still lead to inside this act */
+  const ahead=useMemo(()=>{
+    const out=new Set(),lines=new Set();if(!chosen)return {out,lines};
+    const next=new Map();for(const e of edges){if(byId.get(e.from)?.act!==act||byId.get(e.to)?.act!==act)continue;(next.get(e.from)||next.set(e.from,[]).get(e.from)).push(e.to);}
+    const walk=[chosen.id];
+    while(walk.length){const id=walk.pop();for(const to of next.get(id)||[]){lines.add(id+'>'+to);if(!out.has(to)){out.add(to);walk.push(to);}}}
+    return {out,lines};
+  },[chosen,edges,byId,act]);
+  const aheadCount=AHEAD.map(([t,label])=>[t,label,here.filter(n=>n.type===t&&ahead.out.has(n.id)).length]).filter(x=>x[2]);
+  /* a tall act (Act 1 has seven rows) gets a taller board; keep the next stop on screen */
+  const routeRef=useRef(null);
+  useEffect(()=>{routeRef.current?.querySelector?.('.bp-node.reach')?.scrollIntoView?.({block:'nearest'});},[act,reachableIds.join()]);
   const later=[...new Set(nodes.map(n=>n.act))].filter(k=>k>act).map(k=>{
     const hp=nodes.filter(n=>n.act===k&&n.opponent).map(n=>n.opponent.maxHp);
     return {k,lo:Math.min(...hp),hi:Math.max(...hp)};
@@ -70,6 +85,7 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
         {fight&&o&&<span className="bp-mhp" aria-label={'HP '+o.maxHp}>{Array.from({length:12},(_,i)=><i key={i} className={i<hpTicks(o.maxHp,actMax)?'':'lost'}/>)}<b>HP {o.maxHp}</b></span>}
         {fight&&o?.gimmick&&<span className="bp-mgm" data-testid="bp-map-gimmick"><b>{o.gimmick.label}</b> {o.gimmick.summary}{o.gimmick.phases&&<><br/>{o.gimmick.phases.pressured}<br/>{o.gimmick.phases.critical}</>}</span>}
         {fight&&<span className="bp-mrw">{d.type==='boss'&&d.act===3?'이기면 런 완주':REWARD[d.type]}</span>}
+        {d.type!=='boss'&&!done.has(d.id)&&<span className="bp-mahead" data-testid="bp-map-ahead">{aheadCount.length?<><b>이 길 너머</b>{aheadCount.map(([t,label,n])=><i key={t} className={'t-'+t}>{label} {n}</i>)}</>:<b>이 길 너머 · 곧장 막 보스</b>}</span>}
       </div>
       <button type="button" className="bp-mgo" data-testid="bp-map-go" disabled={!can} onClick={()=>onEnter?.(d.id)}>{!can?(done.has(d.id)?'지나온 곳':'아직 길이 없다'):fight?'이 구장으로 간다':'들른다'}</button>
     </>;
@@ -82,14 +98,14 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
         <header className="bp-mhead" style={{'--bp-sky':`url(${stadium})`}}>
           <h1>{first?'어느 마운드부터 무너뜨릴까.':'다음 마운드.'}</h1>
         </header>
-        <div className="bp-route" style={{'--bp-map-bg':`url(${mapIslandCity})`}}>
+        <div ref={routeRef} className={'bp-route'+(chosen?' previewing':'')} style={{'--bp-map-bg':`url(${mapIslandCity})`,'--bp-rows':rows}}>
           <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
             {edges.filter(e=>byId.get(e.from)?.act===act&&byId.get(e.to)?.act===act).map(e=>{const a=pos(byId.get(e.from)),c=pos(byId.get(e.to));
-              const live=(done.has(e.from)||e.from===currentNodeId)&&reach.has(e.to);
-              return <line key={e.from+e.to} className={live?'live':''} x1={a.x} y1={a.y} x2={c.x} y2={c.y}/>;})}
+              const live=(done.has(e.from)||e.from===currentNodeId)&&reach.has(e.to),on=ahead.lines.has(e.from+'>'+e.to);
+              return <line key={e.from+e.to} className={(live?'live':'')+(on?' ahead':'')} x1={a.x} y1={a.y} x2={c.x} y2={c.y}/>;})}
           </svg>
           {here.map(n=>{const p=pos(n),o=n.opponent,art=o&&(figures[o.artId]||portraits[o.artId]);
-            return <button key={n.id} type="button" className={'bp-node '+n.type+(reach.has(n.id)?' reach':'')+(done.has(n.id)?' done':'')+(chosen?.id===n.id?' sel':'')}
+            return <button key={n.id} type="button" className={'bp-node '+n.type+(reach.has(n.id)?' reach':'')+(done.has(n.id)?' done':'')+(chosen?.id===n.id?' sel':'')+(ahead.out.has(n.id)?' ahead':'')}
               style={{left:p.x+'%',top:p.y+'%'}} aria-label={(TAG[n.type]||n.name)+(o?' '+o.name:'')+(reach.has(n.id)?' · 갈 수 있음':'')} aria-pressed={chosen?.id===n.id}
               data-node={n.id} data-gm={o?.gimmick?.id} onClick={()=>setPick(n.id)}>
               {FIGHTS.has(n.type)&&art?<img className="bp-fig" alt="" src={art}/>:<Glyph type={n.type}/>}

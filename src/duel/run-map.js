@@ -88,48 +88,37 @@ function makeNode(seed,act,spec){
 /* 슬더스식 길 생성: 막마다 시드로 칸 수·자리·연결·종류를 새로 뽑는다.
    고정 규칙: 입구(a{act}-entry)와 보스(a{act}-boss)는 한 칸, 모든 칸은 앞으로만 이어져 보스에 닿는다. */
 const LANES=4;
-const ACT_ROWS={1:3,2:4,3:3};
-const ACT_REQUIRED={1:['elite','shop','rest','training|locker'],2:['elite','shop','rest','training|locker'],3:['elite','shop','rest']};
+/* 1막은 덱의 첫 방향을 정하는 막이라 길이 가장 길고 갈림이 많다: 사건·강적·정비를 서로 다른 갈래에 흩어
+   "강적을 먼저 잡고 상점으로 갈지, 사건으로 덱을 다듬고 휴식으로 갈지"를 지도에서 미리 고르게 한다. */
+const ACT_ROWS={1:5,2:4,3:3};
+const ACT_REQUIRED={1:['elite','shop','rest','training|locker','event'],2:['elite','shop','rest','training|locker'],3:['elite','shop','rest']};
 const ROUTE_BY_TYPE={battle:'steady',elite:'gauntlet',training:'development',locker:'craft',shop:'craft',rest:'steady',boss:'playoff',event:'steady'};
 const routeFor=(act,type)=>act===1?ROUTE_BY_TYPE[type]:type==='elite'?(act===2?'ace':'playoff'):type==='battle'&&act===3?'playoff':type==='shop'?'scout':ROUTE_BY_TYPE[type];
 const makeRng=seed=>{let s=seed>>>0;return ()=>{s=mix(s+0x9e3779b9>>>0);return s/0x100000000;};};
 const pickWeighted=(rng,table)=>{const total=table.reduce((a,[,w])=>a+w,0);let r=rng()*total;for(const [k,w] of table){r-=w;if(r<0)return k;}return table[0][0];};
 const shuffle=(rng,list)=>{const a=[...list];for(let i=a.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+/* 같은 정비·강적 칸이 한 길에서 연달아 나오면 고를 이유가 사라진다(슬더스 규칙). 1막에서만 강제한다. */
+const NO_REPEAT=new Set(['elite','shop','rest']);
 
 function rowTable(act,row,last,counts){
+  if(act===1)return act1Table(row,last,counts);
   if(row===1)return [['battle',60],['training',20],['locker',20]];
   const elite=counts.elite>=2?0:act===3?26:act===2?20:16;
   const shop=counts.shop>=2?0:12;
   if(last)return [['rest',32],['shop',shop?26:0],['battle',28],['elite',elite?14:0]];
   return [['battle',46],['elite',elite],['shop',shop],['rest',10],['training',9],['locker',8],['event',8]];
 }
+function act1Table(row,last,counts){
+  if(row===1)return [['battle',50],['event',25],['training',13],['locker',12]];
+  const elite=counts.elite>=2||row<3?0:16,shop=counts.shop>=2?0:10;
+  if(last)return [['rest',34],['shop',shop?22:0],['battle',26],['elite',elite?12:0]];
+  return [['battle',40],['elite',elite],['shop',shop],['rest',8],['training',8],['locker',7],['event',16]];
+}
+const rowSize=(rng,act,row,last)=>act===1
+  ?pickWeighted(rng,row===1?[[3,70],[4,30]]:last?[[2,20],[3,50],[4,30]]:[[3,40],[4,60]])
+  :row===1?pickWeighted(rng,[[2,35],[3,65]]):pickWeighted(rng,[[2,10],[3,45],[4,45]]);
 
-function planAct(seed,act){
-  const rng=makeRng(mix((seed>>>0)^Math.imul(act+7,0x85ebca6b)));
-  const mid=ACT_ROWS[act],rows=[[{row:0,lane:1,type:'battle'}]],counts={elite:0,shop:0};
-  for(let row=1;row<=mid;row++){
-    const size=row===1?pickWeighted(rng,[[2,35],[3,65]]):pickWeighted(rng,[[2,10],[3,45],[4,45]]);
-    const lanes=shuffle(rng,[...Array(LANES).keys()]).slice(0,size).sort((a,b)=>a-b);
-    const cells=lanes.map(lane=>{
-      const type=pickWeighted(rng,rowTable(act,row,row===mid,counts).filter(([,w])=>w>0));
-      if(counts[type]!==undefined)counts[type]++;
-      return {row,lane,type};
-    });
-    if(!cells.some(c=>c.type==='battle'))cells[Math.floor(rng()*cells.length)].type='battle';
-    if(row===mid&&!cells.some(c=>c.type==='rest'||c.type==='shop'))cells[Math.floor(rng()*cells.length)].type='rest';
-    rows.push(cells);
-  }
-  /* 한 막에 꼭 한 번은 만나야 하는 칸. 시드가 나빠도 막이 전투만으로 채워지지 않게 빈 종류를 전투 칸에서 바꿔 채운다. */
-  for(const want of ACT_REQUIRED[act]){
-    const alts=want.split('|'),cells=rows.flat();
-    if(cells.some(c=>alts.includes(c.type)))continue;
-    const type=alts[Math.floor(rng()*alts.length)];
-    const dup=c=>cells.filter(o=>o.type===c.type).length>1;
-    const swap=cells.filter(c=>c.row>=(type==='elite'?2:1)&&(c.type==='battle'?rows[c.row].filter(o=>o.type==='battle').length>1:dup(c)));
-    if(swap.length)swap[Math.floor(rng()*swap.length)].type=type;
-  }
-  rows.push([{row:mid+1,lane:1,type:'boss'}]);
-  const key=c=>c.row===0?'entry':c.type==='boss'?'boss':`r${c.row}l${c.lane}`;
+function linkRows(rng,rows,key,branch){
   const edges=[];
   for(let r=0;r<rows.length-1;r++){
     const from=rows[r],to=rows[r+1],has=new Set();
@@ -138,10 +127,58 @@ function planAct(seed,act){
     const nearest=(c,list)=>[...list].sort((x,y)=>Math.abs(x.lane-c.lane)-Math.abs(y.lane-c.lane)||(rng()<.5?-1:1));
     for(const a of from){
       const near=nearest(a,to);link(a,near[0]);
-      if(rng()<.4)link(a,near[1]);
+      if(rng()<branch)link(a,near[1]);
     }
     for(const b of to)if(!edges.some(e=>e[1]===key(b)&&from.some(a=>key(a)===e[0])))link(nearest(b,from)[0],b);
   }
+  return edges;
+}
+
+function fillRequired(rng,act,rows,canTake=()=>true){
+  for(const want of ACT_REQUIRED[act]){
+    const alts=want.split('|'),cells=rows.flat();
+    if(cells.some(c=>alts.includes(c.type)))continue;
+    const type=alts[Math.floor(rng()*alts.length)];
+    const dup=c=>cells.filter(o=>o.type===c.type).length>1;
+    const minRow=type==='elite'?(act===1?3:2):1;
+    const swap=cells.filter(c=>c.row>=minRow&&c.type!=='boss'&&c.row>0&&(c.type==='battle'?rows[c.row].filter(o=>o.type==='battle').length>1:dup(c))&&canTake(c,type));
+    if(swap.length)swap[Math.floor(rng()*swap.length)].type=type;
+  }
+}
+
+function planAct(seed,act){
+  const rng=makeRng(mix((seed>>>0)^Math.imul(act+7,0x85ebca6b)));
+  const mid=ACT_ROWS[act],rows=[[{row:0,lane:1,type:'battle'}]],counts={elite:0,shop:0};
+  for(let row=1;row<=mid;row++){
+    const size=rowSize(rng,act,row,row===mid);
+    const lanes=shuffle(rng,[...Array(LANES).keys()]).slice(0,size).sort((a,b)=>a-b);
+    const cells=lanes.map(lane=>{
+      const type=pickWeighted(rng,rowTable(act,row,row===mid,counts).filter(([,w])=>w>0));
+      if(counts[type]!==undefined)counts[type]++;
+      return {row,lane,type};
+    });
+    if(!cells.some(c=>c.type==='battle'))cells[Math.floor(rng()*cells.length)].type='battle';
+    if(row===mid&&!cells.some(c=>c.type==='rest'||c.type==='shop'))cells[Math.floor(rng()*cells.length)].type='rest';
+    /* 1막 첫 갈림길: 싸움만 있는 갈래가 되지 않게 전투가 아닌 칸을 하나는 둔다 */
+    if(act===1&&row===1&&cells.every(c=>c.type==='battle'))cells[cells.length-1].type=rng()<.5?'event':'training';
+    rows.push(cells);
+  }
+  rows.push([{row:mid+1,lane:1,type:'boss'}]);
+  const key=c=>c.row===0?'entry':c.type==='boss'?'boss':`r${c.row}l${c.lane}`;
+  if(act!==1){
+    /* 한 막에 꼭 한 번은 만나야 하는 칸. 시드가 나빠도 막이 전투만으로 채워지지 않게 빈 종류를 전투 칸에서 바꿔 채운다. */
+    fillRequired(rng,act,rows.slice(0,-1));
+    const edges=linkRows(rng,rows,key,.4);
+    return {cells:rows.flat().map(c=>({...c,key:key(c)})),edges};
+  }
+  /* 1막: 위치(lane)는 종류와 무관하므로 길을 먼저 잇고, 그 길을 따라 같은 정비·강적이 붙지 않게 종류를 정리한다. */
+  const edges=linkRows(rng,rows,key,.55);
+  const cellOf=new Map(rows.flat().map(c=>[key(c),c]));
+  const parents=c=>edges.filter(e=>e[1]===key(c)).map(e=>cellOf.get(e[0]));
+  const children=c=>edges.filter(e=>e[0]===key(c)).map(e=>cellOf.get(e[1]));
+  const clash=(c,type)=>NO_REPEAT.has(type)&&[...parents(c),...children(c)].some(o=>o&&o.type===type);
+  for(const c of rows.flat())if(c.row>0&&c.type!=='boss'&&clash(c,c.type))c.type='battle';
+  fillRequired(rng,act,rows.slice(0,-1),(c,type)=>!clash(c,type));
   return {cells:rows.flat().map(c=>({...c,key:key(c)})),edges};
 }
 
