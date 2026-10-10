@@ -3,10 +3,10 @@ import {gimmickFor} from './gimmick.js';
 import pitcherRoster from '../../assets/pitcher-mobs-v1/roster.json' with {type:'json'};
 
 const RED_RUSH_ID='regular-01-red-rush';
-const TYPES=new Set(['battle','elite','training','locker','shop','rest','boss']);
+const TYPES=new Set(['battle','elite','training','locker','shop','rest','boss','event']);
 const COMBAT_TYPES=new Set(['battle','elite','boss']);
 const LABELS={
-  battle:'정규 승부',elite:'강적 승부',training:'타격 훈련',locker:'라커룸',shop:'장비 상점',rest:'휴식일',boss:'막 보스',
+  battle:'정규 승부',elite:'강적 승부',training:'타격 훈련',locker:'라커룸',shop:'장비 상점',rest:'휴식일',boss:'막 보스',event:'낯선 만남',
 };
 const ROUTE_LABELS={
   development:'육성 루트',steady:'안정 루트',craft:'정비 루트',scout:'분석 루트',gauntlet:'강행군',playoff:'플레이오프',ace:'에이스 사냥',
@@ -16,6 +16,7 @@ const UTILITY={
   locker:{effect:'덱 정리',detail:'약한 카드를 덜 뽑도록 덱을 정리하는 구간입니다.',risk:'낮음',reward:'덱 압축'},
   shop:{effect:'전력 보강',detail:'카드와 런 전체를 바꾸는 유물 중 하나를 골라 전력을 보강합니다.',risk:'낮음',reward:'카드 / 유물'},
   rest:{effect:'컨디션 회복',detail:'다음 전투에서 타선의 타격 기술 +8. 강행군을 끊고 다음 투수를 안정적으로 공략합니다.',risk:'최저',reward:'다음 전투 타격 +8'},
+  event:{effect:'낯선 만남',detail:'들어가 봐야 안다. 길 위의 사건은 매번 다르다.',risk:'불명',reward:'불명'},
 };
 const copy=o=>JSON.parse(JSON.stringify(o));
 const mix=x=>{x=(x^61)^(x>>>16);x=(x+Math.imul(x,8))>>>0;x^=x>>>4;x=Math.imul(x,0x27d4eb2d)>>>0;x^=x>>>15;return x>>>0;};
@@ -89,7 +90,7 @@ function makeNode(seed,act,spec){
 const LANES=4;
 const ACT_ROWS={1:3,2:4,3:3};
 const ACT_REQUIRED={1:['elite','shop','rest','training|locker'],2:['elite','shop','rest','training|locker'],3:['elite','shop','rest']};
-const ROUTE_BY_TYPE={battle:'steady',elite:'gauntlet',training:'development',locker:'craft',shop:'craft',rest:'steady',boss:'playoff'};
+const ROUTE_BY_TYPE={battle:'steady',elite:'gauntlet',training:'development',locker:'craft',shop:'craft',rest:'steady',boss:'playoff',event:'steady'};
 const routeFor=(act,type)=>act===1?ROUTE_BY_TYPE[type]:type==='elite'?(act===2?'ace':'playoff'):type==='battle'&&act===3?'playoff':type==='shop'?'scout':ROUTE_BY_TYPE[type];
 const makeRng=seed=>{let s=seed>>>0;return ()=>{s=mix(s+0x9e3779b9>>>0);return s/0x100000000;};};
 const pickWeighted=(rng,table)=>{const total=table.reduce((a,[,w])=>a+w,0);let r=rng()*total;for(const [k,w] of table){r-=w;if(r<0)return k;}return table[0][0];};
@@ -100,7 +101,7 @@ function rowTable(act,row,last,counts){
   const elite=counts.elite>=2?0:act===3?26:act===2?20:16;
   const shop=counts.shop>=2?0:12;
   if(last)return [['rest',32],['shop',shop?26:0],['battle',28],['elite',elite?14:0]];
-  return [['battle',46],['elite',elite],['shop',shop],['rest',10],['training',9],['locker',8]];
+  return [['battle',46],['elite',elite],['shop',shop],['rest',10],['training',9],['locker',8],['event',8]];
 }
 
 function planAct(seed,act){

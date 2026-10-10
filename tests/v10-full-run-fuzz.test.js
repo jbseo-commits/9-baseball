@@ -1,5 +1,6 @@
 import {describe,it,expect} from 'vitest';
 import * as E from '../src/duel/engine.js';
+import {eventOfferForNode,resolveEventChoice} from '../src/duel/events.js';
 import {CARDS,DECK_MIN,DECK_MAX} from '../src/duel/cards.js';
 import {pitcherPhase} from '../src/duel/pitcher-hp.js';
 
@@ -40,6 +41,12 @@ function playRuns(count,{short=false,seed0=1}={}){
       }else if(ph==='pitch')n=E.advanceV10Pitch(s);
       else if(ph==='between')n=E.advanceV10Batter(s);
       else if(ph==='reward'){const o=E.v10RewardOptions(s);n=E.claimV10Reward(s,o.length&&R()<.8?{type:'add',kind:pick(o)}:{type:'skip'});}
+      else if(ph==='event'){
+        const offer=eventOfferForNode(s);
+        if(!offer){note('event without offer',{seed});break;}
+        const legal=offer.choices.filter(c=>!c.problem);
+        n=resolveEventChoice(s,legal.length&&R()<.8?pick(legal).id:'leave').state;
+      }
       else{note('unknown phase',{seed,ph});break;}
       if(n===s){if(++same>30){note('no progress',{seed,ph});break;}continue;}
       same=0;s=n;steps++;
