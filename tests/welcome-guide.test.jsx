@@ -40,4 +40,11 @@ describe('welcome guide first-run persistence',()=>{
     expect(text).toContain('읽은 만큼만');
     expect(text).not.toContain('%는 실제 확률');
   });
+  it('teaches that outs carry over in the goal chapter',()=>{
+    // Analysis §2: baseball players expect a fresh count; wins keep outs.
+    render(<WelcomeGuide start={0} onClose={()=>{}} onCards={()=>{}}/>);
+    const text=document.querySelector('.wg-page').textContent;
+    expect(text).toContain('다음 상대로 이어집니다');
+    expect(text).toContain('0으로 회복');
+  });
 });
