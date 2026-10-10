@@ -82,6 +82,17 @@ export function readLevel(s){
   const facilityScout=s.build===DECKBUILDER_BUILD&&s.stage>0&&s.facilities?.[s.stage-1]?.type==='scouting'?1:0;
   return Math.min(2,base+((s.relics||[]).includes('scope')?1:0)+((s.relics||[]).includes('hawkEye')?1:0)+facilityScout+(v10Shaken(s)?1:0));
 }
+/* readLevel의 구성 요소를 화면용 이름으로 돌려준다. 순서와 조건은 readLevel과 같다. */
+export function readSources(s){
+  const out=[],score=observeScore(s.deck);
+  const base=score>=READ_THRESHOLDS[1]?2:score>=READ_THRESHOLDS[0]?1:0;
+  if(base)out.push({key:'deck',label:'관찰 카드',amount:base});
+  if((s.relics||[]).includes('scope'))out.push({key:'scope',label:'스코프',amount:1});
+  if((s.relics||[]).includes('hawkEye'))out.push({key:'hawkEye',label:'호크아이',amount:1});
+  if(s.build===DECKBUILDER_BUILD&&s.stage>0&&s.facilities?.[s.stage-1]?.type==='scouting')out.push({key:'scouting',label:'정찰',amount:1});
+  if(v10Shaken(s))out.push({key:'shaken',label:'흔들림',amount:1});
+  return out;
+}
 export const activeRoute=s=>s?.build===DECKBUILDER_BUILD?routeChoice(s.stage,s.route):null;
 export const battleTarget=s=>STAGES[s.stage].target+(activeRoute(s)?.targetDelta||0);
 export const pitcherProfile=s=>{

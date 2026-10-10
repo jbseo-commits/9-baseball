@@ -1239,3 +1239,20 @@
 .bp-offer.relic.has-art .bp-mark{display:none}
 .bp-outs-note{margin:0;font:400 12px/1.3 var(--bp-ko);color:#f5c04a}
 .bp-verb.bp-recover{border-color:#7ee0ff;color:#bff1ff}
+
+/* read level: a small badge on the zone's top edge, and a beat when the level rises mid-battle
+   (e.g. the pitcher is shaken), so the switch from words to ranges to exact % is never silent */
+.bp-read{position:absolute;left:-2px;top:-22px;z-index:4;display:inline-flex;align-items:center;gap:5px;padding:2px 7px;
+  border:1px solid #3a4475;border-radius:6px;background:#0b0e1ce6;font:700 10px/1.3 var(--bp-ko);color:var(--bp-bone-dim);pointer-events:none}
+.bp-read em{font-style:normal}
+.bp-read>span{display:inline-flex;gap:3px}
+.bp-read i{width:7px;height:7px;border-radius:50%;border:1px solid #5a6490;background:#141a33}
+.bp-read i.on{background:var(--bp-sodium);border-color:var(--bp-sodium);box-shadow:0 0 4px #ffc86180}
+.bp-read b{color:#ff8a6a;font-weight:700}
+.bp-read-up{position:absolute;inset:auto 4% 50% 4%;transform:translateY(50%);z-index:6;display:grid;justify-items:center;gap:2px;
+  padding:8px 10px;border:2px solid var(--bp-sodium);border-radius:8px;background:#07080df0;box-shadow:0 0 24px #ffc86155;
+  pointer-events:none;animation:bp-read-up 2.6s ease both}
+.bp-read-up strong{font:400 17px/1.15 var(--bp-impact);color:var(--bp-sodium);letter-spacing:.02em}
+.bp-read-up small{font:700 11px/1.3 var(--bp-ko);color:var(--bp-bone)}
+@keyframes bp-read-up{0%{opacity:0;transform:translateY(50%) scale(.9)}10%,78%{opacity:1;transform:translateY(50%) scale(1)}100%{opacity:0;transform:translateY(50%) scale(1)}}
+@media (prefers-reduced-motion:reduce){.bp-read-up{animation:none}}
