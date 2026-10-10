@@ -1,6 +1,6 @@
-import React,{useLayoutEffect,useRef,useState} from 'react';
+import React,{useEffect,useLayoutEffect,useRef,useState} from 'react';
 import {CARDS,LINEUP,bandFor,rangeFor,shadeNameFor,cardCost} from './cards.js';
-import {publicProbabilities,readLevel,knownPitchZones,v10StackMax,v10PrepMax,v10Energy,v10EnergyCap,v10ActionCost,v10TakeDrawPreview,V11_SWING_ENERGY,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
+import {publicProbabilities,readLevel,readSources,knownPitchZones,v10StackMax,v10PrepMax,v10Energy,v10EnergyCap,v10ActionCost,v10TakeDrawPreview,V11_SWING_ENERGY,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
 import {probabilityBounds} from './information.js';
 import {intentLines,hpTicks,ZONE_WORDS,runnerMoves} from './ballpark-copy.js';
 import ZoneLinks from './ZoneLinks.jsx';
@@ -147,6 +147,17 @@ export default function BallparkBattle({
      원천은 같은 publicProbabilities이며, 낮은 등급에 틀린 숫자를 보여주지 않는다.
      (아래 `pct`보다 먼저 선언되므로 반올림을 직접 계산한다.) */
   const level=readLevel(s),known=knownPitchZones(s);
+  /* 읽기 단계가 전투 중에 오르면(예: 투수 흔들림) 칸 표시가 바뀐 이유를 그 순간 보여 준다 */
+  const sources=readSources(s);
+  const readRef=useRef({level,keys:sources.map(x=>x.key),pitcher:s.pitcher?.name}),[readUp,setReadUp]=useState(null);
+  useEffect(()=>{
+    const prev=readRef.current,keys=sources.map(x=>x.key);
+    readRef.current={level,keys,pitcher:s.pitcher?.name};
+    if(prev.pitcher!==s.pitcher?.name||level<=prev.level)return;
+    const cause=sources.find(x=>!prev.keys.includes(x.key));
+    setReadUp({level,cause:cause?.label||null,n:Date.now()});
+    const t=setTimeout(()=>setReadUp(null),2600);return()=>clearTimeout(t);
+  },[level]);// eslint-disable-line react-hooks/exhaustive-deps
   const showUnused=(s.relics||[]).includes('radar'),exactBall=(s.relics||[]).includes('ledger');
   const exactPct=z=>Math.round((probs[z]||0)*100);
   const cellFace=z=>{
@@ -534,6 +545,13 @@ const CARD_DESC_MAP={
         {/* CONNECT: the order links the engine scored, solid = connected (+HP back), dashed = broken */}
         <ZoneLinks links={judged?r.stackLinks:stack.length?choice?.stackPlan?.links:null}/>
         <span className="bp-side l">몸쪽</span><span className="bp-side r">바깥쪽</span>
+        {deciding&&<span className={'bp-read lv'+level} data-testid="bp-read" aria-label={'읽기 '+level+'/2'+(sources.length?' · '+sources.map(x=>x.label).join(' · '):'')}>
+          <em>읽기</em><span aria-hidden="true">{[0,1].map(i=><i key={i} className={i<level?'on':''}/>)}</span>{sources.some(x=>x.key==='shaken')&&<b>흔들림</b>}
+        </span>}
+        {readUp&&<div className="bp-read-up" key={readUp.n} role="status" data-testid="bp-read-up">
+          <strong>투수가 읽힌다</strong>
+          <small>{readUp.cause?readUp.cause+' → ':''}{readUp.level===2?'정확한 확률 공개':'확률 구간 공개'}</small>
+        </div>}
         {/* the ball band: the ring around the nine cells is where balls go. Swing at one = a whiff,
             watch one = a ball. It is drawn so the out-of-zone pitch has a place players can see. */}
         <span className={'bp-band'+(outside&&landed?' hit':'')+(lure?' lure':'')} data-testid="bp-band" aria-hidden="true"><em>{lure?'유인구 주의 · 볼 '+bandFace:'바깥 띠 = 볼'+(deciding?' '+bandFace:'')}</em></span>
