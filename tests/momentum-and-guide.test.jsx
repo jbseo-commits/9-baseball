@@ -73,6 +73,9 @@ describe('게임 방법 guide',()=>{
   it('opens by itself before the first main run, once, and from 설정 any time',()=>{
     render(<Duel/>);
     fireEvent.click(screen.getByRole('button',{name:'새로운 게임'}));
+    // New games go through the start-pack pick first; the guide still opens
+    // by itself once the run is created.
+    fireEvent.click(screen.getAllByTestId('start-pack')[0]);
     expect(screen.getByRole('dialog',{name:'게임 방법'})).toBeTruthy();
     fireEvent.click(screen.getByRole('button',{name:'건너뛰기'}));
     expect(localStorage.getItem(WELCOME_SEEN_KEY)).toBe('seen');

@@ -23,10 +23,17 @@ MIN_BYTES = 150_000
 #   long=N        -> fit the long edge to N px (2x the largest size the game draws it at)
 #   lossless=True -> exact pixels (pixel-art frames)
 RULES = [
-    (r'^pitcher-sd-v\d/.*-atlas\.png$',            dict(keep=True, lossless=True)),
+    # Illustrated actor atlases. Lossless measured LARGER than the PNG master (red-rush:
+    # 2.64MB PNG -> 2.75MB lossless WebP), so it never cleared the saving guard and every
+    # atlas shipped as raw PNG. q90 keeps the drawn edges and still saves ~41%.
+    (r'^pitcher-sd-v\d/.*-atlas\.png$',            dict(keep=True, q=90)),
+    (r'^pitcher-sd-v\d/atlases/.*-atlas\.png$',   dict(keep=True, q=90)),  # sd-v2 atlases were unmatched
     (r'^pitcher-pixellab-v\d/atlases/.*-atlas\.png$', dict(keep=True, lossless=True)),  # PixelLab pitch atlases
     (r'^sprites-v4/.*-60\.png$',                    dict(keep=True, lossless=True)),
     (r'^ui-kit/.*master-sheet\.png$',               dict(keep=True, lossless=True)),
+    # Catch-all for actor atlases in any pitcher-* directory (pitcher-study-vN, new sd folders,
+    # future ones). Enumerating each folder is what let 13 atlases ship as raw PNG.
+    (r'^pitcher-[^/]+/.*-atlas\.png$',              dict(keep=True, q=90)),
     (r'^production-art/battle-polish-v16/.*\.png$', dict(keep=True, q=90)),
     (r'^production-art/battle-portrait-v15/batter-sheet\.png$', dict(long=2048, q=88)),  # 4x2 cells -> 512x768; hero box ~310px tall
     (r'^production-art/battle-portrait-v15/batter-sheet-runtime\.png$', dict(keep=True, q=88)),  # already 512x768 cells (#103 M09)
@@ -104,8 +111,12 @@ def build(check=False):
         if rule.get('lossless'):
             im.save(dest, 'WEBP', lossless=True, method=6)
         else:
-            im.save(dest, 'WEBP', quality=rule['q'], method=6, alpha_quality=95)
-        if os.path.getsize(dest) > 0.9 * os.path.getsize(path):
+            im.save(dest, 'WEBP', quality=rule['q'], method=6, alpha_quality=100)
+        # Keep the derivative when it is either meaningfully smaller by ratio, or big enough
+        # in absolute terms that the shipped bytes matter. A 1.3MB PNG that becomes 0.9MB is
+        # worth shipping; a 4KB PNG that becomes 3.5KB is not.
+        src_bytes, out_bytes = os.path.getsize(path), os.path.getsize(dest)
+        if not (out_bytes <= 0.9 * src_bytes or src_bytes - out_bytes >= 200_000):
             os.remove(dest)  # no real saving (already tight PNG): ship the master
             continue
         manifest.setdefault(h, {'file': name, 'src': rel, 'size': list(im.size)})

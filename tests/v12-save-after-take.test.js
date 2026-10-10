@@ -27,4 +27,21 @@ describe('V10 save after a watched pitch',()=>{
     s.v10.lastCombat.aimZone='x';
     expect(validateV10State(s)).toBe(false);
   });
+  it('labels a watched pitch as having no aim instead of an unknown course',()=>{
+    // Before: v10ZoneLabel(null) fell through to '코스 미확인', so every take
+    // debrief paired "지켜보기 · 카드/스윙 보존" with "course unknown".
+    for(const zone of [9,4]){
+      const s=watched(zone);
+      expect(s.v10.lastCombat.choice).toBe('take');
+      expect(s.v10.lastCombat.aimZone).toBeNull();
+      expect(s.v10.lastCombat.aimLabel).toBe('노림 없음');
+    }
+  });
+  it('keeps the zone label on a real swing',()=>{
+    let s=enterV10Node(createV10Duel(1),'a1-entry');
+    s.battle.pending={...s.battle.pending,zone:4,roll:.5};
+    s=playV10Action(s,{type:'card',id:'basic'});
+    expect(s.v10.lastCombat.aimLabel).not.toBe('노림 없음');
+    expect(s.v10.lastCombat.aimLabel).not.toBe('코스 미확인');
+  });
 });

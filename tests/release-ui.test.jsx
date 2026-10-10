@@ -32,7 +32,7 @@ it('keeps batter and impact animation keys distinct on the first hit',()=>{
  try{
   const s=startBattle(createDuel(1));s.battle.pending={zone:5,roll:.5,powerRoll:.99};saveDuel(localStorage,s);render(<Duel/>);
   fireEvent.click(screen.getByRole('button',{name:'이어하기'}));fireEvent.click(screen.getByRole('button',{name:'스윙하기',exact:true}));
-  fireEvent.click(screen.getByRole('button',{name:'밀어치기',exact:true}));fireEvent.click(screen.getByTestId('execute-action'));
+  fireEvent.click(screen.getAllByRole('button',{name:'밀어치기',exact:true})[0]);fireEvent.click(screen.getByTestId('execute-action'));
   expect(readDuel(localStorage).stats.hits).toBe(1);
   expect(error.mock.calls.some(args=>args.join(' ').includes('same key'))).toBe(false);
  }finally{error.mockRestore();}

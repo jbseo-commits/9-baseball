@@ -1,5 +1,6 @@
 import React from 'react';
 import {V10_SAVE_KEY} from './v10-storage.js';
+import {SAVE_KEY,LEGACY_SAVE_KEYS} from './cards.js';
 
 // 화면이 죽으면 남색 빈 화면만 남고 원인도, 빠져나갈 길도 없었다.
 // 여기서 멈추고 무엇이 일어났는지 알린 뒤 손상된 런을 지울 수단을 준다.
@@ -10,6 +11,10 @@ export default class ErrorBoundary extends React.Component{
 
   clearRun(){
     try{globalThis.localStorage?.removeItem(V10_SAVE_KEY);}catch{}
+    /* The V9 deck save can crash the same render. Clearing only the V10 key left the run in
+       a loop: press "start over" and the same V9 save crashed it again. */
+    try{globalThis.localStorage?.removeItem(SAVE_KEY);}catch{}
+    for(const key of LEGACY_SAVE_KEYS){try{globalThis.localStorage?.removeItem(key);}catch{}}
     try{globalThis.location?.reload();}catch{this.setState({error:null});}
   }
 

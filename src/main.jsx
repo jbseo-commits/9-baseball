@@ -28,6 +28,9 @@ import "./duel/v12-polish.css";
 import "./duel/v14-portrait-master.css";
 import "./duel/portrait-lock.css";
 import "./duel/battle-clarity.css";
+// Cinematic V2 sheets are scene-scoped; title-pixel is a global overlay and must stay LAST
+// so its panel wins the cascade. The three cinematic sheets were appended after it and
+// broke that contract (tests/title-pixel.test.jsx, tests/v12-ux2-polish.test.js).
 import "./duel/cinematic-director.css";
 import "./duel/cinematic-commit-handoff.css";
 import "./duel/cinematic-pitch-handoff.css";

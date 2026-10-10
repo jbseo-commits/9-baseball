@@ -4,10 +4,23 @@ import {
   v11StackZonesConnect,v11StackPlan,V11_STACK_CONNECT_BONUS,
 } from '../src/duel/engine.js';
 
-function armed(){
+function armed(version=10){
   let s=createV10Duel(20260919);
   s=enterV10Node(s,'a1-entry');
+  s.version=version;
+  // Order/connect mechanics under test address c0–c4; the opening deal is
+  // seeded since P1, so pin them here instead of assuming the old fixed hand.
+  const b=s.battle,ids=['c0','c1','c2','c3','c4'],pool=[...b.hand,...b.draw,...b.discard].filter(id=>!ids.includes(id));
+  b.hand=[...ids,...pool.slice(0,0)];b.draw=pool;b.discard=[];
   return setAimZone(s,0);
+}
+
+function upgradePlaces(s,ids){
+  for(const id of ids){
+    const idx=s.deck.findIndex(e=>e.id===id);
+    if(idx>=0){const u=Object.assign({},s.deck[idx],{plus:true});s.deck[idx]=u;}
+  }
+  return s;
 }
 
 describe('V11 9ZONE STACK ORDER',()=>{
@@ -21,7 +34,7 @@ describe('V11 9ZONE STACK ORDER',()=>{
   });
 
   it('같은 카드와 같은 세 존도 순서를 바꾸면 CONNECT 수와 피해 효율이 달라진다',()=>{
-    const s=armed();
+    const s=armed(11); upgradePlaces(s,['c0','c1','c2']);
     const perfect=[
       {id:'c0',aimZone:4},
       {id:'c1',aimZone:8},
@@ -48,7 +61,7 @@ describe('V11 9ZONE STACK ORDER',()=>{
   });
 
   it('preview가 순서와 CONNECT 보너스를 한 계약으로 노출한다',()=>{
-    const s=armed();
+    const s=armed(11); upgradePlaces(s,['c0','c1','c2']);
     const p=previewV10Stack(s,'c4',[
       {id:'c0',aimZone:4},{id:'c1',aimZone:8},{id:'c2',aimZone:7},
     ]);
@@ -62,7 +75,7 @@ describe('V11 9ZONE STACK ORDER',()=>{
   });
 
   it('실제 투수 HP도 preview와 같은 ordered damageRate를 사용한다',()=>{
-    let s=armed();
+    let s=armed(11); upgradePlaces(s,['c0','c1','c2']);
     s.battle.pending={...s.battle.pending,zone:4,roll:.99,powerRoll:.99};
     s=playV10Action(s,{type:'card',id:'c4',supports:[
       {id:'c0',aimZone:4},{id:'c1',aimZone:8},{id:'c2',aimZone:7},
@@ -77,7 +90,7 @@ describe('V11 9ZONE STACK ORDER',()=>{
   });
 
   it('완전 연결 4장도 단독 1장보다 HP 효율이 낮다',()=>{
-    const s=armed();
+    const s=armed(11); upgradePlaces(s,['c0','c1','c2']);
     expect(v11StackPlan(s,'c4',[
       {id:'c0',aimZone:4},{id:'c1',aimZone:8},{id:'c2',aimZone:7},
     ]).damageRate).toBeLessThan(1);

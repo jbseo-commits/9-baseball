@@ -7,6 +7,10 @@
 /* ── PHONE PORTRAIT: real play mode, not a rotate gate ───────────── */
 @media (max-width:900px) and (orientation:portrait){
   html,body,#root,.duel-app{height:auto!important;min-height:100dvh!important;max-height:none!important;overflow-x:hidden!important;overflow-y:auto!important}
+  /* Short-desktop portrait frame (or any sub-320px portrait window): duel.css's 320px
+     body floor would push the right edge of the game out of reach under the
+     overflow-x:hidden above. At 320px and wider this is a no-op. */
+  html,body{min-width:0!important}
   body{overscroll-behavior-y:auto!important}
   .duel-app{width:100%!important;max-width:none!important;margin:0!important;box-shadow:none!important}
   .duel-app>*{visibility:visible!important;pointer-events:auto!important}

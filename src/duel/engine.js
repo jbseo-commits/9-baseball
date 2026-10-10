@@ -1,4 +1,4 @@
-import {CARDS,SAVE_KEY,STAGES,LINEUP,BUILDS,ZONES,GROWTHS,growthCost,rewardChoices,cardPower,cardText,DECK_MIN,DECK_MAX,
+import {CARDS,SAVE_KEY,STAGES,LINEUP,BUILDS,ZONES,GROWTHS,growthCost,rewardChoices,cardPower,cardText,DECK_MIN,DECK_MAX,cardCost,
   ZONE_ORDER,WIDEN_EVERY,PUTAWAY_REACH,READ_THRESHOLDS,observeScore,RELICS,RELIC_OFFERS,DECKBUILDER_BUILD,FACILITY_ROUTES,ROUTE_CHOICES,routeChoice,canUpgrade} from './cards.js';
 import {applyRewardToDeck,rewardProblem} from './deck.js';
 import {gimmickRules,addShare,trickNeighbors} from './gimmick.js';
@@ -137,13 +137,24 @@ export function startBattle(state){
   const live=repertoire(s);
   if(!live.includes(s.battle.aimZone))
     s.battle.aimZone=live.reduce((best,z)=>Math.abs(z-s.battle.aimZone)<Math.abs(best-s.battle.aimZone)?z:best,live[0]);
-  // The fixed opening hand only holds while those cards are still in the deck. 1막의 모든 노드가
-  // stage 0이라 라커룸에서 c0을 빼면 그 뒤 전투가 덱에 없는 id를 손패에 얹고 화면이 죽었다.
-  if(s.stage===0){
-    const opening=['c0','c1','c2','c3','c4'].filter(id=>s.deck.some(c=>c.id===id));
-    s.battle.hand=opening;s.battle.draw=s.battle.draw.filter(id=>!opening.includes(id));
-    if(opening.length<HAND_OPEN)draw(s,HAND_OPEN-opening.length);
-  }else draw(s,HAND_OPEN);
+  // Opening hands are dealt, not fixed: every battle opens with a seeded shuffle of its
+  // live deck, so no two seeds start alike and earned cards can appear from the first fight.
+  // Dealing only from deck ids keeps the old crash (a hand id missing from the deck)
+  // impossible by construction; loads additionally drop stale ids (v10NormalizeHand).
+  draw(s,HAND_OPEN);
+  // Start-pack taste (P2): the run's first battle always holds at least one pack
+  // card, so the chosen direction is experienced immediately. Later battles deal
+  // normally; V9 states carry no v10 record and skip this entirely.
+  if(s.version===10&&s.stats?.pitches===0){
+    const taste=(s.v10?.startPack?.ids||[]).filter(id=>s.deck.some(c=>c.id===id)&&!s.battle.hand.includes(id));
+    if(taste.length){
+      const pick=shuffle(s,[...taste])[0],b=s.battle;
+      const out=b.hand.find(id=>!s.v10.startPack.ids.includes(id))??b.hand[0];
+      b.hand=b.hand.filter(id=>id!==out);b.hand.push(pick);
+      for(const pile of [b.draw,b.discard]){const at=pile.indexOf(pick);if(at>=0){pile.splice(at,1);break;}}
+      b.draw.push(out);
+    }
+  }
   dealPitch(s);s.last={kind:'start',text:'1번 강한결 입장 · 경향을 읽고 노릴 존과 스윙을 고르세요.',events:[],runs:0,outs:0};return s;
 }
 export function setAimZone(state,zone){
@@ -185,6 +196,8 @@ export function coverageAt(s,id='basic',aimZone=s.battle.aimZone){
 export const coverage=(s,id='basic')=>coverageAt(s,id,s.battle.aimZone);
 
 export const V10_SWING_STACK_MAX=4;
+export const V10_SWING_ENERGY=4;
+export const V11_SWING_ENERGY=6;
 export const V10_SWING_DAMAGE_RATES=Object.freeze([1,.80,.65,.50]);
 export function v10SwingDamageRate(cardCount=1){
   const n=Math.max(1,Math.min(V10_SWING_STACK_MAX,Number(cardCount)||1));
@@ -212,7 +225,7 @@ export function v11StackPlan(s,primaryId,supports=[]){
 }
 export function stackSupportProblem(s,primaryId,supports=[]){
   if(!Array.isArray(supports)||!supports.length)return null;
-  if(s?.version!==10)return '카드 겹치기는 MAIN RUN에서만 사용할 수 있습니다.';
+  if(!(s?.version===10||s?.version===11))return '카드 겹치기는 MAIN RUN에서만 사용할 수 있습니다.';
   if(s.phase!=='battle')return '지금은 카드를 겹칠 수 없습니다.';
   if(primaryId==='basic')return 'BASIC SWING에는 카드를 겹칠 수 없습니다. 공격 카드를 메인으로 고르세요.';
   if(cardProblem(s,primaryId))return cardProblem(s,primaryId);
@@ -220,6 +233,11 @@ export function stackSupportProblem(s,primaryId,supports=[]){
   if(CARDS[primary?.kind]?.bunt)return '희생 번트에는 다른 카드를 겹칠 수 없습니다.';
   if(s.battle.growthMode==='patience')return '기다린 한 공은 한 존 승부라 카드를 겹칠 수 없습니다.';
   if(supports.length>v10StackMax(s)-1)return '한 번의 스윙에는 최대 '+v10StackMax(s)+'장까지 겹칠 수 있습니다.';
+  const energyLimit=s?.version===11?V11_SWING_ENERGY:V10_SWING_ENERGY;
+  if(s?.version===10||s?.version===11){
+    const total=cardCost(card(s,primaryId))+supports.reduce((n,sup)=>n+cardCost(card(s,sup.id)),0);
+    if(total>energyLimit)return '이번 스윙의 카드 코스트가 에너지 '+energyLimit+'을 넘습니다.';
+  }
   const seen=new Set([primaryId]);
   for(const support of supports){
     if(!support?.id||!Number.isInteger(support.aimZone)||support.aimZone<0||support.aimZone>8)return '겹친 카드마다 노릴 존을 고르세요.';
@@ -312,7 +330,7 @@ export function matchup(s,id='basic',zone=s.battle.aimZone,coverageSize=null){
 export function hitProfile(s,id,zone,coverageSize=null){
   const k=id==='basic'?'basic':card(s,id).kind,def=CARDS[k],m=matchup(s,id,zone,coverageSize);
   const limited=(k==='basic'||!!def?.singles)&&!m.growthPower;
-  let hr=limited?0:clamp(.025+m.powerEdge*.006,0,(def?.hrCap||m.growthPower>0)?.65:.12);
+  let hr=limited?0:clamp(.07+m.powerEdge*.009,0,(def?.hrCap||m.growthPower>0)?.65:.26);
   let double=limited?0:clamp(.14+m.powerEdge*.005,.02,Math.min(.38,.95-hr));
   if(s.battle.intent.kind==='deep')double=0;
   const singles=1-hr-double;
@@ -736,6 +754,35 @@ const v10ZoneLabel=zone=>zone===9?'존 밖':ZONES[zone]||'코스 미확인';
 const v10ChoiceLabel=choice=>choice==='take'?'한 구 지켜보기':choice==='basic'?'기본 스윙':CARDS[choice]?.name||String(choice||'');
 const v10EndedPA=r=>['hit','out','sacrifice'].includes(r?.kind)||r?.label==='볼넷';
 
+/* P2 start packs (2026-10-09 analysis): 6 common cards plus one 3-card direction
+   pack, chosen before the first battle. Packs are tastes, not locked builds —
+   later rewards can shift or mix freely. Common core keeps 2 place, 1 strike
+   and the 3 preparation cards; each pack replaces 2 place + 1 strike. */
+export const START_PACKS=[
+  {id:'power',name:'한 방 승부',desc:'장타 3종 — 좁게 겨냥하고 크게 넘긴다',kinds:['slug','place','strike']},
+  {id:'link',name:'연결 야구',desc:'진루 3종 — 주자를 내보내고 불러들인다',kinds:['rally','flow','strike']},
+  {id:'hold',name:'버티기',desc:'생존 3종 — 맞히고 살아남아 다음을 기약한다',kinds:['defend','calm','strike']},
+];
+const START_PACK_DROP=['place','place','strike'];
+export function startPackOffers(seed=0){
+  const order=START_PACKS.map(p=>p.id);
+  let r=draftMix(seed>>>0)||1;
+  for(let i=order.length-1;i>0;i--){r=draftMix(r+0x9e3779b9);const j=Math.floor(r/4294967296*(i+1));[order[i],order[j]]=[order[j],order[i]];}
+  return order.map(id=>START_PACKS.find(p=>p.id===id));
+}
+export function applyStartPack(state,packId){
+  const pack=START_PACKS.find(p=>p.id===packId);
+  if(!pack||state?.version!==10||state.phase!=='map'||state.battle||state.stats?.pitches!==0
+    ||(state.rewards?.length||0)>0||state.deck?.length!==9||state.v10?.startPack)return state;
+  const drop=[...START_PACK_DROP],ids=[];
+  for(const entry of state.deck){const at=drop.indexOf(entry.kind);if(at>=0){drop.splice(at,1);ids.push(entry.id);}if(ids.length===3)break;}
+  if(ids.length<3)return state;
+  const s=clone(state);
+  ids.forEach((id,i)=>{s.deck.find(c=>c.id===id).kind=pack.kinds[i];});
+  s.v10={...s.v10,startPack:{pack:packId,ids:[...ids]}};
+  return s;
+}
+
 export function createV10Duel(seed=Date.now()>>>0){
   const s=createDuel(seed,DECKBUILDER_BUILD);
   s.version=10;s.phase='map';s.stage=0;s.route=null;s.routeHistory=[];s.victories=0;s.battle=null;s.last=null;
@@ -848,7 +895,7 @@ export function v10CardFxPlan(state,next,choice,r,pitchInPA){
   return {bonus,shake,events};
 }
 export function playV10Action(state,action){
-  if(state?.version!==10||state.phase!=='battle'||!state.pitcher||state.pitcher.hp<=0||!action)return state;
+  if(!(state?.version===10||state?.version===11)||state.phase!=='battle'||!state.pitcher||state.pitcher.hp<=0||!action)return state;
   const beforePitches=state.stats.pitches;
   const choice=action.type==='take'?'take':action.type==='card'
     ?(action.id==='basic'?'basic':card(state,action.id)?.kind||String(action.id||'')):'';
@@ -897,7 +944,7 @@ export function playV10Action(state,action){
   const supportNames=(r.supportKinds||[]).map(k=>CARDS[k]?.name||k);
   const supportAims=(r.supportZones||[]).map(v10ZoneLabel);
   next.v10={...next.v10,lastCombat:{
-    hpBefore:state.pitcher?.hp,choice,choiceLabel:[v10ChoiceLabel(choice),...supportNames].join(' + '),aimZone:r.aimZone,aimLabel:[v10ZoneLabel(r.aimZone),...supportAims].join(' + '),
+    hpBefore:state.pitcher?.hp,choice,choiceLabel:[v10ChoiceLabel(choice),...supportNames].join(' + '),aimZone:r.aimZone,aimLabel:choice==='take'?'노림 없음':[v10ZoneLabel(r.aimZone),...supportAims].join(' + '),
     actualPitch:r.zone,pitchLabel:v10ZoneLabel(r.zone),pitchName:next.battle?.intent?.name||'',
     verdict:r.label,damage:applied.result.damage,baseDamage:applied.result.baseDamage,damageRate:relicPlan.damageRate,
     baseStackDamageRate:r.stackBaseDamageRate??v10SwingDamageRate(stackCardCount),orderedStackDamageRate:stackDamageRate,
@@ -978,7 +1025,7 @@ export function claimV10Reward(state,action){
 /* a full deck (DECK_MAX) takes no more cards, same as the shop: the reward can only be passed */
 export const v10RewardOptions=state=>state?.version===10&&state.deck?.length<DECK_MAX?[...(state.v10?.rewardChoices||[])]:[];
 export const selectV10Pitcher=state=>state?.version===10?pitcherSelector(state.pitcher):null;
-export const selectV10Combat=state=>state?.version===10&&state.v10?.lastCombat?{...state.v10.lastCombat}:null;
+export const selectV10Combat=state=>(state?.version===10||state?.version===11)&&state.v10?.lastCombat?{...state.v10.lastCombat}:null;
 export const selectV10Map=state=>state?.version===10?runMapSelector(state.runMap):null;
 
 export const V10_SAVE_KEY=V10_STORAGE_KEY;
