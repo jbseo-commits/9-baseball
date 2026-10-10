@@ -14,6 +14,7 @@ export default defineConfig({
   },
   build: {
     rolldownOptions: {
+      input: {main:'index.html',hybrid:'hybrid.html'},
       output: {
         codeSplitting: {
           groups: [
