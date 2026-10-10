@@ -14,6 +14,7 @@ function newGame(){fireEvent.click(screen.getByRole('button',{name:'새로운 �
 function pickFirst(){
   const first=packs()[0],name=first.getAttribute('aria-label');
   fireEvent.click(first);
+  fireEvent.click(screen.getByTestId('start-pack-go'));
   return START_PACKS.find(p=>p.name===name);
 }
 
@@ -27,6 +28,21 @@ describe('V10 start-pack pick',()=>{
     for(const kind of pack.kinds)expect(s.deck.map(c=>c.kind)).toContain(kind);
     expect(s.v10.startPack.pack).toBe(pack.id);
     expect(s.phase).toBe('map');
+  });
+
+  it('tapping a pack only selects it; the gold button commits the run',()=>{
+    render(<Duel/>);newGame();
+    const go=screen.getByTestId('start-pack-go');
+    expect(go.disabled).toBe(true);
+    const second=packs()[1];
+    fireEvent.click(second);
+    expect(second.getAttribute('aria-checked')).toBe('true');
+    expect(packs()[0].getAttribute('aria-checked')).toBe('false');
+    expect(readV10Duel(localStorage)).toBeNull();
+    expect(go.disabled).toBe(false);
+    expect(go.textContent).toContain(second.getAttribute('aria-label'));
+    // every pack shows its three cards with the engine cost
+    for(const p of packs())expect(p.querySelectorAll('.sp-mini-cost')).toHaveLength(3);
   });
 
   it('overwriting a run goes through pack pick, cancelling keeps the old run',()=>{
