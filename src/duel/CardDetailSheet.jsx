@@ -1,5 +1,5 @@
 import React,{useEffect,useRef} from 'react';
-import {CARDS,AXIS_NAMES,cardText,upgradeText} from './cards.js';
+import {CARDS,AXIS_NAMES,cardCost,cardText,upgradeText} from './cards.js';
 import {cardArtFor,cardArtFocusFor} from './card-art.js';
 import './card-detail.css';
 import './touch-policy.css';
@@ -30,12 +30,13 @@ const STACK={
 };
 const BASIC={name:'BASIC SWING',kindLabel:'스윙 카드',role:'기본',axis:'1존',rule:'선택한 1존을 칩니다. 카드 소비 없음 — 카드가 없어도 승부할 수 있습니다.',gives:['항상 사용'],needs:[],flavor:null};
 
-export function cardDetailOf(kind,plus=false,problem=null){
-  if(kind==='basic')return {...BASIC,kind,plus:false,upgrade:null,problem:problem||null,stack:STACK.basic};
+export function cardDetailOf(kind,plus=false,problem=null,mainRun=false){
+  if(kind==='basic')return {...BASIC,kind,plus:false,upgrade:null,problem:problem||null,stack:STACK.basic,...(mainRun?{energyCost:0}:{})};
   const c=CARDS[kind];if(!c)return null;
   const up=upgradeText(kind);
   return {
     kind,plus:!!plus,name:c.name+(plus?'+':''),kindLabel:c.type==='skill'?'준비 카드':'스윙 카드',
+    ...(mainRun?{energyCost:cardCost(kind)}:{}),
     role:c.role,axis:c.axis?AXIS_NAMES[c.axis]:'타석 준비',rule:cardText(kind,plus),
     upgrade:up?(plus?'강화됨 · ':'강화하면 · ')+up:null,
     gives:c.gives,needs:c.needs,flavor:c.flavor||null,problem:problem||null,
@@ -150,6 +151,7 @@ export default function CardDetailSheet({detail,onClose}){
       </header>
       {art&&<div className="card-detail-art"><img src={art} alt="" draggable="false" style={focus?{objectPosition:focus.objectPosition}:undefined}/></div>}
       {detail.problem&&<p className="card-detail-problem" role="note">지금 사용할 수 없음 · {detail.problem}</p>}
+      {detail.energyCost!==undefined&&<p className="card-detail-rule">MAIN RUN 에너지 비용 · ⚡ {detail.energyCost}{detail.energyCost===0?detail.kind==='basic'?' · 무료 기본 스윙':' · 무료 준비':''}</p>}
       <p className="card-detail-rule">{detail.rule}</p>
       {(detail.gives.length>0||detail.needs.length>0)&&<ul className="card-detail-tags" aria-label="효과와 조건">
         {detail.gives.map(g=><li key={'g'+g}>{g}</li>)}

@@ -7,6 +7,11 @@ const PHASES=new Set(['map','battle','pitch','between','reward','lost','won','tr
 
 export function validateV10State(s){
   if(!s||s.version!==10||!Number.isInteger(s.initialSeed)||!PHASES.has(s.phase)||!validateRunMap(s.runMap))return false;
+  if(s.battle?.energy!==undefined&&(!Number.isInteger(s.battle.energy)||s.battle.energy<0||s.battle.energy>4))return false;
+  const energyCap=s.battle?.energyCap===undefined?3:s.battle.energyCap;
+  const takeEnergyBonus=s.battle?.takeEnergyBonus===undefined?0:s.battle.takeEnergyBonus;
+  if(!Number.isInteger(energyCap)||![3,4].includes(energyCap)||!Number.isInteger(takeEnergyBonus)||![0,1].includes(takeEnergyBonus))return false;
+  if(s.battle?.energy!==undefined&&s.battle.energy>energyCap)return false;
   if(!Array.isArray(s.deck)||s.deck.some(c=>!c||typeof c.id!=='string'||typeof c.kind!=='string'))return false;
   /* kind must exist in CARDS. Checking only `typeof kind === 'string'` let real saves
      through, and the deck modal then reads CARDS[kind] -> TypeError -> ErrorBoundary,
@@ -38,6 +43,9 @@ export function validateV10State(s){
     /* 표시용 이름은 나중에 붙었다. 있으면 문자열이어야 하고, 없는 예전 기록도 그대로 읽는다. */
     const labels=['choiceLabel','aimLabel','pitchLabel','pitchName'];
     if(labels.some(key=>last[key]!==undefined&&typeof last[key]!=='string'))return false;
+    if(last.takeEnergyBonus!==undefined&&(!Number.isInteger(last.takeEnergyBonus)||![0,1].includes(last.takeEnergyBonus)))return false;
+    if(last.takeDrawBonus!==undefined&&(!Number.isInteger(last.takeDrawBonus)||![0,1].includes(last.takeDrawBonus)))return false;
+    if(last.takeDrawReason!==undefined&&!['full','empty'].includes(last.takeDrawReason))return false;
     /* 지켜보기는 노린 존이 없어 null이다. 그 외에는 0~9 정수여야 한다. */
     if(last.aimZone!==undefined&&last.aimZone!==null&&(!Number.isInteger(last.aimZone)||last.aimZone<0||last.aimZone>9))return false;
   }

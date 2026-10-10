@@ -63,30 +63,31 @@ describe('V11 9ZONE STACK ORDER',()=>{
   it('preview가 순서와 CONNECT 보너스를 한 계약으로 노출한다',()=>{
     const s=armed(11); upgradePlaces(s,['c0','c1','c2']);
     const p=previewV10Stack(s,'c4',[
-      {id:'c0',aimZone:4},{id:'c1',aimZone:8},{id:'c2',aimZone:7},
+      {id:'c0',aimZone:4},{id:'c1',aimZone:8},
     ]);
-    expect(p.cardCount).toBe(4);
-    expect(p.connectCount).toBe(3);
-    expect(p.connectBonus).toBeCloseTo(.21);
-    expect(p.baseStackDamageRate).toBe(.5);
-    expect(p.orderedStackDamageRate).toBeCloseTo(.71);
-    expect(p.damageRate).toBeCloseTo(.71);
-    expect(p.label).toContain('CONNECT 3/3');
+    expect(p.cardCount).toBe(3);
+    expect(p.cost).toBe(3);
+    expect(p.connectCount).toBe(2);
+    expect(p.connectBonus).toBeCloseTo(.14);
+    expect(p.baseStackDamageRate).toBe(.65);
+    expect(p.orderedStackDamageRate).toBeCloseTo(.79);
+    expect(p.damageRate).toBeCloseTo(.79);
+    expect(p.label).toContain('CONNECT 2/2');
   });
 
   it('실제 투수 HP도 preview와 같은 ordered damageRate를 사용한다',()=>{
     let s=armed(11); upgradePlaces(s,['c0','c1','c2']);
     s.battle.pending={...s.battle.pending,zone:4,roll:.99,powerRoll:.99};
     s=playV10Action(s,{type:'card',id:'c4',supports:[
-      {id:'c0',aimZone:4},{id:'c1',aimZone:8},{id:'c2',aimZone:7},
+      {id:'c0',aimZone:4},{id:'c1',aimZone:8},
     ]});
     const combat=selectV10Combat(s);
-    expect(combat.connectCount).toBe(3);
-    expect(combat.connectBonus).toBeCloseTo(.21);
-    expect(combat.baseStackDamageRate).toBe(.5);
-    expect(combat.orderedStackDamageRate).toBeCloseTo(.71);
-    expect(combat.damageRate).toBeCloseTo(.71);
-    expect(combat.stackLinks.map(x=>x.connected)).toEqual([true,true,true]);
+    expect(combat.connectCount).toBe(2);
+    expect(combat.connectBonus).toBeCloseTo(.14);
+    expect(combat.baseStackDamageRate).toBe(.65);
+    expect(combat.orderedStackDamageRate).toBeCloseTo(.79);
+    expect(combat.damageRate).toBeCloseTo(.79);
+    expect(combat.stackLinks.map(x=>x.connected)).toEqual([true,true]);
   });
 
   it('완전 연결 4장도 단독 1장보다 HP 효율이 낮다',()=>{

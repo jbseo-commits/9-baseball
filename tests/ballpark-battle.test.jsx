@@ -13,7 +13,7 @@ import {intentLines,hpTicks} from '../src/duel/ballpark-copy.js';
 beforeEach(()=>{localStorage.clear()});
 afterEach(()=>{cleanup()});
 
-function begin(hand){
+function begin(hand,energy){
   let s=createV10Duel(1);
   s.build='away';s.deck=['place','place','strike','rally','strike','bunt','place','place','place','place','place','place'].map((kind,i)=>({id:'c'+i,kind}));
   s.deck[1]=Object.assign({},s.deck[1],{plus:true});
@@ -24,6 +24,7 @@ function begin(hand){
   // Stack mechanics under test address c0(place)/c1(place+); the opening deal
   // is seeded since P1, so pin the hand here instead of assuming deck order.
   if(hand){const pool=[...s.battle.hand,...s.battle.draw,...s.battle.discard].filter(id=>!hand.includes(id));s.battle.hand=[...hand,...pool.slice(0,5-hand.length)];s.battle.draw=pool.slice(5-hand.length);s.battle.discard=[];}
+  if(energy!=null)s.battle.energy=energy;
   saveV10Duel(localStorage,s);
   render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
   return s;
@@ -117,26 +118,24 @@ describe('V13 BALLPARK battle',()=>{
     expect(txt).toMatch(/피해 ×/);
   });
 
-  it('a growing stack names its running energy total against the budget',()=>{
-    // The budget used to appear only inside the rejection text. place(2) alone
-    // already shows it, and place(2) + place+(1) = 3/4 while stacking.
+  it('a growing stack names its running energy total against the pitch energy left',()=>{
+    // MAIN RUN pays from the per-pitch pool (3): place(1) alone shows 1/3,
+    // and place(1) + place+(1) = 2/3 while stacking.
     begin(['c0','c1','c2','c3','c4']);
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
-    expect(swingBtn().textContent).toMatch(/에너지 2\/4/);
+    expect(swingBtn().textContent).toMatch(/에너지 1\/3/);
     fireEvent.click(cards()[1]);fireEvent.click(cells()[2]);
-    expect(swingBtn().textContent).toMatch(/에너지 3\/4/);
+    expect(swingBtn().textContent).toMatch(/에너지 2\/3/);
   });
 
-  it('a support candidate that would overflow says so with the exact sum',()=>{
-    // strike(3) main + strike(3) candidate = 6/4: the candidate carries the
-    // verdict instead of failing silently at the swing button.
-    begin(['c2','c3','c4','c0','c1']);
+  it('a support candidate that would overflow the energy left says so with the exact sum',()=>{
+    // 1 energy left: strike(1) main fits, a rally+(1) candidate would make 2/1,
+    // so the candidate carries the verdict instead of failing silently at the swing.
+    begin(['c2','c3','c4','c0','c1'],1);
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
-    expect(swingBtn().textContent).toMatch(/에너지 3\/4/);
-    expect(cards()[2].textContent).toContain('합치면 3+3=6/4 초과');
-    fireEvent.click(cards()[2]);fireEvent.click(cells()[2]);
-    expect(swingBtn().textContent).toMatch(/에너지 6\/4/);
-    expect(swingBtn().disabled).toBe(true);
+    expect(swingBtn().textContent).toMatch(/에너지 1\/1/);
+    expect(swingBtn().disabled).toBe(false);
+    expect(cards()[1].textContent).toContain('합치면 1+1=2/1 초과');
   });
 
   it('the take button is always available',()=>{
