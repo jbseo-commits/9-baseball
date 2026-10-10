@@ -6,6 +6,7 @@ import {HomerunVideoPreview} from "./duel/HomerunVideo.jsx";
 import ErrorBoundary from "./duel/ErrorBoundary.jsx";
 import PortraitFrame from "./duel/PortraitFrame.jsx";
 import { layoutMode, watchLayoutMode } from "./duel/layout-mode.js";
+import "./duel/tokens.css";
 import "./duel/stack-direct-tap.js";
 import "./duel/landscape-first.css";
 import "./duel/landscape-scroll-fix.css";
@@ -34,6 +35,8 @@ import "./duel/battle-clarity.css";
 import "./duel/cinematic-director.css";
 import "./duel/cinematic-commit-handoff.css";
 import "./duel/cinematic-pitch-handoff.css";
+import "./duel/hud-clarity.css";
+import "./duel/battle-readability.css";
 import "./duel/title-pixel.css";
 
 watchLayoutMode();

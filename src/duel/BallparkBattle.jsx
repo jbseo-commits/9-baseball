@@ -485,7 +485,12 @@ const CARD_DESC_MAP={
           {isKoSplash?<KnockoutCut artId={artId} figure={pitcherFigures[artId]}/>:isHomerSplash&&<HomeRunCut/>}
           <strong>{call||shot.title}</strong>
           {/* with runner moves to show, the flavour line gives its room to them (the plate must clear the HP panel) */}
-          {(outNote||!moves.length&&call&&shot.title&&shot.title!==call)&&<small>{outNote||shot.title}</small>}
+          {/* a pitch that is not a hit can still cost the pitcher HP (near miss, foul, ball): say so on the
+              plate, from the engine's own number, so "헛스윙" next to a falling HP bar does not read as a bug */}
+          {(()=>{const flavour=outNote||(!moves.length&&call&&shot.title&&shot.title!==call?shot.title:'');
+            const hpNote=!good&&!moves.length&&judged&&landed&&combat?.damage>0?'투수 HP -'+combat.damage:'';
+            const line=[flavour,hpNote].filter(Boolean).join(' · ');
+            return line?<small>{line}</small>:null;})()}
           {!!moves.length&&<ul className="bp-moves" data-testid="bp-moves">{moves.map((m,i)=><li key={i}>{m}</li>)}</ul>}
         </div>;
       })()}
@@ -549,19 +554,19 @@ const CARD_DESC_MAP={
 
     {showDebrief?<aside className={'bp-debrief tone-'+(debriefLesson?.tone||'neutral')} data-testid="bp-debrief" aria-label="이번 공 복기">
       <div className="bp-dstep plan">
-        <span>PLAN</span>
+        <span>내 선택</span>
         <strong>{debriefPlan}</strong>
         <small>{lessonCombat.aimLabel||'노림 코스'}</small>
       </div>
       <i aria-hidden="true">→</i>
       <div className="bp-dstep actual">
-        <span>ACTUAL</span>
+        <span>실제 공</span>
         <strong>{debriefActual}</strong>
         <small>{debriefDamage||lessonCombat.verdict||call}</small>
       </div>
       <i aria-hidden="true">→</i>
       <div className="bp-dstep next">
-        <span>NEXT</span>
+        <span>다음엔</span>
         <strong>{debriefLesson?.title}</strong>
         <small>{debriefLesson?.text}</small>
       </div>

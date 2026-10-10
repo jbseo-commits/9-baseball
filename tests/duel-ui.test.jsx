@@ -228,7 +228,9 @@ describe('9-zone strategic UI',()=>{
     act(()=>vi.advanceTimersByTime(timeline.slowmo+1));expect(arena.className).toContain('fx-stage-release');
     finish();
     expect(document.querySelector('.bp-verdict strong').textContent).toBe('헛스윙');
-    expect(document.querySelector('.bp-verdict small').textContent).toBe('한 칸 차이');
+    // the plate also names the HP the miss cost, from the engine's own number
+    const missDamage=readV10Duel(localStorage).v10.lastCombat.damage;
+    expect(document.querySelector('.bp-verdict small').textContent).toBe('한 칸 차이'+(missDamage>0?' · 투수 HP -'+missDamage:''));
   });
 
   it('uncovered whiff keeps same batter and requires next pitch confirmation',()=>{
