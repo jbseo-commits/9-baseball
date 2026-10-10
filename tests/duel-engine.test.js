@@ -8,6 +8,8 @@ function fixture(kind='strike',build='away'){const s=battle(1,build);s.deck[0].k
 function pitch(s,zone,roll=.5,powerRoll=.95){s.battle.pending={zone,roll,powerRoll};return s;}
 function roundtrip(s){const store=memory();saveDuel(store,s);expect(readDuel(store)).toEqual(s);if(s.battle){const b=s.battle,ids=[...b.hand,...b.draw,...b.discard];expect(ids).toHaveLength(s.deck.length);expect(new Set(ids).size).toBe(s.deck.length);expect(b.bases.filter(Boolean).every(id=>LINEUP.some(p=>p.id===id))).toBe(true);}}
 describe('9-zone read success is guaranteed; stats only choose hit type',()=>{
+  // Full coverage sweep: builds x attacks x 9 aims x zones x 4 rolls. It measures
+  // ~5.1s alone, so the 5s default timed out under parallel load (2026-10-11).
   it('every covered zone, swing, build and random roll is a hit, including BASIC',()=>{
     for(const build of Object.keys(BUILDS))for(const kind of ['basic',...Object.keys(CARDS).filter(k=>CARDS[k].type==='attack'&&!CARDS[k].bunt)]){
       let s=fixture(kind==='basic'?'strike':kind,build);const id=kind==='basic'?'basic':'c0';
@@ -15,7 +17,7 @@ describe('9-zone read success is guaranteed; stats only choose hit type',()=>{
         const n=playCard(pitch(s,z,roll),'basic'===kind?'basic':'c0');expect(n.stats.hits).toBe(1);expect(n.stats.outs).toBe(0);expect(n.stats.appearances).toBe(1);
       }}
     }
-  });
+  },30_000);
   it('a named batter reaches base; used card is discarded and no second swing is allowed',()=>{
     const s=playCard(pitch(fixture(),5),'c0');expect(s.battle.bases[0]).toBe('p1');expect(s.battle.discard).toContain('c0');expect(s.phase).toBe('between');
     expect(playCard(s,'c1')).toBe(s);expect(endTurn(s)).toBe(s);expect(advancePitch(s)).toBe(s);roundtrip(s);
