@@ -27,10 +27,10 @@ Actual input sequence: prepare → MAIN at zone 8 → add cut support → suppor
 
 Pixi real pitch: verified-pitch.gif contains 29 consecutive scene captures with measured frame timing; verified-contact.png is frame 19. Ready/load/trigger/swing/contact/follow-through/finish/settle appeared during a real engine action. HP changed 60→48 at contact. No injected result, frozen animation or static actor composite. DOM fallback was used for the responsive interaction sequence and passed the same contact/geometry model checks.
 
-Original entry: title and stored-run resume, next-pitch/card/9-zone controls checked on the same production build. The original route scroll, rewards, facilities and save transition contracts are covered by the existing suite and 20-seed smoke; hybrid does not import its UI stylesheet or call its storage API.
+Original entry: title, start pack, map → battle, card/9-zone selection, hit HP60→48 and reload → resume were checked on a separate localhost save origin. At 375×667 the map document was 853px high and real scrolling moved scrollY from 0 to 186 (original-map-scroll.png). Rewards/facilities and further save transitions are covered by the existing suite and 20-seed smoke. Hybrid does not import the original UI stylesheet or call its storage API.
 
 ## Review and limits
 
 Independent final reviewer inspected source, small portrait/landscape/contact images, viewport measurements, reran hybrid tests and budget check: no P1/P2 blocker found. Physical devices, browser chrome/safe-area changes and OS reduced-motion settings were not manually tested. Hybrid is an in-memory match slice: campaign progression and persistent hybrid saves are outside this implementation. Gameplay depth still needs player validation.
 
-Remote upload/preview verification is recorded below after publishing.
+Code uploaded as PR [#26](https://github.com/jbseo-commits/9-baseball/pull/26). Initial Pages run38092557210 was cancelled by a concurrent branch deployment; it was not a build-code failure. Final deployment URL, workflow result and public-browser verification are maintained in that PR description.
