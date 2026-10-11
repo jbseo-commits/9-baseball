@@ -1,43 +1,89 @@
 import {createV10Duel,enterV10Node,setAimZone,playV10Action,advanceV10Pitch,advanceV10Batter,cardProblem,previewV10Stack,readLevel} from '../duel/engine.js';
 import {probabilityBounds} from '../duel/information.js';
-import {CARDS} from '../duel/cards.js';
+import {CARDS,cardCost} from '../duel/cards.js';
 import {presentationFor} from '../duel/presentation.js';
 import {redRushTimeline} from '../duel/pitcher-sd.js';
 import {actorContactPoint} from '../duel/actorContact.js';
 import {BATTER_MOTION_V3_HIT_GRADES} from '../duel/batterMotionV3.js';
 
-export const COMMON=['place','strike','setup','watch','scout','defend'];
 export const PACKS={
-  precision:{name:'정밀 승부',en:'THE PERFECT READ',symbol:'◎',color:'#f3c56f',pack:['place','slug','scout'],core:'scout',title:'읽고. 기다리고. 꿰뚫는다.',description:'릴리스 간파로 높이를 읽고, 정타 노림의 정확 적중에 투자하세요.',short:'관찰 → 한 칸 승부',art:3},
-  relay:{name:'주자 연결',en:'KEEP THE LINE MOVING',symbol:'↗',color:'#74d8cf',pack:['rally','flow','bunt'],core:'rally',title:'한 명의 안타가, 다음 기회로.',description:'먼저 출루를 만들고, 주자 연결·사인·번트로 다음 타석까지 설계하세요.',short:'출루 → 사인 → 진루',art:1},
-  grind:{name:'끈질긴 압박',en:'MAKE EVERY PITCH COUNT',symbol:'≋',color:'#aabaf2',pack:['defend','calm','watch'],core:'calm',title:'끝나지 않는 타석의 압박.',description:'호흡과 손패를 확보하고 커트로 버티세요. 장타력과 생존을 교환합니다.',short:'호흡 → 커트 → 다음 공',art:4},
+  precision:{name:'정밀 승부',symbol:'◎',color:'#f3c56f',deck:['scout','pinpoint','focusBreath','place','slug','setup','scoreSheet','eyeLevel','strike'],opening:['scout','pinpoint'],core:'scout',short:'간파 → 1존 정타',identity:'정보에 에너지를 쓰고, 한 칸에 투자한다.'},
+  relay:{name:'주자 연결',symbol:'↗',color:'#74d8cf',deck:['tableSetter','strike','rally','flow','bunt','hitAndRun','chainSign','relayBat','watch'],opening:['tableSetter','hitAndRun'],core:'tableSetter',short:'출루 → 주루 설계',identity:'첫 타석의 안타를, 다음 타석의 득점으로.'},
+  grind:{name:'끈질긴 압박',symbol:'≋',color:'#aabaf2',deck:['wearDown','foulTip','defend','calm','longAtBat','fightOff','watch','setup','countBattle'],opening:['wearDown','foulTip'],core:'wearDown',short:'생존 → 파울 압박',identity:'단타와 파울로 버티며 투수 HP를 깎는다.'},
 };
 export const SHORT={place:'1존 · 정확 적중 HP +50%',strike:'세로 3존 · 바깥 공 보너스',slug:'1존 · 파워 +36',rally:'가로 3존 · 기존 주자 +2루',bunt:'9존 · 희생 성공 시 아웃 +1',defend:'십자 커버 · 적중 단타 · 파울 생존',setup:'집중 +1 · 이번 타석',watch:'카드 2장 뽑기',scout:'이번 공 높이 확인 · 카드 +1',flow:'안타 때 기존 주자 추가 +1루',calm:'파울 생존 · 카드 +1'};
-export const ART_INDEX={place:0,strike:0,slug:0,rally:1,flow:1,bunt:2,scout:3,setup:3,defend:4,calm:4,watch:3};
+export const cardSummary=kind=>SHORT[kind]||CARDS[kind]?.gives?.join(' · ')||CARDS[kind]?.text||'';
 export const entryFor=(s,id)=>s.deck.find(c=>c.id===id);
 export const attackFor=(s,id)=>id==='basic'||CARDS[entryFor(s,id)?.kind]?.type==='attack';
 
 export function startMatch(pack='precision',seed=Date.now()>>>0){
   const config=PACKS[pack]||PACKS.precision;
   let s=createV10Duel(seed);
-  s.deck=[...COMMON,...config.pack].map((kind,i)=>({id:`hybrid-${i}`,kind}));
+  s.deck=config.deck.map((kind,i)=>({id:`hybrid-${i}`,kind}));
   s.nextId=9;
   s=enterV10Node(s,s.runMap.reachableIds[0]);
-  // Guarantee the pack's first decision, preserving all nine physical card instances.
-  // Only the opening shuffle is curated; B/S/O, runners, pitch and rolls stay engine-owned.
-  const core=s.deck.slice(COMMON.length).find(c=>c.kind===config.core).id;
-  if(!s.battle.hand.includes(core)){
-    const returned=s.battle.hand.pop();
-    s.battle.hand.push(core);
-    s.battle.draw=s.battle.draw.filter(id=>id!==core);
-    s.battle.draw.push(returned);
+  // Two complementary tools, three shuffled choices. Never mint/destroy a card or a runner.
+  const opening=config.opening.map(kind=>s.deck.find(c=>c.kind===kind).id);
+  for(const id of opening){
+    if(s.battle.hand.includes(id))continue;
+    const index=s.battle.hand.findLastIndex(other=>!opening.includes(other));
+    const returned=s.battle.hand[index];s.battle.hand[index]=id;
+    s.battle.draw=s.battle.draw.filter(other=>other!==id);s.battle.draw.push(returned);
   }
   return setAimZone(s,7);
 }
 
-export function defaultCard(s){
+// Public-state heuristic for optional spectator mode, not an optimal-play/hidden-roll solver.
+export function publicDecision(s,pack){
+  const b=s.battle,available=kind=>b.hand.find(id=>entryFor(s,id)?.kind===kind&&!cardProblem(s,id));
+  const energy=b.energy,attackReady=b.hand.some(id=>attackFor(s,id)&&!cardProblem(s,id));
+  const prep=kinds=>{
+    if(b.preparations>=2||energy<2||!attackReady)return null;
+    for(const kind of kinds){const id=available(kind);if(id)return {type:'card',id,zone:b.aimZone};}
+    return null;
+  };
+  let preparation=null;
+  if(pack==='precision')preparation=!b.scouted?prep(['coldRead','scout']):!b.bonusPressure?prep(['focusBreath']):null;
+  if(pack==='relay'&&b.bases.some(Boolean)&&!b.runSignal&&!b.bonusDmg)preparation=prep(['flow','chainSign']);
+  if(pack==='grind'&&!b.patient)preparation=prep(['wearDown','calm']);
+  if(preparation)return preparation;
+  const bounds=probabilityBounds(s),ball=(bounds[9][0]+bounds[9][1])/2;
+  if(bounds[9][0]===1)return {type:'take'};
+  const runners=b.bases.filter(Boolean).length;
+  let best=null;
+  for(const id of [...b.hand.filter(id=>attackFor(s,id)&&!cardProblem(s,id)),'basic']){
+    const d=CARDS[entryFor(s,id)?.kind]||{};
+    // A sacrifice needs a real runner and an out to spend. Players can still choose it freely.
+    if(d.bunt&&(!runners||b.outs>=2))continue;
+    for(let zone=0;zone<9;zone++){
+      const at={...s,battle:{...b,aimZone:zone}};
+      const p=actionPreview(at,id),range=coverageInterval(s,p.coverage||[]),hit=(range[0]+range[1])/2;
+      let score=hit;
+      if(pack==='precision')score=hit*(1+(d.pressure||0)+(b.bonusPressure||0))+(d.shape==='point'?.16:0);
+      if(pack==='relay')score=d.bunt?hit*.25:hit*(1+runners*((d.advance||1)*.28+(d.fx?.perRunner||0)*.04))+(d.fx?.empty&&!runners?.35:0);
+      if(pack==='grind')score=hit+Math.max(0,1-hit-ball)*(d.foulMiss||.08)*(.35+((d.fx?.foul||0)+(b.bonusFoul||0))*.08);
+      score-=cardCost(entryFor(s,id))*.015+Math.abs(zone-b.aimZone)*.0001;
+      if(!best||score>best.score)best={type:'card',id,zone,score};
+    }
+  }
+  return best||{type:'take'};
+}
+
+export function tacticalRead(s,pack){
+  const b=s.battle,runners=b.bases.filter(Boolean).length;
+  const risk=b.outs===2?'2아웃 · 다음 아웃이면 승부 종료':b.strikes===2?'2스트라이크 · 헛스윙은 삼진':b.energy===0?'에너지 소진 · 기본 스윙 또는 지켜보기':`준비 ${Math.max(0,2-b.preparations)}회 · 에너지 ${b.energy}/${b.energyCap}`;
+  if(pack==='precision')return {tag:'READ / COMMIT',title:b.scouted?'읽은 높이, 한 칸의 승부':'먼저 읽고, 좁게 노린다',metric:b.bonusPressure?`준비 효과 · 정확 적중 +${Math.round(b.bonusPressure*100)}%`:b.scouted?'간파 완료 · 코스판에서 남은 후보 확인':'간파는 공을 소비하지 않습니다',risk};
+  if(pack==='relay')return {tag:'ON BASE / ADVANCE',title:runners?'살아 있는 주자를 홈으로':'첫 안타가 다음 작전의 시작',metric:runners?`주자 ${runners}명 · 사인/진루 효과 활성`:'빈 베이스 · 테이블 세터 안타 +3 HP',risk};
+  return {tag:'SURVIVE / WEAR DOWN',title:b.patient?'파울도 투수를 압박한다':'끝나지 않는 타석을 만든다',metric:b.bonusFoul?`준비 효과 · 파울마다 +${b.bonusFoul} HP`:b.patient?'파울 생존 적용 중':'투구 수 늘리기 → 파울 추가 피해',risk};
+}
+
+export function defaultCard(s,pack){
+  const preference=pack==='precision'?['pinpoint','place','eyeLevel']:pack==='relay'?(s.battle.bases.some(Boolean)?['hitAndRun','rally','relayBat']:['tableSetter','strike']):pack==='grind'?['foulTip','longAtBat','defend']:[];
+  for(const kind of preference){const id=s.battle.hand.find(id=>entryFor(s,id)?.kind===kind&&!cardProblem(s,id));if(id)return id;}
   return s.battle.hand.find(id=>attackFor(s,id)&&!cardProblem(s,id))||'basic';
 }
+
+export const hasBatContact=shot=>shot?.motion?.swing!==false&&(BATTER_MOTION_V3_HIT_GRADES.has(shot?.grade)||['foul','battle-foul','sacrifice','sacrifice-run','out'].includes(shot?.grade));
 export function actionPreview(s,id,supports=[]){
   const card=CARDS[entryFor(s,id)?.kind];
   return card?.type==='skill'?{skill:true,problem:cardProblem(s,id)}:previewV10Stack(s,id,supports);

@@ -1,4 +1,30 @@
-# Hybrid battle verification — 2026-10-11
+# Hybrid battle verification — revision 4, 2026-10-11
+
+## Current correction
+
+- Final source: **979/979 tests, 167 files**. Hybrid subset **31/31** includes deck conservation and real effects, public-only decisions, per-kind art, contact lifecycle and geometry/crop containment.
+- Production build with `VITE_BASE=/9-baseball/` passed; **56.3MB/60MB** dist budget passed. Existing chunk-size warning remains.
+- `node scripts/v9-report.js 20`: exit0, 16 rewards and 1 win. This is original route/reward/facility/save coverage, not balance/fun evidence.
+- `git diff --check`: passed.
+
+Built browser on localhost4321: ready and selected-support states at **375×667, 390×844, 844×390, 1280×720** had document=viewport, scrollY0 and reachable primary/support centers. The viewport JSON contains ready4, support4 and portrait foul-result1 measurements. Real contact screenshots cover all four sizes; these are separately observed evidence, not four additional result measurements in JSON. MAIN zone7 / SUPPORT zone6 survived the four-size rotation and a real two-card action consumed both cards.
+
+Manual behavior fixtures (URL seed1 then deck change produces seed2):
+
+| Deck / renderer | Real sequence | Observed result |
+| --- | --- | --- |
+| Grind / DOM / 375×667 | wearDown prep → foulTip zone7 | Foul −7HP (60→53), 1 strike, same batter, next-pitch energy3/3. |
+| Grind / DOM | longAtBat zone7 + defend support zone6 | Single −10HP (53→43), 2 consumed cards, real 1st-base runner. |
+| Relay / Pixi | tableSetter zone5 → next batter → flow prep → hitAndRun zone6 | First single −15HP with 1st-base runner; prep keeps pitch and spends energy; second single −16HP scores the existing runner (+1 run). |
+| Precision / Pixi / seed90210 | scout → focusBreath → pinpoint zone7 | Preparation uses two energy without pitching, then real −63HP homer, energy0/3. One outcome, not a win-rate claim. |
+
+`identity-pitch.gif` is a resized recording of 36 consecutive live screenshots with measured timestamps in `identity-motion-evidence.json`. Frame22 simultaneously shows HP0, impact and contact feedback; frame35 settles. No forced result, paused animation or static actor composite. `identity-contact-*.png` contains four real contact captures. Original title → local saved battle → take action was rechecked on this build; prior map-scroll proof below remains applicable because the original UI/storage/engine was not changed in revision4.
+
+Independent final reviewer directly passed 31 hybrid tests, checked 1,710 public-policy decisions (0 illegal/hidden-read cases), compared the saved five-seed report to a new run, and inspected ready/contact4 + foul/relay images. A support-description P2 was fixed and regressed; no remaining P1/P2 found. This verifies implementation and visual consistency within the slice. The five grind spectator records do not show foul keyword damage; the separate manual fixture does.
+
+Limits: viewport emulation, not physical-phone QA; OS reduced-motion and listening/audio quality not manually tested; campaign depth, long sessions, balance and player fun still need validation. Public upload/run results are maintained in PR26.
+
+## Previous one-screen/geometry revision (historical 971-test baseline)
 
 Integrated with origin/main at `65d8394`. This is a playable alternative hybrid.html entry, not a replacement for the original game or proof of commercial quality.
 

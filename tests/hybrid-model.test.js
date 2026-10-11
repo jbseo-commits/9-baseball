@@ -1,5 +1,5 @@
 import {describe,it,expect} from 'vitest';
-import {PACKS,COMMON,startMatch,entryFor,defaultCard,resolveAction,continueMatch,actionPreview,pitchMilestones,visibleForecast,coverageInterval,fallbackBall} from '../src/hybrid/model.js';
+import {PACKS,startMatch,entryFor,defaultCard,resolveAction,continueMatch,actionPreview,pitchMilestones,visibleForecast,coverageInterval,fallbackBall,publicDecision,tacticalRead,hasBatContact} from '../src/hybrid/model.js';
 import {cardProblem,setAimZone,publicProbabilities} from '../src/duel/engine.js';
 import {batterMotionV3Timeline} from '../src/duel/batterMotionV3.js';
 
@@ -12,7 +12,8 @@ describe('hybrid real-engine openings',()=>{
       expect(b.hand).toHaveLength(5);expect(b.draw).toHaveLength(4);expect(b.discard).toHaveLength(0);
       expect(new Set([...b.hand,...b.draw])).toEqual(new Set(s.deck.map(c=>c.id)));
       expect(b.hand.some(id=>entryFor(s,id).kind===PACKS[pack].core)).toBe(true);
-      expect(s.deck.map(c=>c.kind)).toEqual([...COMMON,...PACKS[pack].pack]);
+      for(const kind of PACKS[pack].opening)expect(b.hand.some(id=>entryFor(s,id).kind===kind)).toBe(true);
+      expect(s.deck.map(c=>c.kind)).toEqual(PACKS[pack].deck);
       expect(cardProblem(s,defaultCard(s))).toBeNull();
     }
   });
@@ -30,16 +31,15 @@ describe('hybrid real-engine openings',()=>{
     }
   });
   it('uses the real stack consumption, result, HP and next-batter transition',()=>{
-    let s=startMatch('precision',90210);
-    const scout=s.battle.hand.find(id=>entryFor(s,id).kind==='scout');
-    s=resolveAction(s,{type:'card',id:scout}).next;
-    const main=s.battle.hand.find(id=>entryFor(s,id).kind==='strike'),support=s.battle.hand.find(id=>entryFor(s,id).kind==='defend');
-    s=setAimZone(s,7);const supports=[{id:support,aimZone:7}],preview=actionPreview(s,main,supports);
-    expect(preview.hit).toBeCloseTo(1);expect(preview.damageRate).toBeCloseTo(.87);
+    let s=startMatch('relay',90210);
+    const main=s.battle.hand.find(id=>entryFor(s,id).kind==='strike'),support=s.battle.hand.find(id=>entryFor(s,id).kind==='relayBat');
+    s=setAimZone(s,6);const supports=[{id:support,aimZone:6}],preview=actionPreview(s,main,supports);
+    expect(preview.damageRate).toBeCloseTo(.87);
     const {next,shot,pitch}=resolveAction(s,{type:'card',id:main,supports});
-    expect(pitch).toBe(true);expect(next.stats.pitches).toBe(1);expect(next.v10.lastCombat.verdict).toContain('단타');
-    expect(next.pitcher.hp).toBe(50);expect(next.v10.lastCombat.damage).toBe(10);
-    expect(next.battle.discard).toEqual(expect.arrayContaining([scout,main,support]));
+    expect(pitch).toBe(true);expect(next.stats.pitches).toBe(1);expect(next.v10.lastCombat.verdict).toContain('안타');
+    expect(next.pitcher.hp).toBe(60-next.v10.lastCombat.damage);expect(next.v10.lastCombat.damage).toBeGreaterThan(0);
+    expect(next.v10.lastCombat.cardFxBonus).toBe(3); // relayBat's support-only effect survives stacking.
+    expect(next.battle.discard).toEqual(expect.arrayContaining([main,support]));
     expect(next.battle.hand).not.toEqual(expect.arrayContaining([main,support]));
     expect(next.phase).toBe('between');expect(next.battle.bases.filter(Boolean)).toHaveLength(1);
     const continued=continueMatch(next);expect(continued.phase).toBe('battle');expect(continued.battle.batterIndex).toBe(1);
@@ -63,6 +63,11 @@ describe('hybrid real-engine openings',()=>{
     const altered={...s,battle:{...s.battle,pending:new Proxy({}, {get(){throw new Error('hidden pitch leaked')}})}};
     expect(publicProbabilities(altered)).toEqual(publicProbabilities(s));
     expect(actionPreview(altered,id)).toEqual(p);
+    for(const pack of Object.keys(PACKS)){
+      const at=startMatch(pack,90210),hidden={...at,battle:{...at.battle,pending:altered.battle.pending}};
+      expect(publicDecision(hidden,pack)).toEqual(publicDecision(at,pack));
+      expect(tacticalRead(hidden,pack)).toEqual(tacticalRead(at,pack));
+    }
   });
   it('retains the original deck reading policy and derives coverage only from visible bounds',()=>{
     const precision=visibleForecast(startMatch('precision',90210)),relay=visibleForecast(startMatch('relay',90210));
@@ -76,5 +81,46 @@ describe('hybrid real-engine openings',()=>{
     const ball=fallbackBall(shot,1567,4,boxes);expect(ball.x).toBeCloseTo(257);expect(ball.y).toBeCloseTo(262);
     expect(fallbackBall(shot,1667,4,boxes).x).toBeGreaterThan(ball.x);
     expect(fallbackBall(shot,1567,4,boxes,true)).toBeNull();
+  });
+  it('relay retains the runner payoff into a real second PA, spending a card to move an existing runner',()=>{
+    let s=startMatch('relay',1);
+    const find=k=>s.battle.hand.find(id=>entryFor(s,id).kind===k);
+    s=resolveAction(setAimZone(s,6),{type:'card',id:find('tableSetter')}).next;
+    expect(s.v10.lastCombat.cardFxBonus).toBe(3);expect(s.battle.bases[0]).toBeTruthy();
+    s=continueMatch(s);expect(s.battle.batterIndex).toBe(1);
+    const flow=find('flow'),hit=find('hitAndRun');expect(flow).toBeTruthy();expect(hit).toBeTruthy();
+    expect(entryFor(s,publicDecision(s,'relay').id).kind).toBe('flow');
+    const before=s.stats.pitches;s=resolveAction(s,{type:'card',id:flow}).next;
+    expect(s.stats.pitches).toBe(before);expect(s.battle.runSignal).toBe(true);expect(s.battle.energy).toBe(2);
+    const r=resolveAction(setAimZone(s,7),{type:'card',id:hit});
+    expect(r.next.v10.lastCombat.runnersBefore).toBe(1);expect(r.next.battle.discard).toContain(flow);
+    expect(r.next.battle.discard).toContain(hit);expect(r.next.v10.lastCombat.damage).toBeGreaterThan(0);
+  });
+  it('grind deals its real foul keyword damage while preserving a live PA',()=>{
+    let s=startMatch('grind',2);const find=k=>s.battle.hand.find(id=>entryFor(s,id).kind===k);
+    s=resolveAction(s,{type:'card',id:find('wearDown')}).next;
+    expect(s.battle.bonusFoul).toBe(3);expect(s.battle.patient).toBe(true);
+    const r=resolveAction(setAimZone(s,6),{type:'card',id:find('foulTip')});
+    expect(r.next.phase).toBe('pitch');expect(r.next.battle.strikes).toBe(1);
+    expect(r.next.v10.lastCombat.verdict).toBe('파울');expect(r.next.v10.lastCombat.cardFxBonus).toBe(5);
+    expect(r.next.pitcher.hp).toBe(53);expect(r.next.battle.batterIndex).toBe(0);
+    expect(continueMatch(r.next).battle.energy).toBe(3);
+  });
+  it('precision spends energy on information and pressure before a narrow, uncertain swing',()=>{
+    let s=startMatch('precision',90210);const find=k=>s.battle.hand.find(id=>entryFor(s,id).kind===k);
+    const id=find('pinpoint');expect(entryFor(s,publicDecision(s,'precision').id).kind).toBe('scout');
+    s=resolveAction(s,{type:'card',id:find('scout')}).next;
+    expect(s.battle.scouted).toBe(true);expect(s.battle.energy).toBe(2);
+    s=resolveAction(s,{type:'card',id:find('focusBreath')}).next;
+    expect(s.stats.pitches).toBe(0);expect(s.battle.energy).toBe(1);
+    expect(coverageInterval(s,[6])[1]).toBeLessThan(1);
+    const r=resolveAction(setAimZone(s,6),{type:'card',id});
+    expect(r.next.v10.lastCombat.precisionRate).toBeCloseTo(1.1);
+    expect(r.next.v10.lastCombat.precisionBonus).toBeGreaterThan(0);expect(r.next.battle.energy).toBe(0);
+  });
+  it('shows contact feedback only for actual bat contact, including all hit grades and late fouls',()=>{
+    for(const grade of ['dead-center','solid','jammed','lucky','extra','homer','grand-slam','foul','battle-foul','sacrifice','out'])expect(hasBatContact({grade,motion:{swing:true}})).toBe(true);
+    for(const grade of ['called','fooled','near-miss','ball'])expect(hasBatContact({grade,motion:{swing:true}})).toBe(false);
+    expect(hasBatContact({grade:'dead-center',motion:{swing:false}})).toBe(false);
   });
 });

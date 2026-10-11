@@ -1,6 +1,8 @@
 // Feet on the ground: u is lateral, v points from the rear plate tip toward the mound.
 // MLB layout: 17-inch plate, 6-inch gaps, two equal 4×6-foot batter's boxes.
 export const GROUND={halfPlate:17/24,gap:.5,boxWidth:4,boxLength:6,moundDistance:60.5};
+// Trim empty sky; the complete actor boxes and home-plate ground stay inside this window.
+export const VIEW={x:0,y:80,width:1280,height:640};
 const origin=[450,615],rubber=[972,400],perspective=.035,lateral=[60,11];
 export function projectGround(u,v){
   const d=1+perspective*v;

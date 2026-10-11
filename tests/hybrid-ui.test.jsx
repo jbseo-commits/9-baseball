@@ -28,17 +28,17 @@ describe('hybrid action and reveal lifecycle',()=>{
     const {container}=render(<HybridApp initialSeed={90210}/>);
     fireEvent.click(screen.getByRole('button',{name:'준비 실행 PREPARE'}));
     expect(screen.getByLabelText('에너지 2/3, 선택 비용 1')).toBeTruthy();
-    fireEvent.click(screen.getByRole('button',{name:'밀어치기 · 세로 3존 · 바깥 공 보너스'}));
+    fireEvent.click(screen.getByRole('button',{name:'핀포인트 · 1존 커버 · 정확 적중 HP +70%'}));
     fireEvent.click(screen.getByRole('button',{name:'＋ 지원 카드 추가'}));
-    fireEvent.click(screen.getByRole('button',{name:'커트 스윙 · 십자 커버 · 적중 단타 · 파울 생존'}));
+    fireEvent.click(screen.getByRole('button',{name:'눈높이 컨택 · 가로 2존 커버 · 정확 적중 HP +35%'}));
     fireEvent.click(screen.getByRole('button',{name:'코스 8 · 지원 ▦'}));
     const dialog=screen.getByRole('dialog',{name:'코스 선택'});
     expect(dialog.open).toBe(true);
-    expect(dialog.textContent).toContain('SUPPORT · 커트 스윙');
+    expect(dialog.textContent).toContain('SUPPORT · 눈높이 컨택');
     fireEvent.click(dialog.querySelectorAll('.zone-grid>button')[8]);
     expect(dialog.open).toBe(false);
-    expect(container.querySelector('.order-list').textContent).toContain('MAIN밀어치기8번 존');
-    expect(container.querySelector('.order-list').textContent).toContain('커트 스윙9번 존');
+    expect(container.querySelector('.order-list').textContent).toContain('MAIN핀포인트8번 존');
+    expect(container.querySelector('.order-list').textContent).toContain('눈높이 컨택9번 존');
     expect(screen.getByLabelText('에너지 2/3, 선택 비용 2')).toBeTruthy();
     expect(screen.getByLabelText('선택 비용과 효과').textContent).toContain('2장 · HP');
     fireEvent.click(screen.getByRole('button',{name:'코스 9 · 지원 ▦'}));
@@ -46,7 +46,7 @@ describe('hybrid action and reveal lifecycle',()=>{
     expect(dialog.open).toBe(false);
     vi.stubGlobal('innerWidth',844);fireEvent(window,new Event('resize'));
     expect(container.querySelector('dialog')).toBeNull();
-    expect(container.querySelector('.order-list').textContent).toContain('커트 스윙9번 존');
+    expect(container.querySelector('.order-list').textContent).toContain('눈높이 컨택9번 존');
     fireEvent.click(screen.getByRole('button',{name:'2장으로 스윙 COMMIT TO YOUR READ'}));
     expect(renderer.props.shot).toBeTruthy();event('impact');event('settled');
     expect(screen.getByRole('button',{name:'다음 공 →'}).disabled).toBe(false);
@@ -55,7 +55,8 @@ describe('hybrid action and reveal lifecycle',()=>{
     const {container}=render(<HybridApp initialSeed={90210}/>);
     fireEvent.click(screen.getByRole('button',{name:'준비 실행 PREPARE'}));
     expect(hp()).toBe('60');expect(container.querySelector('.score-counts').textContent).toContain('1구');
-    fireEvent.click(screen.getByRole('button',{name:'커트 스윙 · 십자 커버 · 적중 단타 · 파울 생존'}));
+    fireEvent.click(screen.getByRole('button',{name:'눈높이 컨택 · 가로 2존 커버 · 정확 적중 HP +35%'}));
+    fireEvent.click(screen.getByRole('button',{name:/몸쪽 낮음/}));
     const swing=screen.getByRole('button',{name:'스윙 COMMIT TO YOUR READ'});
     fireEvent.click(swing);fireEvent.click(swing);
     expect(hp()).toBe('60');expect(container.querySelector('.result-call')).toBeNull();
@@ -76,7 +77,7 @@ describe('hybrid action and reveal lifecycle',()=>{
     act(()=>oldCallback({type:'settled',token:oldToken}));
     expect(hp()).toBe('60');expect(container.querySelector('.result-call')).toBeNull();
     expect(screen.getByLabelText('주자 없음')).toBeTruthy();expect(screen.getByLabelText('0볼 0스트라이크 0아웃')).toBeTruthy();
-    expect(container.querySelector('.order-list').textContent).toContain('주자 연결');
+    expect(container.querySelector('.order-list').textContent).toContain('테이블 세터');
   });
   it('takes with no swing or card consumption and can advance to the next pitch',()=>{
     const {container}=render(<HybridApp initialSeed={90210}/>);

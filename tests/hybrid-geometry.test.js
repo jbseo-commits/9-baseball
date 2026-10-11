@@ -1,7 +1,7 @@
 import {describe,it,expect} from 'vitest';
 import fs from 'node:fs';
 import {decodePNG} from '../scripts/lib/png.mjs';
-import {FIELD,GROUND,projectGround,ACTOR_GEOMETRY} from '../src/hybrid/geometry.js';
+import {FIELD,VIEW,GROUND,projectGround,ACTOR_GEOMETRY} from '../src/hybrid/geometry.js';
 import {actorContactPoint} from '../src/duel/actorContact.js';
 import {fallbackBall,fallbackElapsed} from '../src/hybrid/model.js';
 
@@ -18,6 +18,17 @@ function inside([x,y],vertices){
 const placedPixel=(x,y)=>[FIELD.batter.x+x/768*FIELD.batter.h,FIELD.batter.y+(y/768+1-baseline)*FIELD.batter.h];
 
 describe('authored field geometry',()=>{
+  it('crops only empty sky while keeping full actors, plate and both boxes visible',()=>{
+    const inView=([x,y])=>x>=VIEW.x&&x<=VIEW.x+VIEW.width&&y>=VIEW.y&&y<=VIEW.y+VIEW.height;
+    for(const {x,y,w,h} of [FIELD.batter,FIELD.pitcher]){
+      expect([[x,y],[x+w,y+h]].every(inView)).toBe(true);
+    }
+    for(const shape of [FIELD.plate,FIELD.batterBox,FIELD.oppositeBox])expect(shape.every(inView)).toBe(true);
+    for(let z=0;z<9;z++){
+      const p=actorContactPoint(FIELD.batter,z,ACTOR_GEOMETRY.contactAnchor);
+      expect(inView([p.x,p.y])).toBe(true);
+    }
+  });
   it('projects equal regulation boxes, plate and mound through one ground camera',()=>{
     const inner=GROUND.halfPlate+GROUND.gap,outer=inner+GROUND.boxWidth;
     const depths=[GROUND.halfPlate-3,GROUND.halfPlate+3];

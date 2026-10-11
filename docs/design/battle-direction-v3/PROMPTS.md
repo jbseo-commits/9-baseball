@@ -28,7 +28,9 @@ Constraints: environment only, no human figures or crowd silhouettes in foregrou
 
 ## Card art
 
-`assets/hybrid-v3/tactic-cards.webp` is the previously generated V2 five-panel card atlas, compressed to 1680×598 WebP quality 82. Its five panels supply attack/relay/bunt/scout/cut illustrations; original preparation card illustrations supply additional variety. Names, descriptions and borders are live UI. V1/V2 mockup files are not runtime dependencies.
+Revision 4 uses existing per-kind originals through `src/duel/card-art.js` (`cardArtFor` and `cardArtFocusFor`), including the dedicated V16 deck-identity illustrations and runtime WebP derivatives. All nine kinds in each pack resolve to distinct illustration URLs. Frames, names, rules, coverage and selection marks remain live UI. No new raster generation was needed for this revision.
+
+`assets/hybrid-v3/tactic-cards.webp` is the earlier V2 five-panel card atlas (1680×598 WebP quality 82). It is retained for provenance but is no longer imported by the hybrid. The exact historical generation prompt is preserved below. V1/V2 mockup files are not runtime dependencies.
 
 ## Exact foreground edit prompt
 
