@@ -9,7 +9,7 @@ import {DECK_MAX} from '../src/duel/cards.js';
 
 // Road events (analysis follow-up): seeded per node, existing currencies only.
 function eventState(seed,eventId){
-  for(let sd=seed;sd<seed+400;sd++){
+  for(let sd=seed;sd<seed+1200;sd++){
     const s=createV10Duel(sd);
     const n=s.runMap.nodes.find(x=>x.type==='event'&&(!eventId||eventForNode(x)?.id===eventId));
     if(!n)continue;
@@ -107,7 +107,7 @@ describe('V10 road events',()=>{
     // valid acts, a leave in every event, distinct titles, honest gambles.
     const OPS=new Set(['addRandom','sacrificeRandom','upgradeRandom','upgradeAll','bonus8','outsUp','outsDown','gainRelic','transformRandom','duplicateRandom','gamble']);
     const titles=new Set();
-    expect(EVENT_DEFS.length).toBeGreaterThanOrEqual(45);
+    expect(EVENT_DEFS.length).toBeGreaterThanOrEqual(100);
     for(const d of EVENT_DEFS){
       expect(typeof d.id).toBe('string');
       expect(typeof d.title).toBe('string');
@@ -117,6 +117,14 @@ describe('V10 road events',()=>{
       expect(d.acts.every(a=>[1,2,3].includes(a))).toBe(true);
       expect(d.choices.some(c=>c.ops.length===0)).toBe(true);
       for(const c of d.choices){
+        // A choice that only raises the carried-out count is pure cost: leaving is always
+        // free, so nobody would ever click it. Thinning the deck (sacrificeRandom)
+        // counts as a gain — that is what DECK_MIN is for.
+        if(c.ops.length){
+          const leaves=[...c.ops.flatMap(o=>o.op==='gamble'?o.win:[]),...c.ops];
+          const pays=leaves.some(o=>['addRandom','upgradeRandom','upgradeAll','bonus8','gainRelic','transformRandom','duplicateRandom','outsDown','sacrificeRandom'].includes(o.op));
+          expect(pays,`${d.id}/${c.id} only raises the carried-out count`).toBe(true);
+        }
         expect(typeof c.label).toBe('string');
         expect(typeof c.desc).toBe('string');
         for(const o of c.ops){
@@ -146,7 +154,7 @@ describe('V10 road events',()=>{
 
   it('relic, transform, duplicate, and gamble ops resolve deterministically',()=>{
     const find=(eventId,choiceId,minDeck=0)=>{
-      for(let sd=4;sd<200;sd++){
+      for(let sd=4;sd<1200;sd++){
         const s0=createV10Duel(sd);
         const n=s0.runMap.nodes.find(x=>x.type==='event'&&eventForNode(x)?.id===eventId);
         if(!n)continue;
@@ -188,7 +196,7 @@ describe('V10 road events',()=>{
     // a winning gamble resolves without throwing and names its gains
     {
       let won=null;
-      for(let sd=4;sd<400&&!won;sd++){
+      for(let sd=4;sd<3000&&!won;sd++){
         const s0=createV10Duel(sd);
         const n=s0.runMap.nodes.find(x=>x.type==='event'&&eventForNode(x)?.id==='night-game');
         if(!n)continue;
@@ -211,7 +219,7 @@ describe('V10 road events',()=>{
 
   it('repeated targets read once, and a full upgrade stays on one short line',()=>{
     const find=(eventId,choiceId,deckSize)=>{
-      for(let sd=4;sd<400;sd++){
+      for(let sd=4;sd<1200;sd++){
         const s0=createV10Duel(sd);
         const n=s0.runMap.nodes.find(x=>x.type==='event'&&eventForNode(x)?.id===eventId);
         if(!n)continue;
@@ -280,7 +288,7 @@ describe('V10 road events',()=>{
     // A fresh run starts at exactly DECK_MIN (9 cards) with 0 carried outs, so a
     // pure-sacrifice event would otherwise show one enabled button ("떠난다").
     const seen=new Set(),blocked=[];
-    for(let sd=4;sd<800&&seen.size<EVENT_DEFS.length;sd++){
+    for(let sd=4;sd<3000&&seen.size<EVENT_DEFS.length;sd++){
       const s0=createV10Duel(sd);
       for(const n of s0.runMap.nodes.filter(x=>x.type==='event')){
         const entered=enterV10Node({...s0,runMap:{...s0.runMap,reachableIds:[n.id]}},n.id);
