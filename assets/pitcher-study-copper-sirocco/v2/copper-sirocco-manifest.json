@@ -1,0 +1,200 @@
+{
+  "id": "copper-sirocco-pitch-candidate-v2",
+  "character": "copper-sirocco",
+  "adult_age": 29,
+  "runtimeIntegrated": false,
+  "frameSize": [
+    256,
+    256
+  ],
+  "frameCount": 120,
+  "uniqueFrameCount": 24,
+  "authoredPoseCount": 24,
+  "fps": 60,
+  "durationMs": 2000,
+  "atlasColumns": 10,
+  "atlasRows": 12,
+  "atlas": "atlases/copper-sirocco-pitch-120-atlas.png",
+  "releaseFrame": 76,
+  "keyPoses": [
+    {
+      "frame": 0,
+      "pose": "set",
+      "source": "keys",
+      "cell": 0,
+      "dwell": 5
+    },
+    {
+      "frame": 5,
+      "pose": "set-to-rise",
+      "source": "inbetweens-a",
+      "cell": 0,
+      "dwell": 4
+    },
+    {
+      "frame": 9,
+      "pose": "hands-rise",
+      "source": "bridges",
+      "cell": 0,
+      "dwell": 4
+    },
+    {
+      "frame": 13,
+      "pose": "rise-to-overhead",
+      "source": "inbetweens-a",
+      "cell": 1,
+      "dwell": 4
+    },
+    {
+      "frame": 17,
+      "pose": "overhead-windup",
+      "source": "keys",
+      "cell": 1,
+      "dwell": 5
+    },
+    {
+      "frame": 22,
+      "pose": "overhead-to-load",
+      "source": "inbetweens-a",
+      "cell": 2,
+      "dwell": 4
+    },
+    {
+      "frame": 26,
+      "pose": "hands-lower",
+      "source": "bridges",
+      "cell": 1,
+      "dwell": 4
+    },
+    {
+      "frame": 30,
+      "pose": "knee-rising",
+      "source": "inbetweens-a",
+      "cell": 3,
+      "dwell": 4
+    },
+    {
+      "frame": 34,
+      "pose": "leg-lift",
+      "source": "keys",
+      "cell": 2,
+      "dwell": 5
+    },
+    {
+      "frame": 39,
+      "pose": "knee-uncoiling",
+      "source": "inbetweens-a",
+      "cell": 4,
+      "dwell": 4
+    },
+    {
+      "frame": 43,
+      "pose": "hand-separation",
+      "source": "bridges",
+      "cell": 2,
+      "dwell": 4
+    },
+    {
+      "frame": 47,
+      "pose": "stride-extension",
+      "source": "inbetweens-a",
+      "cell": 5,
+      "dwell": 4
+    },
+    {
+      "frame": 51,
+      "pose": "stride",
+      "source": "keys",
+      "cell": 3,
+      "dwell": 5
+    },
+    {
+      "frame": 56,
+      "pose": "approach-plant",
+      "source": "inbetweens-b",
+      "cell": 0,
+      "dwell": 4
+    },
+    {
+      "frame": 60,
+      "pose": "foot-plant",
+      "source": "bridges",
+      "cell": 3,
+      "dwell": 4
+    },
+    {
+      "frame": 64,
+      "pose": "arm-cocking",
+      "source": "inbetweens-b",
+      "cell": 1,
+      "dwell": 4
+    },
+    {
+      "frame": 68,
+      "pose": "arm-whip",
+      "source": "bridges",
+      "cell": 4,
+      "dwell": 4
+    },
+    {
+      "frame": 72,
+      "pose": "release-extension",
+      "source": "inbetweens-b",
+      "cell": 2,
+      "dwell": 4
+    },
+    {
+      "frame": 76,
+      "pose": "release",
+      "source": "keys",
+      "cell": 4,
+      "dwell": 3
+    },
+    {
+      "frame": 79,
+      "pose": "early-follow",
+      "source": "inbetweens-b",
+      "cell": 3,
+      "dwell": 3
+    },
+    {
+      "frame": 82,
+      "pose": "follow-through",
+      "source": "keys",
+      "cell": 5,
+      "dwell": 9
+    },
+    {
+      "frame": 91,
+      "pose": "settling-follow",
+      "source": "inbetweens-b",
+      "cell": 4,
+      "dwell": 9
+    },
+    {
+      "frame": 100,
+      "pose": "recovery",
+      "source": "bridges",
+      "cell": 5,
+      "dwell": 10
+    },
+    {
+      "frame": 110,
+      "pose": "back-to-set",
+      "source": "inbetweens-b",
+      "cell": 5,
+      "dwell": 10
+    }
+  ],
+  "throwsWith": "right",
+  "gloveHand": "left",
+  "motionStatus": "authored_pose_candidate",
+  "footAnchorMethod": "manual visible foot landmarks",
+  "commonScale": 0.34234234234234234,
+  "landmarks": "landmarks.json",
+  "references": "references.json",
+  "validation": "validation.json",
+  "smooth60fpsLimbAnimation": false,
+  "review": "review.json",
+  "referenceStatus": "camera_composition_sampled; windup_reference_unverified"
+}

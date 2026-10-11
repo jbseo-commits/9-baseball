@@ -73,3 +73,14 @@
 - 과거 출처 표의 다섯 URL과 다른 후보를 골랐다. 예약·채택한 두 URL은 이후 실행에서 새 참고영상으로 재사용하지 않는다. 미디어를 받지 못해 다른 링크의 장면 중복 여부까지 검증하지는 못했다.
 - 파일: [`assets/pitcher-study-copper-sirocco/`](../../assets/pitcher-study-copper-sirocco/), [`scripts/build-copper-sirocco.py`](../../scripts/build-copper-sirocco.py).
 - 산출물과 실제 검증은 실행 README·manifest·validation.json에 기록한다. 이 실행은 게임 미연결 아트 후보 PR이다.
+
+## Copper Sirocco V2 — 2026-10-11
+
+- run_id: `copper-sirocco-v2-20261011`; 성인 29세 여성 우완. 사용자 반려에 따른 글래머 체형·손잡이·와인드업 재제작.
+- 검색 시각: `2026-10-11T19:25:00+09:00`(실행 중 근사 분, 정밀 시각 아님). 실제 질의·전체 후보·출처·상태는 [V2 references.json](../../assets/pitcher-study-copper-sirocco/v2/references.json).
+- 새 심판캠 채택: https://www.mlb.com/video/ump-cam-views-from-the-2024-all-star-game — 비교 키 `url:mlb.com/video/ump-cam-views-from-the-2024-all-star-game`, 공식 clip ID unknown. 확인한 미디어 basename `2d3011e5-df7c816d-7e263c16-csvm-diamondx64-asset`. 공식 공개 MP4 전체 디코딩 완료, 타임스탬프 정지 프레임 관찰. 브라우저 연속 재생은 하지 않음.
+- 실제 관찰: 0초 이미 디딤/착지 단계; 0.5초 팔 가속·릴리스 근처; 1~1.5초 앞발 지지와 앞으로 숙이는 팔로스루/회복; 2초 카메라가 플레이를 따라 돌아가 투수 일부만 보임. 관찰한 시점 전체 목록은 JSON. 전체 와인드업이나 정밀 관절 궤적 근거는 없음.
+- 새 포수캠 채택·예약: https://www.mlb.com/cut4/south-carolinas-catcher-wore-a-helmet-cam-during-a-game-heres-the-footage/c-47144888 — 확인된 임베드 비교 키 `youtube:Ag0l7h182Zs`. 별칭 `https://www.youtube.com/watch?v=Ag0l7h182Zs`, `https://www.youtube.com/embed/Ag0l7h182Zs`. 공개 페이지/임베드 확인 후 YouTube player LOGIN_REQUIRED로 재생 차단, 관찰 없음. 로그인/우회 없음.
+- 대체 시도·미채택: `https://vimeo.com/1165033399`, `vimeo:1165033399`; 공개 player config HTTP403. 영상 관찰 없음, 사용 이력 제외.
+- 상태: `camera_composition_sampled; windup_reference_unverified`. 원영상 미디어·프레임은 작업용 임시 파일로만 사용해 저장소에 게시하지 않는다. V1 및 과거 표의 채택 출처와 다른 새 클립 두 개를 이번 실행에서 예약했으며 다음 제작에서 새 출처로 재사용하지 않는다.
+- 산출물: [V2 후보](../../assets/pitcher-study-copper-sirocco/v2/README.md), [V2 빌더](../../scripts/build-copper-sirocco-v2.py). 실제 고유 그림 24개/120셀 후보, 게임 미연결. 검수 결과는 validation.json과 PR.

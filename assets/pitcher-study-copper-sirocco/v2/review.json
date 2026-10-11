@@ -1,0 +1,25 @@
+{
+  "status": "candidate_review_passed",
+  "reviewer": "independent pitcher_review agent, requested gpt-6.1-sol/high",
+  "scope": "master, all 24 source/packed poses, timeline, source sole landmarks, builder and contract tests",
+  "visualFindings": [
+    "All24 retain anatomical right ball/throwing hand, orange wristband, screen-left; left glove/white cuff screen-right.",
+    "Left lead knee rises screen-right; no visible hand swap or extra limb.",
+    "Full overhead windup is explicit; face and hourglass silhouette follow Ivory Ace/Rose Paint direction.",
+    "One held ball until release, then empty right hand."
+  ],
+  "codeFindings": [
+    "Shared phase targets and source sole landmarks replace per-pose silhouette centering.",
+    "Plant switch16.76px within24px candidate bound.",
+    "PNG encoded/verified before atomic replacement; decode/pixel equality regression."
+  ],
+  "limitations": [
+    "Body/head size and posture vary across authored sheets, especially initial hands-rise sequence.",
+    "Recovery/reset jump and discrete pose transitions remain.",
+    "Metadata/packaging tests cannot prove pixel anatomy or smooth pitching.",
+    "Full video windup/catcher motion and game environment are unverified."
+  ],
+  "runtimeIntegrated": false,
+  "smooth60fpsLimbAnimation": false,
+  "pngIntegrity": "All65PNG verified after atomic rebuild"
+}
