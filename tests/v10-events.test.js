@@ -9,7 +9,7 @@ import {DECK_MAX} from '../src/duel/cards.js';
 
 // Road events (analysis follow-up): seeded per node, existing currencies only.
 function eventState(seed,eventId){
-  for(let sd=seed;sd<seed+60;sd++){
+  for(let sd=seed;sd<seed+400;sd++){
     const s=createV10Duel(sd);
     const n=s.runMap.nodes.find(x=>x.type==='event'&&(!eventId||eventForNode(x)?.id===eventId));
     if(!n)continue;
@@ -103,11 +103,11 @@ describe('V10 road events',()=>{
   });
 
   it('every event definition honors the table contract',()=>{
-    // Guards the 100-event table as it grows: structure, known ops, real pools,
-    // valid acts, a leave in every event, distinct titles.
-    const OPS=new Set(['addRandom','sacrificeRandom','upgradeRandom','bonus8','outsUp','outsDown','gainRelic','transformRandom','duplicateRandom','gamble']);
+    // Guards the event table as it grows: structure, known ops, real pools,
+    // valid acts, a leave in every event, distinct titles, honest gambles.
+    const OPS=new Set(['addRandom','sacrificeRandom','upgradeRandom','upgradeAll','bonus8','outsUp','outsDown','gainRelic','transformRandom','duplicateRandom','gamble']);
     const titles=new Set();
-    expect(EVENT_DEFS.length).toBeGreaterThanOrEqual(15);
+    expect(EVENT_DEFS.length).toBeGreaterThanOrEqual(45);
     for(const d of EVENT_DEFS){
       expect(typeof d.id).toBe('string');
       expect(typeof d.title).toBe('string');
@@ -124,10 +124,23 @@ describe('V10 road events',()=>{
           if(o.op==='gamble'){
             expect(o.p).toBeGreaterThan(0);expect(o.p).toBeLessThan(1);
             for(const sub of [...o.win,...o.lose])expect(OPS.has(sub.op)).toBe(true);
+            // The label must state the real odds: a 0.4 gamble written as a coin
+            // flip (앞면/뒷면) would promise 50/50 the engine does not give.
+            expect(c.desc).toContain(`${Math.round(o.p*100)}%`);
+            expect(c.desc).toContain(`${Math.round((1-o.p)*100)}%`);
+            expect(c.desc).not.toMatch(/앞면|뒷면/);
           }
         }
       }
       for(const kind of (d.addPool||[]))expect(Object.hasOwn(CARDS,kind)).toBe(true);
+      /* Any op that adds a random card needs a concrete pool: with none, the
+         offer would apply `kind:null` and write a card that fails validation. */
+      const needsPool=[...d.choices.flatMap(c=>c.ops.flatMap(o=>o.op==='gamble'?[...o.win,...o.lose]:[o]))]
+        .filter(o=>o.op==='addRandom'||o.op==='transformRandom');
+      if(needsPool.length)expect(d.addPool?.length).toBeGreaterThan(0);
+      for(const t of [d.title,d.text,...d.choices.flatMap(c=>[c.label,c.desc])]){
+        expect(t).not.toMatch(/[぀-ヿ一-鿿]/);
+      }
     }
   });
 
@@ -194,5 +207,91 @@ describe('V10 road events',()=>{
       expect(rummage.desc).toMatch(/획득$/);
       expect(rummage.desc).not.toBe('무작위 카드 1장을 덱에 넣는다');
     }
+  });
+
+  it('repeated targets read once, and a full upgrade stays on one short line',()=>{
+    const find=(eventId,choiceId,deckSize)=>{
+      for(let sd=4;sd<400;sd++){
+        const s0=createV10Duel(sd);
+        const n=s0.runMap.nodes.find(x=>x.type==='event'&&eventForNode(x)?.id===eventId);
+        if(!n)continue;
+        let s=enterV10Node({...s0,runMap:{...s0.runMap,reachableIds:[n.id]}},n.id);
+        if(s.phase!=='event')continue;
+        const kinds=['slug','rally','flow','defend','lure','strike','place','finisher','wall','bunt'];
+        s={...s,deck:Array.from({length:deckSize},(_,i)=>({id:'d'+i,kind:kinds[i%kinds.length]})),nextId:deckSize};
+        const c=eventOfferForNode(s)?.choices.find(x=>x.id===choiceId);
+        if(c&&!c.problem)return {s,desc:c.desc};
+      }
+      throw new Error('no state for '+eventId+'/'+choiceId);
+    };
+    // Two duplicateRandom ops share one seeded card: name it once with a count,
+    // not twice (it read as "푸근 노트빨 복제 · 푸근 노트빨 복제").
+    {
+      const {s,desc}=find('phantom-fan','accept',10);
+      expect(desc.match(/복제/g)).toHaveLength(1);
+      expect(desc).toMatch(/복제 ×2$/);
+      expect(resolveEventChoice(s,'accept').state.deck).toHaveLength(12);
+    }
+    // walkoff-dream costs one card first, then upgrades what is left: the list is
+    // capped at four names plus a count so an 18-card deck cannot print one wall of text
+    {
+      const {s}=find('walkoff-dream','chase',12);
+      const {outcome,state}=resolveEventChoice(s,'chase');
+      expect(state.deck).toHaveLength(11);
+      expect(outcome).toMatch(/카드 11장 강화:/);
+      expect(outcome).toContain('외 7장');
+      expect(outcome.length).toBeLessThan(120);
+    }
+  });
+
+  it('every legal choice of every generated event keeps the save valid',()=>{
+    // Walks real map seeds instead of hand-picked fixtures: a gamble loss branch
+    // or a rarely derived event used to slip through with no coverage at all.
+    let resolved=0;
+    for(let sd=4;sd<70;sd++){
+      const s0=createV10Duel(sd);
+      for(const n of s0.runMap.nodes.filter(x=>x.type==='event')){
+        const entered=enterV10Node({...s0,runMap:{...s0.runMap,reachableIds:[n.id]}},n.id);
+        if(entered.phase!=='event')continue;
+        // one deck per size band so caps (DECK_MIN/MAX), plus cards, and outs
+        // extremes are all exercised on the same offer
+        for(const [deckSize,outs,plusAll] of [[0,0,false],[9,1,false],[12,2,true],[18,0,false]]){
+          const kinds=['slug','rally','flow','defend','lure','strike','place','finisher','wall','bunt'];
+          const s={...entered,runOuts:outs,deck:Array.from({length:deckSize},(_,i)=>({id:'d'+i,kind:kinds[i%kinds.length],...(plusAll?{plus:true}:{})})),nextId:deckSize};
+          const offer=eventOfferForNode(s);
+          expect(offer).toBeTruthy();
+          expect(offer.choices.some(c=>!c.problem)).toBe(true);
+          for(const c of offer.choices.filter(c=>!c.problem)){
+            const r=resolveEventChoice(s,c.id);
+            expect(r.state).not.toBe(s);
+            expect(validateV10State(r.state)).toBe(true);
+            expect(r.state.deck.every(x=>Object.hasOwn(CARDS,x.kind))).toBe(true);
+            expect(r.state.deck.every(x=>typeof x.id==='string')).toBe(true);
+            expect(r.outcome).not.toMatch(/null|undefined|NaN/);
+            resolved++;
+          }
+        }
+      }
+    }
+    expect(resolved).toBeGreaterThan(400);
+  });
+
+  it('no event greys out every real option at the starting deck size',()=>{
+    // A fresh run starts at exactly DECK_MIN (9 cards) with 0 carried outs, so a
+    // pure-sacrifice event would otherwise show one enabled button ("떠난다").
+    const seen=new Set(),blocked=[];
+    for(let sd=4;sd<800&&seen.size<EVENT_DEFS.length;sd++){
+      const s0=createV10Duel(sd);
+      for(const n of s0.runMap.nodes.filter(x=>x.type==='event')){
+        const entered=enterV10Node({...s0,runMap:{...s0.runMap,reachableIds:[n.id]}},n.id);
+        if(entered.phase!=='event')continue;
+        const offer=eventOfferForNode({...entered,runOuts:0});
+        if(!offer||seen.has(offer.event))continue;
+        seen.add(offer.event);
+        if(!offer.choices.some(c=>c.ops.length&&!c.problem))blocked.push(offer.event);
+      }
+    }
+    expect(blocked).toEqual([]);
+    expect(seen.size).toBe(EVENT_DEFS.length);
   });
 });
