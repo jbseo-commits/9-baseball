@@ -1,0 +1,216 @@
+{
+  "id": "copper-sirocco-pitch-candidate-v1",
+  "character": "copper-sirocco",
+  "name": "코퍼 시로코",
+  "adult_age": 29,
+  "throwsWith": "right",
+  "gloveHand": "left",
+  "facing": "toward-camera",
+  "viewpoint": "catcher-behind-home-plate",
+  "runtimeIntegrated": false,
+  "frameSize": [
+    256,
+    256
+  ],
+  "frameCount": 120,
+  "uniqueFrameCount": 12,
+  "authoredPoseCount": 12,
+  "fps": 60,
+  "durationMs": 2000,
+  "atlasColumns": 10,
+  "atlasRows": 12,
+  "atlas": "atlases/copper-sirocco-pitch-120-atlas.png",
+  "releaseFrame": 76,
+  "keyPoses": [
+    {
+      "frame": 0,
+      "pose": "set",
+      "source": "keys",
+      "cell": 0,
+      "dwell": 9
+    },
+    {
+      "frame": 9,
+      "pose": "hands-rise",
+      "source": "bridges",
+      "cell": 0,
+      "dwell": 8
+    },
+    {
+      "frame": 17,
+      "pose": "coil",
+      "source": "keys",
+      "cell": 1,
+      "dwell": 9
+    },
+    {
+      "frame": 26,
+      "pose": "deeper-coil",
+      "source": "bridges",
+      "cell": 1,
+      "dwell": 8
+    },
+    {
+      "frame": 34,
+      "pose": "leg-lift",
+      "source": "keys",
+      "cell": 2,
+      "dwell": 9
+    },
+    {
+      "frame": 43,
+      "pose": "knee-lower",
+      "source": "bridges",
+      "cell": 2,
+      "dwell": 8
+    },
+    {
+      "frame": 51,
+      "pose": "stride",
+      "source": "keys",
+      "cell": 3,
+      "dwell": 9
+    },
+    {
+      "frame": 60,
+      "pose": "foot-plant",
+      "source": "bridges",
+      "cell": 3,
+      "dwell": 8
+    },
+    {
+      "frame": 68,
+      "pose": "arm-whip",
+      "source": "bridges",
+      "cell": 4,
+      "dwell": 8
+    },
+    {
+      "frame": 76,
+      "pose": "release",
+      "source": "keys",
+      "cell": 4,
+      "dwell": 6
+    },
+    {
+      "frame": 82,
+      "pose": "follow-through",
+      "source": "keys",
+      "cell": 5,
+      "dwell": 18
+    },
+    {
+      "frame": 100,
+      "pose": "recovery",
+      "source": "bridges",
+      "cell": 5,
+      "dwell": 20
+    }
+  ],
+  "motionStatus": "held_pose_candidate",
+  "motion_validation": "reference_unverified",
+  "references": {
+    "run_id": "copper-sirocco-20261011",
+    "character": {
+      "slug": "copper-sirocco",
+      "name": "코퍼 시로코",
+      "adult_age": 29
+    },
+    "searched_at": "2026-10-11T07:58:02+09:00",
+    "search_time_basis": "Main-agent clock read immediately before verification search; earlier searches in same run also recorded below.",
+    "search_queries": [
+      {
+        "source": "web system2",
+        "query": "site.mlb.com/video \"catcher\" \"cam\" pitcher"
+      },
+      {
+        "source": "web system2",
+        "query": "site.mlb.com/video \"ump cam\" pitching"
+      },
+      {
+        "source": "researcher web",
+        "query": "site:mlb.com/video pitcher \"behind the plate\" view MLB 2025"
+      },
+      {
+        "source": "web system1 verification",
+        "query": "\"BryanHoch\" \"2028857346869375058\""
+      },
+      {
+        "source": "web system2 verification",
+        "query": "site.mlb.com/video/best-of-ump-cam-in-game-1-of-the-padres-dodgers-nlds"
+      },
+      {
+        "source": "web system2 alternative discovery",
+        "query": "site.mlb.com/video/ump-cam-views-from-ws-game-2"
+      }
+    ],
+    "candidates": [
+      {
+        "camera_view": "catcher",
+        "url": "https://x.com/BryanHoch/status/2028857346869375058",
+        "normalized_key": "x-status:2028857346869375058",
+        "clip_id": "unknown",
+        "post_id": "2028857346869375058",
+        "aliases": [],
+        "status": "reference_unverified",
+        "adopted": true,
+        "played": false,
+        "playback_attempted": false,
+        "observed_timestamps": [],
+        "keypose_observations": [],
+        "notes": "Search metadata describes Gerrit Cole bullpen from behind the plate. Selected as a reserved unverified reference candidate; no footage informed pose drawing. Playback not attempted after the automated review rejected public video-page retrieval in this research subtask."
+      },
+      {
+        "camera_view": "umpire",
+        "url": "https://www.mlb.com/video/best-of-ump-cam-in-game-1-of-the-padres-dodgers-nlds",
+        "normalized_key": "url:mlb.com/video/best-of-ump-cam-in-game-1-of-the-padres-dodgers-nlds",
+        "clip_id": "unknown",
+        "aliases": [],
+        "status": "reference_unverified",
+        "adopted": true,
+        "played": false,
+        "playback_attempted": true,
+        "observed_timestamps": [],
+        "keypose_observations": [],
+        "notes": "Public MLB page GET attempted by researcher; automatic approval review rejected it as outside authorized context. No downloaded media or observed frames. Search metadata identifies 13-second Padres–Dodgers NLDS Game 1 clip. Slug is URL comparison key, not verified media ID."
+      },
+      {
+        "camera_view": "umpire",
+        "url": "https://www.mlb.com/video/ump-cam-views-from-ws-game-2",
+        "normalized_key": "url:mlb.com/video/ump-cam-views-from-ws-game-2",
+        "clip_id": "unknown",
+        "aliases": [],
+        "status": "discovered_not_adopted",
+        "adopted": false,
+        "played": false,
+        "playback_attempted": false,
+        "observed_timestamps": [],
+        "keypose_observations": [],
+        "notes": "Alternative found by search, not retrieved after automatic review rejection."
+      },
+      {
+        "camera_view": "umpire",
+        "url": "https://www.mlb.com/video/best-of-ump-cam-from-2025-postseason",
+        "normalized_key": "url:mlb.com/video/best-of-ump-cam-from-2025-postseason",
+        "clip_id": "unknown",
+        "aliases": [],
+        "status": "discovered_not_adopted",
+        "adopted": false,
+        "played": false,
+        "playback_attempted": false,
+        "observed_timestamps": [],
+        "keypose_observations": [],
+        "notes": "Alternative search discovery only; long compilation excluded from adoption to avoid unknown overlapping footage."
+      }
+    ],
+    "historical_exclusion_checked": true,
+    "excluded_historical_count": 5,
+    "motion_validation": "reference_unverified",
+    "usage_history": "Two selected candidate URLs are reserved for this run and excluded from fresh reference adoption in subsequent runs. Their footage was not viewed and did not supply measured motion. The 12 pose drawings use authored general pitching design with no timestamp-based claim."
+  },
+  "footAnchorMethod": "shared alpha-bbox baseline proxy; manual pose landmarks require review",
+  "gifFps": 25,
+  "gifDurationMs": 2000,
+  "validation": "validation.json",
+  "landmarks": "landmarks.json"
+}

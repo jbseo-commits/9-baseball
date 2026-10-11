@@ -60,4 +60,16 @@
 
 ## 새 실행 기록
 
-현재 이 작업에서는 새 영상을 검색하거나 재생하지 않았다. 따라서 새 실행 및 새 채택 출처 항목은 아직 없다.
+아래 실행별 기록을 기준으로 새 출처 사용 여부를 확인한다.
+
+## Copper Sirocco — 2026-10-11
+
+- run_id: `copper-sirocco-20261011`; 성인 29세 여성 우완; 상태: **reference_unverified / held_pose_candidate**.
+- 검색 기록 시각: `2026-10-11T07:58:02+09:00`(재확인 검색 직전 실제 시각). 전체 질의·후보는 [`references.json`](../../assets/pitcher-study-copper-sirocco/references.json).
+- 포수 뒤 시점 후보(이번 실행 예약·채택, 미재생): https://x.com/BryanHoch/status/2028857346869375058 — 비교 키 `x-status:2028857346869375058`. 확인한 것은 게시물 ID이며 미디어 clip ID는 unknown. 별칭 없음.
+- 심판캠 후보(이번 실행 예약·채택, 미재생): https://www.mlb.com/video/best-of-ump-cam-in-game-1-of-the-padres-dodgers-nlds — 비교 키 `url:mlb.com/video/best-of-ump-cam-in-game-1-of-the-padres-dodgers-nlds`. 미디어 clip ID unknown, 별칭 없음.
+- 재생 차단: researcher의 공개 MLB 페이지 GET을 자동 승인 검토가 거부했다. 우회 요청을 하지 않았다. 실제 재생·영상 프레임 관찰·타임스탬프 측정은 **없음**. 검색 설명만으로 영상 분석을 주장하지 않는다.
+- 대체 후보 발견(미채택·미재생): `https://www.mlb.com/video/ump-cam-views-from-ws-game-2`, `https://www.mlb.com/video/best-of-ump-cam-from-2025-postseason`. 자동 검토 거부 이후 가져오기를 재시도하지 않았다. 위 두 URL은 사용 이력에 포함하지 않는다.
+- 과거 출처 표의 다섯 URL과 다른 후보를 골랐다. 예약·채택한 두 URL은 이후 실행에서 새 참고영상으로 재사용하지 않는다. 미디어를 받지 못해 다른 링크의 장면 중복 여부까지 검증하지는 못했다.
+- 파일: [`assets/pitcher-study-copper-sirocco/`](../../assets/pitcher-study-copper-sirocco/), [`scripts/build-copper-sirocco.py`](../../scripts/build-copper-sirocco.py).
+- 산출물과 실제 검증은 실행 README·manifest·validation.json에 기록한다. 이 실행은 게임 미연결 아트 후보 PR이다.
