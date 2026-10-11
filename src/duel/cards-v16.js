@@ -1,4 +1,4 @@
-/* V16 reward expansion (2026-09-28): 124 cards across 11 deck concepts.
+/* V16 reward expansion (2026-09-28): 135 cards across 11 deck concepts.
    Every effect is an engine keyword (engine.js shapeHas / zoneBonusFor / applySkillFx / v10CardFxPlan),
    never a one-off rule. Attack keywords:
      shape  point|row|column|cross|all|pairH|pairV|x|diag|box|corners   power  -1..3 (x18 power edge)

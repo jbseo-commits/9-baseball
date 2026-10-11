@@ -606,7 +606,7 @@ function DeckList({deck,selected,onPick,mode}){
   return <div className="deck-list">{deck.map(e=>{
     const blocked=mode==='upgrade'&&!canUpgrade(e);
     return <Card key={e.id} kind={e.kind} plus={e.plus} selected={selected===e.id} disabled={blocked}
-      note={mode==='upgrade'?(e.plus?'이미 강화됨':upgradeText(e.kind)?'강화 → '+upgradeText(e.kind):'강화 불가'):null}
+      note={mode==='upgrade'?(e.plus?'이미 강화됨':upgradeText(e.kind)?'강화 → '+upgradeText(e.kind):'강화 불가 · 효과 없음'):null}
       onClick={blocked?undefined:()=>onPick(e.id)}/>;})}
   </div>;
 }
