@@ -20,6 +20,10 @@ The field remains one canonical 1280×720 world. Fit it uniformly inside availab
 
 Implemented scoped viewport grid, native portrait course dialog, persistent MAIN/SUPPORT aim through rotation, no automatic page scroll. Added always-visible coverage/card-consumption/damage-efficiency or bunt-risk summary, energy/cost HUD, and card cost markings after integrating upstream main65d8394. Preparation confirmation occupies the status strip rather than covering cards. Corrected short-landscape grid sizing after observing real clipping.
 
-Production measurements: document equals viewport, scrollY0, primary/support controls unobstructed at 375×667, 390×844, 844×390, 1280×720. Native Escape returned focus to course button. Hybrid22/full970 tests and 56.3/60MB build budget pass. Independent reviewer found no P1/P2 blocker. Details and limits: QA.md.
+Production measurements: document equals viewport, scrollY0, primary/support controls unobstructed at 375×667, 390×844, 844×390, 1280×720. Native Escape returned focus to course button. Hybrid23/full971 tests and 56.3/60MB build budget pass. Independent reviewer found no P1/P2 blocker. Details and limits: QA.md.
 
 Original-map regression: 375×667 retained document height853 and actual page scroll0→186; original map→battle and reload/resume also passed. Evidence: original-map-scroll.png.
+
+Pre-edit follow-up: opening the native course dialog must stop optional autoplay so it cannot commit behind the player's manual choice. Input/UI and regression impact only; no rule/save/art/scroll/build contract changes. Add an auto→course dialog timing regression before final publication.
+
+Completed: the course opener disables autoplay; the timing regression passes and the built portrait game keeps the dialog open without starting a background pitch. Independent review approved this guard.

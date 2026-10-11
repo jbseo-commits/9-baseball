@@ -7,11 +7,22 @@ vi.mock('../src/duel/BallparkActors.jsx',()=>({pixiAvailable:()=>false,default:p
   renderer.props=props;React.useEffect(()=>{props.onReady({batter:true,pitcher:true})},[]);return <div className="mock-actors"/>;
 }}));
 import {HybridApp} from '../src/hybrid/main.jsx';
-afterEach(()=>{cleanup();vi.unstubAllGlobals()});
+afterEach(()=>{cleanup();vi.unstubAllGlobals();vi.useRealTimers()});
 const hp=()=>screen.getByRole('progressbar',{name:'투수 HP'}).getAttribute('aria-valuenow');
 const event=type=>act(()=>renderer.props.onTimeline({type,token:renderer.props.playToken}));
 
 describe('hybrid action and reveal lifecycle',()=>{
+  it('stops autoplay when the player opens the course dialog, without a background commit',()=>{
+    vi.useFakeTimers();vi.stubGlobal('innerWidth',390);
+    const {container}=render(<HybridApp initialSeed={90210}/>);
+    fireEvent.click(screen.getByRole('button',{name:'자동 플레이'}));
+    fireEvent.click(screen.getByRole('button',{name:'코스 8 · MAIN ▦'}));
+    act(()=>vi.advanceTimersByTime(3000));
+    expect(screen.getByRole('dialog',{name:'코스 선택'}).open).toBe(true);
+    expect(screen.getByRole('button',{name:'자동 플레이'}).getAttribute('aria-pressed')).toBe('false');
+    expect(container.querySelector('.score-counts').textContent).toContain('1구');
+    expect(renderer.props.shot).toBeNull();expect(hp()).toBe('60');
+  });
   it('edits support aim in a compact dialog and preserves the plan through rotation',()=>{
     vi.stubGlobal('innerWidth',390);
     const {container}=render(<HybridApp initialSeed={90210}/>);

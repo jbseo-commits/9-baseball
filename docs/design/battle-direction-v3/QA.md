@@ -4,8 +4,8 @@ Integrated with origin/main at `65d8394`. This is a playable alternative hybrid.
 
 ## Automated checks
 
-- Hybrid model, action lifecycle and spatial regression: **22/22**, including preparation without pitch, contact-time commit, duplicate/stale events, take/basic consumption, support aim and rotation, energy cost, actual opaque shoe bounds and all nine barrel-contact targets.
-- Full suite: **970/970 tests, 166 files** passed; independent engine reviewer executed it.
+- Hybrid model, action lifecycle and spatial regression: **23/23**, including preparation without pitch, contact-time commit, duplicate/stale events, take/basic consumption, support aim and rotation, energy cost, actual opaque shoe bounds and all nine barrel-contact targets.
+- Full suite: **971/971 tests, 166 files** passed on the final source; the independent engine reviewer also passed the prior 970-test revision.
 - `node scripts/v9-report.js 20`: completed 20 seeds; 16 reached reward, 1 win. This checks route/reward/facility/save flows; it does not measure fun or balance.
 - Production build with `VITE_BASE=/9-baseball/`: passed, both entries emitted. Dist budget **56.3MB / 60MB** passed. Existing large-chunk warning remains.
 - `git diff --check`: passed.
@@ -23,7 +23,7 @@ Tested the built game on 127.0.0.1:4321, seed 90210, in the in-app Chromium brow
 
 Evidence: viewport-evidence.json and play-*.png. Horizontal hand scrolling is intentional; offscreen cards are not counted as vertically clipped controls. The desktop detail panel can scroll locally while hand and commit remain visible.
 
-Actual input sequence: prepare → MAIN at zone 8 → add cut support → support zone 7 → rotate portrait/landscape/desktop with both choices preserved → commit → HP 60→50 → next batter. Take then next pitch recharged energy to 4/4 and produced six cards. No automatic page scrolling. Native course dialog entered the modal top layer; Escape closed it and returned focus to the course button.
+Actual input sequence: prepare → MAIN at zone 8 → add cut support → support zone 7 → rotate portrait/landscape/desktop with both choices preserved → commit → HP 60→50 → next batter. Take then next pitch recharged energy to 4/4 and produced six cards. No automatic page scrolling. Native course dialog entered the modal top layer; Escape closed it and returned focus to the course button. Opening it disables autoplay; both the timing regression and built portrait UI verified that manual course selection is preserved.
 
 Pixi real pitch: verified-pitch.gif contains 29 consecutive scene captures with measured frame timing; verified-contact.png is frame 19. Ready/load/trigger/swing/contact/follow-through/finish/settle appeared during a real engine action. HP changed 60→48 at contact. No injected result, frozen animation or static actor composite. DOM fallback was used for the responsive interaction sequence and passed the same contact/geometry model checks.
 
