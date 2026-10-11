@@ -81,10 +81,6 @@ export function HybridApp({initialSeed}){
   const [pack,setPack]=useState('precision'),[state,setState]=useState(()=>startMatch('precision',seedRef.current));
   const [selected,setSelected]=useState(()=>coreCard(state,'precision')),[supports,setSupports]=useState([]),[editing,setEditing]=useState(null),[adding,setAdding]=useState(false);
   const [locked,setLocked]=useState(false),[result,setResult]=useState(false),[shot,setShot]=useState(null),[stage,setStage]=useState(null),[token,setToken]=useState(0),[auto,setAuto]=useState(false),[sound,setSound]=useState(false),[notice,setNotice]=useState(''),[lastPlan,setLastPlan]=useState(null);
-  const [compact,setCompact]=useState(()=>window.innerWidth<=700),[zonesOpen,setZonesOpen]=useState(false),forecastRef=useRef(null);
-  const Forecast=compact?'dialog':'section';
-  useEffect(()=>{const resize=()=>setCompact(window.innerWidth<=700);window.addEventListener('resize',resize);return()=>window.removeEventListener('resize',resize)},[]);
-  useEffect(()=>{const el=forecastRef.current;if(compact&&zonesOpen){if(!el?.open)el?.showModal?.()}else el?.close?.()},[compact,zonesOpen]);
   const pending=useRef(null),serial=useRef(0),fieldRef=useRef(null);
   const b=state.battle,config=PACKS[pack],card=entryFor(state,selected),def=CARDS[card?.kind],skill=def?.type==='skill';
   const active=state.phase==='battle'&&!locked&&!result;
@@ -116,7 +112,7 @@ export function HybridApp({initialSeed}){
   useEffect(()=>()=>{pending.current=null},[]);
 
   function reset(key=pack){
-    serial.current++;pending.current=null;setZonesOpen(false);
+    serial.current++;pending.current=null;
     seedRef.current=(seedRef.current+1)>>>0;
     const next=startMatch(key,seedRef.current);setPack(key);setState(next);setSelected(coreCard(next,key));setSupports([]);setEditing(null);setAdding(false);setResult(false);setLocked(false);setShot(null);setStage(null);setAuto(false);setNotice('');setLastPlan(null);
   }
@@ -130,7 +126,6 @@ export function HybridApp({initialSeed}){
     const id=++serial.current;
     setLastPlan({...plan,forecast,consumed:resolved.consumed});
     pending.current={token:id,next:resolved.next,committed:false,sound:playSound,cue:resolved.shot?.cue};
-    setZonesOpen(false);
     setLocked(true);setResult(false);setShot(resolved.shot);setToken(id);setStage('windup');
   }
   function advance(){
@@ -141,13 +136,14 @@ export function HybridApp({initialSeed}){
   }
   function chooseCard(id){
     if(!active)return;
+    setAuto(false);
     if(adding){
       if(!attackFor(state,id)||id===selected||supports.some(s=>s.id===id)||entryFor(state,id)?.kind==='bunt'||cardProblem(state,id))return;
       setSupports([...supports,{id,aimZone:b.aimZone}]);setEditing(id);setAdding(false);
     }else{setSelected(id);setSupports([]);setEditing(null)}
     setNotice('');
   }
-  function aim(z){if(!active)return;editing?setSupports(supports.map(s=>s.id===editing?{...s,aimZone:z}:s)):setState(setAimZone(state,z));setZonesOpen(false)}
+  function aim(z){if(!active)return;setAuto(false);editing?setSupports(supports.map(s=>s.id===editing?{...s,aimZone:z}:s)):setState(setAimZone(state,z))}
   const canSupport=active&&!skill&&selected!=='basic'&&card?.kind!=='bunt'&&supports.length<v10StackMax(state)-1;
 
   // The spectator uses only the same public forecast shown to the player. It never sees pending.zone.
@@ -179,7 +175,7 @@ export function HybridApp({initialSeed}){
           <div className="pitcher-tag"><span className="live-dot"/> {locked?'PITCH IN MOTION':'READY TO DUEL'}<b>레드 러시</b><small>낮은 싱커 · 오른손 투수</small></div>
           {!result&&<div className="field-prompt"><span>{locked?'투구 중':'YOUR AT BAT'}</span><strong>{locked?'그녀의 손끝에서, 당신의 배트까지.':adding?'지원할 카드를 고르세요.':skill?'준비는, 승부의 일부.':'어디를 기다릴 것인가.'}</strong></div>}
           {combat&&<div className={`result-call ${locked?'arriving':''}`} role="status"><span>{state.pitcher.hp<=0?'DUEL WON':shot?.kicker}</span><strong>{resultTitle}</strong><p>{combat.verdict} · {combat.actualPitch===9?'존 밖 볼':ZONES[combat.actualPitch]}</p><b>{combat.damage>0?`−${combat.damage} HP`:combat.runsScored?`+${combat.runsScored} RUN`:'NEXT CHANCE'}</b></div>}
-          <div className="field-bottom"><span className="turn-notice" role={notice?'status':undefined} title={notice||undefined}>{notice?'준비 완료 · 공 유지':`${config.symbol} ${config.name}`}</span><b className="decision-metrics" aria-label="선택 비용과 효과">{decision}</b>{compact?<button className="course-toggle" disabled={!active} onClick={()=>{setAuto(false);setZonesOpen(true)}} aria-haspopup="dialog" aria-expanded={zonesOpen}>코스 {currentAim+1} · {editing?'지원':'MAIN'} ▦</button>:<span>{locked?'● LIVE':result?'● RESULT':'● YOUR DECISION'}</span>}</div>
+          <div className="field-bottom"><span className="turn-notice" role={notice?'status':undefined} title={notice||undefined}>{notice?'준비 완료 · 공 유지':`${config.symbol} ${config.name}`}</span><b className="decision-metrics" aria-label="선택 비용과 효과">{decision}</b><span id="hybrid-forecast-note" className="forecast-note">{forecast.level===0?'명암은 경향 · 위치 미확정':'확률 범위 · 위치 미확정'}</span><span className="turn-phase">{locked?'● LIVE':result?'● RESULT':'● YOUR DECISION'}</span></div>
         </div>
         <div className="hand-heading"><div><small>YOUR HAND</small><b>{b.hand.length}장의 선택</b><b className="energy" aria-label={`에너지 ${v10Energy(state)}/${v10EnergyCap(state)}, 선택 비용 ${cost}`}>⚡{v10Energy(state)}/{v10EnergyCap(state)} <small>선택 {cost}</small></b></div><span>뽑기 {b.draw.length} <i>·</i> 버림 {b.discard.length} <i>·</i> 준비 {Math.max(0,v10PrepMax(state)-b.preparations)}회</span></div>
         <div className="hand" aria-label="손패 카드">{b.hand.map(id=>{
@@ -193,21 +189,21 @@ export function HybridApp({initialSeed}){
       </section>
       <aside className="dugout" aria-label="전술과 코스 선택">
         <div className="tactic-heading"><small>THE DUGOUT / 전술</small><span>{config.symbol}</span><h2>{config.name}</h2><p>{config.identity}</p></div>
-        <Forecast ref={forecastRef} className="forecast" aria-label="코스 선택" onCancel={()=>setZonesOpen(false)} onClose={()=>setZonesOpen(false)}><div className="section-heading"><b>{b.scouted?'간파한 코스':'어디로 올까?'}</b><small>{forecast.level===0?'명암 읽기 · 확정 위치 아님':forecast.level===1?'확률 구간 · 확정 위치 아님':'정확한 확률'}</small>{compact&&<button className="course-close" onClick={()=>setZonesOpen(false)} aria-label="코스 선택 닫기">×</button>}</div>{compact&&<p className="course-editor">{editing?`SUPPORT · ${nameFor(state,editing)}`:`MAIN · ${nameFor(state,selected)}`} · 현재 {currentAim+1}번 존</p>}<div className="zone-labels"><span>몸쪽</span><span>가운데</span><span>바깥</span></div><div className="zone-grid" role="group" aria-label="목표 존 선택">{Array.from({length:9},(_,z)=>{
+        <section className="forecast" aria-label="코스 선택"><div className="section-heading"><b>{b.scouted?'간파한 코스':'어디로 올까?'}</b><small>{forecast.level===0?'명암 읽기 · 확정 위치 아님':forecast.level===1?'확률 구간 · 확정 위치 아님':'정확한 확률'}</small></div><p className="course-editor" aria-live="polite">{editing?`지원 · ${nameFor(state,editing)}`:`메인 · ${nameFor(state,selected)}`}<span> {currentAim+1}번</span></p><div className="zone-labels"><span>몸쪽</span><span>가운데</span><span>바깥</span></div><div className="zone-grid" role="group" aria-label="목표 존 선택" aria-describedby="hybrid-forecast-note" title={forecast.level===0?'명암 읽기 · 확정 위치 아님':'공개 정보에 따른 확률 범위'}>{Array.from({length:9},(_,z)=>{
           const steps=plan.stackPlan?.steps.filter(s=>s.aimZone===z).map(s=>s.order)||[];
           return <button key={z} onClick={()=>aim(z)} disabled={!active} aria-pressed={currentAim===z} aria-label={`${ZONES[z]} · ${forecast.labels[z]}${allCoverage.includes(z)?' · 커버':''}`} className={`${forecast.bounds[z][1]===0?'unknown':''} ${mainCoverage.includes(z)?'main-cover':allCoverage.includes(z)?'support-cover':''} ${currentAim===z?'aim':''} ${combat?.actualPitch===z?'actual':''}`} style={{'--heat':Math.min(.75,(forecast.bounds[z][0]+forecast.bounds[z][1])/2)}}><small>{z+1}</small><strong className="range">{forecast.labels[z]}</strong><span>{steps.length?steps.join('·'):combat?.actualPitch===z?'●':''}</span></button>;
-        })}</div><div className={`outside ${combat?.actualPitch===9?'actual':''}`}><span>존 밖 볼</span><b>{forecast.labels[9]}</b></div><div className="zone-key"><span><i/> 메인 커버</span><span><i/> 지원 커버</span><span>◎ 목표 존</span></div></Forecast>
+        })}</div><div className={`outside ${combat?.actualPitch===9?'actual':''}`}><span>존 밖 볼</span><b>{forecast.labels[9]}</b></div><div className="zone-key"><span><i/> 메인 커버</span><span><i/> 지원 커버</span><span>◎ 목표 존</span></div></section>
         <section className="plan-panel"><div className="section-heading"><b>{result?'이번 공의 결과':skill?'타석을 준비한다':'어떻게 칠까?'}</b><small>{editing?'지원 목표 조정 중':'선택 → 코스 → 실행'}</small></div>
           {result&&combat?<div className="result-summary"><strong>{combat.choiceLabel}</strong><p>{combat.verdict}</p><div><span>피해 <b>−{combat.damage}</b></span><span>소비 <b>{lastPlan?.consumed??0}장</b></span><span>득점 <b>+{combat.runsScored}</b></span></div></div>:<>
-            <div className="order-list"><button className={!editing?'editing':''} disabled={!active} onClick={()=>{setEditing(null);setAdding(false)}}><i>1</i><span>{skill?'준비':'MAIN'}<b>{nameFor(state,selected)}</b></span><em>{skill?'공 소비 없음':`${b.aimZone+1}번 존`}</em></button>{supports.map((s,i)=><div key={s.id} className="support-row"><button className={editing===s.id?'editing':''} disabled={!active} onClick={()=>setEditing(s.id)}><i>{i+2}</i><span>SUPPORT {plan.stackPlan?.links[i]?.connected?'↗ CONNECT':''}<b>{nameFor(state,s.id)}</b></span><em>{s.aimZone+1}번 존</em></button><button disabled={!active} aria-label={`${nameFor(state,s.id)} 지원 제거`} onClick={()=>{setSupports(supports.filter(x=>x.id!==s.id));setEditing(null)}}>×</button></div>)}</div>
-            <button className={`add-support ${adding?'adding':''}`} disabled={!canSupport} onClick={()=>{setAdding(!adding);setEditing(null)}}>{adding?'손패에서 지원 카드 선택':'＋ 지원 카드 추가'}</button>
+            <div className="order-list"><button className={!editing?'editing':''} disabled={!active} onClick={()=>{setAuto(false);setEditing(null);setAdding(false)}}><i>1</i><span>{skill?'준비':'MAIN'}<b>{nameFor(state,selected)}</b></span><em>{skill?'공 소비 없음':`${b.aimZone+1}번 존`}</em></button>{supports.map((s,i)=><div key={s.id} className="support-row"><button className={editing===s.id?'editing':''} disabled={!active} onClick={()=>{setAuto(false);setEditing(s.id)}}><i>{i+2}</i><span>SUPPORT {plan.stackPlan?.links[i]?.connected?'↗ CONNECT':''}<b>{nameFor(state,s.id)}</b></span><em>{s.aimZone+1}번 존</em></button><button disabled={!active} aria-label={`${nameFor(state,s.id)} 지원 제거`} onClick={()=>{setAuto(false);setSupports(supports.filter(x=>x.id!==s.id));setEditing(null)}}>×</button></div>)}</div>
+            <button className={`add-support ${adding?'adding':''}`} disabled={!canSupport} onClick={()=>{setAuto(false);setAdding(!adding);setEditing(null)}}>{adding?'손패에서 지원 카드 선택':'＋ 지원 카드 추가'}</button>
             <div className="plan-stats">{skill?<p>{cardSummary(card.kind)}<small>준비 1회 · 이 공은 아직 던지지 않습니다.</small></p>:card?.kind==='bunt'?<><div><small>희생 성공 · 공개 정보 범위</small><b>{intervalLabel([(1-forecast.bounds[9][1])*.7,(1-forecast.bounds[9][0])*.7])}</b></div><div><small>성공 시 대가</small><b>아웃 +1</b></div></>:<><div><small>적중권 · 공개 정보 범위</small><b>{intervalLabel(hitRange)}</b></div><div><small>{pack==='grind'?'손패 소비':'HP 피해 효율'}</small><b>{pack==='grind'?`${selected==='basic'?0:supports.length+1}장`:pct(plan.damageRate)}</b></div></>}</div>
             {!skill&&selected!=='basic'&&<p className="card-rule">{def.text}</p>}
             {supports.length>0&&<p className="support-note">지원은 범위와 연결에 쓰입니다. 기본 고유 효과는 메인 기준입니다.{supports.filter(s=>CARDS[entryFor(state,s.id)?.kind]?.fx?.support).map(s=><span key={s.id}> 지원 전용: {nameFor(state,s.id)} 적중 시 +{CARDS[entryFor(state,s.id).kind].fx.support} HP.</span>)}</p>}
           </>}
           {plan.problem&&active&&<p className="problem" role="status">{plan.problem}</p>}
         </section>
-        <div className="action-panel">{result?<button className="primary-action" disabled={locked} onClick={ended?()=>reset():advance}>{locked?'타구를 지켜보는 중…':ended?'새로운 승부 시작':state.phase==='between'?'다음 타자 →':'다음 공 →'}</button>:<button className="primary-action" disabled={!active||!!plan.problem} onClick={()=>execute({type:'card',id:selected,supports})}>{locked?'투구 중…':skill?'준비 실행':supports.length?`${supports.length+1}장으로 스윙`:'스윙'}<span>{locked?'PITCH IN MOTION':skill?'PREPARE':'COMMIT TO YOUR READ'}</span></button>}<div className="secondary-actions"><button disabled={!active} aria-pressed={selected==='basic'} onClick={()=>{setSelected('basic');setSupports([]);setEditing(null)}}>기본 스윙</button><button disabled={!active} onClick={()=>execute({type:'take'})}>지켜보기</button></div><button className="new-match" onClick={()=>reset()}>새 손패로 다시 시작 ↻</button></div>
+        <div className="action-panel">{result?<button className="primary-action" disabled={locked} onClick={()=>{setAuto(false);ended?reset():advance()}}>{locked?'타구를 지켜보는 중…':ended?'새로운 승부 시작':state.phase==='between'?'다음 타자 →':'다음 공 →'}</button>:<button className="primary-action" disabled={!active||!!plan.problem} onClick={()=>{setAuto(false);execute({type:'card',id:selected,supports})}}>{locked?'투구 중…':skill?'준비 실행':supports.length?`${supports.length+1}장으로 스윙`:'스윙'}<span>{locked?'PITCH IN MOTION':skill?'PREPARE':'COMMIT TO YOUR READ'}</span></button>}<div className="secondary-actions"><button disabled={!active} aria-pressed={selected==='basic'} onClick={()=>{setAuto(false);setSelected('basic');setSupports([]);setEditing(null)}}>기본 스윙</button><button disabled={!active} onClick={()=>{setAuto(false);execute({type:'take'})}}>지켜보기</button></div><button className="new-match" onClick={()=>reset()}>새 손패로 다시 시작 ↻</button></div>
       </aside>
     </div><footer className="app-footer"><span>9ZONE <i>·</i> 야구 덱빌딩 로그라이트</span><span>읽는 재미. 고르는 무게. 맞히는 쾌감.</span></footer>
   </main>;

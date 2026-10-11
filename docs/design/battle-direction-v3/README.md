@@ -2,7 +2,7 @@
 
 A live V10 match combining the existing V15 batter/rig and Red Rush pitching atlas with a clean Riverside stadium and illustrated cards. Open hybrid.html; the original game remains at index.html.
 
-The screen keeps field, hand, selection and commit visible together. The hand scrolls horizontally. On portrait screens the 9-zone board opens as a native modal, labels the edited MAIN or SUPPORT and returns to the hand after a zone choice. The status strip shows coverage, card consumption and damage efficiency (or bunt success and out cost). Energy and selected cost use current engine rules.
+The screen keeps field, hand, selection and commit visible together. The hand scrolls horizontally. Portrait screens always show a compact 9-zone board beside the selected MAIN/SUPPORT strip and actions, with no course popup or open/close step. Each aim target is44×44px. The editor identifies the current card and zone; manual input stops spectator play. The status strip shows coverage, card consumption and damage efficiency (or bunt success and out cost). Energy and selected cost use current engine rules.
 
 Three nine-card packs share only one card per pair, with two complementary opening tools and three shuffled choices. Precision spends energy on information and narrow pressure, relay carries real runners into the next batter's sign/advance play, and grind trades cards for foul survival and damage. Pitch, public probability bounds, HP, runners and card consumption use the real engine. Preparation does not pitch. Results commit at actor contact; duplicate input is locked until settling. Optional spectator decisions use public information only.
 
@@ -12,4 +12,6 @@ The entire 1280×720 field uses one uniform fit and camera transform. A 1280×64
 
 ![Real recorded pitch](identity-pitch.gif)
 
-See [current revision](REVISION-4.md), [QA](QA.md), [art provenance](PROMPTS.md), [impact assessment](IMPACT.md), [composition correction](COMPOSITION-FIX.md) and [card-first correction](PLAY-LOOP-FIX.md). This is a reviewable battle slice, not a declaration that the commercial game is finished.
+![Portrait inline aim](inline-support-375x667.png)
+
+See [inline aim correction](INLINE-AIM.md), [art/deck revision](REVISION-4.md), [QA](QA.md), [art provenance](PROMPTS.md), [impact assessment](IMPACT.md), [composition correction](COMPOSITION-FIX.md) and [card-first correction](PLAY-LOOP-FIX.md). This is a reviewable battle slice, not a declaration that the commercial game is finished.

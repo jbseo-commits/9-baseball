@@ -1,4 +1,20 @@
-# Hybrid battle verification — revision 4, 2026-10-11
+# Hybrid battle verification — inline portrait correction, 2026-10-11
+
+## Current popup-free correction
+
+981/981 tests across167 files passed;33/33 hybrid tests also passed after the final CSS change. Production build and56.3/60MB budget passed. Original20-seed smoke passed with16 rewards and1 win. No engine, actor geometry or original route/storage changes in this correction.
+
+The9-zone section stays mounted in every orientation. Portrait uses44×44px targets with no course dialog, beside the selected MAIN/SUPPORT strip and actions. Manual actions cancel spectator playback; the spectator can still execute its own preparation and pitches. Dedicated regressions verify both paths.
+
+Production browser at localhost4322,seed90210: scout preparation→MAIN7/SUPPORT9→rotate across375×667/390×844/844×390/1280×720→add third card and observe3/2 energy error→remove it→real2-card lucky single,HP60→43,1st-base runner→next batter,energy3/3. The first error capture exposed an inherited46px panel; final align-self:stretch uses the full63px row and separates44px strip from14px error (3px gap), with7px before the commit button. Final screenshots include inline-energy-error.png and inline-result-375x667.png.
+
+inline-viewport-evidence.json records13 states, including final ready4, support4, selected-support edit, energy error, result and next batter. All recorded states have document=viewport,scrollY0,0 dialogs and9 reachable aim centers; primary and existing support-add centers are reachable. Earlier support rotation measurements precede the final panel-height-only fix; final ready4/error/result were recaptured after it. Screenshots inline-{375x667,390x844,844x390,1280x720}.png show final built layout. Phone touch ergonomics and browser chrome/safe-area behavior remain unverified on physical devices.
+
+Independent review caught stale compositor dimensions in the first resize-and-capture batch. The three affected screenshots were recaptured in separate calls after viewport changes and decoded independently:390×844,844×390,1280×720. All seven saved inline screenshots are PNG with verified dimensions; no visual alteration beyond lossless format encoding. The375px support/error/result screenshots were already correctly sized.
+
+Independent reviewer approved final source and correctly sized four-viewport images, support editing, separated energy error and real result: no remaining P1/P2 blocker. They directly ran8 UI tests; the full981 and final33 subset/build/smoke are root-run evidence. Tall portrait letterboxing preserves the authored actor/field proportions and was accepted as a non-blocking limitation.
+
+## Prior art/deck revision4
 
 ## Current correction
 

@@ -12,18 +12,21 @@ const hp=()=>screen.getByRole('progressbar',{name:'투수 HP'}).getAttribute('ar
 const event=type=>act(()=>renderer.props.onTimeline({type,token:renderer.props.playToken}));
 
 describe('hybrid action and reveal lifecycle',()=>{
-  it('stops autoplay when the player opens the course dialog, without a background commit',()=>{
+  it('keeps nine portrait aim targets inline and stops autoplay on direct manual aim',()=>{
     vi.useFakeTimers();vi.stubGlobal('innerWidth',390);
     const {container}=render(<HybridApp initialSeed={90210}/>);
     fireEvent.click(screen.getByRole('button',{name:'자동 플레이'}));
-    fireEvent.click(screen.getByRole('button',{name:'코스 8 · MAIN ▦'}));
+    const forecast=screen.getByRole('region',{name:'코스 선택'});
+    expect(forecast.querySelectorAll('.zone-grid>button')).toHaveLength(9);
+    fireEvent.click(screen.getByRole('button',{name:/^몸쪽 낮음/}));
     act(()=>vi.advanceTimersByTime(3000));
-    expect(screen.getByRole('dialog',{name:'코스 선택'}).open).toBe(true);
+    expect(screen.queryByRole('dialog')).toBeNull();
+    expect(container.querySelector('.course-editor').textContent).toContain('7번');
     expect(screen.getByRole('button',{name:'자동 플레이'}).getAttribute('aria-pressed')).toBe('false');
     expect(container.querySelector('.score-counts').textContent).toContain('1구');
     expect(renderer.props.shot).toBeNull();expect(hp()).toBe('60');
   });
-  it('edits support aim in a compact dialog and preserves the plan through rotation',()=>{
+  it('edits support inline, keeps the board open and preserves the plan through rotation',()=>{
     vi.stubGlobal('innerWidth',390);
     const {container}=render(<HybridApp initialSeed={90210}/>);
     fireEvent.click(screen.getByRole('button',{name:'준비 실행 PREPARE'}));
@@ -31,25 +34,41 @@ describe('hybrid action and reveal lifecycle',()=>{
     fireEvent.click(screen.getByRole('button',{name:'핀포인트 · 1존 커버 · 정확 적중 HP +70%'}));
     fireEvent.click(screen.getByRole('button',{name:'＋ 지원 카드 추가'}));
     fireEvent.click(screen.getByRole('button',{name:'눈높이 컨택 · 가로 2존 커버 · 정확 적중 HP +35%'}));
-    fireEvent.click(screen.getByRole('button',{name:'코스 8 · 지원 ▦'}));
-    const dialog=screen.getByRole('dialog',{name:'코스 선택'});
-    expect(dialog.open).toBe(true);
-    expect(dialog.textContent).toContain('SUPPORT · 눈높이 컨택');
-    fireEvent.click(dialog.querySelectorAll('.zone-grid>button')[8]);
-    expect(dialog.open).toBe(false);
+    const forecast=screen.getByRole('region',{name:'코스 선택'});
+    expect(forecast.textContent).toContain('지원 · 눈높이 컨택');
+    fireEvent.click(forecast.querySelectorAll('.zone-grid>button')[8]);
+    expect(screen.queryByRole('dialog')).toBeNull();
+    expect(screen.getByRole('region',{name:'코스 선택'})).toBe(forecast);
     expect(container.querySelector('.order-list').textContent).toContain('MAIN핀포인트8번 존');
     expect(container.querySelector('.order-list').textContent).toContain('눈높이 컨택9번 존');
     expect(screen.getByLabelText('에너지 2/3, 선택 비용 2')).toBeTruthy();
     expect(screen.getByLabelText('선택 비용과 효과').textContent).toContain('2장 · HP');
-    fireEvent.click(screen.getByRole('button',{name:'코스 9 · 지원 ▦'}));
-    fireEvent(dialog,new Event('cancel',{bubbles:false,cancelable:true}));
-    expect(dialog.open).toBe(false);
     vi.stubGlobal('innerWidth',844);fireEvent(window,new Event('resize'));
     expect(container.querySelector('dialog')).toBeNull();
+    expect(screen.getByRole('region',{name:'코스 선택'})).toBe(forecast);
+    vi.stubGlobal('innerWidth',390);fireEvent(window,new Event('resize'));
+    expect(forecast.textContent).toContain('지원 · 눈높이 컨택 9번');
     expect(container.querySelector('.order-list').textContent).toContain('눈높이 컨택9번 존');
     fireEvent.click(screen.getByRole('button',{name:'2장으로 스윙 COMMIT TO YOUR READ'}));
     expect(renderer.props.shot).toBeTruthy();event('impact');event('settled');
     expect(screen.getByRole('button',{name:'다음 공 →'}).disabled).toBe(false);
+  });
+  it('keeps spectator mode active through its own preparations and pitch',()=>{
+    vi.useFakeTimers();
+    render(<HybridApp initialSeed={90210}/>);
+    fireEvent.click(screen.getByRole('button',{name:'자동 플레이'}));
+    for(let n=0;n<5&&!renderer.props.shot;n++)act(()=>vi.advanceTimersByTime(700));
+    expect(renderer.props.shot).toBeTruthy();
+    expect(screen.getByRole('button',{name:'자동 플레이 중지'}).getAttribute('aria-pressed')).toBe('true');
+  });
+  it('manual card selection cancels a queued spectator action without consuming a pitch',()=>{
+    vi.useFakeTimers();
+    render(<HybridApp initialSeed={90210}/>);
+    fireEvent.click(screen.getByRole('button',{name:'자동 플레이'}));
+    fireEvent.click(screen.getByRole('button',{name:'눈높이 컨택 · 가로 2존 커버 · 정확 적중 HP +35%'}));
+    expect(screen.getByRole('button',{name:'자동 플레이'}).getAttribute('aria-pressed')).toBe('false');
+    expect(renderer.props.shot).toBeNull();
+    act(()=>vi.advanceTimersByTime(3000));expect(renderer.props.shot).toBeNull();
   });
   it('prepares without a pitch; commits a real hit only at contact and unlocks at settle',()=>{
     const {container}=render(<HybridApp initialSeed={90210}/>);
