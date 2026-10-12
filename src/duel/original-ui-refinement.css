@@ -1,0 +1,71 @@
+/* Original field composition and grid tracks are untouched. All changes stay
+   inside existing cards and HUD slots; their hit boxes never move on preview. */
+.bp-battle.bp-readable .bp-mental.idle{opacity:.6;gap:0}
+.bp-battle.bp-readable .bp-mental.idle>span{display:none}
+.bp-battle.bp-readable .bp-mental.idle>em{font-size:12px}
+.bp-battle.bp-readable .bp-mental.idle>em::before{display:none}
+.bp-battle.bp-readable .bp-mental.shaken{flex-wrap:wrap;row-gap:3px}
+.bp-battle.bp-readable .bp-mental-value{font:600 12px/1.2 var(--bp-ko);color:var(--bp-bone)}
+.bp-battle.bp-readable .bp-mental-effect{flex-basis:100%;font:400 11px/1.2 var(--bp-ko);color:var(--bp-sodium)}
+.bp-battle.bp-readable .bp-momentum.idle{padding:3px 6px;gap:0;border-color:transparent;box-shadow:none;background:#090c1aba}
+.bp-battle.bp-readable .bp-momentum.idle .bp-momentum-pips,
+.bp-battle.bp-readable .bp-momentum.idle>b{display:none}
+.bp-battle.bp-readable .bp-momentum.idle em{font-size:12px;color:#9da7c1}
+.bp-battle.bp-readable .bp-role-mark{font:700 11px/1 system-ui,sans-serif;margin-right:3px}
+.bp-battle.bp-readable .bp-card-condition{color:#e5c484!important}
+.bp-battle.bp-readable .bp-card-warning{color:#ffab9b!important}
+.bp-battle.bp-readable .bp-gimmick{font-size:10px;line-height:1.4}
+.bp-battle.bp-readable .bp-gimmick details{margin-top:3px}
+.bp-battle.bp-readable .bp-gimmick summary{cursor:pointer;color:#c4cde4;min-height:28px;display:flex;align-items:center;gap:4px}
+.bp-battle.bp-readable .bp-gimmick details p{margin:3px 0 0;color:#c4cde4}
+.bp-battle.bp-readable .bp-gimmick-current{display:block;color:#ffcc83}
+
+@media (orientation:portrait){
+  .bp-battle.bp-readable .bp-hand{align-items:stretch}
+  .bp-battle.bp-readable .bp-card{
+    height:138px;min-height:138px;flex:0 0 98px;padding:6px 5px 4px;gap:2px;
+    transform:none!important;overflow:hidden;box-sizing:border-box;
+  }
+  .bp-battle.bp-readable .bp-card.bp-token-card{flex-basis:98px;width:98px;min-width:98px}
+  .bp-battle.bp-readable .bp-card-art-box{
+    height:54px;flex:0 0 54px;transition:height .16s ease,flex-basis .16s ease;
+  }
+  .bp-battle.bp-readable .bp-card:is(.main,.armed,:focus-visible) .bp-card-art-box{height:66px;flex-basis:66px}
+  .bp-battle.bp-readable .bp-card.has-note .bp-card-art-box{height:40px;flex-basis:40px}
+  /* Condition + warning together own three text lines. Shrink the fixed crop
+     further so the last note stays inside the 138px outer (measured 143.5px
+     overflow at 375 worst case: 2S bunt + energy problem). */
+  .bp-battle.bp-readable .bp-card.has-both .bp-card-art-box{height:32px;flex-basis:32px}
+  /* A two-line warning owns that space. Zoom the artwork inside its fixed crop
+     instead of pushing the cost/condition below the card's bottom edge. */
+  .bp-battle.bp-readable .bp-card.has-note:is(.main,.armed,:focus-visible) .bp-card-art-box{height:40px;flex-basis:40px}
+  .bp-battle.bp-readable .bp-card.has-both:is(.main,.armed,:focus-visible) .bp-card-art-box{height:32px;flex-basis:32px}
+  .bp-battle.bp-readable .bp-card.has-note:is(.main,.armed,:focus-visible) .bp-card-art{transform:scale(1.06)}
+  .bp-battle.bp-readable .bp-card-header{margin-top:0;gap:2px}
+  .bp-battle.bp-readable .bp-card strong{
+    font:700 11px/13px var(--bp-ko)!important;min-height:26px;max-height:26px;
+    white-space:normal;word-break:keep-all;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  }
+  .bp-battle.bp-readable .bp-card-chips{margin:0;gap:3px;min-height:13px}
+  .bp-battle.bp-readable .bp-chip{font-size:9px;line-height:11px;padding:1px 2px;white-space:nowrap}
+  .bp-battle.bp-readable .bp-card-cost{width:21px;height:21px;font-size:12px!important;left:4px;top:4px;box-shadow:0 2px 5px #0008}
+  .bp-battle.bp-readable .bp-card-desc{margin-top:0;gap:1px;min-height:13px}
+  .bp-battle.bp-readable .bp-card-desc p{font:500 11px/14px var(--bp-ko);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bp-battle.bp-readable .bp-card-desc .bp-card-condition,
+  .bp-battle.bp-readable .bp-card-desc .bp-card-warning{white-space:normal;word-break:keep-all;overflow:visible;text-overflow:clip;font-size:10px;line-height:12px}
+  .bp-battle.bp-readable .bp-card-mini-map{right:3px;top:3px}
+  .bp-battle.bp-readable .bp-order{right:27px;top:4px;bottom:auto;width:auto;font-size:9px;height:15px;min-width:15px;line-height:15px;opacity:.9}
+  /* Three public preview values fit on two lines in the original 68px action
+     button. The icon belongs to the verb row, not the preview text column. */
+  .bp-battle.bp-readable .bp-verbs:has(.bp-info) .bp-verb.go::before{grid-row:1;width:20px;height:20px}
+  .bp-battle.bp-readable .bp-verb.go small.bp-verb-sub{grid-column:1/-1;font-size:11px!important;margin-top:2px;line-height:1.2}
+}
+@media (orientation:portrait) and (hover:hover) and (pointer:fine){
+  .bp-battle.bp-readable .bp-card:hover:not(:disabled) .bp-card-art-box{height:66px;flex-basis:66px}
+  .bp-battle.bp-readable .bp-card.has-note:hover:not(:disabled) .bp-card-art-box{height:40px;flex-basis:40px}
+  .bp-battle.bp-readable .bp-card.has-both:hover:not(:disabled) .bp-card-art-box{height:32px;flex-basis:32px}
+  .bp-battle.bp-readable .bp-card.has-note:hover:not(:disabled) .bp-card-art{transform:scale(1.06)}
+}
+@media (prefers-reduced-motion:reduce){
+  .bp-battle.bp-readable .bp-card-art-box{transition:none}
+}

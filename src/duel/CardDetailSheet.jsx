@@ -40,7 +40,7 @@ export function cardDetailOf(kind,plus=false,problem=null,mainRun=false){
     role:c.role,axis:c.axis?AXIS_NAMES[c.axis]:'타석 준비',rule:cardText(kind,plus),
     upgrade:up?(plus?'강화됨 · ':'강화하면 · ')+up:null,
     gives:c.gives,needs:c.needs,flavor:c.flavor||null,problem:problem||null,
-    stack:c.type==='skill'?STACK.none:kind==='bunt'?STACK.bunt:STACK.attack,
+    stack:c.type==='skill'?STACK.none:(CARDS[kind]?.bunt?STACK.bunt:STACK.attack),
   };
 }
 

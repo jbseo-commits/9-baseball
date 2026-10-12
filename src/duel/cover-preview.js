@@ -38,9 +38,9 @@ export function installCoverPreview(root=document){
     const at=card?(hot||(card.classList.contains('board-drag-source')?null:hover||focus)):null;
     const zone=at?list.indexOf(at):-1,map=card&&zone>=0?parseCoverMap(card.dataset.coverMap):null;
     if(!map){clear();return;}
-    // BASIC and bunt never stack, and nothing stacks on a bunt main: those replace the main card
+    // BASIC and the bunt family never stack, and nothing stacks on a bunt main: those replace the main card
     const panel=at.closest('.zone-panel'),drawer=card.closest('.card-drawer');
-    const replaces=panel?.classList.contains('board-empty')||card.classList.contains('basic-card')||['basic','bunt'].includes(card.dataset.cardKind)
+    const replaces=panel?.classList.contains('board-empty')||card.classList.contains('basic-card')||['basic','bunt','squeeze'].includes(card.dataset.cardKind)
       ||drawer?.dataset.mainExclusive==='1'||!!drawer?.querySelector('.duel-hand .basic-card.selected');
     const role=replaces?'main':'support';
     const want=new Set(map[zone]);

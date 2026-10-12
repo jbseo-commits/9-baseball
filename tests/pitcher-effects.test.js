@@ -36,7 +36,10 @@ describe('pitcher effects',()=>{
     expect(actors).not.toMatch(/pitcher\.alpha=1-e/);
   });
   it('the battle tells the actors when this pitch knocked her out',()=>{
-    expect(fs.readFileSync('src/duel/BallparkBattle.jsx','utf8')).toMatch(/knockedOut=\{judged&&\(pitcher\?\.hp\?\?1\)===0\}/);
+    // Frozen until the ball lands: during flight (judged && !landed) the actors
+    // still play the thrown-into state (pre?hpWas), and the KO collapse starts
+    // at impact like the HP gauge, ticks and gimmick VFX do.
+    expect(fs.readFileSync('src/duel/BallparkBattle.jsx','utf8')).toMatch(/knockedOut=\{judged&&\(\(pre\?hpWas:pitcher\?\.hp\)\?\?1\)===0\}/);
     expect(fs.readFileSync('src/duel/App.jsx','utf8')).toMatch(/withKnockoutHold\(/);
   });
 });
