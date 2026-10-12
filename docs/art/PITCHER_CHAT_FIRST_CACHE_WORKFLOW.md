@@ -11,6 +11,15 @@ This document refines the pitcher trigger in AGENTS.md and the existing umpire/c
 
 Approval is scoped by character slug, revision and action: **master art approval does not imply motion approval, and motion approval does not imply production runtime or main approval**. "좋아/진행해" in a planning conversation does not approve an unseen image. A user can explicitly request a full autonomous pipeline, but still needs to approve visual candidates before final asset integration.
 
+## Mandatory gameplay-camera approval gate
+**Order:** master concept → master approval → **five-pose camera-fit test** → camera-fit approval → full 6 key + 6 bridge pose motion → motion approval → 120-frame atlas and feature-branch integration → runtime approval. Neither attractive turnaround art nor side-view pitching sheet satisfies the camera gate.
+
+Before drawing a complete motion sheet, use an actual 9-baseball gameplay capture or verified existing camera layout to check framing and apparent scale. Do not invent camera angles or numeric coordinates from memory. The intended game view looks from behind home plate toward a pitcher centered on the mound: the pitcher throws **toward the camera**, and the ball approaches camera/depth, rather than travelling sideways across the screen. A near-front 3/4 view can preserve shoulder and hip rotation; do not use profile/90-degree side-view keyposes or merely rotate/flip a side-view sheet.
+
+Generate **only five camera-test poses** first: `set`, `leg-lift`, `foot-plant`, `release`, `follow-through`. Maintain same virtual camera, mound and foot-contact anchor in all poses. Check hand/glove continuity, one ball up to release, depth movement and readable limb silhouette at **actual in-game rendered scale**. Compare against captured gameplay for pitcher center, horizon/mound, batter foreground and 9-zone UI occlusion. Do not claim true gameplay fit without access to a real capture; mark `camera_reference_unverified` and ask for one.
+
+User must explicitly approve the specific **camera-test pose revision** before extending to full poses/bridges. Rejected camera poses should be redrawn from the correct view, not hidden with simple rotation, flipping, scaling or CSS transforms. Retain approved face, hair, outfit, palette and number 9 when revising Red Fox. A camera-fit test is a candidate preview, not production sprite readiness.
+
 ## Reference selection: cache first, new research only when needed
 A **verified motion reference library** is a set of reusable *analysis records*, not reused video screenshots or copied likenesses. Store curated camera/pose observation notes in `docs/art/pitcher-motion-library/` after verification. Each entry includes source URL, canonical clip ID/aliases, catcher/umpire view, observed real timestamps, pose stage, body/foot/ball continuity notes, validation state, provenance and license/usage restrictions. Do not copy third-party source frames to the repository.
 
