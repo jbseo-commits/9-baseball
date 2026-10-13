@@ -7,7 +7,6 @@ import RELEASE from './pitcher-release.json';
 import STRIDE from './pitcher-stride.json';
 import STANCE from './pitcher-stance.json';
 import impactSlashVfx from '../../assets/production-art/battle-polish-v16/impact-slash.png';
-import {actorContactPoint} from './actorContact.js';
 
 /* V13 C2 — the batter and the pitcher drawn by PixiJS (WebGL) over the CSS stadium.
    The art is the repository's: the pitcher's 120-frame atlas and the batter's ten authored key poses.
@@ -42,9 +41,9 @@ export function layoutBox(el,scene){
 }
 const REMEASURE_MS=400;
 
-export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterPoses,batterSheet=null,batterRig=null,shot,fxStage,playToken,pitchZone=null,knockedOut=false,onReady,onTimeline,geometry=null}){
+export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterPoses,batterSheet=null,batterRig=null,shot,fxStage,playToken,pitchZone=null,knockedOut=false,onReady}){
   const hostRef=useRef(null),live=useRef({});
-  live.current={shot,fxStage,playToken,pitchZone,artId,knockedOut,onTimeline,geometry};
+  live.current={shot,fxStage,playToken,pitchZone,artId,knockedOut};
 
   useEffect(()=>{
     if(!pixiAvailable())return;
@@ -145,7 +144,7 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
         }
       };
 
-      let token=null,start=0,timeline=[{pose:'ready',at:0}],swing=false,hit=false,impactAt=0,stopUntil=0,stopAt=0,vclock=0,lastNow=0,debt=0,rate=1,koFrame=null,dusted={},prevPose='ready',prevPoses=[],events=[],eventIndex=0;
+      let token=null,start=0,timeline=[{pose:'ready',at:0}],swing=false,hit=false,impactAt=0,stopUntil=0,stopAt=0,vclock=0,lastNow=0,debt=0,rate=1,koFrame=null,dusted={},prevPose='ready',prevPoses=[];
       const begin=now=>{
         const {shot:sh}=live.current;
         const eff=sh&&pitchFrames?redRushBatterShot(sh,reduced):sh;
@@ -153,13 +152,6 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
         swing=timeline.some(k=>k.pose==='swing-mid');
         hit=swing&&BATTER_MOTION_V3_HIT_GRADES.has(sh?.grade);
         impactAt=timeline.find(k=>k.pose==='contact')?.at??timeline.find(k=>k.pose==='follow-through-early')?.at??0;
-        // Opt-in timeline events let a UI commit the engine result on this same actor clock.
-        // A taken pitch has no swing keyframe, but still arrives at the authored plate time.
-        if(live.current.onTimeline){
-          impactAt=eff.motion.impactAt;
-          events=[['focus',Math.max(0,impactAt-520)],['release',impactAt-300],['impact',impactAt],['settled',eff.motion.duration]];
-          eventIndex=0;
-        }
         start=now;vclock=0;lastNow=now;debt=0;koFrame=null;stopUntil=0;stopAt=0;dusted={};prevPoses=[];shownIndex=0;trail=[];measure();
       };
       let shownIndex=0;
@@ -168,7 +160,6 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
         return timeline[shownIndex].pose;};
 
       onReady?.({batter:true,pitcher:!!pitcher});
-      const actorScale=sc=>live.current.geometry?.exactScale?sc:crisp(sc,app.renderer.resolution);
       app.ticker.add(()=>{
         const now=performance.now(),{fxStage:stage,playToken:tok,shot:sh}=live.current;
         const active=!!stage&&!!sh&&hasPitchVisual(sh);
@@ -184,11 +175,6 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
           if(!stopAt&&t>=impactAt){stopAt=now;stopUntil=now+HIT_STOP_MS;}
           if(stopAt){t=now<stopUntil?impactAt:t-HIT_STOP_MS;}
         }
-        if(active&&live.current.onTimeline){
-          while(eventIndex<events.length&&t>=events[eventIndex][1]){
-            live.current.onTimeline({type:events[eventIndex++][0],token:tok,elapsed:t});
-          }
-        }
         if(!active&&now-measuredAt>REMEASURE_MS)measure();
         const {b,p}=boxes;
         const breath=reduced?0:Math.sin(now/IDLE_BREATH_MS*Math.PI*2);
@@ -197,7 +183,7 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
         if(pitcher&&p){
           const fi=active?redRushFrameAt(t):0,{artId:aid0,knockedOut:ko}=live.current;
           pitcher.texture=pitchFrames[fi];
-          const sc=actorScale(p.h/pitcher.texture.height);
+          const sc=crisp(p.h/pitcher.texture.height,app.renderer.resolution);
           const [fx0,fy0]=pitcherStance(aid0),tw=pitcher.texture.width*sc,th=pitcher.texture.height*sc;
           const px=p.x+p.w/2+(.5-fx0)*tw,py=p.y+p.h+(1-fy0)*th;
           pitcher.scale.set(sc,sc*(active?1:1+breath*.008));pitcher.position.set(px,py);pitcher.rotation=0;pitcher.alpha=1;pitcher.tint=0xffffff;
@@ -234,10 +220,10 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
           const pose=active?(inStop?'contact':poseAt(t)):(shownIndex=0,'ready');
           if(pose!==prevPose){prevPoses.unshift({pose:prevPose,at:now});prevPoses=prevPoses.slice(0,2);prevPose=pose;}
           const tex=poseTex[pose]||poseTex.ready;batter.texture=tex;flash.texture=tex;
-          const sc=actorScale(b.h/tex.height),x=Math.round(b.x+b.w/2),y=Math.round(b.y+b.h+(1-batterBaseline)*b.h);
+          const sc=crisp(b.h/tex.height,app.renderer.resolution),x=Math.round(b.x+b.w/2),y=Math.round(b.y+b.h+(1-batterBaseline)*b.h);
           batter.scale.set(sc,sc*(active?1:1+breath*.006));batter.position.set(x,y);
           const rigOn=!!rig&&!reduced&&!inStop&&(pose==='ready'||pose==='load');
-          if(rig){rig.root.visible=rigOn;batter.visible=!rigOn;if(rigOn){const la=timeline.find(k=>k.pose==='load')?.at,ta=timeline.find(k=>k.pose==='trigger')?.at;rig.set(active&&pose==='load'&&la!=null&&ta!=null?batterRigLoad(now,(t-la)/Math.max(1,ta-la)):batterRigIdle(now));rig.root.scale.set(actorScale(b.h/(batterRig.cell[1])));rig.root.position.set(x,y);}}
+          if(rig){rig.root.visible=rigOn;batter.visible=!rigOn;if(rigOn){const la=timeline.find(k=>k.pose==='load')?.at,ta=timeline.find(k=>k.pose==='trigger')?.at;rig.set(active&&pose==='load'&&la!=null&&ta!=null?batterRigLoad(now,(t-la)/Math.max(1,ta-la)):batterRigIdle(now));rig.root.scale.set(crisp(b.h/(batterRig.cell[1]),app.renderer.resolution));rig.root.position.set(x,y);}}
           flash.scale.copyFrom(batter.scale);flash.position.copyFrom(batter.position);
           shadows.ellipse(x,b.y+b.h-b.h*.02,b.w*.3,b.h*.035).fill({color:0x000000,alpha:.35});
           const fast=active&&swing&&t>=(timeline.find(k=>k.pose==='swing-start')?.at??1e9)&&t<impactAt+160;
@@ -252,7 +238,7 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
             if(elapsed>=0&&elapsed<240){
               const z=boxes.zone,bb=b||{x:z?.x-z?.w||0,y:z?.y||0,w:z?.h||0,h:z?.h||0},bh=bb.h,bxc=bb.x+bb.w/2,byb=bb.y+bb.h;
               const pz=live.current.pitchZone;const row=pz!=null&&pz<9?Math.floor(pz/3):2.4,col=pz!=null&&pz<9?pz%3:2.6;
-              const {x:itx,y:ity}=actorContactPoint(bb,pz,live.current.geometry?.contactAnchor);const isPower=/homer|grand|extra|dead/.test(sh?.grade||'');
+              const itx=bxc+bh*(.39-(col-1)*.03),ity=byb-bh*(.53-row*.07);const isPower=/homer|grand|extra|dead/.test(sh?.grade||'');
               const prog=Math.min(1,elapsed/200),ringR=Math.max(6,bh*.06)+prog*bh*(isPower?.32:.22),ringAlpha=(1-prog)*(isPower?.9:.7);
               impactFx.circle(itx,ity,ringR).stroke({width:Math.max(1.5,bh*.016*(1-prog*.5)),color:isPower?0xffd32a:0xffffff,alpha:ringAlpha});
               if(elapsed<130){const spk=1-elapsed/130,bw=bh*(isPower?.28:.2)*spk,thk=Math.max(1.5,bh*.022*spk);impactFx.rect(itx-bw,ity-thk*.5,bw*2,thk).fill({color:0xffffff,alpha:spk*.95});impactFx.rect(itx-thk*.5,ity-bw,thk,bw*2).fill({color:0xffffff,alpha:spk*.95});impactFx.circle(itx,ity,bh*(isPower?.06:.04)*spk).fill({color:isPower?0xffe08a:0xffffff,alpha:spk});impactFx.circle(itx,ity,bh*(isPower?.1:.07)*spk).fill({color:isPower?0xff9f43:0xffc861,alpha:spk*.45});}
@@ -269,14 +255,13 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
           const z=boxes.zone,bb=b||{x:z.x-z.w,y:z.y,w:z.h,h:z.h},bh=bb.h,bxc=bb.x+bb.w/2,byb=bb.y+bb.h;
           const row=pz<9?Math.floor(pz/3):2.4,col=pz<9?pz%3:2.6;
           const tx=bxc+bh*(.39-(col-1)*.03),ty=byb-bh*(.53-row*.07);
-          const target=live.current.geometry?.contactAnchor?actorContactPoint(bb,pz,live.current.geometry.contactAnchor):{x:tx,y:ty};
           const unit=bh/100,span=Math.max(1,impactAt-RED_RUSH_RELEASE_MS),k=(t-RED_RUSH_RELEASE_MS)/span;
           let bx,by,r,a=1;
-          if(k<=1){const e=Math.pow(k,1.1);bx=hx+(target.x-hx)*e;by=hy+(target.y-hy)*e-Math.sin(Math.PI*k)*unit*3;r=unit*(1.3+.4*e);}
+          if(k<=1){const e=Math.pow(k,1.1);bx=hx+(tx-hx)*e;by=hy+(ty-hy)*e-Math.sin(Math.PI*k)*unit*3;r=unit*(1.3+.4*e);}
           else{
             const u=Math.min(1,(t-impactAt)/(hit?650:160));a=1-u;
-            if(hit){const g=sh?.grade||'',high=/homer|grand/.test(g),deep=/extra/.test(g);bx=target.x+u*(high?bh*3.2:deep?bh*2.6:bh*1.8);by=target.y-u*(high?bh*2:deep?bh*.8:bh*.2)+(high?0:u*u*bh*.45);r=unit*1.7*(1-u*.5);}
-            else{bx=target.x-u*bh*.55;by=target.y+u*bh*.06;r=unit*1.7;}
+            if(hit){const g=sh?.grade||'',high=/homer|grand/.test(g),deep=/extra/.test(g);bx=tx+u*(high?bh*3.2:deep?bh*2.6:bh*1.8);by=ty-u*(high?bh*2:deep?bh*.8:bh*.2)+(high?0:u*u*bh*.45);r=unit*1.7*(1-u*.5);}
+            else{bx=tx-u*bh*.55;by=ty+u*bh*.06;r=unit*1.7;}
           }
           if(a>0){
             const grade=sh?.grade||'',profile=ballExitProfile(grade);
