@@ -97,14 +97,17 @@ describe('#103 M09 — one batter drawing whether Pixi or the DOM draws him',()=
 });
 
 describe('#103 M03/M04/M08 — battle text reads whole',()=>{
-  it('the wait verb is one unbroken word and the swing numbers wrap between each other',()=>{
+  it('the wait verb is one unbroken word and the summary keeps numbers whole',()=>{
     begin();
     fireEvent.click(document.querySelector('.bp-hand .bp-card:not(.basic)'));
     expect(screen.getByTestId('bp-take').querySelector('.bp-verb-word').textContent).toBe('지켜본다');
-    const parts=[...screen.getByTestId('bp-swing').querySelectorAll('.bp-verb-sub>span')].map(x=>x.textContent);
     // Level-0 deck (no observation cards): public range per the readLevel contract.
-    expect(parts[0]).toMatch(/^적중권 \d+–\d+%$/);
-    expect(parts[1]).toMatch(/^피해 ×/);
+    // Numbers live in the fixed summary (one ellipsis line: it can only cut at
+    // the end, never inside a number); the go button stays lean.
+    const predict=document.querySelector('.bp-plan-predict').textContent;
+    expect(predict).toMatch(/적중권 \d+–\d+%/);
+    expect(predict).toMatch(/피해 ×/);
+    expect(screen.getByTestId('bp-swing').textContent).not.toMatch(/적중권/);
     expect(portrait).toContain('.v14-battle-portrait .bp-verb-word{grid-column:2;white-space:nowrap;min-width:0}');
     expect(portrait).toMatch(/\.bp-verbs:has\(\.bp-info\)\{grid-template-columns:minmax\(0,1\.45fr\) minmax\(136px,1fr\) 40px\}/);
   });
@@ -117,16 +120,16 @@ describe('#103 M03/M04/M08 — battle text reads whole',()=>{
   it('the debrief fits its row (scrolls inside itself) and keeps efficiency apart from real damage',()=>{
     expect(planText({choice:'strike',cardCount:3,connectCount:1,damageRate:.72})).toBe('3장 STACK · CONNECT 1/2 · 피해 효율 72%');
     expect(portrait).toMatch(/\.bp-debrief\{[^}]*overflow-y:auto;overscroll-behavior:contain/);
-    expect(fs.readFileSync('src/duel/BallparkBattle.jsx','utf8')).toContain("'투수 HP -'+lessonCombat.damage");
+    expect(fs.readFileSync('src/duel/BattleInspector.jsx','utf8')).toContain('투수 HP -{lastCombat.damage||0}');
     expect(portrait).toContain('.v14-battle-portrait .bp-damage{top:auto;bottom:4px;right:8px;');
   });
-  it('the pitcher name is never truncated; only the pitch-type prefix may give way',()=>{
+  it('the pitcher name stands alone and is never truncated',()=>{
     begin();
     const title=document.querySelector('.bp-pitcher-title-name');
     expect(title.querySelector('.bp-pname').textContent).toBe('레드 러시');
-    expect(title.textContent).toMatch(/ · 레드 러시$/);
+    // The archetype prefix banner is gone (its tendency lives in the inspector).
+    expect(title.querySelector('.bp-ptype')).toBeNull();
     expect(portrait).toMatch(/\.bp-pname\{flex:0 0 auto/);
-    expect(portrait).toMatch(/\.bp-ptype\{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis/);
   });
   it('zone cells never split a word and the zone keeps a tappable width on short phones',()=>{
     expect(portrait).toContain('.v14-battle-portrait .bp-cell{white-space:nowrap;word-break:keep-all}');

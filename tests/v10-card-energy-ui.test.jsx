@@ -73,7 +73,7 @@ describe('V10 ballpark energy UI',()=>{
     expect(full.title).toContain('6장 한도');
   });
 
-  it('keeps MAIN RUN energy details on a real App long-press after fresh V10 begins from a non-V10 menu',()=>{
+  it('keeps MAIN RUN energy details on a real App long-press in battle, via the inspector',()=>{
     localStorage.clear();localStorage.setItem(WELCOME_SEEN_KEY,'seen');localStorage.setItem(COACH_KEY,'done');
     vi.useFakeTimers();
     try{
@@ -85,7 +85,12 @@ describe('V10 ballpark energy UI',()=>{
       card.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,cancelable:true,pointerId:1,clientX:10,clientY:10}));
       expect(vi.getTimerCount()).toBeGreaterThan(0);
       act(()=>vi.advanceTimersByTime(LONG_PRESS_MS));
-      expect(screen.getByRole('dialog',{name:CARDS[card.dataset.cardKind].name+' 카드 설명'}).textContent).toMatch(/MAIN RUN 에너지 비용 · ⚡ [12]/);
+      // Battle long-press routes to the arena inspector (same card, same
+      // energy line), never the global sheet: no co-open.
+      const body=screen.getByTestId('bp-inspect').textContent;
+      expect(body).toContain(CARDS[card.dataset.cardKind].name);
+      expect(body).toMatch(/MAIN RUN 에너지 비용 · ⚡ [12]/);
+      expect(document.querySelector('.card-detail-sheet')).toBeNull();
     }finally{vi.useRealTimers();}
   });
 });

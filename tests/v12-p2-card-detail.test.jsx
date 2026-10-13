@@ -131,16 +131,18 @@ describe('V12 P2-1 in the ballpark battle',()=>{
     expect(cards.length).toBeGreaterThan(1);
     expect(document.querySelector('.bp-hand .bp-card.basic').dataset.cardKind).toBe('basic');
   });
-  it('opens the selected card from an explicit button and returns focus when closed',()=>{
+  it('opens the selected card in the arena inspector and returns focus when closed',()=>{
     beginV10();
     const card=document.querySelector('.bp-hand .bp-card:not(.basic)'),name=CARDS[card.dataset.cardKind].name;
     fireEvent.click(card);
-    const open=screen.getByRole('button',{name:name+' 카드 설명'});
+    const open=screen.getByRole('button',{name:name+' 카드 검사'});
     open.focus();fireEvent.click(open);
-    const dialog=screen.getByRole('dialog',{name:name+' 카드 설명'});
-    fireEvent.keyDown(dialog,{key:'Escape'});
-    act(()=>vi.runOnlyPendingTimers());
-    expect(screen.queryByRole('dialog',{name:name+' 카드 설명'})).toBeNull();
+    const body=screen.getByTestId('bp-inspect');
+    expect(body.textContent).toContain(name);
+    // The global sheet never co-opens for a battle target.
+    expect(document.querySelector('.card-detail-sheet')).toBeNull();
+    fireEvent.click(screen.getByTestId('bp-inspect-back'));
+    expect(screen.queryByTestId('bp-inspect')).toBeNull();
     expect(document.activeElement).toBe(open);
   });
 });

@@ -57,7 +57,7 @@ describe('V14 Masterpiece Top HUD, A6 Card Frames, and Coach Badge Integration',
     expect(css).toContain('coach-badge.svg');
   });
 
-  it('BallparkBattle renders HUD brand, BSO strip, cards, and coach badge', () => {
+  it('BallparkBattle renders slim scoreboard, BSO strip and cards without brand/coach rows',()=>{
     const s = createV10Duel(1);
     const hand = [
       { id: 'c0', entry: { kind: 'strike' } },
@@ -78,11 +78,12 @@ describe('V14 Masterpiece Top HUD, A6 Card Frames, and Coach Badge Integration',
       />
     );
 
-    expect(container.querySelector('.bp-hud-brand')).not.toBeNull();
-    expect(container.querySelector('.bp-hud-logo').textContent).toBe('9ZONE');
+    // Scoreboard: inning + single BSO + pile + settings only.
+    expect(container.querySelector('.bp-hud-brand')).toBeNull();
+    expect(container.querySelector('.bp-hud-logo')).toBeNull();
     expect(container.querySelector('.bp-bso-strip')).not.toBeNull();
-    expect(container.querySelector('.bp-coach-wrap')).not.toBeNull();
-    expect(container.querySelector('.bp-coach-badge')).not.toBeNull();
+    expect(container.querySelector('.bp-coach-wrap')).toBeNull();
+    expect(container.querySelector('.bp-coach-badge')).toBeNull();
     expect(container.querySelector('.bp-card[data-card-kind="strike"]')).not.toBeNull();
     expect(container.querySelector('.bp-card.signature[data-card-kind="smash"]')).not.toBeNull();
   });

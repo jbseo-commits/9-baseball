@@ -56,7 +56,7 @@ describe('기세 (momentum) — the way up for the damage rate',()=>{
     expect(gauge.querySelectorAll('.bp-momentum-pips i.on')).toHaveLength(3);
     expect(gauge.textContent).toContain('×1.3');
     fireEvent.click(document.querySelector('.bp-hand .bp-card:not(.basic)'));
-    expect(screen.getByTestId('bp-swing').textContent).toContain('피해 ×1.3');
+    expect(screen.getByTestId('bp-plan').textContent).toContain('피해 ×1.3');
   });
 });
 
@@ -91,9 +91,15 @@ describe('게임 방법 guide',()=>{
 });
 
 describe('first-battle coach marks',()=>{
-  it('walk the real battle pieces once and remember it',()=>{
+  it('never auto-opens; the help chain reaches it explicitly and it remembers',()=>{
     let s=enterV10Node(createV10Duel(11),'a1-entry');saveV10Duel(localStorage,s);
     render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
+    // No auto dialog on the first decision.
+    expect(screen.queryByRole('dialog',{name:'전투 가이드'})).toBeNull();
+    // Opt-in chain: battle settings → card help → battle guide.
+    fireEvent.click(screen.getByRole('button',{name:'설정 및 도움말'}));
+    fireEvent.click(screen.getByRole('button',{name:'카드 도감 · 상세 규칙'}));
+    fireEvent.click(screen.getByRole('button',{name:'전투 가이드 보기'}));
     const layer=screen.getByRole('dialog',{name:'전투 가이드'});
     for(const step of COACH_STEPS)expect(document.querySelector('.bp-battle '+step.sel),step.sel).toBeTruthy();
     for(let k=0;k<COACH_STEPS.length-1;k++)fireEvent.click(screen.getByRole('button',{name:'다음 설명'}));

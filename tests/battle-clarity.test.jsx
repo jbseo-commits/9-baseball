@@ -51,15 +51,17 @@ describe('battle clarity',()=>{
     }
   });
 
-  it('a watched pitch debrief says there was no aim, not an unknown course',()=>{
+  it('a watched pitch moves on by itself and its cause stays in the info panel',()=>{
     vi.useFakeTimers();
     begin();
     fireEvent.click(screen.getByTestId('bp-take'));
     act(()=>{vi.advanceTimersByTime(6000)});
-    const debrief=screen.getByTestId('bp-debrief');
-    expect(debrief.textContent).toContain('지켜보기');
-    expect(debrief.textContent).toContain('노림 없음');
-    expect(debrief.textContent).not.toContain('코스 미확인');
+    act(()=>{vi.advanceTimersByTime(3000)});
+    act(()=>{vi.advanceTimersByTime(3000)});
+    expect(screen.queryByTestId('bp-result')).toBeNull();
+    fireEvent.click(screen.getByTestId('bp-inspect-open'));
+    fireEvent.click(screen.getByRole('tab',{name:'이번 공'}));
+    expect(screen.getByTestId('bp-inspect').textContent).toContain('지켜보기');
     vi.useRealTimers();
   });
   it('a live cell with a 0% share is marked so it recedes',()=>{
@@ -79,7 +81,10 @@ describe('battle clarity',()=>{
     for(const f of faces)expect(f).not.toMatch(/^\d+%$/);
     expect(document.querySelector('[data-testid="bp-band"]').textContent).not.toMatch(/\d+%/);
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
-    expect(document.querySelector('.bp-verb-sub').textContent).not.toMatch(/적중권 \d+%/);
+    // The go button stays lean: the public range lives in the fixed plan
+    // summary, never inside the verb.
+    expect(document.querySelector('.bp-verb.go .bp-verb-sub')).toBeNull();
+    expect(screen.getByTestId('bp-plan').textContent).toMatch(/적중권 \d+–\d+%/);
   });
 
   it('a full observation deck earns exact digits back on the same board',()=>{
@@ -133,13 +138,13 @@ describe('battle clarity',()=>{
     expect(cards().length).toBeGreaterThan(0);
   });
 
-  it('the pitcher speaking wears her face; the coach keeps the badge otherwise',()=>{
+  it('the pitcher voice keeps the scene spare row; the coach row is gone',()=>{
     begin();
-    const col=document.querySelector('.bp-coach-avatar-col');
-    const speaking=!!document.querySelector('.bp-voice-strip');
-    expect(col.classList.contains('speaker-pitcher')).toBe(speaking);
-    expect(col.querySelector('.bp-coach-pill').textContent).toBe(speaking?'투수':'COACH');
-    if(speaking)expect(col.querySelector('.bp-coach-badge').style.backgroundImage).toMatch(/url\(/);
+    // The standing coach row (avatar + bubble) was removed: guidance lives in
+    // the plan summary, voice lines in the scene's spare slots only.
+    expect(document.querySelector('.bp-coach-wrap')).toBeNull();
+    expect(document.querySelector('.bp-coach-avatar-col')).toBeNull();
+    expect(document.querySelector('.bp-coach-text')).toBeNull();
   });
 
   it('a second card lights its own cell: the board sets .assist and the portrait layer styles .assist (it styled .support)',()=>{

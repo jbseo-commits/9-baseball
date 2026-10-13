@@ -58,7 +58,7 @@ for(const [w,h,label] of VIEWPORTS){
   const measure=p=>p.evaluate(()=>{
     const q=s=>{const e=document.querySelector(s);if(!e)return null;const r=e.getBoundingClientRect();return r.width&&r.height?{x:r.x,y:r.y,w:r.width,h:r.height}:null;};
     return {hscroll:document.documentElement.scrollWidth>innerWidth+1,vover:document.documentElement.scrollHeight-innerHeight,
-      pitcher:q('.bp-pitcher'),hud:['.bp-ptag','.bp-verdict','.bp-voice','.bp-count'].map(q)};
+      pitcher:q('.bp-pitcher'),swing:q('[data-testid=bp-swing]'),hand:q('.bp-hand'),cards:[...document.querySelectorAll('.bp-hand .bp-card')].map(e=>e.getBoundingClientRect().bottom),ih:innerHeight,appOver:(e=>e?e.scrollHeight-e.clientHeight:0)(document.querySelector('.duel-app')),hud:['.bp-ptag','.bp-verdict','.bp-voice','.bp-count'].map(q)};
   });
   const shot=async(p,name)=>{const f=path.join(OUT,`${label}-${name}.png`);await p.screenshot({path:f});return f;};
   const common=(tag,m,errors)=>{
@@ -69,6 +69,10 @@ for(const [w,h,label] of VIEWPORTS){
   {const {p,errors}=await open('map');const m=await measure(p);await shot(p,'map');common('map',m,errors);await p.close();}
   {const {p,errors}=await open('battle');let m=await measure(p);await shot(p,'battle-decide');common('battle',m,errors);
     check(`${label} battle: fits the screen`,m.vover<=1,`overflow ${m.vover}px`);
+    // a page that fits can still hide its actions inside the app's own scroll box
+    check(`${label} battle: no inner scroll`,m.appOver<=1,`app overflow ${m.appOver}px`);
+    check(`${label} battle: swing button fully on screen`,!!m.swing&&m.swing.y+m.swing.h<=m.ih+1,m.swing?`bottom ${Math.round(m.swing.y+m.swing.h)} / ${m.ih}`:'missing');
+    check(`${label} battle: hand cards not clipped`,!!m.hand&&m.cards.every(b=>b<=m.hand.y+m.hand.h+1),m.hand?`hand bottom ${Math.round(m.hand.y+m.hand.h)}, card bottom ${Math.round(Math.max(...m.cards))}`:'missing');
     await p.locator('.bp-card.basic').first().click();await p.locator('.bp-cell').nth(4).click();await p.getByTestId('bp-swing').click();
     await p.waitForTimeout(3500);m=await measure(p);await shot(p,'battle-result');
     const cover=Math.max(...m.hud.map(b=>overlap(m.pitcher,b)));
