@@ -5,7 +5,7 @@ import {CARDS,cardCost,TYPE_NAMES,STAGES,GLOSSARY,LINEUP,BUILDS,ZONES,GROWTHS,gr
 import {createDuel,startBattle,chooseRoute,battleTarget,playCard,endTurn,chooseReward,chooseFacility,facilityProblem,previewCard,readDuel,saveDuel,advanceBatter,currentBatter,advancePitch,setAimZone,coverage,publicProbabilities,pitchClue,matchup,setGrowthMode,growthProblem,readLevel,knownPitchZones} from './engine.js';
 import {createV10Duel,enterV10Node,playV10Action,advanceV10Pitch,advanceV10Batter,claimV10Reward,
   v10UtilityOptions,completeV10UtilityNode,v10RewardOptions,selectV10Pitcher,selectV10Combat,selectV10Map,v10NodeProblem,v10Energy,
-  saveV10Duel,readV10Duel,applyStartPack,previewV10Stack,v10StackMax,V10_SWING_DAMAGE_RATES,V11_STACK_CONNECT_BONUS} from './engine.js';
+  saveV10Duel,readV10Duel,V10_SAVE_KEY,applyStartPack,previewV10Stack,v10StackMax,V10_SWING_DAMAGE_RATES,V11_STACK_CONNECT_BONUS} from './engine.js';
 import {deckProfile,diagnose,applyRewardToDeck,rewardProblem,profileDelta,relationsFor,growthConflict} from './deck.js';
 import './duel.css';
 import './pitcher-sd.css';
@@ -606,7 +606,7 @@ function DeckList({deck,selected,onPick,mode}){
   return <div className="deck-list">{deck.map(e=>{
     const blocked=mode==='upgrade'&&!canUpgrade(e);
     return <Card key={e.id} kind={e.kind} plus={e.plus} selected={selected===e.id} disabled={blocked}
-      note={mode==='upgrade'?(e.plus?'이미 강화됨':upgradeText(e.kind)?'강화 → '+upgradeText(e.kind):'강화 불가'):null}
+      note={mode==='upgrade'?(e.plus?'이미 강화됨':upgradeText(e.kind)?'강화 → '+upgradeText(e.kind):'강화 불가 · 효과 없음'):null}
       onClick={blocked?undefined:()=>onPick(e.id)}/>;})}
   </div>;
 }
@@ -815,8 +815,17 @@ export default function Duel(){
         return {save:enterV10Node(preview,node.id),preview:true};
       }
     }
-    let v10=null;try{v10=readV10Duel(localStorage)}catch{}
-    try{return {save:readDuel(localStorage),v10}}catch{return {error:'저장을 읽지 못했습니다. 새 런을 시작할 수 있습니다.',v10}}
+    /* A corrupt V10 save must not look like "no save": the run is unrecoverable,
+       so the player is told instead of silently losing it. Validation itself is
+       untouched — only the surfacing changes. */
+    let v10=null,v10Corrupt=false;
+    try{v10=readV10Duel(localStorage)}catch{
+      try{v10Corrupt=!!localStorage.getItem(V10_SAVE_KEY)}catch{v10Corrupt=false}
+    }
+    let save=null;
+    try{save=readDuel(localStorage)}catch{return {error:'저장을 읽지 못했습니다. 새 런을 시작할 수 있습니다.',v10}}
+    if(v10Corrupt)return {save,v10,error:'저장 기록이 손상되어 이어할 수 없습니다. 새 런을 시작하면 덮어씁니다.'};
+    return {save,v10};
   });
   const [growthChoice,setGrowthChoice]=useState(null),[rewardAction,setRewardAction]=useState(null),[facilityChoice,setFacilityChoice]=useState(null);
   const [build,setBuild]=useState(DECKBUILDER_BUILD),[trialSeed,setTrialSeed]=useState('20260910');
@@ -1049,7 +1058,7 @@ export default function Duel(){
 
   return <div className={'duel-app diamond-app'+(fxPresentation?' presentation-'+fxPresentation.kind:'')+(fxStage?' presentation-stage-'+fxStage:'')+(stackResolve?' stack-resolving':'')+(showBattle&&isV10?' v14-battle-portrait':'')+(screen==='menu'?' title-mode':'')}>
     <header className="duel-header"><button className="wordmark" onClick={()=>{if(!lock.current)(autoLesson?exitAutoLesson():setScreen('menu'))}}>9ZONE<span> HOMEBOUND</span></button><span className="edition">BUILD YOUR BASEBALL · {GAME_VERSION_LABEL}</span><nav><button aria-label={'소리 '+(sound?'켜짐':'꺼짐')} onClick={handleToggleSound}>♪ {sound?'ON':'OFF'}</button><button className="jukebox-header-btn" aria-label="BGM 음악 주크박스" onClick={()=>setModal('jukebox')}>🎧 BGM {getCurrentTrackIndex()+1}</button><button className="dex-header-btn" aria-label="투수 도감" onClick={()=>openPitcher(pitcherRoster[0])}>도감</button>{s&&<button onClick={()=>setModal('deck')}>덱</button>}<button onClick={()=>setModal('help')}>?</button></nav></header>
-    {error&&<div className="save-error" role="alert">{error}<button onClick={()=>s&&persist(s)}>저장 재시도</button></div>}
+    {error&&<div className="save-error" role="alert">{error}{!!s&&<button onClick={()=>persist(s)}>저장 재시도</button>}</div>}
     {screen==='cinema'?<CinemaLab sound={sound} onBack={()=>setScreen('menu')}/>
     :screen==='menu'?<TitleScreen key="screen-title" run={titleRun||titleTutorial} onNew={()=>titleRun&&!titleRun.ended?setModal('new10'):openPackPick()} onContinue={()=>{setEventResult(null);if(titleRun){persist(titleSave);setScreen('run')}else if(titleTutorial)setScreen('run')}} onDeck={()=>{if(titleRun)persist(titleSave);if(titleRun||titleTutorial)setModal('deck')}} onDex={e=>openPitcher(pitcherRoster[0],e)} onSettings={()=>setModal('settings')}/>
 :showBattle&&isV10?<BallparkBattle key="screen-bp-battle" s={s} hand={hand} selected={selected} swingStack={swingStack} choice={choice} locked={!!stackResolve||!!homerVideo}

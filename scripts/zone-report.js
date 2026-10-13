@@ -1,13 +1,18 @@
-import {createDuel,startBattle,playCard,endTurn,advancePitch,advanceBatter,setAimZone,setGrowthMode} from '../src/duel/engine.js';
+import {createDuel,chooseRoute,startBattle,playCard,endTurn,advancePitch,advanceBatter,setAimZone,setGrowthMode} from '../src/duel/engine.js';
 import {planAction} from '../src/duel/policy.js';
-import {BUILDS} from '../src/duel/cards.js';
+import {BUILDS,DECKBUILDER_BUILD,ROUTE_CHOICES} from '../src/duel/cards.js';
 const n=Number(process.argv[2]||100);
 if(!Number.isInteger(n)||n<1||n>2000)throw new Error('Use 1–2000 seeds');
 const rows=[];
 for(const build of Object.keys(BUILDS)){
   const totals={build,seeds:n,wins:0,pitches:0,runs:0,hits:0,walks:0,fouls:0,whiffs:0,totalBases:0,appearances:0};
   for(let seed=1;seed<=n;seed++){
-    let s=startBattle(createDuel(seed,build)),guard=0;
+    let s=createDuel(seed,build);
+    // The deckbuilder starter stays on route select ('map') without this and reports
+    // a whole row of zeros with exit 0. Same pattern as the engine test helper.
+    if(build===DECKBUILDER_BUILD)s=chooseRoute(s,ROUTE_CHOICES[0][0].id);
+    s=startBattle(s);
+    let guard=0;
     while(['battle','pitch','between'].includes(s.phase)&&guard++<1000){
       if(s.phase==='pitch')s=advancePitch(s);
       else if(s.phase==='between')s=advanceBatter(s);
