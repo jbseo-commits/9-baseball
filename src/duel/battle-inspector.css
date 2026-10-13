@@ -1,12 +1,20 @@
 /* Commercial battle information (DESIGN_BRIEF): fixed boxes, plan summary,
    arena-only inspector. Scoped under .bp-battle.bp-readable; never global.
    Grid rows (portrait): bar 44 / stage 1fr / hand-or-result 176 / plan 64 /
-   verbs 64+safe. Fixed total 348: on 375x667 the arena keeps ~319px. */
+   verbs 76+safe. Fixed total 360: on 375x667 the arena keeps ~307px. */
 @media (orientation:portrait){
   .v14-battle-portrait>.bp-battle.bp-readable,
   .v14-battle-portrait>.bp-battle.bp-readable:has(.bp-energy){
     min-height:calc(628px + env(safe-area-inset-bottom,0px));
-    grid-template-rows:44px minmax(0,1fr) 176px 64px calc(64px + env(safe-area-inset-bottom,0px));
+    grid-template-rows:44px minmax(0,1fr) 176px 64px calc(76px + env(safe-area-inset-bottom,0px));
+  }
+  /* the older v14 fixed heights (hand 148, verbs 113 when energy shows) would overflow these
+     tracks: the 168px cards were clipped and the verbs fell 49px under the fold.
+     :has(.bp-plan) lifts these above v14's `.bp-battle:has(.bp-energy) .bp-verbs`. */
+  .v14-battle-portrait>.bp-battle.bp-readable:has(.bp-plan) .bp-hand{height:176px;box-sizing:border-box}
+  .v14-battle-portrait>.bp-battle.bp-readable:has(.bp-plan) .bp-verbs{
+    height:calc(76px + env(safe-area-inset-bottom,0px));box-sizing:border-box;
+    padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));
   }
 
   /* A. scoreboard: inning + single BSO + one pile entry + settings. */
