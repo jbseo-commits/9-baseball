@@ -12,10 +12,13 @@ import {lessonFor,planText} from './DecisionDebrief.jsx';
 import batterV14MasterSheet from '../../assets/ui-kit/batter/batter-v14-master-sheet.png';
 import cardArtSheet from '../../assets/ui-kit/cards/battle-core-v14-master-sheet.png';
 import {cardArtFor,cardArtFocusFor} from './card-art.js';
+import {pitcherPhase} from './pitcher-hp.js';
+import {cardFaceOf,shortCardProblem,ROLE_MARKS} from './card-face.js';
 import {HomeRunCut,KnockoutCut} from './phone-art-v18.jsx';
 import {pitcherFigures,pitcherPortraits} from './pitcher-visuals.js';
 import './ballpark.css';
 import './momentum.css';
+import './original-ui-refinement.css';
 import BallparkCoach,{coachSeen} from './BallparkCoach.jsx';
 
 /* V13 BALLPARK — the battle as one ballpark scene (docs/design/v13/BALLPARK.md).
@@ -128,7 +131,8 @@ export default function BallparkBattle({
   const swingCards=hand.filter(x=>!isSkill(x.entry)),prepCards=hand.filter(x=>isSkill(x.entry));
   const mainEntry=selected&&selected!=='basic'?byId(selected)?.entry:null;
   const mainIsSkill=isSkill(mainEntry);
-  const canStack=!!(mainEntry&&!mainIsSkill&&mainEntry.kind!=='bunt'&&b.growthMode!=='patience');
+  const isBuntKind=k=>!!CARDS[k]?.bunt;
+  const canStack=!!(mainEntry&&!mainIsSkill&&!isBuntKind(mainEntry.kind)&&b.growthMode!=='patience');
   const stack=canStack?swingStack.filter(x=>x.id!==selected&&byId(x.id)):[];
   const prepLeft=Math.max(0,v10PrepMax(s)-(b.preparations||0));
   const energy=v10Energy(s),energyCap=v10EnergyCap(s),actionCost=selected?choice?.cost??(selected==='basic'?0:cardCost(byId(selected)?.entry)):null;
@@ -177,6 +181,8 @@ export default function BallparkBattle({
     if(level===2)return Math.round(list.reduce((a,z)=>a+(probs[z]||0),0)*100)+'%';
     const bounds=probabilityBounds(s);let lo=0,hi=0;
     for(const z of list){lo+=bounds[z][0];hi+=bounds[z][1];}
+    // Public per-cell upper bounds can add past one across a broad stack.
+    hi=Math.min(1,hi);
     if(hi<1e-9)return '범위 밖';
     if(lo>1-1e-9)return '확정';
     return Math.floor(lo*100+1e-9)+'–'+Math.ceil(hi*100-1e-9)+'%';
@@ -217,7 +223,7 @@ export default function BallparkBattle({
     const kind=byId(id)?.entry?.kind;
     /* with a main card on the board, another swing card becomes a support: it waits for a zone */
     const nextStack=[...stack,{id,aimZone:b.aimZone}];
-    if(canStack&&id!=='basic'&&kind!=='bunt'&&stack.length<v10StackMax(s)-1
+    if(canStack&&id!=='basic'&&!isBuntKind(kind)&&stack.length<v10StackMax(s)-1
       &&v10ActionCost(s,selected,nextStack)<=energy){setArmed(id);return;}
     onSelect(id);onStack([]);
   }
@@ -319,53 +325,6 @@ export default function BallparkBattle({
   const debriefActual=showDebrief?(lessonCombat.pitchLabel||lessonZoneName(r?.zone)):'';
   const debriefDamage=showDebrief&&lessonCombat.damage>0?'투수 HP -'+lessonCombat.damage+(lessonCombat.momentumBefore>0?' · 기세 ×'+v10MomentumRate(lessonCombat.momentumBefore).toFixed(1):''):'';
 
-const CARD_DESC_MAP={
-  basic:['선택 1존 집중 타격','카드 소모 없음 · 기본 스윙'],
-  place:['선택 1존 정타 노림','정확 적중 시 투수 HP +50%'],
-  strike:['세로 3존 결대로 밀어치기','범위 적중 시 안타 확정'],
-  slug:['1존 강한 당겨치기','파워 +36 · 홈런/장타 노림'],
-  rally:['가로 3존 연결 스윙','안타 시 주자 +2베이스 (2·3루 홈인)'],
-  defend:['십자 5존 커트 스윙','단타 확정 · 파울 생존율 증가'],
-  bunt:['9존 전체 번트 작전','주자 1루 진루 · 1아웃 지불'],
-  finisher:['가로 3존 갭 공략','외야를 가르는 2루타 기회'],
-  wall:['십자 5존 봉쇄','넓은 수비형 스윙 범위'],
-  laser:['세로 3존 라인드라이브','안정성과 타구 질 동시 확보'],
-  commit:['단 1존 끝장 승부','극대화된 파워 · 결정타'],
-  setup:['타이밍 집중','집중 +1 · 파워 +5'],
-  watch:['작전 간파','카드 2장 보충'],
-  scout:['투수 릴리스 간파','구종 힌트 · 카드 1장'],
-  lure:['코스 조정','스윙 범위 1칸 확장'],
-  flow:['히트앤드런','안타 시 주자 +1베이스'],
-  calm:['호흡 고르기','파울 생존 · 카드 +1'],
-  // V16 Precision (C101-C113)
-  pinpoint:['핀포인트 타격','1존 커버 · 정확 적중 HP +70%'],
-  eyeLevel:['눈높이 컨택','가로 2존 커버 · 정확 적중 HP +35%'],
-  verticalRead:['위아래 노림','세로 2존 커버 · 정확 적중 HP +35%'],
-  readStrike:['읽은 공 강타','1존 · 파워 +18 · 간파 성공 +6 HP'],
-  surgeon:['외과의 스윙','1존 · 정확 HP +50% · 안타 +3 HP'],
-  needle:['바늘구멍 스윙','1존 · 파워 -18 · 정확 적중 HP +100%'],
-  counterRead:['볼카운트 역이용','1존 · 정확 HP +30% · 유리 카운트 +5 HP'],
-  onePatience:['한 칸의 인내','1존 · 정확 HP +40% · 안타 시 카드 +1'],
-  laserEye:['대각선 레이저','대각선 커버 · 정확 적중 HP +30%'],
-  coldRead:['냉정한 판독','높이·안팎 확인 · 정확 HP +20%'],
-  focusBreath:['집중 호흡','준비 1회 · 집중 +1 · 정확 HP +40%'],
-  markZone:['존 마킹','칠 곳 마킹 · 정확 HP +25% · 카드 +1'],
-  perfectRead:['완벽한 판독','1존 · 파워 +36 · 간파 성공 +10 HP'],
-  // V16 Power (C114-C122)
-  fullSwing:['풀스윙','1존 · 파워 +36 · 홈런 상한 해제'],
-  moonshot:['문샷','1존 · 파워 +54 · 장타 안타 +4 HP'],
-  gapHunter:['좌중간 가르기','가로 2존 · 파워 +18 · 장타 +3 HP'],
-  pullHook:['잡아당기기','세로 3존 · 파워 +18 · 몸쪽 파워 +18'],
-  oppoPower:['밀어서 넘기기','세로 3존 · 파워 +18 · 바깥쪽 파워 +18'],
-  upperCut:['어퍼컷 스윙','가로 3존 · 파워 +18 · 낮은 공 파워 +18'],
-  highHeat:['하이볼 강타','가로 3존 · 파워 +18 · 높은 공 파워 +18'],
-  cleanup:['4번 타자의 해결','1존 · 파워 +36 · 주자당 안타 +3 HP'],
-  soloShot:['솔로포 각','1존 · 파워 +36 · 주자 없을 때 +6 HP'],
-  loadPower:['힘 모으기','이번 타석 파워 +18'],
-  sluggerInstinct:['거포 본능','이번 타석 파워 +36'],
-  calledShot:['예고 홈런','파워 +36 · 이번 타석 안타 +6 HP'],
-};
-
   const cardButton=x=>{
     const def=CARDS[x.entry.kind]||{},problem=deciding?x.preview?.problem:null,inStack=stack.findIndex(y=>y.id===x.id);
     const state=selected===x.id?' main':inStack>=0?' support':armed===x.id?' armed':'';
@@ -380,12 +339,18 @@ const CARD_DESC_MAP={
       :{backgroundImage:`url(${cardArtSheet})`,backgroundPosition:artPos};
     const cost=cardCost(x.entry);
     /* a support candidate that would overflow tells so on its face, with the exact sum */
-    const supportCandidate=canStack&&selected&&!mainIsSkill&&selected!==x.id&&inStack<0&&x.entry.kind!=='bunt';
+    const supportCandidate=canStack&&selected&&!mainIsSkill&&selected!==x.id&&inStack<0&&!isBuntKind(x.entry.kind);
     const overBudget=supportCandidate&&stackCost+cost>energyLimit;
     const roleTag=def.role||(isSkillCard?'집중':'정확');
-    const descLines=problem?[problem,'']:overBudget?[(CARD_DESC_MAP[x.entry.kind]||[def.gives?.[0]||'스윙 효과'])[0],'합치면 '+stackCost+'+'+cost+'='+(stackCost+cost)+'/'+energyLimit+' 초과']:(CARD_DESC_MAP[x.entry.kind]||[def.gives?.[0]||'스윙 효과',def.gives?.[1]||'']);
+    const face=cardFaceOf(x.entry,{strikes:shownCount.strikes});
+    const warning=shortCardProblem(problem)||(overBudget?'합치면 '+stackCost+'+'+cost+'='+(stackCost+cost)+'/'+energyLimit+' 초과':'');
+    /* Condition and current risk are separate slots: a cost warning must never
+       hide the bunt 2S foul-strikeout (or any requires/cost) condition. */
+    const condition=face.condition;
+    const note=warning||condition;
 
-    return <button key={x.id} type="button" className={'bp-card'+state+(problem?' off':'')+cardKindClass} aria-pressed={selected===x.id||inStack>=0}
+    return <button key={x.id} type="button" className={'bp-card'+state+(problem?' off':'')+cardKindClass+(note?' has-note':'')+(condition&&warning?' has-both':'')} aria-pressed={selected===x.id||inStack>=0}
+      aria-label={[def.name+(x.entry.plus?'+':''),'코스트 '+cost,face.axis,face.summary,condition,warning,problem].filter(Boolean).join(' · ')}
       data-card-kind={x.entry.kind} data-card-plus={x.entry.plus?1:0} data-card-problem={problem||undefined} disabled={!deciding} onClick={()=>pickSwing(x.id)}>
       <span className="bp-card-cost" aria-label={`코스트 ${cost}`}>{cost}</span>
       <div className="bp-card-art-box">
@@ -396,12 +361,13 @@ const CARD_DESC_MAP={
         <strong>{def.name||x.entry.kind}{x.entry.plus&&<sup>+</sup>}</strong>
         <div className="bp-card-chips">
           <span className="bp-chip type">{isSkillCard?'준비':'공격'}</span>
-          <span className={"bp-chip role r-"+(ROLE_TONE[roleTag]||"plain")}>{roleTag}</span>
+          <span className={"bp-chip role r-"+(ROLE_TONE[roleTag]||"plain")}><span className="bp-role-mark" aria-hidden="true">{ROLE_MARKS[roleTag]}</span>{roleTag}</span>
         </div>
       </div>
       <div className={'bp-card-desc'+(overBudget?' over':'')}>
-        <p>{descLines[0]}</p>
-        {descLines[1]&&<p>{descLines[1]}</p>}
+        <p>{face.summary}</p>
+        {condition&&<p className="bp-card-condition">{condition}</p>}
+        {warning&&<p className="bp-card-warning">{warning}</p>}
       </div>
       {selected===x.id&&<b className="bp-order">1</b>}{inStack>=0&&<b className="bp-order">{inStack+2}</b>}
     </button>;
@@ -409,7 +375,22 @@ const CARD_DESC_MAP={
 
   /* 엘리트·보스 시각 효과: CSS가 data 속성만 읽는다(.bp-scene[data-gimmick]). 단계는 투수 HP 단계. */
   const gm=s.v10?.opponent?.gimmick,gtier=gm?(s.v10?.opponent?.rewardTier===3?'boss':'elite'):null;
-  return <main ref={rootRef} className={'bp-battle'+(autoLesson?' auto-lesson':'')+(commitBeat?' committing':'')+(deciding?'':' resolving')+(inFx?' fx-'+fxStage:'')} aria-label="타석">
+  /* Collapsed gimmick keeps the public numbers (gimmick.js), never a new rule.
+     Full gm.summary stays inside <details>; phase limits join the collapsed line. */
+  const gimmickShort=(id,phase)=>{
+    switch(id){
+      case 'pressure':return '1S 코스 +1 · 2S +3 · 볼 감소'+(phase==='steady'?'':' · 준비 1회');
+      case 'trick':return '예고 옆 칸 이동 · 첫공 60% · 이후 25%'+(phase==='steady'?'':' · 겹치기 3장');
+      case 'bluff':return phase==='steady'?'존밖 볼 +35%p':'존밖 볼 +45%p · 준비 1회';
+      case 'tyrant':return (phase==='critical'?'낮은 3코스 +20%p':'낮은 3코스 +10%p')+(phase==='steady'?'':' · 준비 1회');
+      case 'halo':return '홈런외 장타→단타'+(phase==='steady'?'':phase==='critical'?' · 겹치기 3장 · 볼 +10%p':' · 겹치기 3장');
+      case 'eclipse':return '직전 노림 반대열 공략'+(phase==='steady'?'':phase==='critical'?' · 반대열 강화 · 준비 1회':' · 반대열 강화');
+      default:return '';
+    }
+  };
+  const rawPhase=pre?pitcherPhase(hpWas,pitcher?.maxHp||1):(pitcher?.phase||'steady');
+  const shownGimmickPhase=rawPhase==='defeated'?'critical':rawPhase;
+  return <main ref={rootRef} className={'bp-battle bp-readable'+(autoLesson?' auto-lesson':'')+(commitBeat?' committing':'')+(deciding?'':' resolving')+(inFx?' fx-'+fxStage:'')} aria-label="타석">
     <div className="bp-bar">
       <div className="bp-hud-brand">
         <button type="button" className="bp-hud-logo" aria-label="타이틀로 돌아가기" onClick={onHome}>9ZONE</button>
@@ -430,7 +411,7 @@ const CARD_DESC_MAP={
       </span>
     </div>
 
-    <section className={'bp-scene'+(pixi?.batter?' pixi-batter':'')+(pixi?.pitcher?' pixi-pitcher':'')+(inFx?' fx-stage-'+fxStage+(shot?' fx-'+(shot.grade||shot.kind):''):'')+(cam?' cam-'+cam:'')} ref={sceneRef} aria-label="승부 구장" data-gimmick={gm?.id} data-gtier={gtier} data-gphase={gm?(pitcher?.phase||'steady'):undefined}>
+    <section className={'bp-scene'+(pixi?.batter?' pixi-batter':'')+(pixi?.pitcher?' pixi-pitcher':'')+(inFx?' fx-stage-'+fxStage+(shot?' fx-'+(shot.grade||shot.kind):''):'')+(cam?' cam-'+cam:'')} ref={sceneRef} aria-label="승부 구장" data-gimmick={gm?.id} data-gtier={gtier} data-gphase={gm?(pre?shownGimmickPhase:(pitcher?.phase||'steady')):undefined}>
       <div className="bp-bg bp-cam" aria-hidden="true"/>
       <div className="bp-haze" aria-hidden="true"/>
       {commitBeat&&<aside className="bp-commit" data-testid="bp-commit" role="status" aria-live="assertive">
@@ -473,10 +454,10 @@ const CARD_DESC_MAP={
           {autoPlan?.coverage>0&&lessonPhase!=='plan'&&<i>{autoPlan.coverage}존 커버</i>}
         </div>}
       </aside>}
-      {canPixi&&<BallparkActors sceneRef={sceneRef} pitcherAtlas={pitcherAtlas} artId={artId} batterPoses={batterPoses} batterSheet={batterSheet} batterRig={batterRig} pitchZone={judged?r.zone:null} shot={shot} fxStage={fxStage} playToken={playToken} knockedOut={judged&&(pitcher?.hp??1)===0} onReady={setPixi}/>}
-      <div className="bp-pitcher bp-cam" ref={pitcherRef} aria-hidden="true" style={{'--stance-x':pitcherStance(artId)[0],'--stance-y':pitcherStance(artId)[1]}}>{pitcherArt}{gm&&<GimmickVfx id={gm.id} tier={gtier} phase={pitcher?.phase||'steady'}/>}</div>
+      {canPixi&&<BallparkActors sceneRef={sceneRef} pitcherAtlas={pitcherAtlas} artId={artId} batterPoses={batterPoses} batterSheet={batterSheet} batterRig={batterRig} pitchZone={judged?r.zone:null} shot={shot} fxStage={fxStage} playToken={playToken} knockedOut={judged&&((pre?hpWas:pitcher?.hp)??1)===0} onReady={setPixi}/>}
+      <div className="bp-pitcher bp-cam" ref={pitcherRef} aria-hidden="true" style={{'--stance-x':pitcherStance(artId)[0],'--stance-y':pitcherStance(artId)[1]}}>{pitcherArt}{gm&&<GimmickVfx id={gm.id} tier={gtier} phase={pre?shownGimmickPhase:(pitcher?.phase||'steady')}/>}</div>
       <div className="bp-pcol">
-      <div className="bp-ptag" aria-label={`${pitcher?.name} 투수 HP ${pitcher?.hp} / ${pitcher?.maxHp}`}>
+      <div className="bp-ptag" aria-label={`${pitcher?.name} 투수 HP ${pre?hpWas:pitcher?.hp} / ${pitcher?.maxHp}`}>
         <div className="bp-pitcher-badge-row">
           <span className="bp-pitcher-flame" aria-hidden="true">🔥</span>
           {/* #103 M08: the name is never cut; only the pitch-type prefix gives way on a narrow panel */}
@@ -486,12 +467,17 @@ const CARD_DESC_MAP={
           <div className="bp-hp-gauge-bar" style={{'--hp-pct': `${Math.max(0, Math.min(100, Math.round(((pre?hpWas:pitcher?.hp)||0)/(pitcher?.maxHp||1)*100)))}%`}} />
           <span className="bp-ticks" aria-hidden="true">{Array.from({length:12},(_,i)=><i key={i} className={tickClass(i)}/>)}</span>
         </div>
-        {s.v10?.opponent?.gimmick&&<p className="bp-gimmick" data-testid="bp-gimmick"><i className="bp-gtier">{gtier==='boss'?'BOSS':'ELITE'}</i> <b>{s.v10.opponent.gimmick.label}</b> {s.v10.opponent.gimmick.summary}{s.v10.opponent.gimmick.phases&&['pressured','critical'].filter(k=>s.v10.opponent.gimmick.phases[k]&&(pitcher?.phase===k||(k==='pressured'&&pitcher?.phase==='critical'))).map(k=><span key={k}> {s.v10.opponent.gimmick.phases[k]}</span>)}</p>}
+        {gm&&<div className="bp-gimmick" data-testid="bp-gimmick"><i className="bp-gtier">{gtier==='boss'?'BOSS':'ELITE'}</i> <b>{gm.label}</b>
+          <span className="bp-gimmick-current">{gimmickShort(gm.id,shownGimmickPhase)||gm.summary}</span>
+          {gm.phases&&['pressured','critical'].filter(k=>gm.phases[k]&&(shownGimmickPhase===k||(k==='pressured'&&shownGimmickPhase==='critical'))).map(k=><span className="bp-gimmick-current" key={k}>{gm.phases[k]}</span>)}
+          <details><summary>규칙 자세히</summary><p>{gm.summary}</p></details>
+        </div>}
         {damage>0&&<b className="bp-damage" key={'d'+playToken}>-{damage}</b>}
         <small aria-hidden="true">HP {pre?hpWas:pitcher?.hp} / {pitcher?.maxHp}</small>
-        <span className={'bp-mental'+(shaken?' shaken':'')+(shaken>=mentalCap?' max':'')+(shakenRose?' rose':'')} data-testid="bp-mental"
+        <span className={'bp-mental'+(shaken?' shaken':' idle')+(shaken>=mentalCap?' max':'')+(shakenRose?' rose':'')} data-testid="bp-mental"
           data-shaken={shaken} data-cap={mentalCap} key={'m'+shaken} aria-label={`투수 흔들림 ${shaken} / ${mentalCap}`+(shaken?' · 볼 증가 · 읽기 +1':'')}>
-          <em>흔들림</em><span aria-hidden="true">{Array.from({length:mentalCap},(_,i)=><i key={i} className={i<shaken?'on':''}/>)}</span>
+          <em>흔들림{!shaken?' 0':''}</em><span aria-hidden="true">{Array.from({length:mentalCap},(_,i)=><i key={i} className={i<shaken?'on':''}/>)}</span>
+          {shaken>0&&<><b className="bp-mental-value">{shaken}/{mentalCap}</b><small className="bp-mental-effect">볼 증가 · 읽기 +1</small></>}
         </span>
         {deciding&&runners>0&&<span className="bp-press" data-testid="bp-press" aria-label={`주자 ${runners}명 · 안타 피해 +${runnerPct}%`}><em>주자 압박</em><b>+{runnerPct}%</b></span>}
       </div>
@@ -523,9 +509,9 @@ const CARD_DESC_MAP={
       {judged&&inFx&&!landed&&!pixi?.pitcher&&<i className="bp-flight" ref={flightRef} key={'f'+playToken} aria-hidden="true"/>}
       <div className="bp-batter bp-cam" aria-hidden="true">{batterArt}</div>
       {/* 기세 gauge by the batter: five flames, the multiplier they add, a burst when it rises, smoke when a strikeout puts it out */}
-      <div className={'bp-momentum'+(momentum?' lit':'')+(momentum>=V10_MOMENTUM.max?' max':'')+(momentumRose?' rose':'')+(momentumOut?' out':'')} data-testid="bp-momentum" data-momentum={momentum}
+      <div className={'bp-momentum'+(momentum?' lit':' idle')+(momentum>=V10_MOMENTUM.max?' max':'')+(momentumRose?' rose':'')+(momentumOut?' out':'')} data-testid="bp-momentum" data-momentum={momentum}
         key={'mo'+momentum+(momentumOut?'x':'')} role="status" aria-label={`기세 ${momentum} / ${V10_MOMENTUM.max} · 피해 ×${v10MomentumRate(momentum).toFixed(1)}`}>
-        <em>기세</em>
+        <em>기세{!momentum?' 0':''}</em>
         <span className="bp-momentum-pips" aria-hidden="true">{Array.from({length:V10_MOMENTUM.max},(_,i)=><i key={i} className={i<momentum?'on':''}/>)}</span>
         <b>×{v10MomentumRate(momentum).toFixed(1)}</b>
         {momentumRose&&<small className="bp-momentum-pop" aria-hidden="true">+{combat.momentumAfter-combat.momentumBefore}</small>}
@@ -609,12 +595,11 @@ const CARD_DESC_MAP={
           <strong>맨손 스윙</strong>
           <div className="bp-card-chips">
             <span className="bp-chip type">기본</span>
-            <span className="bp-chip role">단타</span>
+            <span className="bp-chip role"><span className="bp-role-mark" aria-hidden="true">·</span>단타</span>
           </div>
         </div>
         <div className="bp-card-desc">
-          <p>선택 1존 집중 타격</p>
-          <p>카드 소모 없음 · 기본 스윙</p>
+          <p>카드 소모 없음</p>
         </div>
         {selected==='basic'&&<b className="bp-order">1</b>}
       </button>
@@ -627,12 +612,16 @@ const CARD_DESC_MAP={
           ?{backgroundImage:`url(${customArt})`,backgroundPosition:focus?.objectPosition||'center 25%',backgroundSize:'cover'}
           :{backgroundImage:`url(${cardArtSheet})`,backgroundPosition:'0% 0%'};
         const roleTag=def.role||'준비';
-        const descLines=problem?[problem,'']:(CARD_DESC_MAP[x.entry.kind]||[def.gives?.[0]||'준비 작전',def.gives?.[1]||'']);
+        const face=cardFaceOf(x.entry,{strikes:shownCount.strikes});
+        const warning=shortCardProblem(problem)||(!prepLeft?'준비 횟수 소진':'');
+        const condition=face.condition;
+        const note=warning||condition;
         const isOff=Boolean(problem||!prepLeft);
 
         return <button key={x.id} type="button"
-          className={'bp-card skill prep-card bp-token-card'+(selected===x.id?' main':'')+(isOff?' off':'')}
+          className={'bp-card skill prep-card bp-token-card'+(selected===x.id?' main':'')+(isOff?' off':'')+(note?' has-note':'')+(condition&&warning?' has-both':'')}
           aria-pressed={selected===x.id}
+          aria-label={[def.name+(x.entry.plus?'+':''),'코스트 '+cardCost(x.entry),'준비 '+prepLeft+'회 남음',face.summary,condition,warning,problem].filter(Boolean).join(' · ')}
           data-card-kind={x.entry.kind} data-card-plus={x.entry.plus?1:0} data-card-problem={problem||undefined}
           disabled={!deciding}
           onClick={()=>pickPrep(x.id)}>
@@ -647,12 +636,13 @@ const CARD_DESC_MAP={
             <strong>{def.name||x.entry.kind}{x.entry.plus&&<sup>+</sup>}</strong>
             <div className="bp-card-chips">
               <span className="bp-chip type prep">준비</span>
-              <span className={"bp-chip role r-"+(ROLE_TONE[roleTag]||"plain")}>{roleTag}</span>
+              <span className={"bp-chip role r-"+(ROLE_TONE[roleTag]||"plain")}><span className="bp-role-mark" aria-hidden="true">{ROLE_MARKS[roleTag]}</span>{roleTag}</span>
             </div>
           </div>
           <div className="bp-card-desc">
-            <p>{descLines[0]}</p>
-            {descLines[1]?<p>{descLines[1]}</p>:<p className="bp-prep-left">준비 {prepLeft}회 가능</p>}
+            <p>{face.summary}</p>
+            {condition&&<p className="bp-card-condition">{condition}</p>}
+            {warning&&<p className="bp-card-warning">{warning}</p>}
           </div>
           {selected===x.id&&<b className="bp-order prep">준비</b>}
         </button>;
