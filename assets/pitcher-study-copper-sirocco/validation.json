@@ -1,0 +1,265 @@
+{
+  "status": "candidate_packaging_passed",
+  "sheets": {
+    "keys": {
+      "size": [
+        1536,
+        1024
+      ],
+      "alphaZeroPixels": 1179162,
+      "extractedFigures": 6
+    },
+    "bridges": {
+      "size": [
+        1536,
+        1024
+      ],
+      "alphaZeroPixels": 1112676,
+      "extractedFigures": 6
+    }
+  },
+  "individualPosePngCount": 12,
+  "atlasSize": [
+    2560,
+    3072
+  ],
+  "frameCount": 120,
+  "uniqueFrameCount": 12,
+  "releaseFrame": 76,
+  "poses": [
+    {
+      "pose": "set",
+      "alphaBounds": [
+        74,
+        22,
+        182,
+        248
+      ],
+      "sourceSize": [
+        248,
+        520
+      ],
+      "fitOffset": [
+        74,
+        22
+      ],
+      "marginPassed": true
+    },
+    {
+      "pose": "hands-rise",
+      "alphaBounds": [
+        56,
+        20,
+        200,
+        248
+      ],
+      "sourceSize": [
+        330,
+        524
+      ],
+      "fitOffset": [
+        56,
+        20
+      ],
+      "marginPassed": true
+    },
+    {
+      "pose": "coil",
+      "alphaBounds": [
+        83,
+        23,
+        172,
+        248
+      ],
+      "sourceSize": [
+        204,
+        516
+      ],
+      "fitOffset": [
+        83,
+        23
+      ],
+      "marginPassed": true
+    },
+    {
+      "pose": "deeper-coil",
+      "alphaBounds": [
+        73,
+        20,
+        181,
+        248
+      ],
+      "sourceSize": [
+        251,
+        524
+      ],
+      "fitOffset": [
+        73,
+        20
+      ],
+      "marginPassed": true
+    },
+    {
+      "pose": "leg-lift",
+      "alphaBounds": [
+        81,
+        20,
+        175,
+        248
+      ],
+      "sourceSize": [
+        216,
+        524
+      ],
+      "fitOffset": [
+        81,
+        20
+      ],
+      "marginPassed": true
+    },
+    {
+      "pose": "knee-lower",
+      "alphaBounds": [
+        50,
+        20,
+        205,
+        248
+      ],
+      "sourceSize": [
+        356,
+        524
+      ],
+      "fitOffset": [
+        50,
+        20
+      ],
+      "marginPassed": true
+    },
+    {
+      "pose": "stride",
+      "alphaBounds": [
+        59,
+        29,
+        196,
+        247
+      ],
+      "sourceSize": [
+        314,
+        504
+      ],
+      "fitOffset": [
+        59,
+        29
+      ],
+      "marginPassed": true
+    },
+    {
+      "pose": "foot-plant",
+      "alphaBounds": [
+        26,
+        39,
+        230,
+        248
+      ],
+      "sourceSize": [
+        469,
+        480
+      ],
+      "fitOffset": [
+        26,
+        39
+      ],
+      "marginPassed": true
+    },
+    {
+      "pose": "arm-whip",
+      "alphaBounds": [
+        69,
+        32,
+        186,
+        248
+      ],
+      "sourceSize": [
+        268,
+        497
+      ],
+      "fitOffset": [
+        69,
+        32
+      ],
+      "marginPassed": true
+    },
+    {
+      "pose": "release",
+      "alphaBounds": [
+        76,
+        30,
+        179,
+        247
+      ],
+      "sourceSize": [
+        236,
+        500
+      ],
+      "fitOffset": [
+        76,
+        30
+      ],
+      "marginPassed": true
+    },
+    {
+      "pose": "follow-through",
+      "alphaBounds": [
+        53,
+        34,
+        203,
+        248
+      ],
+      "sourceSize": [
+        344,
+        492
+      ],
+      "fitOffset": [
+        53,
+        34
+      ],
+      "marginPassed": true
+    },
+    {
+      "pose": "recovery",
+      "alphaBounds": [
+        53,
+        50,
+        203,
+        248
+      ],
+      "sourceSize": [
+        344,
+        456
+      ],
+      "fitOffset": [
+        53,
+        50
+      ],
+      "marginPassed": true
+    }
+  ],
+  "mp4": {
+    "width": 256,
+    "height": 256,
+    "r_frame_rate": "60/1",
+    "duration": "2.000000",
+    "nb_frames": "120"
+  },
+  "motionValidation": "reference_unverified",
+  "pending": [
+    "observed source-video timestamps",
+    "additional authored intermediate poses for smooth motion",
+    "manual foot/waist/shoulder/ball landmarks",
+    "actual mobile portrait/landscape/PC game context",
+    "blind commercial art quality review",
+    "runtime integration and regression"
+  ],
+  "fullGameTests": "not run: isolated unused art candidate",
+  "manualLandmarks": "landmarks.json (approximate; precise runtime validation pending)"
+}

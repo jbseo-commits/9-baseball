@@ -1,0 +1,128 @@
+{
+  "run_id": "copper-sirocco-v2-20261011",
+  "character": {
+    "slug": "copper-sirocco",
+    "adult_age": 29
+  },
+  "revision_of": "copper-sirocco-20261011",
+  "searched_at": "2026-10-11T19:25:00+09:00",
+  "search_time_basis": "queries run during V2 revision; minute approximate, not a source-video timestamp",
+  "search_queries": [
+    {
+      "source": "web system2",
+      "query": "site:mlb.com/video \"catcher\" \"view\" pitcher windup"
+    },
+    {
+      "source": "web system2",
+      "query": "site:mlb.com/video \"ump cam\" \"windup\""
+    },
+    {
+      "source": "web system1",
+      "query": "site:mlb.com/video \"behind\" \"plate\" pitcher bullpen",
+      "result": "unusable off-topic results"
+    },
+    {
+      "source": "web system1",
+      "query": "site:mlb.com/video \"ump cam\" pitcher",
+      "result": "unusable off-topic results"
+    },
+    {
+      "source": "web system2",
+      "query": "MLB pitcher behind the catcher camera bullpen view"
+    },
+    {
+      "source": "web system2",
+      "query": "site:mlb.com/video \"Ump cam views\""
+    }
+  ],
+  "candidates": [
+    {
+      "camera_view": "umpire",
+      "url": "https://www.mlb.com/video/ump-cam-views-from-the-2024-all-star-game",
+      "normalized_key": "url:mlb.com/video/ump-cam-views-from-the-2024-all-star-game",
+      "clip_id": "unknown",
+      "media_basename": "2d3011e5-df7c816d-7e263c16-csvm-diamondx64-asset",
+      "aliases": [],
+      "adopted": true,
+      "played": false,
+      "decode_completed": true,
+      "observation_method": "downloaded public official MP4; all frames decoded; inspected timestamped frame samples, no browser playback",
+      "observed_timestamps": [
+        0,
+        0.5,
+        1,
+        1.5,
+        2,
+        2.5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        17,
+        23,
+        35,
+        38,
+        41
+      ],
+      "keypose_observations": [
+        {
+          "timestamp_seconds": 0,
+          "observation": "Clip begins after full windup, with pitcher already in stride/landing; torso angled."
+        },
+        {
+          "timestamp_seconds": 0.5,
+          "observation": "Pitching arm acceleration near the release phase; no precise release-time or joint measurement."
+        },
+        {
+          "timestamp_seconds": 1,
+          "observation": "Forward torso follow-through, rear leg lifted behind lead support leg."
+        },
+        {
+          "timestamp_seconds": 1.5,
+          "observation": "Pitcher remains forward over lead support leg during recovery."
+        },
+        {
+          "timestamp_seconds": 2,
+          "observation": "Camera turns with play; pitcher partly outside view. No further pitcher pose inference."
+        }
+      ],
+      "note": "Camera composition observed from official media. This does not establish full windup timing or measured pitcher joint trajectories."
+    },
+    {
+      "camera_view": "catcher",
+      "url": "https://www.mlb.com/cut4/south-carolinas-catcher-wore-a-helmet-cam-during-a-game-heres-the-footage/c-47144888",
+      "normalized_key": "youtube:Ag0l7h182Zs",
+      "clip_id": "Ag0l7h182Zs",
+      "aliases": [
+        "https://www.youtube.com/watch?v=Ag0l7h182Zs",
+        "https://www.youtube.com/embed/Ag0l7h182Zs"
+      ],
+      "adopted": true,
+      "played": false,
+      "playback_attempted": true,
+      "status": "blocked",
+      "observed_timestamps": [],
+      "keypose_observations": [],
+      "note": "Official MLB page fetched and embedded YouTube ID verified. YouTube player reports LOGIN_REQUIRED/bot verification. No login or bypass attempted."
+    },
+    {
+      "camera_view": "catcher",
+      "url": "https://vimeo.com/1165033399",
+      "normalized_key": "vimeo:1165033399",
+      "clip_id": "1165033399",
+      "aliases": [
+        "https://player.vimeo.com/video/1165033399/config"
+      ],
+      "adopted": false,
+      "played": false,
+      "status": "blocked",
+      "observed_timestamps": [],
+      "keypose_observations": [],
+      "note": "Search metadata says Pitching bullpen behind catcher. Public player config returned HTTP403; not adopted."
+    }
+  ],
+  "motion_validation": "camera_composition_sampled; windup_reference_unverified",
+  "authored_motion_basis": "classic overhand windup designed and manually reviewed; no observed video joint measurement",
+  "usage_history": "Two adopted new source IDs/URLs reserved in V2 and excluded from future fresh selection. Raw reference media/frames remain scratch only; not published."
+}
