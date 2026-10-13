@@ -1,6 +1,6 @@
 /* Commercial battle information (DESIGN_BRIEF): fixed boxes, plan summary,
    arena-only inspector. Scoped under .bp-battle.bp-readable; never global.
-   Grid rows (portrait): bar 44 / stage 1fr / hand-or-result 176 / plan 64 /
+   Grid rows (portrait): bar 44 / stage 1fr / hand 176 / plan 64 /
    verbs 76+safe. Fixed total 360: on 375x667 the arena keeps ~307px. */
 @media (orientation:portrait){
   .v14-battle-portrait>.bp-battle.bp-readable,
@@ -29,15 +29,6 @@
   /* emphasis inside the fixed crop only: image zoom + border, never layout */
   .bp-battle.bp-readable .bp-card:is(.main,.armed) .bp-card-art{transform:scale(1.12)}
   .bp-battle.bp-readable .bp-card:is(.main,.armed){outline:2px solid var(--bp-sodium)}
-  /* result strip owns the hand row when the pitch is decided */
-  .bp-battle.bp-readable .bp-result{
-    height:176px;min-height:176px;box-sizing:border-box;overflow:hidden;
-    display:flex;flex-direction:column;justify-content:center;gap:4px;padding:8px 12px;
-  }
-  .bp-battle.bp-readable .bp-result strong{font:700 16px/1.2 var(--bp-ko)}
-  .bp-battle.bp-readable .bp-result small{font:400 12px/1.4 var(--bp-ko);color:#c4cde4}
-  .bp-battle.bp-readable .bp-review-open{min-height:44px;font-size:13px}
-
   /* fixed plan summary: energy/cost, prediction, input in separate fields */
   .bp-battle.bp-readable .bp-plan{
     height:64px;min-height:64px;max-height:64px;box-sizing:border-box;overflow:hidden;

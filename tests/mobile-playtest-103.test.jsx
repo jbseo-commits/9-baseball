@@ -120,7 +120,7 @@ describe('#103 M03/M04/M08 — battle text reads whole',()=>{
   it('the debrief fits its row (scrolls inside itself) and keeps efficiency apart from real damage',()=>{
     expect(planText({choice:'strike',cardCount:3,connectCount:1,damageRate:.72})).toBe('3장 STACK · CONNECT 1/2 · 피해 효율 72%');
     expect(portrait).toMatch(/\.bp-debrief\{[^}]*overflow-y:auto;overscroll-behavior:contain/);
-    expect(fs.readFileSync('src/duel/BallparkBattle.jsx','utf8')).toContain("'투수 HP -'+lessonCombat.damage");
+    expect(fs.readFileSync('src/duel/BattleInspector.jsx','utf8')).toContain('투수 HP -{lastCombat.damage||0}');
     expect(portrait).toContain('.v14-battle-portrait .bp-damage{top:auto;bottom:4px;right:8px;');
   });
   it('the pitcher name stands alone and is never truncated',()=>{

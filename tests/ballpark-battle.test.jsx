@@ -6,6 +6,7 @@ import {act} from 'react';
 import fs from 'node:fs';
 import path from 'node:path';
 import Duel from '../src/duel/App.jsx';
+import {AUTO_NEXT_MS} from '../src/duel/BallparkBattle.jsx';
 import {createV10Duel,enterV10Node,saveV10Duel,readV10Duel} from '../src/duel/engine.js';
 import {BUILDS,CARDS,LINEUP} from '../src/duel/cards.js';
 import {intentLines,hpTicks} from '../src/duel/ballpark-copy.js';
@@ -187,19 +188,31 @@ describe('Design P1 battle readability',()=>{
     expect(dmg).toBeGreaterThan(0);
     expect(seen).toContain('투수 HP -'+dmg);
   });
-  it('replaces the dead result hand with a core result plus a review entry',()=>{
+  it('has no result step: the hand stays and the next pitch comes by itself',()=>{
     vi.useFakeTimers();
     begin();
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);fireEvent.click(swingBtn());
     act(()=>{vi.advanceTimersByTime(6000)});
-    // The 3-column lesson layout is gone: the hand row shows the verdict and
-    // a manual entry; the full cause lives in the inspector pitch tab.
-    const res=screen.getByTestId('bp-result');
-    expect(res.textContent.length).toBeGreaterThan(0);
+    // landed: no result panel, the hand row is still the hand
+    expect(screen.queryByTestId('bp-result')).toBeNull();
     expect(screen.queryByTestId('bp-debrief')).toBeNull();
-    expect(screen.getByTestId('bp-next').disabled).toBe(false);
-    fireEvent.click(screen.getByTestId('bp-review-open'));
-    expect(screen.getByTestId('bp-inspect')).not.toBeNull();
-    expect(document.querySelector('.bp-hand')).toBeNull();
+    expect(document.querySelector('.bp-hand')).not.toBeNull();
+    // nobody taps "next": the beat ends and play is back to choosing
+    act(()=>{vi.advanceTimersByTime(AUTO_NEXT_MS+50)});
+    act(()=>{vi.advanceTimersByTime(AUTO_NEXT_MS+50)});
+    expect(screen.queryByTestId('bp-next')).toBeNull();
+    expect(screen.getByTestId('bp-swing')).not.toBeNull();
+    vi.useRealTimers();
+  });
+  it('the auto step waits while the info panel is open',()=>{
+    vi.useFakeTimers();
+    begin();
+    fireEvent.click(screen.getByTestId('bp-take'));
+    act(()=>{vi.advanceTimersByTime(6000)});
+    expect(screen.getByTestId('bp-next')).not.toBeNull();
+    fireEvent.click(screen.getByTestId('bp-inspect-open'));
+    act(()=>{vi.advanceTimersByTime(AUTO_NEXT_MS*4)});
+    expect(screen.getByTestId('bp-next')).not.toBeNull();
+    vi.useRealTimers();
   });
 });

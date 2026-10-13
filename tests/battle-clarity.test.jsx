@@ -51,16 +51,16 @@ describe('battle clarity',()=>{
     }
   });
 
-  it('a watched pitch result names the call and offers the review entry',()=>{
+  it('a watched pitch moves on by itself and its cause stays in the info panel',()=>{
     vi.useFakeTimers();
     begin();
     fireEvent.click(screen.getByTestId('bp-take'));
     act(()=>{vi.advanceTimersByTime(6000)});
-    // The 3-column debrief is gone: the result strip names the call and the
-    // full cause (take plan, actual pitch) lives in the review entry.
-    const res=screen.getByTestId('bp-result');
-    expect(res.textContent.length).toBeGreaterThan(0);
-    fireEvent.click(screen.getByTestId('bp-review-open'));
+    act(()=>{vi.advanceTimersByTime(3000)});
+    act(()=>{vi.advanceTimersByTime(3000)});
+    expect(screen.queryByTestId('bp-result')).toBeNull();
+    fireEvent.click(screen.getByTestId('bp-inspect-open'));
+    fireEvent.click(screen.getByRole('tab',{name:'이번 공'}));
     expect(screen.getByTestId('bp-inspect').textContent).toContain('지켜보기');
     vi.useRealTimers();
   });

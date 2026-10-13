@@ -64,6 +64,7 @@ export const LURE_PCT=30;
 /* card role chip colours, inside the ballpark palette */
 const ROLE_TONE={'장타':'gold','정타':'red','범위':'bone','진루':'brass','집중':'cyan','수급':'teal','관찰':'purple','생존':'bone','준비':'teal'};
 /* the line under the next-step verb: pitch = same batter, next ball; between = the plate appearance ended */
+export const AUTO_NEXT_MS=1100,AUTO_NEXT_RETRY_MS=500;
 export const nextHint=(phase,judging=false)=>judging?'판정 중…':phase==='pitch'?'같은 타자 · 다음 공을 기다린다':phase==='between'?'타석 종료 · 다음 타자가 들어선다':'';
 const lessonZoneName=z=>z===9?'존 밖':ZONE_WORDS[z]||'코스';
 
@@ -373,9 +374,18 @@ export default function BallparkBattle({
   const reviewText=lessonCombat
     ?(lessonCombat.verdict||call||'판정')+' · 실제 '+(lessonCombat.pitchLabel||'코스')+' · 투수 HP -'+(lessonCombat.damage||0)
     :(call||shot?.title||'결과를 확인한다');
-  const showDebrief=!autoLesson&&judged&&landed&&!inFx&&s.phase!=='battle'&&!!lessonCombat;
-  const debriefActual=showDebrief?(lessonCombat.pitchLabel||lessonZoneName(r?.zone)):'';
-  const debriefDamage=showDebrief&&lessonCombat.damage>0?'투수 HP -'+lessonCombat.damage+(lessonCombat.momentumBefore>0?' · 기세 ×'+v10MomentumRate(lessonCombat.momentumBefore).toFixed(1):''):'';
+  /* No result step: once the pitch has landed, the in-scene call stays up for a beat and the
+     at-bat moves on by itself. The next button only skips the wait. The beat pauses while the
+     info panel is open or the screen is locked (home-run movie), and keeps retrying until the
+     state actually advances so a momentarily locked act() can never strand the player. */
+  const autoNext=!!onNext&&!autoLesson&&!inspect&&!inFx&&!locked&&!commitBeat&&(s.phase==='pitch'||s.phase==='between');
+  const onNextRef=useRef(onNext);onNextRef.current=onNext;
+  useEffect(()=>{
+    if(!autoNext)return;
+    let retry=null;
+    const first=setTimeout(()=>{onNextRef.current?.();retry=setInterval(()=>onNextRef.current?.(),AUTO_NEXT_RETRY_MS);},AUTO_NEXT_MS);
+    return ()=>{clearTimeout(first);clearInterval(retry);};
+  },[autoNext,s]);
 
   const cardButton=x=>{
     const def=CARDS[x.entry.kind]||{},problem=deciding?x.preview?.problem:null,inStack=stack.findIndex(y=>y.id===x.id);
@@ -630,12 +640,7 @@ export default function BallparkBattle({
       read={{level,sources}} lastCombat={lessonCombat} r={r} piles={piles} onClose={()=>closeInspect()}/>}
     </div>
 
-    {showDebrief?<div className="bp-result" data-testid="bp-result" aria-label="이번 공 결과">
-      <strong>{call||lessonCombat.verdict||'판정'}</strong>
-      <small>{[debriefActual,debriefDamage||lessonCombat.verdict].filter(Boolean).join(' · ')}</small>
-      {!!moves.length&&<small>주자 이동 {moves.length}</small>}
-      <button type="button" className="bp-review-open" data-testid="bp-review-open" onClick={()=>openInspect('pitch')}>이번 공 복기</button>
-    </div>:<div className="bp-hand" aria-label="손패">
+    <div className="bp-hand" aria-label="손패">
       <button type="button" className={'bp-card basic'+(selected==='basic'?' main':'')} data-card-kind="basic" aria-pressed={selected==='basic'} disabled={!deciding} onClick={()=>pickSwing('basic')}>
         <span className="bp-card-cost" aria-label="코스트 0">0</span>
         <div className="bp-card-art-box">
@@ -698,7 +703,7 @@ export default function BallparkBattle({
           {selected===x.id&&<b className="bp-order prep">준비</b>}
         </button>;
       })}
-    </div>}
+    </div>
 
     <div className="bp-plan" data-testid="bp-plan" aria-label="현재 플랜 요약">
       {s.version===10&&energyHud}
@@ -712,7 +717,7 @@ export default function BallparkBattle({
     {onNext&&!deciding&&s.phase!=='battle'?<div className="bp-verbs next">
       {s.version===10&&null}
       {/* #103 M04: the hint names the same step as the verb (it said "next pitch" under "next batter") */}
-      <button type="button" className="bp-verb go" data-testid="bp-next" disabled={inFx||locked||!!inspect} onClick={()=>{if(!inspect)onNext?.();}}><span className="bp-verb-word">{nextLabel}</span>{nextHint(s.phase,inFx||locked)&&<small className="bp-verb-sub"><span>{nextHint(s.phase,inFx||locked)}</span></small>}</button>
+      <button type="button" className={'bp-verb go'+(autoNext?' auto':'')} data-testid="bp-next" disabled={inFx||locked||!!inspect} onClick={()=>{if(!inspect)onNext?.();}}><span className="bp-verb-word">{nextLabel}</span>{nextHint(s.phase,inFx||locked)&&<small className="bp-verb-sub"><span>{nextHint(s.phase,inFx||locked)}</span></small>}</button>
     </div>:<div className="bp-verbs">
       <button type="button" className="bp-verb go" data-testid="bp-swing" disabled={!deciding||!selected||!!choice?.problem||!!inspect} onClick={commitSwing} aria-busy={!!commitBeat}>
         <span className="bp-verb-word">{verb}</span>{commitBeat&&<small className="bp-verb-sub"><span>진행 중…</span></small>}
