@@ -70,7 +70,7 @@ export function batterMotionV3Timeline(shot){
     ];
   }
 
-  if(BATTER_MOTION_V3_MISS_GRADES.has(grade)){
+  if(BATTER_MOTION_V3_MISS_GRADES.has(grade)||motion.swing){
     const followEarlyAt=impact+92;
     const followLateAt=followEarlyAt+115;
     const finishAt=Math.max(followLateAt+105,Math.min(settleAt-120,followLateAt+175));
