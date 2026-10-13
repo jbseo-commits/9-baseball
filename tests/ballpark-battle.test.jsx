@@ -81,6 +81,20 @@ describe('V13 BALLPARK battle',()=>{
     expect(readV10Duel(localStorage).battle.aimZone).toBe(4);
     expect(swingBtn().textContent).toMatch(/피해 ×0\.\d/);
   });
+  it('never displays an interval above 100% when a broad stack covers several public intervals',()=>{
+    let s=createV10Duel(90211);
+    const kinds=['tableSetter','strike','rally','flow','bunt','hitAndRun','chainSign','relayBat','watch'];
+    s.deck=s.deck.map((c,i)=>({...c,kind:kinds[i]}));
+    s=enterV10Node(s,'a1-entry');
+    const hand=['c0','c7','c1','c2','c8'];
+    s.battle.hand=hand;s.battle.draw=s.deck.map(c=>c.id).filter(id=>!hand.includes(id));s.battle.discard=[];
+    saveV10Duel(localStorage,s);render(<Duel/>);
+    fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
+    fireEvent.click(document.querySelector('[data-card-kind="tableSetter"]'));fireEvent.click(cells()[5]);
+    fireEvent.click(document.querySelector('[data-card-kind="relayBat"]'));fireEvent.click(cells()[8]);
+    const face=swingBtn().textContent.match(/적중권 (\d+)–(\d+)%/);
+    expect(face).not.toBeNull();expect(Number(face[2])).toBeLessThanOrEqual(100);
+  });
   it('locks a multi-card plan before the pitch actually resolves',()=>{
     vi.useFakeTimers();
     const before=begin(['c0','c1','c2','c3','c4']).stats.pitches;

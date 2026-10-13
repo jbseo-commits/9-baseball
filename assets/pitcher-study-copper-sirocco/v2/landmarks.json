@@ -1,0 +1,467 @@
+{
+  "coordinateSystem": "cropped source pose PNG, x right and y down; zero-based",
+  "measurementMethod": "Manually selected anatomical cleat regions after visual inspection; alpha>=200 sole pixels identify the contact point two pixels above lowest opaque pixel. Not video joint measurement.",
+  "phaseContract": "Right pivot fixed through stride. Left lead fixed from approach-plant through recovery; back-to-set returns to pivot. Reset remains a held-pose transition.",
+  "poses": {
+    "set": {
+      "groundAnchorSource": [
+        25,
+        525
+      ],
+      "groundAnchorTarget": [
+        65,
+        240
+      ],
+      "anchorFoot": "right-pivot",
+      "manualFootRegion": [
+        0,
+        416,
+        71,
+        536
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "held-right"
+    },
+    "set-to-rise": {
+      "groundAnchorSource": [
+        30,
+        557
+      ],
+      "groundAnchorTarget": [
+        65,
+        240
+      ],
+      "anchorFoot": "right-pivot",
+      "manualFootRegion": [
+        5,
+        444,
+        76,
+        564
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "held-right"
+    },
+    "hands-rise": {
+      "groundAnchorSource": [
+        33,
+        492
+      ],
+      "groundAnchorTarget": [
+        65,
+        240
+      ],
+      "anchorFoot": "right-pivot",
+      "manualFootRegion": [
+        0,
+        383,
+        68,
+        503
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "held-right"
+    },
+    "rise-to-overhead": {
+      "groundAnchorSource": [
+        30,
+        557
+      ],
+      "groundAnchorTarget": [
+        65,
+        240
+      ],
+      "anchorFoot": "right-pivot",
+      "manualFootRegion": [
+        0,
+        444,
+        71,
+        564
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "held-right"
+    },
+    "overhead-windup": {
+      "groundAnchorSource": [
+        28,
+        527
+      ],
+      "groundAnchorTarget": [
+        65,
+        240
+      ],
+      "anchorFoot": "right-pivot",
+      "manualFootRegion": [
+        0,
+        416,
+        70,
+        536
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "held-right"
+    },
+    "overhead-to-load": {
+      "groundAnchorSource": [
+        30,
+        552
+      ],
+      "groundAnchorTarget": [
+        65,
+        240
+      ],
+      "anchorFoot": "right-pivot",
+      "manualFootRegion": [
+        1,
+        442,
+        72,
+        562
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "held-right"
+    },
+    "hands-lower": {
+      "groundAnchorSource": [
+        27,
+        498
+      ],
+      "groundAnchorTarget": [
+        65,
+        240
+      ],
+      "anchorFoot": "right-pivot",
+      "manualFootRegion": [
+        0,
+        388,
+        69,
+        508
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "held-right"
+    },
+    "knee-rising": {
+      "groundAnchorSource": [
+        112,
+        489
+      ],
+      "groundAnchorTarget": [
+        65,
+        240
+      ],
+      "anchorFoot": "right-pivot",
+      "manualFootRegion": [
+        75,
+        372,
+        146,
+        492
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "held-right"
+    },
+    "leg-lift": {
+      "groundAnchorSource": [
+        114,
+        532
+      ],
+      "groundAnchorTarget": [
+        65,
+        240
+      ],
+      "anchorFoot": "right-pivot",
+      "manualFootRegion": [
+        70,
+        420,
+        141,
+        540
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "held-right"
+    },
+    "knee-uncoiling": {
+      "groundAnchorSource": [
+        106,
+        476
+      ],
+      "groundAnchorTarget": [
+        65,
+        240
+      ],
+      "anchorFoot": "right-pivot",
+      "manualFootRegion": [
+        74,
+        362,
+        145,
+        482
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "held-right"
+    },
+    "hand-separation": {
+      "groundAnchorSource": [
+        103,
+        503
+      ],
+      "groundAnchorTarget": [
+        65,
+        240
+      ],
+      "anchorFoot": "right-pivot",
+      "manualFootRegion": [
+        64,
+        390,
+        135,
+        510
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "held-right"
+    },
+    "stride-extension": {
+      "groundAnchorSource": [
+        29,
+        469
+      ],
+      "groundAnchorTarget": [
+        65,
+        240
+      ],
+      "anchorFoot": "right-pivot",
+      "manualFootRegion": [
+        0,
+        364,
+        71,
+        484
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "held-right"
+    },
+    "stride": {
+      "groundAnchorSource": [
+        31,
+        484
+      ],
+      "groundAnchorTarget": [
+        65,
+        240
+      ],
+      "anchorFoot": "right-pivot",
+      "manualFootRegion": [
+        0,
+        372,
+        71,
+        492
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "held-right",
+      "leftLeadSource": [
+        503,
+        471
+      ]
+    },
+    "approach-plant": {
+      "groundAnchorSource": [
+        321,
+        515
+      ],
+      "groundAnchorTarget": [
+        210,
+        240
+      ],
+      "anchorFoot": "left-lead",
+      "manualFootRegion": [
+        300,
+        404,
+        371,
+        524
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "held-right"
+    },
+    "foot-plant": {
+      "groundAnchorSource": [
+        312,
+        471
+      ],
+      "groundAnchorTarget": [
+        210,
+        240
+      ],
+      "anchorFoot": "left-lead",
+      "manualFootRegion": [
+        275,
+        357,
+        343,
+        477
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "held-right"
+    },
+    "arm-cocking": {
+      "groundAnchorSource": [
+        313,
+        523
+      ],
+      "groundAnchorTarget": [
+        210,
+        240
+      ],
+      "anchorFoot": "left-lead",
+      "manualFootRegion": [
+        275,
+        412,
+        346,
+        532
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "held-right"
+    },
+    "arm-whip": {
+      "groundAnchorSource": [
+        189,
+        480
+      ],
+      "groundAnchorTarget": [
+        210,
+        240
+      ],
+      "anchorFoot": "left-lead",
+      "manualFootRegion": [
+        155,
+        368,
+        226,
+        488
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "held-right"
+    },
+    "release-extension": {
+      "groundAnchorSource": [
+        246,
+        513
+      ],
+      "groundAnchorTarget": [
+        210,
+        240
+      ],
+      "anchorFoot": "left-lead",
+      "manualFootRegion": [
+        230,
+        404,
+        301,
+        524
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "held-right"
+    },
+    "release": {
+      "groundAnchorSource": [
+        260,
+        487
+      ],
+      "groundAnchorTarget": [
+        210,
+        240
+      ],
+      "anchorFoot": "left-lead",
+      "manualFootRegion": [
+        229,
+        375,
+        300,
+        495
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "released-empty-right"
+    },
+    "early-follow": {
+      "groundAnchorSource": [
+        315,
+        511
+      ],
+      "groundAnchorTarget": [
+        210,
+        240
+      ],
+      "anchorFoot": "left-lead",
+      "manualFootRegion": [
+        291,
+        400,
+        362,
+        520
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "released-empty-right"
+    },
+    "follow-through": {
+      "groundAnchorSource": [
+        296,
+        492
+      ],
+      "groundAnchorTarget": [
+        210,
+        240
+      ],
+      "anchorFoot": "left-lead",
+      "manualFootRegion": [
+        276,
+        380,
+        347,
+        500
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "released-empty-right"
+    },
+    "settling-follow": {
+      "groundAnchorSource": [
+        194,
+        525
+      ],
+      "groundAnchorTarget": [
+        210,
+        240
+      ],
+      "anchorFoot": "left-lead",
+      "manualFootRegion": [
+        160,
+        412,
+        231,
+        532
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "released-empty-right"
+    },
+    "recovery": {
+      "groundAnchorSource": [
+        289,
+        464
+      ],
+      "groundAnchorTarget": [
+        210,
+        240
+      ],
+      "anchorFoot": "left-lead",
+      "manualFootRegion": [
+        243,
+        352,
+        313,
+        472
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "released-empty-right"
+    },
+    "back-to-set": {
+      "groundAnchorSource": [
+        32,
+        515
+      ],
+      "groundAnchorTarget": [
+        65,
+        240
+      ],
+      "anchorFoot": "right-pivot",
+      "manualFootRegion": [
+        0,
+        404,
+        68,
+        524
+      ],
+      "handedness": "right-ball-left-glove",
+      "ballState": "released-empty-right"
+    }
+  }
+}

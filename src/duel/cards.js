@@ -43,8 +43,22 @@ export const AXIS_NAMES=Object.fromEntries(AXES);
 // A `+` card never turns a covered pitch into an out. It only widens range, power, information or advancement.
 export const UPGRADES={
   bunt:'희생 85% · 파울 15%',defend:'미적중 파울 +12%p · 단타 유지',scout:'행 + 열 정보',setup:'집중 +2',watch:'카드 3장',calm:'카드 2장',lure:'타석 끝까지 유지',flow:'추가 2베이스',
+  /* Plus on a bunt card raises its sacrifice rate (engine swingOdds bunt branch);
+     plus on a foul-survival card adds 12%p to its own miss chance (foulMiss branch).
+     These entries name the real effect so the offer never prints '파워 +18' for a
+     card whose plus adds no power (cardPower skips singles and bunt). */
+  squeeze:'희생 92% · 파울 8%',
+  cutMaster:'빗나가도 파울 +12%p · 단타 유지',fightOff:'빗나가도 파울 +12%p · 단타 유지',
+  longAtBat:'빗나가도 파울 +12%p · 단타 유지',shieldBat:'빗나가도 파울 +12%p · 단타 유지',
+  grinder:'빗나가도 파울 +12%p · 단타 유지',foulTip:'빗나가도 파울 +12%p · 단타 유지',
+  attrition:'빗나가도 파울 +12%p · 단타 유지',chokeUp:'빗나가도 파울 +12%p · 단타 유지',
+  zoneProtect:'빗나가도 파울 +12%p · 단타 유지',
 };
-export const upgradeText=kind=>UPGRADES[kind]||(CARDS[kind]?.type==='attack'?'파워 +18':null);
+/* tableSetter is the one attack whose plus changes nothing (singles power is skipped,
+   it names no foul chance, it has no bunt table), so it stays out of the upgrade pool
+   instead of offering a '+' that does nothing. Every other singles/bunt attack above
+   has a real plus effect named in UPGRADES. */
+export const upgradeText=kind=>UPGRADES[kind]||(CARDS[kind]?.type==='attack'&&!CARDS[kind]?.singles&&!CARDS[kind]?.bunt?'파워 +18':null);
 export const canUpgrade=entry=>!!entry&&!entry.plus&&!!upgradeText(entry.kind);
 
 export const cardPower=entry=>{const d=CARDS[entry?.kind];return (d?.power||0)+(entry?.plus&&d.type==='attack'&&!d.bunt&&!d.singles?1:0);};
@@ -60,7 +74,12 @@ export function cardText(kind,plus=false){
     lure:'준비 1회 · 이번 타석 동안 스윙 범위를 상하좌우 1칸 확장. 범위 증가만큼 장타력 감소.',
     flow:'준비 1회 · 이번 타석 안타 때 기존 주자 추가 2베이스. 주자가 있어야 사용.'
   };
-  return special[kind]||CARDS[kind].text+' 강화: 기본 효과에 파워 +18.';
+  const up=upgradeText(kind);
+  /* The fallback used to append '파워 +18' to every card, including singles/bunt
+     cards whose plus adds no power and skills that cannot be upgraded at all.
+     Non-upgradable cards now read as their base text; upgradable ones share the
+     single upgradeText source so the two displays cannot drift apart. */
+  return special[kind]||(up?CARDS[kind].text+' 강화: '+up+'.':CARDS[kind].text);
 }
 export const DECK_MIN=9,DECK_MAX=18;
 export const DECKBUILDER_BUILD='starter';
