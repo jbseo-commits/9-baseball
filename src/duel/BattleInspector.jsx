@@ -1,0 +1,100 @@
+import React from 'react';
+import {READ_LEVELS} from './cards.js';
+import {cardDetailOf} from './CardDetailSheet.jsx';
+import {lessonFor,planText} from './DecisionDebrief.jsx';
+import './battle-inspector.css';
+
+/* Battle inspector — manual, on-demand only. It swaps the arena region in
+   place (same box, same height): no backdrop, no page move, no accordion over
+   the hand. Tabs show exactly one body. Nothing here may leak pre-landing
+   state: every number comes from the shared frozen view model in props. */
+const TABS=[['card','카드'],['pitcher','투수'],['read','읽기'],['pitch','이번 공']];
+
+function CardBody({inspectCard,problem}){
+  const d=inspectCard?cardDetailOf(inspectCard.kind,inspectCard.plus,problem||null,true):null;
+  if(!d)return <p className="bp-inspect-empty">손패에서 카드를 탭하면 그 카드를 검사합니다. 실제 계획은 바뀌지 않습니다.</p>;
+  return <div className="bp-inspect-card">
+    <strong>{d.name}</strong>
+    <small>{d.kindLabel} · {d.role} · {d.axis}</small>
+    <p>{d.rule}</p>
+    {!!d.gives?.length&&<p className="bp-inspect-gives">{d.gives.join(' · ')}</p>}
+    {!!d.needs?.length&&<p className="bp-inspect-needs">필요: {d.needs.join(', ')}</p>}
+    {d.upgrade&&<p className="bp-inspect-up">{d.upgrade}</p>}
+    {d.stack&&<p className="bp-inspect-stack">{d.stack}</p>}
+    {typeof d.energyCost==='number'&&<p className="bp-inspect-cost">MAIN RUN 에너지 비용 · ⚡ {d.energyCost}{d.energyCost===0?(d.kind==='basic'?' · 무료 기본 스윙':' · 무료 준비'):''}</p>}
+    {d.flavor&&<p className="bp-inspect-flavor">{d.flavor}</p>}
+  </div>;
+}
+
+function PitcherBody({s,pitcher,shown,gm,gtier}){
+  const opp=s.v10?.opponent;
+  const tendency=shown.tendency;
+  return <div>
+    <strong>{pitcher?.name||'투수'}</strong>
+    {opp?.archetype&&<p>성향: {opp.archetype}</p>}
+    {tendency&&<p className="bp-inspect-tendency">현재 투구 경향: {tendency} — 예측이며 확정 코스가 아닙니다.</p>}
+    {shown.tendencyDetail&&<p className="bp-inspect-tendency-detail">{shown.tendencyDetail}</p>}
+    <p className="bp-inspect-state">현재 상태: 흔들림 {shown.shaken}/{shown.mentalCap}{shown.shaken?' · 볼 증가 · 읽기 +1':' · 정상'} · 기세 {shown.momentum} · 피해 ×{shown.momentumRate.toFixed(1)}</p>
+    <p>HP {shown.hp} / {shown.maxHp}</p>
+    {gm?<div>
+      <p><i className="bp-gtier">{gtier==='boss'?'BOSS':'ELITE'}</i> <b>{gm.label}</b></p>
+      <p>{gm.summary}</p>
+      {gm.phases?.pressured&&<p>압박 국면: {gm.phases.pressured}{shown.phase==='pressured'?' · 현재':''}</p>}
+      {gm.phases?.critical&&<p>위기 국면: {gm.phases.critical}{shown.phase==='critical'?' · 현재':''}</p>}
+      {shown.phase==='steady'&&<p>현재 국면: 정상</p>}
+    </div>:<p>이 투수의 특수 규칙은 없습니다.</p>}
+  </div>;
+}
+
+function ReadBody({read}){
+  const lv=READ_LEVELS[read.level]||READ_LEVELS[0];
+  return <div>
+    <strong>읽기 {read.level}/2 · {lv.name}</strong>
+    <p>{lv.detail}</p>
+    {!!read.sources.length&&<p>기여: {read.sources.map(x=>`${x.label}${x.amount>1?' +'+x.amount:''}`).join(' · ')}</p>}
+  </div>;
+}
+
+function PitchBody({lastCombat,r}){
+  if(!lastCombat)return <p className="bp-inspect-empty">아직 던진 공이 없습니다. 첫 공을 던지면 여기에 실제 플랜·공·판정이 남습니다.</p>;
+  const lesson=lessonFor(lastCombat,r);
+  return <div>
+    <strong>{lastCombat.verdict||'판정'}</strong>
+    <p>내 선택: {planText(lastCombat)}</p>
+    <p>실제 공: {lastCombat.pitchLabel||'코스'} · 투수 HP -{lastCombat.damage||0}</p>
+    {lesson&&<p className="bp-inspect-advice">다음엔: {lesson.title} — {lesson.text}</p>}
+  </div>;
+}
+
+function PileBody({piles}){
+  return <div>
+    {piles.map(p=><div key={p.key} className="bp-inspect-pile">
+      <strong>{p.title} {p.n}장</strong>
+      <p className="bp-inspect-pile-note">순서 비공개 — 구성만 봅니다.</p>
+      {p.groups.length?p.groups.map(([name,n])=><p key={name}>{name} ×{n}</p>):<p>비어 있습니다.</p>}
+    </div>)}
+  </div>;
+}
+
+export default function BattleInspector({tab,setTab,pileKind,inspectCard,inspectProblem,s,shown,pitcher,label,read,lastCombat,r,piles,onClose}){
+  const gm=s.v10?.opponent?.gimmick,gtier=gm?(s.v10?.opponent?.rewardTier===3?'boss':'elite'):null;
+  const tabs=pileKind?[...TABS,['pile','더미']]:TABS;
+  return <section className="bp-inspect" aria-label="정보 보기" data-testid="bp-inspect">
+    <header className="bp-inspect-head">
+      <strong>정보 보기</strong>
+      <span className="bp-inspect-kept">계획은 유지됩니다</span>
+      <button type="button" className="bp-inspect-back" data-testid="bp-inspect-back" onClick={onClose}>경기로</button>
+    </header>
+    <div className="bp-inspect-tabs" role="tablist" aria-label="검사 항목">
+      {tabs.map(([key,name])=><button key={key} type="button" role="tab" aria-selected={tab===key} className={tab===key?'on':''} onClick={()=>setTab(key)}>{name}</button>)}
+    </div>
+    <div className="bp-inspect-body">
+      {tab==='card'&&<CardBody inspectCard={inspectCard} problem={inspectProblem}/>}
+      {tab==='pitcher'&&<PitcherBody s={s} pitcher={pitcher} shown={shown} gm={gm} gtier={gtier}/>}
+      {tab==='read'&&<ReadBody read={read}/>}
+      {tab==='pitch'&&<PitchBody lastCombat={lastCombat} r={r}/>}
+      {tab==='pile'&&<PileBody piles={piles}/>}
+    </div>
+    <small className="bp-inspect-status" aria-hidden="true">{label}</small>
+  </section>;
+}

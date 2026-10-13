@@ -18,12 +18,11 @@ function open({act=1,shaken,bases=[null,null,null]}={}){
 const gauge=()=>screen.getByTestId('bp-mental');
 
 describe('ballpark mental HUD',()=>{
-  it('calm pitcher: empty pips, one per act cap',()=>{
+  it('calm pitcher: no zero instrument; the inspector keeps value and cap',()=>{
     open();
-    expect(gauge().dataset.shaken).toBe('0');expect(gauge().dataset.cap).toBe('3');
-    expect(gauge().querySelectorAll('i').length).toBe(3);
-    expect(gauge().querySelectorAll('i.on').length).toBe(0);
-    expect(screen.queryByTestId('bp-press')).toBeNull();
+    expect(screen.queryByTestId('bp-mental')).toBeNull();
+    fireEvent.click(screen.getByTestId('bp-inspect-open'));
+    expect(screen.getByTestId('bp-inspect').textContent).toContain('흔들림 0/3');
   });
   it('shaken pitcher lights pips and says what it does',()=>{
     open({act:2,shaken:1});
@@ -36,8 +35,13 @@ describe('ballpark mental HUD',()=>{
     expect(gauge().querySelectorAll('i').length).toBe(1);
     expect(gauge().dataset.shaken).toBe('1');
   });
-  it('runners on base show the hit damage bonus',()=>{
+  it('runners on base join the swing summary instead of a standing panel',()=>{
     open({bases:['p5',null,'p6']});
-    expect(screen.getByTestId('bp-press').textContent).toContain('+20%');
+    expect(screen.queryByTestId('bp-press')).toBeNull();
+    for(const c of document.querySelectorAll('.bp-hand .bp-card:not(.basic)')){
+      fireEvent.click(c);
+      if(screen.getByTestId('bp-plan').textContent.includes('+20%'))break;
+    }
+    expect(screen.getByTestId('bp-plan').textContent).toContain('+20%');
   });
 });

@@ -52,10 +52,13 @@ describe('V13 BALLPARK battle',()=>{
     expect(screen.getByTestId('bp-take').textContent).toMatch(/^지켜본다/);
   });
   it('speaks in short lines, not rules',()=>{
-    const s=begin();
-    const lines=intentLines(s.battle.intent);
-    expect(document.querySelector('.bp-coach-text').textContent).toBe(lines.coach);
-    expect(lines.coach.length).toBeLessThan(30);
+    // The standing coach row is gone; short guidance lives in the fixed plan
+    // summary fields, tendency detail in the inspector.
+    begin();
+    fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
+    const plan=screen.getByTestId('bp-plan').textContent;
+    expect(plan).toMatch(/적중권/);
+    expect(plan.length).toBeLessThan(160);
   });
   it('card then zone aims the swing through the engine and saves it',()=>{
     begin();
@@ -63,10 +66,14 @@ describe('V13 BALLPARK battle',()=>{
     fireEvent.click(cells()[5]);
     expect(readV10Duel(localStorage).battle.aimZone).toBe(5);
     expect(swingBtn().disabled).toBe(false);
-    // Level-0 reading (no observation cards): the board shows the public range,
-    // never exact digits — same contract as the legacy ZoneBoard (App.jsx) and
-    // information.js coverageText. The old /적중권 \d+%/ assertion encoded the leak.
-    expect(swingBtn().textContent).toMatch(/^휘두른다적중권 \d+–\d+% · 피해 ×/);
+    // Level-0 reading (no observation cards): the fixed plan summary shows the
+    // public range, never exact digits — same contract as the legacy ZoneBoard
+    // (App.jsx) and information.js coverageText. The old verb-sub assertion
+    // encoded the same rule on the button; the button itself stays lean.
+    const plan=screen.getByTestId('bp-plan').textContent;
+    expect(plan).toMatch(/적중권 \d+–\d+%/);
+    expect(plan).toMatch(/피해 ×/);
+    expect(swingBtn().textContent).not.toMatch(/적중권/);
     expect(cells()[5].classList.contains('aim')).toBe(true);
   });
 
@@ -79,7 +86,7 @@ describe('V13 BALLPARK battle',()=>{
     expect(cards()[1].classList.contains('support')).toBe(true);
     expect([...cells()[2].querySelectorAll('.bp-token')].map(t=>t.textContent)).toEqual(['2']);
     expect(readV10Duel(localStorage).battle.aimZone).toBe(4);
-    expect(swingBtn().textContent).toMatch(/피해 ×0\.\d/);
+    expect(screen.getByTestId('bp-plan').textContent).toMatch(/피해 ×0\.\d/);
   });
   it('never displays an interval above 100% when a broad stack covers several public intervals',()=>{
     let s=createV10Duel(90211);
@@ -92,7 +99,7 @@ describe('V13 BALLPARK battle',()=>{
     fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
     fireEvent.click(document.querySelector('[data-card-kind="tableSetter"]'));fireEvent.click(cells()[5]);
     fireEvent.click(document.querySelector('[data-card-kind="relayBat"]'));fireEvent.click(cells()[8]);
-    const face=swingBtn().textContent.match(/적중권 (\d+)–(\d+)%/);
+    const face=screen.getByTestId('bp-plan').textContent.match(/적중권 (\d+)–(\d+)%/);
     expect(face).not.toBeNull();expect(Number(face[2])).toBeLessThanOrEqual(100);
   });
   it('locks a multi-card plan before the pitch actually resolves',()=>{
@@ -101,11 +108,12 @@ describe('V13 BALLPARK battle',()=>{
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
     fireEvent.click(cards()[1]);fireEvent.click(cells()[2]);
     fireEvent.click(swingBtn());
-    const beat=screen.getByTestId('bp-commit');
-    expect(beat.textContent).toContain('2장 STACK');
-    expect(beat.textContent).toContain('적중권');
-    expect(beat.textContent).toContain('HP 효율');
-    expect(beat.textContent).toContain('CONNECT');
+    // No plan box anymore: the lock shows on the go button itself (pressed
+    // state), while the engine still fires exactly once after 720ms.
+    const beat=swingBtn();
+    expect(beat.getAttribute('aria-busy')).toBe('true');
+    expect(beat.disabled).toBe(true);
+    expect(screen.queryByTestId('bp-commit')).toBeNull();
     expect(readV10Duel(localStorage).stats.pitches).toBe(before);
     act(()=>{vi.advanceTimersByTime(719)});
     expect(readV10Duel(localStorage).stats.pitches).toBe(before);
@@ -116,20 +124,24 @@ describe('V13 BALLPARK battle',()=>{
     vi.useRealTimers();
   });
 
-  it('the coach speaks in short lines, not rules',()=>{
+  it('the tendency detail lives in the inspector, not on the field',()=>{
     const s=begin();
     const lines=intentLines(s.battle.intent);
-    expect(document.querySelector('.bp-coach-text').textContent).toBe(lines.coach);
+    expect(document.querySelector('.bp-coach-text')).toBeNull();
+    expect(document.querySelector('.bp-tell')).toBeNull();
+    fireEvent.click(screen.getByTestId('bp-inspect-open'));
+    expect(screen.getByTestId('bp-inspect').textContent).toContain(lines.coach);
     expect(lines.coach.length).toBeLessThan(30);
   });
 
-  it('the swing button shows hit rate and damage multiplier',()=>{
+  it('the plan summary shows hit rate and damage multiplier, not the button',()=>{
     begin();
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
-    const txt=swingBtn().textContent;
+    const txt=screen.getByTestId('bp-plan').textContent;
     // Level-0 deck: gated range, not the exact digit the old assertion pinned.
     expect(txt).toMatch(/적중권 \d+–\d+%/);
     expect(txt).toMatch(/피해 ×/);
+    expect(swingBtn().textContent).not.toMatch(/적중권/);
   });
 
   it('a growing stack names its running energy total against the pitch energy left',()=>{
@@ -137,19 +149,21 @@ describe('V13 BALLPARK battle',()=>{
     // and place(1) + place+(1) = 2/3 while stacking.
     begin(['c0','c1','c2','c3','c4']);
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
-    expect(swingBtn().textContent).toMatch(/에너지 1\/3/);
+    expect(screen.getByTestId('bp-plan').textContent).toMatch(/합계 1\/3/);
     fireEvent.click(cards()[1]);fireEvent.click(cells()[2]);
-    expect(swingBtn().textContent).toMatch(/에너지 2\/3/);
+    expect(screen.getByTestId('bp-plan').textContent).toMatch(/합계 2\/3/);
   });
 
-  it('a support candidate that would overflow the energy left says so with the exact sum',()=>{
-    // 1 energy left: strike(1) main fits, a rally+(1) candidate would make 2/1,
-    // so the candidate carries the verdict instead of failing silently at the swing.
+  it('a support candidate that would overflow the energy left says so shortly',()=>{
+    // 1 energy left: strike(1) main fits; a rally+(1) candidate cannot join as
+    // support, so its face says so shortly without a false exact sum. Tapping
+    // it replaces the main instead (existing pickSwing behavior).
     begin(['c2','c3','c4','c0','c1'],1);
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
-    expect(swingBtn().textContent).toMatch(/에너지 1\/1/);
+    expect(screen.getByTestId('bp-plan').textContent).toMatch(/합계 1\/1/);
     expect(swingBtn().disabled).toBe(false);
-    expect(cards()[1].textContent).toContain('합치면 1+1=2/1 초과');
+    expect(cards()[1].textContent).toContain('지원 비용 초과');
+    expect(cards()[1].textContent).not.toContain('합치면');
   });
 
   it('the take button is always available',()=>{
@@ -173,16 +187,19 @@ describe('Design P1 battle readability',()=>{
     expect(dmg).toBeGreaterThan(0);
     expect(seen).toContain('투수 HP -'+dmg);
   });
-  it('replaces the dead result hand with 내 선택 → 실제 공 → 다음엔 causal debrief',()=>{
+  it('replaces the dead result hand with a core result plus a review entry',()=>{
     vi.useFakeTimers();
     begin();
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);fireEvent.click(swingBtn());
     act(()=>{vi.advanceTimersByTime(6000)});
-    const d=screen.getByTestId('bp-debrief');
-    expect(d.textContent).toContain('내 선택');
-    expect(d.textContent).toContain('실제 공');
-    expect(d.textContent).toContain('다음엔');
-    expect(document.querySelector('.bp-hand')).toBeNull();
+    // The 3-column lesson layout is gone: the hand row shows the verdict and
+    // a manual entry; the full cause lives in the inspector pitch tab.
+    const res=screen.getByTestId('bp-result');
+    expect(res.textContent.length).toBeGreaterThan(0);
+    expect(screen.queryByTestId('bp-debrief')).toBeNull();
     expect(screen.getByTestId('bp-next').disabled).toBe(false);
+    fireEvent.click(screen.getByTestId('bp-review-open'));
+    expect(screen.getByTestId('bp-inspect')).not.toBeNull();
+    expect(document.querySelector('.bp-hand')).toBeNull();
   });
 });

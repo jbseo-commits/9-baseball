@@ -65,6 +65,8 @@ export function shortCardProblem(problem){
   if(problem.includes('타석 첫 공'))return '초구 전용';
   if(problem.includes('주자가 없을'))return '주자 없을 때';
   if(problem.includes('준비')&&problem.includes('모두 사용'))return '준비 횟수 소진';
-  if(problem.includes('에너지'))return problem.replace(/입니다\.?$/,'');
+  /* Face keeps the short cause; the exact cost math lives in the plan summary.
+     The over-budget exact sum is built by the caller, never here. */
+  if(problem.includes('에너지'))return '에너지 부족';
   return problem;
 }

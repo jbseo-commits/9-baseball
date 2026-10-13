@@ -12,13 +12,13 @@ import {COACH_KEY} from '../src/duel/BallparkCoach.jsx';
 
 beforeEach(()=>{localStorage.clear();localStorage.setItem(COACH_KEY,'done');});
 afterEach(cleanup);
-function open({kinds=['place','watch','flow','bunt'],strikes=0,momentum=0,shaken=0,pre=false,gimmick=null,problems=null,preparations=0,energy=null}={}){
+function open({kinds=['place','watch','flow','bunt'],strikes=0,momentum=0,shaken=0,pre=false,gimmick=null,problems=null,preparations=0,energy=null,phase='steady'}={}){
   const s=enterV10Node(createV10Duel(90211),'a1-entry');
   s.battle.strikes=strikes;s.battle.momentum=momentum;s.battle.shaken=shaken;
   s.battle.preparations=preparations;
   if(Number.isInteger(energy))s.battle.energy=energy;
   if(gimmick)s.v10.opponent.gimmick=gimmick;
-  const pitcher={name:'레드 러시',hp:60,maxHp:60,phase:'steady'};
+  const pitcher={name:'레드 러시',hp:phase==='critical'?10:phase==='pressured'?30:60,maxHp:60,phase};
   if(pre){
     s.phase='pitch';s.last={kind:'swing'};
     s.battle.revealed={kind:'hit',zone:5,coverage:[5],aimZone:5,basesBefore:[null,null,null]};
@@ -77,10 +77,11 @@ describe('original battle readability',()=>{
     expect(view.onStack).toHaveBeenCalledWith([{id:'c1',aimZone:8}]);
     expect(screen.queryByRole('dialog')).toBeNull();
   });
-  it('keeps neutral gauges quiet and spells out active effects',()=>{
+  it('removes the zero gauges and spells out active effects',()=>{
     const view=open();
-    expect(screen.getByTestId('bp-mental').classList.contains('idle')).toBe(true);
-    expect(screen.getByTestId('bp-momentum').classList.contains('idle')).toBe(true);
+    // At 0 there is no dedicated instrument; the values live in the inspector.
+    expect(screen.queryByTestId('bp-mental')).toBeNull();
+    expect(screen.queryByTestId('bp-momentum')).toBeNull();
     view.unmount();open({momentum:3,shaken:1});
     expect(screen.getByTestId('bp-mental').textContent).toContain('1/3');
     expect(screen.getByTestId('bp-mental').textContent).toContain('볼 증가 · 읽기 +1');
@@ -88,22 +89,23 @@ describe('original battle readability',()=>{
   });
   it('does not expose the next gauge values or HP phase before the ball lands',()=>{
     open({pre:true,momentum:3,shaken:1,gimmick:{id:'tyrant',label:'낮은 벽',summary:'낮은 3코스 비중 +10%p.',phases:{critical:'낮은 3코스 +20%p'}}});
-    expect(screen.getByTestId('bp-mental').dataset.shaken).toBe('0');
-    expect(screen.getByTestId('bp-mental').classList.contains('idle')).toBe(true);
-    expect(screen.getByTestId('bp-momentum').dataset.momentum).toBe('0');
-    expect(screen.getByTestId('bp-momentum').classList.contains('idle')).toBe(true);
+    // Frozen pre-pitch values with no zero instruments on the field.
+    expect(screen.queryByTestId('bp-mental')).toBeNull();
+    expect(screen.queryByTestId('bp-momentum')).toBeNull();
     expect(screen.getByTestId('bp-gimmick').textContent).not.toContain('+20%p');
     // Frozen pre-pitch HP/phase: the live pitcher is already critical (10/60)
     // but gauges, labels and scene effects must still show the thrown-into state.
     expect(document.querySelector('.bp-scene').dataset.gphase).toBe('steady');
     expect(document.querySelector('.bp-ptag').getAttribute('aria-label')).toContain('HP 60 / 60');
   });
-  it('leaves the current dangerous rule visible while long rules expand only on request',()=>{
+  it('moves long gimmick rules to the inspector while the field keeps numbers',()=>{
     open({gimmick:{id:'trick',label:'속임수 코스',summary:'첫 공은 60% 확률로 예고 옆 칸으로 이동합니다.'}});
     const panel=screen.getByTestId('bp-gimmick');
-    expect(panel.querySelector('.bp-gimmick-current').textContent).toContain('예고 옆 칸');
-    expect(panel.querySelector('details').open).toBe(false);
-    expect(panel.querySelector('details p').textContent).toContain('60%');
+    expect(panel.querySelector('.bp-gimmick-current').textContent).toContain('60%');
+    expect(panel.querySelector('details')).toBeNull();
+    fireEvent.click(screen.getByTestId('bp-inspect-open'));
+    const body=screen.getByTestId('bp-inspect').textContent;
+    expect(body).toContain('60%');
   });
   it('shows condition and warning together instead of letting one hide the other',()=>{
     // Prep: flow needs a runner (condition) while prep count is exhausted (warning).
@@ -116,13 +118,16 @@ describe('original battle readability',()=>{
     view=open({kinds:['bunt'],strikes:2,problems:['에너지가 부족합니다 · 1/0 필요']});
     const bunt=document.querySelector('[data-card-kind="bunt"]');
     expect(bunt.querySelector('.bp-card-condition')?.textContent).toContain('파울도 삼진');
-    expect(bunt.querySelector('.bp-card-warning')?.textContent).toContain('에너지가 부족합니다');
+    expect(bunt.querySelector('.bp-card-warning')?.textContent).toBe('에너지 부족');
   });
-  it('shows an exact over-budget sum on a support candidate without hiding its own face',()=>{
+  it('keeps the support short on an over-budget face and the exact sum in the summary',()=>{
     const view=open({kinds:['slug','laser']});
     view.rerender(<BallparkBattle {...view.props} selected="c0"/>);
     const laser=document.querySelector('[data-card-kind="laser"]');
-    expect(laser.querySelector('.bp-card-warning')?.textContent).toMatch(/합치면 2\+2=4\/3 초과/);
+    // Face: short cause only — the exact sum would assume a support join that
+    // pickSwing may turn into a main replacement.
+    expect(laser.querySelector('.bp-card-warning')?.textContent).toBe('지원 비용 초과');
+    expect(laser.textContent).not.toContain('합치면');
     expect(laser.textContent).toContain('파워 +18');
   });
   it('never offers squeeze as a stackable support (bunt family, not kind string)',()=>{
@@ -145,15 +150,22 @@ describe('original battle readability',()=>{
     expect(cardFaceOf({kind:'squeeze',plus:true}).summary).toBe('진루 +1 · 아웃 +1');
   });
   it('keeps collapsed gimmick numbers and current phase limits',()=>{
+    // Pressure at 0S0B applies nothing yet: honest, no invented reduction.
     let view=open({gimmick:{id:'pressure',label:'압박 투구',summary:'1스트라이크부터 코스가 1개.'}});
-    expect(screen.getByTestId('bp-gimmick').textContent).toContain('1S 코스 +1');
+    expect(screen.getByTestId('bp-gimmick').textContent).toContain('이번 카운트 적용 없음');
+    view.unmount();view=open({strikes:2,gimmick:{id:'pressure',label:'압박 투구',summary:'1스트라이크부터 코스가 1개.'}});
+    expect(screen.getByTestId('bp-gimmick').textContent).toContain('코스 +3 · 볼 감소');
     view.unmount();view=open({gimmick:{id:'trick',label:'속임수 코스',summary:'첫 공은 60% 확률로 예고 옆 칸으로 이동합니다.'}});
-    const trick=screen.getByTestId('bp-gimmick').textContent;
-    expect(trick).toContain('60%');expect(trick).toContain('25%');
+    // First pitch (0S0B): only the actually-applying 60% shows.
+    expect(screen.getByTestId('bp-gimmick').textContent).toContain('옆 칸 이동 60%');
+    expect(screen.getByTestId('bp-gimmick').textContent).not.toContain('25%');
+    view.unmount();view=open({strikes:1,gimmick:{id:'trick',label:'속임수 코스',summary:'첫 공은 60% 확률로 예고 옆 칸으로 이동합니다.'}});
+    expect(screen.getByTestId('bp-gimmick').textContent).toContain('옆 칸 이동 25%');
     view.unmount();view=open({gimmick:{id:'bluff',label:'볼 유인',summary:'존 밖 볼이 평소보다 35%p 늘어난다.'}});
     expect(screen.getByTestId('bp-gimmick').textContent).toContain('+35%p');
     view.unmount();view=open({gimmick:{id:'tyrant',label:'낮은 벽',summary:'낮은 3코스 비중 +10%p.'}});
     expect(screen.getByTestId('bp-gimmick').textContent).toContain('+10%p');
+    expect(screen.getByTestId('bp-gimmick').textContent).not.toContain('+20%p');
   });
   it('scopes refinement CSS to the battle and preserves the original readability file',()=>{
     const css=fs.readFileSync('src/duel/original-ui-refinement.css','utf8');
