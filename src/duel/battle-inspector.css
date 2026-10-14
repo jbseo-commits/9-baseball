@@ -1,12 +1,12 @@
 /* Commercial battle information (DESIGN_BRIEF): fixed boxes, plan summary,
    arena-only inspector. Scoped under .bp-battle.bp-readable; never global.
    Grid rows (portrait): bar 44 / stage 1fr / hand-or-result 176 / plan 64 /
-   verbs 64+safe. Fixed total 348: on 375x667 the arena keeps ~319px. */
+   verbs 80+safe. Fixed total 364: on 375x667 the arena keeps ~303px. */
 @media (orientation:portrait){
   .v14-battle-portrait>.bp-battle.bp-readable,
   .v14-battle-portrait>.bp-battle.bp-readable:has(.bp-energy){
     min-height:calc(628px + env(safe-area-inset-bottom,0px));
-    grid-template-rows:44px minmax(0,1fr) 176px 64px calc(64px + env(safe-area-inset-bottom,0px));
+    grid-template-rows:44px minmax(0,1fr) 176px 64px calc(80px + env(safe-area-inset-bottom,0px));
   }
 
   /* A. scoreboard: inning + single BSO + one pile entry + settings. */
@@ -14,10 +14,17 @@
   .bp-battle.bp-readable .bp-hud-inning{font-size:12px}
   .bp-battle.bp-readable .bp-piles{gap:6px}
   .bp-battle.bp-readable .bp-pile-btn{min-height:44px;font-size:12px}
+  /* The energy strip moved to the plan row: the old 83/113px verb heights
+     no longer apply. Fixed 80px verbs fit the 64px touch buttons + padding.
+     NOTE: this must beat v14's :has(.bp-energy) rule on SPECIFICITY, not order:
+     main.jsx imports Duel (line 3) before the v14 sheet (line 31), so v14 is
+     always later in the cascade and wins every tie. */
+  .v14-battle-portrait .bp-battle.bp-readable .bp-verbs{height:calc(80px + env(safe-area-inset-bottom,0px));min-height:calc(80px + env(safe-area-inset-bottom,0px))}
+  .v14-battle-portrait>.bp-battle.bp-readable:has(.bp-energy) .bp-verbs{height:calc(80px + env(safe-area-inset-bottom,0px));min-height:calc(80px + env(safe-area-inset-bottom,0px))}
 
   /* C. hand: fixed bigger cards, fixed art (metrics live in
      original-ui-refinement.css; state never resizes art). */
-  .bp-battle.bp-readable .bp-hand{align-items:stretch}
+  .bp-battle.bp-readable .bp-hand{align-items:stretch;height:176px;min-height:176px}
   /* emphasis inside the fixed crop only: image zoom + border, never layout */
   .bp-battle.bp-readable .bp-card:is(.main,.armed) .bp-card-art{transform:scale(1.12)}
   .bp-battle.bp-readable .bp-card:is(.main,.armed){outline:2px solid var(--bp-sodium)}
@@ -44,6 +51,14 @@
   /* arena stage: scene and inspector share one box */
   .bp-battle.bp-readable .bp-stage{position:relative;min-height:0;min-width:0}
   .bp-battle.bp-readable .bp-scene[inert]{visibility:hidden}
+  /* experiment defense markers: absolute, never in layout, never interactive */
+  .bp-battle.bp-readable .bp-defense{position:absolute;left:8px;top:8px;z-index:4;pointer-events:none;display:flex;flex-direction:column;gap:3px}
+  .bp-battle.bp-readable .bp-defense-chip{font:600 11px/1.3 var(--bp-ko);color:#cfe3ff;background:#07080dcc;padding:3px 6px;border:1px solid #1f2a48;border-radius:2px;white-space:nowrap;max-width:46vw;overflow:hidden;text-overflow:ellipsis}
+  .bp-battle.bp-readable .bp-defense-dots{display:flex;gap:5px;padding:0 2px}
+  .bp-battle.bp-readable .bp-defense-dots i{width:8px;height:8px;border-radius:50%;border:1px solid #8f9bb8;transition:transform .24s ease}
+  .bp-battle.bp-readable .bp-defense[data-depth="0"] .bp-defense-dots i{transform:translateY(5px)}
+  .bp-battle.bp-readable .bp-defense[data-depth="2"] .bp-defense-dots i{transform:translateY(-5px)}
+  .bp-battle.bp-readable .bp-defense[data-depth="1"] .bp-defense-dots i{transform:none}
   .bp-battle.bp-readable .bp-inspect{
     position:absolute;inset:0;box-sizing:border-box;min-height:0;
     display:flex;flex-direction:column;background:#07080d;border:1px solid #1f2a48;
@@ -70,4 +85,5 @@
 @media (prefers-reduced-motion:reduce){
   .bp-battle.bp-readable .bp-card-art{transition:none}
   .bp-battle.bp-readable .bp-card:is(.main,.armed) .bp-card-art{transform:none}
+  .bp-battle.bp-readable .bp-defense-dots i{transition:none}
 }

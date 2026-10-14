@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Suspense} from "react";
 import { createRoot } from "react-dom/client";
 import Duel from "./duel/App.jsx";
 import CinematicV2Showcase from "./duel/CinematicV2Showcase.jsx";
@@ -6,6 +6,10 @@ import {HomerunVideoPreview} from "./duel/HomerunVideo.jsx";
 import {HomeRunCut} from "./duel/phone-art-v18.jsx";
 import HomerV3 from "./duel/HomerV3.jsx";
 import ErrorBoundary from "./duel/ErrorBoundary.jsx";
+/* Tactical defense experiment A: DEV-only isolated entry. Lazy so the
+   experiment code never lands in the main chunk; the production query is
+   inert (import.meta.env.DEV is false in prod builds). */
+const DefenseExperiment = React.lazy(()=>import("./duel/DefenseExperiment.jsx"));
 import PortraitFrame from "./duel/PortraitFrame.jsx";
 import { layoutMode, watchLayoutMode } from "./duel/layout-mode.js";
 import "./duel/tokens.css";
@@ -47,6 +51,7 @@ const showcase=params.get("showcase")==="cinematic-v2";
 const homerQa=params.get("qa")==="homer";
 const homerV3Qa=params.get("qa")==="homer-v3";
 const homerPreview=params.get("showcase")==="homer-video";
+const defenseExperiment=import.meta.env.DEV&&params.get("experiment")==="defense-v1";
 
 function HomerQa(){
   const [token,setToken]=React.useState(0);
@@ -71,7 +76,13 @@ function HomerQa(){
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {homerPreview ? <ErrorBoundary><HomerunVideoPreview /></ErrorBoundary> : homerV3Qa ? <ErrorBoundary><HomerV3 /></ErrorBoundary> : homerQa ? <ErrorBoundary><HomerQa /></ErrorBoundary> : showcase ? (
+    {defenseExperiment ? (
+      <ErrorBoundary>
+        <Suspense fallback={<main className="defense-loading">수비 실험 로딩 중…</main>}>
+          <DefenseExperiment />
+        </Suspense>
+      </ErrorBoundary>
+    ) : homerPreview ? <ErrorBoundary><HomerunVideoPreview /></ErrorBoundary> : homerV3Qa ? <ErrorBoundary><HomerV3 /></ErrorBoundary> : homerQa ? <ErrorBoundary><HomerQa /></ErrorBoundary> : showcase ? (
       <ErrorBoundary><CinematicV2Showcase /></ErrorBoundary>
     ) : layoutMode() === "frame" ? <PortraitFrame /> : (
       <ErrorBoundary>

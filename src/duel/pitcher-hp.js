@@ -75,11 +75,16 @@ export function applyPitcherOutcome(pitcher,outcome,opts={}){
   /* up to ×2: stacking lowers it, 기세 (engine V10_MOMENTUM) raises it past ×1 */
   const damageMultiplier=Number.isFinite(opts.damageMultiplier)?clamp(opts.damageMultiplier,0,2):1;
   const damageBonus=Number.isFinite(opts.damageBonus)?clamp(Math.round(opts.damageBonus),0,99):0;
-  const damage=calc.damage>0?Math.max(1,Math.round(calc.damage*damageMultiplier)+damageBonus):0;
+  /* Tactical-defense experiment: an explicit signed delta on the final damage,
+     applied inside this single application (never as a post-hoc HP patch).
+     Absent (default 0) the result is byte-identical to the old path. */
+  const defenseDelta=Number.isFinite(opts.defenseDelta)?Math.round(opts.defenseDelta):0;
+  const preDefenseDamage=calc.damage>0?Math.max(1,Math.round(calc.damage*damageMultiplier)+damageBonus):0;
+  const damage=calc.damage>0?Math.max(1,preDefenseDamage+defenseDelta):0;
   const hpAfter=Math.max(0,pitcher.hp-damage);
   const next={...pitcher,hp:hpAfter,phase:pitcherPhase(hpAfter,pitcher.maxHp),lastDamage:damage,
     lastPitchId:pitchId,foulStreak:outcome?.kind==='foul'?(pitcher.foulStreak||0)+1:0};
-  return {pitcher:next,result:{...calc,baseDamage:calc.damage,damage,damageMultiplier,damageBonus,hpAfter,locked:hpAfter<=0,duplicate:false}};
+  return {pitcher:next,result:{...calc,baseDamage:calc.damage,damage,damageMultiplier,damageBonus,defenseDelta,preDefenseDamage,hpAfter,locked:hpAfter<=0,duplicate:false}};
 }
 
 export const pitcherSelector=p=>p?({name:p.name,hp:p.hp,maxHp:p.maxHp,phase:p.phase,lastDamage:p.lastDamage}):null;

@@ -50,6 +50,12 @@
   .bp-battle.bp-readable .bp-card.has-both .bp-card-desc p:first-child{
     white-space:nowrap;word-break:normal;overflow:hidden;text-overflow:ellipsis;display:block;
   }
+  /* Defense effect is a fourth face row: with any other note the summary
+     yields to one line so the last row stays inside the fixed 168px outer. */
+  .bp-battle.bp-readable .bp-card.has-defense.has-note .bp-card-desc p:first-child{
+    white-space:nowrap;word-break:normal;overflow:hidden;text-overflow:ellipsis;display:block;
+  }
+  .bp-battle.bp-readable .bp-card-desc .bp-defense-effect{white-space:normal;word-break:keep-all;overflow:visible;text-overflow:clip;font-size:11px;line-height:13px;color:#9fe8ff}
   .bp-battle.bp-readable .bp-card-desc .bp-card-condition,
   .bp-battle.bp-readable .bp-card-desc .bp-card-warning{white-space:normal;word-break:keep-all;overflow:visible;text-overflow:clip;font-size:11px;line-height:13px}
   .bp-battle.bp-readable .bp-card-mini-map{right:3px;top:3px}

@@ -2,6 +2,7 @@ import {CARDS,SAVE_KEY,STAGES,LINEUP,BUILDS,ZONES,GROWTHS,growthCost,rewardChoic
   ZONE_ORDER,WIDEN_EVERY,PUTAWAY_REACH,READ_THRESHOLDS,observeScore,RELICS,RELIC_OFFERS,DECKBUILDER_BUILD,FACILITY_ROUTES,ROUTE_CHOICES,routeChoice,canUpgrade} from './cards.js';
 import {applyRewardToDeck,rewardProblem} from './deck.js';
 import {gimmickRules,addShare,trickNeighbors} from './gimmick.js';
+import {defenseStance,defenseTransition,defenseSpace,defenseSacrificeValid,defenseCauseText} from './defense-stance.js';
 const clone=s=>JSON.parse(JSON.stringify(s));
 const card=(s,id)=>s.deck.find(c=>c.id===id);
 export const V10_ENERGY_BASE=3;
@@ -463,7 +464,7 @@ export function battingResult(s,id,opts={}){
   if(kind==='hit'){let q=powerRoll;const types=hitProfile(s,id,zone,opts.coverageSize);hitType=types.at(-1);for(const t of types){q-=t.p;if(q<0){hitType=t;break;}}}
   return {kind,bases:hitType?.bases||0,zone,covered:o.covered,label:hitType?.label||{foul:CARDS[k]?.bunt?'번트 파울':'파울',sacrifice:'희생 번트',out:'인플레이 아웃',whiff:'헛스윙'}[kind]};
 }
-function resolve(state,id,supports=[]){
+function resolve(state,id,supports=[],defense=null){
   if(cardProblem(state,id||'basic')||stackSupportProblem(state,id||'basic',supports))return state;
   const s=clone(state),b=s.battle,before={runs:b.runs,outs:b.outs},events=[],growthEvents=[],pending=b.pending,mode=b.growthMode;
   if(s.version===10)b.energy=Math.max(0,v10Energy(s)-v10ActionCost(s,id,supports));
@@ -490,7 +491,13 @@ function resolve(state,id,supports=[]){
     if(fortunate){s.fortune-=growthCost(s.growth.fortune);s.growthStats.fortuneUses++;growthEvents.push('행운 해방 · 수비 혼선으로 타자·주자 추가 1베이스');}
     const relaySteps=b.relayActive?(b.relayActive>=3?2:1):0;
     if(relaySteps){s.growthStats.relayHits++;growthEvents.push('연결 사인 실현 · 기존 주자 추가 '+relaySteps+'베이스');}
-    advance(s,(result.assistOnly?result.bases:Math.max(result.bases,CARDS[k]?.advance||0))+(b.runSignal?(b.runSignalPlus?2:1):0)+relaySteps+(fortunate?1:0),events);
+    /* Defense experiment A: retreat direct hits advance pre-existing runners one extra base.
+       The batter is placed after (below), so this never touches the new batter. Absent defense: +0. */
+    const defenseExtra=(defense&&s.version===10&&id&&id!=='basic')
+      ?defenseSpace({depth:defense.depth,stance:defenseStance(k),hit:true,
+          direct:!result.assistOnly&&mainCoverage.includes(pending.zone),
+          homer:result.bases>=4||/홈런/.test(result.label||'')}).extraAdvance:0;
+    advance(s,(result.assistOnly?result.bases:Math.max(result.bases,CARDS[k]?.advance||0))+(b.runSignal?(b.runSignalPlus?2:1):0)+relaySteps+(fortunate?1:0)+defenseExtra,events);
     const destination=result.bases+(fortunate?1:0);
     if(destination>=4)home(s,currentBatter(s).id,events);else b.bases[destination-1]=currentBatter(s).id;
     if(s.growth.fortune&&!fortunate&&['땅볼 안타','바가지 안타 · 행운의 단타'].includes(result.label)){
@@ -563,7 +570,7 @@ export function playCard(state,id,opts={}){
   if(cardProblem(state,id))return state;
   const supports=Array.isArray(opts.supports)?opts.supports:(opts.assist?[opts.assist]:[]);
   if(id==='basic'||CARDS[card(state,id).kind].type==='attack'){
-    return resolve(state,id,supports);
+    return resolve(state,id,supports,opts.defense||null);
   }
   if(state.version===10&&supports.length)return state;
   const s=clone(state),entry=card(s,id),k=entry.kind,plus=!!entry.plus,b=s.battle,before={runs:b.runs,outs:b.outs},events=[];
@@ -936,14 +943,38 @@ export function v10CardFxPlan(state,next,choice,r,pitchInPA){
   if(r?.label==='볼넷')add((b.bonusWalk||0)+(b.bonusBall||0),'준비 효과 · 볼넷');
   return {bonus,shake,events};
 }
-export function playV10Action(state,action){
+/* Defense experiment A: resolve the current-depth space effect and the reserved
+   next depth from one resolved pitch. Pure wrt its inputs; the shell applies
+   nextDepth at the next batter boundary. Null defense (or take/basic) → off. */
+function resolveDefensePlan({r,choice,state,next,defense,outcome}){
+  const off={space:{delta:0,extraAdvance:0},transition:{nextDepth:defense?.depth??1,cause:'hold'},sacrificeValid:false,stance:'none',direct:false,homer:false};
+  if(!defense||!r||typeof defense.depth!=='number'||choice==='take')return off;
+  const stance=defenseStance(choice);
+  const direct=r.kind==='hit'&&!r.assistOnly&&Array.isArray(r.primaryCoverage)&&r.primaryCoverage.includes(r.zone);
+  const homer=r.kind==='hit'&&((outcome?.bases??0)>=4||/홈런/.test(r.label||''));
+  const isSacrifice=r.kind==='sacrifice';
+  const hadRunner=(state.battle?.bases||[]).some(Boolean);
+  const outsAfter=next.battle?.outs??99;
+  const advMoved=(next.battle?.runs??0)!==(state.battle?.runs??0)
+    ||(next.battle?.bases||[]).some((id,i)=>id!==(state.battle?.bases||[])[i]);
+  const sacrificeValid=isSacrifice&&defenseSacrificeValid({isSacrifice,hadRunner,advanced:advMoved,outsAfter,isBuntFamily:!!CARDS[choice]?.bunt});
+  const space=(r.kind==='hit'&&direct)
+    ?defenseSpace({depth:defense.depth,stance,hit:true,direct,homer})
+    :{delta:0,extraAdvance:0};
+  const transition=defenseTransition({depth:defense.depth,stance,
+    hit:r.kind==='hit',direct,zone:r.zone,sacrificeValid});
+  return {space,transition,sacrificeValid,stance,direct,homer};
+}
+
+export function playV10Action(state,action,opts={}){
   if(!(state?.version===10||state?.version===11)||state.phase!=='battle'||!state.pitcher||state.pitcher.hp<=0||!action)return state;
   const beforePitches=state.stats.pitches;
   const choice=action.type==='take'?'take':action.type==='card'
     ?(action.id==='basic'?'basic':card(state,action.id)?.kind||String(action.id||'')):'';
   if(!choice)return state;
   const supports=Array.isArray(action.supports)?action.supports:(action.assistId?[{id:action.assistId,aimZone:action.assistZone}]:[]);
-  let next=action.type==='take'?endTurn(state):action.type==='card'?playCard(state,action.id,{supports}):state;
+  const defense=(opts.defense&&state?.version===10&&action.type==='card')?opts.defense:null;
+  let next=action.type==='take'?endTurn(state):action.type==='card'?playCard(state,action.id,{supports,defense}):state;
   if(next===state)return state;
   if(next.stats.pitches===beforePitches){
     if(['reward','won'].includes(next.phase)&&next.pitcher?.hp>0)next.phase='battle';
@@ -969,8 +1000,11 @@ export function playV10Action(state,action){
   const runnersBefore=(state.battle?.bases||[]).filter(Boolean).length;
   const runnerRate=r.kind==='hit'?runnersBefore*V10_RUNNER_PRESSURE:0;
   const runnerBonus=runnerRate?Math.max(0,Math.round(damageForOutcome(outcome,0).damage*relicPlan.damageRate*runnerRate)):0;
+  /* Defense experiment A: current-depth space delta + next-depth reservation,
+     computed from the resolved pitch and recorded below. Absent defense: off. */
+  const defensePlan=resolveDefensePlan({r,choice,state,next,defense,outcome});
   const applied=applyPitcherOutcome(next.pitcher,outcome,{pitchId:next.stats.pitches,damageMultiplier:relicPlan.damageRate,
-    damageBonus:relicPlan.damageBonus+precisionBonus+runnerBonus+fxPlan.bonus});
+    damageBonus:relicPlan.damageBonus+precisionBonus+runnerBonus+fxPlan.bonus,defenseDelta:defensePlan.space.delta});
   // 멘탈: 타석이 끝날 때만 갱신. 실점이면 흔들림 누적, 무실점이면 1단계 회복.
   const runsScored=Math.max(0,(next.battle?.runs||0)-(state.battle?.runs||0));
   const shakenBefore=v10Shaken(state),paEnded=(next.battle?.results?.length||0)>(state.battle?.results?.length||0);
@@ -994,6 +1028,11 @@ export function playV10Action(state,action){
     relicBonus:relicPlan.damageBonus,precisionRate,precisionBonus,cardFxBonus:fxPlan.bonus,totalDamageBonus:relicPlan.damageBonus+precisionBonus+runnerBonus+fxPlan.bonus,
     runnersBefore,runnerRate,runnerBonus,runsScored,shakenBefore,shakenAfter,
     momentumBefore,momentumAfter,momentumRate,stackRate:relicPlan0.damageRate,
+    ...(defense&&action.type==='card'?{defense:{version:'A-v1',depthBefore:defense.depth,nextDepth:defensePlan.transition.nextDepth,
+      cause:defensePlan.transition.cause,causeText:defenseCauseText(defensePlan.transition.cause),
+      stance:defensePlan.stance,direct:defensePlan.direct,homer:defensePlan.homer,
+      sacrificeValid:defensePlan.sacrificeValid,d0:applied.result.preDefenseDamage,
+      delta:defensePlan.space.delta,final:applied.result.damage,extraAdvance:defensePlan.space.extraAdvance}}:{}),
     relicEvents:relicPlan.events,cardCount:stackCardCount,hpAfter:applied.result.hpAfter,takeEnergyBonus:r.takeEnergyBonus||0,
     takeDrawBonus:r.takeDrawBonus||0,...(r.takeDrawReason?{takeDrawReason:r.takeDrawReason}:{}),
   }};

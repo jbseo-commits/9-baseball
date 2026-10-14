@@ -13,6 +13,7 @@ import batterV14MasterSheet from '../../assets/ui-kit/batter/batter-v14-master-s
 import cardArtSheet from '../../assets/ui-kit/cards/battle-core-v14-master-sheet.png';
 import {cardArtFor,cardArtFocusFor} from './card-art.js';
 import {pitcherPhase} from './pitcher-hp.js';
+import {defenseDepthName} from './defense-stance.js';
 import {cardFaceOf,shortCardProblem,ROLE_MARKS} from './card-face.js';
 import BattleInspector from './BattleInspector.jsx';
 import './battle-inspector.css';
@@ -91,6 +92,10 @@ export default function BallparkBattle({
   batterSheet=batterV14MasterSheet,batterRig=null,
   onSelect,onAim,onStack,onSwing,onTake,onDetail,onPile,onHome,onHelp,onSettings,onToggleSound,sound=false,onJukebox=null,
   autoLesson=false,autoPlan=null,onExitLesson=null,previewMode=false,coachSignal=0,
+  /* Experiment harness may inject an isolated key-value store (default: the
+     real localStorage) and an optional defense view model. Absent defenseView
+     the battle renders the main-line UI with zero changes. */
+  storage=null,defenseView=null,
 }){
   const b=s.battle||{},rootRef=useRef(null),sceneRef=useRef(null),pitcherRef=useRef(null),zoneRef=useRef(null),flightRef=useRef(null),stageRef=useRef(null);
   const [armed,setArmed]=useState(null),[commitBeat,setCommitBeat]=useState(null),commitTimer=useRef(null);
@@ -338,7 +343,8 @@ export default function BallparkBattle({
   const swung=!!r?.coverage?.length,outside=judged&&r.zone===9;
   const outNote=outside?(swung?'볼에 손이 나갔다':'볼을 골라냈다'):'';
   /* the first time a player swings at a ball, say once what a ball is (playtest: "유인구고 뭐고 못 알아보겠음") */
-  const [chaseHint,setChaseHint]=useState(()=>{try{return localStorage.getItem('9zone-hint-chase')!=='done';}catch{return true;}});
+  const store=storage||(typeof localStorage!=='undefined'?localStorage:null);
+  const [chaseHint,setChaseHint]=useState(()=>{try{return store?.getItem('9zone-hint-chase')!=='done';}catch{return true;}});
   const [hintAt,setHintAt]=useState(null);
   const chased=!deciding&&outNote==='볼에 손이 나갔다'&&landed;
   const firstChase=chased&&(chaseHint||hintAt===playToken);
@@ -351,7 +357,7 @@ export default function BallparkBattle({
     scene.style.setProperty('--cam-y',Math.round(bat.offsetTop+bat.offsetHeight*.52)+'px');
     for(const el of scene.querySelectorAll('.bp-cam')){el.style.setProperty('--ox',el.offsetLeft+'px');el.style.setProperty('--oy',el.offsetTop+'px');}
   },[cam,playToken]);
-  useLayoutEffect(()=>{if(chased&&chaseHint){setHintAt(playToken);setChaseHint(false);try{localStorage.setItem('9zone-hint-chase','done');}catch{}}},[chased,chaseHint,playToken]);
+  useLayoutEffect(()=>{if(chased&&chaseHint){setHintAt(playToken);setChaseHint(false);try{store?.setItem('9zone-hint-chase','done');}catch{}}},[chased,chaseHint,playToken]);
   /* First-chase guidance now lives in the plan summary input line, not a coach row. */
   const firstChaseGuide=firstChase?'볼은 참으면 볼넷이 된다. 바깥 띠로 올 것 같으면 지켜본다.':'';
   const good=judged&&(r.kind==='hit'||r.kind==='sacrifice'||call==='볼넷');
@@ -403,7 +409,7 @@ export default function BallparkBattle({
     const condition=face.condition;
     const note=warning||condition;
 
-    return <button key={x.id} type="button" className={'bp-card'+state+(problem?' off':'')+cardKindClass+(note?' has-note':'')+(condition&&warning?' has-both':'')} aria-pressed={selected===x.id||inStack>=0}
+    return <button key={x.id} type="button" className={'bp-card'+state+(problem?' off':'')+cardKindClass+(note?' has-note':'')+(condition&&warning?' has-both':'')+(defenseView?.cardEffects?.[x.entry.kind]?' has-defense':'')} aria-pressed={selected===x.id||inStack>=0}
       aria-label={[def.name+(x.entry.plus?'+':''),'코스트 '+cost,face.axis,face.summary,condition,warning,problem].filter(Boolean).join(' · ')}
       data-card-kind={x.entry.kind} data-card-plus={x.entry.plus?1:0} data-card-problem={problem||undefined} disabled={!deciding} onClick={()=>pickSwing(x.id)}>
       <span className="bp-card-cost" aria-label={`코스트 ${cost}`}>{cost}</span>
@@ -422,6 +428,7 @@ export default function BallparkBattle({
         <p>{face.summary}</p>
         {condition&&<p className="bp-card-condition">{condition}</p>}
         {warning&&<p className="bp-card-warning">{warning}</p>}
+        {defenseView?.cardEffects?.[x.entry.kind]&&<p className="bp-defense-effect">{defenseView.cardEffects[x.entry.kind]}</p>}
       </div>
       {selected===x.id&&<b className="bp-order">1</b>}{inStack>=0&&<b className="bp-order">{inStack+2}</b>}
     </button>;
@@ -480,7 +487,11 @@ export default function BallparkBattle({
     }
     const predict=[hitCover.length?`적중권 ${hitFaceFor(hitCover)}`:'',rate,runners?`주자 +${runnerPct}%`:'',`합계 ${stackCost}/${energyLimit}`].filter(Boolean).join(' · ');
     if(choice?.problem)return {predict,input:choice.problem};
-    return {predict,input:!hitCover.length?'코스를 고르세요':stack.length?`지원 ${stack.length}/${v10StackMax(s)-1} · 실행하거나 더 얹으세요`:'실행하세요'};
+    const guide=!hitCover.length?'코스를 고르세요':stack.length?`지원 ${stack.length}/${v10StackMax(s)-1} · 실행하거나 더 얹으세요`:'실행하세요';
+    // Experiment: the conditional reaction replaces the generic guidance
+    // (the problem above always wins). Full text also lands in the area label.
+    const hint=defenseView?.summaryHint;
+    return {predict,input:hint||guide};
   })();
   const deckById=id=>s.deck.find(c=>c.id===id);
   const pileGroups=ids=>{const m=new Map();for(const id of ids||[]){const k=deckById(id)?.kind;if(!k)continue;const nm=CARDS[k]?.name||k;m.set(nm,(m.get(nm)||0)+1);}return [...m.entries()].sort((a,b)=>String(a[0]).localeCompare(String(b[0]),'ko'));};
@@ -505,6 +516,10 @@ export default function BallparkBattle({
     <section className={'bp-scene'+(pixi?.batter?' pixi-batter':'')+(pixi?.pitcher?' pixi-pitcher':'')+(inFx?' fx-stage-'+fxStage+(shot?' fx-'+(shot.grade||shot.kind):''):'')+(cam?' cam-'+cam:'')} ref={sceneRef} aria-label="승부 구장" data-gimmick={gm?.id} data-gtier={gtier} data-gphase={gm?(pre?shownGimmickPhase:(pitcher?.phase||'steady')):undefined}>
       <div className="bp-bg bp-cam" aria-hidden="true"/>
       <div className="bp-haze" aria-hidden="true"/>
+      {defenseView&&<div className="bp-defense" data-depth={defenseView.depth} data-testid="bp-defense">
+        <span className="bp-defense-chip">수비 {defenseView.depthName} · {defenseView.effectLine}</span>
+        <span className="bp-defense-dots" aria-hidden="true"><i/><i/><i/></span>
+      </div>}
       {autoLesson&&<aside className={'bp-auto-lesson '+lessonPhase} data-testid="bp-auto-lesson" aria-live="polite">
         <header>
           <span>BUILD → BATTLE</span>
@@ -634,6 +649,9 @@ export default function BallparkBattle({
       <strong>{call||lessonCombat.verdict||'판정'}</strong>
       <small>{[debriefActual,debriefDamage||lessonCombat.verdict].filter(Boolean).join(' · ')}</small>
       {!!moves.length&&<small>주자 이동 {moves.length}</small>}
+      {defenseView&&lessonCombat?.defense&&<small className="bp-defense-next" data-testid="bp-defense-next">
+        다음 수비: {defenseDepthName(lessonCombat.defense.nextDepth)} · {lessonCombat.defense.causeText}{['won','lost','reward'].includes(s.phase)?' · 적용할 다음 타석 없음':''}
+      </small>}
       <button type="button" className="bp-review-open" data-testid="bp-review-open" onClick={()=>openInspect('pitch')}>이번 공 복기</button>
     </div>:<div className="bp-hand" aria-label="손패">
       <button type="button" className={'bp-card basic'+(selected==='basic'?' main':'')} data-card-kind="basic" aria-pressed={selected==='basic'} disabled={!deciding} onClick={()=>pickSwing('basic')}>
@@ -700,7 +718,7 @@ export default function BallparkBattle({
       })}
     </div>}
 
-    <div className="bp-plan" data-testid="bp-plan" aria-label="현재 플랜 요약">
+    <div className="bp-plan" data-testid="bp-plan" aria-label={`현재 플랜 요약 · ${planSummary.predict||''} ${planSummary.input||''}`.trim()}>
       {s.version===10&&energyHud}
       <div className="bp-plan-fields">
         {planSummary.predict&&<span className="bp-plan-predict">{planSummary.predict}</span>}
