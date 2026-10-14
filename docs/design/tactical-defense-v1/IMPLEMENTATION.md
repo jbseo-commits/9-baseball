@@ -31,17 +31,16 @@ B(아웃 이월)·C(시작 상황) 코드 없음 (`DEFENSE_VERSION='A-v1'` 고�
 
 ## 검증 (이번 세션 실행분만)
 
-- 신규 40: `defense-stance` 13, `defense-experiment` 17(D1–D8·parity·은폐),
+- 신규 47: `defense-stance` 13, `defense-experiment` 24(D1–D8·parity·은폐·경계),
   `defense-shell` 10(격리·게이트·진단·플레이).
-- 전체 174파일/1054테스트 통과. smoke 3종·build·dist 55.9/60MB 통과.
-- 실브라우저: `qa-defense` 15/15, `qa-shots` 18/18(본편 영향 없음).
+- 전체 174파일/1061테스트 통과. smoke 3종·build·dist 55.9/60MB 통과.
+- 실브라우저: `qa-defense` 24/24(375·390·360·PC iframe), `qa-shots` 18/18(본편 영향 없음).
 - 카드 예산 실측: 최장(tableSetter) 포함 전 종 168px 내장, 그림 64 고정.
 - 프로덕션 게이트: 빌드 산출물에 진입 문자열 없음, 실험 청크 분리·미참조.
 
 ## 알려진 실패·미확인
 
 - 동일 행동 관측 시 실패로 기록하는 건 사람 평가에서 (NEEDS_HUMAN).
-- NEEDS_HUMAN: 실기기 회전·롱프레스 전 조합·작은 높이 바·360px,
-  보상→시설→다음 경로 수동 완주, P/L/S 사람 플레이(상업 합격 6항),
-  별도 reviewer 에이전트에 의한 독립 검토(본 환경 미제공으로 self-review로 대체).
+- NEEDS_HUMAN: 실기기 회전·롱프레스 전 조합·작은 높이 바·보상→시설→다음 경로 수동 완주,
+  P/L/S 사람 플레이(상업 합격 6항), 자연 시작 빈도(S 급변 체감률).
 - D-case 에너지: 엔진 자연값 사용 (D1 명세 에너지 3과 일치).

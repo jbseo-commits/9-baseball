@@ -247,6 +247,93 @@ describe('flag OFF parity (main-line regression proof)',()=>{
   });
 });
 
+describe('boundary and non-hit holds (A)',()=>{
+  it('clamps at the floor instead of inventing depth −1',()=>{
+    const s0=setHand(baseState(),['e0']); // place
+    aimZone(s0,'e0',7);pend(s0,7,.5); // low row at depth 0
+    const s=act(s0,{type:'card',id:'e0'},0);
+    expect(s.battle.revealed.kind).toBe('hit');
+    expect(defenseOf(s)).toEqual(expect.objectContaining({nextDepth:0,cause:'hold'}));
+  });
+  it('retreat D1: high holds at the ceiling, low steps down',()=>{
+    for(const [aim,want] of [[1,2],[7,1]]){
+      const s0=setHand(baseState(),['e0']);
+      aimZone(s0,'e0',aim);pend(s0,aim,.5);
+      const s=act(s0,{type:'card',id:'e0'},2);
+      expect(s.battle.revealed.kind).toBe('hit');
+      expect(defenseOf(s).nextDepth).toBe(want);
+    }
+  });
+  it('empty-base bunt is a sacrifice with no lure',()=>{
+    const kinds=['squeeze','slug','place','watch','strike','rally','setup','scout','flow'];
+    const s0=setHand(baseState({kinds}),['e0']);
+    s0.battle.outs=0;s0.battle.strikes=0; // no runners at all
+    aimZone(s0,'e0',4);pend(s0,4,.5);
+    const s=act(s0,{type:'card',id:'e0'},1);
+    expect(s.battle.revealed.kind).toBe('sacrifice');
+    const d=defenseOf(s);
+    expect(d.sacrificeValid).toBe(false);
+    expect(d.nextDepth).toBe(1);
+    expect(s.battle.outs).toBe(1);
+  });
+  it('foul and whiff move nothing and pay nothing',()=>{
+    const mk=(roll)=>{
+      const s0=setHand(baseState(),['e0']); // place
+      s0.battle.aimZone=0; // covers only zone 0
+      pend(s0,8,roll); // uncovered zone 8
+      return act(s0,{type:'card',id:'e0'},2);
+    };
+    const o=swingOdds(setHand(baseState(),['e0']),'e0',8);
+    if(o.foul>0){
+      const f=mk(o.foul/2);
+      expect(f.battle.revealed.kind).toBe('foul');
+      expect(defenseOf(f)).toEqual(expect.objectContaining({nextDepth:2,delta:0}));
+    }
+    const w=mk(.99);
+    expect(w.battle.revealed.kind).toBe('whiff');
+    expect(defenseOf(w)).toEqual(expect.objectContaining({nextDepth:2,delta:0}));
+  });
+  it('basic has no stance, no space, no move',()=>{
+    const s0=setHand(baseState(),['e0']);
+    s0.battle.aimZone=4;pend(s0,4,.5);
+    const s=act(s0,{type:'card',id:'basic'},1);
+    const d=defenseOf(s);
+    expect(d.stance).toBe('none');
+    expect(d.nextDepth).toBe(1);
+    expect(d.delta).toBe(0);
+    expect(d.extraAdvance).toBe(0);
+  });
+  it('loaded bases score exactly once each, no duplicates',()=>{
+    const kinds=['rally','place','strike','setup','watch','scout','flow','bunt','slug'];
+    const s0=setHand(baseState({kinds}),['e0']);
+    s0.battle.bases=['p5','p6','p7'];
+    aimZone(s0,'e0',4);pend(s0,4,.9);
+    const runsBefore=s0.battle.runs;
+    const s=act(s0,{type:'card',id:'e0'},2);
+    expect(s.battle.revealed.kind).toBe('hit');
+    // rally advance 2 + space 1 = 3 steps: all three score, batter takes 1st
+    expect(s.battle.runs-runsBefore).toBe(3);
+    const onBase=s.battle.bases.filter(Boolean);
+    expect(new Set(onBase).size).toBe(onBase.length); // no duplicates
+    expect(onBase).toHaveLength(1); // only the new batter stays on
+    expect(s.battle.bases.includes('p5')).toBe(false);
+    expect(s.battle.bases.includes('p6')).toBe(false);
+    expect(s.battle.bases.includes('p7')).toBe(false);
+  });
+  it('runner pressure math is untouched by defense (uses pre-pitch count)',()=>{
+    const mk=(withDefense)=>{
+      const kinds=['rally','place','strike','setup','watch','scout','flow','bunt','slug'];
+      const s0=setHand(baseState({kinds}),['e0']);
+      s0.battle.bases=['p5',null,null];
+      aimZone(s0,'e0',4);pend(s0,4,.9);
+      return playV10Action(s0,{type:'card',id:'e0'},withDefense?{defense:{depth:1}}:{});
+    };
+    const on=mk(true),off=mk(false);
+    expect(on.v10.lastCombat.runnerRate).toBe(off.v10.lastCombat.runnerRate);
+    expect(on.v10.lastCombat.runnerBonus).toBe(off.v10.lastCombat.runnerBonus);
+    expect(on.v10.lastCombat.totalDamageBonus).toBe(off.v10.lastCombat.totalDamageBonus);
+  });
+});
 describe('shot clock: same pitchId never double-applies',()=>{
   it('replaying the same resolution keeps damage identical',()=>{
     const s0=setHand(baseState(),['e1']); // slug

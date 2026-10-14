@@ -76,7 +76,7 @@ function HomerQa(){
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {defenseExperiment ? (
+    {layoutMode() === "frame" ? <PortraitFrame /> : defenseExperiment ? (
       <ErrorBoundary>
         <Suspense fallback={<main className="defense-loading">수비 실험 로딩 중…</main>}>
           <DefenseExperiment />
