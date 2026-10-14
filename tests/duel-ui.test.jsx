@@ -171,12 +171,16 @@ describe('9-zone strategic UI',()=>{
     expect(document.querySelector('.bp-cell.actual .bp-pitch-mark')).toBeTruthy();
   });
 
-  it('shows Red Rush art on the first selectable route',()=>{
-    saveV10Duel(localStorage,createV10Duel(1));
+  it('shows the first fight\'s own pitcher art on the first selectable route (Red Rush is tutorial-only)',()=>{
+    const s=createV10Duel(1);
+    const artId=s.runMap.nodes.find(n=>n.id==='a1-entry').opponent.artId;
+    expect(artId).not.toBe('regular-01-red-rush');
+    saveV10Duel(localStorage,s);
     render(<Duel/>);
     fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
-    expect(document.querySelector('.bp-node[data-node="a1-entry"] img.bp-fig').getAttribute('src')).toContain('red-rush');
-    expect(document.querySelector('.bp-mpor img').getAttribute('src')).toContain('red-rush');
+    const face=artId.replace(/^(regular|elite|boss)-\d+-/,'');
+    expect(document.querySelector('.bp-node[data-node="a1-entry"] img.bp-fig').getAttribute('src')).toContain(face);
+    expect(document.querySelector('.bp-mpor img').getAttribute('src')).toContain(face);
   });
 
   it('the main run (v10, ballpark only) does not preload the legacy tutorial actor frames',()=>{
@@ -199,7 +203,7 @@ describe('9-zone strategic UI',()=>{
     const figs=[...document.querySelectorAll('.bp-node img.bp-fig')];
     expect(figs.length).toBeGreaterThan(0);
     for(const img of figs)expect(img.getAttribute('src')).not.toMatch(/dex-/);
-    expect(document.querySelector('.bp-mpor img').getAttribute('src')).toMatch(/dex-red-rush/);
+    expect(document.querySelector('.bp-mpor img').getAttribute('src')).toMatch(/dex-/);
   });
 
   it('retains the V4 pitcher for a saved encounter without an art ID',()=>{

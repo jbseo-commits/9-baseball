@@ -10,6 +10,20 @@ import vulcanBlazeAtlas from '../../assets/pitcher-study-v5/atlases/vulcan-blaze
 import skyPhantomFigure from '../../assets/pitcher-study-v3/sky-phantom-figure.png';
 import galeTwisterFigure from '../../assets/pitcher-study-v4/gale-twister-figure.png';
 import vulcanBlazeFigure from '../../assets/pitcher-study-v5/vulcan-blaze-figure.png';
+/* 2026-10-14 roster: catcher-cam studies. Onyx/Emerald use the retimed, ball-free runtime atlas
+   (scripts/build-runtime-pitchers-1014.py); figures are trimmed frame-0 cutouts, portraits the master art. */
+import jadeViperAtlas from '../../assets/pitcher-study-jade-viper/atlases/jade-viper-pitch-120-atlas.png';
+import copperSiroccoAtlas from '../../assets/pitcher-study-copper-sirocco/v2/atlases/copper-sirocco-pitch-120-atlas.png';
+import onyxEclipseAtlas from '../../assets/pitcher-study-onyx-eclipse/runtime/onyx-eclipse-pitch-120-atlas.png';
+import emeraldTempestAtlas from '../../assets/pitcher-study-emerald-tempest/runtime/emerald-tempest-pitch-120-atlas.png';
+import jadeViperFigure from '../../assets/pitcher-study-jade-viper/runtime/jade-viper-figure.png';
+import copperSiroccoFigure from '../../assets/pitcher-study-copper-sirocco/runtime/copper-sirocco-figure.png';
+import onyxEclipseFigure from '../../assets/pitcher-study-onyx-eclipse/runtime/onyx-eclipse-figure.png';
+import emeraldTempestFigure from '../../assets/pitcher-study-emerald-tempest/runtime/emerald-tempest-figure.png';
+import jadeViperPortrait from '../../assets/pitcher-study-jade-viper/runtime/jade-viper-portrait.webp';
+import copperSiroccoPortrait from '../../assets/pitcher-study-copper-sirocco/runtime/copper-sirocco-portrait.webp';
+import onyxEclipsePortrait from '../../assets/pitcher-study-onyx-eclipse/runtime/onyx-eclipse-portrait.webp';
+import emeraldTempestPortrait from '../../assets/pitcher-study-emerald-tempest/runtime/emerald-tempest-portrait.webp';
 
 // V15 & V16 Masterpiece Dex portraits (verified via DEX_QA_V16.md)
 import dexRedRush from '../../assets/production-art/mockup-world-v15/dex-red-rush.png';
@@ -55,6 +69,10 @@ export const pitcherAtlases={
   'sky-phantom':skyPhantomAtlas,
   'gale-twister':galeTwisterAtlas,
   'vulcan-blaze':vulcanBlazeAtlas,
+  'jade-viper':jadeViperAtlas,
+  'copper-sirocco':copperSiroccoAtlas,
+  'onyx-eclipse':onyxEclipseAtlas,
+  'emerald-tempest':emeraldTempestAtlas,
 };
 
 /* transparent roster cutouts: for silhouettes and anything drawn over a scene (map nodes use brightness(0)) */
@@ -64,6 +82,10 @@ export const pitcherFigures={
   'sky-phantom':skyPhantomFigure,
   'gale-twister':galeTwisterFigure,
   'vulcan-blaze':vulcanBlazeFigure,
+  'jade-viper':jadeViperFigure,
+  'copper-sirocco':copperSiroccoFigure,
+  'onyx-eclipse':onyxEclipseFigure,
+  'emerald-tempest':emeraldTempestFigure,
 };
 
 /* opaque dex portraits: framed views only (map preview, reward, ending, portrait dialog) */
@@ -82,6 +104,10 @@ export const pitcherPortraits={
   'boss-01-emerald-tyrant':dexEmeraldTyrant,
   'boss-02-platinum-halo':dexPlatinumHalo,
   'boss-03-black-eclipse':dexBlackEclipse,
+  'jade-viper':jadeViperPortrait,
+  'copper-sirocco':copperSiroccoPortrait,
+  'onyx-eclipse':onyxEclipsePortrait,
+  'emerald-tempest':emeraldTempestPortrait,
 };
 
 export const RED_RUSH_V16_ANIMATIC = redRushAnimaticWebp;

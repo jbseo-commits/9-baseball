@@ -4,7 +4,7 @@ import {createRunMap} from '../src/duel/run-map.js';
 
 const root=new URL('../assets/pitcher-sd-v2/',import.meta.url);
 const roster=JSON.parse(fs.readFileSync(new URL('../assets/pitcher-mobs-v1/roster.json',import.meta.url),'utf8'));
-const remaining=roster.filter(entry=>entry.id!=='regular-01-red-rush'&&entry.id!=='tide-vesper'&&entry.id!=='sky-phantom'&&entry.id!=='gale-twister'&&entry.id!=='vulcan-blaze');
+const remaining=roster.filter(entry=>entry.id!=='regular-01-red-rush'&&entry.id!=='tide-vesper'&&entry.id!=='sky-phantom'&&entry.id!=='gale-twister'&&entry.id!=='vulcan-blaze'&&entry.id!=='jade-viper'&&entry.id!=='copper-sirocco'&&entry.id!=='onyx-eclipse'&&entry.id!=='emerald-tempest');
 const expectedFacingCorrections={
   'elite-01-cobalt-impact':['keys:0','keys:1','keys:2','keys:3','bridges:0','bridges:1','bridges:2','bridges:3'],
   'elite-02-neon-trick':['keys:0','keys:1','keys:2','bridges:0','bridges:1'],
@@ -22,11 +22,11 @@ describe('remaining pitcher SD roster',()=>{
   it('assigns authored pitcher art across map battles, elites and bosses',()=>{
     const map=createRunMap(7);
     const opponents=map.nodes.filter(node=>node.opponent);
-    expect(opponents[0].opponent.artId).toBe('regular-01-red-rush');
-    /* faces are shuffled per seed: across many runs every authored pitcher shows up */
+    expect(createRunMap(7,{tutorial:true}).nodes.find(node=>node.opponent).opponent.artId).toBe('regular-01-red-rush');
+    /* faces are shuffled per seed: across many runs every authored pitcher shows up; Red Rush only in the tutorial */
     const ids=new Set();
     for(let seed=1;seed<=40;seed++)for(const node of createRunMap(seed).nodes)if(node.opponent)ids.add(node.opponent.artId);
-    expect(ids).toEqual(new Set(roster.map(entry=>entry.id)));
+    expect(ids).toEqual(new Set(roster.map(entry=>entry.id).filter(id=>id!=='regular-01-red-rush')));
     for(const node of opponents){
       const entry=roster.find(pitcher=>pitcher.id===node.opponent.artId);
       expect(entry?.tier).toBe(node.type);

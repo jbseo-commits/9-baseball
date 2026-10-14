@@ -32,16 +32,23 @@ describe('generated run route',()=>{
       }
     }
   });
-  it('keeps the first fight a Red Rush intro but shuffles every other face',()=>{
-    const second=new Set(),bosses=new Set();
+  it('shuffles every face of a main run, Red Rush only opens the tutorial',()=>{
+    const first=new Set(),second=new Set(),bosses={1:new Set(),2:new Set(),3:new Set()};
     for(let seed=1;seed<=60;seed++){
       const fights=createRunMap(seed*31).nodes.filter(n=>n.opponent);
-      expect(fights[0].opponent.artId).toBe('regular-01-red-rush');
-      expect(fights.filter(n=>n.opponent.artId==='regular-01-red-rush')).toHaveLength(1);
+      expect(fights.filter(n=>n.opponent.artId==='regular-01-red-rush')).toHaveLength(0);
+      first.add(fights[0].opponent.artId);
       second.add(fights[1].opponent.artId);
-      bosses.add(fights.find(n=>n.act===1&&n.type==='boss').opponent.artId);
+      for(const act of [1,2,3])bosses[act].add(fights.find(n=>n.act===act&&n.type==='boss').opponent.artId);
+      const lesson=createRunMap(seed*31,{tutorial:true}).nodes.filter(n=>n.opponent);
+      expect(lesson[0].opponent.artId).toBe('regular-01-red-rush');
+      expect(lesson.filter(n=>n.opponent.artId==='regular-01-red-rush')).toHaveLength(1);
     }
+    expect(first.size).toBeGreaterThan(3);
     expect(second.size).toBeGreaterThan(3);
-    expect(bosses.size).toBe(1); // 막 보스는 막마다 한 명
+    // 막 보스: 1막은 한 명, 2·3막은 기존 보스와 새 보스 중 무작위
+    expect([...bosses[1]]).toEqual(['boss-01-emerald-tyrant']);
+    expect(bosses[2]).toEqual(new Set(['boss-02-platinum-halo','emerald-tempest']));
+    expect(bosses[3]).toEqual(new Set(['boss-03-black-eclipse','onyx-eclipse']));
   });
 });

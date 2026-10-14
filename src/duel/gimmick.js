@@ -19,6 +19,13 @@ export const GIMMICKS=Object.freeze({
   'vulcan-blaze':{id:'pressure',label:'압박 투구',
     summary:'1스트라이크부터 코스가 1개, 2스트라이크면 3개 더 열리고, 존 밖 공이 크게 줄어 기다리기가 어려워진다.',
     phases:{pressured:'압박: 준비는 타석당 1회로 줄어든다.'}},
+  /* 2026-10-14 합류: 기존 기믹을 그대로 쓴다. 제이드 바이퍼=속임수, 코퍼 시로코=볼 유인 */
+  'jade-viper':{id:'trick',label:'속임수 코스',
+    summary:'첫 공은 60% 확률로, 이후 공도 25% 확률로 예고된 코스 옆 칸으로 밀려 들어온다.',
+    phases:{pressured:'흔들기: 한 번에 겹칠 수 있는 카드가 3장으로 줄어든다.'}},
+  'copper-sirocco':{id:'bluff',label:'볼 유인',
+    summary:'존 밖 볼이 평소보다 35%p 늘어난다. 치지 않고 기다리는 선택이 값지다.',
+    phases:{pressured:'독기: 존 밖 볼이 45%p로 늘고, 준비는 타석당 1회로 줄어든다.'}},
   'boss-01-emerald-tyrant':{id:'tyrant',label:'낮은 벽',
     summary:'낮은 3코스 비중 +10%p.',
     phases:{pressured:'지배: 준비는 타석당 1회로 줄어든다.',critical:'낮은 3코스 비중이 +20%p로 커진다.'}},
@@ -26,6 +33,13 @@ export const GIMMICKS=Object.freeze({
     summary:'높은 공과 깊은 수비로 홈런 외 장타를 단타로 누른다.',
     phases:{pressured:'후광: 한 번에 겹칠 수 있는 카드가 3장으로 줄어든다.',critical:'존 밖 볼이 +10%p 늘어난다.'}},
   'boss-03-black-eclipse':{id:'eclipse',label:'반대 열 승부',
+    summary:'직전에 노린 열의 반대 열을 찌른다.',
+    phases:{pressured:'일식: 반대 열 쏠림이 더 강해진다.',critical:'준비는 타석당 1회로 줄어든다.'}},
+  /* 2026-10-14 합류 보스: 같은 막의 기존 보스 기믹을 쓰고, 그 막 보스 자리에서 무작위로 만난다 */
+  'emerald-tempest':{id:'halo',label:'후퇴 수비',
+    summary:'높은 공과 깊은 수비로 홈런 외 장타를 단타로 누른다.',
+    phases:{pressured:'후광: 한 번에 겹칠 수 있는 카드가 3장으로 줄어든다.',critical:'존 밖 볼이 +10%p 늘어난다.'}},
+  'onyx-eclipse':{id:'eclipse',label:'반대 열 승부',
     summary:'직전에 노린 열의 반대 열을 찌른다.',
     phases:{pressured:'일식: 반대 열 쏠림이 더 강해진다.',critical:'준비는 타석당 1회로 줄어든다.'}},
 });

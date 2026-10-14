@@ -25,7 +25,7 @@ export const WELCOME_CHAPTERS=[
       <>3아웃을 당하면 <b>런이 끝납니다</b>. 득점은 승패가 아니라 투수를 <b>흔드는</b> 데 쓰입니다.</>,
       <>승리해도 <b>아웃은 다음 상대로 이어집니다</b>. 보스 보상 포기로 <b>0으로 회복</b>할 수 있습니다.</>,
       <>3막 지도를 지나 마지막 보스까지 끌어내리면 완주.</>],
-    art:()=><div className="wg-goal"><div className="wg-hp"><span>레드 러시</span><i><b/></i><small>HP 0 / 60 · 강판</small></div><div className="wg-outs"><span>O</span><i className="on"/><i className="on"/><i/><small>3아웃 전에!</small></div></div>},
+    art:()=><div className="wg-goal"><div className="wg-hp"><span>상대 투수</span><i><b/></i><small>HP 0 / 60 · 강판</small></div><div className="wg-outs"><span>O</span><i className="on"/><i className="on"/><i/><small>3아웃 전에!</small></div></div>},
   {key:'flow',eyebrow:'한 공의 흐름',title:'읽고, 놓고, 친다',
     body:[<><b>① 읽기</b> — 투수 속마음 한 줄과 9존을 봅니다. 처음엔 자주·가끔·드묾 낱말로 보입니다.</>,<><b>② 놓기</b> — 카드를 고르고 노릴 칸을 누릅니다.</>,<><b>③ 결정</b> — <b>휘두른다</b> 또는 <b>지켜본다</b>. 공은 이미 정해져 있고, 숫자는 읽은 만큼만 보입니다.</>],
     art:()=><ol className="wg-steps"><li><i>👁</i>읽기</li><li><i>🂠</i>놓기</li><li><i>⚾</i>결정</li><li><i>★</i>결과</li></ol>},
