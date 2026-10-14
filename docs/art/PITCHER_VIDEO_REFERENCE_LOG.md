@@ -98,3 +98,29 @@
 - 과거 실제 게임 세로 캡처로 정한 포수 뒤 카메라와 166px 표시 크기를 재사용했다. 신규 런타임 배치 검증은 아니다.
 - 파일: [후보와 한계](../../assets/pitcher-study-jade-viper/README.md), [manifest](../../assets/pitcher-study-jade-viper/jade-viper-manifest.json), [빌더](../../scripts/build-jade-viper.py).
 - 실제 별도 그림 30개(기존 승인 12 + 새 18), 120셀·60fps·2초, 0부터 센 릴리스 76. 90셀은 유지용 반복이다. 소스 해시·포장·독립 재생 스크립트 검사와 시각 검수 결과를 분리했다. 새 그림과 타이밍은 검수 후보이며 게임 미연결이다.
+
+# PITCHER_VIDEO_REFERENCE_LOG 추가 엔트리 — 오닉스 이클립스 (Onyx Eclipse, LHP)
+
+- **캐릭터 ID**: `onyx-eclipse` (`오닉스 이클립스`, 26세 성인 여성, 좌투 LHP 스리쿼터 슬링샷)
+- **검수 일시**: `2026-10-14T16:15:00+09:00`
+- **승인 상태**: 원화·5포즈 카메라 검수 게이트·12포즈 좌투(LHP) 정규화 완료
+
+## 채택 레퍼런스 클립 (정규화 ID 기준 중복 없음)
+
+1. **`youtube:FG1eOrZSvdI`** — `https://www.youtube.com/watch?v=FG1eOrZSvdI`
+   - **시점**: 마운드 정면/측면 480fps 초고속 슬로모션 (LHP 미러링 적용)
+   - **타임스탬프별 키포즈 관찰**:
+     - `00:00~00:05`: Set Stance (`01_set_stance`, F001~012)
+     - `00:07~00:10`: Peak Leg-Lift (`03_peak_leg_lift`, F023~034)
+     - `00:15~00:17`: Foot-Plant & Hip-Shoulder Separation (`06_foot_plant`, F055~064)
+     - `00:19~00:21`: Three-Quarter Slingshot Release (`09_release_point`, F082~088)
+     - `00:24~00:31`: Follow-Through & Pivot Leg High Kick (`11_follow_through` ~ `12_fielding_recovery`, F098~120)
+2. **`youtube:RBmIpt3kEwQ`** — `https://www.youtube.com/watch?v=RBmIpt3kEwQ`
+   - **시점**: 2026 WBC 심판캠(Umpire Cam) 정면 시점
+   - **타임스탬프 구간**: `00:02:10~00:02:35` (좌투수 Tarik Skubal 98mph 패스트볼 릴리스 슬롯 및 상체 익스텐션), `00:07:45~00:08:05` (브레이킹볼 횡회전 레그 드라이브)
+3. **`youtube:9cLYh0iO9sg`** — `https://www.youtube.com/watch?v=9cLYh0iO9sg`
+   - **시점**: 2025 MLB 포스트시즌 심판캠(Umpire Cam)
+   - **타임스탬프 구간**: `00:01:12~00:01:25` (세트 포지션 핸즈 밀착 그립 은폐), `00:06:25~00:06:42` (낮은 릴리스 라인 터널링)
+4. **`youtube:brUU7Dxo7ts`** — `https://www.youtube.com/watch?v=brUU7Dxo7ts`
+   - **시점**: 2024 MLB 포스트시즌 심판캠(Umpire Cam)
+   - **타임스탬프 구간**: `00:00:07~00:00:40` (98mph 스위퍼 수평 무브먼트 및 앞다리 브레이킹)
