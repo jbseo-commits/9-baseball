@@ -1,0 +1,7629 @@
+{
+  "character_id": "onyx-eclipse",
+  "name_ko": "오닉스 이클립스",
+  "name_en": "Onyx Eclipse",
+  "age": 26,
+  "throws": "LHP",
+  "glove_hand": "RHP",
+  "pitch_style": "Left-Handed Three-Quarter Slingshot (좌투 3/4 슬링샷 스위퍼 & 하이 패스트볼)",
+  "camera_mode": "umpire_catcher_cam_v12",
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "mound_anchor": {
+      "x": 195,
+      "y": 430
+    }
+  },
+  "atlas_spec": {
+    "cell_width": 256,
+    "cell_height": 256,
+    "columns": 10,
+    "rows": 12,
+    "atlas_width": 2560,
+    "atlas_height": 3072,
+    "total_frames": 120,
+    "fps": 60,
+    "duration_sec": 2.0
+  },
+  "palette": {
+    "onyx_black": "#14141B",
+    "royal_violet": "#5B2C83",
+    "neon_amethyst": "#9D4EDD",
+    "imperial_gold": "#E6B84D",
+    "platinum_silver": "#E9ECF5",
+    "amber_eye": "#FFB703"
+  },
+  "parts": [
+    {
+      "id": "ponytail_hair_back",
+      "z_base": 10,
+      "parent": "head_cap",
+      "pivot": [
+        128,
+        62
+      ],
+      "socket_offset": [
+        -4,
+        -12
+      ],
+      "seam_overlap_px": 8,
+      "desc": "은백색+로열 바이올렛 시크릿 투톤 하이 포니테일 (좌투 원심력 궤적 파츠)"
+    },
+    {
+      "id": "pivot_thigh_L",
+      "z_base": 20,
+      "parent": "pelvis_pants",
+      "pivot": [
+        140,
+        148
+      ],
+      "socket_offset": [
+        12,
+        6
+      ],
+      "seam_overlap_px": 10,
+      "desc": "좌측 축발(LHP Pivot Leg, 화면 우측) 허벅지 파츠"
+    },
+    {
+      "id": "pivot_shin_L",
+      "z_base": 22,
+      "parent": "pivot_thigh_L",
+      "pivot": [
+        142,
+        184
+      ],
+      "socket_offset": [
+        2,
+        36
+      ],
+      "seam_overlap_px": 8,
+      "desc": "좌측 축발 종아리 및 오닉스 하이삭스"
+    },
+    {
+      "id": "pivot_cleat_L",
+      "z_base": 24,
+      "parent": "pivot_shin_L",
+      "pivot": [
+        144,
+        218
+      ],
+      "socket_offset": [
+        2,
+        34
+      ],
+      "seam_overlap_px": 6,
+      "desc": "좌측 축발 골드 스파이크 클리츠 (투구판 고정 앵커: x=144, y=218)"
+    },
+    {
+      "id": "pelvis_pants",
+      "z_base": 30,
+      "parent": "root_mound",
+      "pivot": [
+        128,
+        142
+      ],
+      "socket_offset": [
+        0,
+        -76
+      ],
+      "seam_overlap_px": 10,
+      "desc": "하이웨이스트 카본 블랙 팬츠 & 골드 벨트 골반 코어"
+    },
+    {
+      "id": "torso_jersey",
+      "z_base": 40,
+      "parent": "pelvis_pants",
+      "pivot": [
+        128,
+        118
+      ],
+      "socket_offset": [
+        0,
+        -24
+      ],
+      "seam_overlap_px": 10,
+      "desc": "오닉스 블랙 & 골드 일식(Eclipse) 엠블럼 크롭 저지 상체"
+    },
+    {
+      "id": "pitch_upper_arm_L",
+      "z_base": 35,
+      "parent": "torso_jersey",
+      "pivot": [
+        152,
+        92
+      ],
+      "socket_offset": [
+        24,
+        -26
+      ],
+      "seam_overlap_px": 9,
+      "desc": "좌측 투구 팔 상완 (화면 우측, 로열 바이올렛 슬리브, 릴리스 시 z=75)"
+    },
+    {
+      "id": "pitch_forearm_L",
+      "z_base": 36,
+      "parent": "pitch_upper_arm_L",
+      "pivot": [
+        168,
+        112
+      ],
+      "socket_offset": [
+        16,
+        20
+      ],
+      "seam_overlap_px": 8,
+      "desc": "좌측 투구 팔 전완 (로열 바이올렛 컴프레션 슬리브, 릴리스 시 z=76)"
+    },
+    {
+      "id": "pitch_hand_ball_L",
+      "z_base": 37,
+      "parent": "pitch_forearm_L",
+      "pivot": [
+        180,
+        126
+      ],
+      "socket_offset": [
+        12,
+        14
+      ],
+      "seam_overlap_px": 7,
+      "desc": "좌측 투구 손 & 공 (LHP 좌투 일관성 100% 고정, 릴리스 시 z=78)"
+    },
+    {
+      "id": "lead_thigh_R",
+      "z_base": 50,
+      "parent": "pelvis_pants",
+      "pivot": [
+        116,
+        148
+      ],
+      "socket_offset": [
+        -12,
+        6
+      ],
+      "seam_overlap_px": 10,
+      "desc": "우측 디딤발(LHP Lead Leg, 화면 좌측) 허벅지 (하이 레그리프트 및 전방 착지)"
+    },
+    {
+      "id": "lead_shin_R",
+      "z_base": 52,
+      "parent": "lead_thigh_R",
+      "pivot": [
+        112,
+        184
+      ],
+      "socket_offset": [
+        -4,
+        36
+      ],
+      "seam_overlap_px": 8,
+      "desc": "우측 디딤발 종아리 및 오닉스 하이삭스"
+    },
+    {
+      "id": "lead_cleat_R",
+      "z_base": 54,
+      "parent": "lead_shin_R",
+      "pivot": [
+        110,
+        218
+      ],
+      "socket_offset": [
+        -2,
+        34
+      ],
+      "seam_overlap_px": 6,
+      "desc": "우측 디딤발 골드 클리츠 (Foot-Plant 이후 전방 브레이킹 고정)"
+    },
+    {
+      "id": "head_cap",
+      "z_base": 60,
+      "parent": "torso_jersey",
+      "pivot": [
+        128,
+        74
+      ],
+      "socket_offset": [
+        0,
+        -44
+      ],
+      "seam_overlap_px": 8,
+      "desc": "얼굴(금빛 눈매) & 오닉스 블랙 일식 엠블럼 투수 캡"
+    },
+    {
+      "id": "glove_upper_arm_R",
+      "z_base": 65,
+      "parent": "torso_jersey",
+      "pivot": [
+        106,
+        92
+      ],
+      "socket_offset": [
+        -22,
+        -26
+      ],
+      "seam_overlap_px": 9,
+      "desc": "우측 글러브 팔 상완 (화면 좌측, 탄탄한 맨팔 + 블랙·골드 리스트밴드)"
+    },
+    {
+      "id": "glove_forearm_R",
+      "z_base": 68,
+      "parent": "glove_upper_arm_R",
+      "pivot": [
+        94,
+        112
+      ],
+      "socket_offset": [
+        -12,
+        20
+      ],
+      "seam_overlap_px": 8,
+      "desc": "우측 글러브 팔 전완 (가이드 암 리드 -> 우측 옆구리 당김 고정)"
+    },
+    {
+      "id": "glove_mit_R",
+      "z_base": 70,
+      "parent": "glove_forearm_R",
+      "pivot": [
+        102,
+        118
+      ],
+      "socket_offset": [
+        8,
+        6
+      ],
+      "seam_overlap_px": 7,
+      "desc": "우측 블랙 & 골드 웹 피처 글러브 (화면 좌측 고정, 손 바뀜 원천 차단)"
+    }
+  ],
+  "key_poses_12": [
+    {
+      "pose_index": 1,
+      "pose_id": "01_set_stance",
+      "gate_5pose": "set",
+      "frame_start": 1,
+      "frame_end": 12,
+      "key_frame": 1,
+      "ref_clip": "FG1eOrZSvdI (00:00~00:05 LHP 미러 변환) / RBmIpt3kEwQ (00:02:10~00:02:26 좌투 Tarik Skubal)",
+      "mound_pivot_x": 144.0,
+      "mound_pivot_y": 218.0,
+      "pelvis_offset": [
+        0.0,
+        0.0
+      ],
+      "torso_tilt_deg": 0.0,
+      "shoulder_rot_deg": 8.0,
+      "hip_rot_deg": 6.0,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.0,
+      "pitch_shoulder_deg": 156.0,
+      "pitch_elbow_deg": 65.0,
+      "pitch_wrist_deg": 10.0,
+      "glove_shoulder_deg": -152.0,
+      "glove_elbow_deg": -72.0,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "notes": "세트 포지션(LHP): 가슴 앞 우손 글러브(화면 좌측) 안에 바이올렛 슬리브 좌투 손을 숨기고 포수 미트 응시"
+    },
+    {
+      "pose_index": 2,
+      "pose_id": "02_hands_gather_rock",
+      "gate_5pose": null,
+      "frame_start": 13,
+      "frame_end": 22,
+      "key_frame": 18,
+      "ref_clip": "FG1eOrZSvdI (00:05~00:07 LHP 미러 변환)",
+      "mound_pivot_x": 144.0,
+      "mound_pivot_y": 218.0,
+      "pelvis_offset": [
+        2.0,
+        -1.0
+      ],
+      "torso_tilt_deg": 3.0,
+      "shoulder_rot_deg": 18.0,
+      "hip_rot_deg": 14.0,
+      "lead_knee_lift": 0.32,
+      "stride_depth": 0.05,
+      "pitch_shoulder_deg": 148.0,
+      "pitch_elbow_deg": 78.0,
+      "pitch_wrist_deg": 15.0,
+      "glove_shoulder_deg": -145.0,
+      "glove_elbow_deg": -82.0,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "notes": "와인드업 초기(LHP): 좌측 축발(화면 우측, x=144)에 체중을 실으며 우측 무릎(화면 좌측) 상승 시작"
+    },
+    {
+      "pose_index": 3,
+      "pose_id": "03_peak_leg_lift",
+      "gate_5pose": "leg-lift",
+      "frame_start": 23,
+      "frame_end": 34,
+      "key_frame": 28,
+      "ref_clip": "FG1eOrZSvdI (00:07~00:10 LHP 미러 변환) / RBmIpt3kEwQ (00:02:18 좌투 Skubal)",
+      "mound_pivot_x": 144.0,
+      "mound_pivot_y": 218.0,
+      "pelvis_offset": [
+        4.0,
+        -3.0
+      ],
+      "torso_tilt_deg": 7.0,
+      "shoulder_rot_deg": 34.0,
+      "hip_rot_deg": 28.0,
+      "lead_knee_lift": 0.95,
+      "stride_depth": 0.12,
+      "pitch_shoulder_deg": 140.0,
+      "pitch_elbow_deg": 85.0,
+      "pitch_wrist_deg": 20.0,
+      "glove_shoulder_deg": -138.0,
+      "glove_elbow_deg": -88.0,
+      "head_scale": 1.0,
+      "torso_scale": 1.01,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "notes": "5포즈 검수 게이트 [leg-lift]: 우측 무릎(화면 좌측) 하이 니킥 정점 및 좌측 축발 지지 코일링 극대화"
+    },
+    {
+      "pose_index": 4,
+      "pose_id": "04_hand_break_drop",
+      "gate_5pose": null,
+      "frame_start": 35,
+      "frame_end": 44,
+      "key_frame": 40,
+      "ref_clip": "FG1eOrZSvdI (00:10~00:13 LHP 미러 변환)",
+      "mound_pivot_x": 144.0,
+      "mound_pivot_y": 218.0,
+      "pelvis_offset": [
+        2.0,
+        4.0
+      ],
+      "torso_tilt_deg": 4.0,
+      "shoulder_rot_deg": 38.0,
+      "hip_rot_deg": 22.0,
+      "lead_knee_lift": 0.68,
+      "stride_depth": 0.35,
+      "pitch_shoulder_deg": 35.0,
+      "pitch_elbow_deg": 25.0,
+      "pitch_wrist_deg": -12.0,
+      "glove_shoulder_deg": -128.0,
+      "glove_elbow_deg": -48.0,
+      "head_scale": 1.01,
+      "torso_scale": 1.02,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "notes": "핸드 브레이크(LHP): 바이올렛 슬리브 좌투 손이 화면 우측 하단으로 테이크백, 우손 글러브는 화면 좌측 리드"
+    },
+    {
+      "pose_index": 5,
+      "pose_id": "05_stride_extension",
+      "gate_5pose": null,
+      "frame_start": 45,
+      "frame_end": 54,
+      "key_frame": 50,
+      "ref_clip": "FG1eOrZSvdI (00:13~00:15) / RBmIpt3kEwQ (00:07:45~00:07:58)",
+      "mound_pivot_x": 144.0,
+      "mound_pivot_y": 218.0,
+      "pelvis_offset": [
+        -2.0,
+        9.0
+      ],
+      "torso_tilt_deg": -2.0,
+      "shoulder_rot_deg": 42.0,
+      "hip_rot_deg": 8.0,
+      "lead_knee_lift": 0.3,
+      "stride_depth": 0.72,
+      "pitch_shoulder_deg": -12.0,
+      "pitch_elbow_deg": 18.0,
+      "pitch_wrist_deg": -28.0,
+      "glove_shoulder_deg": -146.0,
+      "glove_elbow_deg": -28.0,
+      "head_scale": 1.02,
+      "torso_scale": 1.03,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "notes": "포수 방향 스트라이드 확장(LHP): 우측 디딤발이 포수 쪽으로 전진하며 골반 선행 개방"
+    },
+    {
+      "pose_index": 6,
+      "pose_id": "06_foot_plant",
+      "gate_5pose": "foot-plant",
+      "frame_start": 55,
+      "frame_end": 64,
+      "key_frame": 60,
+      "ref_clip": "FG1eOrZSvdI (00:15~00:17) / brUU7Dxo7ts (00:00:30~00:00:38)",
+      "mound_pivot_x": 144.0,
+      "mound_pivot_y": 218.0,
+      "pelvis_offset": [
+        -5.0,
+        12.0
+      ],
+      "torso_tilt_deg": -6.0,
+      "shoulder_rot_deg": 30.0,
+      "hip_rot_deg": -18.0,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -42.0,
+      "pitch_elbow_deg": -38.0,
+      "pitch_wrist_deg": -35.0,
+      "glove_shoulder_deg": -152.0,
+      "glove_elbow_deg": -42.0,
+      "head_scale": 1.03,
+      "torso_scale": 1.04,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "notes": "5포즈 검수 게이트 [foot-plant]: 우측 디딤발 착지 완료, 화면 우측 상단으로 좌투 팔 코킹, 좌측으로 글러브 확장"
+    },
+    {
+      "pose_index": 7,
+      "pose_id": "07_late_cocking_mer",
+      "gate_5pose": null,
+      "frame_start": 65,
+      "frame_end": 74,
+      "key_frame": 70,
+      "ref_clip": "FG1eOrZSvdI (00:17~00:19) / RBmIpt3kEwQ (00:02:26 좌투 Skubal)",
+      "mound_pivot_x": 144.0,
+      "mound_pivot_y": 218.0,
+      "pelvis_offset": [
+        -7.0,
+        13.0
+      ],
+      "torso_tilt_deg": -12.0,
+      "shoulder_rot_deg": -8.0,
+      "hip_rot_deg": -36.0,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -56.0,
+      "pitch_elbow_deg": -62.0,
+      "pitch_wrist_deg": -52.0,
+      "glove_shoulder_deg": -158.0,
+      "glove_elbow_deg": -88.0,
+      "head_scale": 1.04,
+      "torso_scale": 1.05,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "notes": "레이트 코킹(LHP MER): 좌측 어깨 최대 외회전, 우손 글러브를 우측 가슴/옆구리로 강하게 당겨 회전축 고정"
+    },
+    {
+      "pose_index": 8,
+      "pose_id": "08_whip_acceleration",
+      "gate_5pose": null,
+      "frame_start": 75,
+      "frame_end": 81,
+      "key_frame": 78,
+      "ref_clip": "FG1eOrZSvdI (00:19~00:20) / 9cLYh0iO9sg (00:06:25~00:06:38)",
+      "mound_pivot_x": 144.0,
+      "mound_pivot_y": 218.0,
+      "pelvis_offset": [
+        -8.0,
+        14.0
+      ],
+      "torso_tilt_deg": -16.0,
+      "shoulder_rot_deg": -28.0,
+      "hip_rot_deg": -42.0,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -24.0,
+      "pitch_elbow_deg": -22.0,
+      "pitch_wrist_deg": -24.0,
+      "glove_shoulder_deg": -168.0,
+      "glove_elbow_deg": -96.0,
+      "head_scale": 1.05,
+      "torso_scale": 1.06,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "notes": "채찍 가속 구간(LHP): 바이올렛 슬리브 좌측 팔꿈치가 포수 정면으로 먼저 나오며 3/4 슬링샷 슬롯 가속"
+    },
+    {
+      "pose_index": 9,
+      "pose_id": "09_release_point",
+      "gate_5pose": "release",
+      "frame_start": 82,
+      "frame_end": 88,
+      "key_frame": 85,
+      "ref_clip": "FG1eOrZSvdI (00:20~00:21) / RBmIpt3kEwQ (00:02:26~00:02:35 좌투 98mph 릴리스)",
+      "mound_pivot_x": 144.0,
+      "mound_pivot_y": 218.0,
+      "pelvis_offset": [
+        -9.0,
+        14.0
+      ],
+      "torso_tilt_deg": -21.0,
+      "shoulder_rot_deg": -40.0,
+      "hip_rot_deg": -45.0,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 18.0,
+      "pitch_elbow_deg": 8.0,
+      "pitch_wrist_deg": 18.0,
+      "glove_shoulder_deg": -172.0,
+      "glove_elbow_deg": -102.0,
+      "head_scale": 1.06,
+      "torso_scale": 1.07,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "notes": "5포즈 검수 게이트 [release]: 좌투 익스트림 스리쿼터 릴리스 포인트(화면 우측에서 좌측으로 채찍 스냅)"
+    },
+    {
+      "pose_index": 10,
+      "pose_id": "10_pronation_extension",
+      "gate_5pose": null,
+      "frame_start": 89,
+      "frame_end": 97,
+      "key_frame": 93,
+      "ref_clip": "FG1eOrZSvdI (00:21~00:24 LHP 미러 변환)",
+      "mound_pivot_x": 144.0,
+      "mound_pivot_y": 218.0,
+      "pelvis_offset": [
+        -9.0,
+        15.0
+      ],
+      "torso_tilt_deg": -26.0,
+      "shoulder_rot_deg": -48.0,
+      "hip_rot_deg": -46.0,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 62.0,
+      "pitch_elbow_deg": 24.0,
+      "pitch_wrist_deg": 42.0,
+      "glove_shoulder_deg": -175.0,
+      "glove_elbow_deg": -105.0,
+      "head_scale": 1.06,
+      "torso_scale": 1.07,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "notes": "릴리스 직후 좌완 내회전(Pronation) 및 포수 방향 익스텐션 극대화"
+    },
+    {
+      "pose_index": 11,
+      "pose_id": "11_follow_through",
+      "gate_5pose": "follow-through",
+      "frame_start": 98,
+      "frame_end": 108,
+      "key_frame": 103,
+      "ref_clip": "FG1eOrZSvdI (00:24~00:28) / brUU7Dxo7ts (00:00:07~00:00:15)",
+      "mound_pivot_x": 144.0,
+      "mound_pivot_y": 218.0,
+      "pelvis_offset": [
+        -8.0,
+        14.0
+      ],
+      "torso_tilt_deg": -28.0,
+      "shoulder_rot_deg": -52.0,
+      "hip_rot_deg": -48.0,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 118.0,
+      "pitch_elbow_deg": 38.0,
+      "pitch_wrist_deg": 35.0,
+      "glove_shoulder_deg": -170.0,
+      "glove_elbow_deg": -98.0,
+      "head_scale": 1.05,
+      "torso_scale": 1.06,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "notes": "5포즈 검수 게이트 [follow-through]: 바이올렛 슬리브 좌투 팔이 몸통을 가로질러 감속, 좌측 뒷다리 하이킥 상승"
+    },
+    {
+      "pose_index": 12,
+      "pose_id": "12_fielding_recovery",
+      "gate_5pose": null,
+      "frame_start": 109,
+      "frame_end": 120,
+      "key_frame": 120,
+      "ref_clip": "FG1eOrZSvdI (00:28~00:31 LHP 미러 변환)",
+      "mound_pivot_x": 144.0,
+      "mound_pivot_y": 218.0,
+      "pelvis_offset": [
+        -4.0,
+        8.0
+      ],
+      "torso_tilt_deg": -10.0,
+      "shoulder_rot_deg": -14.0,
+      "hip_rot_deg": -16.0,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.85,
+      "pitch_shoulder_deg": 142.0,
+      "pitch_elbow_deg": 52.0,
+      "pitch_wrist_deg": 12.0,
+      "glove_shoulder_deg": -156.0,
+      "glove_elbow_deg": -76.0,
+      "head_scale": 1.02,
+      "torso_scale": 1.02,
+      "pitch_arm_front_layer": false,
+      "ball_released": true,
+      "notes": "수비 리커버리 자세(LHP): 좌측 뒷발이 착지하며 정면 타구 대비 수비 밸런스 회복"
+    }
+  ],
+  "timeline_120": [
+    {
+      "frame": 1,
+      "atlas_col": 0,
+      "atlas_row": 0,
+      "pose_id": "01_set_stance",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        128.0,
+        142.0
+      ],
+      "torso_pos": [
+        128.0,
+        118.0
+      ],
+      "l_shoulder_pos": [
+        151.916,
+        95.443
+      ],
+      "l_elbow_pos": [
+        129.991,
+        105.205
+      ],
+      "l_wrist_pos": [
+        113.387,
+        90.772
+      ],
+      "r_shoulder_pos": [
+        106.077,
+        96.557
+      ],
+      "r_elbow_pos": [
+        86.652,
+        86.228
+      ],
+      "r_wrist_pos": [
+        72.266,
+        100.121
+      ],
+      "torso_tilt_deg": 0.0,
+      "shoulder_rot_deg": 8.0,
+      "hip_rot_deg": 6.0,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.0,
+      "pitch_shoulder_deg": 156.0,
+      "pitch_elbow_deg": 65.0,
+      "pitch_wrist_deg": 10.0,
+      "glove_shoulder_deg": -152.0,
+      "glove_elbow_deg": -72.0,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 2,
+      "atlas_col": 1,
+      "atlas_row": 0,
+      "pose_id": "01_set_stance",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        128.02,
+        141.99
+      ],
+      "torso_pos": [
+        128.032,
+        117.99
+      ],
+      "l_shoulder_pos": [
+        151.946,
+        95.426
+      ],
+      "l_elbow_pos": [
+        130.035,
+        105.219
+      ],
+      "l_wrist_pos": [
+        113.444,
+        90.771
+      ],
+      "r_shoulder_pos": [
+        106.112,
+        96.554
+      ],
+      "r_elbow_pos": [
+        86.699,
+        86.202
+      ],
+      "r_wrist_pos": [
+        72.32,
+        100.102
+      ],
+      "torso_tilt_deg": 0.0299,
+      "shoulder_rot_deg": 8.0997,
+      "hip_rot_deg": 6.0798,
+      "lead_knee_lift": 0.0032,
+      "stride_depth": 0.0005,
+      "pitch_shoulder_deg": 155.9202,
+      "pitch_elbow_deg": 65.1297,
+      "pitch_wrist_deg": 10.0499,
+      "glove_shoulder_deg": -151.9302,
+      "glove_elbow_deg": -72.0997,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 3,
+      "atlas_col": 2,
+      "atlas_row": 0,
+      "pose_id": "01_set_stance",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        128.077,
+        141.962
+      ],
+      "torso_pos": [
+        128.125,
+        117.962
+      ],
+      "l_shoulder_pos": [
+        152.032,
+        95.379
+      ],
+      "l_elbow_pos": [
+        130.16,
+        105.257
+      ],
+      "l_wrist_pos": [
+        113.604,
+        90.769
+      ],
+      "r_shoulder_pos": [
+        106.209,
+        96.545
+      ],
+      "r_elbow_pos": [
+        86.833,
+        86.126
+      ],
+      "r_wrist_pos": [
+        72.474,
+        100.048
+      ],
+      "torso_tilt_deg": 0.1148,
+      "shoulder_rot_deg": 8.3827,
+      "hip_rot_deg": 6.3061,
+      "lead_knee_lift": 0.0122,
+      "stride_depth": 0.0019,
+      "pitch_shoulder_deg": 155.6939,
+      "pitch_elbow_deg": 65.4975,
+      "pitch_wrist_deg": 10.1913,
+      "glove_shoulder_deg": -151.7321,
+      "glove_elbow_deg": -72.3827,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 4,
+      "atlas_col": 3,
+      "atlas_row": 0,
+      "pose_id": "01_set_stance",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        128.165,
+        141.918
+      ],
+      "torso_pos": [
+        128.268,
+        117.918
+      ],
+      "l_shoulder_pos": [
+        152.166,
+        95.304
+      ],
+      "l_elbow_pos": [
+        130.355,
+        105.318
+      ],
+      "l_wrist_pos": [
+        113.855,
+        90.765
+      ],
+      "r_shoulder_pos": [
+        106.362,
+        96.531
+      ],
+      "r_elbow_pos": [
+        87.043,
+        86.008
+      ],
+      "r_wrist_pos": [
+        72.716,
+        99.963
+      ],
+      "torso_tilt_deg": 0.2473,
+      "shoulder_rot_deg": 8.8243,
+      "hip_rot_deg": 6.6595,
+      "lead_knee_lift": 0.0264,
+      "stride_depth": 0.0041,
+      "pitch_shoulder_deg": 155.3405,
+      "pitch_elbow_deg": 66.0716,
+      "pitch_wrist_deg": 10.4122,
+      "glove_shoulder_deg": -151.423,
+      "glove_elbow_deg": -72.8243,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 5,
+      "atlas_col": 4,
+      "atlas_row": 0,
+      "pose_id": "01_set_stance",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        128.28,
+        141.86
+      ],
+      "torso_pos": [
+        128.456,
+        117.861
+      ],
+      "l_shoulder_pos": [
+        152.34,
+        95.207
+      ],
+      "l_elbow_pos": [
+        130.61,
+        105.396
+      ],
+      "l_wrist_pos": [
+        114.184,
+        90.761
+      ],
+      "r_shoulder_pos": [
+        106.563,
+        96.514
+      ],
+      "r_elbow_pos": [
+        87.317,
+        85.855
+      ],
+      "r_wrist_pos": [
+        73.033,
+        99.853
+      ],
+      "torso_tilt_deg": 0.4201,
+      "shoulder_rot_deg": 9.4004,
+      "hip_rot_deg": 7.1203,
+      "lead_knee_lift": 0.0448,
+      "stride_depth": 0.007,
+      "pitch_shoulder_deg": 154.8797,
+      "pitch_elbow_deg": 66.8205,
+      "pitch_wrist_deg": 10.7002,
+      "glove_shoulder_deg": -151.0197,
+      "glove_elbow_deg": -73.4004,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 6,
+      "atlas_col": 5,
+      "atlas_row": 0,
+      "pose_id": "01_set_stance",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        128.417,
+        141.791
+      ],
+      "torso_pos": [
+        128.679,
+        117.793
+      ],
+      "l_shoulder_pos": [
+        152.546,
+        95.092
+      ],
+      "l_elbow_pos": [
+        130.914,
+        105.488
+      ],
+      "l_wrist_pos": [
+        114.576,
+        90.755
+      ],
+      "r_shoulder_pos": [
+        106.802,
+        96.493
+      ],
+      "r_elbow_pos": [
+        87.647,
+        85.673
+      ],
+      "r_wrist_pos": [
+        73.413,
+        99.723
+      ],
+      "torso_tilt_deg": 0.6259,
+      "shoulder_rot_deg": 10.0863,
+      "hip_rot_deg": 7.669,
+      "lead_knee_lift": 0.0668,
+      "stride_depth": 0.0104,
+      "pitch_shoulder_deg": 154.331,
+      "pitch_elbow_deg": 67.7122,
+      "pitch_wrist_deg": 11.0432,
+      "glove_shoulder_deg": -150.5396,
+      "glove_elbow_deg": -74.0863,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 7,
+      "atlas_col": 6,
+      "atlas_row": 0,
+      "pose_id": "01_set_stance",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        128.571,
+        141.714
+      ],
+      "torso_pos": [
+        128.931,
+        117.717
+      ],
+      "l_shoulder_pos": [
+        152.776,
+        94.963
+      ],
+      "l_elbow_pos": [
+        131.257,
+        105.592
+      ],
+      "l_wrist_pos": [
+        115.019,
+        90.749
+      ],
+      "r_shoulder_pos": [
+        107.073,
+        96.47
+      ],
+      "r_elbow_pos": [
+        88.02,
+        85.47
+      ],
+      "r_wrist_pos": [
+        73.843,
+        99.577
+      ],
+      "torso_tilt_deg": 0.8573,
+      "shoulder_rot_deg": 10.8577,
+      "hip_rot_deg": 8.2862,
+      "lead_knee_lift": 0.0914,
+      "stride_depth": 0.0143,
+      "pitch_shoulder_deg": 153.7138,
+      "pitch_elbow_deg": 68.715,
+      "pitch_wrist_deg": 11.4289,
+      "glove_shoulder_deg": -149.9996,
+      "glove_elbow_deg": -74.8577,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 8,
+      "atlas_col": 7,
+      "atlas_row": 0,
+      "pose_id": "01_set_stance",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        128.738,
+        141.631
+      ],
+      "torso_pos": [
+        129.202,
+        117.635
+      ],
+      "l_shoulder_pos": [
+        153.022,
+        94.825
+      ],
+      "l_elbow_pos": [
+        131.629,
+        105.703
+      ],
+      "l_wrist_pos": [
+        115.499,
+        90.743
+      ],
+      "r_shoulder_pos": [
+        107.366,
+        96.446
+      ],
+      "r_elbow_pos": [
+        88.427,
+        85.253
+      ],
+      "r_wrist_pos": [
+        74.311,
+        99.421
+      ],
+      "torso_tilt_deg": 1.1071,
+      "shoulder_rot_deg": 11.6902,
+      "hip_rot_deg": 8.9522,
+      "lead_knee_lift": 0.1181,
+      "stride_depth": 0.0185,
+      "pitch_shoulder_deg": 153.0478,
+      "pitch_elbow_deg": 69.7973,
+      "pitch_wrist_deg": 11.8451,
+      "glove_shoulder_deg": -149.4169,
+      "glove_elbow_deg": -75.6902,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 9,
+      "atlas_col": 8,
+      "atlas_row": 0,
+      "pose_id": "01_set_stance",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        128.912,
+        141.544
+      ],
+      "torso_pos": [
+        129.485,
+        117.551
+      ],
+      "l_shoulder_pos": [
+        153.278,
+        94.681
+      ],
+      "l_elbow_pos": [
+        132.018,
+        105.818
+      ],
+      "l_wrist_pos": [
+        116.001,
+        90.736
+      ],
+      "r_shoulder_pos": [
+        107.675,
+        96.421
+      ],
+      "r_elbow_pos": [
+        88.855,
+        85.027
+      ],
+      "r_wrist_pos": [
+        74.804,
+        99.26
+      ],
+      "torso_tilt_deg": 1.3678,
+      "shoulder_rot_deg": 12.5593,
+      "hip_rot_deg": 9.6475,
+      "lead_knee_lift": 0.1459,
+      "stride_depth": 0.0228,
+      "pitch_shoulder_deg": 152.3525,
+      "pitch_elbow_deg": 70.9271,
+      "pitch_wrist_deg": 12.2797,
+      "glove_shoulder_deg": -148.8085,
+      "glove_elbow_deg": -76.5593,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 10,
+      "atlas_col": 9,
+      "atlas_row": 0,
+      "pose_id": "02_hands_gather_rock",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        129.088,
+        141.456
+      ],
+      "torso_pos": [
+        129.772,
+        117.466
+      ],
+      "l_shoulder_pos": [
+        153.534,
+        94.536
+      ],
+      "l_elbow_pos": [
+        132.413,
+        105.933
+      ],
+      "l_wrist_pos": [
+        116.513,
+        90.728
+      ],
+      "r_shoulder_pos": [
+        107.989,
+        96.395
+      ],
+      "r_elbow_pos": [
+        89.293,
+        84.8
+      ],
+      "r_wrist_pos": [
+        75.308,
+        99.097
+      ],
+      "torso_tilt_deg": 1.6322,
+      "shoulder_rot_deg": 13.4407,
+      "hip_rot_deg": 10.3525,
+      "lead_knee_lift": 0.1741,
+      "stride_depth": 0.0272,
+      "pitch_shoulder_deg": 151.6475,
+      "pitch_elbow_deg": 72.0729,
+      "pitch_wrist_deg": 12.7203,
+      "glove_shoulder_deg": -148.1915,
+      "glove_elbow_deg": -77.4407,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 11,
+      "atlas_col": 0,
+      "atlas_row": 1,
+      "pose_id": "02_hands_gather_rock",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        129.262,
+        141.369
+      ],
+      "torso_pos": [
+        130.055,
+        117.382
+      ],
+      "l_shoulder_pos": [
+        153.786,
+        94.393
+      ],
+      "l_elbow_pos": [
+        132.805,
+        106.046
+      ],
+      "l_wrist_pos": [
+        117.021,
+        90.721
+      ],
+      "r_shoulder_pos": [
+        108.301,
+        96.371
+      ],
+      "r_elbow_pos": [
+        89.73,
+        84.577
+      ],
+      "r_wrist_pos": [
+        75.81,
+        98.938
+      ],
+      "torso_tilt_deg": 1.8929,
+      "shoulder_rot_deg": 14.3098,
+      "hip_rot_deg": 11.0478,
+      "lead_knee_lift": 0.2019,
+      "stride_depth": 0.0315,
+      "pitch_shoulder_deg": 150.9522,
+      "pitch_elbow_deg": 73.2027,
+      "pitch_wrist_deg": 13.1549,
+      "glove_shoulder_deg": -147.5831,
+      "glove_elbow_deg": -78.3098,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 12,
+      "atlas_col": 1,
+      "atlas_row": 1,
+      "pose_id": "02_hands_gather_rock",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        129.429,
+        141.286
+      ],
+      "torso_pos": [
+        130.326,
+        117.303
+      ],
+      "l_shoulder_pos": [
+        154.025,
+        94.258
+      ],
+      "l_elbow_pos": [
+        133.18,
+        106.154
+      ],
+      "l_wrist_pos": [
+        117.508,
+        90.714
+      ],
+      "r_shoulder_pos": [
+        108.602,
+        96.347
+      ],
+      "r_elbow_pos": [
+        90.151,
+        84.366
+      ],
+      "r_wrist_pos": [
+        76.294,
+        98.787
+      ],
+      "torso_tilt_deg": 2.1427,
+      "shoulder_rot_deg": 15.1423,
+      "hip_rot_deg": 11.7138,
+      "lead_knee_lift": 0.2286,
+      "stride_depth": 0.0357,
+      "pitch_shoulder_deg": 150.2862,
+      "pitch_elbow_deg": 74.285,
+      "pitch_wrist_deg": 13.5711,
+      "glove_shoulder_deg": -147.0004,
+      "glove_elbow_deg": -79.1423,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 13,
+      "atlas_col": 2,
+      "atlas_row": 1,
+      "pose_id": "02_hands_gather_rock",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        129.583,
+        141.209
+      ],
+      "torso_pos": [
+        130.577,
+        117.229
+      ],
+      "l_shoulder_pos": [
+        154.244,
+        94.132
+      ],
+      "l_elbow_pos": [
+        133.529,
+        106.252
+      ],
+      "l_wrist_pos": [
+        117.961,
+        90.708
+      ],
+      "r_shoulder_pos": [
+        108.882,
+        96.326
+      ],
+      "r_elbow_pos": [
+        90.545,
+        84.171
+      ],
+      "r_wrist_pos": [
+        76.746,
+        98.648
+      ],
+      "torso_tilt_deg": 2.3741,
+      "shoulder_rot_deg": 15.9137,
+      "hip_rot_deg": 12.331,
+      "lead_knee_lift": 0.2532,
+      "stride_depth": 0.0396,
+      "pitch_shoulder_deg": 149.669,
+      "pitch_elbow_deg": 75.2878,
+      "pitch_wrist_deg": 13.9568,
+      "glove_shoulder_deg": -146.4604,
+      "glove_elbow_deg": -79.9137,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 14,
+      "atlas_col": 3,
+      "atlas_row": 1,
+      "pose_id": "02_hands_gather_rock",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        129.72,
+        141.14
+      ],
+      "torso_pos": [
+        130.8,
+        117.164
+      ],
+      "l_shoulder_pos": [
+        154.439,
+        94.022
+      ],
+      "l_elbow_pos": [
+        133.841,
+        106.339
+      ],
+      "l_wrist_pos": [
+        118.366,
+        90.702
+      ],
+      "r_shoulder_pos": [
+        109.132,
+        96.307
+      ],
+      "r_elbow_pos": [
+        90.897,
+        83.999
+      ],
+      "r_wrist_pos": [
+        77.15,
+        98.525
+      ],
+      "torso_tilt_deg": 2.5799,
+      "shoulder_rot_deg": 16.5996,
+      "hip_rot_deg": 12.8797,
+      "lead_knee_lift": 0.2752,
+      "stride_depth": 0.043,
+      "pitch_shoulder_deg": 149.1203,
+      "pitch_elbow_deg": 76.1795,
+      "pitch_wrist_deg": 14.2998,
+      "glove_shoulder_deg": -145.9803,
+      "glove_elbow_deg": -80.5996,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 15,
+      "atlas_col": 4,
+      "atlas_row": 1,
+      "pose_id": "02_hands_gather_rock",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        129.835,
+        141.082
+      ],
+      "torso_pos": [
+        130.988,
+        117.11
+      ],
+      "l_shoulder_pos": [
+        154.601,
+        93.929
+      ],
+      "l_elbow_pos": [
+        134.102,
+        106.412
+      ],
+      "l_wrist_pos": [
+        118.706,
+        90.697
+      ],
+      "r_shoulder_pos": [
+        109.343,
+        96.291
+      ],
+      "r_elbow_pos": [
+        91.195,
+        83.855
+      ],
+      "r_wrist_pos": [
+        77.492,
+        98.423
+      ],
+      "torso_tilt_deg": 2.7527,
+      "shoulder_rot_deg": 17.1757,
+      "hip_rot_deg": 13.3405,
+      "lead_knee_lift": 0.2936,
+      "stride_depth": 0.0459,
+      "pitch_shoulder_deg": 148.6595,
+      "pitch_elbow_deg": 76.9284,
+      "pitch_wrist_deg": 14.5878,
+      "glove_shoulder_deg": -145.577,
+      "glove_elbow_deg": -81.1757,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 16,
+      "atlas_col": 5,
+      "atlas_row": 1,
+      "pose_id": "02_hands_gather_rock",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        129.923,
+        141.038
+      ],
+      "torso_pos": [
+        131.132,
+        117.069
+      ],
+      "l_shoulder_pos": [
+        154.724,
+        93.858
+      ],
+      "l_elbow_pos": [
+        134.303,
+        106.467
+      ],
+      "l_wrist_pos": [
+        118.968,
+        90.693
+      ],
+      "r_shoulder_pos": [
+        109.505,
+        96.279
+      ],
+      "r_elbow_pos": [
+        91.425,
+        83.745
+      ],
+      "r_wrist_pos": [
+        77.755,
+        98.345
+      ],
+      "torso_tilt_deg": 2.8852,
+      "shoulder_rot_deg": 17.6173,
+      "hip_rot_deg": 13.6939,
+      "lead_knee_lift": 0.3078,
+      "stride_depth": 0.0481,
+      "pitch_shoulder_deg": 148.3061,
+      "pitch_elbow_deg": 77.5025,
+      "pitch_wrist_deg": 14.8087,
+      "glove_shoulder_deg": -145.2679,
+      "glove_elbow_deg": -81.6173,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 17,
+      "atlas_col": 6,
+      "atlas_row": 1,
+      "pose_id": "02_hands_gather_rock",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        129.98,
+        141.01
+      ],
+      "torso_pos": [
+        131.224,
+        117.042
+      ],
+      "l_shoulder_pos": [
+        154.803,
+        93.813
+      ],
+      "l_elbow_pos": [
+        134.432,
+        106.502
+      ],
+      "l_wrist_pos": [
+        119.136,
+        90.69
+      ],
+      "r_shoulder_pos": [
+        109.609,
+        96.272
+      ],
+      "r_elbow_pos": [
+        91.572,
+        83.675
+      ],
+      "r_wrist_pos": [
+        77.925,
+        98.295
+      ],
+      "torso_tilt_deg": 2.9701,
+      "shoulder_rot_deg": 17.9003,
+      "hip_rot_deg": 13.9202,
+      "lead_knee_lift": 0.3168,
+      "stride_depth": 0.0495,
+      "pitch_shoulder_deg": 148.0798,
+      "pitch_elbow_deg": 77.8703,
+      "pitch_wrist_deg": 14.9501,
+      "glove_shoulder_deg": -145.0698,
+      "glove_elbow_deg": -81.9003,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 18,
+      "atlas_col": 7,
+      "atlas_row": 1,
+      "pose_id": "02_hands_gather_rock",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        130.0,
+        141.0
+      ],
+      "torso_pos": [
+        131.256,
+        117.033
+      ],
+      "l_shoulder_pos": [
+        154.831,
+        93.797
+      ],
+      "l_elbow_pos": [
+        134.478,
+        106.515
+      ],
+      "l_wrist_pos": [
+        119.195,
+        90.689
+      ],
+      "r_shoulder_pos": [
+        109.646,
+        96.269
+      ],
+      "r_elbow_pos": [
+        91.624,
+        83.65
+      ],
+      "r_wrist_pos": [
+        77.984,
+        98.277
+      ],
+      "torso_tilt_deg": 3.0,
+      "shoulder_rot_deg": 18.0,
+      "hip_rot_deg": 14.0,
+      "lead_knee_lift": 0.32,
+      "stride_depth": 0.05,
+      "pitch_shoulder_deg": 148.0,
+      "pitch_elbow_deg": 78.0,
+      "pitch_wrist_deg": 15.0,
+      "glove_shoulder_deg": -145.0,
+      "glove_elbow_deg": -82.0,
+      "head_scale": 1.0,
+      "torso_scale": 1.0,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 19,
+      "atlas_col": 8,
+      "atlas_row": 1,
+      "pose_id": "02_hands_gather_rock",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        130.056,
+        140.944
+      ],
+      "torso_pos": [
+        131.359,
+        116.979
+      ],
+      "l_shoulder_pos": [
+        154.912,
+        93.714
+      ],
+      "l_elbow_pos": [
+        134.609,
+        106.511
+      ],
+      "l_wrist_pos": [
+        119.319,
+        90.693
+      ],
+      "r_shoulder_pos": [
+        109.768,
+        96.245
+      ],
+      "r_elbow_pos": [
+        91.79,
+        83.565
+      ],
+      "r_wrist_pos": [
+        78.143,
+        98.185
+      ],
+      "torso_tilt_deg": 3.112,
+      "shoulder_rot_deg": 18.448,
+      "hip_rot_deg": 14.392,
+      "lead_knee_lift": 0.3376,
+      "stride_depth": 0.052,
+      "pitch_shoulder_deg": 147.776,
+      "pitch_elbow_deg": 78.196,
+      "pitch_wrist_deg": 15.14,
+      "glove_shoulder_deg": -144.804,
+      "glove_elbow_deg": -82.168,
+      "head_scale": 1.0,
+      "torso_scale": 1.0003,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 20,
+      "atlas_col": 9,
+      "atlas_row": 1,
+      "pose_id": "02_hands_gather_rock",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        130.208,
+        140.792
+      ],
+      "torso_pos": [
+        131.638,
+        116.835
+      ],
+      "l_shoulder_pos": [
+        155.131,
+        93.489
+      ],
+      "l_elbow_pos": [
+        134.965,
+        106.501
+      ],
+      "l_wrist_pos": [
+        119.653,
+        90.703
+      ],
+      "r_shoulder_pos": [
+        110.103,
+        96.181
+      ],
+      "r_elbow_pos": [
+        92.243,
+        83.334
+      ],
+      "r_wrist_pos": [
+        78.577,
+        97.936
+      ],
+      "torso_tilt_deg": 3.416,
+      "shoulder_rot_deg": 19.664,
+      "hip_rot_deg": 15.456,
+      "lead_knee_lift": 0.3855,
+      "stride_depth": 0.0573,
+      "pitch_shoulder_deg": 147.168,
+      "pitch_elbow_deg": 78.728,
+      "pitch_wrist_deg": 15.52,
+      "glove_shoulder_deg": -144.272,
+      "glove_elbow_deg": -82.624,
+      "head_scale": 1.0,
+      "torso_scale": 1.001,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 21,
+      "atlas_col": 0,
+      "atlas_row": 2,
+      "pose_id": "02_hands_gather_rock",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        130.432,
+        140.568
+      ],
+      "torso_pos": [
+        132.049,
+        116.623
+      ],
+      "l_shoulder_pos": [
+        155.446,
+        93.159
+      ],
+      "l_elbow_pos": [
+        135.486,
+        106.485
+      ],
+      "l_wrist_pos": [
+        120.144,
+        90.718
+      ],
+      "r_shoulder_pos": [
+        110.602,
+        96.086
+      ],
+      "r_elbow_pos": [
+        92.92,
+        82.996
+      ],
+      "r_wrist_pos": [
+        79.225,
+        97.571
+      ],
+      "torso_tilt_deg": 3.864,
+      "shoulder_rot_deg": 21.456,
+      "hip_rot_deg": 17.024,
+      "lead_knee_lift": 0.4561,
+      "stride_depth": 0.0651,
+      "pitch_shoulder_deg": 146.272,
+      "pitch_elbow_deg": 79.512,
+      "pitch_wrist_deg": 16.08,
+      "glove_shoulder_deg": -143.488,
+      "glove_elbow_deg": -83.296,
+      "head_scale": 1.0,
+      "torso_scale": 1.0022,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 22,
+      "atlas_col": 1,
+      "atlas_row": 2,
+      "pose_id": "02_hands_gather_rock",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        130.704,
+        140.296
+      ],
+      "torso_pos": [
+        132.549,
+        116.367
+      ],
+      "l_shoulder_pos": [
+        155.817,
+        92.764
+      ],
+      "l_elbow_pos": [
+        136.114,
+        106.466
+      ],
+      "l_wrist_pos": [
+        120.734,
+        90.735
+      ],
+      "r_shoulder_pos": [
+        111.219,
+        95.97
+      ],
+      "r_elbow_pos": [
+        93.757,
+        82.589
+      ],
+      "r_wrist_pos": [
+        80.027,
+        97.132
+      ],
+      "torso_tilt_deg": 4.408,
+      "shoulder_rot_deg": 23.632,
+      "hip_rot_deg": 18.928,
+      "lead_knee_lift": 0.5418,
+      "stride_depth": 0.0746,
+      "pitch_shoulder_deg": 145.184,
+      "pitch_elbow_deg": 80.464,
+      "pitch_wrist_deg": 16.76,
+      "glove_shoulder_deg": -142.536,
+      "glove_elbow_deg": -84.112,
+      "head_scale": 1.0,
+      "torso_scale": 1.0035,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 23,
+      "atlas_col": 2,
+      "atlas_row": 2,
+      "pose_id": "03_peak_leg_lift",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        131.0,
+        140.0
+      ],
+      "torso_pos": [
+        133.092,
+        116.091
+      ],
+      "l_shoulder_pos": [
+        156.208,
+        92.338
+      ],
+      "l_elbow_pos": [
+        136.791,
+        106.445
+      ],
+      "l_wrist_pos": [
+        121.371,
+        90.753
+      ],
+      "r_shoulder_pos": [
+        111.902,
+        95.845
+      ],
+      "r_elbow_pos": [
+        94.685,
+        82.149
+      ],
+      "r_wrist_pos": [
+        80.918,
+        96.657
+      ],
+      "torso_tilt_deg": 5.0,
+      "shoulder_rot_deg": 26.0,
+      "hip_rot_deg": 21.0,
+      "lead_knee_lift": 0.635,
+      "stride_depth": 0.085,
+      "pitch_shoulder_deg": 144.0,
+      "pitch_elbow_deg": 81.5,
+      "pitch_wrist_deg": 17.5,
+      "glove_shoulder_deg": -141.5,
+      "glove_elbow_deg": -85.0,
+      "head_scale": 1.0,
+      "torso_scale": 1.005,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 24,
+      "atlas_col": 3,
+      "atlas_row": 2,
+      "pose_id": "03_peak_leg_lift",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        131.296,
+        139.704
+      ],
+      "torso_pos": [
+        133.635,
+        115.818
+      ],
+      "l_shoulder_pos": [
+        156.583,
+        91.918
+      ],
+      "l_elbow_pos": [
+        137.463,
+        106.423
+      ],
+      "l_wrist_pos": [
+        122.002,
+        90.771
+      ],
+      "r_shoulder_pos": [
+        112.598,
+        95.719
+      ],
+      "r_elbow_pos": [
+        95.631,
+        81.714
+      ],
+      "r_wrist_pos": [
+        81.827,
+        96.186
+      ],
+      "torso_tilt_deg": 5.592,
+      "shoulder_rot_deg": 28.368,
+      "hip_rot_deg": 23.072,
+      "lead_knee_lift": 0.7282,
+      "stride_depth": 0.0954,
+      "pitch_shoulder_deg": 142.816,
+      "pitch_elbow_deg": 82.536,
+      "pitch_wrist_deg": 18.24,
+      "glove_shoulder_deg": -140.464,
+      "glove_elbow_deg": -85.888,
+      "head_scale": 1.0,
+      "torso_scale": 1.0065,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 25,
+      "atlas_col": 4,
+      "atlas_row": 2,
+      "pose_id": "03_peak_leg_lift",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        131.568,
+        139.432
+      ],
+      "torso_pos": [
+        134.133,
+        115.569
+      ],
+      "l_shoulder_pos": [
+        156.916,
+        91.537
+      ],
+      "l_elbow_pos": [
+        138.074,
+        106.402
+      ],
+      "l_wrist_pos": [
+        122.577,
+        90.787
+      ],
+      "r_shoulder_pos": [
+        113.249,
+        95.602
+      ],
+      "r_elbow_pos": [
+        96.517,
+        81.318
+      ],
+      "r_wrist_pos": [
+        82.678,
+        95.757
+      ],
+      "torso_tilt_deg": 6.136,
+      "shoulder_rot_deg": 30.544,
+      "hip_rot_deg": 24.976,
+      "lead_knee_lift": 0.8139,
+      "stride_depth": 0.1049,
+      "pitch_shoulder_deg": 141.728,
+      "pitch_elbow_deg": 83.488,
+      "pitch_wrist_deg": 18.92,
+      "glove_shoulder_deg": -139.512,
+      "glove_elbow_deg": -86.704,
+      "head_scale": 1.0,
+      "torso_scale": 1.0078,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 26,
+      "atlas_col": 5,
+      "atlas_row": 2,
+      "pose_id": "03_peak_leg_lift",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        131.792,
+        139.208
+      ],
+      "torso_pos": [
+        134.544,
+        115.366
+      ],
+      "l_shoulder_pos": [
+        157.181,
+        91.227
+      ],
+      "l_elbow_pos": [
+        138.574,
+        106.385
+      ],
+      "l_wrist_pos": [
+        123.046,
+        90.801
+      ],
+      "r_shoulder_pos": [
+        113.793,
+        95.506
+      ],
+      "r_elbow_pos": [
+        97.258,
+        80.994
+      ],
+      "r_wrist_pos": [
+        83.391,
+        95.406
+      ],
+      "torso_tilt_deg": 6.584,
+      "shoulder_rot_deg": 32.336,
+      "hip_rot_deg": 26.544,
+      "lead_knee_lift": 0.8845,
+      "stride_depth": 0.1127,
+      "pitch_shoulder_deg": 140.832,
+      "pitch_elbow_deg": 84.272,
+      "pitch_wrist_deg": 19.48,
+      "glove_shoulder_deg": -138.728,
+      "glove_elbow_deg": -87.376,
+      "head_scale": 1.0,
+      "torso_scale": 1.009,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 27,
+      "atlas_col": 6,
+      "atlas_row": 2,
+      "pose_id": "03_peak_leg_lift",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        131.944,
+        139.056
+      ],
+      "torso_pos": [
+        134.822,
+        115.229
+      ],
+      "l_shoulder_pos": [
+        157.356,
+        91.018
+      ],
+      "l_elbow_pos": [
+        138.911,
+        106.373
+      ],
+      "l_wrist_pos": [
+        123.362,
+        90.809
+      ],
+      "r_shoulder_pos": [
+        114.166,
+        95.44
+      ],
+      "r_elbow_pos": [
+        97.767,
+        80.775
+      ],
+      "r_wrist_pos": [
+        83.881,
+        95.169
+      ],
+      "torso_tilt_deg": 6.888,
+      "shoulder_rot_deg": 33.552,
+      "hip_rot_deg": 27.608,
+      "lead_knee_lift": 0.9324,
+      "stride_depth": 0.118,
+      "pitch_shoulder_deg": 140.224,
+      "pitch_elbow_deg": 84.804,
+      "pitch_wrist_deg": 19.86,
+      "glove_shoulder_deg": -138.196,
+      "glove_elbow_deg": -87.832,
+      "head_scale": 1.0,
+      "torso_scale": 1.0097,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 28,
+      "atlas_col": 7,
+      "atlas_row": 2,
+      "pose_id": "03_peak_leg_lift",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        132.0,
+        139.0
+      ],
+      "torso_pos": [
+        134.925,
+        115.179
+      ],
+      "l_shoulder_pos": [
+        157.42,
+        90.942
+      ],
+      "l_elbow_pos": [
+        139.035,
+        106.369
+      ],
+      "l_wrist_pos": [
+        123.478,
+        90.813
+      ],
+      "r_shoulder_pos": [
+        114.305,
+        95.416
+      ],
+      "r_elbow_pos": [
+        97.955,
+        80.695
+      ],
+      "r_wrist_pos": [
+        84.062,
+        95.082
+      ],
+      "torso_tilt_deg": 7.0,
+      "shoulder_rot_deg": 34.0,
+      "hip_rot_deg": 28.0,
+      "lead_knee_lift": 0.95,
+      "stride_depth": 0.12,
+      "pitch_shoulder_deg": 140.0,
+      "pitch_elbow_deg": 85.0,
+      "pitch_wrist_deg": 20.0,
+      "glove_shoulder_deg": -138.0,
+      "glove_elbow_deg": -88.0,
+      "head_scale": 1.0,
+      "torso_scale": 1.01,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 29,
+      "atlas_col": 8,
+      "atlas_row": 2,
+      "pose_id": "03_peak_leg_lift",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        131.961,
+        139.138
+      ],
+      "torso_pos": [
+        134.861,
+        115.314
+      ],
+      "l_shoulder_pos": [
+        157.349,
+        91.072
+      ],
+      "l_elbow_pos": [
+        139.532,
+        107.152
+      ],
+      "l_wrist_pos": [
+        123.119,
+        92.502
+      ],
+      "r_shoulder_pos": [
+        114.247,
+        95.555
+      ],
+      "r_elbow_pos": [
+        97.949,
+        80.778
+      ],
+      "r_wrist_pos": [
+        83.81,
+        94.924
+      ],
+      "torso_tilt_deg": 6.941,
+      "shoulder_rot_deg": 34.0787,
+      "hip_rot_deg": 27.8819,
+      "lead_knee_lift": 0.9447,
+      "stride_depth": 0.1245,
+      "pitch_shoulder_deg": 137.934,
+      "pitch_elbow_deg": 83.8194,
+      "pitch_wrist_deg": 19.3704,
+      "glove_shoulder_deg": -137.8032,
+      "glove_elbow_deg": -87.213,
+      "head_scale": 1.0002,
+      "torso_scale": 1.0102,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 30,
+      "atlas_col": 9,
+      "atlas_row": 2,
+      "pose_id": "03_peak_leg_lift",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        131.852,
+        139.518
+      ],
+      "torso_pos": [
+        134.684,
+        115.686
+      ],
+      "l_shoulder_pos": [
+        157.153,
+        91.432
+      ],
+      "l_elbow_pos": [
+        141.025,
+        109.205
+      ],
+      "l_wrist_pos": [
+        122.528,
+        97.295
+      ],
+      "r_shoulder_pos": [
+        114.088,
+        95.94
+      ],
+      "r_elbow_pos": [
+        97.931,
+        81.009
+      ],
+      "r_wrist_pos": [
+        83.137,
+        94.468
+      ],
+      "torso_tilt_deg": 6.7778,
+      "shoulder_rot_deg": 34.2963,
+      "hip_rot_deg": 27.5556,
+      "lead_knee_lift": 0.93,
+      "stride_depth": 0.137,
+      "pitch_shoulder_deg": 132.2222,
+      "pitch_elbow_deg": 80.5556,
+      "pitch_wrist_deg": 17.6296,
+      "glove_shoulder_deg": -137.2593,
+      "glove_elbow_deg": -85.037,
+      "head_scale": 1.0007,
+      "torso_scale": 1.0107,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 31,
+      "atlas_col": 0,
+      "atlas_row": 3,
+      "pose_id": "03_peak_leg_lift",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        131.688,
+        140.094
+      ],
+      "torso_pos": [
+        134.417,
+        116.25
+      ],
+      "l_shoulder_pos": [
+        156.857,
+        91.977
+      ],
+      "l_elbow_pos": [
+        143.578,
+        111.968
+      ],
+      "l_wrist_pos": [
+        122.804,
+        104.726
+      ],
+      "r_shoulder_pos": [
+        113.848,
+        96.522
+      ],
+      "r_elbow_pos": [
+        97.906,
+        81.361
+      ],
+      "r_wrist_pos": [
+        82.186,
+        93.726
+      ],
+      "torso_tilt_deg": 6.5312,
+      "shoulder_rot_deg": 34.625,
+      "hip_rot_deg": 27.0625,
+      "lead_knee_lift": 0.9078,
+      "stride_depth": 0.1559,
+      "pitch_shoulder_deg": 123.5938,
+      "pitch_elbow_deg": 75.625,
+      "pitch_wrist_deg": 15.0,
+      "glove_shoulder_deg": -136.4375,
+      "glove_elbow_deg": -81.75,
+      "head_scale": 1.0016,
+      "torso_scale": 1.0116,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 32,
+      "atlas_col": 1,
+      "atlas_row": 3,
+      "pose_id": "03_peak_leg_lift",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        131.482,
+        140.815
+      ],
+      "torso_pos": [
+        134.083,
+        116.956
+      ],
+      "l_shoulder_pos": [
+        156.485,
+        92.66
+      ],
+      "l_elbow_pos": [
+        147.194,
+        114.788
+      ],
+      "l_wrist_pos": [
+        125.21,
+        113.935
+      ],
+      "r_shoulder_pos": [
+        113.547,
+        97.253
+      ],
+      "r_elbow_pos": [
+        97.88,
+        81.807
+      ],
+      "r_wrist_pos": [
+        81.114,
+        92.711
+      ],
+      "torso_tilt_deg": 6.2222,
+      "shoulder_rot_deg": 35.037,
+      "hip_rot_deg": 26.4444,
+      "lead_knee_lift": 0.88,
+      "stride_depth": 0.1796,
+      "pitch_shoulder_deg": 112.7778,
+      "pitch_elbow_deg": 69.4444,
+      "pitch_wrist_deg": 11.7037,
+      "glove_shoulder_deg": -135.4074,
+      "glove_elbow_deg": -77.6296,
+      "head_scale": 1.0026,
+      "torso_scale": 1.0126,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 33,
+      "atlas_col": 2,
+      "atlas_row": 3,
+      "pose_id": "03_peak_leg_lift",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        131.248,
+        141.633
+      ],
+      "torso_pos": [
+        133.703,
+        117.759
+      ],
+      "l_shoulder_pos": [
+        156.063,
+        93.436
+      ],
+      "l_elbow_pos": [
+        151.688,
+        117.034
+      ],
+      "l_wrist_pos": [
+        130.657,
+        123.49
+      ],
+      "r_shoulder_pos": [
+        113.206,
+        98.082
+      ],
+      "r_elbow_pos": [
+        97.858,
+        82.32
+      ],
+      "r_wrist_pos": [
+        80.068,
+        91.46
+      ],
+      "torso_tilt_deg": 5.8715,
+      "shoulder_rot_deg": 35.5046,
+      "hip_rot_deg": 25.7431,
+      "lead_knee_lift": 0.8484,
+      "stride_depth": 0.2065,
+      "pitch_shoulder_deg": 100.5035,
+      "pitch_elbow_deg": 62.4306,
+      "pitch_wrist_deg": 7.963,
+      "glove_shoulder_deg": -134.2384,
+      "glove_elbow_deg": -72.9537,
+      "head_scale": 1.0038,
+      "torso_scale": 1.0138,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 34,
+      "atlas_col": 3,
+      "atlas_row": 3,
+      "pose_id": "04_hand_break_drop",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        131.0,
+        142.5
+      ],
+      "torso_pos": [
+        133.3,
+        118.61
+      ],
+      "l_shoulder_pos": [
+        155.615,
+        94.259
+      ],
+      "l_elbow_pos": [
+        156.662,
+        118.237
+      ],
+      "l_wrist_pos": [
+        139.208,
+        131.629
+      ],
+      "r_shoulder_pos": [
+        112.845,
+        98.962
+      ],
+      "r_elbow_pos": [
+        97.841,
+        82.872
+      ],
+      "r_wrist_pos": [
+        79.17,
+        90.039
+      ],
+      "torso_tilt_deg": 5.5,
+      "shoulder_rot_deg": 36.0,
+      "hip_rot_deg": 25.0,
+      "lead_knee_lift": 0.815,
+      "stride_depth": 0.235,
+      "pitch_shoulder_deg": 87.5,
+      "pitch_elbow_deg": 55.0,
+      "pitch_wrist_deg": 4.0,
+      "glove_shoulder_deg": -133.0,
+      "glove_elbow_deg": -68.0,
+      "head_scale": 1.005,
+      "torso_scale": 1.015,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 35,
+      "atlas_col": 4,
+      "atlas_row": 3,
+      "pose_id": "04_hand_break_drop",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        130.752,
+        143.367
+      ],
+      "torso_pos": [
+        132.898,
+        119.463
+      ],
+      "l_shoulder_pos": [
+        155.166,
+        95.084
+      ],
+      "l_elbow_pos": [
+        161.581,
+        118.211
+      ],
+      "l_wrist_pos": [
+        149.902,
+        136.854
+      ],
+      "r_shoulder_pos": [
+        112.485,
+        99.842
+      ],
+      "r_elbow_pos": [
+        97.832,
+        83.432
+      ],
+      "r_wrist_pos": [
+        78.496,
+        88.543
+      ],
+      "torso_tilt_deg": 5.1285,
+      "shoulder_rot_deg": 36.4954,
+      "hip_rot_deg": 24.2569,
+      "lead_knee_lift": 0.7816,
+      "stride_depth": 0.2635,
+      "pitch_shoulder_deg": 74.4965,
+      "pitch_elbow_deg": 47.5694,
+      "pitch_wrist_deg": 0.037,
+      "glove_shoulder_deg": -131.7616,
+      "glove_elbow_deg": -63.0463,
+      "head_scale": 1.0062,
+      "torso_scale": 1.0162,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 36,
+      "atlas_col": 5,
+      "atlas_row": 3,
+      "pose_id": "04_hand_break_drop",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        130.518,
+        144.185
+      ],
+      "torso_pos": [
+        132.518,
+        120.269
+      ],
+      "l_shoulder_pos": [
+        154.742,
+        95.863
+      ],
+      "l_elbow_pos": [
+        165.927,
+        117.098
+      ],
+      "l_wrist_pos": [
+        161.061,
+        138.553
+      ],
+      "r_shoulder_pos": [
+        112.145,
+        100.674
+      ],
+      "r_elbow_pos": [
+        97.83,
+        83.968
+      ],
+      "r_wrist_pos": [
+        78.074,
+        87.084
+      ],
+      "torso_tilt_deg": 4.7778,
+      "shoulder_rot_deg": 36.963,
+      "hip_rot_deg": 23.5556,
+      "lead_knee_lift": 0.75,
+      "stride_depth": 0.2904,
+      "pitch_shoulder_deg": 62.2222,
+      "pitch_elbow_deg": 40.5556,
+      "pitch_wrist_deg": -3.7037,
+      "glove_shoulder_deg": -130.5926,
+      "glove_elbow_deg": -58.3704,
+      "head_scale": 1.0074,
+      "torso_scale": 1.0174,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 37,
+      "atlas_col": 6,
+      "atlas_row": 3,
+      "pose_id": "04_hand_break_drop",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        130.312,
+        144.906
+      ],
+      "torso_pos": [
+        132.182,
+        120.979
+      ],
+      "l_shoulder_pos": [
+        154.368,
+        96.551
+      ],
+      "l_elbow_pos": [
+        169.339,
+        115.309
+      ],
+      "l_wrist_pos": [
+        170.957,
+        137.25
+      ],
+      "r_shoulder_pos": [
+        111.846,
+        101.407
+      ],
+      "r_elbow_pos": [
+        97.834,
+        84.447
+      ],
+      "r_wrist_pos": [
+        77.878,
+        85.777
+      ],
+      "torso_tilt_deg": 4.4688,
+      "shoulder_rot_deg": 37.375,
+      "hip_rot_deg": 22.9375,
+      "lead_knee_lift": 0.7222,
+      "stride_depth": 0.3141,
+      "pitch_shoulder_deg": 51.4062,
+      "pitch_elbow_deg": 34.375,
+      "pitch_wrist_deg": -7.0,
+      "glove_shoulder_deg": -129.5625,
+      "glove_elbow_deg": -54.25,
+      "head_scale": 1.0084,
+      "torso_scale": 1.0184,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 38,
+      "atlas_col": 7,
+      "atlas_row": 3,
+      "pose_id": "04_hand_break_drop",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        130.148,
+        145.482
+      ],
+      "torso_pos": [
+        131.915,
+        121.547
+      ],
+      "l_shoulder_pos": [
+        154.069,
+        97.1
+      ],
+      "l_elbow_pos": [
+        171.684,
+        113.4
+      ],
+      "l_wrist_pos": [
+        178.402,
+        134.35
+      ],
+      "r_shoulder_pos": [
+        111.608,
+        101.993
+      ],
+      "r_elbow_pos": [
+        97.84,
+        84.833
+      ],
+      "r_wrist_pos": [
+        77.84,
+        84.73
+      ],
+      "torso_tilt_deg": 4.2222,
+      "shoulder_rot_deg": 37.7037,
+      "hip_rot_deg": 22.4444,
+      "lead_knee_lift": 0.7,
+      "stride_depth": 0.333,
+      "pitch_shoulder_deg": 42.7778,
+      "pitch_elbow_deg": 29.4444,
+      "pitch_wrist_deg": -9.6296,
+      "glove_shoulder_deg": -128.7407,
+      "glove_elbow_deg": -50.963,
+      "head_scale": 1.0093,
+      "torso_scale": 1.0193,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 39,
+      "atlas_col": 8,
+      "atlas_row": 3,
+      "pose_id": "04_hand_break_drop",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        130.039,
+        145.862
+      ],
+      "torso_pos": [
+        131.738,
+        121.922
+      ],
+      "l_shoulder_pos": [
+        153.871,
+        97.464
+      ],
+      "l_elbow_pos": [
+        173.021,
+        111.93
+      ],
+      "l_wrist_pos": [
+        182.925,
+        131.575
+      ],
+      "r_shoulder_pos": [
+        111.45,
+        102.381
+      ],
+      "r_elbow_pos": [
+        97.846,
+        85.091
+      ],
+      "r_wrist_pos": [
+        77.874,
+        84.039
+      ],
+      "torso_tilt_deg": 4.059,
+      "shoulder_rot_deg": 37.9213,
+      "hip_rot_deg": 22.1181,
+      "lead_knee_lift": 0.6853,
+      "stride_depth": 0.3455,
+      "pitch_shoulder_deg": 37.066,
+      "pitch_elbow_deg": 26.1806,
+      "pitch_wrist_deg": -11.3704,
+      "glove_shoulder_deg": -128.1968,
+      "glove_elbow_deg": -48.787,
+      "head_scale": 1.0098,
+      "torso_scale": 1.0198,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 40,
+      "atlas_col": 9,
+      "atlas_row": 3,
+      "pose_id": "04_hand_break_drop",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        130.0,
+        146.0
+      ],
+      "torso_pos": [
+        131.674,
+        122.058
+      ],
+      "l_shoulder_pos": [
+        153.799,
+        97.596
+      ],
+      "l_elbow_pos": [
+        173.459,
+        111.362
+      ],
+      "l_wrist_pos": [
+        184.459,
+        130.414
+      ],
+      "r_shoulder_pos": [
+        111.393,
+        102.521
+      ],
+      "r_elbow_pos": [
+        97.849,
+        85.185
+      ],
+      "r_wrist_pos": [
+        77.897,
+        83.79
+      ],
+      "torso_tilt_deg": 4.0,
+      "shoulder_rot_deg": 38.0,
+      "hip_rot_deg": 22.0,
+      "lead_knee_lift": 0.68,
+      "stride_depth": 0.35,
+      "pitch_shoulder_deg": 35.0,
+      "pitch_elbow_deg": 25.0,
+      "pitch_wrist_deg": -12.0,
+      "glove_shoulder_deg": -128.0,
+      "glove_elbow_deg": -48.0,
+      "head_scale": 1.01,
+      "torso_scale": 1.02,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 41,
+      "atlas_col": 0,
+      "atlas_row": 4,
+      "pose_id": "04_hand_break_drop",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        129.888,
+        146.14
+      ],
+      "torso_pos": [
+        131.492,
+        122.194
+      ],
+      "l_shoulder_pos": [
+        153.606,
+        97.725
+      ],
+      "l_elbow_pos": [
+        173.576,
+        111.036
+      ],
+      "l_wrist_pos": [
+        185.075,
+        129.791
+      ],
+      "r_shoulder_pos": [
+        111.221,
+        102.662
+      ],
+      "r_elbow_pos": [
+        97.524,
+        85.446
+      ],
+      "r_wrist_pos": [
+        77.575,
+        84.031
+      ],
+      "torso_tilt_deg": 3.832,
+      "shoulder_rot_deg": 38.112,
+      "hip_rot_deg": 21.608,
+      "lead_knee_lift": 0.6694,
+      "stride_depth": 0.3604,
+      "pitch_shoulder_deg": 33.684,
+      "pitch_elbow_deg": 24.804,
+      "pitch_wrist_deg": -12.448,
+      "glove_shoulder_deg": -128.504,
+      "glove_elbow_deg": -47.44,
+      "head_scale": 1.0103,
+      "torso_scale": 1.0203,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 42,
+      "atlas_col": 1,
+      "atlas_row": 4,
+      "pose_id": "04_hand_break_drop",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        129.584,
+        146.52
+      ],
+      "torso_pos": [
+        130.997,
+        122.562
+      ],
+      "l_shoulder_pos": [
+        153.081,
+        98.076
+      ],
+      "l_elbow_pos": [
+        173.842,
+        110.117
+      ],
+      "l_wrist_pos": [
+        186.654,
+        128.001
+      ],
+      "r_shoulder_pos": [
+        110.754,
+        103.047
+      ],
+      "r_elbow_pos": [
+        96.65,
+        86.163
+      ],
+      "r_wrist_pos": [
+        76.704,
+        84.695
+      ],
+      "torso_tilt_deg": 3.376,
+      "shoulder_rot_deg": 38.416,
+      "hip_rot_deg": 20.544,
+      "lead_knee_lift": 0.6405,
+      "stride_depth": 0.3885,
+      "pitch_shoulder_deg": 30.112,
+      "pitch_elbow_deg": 24.272,
+      "pitch_wrist_deg": -13.664,
+      "glove_shoulder_deg": -129.872,
+      "glove_elbow_deg": -45.92,
+      "head_scale": 1.011,
+      "torso_scale": 1.021,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 43,
+      "atlas_col": 2,
+      "atlas_row": 4,
+      "pose_id": "04_hand_break_drop",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        129.136,
+        147.08
+      ],
+      "torso_pos": [
+        130.268,
+        123.107
+      ],
+      "l_shoulder_pos": [
+        152.308,
+        98.597
+      ],
+      "l_elbow_pos": [
+        174.086,
+        108.682
+      ],
+      "l_wrist_pos": [
+        188.711,
+        125.117
+      ],
+      "r_shoulder_pos": [
+        110.065,
+        103.617
+      ],
+      "r_elbow_pos": [
+        95.376,
+        87.239
+      ],
+      "r_wrist_pos": [
+        75.436,
+        85.693
+      ],
+      "torso_tilt_deg": 2.704,
+      "shoulder_rot_deg": 38.864,
+      "hip_rot_deg": 18.976,
+      "lead_knee_lift": 0.5979,
+      "stride_depth": 0.4299,
+      "pitch_shoulder_deg": 24.848,
+      "pitch_elbow_deg": 23.488,
+      "pitch_wrist_deg": -15.456,
+      "glove_shoulder_deg": -131.888,
+      "glove_elbow_deg": -43.68,
+      "head_scale": 1.0122,
+      "torso_scale": 1.0222,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 44,
+      "atlas_col": 3,
+      "atlas_row": 4,
+      "pose_id": "04_hand_break_drop",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        128.592,
+        147.76
+      ],
+      "torso_pos": [
+        129.383,
+        123.773
+      ],
+      "l_shoulder_pos": [
+        151.368,
+        99.234
+      ],
+      "l_elbow_pos": [
+        174.133,
+        106.832
+      ],
+      "l_wrist_pos": [
+        190.739,
+        121.262
+      ],
+      "r_shoulder_pos": [
+        109.23,
+        104.312
+      ],
+      "r_elbow_pos": [
+        93.855,
+        88.577
+      ],
+      "r_wrist_pos": [
+        73.922,
+        86.937
+      ],
+      "torso_tilt_deg": 1.888,
+      "shoulder_rot_deg": 39.408,
+      "hip_rot_deg": 17.072,
+      "lead_knee_lift": 0.5462,
+      "stride_depth": 0.4802,
+      "pitch_shoulder_deg": 18.456,
+      "pitch_elbow_deg": 22.536,
+      "pitch_wrist_deg": -17.632,
+      "glove_shoulder_deg": -134.336,
+      "glove_elbow_deg": -40.96,
+      "head_scale": 1.0135,
+      "torso_scale": 1.0235,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 45,
+      "atlas_col": 4,
+      "atlas_row": 4,
+      "pose_id": "05_stride_extension",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        128.0,
+        148.5
+      ],
+      "torso_pos": [
+        128.419,
+        124.504
+      ],
+      "l_shoulder_pos": [
+        150.344,
+        99.933
+      ],
+      "l_elbow_pos": [
+        173.862,
+        104.717
+      ],
+      "l_wrist_pos": [
+        192.313,
+        116.699
+      ],
+      "r_shoulder_pos": [
+        108.321,
+        105.075
+      ],
+      "r_elbow_pos": [
+        92.231,
+        90.071
+      ],
+      "r_wrist_pos": [
+        72.307,
+        88.328
+      ],
+      "torso_tilt_deg": 1.0,
+      "shoulder_rot_deg": 40.0,
+      "hip_rot_deg": 15.0,
+      "lead_knee_lift": 0.49,
+      "stride_depth": 0.535,
+      "pitch_shoulder_deg": 11.5,
+      "pitch_elbow_deg": 21.5,
+      "pitch_wrist_deg": -20.0,
+      "glove_shoulder_deg": -137.0,
+      "glove_elbow_deg": -38.0,
+      "head_scale": 1.015,
+      "torso_scale": 1.025,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 46,
+      "atlas_col": 5,
+      "atlas_row": 4,
+      "pose_id": "05_stride_extension",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        127.408,
+        149.24
+      ],
+      "torso_pos": [
+        127.455,
+        125.24
+      ],
+      "l_shoulder_pos": [
+        149.319,
+        100.637
+      ],
+      "l_elbow_pos": [
+        173.244,
+        102.539
+      ],
+      "l_wrist_pos": [
+        193.181,
+        111.839
+      ],
+      "r_shoulder_pos": [
+        107.413,
+        105.843
+      ],
+      "r_elbow_pos": [
+        90.643,
+        91.603
+      ],
+      "r_wrist_pos": [
+        70.728,
+        89.757
+      ],
+      "torso_tilt_deg": 0.112,
+      "shoulder_rot_deg": 40.592,
+      "hip_rot_deg": 12.928,
+      "lead_knee_lift": 0.4338,
+      "stride_depth": 0.5898,
+      "pitch_shoulder_deg": 4.544,
+      "pitch_elbow_deg": 20.464,
+      "pitch_wrist_deg": -22.368,
+      "glove_shoulder_deg": -139.664,
+      "glove_elbow_deg": -35.04,
+      "head_scale": 1.0165,
+      "torso_scale": 1.0265,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 47,
+      "atlas_col": 6,
+      "atlas_row": 4,
+      "pose_id": "05_stride_extension",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        126.864,
+        149.92
+      ],
+      "torso_pos": [
+        126.569,
+        125.922
+      ],
+      "l_shoulder_pos": [
+        148.377,
+        101.29
+      ],
+      "l_elbow_pos": [
+        172.364,
+        100.516
+      ],
+      "l_wrist_pos": [
+        193.327,
+        107.192
+      ],
+      "r_shoulder_pos": [
+        106.579,
+        106.553
+      ],
+      "r_elbow_pos": [
+        89.216,
+        93.043
+      ],
+      "r_wrist_pos": [
+        69.311,
+        91.102
+      ],
+      "torso_tilt_deg": -0.704,
+      "shoulder_rot_deg": 41.136,
+      "hip_rot_deg": 11.024,
+      "lead_knee_lift": 0.3821,
+      "stride_depth": 0.6401,
+      "pitch_shoulder_deg": -1.848,
+      "pitch_elbow_deg": 19.512,
+      "pitch_wrist_deg": -24.544,
+      "glove_shoulder_deg": -142.112,
+      "glove_elbow_deg": -32.32,
+      "head_scale": 1.0178,
+      "torso_scale": 1.0278,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 48,
+      "atlas_col": 7,
+      "atlas_row": 4,
+      "pose_id": "05_stride_extension",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        126.416,
+        150.48
+      ],
+      "torso_pos": [
+        125.84,
+        126.487
+      ],
+      "l_shoulder_pos": [
+        147.6,
+        101.832
+      ],
+      "l_elbow_pos": [
+        171.415,
+        98.861
+      ],
+      "l_wrist_pos": [
+        192.965,
+        103.29
+      ],
+      "r_shoulder_pos": [
+        105.893,
+        107.142
+      ],
+      "r_elbow_pos": [
+        88.066,
+        94.25
+      ],
+      "r_wrist_pos": [
+        68.168,
+        92.232
+      ],
+      "torso_tilt_deg": -1.376,
+      "shoulder_rot_deg": 41.584,
+      "hip_rot_deg": 9.456,
+      "lead_knee_lift": 0.3395,
+      "stride_depth": 0.6815,
+      "pitch_shoulder_deg": -7.112,
+      "pitch_elbow_deg": 18.728,
+      "pitch_wrist_deg": -26.336,
+      "glove_shoulder_deg": -144.128,
+      "glove_elbow_deg": -30.08,
+      "head_scale": 1.019,
+      "torso_scale": 1.029,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 49,
+      "atlas_col": 8,
+      "atlas_row": 4,
+      "pose_id": "05_stride_extension",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        126.112,
+        150.86
+      ],
+      "torso_pos": [
+        125.345,
+        126.872
+      ],
+      "l_shoulder_pos": [
+        147.073,
+        102.202
+      ],
+      "l_elbow_pos": [
+        170.657,
+        97.752
+      ],
+      "l_wrist_pos": [
+        192.468,
+        100.628
+      ],
+      "r_shoulder_pos": [
+        105.428,
+        107.543
+      ],
+      "r_elbow_pos": [
+        87.298,
+        95.081
+      ],
+      "r_wrist_pos": [
+        67.405,
+        93.01
+      ],
+      "torso_tilt_deg": -1.832,
+      "shoulder_rot_deg": 41.888,
+      "hip_rot_deg": 8.392,
+      "lead_knee_lift": 0.3106,
+      "stride_depth": 0.7096,
+      "pitch_shoulder_deg": -10.684,
+      "pitch_elbow_deg": 18.196,
+      "pitch_wrist_deg": -27.552,
+      "glove_shoulder_deg": -145.496,
+      "glove_elbow_deg": -28.56,
+      "head_scale": 1.0197,
+      "torso_scale": 1.0297,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 50,
+      "atlas_col": 9,
+      "atlas_row": 4,
+      "pose_id": "05_stride_extension",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        126.0,
+        151.0
+      ],
+      "torso_pos": [
+        125.162,
+        127.015
+      ],
+      "l_shoulder_pos": [
+        146.878,
+        102.338
+      ],
+      "l_elbow_pos": [
+        170.354,
+        97.348
+      ],
+      "l_wrist_pos": [
+        192.233,
+        99.648
+      ],
+      "r_shoulder_pos": [
+        105.256,
+        107.691
+      ],
+      "r_elbow_pos": [
+        87.017,
+        95.389
+      ],
+      "r_wrist_pos": [
+        67.127,
+        93.298
+      ],
+      "torso_tilt_deg": -2.0,
+      "shoulder_rot_deg": 42.0,
+      "hip_rot_deg": 8.0,
+      "lead_knee_lift": 0.3,
+      "stride_depth": 0.72,
+      "pitch_shoulder_deg": -12.0,
+      "pitch_elbow_deg": 18.0,
+      "pitch_wrist_deg": -28.0,
+      "glove_shoulder_deg": -146.0,
+      "glove_elbow_deg": -28.0,
+      "head_scale": 1.02,
+      "torso_scale": 1.03,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 51,
+      "atlas_col": 0,
+      "atlas_row": 5,
+      "pose_id": "05_stride_extension",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        125.916,
+        151.084
+      ],
+      "torso_pos": [
+        125.032,
+        127.1
+      ],
+      "l_shoulder_pos": [
+        146.783,
+        102.441
+      ],
+      "l_elbow_pos": [
+        170.183,
+        97.108
+      ],
+      "l_wrist_pos": [
+        192.14,
+        98.486
+      ],
+      "r_shoulder_pos": [
+        105.092,
+        107.759
+      ],
+      "r_elbow_pos": [
+        86.818,
+        95.511
+      ],
+      "r_wrist_pos": [
+        66.908,
+        93.615
+      ],
+      "torso_tilt_deg": -2.112,
+      "shoulder_rot_deg": 41.664,
+      "hip_rot_deg": 7.272,
+      "lead_knee_lift": 0.2916,
+      "stride_depth": 0.7278,
+      "pitch_shoulder_deg": -12.84,
+      "pitch_elbow_deg": 16.432,
+      "pitch_wrist_deg": -28.196,
+      "glove_shoulder_deg": -146.168,
+      "glove_elbow_deg": -28.392,
+      "head_scale": 1.0203,
+      "torso_scale": 1.0303,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 52,
+      "atlas_col": 1,
+      "atlas_row": 5,
+      "pose_id": "05_stride_extension",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        125.688,
+        151.312
+      ],
+      "torso_pos": [
+        124.676,
+        127.333
+      ],
+      "l_shoulder_pos": [
+        146.524,
+        102.722
+      ],
+      "l_elbow_pos": [
+        169.693,
+        96.462
+      ],
+      "l_wrist_pos": [
+        191.664,
+        95.332
+      ],
+      "r_shoulder_pos": [
+        104.649,
+        107.944
+      ],
+      "r_elbow_pos": [
+        86.278,
+        95.842
+      ],
+      "r_wrist_pos": [
+        66.324,
+        94.474
+      ],
+      "torso_tilt_deg": -2.416,
+      "shoulder_rot_deg": 40.752,
+      "hip_rot_deg": 5.296,
+      "lead_knee_lift": 0.2688,
+      "stride_depth": 0.7491,
+      "pitch_shoulder_deg": -15.12,
+      "pitch_elbow_deg": 12.176,
+      "pitch_wrist_deg": -28.728,
+      "glove_shoulder_deg": -146.624,
+      "glove_elbow_deg": -29.456,
+      "head_scale": 1.021,
+      "torso_scale": 1.031,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 53,
+      "atlas_col": 2,
+      "atlas_row": 5,
+      "pose_id": "05_stride_extension",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        125.352,
+        151.648
+      ],
+      "torso_pos": [
+        124.153,
+        127.678
+      ],
+      "l_shoulder_pos": [
+        146.138,
+        103.139
+      ],
+      "l_elbow_pos": [
+        168.9,
+        95.531
+      ],
+      "l_wrist_pos": [
+        190.373,
+        90.741
+      ],
+      "r_shoulder_pos": [
+        104.0,
+        108.217
+      ],
+      "r_elbow_pos": [
+        85.487,
+        96.331
+      ],
+      "r_wrist_pos": [
+        65.496,
+        95.744
+      ],
+      "torso_tilt_deg": -2.864,
+      "shoulder_rot_deg": 39.408,
+      "hip_rot_deg": 2.384,
+      "lead_knee_lift": 0.2352,
+      "stride_depth": 0.7805,
+      "pitch_shoulder_deg": -18.48,
+      "pitch_elbow_deg": 5.904,
+      "pitch_wrist_deg": -29.512,
+      "glove_shoulder_deg": -147.296,
+      "glove_elbow_deg": -31.024,
+      "head_scale": 1.0222,
+      "torso_scale": 1.0322,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 54,
+      "atlas_col": 3,
+      "atlas_row": 5,
+      "pose_id": "05_stride_extension",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        124.944,
+        152.056
+      ],
+      "torso_pos": [
+        123.517,
+        128.098
+      ],
+      "l_shoulder_pos": [
+        145.664,
+        103.648
+      ],
+      "l_elbow_pos": [
+        167.827,
+        94.441
+      ],
+      "l_wrist_pos": [
+        187.883,
+        85.397
+      ],
+      "r_shoulder_pos": [
+        103.216,
+        108.549
+      ],
+      "r_elbow_pos": [
+        84.537,
+        96.927
+      ],
+      "r_wrist_pos": [
+        64.54,
+        97.29
+      ],
+      "torso_tilt_deg": -3.408,
+      "shoulder_rot_deg": 37.776,
+      "hip_rot_deg": -1.152,
+      "lead_knee_lift": 0.1944,
+      "stride_depth": 0.8186,
+      "pitch_shoulder_deg": -22.56,
+      "pitch_elbow_deg": -1.712,
+      "pitch_wrist_deg": -30.464,
+      "glove_shoulder_deg": -148.112,
+      "glove_elbow_deg": -32.928,
+      "head_scale": 1.0235,
+      "torso_scale": 1.0335,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 55,
+      "atlas_col": 4,
+      "atlas_row": 5,
+      "pose_id": "06_foot_plant",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        124.5,
+        152.5
+      ],
+      "torso_pos": [
+        122.826,
+        128.558
+      ],
+      "l_shoulder_pos": [
+        145.14,
+        104.207
+      ],
+      "l_elbow_pos": [
+        166.525,
+        93.312
+      ],
+      "l_wrist_pos": [
+        184.095,
+        80.072
+      ],
+      "r_shoulder_pos": [
+        102.371,
+        108.91
+      ],
+      "r_elbow_pos": [
+        83.513,
+        97.579
+      ],
+      "r_wrist_pos": [
+        63.562,
+        98.974
+      ],
+      "torso_tilt_deg": -4.0,
+      "shoulder_rot_deg": 36.0,
+      "hip_rot_deg": -5.0,
+      "lead_knee_lift": 0.15,
+      "stride_depth": 0.86,
+      "pitch_shoulder_deg": -27.0,
+      "pitch_elbow_deg": -10.0,
+      "pitch_wrist_deg": -31.5,
+      "glove_shoulder_deg": -149.0,
+      "glove_elbow_deg": -35.0,
+      "head_scale": 1.025,
+      "torso_scale": 1.035,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 56,
+      "atlas_col": 5,
+      "atlas_row": 5,
+      "pose_id": "06_foot_plant",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        124.056,
+        152.944
+      ],
+      "torso_pos": [
+        122.135,
+        129.021
+      ],
+      "l_shoulder_pos": [
+        144.61,
+        104.771
+      ],
+      "l_elbow_pos": [
+        165.086,
+        92.253
+      ],
+      "l_wrist_pos": [
+        179.307,
+        75.467
+      ],
+      "r_shoulder_pos": [
+        101.532,
+        109.271
+      ],
+      "r_elbow_pos": [
+        82.501,
+        98.234
+      ],
+      "r_wrist_pos": [
+        62.649,
+        100.657
+      ],
+      "torso_tilt_deg": -4.592,
+      "shoulder_rot_deg": 34.224,
+      "hip_rot_deg": -8.848,
+      "lead_knee_lift": 0.1056,
+      "stride_depth": 0.9014,
+      "pitch_shoulder_deg": -31.44,
+      "pitch_elbow_deg": -18.288,
+      "pitch_wrist_deg": -32.536,
+      "glove_shoulder_deg": -149.888,
+      "glove_elbow_deg": -37.072,
+      "head_scale": 1.0265,
+      "torso_scale": 1.0365,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 57,
+      "atlas_col": 6,
+      "atlas_row": 5,
+      "pose_id": "06_foot_plant",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        123.648,
+        153.352
+      ],
+      "torso_pos": [
+        121.5,
+        129.448
+      ],
+      "l_shoulder_pos": [
+        144.115,
+        105.294
+      ],
+      "l_elbow_pos": [
+        163.649,
+        91.35
+      ],
+      "l_wrist_pos": [
+        174.172,
+        72.03
+      ],
+      "r_shoulder_pos": [
+        100.768,
+        109.603
+      ],
+      "r_elbow_pos": [
+        81.582,
+        98.838
+      ],
+      "r_wrist_pos": [
+        61.867,
+        102.201
+      ],
+      "torso_tilt_deg": -5.136,
+      "shoulder_rot_deg": 32.592,
+      "hip_rot_deg": -12.384,
+      "lead_knee_lift": 0.0648,
+      "stride_depth": 0.9395,
+      "pitch_shoulder_deg": -35.52,
+      "pitch_elbow_deg": -25.904,
+      "pitch_wrist_deg": -33.488,
+      "glove_shoulder_deg": -150.704,
+      "glove_elbow_deg": -38.976,
+      "head_scale": 1.0278,
+      "torso_scale": 1.0378,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 58,
+      "atlas_col": 7,
+      "atlas_row": 5,
+      "pose_id": "06_foot_plant",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        123.312,
+        153.688
+      ],
+      "torso_pos": [
+        120.977,
+        129.802
+      ],
+      "l_shoulder_pos": [
+        143.703,
+        105.727
+      ],
+      "l_elbow_pos": [
+        162.386,
+        90.662
+      ],
+      "l_wrist_pos": [
+        169.528,
+        69.854
+      ],
+      "r_shoulder_pos": [
+        100.144,
+        109.877
+      ],
+      "r_elbow_pos": [
+        80.833,
+        99.338
+      ],
+      "r_wrist_pos": [
+        61.264,
+        103.468
+      ],
+      "torso_tilt_deg": -5.584,
+      "shoulder_rot_deg": 31.248,
+      "hip_rot_deg": -15.296,
+      "lead_knee_lift": 0.0312,
+      "stride_depth": 0.9709,
+      "pitch_shoulder_deg": -38.88,
+      "pitch_elbow_deg": -32.176,
+      "pitch_wrist_deg": -34.272,
+      "glove_shoulder_deg": -151.376,
+      "glove_elbow_deg": -40.544,
+      "head_scale": 1.029,
+      "torso_scale": 1.039,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 59,
+      "atlas_col": 8,
+      "atlas_row": 5,
+      "pose_id": "06_foot_plant",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        123.084,
+        153.916
+      ],
+      "torso_pos": [
+        120.622,
+        130.043
+      ],
+      "l_shoulder_pos": [
+        143.421,
+        106.022
+      ],
+      "l_elbow_pos": [
+        161.49,
+        90.226
+      ],
+      "l_wrist_pos": [
+        166.217,
+        68.74
+      ],
+      "r_shoulder_pos": [
+        99.723,
+        110.063
+      ],
+      "r_elbow_pos": [
+        80.328,
+        99.678
+      ],
+      "r_wrist_pos": [
+        60.876,
+        104.326
+      ],
+      "torso_tilt_deg": -5.888,
+      "shoulder_rot_deg": 30.336,
+      "hip_rot_deg": -17.272,
+      "lead_knee_lift": 0.0084,
+      "stride_depth": 0.9922,
+      "pitch_shoulder_deg": -41.16,
+      "pitch_elbow_deg": -36.432,
+      "pitch_wrist_deg": -34.804,
+      "glove_shoulder_deg": -151.832,
+      "glove_elbow_deg": -41.608,
+      "head_scale": 1.0297,
+      "torso_scale": 1.0397,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 60,
+      "atlas_col": 9,
+      "atlas_row": 5,
+      "pose_id": "06_foot_plant",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        123.0,
+        154.0
+      ],
+      "torso_pos": [
+        120.491,
+        130.131
+      ],
+      "l_shoulder_pos": [
+        143.317,
+        106.131
+      ],
+      "l_elbow_pos": [
+        161.152,
+        90.072
+      ],
+      "l_wrist_pos": [
+        164.972,
+        68.407
+      ],
+      "r_shoulder_pos": [
+        99.568,
+        110.131
+      ],
+      "r_elbow_pos": [
+        80.143,
+        99.803
+      ],
+      "r_wrist_pos": [
+        60.737,
+        104.642
+      ],
+      "torso_tilt_deg": -6.0,
+      "shoulder_rot_deg": 30.0,
+      "hip_rot_deg": -18.0,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -42.0,
+      "pitch_elbow_deg": -38.0,
+      "pitch_wrist_deg": -35.0,
+      "glove_shoulder_deg": -152.0,
+      "glove_elbow_deg": -42.0,
+      "head_scale": 1.03,
+      "torso_scale": 1.04,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 61,
+      "atlas_col": 0,
+      "atlas_row": 6,
+      "pose_id": "06_foot_plant",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        122.944,
+        154.028
+      ],
+      "torso_pos": [
+        120.365,
+        130.167
+      ],
+      "l_shoulder_pos": [
+        143.272,
+        106.232
+      ],
+      "l_elbow_pos": [
+        160.997,
+        90.051
+      ],
+      "l_wrist_pos": [
+        164.414,
+        68.318
+      ],
+      "r_shoulder_pos": [
+        99.368,
+        110.102
+      ],
+      "r_elbow_pos": [
+        79.913,
+        99.831
+      ],
+      "r_wrist_pos": [
+        60.636,
+        105.161
+      ],
+      "torso_tilt_deg": -6.168,
+      "shoulder_rot_deg": 28.936,
+      "hip_rot_deg": -18.504,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -42.392,
+      "pitch_elbow_deg": -38.672,
+      "pitch_wrist_deg": -35.476,
+      "glove_shoulder_deg": -152.168,
+      "glove_elbow_deg": -43.288,
+      "head_scale": 1.0303,
+      "torso_scale": 1.0403,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 62,
+      "atlas_col": 1,
+      "atlas_row": 6,
+      "pose_id": "06_foot_plant",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        122.792,
+        154.104
+      ],
+      "torso_pos": [
+        120.024,
+        130.264
+      ],
+      "l_shoulder_pos": [
+        143.136,
+        106.508
+      ],
+      "l_elbow_pos": [
+        160.558,
+        90.001
+      ],
+      "l_wrist_pos": [
+        162.876,
+        68.123
+      ],
+      "r_shoulder_pos": [
+        98.837,
+        110.021
+      ],
+      "r_elbow_pos": [
+        79.301,
+        99.904
+      ],
+      "r_wrist_pos": [
+        60.437,
+        106.55
+      ],
+      "torso_tilt_deg": -6.624,
+      "shoulder_rot_deg": 26.048,
+      "hip_rot_deg": -19.872,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -43.456,
+      "pitch_elbow_deg": -40.496,
+      "pitch_wrist_deg": -36.768,
+      "glove_shoulder_deg": -152.624,
+      "glove_elbow_deg": -46.784,
+      "head_scale": 1.031,
+      "torso_scale": 1.041,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 63,
+      "atlas_col": 2,
+      "atlas_row": 6,
+      "pose_id": "06_foot_plant",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        122.568,
+        154.216
+      ],
+      "torso_pos": [
+        119.52,
+        130.41
+      ],
+      "l_shoulder_pos": [
+        142.898,
+        106.925
+      ],
+      "l_elbow_pos": [
+        159.861,
+        89.948
+      ],
+      "l_wrist_pos": [
+        160.549,
+        67.958
+      ],
+      "r_shoulder_pos": [
+        98.09,
+        109.895
+      ],
+      "r_elbow_pos": [
+        78.437,
+        100.009
+      ],
+      "r_wrist_pos": [
+        60.345,
+        108.535
+      ],
+      "torso_tilt_deg": -7.296,
+      "shoulder_rot_deg": 21.792,
+      "hip_rot_deg": -21.888,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -45.024,
+      "pitch_elbow_deg": -43.184,
+      "pitch_wrist_deg": -38.672,
+      "glove_shoulder_deg": -153.296,
+      "glove_elbow_deg": -51.936,
+      "head_scale": 1.0322,
+      "torso_scale": 1.0422,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 64,
+      "atlas_col": 3,
+      "atlas_row": 6,
+      "pose_id": "06_foot_plant",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        122.296,
+        154.352
+      ],
+      "torso_pos": [
+        118.909,
+        130.592
+      ],
+      "l_shoulder_pos": [
+        142.547,
+        107.448
+      ],
+      "l_elbow_pos": [
+        158.937,
+        89.916
+      ],
+      "l_wrist_pos": [
+        157.641,
+        67.954
+      ],
+      "r_shoulder_pos": [
+        97.242,
+        109.737
+      ],
+      "r_elbow_pos": [
+        77.45,
+        100.131
+      ],
+      "r_wrist_pos": [
+        60.545,
+        110.819
+      ],
+      "torso_tilt_deg": -8.112,
+      "shoulder_rot_deg": 16.624,
+      "hip_rot_deg": -24.336,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -46.928,
+      "pitch_elbow_deg": -46.448,
+      "pitch_wrist_deg": -40.984,
+      "glove_shoulder_deg": -154.112,
+      "glove_elbow_deg": -58.192,
+      "head_scale": 1.0335,
+      "torso_scale": 1.0435,
+      "pitch_arm_front_layer": false,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 65,
+      "atlas_col": 4,
+      "atlas_row": 6,
+      "pose_id": "07_late_cocking_mer",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        122.0,
+        154.5
+      ],
+      "torso_pos": [
+        118.246,
+        130.795
+      ],
+      "l_shoulder_pos": [
+        142.087,
+        108.032
+      ],
+      "l_elbow_pos": [
+        157.832,
+        89.919
+      ],
+      "l_wrist_pos": [
+        154.39,
+        68.19
+      ],
+      "r_shoulder_pos": [
+        96.391,
+        109.559
+      ],
+      "r_elbow_pos": [
+        76.453,
+        100.261
+      ],
+      "r_wrist_pos": [
+        61.132,
+        113.117
+      ],
+      "torso_tilt_deg": -9.0,
+      "shoulder_rot_deg": 11.0,
+      "hip_rot_deg": -27.0,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -49.0,
+      "pitch_elbow_deg": -50.0,
+      "pitch_wrist_deg": -43.5,
+      "glove_shoulder_deg": -155.0,
+      "glove_elbow_deg": -65.0,
+      "head_scale": 1.035,
+      "torso_scale": 1.045,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 66,
+      "atlas_col": 5,
+      "atlas_row": 6,
+      "pose_id": "07_late_cocking_mer",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        121.704,
+        154.648
+      ],
+      "torso_pos": [
+        117.583,
+        131.005
+      ],
+      "l_shoulder_pos": [
+        141.545,
+        108.63
+      ],
+      "l_elbow_pos": [
+        156.625,
+        89.959
+      ],
+      "l_wrist_pos": [
+        151.07,
+        68.672
+      ],
+      "r_shoulder_pos": [
+        95.618,
+        109.379
+      ],
+      "r_elbow_pos": [
+        75.537,
+        100.392
+      ],
+      "r_wrist_pos": [
+        62.076,
+        115.183
+      ],
+      "torso_tilt_deg": -9.888,
+      "shoulder_rot_deg": 5.376,
+      "hip_rot_deg": -29.664,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -51.072,
+      "pitch_elbow_deg": -53.552,
+      "pitch_wrist_deg": -46.016,
+      "glove_shoulder_deg": -155.888,
+      "glove_elbow_deg": -71.808,
+      "head_scale": 1.0365,
+      "torso_scale": 1.0465,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 67,
+      "atlas_col": 6,
+      "atlas_row": 6,
+      "pose_id": "07_late_cocking_mer",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        121.432,
+        154.784
+      ],
+      "torso_pos": [
+        116.974,
+        131.202
+      ],
+      "l_shoulder_pos": [
+        140.974,
+        109.187
+      ],
+      "l_elbow_pos": [
+        155.426,
+        90.026
+      ],
+      "l_wrist_pos": [
+        147.977,
+        69.325
+      ],
+      "r_shoulder_pos": [
+        94.974,
+        109.216
+      ],
+      "r_elbow_pos": [
+        74.768,
+        100.516
+      ],
+      "r_wrist_pos": [
+        63.23,
+        116.852
+      ],
+      "torso_tilt_deg": -10.704,
+      "shoulder_rot_deg": 0.208,
+      "hip_rot_deg": -32.112,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -52.976,
+      "pitch_elbow_deg": -56.816,
+      "pitch_wrist_deg": -48.328,
+      "glove_shoulder_deg": -156.704,
+      "glove_elbow_deg": -78.064,
+      "head_scale": 1.0378,
+      "torso_scale": 1.0478,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 68,
+      "atlas_col": 7,
+      "atlas_row": 6,
+      "pose_id": "07_late_cocking_mer",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        121.208,
+        154.896
+      ],
+      "torso_pos": [
+        116.474,
+        131.368
+      ],
+      "l_shoulder_pos": [
+        140.453,
+        109.65
+      ],
+      "l_elbow_pos": [
+        154.374,
+        90.1
+      ],
+      "l_wrist_pos": [
+        145.409,
+        70.01
+      ],
+      "r_shoulder_pos": [
+        94.494,
+        109.085
+      ],
+      "r_elbow_pos": [
+        74.187,
+        100.622
+      ],
+      "r_wrist_pos": [
+        64.366,
+        118.045
+      ],
+      "torso_tilt_deg": -11.376,
+      "shoulder_rot_deg": -4.048,
+      "hip_rot_deg": -34.128,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -54.544,
+      "pitch_elbow_deg": -59.504,
+      "pitch_wrist_deg": -50.232,
+      "glove_shoulder_deg": -157.376,
+      "glove_elbow_deg": -83.216,
+      "head_scale": 1.039,
+      "torso_scale": 1.049,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 69,
+      "atlas_col": 8,
+      "atlas_row": 6,
+      "pose_id": "07_late_cocking_mer",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        121.056,
+        154.972
+      ],
+      "torso_pos": [
+        116.135,
+        131.482
+      ],
+      "l_shoulder_pos": [
+        140.072,
+        109.965
+      ],
+      "l_elbow_pos": [
+        153.628,
+        90.16
+      ],
+      "l_wrist_pos": [
+        143.662,
+        70.547
+      ],
+      "r_shoulder_pos": [
+        94.193,
+        108.999
+      ],
+      "r_elbow_pos": [
+        73.819,
+        100.698
+      ],
+      "r_wrist_pos": [
+        65.223,
+        118.756
+      ],
+      "torso_tilt_deg": -11.832,
+      "shoulder_rot_deg": -6.936,
+      "hip_rot_deg": -35.496,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -55.608,
+      "pitch_elbow_deg": -61.328,
+      "pitch_wrist_deg": -51.524,
+      "glove_shoulder_deg": -157.832,
+      "glove_elbow_deg": -86.712,
+      "head_scale": 1.0397,
+      "torso_scale": 1.0497,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 70,
+      "atlas_col": 9,
+      "atlas_row": 6,
+      "pose_id": "07_late_cocking_mer",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        121.0,
+        155.0
+      ],
+      "torso_pos": [
+        116.01,
+        131.524
+      ],
+      "l_shoulder_pos": [
+        139.926,
+        110.081
+      ],
+      "l_elbow_pos": [
+        153.347,
+        90.184
+      ],
+      "l_wrist_pos": [
+        143.018,
+        70.759
+      ],
+      "r_shoulder_pos": [
+        94.087,
+        108.968
+      ],
+      "r_elbow_pos": [
+        73.689,
+        100.726
+      ],
+      "r_wrist_pos": [
+        65.554,
+        118.997
+      ],
+      "torso_tilt_deg": -12.0,
+      "shoulder_rot_deg": -8.0,
+      "hip_rot_deg": -36.0,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -56.0,
+      "pitch_elbow_deg": -62.0,
+      "pitch_wrist_deg": -52.0,
+      "glove_shoulder_deg": -158.0,
+      "glove_elbow_deg": -88.0,
+      "head_scale": 1.04,
+      "torso_scale": 1.05,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 71,
+      "atlas_col": 0,
+      "atlas_row": 7,
+      "pose_id": "07_late_cocking_mer",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        120.957,
+        155.043
+      ],
+      "torso_pos": [
+        115.897,
+        131.583
+      ],
+      "l_shoulder_pos": [
+        139.793,
+        110.199
+      ],
+      "l_elbow_pos": [
+        153.688,
+        90.629
+      ],
+      "l_wrist_pos": [
+        144.423,
+        70.675
+      ],
+      "r_shoulder_pos": [
+        93.991,
+        108.966
+      ],
+      "r_elbow_pos": [
+        73.532,
+        100.878
+      ],
+      "r_wrist_pos": [
+        65.645,
+        119.257
+      ],
+      "torso_tilt_deg": -12.1719,
+      "shoulder_rot_deg": -8.8594,
+      "hip_rot_deg": -36.2578,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -54.625,
+      "pitch_elbow_deg": -60.2812,
+      "pitch_wrist_deg": -50.7969,
+      "glove_shoulder_deg": -158.4297,
+      "glove_elbow_deg": -88.3438,
+      "head_scale": 1.0404,
+      "torso_scale": 1.0504,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 72,
+      "atlas_col": 1,
+      "atlas_row": 7,
+      "pose_id": "07_late_cocking_mer",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        120.844,
+        155.156
+      ],
+      "torso_pos": [
+        115.598,
+        131.736
+      ],
+      "l_shoulder_pos": [
+        139.435,
+        110.508
+      ],
+      "l_elbow_pos": [
+        154.539,
+        91.857
+      ],
+      "l_wrist_pos": [
+        148.199,
+        70.79
+      ],
+      "r_shoulder_pos": [
+        93.747,
+        108.965
+      ],
+      "r_elbow_pos": [
+        73.132,
+        101.283
+      ],
+      "r_wrist_pos": [
+        65.904,
+        119.931
+      ],
+      "torso_tilt_deg": -12.625,
+      "shoulder_rot_deg": -11.125,
+      "hip_rot_deg": -36.9375,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -51.0,
+      "pitch_elbow_deg": -55.75,
+      "pitch_wrist_deg": -47.625,
+      "glove_shoulder_deg": -159.5625,
+      "glove_elbow_deg": -89.25,
+      "head_scale": 1.0416,
+      "torso_scale": 1.0516,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 73,
+      "atlas_col": 2,
+      "atlas_row": 7,
+      "pose_id": "07_late_cocking_mer",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        120.684,
+        155.316
+      ],
+      "torso_pos": [
+        115.176,
+        131.957
+      ],
+      "l_shoulder_pos": [
+        138.907,
+        110.947
+      ],
+      "l_elbow_pos": [
+        155.616,
+        93.719
+      ],
+      "l_wrist_pos": [
+        153.615,
+        71.81
+      ],
+      "r_shoulder_pos": [
+        93.424,
+        108.967
+      ],
+      "r_elbow_pos": [
+        72.602,
+        101.864
+      ],
+      "r_wrist_pos": [
+        66.32,
+        120.852
+      ],
+      "torso_tilt_deg": -13.2656,
+      "shoulder_rot_deg": -14.3281,
+      "hip_rot_deg": -37.8984,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -45.875,
+      "pitch_elbow_deg": -49.3438,
+      "pitch_wrist_deg": -43.1406,
+      "glove_shoulder_deg": -161.1641,
+      "glove_elbow_deg": -90.5312,
+      "head_scale": 1.0432,
+      "torso_scale": 1.0532,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 74,
+      "atlas_col": 3,
+      "atlas_row": 7,
+      "pose_id": "08_whip_acceleration",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        120.5,
+        155.5
+      ],
+      "torso_pos": [
+        114.694,
+        132.213
+      ],
+      "l_shoulder_pos": [
+        138.269,
+        111.449
+      ],
+      "l_elbow_pos": [
+        156.654,
+        96.022
+      ],
+      "l_wrist_pos": [
+        159.716,
+        74.236
+      ],
+      "r_shoulder_pos": [
+        93.084,
+        108.977
+      ],
+      "r_elbow_pos": [
+        72.045,
+        102.545
+      ],
+      "r_wrist_pos": [
+        66.868,
+        121.863
+      ],
+      "torso_tilt_deg": -14.0,
+      "shoulder_rot_deg": -18.0,
+      "hip_rot_deg": -39.0,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -40.0,
+      "pitch_elbow_deg": -42.0,
+      "pitch_wrist_deg": -38.0,
+      "glove_shoulder_deg": -163.0,
+      "glove_elbow_deg": -92.0,
+      "head_scale": 1.045,
+      "torso_scale": 1.055,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 75,
+      "atlas_col": 4,
+      "atlas_row": 7,
+      "pose_id": "08_whip_acceleration",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        120.316,
+        155.684
+      ],
+      "torso_pos": [
+        114.212,
+        132.473
+      ],
+      "l_shoulder_pos": [
+        137.597,
+        111.95
+      ],
+      "l_elbow_pos": [
+        157.464,
+        98.486
+      ],
+      "l_wrist_pos": [
+        165.427,
+        77.977
+      ],
+      "r_shoulder_pos": [
+        92.776,
+        108.996
+      ],
+      "r_elbow_pos": [
+        71.542,
+        103.241
+      ],
+      "r_wrist_pos": [
+        67.488,
+        122.826
+      ],
+      "torso_tilt_deg": -14.7344,
+      "shoulder_rot_deg": -21.6719,
+      "hip_rot_deg": -40.1016,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -34.125,
+      "pitch_elbow_deg": -34.6562,
+      "pitch_wrist_deg": -32.8594,
+      "glove_shoulder_deg": -164.8359,
+      "glove_elbow_deg": -93.4688,
+      "head_scale": 1.0468,
+      "torso_scale": 1.0568,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 76,
+      "atlas_col": 5,
+      "atlas_row": 7,
+      "pose_id": "08_whip_acceleration",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        120.156,
+        155.844
+      ],
+      "torso_pos": [
+        113.793,
+        132.703
+      ],
+      "l_shoulder_pos": [
+        136.983,
+        112.385
+      ],
+      "l_elbow_pos": [
+        157.974,
+        100.75
+      ],
+      "l_wrist_pos": [
+        169.876,
+        82.247
+      ],
+      "r_shoulder_pos": [
+        92.535,
+        109.02
+      ],
+      "r_elbow_pos": [
+        71.149,
+        103.861
+      ],
+      "r_wrist_pos": [
+        68.085,
+        123.625
+      ],
+      "torso_tilt_deg": -15.375,
+      "shoulder_rot_deg": -24.875,
+      "hip_rot_deg": -41.0625,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -29.0,
+      "pitch_elbow_deg": -28.25,
+      "pitch_wrist_deg": -28.375,
+      "glove_shoulder_deg": -166.4375,
+      "glove_elbow_deg": -94.75,
+      "head_scale": 1.0484,
+      "torso_scale": 1.0584,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 77,
+      "atlas_col": 6,
+      "atlas_row": 7,
+      "pose_id": "08_whip_acceleration",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        120.043,
+        155.957
+      ],
+      "torso_pos": [
+        113.497,
+        132.867
+      ],
+      "l_shoulder_pos": [
+        136.534,
+        112.692
+      ],
+      "l_elbow_pos": [
+        158.219,
+        102.407
+      ],
+      "l_wrist_pos": [
+        172.625,
+        85.779
+      ],
+      "r_shoulder_pos": [
+        92.38,
+        109.042
+      ],
+      "r_elbow_pos": [
+        70.895,
+        104.307
+      ],
+      "r_wrist_pos": [
+        68.536,
+        124.167
+      ],
+      "torso_tilt_deg": -15.8281,
+      "shoulder_rot_deg": -27.1406,
+      "hip_rot_deg": -41.7422,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -25.375,
+      "pitch_elbow_deg": -23.7188,
+      "pitch_wrist_deg": -25.2031,
+      "glove_shoulder_deg": -167.5703,
+      "glove_elbow_deg": -95.6562,
+      "head_scale": 1.0496,
+      "torso_scale": 1.0596,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 78,
+      "atlas_col": 7,
+      "atlas_row": 7,
+      "pose_id": "08_whip_acceleration",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        120.0,
+        156.0
+      ],
+      "torso_pos": [
+        113.385,
+        132.93
+      ],
+      "l_shoulder_pos": [
+        136.36,
+        112.808
+      ],
+      "l_elbow_pos": [
+        158.285,
+        103.046
+      ],
+      "l_wrist_pos": [
+        173.568,
+        87.22
+      ],
+      "r_shoulder_pos": [
+        92.324,
+        109.052
+      ],
+      "r_elbow_pos": [
+        70.804,
+        104.478
+      ],
+      "r_wrist_pos": [
+        68.714,
+        124.368
+      ],
+      "torso_tilt_deg": -16.0,
+      "shoulder_rot_deg": -28.0,
+      "hip_rot_deg": -42.0,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -24.0,
+      "pitch_elbow_deg": -22.0,
+      "pitch_wrist_deg": -24.0,
+      "glove_shoulder_deg": -168.0,
+      "glove_elbow_deg": -96.0,
+      "head_scale": 1.05,
+      "torso_scale": 1.06,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 79,
+      "atlas_col": 8,
+      "atlas_row": 7,
+      "pose_id": "08_whip_acceleration",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.945,
+        156.0
+      ],
+      "torso_pos": [
+        113.218,
+        132.962
+      ],
+      "l_shoulder_pos": [
+        136.145,
+        112.881
+      ],
+      "l_elbow_pos": [
+        158.448,
+        104.017
+      ],
+      "l_wrist_pos": [
+        174.794,
+        89.293
+      ],
+      "r_shoulder_pos": [
+        92.202,
+        109.043
+      ],
+      "r_elbow_pos": [
+        70.665,
+        104.552
+      ],
+      "r_wrist_pos": [
+        68.767,
+        124.462
+      ],
+      "torso_tilt_deg": -16.277,
+      "shoulder_rot_deg": -28.6647,
+      "hip_rot_deg": -42.1662,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -21.6735,
+      "pitch_elbow_deg": -20.3382,
+      "pitch_wrist_deg": -21.6735,
+      "glove_shoulder_deg": -168.2216,
+      "glove_elbow_deg": -96.3324,
+      "head_scale": 1.0506,
+      "torso_scale": 1.0606,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 80,
+      "atlas_col": 9,
+      "atlas_row": 7,
+      "pose_id": "08_whip_acceleration",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.802,
+        156.0
+      ],
+      "torso_pos": [
+        112.788,
+        133.048
+      ],
+      "l_shoulder_pos": [
+        135.584,
+        113.07
+      ],
+      "l_elbow_pos": [
+        158.692,
+        106.587
+      ],
+      "l_wrist_pos": [
+        177.404,
+        95.018
+      ],
+      "r_shoulder_pos": [
+        91.892,
+        109.025
+      ],
+      "r_elbow_pos": [
+        70.312,
+        104.749
+      ],
+      "r_wrist_pos": [
+        68.91,
+        124.7
+      ],
+      "torso_tilt_deg": -16.9913,
+      "shoulder_rot_deg": -30.379,
+      "hip_rot_deg": -42.5948,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -15.6735,
+      "pitch_elbow_deg": -16.0525,
+      "pitch_wrist_deg": -15.6735,
+      "glove_shoulder_deg": -168.793,
+      "glove_elbow_deg": -97.1895,
+      "head_scale": 1.052,
+      "torso_scale": 1.062,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 81,
+      "atlas_col": 0,
+      "atlas_row": 8,
+      "pose_id": "08_whip_acceleration",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.606,
+        156.0
+      ],
+      "torso_pos": [
+        112.203,
+        133.17
+      ],
+      "l_shoulder_pos": [
+        134.807,
+        113.333
+      ],
+      "l_elbow_pos": [
+        158.604,
+        110.213
+      ],
+      "l_wrist_pos": [
+        179.567,
+        103.538
+      ],
+      "r_shoulder_pos": [
+        91.482,
+        109.008
+      ],
+      "r_elbow_pos": [
+        69.845,
+        105.027
+      ],
+      "r_wrist_pos": [
+        69.125,
+        125.014
+      ],
+      "torso_tilt_deg": -17.9679,
+      "shoulder_rot_deg": -32.723,
+      "hip_rot_deg": -43.1808,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": -7.4694,
+      "pitch_elbow_deg": -10.1924,
+      "pitch_wrist_deg": -7.4694,
+      "glove_shoulder_deg": -169.5743,
+      "glove_elbow_deg": -98.3615,
+      "head_scale": 1.0539,
+      "torso_scale": 1.0639,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 82,
+      "atlas_col": 1,
+      "atlas_row": 8,
+      "pose_id": "09_release_point",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.394,
+        156.0
+      ],
+      "torso_pos": [
+        111.567,
+        133.312
+      ],
+      "l_shoulder_pos": [
+        133.948,
+        113.622
+      ],
+      "l_elbow_pos": [
+        157.94,
+        114.237
+      ],
+      "l_wrist_pos": [
+        179.922,
+        113.34
+      ],
+      "r_shoulder_pos": [
+        91.051,
+        109.002
+      ],
+      "r_elbow_pos": [
+        69.358,
+        105.343
+      ],
+      "r_wrist_pos": [
+        69.38,
+        125.343
+      ],
+      "torso_tilt_deg": -19.0321,
+      "shoulder_rot_deg": -35.277,
+      "hip_rot_deg": -43.8192,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 1.4694,
+      "pitch_elbow_deg": -3.8076,
+      "pitch_wrist_deg": 1.4694,
+      "glove_shoulder_deg": -170.4257,
+      "glove_elbow_deg": -99.6385,
+      "head_scale": 1.0561,
+      "torso_scale": 1.0661,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 83,
+      "atlas_col": 2,
+      "atlas_row": 8,
+      "pose_id": "09_release_point",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.198,
+        156.0
+      ],
+      "torso_pos": [
+        110.986,
+        133.449
+      ],
+      "l_shoulder_pos": [
+        133.148,
+        113.89
+      ],
+      "l_elbow_pos": [
+        156.807,
+        117.923
+      ],
+      "l_wrist_pos": [
+        178.347,
+        122.394
+      ],
+      "r_shoulder_pos": [
+        90.672,
+        109.007
+      ],
+      "r_elbow_pos": [
+        68.93,
+        105.644
+      ],
+      "r_wrist_pos": [
+        69.634,
+        125.631
+      ],
+      "torso_tilt_deg": -20.0087,
+      "shoulder_rot_deg": -37.621,
+      "hip_rot_deg": -44.4052,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 9.6735,
+      "pitch_elbow_deg": 2.0525,
+      "pitch_wrist_deg": 9.6735,
+      "glove_shoulder_deg": -171.207,
+      "glove_elbow_deg": -100.8105,
+      "head_scale": 1.058,
+      "torso_scale": 1.068,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 84,
+      "atlas_col": 3,
+      "atlas_row": 8,
+      "pose_id": "09_release_point",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.055,
+        156.0
+      ],
+      "torso_pos": [
+        110.563,
+        133.553
+      ],
+      "l_shoulder_pos": [
+        132.555,
+        114.088
+      ],
+      "l_elbow_pos": [
+        155.663,
+        120.572
+      ],
+      "l_wrist_pos": [
+        176.059,
+        128.817
+      ],
+      "r_shoulder_pos": [
+        90.403,
+        109.017
+      ],
+      "r_elbow_pos": [
+        68.629,
+        105.871
+      ],
+      "r_wrist_pos": [
+        69.831,
+        125.835
+      ],
+      "torso_tilt_deg": -20.723,
+      "shoulder_rot_deg": -39.3353,
+      "hip_rot_deg": -44.8338,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 15.6735,
+      "pitch_elbow_deg": 6.3382,
+      "pitch_wrist_deg": 15.6735,
+      "glove_shoulder_deg": -171.7784,
+      "glove_elbow_deg": -101.6676,
+      "head_scale": 1.0594,
+      "torso_scale": 1.0694,
+      "pitch_arm_front_layer": true,
+      "ball_released": false,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 85,
+      "atlas_col": 4,
+      "atlas_row": 8,
+      "pose_id": "09_release_point",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.0,
+        156.0
+      ],
+      "torso_pos": [
+        110.399,
+        133.594
+      ],
+      "l_shoulder_pos": [
+        132.324,
+        114.165
+      ],
+      "l_elbow_pos": [
+        155.15,
+        121.582
+      ],
+      "l_wrist_pos": [
+        174.923,
+        131.226
+      ],
+      "r_shoulder_pos": [
+        90.301,
+        109.023
+      ],
+      "r_elbow_pos": [
+        68.515,
+        105.961
+      ],
+      "r_wrist_pos": [
+        69.91,
+        125.912
+      ],
+      "torso_tilt_deg": -21.0,
+      "shoulder_rot_deg": -40.0,
+      "hip_rot_deg": -45.0,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 18.0,
+      "pitch_elbow_deg": 8.0,
+      "pitch_wrist_deg": 18.0,
+      "glove_shoulder_deg": -172.0,
+      "glove_elbow_deg": -102.0,
+      "head_scale": 1.06,
+      "torso_scale": 1.07,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 86,
+      "atlas_col": 5,
+      "atlas_row": 8,
+      "pose_id": "09_release_point",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.0,
+        156.043
+      ],
+      "torso_pos": [
+        110.315,
+        133.669
+      ],
+      "l_shoulder_pos": [
+        132.205,
+        114.259
+      ],
+      "l_elbow_pos": [
+        154.773,
+        122.424
+      ],
+      "l_wrist_pos": [
+        174.093,
+        132.948
+      ],
+      "r_shoulder_pos": [
+        90.25,
+        109.08
+      ],
+      "r_elbow_pos": [
+        68.457,
+        106.067
+      ],
+      "r_wrist_pos": [
+        69.942,
+        126.012
+      ],
+      "torso_tilt_deg": -21.2148,
+      "shoulder_rot_deg": -40.3438,
+      "hip_rot_deg": -45.043,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 19.8906,
+      "pitch_elbow_deg": 8.6875,
+      "pitch_wrist_deg": 19.0312,
+      "glove_shoulder_deg": -172.1289,
+      "glove_elbow_deg": -102.1289,
+      "head_scale": 1.06,
+      "torso_scale": 1.07,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 87,
+      "atlas_col": 6,
+      "atlas_row": 8,
+      "pose_id": "09_release_point",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.0,
+        156.156
+      ],
+      "torso_pos": [
+        110.094,
+        133.87
+      ],
+      "l_shoulder_pos": [
+        131.89,
+        114.507
+      ],
+      "l_elbow_pos": [
+        153.663,
+        124.602
+      ],
+      "l_wrist_pos": [
+        171.602,
+        137.339
+      ],
+      "r_shoulder_pos": [
+        90.115,
+        109.232
+      ],
+      "r_elbow_pos": [
+        68.305,
+        106.349
+      ],
+      "r_wrist_pos": [
+        70.027,
+        126.275
+      ],
+      "torso_tilt_deg": -21.7812,
+      "shoulder_rot_deg": -41.25,
+      "hip_rot_deg": -45.1562,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 24.875,
+      "pitch_elbow_deg": 10.5,
+      "pitch_wrist_deg": 21.75,
+      "glove_shoulder_deg": -172.4688,
+      "glove_elbow_deg": -102.4688,
+      "head_scale": 1.06,
+      "torso_scale": 1.07,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 88,
+      "atlas_col": 7,
+      "atlas_row": 8,
+      "pose_id": "09_release_point",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.0,
+        156.316
+      ],
+      "torso_pos": [
+        109.784,
+        134.156
+      ],
+      "l_shoulder_pos": [
+        131.443,
+        114.86
+      ],
+      "l_elbow_pos": [
+        151.813,
+        127.551
+      ],
+      "l_wrist_pos": [
+        167.374,
+        143.103
+      ],
+      "r_shoulder_pos": [
+        89.93,
+        109.452
+      ],
+      "r_elbow_pos": [
+        68.096,
+        106.752
+      ],
+      "r_wrist_pos": [
+        70.152,
+        126.646
+      ],
+      "torso_tilt_deg": -22.582,
+      "shoulder_rot_deg": -42.5312,
+      "hip_rot_deg": -45.3164,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 31.9219,
+      "pitch_elbow_deg": 13.0625,
+      "pitch_wrist_deg": 25.5938,
+      "glove_shoulder_deg": -172.9492,
+      "glove_elbow_deg": -102.9492,
+      "head_scale": 1.06,
+      "torso_scale": 1.07,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 89,
+      "atlas_col": 8,
+      "atlas_row": 8,
+      "pose_id": "10_pronation_extension",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.0,
+        156.5
+      ],
+      "torso_pos": [
+        109.43,
+        134.491
+      ],
+      "l_shoulder_pos": [
+        130.927,
+        115.269
+      ],
+      "l_elbow_pos": [
+        149.312,
+        130.696
+      ],
+      "l_wrist_pos": [
+        161.614,
+        148.935
+      ],
+      "r_shoulder_pos": [
+        89.724,
+        109.712
+      ],
+      "r_elbow_pos": [
+        67.866,
+        107.221
+      ],
+      "r_wrist_pos": [
+        70.303,
+        127.072
+      ],
+      "torso_tilt_deg": -23.5,
+      "shoulder_rot_deg": -44.0,
+      "hip_rot_deg": -45.5,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 40.0,
+      "pitch_elbow_deg": 16.0,
+      "pitch_wrist_deg": 30.0,
+      "glove_shoulder_deg": -173.5,
+      "glove_elbow_deg": -103.5,
+      "head_scale": 1.06,
+      "torso_scale": 1.07,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 90,
+      "atlas_col": 9,
+      "atlas_row": 8,
+      "pose_id": "10_pronation_extension",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.0,
+        156.684
+      ],
+      "torso_pos": [
+        109.079,
+        134.83
+      ],
+      "l_shoulder_pos": [
+        130.409,
+        115.682
+      ],
+      "l_elbow_pos": [
+        146.444,
+        133.539
+      ],
+      "l_wrist_pos": [
+        155.034,
+        153.793
+      ],
+      "r_shoulder_pos": [
+        89.526,
+        109.979
+      ],
+      "r_elbow_pos": [
+        67.644,
+        107.699
+      ],
+      "r_wrist_pos": [
+        70.463,
+        127.499
+      ],
+      "torso_tilt_deg": -24.418,
+      "shoulder_rot_deg": -45.4688,
+      "hip_rot_deg": -45.6836,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 48.0781,
+      "pitch_elbow_deg": 18.9375,
+      "pitch_wrist_deg": 34.4062,
+      "glove_shoulder_deg": -174.0508,
+      "glove_elbow_deg": -104.0508,
+      "head_scale": 1.06,
+      "torso_scale": 1.07,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 91,
+      "atlas_col": 0,
+      "atlas_row": 9,
+      "pose_id": "10_pronation_extension",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.0,
+        156.844
+      ],
+      "torso_pos": [
+        108.774,
+        135.131
+      ],
+      "l_shoulder_pos": [
+        129.955,
+        116.045
+      ],
+      "l_elbow_pos": [
+        143.678,
+        135.734
+      ],
+      "l_wrist_pos": [
+        148.767,
+        157.138
+      ],
+      "r_shoulder_pos": [
+        89.358,
+        110.218
+      ],
+      "r_elbow_pos": [
+        67.458,
+        108.121
+      ],
+      "r_wrist_pos": [
+        70.609,
+        127.871
+      ],
+      "torso_tilt_deg": -25.2188,
+      "shoulder_rot_deg": -46.75,
+      "hip_rot_deg": -45.8438,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 55.125,
+      "pitch_elbow_deg": 21.5,
+      "pitch_wrist_deg": 38.25,
+      "glove_shoulder_deg": -174.5312,
+      "glove_elbow_deg": -104.5312,
+      "head_scale": 1.06,
+      "torso_scale": 1.07,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 92,
+      "atlas_col": 1,
+      "atlas_row": 9,
+      "pose_id": "10_pronation_extension",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.0,
+        156.957
+      ],
+      "torso_pos": [
+        108.56,
+        135.347
+      ],
+      "l_shoulder_pos": [
+        129.633,
+        116.303
+      ],
+      "l_elbow_pos": [
+        141.593,
+        137.111
+      ],
+      "l_wrist_pos": [
+        144.113,
+        158.966
+      ],
+      "r_shoulder_pos": [
+        89.243,
+        110.39
+      ],
+      "r_elbow_pos": [
+        67.331,
+        108.423
+      ],
+      "r_wrist_pos": [
+        70.716,
+        128.135
+      ],
+      "torso_tilt_deg": -25.7852,
+      "shoulder_rot_deg": -47.6562,
+      "hip_rot_deg": -45.957,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 60.1094,
+      "pitch_elbow_deg": 23.3125,
+      "pitch_wrist_deg": 40.9688,
+      "glove_shoulder_deg": -174.8711,
+      "glove_elbow_deg": -104.8711,
+      "head_scale": 1.06,
+      "torso_scale": 1.07,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 93,
+      "atlas_col": 2,
+      "atlas_row": 9,
+      "pose_id": "10_pronation_extension",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.0,
+        157.0
+      ],
+      "torso_pos": [
+        108.479,
+        135.429
+      ],
+      "l_shoulder_pos": [
+        129.51,
+        116.402
+      ],
+      "l_elbow_pos": [
+        140.778,
+        137.592
+      ],
+      "l_wrist_pos": [
+        142.312,
+        159.539
+      ],
+      "r_shoulder_pos": [
+        89.2,
+        110.456
+      ],
+      "r_elbow_pos": [
+        67.284,
+        108.539
+      ],
+      "r_wrist_pos": [
+        70.757,
+        128.235
+      ],
+      "torso_tilt_deg": -26.0,
+      "shoulder_rot_deg": -48.0,
+      "hip_rot_deg": -46.0,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 62.0,
+      "pitch_elbow_deg": 24.0,
+      "pitch_wrist_deg": 42.0,
+      "glove_shoulder_deg": -175.0,
+      "glove_elbow_deg": -105.0,
+      "head_scale": 1.06,
+      "torso_scale": 1.07,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 94,
+      "atlas_col": 3,
+      "atlas_row": 9,
+      "pose_id": "10_pronation_extension",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.028,
+        156.972
+      ],
+      "torso_pos": [
+        108.486,
+        135.411
+      ],
+      "l_shoulder_pos": [
+        129.504,
+        116.389
+      ],
+      "l_elbow_pos": [
+        140.187,
+        137.88
+      ],
+      "l_wrist_pos": [
+        140.97,
+        159.866
+      ],
+      "r_shoulder_pos": [
+        89.22,
+        110.433
+      ],
+      "r_elbow_pos": [
+        67.308,
+        108.462
+      ],
+      "r_wrist_pos": [
+        70.666,
+        128.179
+      ],
+      "torso_tilt_deg": -26.056,
+      "shoulder_rot_deg": -48.112,
+      "hip_rot_deg": -46.056,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 63.568,
+      "pitch_elbow_deg": 24.392,
+      "pitch_wrist_deg": 41.804,
+      "glove_shoulder_deg": -174.86,
+      "glove_elbow_deg": -104.804,
+      "head_scale": 1.0597,
+      "torso_scale": 1.0697,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 95,
+      "atlas_col": 4,
+      "atlas_row": 9,
+      "pose_id": "10_pronation_extension",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.104,
+        156.896
+      ],
+      "torso_pos": [
+        108.505,
+        135.363
+      ],
+      "l_shoulder_pos": [
+        129.486,
+        116.355
+      ],
+      "l_elbow_pos": [
+        138.545,
+        138.58
+      ],
+      "l_wrist_pos": [
+        137.286,
+        160.544
+      ],
+      "r_shoulder_pos": [
+        89.272,
+        110.371
+      ],
+      "r_elbow_pos": [
+        67.374,
+        108.255
+      ],
+      "r_wrist_pos": [
+        70.418,
+        128.022
+      ],
+      "torso_tilt_deg": -26.208,
+      "shoulder_rot_deg": -48.416,
+      "hip_rot_deg": -46.208,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 67.824,
+      "pitch_elbow_deg": 25.456,
+      "pitch_wrist_deg": 41.272,
+      "glove_shoulder_deg": -174.48,
+      "glove_elbow_deg": -104.272,
+      "head_scale": 1.059,
+      "torso_scale": 1.069,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 96,
+      "atlas_col": 5,
+      "atlas_row": 9,
+      "pose_id": "10_pronation_extension",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.216,
+        156.784
+      ],
+      "torso_pos": [
+        108.533,
+        135.293
+      ],
+      "l_shoulder_pos": [
+        129.459,
+        116.305
+      ],
+      "l_elbow_pos": [
+        136.035,
+        139.387
+      ],
+      "l_wrist_pos": [
+        131.792,
+        160.974
+      ],
+      "r_shoulder_pos": [
+        89.351,
+        110.28
+      ],
+      "r_elbow_pos": [
+        67.474,
+        107.95
+      ],
+      "r_wrist_pos": [
+        70.053,
+        127.783
+      ],
+      "torso_tilt_deg": -26.432,
+      "shoulder_rot_deg": -48.864,
+      "hip_rot_deg": -46.432,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 74.096,
+      "pitch_elbow_deg": 27.024,
+      "pitch_wrist_deg": 40.488,
+      "glove_shoulder_deg": -173.92,
+      "glove_elbow_deg": -103.488,
+      "head_scale": 1.0578,
+      "torso_scale": 1.0678,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 97,
+      "atlas_col": 6,
+      "atlas_row": 9,
+      "pose_id": "10_pronation_extension",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.352,
+        156.648
+      ],
+      "torso_pos": [
+        108.567,
+        135.208
+      ],
+      "l_shoulder_pos": [
+        129.425,
+        116.245
+      ],
+      "l_elbow_pos": [
+        132.885,
+        139.995
+      ],
+      "l_wrist_pos": [
+        125.13,
+        160.583
+      ],
+      "r_shoulder_pos": [
+        89.446,
+        110.17
+      ],
+      "r_elbow_pos": [
+        67.599,
+        107.581
+      ],
+      "r_wrist_pos": [
+        69.612,
+        127.479
+      ],
+      "torso_tilt_deg": -26.704,
+      "shoulder_rot_deg": -49.408,
+      "hip_rot_deg": -46.704,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 81.712,
+      "pitch_elbow_deg": 28.928,
+      "pitch_wrist_deg": 39.536,
+      "glove_shoulder_deg": -173.24,
+      "glove_elbow_deg": -102.536,
+      "head_scale": 1.0565,
+      "torso_scale": 1.0665,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 98,
+      "atlas_col": 7,
+      "atlas_row": 9,
+      "pose_id": "11_follow_through",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.5,
+        156.5
+      ],
+      "torso_pos": [
+        108.604,
+        135.116
+      ],
+      "l_shoulder_pos": [
+        129.389,
+        116.18
+      ],
+      "l_elbow_pos": [
+        129.389,
+        140.18
+      ],
+      "l_wrist_pos": [
+        118.058,
+        159.038
+      ],
+      "r_shoulder_pos": [
+        89.552,
+        110.052
+      ],
+      "r_elbow_pos": [
+        67.74,
+        107.18
+      ],
+      "r_wrist_pos": [
+        69.135,
+        127.131
+      ],
+      "torso_tilt_deg": -27.0,
+      "shoulder_rot_deg": -50.0,
+      "hip_rot_deg": -47.0,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 90.0,
+      "pitch_elbow_deg": 31.0,
+      "pitch_wrist_deg": 38.5,
+      "glove_shoulder_deg": -172.5,
+      "glove_elbow_deg": -101.5,
+      "head_scale": 1.055,
+      "torso_scale": 1.065,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 99,
+      "atlas_col": 8,
+      "atlas_row": 9,
+      "pose_id": "11_follow_through",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.648,
+        156.352
+      ],
+      "torso_pos": [
+        108.642,
+        135.024
+      ],
+      "l_shoulder_pos": [
+        129.352,
+        116.115
+      ],
+      "l_elbow_pos": [
+        125.892,
+        139.864
+      ],
+      "l_wrist_pos": [
+        111.355,
+        156.377
+      ],
+      "r_shoulder_pos": [
+        89.658,
+        109.934
+      ],
+      "r_elbow_pos": [
+        67.885,
+        106.781
+      ],
+      "r_wrist_pos": [
+        68.661,
+        126.766
+      ],
+      "torso_tilt_deg": -27.296,
+      "shoulder_rot_deg": -50.592,
+      "hip_rot_deg": -47.296,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 98.288,
+      "pitch_elbow_deg": 33.072,
+      "pitch_wrist_deg": 37.464,
+      "glove_shoulder_deg": -171.76,
+      "glove_elbow_deg": -100.464,
+      "head_scale": 1.0535,
+      "torso_scale": 1.0635,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 100,
+      "atlas_col": 9,
+      "atlas_row": 9,
+      "pose_id": "11_follow_through",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.784,
+        156.216
+      ],
+      "torso_pos": [
+        108.677,
+        134.941
+      ],
+      "l_shoulder_pos": [
+        129.317,
+        116.055
+      ],
+      "l_elbow_pos": [
+        122.741,
+        139.137
+      ],
+      "l_wrist_pos": [
+        105.672,
+        153.018
+      ],
+      "r_shoulder_pos": [
+        89.756,
+        109.826
+      ],
+      "r_elbow_pos": [
+        68.022,
+        106.415
+      ],
+      "r_wrist_pos": [
+        68.229,
+        126.414
+      ],
+      "torso_tilt_deg": -27.568,
+      "shoulder_rot_deg": -51.136,
+      "hip_rot_deg": -47.568,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 105.904,
+      "pitch_elbow_deg": 34.976,
+      "pitch_wrist_deg": 36.512,
+      "glove_shoulder_deg": -171.08,
+      "glove_elbow_deg": -99.512,
+      "head_scale": 1.0522,
+      "torso_scale": 1.0622,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 101,
+      "atlas_col": 0,
+      "atlas_row": 10,
+      "pose_id": "11_follow_through",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.896,
+        156.104
+      ],
+      "torso_pos": [
+        108.706,
+        134.872
+      ],
+      "l_shoulder_pos": [
+        129.288,
+        116.007
+      ],
+      "l_elbow_pos": [
+        120.23,
+        138.231
+      ],
+      "l_wrist_pos": [
+        101.427,
+        149.654
+      ],
+      "r_shoulder_pos": [
+        89.838,
+        109.738
+      ],
+      "r_elbow_pos": [
+        68.139,
+        106.115
+      ],
+      "r_wrist_pos": [
+        67.876,
+        126.113
+      ],
+      "torso_tilt_deg": -27.792,
+      "shoulder_rot_deg": -51.584,
+      "hip_rot_deg": -47.792,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 112.176,
+      "pitch_elbow_deg": 36.544,
+      "pitch_wrist_deg": 35.728,
+      "glove_shoulder_deg": -170.52,
+      "glove_elbow_deg": -98.728,
+      "head_scale": 1.051,
+      "torso_scale": 1.061,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 102,
+      "atlas_col": 1,
+      "atlas_row": 10,
+      "pose_id": "11_follow_through",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        119.972,
+        156.028
+      ],
+      "torso_pos": [
+        108.725,
+        134.826
+      ],
+      "l_shoulder_pos": [
+        129.269,
+        115.973
+      ],
+      "l_elbow_pos": [
+        118.585,
+        137.465
+      ],
+      "l_wrist_pos": [
+        98.805,
+        147.095
+      ],
+      "r_shoulder_pos": [
+        89.894,
+        109.679
+      ],
+      "r_elbow_pos": [
+        68.219,
+        105.912
+      ],
+      "r_wrist_pos": [
+        67.638,
+        125.903
+      ],
+      "torso_tilt_deg": -27.944,
+      "shoulder_rot_deg": -51.888,
+      "hip_rot_deg": -47.944,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 116.432,
+      "pitch_elbow_deg": 37.608,
+      "pitch_wrist_deg": 35.196,
+      "glove_shoulder_deg": -170.14,
+      "glove_elbow_deg": -98.196,
+      "head_scale": 1.0503,
+      "torso_scale": 1.0603,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 103,
+      "atlas_col": 2,
+      "atlas_row": 10,
+      "pose_id": "11_follow_through",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        120.0,
+        156.0
+      ],
+      "torso_pos": [
+        108.733,
+        134.809
+      ],
+      "l_shoulder_pos": [
+        129.261,
+        115.961
+      ],
+      "l_elbow_pos": [
+        117.994,
+        137.152
+      ],
+      "l_wrist_pos": [
+        97.896,
+        146.1
+      ],
+      "r_shoulder_pos": [
+        89.915,
+        109.657
+      ],
+      "r_elbow_pos": [
+        68.249,
+        105.837
+      ],
+      "r_wrist_pos": [
+        67.551,
+        125.825
+      ],
+      "torso_tilt_deg": -28.0,
+      "shoulder_rot_deg": -52.0,
+      "hip_rot_deg": -48.0,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 1.0,
+      "pitch_shoulder_deg": 118.0,
+      "pitch_elbow_deg": 38.0,
+      "pitch_wrist_deg": 35.0,
+      "glove_shoulder_deg": -170.0,
+      "glove_elbow_deg": -98.0,
+      "head_scale": 1.05,
+      "torso_scale": 1.06,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 104,
+      "atlas_col": 3,
+      "atlas_row": 10,
+      "pose_id": "11_follow_through",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        120.04,
+        155.94
+      ],
+      "torso_pos": [
+        108.839,
+        134.714
+      ],
+      "l_shoulder_pos": [
+        129.417,
+        115.85
+      ],
+      "l_elbow_pos": [
+        118.061,
+        136.993
+      ],
+      "l_wrist_pos": [
+        97.904,
+        145.808
+      ],
+      "r_shoulder_pos": [
+        89.976,
+        109.579
+      ],
+      "r_elbow_pos": [
+        68.32,
+        105.706
+      ],
+      "r_wrist_pos": [
+        67.496,
+        125.689
+      ],
+      "torso_tilt_deg": -27.8205,
+      "shoulder_rot_deg": -51.621,
+      "hip_rot_deg": -47.6808,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.9985,
+      "pitch_shoulder_deg": 118.2394,
+      "pitch_elbow_deg": 38.1396,
+      "pitch_wrist_deg": 34.7706,
+      "glove_shoulder_deg": -169.8604,
+      "glove_elbow_deg": -97.7806,
+      "head_scale": 1.0497,
+      "torso_scale": 1.0596,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 105,
+      "atlas_col": 4,
+      "atlas_row": 10,
+      "pose_id": "11_follow_through",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        120.153,
+        155.77
+      ],
+      "torso_pos": [
+        109.141,
+        134.446
+      ],
+      "l_shoulder_pos": [
+        129.857,
+        115.534
+      ],
+      "l_elbow_pos": [
+        118.251,
+        136.542
+      ],
+      "l_wrist_pos": [
+        97.933,
+        144.977
+      ],
+      "r_shoulder_pos": [
+        90.152,
+        109.357
+      ],
+      "r_elbow_pos": [
+        68.523,
+        105.335
+      ],
+      "r_wrist_pos": [
+        67.345,
+        125.3
+      ],
+      "torso_tilt_deg": -27.3112,
+      "shoulder_rot_deg": -50.5459,
+      "hip_rot_deg": -46.7755,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.9943,
+      "pitch_shoulder_deg": 118.9184,
+      "pitch_elbow_deg": 38.5357,
+      "pitch_wrist_deg": 34.1199,
+      "glove_shoulder_deg": -169.4643,
+      "glove_elbow_deg": -97.1582,
+      "head_scale": 1.0489,
+      "torso_scale": 1.0585,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 106,
+      "atlas_col": 5,
+      "atlas_row": 10,
+      "pose_id": "11_follow_through",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        120.33,
+        155.505
+      ],
+      "torso_pos": [
+        109.615,
+        134.03
+      ],
+      "l_shoulder_pos": [
+        130.54,
+        115.043
+      ],
+      "l_elbow_pos": [
+        118.548,
+        135.832
+      ],
+      "l_wrist_pos": [
+        97.991,
+        143.668
+      ],
+      "r_shoulder_pos": [
+        90.433,
+        109.017
+      ],
+      "r_elbow_pos": [
+        68.849,
+        104.761
+      ],
+      "r_wrist_pos": [
+        67.117,
+        124.686
+      ],
+      "torso_tilt_deg": -26.5162,
+      "shoulder_rot_deg": -48.8675,
+      "hip_rot_deg": -45.3621,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.9876,
+      "pitch_shoulder_deg": 119.9784,
+      "pitch_elbow_deg": 39.1541,
+      "pitch_wrist_deg": 33.104,
+      "glove_shoulder_deg": -168.8459,
+      "glove_elbow_deg": -96.1864,
+      "head_scale": 1.0475,
+      "torso_scale": 1.0567,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 107,
+      "atlas_col": 6,
+      "atlas_row": 10,
+      "pose_id": "11_follow_through",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        120.56,
+        155.16
+      ],
+      "torso_pos": [
+        110.236,
+        133.494
+      ],
+      "l_shoulder_pos": [
+        131.425,
+        114.404
+      ],
+      "l_elbow_pos": [
+        118.935,
+        134.898
+      ],
+      "l_wrist_pos": [
+        98.093,
+        141.944
+      ],
+      "r_shoulder_pos": [
+        90.812,
+        108.584
+      ],
+      "r_elbow_pos": [
+        69.29,
+        104.025
+      ],
+      "r_wrist_pos": [
+        66.838,
+        123.874
+      ],
+      "torso_tilt_deg": -25.4793,
+      "shoulder_rot_deg": -46.6786,
+      "hip_rot_deg": -43.5188,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.979,
+      "pitch_shoulder_deg": 121.3609,
+      "pitch_elbow_deg": 39.9605,
+      "pitch_wrist_deg": 31.7792,
+      "glove_shoulder_deg": -168.0395,
+      "glove_elbow_deg": -94.9192,
+      "head_scale": 1.0458,
+      "torso_scale": 1.0544,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 108,
+      "atlas_col": 7,
+      "atlas_row": 10,
+      "pose_id": "11_follow_through",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        120.835,
+        154.748
+      ],
+      "torso_pos": [
+        110.979,
+        132.865
+      ],
+      "l_shoulder_pos": [
+        132.468,
+        113.647
+      ],
+      "l_elbow_pos": [
+        119.394,
+        133.774
+      ],
+      "l_wrist_pos": [
+        98.254,
+        139.864
+      ],
+      "r_shoulder_pos": [
+        91.281,
+        108.083
+      ],
+      "r_elbow_pos": [
+        69.838,
+        103.163
+      ],
+      "r_wrist_pos": [
+        66.533,
+        122.889
+      ],
+      "torso_tilt_deg": -24.2447,
+      "shoulder_rot_deg": -44.0721,
+      "hip_rot_deg": -41.3238,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.9687,
+      "pitch_shoulder_deg": 123.0071,
+      "pitch_elbow_deg": 40.9208,
+      "pitch_wrist_deg": 30.2015,
+      "glove_shoulder_deg": -167.0792,
+      "glove_elbow_deg": -93.4101,
+      "head_scale": 1.0437,
+      "torso_scale": 1.0517,
+      "pitch_arm_front_layer": true,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 109,
+      "atlas_col": 8,
+      "atlas_row": 10,
+      "pose_id": "11_follow_through",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        121.143,
+        154.285
+      ],
+      "torso_pos": [
+        111.821,
+        132.17
+      ],
+      "l_shoulder_pos": [
+        133.628,
+        112.801
+      ],
+      "l_elbow_pos": [
+        119.911,
+        132.495
+      ],
+      "l_wrist_pos": [
+        98.487,
+        137.497
+      ],
+      "r_shoulder_pos": [
+        91.831,
+        107.538
+      ],
+      "r_elbow_pos": [
+        70.485,
+        102.216
+      ],
+      "r_wrist_pos": [
+        66.229,
+        121.757
+      ],
+      "torso_tilt_deg": -22.8561,
+      "shoulder_rot_deg": -41.1406,
+      "hip_rot_deg": -38.8553,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.9571,
+      "pitch_shoulder_deg": 124.8585,
+      "pitch_elbow_deg": 42.0008,
+      "pitch_wrist_deg": 28.4272,
+      "glove_shoulder_deg": -165.9992,
+      "glove_elbow_deg": -91.713,
+      "head_scale": 1.0414,
+      "torso_scale": 1.0486,
+      "pitch_arm_front_layer": false,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 110,
+      "atlas_col": 9,
+      "atlas_row": 10,
+      "pose_id": "11_follow_through",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        121.476,
+        153.786
+      ],
+      "torso_pos": [
+        112.736,
+        131.434
+      ],
+      "l_shoulder_pos": [
+        134.863,
+        111.895
+      ],
+      "l_elbow_pos": [
+        120.467,
+        131.099
+      ],
+      "l_wrist_pos": [
+        98.8,
+        134.91
+      ],
+      "r_shoulder_pos": [
+        92.453,
+        106.973
+      ],
+      "r_elbow_pos": [
+        71.219,
+        101.217
+      ],
+      "r_wrist_pos": [
+        65.946,
+        120.51
+      ],
+      "torso_tilt_deg": -21.3576,
+      "shoulder_rot_deg": -37.9772,
+      "hip_rot_deg": -36.1913,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.9446,
+      "pitch_shoulder_deg": 126.8565,
+      "pitch_elbow_deg": 43.1663,
+      "pitch_wrist_deg": 26.5125,
+      "glove_shoulder_deg": -164.8337,
+      "glove_elbow_deg": -89.8815,
+      "head_scale": 1.0389,
+      "torso_scale": 1.0452,
+      "pitch_arm_front_layer": false,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 111,
+      "atlas_col": 0,
+      "atlas_row": 11,
+      "pose_id": "11_follow_through",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        121.824,
+        153.264
+      ],
+      "torso_pos": [
+        113.697,
+        130.682
+      ],
+      "l_shoulder_pos": [
+        136.132,
+        110.958
+      ],
+      "l_elbow_pos": [
+        121.047,
+        129.625
+      ],
+      "l_wrist_pos": [
+        99.196,
+        132.182
+      ],
+      "r_shoulder_pos": [
+        93.131,
+        106.407
+      ],
+      "r_elbow_pos": [
+        72.024,
+        100.201
+      ],
+      "r_wrist_pos": [
+        65.707,
+        119.177
+      ],
+      "torso_tilt_deg": -19.7932,
+      "shoulder_rot_deg": -34.6745,
+      "hip_rot_deg": -33.4101,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.9316,
+      "pitch_shoulder_deg": 128.9424,
+      "pitch_elbow_deg": 44.3831,
+      "pitch_wrist_deg": 24.5135,
+      "glove_shoulder_deg": -163.6169,
+      "glove_elbow_deg": -87.9695,
+      "head_scale": 1.0363,
+      "torso_scale": 1.0418,
+      "pitch_arm_front_layer": false,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 112,
+      "atlas_col": 1,
+      "atlas_row": 11,
+      "pose_id": "12_fielding_recovery",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        122.176,
+        152.736
+      ],
+      "torso_pos": [
+        114.678,
+        129.937
+      ],
+      "l_shoulder_pos": [
+        137.398,
+        110.017
+      ],
+      "l_elbow_pos": [
+        121.634,
+        128.114
+      ],
+      "l_wrist_pos": [
+        99.671,
+        129.39
+      ],
+      "r_shoulder_pos": [
+        93.851,
+        105.858
+      ],
+      "r_elbow_pos": [
+        72.882,
+        99.199
+      ],
+      "r_wrist_pos": [
+        65.524,
+        117.797
+      ],
+      "torso_tilt_deg": -18.2068,
+      "shoulder_rot_deg": -31.3255,
+      "hip_rot_deg": -30.5899,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.9184,
+      "pitch_shoulder_deg": 131.0576,
+      "pitch_elbow_deg": 45.6169,
+      "pitch_wrist_deg": 22.4865,
+      "glove_shoulder_deg": -162.3831,
+      "glove_elbow_deg": -86.0305,
+      "head_scale": 1.0337,
+      "torso_scale": 1.0382,
+      "pitch_arm_front_layer": false,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 113,
+      "atlas_col": 2,
+      "atlas_row": 11,
+      "pose_id": "12_fielding_recovery",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        122.524,
+        152.214
+      ],
+      "torso_pos": [
+        115.65,
+        129.219
+      ],
+      "l_shoulder_pos": [
+        138.624,
+        109.099
+      ],
+      "l_elbow_pos": [
+        122.213,
+        126.61
+      ],
+      "l_wrist_pos": [
+        100.213,
+        126.619
+      ],
+      "r_shoulder_pos": [
+        94.591,
+        105.34
+      ],
+      "r_elbow_pos": [
+        73.769,
+        98.238
+      ],
+      "r_wrist_pos": [
+        65.407,
+        116.406
+      ],
+      "torso_tilt_deg": -16.6424,
+      "shoulder_rot_deg": -28.0228,
+      "hip_rot_deg": -27.8087,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.9054,
+      "pitch_shoulder_deg": 133.1435,
+      "pitch_elbow_deg": 46.8337,
+      "pitch_wrist_deg": 20.4875,
+      "glove_shoulder_deg": -161.1663,
+      "glove_elbow_deg": -84.1185,
+      "head_scale": 1.0311,
+      "torso_scale": 1.0348,
+      "pitch_arm_front_layer": false,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 114,
+      "atlas_col": 3,
+      "atlas_row": 11,
+      "pose_id": "12_fielding_recovery",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        122.857,
+        151.715
+      ],
+      "torso_pos": [
+        116.587,
+        128.548
+      ],
+      "l_shoulder_pos": [
+        139.778,
+        108.23
+      ],
+      "l_elbow_pos": [
+        122.766,
+        125.158
+      ],
+      "l_wrist_pos": [
+        100.799,
+        123.953
+      ],
+      "r_shoulder_pos": [
+        95.328,
+        104.866
+      ],
+      "r_elbow_pos": [
+        74.655,
+        97.342
+      ],
+      "r_wrist_pos": [
+        65.354,
+        115.048
+      ],
+      "torso_tilt_deg": -15.1439,
+      "shoulder_rot_deg": -24.8594,
+      "hip_rot_deg": -25.1447,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.8929,
+      "pitch_shoulder_deg": 135.1415,
+      "pitch_elbow_deg": 47.9992,
+      "pitch_wrist_deg": 18.5728,
+      "glove_shoulder_deg": -160.0008,
+      "glove_elbow_deg": -82.287,
+      "head_scale": 1.0286,
+      "torso_scale": 1.0314,
+      "pitch_arm_front_layer": false,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 115,
+      "atlas_col": 4,
+      "atlas_row": 11,
+      "pose_id": "12_fielding_recovery",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        123.165,
+        151.252
+      ],
+      "torso_pos": [
+        117.459,
+        127.94
+      ],
+      "l_shoulder_pos": [
+        140.829,
+        107.434
+      ],
+      "l_elbow_pos": [
+        123.278,
+        123.804
+      ],
+      "l_wrist_pos": [
+        101.402,
+        121.477
+      ],
+      "r_shoulder_pos": [
+        96.036,
+        104.446
+      ],
+      "r_elbow_pos": [
+        75.509,
+        96.534
+      ],
+      "r_wrist_pos": [
+        65.361,
+        113.768
+      ],
+      "torso_tilt_deg": -13.7553,
+      "shoulder_rot_deg": -21.9279,
+      "hip_rot_deg": -22.6762,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.8813,
+      "pitch_shoulder_deg": 136.9929,
+      "pitch_elbow_deg": 49.0792,
+      "pitch_wrist_deg": 16.7985,
+      "glove_shoulder_deg": -158.9208,
+      "glove_elbow_deg": -80.5899,
+      "head_scale": 1.0263,
+      "torso_scale": 1.0283,
+      "pitch_arm_front_layer": false,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 116,
+      "atlas_col": 5,
+      "atlas_row": 11,
+      "pose_id": "12_fielding_recovery",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        123.44,
+        150.84
+      ],
+      "torso_pos": [
+        118.237,
+        127.411
+      ],
+      "l_shoulder_pos": [
+        141.747,
+        106.734
+      ],
+      "l_elbow_pos": [
+        123.734,
+        122.594
+      ],
+      "l_wrist_pos": [
+        101.986,
+        119.274
+      ],
+      "r_shoulder_pos": [
+        96.686,
+        104.088
+      ],
+      "r_elbow_pos": [
+        76.293,
+        95.832
+      ],
+      "r_wrist_pos": [
+        65.413,
+        112.613
+      ],
+      "torso_tilt_deg": -12.5207,
+      "shoulder_rot_deg": -19.3214,
+      "hip_rot_deg": -20.4812,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.871,
+      "pitch_shoulder_deg": 138.6391,
+      "pitch_elbow_deg": 50.0395,
+      "pitch_wrist_deg": 15.2208,
+      "glove_shoulder_deg": -157.9605,
+      "glove_elbow_deg": -79.0808,
+      "head_scale": 1.0242,
+      "torso_scale": 1.0256,
+      "pitch_arm_front_layer": false,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 117,
+      "atlas_col": 6,
+      "atlas_row": 11,
+      "pose_id": "12_fielding_recovery",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        123.67,
+        150.495
+      ],
+      "torso_pos": [
+        118.892,
+        126.975
+      ],
+      "l_shoulder_pos": [
+        142.507,
+        106.153
+      ],
+      "l_elbow_pos": [
+        124.116,
+        121.573
+      ],
+      "l_wrist_pos": [
+        102.511,
+        117.426
+      ],
+      "r_shoulder_pos": [
+        97.245,
+        103.797
+      ],
+      "r_elbow_pos": [
+        76.971,
+        95.255
+      ],
+      "r_wrist_pos": [
+        65.49,
+        111.632
+      ],
+      "torso_tilt_deg": -11.4838,
+      "shoulder_rot_deg": -17.1325,
+      "hip_rot_deg": -18.6379,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.8624,
+      "pitch_shoulder_deg": 140.0216,
+      "pitch_elbow_deg": 50.8459,
+      "pitch_wrist_deg": 13.896,
+      "glove_shoulder_deg": -157.1541,
+      "glove_elbow_deg": -77.8136,
+      "head_scale": 1.0225,
+      "torso_scale": 1.0233,
+      "pitch_arm_front_layer": false,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 118,
+      "atlas_col": 7,
+      "atlas_row": 11,
+      "pose_id": "12_fielding_recovery",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        123.847,
+        150.23
+      ],
+      "torso_pos": [
+        119.396,
+        126.646
+      ],
+      "l_shoulder_pos": [
+        143.082,
+        105.712
+      ],
+      "l_elbow_pos": [
+        124.409,
+        120.789
+      ],
+      "l_wrist_pos": [
+        102.934,
+        116.01
+      ],
+      "r_shoulder_pos": [
+        97.683,
+        103.58
+      ],
+      "r_elbow_pos": [
+        77.502,
+        94.82
+      ],
+      "r_wrist_pos": [
+        65.571,
+        110.872
+      ],
+      "torso_tilt_deg": -10.6888,
+      "shoulder_rot_deg": -15.4541,
+      "hip_rot_deg": -17.2245,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.8557,
+      "pitch_shoulder_deg": 141.0816,
+      "pitch_elbow_deg": 51.4643,
+      "pitch_wrist_deg": 12.8801,
+      "glove_shoulder_deg": -156.5357,
+      "glove_elbow_deg": -76.8418,
+      "head_scale": 1.0211,
+      "torso_scale": 1.0215,
+      "pitch_arm_front_layer": false,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 119,
+      "atlas_col": 8,
+      "atlas_row": 11,
+      "pose_id": "12_fielding_recovery",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        123.96,
+        150.06
+      ],
+      "torso_pos": [
+        119.719,
+        126.438
+      ],
+      "l_shoulder_pos": [
+        143.447,
+        105.431
+      ],
+      "l_elbow_pos": [
+        124.597,
+        120.286
+      ],
+      "l_wrist_pos": [
+        103.215,
+        115.105
+      ],
+      "r_shoulder_pos": [
+        97.967,
+        103.444
+      ],
+      "r_elbow_pos": [
+        77.848,
+        94.545
+      ],
+      "r_wrist_pos": [
+        65.633,
+        110.382
+      ],
+      "torso_tilt_deg": -10.1795,
+      "shoulder_rot_deg": -14.379,
+      "hip_rot_deg": -16.3192,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.8515,
+      "pitch_shoulder_deg": 141.7606,
+      "pitch_elbow_deg": 51.8604,
+      "pitch_wrist_deg": 12.2294,
+      "glove_shoulder_deg": -156.1396,
+      "glove_elbow_deg": -76.2194,
+      "head_scale": 1.0203,
+      "torso_scale": 1.0204,
+      "pitch_arm_front_layer": false,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    },
+    {
+      "frame": 120,
+      "atlas_col": 9,
+      "atlas_row": 11,
+      "pose_id": "12_fielding_recovery",
+      "mound_anchor": [
+        144.0,
+        218.0
+      ],
+      "pelvis_pos": [
+        124.0,
+        150.0
+      ],
+      "torso_pos": [
+        119.832,
+        126.365
+      ],
+      "l_shoulder_pos": [
+        143.575,
+        105.332
+      ],
+      "l_elbow_pos": [
+        124.663,
+        120.108
+      ],
+      "l_wrist_pos": [
+        103.316,
+        114.786
+      ],
+      "r_shoulder_pos": [
+        98.068,
+        103.397
+      ],
+      "r_elbow_pos": [
+        77.97,
+        94.449
+      ],
+      "r_wrist_pos": [
+        65.657,
+        110.209
+      ],
+      "torso_tilt_deg": -10.0,
+      "shoulder_rot_deg": -14.0,
+      "hip_rot_deg": -16.0,
+      "lead_knee_lift": 0.0,
+      "stride_depth": 0.85,
+      "pitch_shoulder_deg": 142.0,
+      "pitch_elbow_deg": 52.0,
+      "pitch_wrist_deg": 12.0,
+      "glove_shoulder_deg": -156.0,
+      "glove_elbow_deg": -76.0,
+      "head_scale": 1.02,
+      "torso_scale": 1.02,
+      "pitch_arm_front_layer": false,
+      "ball_released": true,
+      "throws_hand": "LHP",
+      "glove_hand": "RHP"
+    }
+  ],
+  "qa_validation": {
+    "throws": "LHP (좌투수)",
+    "mound_anchor_coord": [
+      144.0,
+      218.0
+    ],
+    "mound_anchor_max_drift_px": 0.0,
+    "mound_anchor_pass": true,
+    "handedness_flip_count": 0,
+    "handedness_lock_pass": true,
+    "fk_joint_max_error_px": 0.00117,
+    "fk_joint_continuity_pass": true,
+    "head_scale_range": [
+      1.0,
+      1.06
+    ],
+    "torso_scale_range": [
+      1.0,
+      1.07
+    ],
+    "proportion_lock_pass": true,
+    "max_torso_step_deg_per_frame": 1.586,
+    "max_pitch_shoulder_step_deg_per_frame": 13.004,
+    "smooth_60fps_pass": true,
+    "atlas_grid_pass": true
+  }
+}
