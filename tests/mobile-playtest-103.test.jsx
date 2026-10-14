@@ -49,13 +49,14 @@ describe('#103 M10 — one camera unit keeps the pitcher on the mound on every p
     for(const id of Object.keys(pitcherAtlases)){
       const [x,y]=pitcherStance(id);
       expect(x,id).toBeGreaterThan(.2);expect(x,id).toBeLessThan(.85);
-      expect(y,id).toBeGreaterThan(.9);expect(y,id).toBeLessThanOrEqual(1);
+      /* .85: Jade Viper strides toward the catcher cam, so her set-stance feet sit higher in the cell than her landing */
+      expect(y,id).toBeGreaterThan(.85);expect(y,id).toBeLessThanOrEqual(1);
     }
     expect(pitcherStance('unknown')).toEqual([.5,1]);
     expect(ballpark).toMatch(/\.bp-pitcher>\.sprite-stage\{translate:calc\(\(\.5 - var\(--stance-x,\.5\)\) \* 100%\)/);
-    begin();
+    const s=begin();
     const box=document.querySelector('.bp-pitcher');
-    expect(Number(box.style.getPropertyValue('--stance-x'))).toBe(pitcherStance('regular-01-red-rush')[0]);
+    expect(Number(box.style.getPropertyValue('--stance-x'))).toBe(pitcherStance(s.v10.opponent.artId)[0]);
   });
   it('measures layout boxes from offsets, so a transform (entrance, camera zoom) never moves where Pixi draws',()=>{
     const scene={getBoundingClientRect:()=>({left:0,top:0})};
@@ -124,9 +125,9 @@ describe('#103 M03/M04/M08 — battle text reads whole',()=>{
     expect(portrait).toContain('.v14-battle-portrait .bp-damage{top:auto;bottom:4px;right:8px;');
   });
   it('the pitcher name stands alone and is never truncated',()=>{
-    begin();
+    const s=begin();
     const title=document.querySelector('.bp-pitcher-title-name');
-    expect(title.querySelector('.bp-pname').textContent).toBe('레드 러시');
+    expect(title.querySelector('.bp-pname').textContent).toBe(s.v10.opponent.name);
     // The archetype prefix banner is gone (its tendency lives in the inspector).
     expect(title.querySelector('.bp-ptype')).toBeNull();
     expect(portrait).toMatch(/\.bp-pname\{flex:0 0 auto/);

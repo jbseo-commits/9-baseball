@@ -198,7 +198,9 @@ function nameOpponents(seed,nodes){
   return nodes;
 }
 
-export function createRunMap(seed=0){
+/* tutorial: 레드 러시는 튜토리얼(전략 → 자동전투 체험)의 첫 전투에서 규칙을 설명하는 투수로만 나온다.
+   본 런은 레드 러시 없이 같은 등급 투수를 시드마다 섞어 쓴다. */
+export function createRunMap(seed=0,{tutorial=false}={}){
   const nodes=[],edges=[];
   for(let act=1;act<=3;act++){
     const built=buildAct(seed,act);nodes.push(...built.nodes);edges.push(...built.edges);
@@ -209,8 +211,9 @@ export function createRunMap(seed=0){
   // Pool repeats receive numbered names to preserve unique names per run.
   const crng=makeRng(mix((seed>>>0)^0x2c1b3c6d));
   const pools=Object.fromEntries(['battle','elite','boss'].map(type=>[type,shuffle(crng,pitcherRoster.filter(p=>p.tier===type))]));
-  // The very first battle stays the Red Rush introduction (one named encounter per run); everything after is shuffled.
-  pools.battle=[...pitcherRoster.filter(p=>p.tier==='battle'&&p.id===RED_RUSH_ID),...pools.battle.filter(p=>p.id!==RED_RUSH_ID)];
+  // Red Rush is the tutorial's teaching pitcher only: first battle of a tutorial map, absent from main runs.
+  const shuffledBattle=pools.battle.filter(p=>p.id!==RED_RUSH_ID);
+  pools.battle=tutorial?[...pitcherRoster.filter(p=>p.id===RED_RUSH_ID),...shuffledBattle]:shuffledBattle;
   const counts={battle:0,elite:0,boss:0};
   const repeats=new Map();
   for(const node of nodes){
@@ -218,7 +221,7 @@ export function createRunMap(seed=0){
     const pool=pools[node.type];
     const index=counts[node.type]++;
     const bosses=pool.filter(p=>p.act===node.act);
-    const pitcher=node.type==='boss'?bosses[Math.floor(crng()*bosses.length)]:(node.type==='battle'?pool[index===0?0:1+(index-1)%(pool.length-1)]:pool[index%pool.length]);
+    const pitcher=node.type==='boss'?bosses[Math.floor(crng()*bosses.length)]:(node.type==='battle'&&tutorial?pool[index===0?0:1+(index-1)%(pool.length-1)]:pool[index%pool.length]);
     if(!pitcher)continue;
     const seen=repeats.get(pitcher.id)||0;
     repeats.set(pitcher.id,seen+1);

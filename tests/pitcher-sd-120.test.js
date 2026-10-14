@@ -28,9 +28,10 @@ describe('Red Rush SD pitcher asset',()=>{
     expect(dimensions('frames/'+manifest.frames[119])).toEqual([256,256,6]);
   });
 
-  it('places exactly one named Red Rush encounter in each new deterministic run',()=>{
+  it('keeps Red Rush to the tutorial: one named encounter at its first fight, none in a main run',()=>{
     for(let seed=0;seed<64;seed++){
-      const map=createRunMap(seed);
+      expect(createRunMap(seed).nodes.filter(node=>node.opponent?.artId===RED_RUSH_ASSET_ID)).toHaveLength(0);
+      const map=createRunMap(seed,{tutorial:true});
       const found=map.nodes.filter(node=>node.opponent?.artId===RED_RUSH_ASSET_ID);
       expect(found).toHaveLength(1);
       expect(found[0].type).toBe('battle');

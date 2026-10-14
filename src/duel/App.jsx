@@ -1028,7 +1028,7 @@ export default function Duel(){
   }
   function freshAutoLesson(){
     clearActionUi();
-    let next=createV10Duel(Number(trialSeed)>>>0);
+    let next=createV10Duel(Number(trialSeed)>>>0,{tutorial:true});
     // Skip the map only for this sandbox so the idea is visible immediately.
     // A reachable node with an opponent is a combat node; if the map shape ever
     // changes, the fallback simply leaves the player on the normal map.

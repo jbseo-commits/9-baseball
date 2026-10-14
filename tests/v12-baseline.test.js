@@ -42,6 +42,8 @@ describe('V12 P0-1 baseline contract',()=>{
       // The route is generated per seed now (Slay-the-Spire style); the pre-P0 topology is history.
       delete copy.runMap.nodes;delete copy.runMap.edges;delete copy.runMap.reachableIds;delete copy.v10.reachableIds;
       delete copy.pitcher.hp;delete copy.pitcher.maxHp;
+      // 본 런 첫 투수는 이제 시드로 섞인다(레드 러시는 튜토리얼 전용): 투수 이름도 표시 정체성으로 제외한다.
+      delete copy.pitcher.name;
       delete copy.battle.intent;
       // The historical fixture predates the additive V10 energy field.
       delete copy.battle.energy;

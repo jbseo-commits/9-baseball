@@ -825,10 +825,10 @@ export function applyStartPack(state,packId){
   return s;
 }
 
-export function createV10Duel(seed=Date.now()>>>0){
+export function createV10Duel(seed=Date.now()>>>0,{tutorial=false}={}){
   const s=createDuel(seed,DECKBUILDER_BUILD);
   s.version=10;s.phase='map';s.stage=0;s.route=null;s.routeHistory=[];s.victories=0;s.battle=null;s.last=null;
-  s.runMap=createRunMap(seed);s.pitcher=null;s.rewards=[];s.facilities=[];
+  s.runMap=createRunMap(seed,{tutorial});s.pitcher=null;s.rewards=[];s.facilities=[];
   s.v10={nodeId:null,opponent:null,lastCombat:null,rewardChoices:[],runComplete:false,
     nextBattleBonus:null,activeBattleBonus:null,utilityHistory:[]};
   return s;
