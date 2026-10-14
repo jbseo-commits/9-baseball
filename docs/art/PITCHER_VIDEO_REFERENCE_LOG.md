@@ -124,3 +124,29 @@
 4. **`youtube:brUU7Dxo7ts`** — `https://www.youtube.com/watch?v=brUU7Dxo7ts`
    - **시점**: 2024 MLB 포스트시즌 심판캠(Umpire Cam)
    - **타임스탬프 구간**: `00:00:07~00:00:40` (98mph 스위퍼 수평 무브먼트 및 앞다리 브레이킹)
+
+# PITCHER_VIDEO_REFERENCE_LOG 추가 엔트리 — 에메랄드 템페스트 (Emerald Tempest, RHP)
+
+- **캐릭터 ID**: `emerald-tempest` (`에메랄드 템페스트`, 27세 성인 여성, 등번호 `#77`, 우투 RHP 하이 오버핸드 파워 피처)
+- **검수 일시**: `2026-10-14T17:46:00+09:00`
+- **승인 상태**: 원화·5포즈 카메라 검수 게이트·12포즈 우투(RHP) 무결점 검증 완료
+
+## 채택 레퍼런스 클립 (기존 오닉스 이클립스 및 과거 로그와 중복 없음)
+
+1. **`youtube:jZKvJY6gDfg`** — `https://www.youtube.com/watch?v=jZKvJY6gDfg` (Drew Storen 1000 FPS Slow Motion Pitching Mechanics)
+   - **시점**: 마운드 1000fps 초고속 슬로모션
+   - **타임스탬프별 키포즈 관찰**:
+     - `00:03~00:08`: Set Stance (`01_set_stance`, F001~010)
+     - `00:12~00:19`: Deep Drop-and-Drive & High Glove Lead (`04_drop_and_drive_break` ~ `05_power_stride_extension`, F033~053)
+     - `00:20~00:24`: Foot-Plant & Maximum External Rotation (`06_foot_plant` ~ `07_late_cocking_mer`, F054~073)
+     - `00:25~00:26`: High-Overhand Release Point (`09_hammer_release_point`, F081~088)
+     - `00:30~00:35`: Signature High Back-Leg Sky Kick Follow-Through (`11_sky_kick_follow_through`, F098~108)
+2. **`youtube:iRPtVfEz4es`** — `https://www.youtube.com/watch?v=iRPtVfEz4es` (Zack Greinke 1000 FPS Pitching Mechanics Slow Motion)
+   - **시점**: 마운드 정면·측면 1000fps 슬로모션
+   - **타임스탬프 구간**: `00:04~00:16` (오버헤드 와인드업 및 수직 하이 레그리프트), `00:28~00:33` (11시~12시 하이 오버핸드 슬롯 릴리스 및 하향 내회전), `00:38~00:42` (수비 리커버리 착지)
+3. **`youtube:zr573JSCf8k`** — `https://www.youtube.com/watch?v=zr573JSCf8k` (Best of UMP CAM in the 2023 Division Series)
+   - **시점**: 심판캠(Umpire Cam) 정면 시점
+   - **타임스탬프 구간**: `00:00:38~00:00:55` (하이 오버핸드 타점에서 홈플레이트 상단/하단으로 꽂히는 패스트볼·브레이킹볼의 수직 체감 궤적)
+4. **`youtube:ls1lqM-rIH4`** — `https://www.youtube.com/watch?v=ls1lqM-rIH4` (MIC'D UP / UMP CAM — Martín Maldonado Catcher/Umpire View)
+   - **시점**: 포수캠·심판캠 정면 시점
+   - **타임스탬프 구간**: `00:01:49~00:03:04` (높은 릴리스 슬롯에서 떨어지는 2스트라이크 결정구 파워 커브볼의 포수 미트 프레이밍 및 낙차 궤적)
