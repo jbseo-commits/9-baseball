@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>청옥 바이퍼 · 아틀라스 R1</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0c191e;color:#eaf5eb;font:16px/1.6 system-ui,sans-serif}main{max-width:1140px;margin:auto;padding:24px 18px 44px}h1{font-size:clamp(28px,5vw,42px);line-height:1.2}h2{font-size:18px}p{color:#afcbb9}.eyebrow{font-size:12px;letter-spacing:.16em;color:#9fe2bb}.row{display:flex;flex-wrap:wrap;gap:20px}.panel{flex:1 1 300px;min-width:0}.stage{width:100%;max-width:448px;height:auto;background:#172f30;border:1px solid #486958;border-radius:12px;image-rendering:pixelated}.small{width:166.390625px;height:166.390625px;image-rendering:pixelated;background:#172f30;border:1px solid #486958}.controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:18px 0}button,select{font:inherit;min-height:44px;color:#eaf5eb;background:#234233;border:1px solid #587d62;border-radius:8px;padding:8px 12px}button{cursor:pointer}button[aria-pressed=true]{background:#94e0b4;color:#123021}button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #f3d18a;outline-offset:3px}input[type=range]{width:100%;min-height:44px;accent-color:#96dfb6}.status{min-height:30px;color:#d4eadb;font-variant-numeric:tabular-nums}details{border-top:1px solid #3b5948;margin-top:22px;padding-top:16px}summary{cursor:pointer;color:#e8f4e8;font-weight:650}a{color:#a4e4bd}.scale-row{display:flex;gap:24px;align-items:center;flex-wrap:wrap}small{color:#9fbca9}.tags{display:flex;flex-wrap:wrap;gap:8px}.tags span{background:#1b332b;border:1px solid #365e45;padding:3px 9px;border-radius:20px;font-size:13px}@media(max-width:660px){main{padding:18px 12px}.row{gap:14px}.panel{flex-basis:100%}.stage{max-width:400px}}
+</style>
+<main>
+<div class="eyebrow">JADE VIPER · ATLAS R1 CANDIDATE</div>
+<h1>청옥 바이퍼, 연결 동작 비교</h1>
+<p>승인된 12포즈에 새 연결 그림 18장을 더했습니다. 같은 2초 타이밍에서 비교하고, 원하는 프레임을 멈춰 확인하세요.</p>
+<div class="tags"><span>30개 그림</span><span>120셀 · 60fps 규격</span><span>오른손 투구</span><span>검수 후보</span></div>
+<div class="controls"><button id="play" aria-pressed="false">재생</button><button id="restart">처음</button><button id="prev">이전 그림</button><button id="next">다음 그림</button><label for="speed">속도</label><select id="speed"><option value="1">1배</option><option value="0.5" selected>0.5배</option><option value="0.25">0.25배</option></select><button id="release">릴리스 보기</button></div>
+<div class="row"><section class="panel"><h2>승인된 12포즈</h2><canvas id="before" class="stage" width="512" height="512" aria-label="승인된 12개 그림을 새 2초 타이밍으로 재생"></canvas></section><section class="panel"><h2>연결 그림을 더한 30포즈</h2><canvas id="after" class="stage" width="512" height="512" aria-label="새 연결 그림을 포함한 30개 그림 재생"></canvas></section></div>
+<div id="status" class="status" aria-live="polite">이미지 불러오는 중…</div>
+<label for="frame">프레임 이동 · 0–119</label><input id="frame" type="range" min="0" max="119" step="1" value="0">
+<div class="scale-row"><div><h2>166px 크기 비교</h2><canvas id="small" class="small" width="256" height="256" aria-label="166픽셀 표시 크기의 새 동작"></canvas></div><p id="ball">오른손에 공</p></div>
+<details><summary>이번 검수에서 볼 부분</summary><p>발을 뻗고 착지하는 순간, 공을 놓기 전후의 팔 경로, 뒷다리가 내려오는 움직임을 확인하세요. 릴리스는 0부터 센 76번 셀입니다. 이후 손에 공이 다시 나타나지 않으며 마지막 자세에서 멈춥니다.</p><p>왼쪽도 비교를 위해 같은 2초로 재배치했습니다. 이전 R1 검수 영상의 3.07초 타이밍을 그대로 재생하는 것은 아닙니다.</p></details>
+<details><summary>제작 범위와 남은 검수</summary><p>120셀에 30개의 서로 다른 그림을 유지 시간에 맞춰 넣었습니다. 전체 그림을 흔들거나 돌려 프레임 수를 늘리지 않았고, 그림 사이를 겹쳐 녹이는 처리도 없습니다. 60fps 규격만으로 부드러운 완성 모션이라고 판단하지 않습니다.</p><p>새 연결 그림과 빠른 회복 구간은 검수 후보입니다. 실제 게임 연결, 모바일 가로·PC의 마운드와 UI 배치 검수는 이후 단계입니다. 166px 비교는 이전에 확인한 세로 화면 표시 크기를 사용하며, 확대 화면은 그림을 확인하기 위한 보기입니다. 이 표시 크기는 최초 카메라 정지 비교판보다 약 15% 작습니다.</p></details>
+<p id="load-error" role="alert"></p>
+<noscript><p>재생에는 JavaScript가 필요합니다. 함께 제공된 MP4 또는 30포즈 비교판을 열어 주세요.</p></noscript>
+<script id="jade-data" type="application/json">__JADE_DATA__</script>
+<script>
+const data=JSON.parse(document.getElementById('jade-data').textContent);
+const atlas=new Image();
+const play=document.getElementById('play'),slider=document.getElementById('frame'),speed=document.getElementById('speed');
+const before=document.getElementById('before'),after=document.getElementById('after'),small=document.getElementById('small');
+let frame=0,running=false,last=0,carry=0,ready=false,raf=null;
+function render(canvas,poseIndex){const c=canvas.getContext('2d');c.clearRect(0,0,canvas.width,canvas.height);c.fillStyle='#172f30';c.fillRect(0,0,canvas.width,canvas.height);c.imageSmoothingEnabled=false;const cell=data.poses[poseIndex].frame;if(ready)c.drawImage(atlas,cell%10*256,Math.floor(cell/10)*256,256,256,0,0,canvas.width,canvas.height)}
+function paint(){render(before,data.baseline[frame]);render(after,data.mapping[frame]);render(small,data.mapping[frame]);slider.value=frame;const p=data.poses[data.mapping[frame]];document.getElementById('status').textContent=String(frame).padStart(3,'0')+' / 119 · '+p.id+' · '+(p.approvedR1?'승인 포즈':'새 연결 그림');document.getElementById('ball').textContent=p.ballHeld?'오른손에 공':'릴리스 후 · 오른손 비움'}
+function stop(){running=false;if(raf!==null)cancelAnimationFrame(raf);raf=null;play.textContent='재생';play.setAttribute('aria-pressed','false')}
+function choose(f){stop();frame=Math.max(0,Math.min(119,f));carry=0;paint()}
+function tick(now){raf=null;if(!running)return;carry+=(now-last)*Number(speed.value);last=now;while(carry>=1000/60){carry-=1000/60;if(frame===119){stop();paint();return}frame++}paint();raf=requestAnimationFrame(tick)}
+play.addEventListener('click',()=>{if(!ready)return;if(running){stop();return}if(frame===119){frame=0;carry=0}running=true;last=performance.now();play.textContent='일시정지';play.setAttribute('aria-pressed','true');paint();raf=requestAnimationFrame(tick)});
+slider.addEventListener('input',()=>choose(Number(slider.value)));
+document.getElementById('restart').addEventListener('click',()=>choose(0));
+document.getElementById('release').addEventListener('click',()=>choose(76));
+document.getElementById('prev').addEventListener('click',()=>{const i=data.mapping[frame];choose(frame>data.poses[i].frame?data.poses[i].frame:data.poses[Math.max(0,i-1)].frame)});
+document.getElementById('next').addEventListener('click',()=>{const i=data.mapping[frame]+1;choose(i<data.poses.length?data.poses[i].frame:119)});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stop()});
+atlas.onload=()=>{ready=true;paint()};atlas.onerror=()=>{stop();document.getElementById('load-error').textContent='그림을 불러오지 못했습니다. 함께 제공된 영상이나 PNG 비교판을 열어 주세요.'};atlas.src='__JADE_ATLAS__';paint();
+</script>
+</main></html>

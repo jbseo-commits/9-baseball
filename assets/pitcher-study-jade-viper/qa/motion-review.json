@@ -1,0 +1,47 @@
+{
+  "status": "draft_candidate_accepted_with_temporal_concerns",
+  "productionMotionAccepted": false,
+  "newInbetweenUserApproval": false,
+  "reviewer": "/root/motion_final_review",
+  "reviewRecordedAt": "2026-10-13T22:01:47.122224+00:00",
+  "reviewScope": "Read-only inspection of 30-pose contact board, selected source images, builder, preview script, metadata and existing passed reports. No browser/video playback or test rerun by reviewer.",
+  "conclusion": "No visual blocker to draft art PR. Not production-motion ready.",
+  "observations": [
+    "18 additions contain actual arm, leg and torso changes; selected corrections show no obvious extra limb or handedness reversal.",
+    "Ball held through cells74/75, right hand empty from zero-based76 onward; no reappearance observed.",
+    "Rear-right support transitions to front-left around60→63; release70→78 preserves body/head and planted foot alignment.",
+    "Metadata distinguishes30drawings/90holds and newly proposed2second timing from production acceptance."
+  ],
+  "remainingConcerns": [
+    {
+      "cells": [
+        43,
+        49,
+        54
+      ],
+      "finding": "Upper silhouette drops about33px then rises6px in256-space, giving a visible stride bounce."
+    },
+    {
+      "cells": [
+        78,
+        80
+      ],
+      "finding": "Torso fold/head descent concentrated in a two-cell transition. Acceleration and recovery still step between held drawings."
+    },
+    {
+      "cells": [
+        98,
+        101,
+        105,
+        108
+      ],
+      "finding": "Original registered upper bounds73→67→78→62px showed recovery dip. Reviewer recommended a fixed uniform scale override for105; refinement applied before final packaging. Head/limb proportion continuity still requires visual acceptance."
+    }
+  ],
+  "followupRefinement": {
+    "pose": "f105",
+    "method": "Increase fixed uniform registration scale from25.5/188 to25.5/179 with left-foot target unchanged. Keep crown estimate188, record override explicitly. No source pixels edited.",
+    "verification": "Affected preview frames and packing/player checks regenerated; final bounds recorded in format-check.json.",
+    "independentFollowup": "Passed for draft publication. Upper bounds73→67→69→62 visibly reduce dip; planted foot intact, no obvious new anatomy issue."
+  }
+}

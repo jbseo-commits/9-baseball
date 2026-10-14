@@ -1,0 +1,1772 @@
+{
+  "id": "jade-viper-atlas-r1",
+  "slug": "jade-viper",
+  "adult_age": 28,
+  "status": "integrated_candidate",
+  "meaning": "feature-branch art candidate, no game runtime mapping",
+  "concept_revision": "R2",
+  "approved_motion_revision": "R1",
+  "atlas_revision": "R1-candidate",
+  "facing": "toward-camera",
+  "viewpoint": "catcher-behind-home-plate",
+  "throwsWith": "right",
+  "gloveHand": "left",
+  "frameCount": 120,
+  "fps": 60,
+  "durationMs": 2000,
+  "frameSize": [
+    256,
+    256
+  ],
+  "atlasColumns": 10,
+  "atlasRows": 12,
+  "atlas": "atlases/jade-viper-pitch-120-atlas.png",
+  "releaseFrame": 76,
+  "frameIndexing": "zero-based",
+  "releaseTimeMsExact": 1266.6666666666667,
+  "authoredPoseCount": 30,
+  "approvedPoseCount": 12,
+  "newInbetweenCount": 18,
+  "uniquePixelFrameCount": 30,
+  "repeatedHoldCells": 90,
+  "renderMethod": "static per-drawing registration and explicit holds; no per-frame rotate/translate, crossfade, morph, or forced unique hashes",
+  "runtimeIntegrated": false,
+  "productionReady": false,
+  "approval": {
+    "slug": "jade-viper",
+    "adult_age": 28,
+    "concept_revision": "R2",
+    "concept_approved": true,
+    "camera_revision": "R1",
+    "camera_approved": true,
+    "camera_approval": {
+      "quote": "좋아",
+      "at": "2026-10-13T17:07:29+09:00"
+    },
+    "motion_revision": "R1",
+    "motion_approved": true,
+    "motion_approval": {
+      "quote": "음 좋인",
+      "at": "2026-10-13T19:56:18+09:00",
+      "context": "Reply to the presented 12-pose Motion R1 review and explicit request to confirm before atlas production."
+    },
+    "authorized_actions": [
+      "preserve approved source bytes",
+      "produce 120-frame atlas candidate and additional drawn inbetweens",
+      "feature-branch asset import and draft PR"
+    ],
+    "new_inbetween_revision": "atlas-r1-candidate",
+    "new_inbetween_visual_approval": false,
+    "runtime_approved": false,
+    "main_merge_approved": false,
+    "deployment_approved": false
+  },
+  "reference_mode": "verified_cache",
+  "camera_reference": {
+    "url": "https://raw.githubusercontent.com/jbseo-commits/9-baseball/main/assets/pitcher-study-v2/previews/tide-vesper-game-portrait.png",
+    "description": "Historical actual 412×915 portrait gameplay capture inspected; not the current live geometry."
+  },
+  "cached_motion_reference": {
+    "url": "https://www.mlb.com/video/ump-cam-views-from-the-2024-all-star-game",
+    "record": "assets/pitcher-study-copper-sirocco/v2/references.json at codex/pitcher-copper-sirocco-20261011",
+    "observations": "Existing verified analytical notes reused for stride/landing and front-foot support in follow-through. No new video playback this run; whole windup and exact release timing unverified."
+  },
+  "referenceNote": "Existing stride/landing/follow-through analytical notes only. No new footage searched or played in atlas stage; no measured whole-windup or exact-release validation.",
+  "timingNote": "New author-chosen 2-second candidate. Earlier approved R1 animatic was 3070ms. Baseline comparison is retimed to the same 2 seconds.",
+  "displayNote": "Preserves R1 approximate cap width25.5 in256 square and earlier166px box; about15% smaller than camera still board. Larger preview scales are inspection aids, not measured gameplay layouts.",
+  "registrationNote": "Manual approximate cap and foot annotations, not a rig or biomechanical measurements.",
+  "knownLimitations": [
+    "30 separately drawn poses held across120cells; not120 independent drawings",
+    "New inbetweens and2-second recovery timing await visual acceptance",
+    "Premium pixel-grid cleanup and true game portrait/landscape/desktop acceptance not claimed",
+    "No roster, HP, release event, save data, runtime or deployment modification"
+  ],
+  "poses": [
+    {
+      "id": "01-set",
+      "kind": "key",
+      "crown": 156,
+      "anchor": [
+        455,
+        1237
+      ],
+      "support": "R",
+      "scale": 0.16346153846153846,
+      "x": 24.625,
+      "y": 13.798076923076934,
+      "annotations": {
+        "contact": [
+          455,
+          1237
+        ],
+        "otherFoot": [
+          864,
+          1237
+        ],
+        "pelvis": [
+          646,
+          515
+        ],
+        "shoulder": [
+          650,
+          240
+        ],
+        "ball": [
+          579,
+          252
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "frame": 0,
+      "source": "source/keys/01-set.png",
+      "label": "SET",
+      "ballHeld": true,
+      "approvedR1": true
+    },
+    {
+      "id": "f012",
+      "frame": 12,
+      "kind": "inbetween",
+      "source": "source/inbetweens/f012.png",
+      "label": "BEGIN COIL",
+      "ballHeld": true,
+      "approvedR1": false,
+      "crown": 156,
+      "anchor": [
+        590,
+        1243
+      ],
+      "support": "R",
+      "scale": 0.16346153846153846,
+      "x": 2.5576923076923066,
+      "y": 12.81730769230768,
+      "generationId": "f012",
+      "annotations": {
+        "contact": [
+          590,
+          1243
+        ],
+        "targetContact": [
+          99,
+          216
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      }
+    },
+    {
+      "id": "02-coil",
+      "kind": "bridge",
+      "crown": 156,
+      "anchor": [
+        595,
+        1243
+      ],
+      "support": "R",
+      "scale": 0.16346153846153846,
+      "x": 1.7403846153846132,
+      "y": 12.81730769230768,
+      "annotations": {
+        "contact": [
+          595,
+          1243
+        ],
+        "otherFoot": [
+          720,
+          994
+        ],
+        "pelvis": [
+          637,
+          493
+        ],
+        "shoulder": [
+          615,
+          240
+        ],
+        "ball": [
+          675,
+          258
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "frame": 24,
+      "source": "source/bridges/02-coil.png",
+      "label": "COIL",
+      "ballHeld": true,
+      "approvedR1": true
+    },
+    {
+      "id": "f030",
+      "frame": 30,
+      "kind": "inbetween",
+      "source": "source/inbetweens/f030.png",
+      "label": "KNEE RISING",
+      "ballHeld": true,
+      "approvedR1": false,
+      "crown": 156,
+      "anchor": [
+        595,
+        1240
+      ],
+      "support": "R",
+      "scale": 0.16346153846153846,
+      "x": 1.7403846153846132,
+      "y": 13.307692307692292,
+      "generationId": "f030",
+      "annotations": {
+        "contact": [
+          595,
+          1240
+        ],
+        "targetContact": [
+          99,
+          216
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      }
+    },
+    {
+      "id": "03-leg-lift",
+      "kind": "key",
+      "crown": 148,
+      "anchor": [
+        590,
+        1237
+      ],
+      "support": "R",
+      "scale": 0.17229729729729729,
+      "x": -2.6554054054054035,
+      "y": 2.8682432432432563,
+      "annotations": {
+        "contact": [
+          590,
+          1237
+        ],
+        "otherFoot": [
+          815,
+          870
+        ],
+        "pelvis": [
+          620,
+          450
+        ],
+        "shoulder": [
+          600,
+          218
+        ],
+        "ball": [
+          695,
+          229
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "frame": 37,
+      "source": "source/keys/03-leg-lift.png",
+      "label": "LEG LIFT",
+      "ballHeld": true,
+      "approvedR1": true
+    },
+    {
+      "id": "f043",
+      "frame": 43,
+      "kind": "inbetween",
+      "source": "source/inbetweens/f043-r2.png",
+      "label": "HANDS SEPARATE",
+      "ballHeld": true,
+      "approvedR1": false,
+      "crown": 148,
+      "anchor": [
+        590,
+        1237
+      ],
+      "support": "R",
+      "scale": 0.17229729729729729,
+      "x": -2.6554054054054035,
+      "y": 2.8682432432432563,
+      "generationId": "f043-r2",
+      "annotations": {
+        "contact": [
+          590,
+          1237
+        ],
+        "targetContact": [
+          99,
+          216
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sourceSelectionNote": "Corrected generation"
+    },
+    {
+      "id": "f049",
+      "frame": 49,
+      "kind": "inbetween",
+      "source": "source/inbetweens/f049.png",
+      "label": "KNEE OPENS",
+      "ballHeld": true,
+      "approvedR1": false,
+      "crown": 175,
+      "anchor": [
+        611,
+        1236
+      ],
+      "support": "R",
+      "scale": 0.1457142857142857,
+      "x": 9.968571428571423,
+      "y": 35.89714285714285,
+      "generationId": "f049",
+      "annotations": {
+        "contact": [
+          611,
+          1236
+        ],
+        "targetContact": [
+          99,
+          216
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      }
+    },
+    {
+      "id": "04-stride-v2",
+      "kind": "bridge",
+      "crown": 170,
+      "anchor": [
+        590,
+        1237
+      ],
+      "support": "R",
+      "scale": 0.15,
+      "x": 10.5,
+      "y": 30.450000000000017,
+      "annotations": {
+        "contact": [
+          590,
+          1237
+        ],
+        "otherFoot": [
+          900,
+          1016
+        ],
+        "pelvis": [
+          630,
+          517
+        ],
+        "shoulder": [
+          602,
+          250
+        ],
+        "ball": [
+          364,
+          432
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "frame": 54,
+      "source": "source/bridges/04-stride-v2.png",
+      "label": "STRIDE",
+      "ballHeld": true,
+      "approvedR1": true
+    },
+    {
+      "id": "f057",
+      "frame": 57,
+      "kind": "inbetween",
+      "source": "source/inbetweens/f057.png",
+      "label": "STRIDE EXTENDS",
+      "ballHeld": true,
+      "approvedR1": false,
+      "crown": 177,
+      "anchor": [
+        514,
+        1149
+      ],
+      "support": "R",
+      "scale": 0.1440677966101695,
+      "x": 24.949152542372886,
+      "y": 50.46610169491524,
+      "generationId": "f057",
+      "annotations": {
+        "contact": [
+          514,
+          1149
+        ],
+        "targetContact": [
+          99,
+          216
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      }
+    },
+    {
+      "id": "f060",
+      "frame": 60,
+      "kind": "inbetween",
+      "source": "source/inbetweens/f060-r2.png",
+      "label": "APPROACH LANDING",
+      "ballHeld": true,
+      "approvedR1": false,
+      "crown": 186,
+      "anchor": [
+        450,
+        1102
+      ],
+      "support": "R",
+      "scale": 0.13709677419354838,
+      "x": 37.30645161290323,
+      "y": 64.9193548387097,
+      "generationId": "f060-r2",
+      "annotations": {
+        "contact": [
+          450,
+          1102
+        ],
+        "targetContact": [
+          99,
+          216
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sourceSelectionNote": "Corrected generation"
+    },
+    {
+      "id": "05-foot-plant",
+      "kind": "key",
+      "crown": 186,
+      "anchor": [
+        940,
+        1237
+      ],
+      "support": "L",
+      "scale": 0.13709677419354838,
+      "x": 37.12903225806451,
+      "y": 72.41129032258067,
+      "annotations": {
+        "contact": [
+          940,
+          1237
+        ],
+        "otherFoot": [
+          452,
+          1048
+        ],
+        "pelvis": [
+          670,
+          558
+        ],
+        "shoulder": [
+          649,
+          256
+        ],
+        "ball": [
+          431,
+          83
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "frame": 63,
+      "source": "source/keys/05-foot-plant.png",
+      "label": "FOOT PLANT",
+      "ballHeld": true,
+      "approvedR1": true
+    },
+    {
+      "id": "f065",
+      "frame": 65,
+      "kind": "inbetween",
+      "source": "source/inbetweens/f065.png",
+      "label": "ROTATION BEGINS",
+      "ballHeld": true,
+      "approvedR1": false,
+      "crown": 190,
+      "anchor": [
+        916,
+        1237
+      ],
+      "support": "L",
+      "scale": 0.13421052631578947,
+      "x": 43.06315789473685,
+      "y": 75.98157894736843,
+      "generationId": "f065",
+      "annotations": {
+        "contact": [
+          916,
+          1237
+        ],
+        "targetContact": [
+          166,
+          242
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      }
+    },
+    {
+      "id": "f068",
+      "frame": 68,
+      "kind": "inbetween",
+      "source": "source/inbetweens/f068.png",
+      "label": "ARM RISES",
+      "ballHeld": true,
+      "approvedR1": false,
+      "crown": 188,
+      "anchor": [
+        860,
+        1237
+      ],
+      "support": "L",
+      "scale": 0.1356382978723404,
+      "x": 49.35106382978725,
+      "y": 74.21542553191492,
+      "generationId": "f068",
+      "annotations": {
+        "contact": [
+          860,
+          1237
+        ],
+        "targetContact": [
+          166,
+          242
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      }
+    },
+    {
+      "id": "06-pre-release-v2",
+      "kind": "bridge",
+      "crown": 180,
+      "anchor": [
+        837,
+        1236
+      ],
+      "support": "L",
+      "scale": 0.14166666666666666,
+      "x": 47.425,
+      "y": 66.9,
+      "annotations": {
+        "contact": [
+          837,
+          1236
+        ],
+        "otherFoot": [
+          493,
+          982
+        ],
+        "pelvis": [
+          590,
+          557
+        ],
+        "shoulder": [
+          697,
+          338
+        ],
+        "ball": [
+          553,
+          123
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "frame": 70,
+      "source": "source/bridges/06-pre-release-v2.png",
+      "label": "PRE-RELEASE",
+      "ballHeld": true,
+      "approvedR1": true
+    },
+    {
+      "id": "f072",
+      "frame": 72,
+      "kind": "inbetween",
+      "source": "source/inbetweens/f072.png",
+      "label": "ARM ACCELERATES",
+      "ballHeld": true,
+      "approvedR1": false,
+      "crown": 180,
+      "anchor": [
+        837,
+        1236
+      ],
+      "support": "L",
+      "scale": 0.14166666666666666,
+      "x": 47.425,
+      "y": 66.9,
+      "generationId": "f072",
+      "annotations": {
+        "contact": [
+          837,
+          1236
+        ],
+        "targetContact": [
+          166,
+          242
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      }
+    },
+    {
+      "id": "f074",
+      "frame": 74,
+      "kind": "inbetween",
+      "source": "source/inbetweens/f074.png",
+      "label": "BEFORE RELEASE",
+      "ballHeld": true,
+      "approvedR1": false,
+      "crown": 180,
+      "anchor": [
+        837,
+        1236
+      ],
+      "support": "L",
+      "scale": 0.14166666666666666,
+      "x": 47.425,
+      "y": 66.9,
+      "generationId": "f074",
+      "annotations": {
+        "contact": [
+          837,
+          1236
+        ],
+        "targetContact": [
+          166,
+          242
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      }
+    },
+    {
+      "id": "07-release",
+      "kind": "key",
+      "crown": 180,
+      "anchor": [
+        837,
+        1236
+      ],
+      "support": "L",
+      "scale": 0.14166666666666666,
+      "x": 47.425,
+      "y": 66.9,
+      "annotations": {
+        "contact": [
+          837,
+          1236
+        ],
+        "otherFoot": [
+          493,
+          982
+        ],
+        "pelvis": [
+          590,
+          557
+        ],
+        "shoulder": [
+          697,
+          338
+        ],
+        "ball": null,
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "frame": 76,
+      "source": "source/keys/07-release.png",
+      "label": "RELEASE",
+      "ballHeld": false,
+      "approvedR1": true
+    },
+    {
+      "id": "f078",
+      "frame": 78,
+      "kind": "inbetween",
+      "source": "source/inbetweens/f078-r2.png",
+      "label": "AFTER RELEASE",
+      "ballHeld": false,
+      "approvedR1": false,
+      "crown": 180,
+      "anchor": [
+        837,
+        1236
+      ],
+      "support": "L",
+      "scale": 0.14166666666666666,
+      "x": 47.425,
+      "y": 66.9,
+      "generationId": "f078-r2",
+      "annotations": {
+        "contact": [
+          837,
+          1236
+        ],
+        "targetContact": [
+          166,
+          242
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sourceSelectionNote": "Corrected generation"
+    },
+    {
+      "id": "f080",
+      "frame": 80,
+      "kind": "inbetween",
+      "source": "source/inbetweens/f078.png",
+      "label": "ARM DESCENDS",
+      "ballHeld": false,
+      "approvedR1": false,
+      "crown": 201,
+      "anchor": [
+        851,
+        1239
+      ],
+      "support": "L",
+      "scale": 0.12686567164179105,
+      "x": 58.037313432835816,
+      "y": 84.81343283582089,
+      "generationId": "f078",
+      "annotations": {
+        "contact": [
+          851,
+          1239
+        ],
+        "targetContact": [
+          166,
+          242
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sourceSelectionNote": "Timing reassigned after visual inspection of arm/rear-foot trajectory; original generation target retained in generation records."
+    },
+    {
+      "id": "08-deceleration",
+      "kind": "bridge",
+      "crown": 201,
+      "anchor": [
+        850,
+        1237
+      ],
+      "support": "L",
+      "scale": 0.12686567164179105,
+      "x": 58.16417910447761,
+      "y": 85.06716417910448,
+      "annotations": {
+        "contact": [
+          850,
+          1237
+        ],
+        "otherFoot": [
+          397,
+          809
+        ],
+        "pelvis": [
+          591,
+          589
+        ],
+        "shoulder": [
+          737,
+          317
+        ],
+        "ball": null,
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "frame": 82,
+      "source": "source/bridges/08-deceleration.png",
+      "label": "DECELERATION",
+      "ballHeld": false,
+      "approvedR1": true
+    },
+    {
+      "id": "f084",
+      "frame": 84,
+      "kind": "inbetween",
+      "source": "source/inbetweens/f080.png",
+      "label": "TORSO FOLDS",
+      "ballHeld": false,
+      "approvedR1": false,
+      "crown": 204,
+      "anchor": [
+        850,
+        1238
+      ],
+      "support": "L",
+      "scale": 0.125,
+      "x": 59.75,
+      "y": 87.25,
+      "generationId": "f080",
+      "annotations": {
+        "contact": [
+          850,
+          1238
+        ],
+        "targetContact": [
+          166,
+          242
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sourceSelectionNote": "Timing reassigned after visual inspection of arm/rear-foot trajectory; original generation target retained in generation records."
+    },
+    {
+      "id": "f086",
+      "frame": 86,
+      "kind": "inbetween",
+      "source": "source/inbetweens/f084.png",
+      "label": "REAR LEG RISES",
+      "ballHeld": false,
+      "approvedR1": false,
+      "crown": 200,
+      "anchor": [
+        835,
+        1237
+      ],
+      "support": "L",
+      "scale": 0.1275,
+      "x": 59.537499999999994,
+      "y": 84.2825,
+      "generationId": "f084",
+      "annotations": {
+        "contact": [
+          835,
+          1237
+        ],
+        "targetContact": [
+          166,
+          242
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sourceSelectionNote": "Timing reassigned after visual inspection of arm/rear-foot trajectory; original generation target retained in generation records."
+    },
+    {
+      "id": "09-follow-through",
+      "kind": "key",
+      "crown": 194,
+      "anchor": [
+        804,
+        1236
+      ],
+      "support": "L",
+      "scale": 0.13144329896907217,
+      "x": 60.319587628865975,
+      "y": 79.53608247422679,
+      "annotations": {
+        "contact": [
+          804,
+          1236
+        ],
+        "otherFoot": [
+          267,
+          548
+        ],
+        "pelvis": [
+          552,
+          411
+        ],
+        "shoulder": [
+          759,
+          298
+        ],
+        "ball": null,
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "frame": 89,
+      "source": "source/keys/09-follow-through.png",
+      "label": "FOLLOW THROUGH",
+      "ballHeld": false,
+      "approvedR1": true
+    },
+    {
+      "id": "f094",
+      "frame": 94,
+      "kind": "inbetween",
+      "source": "source/inbetweens/f094.png",
+      "label": "RECOVERY BEGINS",
+      "ballHeld": false,
+      "approvedR1": false,
+      "crown": 191,
+      "anchor": [
+        779,
+        1244
+      ],
+      "support": "L",
+      "scale": 0.13350785340314136,
+      "x": 61.99738219895288,
+      "y": 75.91623036649216,
+      "generationId": "f094",
+      "annotations": {
+        "contact": [
+          779,
+          1244
+        ],
+        "targetContact": [
+          166,
+          242
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      }
+    },
+    {
+      "id": "10-recovery-step",
+      "kind": "bridge",
+      "crown": 186,
+      "anchor": [
+        744,
+        1238
+      ],
+      "support": "L",
+      "scale": 0.13709677419354838,
+      "x": 64.00000000000001,
+      "y": 72.2741935483871,
+      "annotations": {
+        "contact": [
+          744,
+          1238
+        ],
+        "otherFoot": [
+          504,
+          1050
+        ],
+        "pelvis": [
+          649,
+          556
+        ],
+        "shoulder": [
+          751,
+          296
+        ],
+        "ball": null,
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "frame": 98,
+      "source": "source/bridges/10-recovery-step.png",
+      "label": "RECOVERY STEP",
+      "ballHeld": false,
+      "approvedR1": true
+    },
+    {
+      "id": "f101",
+      "frame": 101,
+      "kind": "inbetween",
+      "source": "source/inbetweens/f105.png",
+      "label": "REAR FOOT SWINGS",
+      "ballHeld": false,
+      "approvedR1": false,
+      "crown": 180,
+      "anchor": [
+        772,
+        1242
+      ],
+      "support": "L",
+      "scale": 0.14166666666666666,
+      "x": 56.63333333333334,
+      "y": 66.05000000000001,
+      "generationId": "f105",
+      "annotations": {
+        "contact": [
+          772,
+          1242
+        ],
+        "targetContact": [
+          166,
+          242
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sourceSelectionNote": "Timing reassigned after visual inspection of arm/rear-foot trajectory; original generation target retained in generation records."
+    },
+    {
+      "id": "f105",
+      "frame": 105,
+      "kind": "inbetween",
+      "source": "source/inbetweens/f101.png",
+      "label": "REAR FOOT LOWERS",
+      "ballHeld": false,
+      "approvedR1": false,
+      "crown": 188,
+      "anchor": [
+        832,
+        1218
+      ],
+      "support": "L",
+      "scale": 0.1424581005586592,
+      "x": 47.474860335195544,
+      "y": 68.48603351955308,
+      "generationId": "f101",
+      "annotations": {
+        "contact": [
+          832,
+          1218
+        ],
+        "targetContact": [
+          166,
+          242
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sourceSelectionNote": "Timing reassigned after visual inspection of arm/rear-foot trajectory; original generation target retained in generation records.",
+      "registrationOverride": {
+        "reason": "Reduce recovery head-height reversal at101→105→108, as recommended by independent reviewer. Fixed uniform scale only; planted left-foot target retained.",
+        "measuredCrownEstimate": 188,
+        "baseScale": 0.1356382978723404,
+        "selectedScale": 0.1424581005586592,
+        "relativeIncreasePercent": 5.027932960893855
+      }
+    },
+    {
+      "id": "11-recover",
+      "kind": "key",
+      "crown": 167,
+      "anchor": [
+        859,
+        1183
+      ],
+      "support": "L",
+      "scale": 0.15269461077844312,
+      "x": 34.83532934131736,
+      "y": 61.36227544910179,
+      "annotations": {
+        "contact": [
+          859,
+          1183
+        ],
+        "otherFoot": [
+          464,
+          1245
+        ],
+        "pelvis": [
+          661,
+          533
+        ],
+        "shoulder": [
+          654,
+          271
+        ],
+        "ball": null,
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "frame": 108,
+      "source": "source/keys/11-recover.png",
+      "label": "RECOVER",
+      "ballHeld": false,
+      "approvedR1": true
+    },
+    {
+      "id": "f111",
+      "frame": 111,
+      "kind": "inbetween",
+      "source": "source/inbetweens/f111.png",
+      "label": "BODY SETTLES",
+      "ballHeld": false,
+      "approvedR1": false,
+      "crown": 170,
+      "anchor": [
+        870,
+        1190
+      ],
+      "support": "L",
+      "scale": 0.15,
+      "x": 35.5,
+      "y": 63.5,
+      "generationId": "f111",
+      "annotations": {
+        "contact": [
+          870,
+          1190
+        ],
+        "targetContact": [
+          166,
+          242
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      }
+    },
+    {
+      "id": "12-settle",
+      "kind": "bridge",
+      "crown": 170,
+      "anchor": [
+        860,
+        1185
+      ],
+      "support": "L",
+      "scale": 0.15,
+      "x": 37,
+      "y": 64.25,
+      "annotations": {
+        "contact": [
+          860,
+          1185
+        ],
+        "otherFoot": [
+          468,
+          1243
+        ],
+        "pelvis": [
+          650,
+          520
+        ],
+        "shoulder": [
+          645,
+          264
+        ],
+        "ball": null,
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "frame": 114,
+      "source": "source/bridges/12-settle.png",
+      "label": "SETTLE",
+      "ballHeld": false,
+      "approvedR1": true
+    }
+  ],
+  "frameToPose": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    6,
+    6,
+    6,
+    6,
+    6,
+    7,
+    7,
+    7,
+    8,
+    8,
+    8,
+    9,
+    9,
+    9,
+    10,
+    10,
+    11,
+    11,
+    11,
+    12,
+    12,
+    13,
+    13,
+    14,
+    14,
+    15,
+    15,
+    16,
+    16,
+    17,
+    17,
+    18,
+    18,
+    19,
+    19,
+    20,
+    20,
+    21,
+    21,
+    21,
+    22,
+    22,
+    22,
+    22,
+    22,
+    23,
+    23,
+    23,
+    23,
+    24,
+    24,
+    24,
+    25,
+    25,
+    25,
+    25,
+    26,
+    26,
+    26,
+    27,
+    27,
+    27,
+    28,
+    28,
+    28,
+    29,
+    29,
+    29,
+    29,
+    29,
+    29
+  ],
+  "baselineFrameToPose": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    16,
+    16,
+    16,
+    16,
+    16,
+    16,
+    19,
+    19,
+    19,
+    19,
+    19,
+    19,
+    19,
+    22,
+    22,
+    22,
+    22,
+    22,
+    22,
+    22,
+    22,
+    22,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    27,
+    27,
+    27,
+    27,
+    27,
+    27,
+    29,
+    29,
+    29,
+    29,
+    29,
+    29
+  ],
+  "formatQA": {
+    "status": "passed",
+    "sourceChecks": [
+      {
+        "id": "01-set",
+        "sourceSha256": "35ebf943bc9b81bcd946231bf4be53169b1169898d8de01ee97db2aedc86f2c9",
+        "registeredBounds": [
+          88,
+          15,
+          179,
+          217
+        ],
+        "rgba": true,
+        "registeredSha256": "c0374f982090ce6785616dc14911a8e2a94607df16ecd443298037ed2267f82b"
+      },
+      {
+        "id": "f012",
+        "sourceSha256": "d307e5d4b378f62c95a4ede891e2afa96862fefed823aa69fd44951b073370d8",
+        "registeredBounds": [
+          75,
+          13,
+          139,
+          217
+        ],
+        "rgba": true,
+        "registeredSha256": "dbb5c6983b6b26700365c7b75a4549ed7b873c4831c9cf19df8f434bb9f8351c"
+      },
+      {
+        "id": "02-coil",
+        "sourceSha256": "0cb0ff1dfe50f0b9405175512a7bcdd29456b33f3eb3ba43dbbff483d6b84c80",
+        "registeredBounds": [
+          73,
+          14,
+          140,
+          217
+        ],
+        "rgba": true,
+        "registeredSha256": "301afe9bf3dc7892cae76937e31b2ff2d61a4f241bd113fb8357a126ff76d55c"
+      },
+      {
+        "id": "f030",
+        "sourceSha256": "b181bc538160114fc2c9846872ddfce40b0c43d56dd009a617a13f7cfed0079f",
+        "registeredBounds": [
+          73,
+          15,
+          146,
+          217
+        ],
+        "rgba": true,
+        "registeredSha256": "3f300a6cbfb4f3804a066a0658c54a9091adb4b277180e090bfd4efabecfb1e8"
+      },
+      {
+        "id": "03-leg-lift",
+        "sourceSha256": "7a093969b32b7d71352760c15092df60e7cf0e3c6f1728a49a43fb92297f41b2",
+        "registeredBounds": [
+          70,
+          5,
+          146,
+          217
+        ],
+        "rgba": true,
+        "registeredSha256": "300ea7175ec2026e642137c7224fc9e5e5830cc60d3e6e4b298e03ec7a01b3a1"
+      },
+      {
+        "id": "f043",
+        "sourceSha256": "4f8e9cba834ef471715b2071340773c33d39ecf360c4fa9d488b040d25906fff",
+        "registeredBounds": [
+          70,
+          5,
+          149,
+          217
+        ],
+        "rgba": true,
+        "registeredSha256": "068da919bb6152a713f0fe44e8a9d422a7372f7993d5fedf3e578398162c4f57"
+      },
+      {
+        "id": "f049",
+        "sourceSha256": "7a2fe83f797b10e64e2b2d73cda81d33574a7942b4c9a2842838411e44e5d07d",
+        "registeredBounds": [
+          59,
+          38,
+          154,
+          217
+        ],
+        "rgba": true,
+        "registeredSha256": "b8f0be5cbfdd2e3052f018a1c113ae6eedd523712a88c8699446c73d438181ce"
+      },
+      {
+        "id": "04-stride-v2",
+        "sourceSha256": "a0b5fd0605364016507991d8e9fa663aea492415c250927afce8e6a31951a9c4",
+        "registeredBounds": [
+          59,
+          32,
+          154,
+          216
+        ],
+        "rgba": true,
+        "registeredSha256": "df33a9b7a5262d8d03fd71b8ca1521854c54526e926063c85e85215bfa431421"
+      },
+      {
+        "id": "f057",
+        "sourceSha256": "ba190eb5e790c456898f24535cbaa0d2e2658a70b3dc3e2e1803c8b71f898576",
+        "registeredBounds": [
+          65,
+          52,
+          168,
+          216
+        ],
+        "rgba": true,
+        "registeredSha256": "4d96f5135ff0d1148704cfd0167dec660f64edcdc39b209a0c526335a63a9222"
+      },
+      {
+        "id": "f060",
+        "sourceSha256": "86a1839648b3ffe3fd84be2c8ac29813b244443ca2907c7f708238184fc67ae6",
+        "registeredBounds": [
+          78,
+          67,
+          178,
+          233
+        ],
+        "rgba": true,
+        "registeredSha256": "ccad84fe975d34435b945bd7a03effd22db5f70ce070b4b29df0642568ce017c"
+      },
+      {
+        "id": "05-foot-plant",
+        "sourceSha256": "7861bf31e841c3415091e5b8906b2a6e6c96f3c6758faeb03709e6ed884e6f53",
+        "registeredBounds": [
+          78,
+          74,
+          176,
+          242
+        ],
+        "rgba": true,
+        "registeredSha256": "d8fe0ccebc477b99138595bf1ee74ae9947ed239d7673df16c1044b6c6836674"
+      },
+      {
+        "id": "f065",
+        "sourceSha256": "d58a12438d86c00b8b958ba7f9fade831d431b3d5b624be229d534ee9c8fce14",
+        "registeredBounds": [
+          92,
+          81,
+          173,
+          242
+        ],
+        "rgba": true,
+        "registeredSha256": "a48dd9eb9daaca7cf47d455296956224484a4c2f6118b113681f035c9a8e0858"
+      },
+      {
+        "id": "f068",
+        "sourceSha256": "e380868cc2b8df5d1f5a76441fc68c5fba9ac6d6c6134e164a3b6eb036c7de7e",
+        "registeredBounds": [
+          104,
+          81,
+          178,
+          242
+        ],
+        "rgba": true,
+        "registeredSha256": "75418597ab6a3e0e8c71bf074f694db8cf028c0cc0d075908655399c1e6a19e8"
+      },
+      {
+        "id": "06-pre-release-v2",
+        "sourceSha256": "91caf1db3f83d08664b2dc8c18f895c5adf62c528a4a6b241c2db2900a95ee48",
+        "registeredBounds": [
+          106,
+          75,
+          176,
+          243
+        ],
+        "rgba": true,
+        "registeredSha256": "d7ab63e913a56b77e3a283c9f92665f7c900ecf173aaa772d9f87ce6e9d1965e"
+      },
+      {
+        "id": "f072",
+        "sourceSha256": "82beb473d587400a698b5657b19279a4e3c7fbe7e85b3548fb2e2a641cfed5c0",
+        "registeredBounds": [
+          109,
+          74,
+          176,
+          243
+        ],
+        "rgba": true,
+        "registeredSha256": "4d4177d54c7a492ee4e97cf2471aa4f5568e0befdbd430c6ed8c21808f481661"
+      },
+      {
+        "id": "f074",
+        "sourceSha256": "4a9a0761890940ad175ca34458a9a8d0d099f6fd5a197784a2b53b48d0497c42",
+        "registeredBounds": [
+          107,
+          74,
+          176,
+          243
+        ],
+        "rgba": true,
+        "registeredSha256": "095ac650f7ad1d7f86eea4eaead21de7cd9f4bb96c6ce8156720c94d2a60ceba"
+      },
+      {
+        "id": "07-release",
+        "sourceSha256": "c1cbe26fb4daddc691fc5c4fe1d54a56f6ddcc63d9bc9c53af8553c6c4e2a763",
+        "registeredBounds": [
+          105,
+          75,
+          175,
+          243
+        ],
+        "rgba": true,
+        "registeredSha256": "aadef7fce647119cbab2c30998b679c1e0d9bd772f8ca6ef6f106b6ab91b7e8b"
+      },
+      {
+        "id": "f078",
+        "sourceSha256": "c3e74c3a1e663b40c710af42d95294343fc467929e83a1c203f6364e6fb13f61",
+        "registeredBounds": [
+          109,
+          75,
+          176,
+          243
+        ],
+        "rgba": true,
+        "registeredSha256": "b7c04c52c656af1784688c38db2d372f268c52e3d3536ae6cd118ac9fc4871e2"
+      },
+      {
+        "id": "f080",
+        "sourceSha256": "777c7637ffa398ea710c63057afdb74da69c34b08d66e0e79cfedcd66a6bb684",
+        "registeredBounds": [
+          105,
+          88,
+          181,
+          242
+        ],
+        "rgba": true,
+        "registeredSha256": "3f424faa190abc1825e4c2bbe3f84620c2017a9213a03aa3a499777f786c2c33"
+      },
+      {
+        "id": "08-deceleration",
+        "sourceSha256": "83cdea958433c4a66885aa25580e5067b3a8a07b89c834ca1213b25733182f00",
+        "registeredBounds": [
+          101,
+          87,
+          187,
+          242
+        ],
+        "rgba": true,
+        "registeredSha256": "705716bc43357d59c8bac3a6c8fe5499c5ea846508843bd66c86f3c0047ca150"
+      },
+      {
+        "id": "f084",
+        "sourceSha256": "9df0245c0117c6cc6e577a8388473eca814a942375d4887727d770d5b8b48013",
+        "registeredBounds": [
+          100,
+          90,
+          182,
+          242
+        ],
+        "rgba": true,
+        "registeredSha256": "56cb571b1c58534978282d8a32998635611dd0bfc9bb02f8b0c569081e047c1c"
+      },
+      {
+        "id": "f086",
+        "sourceSha256": "9f2d2b0f1495d0bf4cbc2db1dbfb65969e80f6411d03848fb5484f64683edd8e",
+        "registeredBounds": [
+          89,
+          86,
+          191,
+          242
+        ],
+        "rgba": true,
+        "registeredSha256": "e6f90a7d321886bf7ef449ae94c5627a96533f01ea42bbcfbcdd8d68cc818b31"
+      },
+      {
+        "id": "09-follow-through",
+        "sourceSha256": "ef72c81998ae5501e3ce83a4f3ec922423f94b97f90c4c0a1c052471297c1bc7",
+        "registeredBounds": [
+          86,
+          82,
+          195,
+          243
+        ],
+        "rgba": true,
+        "registeredSha256": "c9a1491421a309f3b80f0f9db3c4201dfd5d31e73aec4d2f4f9baf5ed9581cdf"
+      },
+      {
+        "id": "f094",
+        "sourceSha256": "24164f53dc321ff1553c6f6248581e3ac5c49cd0419bf982fadae7b845e93f62",
+        "registeredBounds": [
+          111,
+          77,
+          196,
+          242
+        ],
+        "rgba": true,
+        "registeredSha256": "f3e352167facacc86053970da7f6c7acf5dc3e03cf319ace8314cfd267a8322a"
+      },
+      {
+        "id": "10-recovery-step",
+        "sourceSha256": "c9758f310de241a1a8de500da795f847a1b2740a9abff9dacf02b66477e5c765",
+        "registeredBounds": [
+          125,
+          73,
+          197,
+          243
+        ],
+        "rgba": true,
+        "registeredSha256": "e97790b7af66ee17350d0f0564f063818809484b49c2d7ade7d78b67d11aa593"
+      },
+      {
+        "id": "f101",
+        "sourceSha256": "7891a589dac877021cc18bf7c46e48c5dc1fb417c847413d675463700047c4f9",
+        "registeredBounds": [
+          112,
+          67,
+          186,
+          243
+        ],
+        "rgba": true,
+        "registeredSha256": "f61e23e21a11ed5f2996a36715ef6e21a1d671594118dd90b14cbc9acc91f67d"
+      },
+      {
+        "id": "f105",
+        "sourceSha256": "5d1ea1b5712a920aae82fbe83c5b0eb7c101c6b688e153cbf27ca5dafc9cdac8",
+        "registeredBounds": [
+          108,
+          69,
+          178,
+          243
+        ],
+        "rgba": true,
+        "registeredSha256": "62f7d7d7af31119639717c329868111214c40c9f8fa86ef6f18c72b0237ff83d"
+      },
+      {
+        "id": "11-recover",
+        "sourceSha256": "4b6cbc8565cc0d70d52a44e58db560c347a7c66c31aed882c89462cc9f6a5cc3",
+        "registeredBounds": [
+          95,
+          62,
+          177,
+          251
+        ],
+        "rgba": true,
+        "registeredSha256": "58104c6341e8d49de87e7a76599ddb28304c1066f13514b7b2f1e41e645c1bbe"
+      },
+      {
+        "id": "f111",
+        "sourceSha256": "36b8476f0c0e29ade8b8f5a14683476f66b575489a83aebe9513d631315a85a1",
+        "registeredBounds": [
+          96,
+          65,
+          179,
+          251
+        ],
+        "rgba": true,
+        "registeredSha256": "9f338afe79a7b7191ad9f2ecf1c3fb96dc55a111b8ecb4e257a2774a1d260e02"
+      },
+      {
+        "id": "12-settle",
+        "sourceSha256": "226d4e7323de20c7fa5046895c23653d1276a7453a2f5494775dbdfed7b622fb",
+        "registeredBounds": [
+          97,
+          65,
+          178,
+          251
+        ],
+        "rgba": true,
+        "registeredSha256": "2f88a5bae4e58d7d5be1afb2a04289689f3ca45915108efc14b9b6ec1b55a837"
+      }
+    ],
+    "approvedSourceHashesVerified": 12
+  },
+  "motionQA": {
+    "status": "draft_candidate_accepted_with_temporal_concerns",
+    "productionMotionAccepted": false,
+    "newInbetweenUserApproval": false,
+    "reviewer": "/root/motion_final_review",
+    "reviewRecordedAt": "2026-10-13T22:01:47.122224+00:00",
+    "reviewScope": "Read-only inspection of 30-pose contact board, selected source images, builder, preview script, metadata and existing passed reports. No browser/video playback or test rerun by reviewer.",
+    "conclusion": "No visual blocker to draft art PR. Not production-motion ready.",
+    "observations": [
+      "18 additions contain actual arm, leg and torso changes; selected corrections show no obvious extra limb or handedness reversal.",
+      "Ball held through cells74/75, right hand empty from zero-based76 onward; no reappearance observed.",
+      "Rear-right support transitions to front-left around60→63; release70→78 preserves body/head and planted foot alignment.",
+      "Metadata distinguishes30drawings/90holds and newly proposed2second timing from production acceptance."
+    ],
+    "remainingConcerns": [
+      {
+        "cells": [
+          43,
+          49,
+          54
+        ],
+        "finding": "Upper silhouette drops about33px then rises6px in256-space, giving a visible stride bounce."
+      },
+      {
+        "cells": [
+          78,
+          80
+        ],
+        "finding": "Torso fold/head descent concentrated in a two-cell transition. Acceleration and recovery still step between held drawings."
+      },
+      {
+        "cells": [
+          98,
+          101,
+          105,
+          108
+        ],
+        "finding": "Original registered upper bounds73→67→78→62px showed recovery dip. Reviewer recommended a fixed uniform scale override for105; refinement applied before final packaging. Head/limb proportion continuity still requires visual acceptance."
+      }
+    ],
+    "followupRefinement": {
+      "pose": "f105",
+      "method": "Increase fixed uniform registration scale from25.5/188 to25.5/179 with left-foot target unchanged. Keep crown estimate188, record override explicitly. No source pixels edited.",
+      "verification": "Affected preview frames and packing/player checks regenerated; final bounds recorded in format-check.json.",
+      "independentFollowup": "Passed for draft publication. Upper bounds73→67→69→62 visibly reduce dip; planted foot intact, no obvious new anatomy issue."
+    }
+  }
+}
