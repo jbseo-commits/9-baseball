@@ -1,0 +1,247 @@
+{
+  "slug": "jade-viper",
+  "adult_age": 28,
+  "throwing_hand": "right",
+  "glove_hand": "left",
+  "concept_revision": "R2",
+  "camera_revision": "R1",
+  "status": "motion_candidate",
+  "scope": "five independent still camera-test poses; not full motion",
+  "reference_mode": "verified_cache",
+  "master_approval": {
+    "quote": "음 진행해",
+    "local_date": "2026-10-13",
+    "scope": "master R2 approved; create five camera-test poses"
+  },
+  "camera_approval": "pending",
+  "source_provenance": "Built-in image_gen; original PNG bytes embedded unchanged.",
+  "registration_method": "Artist-annotated cap crown widths and ground contact, approximate; not a measured skeleton. Display scale/translation only, no rotation or mirroring.",
+  "current_layout": {
+    "scene": {
+      "w": 520,
+      "h": 588
+    },
+    "pitcher": {
+      "x": 350.46875,
+      "y": 13.9375,
+      "w": 166.390625,
+      "h": 166.390625
+    },
+    "contact": {
+      "x": 433.6640625,
+      "y": 180.328125
+    },
+    "observation": "Live game DOM geometry measured earlier in the current work session; pitcher contact uses box center after stance compensation."
+  },
+  "camera_reference": {
+    "url": "https://raw.githubusercontent.com/jbseo-commits/9-baseball/main/assets/pitcher-study-v2/previews/tide-vesper-game-portrait.png",
+    "description": "Historical actual 412×915 portrait gameplay capture inspected; not the current live geometry."
+  },
+  "cached_motion_reference": {
+    "url": "https://www.mlb.com/video/ump-cam-views-from-the-2024-all-star-game",
+    "record": "assets/pitcher-study-copper-sirocco/v2/references.json at codex/pitcher-copper-sirocco-20261011",
+    "observations": "Existing verified analytical notes reused for stride/landing and front-foot support in follow-through. No new video playback this run; whole windup and exact release timing unverified."
+  },
+  "limitations": [
+    "Independent stills, no validated motion timing or limb interpolation.",
+    "Cap-width normalization is approximate; no 3D rig or anatomical coordinate verification.",
+    "Foot-plant shoulder is relatively open; set hands remain slightly separated. Refine during full motion.",
+    "Illustration candidates; not a finished pixel-grid sprite atlas.",
+    "166 px portrait placement checked; landscape/desktop runtime acceptance not performed.",
+    "Prompt history and generation durations unavailable after resumed execution; do not infer exact values."
+  ],
+  "qa": [
+    {
+      "pose": "set",
+      "cap_estimate_source_px": 156,
+      "contact_annotation_source_px": [
+        660,
+        1237
+      ],
+      "display_scale": 0.125,
+      "opaque_bounds_in_scene": {
+        "left": 399.4140625,
+        "top": 26.328125,
+        "right": 469.1640625,
+        "bottom": 180.703125
+      },
+      "within_actor_box": true,
+      "overlaps_hud": false,
+      "overlaps_batter": false,
+      "overlaps_zone": false
+    },
+    {
+      "pose": "leg-lift",
+      "cap_estimate_source_px": 148,
+      "contact_annotation_source_px": [
+        590,
+        1237
+      ],
+      "display_scale": 0.13175675675675674,
+      "opaque_bounds_in_scene": {
+        "left": 411.7924408783784,
+        "top": 18.794341216216225,
+        "right": 470.02892736486484,
+        "bottom": 180.72339527027026
+      },
+      "within_actor_box": true,
+      "overlaps_hud": false,
+      "overlaps_batter": false,
+      "overlaps_zone": false
+    },
+    {
+      "pose": "foot-plant",
+      "cap_estimate_source_px": 186,
+      "contact_annotation_source_px": [
+        940,
+        1237
+      ],
+      "display_scale": 0.10483870967741936,
+      "opaque_bounds_in_scene": {
+        "left": 366.35761088709677,
+        "top": 51.90070564516128,
+        "right": 441.63180443548384,
+        "bottom": 180.74747983870967
+      },
+      "within_actor_box": true,
+      "overlaps_hud": false,
+      "overlaps_batter": false,
+      "overlaps_zone": false
+    },
+    {
+      "pose": "release",
+      "cap_estimate_source_px": 180,
+      "contact_annotation_source_px": [
+        837,
+        1236
+      ],
+      "display_scale": 0.10833333333333334,
+      "opaque_bounds_in_scene": {
+        "left": 387.2973958333333,
+        "top": 52.27812499999999,
+        "right": 441.0307291666667,
+        "bottom": 180.653125
+      },
+      "within_actor_box": true,
+      "overlaps_hud": false,
+      "overlaps_batter": false,
+      "overlaps_zone": false
+    },
+    {
+      "pose": "follow-through",
+      "cap_estimate_source_px": 194,
+      "contact_annotation_source_px": [
+        804,
+        1236
+      ],
+      "display_scale": 0.10051546391752578,
+      "opaque_bounds_in_scene": {
+        "left": 372.3496295103093,
+        "top": 57.29719716494844,
+        "right": 455.6769490979381,
+        "bottom": 180.52915592783506
+      },
+      "within_actor_box": true,
+      "overlaps_hud": false,
+      "overlaps_batter": false,
+      "overlaps_zone": false
+    }
+  ],
+  "poses": [
+    {
+      "id": "set",
+      "ko": "준비",
+      "en": "SET",
+      "file": "exec-816b8616-549f-44bd-8d28-e144ff08d781.png",
+      "cap": 156,
+      "anchor": [
+        660,
+        1237
+      ],
+      "bounds": [
+        386,
+        5,
+        944,
+        1240
+      ],
+      "note": "오른손 공 · 왼손 글러브",
+      "sha256": "35ebf943bc9b81bcd946231bf4be53169b1169898d8de01ee97db2aedc86f2c9"
+    },
+    {
+      "id": "leg-lift",
+      "ko": "다리 들기",
+      "en": "LEG LIFT",
+      "file": "exec-37765e86-68fd-4291-828b-4e61ae244a87.png",
+      "cap": 148,
+      "anchor": [
+        590,
+        1237
+      ],
+      "bounds": [
+        424,
+        11,
+        866,
+        1240
+      ],
+      "note": "오른발 지지 · 왼무릎 상승",
+      "sha256": "7a093969b32b7d71352760c15092df60e7cf0e3c6f1728a49a43fb92297f41b2"
+    },
+    {
+      "id": "foot-plant",
+      "ko": "착지",
+      "en": "FOOT PLANT",
+      "file": "exec-e6326680-b672-4d34-a0bb-fa42843698e8.png",
+      "cap": 186,
+      "anchor": [
+        940,
+        1237
+      ],
+      "bounds": [
+        298,
+        12,
+        1016,
+        1241
+      ],
+      "note": "왼발 앞쪽 접지 · 오른팔 장전",
+      "sha256": "7861bf31e841c3415091e5b8906b2a6e6c96f3c6758faeb03709e6ed884e6f53"
+    },
+    {
+      "id": "release",
+      "ko": "릴리스",
+      "en": "RELEASE",
+      "file": "exec-f90d5848-4a39-4622-81e9-6ef6782b1a0f.png",
+      "cap": 180,
+      "anchor": [
+        837,
+        1236
+      ],
+      "bounds": [
+        409,
+        54,
+        905,
+        1239
+      ],
+      "note": "카메라 방향으로 오른손 뻗기",
+      "sha256": "c1cbe26fb4daddc691fc5c4fe1d54a56f6ddcc63d9bc9c53af8553c6c4e2a763"
+    },
+    {
+      "id": "follow-through",
+      "ko": "마무리",
+      "en": "FOLLOW THROUGH",
+      "file": "exec-e4d6c411-000b-4438-bdf3-c9f517b54a29.png",
+      "cap": 194,
+      "anchor": [
+        804,
+        1236
+      ],
+      "bounds": [
+        194,
+        12,
+        1023,
+        1238
+      ],
+      "note": "왼발 지지 · 오른다리 후방 회수",
+      "sha256": "ef72c81998ae5501e3ce83a4f3ec922423f94b97f90c4c0a1c052471297c1bc7"
+    }
+  ]
+}

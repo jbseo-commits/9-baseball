@@ -88,3 +88,13 @@
 - 대체 시도·미채택: `https://vimeo.com/1165033399`, `vimeo:1165033399`; 공개 player config HTTP403. 영상 관찰 없음, 사용 이력 제외.
 - 상태: `camera_composition_sampled; windup_reference_unverified`. 원영상 미디어·프레임은 작업용 임시 파일로만 사용해 저장소에 게시하지 않는다. V1 및 과거 표의 채택 출처와 다른 새 클립 두 개를 이번 실행에서 예약했으며 다음 제작에서 새 출처로 재사용하지 않는다.
 - 산출물: [V2 후보](../../assets/pitcher-study-copper-sirocco/v2/README.md), [V2 빌더](../../scripts/build-copper-sirocco-v2.py). 실제 고유 그림 24개/120셀 후보, 게임 미연결. 검수 결과는 validation.json과 PR.
+
+## Jade Viper / 청옥 바이퍼 — 2026-10-13~14
+
+- run_id: `jade-viper-atlas-r1-20261013`; 성인 28세 여성 우완, 왼손 글러브. 원화 R2·Camera R1·Motion R1 승인 뒤 추가 연결 그림과 아틀라스 후보를 제작했다.
+- reference_mode: `verified_cache`. 이번 단계의 신규 검색·새 클립 채택·영상 재생은 **0회**이며 검색 시각·신규 관찰 타임스탬프는 해당 없음이다.
+- 캐시 출처: 위 Copper Sirocco V2의 `assets/pitcher-study-copper-sirocco/v2/references.json` (`codex/pitcher-copper-sirocco-20261011`). https://www.mlb.com/video/ump-cam-views-from-the-2024-all-star-game ; 비교 키 `url:mlb.com/video/ump-cam-views-from-the-2024-all-star-game`, 공식 clip ID unknown, 기존 기록의 미디어 basename `2d3011e5-df7c816d-7e263c16-csvm-diamondx64-asset`. 이 출처의 사용 이력은 기존 V2 채택으로 유지하며 새 영상으로 다시 채택하지 않는다.
+- 재사용 범위: 기존 노트의 0초 디딤/착지, 0.5초 가속·릴리스 근처, 1~1.5초 앞발 지지·팔로스루. 이번 실제 재생이나 재관찰이 아니다. 전체 와인드업·정확한 릴리스 역학·2초 타이밍 검증은 없다.
+- 과거 실제 게임 세로 캡처로 정한 포수 뒤 카메라와 166px 표시 크기를 재사용했다. 신규 런타임 배치 검증은 아니다.
+- 파일: [후보와 한계](../../assets/pitcher-study-jade-viper/README.md), [manifest](../../assets/pitcher-study-jade-viper/jade-viper-manifest.json), [빌더](../../scripts/build-jade-viper.py).
+- 실제 별도 그림 30개(기존 승인 12 + 새 18), 120셀·60fps·2초, 0부터 센 릴리스 76. 90셀은 유지용 반복이다. 소스 해시·포장·독립 재생 스크립트 검사와 시각 검수 결과를 분리했다. 새 그림과 타이밍은 검수 후보이며 게임 미연결이다.

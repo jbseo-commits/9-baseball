@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "pngCount": 240,
+  "validation": "All intermediate PNGs parsed and CRC-verified with Pillow before FFmpeg encoding.",
+  "repairedIntermediateFiles": [
+    {
+      "file": "fast-014.png",
+      "bytes": 0,
+      "failure": "UnidentifiedImageError"
+    },
+    {
+      "file": "fast-112.png",
+      "bytes": 65577,
+      "failure": "SyntaxError"
+    }
+  ],
+  "expectedVideoFrames": 360,
+  "expectedDurationSeconds": 6
+}

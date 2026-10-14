@@ -1,0 +1,1037 @@
+{
+  "slug": "jade-viper",
+  "adult_age": 28,
+  "throwing_hand": "right",
+  "glove_hand": "left",
+  "concept_revision": "R2",
+  "camera_revision": "R1",
+  "status": "motion_candidate",
+  "scope": "six key poses and six drawn bridge poses, finite 12-pose animatic",
+  "reference_mode": "verified_cache",
+  "master_approval": {
+    "quote": "음 진행해",
+    "local_date": "2026-10-13",
+    "scope": "master R2 approved; create five camera-test poses"
+  },
+  "camera_approval": {
+    "quote": "좋아",
+    "at": "2026-10-13T17:07:29+09:00",
+    "revision": "R1"
+  },
+  "source_provenance": "Original approved five PNGs plus seven built-in image_gen PNGs. Sources copied byte-identically into the review package.",
+  "registration_method": "Common approximate cap crown width 25.5 in a 256 square; manually annotated support point fixed at R[99,216] for poses1–4 and L[166,242] for poses5–12. Static per-drawing scale and offset only. New anatomy comes from separate generated drawings, not warping or inbetween interpolation.",
+  "current_layout": {
+    "scene": {
+      "w": 520,
+      "h": 588
+    },
+    "pitcher": {
+      "x": 350.46875,
+      "y": 13.9375,
+      "w": 166.390625,
+      "h": 166.390625
+    },
+    "contact": {
+      "x": 433.6640625,
+      "y": 180.328125
+    },
+    "observation": "Live game DOM geometry measured earlier in the current work session; pitcher contact uses box center after stance compensation."
+  },
+  "camera_reference": {
+    "url": "https://raw.githubusercontent.com/jbseo-commits/9-baseball/main/assets/pitcher-study-v2/previews/tide-vesper-game-portrait.png",
+    "description": "Historical actual 412×915 portrait gameplay capture inspected; not the current live geometry."
+  },
+  "cached_motion_reference": {
+    "url": "https://www.mlb.com/video/ump-cam-views-from-the-2024-all-star-game",
+    "record": "assets/pitcher-study-copper-sirocco/v2/references.json at codex/pitcher-copper-sirocco-20261011",
+    "observations": "Existing verified analytical notes reused for stride/landing and front-foot support in follow-through. No new video playback this run; whole windup and exact release timing unverified."
+  },
+  "limitations": [
+    "Pose06 is a pre-release/late-cocking candidate; exact acceleration mechanics not verified.",
+    "Manual registration and independent drawings still need temporal refinement; rendered preview is an animatic, not a smooth production motion.",
+    "Existing set hands slightly separated; no new ball introduced after release.",
+    "Pixel-grid finishing, full120atlas, mobile landscape/desktop/runtime testing deferred until motion approval."
+  ],
+  "qa": [
+    {
+      "pose": "01-set",
+      "rgba": true,
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "opaque_bounds": [
+        386,
+        5,
+        944,
+        1240
+      ],
+      "rendered_bounds_256": [
+        87.721,
+        14.615,
+        178.933,
+        216.49
+      ],
+      "within_256": true,
+      "source_hash_verified": true
+    },
+    {
+      "pose": "02-coil",
+      "rgba": true,
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "opaque_bounds": [
+        437,
+        3,
+        846,
+        1247
+      ],
+      "rendered_bounds_256": [
+        73.173,
+        13.308,
+        140.029,
+        216.654
+      ],
+      "within_256": true,
+      "source_hash_verified": true
+    },
+    {
+      "pose": "03-leg-lift",
+      "rgba": true,
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "opaque_bounds": [
+        424,
+        11,
+        866,
+        1240
+      ],
+      "rendered_bounds_256": [
+        70.399,
+        4.764,
+        146.554,
+        216.517
+      ],
+      "within_256": true,
+      "source_hash_verified": true
+    },
+    {
+      "pose": "04-stride-v2",
+      "rgba": true,
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "opaque_bounds": [
+        325,
+        11,
+        964,
+        1241
+      ],
+      "rendered_bounds_256": [
+        59.25,
+        32.1,
+        155.1,
+        216.6
+      ],
+      "within_256": true,
+      "source_hash_verified": true
+    },
+    {
+      "pose": "05-foot-plant",
+      "rgba": true,
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "opaque_bounds": [
+        298,
+        12,
+        1016,
+        1241
+      ],
+      "rendered_bounds_256": [
+        77.984,
+        74.056,
+        176.419,
+        242.548
+      ],
+      "within_256": true,
+      "source_hash_verified": true
+    },
+    {
+      "pose": "06-pre-release-v2",
+      "rgba": true,
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "opaque_bounds": [
+        416,
+        53,
+        906,
+        1239
+      ],
+      "rendered_bounds_256": [
+        106.358,
+        74.408,
+        175.775,
+        242.425
+      ],
+      "within_256": true,
+      "source_hash_verified": true
+    },
+    {
+      "pose": "07-release",
+      "rgba": true,
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "opaque_bounds": [
+        409,
+        54,
+        905,
+        1239
+      ],
+      "rendered_bounds_256": [
+        105.367,
+        74.55,
+        175.633,
+        242.425
+      ],
+      "within_256": true,
+      "source_hash_verified": true
+    },
+    {
+      "pose": "08-deceleration",
+      "rgba": true,
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "opaque_bounds": [
+        335,
+        16,
+        1016,
+        1240
+      ],
+      "rendered_bounds_256": [
+        100.664,
+        87.097,
+        187.06,
+        242.381
+      ],
+      "within_256": true,
+      "source_hash_verified": true
+    },
+    {
+      "pose": "09-follow-through",
+      "rgba": true,
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "opaque_bounds": [
+        194,
+        12,
+        1023,
+        1238
+      ],
+      "rendered_bounds_256": [
+        85.82,
+        81.113,
+        194.786,
+        242.263
+      ],
+      "within_256": true,
+      "source_hash_verified": true
+    },
+    {
+      "pose": "10-recovery-step",
+      "rgba": true,
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "opaque_bounds": [
+        444,
+        9,
+        968,
+        1245
+      ],
+      "rendered_bounds_256": [
+        124.871,
+        73.508,
+        196.71,
+        242.96
+      ],
+      "within_256": true,
+      "source_hash_verified": true
+    },
+    {
+      "pose": "11-recover",
+      "rgba": true,
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "opaque_bounds": [
+        395,
+        8,
+        935,
+        1249
+      ],
+      "rendered_bounds_256": [
+        95.15,
+        62.584,
+        177.605,
+        252.078
+      ],
+      "within_256": true,
+      "source_hash_verified": true
+    },
+    {
+      "pose": "12-settle",
+      "rgba": true,
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "opaque_bounds": [
+        397,
+        5,
+        940,
+        1245
+      ],
+      "rendered_bounds_256": [
+        96.55,
+        65.0,
+        178.0,
+        251.0
+      ],
+      "within_256": true,
+      "source_hash_verified": true
+    }
+  ],
+  "poses": [
+    {
+      "id": "01-set",
+      "index": 0,
+      "ko": "준비",
+      "en": "SET",
+      "kind": "key",
+      "file": "exec-816b8616-549f-44bd-8d28-e144ff08d781.png",
+      "crown": 156,
+      "anchor": [
+        455,
+        1237
+      ],
+      "support": "R",
+      "duration": 420,
+      "scale": 0.16346153846153846,
+      "x": 24.625,
+      "y": 13.798076923076934,
+      "w": 204.98076923076923,
+      "h": 204.98076923076923,
+      "annotations": {
+        "contact": [
+          455,
+          1237
+        ],
+        "otherFoot": [
+          864,
+          1237
+        ],
+        "pelvis": [
+          646,
+          515
+        ],
+        "shoulder": [
+          650,
+          240
+        ],
+        "ball": [
+          579,
+          252
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sha256": "35ebf943bc9b81bcd946231bf4be53169b1169898d8de01ee97db2aedc86f2c9"
+    },
+    {
+      "id": "02-coil",
+      "index": 1,
+      "ko": "코일",
+      "en": "COIL",
+      "kind": "bridge",
+      "file": "exec-ab70f689-adbf-45a8-a1a8-c149f3e36010.png",
+      "crown": 156,
+      "anchor": [
+        595,
+        1243
+      ],
+      "support": "R",
+      "duration": 220,
+      "scale": 0.16346153846153846,
+      "x": 1.7403846153846132,
+      "y": 12.81730769230768,
+      "w": 204.98076923076923,
+      "h": 204.98076923076923,
+      "annotations": {
+        "contact": [
+          595,
+          1243
+        ],
+        "otherFoot": [
+          720,
+          994
+        ],
+        "pelvis": [
+          637,
+          493
+        ],
+        "shoulder": [
+          615,
+          240
+        ],
+        "ball": [
+          675,
+          258
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sha256": "0cb0ff1dfe50f0b9405175512a7bcdd29456b33f3eb3ba43dbbff483d6b84c80"
+    },
+    {
+      "id": "03-leg-lift",
+      "index": 2,
+      "ko": "다리 들기",
+      "en": "LEG LIFT",
+      "kind": "key",
+      "file": "exec-37765e86-68fd-4291-828b-4e61ae244a87.png",
+      "crown": 148,
+      "anchor": [
+        590,
+        1237
+      ],
+      "support": "R",
+      "duration": 300,
+      "scale": 0.17229729729729729,
+      "x": -2.6554054054054035,
+      "y": 2.8682432432432563,
+      "w": 216.0608108108108,
+      "h": 216.0608108108108,
+      "annotations": {
+        "contact": [
+          590,
+          1237
+        ],
+        "otherFoot": [
+          815,
+          870
+        ],
+        "pelvis": [
+          620,
+          450
+        ],
+        "shoulder": [
+          600,
+          218
+        ],
+        "ball": [
+          695,
+          229
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sha256": "7a093969b32b7d71352760c15092df60e7cf0e3c6f1728a49a43fb92297f41b2"
+    },
+    {
+      "id": "04-stride-v2",
+      "index": 3,
+      "ko": "발 뻗기",
+      "en": "STRIDE",
+      "kind": "bridge",
+      "file": "exec-cbd0cf7c-1b3d-40ee-a9dc-fafc817fea80.png",
+      "crown": 170,
+      "anchor": [
+        590,
+        1237
+      ],
+      "support": "R",
+      "duration": 160,
+      "scale": 0.15,
+      "x": 10.5,
+      "y": 30.450000000000017,
+      "w": 188.1,
+      "h": 188.1,
+      "annotations": {
+        "contact": [
+          590,
+          1237
+        ],
+        "otherFoot": [
+          900,
+          1016
+        ],
+        "pelvis": [
+          630,
+          517
+        ],
+        "shoulder": [
+          602,
+          250
+        ],
+        "ball": [
+          364,
+          432
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sha256": "a0b5fd0605364016507991d8e9fa663aea492415c250927afce8e6a31951a9c4"
+    },
+    {
+      "id": "05-foot-plant",
+      "index": 4,
+      "ko": "앞발 착지",
+      "en": "FOOT PLANT",
+      "kind": "key",
+      "file": "exec-e6326680-b672-4d34-a0bb-fa42843698e8.png",
+      "crown": 186,
+      "anchor": [
+        940,
+        1237
+      ],
+      "support": "L",
+      "duration": 130,
+      "scale": 0.13709677419354838,
+      "x": 37.12903225806451,
+      "y": 72.41129032258067,
+      "w": 171.91935483870967,
+      "h": 171.91935483870967,
+      "annotations": {
+        "contact": [
+          940,
+          1237
+        ],
+        "otherFoot": [
+          452,
+          1048
+        ],
+        "pelvis": [
+          670,
+          558
+        ],
+        "shoulder": [
+          649,
+          256
+        ],
+        "ball": [
+          431,
+          83
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sha256": "7861bf31e841c3415091e5b8906b2a6e6c96f3c6758faeb03709e6ed884e6f53"
+    },
+    {
+      "id": "06-pre-release-v2",
+      "index": 5,
+      "ko": "릴리스 직전",
+      "en": "PRE-RELEASE",
+      "kind": "bridge",
+      "file": "exec-40df5e24-cc4e-4f1c-96b8-9ceb2227c138.png",
+      "crown": 180,
+      "anchor": [
+        837,
+        1236
+      ],
+      "support": "L",
+      "duration": 100,
+      "scale": 0.14166666666666666,
+      "x": 47.425,
+      "y": 66.9,
+      "w": 177.65,
+      "h": 177.65,
+      "annotations": {
+        "contact": [
+          837,
+          1236
+        ],
+        "otherFoot": [
+          493,
+          982
+        ],
+        "pelvis": [
+          590,
+          557
+        ],
+        "shoulder": [
+          697,
+          338
+        ],
+        "ball": [
+          553,
+          123
+        ],
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sha256": "91caf1db3f83d08664b2dc8c18f895c5adf62c528a4a6b241c2db2900a95ee48"
+    },
+    {
+      "id": "07-release",
+      "index": 6,
+      "ko": "릴리스",
+      "en": "RELEASE",
+      "kind": "key",
+      "file": "exec-f90d5848-4a39-4622-81e9-6ef6782b1a0f.png",
+      "crown": 180,
+      "anchor": [
+        837,
+        1236
+      ],
+      "support": "L",
+      "duration": 100,
+      "scale": 0.14166666666666666,
+      "x": 47.425,
+      "y": 66.9,
+      "w": 177.65,
+      "h": 177.65,
+      "annotations": {
+        "contact": [
+          837,
+          1236
+        ],
+        "otherFoot": [
+          493,
+          982
+        ],
+        "pelvis": [
+          590,
+          557
+        ],
+        "shoulder": [
+          697,
+          338
+        ],
+        "ball": null,
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sha256": "c1cbe26fb4daddc691fc5c4fe1d54a56f6ddcc63d9bc9c53af8553c6c4e2a763"
+    },
+    {
+      "id": "08-deceleration",
+      "index": 7,
+      "ko": "팔 내려오기",
+      "en": "DECELERATION",
+      "kind": "bridge",
+      "file": "exec-be5ed27f-d9b0-406b-aec3-fe2ba52a9555.png",
+      "crown": 201,
+      "anchor": [
+        850,
+        1237
+      ],
+      "support": "L",
+      "duration": 180,
+      "scale": 0.12686567164179105,
+      "x": 58.16417910447761,
+      "y": 85.06716417910448,
+      "w": 159.08955223880596,
+      "h": 159.08955223880596,
+      "annotations": {
+        "contact": [
+          850,
+          1237
+        ],
+        "otherFoot": [
+          397,
+          809
+        ],
+        "pelvis": [
+          591,
+          589
+        ],
+        "shoulder": [
+          737,
+          317
+        ],
+        "ball": null,
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sha256": "83cdea958433c4a66885aa25580e5067b3a8a07b89c834ca1213b25733182f00"
+    },
+    {
+      "id": "09-follow-through",
+      "index": 8,
+      "ko": "마무리",
+      "en": "FOLLOW THROUGH",
+      "kind": "key",
+      "file": "exec-e4d6c411-000b-4438-bdf3-c9f517b54a29.png",
+      "crown": 194,
+      "anchor": [
+        804,
+        1236
+      ],
+      "support": "L",
+      "duration": 300,
+      "scale": 0.13144329896907217,
+      "x": 60.319587628865975,
+      "y": 79.53608247422679,
+      "w": 164.8298969072165,
+      "h": 164.8298969072165,
+      "annotations": {
+        "contact": [
+          804,
+          1236
+        ],
+        "otherFoot": [
+          267,
+          548
+        ],
+        "pelvis": [
+          552,
+          411
+        ],
+        "shoulder": [
+          759,
+          298
+        ],
+        "ball": null,
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sha256": "ef72c81998ae5501e3ce83a4f3ec922423f94b97f90c4c0a1c052471297c1bc7"
+    },
+    {
+      "id": "10-recovery-step",
+      "index": 9,
+      "ko": "뒷발 내려오기",
+      "en": "RECOVERY STEP",
+      "kind": "bridge",
+      "file": "exec-d93620ee-9324-40c6-ae67-e54f689041c9.png",
+      "crown": 186,
+      "anchor": [
+        744,
+        1238
+      ],
+      "support": "L",
+      "duration": 260,
+      "scale": 0.13709677419354838,
+      "x": 64.00000000000001,
+      "y": 72.2741935483871,
+      "w": 171.91935483870967,
+      "h": 171.91935483870967,
+      "annotations": {
+        "contact": [
+          744,
+          1238
+        ],
+        "otherFoot": [
+          504,
+          1050
+        ],
+        "pelvis": [
+          649,
+          556
+        ],
+        "shoulder": [
+          751,
+          296
+        ],
+        "ball": null,
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sha256": "c9758f310de241a1a8de500da795f847a1b2740a9abff9dacf02b66477e5c765"
+    },
+    {
+      "id": "11-recover",
+      "index": 10,
+      "ko": "균형 회복",
+      "en": "RECOVER",
+      "kind": "key",
+      "file": "exec-6bd9c868-3bd9-4939-840e-bd2fd9af111f.png",
+      "crown": 167,
+      "anchor": [
+        859,
+        1183
+      ],
+      "support": "L",
+      "duration": 260,
+      "scale": 0.15269461077844312,
+      "x": 34.83532934131736,
+      "y": 61.36227544910179,
+      "w": 191.4790419161677,
+      "h": 191.4790419161677,
+      "annotations": {
+        "contact": [
+          859,
+          1183
+        ],
+        "otherFoot": [
+          464,
+          1245
+        ],
+        "pelvis": [
+          661,
+          533
+        ],
+        "shoulder": [
+          654,
+          271
+        ],
+        "ball": null,
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sha256": "4b6cbc8565cc0d70d52a44e58db560c347a7c66c31aed882c89462cc9f6a5cc3"
+    },
+    {
+      "id": "12-settle",
+      "index": 11,
+      "ko": "동작 정리",
+      "en": "SETTLE",
+      "kind": "bridge",
+      "file": "exec-021f7a58-565c-4e7d-b31a-08d034c48898.png",
+      "crown": 170,
+      "anchor": [
+        860,
+        1185
+      ],
+      "support": "L",
+      "duration": 640,
+      "scale": 0.15,
+      "x": 37,
+      "y": 64.25,
+      "w": 188.1,
+      "h": 188.1,
+      "annotations": {
+        "contact": [
+          860,
+          1185
+        ],
+        "otherFoot": [
+          468,
+          1243
+        ],
+        "pelvis": [
+          650,
+          520
+        ],
+        "shoulder": [
+          645,
+          264
+        ],
+        "ball": null,
+        "method": "manual approximate source pixel annotations, not rig coordinates"
+      },
+      "sha256": "226d4e7323de20c7fa5046895c23653d1276a7453a2f5494775dbdfed7b622fb"
+    }
+  ],
+  "camera_approved": true,
+  "approval_quote": "좋아",
+  "approval_at": "2026-10-13T17:07:29+09:00",
+  "authorized_action": "extend to six key poses and six drawn bridges, chat-side motion candidate",
+  "motion_revision": "R1",
+  "motion_approved": false,
+  "integration_approved": false,
+  "camera_r1_qa": [
+    {
+      "pose": "set",
+      "cap_estimate_source_px": 156,
+      "contact_annotation_source_px": [
+        660,
+        1237
+      ],
+      "display_scale": 0.125,
+      "opaque_bounds_in_scene": {
+        "left": 399.4140625,
+        "top": 26.328125,
+        "right": 469.1640625,
+        "bottom": 180.703125
+      },
+      "within_actor_box": true,
+      "overlaps_hud": false,
+      "overlaps_batter": false,
+      "overlaps_zone": false
+    },
+    {
+      "pose": "leg-lift",
+      "cap_estimate_source_px": 148,
+      "contact_annotation_source_px": [
+        590,
+        1237
+      ],
+      "display_scale": 0.13175675675675674,
+      "opaque_bounds_in_scene": {
+        "left": 411.7924408783784,
+        "top": 18.794341216216225,
+        "right": 470.02892736486484,
+        "bottom": 180.72339527027026
+      },
+      "within_actor_box": true,
+      "overlaps_hud": false,
+      "overlaps_batter": false,
+      "overlaps_zone": false
+    },
+    {
+      "pose": "foot-plant",
+      "cap_estimate_source_px": 186,
+      "contact_annotation_source_px": [
+        940,
+        1237
+      ],
+      "display_scale": 0.10483870967741936,
+      "opaque_bounds_in_scene": {
+        "left": 366.35761088709677,
+        "top": 51.90070564516128,
+        "right": 441.63180443548384,
+        "bottom": 180.74747983870967
+      },
+      "within_actor_box": true,
+      "overlaps_hud": false,
+      "overlaps_batter": false,
+      "overlaps_zone": false
+    },
+    {
+      "pose": "release",
+      "cap_estimate_source_px": 180,
+      "contact_annotation_source_px": [
+        837,
+        1236
+      ],
+      "display_scale": 0.10833333333333334,
+      "opaque_bounds_in_scene": {
+        "left": 387.2973958333333,
+        "top": 52.27812499999999,
+        "right": 441.0307291666667,
+        "bottom": 180.653125
+      },
+      "within_actor_box": true,
+      "overlaps_hud": false,
+      "overlaps_batter": false,
+      "overlaps_zone": false
+    },
+    {
+      "pose": "follow-through",
+      "cap_estimate_source_px": 194,
+      "contact_annotation_source_px": [
+        804,
+        1236
+      ],
+      "display_scale": 0.10051546391752578,
+      "opaque_bounds_in_scene": {
+        "left": 372.3496295103093,
+        "top": 57.29719716494844,
+        "right": 455.6769490979381,
+        "bottom": 180.52915592783506
+      },
+      "within_actor_box": true,
+      "overlaps_hud": false,
+      "overlaps_batter": false,
+      "overlaps_zone": false
+    }
+  ],
+  "display_notes": [
+    "166.390625px game-size box from the earlier verified portrait layout.",
+    "Display cap width16.57px vs previous camera board19.5px: about15% smaller to allow rear support and forward landing depth within one256square. Camera angle and approved source art unchanged.",
+    "This is a motion study layout, not live gameplay integration."
+  ],
+  "durations_note": "Author-chosen timing for readability, not video-measured or validated pitching timing.",
+  "duration_ms": 3070,
+  "fps_note": "MP4 encoded at60fps with held drawings; exactly12 independent drawings. Not120uniqueframes or interpolated limb motion.",
+  "generated": [
+    {
+      "pose": "02-coil",
+      "start": "2026-10-13T08:11:38.030Z",
+      "end": "2026-10-13T08:12:31.983Z",
+      "elapsed_seconds": 53.953,
+      "output_path": "/workspace/scratch/013368611e01/generated_images/exec-ab70f689-adbf-45a8-a1a8-c149f3e36010.png",
+      "selected": true
+    },
+    {
+      "pose": "04-stride-v2",
+      "start": "2026-10-13T10:29:13.169Z",
+      "end": "2026-10-13T10:31:17.851Z",
+      "output_path": "/workspace/scratch/013368611e01/generated_images/exec-cbd0cf7c-1b3d-40ee-a9dc-fafc817fea80.png",
+      "elapsed_seconds": 124.682,
+      "selected": true
+    },
+    {
+      "pose": "04-stride",
+      "start": "2026-10-13T08:11:38.031Z",
+      "end": "2026-10-13T08:13:27.046Z",
+      "elapsed_seconds": 109.015,
+      "output_path": "/workspace/scratch/013368611e01/generated_images/exec-02cdd0ee-1ac5-4a57-841f-01b8a62317a0.png",
+      "selected": false
+    },
+    {
+      "pose": "06-acceleration",
+      "start": "2026-10-13T08:11:38.031Z",
+      "end": "2026-10-13T08:14:24.603Z",
+      "elapsed_seconds": 166.572,
+      "output_path": "/workspace/scratch/013368611e01/generated_images/exec-521bfa98-66e6-4c9e-bce2-ff762809c106.png",
+      "selected": false
+    },
+    {
+      "pose": "06-pre-release-v2",
+      "start": "2026-10-13T10:29:13.169Z",
+      "end": "2026-10-13T10:30:14.073Z",
+      "output_path": "/workspace/scratch/013368611e01/generated_images/exec-40df5e24-cc4e-4f1c-96b8-9ceb2227c138.png",
+      "elapsed_seconds": 60.904,
+      "selected": true
+    },
+    {
+      "pose": "08-deceleration",
+      "start": "2026-10-13T08:15:33.285Z",
+      "end": "2026-10-13T08:16:32.874Z",
+      "elapsed_seconds": 59.589,
+      "output_path": "/workspace/scratch/013368611e01/generated_images/exec-be5ed27f-d9b0-406b-aec3-fe2ba52a9555.png",
+      "selected": true
+    },
+    {
+      "pose": "10-recovery-step",
+      "start": "2026-10-13T08:15:33.285Z",
+      "end": "2026-10-13T08:17:24.917Z",
+      "elapsed_seconds": 111.632,
+      "output_path": "/workspace/scratch/013368611e01/generated_images/exec-d93620ee-9324-40c6-ae67-e54f689041c9.png",
+      "selected": true
+    },
+    {
+      "pose": "11-recover",
+      "start": "2026-10-13T08:15:33.285Z",
+      "end": "2026-10-13T08:18:37.110Z",
+      "elapsed_seconds": 183.825,
+      "output_path": "/workspace/scratch/013368611e01/generated_images/exec-6bd9c868-3bd9-4939-840e-bd2fd9af111f.png",
+      "selected": true
+    },
+    {
+      "pose": "12-settle",
+      "start": "2026-10-13T08:19:29.109Z",
+      "end": "2026-10-13T08:20:18.820Z",
+      "elapsed_seconds": 49.711,
+      "output_path": "/workspace/scratch/013368611e01/generated_images/exec-021f7a58-565c-4e7d-b31a-08d034c48898.png",
+      "selected": true
+    }
+  ],
+  "known_limits": [
+    "Pose06 is a pre-release/late-cocking candidate; exact acceleration mechanics not verified.",
+    "Manual registration and independent drawings still need temporal refinement; rendered preview is an animatic, not a smooth production motion.",
+    "Existing set hands slightly separated; no new ball introduced after release.",
+    "Pixel-grid finishing, full120atlas, mobile landscape/desktop/runtime testing deferred until motion approval."
+  ],
+  "generation_history_note": "Historical master and camera poses have no exact prompt/timing record. Nine new attempts have saved prompts and measured generation-call durations; seven selected, two superseded.",
+  "revision_fixes": [
+    {
+      "pose": "04-stride-v2",
+      "change": "Early stride bridge replaces low full stride; divides body descent between two transitions."
+    },
+    {
+      "pose": "06-pre-release-v2",
+      "change": "Body placement now matches approved release; right arm and held ball changed."
+    }
+  ],
+  "retained_camera_sources_hashes_verified": 5
+}
