@@ -43,6 +43,8 @@ import "./duel/title-pixel.css";
 
 watchLayoutMode();
 const params=new URLSearchParams(window.location.search);
+const ZoneFirstPreview=React.lazy(()=>import("./duel/ZoneFirstPreview.jsx"));
+const zoneFirstPreview=params.get("showcase")==="zone-first";
 const showcase=params.get("showcase")==="cinematic-v2";
 const homerQa=params.get("qa")==="homer";
 const homerV3Qa=params.get("qa")==="homer-v3";
@@ -71,7 +73,7 @@ function HomerQa(){
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {homerPreview ? <ErrorBoundary><HomerunVideoPreview /></ErrorBoundary> : homerV3Qa ? <ErrorBoundary><HomerV3 /></ErrorBoundary> : homerQa ? <ErrorBoundary><HomerQa /></ErrorBoundary> : showcase ? (
+    {zoneFirstPreview ? <ErrorBoundary><React.Suspense fallback={<p role="status">전투 프리뷰 준비 중…</p>}><ZoneFirstPreview /></React.Suspense></ErrorBoundary> : homerPreview ? <ErrorBoundary><HomerunVideoPreview /></ErrorBoundary> : homerV3Qa ? <ErrorBoundary><HomerV3 /></ErrorBoundary> : homerQa ? <ErrorBoundary><HomerQa /></ErrorBoundary> : showcase ? (
       <ErrorBoundary><CinematicV2Showcase /></ErrorBoundary>
     ) : layoutMode() === "frame" ? <PortraitFrame /> : (
       <ErrorBoundary>
