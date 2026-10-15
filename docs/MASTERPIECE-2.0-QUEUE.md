@@ -1,5 +1,7 @@
 # MASTERPIECE 2.0 — EXECUTION QUEUE
 
+> 통합 기록 (2026-10-15): 작성 당시의 제안 큐를 보존한다. 아래 미체크 항목은 최신 `main`의 미완료 목록이 아니며, 새 작업을 시작하기 전 실제 코드·에셋·사용자 결정을 다시 확인한다. [브랜치 통합 기록](engineering/BRANCH-INTEGRATION-2026-10-15.md)을 함께 본다.
+
 > 이 큐는 기존 `docs/antigravity/QUEUE.md`를 덮어쓰지 않는다.
 > MASTERPIECE 2.0의 **품질업 전용 상위 큐**다.
 > 한 루프 = 한 항목. 각 항목은 별도 브랜치/PR/프리뷰를 기본으로 한다.
