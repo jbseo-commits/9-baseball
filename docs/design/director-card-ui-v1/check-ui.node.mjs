@@ -154,6 +154,17 @@ test('support drop preserves main/aim, suppresses synthetic click, rejects dupli
   assert.equal(f.$$('.dn-support:disabled').length, 3);
 });
 
+test('a fresh pointerdown can execute immediately after dropping a card', async t => {
+  const f = fixture(t);
+  f.drag(f.$$('.dn-card-main')[1], 6);
+  const execute = f.$('.dn-execute');
+  f.event(execute, 'pointerdown', 220, 630);
+  f.event(execute, 'pointerup', 220, 630);
+  execute.dispatchEvent(new f.w.PointerEvent('click', { bubbles: true, cancelable: true, pointerId: 7, detail: 1 }));
+  assert.ok(f.$('.dn-game.playing'), 'the next intentional click must not be mistaken for a release click');
+  await resolved(f);
+});
+
 test('take reveals actual landing only after resolution and next pitch clears the record', async t => {
   const f = fixture(t);
   assert.ok(f.$('.dn-replay').hidden);

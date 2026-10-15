@@ -37,7 +37,7 @@ export * from './src/duel/information.js';
 ```
 
 - 엔진 IIFE: 143,342 bytes, SHA-256 `0e5f908063c769fb492a390f417296446c8d36a40a960b702dceec8df4860b32`.
-- 게시 HTML: 909,951 bytes, SHA-256 `9ec7649a5c9c4d8c0290c0296922be7aa527b7a220bcaa41b76112718e989665`.
+- 게시 HTML: 909,984 bytes, SHA-256 `3f958bbb6d64d014c63411963afc367f652dc87e57f4377a2afed585d04dd68d`.
 - 첫 inline script는 엔진, 두 번째는 UI 어댑터다. 엔진과 압축한 기존 그림은 파일에 포함되어 있다.
 - 카드 그림: `assets/cards-v15/card-map.json`의 place/strike/setup/watch/scout 매핑. 원래 구장·타자 시트·레드 러시 투구 시트에서 크기 조정/프레임 추출만 수행했다.
 - 공개 확률은 읽기 단계별 범위/범주로 표시한다. 숨은 실제 코스를 계획 단계에 표시하지 않는다.
@@ -57,7 +57,7 @@ HTML 파일을 정적 서버로 열면 된다. 외부 CDN/호스트 API/별도 �
 | 확인 | 결과 |
 |---|---|
 | `pnpm test` | 172 files / 1,018 tests 통과 |
-| `node --test docs/design/director-card-ui-v1/check-ui.node.mjs` | 18/18 통과. 게시 HTML 자체를 happy-dom에서 실행해 입력·취소·지원·착탄 공개 시점을 검사 |
+| `node --test docs/design/director-card-ui-v1/check-ui.node.mjs` | 19/19 통과. 게시 HTML 자체를 happy-dom에서 실행해 입력·취소·지원·착탄 공개 시점을 검사. 드롭 직후 새 포인터 입력 허용도 포함 |
 | `node scripts/zone-report.js 10` | 4 빌드 × 10 시드 report 정상 종료. 재미·밸런스 입증으로 사용하지 않음 |
 | branch base를 지정한 `pnpm run build` | 통과 |
 | `node scripts/check-dist-budget.mjs` | 59.9MiB / 60MiB 통과. 예산 상향 없음 |
@@ -69,6 +69,7 @@ HTML 파일을 정적 서버로 열면 된다. 외부 CDN/호스트 API/별도 �
 | 667×375px 가로 | 세로 목업을 일반 페이지 스크롤로 접근. Tab으로 실행 버튼을 보이게 했을 때 y=299–349, 화면 안에 있음 |
 | 1280×800px PC | 본체 398×667px, 수평 넘침 0 |
 | 실제 브라우저 마우스 조작 | 카드 끌어 주 카드+조준 배치, 지원 끌어 4칸 커버/연결 1 확인, 실제 안타·HP60→50·착탄 기록 확인 |
+| 6장 손패 넘김 | 실제 브라우저 가로 스크롤: scrollLeft=101, clientWidth=351, scrollWidth=452. 조준 드래그로 전환되지 않음 |
 | 탭/클릭 조작 | 준비 사용·조준 복귀, 지원 배치·범위/비용/연결, 상세에서 실행 시 자동 복귀, 실제 안타와 HP, 다음 타자 확인 |
 
 터치 PointerEvent 검사는 합성 이벤트 회귀 검사다. 물리 휴대폰의 실제 드래그·회전·브라우저 바·safe-area 전 조합, 사람 플레이 평가, 본편 전체 런 수동 완주를 통과했다고 주장하지 않는다. 키보드로 조작부에 접근할 수 있지만 전체 렌더 후 포커스 복원까지 완성한 접근성 구현은 아니다. 게시 URL 확인은 PR 검증 기록을 참고한다. 검증 수치는 상업적 완성도 평가가 아니다.

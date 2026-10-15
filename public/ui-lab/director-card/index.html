@@ -171,6 +171,7 @@
       $('.dn-selection').textContent=drag.zone===null?'조준판에 놓으면 배치 · 밖에 놓으면 취소':(drag.role==='main'?'주 카드':'지원')+' · '+zoneNames[drag.zone]+'에 놓기';
     }
     root.addEventListener('pointerdown',e=>{
+      if(!drag)blockClick=null;
       if(drag||busy||finished||viewResult||inspect||e.button!==0)return;
       const button=e.target.closest('.dn-card-main,.dn-card-support');if(!button||button.disabled)return;
       const role=button.matches('.dn-card-support')?'support':'main',id=role==='main'?button.dataset.card:button.dataset.support;
