@@ -11,7 +11,7 @@
 - 낮고 넓은 화면에서 구장과 인물의 비율이 달라졌던 문제를 동일한 카메라 축척으로 수정했습니다. 남는 공간은 어두운 구장 여백으로 처리합니다.
 - 정면 타자 아틀라스는 실행·대체 경로에서 제거합니다. 새 그림이 없으면 명확한 오류가 발생합니다.
 
-## 검토 자료
+## 로컬 작업본 검토 자료
 
 - `ballpark-play.html`: 이미지·스크립트를 포함하는 단일 실제 플레이 파일.
 - `motion-review.html`: 실제 렌더러의 투구·지켜보기·헛스윙·파울·번트·다음 공 준비 검사. 결과는 검사용 합성 판정입니다.
@@ -32,3 +32,11 @@
 원본 새 PNG12개(타자11+독립배트1)는 preview-artifacts/ballpark-motion-v6/source-assets에, 검토 가능한 변경 소스는 이 문서의 source 폴더에 보존합니다. 단일 HTML 자체에도 실행 소스·48개 WebP가 내장됩니다. 실제 main 게임 파일은 변경하지 않습니다.
 
 이번 Pages 실행은 검증된 v5 커밋을 별도 체크아웃해 이전 v5 프리뷰도 함께 보존합니다. 향후 main이나 다른 브랜치의 기존 배포가 이 보존 단계를 포함하지 않으면 프리뷰 경로가 사라질 수 있으므로 장기 호스팅 보장은 아닙니다.
+
+## 저장소에서 찾아보기
+
+- 실행 파일: `preview-artifacts/ballpark-motion-v6/index.html` 또는 위 프리뷰 링크.
+- 새 원화 등록: 이 문서 옆 `source/batter-art-v6.js`.
+- 제작 프롬프트: `generation-prompts.json`, `generation-unwind.json`, `generation-bat.json`.
+- 영상 관찰: `motion-reference.json`. 검사 결과: `verification.json`.
+- `motion-review.html`과 프레임/GIF 검토 도구는 로컬 작업본에만 있습니다.
