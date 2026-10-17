@@ -1,0 +1,52 @@
+{
+  "version": 6,
+  "counts": {
+    "adapterChecks": 39,
+    "uiTests": 30,
+    "rendererTests": 48,
+    "totalLogicalChecks": 117,
+    "combinedNodeReportedTests": 79
+  },
+  "countExplanation": "39 custom adapter assertions, 30 UI node tests and 48 renderer node tests. The combined node --test run counts the custom adapter file as one wrapper, so reports 79 tests, all passing.",
+  "command": "node --test adapter-check.mjs ui-check.mjs renderer-check.mjs",
+  "exitCode": 0,
+  "production": {
+    "testFiles": 172,
+    "testsPassed": 1018,
+    "testExitCode": 0,
+    "buildExitCode": 0,
+    "distMegabytes": 58.3,
+    "distBudgetMegabytes": 60,
+    "smokeRows": 4,
+    "smokeExitCode": 0
+  },
+  "sourceSHA256": {
+    "director-engine.js": "0e5f908063c769fb492a390f417296446c8d36a40a960b702dceec8df4860b32",
+    "adapter-check.mjs": "9d129eaf0d644ae4f4bcf6970b3dbdc3e5a94abae6e36e220b28b783db4382a3",
+    "ui-check.mjs": "c0a68a95e0ce1eeb29002095a50ad61dd0cec466d1878e9c2e0e3879cb1ce061",
+    "renderer-check.mjs": "8bd88cacfa90172099bab391cc4b2d8aef3404ec051f12deb8545eaba3e86762",
+    "batter-art-v6.js": "da6e3c1d8f509081cd0eed04a48dbdb3651b0eda907685d2c407a0376b4ea271",
+    "batter-motion.js": "6b69212d7688b17d6d5bce06e5ce14252b3bd19487b34e58dca8063b6ce2a186",
+    "pose-deformer.js": "2525929847a1e9ed5bfe1c7ad8d3eb6d0e79508ab0cee3a14f41d1fedf0c2d29",
+    "scene-renderer.js": "3da90837cad0c1a3cbf3cd4692446a86b673c60c6523788cd9ced1269ba5e9a1",
+    "ballpark-play.html": "e1cf282ca760abab877f6dd98bc1f7fae503c506de2cd9d4d2205a4614e16923"
+  },
+  "screenshots": {
+    "pitchFrames": 83,
+    "setupFrames": 31,
+    "syntheticReactionFrames": 20,
+    "renderer": "Actual browser renderer, inspection fixtures; reaction cases use synthetic outcomes, not gameplay evidence."
+  },
+  "art": {
+    "bodyPNGOriginals": 11,
+    "separateBatPNGOriginals": 1,
+    "generationTool": "built-in image_gen",
+    "runtimeTreatment": "Original PNGs and encoded WebP alpha preserved. Runtime body canvas masks painted wood and clips alpha below 128 before mesh rendering."
+  },
+  "limits": [
+    "No claim of frame-by-frame hand-drawn animation or motion capture.",
+    "Actual phone hardware rotation and browser-bar behavior remain untested.",
+    "Production full title-map-battle-reward-facility flow not manually replayed; production source unchanged.",
+    "Public deployment and actual public play are recorded separately after publication."
+  ]
+}
