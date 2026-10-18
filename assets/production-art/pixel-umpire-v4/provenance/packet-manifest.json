@@ -1,0 +1,100 @@
+{
+  "packetSchema": "pixel-umpire-v4-provenance-public/v1",
+  "generationRecordCount": 9,
+  "selectedGenerationNames": [
+    "unwind",
+    "stadium",
+    "lowerBridge",
+    "regatherR2",
+    "lowerMidR2",
+    "lowerOccluded"
+  ],
+  "rejectedGenerationNames": [
+    "regather-rejected",
+    "lowerBridgeR2-rejected",
+    "lowerMid-rejected"
+  ],
+  "selectedRuns": [
+    {
+      "id": "recovery-unwind",
+      "raw": "runs/recovery-unwind/raw/unwind.png",
+      "exportFrames": 4,
+      "runtimeSlots": [
+        36,
+        37,
+        38,
+        39
+      ]
+    },
+    {
+      "id": "regatherR2",
+      "raw": "runs/regatherR2/raw/regatherR2.png",
+      "exportFrames": 4,
+      "runtimeSlots": [
+        40,
+        41,
+        42,
+        43
+      ]
+    },
+    {
+      "id": "lowerBridge",
+      "raw": "runs/lowerBridge/raw/lowerBridge.png",
+      "exportFrames": 2,
+      "runtimeSlots": [
+        44,
+        45
+      ],
+      "selection": "first two curated frames only"
+    },
+    {
+      "id": "lowerMidR2",
+      "raw": "runs/lowerMidR2/raw/lowerMid.png",
+      "exportFrames": 1,
+      "runtimeSlots": [
+        48
+      ]
+    },
+    {
+      "id": "lowerOccluded",
+      "raw": "runs/lowerOccluded/raw/lowerMid.png",
+      "sourceImageGenId": "exec-abb2e3c5-8baa-498c-a639-631472780174.png",
+      "exportFrames": 1,
+      "runtimeSlots": [
+        52
+      ]
+    },
+    {
+      "id": "stadium",
+      "raw": "runs/stadium/raw/background.png",
+      "exportFrames": 1,
+      "runtime": "background asset"
+    }
+  ],
+  "nativeExports": {
+    "count": 12,
+    "directory": "native-exports/",
+    "sourceMap": "manual-measurements/atlas-input-map.json"
+  },
+  "finalAtlas": {
+    "manifest": "final-run/manifest.json",
+    "composeReport": "final-run/sprite-sheet-alpha.report.json",
+    "png": "final-run/sprite-sheet-alpha.png",
+    "sheetSize": [
+      1024,
+      3584
+    ],
+    "occupiedFrames": 48,
+    "sourceV3Frames": 36,
+    "newV4Frames": 12
+  },
+  "v3ReferencePolicy": "V3 provenance stays in the repository; this packet includes only the READY and finish PNGs needed to document V4 prompt roles.",
+  "pathPolicy": "Portable relative paths; private home paths removed.",
+  "integrity": "SHA256SUMS.txt covers all packet files except itself and PACKET.SHA256; PACKET.SHA256 hashes SHA256SUMS.txt.",
+  "manualMeasurements": [
+    "manual-measurements/atlas-input-map.json",
+    "manual-measurements/runtime-measurements.json",
+    "manual-measurements/lowerMidR2-annotation.json",
+    "manual-measurements/lowerMidR2-manualQA.json"
+  ]
+}

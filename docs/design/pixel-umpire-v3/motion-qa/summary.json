@@ -1,0 +1,237 @@
+{
+  "kind": "Final actual3-fixture V3 painted-wood diagnostic; residuals remain",
+  "runtimeSourceSHA256": {
+    "motion": "65eb3d5f2c021d512af7ea5cee969c82d1f9dcfb05568009f186c11d4d066c6c",
+    "scene": "7316bc501c3da143c9969b9259ecad76e2555243d62b7d60ea7f84295d9f495e",
+    "manifest": "93cdda38173becea332c6c9345dc8e38bf4a37070029b4f335231887de2eafff",
+    "batterAtlas": "4d4d84b157529f1233fa3507d848aa58ba6681338cf540d78589e7c3be1755af"
+  },
+  "sampleCount": 12060,
+  "contactEndpointCount": 60,
+  "fixtures": [
+    {
+      "fixture": "390x844",
+      "canvas": {
+        "width": 384,
+        "height": 477
+      },
+      "sceneScale": 1,
+      "sampleCount": 4020,
+      "contactEndpoints": 20,
+      "allContactCentersOnActualWood": true,
+      "allContactOuterAndWhiteCoreTouchWood": true,
+      "strictOverlapSamples": 0,
+      "expandedOverlapSamples": 0,
+      "overlapByAction": {},
+      "whiteCoreSharedSamples": 0,
+      "overlapCases": [],
+      "minimumOuterGapNative": {
+        "swing": 0.0,
+        "bunt": 2.0
+      },
+      "minimumWhiteCoreGapNative": {
+        "swing": 1.0,
+        "bunt": 4.0
+      },
+      "ballOuterDimensions": {
+        "width": 8,
+        "height": 6
+      },
+      "ballWhiteCoreDimensions": {
+        "width": 5,
+        "height": 3
+      }
+    },
+    {
+      "fixture": "pc1280x720",
+      "canvas": {
+        "width": 384,
+        "height": 341
+      },
+      "sceneScale": 0.6904065040650407,
+      "sampleCount": 4020,
+      "contactEndpoints": 20,
+      "allContactCentersOnActualWood": true,
+      "allContactOuterAndWhiteCoreTouchWood": true,
+      "strictOverlapSamples": 2,
+      "expandedOverlapSamples": 2,
+      "overlapByAction": {
+        "swing": 2
+      },
+      "whiteCoreSharedSamples": 0,
+      "overlapCases": [
+        {
+          "action": "swing",
+          "zone": 6,
+          "dt": -1,
+          "index": 7,
+          "overlappingNativePixels": 6,
+          "whiteCoreSharedNativePixels": 0
+        },
+        {
+          "action": "swing",
+          "zone": 7,
+          "dt": -1,
+          "index": 7,
+          "overlappingNativePixels": 6,
+          "whiteCoreSharedNativePixels": 0
+        }
+      ],
+      "minimumOuterGapNative": {
+        "swing": 0.0,
+        "bunt": 0.0
+      },
+      "minimumWhiteCoreGapNative": {
+        "swing": 0.0,
+        "bunt": 2.0
+      },
+      "ballOuterDimensions": {
+        "width": 6,
+        "height": 4
+      },
+      "ballWhiteCoreDimensions": {
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "fixture": "360x640",
+      "canvas": {
+        "width": 384,
+        "height": 299
+      },
+      "sceneScale": 0.5947967479674797,
+      "sampleCount": 4020,
+      "contactEndpoints": 20,
+      "allContactCentersOnActualWood": true,
+      "allContactOuterAndWhiteCoreTouchWood": true,
+      "strictOverlapSamples": 12,
+      "expandedOverlapSamples": 12,
+      "overlapByAction": {
+        "swing": 12
+      },
+      "whiteCoreSharedSamples": 1,
+      "overlapCases": [
+        {
+          "action": "swing",
+          "zone": 0,
+          "dt": -1,
+          "index": 7,
+          "overlappingNativePixels": 5,
+          "whiteCoreSharedNativePixels": 0
+        },
+        {
+          "action": "swing",
+          "zone": 1,
+          "dt": -1,
+          "index": 7,
+          "overlappingNativePixels": 4,
+          "whiteCoreSharedNativePixels": 0
+        },
+        {
+          "action": "swing",
+          "zone": 3,
+          "dt": -1,
+          "index": 7,
+          "overlappingNativePixels": 5,
+          "whiteCoreSharedNativePixels": 0
+        },
+        {
+          "action": "swing",
+          "zone": 4,
+          "dt": -1,
+          "index": 7,
+          "overlappingNativePixels": 4,
+          "whiteCoreSharedNativePixels": 0
+        },
+        {
+          "action": "swing",
+          "zone": 5,
+          "dt": -1,
+          "index": 7,
+          "overlappingNativePixels": 3,
+          "whiteCoreSharedNativePixels": 0
+        },
+        {
+          "action": "swing",
+          "zone": 6,
+          "dt": -4,
+          "index": 7,
+          "overlappingNativePixels": 5,
+          "whiteCoreSharedNativePixels": 0
+        },
+        {
+          "action": "swing",
+          "zone": 6,
+          "dt": -3,
+          "index": 7,
+          "overlappingNativePixels": 5,
+          "whiteCoreSharedNativePixels": 0
+        },
+        {
+          "action": "swing",
+          "zone": 6,
+          "dt": -2,
+          "index": 7,
+          "overlappingNativePixels": 5,
+          "whiteCoreSharedNativePixels": 0
+        },
+        {
+          "action": "swing",
+          "zone": 6,
+          "dt": -1,
+          "index": 7,
+          "overlappingNativePixels": 10,
+          "whiteCoreSharedNativePixels": 3
+        },
+        {
+          "action": "swing",
+          "zone": 7,
+          "dt": -1,
+          "index": 7,
+          "overlappingNativePixels": 4,
+          "whiteCoreSharedNativePixels": 0
+        },
+        {
+          "action": "swing",
+          "zone": 8,
+          "dt": -1,
+          "index": 7,
+          "overlappingNativePixels": 3,
+          "whiteCoreSharedNativePixels": 0
+        },
+        {
+          "action": "swing",
+          "zone": 9,
+          "dt": -1,
+          "index": 7,
+          "overlappingNativePixels": 2,
+          "whiteCoreSharedNativePixels": 0
+        }
+      ],
+      "minimumOuterGapNative": {
+        "swing": 0.0,
+        "bunt": 2.0
+      },
+      "minimumWhiteCoreGapNative": {
+        "swing": 0.0,
+        "bunt": 3.0
+      },
+      "ballOuterDimensions": {
+        "width": 5,
+        "height": 4
+      },
+      "ballWhiteCoreDimensions": {
+        "width": 3,
+        "height": 2
+      }
+    }
+  ],
+  "limits": [
+    "Observed or1source-pixel expanded wood polygons intersect actual opaque source artwork.",
+    "Canvas boundary sampling can differ by approximately1native pixel. No universal1px clearance claim.",
+    "A frame/zone/time case count is not elapsed time or human-perceived frame count.",
+    "Three stated DOM layouts and authored Red Rush release only; no blanket viewport/roster approval.",
+    "Sampler counts and pixel checks are not visual motion or art quality approval."
+  ]
+}

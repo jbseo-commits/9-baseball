@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "batter-v4-lower-occluded",
+    "description": "",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 256,
+    "height": 256,
+    "safe_margin_x": 16,
+    "safe_margin_y": 16,
+    "size": 256,
+    "safe_margin": 16
+  },
+  "chroma_key": {
+    "name": "cyan",
+    "hex": "#00FFFF",
+    "rgb": [
+      0,
+      255,
+      255
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "lowerMid": {
+      "frames": 1,
+      "fps": 12,
+      "loop": false,
+      "action": "One newly drawn full-body intermediate after wrapped FINISH: the grip is descending beside the left collarbone to the upper sternum, partially occluded by the upper torso in this rear camera. The elbows relax and chest unwinds a little; the straight bat descends in front of chest, its barrel projects rightward and slightly downward. Near RIGHT rear heel is still raised on the toe, far LEFT lead sole remains planted. Do not return the grip to right shoulder. Not READY, not low waist."
+    }
+  },
+  "style": "Match the existing clean128logical-pixel native sprite, enlarged2x into256storage. Strong readable clusters: warm ivory lit planes from upper-right stadium lights, cool slate-blue shadows on left/down planes, navy silhouette. At least3 value groups, no stippling, no new fine cloth texture. Existing base anatomy, camera and identity remain fixed; body crown-to-cleat about192storage pixels. Each frame is a physical continuation with full body mechanics, not crossfade or abstract deformation.",
+  "body_plan": [
+    {
+      "plan": "biped",
+      "figure": ""
+    }
+  ],
+  "layout": "taxonomy/v1",
+  "fit": {
+    "pixel_unfake": true,
+    "logical_height": 128,
+    "palette_size": 96,
+    "align_x": "bbox-center",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "detail_bias": false,
+    "outline": false
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}
+
+

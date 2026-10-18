@@ -1,0 +1,734 @@
+{
+  "kind": "manual-visual-landmark-QA",
+  "coordinate_space": "final curated 256x256 atlas cell, origin top-left, integer pixel centers",
+  "measurement_method": "Manual foot/hand ROI placement on alpha-extracted curated sprites with 3x nearest-neighbor coordinate board; every selected sole/fingertip anchor was then checked against the actual final atlas cell RGBA alpha (255). Visual ROI/contact type is approximate; not a pose estimator or force simulation.",
+  "fixed_mound_pin_reference_cell_px": [
+    120,
+    239
+  ],
+  "runtime_frame_order": {
+    "windup": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "drive": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "reset": [
+      8,
+      9,
+      10,
+      0
+    ],
+    "note": "reset[3] atlas index 11 is reviewed and measured here, but runtime should reuse canonical windup[0] atlas index 0 at the loop boundary."
+  },
+  "support_transition_review": {
+    "windup0_to_windup2": "ownRIGHT rear support, visually screen-left; lead leg gathers/lifts",
+    "windup3_to_drive0": "transition to ownLEFT lead support as stride/drive begins; frame3 windup is the stride transfer pose",
+    "drive0_to_reset1": "ownLEFT lead remains the visible support through release, follow-through and early recovery",
+    "reset1_to_reset2": "weight returns toward ownRIGHT rear while both shoes approach ground",
+    "reset3_to_windup0": "loop boundary uses canonical atlas index 0; do not use reset3 as runtime loop endpoint because stance differs"
+  },
+  "release_fingertip": {
+    "state": "drive",
+    "source_frame_index": 2,
+    "runtime_atlas_index": 6,
+    "finger": "visible index fingertip, topmost splayed finger (manual identification)",
+    "point_cell_px": [
+      69,
+      72
+    ],
+    "rgba": [
+      250,
+      184,
+      142,
+      255
+    ],
+    "alpha": 255,
+    "prior_estimate_corrected": {
+      "point_cell_px": [
+        62,
+        77
+      ],
+      "reason": "transparent in final curated atlas cell"
+    },
+    "other_outer_fingertip_cell_px": [
+      62,
+      85
+    ]
+  },
+  "frames": [
+    {
+      "runtime_atlas_index": 0,
+      "state": "windup",
+      "source_frame_index": 0,
+      "runtime_used": true,
+      "support_foot": "ownRIGHT rear",
+      "screen_location": "screen-left",
+      "support_point_cell_px": [
+        90,
+        236
+      ],
+      "support_point_alpha": 255,
+      "support_point_rgba": [
+        22,
+        15,
+        20,
+        255
+      ],
+      "support_sole_roi_cell_px": [
+        78,
+        219,
+        104,
+        238
+      ],
+      "contact_region_visual_estimate": "flat/midsole",
+      "bbox_alpha_cell_px": [
+        80,
+        16,
+        188,
+        240
+      ],
+      "bbox_normalized_0_1": [
+        0.3125,
+        0.0625,
+        0.7344,
+        0.9375
+      ],
+      "pin_target_cell_px": [
+        120,
+        239
+      ],
+      "pin_translation_px": [
+        30,
+        3
+      ],
+      "pinned_bbox_cell_px": [
+        110,
+        19,
+        218,
+        243
+      ],
+      "manual_note": "ready; both soles down, choose rear support",
+      "pinned_bbox_stays_inside_cell": true
+    },
+    {
+      "runtime_atlas_index": 1,
+      "state": "windup",
+      "source_frame_index": 1,
+      "runtime_used": true,
+      "support_foot": "ownRIGHT rear",
+      "screen_location": "screen-left",
+      "support_point_cell_px": [
+        116,
+        237
+      ],
+      "support_point_alpha": 255,
+      "support_point_rgba": [
+        68,
+        20,
+        21,
+        255
+      ],
+      "support_sole_roi_cell_px": [
+        100,
+        223,
+        140,
+        240
+      ],
+      "contact_region_visual_estimate": "flat/midsole",
+      "bbox_alpha_cell_px": [
+        90,
+        20,
+        190,
+        240
+      ],
+      "bbox_normalized_0_1": [
+        0.3516,
+        0.0781,
+        0.7422,
+        0.9375
+      ],
+      "pin_target_cell_px": [
+        120,
+        239
+      ],
+      "pin_translation_px": [
+        4,
+        2
+      ],
+      "pinned_bbox_cell_px": [
+        94,
+        22,
+        194,
+        242
+      ],
+      "manual_note": "gather; rear support retained",
+      "pinned_bbox_stays_inside_cell": true
+    },
+    {
+      "runtime_atlas_index": 2,
+      "state": "windup",
+      "source_frame_index": 2,
+      "runtime_used": true,
+      "support_foot": "ownRIGHT rear",
+      "screen_location": "screen-left",
+      "support_point_cell_px": [
+        114,
+        238
+      ],
+      "support_point_alpha": 255,
+      "support_point_rgba": [
+        161,
+        24,
+        38,
+        255
+      ],
+      "support_sole_roi_cell_px": [
+        100,
+        222,
+        134,
+        240
+      ],
+      "contact_region_visual_estimate": "midsole edge",
+      "bbox_alpha_cell_px": [
+        85,
+        16,
+        198,
+        240
+      ],
+      "bbox_normalized_0_1": [
+        0.332,
+        0.0625,
+        0.7734,
+        0.9375
+      ],
+      "pin_target_cell_px": [
+        120,
+        239
+      ],
+      "pin_translation_px": [
+        6,
+        1
+      ],
+      "pinned_bbox_cell_px": [
+        91,
+        17,
+        204,
+        241
+      ],
+      "manual_note": "balance; lead leg lifted",
+      "pinned_bbox_stays_inside_cell": true
+    },
+    {
+      "runtime_atlas_index": 3,
+      "state": "windup",
+      "source_frame_index": 3,
+      "runtime_used": true,
+      "support_foot": "ownLEFT lead",
+      "screen_location": "screen-left foreground",
+      "support_point_cell_px": [
+        115,
+        239
+      ],
+      "support_point_alpha": 255,
+      "support_point_rgba": [
+        22,
+        15,
+        20,
+        255
+      ],
+      "support_sole_roi_cell_px": [
+        103,
+        216,
+        129,
+        240
+      ],
+      "contact_region_visual_estimate": "forefoot/toe edge",
+      "bbox_alpha_cell_px": [
+        75,
+        29,
+        200,
+        240
+      ],
+      "bbox_normalized_0_1": [
+        0.293,
+        0.1133,
+        0.7812,
+        0.9375
+      ],
+      "pin_target_cell_px": [
+        120,
+        239
+      ],
+      "pin_translation_px": [
+        5,
+        0
+      ],
+      "pinned_bbox_cell_px": [
+        80,
+        29,
+        205,
+        240
+      ],
+      "manual_note": "stride pose; support switches to lead foot",
+      "pinned_bbox_stays_inside_cell": true
+    },
+    {
+      "runtime_atlas_index": 4,
+      "state": "drive",
+      "source_frame_index": 0,
+      "runtime_used": true,
+      "support_foot": "ownLEFT lead",
+      "screen_location": "screen-right",
+      "support_point_cell_px": [
+        140,
+        239
+      ],
+      "support_point_alpha": 255,
+      "support_point_rgba": [
+        22,
+        15,
+        20,
+        255
+      ],
+      "support_sole_roi_cell_px": [
+        124,
+        223,
+        161,
+        240
+      ],
+      "contact_region_visual_estimate": "midsole",
+      "bbox_alpha_cell_px": [
+        50,
+        16,
+        189,
+        240
+      ],
+      "bbox_normalized_0_1": [
+        0.1953,
+        0.0625,
+        0.7383,
+        0.9375
+      ],
+      "pin_target_cell_px": [
+        120,
+        239
+      ],
+      "pin_translation_px": [
+        -20,
+        0
+      ],
+      "pinned_bbox_cell_px": [
+        30,
+        16,
+        169,
+        240
+      ],
+      "manual_note": "stride/drive; lead support",
+      "pinned_bbox_stays_inside_cell": true
+    },
+    {
+      "runtime_atlas_index": 5,
+      "state": "drive",
+      "source_frame_index": 1,
+      "runtime_used": true,
+      "support_foot": "ownLEFT lead",
+      "screen_location": "screen-right",
+      "support_point_cell_px": [
+        160,
+        239
+      ],
+      "support_point_alpha": 255,
+      "support_point_rgba": [
+        22,
+        15,
+        20,
+        255
+      ],
+      "support_sole_roi_cell_px": [
+        152,
+        220,
+        182,
+        240
+      ],
+      "contact_region_visual_estimate": "midsole/forefoot edge",
+      "bbox_alpha_cell_px": [
+        49,
+        21,
+        197,
+        240
+      ],
+      "bbox_normalized_0_1": [
+        0.1914,
+        0.082,
+        0.7695,
+        0.9375
+      ],
+      "pin_target_cell_px": [
+        120,
+        239
+      ],
+      "pin_translation_px": [
+        -40,
+        0
+      ],
+      "pinned_bbox_cell_px": [
+        9,
+        21,
+        157,
+        240
+      ],
+      "manual_note": "drive; lead support",
+      "pinned_bbox_stays_inside_cell": true
+    },
+    {
+      "runtime_atlas_index": 6,
+      "state": "drive",
+      "source_frame_index": 2,
+      "runtime_used": true,
+      "support_foot": "ownLEFT lead",
+      "screen_location": "near-center",
+      "support_point_cell_px": [
+        108,
+        239
+      ],
+      "support_point_alpha": 255,
+      "support_point_rgba": [
+        35,
+        32,
+        44,
+        255
+      ],
+      "support_sole_roi_cell_px": [
+        90,
+        219,
+        125,
+        240
+      ],
+      "contact_region_visual_estimate": "midsole",
+      "bbox_alpha_cell_px": [
+        61,
+        22,
+        191,
+        240
+      ],
+      "bbox_normalized_0_1": [
+        0.2383,
+        0.0859,
+        0.7461,
+        0.9375
+      ],
+      "pin_target_cell_px": [
+        120,
+        239
+      ],
+      "pin_translation_px": [
+        12,
+        0
+      ],
+      "pinned_bbox_cell_px": [
+        73,
+        22,
+        203,
+        240
+      ],
+      "manual_note": "release; lead support",
+      "pinned_bbox_stays_inside_cell": true
+    },
+    {
+      "runtime_atlas_index": 7,
+      "state": "drive",
+      "source_frame_index": 3,
+      "runtime_used": true,
+      "support_foot": "ownLEFT lead",
+      "screen_location": "near-center",
+      "support_point_cell_px": [
+        109,
+        239
+      ],
+      "support_point_alpha": 255,
+      "support_point_rgba": [
+        22,
+        15,
+        20,
+        255
+      ],
+      "support_sole_roi_cell_px": [
+        90,
+        215,
+        119,
+        240
+      ],
+      "contact_region_visual_estimate": "midsole",
+      "bbox_alpha_cell_px": [
+        22,
+        32,
+        202,
+        240
+      ],
+      "bbox_normalized_0_1": [
+        0.0859,
+        0.125,
+        0.7891,
+        0.9375
+      ],
+      "pin_target_cell_px": [
+        120,
+        239
+      ],
+      "pin_translation_px": [
+        11,
+        0
+      ],
+      "pinned_bbox_cell_px": [
+        33,
+        32,
+        213,
+        240
+      ],
+      "manual_note": "follow-through; lead support",
+      "pinned_bbox_stays_inside_cell": true
+    },
+    {
+      "runtime_atlas_index": 8,
+      "state": "reset",
+      "source_frame_index": 0,
+      "runtime_used": true,
+      "support_foot": "ownLEFT lead",
+      "screen_location": "near-center",
+      "support_point_cell_px": [
+        117,
+        239
+      ],
+      "support_point_alpha": 255,
+      "support_point_rgba": [
+        22,
+        15,
+        20,
+        255
+      ],
+      "support_sole_roi_cell_px": [
+        99,
+        218,
+        134,
+        240
+      ],
+      "contact_region_visual_estimate": "midsole",
+      "bbox_alpha_cell_px": [
+        30,
+        33,
+        225,
+        240
+      ],
+      "bbox_normalized_0_1": [
+        0.1172,
+        0.1289,
+        0.8789,
+        0.9375
+      ],
+      "pin_target_cell_px": [
+        120,
+        239
+      ],
+      "pin_translation_px": [
+        3,
+        0
+      ],
+      "pinned_bbox_cell_px": [
+        33,
+        33,
+        228,
+        240
+      ],
+      "manual_note": "follow-through continuation; lead support",
+      "pinned_bbox_stays_inside_cell": true
+    },
+    {
+      "runtime_atlas_index": 9,
+      "state": "reset",
+      "source_frame_index": 1,
+      "runtime_used": true,
+      "support_foot": "ownLEFT lead",
+      "screen_location": "screen-right",
+      "support_point_cell_px": [
+        148,
+        239
+      ],
+      "support_point_alpha": 255,
+      "support_point_rgba": [
+        22,
+        15,
+        20,
+        255
+      ],
+      "support_sole_roi_cell_px": [
+        132,
+        218,
+        164,
+        240
+      ],
+      "contact_region_visual_estimate": "midsole",
+      "bbox_alpha_cell_px": [
+        51,
+        19,
+        219,
+        240
+      ],
+      "bbox_normalized_0_1": [
+        0.1992,
+        0.0742,
+        0.8555,
+        0.9375
+      ],
+      "pin_target_cell_px": [
+        120,
+        239
+      ],
+      "pin_translation_px": [
+        -28,
+        0
+      ],
+      "pinned_bbox_cell_px": [
+        23,
+        19,
+        191,
+        240
+      ],
+      "manual_note": "recovery; lead support remains",
+      "pinned_bbox_stays_inside_cell": true
+    },
+    {
+      "runtime_atlas_index": 10,
+      "state": "reset",
+      "source_frame_index": 2,
+      "runtime_used": true,
+      "support_foot": "ownRIGHT rear",
+      "screen_location": "screen-left",
+      "support_point_cell_px": [
+        77,
+        233
+      ],
+      "support_point_alpha": 255,
+      "support_point_rgba": [
+        35,
+        32,
+        44,
+        255
+      ],
+      "support_sole_roi_cell_px": [
+        62,
+        216,
+        101,
+        234
+      ],
+      "contact_region_visual_estimate": "forefoot/toe edge",
+      "bbox_alpha_cell_px": [
+        65,
+        16,
+        205,
+        240
+      ],
+      "bbox_normalized_0_1": [
+        0.2539,
+        0.0625,
+        0.8008,
+        0.9375
+      ],
+      "pin_target_cell_px": [
+        120,
+        239
+      ],
+      "pin_translation_px": [
+        43,
+        6
+      ],
+      "pinned_bbox_cell_px": [
+        108,
+        22,
+        248,
+        246
+      ],
+      "manual_note": "both feet close to ground; weight transitions rearward",
+      "pinned_bbox_stays_inside_cell": true
+    },
+    {
+      "runtime_atlas_index": 11,
+      "state": "reset",
+      "source_frame_index": 3,
+      "runtime_used": false,
+      "support_foot": "ownRIGHT rear",
+      "screen_location": "screen-left",
+      "support_point_cell_px": [
+        85,
+        232
+      ],
+      "support_point_alpha": 255,
+      "support_point_rgba": [
+        22,
+        15,
+        20,
+        255
+      ],
+      "support_sole_roi_cell_px": [
+        73,
+        215,
+        111,
+        234
+      ],
+      "contact_region_visual_estimate": "flat/midsole",
+      "bbox_alpha_cell_px": [
+        75,
+        16,
+        194,
+        240
+      ],
+      "bbox_normalized_0_1": [
+        0.293,
+        0.0625,
+        0.7578,
+        0.9375
+      ],
+      "pin_target_cell_px": [
+        120,
+        239
+      ],
+      "pin_translation_px": [
+        35,
+        7
+      ],
+      "pinned_bbox_cell_px": [
+        110,
+        23,
+        229,
+        247
+      ],
+      "manual_note": "ready set; runtime loop uses canonical windup[0] instead",
+      "pinned_bbox_stays_inside_cell": true
+    }
+  ],
+  "atlas_alpha_verification": {
+    "image": "ARTIFACT_ROOT\\runs\\red-rush-v2\\sprite-sheet-alpha.png",
+    "dimensions_px": [
+      1024,
+      768
+    ],
+    "method": "Direct RGBA reads from composed atlas at column/row cell offset + local coordinate; all 12 sole anchors alpha=255 and release fingertip alpha=255.",
+    "all_12_support_anchors_alpha_255": true,
+    "release_index_tip_atlas_cell_px": [
+      69,
+      72
+    ],
+    "release_index_tip_atlas_rgba": [
+      250,
+      184,
+      142,
+      255
+    ]
+  }
+}

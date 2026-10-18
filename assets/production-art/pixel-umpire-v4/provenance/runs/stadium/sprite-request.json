@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "stadium-v4",
+    "description": "",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "rect",
+    "width": 384,
+    "height": 576,
+    "safe_margin_x": 0,
+    "safe_margin_y": 0
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "background": {
+      "frames": 1,
+      "fps": 1,
+      "loop": false,
+      "action": "Full-bleed opaque stadium background. Entire image is the one connected background plane; no transparent margin or actor."
+    }
+  },
+  "style": "The accepted source is a new lighting/material pass of the original camera; preserve its fixed horizon and dirt/turf proportions. Deliberate native384x576 pixels and shared96-color palette, one upper-right warm key and cooler fill.",
+  "subject": "effect",
+  "layout": "taxonomy/v1",
+  "fit": {
+    "pixel_unfake": true,
+    "logical_height": 576,
+    "palette_size": 96,
+    "align_x": "bbox-center",
+    "align_y": "center",
+    "ground_frames": false,
+    "detail_bias": false,
+    "outline": false
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}
+
+

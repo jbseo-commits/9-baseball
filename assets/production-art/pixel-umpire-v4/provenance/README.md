@@ -1,0 +1,11 @@
+# Pixel Umpire V4 public provenance packet
+
+This packet records the selected V4 authored recovery additions and the final composed runtime atlas. The V3 36-frame source remains in the repository; only the READY and finish reference PNGs actually used by the V4 prompts are copied here, rather than duplicating all V3 provenance.
+
+`generation-records.json` preserves all nine full generation prompts, including rejected candidates. `generation-references.json` records prompt-declared image roles and identifies exact retained files where the source survives; missing attachment sources are explicitly marked unknown. `runs/` carries selected raw PNGs, request/curation/palette-lock/extract reports, base sources, and layout guides. `rejected/` holds three excluded raw takes and a short known-failure log. `native-exports/` contains the twelve exact 256×256 pixel-unfake frames selected into the final atlas. `final-run/` carries the canonical runtime manifest, compose report, and composed PNG. `manual-measurements/` contains the atlas input map, native-coordinate measurements, and per-pose annotations.
+
+The generated raw PNGs are high-resolution image_gen sources, not hand-authored native pixel art. Post-processing is the canonical component extractor, shared V3 palette lock, pixel-unfake, and reversible per-state curation. The manifest/report are the source of truth for the composed output. No third-party MLB media or live-app screenshots are included. Foot contact annotations respect the elevated rear-umpire perspective: far/lead soles project higher than near/rear soles, so screen-y separation alone is not a contact failure.
+
+All JSON/Markdown paths are packet-relative or use `$PACKET_ROOT`; user home paths have been removed. PNG contents are copied byte-for-byte.
+
+`manual-measurements/runtime-geometry-audit-v4.json` is an early placement experiment with an earlier grounding configuration and superseded margin estimates. It is retained as history, not the final acceptance report. The authoritative installed-wrapper report is `docs/design/pixel-umpire-v4/qa/final-runtime-audit-v4.json`; its source SHA and three live viewport fixtures distinguish the final front-support placement.

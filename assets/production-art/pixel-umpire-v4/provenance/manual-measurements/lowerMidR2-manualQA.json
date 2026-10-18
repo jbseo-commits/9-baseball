@@ -1,0 +1,102 @@
+{
+  "asset": "frame-0.png",
+  "source": "exec-adf5daf6-3d09-466f-af40-b3f819fcb710.png",
+  "frame": {
+    "width": 256,
+    "height": 256,
+    "alpha_bbox_xyxy_exclusive": [
+      58,
+      48,
+      194,
+      240
+    ]
+  },
+  "curation": {
+    "scale": 1.01,
+    "dx": 0,
+    "dy": -1,
+    "fit_note": "single uniform transform; body-only visual bounds are about 192 px tall with ground sole at y=239"
+  },
+  "alpha_validation": {
+    "transparent_samples": [
+      [
+        0,
+        0
+      ],
+      [
+        255,
+        255
+      ]
+    ],
+    "opaque_samples": [
+      [
+        122,
+        100
+      ],
+      [
+        82,
+        228
+      ],
+      [
+        155,
+        200
+      ],
+      [
+        190,
+        107
+      ]
+    ],
+    "opaque_cyan_key_pixels": 0,
+    "transparent_pixel_count": 56640,
+    "opaque_pixel_count": 8896
+  },
+  "manual_measurements": {
+    "file": "lowerMidR2-curated/frame-0.png",
+    "body": [
+      58,
+      48,
+      163,
+      239
+    ],
+    "head": [
+      122,
+      60
+    ],
+    "hip": [
+      122,
+      146
+    ],
+    "grip": [
+      137,
+      99
+    ],
+    "batTip": [
+      193,
+      107
+    ],
+    "barrel": [
+      183,
+      104
+    ],
+    "rear": [
+      96,
+      239
+    ],
+    "front": [
+      155,
+      202
+    ],
+    "frontLine": [
+      [
+        150,
+        201
+      ],
+      [
+        163,
+        201
+      ]
+    ],
+    "uncertainty": "Manual landmarks visually read on native export and alpha=255 verified. The far foot is about37px above the near toe, consistent with the elevated umpire camera; canonical READY separation is43px. This image-y difference alone does not establish airborne contact. Far sole paint is foreshortened, contact confidence low. Grip is at upper chest."
+  },
+  "manual_verdict": "Body fit and alpha checks pass. Foot markers follow the elevated umpire perspective; far/near screen-y separation is not treated as an airborne verdict, and far-sole contact remains low-confidence."
+}

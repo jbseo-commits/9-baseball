@@ -16,6 +16,8 @@
   bottom:auto;width:var(--pixel-pitcher-height);height:var(--pixel-pitcher-height);translate:-50% 0;
 }
 .bp-scene.pixel-umpire-ready .bp-pitcher>.bp-gvfx{visibility:visible!important}
+.bp-scene[data-pixel-umpire-short-scene="true"] .bp-zone{left:auto;right:12px;top:auto;bottom:24px}
+.bp-scene[data-pixel-umpire-short-scene="true"] .bp-read{left:auto;right:0}
 /* Selection stays on the original tactical board. During the locked pitch,
    clear that magnified board so it cannot cover the hands and physical ball. */
 .bp-scene.pixel-umpire-ready:is(.fx-stage-windup,.fx-stage-impact,.fx-stage-slowmo,.fx-stage-release) .bp-zone{opacity:0;pointer-events:none}

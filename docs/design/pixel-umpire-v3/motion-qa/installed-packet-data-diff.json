@@ -1,0 +1,157 @@
+{
+  "kind": "Immutable packet compared with installed final wrapper; artwork unchanged",
+  "baseline": "runtime-batter-v3/batter-manifest.json",
+  "baselineSHA256": "48bf5f23b0a51cd961e8021aa399aff2c81df7227ea06fffe689bbb44e76ea73",
+  "installed": "assets/production-art/pixel-umpire-v3/runtime/manifest.json",
+  "installedSHA256": "93cdda38173becea332c6c9345dc8e38bf4a37070029b4f335231887de2eafff",
+  "batterAtlasSHA256": "4d4d84b157529f1233fa3507d848aa58ba6681338cf540d78589e7c3be1755af",
+  "anchorChanges": [
+    {
+      "atlasIndex": 8,
+      "anchor": "barrel",
+      "oldNormalized": [
+        0.734375,
+        0.32421875
+      ],
+      "installedNormalized": [
+        0.74609375,
+        0.3046875
+      ],
+      "oldStoragePixels": [
+        188.0,
+        83.0
+      ],
+      "installedStoragePixels": [
+        191.0,
+        78.0
+      ]
+    },
+    {
+      "atlasIndex": 26,
+      "anchor": "barrel",
+      "oldNormalized": [
+        0.75,
+        0.3203125
+      ],
+      "installedNormalized": [
+        0.76953125,
+        0.3203125
+      ],
+      "oldStoragePixels": [
+        192.0,
+        82.0
+      ],
+      "installedStoragePixels": [
+        197.0,
+        82.0
+      ]
+    }
+  ],
+  "timelineChanges": {
+    "bunt": {
+      "immutablePacket": [
+        {
+          "atMs": -1567,
+          "frame": 0,
+          "phase": "ready"
+        },
+        {
+          "atMs": -700,
+          "frame": 0,
+          "phase": "gather"
+        },
+        {
+          "atMs": -220,
+          "frame": 25,
+          "phase": "bunt"
+        },
+        {
+          "atMs": 0,
+          "frame": 26,
+          "phase": "bunt"
+        },
+        {
+          "atMs": 120,
+          "frame": 28,
+          "phase": "reset"
+        },
+        {
+          "atMs": 240,
+          "frame": 29,
+          "phase": "reset"
+        },
+        {
+          "atMs": 360,
+          "frame": 30,
+          "phase": "reset"
+        },
+        {
+          "atMs": 500,
+          "frame": 31,
+          "phase": "reset"
+        },
+        {
+          "atMs": 650,
+          "frame": 0,
+          "phase": "ready"
+        }
+      ],
+      "installed": [
+        {
+          "atMs": -1567,
+          "frame": 0,
+          "phase": "ready"
+        },
+        {
+          "atMs": -700,
+          "frame": 0,
+          "phase": "gather"
+        },
+        {
+          "atMs": -220,
+          "frame": 25,
+          "phase": "bunt"
+        },
+        {
+          "atMs": 120,
+          "frame": 28,
+          "phase": "reset"
+        },
+        {
+          "atMs": 240,
+          "frame": 29,
+          "phase": "reset"
+        },
+        {
+          "atMs": 360,
+          "frame": 30,
+          "phase": "reset"
+        },
+        {
+          "atMs": 500,
+          "frame": 31,
+          "phase": "reset"
+        },
+        {
+          "atMs": 650,
+          "frame": 0,
+          "phase": "ready"
+        },
+        {
+          "atMs": 0,
+          "frame": 25,
+          "phase": "bunt"
+        },
+        {
+          "atMs": 0,
+          "frame": 26,
+          "phase": "bunt",
+          "contactOnly": true
+        }
+      ]
+    }
+  },
+  "limits": [
+    "Projection, recovery clock and responsive ball helpers are separately identified by source SHA. This file only compares packet data."
+  ]
+}

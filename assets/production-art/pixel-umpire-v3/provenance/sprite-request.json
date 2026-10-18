@@ -1,0 +1,108 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "batter-v3-final",
+    "description": "Adult right-handed batter viewed by a fixed elevated homeplate umpire camera from behind his rear-right shoulder. The distant pitcher is toward image upper-right and the face stays hidden under the rear helmet. Anatomical RIGHT rear shoe is large/near/lower image-left; LEFT lead shoe is smaller/farther/higher image-right, following this new base perspective. Two anatomically connected arms and gloved hands control one straight wooden bat. No mirrored view, ball, ground, cast shadow, text or UI. Each row is a consecutive segment of one motion, not four unrelated attractive key poses. For follow/reset rows use both the originalbase for identity and the accepted preceding segment endpoint as the motion-position reference; endpoint must flow without a hand or barrel teleport.",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 256,
+    "height": 256,
+    "safe_margin_x": 16,
+    "safe_margin_y": 16,
+    "size": 256,
+    "safe_margin": 16
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "windup": {
+      "frames": 4,
+      "fps": 10,
+      "loop": false,
+      "action": "Four successive preparation drawings:0 exact approved READY;1 compact gather with both feet close to the same support plane and only subtle knee flex;2 short controlled lead-left stride toward upper-right, never a pitcher high-knee;3 complete lead-left plant before hips start. Keep rear-right forefoot stable. Preserve the new base camera and its deliberate near/far foot depth, never flatten the soles into a side view."
+    },
+    "swingA": {
+      "frames": 4,
+      "fps": 12,
+      "loop": false,
+      "action": "Four consecutive pre-contact drawings:0 hips initiate while bat is near vertical and hands still lag;1 rear elbow drops into the slot, hands move first and barrel lags behind rather than punching both arms forward;2 barrel enters the hitting plane at about45degrees above image-right horizontal;3 pre-contact about10degrees above image-right horizontal. End immediately before swingB0 CONTACT. One smooth hand path and hip-to-ribcage-to-arm sequence. Do not skip the elbow-slot pose or replace it with fully extended arms."
+    },
+    "swingB": {
+      "frames": 4,
+      "fps": 12,
+      "loop": false,
+      "action": "Four consecutive drawings immediately after swingA3:0 CONTACT with the straight barrel approximately horizontal toward image-right, both hands on the same handle, lead-left leg braced;1 full extension through the same plane and rear-right heel pivot;2 barrel rises about25degrees above image-right horizontal;3 continued rise about45degrees. No contact effects, ball or trails. This CONTACT is swingB index0, overall atlas index8; it is not local frame2. Do not start wrapping over the shoulder yet."
+    },
+    "followA": {
+      "frames": 4,
+      "fps": 10,
+      "loop": false,
+      "action": "Four consecutive connecting follow-through drawings from swingB3:0 continued barrel rise about65degrees;1 about85degrees, hands approaching the upper centerline;2 about115degrees with elbows beginning to fold and hands travelling around above the helmet;3 about135degrees into the opposite anatomical-left shoulder wrap. Angles describe the projected grip-to-barrel direction:0degrees points image-right,90straight up,135upper-left. Draw actual intermediate shoulder/elbow/wrist mechanics. Never jump the grip from in front of the face directly to the opposite shoulder."
+    },
+    "followB": {
+      "frames": 4,
+      "fps": 10,
+      "loop": false,
+      "action": "Four consecutive bridge drawings filling the actual missing wrap between supplied followA2 START and followA3 END.0 continue from START: two gloved hands move just over the helmet and the barrel becomes strongly foreshortened behind/above the head;1 hands travel around the upper crown toward the opposite anatomical-left shoulder while the one bat stays short in projection;2 the straight barrel gradually reappears behind the shoulder and the elbows fold through a visible intermediate joint configuration;3 match the supplied END balanced swing wrap with the bat across/behind the back. Preserve the same jersey, helmet size, torso, braced front-left sole and pivoting rear-right forefoot. Do not change feet or produce four held finish drawings. Never jump the hands directly to the opposite shoulder or flip a full-length bat175degrees. The actual compact hand/barrel path behind the helmet must be drawn, not hidden by trails or opacity. Use the accepted native READY only for identity and pixel density, START for initial motion position and END for the target finish."
+    },
+    "resetCompact": {
+      "frames": 4,
+      "fps": 10,
+      "loop": false,
+      "action": "Four compact overhead regrip recovery drawings connecting the supplied finished swing to the accepted canonical READY without dropping the bat to the waist and lifting it again.0 keep hands near the opposite anatomical-left shoulder and lift them only a short distance beside the left helmet rim;1 hands travel above the helmet centre while the one straight bat turns nearly end-on/foreshortened;2 hands move beside the right helmet at face height with the elbows still folded, not already at the waist;3 elbows relax downward toward the rear-right shoulder just before the exact canonical READY. Each hand position travels only about20–30native storage pixels from the previous pose. Preserve planted lead-left sole and a believable rear-right toe/heel settle. No shoulder-to-shoulder hand teleport, no low-bat detour, no full-length175degree bat flip. Final idle uses the exact windup0 instead of a newly redesigned READY."
+    },
+    "bunt": {
+      "frames": 4,
+      "fps": 10,
+      "loop": false,
+      "action": "Four successive bunt drawings:0 approved READY;1 controlled square with left hand at the handle and own right hand sliding along the middle of one bat;2 horizontal BUNT CONTACT, two visibly separated hands controlling the same straight bat;3 controlled withdrawal toward READY with a readable return arc. Keep both feet on the same near/far ground-depth geometry and preserve body size. No full swing, ball, impact effect, floating bat or duplicate bat."
+    },
+    "buntReset": {
+      "frames": 4,
+      "fps": 10,
+      "loop": false,
+      "action": "Four consecutive controlled recovery drawings beginning directly from the accepted bunt CONTACT, not a full swing.0 retract the same horizontal bat a short distance toward the upper torso while both separated hands still control it;1 elbows fold and the barrel rises through about45degrees toward image-right;2 slide own right hand back down to the handle and bring the one bat near the rear-right shoulder just before READY;3 exact canonical READY from the accepted native reference. Preserve body size, helmet dome and both feet at the same near/far contact locations. Draw the missing withdrawal and regrip arc; never jump straight from horizontal contact to READY. Use the supplied single CONTACT endpoint only for the initial motion-position, and the accepted native READY for final pose/identity/pixel density."
+    },
+    "resetLift": {
+      "frames": 4,
+      "fps": 10,
+      "loop": false,
+      "action": "Four very small consecutive hand-arc bridge drawings between the finished swing and the supplied compact-overhead endpoint, not the entire recovery.0 preserve the finished swing as a stored reference;1 lift the connected two-hand grip slightly beside the anatomical-left helmet crown while the one bat turns end-on;2 move hands just above the centre of the helmet with a compact foreshortened bat;3 continue only slightly toward the right crown, still high. Keep the same body proportions and braced lead-left sole, allow a believable rear-right forefoot pivot. Each cut must depict a small connected hand path, not a shoulder-to-shoulder leap. No low-bat or READY pose in this row. The already generated resetCompact later supplies right-temple/shoulder return. Preserve identity/pixel density from the accepted native READY single reference."
+    }
+  },
+  "style": "The accepted native READY single-pose canonical reference owns the character identity, fixed rear camera, anatomy and deliberate clean128logical-pixel density enlarged exactly2x into256storage. The original high-resolution base is preserved as provenance, not an instruction to repaint finer detail. No semitransparent painted fringe, dithering, salt-and-pepper texture or heavy automatic outline. Keep the same helmet dome, jersey, limbs, hands and one straight wooden bat. Body height remains approximately190–210storage pixels measured crown-to-supporting-cleat; bat-inclusive bounds are not body scale.",
+  "body_plan": [
+    {
+      "plan": "biped",
+      "figure": ""
+    }
+  ],
+  "layout": "taxonomy/v1",
+  "fit": {
+    "pixel_unfake": true,
+    "logical_height": 128,
+    "palette_size": 96,
+    "align_x": "bbox-center",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "detail_bias": false,
+    "outline": false
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}

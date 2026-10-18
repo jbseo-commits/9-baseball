@@ -1,0 +1,43 @@
+{
+  "kind": "lossy downscale and palette review; not hand-authored native pixel art",
+  "source": "ARTIFACT_ROOT\\stadium-source-v2.png",
+  "source_sha256": "ee1a3fbb7bbb56a38ad530a8fad6ddae73729bd7809a478ffa9eb6f2a0637866",
+  "source_dimensions": [
+    1024,
+    1536
+  ],
+  "source_mode": "RGB",
+  "source_copy": "ARTIFACT_ROOT\\artV2\\stadium-source-v2.png",
+  "source_copy_sha256": "ee1a3fbb7bbb56a38ad530a8fad6ddae73729bd7809a478ffa9eb6f2a0637866",
+  "source_copy_byte_identical": true,
+  "output": "ARTIFACT_ROOT\\artV2\\stadium-native-v2.png",
+  "output_sha256": "6ab69e9b4091ed90ee61b4a54eb84e6dfa9c31620b6dc60f19adeea91ef931f3",
+  "output_dimensions": [
+    384,
+    576
+  ],
+  "output_mode": "RGBA",
+  "normalization": {
+    "utility": "sprite-gen.frames.extract.resize_cell (coverage/color separated), build_shared_palette, apply_palette",
+    "resize": "1024x1536 to 384x576; aspect ratio preserved, no crop",
+    "palette_limit": 96,
+    "actual_opaque_rgb_count": 96,
+    "dithering": false,
+    "alpha": "forced opaque for background",
+    "geometry_changed": false
+  },
+  "loss": {
+    "mean_rgb_euclidean_after_resize_against_pre_palette_scaled": {
+      "pixels": 221184,
+      "mean_rgb_euclidean": 9.166494699298632,
+      "p95_rgb_euclidean": 22.759613353482084,
+      "max_rgb_euclidean": 38.34057902536163
+    },
+    "resampling_is_lossy": true,
+    "palette_reduction_is_lossy": true
+  },
+  "limits": [
+    "This is a utility-processed derivative of an illustrated source, not evidence of hand-authored native pixel art or commercial parity.",
+    "Original and copied source are preserved unchanged."
+  ]
+}

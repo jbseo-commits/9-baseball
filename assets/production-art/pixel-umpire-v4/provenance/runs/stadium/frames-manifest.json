@@ -1,0 +1,67 @@
+{
+  "ok": true,
+  "engine": "component-row",
+  "engine_revision": "15971e732787",
+  "extract_args": {
+    "edge_margin": 0
+  },
+  "run_dir": "<ART_WORKSPACE>\\stadium-run",
+  "cell": {
+    "shape": "rect",
+    "width": 384,
+    "height": 576,
+    "safe_margin_x": 0,
+    "safe_margin_y": 0
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "rows": [
+    {
+      "state": "background",
+      "frames": 1,
+      "method": "components",
+      "files": [
+        "frames/background/frame-0.png"
+      ],
+      "frame_records": [
+        {
+          "index": 0,
+          "nontransparent_pixels": 221184,
+          "bbox": [
+            0,
+            0,
+            384,
+            576
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        }
+      ],
+      "ok": true,
+      "engine_revision": "15971e732787",
+      "plain_files": [
+        "frames/background/frame-0.plain.png"
+      ],
+      "orig_files": [
+        "frames/background/orig/frame-0.png"
+      ]
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "background: pitch disagreement — detect 1.00x1.00 (uniformity 117.1) vs runlen 2.49x2.47 (11.9); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+    "background: native logical exceeds the physical cap 384x576 — capped frames (reroll candidates): 0:1024x1536",
+    "palette: rebuilt+pinned (96 colors → palette.lock.json)",
+    "pixel unfake: pitch=1.0 scale=1x logical<=384x576 palette=96"
+  ]
+}
+
+

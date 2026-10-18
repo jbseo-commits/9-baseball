@@ -1,0 +1,187 @@
+{
+  "schema": "single-pose-annotation/v1",
+  "status": "manual native-grid QA; all visible marked points alpha-validated against final curated export",
+  "file": "lowerOccluded-curated/frame-0.png",
+  "imageSize": [
+    256,
+    256
+  ],
+  "coordinateSystem": {
+    "origin": "top-left",
+    "units": "native pixels",
+    "pointConvention": "integer pixel centers"
+  },
+  "bodyBounds": {
+    "inclusive": [
+      70,
+      46,
+      181,
+      239
+    ],
+    "convention": "batter silhouette only, excluding visible bat; torso/back, limbs and shoes included"
+  },
+  "bodyHeightHelmetCrownToSolePx": 193,
+  "landmarks": {
+    "head": {
+      "point": [
+        130,
+        62
+      ],
+      "alpha": 255
+    },
+    "hip": {
+      "point": [
+        125,
+        142
+      ],
+      "alpha": 255
+    },
+    "batTip": {
+      "point": [
+        183,
+        98
+      ],
+      "alpha": 255
+    },
+    "barrelPoint": {
+      "point": [
+        163,
+        96
+      ],
+      "alpha": 255
+    },
+    "rearHeel": {
+      "point": [
+        74,
+        216
+      ],
+      "alpha": 255
+    },
+    "rearToe": {
+      "point": [
+        101,
+        237
+      ],
+      "alpha": 255
+    },
+    "rearGroundContact": {
+      "point": [
+        101,
+        237
+      ],
+      "alpha": 255
+    },
+    "frontHeel": {
+      "point": [
+        150,
+        200
+      ],
+      "alpha": 255
+    },
+    "frontToe": {
+      "point": [
+        159,
+        200
+      ],
+      "alpha": 255
+    },
+    "frontGroundContact": {
+      "point": [
+        156,
+        200
+      ],
+      "alpha": 255
+    }
+  },
+  "grip": {
+    "point": [
+      149,
+      98
+    ],
+    "status": "anatomically inferred, intentionally occluded behind sternum/torso",
+    "alphaValidation": "not applicable; this coordinate is not asserted to be a visible painted pixel",
+    "confidence": "low"
+  },
+  "feet": {
+    "identity": {
+      "rear": "anatomical RIGHT, near lower-left foot",
+      "front": "anatomical LEFT lead foot, far lower-right in this back-facing pose"
+    },
+    "rear": {
+      "handPickedROI": [
+        70,
+        210,
+        110,
+        240
+      ],
+      "soleEndpoints": {
+        "heel": [
+          74,
+          216
+        ],
+        "toe": [
+          101,
+          237
+        ]
+      },
+      "groundContact": {
+        "point": [
+          101,
+          237
+        ],
+        "touchesGround": true,
+        "type": "toe/forefoot sole; raised heel excluded"
+      },
+      "confidence": "medium"
+    },
+    "front": {
+      "handPickedROI": [
+        138,
+        190,
+        184,
+        207
+      ],
+      "soleEndpoints": {
+        "heel": [
+          150,
+          200
+        ],
+        "toe": [
+          159,
+          200
+        ]
+      },
+      "groundContact": {
+        "point": [
+          156,
+          200
+        ],
+        "touchesGround": true,
+        "type": "painted sole strip"
+      },
+      "confidence": "medium"
+    }
+  },
+  "visualRead": "Back-facing batter in an open recovery/rebalance pose. Rear right leg trails diagonally left with the toe/forefoot on the ground; lead left foot remains planted to the right. Both hands and most of the bat handle are obscured by the torso; a short barrel section exits at the right shoulder line.",
+  "qa": {
+    "grid": "qa-grid/lowerOccluded-export-grid3x.png (nearest 3x with 16px native grid)",
+    "shoeCrops": [
+      "qa-grid/lowerOccluded-rear-shoe-zoom.png",
+      "qa-grid/lowerOccluded-front-shoe-zoom.png"
+    ],
+    "validatedPixels": {
+      "head": 255,
+      "hip": 255,
+      "batTip": 255,
+      "barrelPoint": 255,
+      "rearHeel": 255,
+      "rearToe": 255,
+      "rearGroundContact": 255,
+      "frontHeel": 255,
+      "frontToe": 255,
+      "frontGroundContact": 255
+    },
+    "uncertainties": "Grip location is inferred and deliberately has no visibility claim. Bat segment is short; barrel point is medium confidence. Sole ROIs are manually selected; actual contact is separated from heel position."
+  }
+}
+

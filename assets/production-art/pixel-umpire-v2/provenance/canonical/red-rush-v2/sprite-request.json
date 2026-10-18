@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "red-rush-v2",
+    "description": "",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 256,
+    "height": 256,
+    "safe_margin_x": 16,
+    "safe_margin_y": 16,
+    "size": 256,
+    "safe_margin": 16
+  },
+  "chroma_key": {
+    "name": "green",
+    "hex": "#00FF00",
+    "rgb": [
+      0,
+      255,
+      0
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "windup": {
+      "frames": 4,
+      "fps": 8,
+      "loop": false,
+      "action": "Four chronological pitcher preparation poses, viewed from the catcher/home-plate camera: (0) match the supplied set/READY exactly; (1) settle weight over own RIGHT rear support foot, glove and hidden ball together at chest; (2) compact leg lift/gather with own LEFT knee only moderately raised, torso balanced, no extreme high-knee pose; (3) begin a controlled stride toward home plate while keeping the glove on own LEFT and ball in own RIGHT. Keep crown-to-supporting-foot body scale constant."
+    },
+    "drive": {
+      "frames": 4,
+      "fps": 12,
+      "loop": false,
+      "action": "Four chronological right-handed pitcher delivery poses from the same catcher camera: (0) push from own RIGHT rear foot and stride with own LEFT lead leg; (1) hips and torso rotate toward home plate, own RIGHT throwing arm cocks behind the body while own LEFT glove arm guides; (2) RELEASE frame: own RIGHT hand releases one baseball toward home plate, own LEFT glove remains on the left arm; (3) natural follow-through with throwing arm crossing down and rear leg swinging through. Keep anatomy, uniform and crimson ponytail consistent; no second ball, trails or impact effects."
+    },
+    "reset": {
+      "frames": 4,
+      "fps": 8,
+      "loop": false,
+      "action": "Four chronological recovery poses after release, viewed from the same catcher camera: (0) finish follow-through with weight on own LEFT lead foot; (1) regain balance, rear foot returns toward the rubber; (2) lower arms and rejoin own LEFT glove and own RIGHT ball at chest; (3) match the supplied set/READY base exactly. Keep the same face, hair, outfit, body proportions and foot baseline; do not reverse the delivery."
+    }
+  },
+  "style": "The attached accepted Red Rush native64 256x256 base is the sole identity and pixel-cluster truth. Preserve adult identity, crimson ponytail, navy cap and uniform, red trim, ivory shorts, athletic proportions and the same actual pixel palette/material planes. Keep native cluster density and restrained edge treatment. Do not add a thick outline, smooth/painted rendering, dithering, noise, decorative light streaks, extra accessories, face redesign or palette shift. Use true transparent output outside the character.",
+  "body_plan": [
+    {
+      "plan": "biped",
+      "figure": ""
+    }
+  ],
+  "layout": "taxonomy/v1",
+  "fit": {
+    "pixel_unfake": true,
+    "logical_height": 256,
+    "palette_size": 64,
+    "align_x": "foot-centroid",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "detail_bias": false,
+    "outline": false
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}

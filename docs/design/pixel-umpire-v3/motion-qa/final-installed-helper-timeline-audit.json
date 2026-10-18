@@ -1,0 +1,261 @@
+{
+  "kind": "installed-runtime-v3-actual-helper-timeline-audit",
+  "helperSHA256": "65eb3d5f2c021d512af7ea5cee969c82d1f9dcfb05568009f186c11d4d066c6c",
+  "manifestSHA256": "93cdda38173becea332c6c9345dc8e38bf4a37070029b4f335231887de2eafff",
+  "packet": "assets/production-art/pixel-umpire-v3/runtime/manifest.json",
+  "cases": 21408,
+  "timeStepMs": 1,
+  "offsetRangeMs": [
+    -1567,
+    2000
+  ],
+  "actualUniqueIndices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    16,
+    17,
+    18,
+    19,
+    22,
+    23,
+    25,
+    26,
+    28,
+    29,
+    30,
+    31,
+    33,
+    34,
+    35
+  ],
+  "actualUniqueSourceCount": 30,
+  "excludedSourceIndices": [
+    15,
+    20,
+    21,
+    24,
+    27,
+    32
+  ],
+  "preImpactHitWhiffPoseDivergences": 0,
+  "byAction": {
+    "swing": {
+      "hit": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        16,
+        17,
+        18,
+        19,
+        22,
+        23,
+        33,
+        34,
+        35
+      ],
+      "whiff": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        10,
+        11,
+        12,
+        13,
+        14,
+        16,
+        17,
+        18,
+        19,
+        22,
+        23,
+        33,
+        34,
+        35
+      ]
+    },
+    "bunt": {
+      "hit": [
+        0,
+        25,
+        26,
+        28,
+        29,
+        30,
+        31
+      ],
+      "whiff": [
+        0,
+        25,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    "take": {
+      "hit": [
+        0,
+        1
+      ],
+      "whiff": [
+        0,
+        1
+      ]
+    }
+  },
+  "recoveryDurations": {
+    "swing": 1440,
+    "bunt": 1340,
+    "take": 1340
+  },
+  "recoveryGripDeltas": {
+    "feet": [
+      {
+        "from": 19,
+        "to": 33,
+        "registeredGripDelta": [
+          34,
+          -20
+        ],
+        "distanceNativeStorage": 39.446165846632034
+      },
+      {
+        "from": 33,
+        "to": 34,
+        "registeredGripDelta": [
+          5,
+          -8
+        ],
+        "distanceNativeStorage": 9.433981132056603
+      },
+      {
+        "from": 34,
+        "to": 35,
+        "registeredGripDelta": [
+          5,
+          -3
+        ],
+        "distanceNativeStorage": 5.8309518948453
+      },
+      {
+        "from": 35,
+        "to": 22,
+        "registeredGripDelta": [
+          20,
+          25
+        ],
+        "distanceNativeStorage": 32.01562118716424
+      },
+      {
+        "from": 22,
+        "to": 23,
+        "registeredGripDelta": [
+          5,
+          26
+        ],
+        "distanceNativeStorage": 26.476404589747453
+      },
+      {
+        "from": 23,
+        "to": 0,
+        "registeredGripDelta": [
+          -6,
+          0
+        ],
+        "distanceNativeStorage": 6
+      }
+    ],
+    "frontFoot": [
+      {
+        "from": 19,
+        "to": 33,
+        "registeredGripDelta": [
+          37,
+          -22
+        ],
+        "distanceNativeStorage": 43.046486500061775
+      },
+      {
+        "from": 33,
+        "to": 34,
+        "registeredGripDelta": [
+          6,
+          -8
+        ],
+        "distanceNativeStorage": 10
+      },
+      {
+        "from": 34,
+        "to": 35,
+        "registeredGripDelta": [
+          5,
+          -3
+        ],
+        "distanceNativeStorage": 5.8309518948453
+      },
+      {
+        "from": 35,
+        "to": 22,
+        "registeredGripDelta": [
+          21,
+          27
+        ],
+        "distanceNativeStorage": 34.20526275297414
+      },
+      {
+        "from": 22,
+        "to": 23,
+        "registeredGripDelta": [
+          17,
+          28
+        ],
+        "distanceNativeStorage": 32.7566787083184
+      },
+      {
+        "from": 23,
+        "to": 0,
+        "registeredGripDelta": [
+          7,
+          6
+        ],
+        "distanceNativeStorage": 9.219544457292887
+      }
+    ]
+  },
+  "limits": [
+    "This explicitly reads installed runtime patches at the stated SHA.",
+    "Sampler/point checks are not visual motion approval. Source hand annotations have about2storage-px uncertainty.",
+    "Registered grip deltas use actual frame anchors under constant rear or front point; final renderer projection/frontlock can differ."
+  ]
+}

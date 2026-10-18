@@ -1,0 +1,2163 @@
+{
+  "schemaVersion": 1,
+  "sourceSHA256": "3434c9fcf142d579c44ad760b28639c4adb98069f75057729396152e182577b5",
+  "samples": 23028,
+  "actualUniqueSourceIndices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    16,
+    17,
+    18,
+    19,
+    25,
+    26,
+    28,
+    29,
+    30,
+    31,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    48,
+    52
+  ],
+  "actualUniqueSourceCount": 37,
+  "preImpactHitWhiffPoseDivergences": 0,
+  "fixtures": [
+    {
+      "label": "390x844",
+      "nativeCanvas": {
+        "canvasCount": 2,
+        "height": 477,
+        "width": 384
+      },
+      "camera": {
+        "width": 384,
+        "height": 477,
+        "centerX": 211,
+        "plateY": 456,
+        "cameraDepthFt": 60.498687663800006,
+        "cameraHeightFt": 19.869062500000002,
+        "requestedCameraHeightFt": 12,
+        "viewWidthFt": 15.5,
+        "focalPx": 1498.8061976064,
+        "horizonY": -36.24000000000001,
+        "pitcherDepthFt": 60.498687663800006,
+        "pitcherTargetY": 209.88
+      },
+      "sceneScale": 1,
+      "contactTransformsIdentical": true,
+      "contacts": [
+        {
+          "action": "swing",
+          "zone": 0,
+          "point": {
+            "x": 207,
+            "y": 339
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 1,
+          "point": {
+            "x": 209,
+            "y": 339
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 2,
+          "point": {
+            "x": 211,
+            "y": 339
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 3,
+          "point": {
+            "x": 207,
+            "y": 340
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 4,
+          "point": {
+            "x": 209,
+            "y": 340
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 5,
+          "point": {
+            "x": 211,
+            "y": 340
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 6,
+          "point": {
+            "x": 207,
+            "y": 341
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 7,
+          "point": {
+            "x": 209,
+            "y": 341
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 8,
+          "point": {
+            "x": 211,
+            "y": 341
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 9,
+          "point": {
+            "x": 213,
+            "y": 340
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 0,
+          "point": {
+            "x": 210,
+            "y": 342
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 1,
+          "point": {
+            "x": 212,
+            "y": 342
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 2,
+          "point": {
+            "x": 214,
+            "y": 342
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 3,
+          "point": {
+            "x": 210,
+            "y": 343
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 4,
+          "point": {
+            "x": 212,
+            "y": 343
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 5,
+          "point": {
+            "x": 214,
+            "y": 343
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 6,
+          "point": {
+            "x": 210,
+            "y": 344
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 7,
+          "point": {
+            "x": 212,
+            "y": 344
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 8,
+          "point": {
+            "x": 214,
+            "y": 344
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 9,
+          "point": {
+            "x": 216,
+            "y": 343
+          }
+        }
+      ],
+      "minSoleEndpointMarginFt": 0.27330458964292337,
+      "worstSoleEndpoint": {
+        "index": 19,
+        "side": "rear",
+        "p": {
+          "x": 87,
+          "y": 463
+        },
+        "q": {
+          "lateralFt": -4.935028743690411,
+          "depthFt": -0.8482709992119979
+        }
+      },
+      "poses": [
+        {
+          "index": 19,
+          "points": {
+            "grip": {
+              "x": 88,
+              "y": 328
+            },
+            "rear": {
+              "x": 95.5,
+              "y": 463.5
+            },
+            "front": {
+              "x": 150,
+              "y": 433
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 36,
+          "points": {
+            "head": {
+              "x": 133,
+              "y": 319
+            },
+            "hip": {
+              "x": 115,
+              "y": 380
+            },
+            "grip": {
+              "x": 90,
+              "y": 331
+            },
+            "rear": {
+              "x": 110,
+              "y": 462
+            },
+            "front": {
+              "x": 150,
+              "y": 433
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 52,
+          "points": {
+            "head": {
+              "x": 130,
+              "y": 322
+            },
+            "hip": {
+              "x": 126,
+              "y": 386
+            },
+            "grip": {
+              "x": 146,
+              "y": 351
+            },
+            "rear": {
+              "x": 107,
+              "y": 463
+            },
+            "front": {
+              "x": 150,
+              "y": 433
+            }
+          },
+          "gripOccluded": true
+        },
+        {
+          "index": 48,
+          "points": {
+            "head": {
+              "x": 122,
+              "y": 319
+            },
+            "hip": {
+              "x": 122,
+              "y": 389
+            },
+            "grip": {
+              "x": 134,
+              "y": 351
+            },
+            "rear": {
+              "x": 101,
+              "y": 464
+            },
+            "front": {
+              "x": 150,
+              "y": 433
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 37,
+          "points": {
+            "head": {
+              "x": 132,
+              "y": 318
+            },
+            "hip": {
+              "x": 105,
+              "y": 389
+            },
+            "grip": {
+              "x": 147,
+              "y": 357
+            },
+            "rear": {
+              "x": 109,
+              "y": 462
+            },
+            "front": {
+              "x": 150,
+              "y": 433
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 38,
+          "points": {
+            "head": {
+              "x": 132,
+              "y": 317
+            },
+            "hip": {
+              "x": 107,
+              "y": 386
+            },
+            "grip": {
+              "x": 146,
+              "y": 373
+            },
+            "rear": {
+              "x": 113,
+              "y": 461
+            },
+            "front": {
+              "x": 150,
+              "y": 433
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 39,
+          "points": {
+            "head": {
+              "x": 131,
+              "y": 313
+            },
+            "hip": {
+              "x": 112,
+              "y": 379
+            },
+            "grip": {
+              "x": 146,
+              "y": 379
+            },
+            "rear": {
+              "x": 121,
+              "y": 456
+            },
+            "front": {
+              "x": 150,
+              "y": 433
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 40,
+          "points": {
+            "head": {
+              "x": 133,
+              "y": 320
+            },
+            "hip": {
+              "x": 120,
+              "y": 381
+            },
+            "grip": {
+              "x": 143,
+              "y": 386
+            },
+            "rear": {
+              "x": 119,
+              "y": 460
+            },
+            "front": {
+              "x": 150,
+              "y": 433
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 41,
+          "points": {
+            "head": {
+              "x": 131,
+              "y": 321
+            },
+            "hip": {
+              "x": 116,
+              "y": 383
+            },
+            "grip": {
+              "x": 152,
+              "y": 378
+            },
+            "rear": {
+              "x": 118,
+              "y": 463
+            },
+            "front": {
+              "x": 150,
+              "y": 433
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 44,
+          "points": {
+            "head": {
+              "x": 144,
+              "y": 324
+            },
+            "hip": {
+              "x": 113,
+              "y": 384
+            },
+            "grip": {
+              "x": 168,
+              "y": 343
+            },
+            "rear": {
+              "x": 123,
+              "y": 468
+            },
+            "front": {
+              "x": 150,
+              "y": 433
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 45,
+          "points": {
+            "head": {
+              "x": 141,
+              "y": 325
+            },
+            "hip": {
+              "x": 113,
+              "y": 385
+            },
+            "grip": {
+              "x": 169,
+              "y": 350
+            },
+            "rear": {
+              "x": 121,
+              "y": 468
+            },
+            "front": {
+              "x": 150,
+              "y": 433
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 42,
+          "points": {
+            "head": {
+              "x": 136,
+              "y": 319
+            },
+            "hip": {
+              "x": 109,
+              "y": 380
+            },
+            "grip": {
+              "x": 156,
+              "y": 362
+            },
+            "rear": {
+              "x": 116,
+              "y": 461
+            },
+            "front": {
+              "x": 150,
+              "y": 433
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 43,
+          "points": {
+            "head": {
+              "x": 143,
+              "y": 323
+            },
+            "hip": {
+              "x": 111,
+              "y": 384
+            },
+            "grip": {
+              "x": 161,
+              "y": 356
+            },
+            "rear": {
+              "x": 121,
+              "y": 464
+            },
+            "front": {
+              "x": 150,
+              "y": 433
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 0,
+          "points": {
+            "grip": {
+              "x": 163,
+              "y": 348
+            },
+            "rear": {
+              "x": 112,
+              "y": 468
+            },
+            "front": {
+              "x": 150,
+              "y": 433
+            }
+          },
+          "gripOccluded": false
+        }
+      ],
+      "deltas": [
+        {
+          "from": 19,
+          "to": 36,
+          "dist": {
+            "grip": 3.6055512754639896,
+            "rear": 14.57737973711325,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 36,
+          "to": 52,
+          "dist": {
+            "head": 4.242640687119286,
+            "hip": 12.529964086141668,
+            "grip": 59.464274989274024,
+            "rear": 3.1622776601683795,
+            "front": 0
+          },
+          "gripInferred": true
+        },
+        {
+          "from": 52,
+          "to": 48,
+          "dist": {
+            "head": 8.54400374531753,
+            "hip": 5,
+            "grip": 12,
+            "rear": 6.0827625302982185,
+            "front": 0
+          },
+          "gripInferred": true
+        },
+        {
+          "from": 48,
+          "to": 37,
+          "dist": {
+            "head": 10.04987562112089,
+            "hip": 17,
+            "grip": 14.317821063276352,
+            "rear": 8.246211251235321,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 37,
+          "to": 38,
+          "dist": {
+            "head": 1,
+            "hip": 3.6055512754639896,
+            "grip": 16.0312195418814,
+            "rear": 4.123105625617661,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 38,
+          "to": 39,
+          "dist": {
+            "head": 4.123105625617661,
+            "hip": 8.602325267042627,
+            "grip": 6,
+            "rear": 9.433981132056603,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 39,
+          "to": 40,
+          "dist": {
+            "head": 7.280109889280519,
+            "hip": 8.246211251235321,
+            "grip": 7.615773105863909,
+            "rear": 4.47213595499958,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 40,
+          "to": 41,
+          "dist": {
+            "head": 2.23606797749979,
+            "hip": 4.47213595499958,
+            "grip": 12.041594578792296,
+            "rear": 3.1622776601683795,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 41,
+          "to": 44,
+          "dist": {
+            "head": 13.341664064126334,
+            "hip": 3.1622776601683795,
+            "grip": 38.48376280978771,
+            "rear": 7.0710678118654755,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 44,
+          "to": 45,
+          "dist": {
+            "head": 3.1622776601683795,
+            "hip": 1,
+            "grip": 7.0710678118654755,
+            "rear": 2,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 45,
+          "to": 42,
+          "dist": {
+            "head": 7.810249675906656,
+            "hip": 6.4031242374328485,
+            "grip": 17.69180601295413,
+            "rear": 8.602325267042627,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 42,
+          "to": 43,
+          "dist": {
+            "head": 8.06225774829855,
+            "hip": 4.47213595499958,
+            "grip": 7.810249675906656,
+            "rear": 5.8309518948453,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 43,
+          "to": 0,
+          "dist": {
+            "grip": 8.246211251235321,
+            "rear": 9.848857801796104,
+            "front": 0
+          },
+          "gripInferred": false
+        }
+      ]
+    },
+    {
+      "label": "360x640",
+      "nativeCanvas": {
+        "canvasCount": 2,
+        "height": 299,
+        "width": 384
+      },
+      "camera": {
+        "width": 384,
+        "height": 299,
+        "centerX": 211,
+        "plateY": 278,
+        "cameraDepthFt": 60.498687663800006,
+        "cameraHeightFt": 19.87566207627118,
+        "requestedCameraHeightFt": 12,
+        "viewWidthFt": 26.059322033898304,
+        "focalPx": 891.4850521697906,
+        "horizonY": -14.879999999999882,
+        "pitcherDepthFt": 60.498687663800006,
+        "pitcherTargetY": 131.56
+      },
+      "sceneScale": 0.5947967479674797,
+      "contactTransformsIdentical": true,
+      "contacts": [
+        {
+          "action": "swing",
+          "zone": 0,
+          "point": {
+            "x": 209,
+            "y": 208
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 1,
+          "point": {
+            "x": 210,
+            "y": 208
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 2,
+          "point": {
+            "x": 211,
+            "y": 207
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 3,
+          "point": {
+            "x": 209,
+            "y": 208
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 4,
+          "point": {
+            "x": 210,
+            "y": 208
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 5,
+          "point": {
+            "x": 211,
+            "y": 208
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 6,
+          "point": {
+            "x": 209,
+            "y": 209
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 7,
+          "point": {
+            "x": 210,
+            "y": 208
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 8,
+          "point": {
+            "x": 211,
+            "y": 208
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 9,
+          "point": {
+            "x": 212,
+            "y": 208
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 0,
+          "point": {
+            "x": 211,
+            "y": 210
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 1,
+          "point": {
+            "x": 212,
+            "y": 210
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 2,
+          "point": {
+            "x": 213,
+            "y": 209
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 3,
+          "point": {
+            "x": 211,
+            "y": 210
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 4,
+          "point": {
+            "x": 212,
+            "y": 210
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 5,
+          "point": {
+            "x": 213,
+            "y": 210
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 6,
+          "point": {
+            "x": 211,
+            "y": 211
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 7,
+          "point": {
+            "x": 212,
+            "y": 210
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 8,
+          "point": {
+            "x": 213,
+            "y": 210
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 9,
+          "point": {
+            "x": 214,
+            "y": 210
+          }
+        }
+      ],
+      "minSoleEndpointMarginFt": 0.304577312082162,
+      "worstSoleEndpoint": {
+        "index": 19,
+        "side": "rear",
+        "p": {
+          "x": 138,
+          "y": 281
+        },
+        "q": {
+          "lateralFt": -4.903756021251172,
+          "depthFt": -0.6134110551284238
+        }
+      },
+      "poses": [
+        {
+          "index": 19,
+          "points": {
+            "grip": {
+              "x": 138,
+              "y": 201
+            },
+            "rear": {
+              "x": 143,
+              "y": 281.5
+            },
+            "front": {
+              "x": 175,
+              "y": 263
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 36,
+          "points": {
+            "head": {
+              "x": 165,
+              "y": 195
+            },
+            "hip": {
+              "x": 154,
+              "y": 232
+            },
+            "grip": {
+              "x": 139,
+              "y": 202
+            },
+            "rear": {
+              "x": 151,
+              "y": 281
+            },
+            "front": {
+              "x": 175,
+              "y": 263
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 52,
+          "points": {
+            "head": {
+              "x": 163,
+              "y": 197
+            },
+            "hip": {
+              "x": 161,
+              "y": 235
+            },
+            "grip": {
+              "x": 172,
+              "y": 214
+            },
+            "rear": {
+              "x": 149,
+              "y": 281
+            },
+            "front": {
+              "x": 175,
+              "y": 263
+            }
+          },
+          "gripOccluded": true
+        },
+        {
+          "index": 48,
+          "points": {
+            "head": {
+              "x": 158,
+              "y": 195
+            },
+            "hip": {
+              "x": 158,
+              "y": 237
+            },
+            "grip": {
+              "x": 166,
+              "y": 214
+            },
+            "rear": {
+              "x": 146,
+              "y": 281
+            },
+            "front": {
+              "x": 175,
+              "y": 263
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 37,
+          "points": {
+            "head": {
+              "x": 164,
+              "y": 195
+            },
+            "hip": {
+              "x": 148,
+              "y": 237
+            },
+            "grip": {
+              "x": 173,
+              "y": 218
+            },
+            "rear": {
+              "x": 151,
+              "y": 280
+            },
+            "front": {
+              "x": 175,
+              "y": 263
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 38,
+          "points": {
+            "head": {
+              "x": 164,
+              "y": 194
+            },
+            "hip": {
+              "x": 149,
+              "y": 235
+            },
+            "grip": {
+              "x": 173,
+              "y": 227
+            },
+            "rear": {
+              "x": 153,
+              "y": 280
+            },
+            "front": {
+              "x": 175,
+              "y": 263
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 39,
+          "points": {
+            "head": {
+              "x": 164,
+              "y": 192
+            },
+            "hip": {
+              "x": 152,
+              "y": 231
+            },
+            "grip": {
+              "x": 173,
+              "y": 231
+            },
+            "rear": {
+              "x": 158,
+              "y": 277
+            },
+            "front": {
+              "x": 175,
+              "y": 263
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 40,
+          "points": {
+            "head": {
+              "x": 165,
+              "y": 196
+            },
+            "hip": {
+              "x": 157,
+              "y": 232
+            },
+            "grip": {
+              "x": 171,
+              "y": 235
+            },
+            "rear": {
+              "x": 157,
+              "y": 279
+            },
+            "front": {
+              "x": 175,
+              "y": 263
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 41,
+          "points": {
+            "head": {
+              "x": 163,
+              "y": 197
+            },
+            "hip": {
+              "x": 155,
+              "y": 233
+            },
+            "grip": {
+              "x": 176,
+              "y": 230
+            },
+            "rear": {
+              "x": 156,
+              "y": 281
+            },
+            "front": {
+              "x": 175,
+              "y": 263
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 44,
+          "points": {
+            "head": {
+              "x": 171,
+              "y": 198
+            },
+            "hip": {
+              "x": 153,
+              "y": 234
+            },
+            "grip": {
+              "x": 186,
+              "y": 209
+            },
+            "rear": {
+              "x": 159,
+              "y": 284
+            },
+            "front": {
+              "x": 175,
+              "y": 263
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 45,
+          "points": {
+            "head": {
+              "x": 169,
+              "y": 199
+            },
+            "hip": {
+              "x": 153,
+              "y": 235
+            },
+            "grip": {
+              "x": 186,
+              "y": 214
+            },
+            "rear": {
+              "x": 157,
+              "y": 284
+            },
+            "front": {
+              "x": 175,
+              "y": 263
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 42,
+          "points": {
+            "head": {
+              "x": 167,
+              "y": 195
+            },
+            "hip": {
+              "x": 151,
+              "y": 232
+            },
+            "grip": {
+              "x": 179,
+              "y": 221
+            },
+            "rear": {
+              "x": 155,
+              "y": 280
+            },
+            "front": {
+              "x": 175,
+              "y": 263
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 43,
+          "points": {
+            "head": {
+              "x": 171,
+              "y": 198
+            },
+            "hip": {
+              "x": 152,
+              "y": 234
+            },
+            "grip": {
+              "x": 181,
+              "y": 217
+            },
+            "rear": {
+              "x": 158,
+              "y": 281
+            },
+            "front": {
+              "x": 175,
+              "y": 263
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 0,
+          "points": {
+            "grip": {
+              "x": 183,
+              "y": 213
+            },
+            "rear": {
+              "x": 152.5,
+              "y": 283.5
+            },
+            "front": {
+              "x": 175,
+              "y": 263
+            }
+          },
+          "gripOccluded": false
+        }
+      ],
+      "deltas": [
+        {
+          "from": 19,
+          "to": 36,
+          "dist": {
+            "grip": 1.4142135623730951,
+            "rear": 8.0156097709407,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 36,
+          "to": 52,
+          "dist": {
+            "head": 2.8284271247461903,
+            "hip": 7.615773105863909,
+            "grip": 35.11409973215888,
+            "rear": 2,
+            "front": 0
+          },
+          "gripInferred": true
+        },
+        {
+          "from": 52,
+          "to": 48,
+          "dist": {
+            "head": 5.385164807134505,
+            "hip": 3.6055512754639896,
+            "grip": 6,
+            "rear": 3,
+            "front": 0
+          },
+          "gripInferred": true
+        },
+        {
+          "from": 48,
+          "to": 37,
+          "dist": {
+            "head": 6,
+            "hip": 10,
+            "grip": 8.06225774829855,
+            "rear": 5.099019513592785,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 37,
+          "to": 38,
+          "dist": {
+            "head": 1,
+            "hip": 2.23606797749979,
+            "grip": 9,
+            "rear": 2,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 38,
+          "to": 39,
+          "dist": {
+            "head": 2,
+            "hip": 5,
+            "grip": 4,
+            "rear": 5.8309518948453,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 39,
+          "to": 40,
+          "dist": {
+            "head": 4.123105625617661,
+            "hip": 5.099019513592785,
+            "grip": 4.47213595499958,
+            "rear": 2.23606797749979,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 40,
+          "to": 41,
+          "dist": {
+            "head": 2.23606797749979,
+            "hip": 2.23606797749979,
+            "grip": 7.0710678118654755,
+            "rear": 2.23606797749979,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 41,
+          "to": 44,
+          "dist": {
+            "head": 8.06225774829855,
+            "hip": 2.23606797749979,
+            "grip": 23.259406699226012,
+            "rear": 4.242640687119286,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 44,
+          "to": 45,
+          "dist": {
+            "head": 2.23606797749979,
+            "hip": 1,
+            "grip": 5,
+            "rear": 2,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 45,
+          "to": 42,
+          "dist": {
+            "head": 4.47213595499958,
+            "hip": 3.6055512754639896,
+            "grip": 9.899494936611665,
+            "rear": 4.47213595499958,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 42,
+          "to": 43,
+          "dist": {
+            "head": 5,
+            "hip": 2.23606797749979,
+            "grip": 4.47213595499958,
+            "rear": 3.1622776601683795,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 43,
+          "to": 0,
+          "dist": {
+            "grip": 4.47213595499958,
+            "rear": 6.041522986797285,
+            "front": 0
+          },
+          "gripInferred": false
+        }
+      ]
+    },
+    {
+      "label": "pc1280x720",
+      "nativeCanvas": {
+        "canvasCount": 2,
+        "height": 341,
+        "width": 384
+      },
+      "camera": {
+        "width": 384,
+        "height": 341,
+        "centerX": 211,
+        "plateY": 320,
+        "cameraDepthFt": 60.498687663800006,
+        "cameraHeightFt": 19.873406588553937,
+        "requestedCameraHeightFt": 12,
+        "viewWidthFt": 22.450541686292983,
+        "focalPx": 1034.785547160451,
+        "horizonY": -19.91999999999996,
+        "pitcherDepthFt": 60.498687663800006,
+        "pitcherTargetY": 150.04
+      },
+      "sceneScale": 0.6904065040650407,
+      "contactTransformsIdentical": true,
+      "contacts": [
+        {
+          "action": "swing",
+          "zone": 0,
+          "point": {
+            "x": 207,
+            "y": 240
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 1,
+          "point": {
+            "x": 209,
+            "y": 239
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 2,
+          "point": {
+            "x": 211,
+            "y": 239
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 3,
+          "point": {
+            "x": 207,
+            "y": 240
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 4,
+          "point": {
+            "x": 209,
+            "y": 240
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 5,
+          "point": {
+            "x": 211,
+            "y": 240
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 6,
+          "point": {
+            "x": 207,
+            "y": 241
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 7,
+          "point": {
+            "x": 209,
+            "y": 241
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 8,
+          "point": {
+            "x": 211,
+            "y": 240
+          }
+        },
+        {
+          "action": "swing",
+          "zone": 9,
+          "point": {
+            "x": 212,
+            "y": 240
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 0,
+          "point": {
+            "x": 210,
+            "y": 241
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 1,
+          "point": {
+            "x": 212,
+            "y": 240
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 2,
+          "point": {
+            "x": 214,
+            "y": 240
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 3,
+          "point": {
+            "x": 210,
+            "y": 241
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 4,
+          "point": {
+            "x": 212,
+            "y": 241
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 5,
+          "point": {
+            "x": 214,
+            "y": 241
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 6,
+          "point": {
+            "x": 210,
+            "y": 242
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 7,
+          "point": {
+            "x": 212,
+            "y": 242
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 8,
+          "point": {
+            "x": 214,
+            "y": 241
+          }
+        },
+        {
+          "action": "bunt",
+          "zone": 9,
+          "point": {
+            "x": 215,
+            "y": 241
+          }
+        }
+      ],
+      "minSoleEndpointMarginFt": 0.3108511344840794,
+      "worstSoleEndpoint": {
+        "index": 19,
+        "side": "rear",
+        "p": {
+          "x": 126,
+          "y": 325
+        },
+        "q": {
+          "lateralFt": -4.8974821988492545,
+          "depthFt": -0.8769959362141933
+        }
+      },
+      "poses": [
+        {
+          "index": 19,
+          "points": {
+            "grip": {
+              "x": 126,
+              "y": 232
+            },
+            "rear": {
+              "x": 132,
+              "y": 325.5
+            },
+            "front": {
+              "x": 169,
+              "y": 304
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 36,
+          "points": {
+            "head": {
+              "x": 158,
+              "y": 225
+            },
+            "hip": {
+              "x": 145,
+              "y": 268
+            },
+            "grip": {
+              "x": 127,
+              "y": 234
+            },
+            "rear": {
+              "x": 141,
+              "y": 324
+            },
+            "front": {
+              "x": 169,
+              "y": 304
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 52,
+          "points": {
+            "head": {
+              "x": 155,
+              "y": 227
+            },
+            "hip": {
+              "x": 153,
+              "y": 272
+            },
+            "grip": {
+              "x": 166,
+              "y": 247
+            },
+            "rear": {
+              "x": 139,
+              "y": 325
+            },
+            "front": {
+              "x": 169,
+              "y": 304
+            }
+          },
+          "gripOccluded": true
+        },
+        {
+          "index": 48,
+          "points": {
+            "head": {
+              "x": 150,
+              "y": 225
+            },
+            "hip": {
+              "x": 150,
+              "y": 273
+            },
+            "grip": {
+              "x": 158,
+              "y": 247
+            },
+            "rear": {
+              "x": 135,
+              "y": 325
+            },
+            "front": {
+              "x": 169,
+              "y": 304
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 37,
+          "points": {
+            "head": {
+              "x": 156,
+              "y": 225
+            },
+            "hip": {
+              "x": 138,
+              "y": 274
+            },
+            "grip": {
+              "x": 167,
+              "y": 252
+            },
+            "rear": {
+              "x": 141,
+              "y": 324
+            },
+            "front": {
+              "x": 169,
+              "y": 304
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 38,
+          "points": {
+            "head": {
+              "x": 156,
+              "y": 224
+            },
+            "hip": {
+              "x": 139,
+              "y": 271
+            },
+            "grip": {
+              "x": 166,
+              "y": 262
+            },
+            "rear": {
+              "x": 144,
+              "y": 323
+            },
+            "front": {
+              "x": 169,
+              "y": 304
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 39,
+          "points": {
+            "head": {
+              "x": 156,
+              "y": 221
+            },
+            "hip": {
+              "x": 143,
+              "y": 267
+            },
+            "grip": {
+              "x": 166,
+              "y": 266
+            },
+            "rear": {
+              "x": 149,
+              "y": 320
+            },
+            "front": {
+              "x": 169,
+              "y": 304
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 40,
+          "points": {
+            "head": {
+              "x": 158,
+              "y": 226
+            },
+            "hip": {
+              "x": 148,
+              "y": 268
+            },
+            "grip": {
+              "x": 164,
+              "y": 272
+            },
+            "rear": {
+              "x": 148,
+              "y": 323
+            },
+            "front": {
+              "x": 169,
+              "y": 304
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 41,
+          "points": {
+            "head": {
+              "x": 156,
+              "y": 227
+            },
+            "hip": {
+              "x": 146,
+              "y": 270
+            },
+            "grip": {
+              "x": 170,
+              "y": 266
+            },
+            "rear": {
+              "x": 147,
+              "y": 325
+            },
+            "front": {
+              "x": 169,
+              "y": 304
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 44,
+          "points": {
+            "head": {
+              "x": 165,
+              "y": 229
+            },
+            "hip": {
+              "x": 144,
+              "y": 270
+            },
+            "grip": {
+              "x": 182,
+              "y": 242
+            },
+            "rear": {
+              "x": 150,
+              "y": 328
+            },
+            "front": {
+              "x": 169,
+              "y": 304
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 45,
+          "points": {
+            "head": {
+              "x": 163,
+              "y": 229
+            },
+            "hip": {
+              "x": 144,
+              "y": 271
+            },
+            "grip": {
+              "x": 182,
+              "y": 247
+            },
+            "rear": {
+              "x": 149,
+              "y": 328
+            },
+            "front": {
+              "x": 169,
+              "y": 304
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 42,
+          "points": {
+            "head": {
+              "x": 159,
+              "y": 225
+            },
+            "hip": {
+              "x": 141,
+              "y": 268
+            },
+            "grip": {
+              "x": 173,
+              "y": 255
+            },
+            "rear": {
+              "x": 145,
+              "y": 323
+            },
+            "front": {
+              "x": 169,
+              "y": 304
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 43,
+          "points": {
+            "head": {
+              "x": 164,
+              "y": 228
+            },
+            "hip": {
+              "x": 142,
+              "y": 270
+            },
+            "grip": {
+              "x": 177,
+              "y": 251
+            },
+            "rear": {
+              "x": 149,
+              "y": 325
+            },
+            "front": {
+              "x": 169,
+              "y": 304
+            }
+          },
+          "gripOccluded": false
+        },
+        {
+          "index": 0,
+          "points": {
+            "grip": {
+              "x": 178,
+              "y": 245
+            },
+            "rear": {
+              "x": 143,
+              "y": 328
+            },
+            "front": {
+              "x": 169,
+              "y": 304
+            }
+          },
+          "gripOccluded": false
+        }
+      ],
+      "deltas": [
+        {
+          "from": 19,
+          "to": 36,
+          "dist": {
+            "grip": 2.23606797749979,
+            "rear": 9.124143795447328,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 36,
+          "to": 52,
+          "dist": {
+            "head": 3.6055512754639896,
+            "hip": 8.94427190999916,
+            "grip": 41.10960958218893,
+            "rear": 2.23606797749979,
+            "front": 0
+          },
+          "gripInferred": true
+        },
+        {
+          "from": 52,
+          "to": 48,
+          "dist": {
+            "head": 5.385164807134505,
+            "hip": 3.1622776601683795,
+            "grip": 8,
+            "rear": 4,
+            "front": 0
+          },
+          "gripInferred": true
+        },
+        {
+          "from": 48,
+          "to": 37,
+          "dist": {
+            "head": 6,
+            "hip": 12.041594578792294,
+            "grip": 10.295630140987,
+            "rear": 6.0827625302982185,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 37,
+          "to": 38,
+          "dist": {
+            "head": 1,
+            "hip": 3.1622776601683795,
+            "grip": 10.04987562112089,
+            "rear": 3.1622776601683795,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 38,
+          "to": 39,
+          "dist": {
+            "head": 3,
+            "hip": 5.656854249492381,
+            "grip": 4,
+            "rear": 5.8309518948453,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 39,
+          "to": 40,
+          "dist": {
+            "head": 5.385164807134505,
+            "hip": 5.099019513592785,
+            "grip": 6.324555320336759,
+            "rear": 3.1622776601683795,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 40,
+          "to": 41,
+          "dist": {
+            "head": 2.23606797749979,
+            "hip": 2.8284271247461903,
+            "grip": 8.485281374238571,
+            "rear": 2.23606797749979,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 41,
+          "to": 44,
+          "dist": {
+            "head": 9.219544457292889,
+            "hip": 2,
+            "grip": 26.832815729997478,
+            "rear": 4.242640687119286,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 44,
+          "to": 45,
+          "dist": {
+            "head": 2,
+            "hip": 1,
+            "grip": 5,
+            "rear": 1,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 45,
+          "to": 42,
+          "dist": {
+            "head": 5.656854249492381,
+            "hip": 4.242640687119286,
+            "grip": 12.041594578792296,
+            "rear": 6.4031242374328485,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 42,
+          "to": 43,
+          "dist": {
+            "head": 5.8309518948453,
+            "hip": 2.23606797749979,
+            "grip": 5.656854249492381,
+            "rear": 4.47213595499958,
+            "front": 0
+          },
+          "gripInferred": false
+        },
+        {
+          "from": 43,
+          "to": 0,
+          "dist": {
+            "grip": 6.0827625302982185,
+            "rear": 6.708203932499369,
+            "front": 0
+          },
+          "gripInferred": false
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Technical projected-coordinate comparison is not motion or art quality approval.",
+    "Occluded grip is anatomically inferred; visible contact anchors8/26 remain exact V3.",
+    "No dense collision rerun is claimed: unchanged source0..35 RGBA and equal contact transforms preserve the prior V3 small-screen precontact residuals, which are documented, not zero.",
+    "Groundline endpoints are manual; far shoe may be foreshortened/occluded."
+  ]
+}

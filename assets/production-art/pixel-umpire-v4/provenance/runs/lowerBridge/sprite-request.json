@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "batter-v4-lowerBridge",
+    "description": "",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 256,
+    "height": 256,
+    "safe_margin_x": 16,
+    "safe_margin_y": 16,
+    "size": 256,
+    "safe_margin": 16
+  },
+  "chroma_key": {
+    "name": "cyan",
+    "hex": "#00FFFF",
+    "rgb": [
+      0,
+      255,
+      255
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "lowerBridge": {
+      "frames": 4,
+      "fps": 12,
+      "loop": false,
+      "action": "Exactly four INTERVENING whole-body drawings between the supplied high-hand FINISH and the supplied mid-chest lowering endpoint. Do NOT repeat either endpoint. Divide the hand travel evenly:20%,40%,60%,80% of the way. The same two-hand grip descends beside the left shoulder then toward the sternum in a smooth arc; elbows unfold while pelvis and chest unwind, rear heel begins its single gravity-led descent. Do not jump directly to the mid-chest pose in the first drawing. One straight bat follows the connected hands, lowering forward outside the body without passing above the helmet. Lead-left sole stays planted. Near anatomicalRIGHT rear shoe is LOWER-LEFT and far anatomicalLEFT lead shoe UPPER-RIGHT. Preserve adult rear-umpire camera, head/body scale and two-foot depth."
+    }
+  },
+  "style": "Match the existing clean128logical-pixel native sprite, enlarged2x into256storage. Strong readable clusters: warm ivory lit planes from upper-right stadium lights, cool slate-blue shadows on left/down planes, navy silhouette. At least3 value groups, no stippling, no new fine cloth texture. Existing base anatomy, camera and identity remain fixed; body crown-to-cleat about192storage pixels. Each frame is a physical continuation with full body mechanics, not crossfade or abstract deformation.",
+  "body_plan": [
+    {
+      "plan": "biped",
+      "figure": ""
+    }
+  ],
+  "layout": "taxonomy/v1",
+  "fit": {
+    "pixel_unfake": true,
+    "logical_height": 128,
+    "palette_size": 96,
+    "align_x": "bbox-center",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "detail_bias": false,
+    "outline": false
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}
+
+

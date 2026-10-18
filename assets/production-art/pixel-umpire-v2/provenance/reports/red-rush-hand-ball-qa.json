@@ -1,0 +1,49 @@
+{
+  "kind": "manual-visual-landmark-qa",
+  "coordinates": "256x256 canonical cell pixel coordinates, origin top-left; estimates from 3x nearest-neighbor grid review, +/-2px",
+  "drive_release": {
+    "state": "drive",
+    "frame_index_in_state": 2,
+    "atlas_index": 6,
+    "own_right_throwing_hand": {
+      "visible_hand_bbox_approx": [
+        61,
+        70,
+        100,
+        99
+      ],
+      "fingertip_anchor_approx": [
+        69,
+        72
+      ],
+      "note": "Open right hand is extended toward screen-left; index-tip point selected from final curated cell and verified alpha 255. Approximate ROI manually tagged, not automated tracking.",
+      "fingertip_anchor_alpha": 255,
+      "previous_estimate_transparent": [
+        62,
+        77
+      ],
+      "other_outer_fingertip_cell_px": [
+        62,
+        85
+      ]
+    },
+    "ball_check": {
+      "drive0": "one baseball visible in own-right hand",
+      "drive1": "one baseball visible in own-right hand above shoulder",
+      "drive2": "no baseball visible; hand open after release",
+      "drive3": "no baseball visible; follow-through"
+    },
+    "glove_check": "own LEFT glove arm connects from screen-right shoulder across the chest toward the screen-left glove; do not mirror."
+  },
+  "ready_idle": {
+    "canonical": "windup frame 0 / atlas index 0",
+    "ball": "no separate baseball visibly protrudes in the closed set position",
+    "reset_frame3": "similar upright set, but use canonical windup[0] at loop boundary to avoid pose pop."
+  },
+  "raw_source_sha256": {
+    "windup": "32ff6d8a080dd55d2f1e981da68a6e3ebdb6b3df33c963720dad17dc647f13be",
+    "drive": "fc5394c7329d5817112dc03467fa8e3463f2170e0308f394015601e06234707e",
+    "reset": "4020b496d2b2a90d6fdc9e56d5a3c4f78bba81b0f8a8ce648261879e825ae26a"
+  },
+  "rejected_raw_plate_used": false
+}

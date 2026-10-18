@@ -1,0 +1,125 @@
+{
+  "provider": "built-in image_gen",
+  "mode": "built-in; no CLI or billed API fallback",
+  "notes": [
+    "Raw media are generated sources, not hand-authored native pixel grids.",
+    "Native cell fitting, palette reduction, hard-alpha curation are separately recorded lossy operations.",
+    "Selected runtime endpoints may reuse inspected READY; unused failed poses are not counted as active motion."
+  ],
+  "entries": [
+    {
+      "name": "ready-v5",
+      "prompt": "ready-v5.txt",
+      "source": "exec-93591a6b-ad77-4eae-9413-d0ac77126418.png",
+      "status": "superseded"
+    },
+    {
+      "name": "ready-v6",
+      "prompt": "ready-v6.txt",
+      "source": "exec-e3e95d87-0ec9-493e-a058-82bf1e6843c6.png",
+      "status": "selected-base-source"
+    },
+    {
+      "name": "stadium-v2",
+      "prompt": "stadium-v2.txt",
+      "source": "exec-52a0f4fd-b88c-4a72-90d1-de832407e4ff.png",
+      "status": "selected-background-source"
+    },
+    {
+      "name": "red-rush-base-v2",
+      "prompt": "red-rush-base-v2.txt",
+      "source": "exec-2c3285f4-040f-4d21-9682-b4e7ad6e0c18.png",
+      "status": "selected-base-source"
+    },
+    {
+      "name": "batter-windup-v1",
+      "prompt": "batter-windup-v1.txt",
+      "source": "exec-cbc90a26-ff56-498d-a5c0-50c88741c773.png",
+      "status": "rejected-high-knee"
+    },
+    {
+      "name": "batter-windup-v2",
+      "prompt": "batter-windup-v2.txt",
+      "source": "exec-c0e033ec-8350-4fcf-9951-3f2b99a067df.png",
+      "status": "rejected-flat-foot-depth"
+    },
+    {
+      "name": "batter-windup-v3",
+      "prompt": "batter-windup-v3.txt",
+      "source": "exec-a15affd5-a93a-467f-a9de-e1659982862d.png",
+      "status": "selected-row"
+    },
+    {
+      "name": "batter-swing-v1",
+      "prompt": "batter-swing-v1.txt",
+      "source": "exec-ce20d313-7364-4336-a27e-422bb1cb4ba9.png",
+      "status": "rejected-finish-in-extension-slot"
+    },
+    {
+      "name": "batter-swing-v2",
+      "prompt": "batter-swing-v2.txt",
+      "source": "exec-ba7b6f02-03ff-4a97-a97f-fda20156c50e.png",
+      "status": "rejected-clipped-bat-cap"
+    },
+    {
+      "name": "batter-swing-v3",
+      "prompt": "batter-swing-v3.txt",
+      "source": "exec-08a65071-cde2-4268-8506-e4dfd4647760.png",
+      "status": "selected-row"
+    },
+    {
+      "name": "batter-follow-v1",
+      "prompt": "batter-follow-v1.txt",
+      "source": "exec-98958c35-85cf-4582-889b-38fd70a3c9ac.png",
+      "status": "selected-row"
+    },
+    {
+      "name": "batter-reset-v1",
+      "prompt": "batter-reset-v1.txt",
+      "source": "exec-92ef6cec-a75a-43de-aa17-dcb7af9948af.png",
+      "status": "rejected-replayed-rise"
+    },
+    {
+      "name": "batter-reset-v2",
+      "prompt": "batter-reset-v2.txt",
+      "source": "exec-6f8387c5-a31c-49e3-a589-82f3d2796448.png",
+      "status": "selected-frames-0-1-only"
+    },
+    {
+      "name": "batter-reset-v3",
+      "prompt": "batter-reset-v3.txt",
+      "source": "exec-c1b7c4e1-2af5-48c7-85a8-c45b5d3b11f5.png",
+      "status": "rejected-raised-heel-in-ready"
+    },
+    {
+      "name": "batter-bunt-v1",
+      "prompt": "batter-bunt-v1.txt",
+      "source": "exec-394406ab-4d93-4b84-a498-9dfb2171b701.png",
+      "status": "rejected-flat-foot-depth"
+    },
+    {
+      "name": "batter-bunt-v2",
+      "prompt": "batter-bunt-v2.txt",
+      "source": "exec-c183a3f3-2c2e-4110-a866-92c613969c50.png",
+      "status": "selected-row"
+    },
+    {
+      "name": "pitcher-windup-v1",
+      "prompt": "pitcher-windup-v1.txt",
+      "source": "exec-d730b678-6df8-4c28-95d9-9df3601a7508.png",
+      "status": "selected-row"
+    },
+    {
+      "name": "pitcher-drive-v1",
+      "prompt": "pitcher-drive-v1.txt",
+      "source": "exec-4b9899ab-4955-4c7d-8bcf-f16f4d549c03.png",
+      "status": "selected-row"
+    },
+    {
+      "name": "pitcher-reset-v1",
+      "prompt": "pitcher-reset-v1.txt",
+      "source": "exec-3d27ecef-63b2-44af-8edd-80b60f7ba3a5.png",
+      "status": "selected-row"
+    }
+  ]
+}

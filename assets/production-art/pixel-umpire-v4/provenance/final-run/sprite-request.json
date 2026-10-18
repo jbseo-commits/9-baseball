@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": ".final-run.sg-staging",
+    "description": "imported PNG set from <ART_WORKSPACE>\\atlas-input\\00_windup"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 256,
+    "height": 256,
+    "size": 256,
+    "safe_margin": 0
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ]
+  },
+  "states": {
+    "00_windup": {
+      "frames": 4,
+      "fps": 2,
+      "loop": false,
+      "action": "imported still set"
+    },
+    "01_swingA": {
+      "frames": 4,
+      "fps": 2,
+      "loop": false,
+      "action": "imported still set"
+    },
+    "02_swingB": {
+      "frames": 4,
+      "fps": 2,
+      "loop": false,
+      "action": "imported still set"
+    },
+    "03_followA": {
+      "frames": 4,
+      "fps": 2,
+      "loop": false,
+      "action": "imported still set"
+    },
+    "04_followB": {
+      "frames": 4,
+      "fps": 2,
+      "loop": false,
+      "action": "imported still set"
+    },
+    "05_resetCompact": {
+      "frames": 4,
+      "fps": 2,
+      "loop": false,
+      "action": "imported still set"
+    },
+    "06_bunt": {
+      "frames": 4,
+      "fps": 2,
+      "loop": false,
+      "action": "imported still set"
+    },
+    "07_buntReset": {
+      "frames": 4,
+      "fps": 2,
+      "loop": false,
+      "action": "imported still set"
+    },
+    "08_resetLift": {
+      "frames": 4,
+      "fps": 2,
+      "loop": false,
+      "action": "imported still set"
+    },
+    "09_unwind": {
+      "frames": 4,
+      "fps": 2,
+      "loop": false,
+      "action": "imported still set"
+    },
+    "10_regather": {
+      "frames": 4,
+      "fps": 2,
+      "loop": false,
+      "action": "imported still set"
+    },
+    "11_liftBridge": {
+      "frames": 2,
+      "fps": 2,
+      "loop": false,
+      "action": "imported still set"
+    },
+    "12_upperChest": {
+      "frames": 1,
+      "fps": 2,
+      "loop": false,
+      "action": "imported still set"
+    },
+    "13_occluded": {
+      "frames": 1,
+      "fps": 2,
+      "loop": false,
+      "action": "imported still set"
+    }
+  }
+}
+
+

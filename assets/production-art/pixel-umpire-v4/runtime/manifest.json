@@ -1,0 +1,6560 @@
+{
+  "schemaVersion": 1,
+  "cell": {
+    "width": 256,
+    "height": 256,
+    "scale": 2
+  },
+  "stadium": {
+    "file": "stadium.png",
+    "width": 384,
+    "height": 576,
+    "fieldLineY": 229
+  },
+  "atlases": {
+    "batter": {
+      "file": "batter-atlas.png",
+      "columns": 4,
+      "rows": 14,
+      "poseOrder": "v4",
+      "cell": {
+        "width": 256,
+        "height": 256,
+        "scale": 1
+      },
+      "pixelGridScale": 2,
+      "logicalHeight": 128,
+      "paletteSize": 96,
+      "canonicalReady": 0,
+      "states": {
+        "windup": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "swingA": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "swingB": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "followA": [
+          12,
+          13,
+          14,
+          15
+        ],
+        "followB": [
+          16,
+          17,
+          18,
+          19
+        ],
+        "resetCompact": [
+          20,
+          21,
+          22,
+          23
+        ],
+        "bunt": [
+          24,
+          25,
+          26,
+          27
+        ],
+        "buntReset": [
+          28,
+          29,
+          30,
+          31
+        ],
+        "resetLift": [
+          32,
+          33,
+          34,
+          35
+        ],
+        "swing": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "follow": [
+          12,
+          13,
+          14,
+          16,
+          17,
+          18,
+          19
+        ],
+        "reset": [
+          36,
+          52,
+          48,
+          37,
+          38,
+          39,
+          40,
+          41,
+          44,
+          45,
+          42,
+          43,
+          0
+        ],
+        "unwind": [
+          36,
+          37,
+          38,
+          39
+        ],
+        "regather": [
+          40,
+          41,
+          42,
+          43
+        ],
+        "liftBridge": [
+          44,
+          45
+        ],
+        "upperChest": [
+          48
+        ],
+        "occluded": [
+          52
+        ]
+      },
+      "frames": [
+        {
+          "source": "windup0",
+          "sourceFile": "curated/windup-frame-0.png",
+          "bounds": {
+            "x": 0.3046875,
+            "y": 0.1875,
+            "width": 0.3671875,
+            "height": 0.75
+          },
+          "bodyBounds": {
+            "x": 0.3046875,
+            "y": 0.1875,
+            "width": 0.3671875,
+            "height": 0.75
+          },
+          "contentBounds": {
+            "x": 0.3046875,
+            "y": 0.0703125,
+            "width": 0.3671875,
+            "height": 0.8671875
+          },
+          "anchors": {
+            "feet": [
+              0.4375,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.6015625,
+              0.74609375
+            ],
+            "grip": [
+              0.63671875,
+              0.34375
+            ],
+            "barrel": [
+              0.4375,
+              0.12109375
+            ],
+            "batTip": [
+              0.40625,
+              0.078125
+            ],
+            "batAxis": [
+              -59,
+              -68
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                78,
+                235,
+                120,
+                240
+              ],
+              "endpointsPixels": [
+                [
+                  80,
+                  235
+                ],
+                [
+                  119,
+                  237
+                ]
+              ],
+              "roi": {
+                "x": 0.3046875,
+                "y": 0.91796875,
+                "width": 0.1640625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.3125,
+                  0.91796875
+                ],
+                [
+                  0.46484375,
+                  0.92578125
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                134,
+                193,
+                160,
+                198
+              ],
+              "endpointsPixels": [
+                [
+                  134,
+                  193
+                ],
+                [
+                  159,
+                  193
+                ]
+              ],
+              "roi": {
+                "x": 0.5234375,
+                "y": 0.75390625,
+                "width": 0.1015625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.5234375,
+                  0.75390625
+                ],
+                [
+                  0.62109375,
+                  0.75390625
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1,
+          "grounding": {
+            "support": "front",
+            "targetFrame": 3,
+            "targetSupport": "front"
+          }
+        },
+        {
+          "source": "windup1",
+          "sourceFile": "curated/windup-frame-1.png",
+          "bounds": {
+            "x": 0.3046875,
+            "y": 0.1875,
+            "width": 0.34375,
+            "height": 0.75
+          },
+          "bodyBounds": {
+            "x": 0.3046875,
+            "y": 0.1875,
+            "width": 0.34375,
+            "height": 0.75
+          },
+          "contentBounds": {
+            "x": 0.3046875,
+            "y": 0.0703125,
+            "width": 0.34375,
+            "height": 0.8671875
+          },
+          "anchors": {
+            "feet": [
+              0.42578125,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.609375,
+              0.76171875
+            ],
+            "grip": [
+              0.61328125,
+              0.359375
+            ],
+            "barrel": [
+              0.44140625,
+              0.12109375
+            ],
+            "batTip": [
+              0.41015625,
+              0.078125
+            ],
+            "batAxis": [
+              -52,
+              -72
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                78,
+                235,
+                122,
+                240
+              ],
+              "endpointsPixels": [
+                [
+                  80,
+                  235
+                ],
+                [
+                  119,
+                  237
+                ]
+              ],
+              "roi": {
+                "x": 0.3046875,
+                "y": 0.91796875,
+                "width": 0.171875,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.3125,
+                  0.91796875
+                ],
+                [
+                  0.46484375,
+                  0.92578125
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                136,
+                193,
+                162,
+                198
+              ],
+              "endpointsPixels": [
+                [
+                  136,
+                  197
+                ],
+                [
+                  161,
+                  193
+                ]
+              ],
+              "roi": {
+                "x": 0.53125,
+                "y": 0.75390625,
+                "width": 0.1015625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.53125,
+                  0.76953125
+                ],
+                [
+                  0.62890625,
+                  0.75390625
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1
+        },
+        {
+          "source": "windup2",
+          "sourceFile": "curated/windup-frame-2.png",
+          "bounds": {
+            "x": 0.3046875,
+            "y": 0.1875,
+            "width": 0.390625,
+            "height": 0.75
+          },
+          "bodyBounds": {
+            "x": 0.3046875,
+            "y": 0.1875,
+            "width": 0.390625,
+            "height": 0.75
+          },
+          "contentBounds": {
+            "x": 0.3046875,
+            "y": 0.0703125,
+            "width": 0.390625,
+            "height": 0.8671875
+          },
+          "anchors": {
+            "feet": [
+              0.4375,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.671875,
+              0.73828125
+            ],
+            "grip": [
+              0.62890625,
+              0.34375
+            ],
+            "barrel": [
+              0.44140625,
+              0.1171875
+            ],
+            "batTip": [
+              0.41015625,
+              0.078125
+            ],
+            "batAxis": [
+              -56,
+              -68
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": false
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                78,
+                235,
+                122,
+                240
+              ],
+              "endpointsPixels": [
+                [
+                  84,
+                  235
+                ],
+                [
+                  121,
+                  235
+                ]
+              ],
+              "roi": {
+                "x": 0.3046875,
+                "y": 0.91796875,
+                "width": 0.171875,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.328125,
+                  0.91796875
+                ],
+                [
+                  0.47265625,
+                  0.91796875
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                148,
+                189,
+                178,
+                194
+              ],
+              "endpointsPixels": [
+                [
+                  148,
+                  191
+                ],
+                [
+                  177,
+                  189
+                ]
+              ],
+              "roi": {
+                "x": 0.578125,
+                "y": 0.73828125,
+                "width": 0.1171875,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.578125,
+                  0.74609375
+                ],
+                [
+                  0.69140625,
+                  0.73828125
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1
+        },
+        {
+          "source": "windup3",
+          "sourceFile": "curated/windup-frame-3.png",
+          "bounds": {
+            "x": 0.3046875,
+            "y": 0.1875,
+            "width": 0.3671875,
+            "height": 0.75
+          },
+          "bodyBounds": {
+            "x": 0.3046875,
+            "y": 0.1875,
+            "width": 0.3671875,
+            "height": 0.75
+          },
+          "contentBounds": {
+            "x": 0.3046875,
+            "y": 0.0703125,
+            "width": 0.3671875,
+            "height": 0.8671875
+          },
+          "anchors": {
+            "feet": [
+              0.43359375,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.62109375,
+              0.75390625
+            ],
+            "grip": [
+              0.62890625,
+              0.3359375
+            ],
+            "barrel": [
+              0.40625,
+              0.109375
+            ],
+            "batTip": [
+              0.37109375,
+              0.078125
+            ],
+            "batAxis": [
+              -66,
+              -66
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                78,
+                235,
+                122,
+                240
+              ],
+              "endpointsPixels": [
+                [
+                  84,
+                  235
+                ],
+                [
+                  121,
+                  235
+                ]
+              ],
+              "roi": {
+                "x": 0.3046875,
+                "y": 0.91796875,
+                "width": 0.171875,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.328125,
+                  0.91796875
+                ],
+                [
+                  0.47265625,
+                  0.91796875
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                138,
+                193,
+                166,
+                198
+              ],
+              "endpointsPixels": [
+                [
+                  138,
+                  195
+                ],
+                [
+                  163,
+                  193
+                ]
+              ],
+              "roi": {
+                "x": 0.5390625,
+                "y": 0.75390625,
+                "width": 0.109375,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.5390625,
+                  0.76171875
+                ],
+                [
+                  0.63671875,
+                  0.75390625
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1
+        },
+        {
+          "source": "swingA0",
+          "sourceFile": "curated/swingA-frame-0.png",
+          "bounds": {
+            "x": 0.265625,
+            "y": 0.1875,
+            "width": 0.3515625,
+            "height": 0.75
+          },
+          "bodyBounds": {
+            "x": 0.265625,
+            "y": 0.1875,
+            "width": 0.3515625,
+            "height": 0.75
+          },
+          "contentBounds": {
+            "x": 0.265625,
+            "y": 0.0703125,
+            "width": 0.3515625,
+            "height": 0.8671875
+          },
+          "anchors": {
+            "feet": [
+              0.40625,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.5703125,
+              0.73828125
+            ],
+            "grip": [
+              0.578125,
+              0.3359375
+            ],
+            "barrel": [
+              0.390625,
+              0.1171875
+            ],
+            "batTip": [
+              0.359375,
+              0.078125
+            ],
+            "batAxis": [
+              -56,
+              -66
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                68,
+                235,
+                112,
+                240
+              ],
+              "endpointsPixels": [
+                [
+                  88,
+                  235
+                ],
+                [
+                  111,
+                  235
+                ]
+              ],
+              "roi": {
+                "x": 0.265625,
+                "y": 0.91796875,
+                "width": 0.171875,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.34375,
+                  0.91796875
+                ],
+                [
+                  0.43359375,
+                  0.91796875
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                126,
+                189,
+                152,
+                194
+              ],
+              "endpointsPixels": [
+                [
+                  126,
+                  191
+                ],
+                [
+                  149,
+                  189
+                ]
+              ],
+              "roi": {
+                "x": 0.4921875,
+                "y": 0.73828125,
+                "width": 0.1015625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.4921875,
+                  0.74609375
+                ],
+                [
+                  0.58203125,
+                  0.73828125
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1
+        },
+        {
+          "source": "swingA1",
+          "sourceFile": "curated/swingA-frame-1.png",
+          "bounds": {
+            "x": 0.2734375,
+            "y": 0.1796875,
+            "width": 0.34375,
+            "height": 0.7578125
+          },
+          "bodyBounds": {
+            "x": 0.2734375,
+            "y": 0.1796875,
+            "width": 0.34375,
+            "height": 0.7578125
+          },
+          "contentBounds": {
+            "x": 0.2734375,
+            "y": 0.171875,
+            "width": 0.34375,
+            "height": 0.765625
+          },
+          "anchors": {
+            "feet": [
+              0.4140625,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.58984375,
+              0.73828125
+            ],
+            "grip": [
+              0.578125,
+              0.3671875
+            ],
+            "barrel": [
+              0.59765625,
+              0.3203125
+            ],
+            "batTip": [
+              0.6015625,
+              0.2890625
+            ],
+            "batAxis": [
+              6,
+              -20
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                70,
+                235,
+                114,
+                240
+              ],
+              "endpointsPixels": [
+                [
+                  90,
+                  235
+                ],
+                [
+                  113,
+                  235
+                ]
+              ],
+              "roi": {
+                "x": 0.2734375,
+                "y": 0.91796875,
+                "width": 0.171875,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.3515625,
+                  0.91796875
+                ],
+                [
+                  0.44140625,
+                  0.91796875
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                130,
+                189,
+                156,
+                194
+              ],
+              "endpointsPixels": [
+                [
+                  130,
+                  191
+                ],
+                [
+                  155,
+                  189
+                ]
+              ],
+              "roi": {
+                "x": 0.5078125,
+                "y": 0.73828125,
+                "width": 0.1015625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.5078125,
+                  0.74609375
+                ],
+                [
+                  0.60546875,
+                  0.73828125
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1,
+          "anchorNotes": "Strongly foreshortened wood; barrel placed 8 px inboard because projected exposed length is short."
+        },
+        {
+          "source": "swingA2",
+          "sourceFile": "curated/swingA-frame-2.png",
+          "bounds": {
+            "x": 0.234375,
+            "y": 0.1796875,
+            "width": 0.3984375,
+            "height": 0.7578125
+          },
+          "bodyBounds": {
+            "x": 0.234375,
+            "y": 0.1796875,
+            "width": 0.3984375,
+            "height": 0.7578125
+          },
+          "contentBounds": {
+            "x": 0.234375,
+            "y": 0.171875,
+            "width": 0.515625,
+            "height": 0.765625
+          },
+          "anchors": {
+            "feet": [
+              0.34765625,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.55078125,
+              0.73828125
+            ],
+            "grip": [
+              0.58203125,
+              0.33203125
+            ],
+            "barrel": [
+              0.69140625,
+              0.2734375
+            ],
+            "batTip": [
+              0.73046875,
+              0.25
+            ],
+            "batAxis": [
+              38,
+              -21
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                60,
+                235,
+                104,
+                240
+              ],
+              "endpointsPixels": [
+                [
+                  82,
+                  237
+                ],
+                [
+                  103,
+                  235
+                ]
+              ],
+              "roi": {
+                "x": 0.234375,
+                "y": 0.91796875,
+                "width": 0.171875,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.3203125,
+                  0.92578125
+                ],
+                [
+                  0.40234375,
+                  0.91796875
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                122,
+                189,
+                146,
+                194
+              ],
+              "endpointsPixels": [
+                [
+                  122,
+                  191
+                ],
+                [
+                  145,
+                  189
+                ]
+              ],
+              "roi": {
+                "x": 0.4765625,
+                "y": 0.73828125,
+                "width": 0.09375,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.4765625,
+                  0.74609375
+                ],
+                [
+                  0.56640625,
+                  0.73828125
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1
+        },
+        {
+          "source": "swingA3",
+          "sourceFile": "curated/swingA-frame-3.png",
+          "bounds": {
+            "x": 0.1953125,
+            "y": 0.1875,
+            "width": 0.41796875,
+            "height": 0.75
+          },
+          "bodyBounds": {
+            "x": 0.1953125,
+            "y": 0.1875,
+            "width": 0.41796875,
+            "height": 0.75
+          },
+          "contentBounds": {
+            "x": 0.1953125,
+            "y": 0.1796875,
+            "width": 0.609375,
+            "height": 0.7578125
+          },
+          "anchors": {
+            "feet": [
+              0.32421875,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.5234375,
+              0.73828125
+            ],
+            "grip": [
+              0.5625,
+              0.33203125
+            ],
+            "barrel": [
+              0.7421875,
+              0.3203125
+            ],
+            "batTip": [
+              0.7890625,
+              0.3203125
+            ],
+            "batAxis": [
+              58,
+              -3
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                50,
+                235,
+                90,
+                240
+              ],
+              "endpointsPixels": [
+                [
+                  68,
+                  235
+                ],
+                [
+                  89,
+                  235
+                ]
+              ],
+              "roi": {
+                "x": 0.1953125,
+                "y": 0.91796875,
+                "width": 0.15625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.265625,
+                  0.91796875
+                ],
+                [
+                  0.34765625,
+                  0.91796875
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                112,
+                189,
+                140,
+                194
+              ],
+              "endpointsPixels": [
+                [
+                  112,
+                  191
+                ],
+                [
+                  139,
+                  189
+                ]
+              ],
+              "roi": {
+                "x": 0.4375,
+                "y": 0.73828125,
+                "width": 0.109375,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.4375,
+                  0.74609375
+                ],
+                [
+                  0.54296875,
+                  0.73828125
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1
+        },
+        {
+          "source": "swingB0",
+          "sourceFile": "curated/swingB-frame-0.png",
+          "bounds": {
+            "x": 0.1640625,
+            "y": 0.1796875,
+            "width": 0.421875,
+            "height": 0.7578125
+          },
+          "bodyBounds": {
+            "x": 0.1640625,
+            "y": 0.1796875,
+            "width": 0.421875,
+            "height": 0.7578125
+          },
+          "contentBounds": {
+            "x": 0.1640625,
+            "y": 0.1796875,
+            "width": 0.6328125,
+            "height": 0.7578125
+          },
+          "anchors": {
+            "feet": [
+              0.29296875,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.49609375,
+              0.76171875
+            ],
+            "grip": [
+              0.53515625,
+              0.33203125
+            ],
+            "barrel": [
+              0.74609375,
+              0.3046875
+            ],
+            "batTip": [
+              0.78125,
+              0.3203125
+            ],
+            "batAxis": [
+              63,
+              -3
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                42,
+                235,
+                84,
+                240
+              ],
+              "endpointsPixels": [
+                [
+                  60,
+                  235
+                ],
+                [
+                  83,
+                  235
+                ]
+              ],
+              "roi": {
+                "x": 0.1640625,
+                "y": 0.91796875,
+                "width": 0.1640625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.234375,
+                  0.91796875
+                ],
+                [
+                  0.32421875,
+                  0.91796875
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                104,
+                193,
+                136,
+                198
+              ],
+              "endpointsPixels": [
+                [
+                  104,
+                  193
+                ],
+                [
+                  133,
+                  193
+                ]
+              ],
+              "roi": {
+                "x": 0.40625,
+                "y": 0.75390625,
+                "width": 0.125,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.40625,
+                  0.75390625
+                ],
+                [
+                  0.51953125,
+                  0.75390625
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1,
+          "anchorNotes": "Normal CONTACT. Barrel chosen inside visible wooden sweet spot, not glove/handle or far-end highlight."
+        },
+        {
+          "source": "swingB1",
+          "sourceFile": "curated/swingB-frame-1.png",
+          "bounds": {
+            "x": 0.171875,
+            "y": 0.1875,
+            "width": 0.42578125,
+            "height": 0.75
+          },
+          "bodyBounds": {
+            "x": 0.171875,
+            "y": 0.1875,
+            "width": 0.42578125,
+            "height": 0.75
+          },
+          "contentBounds": {
+            "x": 0.171875,
+            "y": 0.1875,
+            "width": 0.6640625,
+            "height": 0.75
+          },
+          "anchors": {
+            "feet": [
+              0.296875,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.5078125,
+              0.76171875
+            ],
+            "grip": [
+              0.546875,
+              0.35546875
+            ],
+            "barrel": [
+              0.7734375,
+              0.328125
+            ],
+            "batTip": [
+              0.8203125,
+              0.328125
+            ],
+            "batAxis": [
+              70,
+              -7
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                44,
+                235,
+                86,
+                240
+              ],
+              "endpointsPixels": [
+                [
+                  62,
+                  235
+                ],
+                [
+                  85,
+                  235
+                ]
+              ],
+              "roi": {
+                "x": 0.171875,
+                "y": 0.91796875,
+                "width": 0.1640625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.2421875,
+                  0.91796875
+                ],
+                [
+                  0.33203125,
+                  0.91796875
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                106,
+                193,
+                138,
+                198
+              ],
+              "endpointsPixels": [
+                [
+                  106,
+                  195
+                ],
+                [
+                  135,
+                  193
+                ]
+              ],
+              "roi": {
+                "x": 0.4140625,
+                "y": 0.75390625,
+                "width": 0.125,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.4140625,
+                  0.76171875
+                ],
+                [
+                  0.52734375,
+                  0.75390625
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1
+        },
+        {
+          "source": "swingB2",
+          "sourceFile": "curated/swingB-frame-2.png",
+          "bounds": {
+            "x": 0.15625,
+            "y": 0.1875,
+            "width": 0.4453125,
+            "height": 0.75
+          },
+          "bodyBounds": {
+            "x": 0.15625,
+            "y": 0.1875,
+            "width": 0.4453125,
+            "height": 0.75
+          },
+          "contentBounds": {
+            "x": 0.15625,
+            "y": 0.1875,
+            "width": 0.640625,
+            "height": 0.75
+          },
+          "anchors": {
+            "feet": [
+              0.28515625,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.5,
+              0.76171875
+            ],
+            "grip": [
+              0.55078125,
+              0.34375
+            ],
+            "barrel": [
+              0.73828125,
+              0.265625
+            ],
+            "batTip": [
+              0.78125,
+              0.25
+            ],
+            "batAxis": [
+              59,
+              -24
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                40,
+                235,
+                82,
+                240
+              ],
+              "endpointsPixels": [
+                [
+                  60,
+                  235
+                ],
+                [
+                  81,
+                  235
+                ]
+              ],
+              "roi": {
+                "x": 0.15625,
+                "y": 0.91796875,
+                "width": 0.1640625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.234375,
+                  0.91796875
+                ],
+                [
+                  0.31640625,
+                  0.91796875
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                104,
+                193,
+                136,
+                198
+              ],
+              "endpointsPixels": [
+                [
+                  104,
+                  197
+                ],
+                [
+                  133,
+                  193
+                ]
+              ],
+              "roi": {
+                "x": 0.40625,
+                "y": 0.75390625,
+                "width": 0.125,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.40625,
+                  0.76953125
+                ],
+                [
+                  0.51953125,
+                  0.75390625
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1
+        },
+        {
+          "source": "swingB3",
+          "sourceFile": "curated/swingB-frame-3.png",
+          "bounds": {
+            "x": 0.15625,
+            "y": 0.1875,
+            "width": 0.453125,
+            "height": 0.75
+          },
+          "bodyBounds": {
+            "x": 0.15625,
+            "y": 0.1875,
+            "width": 0.453125,
+            "height": 0.75
+          },
+          "contentBounds": {
+            "x": 0.15625,
+            "y": 0.1171875,
+            "width": 0.609375,
+            "height": 0.8203125
+          },
+          "anchors": {
+            "feet": [
+              0.2890625,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.50390625,
+              0.76953125
+            ],
+            "grip": [
+              0.55859375,
+              0.2734375
+            ],
+            "barrel": [
+              0.703125,
+              0.1640625
+            ],
+            "batTip": [
+              0.73828125,
+              0.1328125
+            ],
+            "batAxis": [
+              46,
+              -36
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                40,
+                235,
+                82,
+                240
+              ],
+              "endpointsPixels": [
+                [
+                  60,
+                  235
+                ],
+                [
+                  81,
+                  235
+                ]
+              ],
+              "roi": {
+                "x": 0.15625,
+                "y": 0.91796875,
+                "width": 0.1640625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.234375,
+                  0.91796875
+                ],
+                [
+                  0.31640625,
+                  0.91796875
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                104,
+                193,
+                138,
+                198
+              ],
+              "endpointsPixels": [
+                [
+                  104,
+                  195
+                ],
+                [
+                  135,
+                  193
+                ]
+              ],
+              "roi": {
+                "x": 0.40625,
+                "y": 0.75390625,
+                "width": 0.1328125,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.40625,
+                  0.76171875
+                ],
+                [
+                  0.52734375,
+                  0.75390625
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1
+        },
+        {
+          "source": "followA0",
+          "sourceFile": "curated/followA-frame-0.png",
+          "bounds": {
+            "x": 0.2109375,
+            "y": 0.203125,
+            "width": 0.421875,
+            "height": 0.75
+          },
+          "bodyBounds": {
+            "x": 0.2109375,
+            "y": 0.203125,
+            "width": 0.421875,
+            "height": 0.75
+          },
+          "contentBounds": {
+            "x": 0.2109375,
+            "y": 0.0703125,
+            "width": 0.5625,
+            "height": 0.8828125
+          },
+          "anchors": {
+            "feet": [
+              0.32421875,
+              0.94921875
+            ],
+            "frontFoot": [
+              0.5625,
+              0.78515625
+            ],
+            "grip": [
+              0.58203125,
+              0.2421875
+            ],
+            "barrel": [
+              0.71875,
+              0.12890625
+            ],
+            "batTip": [
+              0.75,
+              0.08984375
+            ],
+            "batAxis": [
+              43,
+              -39
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                54,
+                239,
+                92,
+                244
+              ],
+              "endpointsPixels": [
+                [
+                  70,
+                  239
+                ],
+                [
+                  91,
+                  241
+                ]
+              ],
+              "roi": {
+                "x": 0.2109375,
+                "y": 0.93359375,
+                "width": 0.1484375,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.2734375,
+                  0.93359375
+                ],
+                [
+                  0.35546875,
+                  0.94140625
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                122,
+                197,
+                154,
+                202
+              ],
+              "endpointsPixels": [
+                [
+                  122,
+                  199
+                ],
+                [
+                  153,
+                  197
+                ]
+              ],
+              "roi": {
+                "x": 0.4765625,
+                "y": 0.76953125,
+                "width": 0.125,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.4765625,
+                  0.77734375
+                ],
+                [
+                  0.59765625,
+                  0.76953125
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1
+        },
+        {
+          "source": "followA1",
+          "sourceFile": "curated/followA-frame-1.png",
+          "bounds": {
+            "x": 0.234375,
+            "y": 0.2109375,
+            "width": 0.3984375,
+            "height": 0.7421875
+          },
+          "bodyBounds": {
+            "x": 0.234375,
+            "y": 0.2109375,
+            "width": 0.3984375,
+            "height": 0.7421875
+          },
+          "contentBounds": {
+            "x": 0.234375,
+            "y": 0.046875,
+            "width": 0.3984375,
+            "height": 0.90625
+          },
+          "anchors": {
+            "feet": [
+              0.34375,
+              0.94921875
+            ],
+            "frontFoot": [
+              0.59375,
+              0.78515625
+            ],
+            "grip": [
+              0.55078125,
+              0.24609375
+            ],
+            "barrel": [
+              0.5390625,
+              0.11328125
+            ],
+            "batTip": [
+              0.53515625,
+              0.0625
+            ],
+            "batAxis": [
+              -4,
+              -47
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                60,
+                239,
+                96,
+                244
+              ],
+              "endpointsPixels": [
+                [
+                  76,
+                  239
+                ],
+                [
+                  95,
+                  241
+                ]
+              ],
+              "roi": {
+                "x": 0.234375,
+                "y": 0.93359375,
+                "width": 0.140625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.296875,
+                  0.93359375
+                ],
+                [
+                  0.37109375,
+                  0.94140625
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                130,
+                199,
+                162,
+                204
+              ],
+              "endpointsPixels": [
+                [
+                  130,
+                  199
+                ],
+                [
+                  159,
+                  199
+                ]
+              ],
+              "roi": {
+                "x": 0.5078125,
+                "y": 0.77734375,
+                "width": 0.125,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.5078125,
+                  0.77734375
+                ],
+                [
+                  0.62109375,
+                  0.77734375
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1
+        },
+        {
+          "source": "followA2",
+          "sourceFile": "curated/followA-frame-2.png",
+          "bounds": {
+            "x": 0.234375,
+            "y": 0.203125,
+            "width": 0.390625,
+            "height": 0.75
+          },
+          "bodyBounds": {
+            "x": 0.234375,
+            "y": 0.203125,
+            "width": 0.390625,
+            "height": 0.75
+          },
+          "contentBounds": {
+            "x": 0.234375,
+            "y": 0.0703125,
+            "width": 0.390625,
+            "height": 0.8828125
+          },
+          "anchors": {
+            "feet": [
+              0.33984375,
+              0.94921875
+            ],
+            "frontFoot": [
+              0.58203125,
+              0.79296875
+            ],
+            "grip": [
+              0.52734375,
+              0.2265625
+            ],
+            "barrel": [
+              0.40625,
+              0.12890625
+            ],
+            "batTip": [
+              0.3671875,
+              0.09375
+            ],
+            "batAxis": [
+              -41,
+              -34
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                60,
+                239,
+                96,
+                244
+              ],
+              "endpointsPixels": [
+                [
+                  76,
+                  239
+                ],
+                [
+                  95,
+                  241
+                ]
+              ],
+              "roi": {
+                "x": 0.234375,
+                "y": 0.93359375,
+                "width": 0.140625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.296875,
+                  0.93359375
+                ],
+                [
+                  0.37109375,
+                  0.94140625
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                128,
+                199,
+                160,
+                204
+              ],
+              "endpointsPixels": [
+                [
+                  128,
+                  201
+                ],
+                [
+                  157,
+                  201
+                ]
+              ],
+              "roi": {
+                "x": 0.5,
+                "y": 0.77734375,
+                "width": 0.125,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.5,
+                  0.78515625
+                ],
+                [
+                  0.61328125,
+                  0.78515625
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1
+        },
+        {
+          "source": "followA3",
+          "sourceFile": "curated/followA-frame-3.png",
+          "bounds": {
+            "x": 0.234375,
+            "y": 0.203125,
+            "width": 0.3984375,
+            "height": 0.7578125
+          },
+          "bodyBounds": {
+            "x": 0.234375,
+            "y": 0.203125,
+            "width": 0.3984375,
+            "height": 0.7578125
+          },
+          "contentBounds": {
+            "x": 0.234375,
+            "y": 0.203125,
+            "width": 0.3984375,
+            "height": 0.7578125
+          },
+          "anchors": {
+            "feet": [
+              0.34375,
+              0.95703125
+            ],
+            "frontFoot": [
+              0.59765625,
+              0.80078125
+            ],
+            "grip": [
+              0.30859375,
+              0.26953125
+            ],
+            "barrel": [
+              0.5,
+              0.359375
+            ],
+            "batTip": [
+              0.546875,
+              0.3828125
+            ],
+            "batAxis": [
+              61,
+              29
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                60,
+                241,
+                96,
+                246
+              ],
+              "endpointsPixels": [
+                [
+                  72,
+                  241
+                ],
+                [
+                  95,
+                  243
+                ]
+              ],
+              "roi": {
+                "x": 0.234375,
+                "y": 0.94140625,
+                "width": 0.140625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.28125,
+                  0.94140625
+                ],
+                [
+                  0.37109375,
+                  0.94921875
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                132,
+                203,
+                162,
+                208
+              ],
+              "endpointsPixels": [
+                [
+                  132,
+                  205
+                ],
+                [
+                  159,
+                  203
+                ]
+              ],
+              "roi": {
+                "x": 0.515625,
+                "y": 0.79296875,
+                "width": 0.1171875,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.515625,
+                  0.80078125
+                ],
+                [
+                  0.62109375,
+                  0.79296875
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": false,
+          "timelineMember": false,
+          "anatomyScale": 1,
+          "anchorNotes": "Stored-only rejected direct shoulder jump; measured for completeness, not motion approval."
+        },
+        {
+          "source": "followB0",
+          "sourceFile": "curated/followB-frame-0.png",
+          "bounds": {
+            "x": 0.3046875,
+            "y": 0.1796875,
+            "width": 0.40625,
+            "height": 0.7421875
+          },
+          "bodyBounds": {
+            "x": 0.3046875,
+            "y": 0.1796875,
+            "width": 0.40625,
+            "height": 0.7421875
+          },
+          "contentBounds": {
+            "x": 0.3046875,
+            "y": 0.078125,
+            "width": 0.40625,
+            "height": 0.84375
+          },
+          "anchors": {
+            "feet": [
+              0.41015625,
+              0.91796875
+            ],
+            "frontFoot": [
+              0.671875,
+              0.76171875
+            ],
+            "grip": [
+              0.57421875,
+              0.1640625
+            ],
+            "barrel": [
+              0.53515625,
+              0.12890625
+            ],
+            "batTip": [
+              0.51171875,
+              0.09765625
+            ],
+            "batAxis": [
+              -16,
+              -17
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                78,
+                231,
+                114,
+                236
+              ],
+              "endpointsPixels": [
+                [
+                  92,
+                  231
+                ],
+                [
+                  113,
+                  231
+                ]
+              ],
+              "roi": {
+                "x": 0.3046875,
+                "y": 0.90234375,
+                "width": 0.140625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.359375,
+                  0.90234375
+                ],
+                [
+                  0.44140625,
+                  0.90234375
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                150,
+                193,
+                182,
+                198
+              ],
+              "endpointsPixels": [
+                [
+                  150,
+                  195
+                ],
+                [
+                  181,
+                  193
+                ]
+              ],
+              "roi": {
+                "x": 0.5859375,
+                "y": 0.75390625,
+                "width": 0.125,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.5859375,
+                  0.76171875
+                ],
+                [
+                  0.70703125,
+                  0.75390625
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1,
+          "anchorNotes": "Short projected wood segment above hands; barrel distance shortened to visible projection."
+        },
+        {
+          "source": "followB1",
+          "sourceFile": "curated/followB-frame-1.png",
+          "bounds": {
+            "x": 0.3046875,
+            "y": 0.1640625,
+            "width": 0.40625,
+            "height": 0.7578125
+          },
+          "bodyBounds": {
+            "x": 0.3046875,
+            "y": 0.1640625,
+            "width": 0.40625,
+            "height": 0.7578125
+          },
+          "contentBounds": {
+            "x": 0.3046875,
+            "y": 0.140625,
+            "width": 0.40625,
+            "height": 0.78125
+          },
+          "anchors": {
+            "feet": [
+              0.41796875,
+              0.91796875
+            ],
+            "frontFoot": [
+              0.67578125,
+              0.76171875
+            ],
+            "grip": [
+              0.484375,
+              0.20703125
+            ],
+            "barrel": [
+              0.5078125,
+              0.18359375
+            ],
+            "batTip": [
+              0.5078125,
+              0.18359375
+            ],
+            "batAxis": [
+              6,
+              -6
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                78,
+                231,
+                114,
+                236
+              ],
+              "endpointsPixels": [
+                [
+                  94,
+                  231
+                ],
+                [
+                  113,
+                  235
+                ]
+              ],
+              "roi": {
+                "x": 0.3046875,
+                "y": 0.90234375,
+                "width": 0.140625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.3671875,
+                  0.90234375
+                ],
+                [
+                  0.44140625,
+                  0.91796875
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                150,
+                193,
+                182,
+                198
+              ],
+              "endpointsPixels": [
+                [
+                  150,
+                  195
+                ],
+                [
+                  181,
+                  193
+                ]
+              ],
+              "roi": {
+                "x": 0.5859375,
+                "y": 0.75390625,
+                "width": 0.125,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.5859375,
+                  0.76171875
+                ],
+                [
+                  0.70703125,
+                  0.75390625
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1,
+          "anchorNotes": "End-on circular cap: barrel and batTip intentionally coincide. Projected bat axis is uncertain; visually selected ochre cap centre."
+        },
+        {
+          "source": "followB2",
+          "sourceFile": "curated/followB-frame-2.png",
+          "bounds": {
+            "x": 0.2890625,
+            "y": 0.1640625,
+            "width": 0.421875,
+            "height": 0.7578125
+          },
+          "bodyBounds": {
+            "x": 0.2890625,
+            "y": 0.1640625,
+            "width": 0.421875,
+            "height": 0.7578125
+          },
+          "contentBounds": {
+            "x": 0.2890625,
+            "y": 0.1640625,
+            "width": 0.421875,
+            "height": 0.7578125
+          },
+          "anchors": {
+            "feet": [
+              0.3984375,
+              0.91796875
+            ],
+            "frontFoot": [
+              0.67578125,
+              0.76171875
+            ],
+            "grip": [
+              0.3828125,
+              0.2265625
+            ],
+            "barrel": [
+              0.5859375,
+              0.3203125
+            ],
+            "batTip": [
+              0.62890625,
+              0.34375
+            ],
+            "batAxis": [
+              63,
+              30
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                74,
+                231,
+                110,
+                236
+              ],
+              "endpointsPixels": [
+                [
+                  88,
+                  231
+                ],
+                [
+                  109,
+                  233
+                ]
+              ],
+              "roi": {
+                "x": 0.2890625,
+                "y": 0.90234375,
+                "width": 0.140625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.34375,
+                  0.90234375
+                ],
+                [
+                  0.42578125,
+                  0.91015625
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                150,
+                193,
+                182,
+                198
+              ],
+              "endpointsPixels": [
+                [
+                  150,
+                  195
+                ],
+                [
+                  181,
+                  193
+                ]
+              ],
+              "roi": {
+                "x": 0.5859375,
+                "y": 0.75390625,
+                "width": 0.125,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.5859375,
+                  0.76171875
+                ],
+                [
+                  0.70703125,
+                  0.75390625
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1
+        },
+        {
+          "source": "followB3",
+          "sourceFile": "curated/followB-frame-3.png",
+          "bounds": {
+            "x": 0.2890625,
+            "y": 0.1640625,
+            "width": 0.421875,
+            "height": 0.7578125
+          },
+          "bodyBounds": {
+            "x": 0.2890625,
+            "y": 0.1640625,
+            "width": 0.421875,
+            "height": 0.7578125
+          },
+          "contentBounds": {
+            "x": 0.2890625,
+            "y": 0.1640625,
+            "width": 0.421875,
+            "height": 0.7578125
+          },
+          "anchors": {
+            "feet": [
+              0.39453125,
+              0.91796875
+            ],
+            "frontFoot": [
+              0.67578125,
+              0.76171875
+            ],
+            "grip": [
+              0.34765625,
+              0.25
+            ],
+            "barrel": [
+              0.57421875,
+              0.3203125
+            ],
+            "batTip": [
+              0.6171875,
+              0.34375
+            ],
+            "batAxis": [
+              69,
+              24
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                74,
+                231,
+                110,
+                236
+              ],
+              "endpointsPixels": [
+                [
+                  88,
+                  231
+                ],
+                [
+                  109,
+                  233
+                ]
+              ],
+              "roi": {
+                "x": 0.2890625,
+                "y": 0.90234375,
+                "width": 0.140625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.34375,
+                  0.90234375
+                ],
+                [
+                  0.42578125,
+                  0.91015625
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                150,
+                193,
+                182,
+                198
+              ],
+              "endpointsPixels": [
+                [
+                  150,
+                  195
+                ],
+                [
+                  181,
+                  193
+                ]
+              ],
+              "roi": {
+                "x": 0.5859375,
+                "y": 0.75390625,
+                "width": 0.125,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.5859375,
+                  0.76171875
+                ],
+                [
+                  0.70703125,
+                  0.75390625
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1
+        },
+        {
+          "source": "resetCompact0",
+          "sourceFile": "curated/resetCompact-frame-0.png",
+          "bounds": {
+            "x": 0.265625,
+            "y": 0.140625,
+            "width": 0.453125,
+            "height": 0.796875
+          },
+          "bodyBounds": {
+            "x": 0.265625,
+            "y": 0.140625,
+            "width": 0.453125,
+            "height": 0.796875
+          },
+          "contentBounds": {
+            "x": 0.265625,
+            "y": 0.140625,
+            "width": 0.453125,
+            "height": 0.796875
+          },
+          "anchors": {
+            "feet": [
+              0.39453125,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.6875,
+              0.77734375
+            ],
+            "grip": [
+              0.32421875,
+              0.23046875
+            ],
+            "barrel": [
+              0.57421875,
+              0.30859375
+            ],
+            "batTip": [
+              0.62109375,
+              0.3359375
+            ],
+            "batAxis": [
+              76,
+              27
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                68,
+                235,
+                110,
+                240
+              ],
+              "endpointsPixels": [
+                [
+                  82,
+                  235
+                ],
+                [
+                  109,
+                  237
+                ]
+              ],
+              "roi": {
+                "x": 0.265625,
+                "y": 0.91796875,
+                "width": 0.1640625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.3203125,
+                  0.91796875
+                ],
+                [
+                  0.42578125,
+                  0.92578125
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                150,
+                197,
+                184,
+                202
+              ],
+              "endpointsPixels": [
+                [
+                  150,
+                  199
+                ],
+                [
+                  183,
+                  197
+                ]
+              ],
+              "roi": {
+                "x": 0.5859375,
+                "y": 0.76953125,
+                "width": 0.1328125,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.5859375,
+                  0.77734375
+                ],
+                [
+                  0.71484375,
+                  0.76953125
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": false,
+          "timelineMember": false,
+          "anatomyScale": 1,
+          "anchorNotes": "Stored-only source slot. Barrel chosen on shoulder-crossing wood, approximately 14 px inboard of endcap."
+        },
+        {
+          "source": "resetCompact1",
+          "sourceFile": "curated/resetCompact-frame-1.png",
+          "bounds": {
+            "x": 0.28125,
+            "y": 0.1640625,
+            "width": 0.4296875,
+            "height": 0.7734375
+          },
+          "bodyBounds": {
+            "x": 0.28125,
+            "y": 0.1640625,
+            "width": 0.4296875,
+            "height": 0.7734375
+          },
+          "contentBounds": {
+            "x": 0.28125,
+            "y": 0.09375,
+            "width": 0.4296875,
+            "height": 0.84375
+          },
+          "anchors": {
+            "feet": [
+              0.40234375,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.671875,
+              0.77734375
+            ],
+            "grip": [
+              0.515625,
+              0.15234375
+            ],
+            "barrel": [
+              0.515625,
+              0.109375
+            ],
+            "batTip": [
+              0.515625,
+              0.109375
+            ],
+            "batAxis": [
+              0,
+              -11
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                72,
+                235,
+                110,
+                240
+              ],
+              "endpointsPixels": [
+                [
+                  84,
+                  235
+                ],
+                [
+                  109,
+                  239
+                ]
+              ],
+              "roi": {
+                "x": 0.28125,
+                "y": 0.91796875,
+                "width": 0.1484375,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.328125,
+                  0.91796875
+                ],
+                [
+                  0.42578125,
+                  0.93359375
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                148,
+                197,
+                182,
+                202
+              ],
+              "endpointsPixels": [
+                [
+                  148,
+                  199
+                ],
+                [
+                  181,
+                  197
+                ]
+              ],
+              "roi": {
+                "x": 0.578125,
+                "y": 0.76953125,
+                "width": 0.1328125,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.578125,
+                  0.77734375
+                ],
+                [
+                  0.70703125,
+                  0.76953125
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": false,
+          "timelineMember": false,
+          "anatomyScale": 1,
+          "anchorNotes": "Stored-only source slot. End-on circular cap; barrel and tip intentionally coincide. Projected bat axis is uncertain."
+        },
+        {
+          "source": "resetCompact2",
+          "sourceFile": "curated/resetCompact-frame-2.png",
+          "bounds": {
+            "x": 0.296875,
+            "y": 0.171875,
+            "width": 0.4140625,
+            "height": 0.75
+          },
+          "bodyBounds": {
+            "x": 0.296875,
+            "y": 0.171875,
+            "width": 0.4140625,
+            "height": 0.75
+          },
+          "contentBounds": {
+            "x": 0.296875,
+            "y": 0.0546875,
+            "width": 0.4140625,
+            "height": 0.8671875
+          },
+          "anchors": {
+            "feet": [
+              0.4140625,
+              0.91796875
+            ],
+            "frontFoot": [
+              0.67578125,
+              0.76171875
+            ],
+            "grip": [
+              0.6171875,
+              0.2265625
+            ],
+            "barrel": [
+              0.4453125,
+              0.109375
+            ],
+            "batTip": [
+              0.40625,
+              0.078125
+            ],
+            "batAxis": [
+              -54,
+              -38
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                76,
+                231,
+                114,
+                236
+              ],
+              "endpointsPixels": [
+                [
+                  88,
+                  231
+                ],
+                [
+                  113,
+                  235
+                ]
+              ],
+              "roi": {
+                "x": 0.296875,
+                "y": 0.90234375,
+                "width": 0.1484375,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.34375,
+                  0.90234375
+                ],
+                [
+                  0.44140625,
+                  0.91796875
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                148,
+                193,
+                182,
+                198
+              ],
+              "endpointsPixels": [
+                [
+                  148,
+                  195
+                ],
+                [
+                  181,
+                  193
+                ]
+              ],
+              "roi": {
+                "x": 0.578125,
+                "y": 0.75390625,
+                "width": 0.1328125,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.578125,
+                  0.76171875
+                ],
+                [
+                  0.70703125,
+                  0.75390625
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1
+        },
+        {
+          "source": "resetCompact3",
+          "sourceFile": "curated/resetCompact-frame-3.png",
+          "bounds": {
+            "x": 0.3125,
+            "y": 0.1796875,
+            "width": 0.39453125,
+            "height": 0.7421875
+          },
+          "bodyBounds": {
+            "x": 0.3125,
+            "y": 0.1796875,
+            "width": 0.39453125,
+            "height": 0.7421875
+          },
+          "contentBounds": {
+            "x": 0.3125,
+            "y": 0.0546875,
+            "width": 0.40625,
+            "height": 0.8671875
+          },
+          "anchors": {
+            "feet": [
+              0.43359375,
+              0.91796875
+            ],
+            "frontFoot": [
+              0.6484375,
+              0.75390625
+            ],
+            "grip": [
+              0.65625,
+              0.328125
+            ],
+            "barrel": [
+              0.44140625,
+              0.1171875
+            ],
+            "batTip": [
+              0.40625,
+              0.078125
+            ],
+            "batAxis": [
+              -64,
+              -64
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                80,
+                231,
+                120,
+                236
+              ],
+              "endpointsPixels": [
+                [
+                  94,
+                  231
+                ],
+                [
+                  119,
+                  233
+                ]
+              ],
+              "roi": {
+                "x": 0.3125,
+                "y": 0.90234375,
+                "width": 0.15625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.3671875,
+                  0.90234375
+                ],
+                [
+                  0.46484375,
+                  0.91015625
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                142,
+                189,
+                176,
+                194
+              ],
+              "endpointsPixels": [
+                [
+                  142,
+                  191
+                ],
+                [
+                  173,
+                  191
+                ]
+              ],
+              "roi": {
+                "x": 0.5546875,
+                "y": 0.73828125,
+                "width": 0.1328125,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.5546875,
+                  0.74609375
+                ],
+                [
+                  0.67578125,
+                  0.74609375
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1
+        },
+        {
+          "source": "bunt0",
+          "sourceFile": "curated/bunt-frame-0.png",
+          "bounds": {
+            "x": 0.25,
+            "y": 0.1875,
+            "width": 0.3671875,
+            "height": 0.75
+          },
+          "bodyBounds": {
+            "x": 0.25,
+            "y": 0.1875,
+            "width": 0.3671875,
+            "height": 0.75
+          },
+          "contentBounds": {
+            "x": 0.25,
+            "y": 0.0703125,
+            "width": 0.3671875,
+            "height": 0.8671875
+          },
+          "anchors": {
+            "feet": [
+              0.38671875,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.55078125,
+              0.73828125
+            ],
+            "grip": [
+              0.58203125,
+              0.34765625
+            ],
+            "barrel": [
+              0.375,
+              0.11328125
+            ],
+            "batTip": [
+              0.34375,
+              0.078125
+            ],
+            "batAxis": [
+              -61,
+              -69
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                64,
+                235,
+                110,
+                240
+              ],
+              "endpointsPixels": [
+                [
+                  66,
+                  235
+                ],
+                [
+                  109,
+                  235
+                ]
+              ],
+              "roi": {
+                "x": 0.25,
+                "y": 0.91796875,
+                "width": 0.1796875,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.2578125,
+                  0.91796875
+                ],
+                [
+                  0.42578125,
+                  0.91796875
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                122,
+                187,
+                146,
+                192
+              ],
+              "endpointsPixels": [
+                [
+                  122,
+                  191
+                ],
+                [
+                  145,
+                  189
+                ]
+              ],
+              "roi": {
+                "x": 0.4765625,
+                "y": 0.73046875,
+                "width": 0.09375,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.4765625,
+                  0.74609375
+                ],
+                [
+                  0.56640625,
+                  0.73828125
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": false,
+          "timelineMember": false,
+          "anatomyScale": 1
+        },
+        {
+          "source": "bunt1",
+          "sourceFile": "curated/bunt-frame-1.png",
+          "bounds": {
+            "x": 0.21875,
+            "y": 0.1953125,
+            "width": 0.4140625,
+            "height": 0.7421875
+          },
+          "bodyBounds": {
+            "x": 0.21875,
+            "y": 0.1953125,
+            "width": 0.4140625,
+            "height": 0.7421875
+          },
+          "contentBounds": {
+            "x": 0.21875,
+            "y": 0.1875,
+            "width": 0.546875,
+            "height": 0.75
+          },
+          "anchors": {
+            "feet": [
+              0.34765625,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.5078125,
+              0.73828125
+            ],
+            "grip": [
+              0.52734375,
+              0.34765625
+            ],
+            "barrel": [
+              0.703125,
+              0.33984375
+            ],
+            "batTip": [
+              0.75,
+              0.33984375
+            ],
+            "batAxis": [
+              57,
+              -2
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                56,
+                235,
+                100,
+                240
+              ],
+              "endpointsPixels": [
+                [
+                  58,
+                  235
+                ],
+                [
+                  99,
+                  235
+                ]
+              ],
+              "roi": {
+                "x": 0.21875,
+                "y": 0.91796875,
+                "width": 0.171875,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.2265625,
+                  0.91796875
+                ],
+                [
+                  0.38671875,
+                  0.91796875
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                110,
+                187,
+                136,
+                192
+              ],
+              "endpointsPixels": [
+                [
+                  110,
+                  191
+                ],
+                [
+                  135,
+                  187
+                ]
+              ],
+              "roi": {
+                "x": 0.4296875,
+                "y": 0.73046875,
+                "width": 0.1015625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.4296875,
+                  0.74609375
+                ],
+                [
+                  0.52734375,
+                  0.73046875
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1,
+          "anchorNotes": "Grip uses near-handle hand rather than forward hand on barrel."
+        },
+        {
+          "source": "bunt2",
+          "sourceFile": "curated/bunt-frame-2.png",
+          "bounds": {
+            "x": 0.1796875,
+            "y": 0.203125,
+            "width": 0.4921875,
+            "height": 0.734375
+          },
+          "bodyBounds": {
+            "x": 0.1796875,
+            "y": 0.203125,
+            "width": 0.4921875,
+            "height": 0.734375
+          },
+          "contentBounds": {
+            "x": 0.1796875,
+            "y": 0.203125,
+            "width": 0.6328125,
+            "height": 0.734375
+          },
+          "anchors": {
+            "feet": [
+              0.30859375,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.48046875,
+              0.73828125
+            ],
+            "grip": [
+              0.56640625,
+              0.33984375
+            ],
+            "barrel": [
+              0.76953125,
+              0.3203125
+            ],
+            "batTip": [
+              0.796875,
+              0.3203125
+            ],
+            "batAxis": [
+              59,
+              -5
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                46,
+                235,
+                90,
+                240
+              ],
+              "endpointsPixels": [
+                [
+                  48,
+                  235
+                ],
+                [
+                  89,
+                  235
+                ]
+              ],
+              "roi": {
+                "x": 0.1796875,
+                "y": 0.91796875,
+                "width": 0.171875,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.1875,
+                  0.91796875
+                ],
+                [
+                  0.34765625,
+                  0.91796875
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                102,
+                187,
+                128,
+                192
+              ],
+              "endpointsPixels": [
+                [
+                  102,
+                  189
+                ],
+                [
+                  127,
+                  189
+                ]
+              ],
+              "roi": {
+                "x": 0.3984375,
+                "y": 0.73046875,
+                "width": 0.1015625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.3984375,
+                  0.73828125
+                ],
+                [
+                  0.49609375,
+                  0.73828125
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1,
+          "anchorNotes": "BUNT CONTACT. Grip uses near-handle hand; barrel point is actual interior wood about 12 px inboard of cap."
+        },
+        {
+          "source": "bunt3",
+          "sourceFile": "curated/bunt-frame-3.png",
+          "bounds": {
+            "x": 0.25,
+            "y": 0.1875,
+            "width": 0.3671875,
+            "height": 0.75
+          },
+          "bodyBounds": {
+            "x": 0.25,
+            "y": 0.1875,
+            "width": 0.3671875,
+            "height": 0.75
+          },
+          "contentBounds": {
+            "x": 0.25,
+            "y": 0.0703125,
+            "width": 0.3671875,
+            "height": 0.8671875
+          },
+          "anchors": {
+            "feet": [
+              0.38671875,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.54296875,
+              0.73828125
+            ],
+            "grip": [
+              0.5859375,
+              0.34765625
+            ],
+            "barrel": [
+              0.375,
+              0.11328125
+            ],
+            "batTip": [
+              0.34375,
+              0.078125
+            ],
+            "batAxis": [
+              -62,
+              -69
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                64,
+                235,
+                110,
+                240
+              ],
+              "endpointsPixels": [
+                [
+                  66,
+                  235
+                ],
+                [
+                  107,
+                  237
+                ]
+              ],
+              "roi": {
+                "x": 0.25,
+                "y": 0.91796875,
+                "width": 0.1796875,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.2578125,
+                  0.91796875
+                ],
+                [
+                  0.41796875,
+                  0.92578125
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                120,
+                187,
+                144,
+                192
+              ],
+              "endpointsPixels": [
+                [
+                  120,
+                  191
+                ],
+                [
+                  143,
+                  189
+                ]
+              ],
+              "roi": {
+                "x": 0.46875,
+                "y": 0.73046875,
+                "width": 0.09375,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.46875,
+                  0.74609375
+                ],
+                [
+                  0.55859375,
+                  0.73828125
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": false,
+          "timelineMember": false,
+          "anatomyScale": 1,
+          "anchorNotes": "Stored-only original READY slot; final animation should reuse canonical READY after buntReset."
+        },
+        {
+          "source": "buntReset0",
+          "sourceFile": "curated/buntReset-frame-0.png",
+          "bounds": {
+            "x": 0.15625,
+            "y": 0.1953125,
+            "width": 0.453125,
+            "height": 0.734375
+          },
+          "bodyBounds": {
+            "x": 0.15625,
+            "y": 0.1953125,
+            "width": 0.453125,
+            "height": 0.734375
+          },
+          "contentBounds": {
+            "x": 0.15625,
+            "y": 0.1953125,
+            "width": 0.6796875,
+            "height": 0.734375
+          },
+          "anchors": {
+            "feet": [
+              0.28125,
+              0.92578125
+            ],
+            "frontFoot": [
+              0.47265625,
+              0.73828125
+            ],
+            "grip": [
+              0.55859375,
+              0.34375
+            ],
+            "barrel": [
+              0.77734375,
+              0.33203125
+            ],
+            "batTip": [
+              0.82421875,
+              0.33203125
+            ],
+            "batAxis": [
+              68,
+              -3
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                40,
+                233,
+                84,
+                238
+              ],
+              "endpointsPixels": [
+                [
+                  42,
+                  235
+                ],
+                [
+                  83,
+                  235
+                ]
+              ],
+              "roi": {
+                "x": 0.15625,
+                "y": 0.91015625,
+                "width": 0.171875,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.1640625,
+                  0.91796875
+                ],
+                [
+                  0.32421875,
+                  0.91796875
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                98,
+                187,
+                128,
+                192
+              ],
+              "endpointsPixels": [
+                [
+                  98,
+                  189
+                ],
+                [
+                  127,
+                  187
+                ]
+              ],
+              "roi": {
+                "x": 0.3828125,
+                "y": 0.73046875,
+                "width": 0.1171875,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.3828125,
+                  0.73828125
+                ],
+                [
+                  0.49609375,
+                  0.73046875
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1,
+          "anchorNotes": "Grip uses near-handle hand; forward barrel-support hand is excluded."
+        },
+        {
+          "source": "buntReset1",
+          "sourceFile": "curated/buntReset-frame-1.png",
+          "bounds": {
+            "x": 0.1484375,
+            "y": 0.1796875,
+            "width": 0.4296875,
+            "height": 0.75
+          },
+          "bodyBounds": {
+            "x": 0.1484375,
+            "y": 0.1796875,
+            "width": 0.4296875,
+            "height": 0.75
+          },
+          "contentBounds": {
+            "x": 0.1484375,
+            "y": 0.1796875,
+            "width": 0.578125,
+            "height": 0.75
+          },
+          "anchors": {
+            "feet": [
+              0.2734375,
+              0.92578125
+            ],
+            "frontFoot": [
+              0.48046875,
+              0.73828125
+            ],
+            "grip": [
+              0.52734375,
+              0.35546875
+            ],
+            "barrel": [
+              0.67578125,
+              0.265625
+            ],
+            "batTip": [
+              0.70703125,
+              0.23046875
+            ],
+            "batAxis": [
+              46,
+              -32
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                38,
+                233,
+                84,
+                238
+              ],
+              "endpointsPixels": [
+                [
+                  40,
+                  235
+                ],
+                [
+                  83,
+                  235
+                ]
+              ],
+              "roi": {
+                "x": 0.1484375,
+                "y": 0.91015625,
+                "width": 0.1796875,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.15625,
+                  0.91796875
+                ],
+                [
+                  0.32421875,
+                  0.91796875
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                102,
+                187,
+                130,
+                192
+              ],
+              "endpointsPixels": [
+                [
+                  102,
+                  191
+                ],
+                [
+                  129,
+                  187
+                ]
+              ],
+              "roi": {
+                "x": 0.3984375,
+                "y": 0.73046875,
+                "width": 0.109375,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.3984375,
+                  0.74609375
+                ],
+                [
+                  0.50390625,
+                  0.73046875
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1
+        },
+        {
+          "source": "buntReset2",
+          "sourceFile": "curated/buntReset-frame-2.png",
+          "bounds": {
+            "x": 0.21875,
+            "y": 0.1796875,
+            "width": 0.43359375,
+            "height": 0.7421875
+          },
+          "bodyBounds": {
+            "x": 0.21875,
+            "y": 0.1796875,
+            "width": 0.43359375,
+            "height": 0.7421875
+          },
+          "contentBounds": {
+            "x": 0.21875,
+            "y": 0.0546875,
+            "width": 0.4375,
+            "height": 0.8671875
+          },
+          "anchors": {
+            "feet": [
+              0.359375,
+              0.91796875
+            ],
+            "frontFoot": [
+              0.546875,
+              0.73046875
+            ],
+            "grip": [
+              0.6015625,
+              0.3125
+            ],
+            "barrel": [
+              0.5234375,
+              0.1171875
+            ],
+            "batTip": [
+              0.5078125,
+              0.0703125
+            ],
+            "batAxis": [
+              -24,
+              -62
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                56,
+                231,
+                102,
+                236
+              ],
+              "endpointsPixels": [
+                [
+                  58,
+                  231
+                ],
+                [
+                  101,
+                  233
+                ]
+              ],
+              "roi": {
+                "x": 0.21875,
+                "y": 0.90234375,
+                "width": 0.1796875,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.2265625,
+                  0.90234375
+                ],
+                [
+                  0.39453125,
+                  0.91015625
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                118,
+                187,
+                146,
+                192
+              ],
+              "endpointsPixels": [
+                [
+                  118,
+                  189
+                ],
+                [
+                  145,
+                  187
+                ]
+              ],
+              "roi": {
+                "x": 0.4609375,
+                "y": 0.73046875,
+                "width": 0.109375,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.4609375,
+                  0.73828125
+                ],
+                [
+                  0.56640625,
+                  0.73046875
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1
+        },
+        {
+          "source": "buntReset3",
+          "sourceFile": "curated/buntReset-frame-3.png",
+          "bounds": {
+            "x": 0.234375,
+            "y": 0.171875,
+            "width": 0.39453125,
+            "height": 0.75
+          },
+          "bodyBounds": {
+            "x": 0.234375,
+            "y": 0.171875,
+            "width": 0.39453125,
+            "height": 0.75
+          },
+          "contentBounds": {
+            "x": 0.234375,
+            "y": 0.0546875,
+            "width": 0.40625,
+            "height": 0.8671875
+          },
+          "anchors": {
+            "feet": [
+              0.3828125,
+              0.91796875
+            ],
+            "frontFoot": [
+              0.5546875,
+              0.72265625
+            ],
+            "grip": [
+              0.578125,
+              0.328125
+            ],
+            "barrel": [
+              0.375,
+              0.11328125
+            ],
+            "batTip": [
+              0.34375,
+              0.078125
+            ],
+            "batAxis": [
+              -60,
+              -64
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                60,
+                231,
+                106,
+                236
+              ],
+              "endpointsPixels": [
+                [
+                  60,
+                  231
+                ],
+                [
+                  105,
+                  231
+                ]
+              ],
+              "roi": {
+                "x": 0.234375,
+                "y": 0.90234375,
+                "width": 0.1796875,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.234375,
+                  0.90234375
+                ],
+                [
+                  0.41015625,
+                  0.90234375
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                120,
+                185,
+                148,
+                190
+              ],
+              "endpointsPixels": [
+                [
+                  120,
+                  187
+                ],
+                [
+                  147,
+                  185
+                ]
+              ],
+              "roi": {
+                "x": 0.46875,
+                "y": 0.72265625,
+                "width": 0.109375,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.46875,
+                  0.73046875
+                ],
+                [
+                  0.57421875,
+                  0.72265625
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1,
+          "anchorNotes": "Generated READY-like endpoint; not a claim of pixel identity to canonical READY."
+        },
+        {
+          "source": "resetLift0",
+          "sourceFile": "curated/resetLift-frame-0.png",
+          "bounds": {
+            "x": 0.28125,
+            "y": 0.15625,
+            "width": 0.4296875,
+            "height": 0.765625
+          },
+          "bodyBounds": {
+            "x": 0.28125,
+            "y": 0.15625,
+            "width": 0.4296875,
+            "height": 0.765625
+          },
+          "contentBounds": {
+            "x": 0.28125,
+            "y": 0.1484375,
+            "width": 0.4296875,
+            "height": 0.7734375
+          },
+          "anchors": {
+            "feet": [
+              0.39453125,
+              0.91796875
+            ],
+            "frontFoot": [
+              0.67578125,
+              0.76953125
+            ],
+            "grip": [
+              0.390625,
+              0.21875
+            ],
+            "barrel": [
+              0.59375,
+              0.30859375
+            ],
+            "batTip": [
+              0.63671875,
+              0.33203125
+            ],
+            "batAxis": [
+              63,
+              29
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                72,
+                231,
+                110,
+                236
+              ],
+              "endpointsPixels": [
+                [
+                  84,
+                  231
+                ],
+                [
+                  109,
+                  233
+                ]
+              ],
+              "roi": {
+                "x": 0.28125,
+                "y": 0.90234375,
+                "width": 0.1484375,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.328125,
+                  0.90234375
+                ],
+                [
+                  0.42578125,
+                  0.91015625
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                148,
+                195,
+                182,
+                200
+              ],
+              "endpointsPixels": [
+                [
+                  148,
+                  195
+                ],
+                [
+                  181,
+                  195
+                ]
+              ],
+              "roi": {
+                "x": 0.578125,
+                "y": 0.76171875,
+                "width": 0.1328125,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.578125,
+                  0.76171875
+                ],
+                [
+                  0.70703125,
+                  0.76171875
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": false,
+          "timelineMember": false,
+          "anatomyScale": 1,
+          "anchorNotes": "Stored-only source slot. Sweet spot selected within actual visible shoulder-crossing wood."
+        },
+        {
+          "source": "resetLift1",
+          "sourceFile": "curated/resetLift-frame-1.png",
+          "bounds": {
+            "x": 0.28125,
+            "y": 0.1640625,
+            "width": 0.4296875,
+            "height": 0.7578125
+          },
+          "bodyBounds": {
+            "x": 0.28125,
+            "y": 0.1640625,
+            "width": 0.4296875,
+            "height": 0.7578125
+          },
+          "contentBounds": {
+            "x": 0.28125,
+            "y": 0.109375,
+            "width": 0.4296875,
+            "height": 0.8125
+          },
+          "anchors": {
+            "feet": [
+              0.39453125,
+              0.91796875
+            ],
+            "frontFoot": [
+              0.6640625,
+              0.76953125
+            ],
+            "grip": [
+              0.48046875,
+              0.171875
+            ],
+            "barrel": [
+              0.50390625,
+              0.1328125
+            ],
+            "batTip": [
+              0.50390625,
+              0.1328125
+            ],
+            "batAxis": [
+              6,
+              -10
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                72,
+                231,
+                110,
+                236
+              ],
+              "endpointsPixels": [
+                [
+                  84,
+                  231
+                ],
+                [
+                  109,
+                  233
+                ]
+              ],
+              "roi": {
+                "x": 0.28125,
+                "y": 0.90234375,
+                "width": 0.1484375,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.328125,
+                  0.90234375
+                ],
+                [
+                  0.42578125,
+                  0.91015625
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                148,
+                193,
+                182,
+                198
+              ],
+              "endpointsPixels": [
+                [
+                  148,
+                  193
+                ],
+                [
+                  181,
+                  193
+                ]
+              ],
+              "roi": {
+                "x": 0.578125,
+                "y": 0.75390625,
+                "width": 0.1328125,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.578125,
+                  0.75390625
+                ],
+                [
+                  0.70703125,
+                  0.75390625
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1,
+          "anchorNotes": "End-on circular cap above hands; barrel and tip intentionally coincide. Projected axis and inboard distance are uncertain."
+        },
+        {
+          "source": "resetLift2",
+          "sourceFile": "curated/resetLift-frame-2.png",
+          "bounds": {
+            "x": 0.28125,
+            "y": 0.1640625,
+            "width": 0.4296875,
+            "height": 0.7578125
+          },
+          "bodyBounds": {
+            "x": 0.28125,
+            "y": 0.1640625,
+            "width": 0.4296875,
+            "height": 0.7578125
+          },
+          "contentBounds": {
+            "x": 0.28125,
+            "y": 0.078125,
+            "width": 0.4296875,
+            "height": 0.84375
+          },
+          "anchors": {
+            "feet": [
+              0.40234375,
+              0.91796875
+            ],
+            "frontFoot": [
+              0.66796875,
+              0.76953125
+            ],
+            "grip": [
+              0.5078125,
+              0.140625
+            ],
+            "barrel": [
+              0.53125,
+              0.09375
+            ],
+            "batTip": [
+              0.53125,
+              0.09375
+            ],
+            "batAxis": [
+              6,
+              -12
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                72,
+                231,
+                112,
+                236
+              ],
+              "endpointsPixels": [
+                [
+                  88,
+                  231
+                ],
+                [
+                  111,
+                  233
+                ]
+              ],
+              "roi": {
+                "x": 0.28125,
+                "y": 0.90234375,
+                "width": 0.15625,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.34375,
+                  0.90234375
+                ],
+                [
+                  0.43359375,
+                  0.91015625
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                148,
+                193,
+                182,
+                198
+              ],
+              "endpointsPixels": [
+                [
+                  148,
+                  193
+                ],
+                [
+                  181,
+                  193
+                ]
+              ],
+              "roi": {
+                "x": 0.578125,
+                "y": 0.75390625,
+                "width": 0.1328125,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.578125,
+                  0.75390625
+                ],
+                [
+                  0.70703125,
+                  0.75390625
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1,
+          "anchorNotes": "End-on short projection; barrel and tip intentionally coincide at visible wooden cap centre. Projected axis is uncertain."
+        },
+        {
+          "source": "resetLift3",
+          "sourceFile": "curated/resetLift-frame-3.png",
+          "bounds": {
+            "x": 0.28125,
+            "y": 0.1796875,
+            "width": 0.421875,
+            "height": 0.7421875
+          },
+          "bodyBounds": {
+            "x": 0.28125,
+            "y": 0.1796875,
+            "width": 0.421875,
+            "height": 0.7421875
+          },
+          "contentBounds": {
+            "x": 0.28125,
+            "y": 0.0703125,
+            "width": 0.421875,
+            "height": 0.8515625
+          },
+          "anchors": {
+            "feet": [
+              0.39453125,
+              0.91796875
+            ],
+            "frontFoot": [
+              0.66015625,
+              0.76953125
+            ],
+            "grip": [
+              0.51953125,
+              0.12890625
+            ],
+            "barrel": [
+              0.52734375,
+              0.08984375
+            ],
+            "batTip": [
+              0.52734375,
+              0.08984375
+            ],
+            "batAxis": [
+              2,
+              -10
+            ]
+          },
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "roiPixels": [
+                72,
+                231,
+                110,
+                236
+              ],
+              "endpointsPixels": [
+                [
+                  84,
+                  231
+                ],
+                [
+                  109,
+                  233
+                ]
+              ],
+              "roi": {
+                "x": 0.28125,
+                "y": 0.90234375,
+                "width": 0.1484375,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.328125,
+                  0.90234375
+                ],
+                [
+                  0.42578125,
+                  0.91015625
+                ]
+              ]
+            },
+            "front": {
+              "roiPixels": [
+                146,
+                193,
+                180,
+                198
+              ],
+              "endpointsPixels": [
+                [
+                  146,
+                  193
+                ],
+                [
+                  179,
+                  193
+                ]
+              ],
+              "roi": {
+                "x": 0.5703125,
+                "y": 0.75390625,
+                "width": 0.1328125,
+                "height": 0.01953125
+              },
+              "endpoints": [
+                [
+                  0.5703125,
+                  0.75390625
+                ],
+                [
+                  0.69921875,
+                  0.75390625
+                ]
+              ]
+            }
+          },
+          "runtimeApproved": true,
+          "timelineMember": true,
+          "anatomyScale": 1,
+          "anchorNotes": "End-on short projection; barrel and tip intentionally coincide at visible wooden cap centre. Projected axis is uncertain."
+        },
+        {
+          "source": "recovery-curated/unwind-frame-0.png",
+          "sourceFile": "recovery-curated/unwind-frame-0.png",
+          "bounds": {
+            "x": 0.203125,
+            "y": 0.171875,
+            "width": 0.46875,
+            "height": 0.765625
+          },
+          "bodyBounds": {
+            "x": 0.203125,
+            "y": 0.171875,
+            "width": 0.46875,
+            "height": 0.765625
+          },
+          "contentBounds": {
+            "x": 0.21875,
+            "y": 0.171875,
+            "width": 0.4453125,
+            "height": 0.765625
+          },
+          "anchors": {
+            "grip": [
+              0.265625,
+              0.2890625
+            ],
+            "barrel": [
+              0.5390625,
+              0.33984375
+            ],
+            "batTip": [
+              0.58984375,
+              0.35546875
+            ],
+            "head": [
+              0.4765625,
+              0.23046875
+            ],
+            "hip": [
+              0.38671875,
+              0.52734375
+            ],
+            "feet": [
+              0.36328125,
+              0.92578125
+            ],
+            "frontFoot": [
+              0.57421875,
+              0.78515625
+            ],
+            "batAxis": [
+              83,
+              17
+            ]
+          },
+          "anatomyScale": 1,
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "endpointsPixels": [
+                [
+                  93,
+                  237
+                ],
+                [
+                  93,
+                  237
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.36328125,
+                  0.92578125
+                ],
+                [
+                  0.36328125,
+                  0.92578125
+                ]
+              ],
+              "contactConvention": "loaded toe/forefoot contact point"
+            },
+            "front": {
+              "endpointsPixels": [
+                [
+                  138,
+                  200
+                ],
+                [
+                  147,
+                  201
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.5390625,
+                  0.78125
+                ],
+                [
+                  0.57421875,
+                  0.78515625
+                ]
+              ],
+              "contactConvention": "visible far sole paint; manual low-confidence where occluded"
+            }
+          },
+          "grounding": {
+            "support": "front",
+            "targetFrame": 3,
+            "targetSupport": "front"
+          },
+          "gripOccluded": false,
+          "measurementNotes": "Far shoe is foreshortened; sole strip is short but visible."
+        },
+        {
+          "source": "recovery-curated/unwind-frame-1.png",
+          "sourceFile": "recovery-curated/unwind-frame-1.png",
+          "bounds": {
+            "x": 0.1640625,
+            "y": 0.18359375,
+            "width": 0.4921875,
+            "height": 0.75390625
+          },
+          "bodyBounds": {
+            "x": 0.1640625,
+            "y": 0.18359375,
+            "width": 0.4921875,
+            "height": 0.75390625
+          },
+          "contentBounds": {
+            "x": 0.21875,
+            "y": 0.1796875,
+            "width": 0.5546875,
+            "height": 0.7578125
+          },
+          "anchors": {
+            "grip": [
+              0.5390625,
+              0.41015625
+            ],
+            "barrel": [
+              0.703125,
+              0.51953125
+            ],
+            "batTip": [
+              0.76171875,
+              0.5625
+            ],
+            "head": [
+              0.46484375,
+              0.22265625
+            ],
+            "hip": [
+              0.3359375,
+              0.56640625
+            ],
+            "feet": [
+              0.35546875,
+              0.91796875
+            ],
+            "frontFoot": [
+              0.5,
+              0.78125
+            ],
+            "batAxis": [
+              57,
+              39
+            ]
+          },
+          "anatomyScale": 1,
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "endpointsPixels": [
+                [
+                  91,
+                  235
+                ],
+                [
+                  91,
+                  235
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.35546875,
+                  0.91796875
+                ],
+                [
+                  0.35546875,
+                  0.91796875
+                ]
+              ],
+              "contactConvention": "loaded toe/forefoot contact point"
+            },
+            "front": {
+              "endpointsPixels": [
+                [
+                  128,
+                  200
+                ],
+                [
+                  155,
+                  198
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.5,
+                  0.78125
+                ],
+                [
+                  0.60546875,
+                  0.7734375
+                ]
+              ],
+              "contactConvention": "visible far sole paint; manual low-confidence where occluded"
+            }
+          },
+          "grounding": {
+            "support": "front",
+            "targetFrame": 3,
+            "targetSupport": "front"
+          },
+          "gripOccluded": false,
+          "measurementNotes": "Far cleat has two separated pale sole pixels/patches and is partly occluded; selected endpoints are on visible paint, but foot orientation/contact is uncertain."
+        },
+        {
+          "source": "recovery-curated/unwind-frame-2.png",
+          "sourceFile": "recovery-curated/unwind-frame-2.png",
+          "bounds": {
+            "x": 0.1953125,
+            "y": 0.1875,
+            "width": 0.4453125,
+            "height": 0.75
+          },
+          "bodyBounds": {
+            "x": 0.1953125,
+            "y": 0.1875,
+            "width": 0.4453125,
+            "height": 0.75
+          },
+          "contentBounds": {
+            "x": 0.234375,
+            "y": 0.1875,
+            "width": 0.5234375,
+            "height": 0.75
+          },
+          "anchors": {
+            "grip": [
+              0.53515625,
+              0.5
+            ],
+            "barrel": [
+              0.68359375,
+              0.6015625
+            ],
+            "batTip": [
+              0.75390625,
+              0.640625
+            ],
+            "head": [
+              0.46484375,
+              0.23046875
+            ],
+            "hip": [
+              0.34375,
+              0.5625
+            ],
+            "feet": [
+              0.375,
+              0.92578125
+            ],
+            "frontFoot": [
+              0.55859375,
+              0.79296875
+            ],
+            "batAxis": [
+              56,
+              36
+            ]
+          },
+          "anatomyScale": 1,
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "endpointsPixels": [
+                [
+                  96,
+                  237
+                ],
+                [
+                  96,
+                  237
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.375,
+                  0.92578125
+                ],
+                [
+                  0.375,
+                  0.92578125
+                ]
+              ],
+              "contactConvention": "loaded toe/forefoot contact point"
+            },
+            "front": {
+              "endpointsPixels": [
+                [
+                  140,
+                  202
+                ],
+                [
+                  143,
+                  203
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.546875,
+                  0.7890625
+                ],
+                [
+                  0.55859375,
+                  0.79296875
+                ]
+              ],
+              "contactConvention": "visible far sole paint; manual low-confidence where occluded"
+            }
+          },
+          "grounding": {
+            "support": "front",
+            "targetFrame": 3,
+            "targetSupport": "front"
+          },
+          "gripOccluded": false,
+          "measurementNotes": "Bat tip coordinate is snapped to the last visible shaft pixel. Far shoe is mostly hidden; sole contact uses only the small pale painted foot patch, not the raised heel."
+        },
+        {
+          "source": "recovery-curated/unwind-frame-3.png",
+          "sourceFile": "recovery-curated/unwind-frame-3.png",
+          "bounds": {
+            "x": 0.23828125,
+            "y": 0.1953125,
+            "width": 0.3828125,
+            "height": 0.7421875
+          },
+          "bodyBounds": {
+            "x": 0.23828125,
+            "y": 0.1953125,
+            "width": 0.3828125,
+            "height": 0.7421875
+          },
+          "contentBounds": {
+            "x": 0.2421875,
+            "y": 0.1953125,
+            "width": 0.5078125,
+            "height": 0.7421875
+          },
+          "anchors": {
+            "grip": [
+              0.5078125,
+              0.55859375
+            ],
+            "barrel": [
+              0.66796875,
+              0.6015625
+            ],
+            "batTip": [
+              0.7421875,
+              0.625
+            ],
+            "head": [
+              0.43359375,
+              0.2421875
+            ],
+            "hip": [
+              0.33984375,
+              0.5625
+            ],
+            "feet": [
+              0.38671875,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.58203125,
+              0.82421875
+            ],
+            "batAxis": [
+              60,
+              17
+            ]
+          },
+          "anatomyScale": 1,
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "endpointsPixels": [
+                [
+                  99,
+                  239
+                ],
+                [
+                  99,
+                  239
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.38671875,
+                  0.93359375
+                ],
+                [
+                  0.38671875,
+                  0.93359375
+                ]
+              ],
+              "contactConvention": "loaded toe/forefoot contact point"
+            },
+            "front": {
+              "endpointsPixels": [
+                [
+                  120,
+                  210
+                ],
+                [
+                  149,
+                  211
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.46875,
+                  0.8203125
+                ],
+                [
+                  0.58203125,
+                  0.82421875
+                ]
+              ],
+              "contactConvention": "visible far sole paint; manual low-confidence where occluded"
+            }
+          },
+          "grounding": {
+            "support": "front",
+            "targetFrame": 3,
+            "targetSupport": "front"
+          },
+          "gripOccluded": false,
+          "measurementNotes": "Rear heel is raised while the painted lower-right toe/forefoot sole reaches the bottom edge; only that toe/sole point is marked as the ground contact. Far cleat is foreshortened."
+        },
+        {
+          "source": "regatherR2-export/frame-0.png",
+          "sourceFile": "regatherR2-export/frame-0.png",
+          "bounds": {
+            "x": 0.203125,
+            "y": 0.18359375,
+            "width": 0.3828125,
+            "height": 0.75390625
+          },
+          "bodyBounds": {
+            "x": 0.203125,
+            "y": 0.18359375,
+            "width": 0.3828125,
+            "height": 0.75390625
+          },
+          "contentBounds": {
+            "x": 0.203125,
+            "y": 0.1796875,
+            "width": 0.5859375,
+            "height": 0.7578125
+          },
+          "anchors": {
+            "grip": [
+              0.46875,
+              0.55859375
+            ],
+            "barrel": [
+              0.69140625,
+              0.5859375
+            ],
+            "batTip": [
+              0.77734375,
+              0.640625
+            ],
+            "head": [
+              0.421875,
+              0.23828125
+            ],
+            "hip": [
+              0.35546875,
+              0.53515625
+            ],
+            "feet": [
+              0.3515625,
+              0.91796875
+            ],
+            "frontFoot": [
+              0.5703125,
+              0.78515625
+            ],
+            "batAxis": [
+              79,
+              21
+            ]
+          },
+          "anatomyScale": 1,
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "endpointsPixels": [
+                [
+                  90,
+                  235
+                ],
+                [
+                  90,
+                  235
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.3515625,
+                  0.91796875
+                ],
+                [
+                  0.3515625,
+                  0.91796875
+                ]
+              ],
+              "contactConvention": "loaded toe/forefoot contact point"
+            },
+            "front": {
+              "endpointsPixels": [
+                [
+                  111,
+                  201
+                ],
+                [
+                  146,
+                  201
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.43359375,
+                  0.78515625
+                ],
+                [
+                  0.5703125,
+                  0.78515625
+                ]
+              ],
+              "contactConvention": "visible far sole paint; manual low-confidence where occluded"
+            }
+          },
+          "grounding": {
+            "support": "front",
+            "targetFrame": 3,
+            "targetSupport": "front"
+          },
+          "gripOccluded": false,
+          "measurementNotes": "Rear shoe is the near lower-left foot; heel lifts, toe/forefoot sole remains planted. Far foot is foreshortened but visible sole strip is retained."
+        },
+        {
+          "source": "regatherR2-export/frame-1.png",
+          "sourceFile": "regatherR2-export/frame-1.png",
+          "bounds": {
+            "x": 0.2109375,
+            "y": 0.18359375,
+            "width": 0.3984375,
+            "height": 0.75390625
+          },
+          "bodyBounds": {
+            "x": 0.2109375,
+            "y": 0.18359375,
+            "width": 0.3984375,
+            "height": 0.75390625
+          },
+          "contentBounds": {
+            "x": 0.2109375,
+            "y": 0.1796875,
+            "width": 0.5703125,
+            "height": 0.7578125
+          },
+          "anchors": {
+            "grip": [
+              0.52734375,
+              0.51171875
+            ],
+            "barrel": [
+              0.625,
+              0.40625
+            ],
+            "batTip": [
+              0.734375,
+              0.2734375
+            ],
+            "head": [
+              0.42578125,
+              0.23828125
+            ],
+            "hip": [
+              0.35546875,
+              0.5390625
+            ],
+            "feet": [
+              0.36328125,
+              0.92578125
+            ],
+            "frontFoot": [
+              0.5390625,
+              0.78515625
+            ],
+            "batAxis": [
+              53,
+              -61
+            ]
+          },
+          "anatomyScale": 1,
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "endpointsPixels": [
+                [
+                  93,
+                  237
+                ],
+                [
+                  93,
+                  237
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.36328125,
+                  0.92578125
+                ],
+                [
+                  0.36328125,
+                  0.92578125
+                ]
+              ],
+              "contactConvention": "loaded toe/forefoot contact point"
+            },
+            "front": {
+              "endpointsPixels": [
+                [
+                  128,
+                  198
+                ],
+                [
+                  138,
+                  201
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.5,
+                  0.7734375
+                ],
+                [
+                  0.5390625,
+                  0.78515625
+                ]
+              ],
+              "contactConvention": "visible far sole paint; manual low-confidence where occluded"
+            }
+          },
+          "grounding": {
+            "support": "front",
+            "targetFrame": 3,
+            "targetSupport": "front"
+          },
+          "gripOccluded": false,
+          "measurementNotes": "Far shoe’s short fragmented sole paint is low confidence; contact is marked on the visible pale segment, not the raised heel."
+        },
+        {
+          "source": "regatherR2-export/frame-2.png",
+          "sourceFile": "regatherR2-export/frame-2.png",
+          "bounds": {
+            "x": 0.21875,
+            "y": 0.18359375,
+            "width": 0.3984375,
+            "height": 0.75390625
+          },
+          "bodyBounds": {
+            "x": 0.21875,
+            "y": 0.18359375,
+            "width": 0.3984375,
+            "height": 0.75390625
+          },
+          "contentBounds": {
+            "x": 0.21875,
+            "y": 0.0703125,
+            "width": 0.40625,
+            "height": 0.8671875
+          },
+          "anchors": {
+            "grip": [
+              0.58203125,
+              0.44921875
+            ],
+            "barrel": [
+              0.37109375,
+              0.15625
+            ],
+            "batTip": [
+              0.3046875,
+              0.0859375
+            ],
+            "head": [
+              0.484375,
+              0.23828125
+            ],
+            "hip": [
+              0.35546875,
+              0.53515625
+            ],
+            "feet": [
+              0.38671875,
+              0.92578125
+            ],
+            "frontFoot": [
+              0.55859375,
+              0.79296875
+            ],
+            "batAxis": [
+              -71,
+              -93
+            ]
+          },
+          "anatomyScale": 1,
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "endpointsPixels": [
+                [
+                  99,
+                  237
+                ],
+                [
+                  99,
+                  237
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.38671875,
+                  0.92578125
+                ],
+                [
+                  0.38671875,
+                  0.92578125
+                ]
+              ],
+              "contactConvention": "loaded toe/forefoot contact point"
+            },
+            "front": {
+              "endpointsPixels": [
+                [
+                  140,
+                  202
+                ],
+                [
+                  143,
+                  203
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.546875,
+                  0.7890625
+                ],
+                [
+                  0.55859375,
+                  0.79296875
+                ]
+              ],
+              "contactConvention": "visible far sole paint; manual low-confidence where occluded"
+            }
+          },
+          "grounding": {
+            "support": "front",
+            "targetFrame": 3,
+            "targetSupport": "front"
+          },
+          "gripOccluded": false,
+          "measurementNotes": "Bat tip is last visible orange pixel. Far sole patch is tiny and partially occluded; ground-contact point is low confidence."
+        },
+        {
+          "source": "regatherR2-export/frame-3.png",
+          "sourceFile": "regatherR2-export/frame-3.png",
+          "bounds": {
+            "x": 0.21875,
+            "y": 0.18359375,
+            "width": 0.41796875,
+            "height": 0.75390625
+          },
+          "bodyBounds": {
+            "x": 0.21875,
+            "y": 0.18359375,
+            "width": 0.41796875,
+            "height": 0.75390625
+          },
+          "contentBounds": {
+            "x": 0.21875,
+            "y": 0.03125,
+            "width": 0.4140625,
+            "height": 0.90625
+          },
+          "anchors": {
+            "grip": [
+              0.5859375,
+              0.40625
+            ],
+            "barrel": [
+              0.3828125,
+              0.1484375
+            ],
+            "batTip": [
+              0.3046875,
+              0.046875
+            ],
+            "head": [
+              0.5,
+              0.24609375
+            ],
+            "hip": [
+              0.34375,
+              0.5390625
+            ],
+            "feet": [
+              0.39453125,
+              0.92578125
+            ],
+            "frontFoot": [
+              0.59765625,
+              0.78125
+            ],
+            "batAxis": [
+              -72,
+              -92
+            ]
+          },
+          "anatomyScale": 1,
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "endpointsPixels": [
+                [
+                  101,
+                  237
+                ],
+                [
+                  101,
+                  237
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.39453125,
+                  0.92578125
+                ],
+                [
+                  0.39453125,
+                  0.92578125
+                ]
+              ],
+              "contactConvention": "loaded toe/forefoot contact point"
+            },
+            "front": {
+              "endpointsPixels": [
+                [
+                  120,
+                  198
+                ],
+                [
+                  153,
+                  200
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.46875,
+                  0.7734375
+                ],
+                [
+                  0.59765625,
+                  0.78125
+                ]
+              ],
+              "contactConvention": "visible far sole paint; manual low-confidence where occluded"
+            }
+          },
+          "grounding": {
+            "support": "front",
+            "targetFrame": 3,
+            "targetSupport": "front"
+          },
+          "gripOccluded": false,
+          "measurementNotes": "Rear heel is lifted while the lower forefoot remains down. Far shoe sole is a narrow fragmented strip, low confidence."
+        },
+        {
+          "source": "lowerBridge-export/frame-0.png",
+          "sourceFile": "lowerBridge-export/frame-0.png",
+          "bounds": {
+            "x": 0.2265625,
+            "y": 0.1796875,
+            "width": 0.453125,
+            "height": 0.7578125
+          },
+          "bodyBounds": {
+            "x": 0.2265625,
+            "y": 0.1796875,
+            "width": 0.453125,
+            "height": 0.7578125
+          },
+          "contentBounds": {
+            "x": 0.2265625,
+            "y": 0.046875,
+            "width": 0.453125,
+            "height": 0.890625
+          },
+          "anchors": {
+            "grip": [
+              0.61328125,
+              0.3203125
+            ],
+            "barrel": [
+              0.55859375,
+              0.16015625
+            ],
+            "batTip": [
+              0.53125,
+              0.0703125
+            ],
+            "head": [
+              0.49609375,
+              0.23046875
+            ],
+            "hip": [
+              0.34765625,
+              0.51953125
+            ],
+            "feet": [
+              0.39453125,
+              0.92578125
+            ],
+            "frontFoot": [
+              0.58984375,
+              0.7578125
+            ],
+            "batAxis": [
+              -21,
+              -64
+            ]
+          },
+          "anatomyScale": 1,
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "endpointsPixels": [
+                [
+                  101,
+                  237
+                ],
+                [
+                  101,
+                  237
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.39453125,
+                  0.92578125
+                ],
+                [
+                  0.39453125,
+                  0.92578125
+                ]
+              ],
+              "contactConvention": "loaded toe/forefoot contact point"
+            },
+            "front": {
+              "endpointsPixels": [
+                [
+                  118,
+                  194
+                ],
+                [
+                  151,
+                  194
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.4609375,
+                  0.7578125
+                ],
+                [
+                  0.58984375,
+                  0.7578125
+                ]
+              ],
+              "contactConvention": "visible far sole paint; manual low-confidence where occluded"
+            }
+          },
+          "grounding": {
+            "support": "front",
+            "targetFrame": 3,
+            "targetSupport": "front"
+          },
+          "gripOccluded": false,
+          "measurementNotes": "The far shoe has a short painted sole line with gaps; selected toe/contact point is on the last visible segment."
+        },
+        {
+          "source": "lowerBridge-export/frame-1.png",
+          "sourceFile": "lowerBridge-export/frame-1.png",
+          "bounds": {
+            "x": 0.2265625,
+            "y": 0.1796875,
+            "width": 0.453125,
+            "height": 0.7578125
+          },
+          "bodyBounds": {
+            "x": 0.2265625,
+            "y": 0.1796875,
+            "width": 0.453125,
+            "height": 0.7578125
+          },
+          "contentBounds": {
+            "x": 0.2265625,
+            "y": 0.1015625,
+            "width": 0.4453125,
+            "height": 0.8359375
+          },
+          "anchors": {
+            "grip": [
+              0.62109375,
+              0.35546875
+            ],
+            "barrel": [
+              0.55078125,
+              0.21484375
+            ],
+            "batTip": [
+              0.4921875,
+              0.109375
+            ],
+            "head": [
+              0.484375,
+              0.234375
+            ],
+            "hip": [
+              0.3515625,
+              0.52734375
+            ],
+            "feet": [
+              0.38671875,
+              0.92578125
+            ],
+            "frontFoot": [
+              0.58984375,
+              0.7578125
+            ],
+            "batAxis": [
+              -33,
+              -63
+            ]
+          },
+          "anatomyScale": 1,
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "endpointsPixels": [
+                [
+                  99,
+                  237
+                ],
+                [
+                  99,
+                  237
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.38671875,
+                  0.92578125
+                ],
+                [
+                  0.38671875,
+                  0.92578125
+                ]
+              ],
+              "contactConvention": "loaded toe/forefoot contact point"
+            },
+            "front": {
+              "endpointsPixels": [
+                [
+                  120,
+                  194
+                ],
+                [
+                  151,
+                  194
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.46875,
+                  0.7578125
+                ],
+                [
+                  0.58984375,
+                  0.7578125
+                ]
+              ],
+              "contactConvention": "visible far sole paint; manual low-confidence where occluded"
+            }
+          },
+          "grounding": {
+            "support": "front",
+            "targetFrame": 3,
+            "targetSupport": "front"
+          },
+          "gripOccluded": false,
+          "measurementNotes": "The far sole line is segmented and foreshortened; toe/contact point is the rightmost visible sole pixel. Heel is not used as contact."
+        },
+        null,
+        null,
+        {
+          "source": "lowerMidR2-curated/frame-0.png",
+          "sourceFile": "lowerMidR2-curated/frame-0.png",
+          "bounds": {
+            "x": 0.2265625,
+            "y": 0.1875,
+            "width": 0.4140625,
+            "height": 0.75
+          },
+          "bodyBounds": {
+            "x": 0.2265625,
+            "y": 0.1875,
+            "width": 0.4140625,
+            "height": 0.75
+          },
+          "contentBounds": {
+            "x": 0.2265625,
+            "y": 0.1875,
+            "width": 0.53125,
+            "height": 0.75
+          },
+          "anchors": {
+            "grip": [
+              0.53515625,
+              0.38671875
+            ],
+            "barrel": [
+              0.71484375,
+              0.40625
+            ],
+            "batTip": [
+              0.75390625,
+              0.41796875
+            ],
+            "head": [
+              0.4765625,
+              0.234375
+            ],
+            "hip": [
+              0.4765625,
+              0.5703125
+            ],
+            "feet": [
+              0.375,
+              0.93359375
+            ],
+            "frontFoot": [
+              0.60546875,
+              0.7890625
+            ],
+            "batAxis": [
+              56,
+              8
+            ]
+          },
+          "anatomyScale": 1,
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "endpointsPixels": [
+                [
+                  96,
+                  239
+                ],
+                [
+                  96,
+                  239
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.375,
+                  0.93359375
+                ],
+                [
+                  0.375,
+                  0.93359375
+                ]
+              ],
+              "contactConvention": "loaded toe/forefoot contact point"
+            },
+            "front": {
+              "endpointsPixels": [
+                [
+                  150,
+                  201
+                ],
+                [
+                  163,
+                  201
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.5859375,
+                  0.78515625
+                ],
+                [
+                  0.63671875,
+                  0.78515625
+                ]
+              ],
+              "contactConvention": "visible far sole paint; manual low-confidence where occluded"
+            }
+          },
+          "grounding": {
+            "support": "front",
+            "targetFrame": 3,
+            "targetSupport": "front"
+          },
+          "gripOccluded": false,
+          "measurementNotes": "Manual landmarks visually read on native export and alpha=255 verified. The far foot is 37px above the near toe because of umpire-camera depth (canonical READY separation43px); this alone does not establish airborne contact. Far sole paint is foreshortened, contact confidence low. Grip is at upper chest."
+        },
+        null,
+        null,
+        null,
+        {
+          "source": "lowerOccluded-curated/frame-0.png",
+          "sourceFile": "lowerOccluded-curated/frame-0.png",
+          "bounds": {
+            "x": 0.2734375,
+            "y": 0.1796875,
+            "width": 0.4375,
+            "height": 0.7578125
+          },
+          "bodyBounds": {
+            "x": 0.2734375,
+            "y": 0.1796875,
+            "width": 0.4375,
+            "height": 0.7578125
+          },
+          "contentBounds": {
+            "x": 0.2734375,
+            "y": 0.1796875,
+            "width": 0.4453125,
+            "height": 0.7578125
+          },
+          "anchors": {
+            "grip": [
+              0.58203125,
+              0.3828125
+            ],
+            "barrel": [
+              0.63671875,
+              0.375
+            ],
+            "batTip": [
+              0.71484375,
+              0.3828125
+            ],
+            "head": [
+              0.5078125,
+              0.2421875
+            ],
+            "hip": [
+              0.48828125,
+              0.5546875
+            ],
+            "feet": [
+              0.39453125,
+              0.92578125
+            ],
+            "frontFoot": [
+              0.609375,
+              0.78125
+            ],
+            "batAxis": [
+              34,
+              0
+            ]
+          },
+          "anatomyScale": 1,
+          "footContact": {
+            "rear": true,
+            "front": true
+          },
+          "soleGroundline": {
+            "rear": {
+              "endpointsPixels": [
+                [
+                  101,
+                  237
+                ],
+                [
+                  101,
+                  237
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.39453125,
+                  0.92578125
+                ],
+                [
+                  0.39453125,
+                  0.92578125
+                ]
+              ],
+              "contactConvention": "loaded toe/forefoot contact point"
+            },
+            "front": {
+              "endpointsPixels": [
+                [
+                  150,
+                  200
+                ],
+                [
+                  159,
+                  200
+                ]
+              ],
+              "endpoints": [
+                [
+                  0.5859375,
+                  0.78125
+                ],
+                [
+                  0.62109375,
+                  0.78125
+                ]
+              ],
+              "contactConvention": "visible far sole paint; manual low-confidence where occluded"
+            }
+          },
+          "grounding": {
+            "support": "front",
+            "targetFrame": 3,
+            "targetSupport": "front"
+          },
+          "gripOccluded": true,
+          "measurementNotes": "Grip intentionally occluded/inferred; far foot foreshortened."
+        },
+        null,
+        null,
+        null
+      ],
+      "timelines": {
+        "readyFrame": 0,
+        "swing": [
+          {
+            "atMs": -1567,
+            "frame": 0,
+            "phase": "ready"
+          },
+          {
+            "atMs": -800,
+            "frame": 1,
+            "phase": "gather"
+          },
+          {
+            "atMs": -500,
+            "frame": 2,
+            "phase": "stride"
+          },
+          {
+            "atMs": -260,
+            "frame": 3,
+            "phase": "plant"
+          },
+          {
+            "atMs": -190,
+            "frame": 4,
+            "phase": "swing"
+          },
+          {
+            "atMs": -140,
+            "frame": 5,
+            "phase": "swing"
+          },
+          {
+            "atMs": -90,
+            "frame": 6,
+            "phase": "swing"
+          },
+          {
+            "atMs": -40,
+            "frame": 7,
+            "phase": "swing"
+          },
+          {
+            "atMs": 0,
+            "frame": 10,
+            "phase": "swing"
+          },
+          {
+            "atMs": 0,
+            "frame": 8,
+            "phase": "swing",
+            "contactOnly": true
+          },
+          {
+            "atMs": 60,
+            "frame": 9,
+            "phase": "follow",
+            "contactOnly": true
+          },
+          {
+            "atMs": 120,
+            "frame": 10,
+            "phase": "follow"
+          },
+          {
+            "atMs": 180,
+            "frame": 11,
+            "phase": "follow"
+          },
+          {
+            "atMs": 250,
+            "frame": 12,
+            "phase": "follow"
+          },
+          {
+            "atMs": 320,
+            "frame": 13,
+            "phase": "follow"
+          },
+          {
+            "atMs": 400,
+            "frame": 14,
+            "phase": "follow"
+          },
+          {
+            "atMs": 480,
+            "frame": 16,
+            "phase": "follow"
+          },
+          {
+            "atMs": 560,
+            "frame": 17,
+            "phase": "follow"
+          },
+          {
+            "atMs": 640,
+            "frame": 18,
+            "phase": "follow"
+          },
+          {
+            "atMs": 740,
+            "frame": 19,
+            "phase": "finish"
+          },
+          {
+            "atMs": 840,
+            "frame": 36,
+            "phase": "reset"
+          },
+          {
+            "atMs": 960,
+            "frame": 52,
+            "phase": "reset"
+          },
+          {
+            "atMs": 1060,
+            "frame": 48,
+            "phase": "reset"
+          },
+          {
+            "atMs": 1150,
+            "frame": 37,
+            "phase": "reset"
+          },
+          {
+            "atMs": 1230,
+            "frame": 38,
+            "phase": "reset"
+          },
+          {
+            "atMs": 1310,
+            "frame": 39,
+            "phase": "reset"
+          },
+          {
+            "atMs": 1410,
+            "frame": 40,
+            "phase": "reset"
+          },
+          {
+            "atMs": 1530,
+            "frame": 41,
+            "phase": "reset"
+          },
+          {
+            "atMs": 1630,
+            "frame": 44,
+            "phase": "reset"
+          },
+          {
+            "atMs": 1730,
+            "frame": 45,
+            "phase": "reset"
+          },
+          {
+            "atMs": 1830,
+            "frame": 42,
+            "phase": "reset"
+          },
+          {
+            "atMs": 1930,
+            "frame": 43,
+            "phase": "reset"
+          },
+          {
+            "atMs": 2070,
+            "frame": 0,
+            "phase": "ready"
+          }
+        ],
+        "bunt": [
+          {
+            "atMs": -1567,
+            "frame": 0,
+            "phase": "ready"
+          },
+          {
+            "atMs": -700,
+            "frame": 0,
+            "phase": "gather"
+          },
+          {
+            "atMs": -220,
+            "frame": 25,
+            "phase": "bunt"
+          },
+          {
+            "atMs": 120,
+            "frame": 28,
+            "phase": "reset"
+          },
+          {
+            "atMs": 240,
+            "frame": 29,
+            "phase": "reset"
+          },
+          {
+            "atMs": 360,
+            "frame": 30,
+            "phase": "reset"
+          },
+          {
+            "atMs": 500,
+            "frame": 31,
+            "phase": "reset"
+          },
+          {
+            "atMs": 650,
+            "frame": 0,
+            "phase": "ready"
+          },
+          {
+            "atMs": 0,
+            "frame": 25,
+            "phase": "bunt"
+          },
+          {
+            "atMs": 0,
+            "frame": 26,
+            "phase": "bunt",
+            "contactOnly": true
+          }
+        ],
+        "take": [
+          {
+            "atMs": -1567,
+            "frame": 0,
+            "phase": "ready"
+          },
+          {
+            "atMs": -700,
+            "frame": 1,
+            "phase": "gather"
+          },
+          {
+            "atMs": -100,
+            "frame": 0,
+            "phase": "take"
+          },
+          {
+            "atMs": 300,
+            "frame": 0,
+            "phase": "ready"
+          }
+        ]
+      },
+      "extractedSourceCount": 48,
+      "timelineUniqueSourceCount": 37,
+      "timelineExcludedIndices": [
+        15,
+        20,
+        21,
+        22,
+        23,
+        24,
+        27,
+        32,
+        33,
+        34,
+        35,
+        46,
+        47,
+        49,
+        50,
+        51,
+        53,
+        54,
+        55
+      ],
+      "countMeaning": "48 preserved original/generated source drawings in 56 atlas slots (8 explicit unused padding slots); authored timing/source counts are technical data, not motion-quality approval."
+    },
+    "redRush": {
+      "file": "red-rush-atlas.png",
+      "columns": 4,
+      "rows": 3,
+      "cell": {
+        "width": 256,
+        "height": 256,
+        "scale": 1
+      },
+      "states": {
+        "windup": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "drive": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "reset": [
+          8,
+          9,
+          10,
+          0
+        ]
+      },
+      "frames": [
+        {
+          "bounds": {
+            "x": 0.3125,
+            "y": 0.0625,
+            "width": 0.42190000000000005,
+            "height": 0.875
+          },
+          "anchors": {
+            "feet": [
+              0.3515625,
+              0.921875
+            ]
+          }
+        },
+        {
+          "bounds": {
+            "x": 0.3516,
+            "y": 0.0781,
+            "width": 0.39059999999999995,
+            "height": 0.8593999999999999
+          },
+          "anchors": {
+            "feet": [
+              0.453125,
+              0.92578125
+            ]
+          }
+        },
+        {
+          "bounds": {
+            "x": 0.332,
+            "y": 0.0625,
+            "width": 0.44139999999999996,
+            "height": 0.875
+          },
+          "anchors": {
+            "feet": [
+              0.4453125,
+              0.9296875
+            ]
+          }
+        },
+        {
+          "bounds": {
+            "x": 0.293,
+            "y": 0.1133,
+            "width": 0.4882,
+            "height": 0.8242
+          },
+          "anchors": {
+            "feet": [
+              0.44921875,
+              0.93359375
+            ]
+          }
+        },
+        {
+          "bounds": {
+            "x": 0.1953,
+            "y": 0.0625,
+            "width": 0.5429999999999999,
+            "height": 0.875
+          },
+          "anchors": {
+            "feet": [
+              0.546875,
+              0.93359375
+            ]
+          }
+        },
+        {
+          "bounds": {
+            "x": 0.1914,
+            "y": 0.082,
+            "width": 0.5781,
+            "height": 0.8555
+          },
+          "anchors": {
+            "feet": [
+              0.625,
+              0.93359375
+            ]
+          }
+        },
+        {
+          "bounds": {
+            "x": 0.2383,
+            "y": 0.0859,
+            "width": 0.5078,
+            "height": 0.8516
+          },
+          "anchors": {
+            "feet": [
+              0.421875,
+              0.93359375
+            ],
+            "release": [
+              0.26953125,
+              0.28125
+            ]
+          }
+        },
+        {
+          "bounds": {
+            "x": 0.0859,
+            "y": 0.125,
+            "width": 0.7032,
+            "height": 0.8125
+          },
+          "anchors": {
+            "feet": [
+              0.42578125,
+              0.93359375
+            ]
+          }
+        },
+        {
+          "bounds": {
+            "x": 0.1172,
+            "y": 0.1289,
+            "width": 0.7617,
+            "height": 0.8086
+          },
+          "anchors": {
+            "feet": [
+              0.45703125,
+              0.93359375
+            ]
+          }
+        },
+        {
+          "bounds": {
+            "x": 0.1992,
+            "y": 0.0742,
+            "width": 0.6563000000000001,
+            "height": 0.8633
+          },
+          "anchors": {
+            "feet": [
+              0.578125,
+              0.93359375
+            ]
+          }
+        },
+        {
+          "bounds": {
+            "x": 0.2539,
+            "y": 0.0625,
+            "width": 0.5468999999999999,
+            "height": 0.875
+          },
+          "anchors": {
+            "feet": [
+              0.30078125,
+              0.91015625
+            ]
+          }
+        },
+        {
+          "bounds": {
+            "x": 0.293,
+            "y": 0.0625,
+            "width": 0.46480000000000005,
+            "height": 0.875
+          },
+          "anchors": {
+            "feet": [
+              0.33203125,
+              0.90625
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "field": {
+    "cameraCenterRatio": 0.55,
+    "cameraZoneInsetRatio": 0.07,
+    "cameraReferenceHeight": 477,
+    "cameraViewWidthFt": 15.5,
+    "batterRearLateralFt": -3.65,
+    "batterRearDepthFt": -1.5,
+    "batterBoxWidthFt": 4,
+    "batterBoxNearDepthFt": -2,
+    "batterBoxFarDepthFt": 4
+  },
+  "mound": {
+    "file": "mound.png",
+    "width": 192,
+    "height": 64,
+    "rubber": [
+      0.4947916666666667,
+      0.328125
+    ],
+    "displayWidthU": 48
+  }
+}
