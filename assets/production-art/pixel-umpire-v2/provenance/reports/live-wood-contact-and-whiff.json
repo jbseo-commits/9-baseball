@@ -1,0 +1,1579 @@
+{
+  "kind": "v2-actual-live-geometry-painted-wood-whiff-audit",
+  "geometry": {
+    "measurementSource": "Root actual local browser DOM, 2026-10-18; final v2 renderer/manifest confirmed by root and read from current source",
+    "rendererGeometryConfirmed": true,
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "sceneCss": {
+      "x": 0,
+      "y": 44,
+      "width": 390,
+      "height": 484
+    },
+    "zoneCssAbsolute": {
+      "x": 171.59375,
+      "y": 285.90625,
+      "width": 140.390625,
+      "height": 168
+    },
+    "zoneCenterSceneCss": {
+      "x": 241.7890625,
+      "y": 325.90625
+    },
+    "expectedNativeCanvas": {
+      "width": 384,
+      "height": 477
+    },
+    "artId": "regular-01-red-rush",
+    "impactAt": 1567,
+    "flightStart": 1267,
+    "confirmed": [
+      "Read final v2 rear .20W / h-5u and READY-derived orientedBatterBox code",
+      "Read corrected Red Rush frame6 feet[108,239], release[69,72], both native256"
+    ]
+  },
+  "canvas": {
+    "width": 384,
+    "height": 477
+  },
+  "sourceSha256": {
+    "motion": "36b116146668e18b1e056cec618cbb560a6af5e2447e43f42dfb557159927602",
+    "scene": "3410e6e4b52f0ec6e6bd653d7f0ce06d7cafb6f696f769ed376d878fa91d1dd7",
+    "manifest": "584432289f311df594902cb9b44007927573c737f7b9ec92d563337bf56ae683",
+    "batterAtlas": "cbbf44f36ec63fb1c9de070c890fff8d42ee536a703a82f2fd6f2560ec699d32"
+  },
+  "sampleCount": 4020,
+  "worst": {
+    "swing": {
+      "zone": 6,
+      "dt": -1,
+      "index": 5,
+      "source": "swing1",
+      "ballCenter": {
+        "x": 260,
+        "y": 323
+      },
+      "ballOuter": {
+        "x": 256,
+        "y": 320,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        251,
+        333
+      ],
+      "paintedWoodOuterGapNative": 8.06225774829855,
+      "paintedWoodOuterGapCss": 8.188230525615714,
+      "gapMinus1NativeRasterTolerance": 7.062257748298549,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 9.486832980505138,
+      "whiteCoreToVisibleBatGapCss": 9.635064745825531,
+      "sourceDiagnosticMaskPixels": 703
+    },
+    "bunt": {
+      "zone": 0,
+      "dt": -12,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 265,
+        "y": 282
+      },
+      "ballOuter": {
+        "x": 261,
+        "y": 279,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        278
+      ],
+      "paintedWoodOuterGapNative": 0.0,
+      "paintedWoodOuterGapCss": 0.0,
+      "gapMinus1NativeRasterTolerance": -1.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 2.8284271247461903,
+      "whiteCoreToVisibleBatGapCss": 2.8726212985703494,
+      "sourceDiagnosticMaskPixels": 752
+    }
+  },
+  "whiteCoreWorst": {
+    "swing": {
+      "zone": 6,
+      "dt": -1,
+      "index": 5,
+      "source": "swing1",
+      "ballCenter": {
+        "x": 260,
+        "y": 323
+      },
+      "ballOuter": {
+        "x": 256,
+        "y": 320,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        251,
+        333
+      ],
+      "paintedWoodOuterGapNative": 8.06225774829855,
+      "paintedWoodOuterGapCss": 8.188230525615714,
+      "gapMinus1NativeRasterTolerance": 7.062257748298549,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 9.486832980505138,
+      "whiteCoreToVisibleBatGapCss": 9.635064745825531,
+      "sourceDiagnosticMaskPixels": 703
+    },
+    "bunt": {
+      "zone": 0,
+      "dt": -12,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 265,
+        "y": 282
+      },
+      "ballOuter": {
+        "x": 261,
+        "y": 279,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        278
+      ],
+      "paintedWoodOuterGapNative": 0.0,
+      "paintedWoodOuterGapCss": 0.0,
+      "gapMinus1NativeRasterTolerance": -1.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 2.8284271247461903,
+      "whiteCoreToVisibleBatGapCss": 2.8726212985703494,
+      "sourceDiagnosticMaskPixels": 752
+    }
+  },
+  "overlapSampleCount": 0,
+  "overlapSamples": [],
+  "within1NativeRasterToleranceCount": 31,
+  "zeroSquareGapCount": 2,
+  "nearBoundarySummary": [
+    {
+      "action": "bunt",
+      "zone": 0,
+      "count": 12,
+      "dtMin": -21,
+      "dtMax": -10,
+      "zeroGapCount": 2,
+      "minimumGap": 0.0
+    },
+    {
+      "action": "bunt",
+      "zone": 3,
+      "count": 11,
+      "dtMin": -21,
+      "dtMax": -11,
+      "zeroGapCount": 0,
+      "minimumGap": 1.0
+    },
+    {
+      "action": "bunt",
+      "zone": 6,
+      "count": 8,
+      "dtMin": -21,
+      "dtMax": -14,
+      "zeroGapCount": 0,
+      "minimumGap": 1.0
+    }
+  ],
+  "nearBoundarySamples": [
+    {
+      "action": "bunt",
+      "zone": 0,
+      "dt": -21,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 276
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 273,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        274
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.0,
+      "whiteCoreToVisibleBatGapCss": 3.046875,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 0,
+      "dt": -20,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 276
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 273,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        274
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.0,
+      "whiteCoreToVisibleBatGapCss": 3.046875,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 0,
+      "dt": -19,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 277
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 274,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        274
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.0,
+      "whiteCoreToVisibleBatGapCss": 3.046875,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 0,
+      "dt": -18,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 278
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 275,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        274
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.0,
+      "whiteCoreToVisibleBatGapCss": 3.046875,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 0,
+      "dt": -17,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 278
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 275,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        274
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.0,
+      "whiteCoreToVisibleBatGapCss": 3.046875,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 0,
+      "dt": -16,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 279
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 276,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        275
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.0,
+      "whiteCoreToVisibleBatGapCss": 3.046875,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 0,
+      "dt": -15,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 280
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 277,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        276
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.0,
+      "whiteCoreToVisibleBatGapCss": 3.046875,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 0,
+      "dt": -14,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 280
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 277,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        276
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.0,
+      "whiteCoreToVisibleBatGapCss": 3.046875,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 0,
+      "dt": -13,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 281
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 278,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        277
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.1622776601683795,
+      "whiteCoreToVisibleBatGapCss": 3.2116882486085103,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 0,
+      "dt": -12,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 265,
+        "y": 282
+      },
+      "ballOuter": {
+        "x": 261,
+        "y": 279,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        278
+      ],
+      "paintedWoodOuterGapNative": 0.0,
+      "paintedWoodOuterGapCss": 0.0,
+      "gapMinus1NativeRasterTolerance": -1.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 2.8284271247461903,
+      "whiteCoreToVisibleBatGapCss": 2.8726212985703494,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 0,
+      "dt": -11,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 265,
+        "y": 282
+      },
+      "ballOuter": {
+        "x": 261,
+        "y": 279,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        278
+      ],
+      "paintedWoodOuterGapNative": 0.0,
+      "paintedWoodOuterGapCss": 0.0,
+      "gapMinus1NativeRasterTolerance": -1.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 2.8284271247461903,
+      "whiteCoreToVisibleBatGapCss": 2.8726212985703494,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 0,
+      "dt": -10,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 265,
+        "y": 283
+      },
+      "ballOuter": {
+        "x": 261,
+        "y": 280,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        278
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.605551275463989,
+      "whiteCoreToVisibleBatGapCss": 3.661888014143114,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 3,
+      "dt": -21,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 277
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 274,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        274
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.0,
+      "whiteCoreToVisibleBatGapCss": 3.046875,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 3,
+      "dt": -20,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 277
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 274,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        274
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.0,
+      "whiteCoreToVisibleBatGapCss": 3.046875,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 3,
+      "dt": -19,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 278
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 275,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        274
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.0,
+      "whiteCoreToVisibleBatGapCss": 3.046875,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 3,
+      "dt": -18,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 279
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 276,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        275
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.0,
+      "whiteCoreToVisibleBatGapCss": 3.046875,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 3,
+      "dt": -17,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 279
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 276,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        275
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.0,
+      "whiteCoreToVisibleBatGapCss": 3.046875,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 3,
+      "dt": -16,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 280
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 277,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        276
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.0,
+      "whiteCoreToVisibleBatGapCss": 3.046875,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 3,
+      "dt": -15,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 281
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 278,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        277
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.1622776601683795,
+      "whiteCoreToVisibleBatGapCss": 3.2116882486085103,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 3,
+      "dt": -14,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 281
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 278,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        277
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.1622776601683795,
+      "whiteCoreToVisibleBatGapCss": 3.2116882486085103,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 3,
+      "dt": -13,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 282
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 279,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        278
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.605551275463989,
+      "whiteCoreToVisibleBatGapCss": 3.661888014143114,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 3,
+      "dt": -12,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 265,
+        "y": 283
+      },
+      "ballOuter": {
+        "x": 261,
+        "y": 280,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        278
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.605551275463989,
+      "whiteCoreToVisibleBatGapCss": 3.661888014143114,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 3,
+      "dt": -11,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 265,
+        "y": 283
+      },
+      "ballOuter": {
+        "x": 261,
+        "y": 280,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        278
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.605551275463989,
+      "whiteCoreToVisibleBatGapCss": 3.661888014143114,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 6,
+      "dt": -21,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 278
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 275,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        274
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.0,
+      "whiteCoreToVisibleBatGapCss": 3.046875,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 6,
+      "dt": -20,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 278
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 275,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        274
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.0,
+      "whiteCoreToVisibleBatGapCss": 3.046875,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 6,
+      "dt": -19,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 279
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 276,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        275
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.0,
+      "whiteCoreToVisibleBatGapCss": 3.046875,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 6,
+      "dt": -18,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 280
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 277,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        276
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.0,
+      "whiteCoreToVisibleBatGapCss": 3.046875,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 6,
+      "dt": -17,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 280
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 277,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        276
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.0,
+      "whiteCoreToVisibleBatGapCss": 3.046875,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 6,
+      "dt": -16,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 281
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 278,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        277
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.1622776601683795,
+      "whiteCoreToVisibleBatGapCss": 3.2116882486085103,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 6,
+      "dt": -15,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 282
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 279,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        278
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.605551275463989,
+      "whiteCoreToVisibleBatGapCss": 3.661888014143114,
+      "sourceDiagnosticMaskPixels": 752
+    },
+    {
+      "action": "bunt",
+      "zone": 6,
+      "dt": -14,
+      "index": 17,
+      "source": "bunt1",
+      "ballCenter": {
+        "x": 266,
+        "y": 282
+      },
+      "ballOuter": {
+        "x": 262,
+        "y": 279,
+        "width": 8,
+        "height": 6
+      },
+      "nearestVisibleBatPixel": [
+        260,
+        278
+      ],
+      "paintedWoodOuterGapNative": 1.0,
+      "paintedWoodOuterGapCss": 1.015625,
+      "gapMinus1NativeRasterTolerance": 0.0,
+      "overlappingNativePixels": 0,
+      "whiteCoreToVisibleBatGapNative": 3.605551275463989,
+      "whiteCoreToVisibleBatGapCss": 3.661888014143114,
+      "sourceDiagnosticMaskPixels": 752
+    }
+  ],
+  "hitEndpoints": [
+    {
+      "action": "swing",
+      "zone": 0,
+      "index": 6,
+      "target": {
+        "x": 261,
+        "y": 322
+      },
+      "ball": {
+        "outer": {
+          "x": 257,
+          "y": 319,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 259,
+          "y": 321,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    },
+    {
+      "action": "swing",
+      "zone": 1,
+      "index": 6,
+      "target": {
+        "x": 264,
+        "y": 323
+      },
+      "ball": {
+        "outer": {
+          "x": 260,
+          "y": 320,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 262,
+          "y": 322,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    },
+    {
+      "action": "swing",
+      "zone": 2,
+      "index": 6,
+      "target": {
+        "x": 268,
+        "y": 324
+      },
+      "ball": {
+        "outer": {
+          "x": 264,
+          "y": 321,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 266,
+          "y": 323,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    },
+    {
+      "action": "swing",
+      "zone": 3,
+      "index": 6,
+      "target": {
+        "x": 261,
+        "y": 323
+      },
+      "ball": {
+        "outer": {
+          "x": 257,
+          "y": 320,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 259,
+          "y": 322,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    },
+    {
+      "action": "swing",
+      "zone": 4,
+      "index": 6,
+      "target": {
+        "x": 264,
+        "y": 324
+      },
+      "ball": {
+        "outer": {
+          "x": 260,
+          "y": 321,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 262,
+          "y": 323,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    },
+    {
+      "action": "swing",
+      "zone": 5,
+      "index": 6,
+      "target": {
+        "x": 267,
+        "y": 325
+      },
+      "ball": {
+        "outer": {
+          "x": 263,
+          "y": 322,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 265,
+          "y": 324,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    },
+    {
+      "action": "swing",
+      "zone": 6,
+      "index": 6,
+      "target": {
+        "x": 260,
+        "y": 324
+      },
+      "ball": {
+        "outer": {
+          "x": 256,
+          "y": 321,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 258,
+          "y": 323,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    },
+    {
+      "action": "swing",
+      "zone": 7,
+      "index": 6,
+      "target": {
+        "x": 264,
+        "y": 325
+      },
+      "ball": {
+        "outer": {
+          "x": 260,
+          "y": 322,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 262,
+          "y": 324,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    },
+    {
+      "action": "swing",
+      "zone": 8,
+      "index": 6,
+      "target": {
+        "x": 267,
+        "y": 326
+      },
+      "ball": {
+        "outer": {
+          "x": 263,
+          "y": 323,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 265,
+          "y": 325,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    },
+    {
+      "action": "swing",
+      "zone": 9,
+      "index": 6,
+      "target": {
+        "x": 270,
+        "y": 325
+      },
+      "ball": {
+        "outer": {
+          "x": 266,
+          "y": 322,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 268,
+          "y": 324,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    },
+    {
+      "action": "bunt",
+      "zone": 0,
+      "index": 18,
+      "target": {
+        "x": 264,
+        "y": 290
+      },
+      "ball": {
+        "outer": {
+          "x": 260,
+          "y": 287,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 262,
+          "y": 289,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    },
+    {
+      "action": "bunt",
+      "zone": 1,
+      "index": 18,
+      "target": {
+        "x": 268,
+        "y": 290
+      },
+      "ball": {
+        "outer": {
+          "x": 264,
+          "y": 287,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 266,
+          "y": 289,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    },
+    {
+      "action": "bunt",
+      "zone": 2,
+      "index": 18,
+      "target": {
+        "x": 272,
+        "y": 290
+      },
+      "ball": {
+        "outer": {
+          "x": 268,
+          "y": 287,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 270,
+          "y": 289,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    },
+    {
+      "action": "bunt",
+      "zone": 3,
+      "index": 18,
+      "target": {
+        "x": 264,
+        "y": 291
+      },
+      "ball": {
+        "outer": {
+          "x": 260,
+          "y": 288,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 262,
+          "y": 290,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    },
+    {
+      "action": "bunt",
+      "zone": 4,
+      "index": 18,
+      "target": {
+        "x": 268,
+        "y": 291
+      },
+      "ball": {
+        "outer": {
+          "x": 264,
+          "y": 288,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 266,
+          "y": 290,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    },
+    {
+      "action": "bunt",
+      "zone": 5,
+      "index": 18,
+      "target": {
+        "x": 272,
+        "y": 291
+      },
+      "ball": {
+        "outer": {
+          "x": 268,
+          "y": 288,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 270,
+          "y": 290,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    },
+    {
+      "action": "bunt",
+      "zone": 6,
+      "index": 18,
+      "target": {
+        "x": 264,
+        "y": 292
+      },
+      "ball": {
+        "outer": {
+          "x": 260,
+          "y": 289,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 262,
+          "y": 291,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    },
+    {
+      "action": "bunt",
+      "zone": 7,
+      "index": 18,
+      "target": {
+        "x": 268,
+        "y": 292
+      },
+      "ball": {
+        "outer": {
+          "x": 264,
+          "y": 289,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 266,
+          "y": 291,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    },
+    {
+      "action": "bunt",
+      "zone": 8,
+      "index": 18,
+      "target": {
+        "x": 272,
+        "y": 292
+      },
+      "ball": {
+        "outer": {
+          "x": 268,
+          "y": 289,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 270,
+          "y": 291,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    },
+    {
+      "action": "bunt",
+      "zone": 9,
+      "index": 18,
+      "target": {
+        "x": 274,
+        "y": 291
+      },
+      "ball": {
+        "outer": {
+          "x": 270,
+          "y": 288,
+          "width": 8,
+          "height": 6
+        },
+        "inner": {
+          "x": 272,
+          "y": 290,
+          "width": 5,
+          "height": 3
+        }
+      },
+      "centerOnActualVisibleBat": true,
+      "ballOuterTouchPixels": 48
+    }
+  ],
+  "all20HitCentersOnVisibleBat": true,
+  "all20HitBallRectanglesTouch": true,
+  "releasePoint": {
+    "x": 299,
+    "y": 85
+  },
+  "batScale": 1.1923287671232876,
+  "method": "Exact current pixelBallRects and pure motion helpers, all10zones/action sampled1ms from impact-100 through impact+100. Hand-observed source visible-bat polygons expanded1source pixel and intersected with unchanged actual opaque raster, rendered by source sampling at native pixel centers with current source-foot registration. Conservative ROI may include a few adjacent glove-border pixels; it never adds pixels absent from source.",
+  "limits": [
+    "Browser canvas edge coverage can differ by about1native pixel from source-center nearest replication; report includes gapMinus1NativeRasterTolerance.",
+    "Actual supplied scene geometry and stated pitcher release only; other viewports/roster origins require their own measurements.",
+    "Logical time sweep respects current outcome-independent timing; parent wall-clock hit-stop is not simulated."
+  ]
+}

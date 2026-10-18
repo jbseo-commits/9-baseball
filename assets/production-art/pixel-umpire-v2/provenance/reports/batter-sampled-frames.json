@@ -1,0 +1,183 @@
+{
+  "kind": "actual-atlasMotion-v2-distinct-frame-count",
+  "method": "Read current production helper and installedv2 state arrays. Enumerate1ms clocks0..impact+1000 for all action/contact categories and stages, plus exact and epsilon samples at every branch/sequence boundary. Static code also limits follow branches to indices0/1/2, so follow[3] is absent from all clock branches.",
+  "sourceSha256": {
+    "helper": "36b116146668e18b1e056cec618cbb560a6af5e2447e43f42dfb557159927602",
+    "manifest": "3e2ceaf3faa55dde5afe9e2d085da6f85ebfc2615df6bdb28aea3f8c6e6cb332"
+  },
+  "poseOrder": "v2",
+  "impactAt": 1567,
+  "helperCallCount": 234540,
+  "extractedSourceCount": 20,
+  "stateTableUniqueSourceCount": 18,
+  "timeSampledUniqueSourceCount": 17,
+  "stateTableIndices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    16,
+    17,
+    18,
+    19
+  ],
+  "timeSampledIndices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    12,
+    13,
+    16,
+    17,
+    18,
+    19
+  ],
+  "stateTableOnlyIndices": [
+    11
+  ],
+  "absentFromStateTable": [
+    14,
+    15
+  ],
+  "witnesses": {
+    "0": {
+      "action": "take",
+      "kind": "whiff",
+      "stage": null,
+      "elapsed": 0,
+      "phase": "idle"
+    },
+    "1": {
+      "action": "swing",
+      "kind": "whiff",
+      "stage": "windup",
+      "elapsed": 355,
+      "phase": "windup"
+    },
+    "2": {
+      "action": "swing",
+      "kind": "whiff",
+      "stage": "windup",
+      "elapsed": 709,
+      "phase": "windup"
+    },
+    "3": {
+      "action": "swing",
+      "kind": "whiff",
+      "stage": "windup",
+      "elapsed": 1063,
+      "phase": "windup"
+    },
+    "4": {
+      "action": "swing",
+      "kind": "whiff",
+      "stage": "windup",
+      "elapsed": 1417,
+      "phase": "swing"
+    },
+    "5": {
+      "action": "swing",
+      "kind": "whiff",
+      "stage": "windup",
+      "elapsed": 1492,
+      "phase": "swing"
+    },
+    "6": {
+      "action": "swing",
+      "kind": "hit",
+      "stage": "windup",
+      "elapsed": 1567,
+      "phase": "swing"
+    },
+    "7": {
+      "action": "swing",
+      "kind": "whiff",
+      "stage": "windup",
+      "elapsed": 1567,
+      "phase": "swing"
+    },
+    "8": {
+      "action": "swing",
+      "kind": "whiff",
+      "stage": "windup",
+      "elapsed": 1677,
+      "phase": "follow"
+    },
+    "9": {
+      "action": "swing",
+      "kind": "whiff",
+      "stage": "windup",
+      "elapsed": 1737,
+      "phase": "follow"
+    },
+    "10": {
+      "action": "swing",
+      "kind": "whiff",
+      "stage": "windup",
+      "elapsed": 1807,
+      "phase": "follow"
+    },
+    "12": {
+      "action": "swing",
+      "kind": "whiff",
+      "stage": "windup",
+      "elapsed": 1887,
+      "phase": "reset"
+    },
+    "13": {
+      "action": "swing",
+      "kind": "whiff",
+      "stage": "windup",
+      "elapsed": 1937,
+      "phase": "reset"
+    },
+    "16": {
+      "action": "bunt",
+      "kind": "whiff",
+      "stage": "windup",
+      "elapsed": 1417,
+      "phase": "bunt"
+    },
+    "17": {
+      "action": "bunt",
+      "kind": "whiff",
+      "stage": "windup",
+      "elapsed": 1492,
+      "phase": "bunt"
+    },
+    "18": {
+      "action": "bunt",
+      "kind": "hit",
+      "stage": "windup",
+      "elapsed": 1567,
+      "phase": "bunt"
+    },
+    "19": {
+      "action": "bunt",
+      "kind": "whiff",
+      "stage": "windup",
+      "elapsed": 1567,
+      "phase": "bunt"
+    }
+  },
+  "publicWording": "20 source drawings preserved;18 permitted state-table candidates;17 distinct drawings selected by the current timeline. Frame11/follow3 remains an approved candidate in the table and is not sampled by current atlasMotion. Frames14/15 reset2/3 remain rejected runtime candidates.",
+  "notChanged": "No state arrays, helper timing, anchors, source bitmaps or atlases changed for this count."
+}

@@ -3,6 +3,8 @@ import React,{createRef} from 'react';
 import {act,cleanup,render} from '@testing-library/react';
 import {afterEach,beforeEach,describe,expect,it,vi} from 'vitest';
 import PixelUmpireScene from '../src/duel/PixelUmpireScene.jsx';
+import {PIXEL_SCENE_WIDTH} from '../src/duel/pixel-umpire-motion.js';
+import v2Manifest from '../assets/production-art/pixel-umpire-v2/runtime/manifest.json' with {type:'json'};
 
 const makeContext=()=>({
   clearRect:vi.fn(),drawImage:vi.fn(),save:vi.fn(),restore:vi.fn(),translate:vi.fn(),scale:vi.fn(),rotate:vi.fn(),
@@ -32,7 +34,7 @@ function harness(props={}){
 async function loadAll(){
   await act(async()=>{
     for(const image of [...images]){
-      const dimensions=image.src?.includes('stadium')?[480,640]:image.src?.includes('batter-atlas')?[1024,1280]:image.src?.includes('red-rush-atlas')?[1024,768]:[1000,1200];
+      const dimensions=image.src?.includes('stadium')?[480,640]:image.src?.includes('batter-atlas')?[1024,1280]:image.src?.includes('red-rush-atlas')?[1024,768]:image.src?.includes('mound')?[192,64]:[1000,1200];
       image.load(...dimensions);
     }
     await Promise.resolve();await Promise.resolve();
@@ -55,14 +57,20 @@ afterEach(()=>{cleanup();vi.restoreAllMocks();vi.unstubAllGlobals();});
 describe('PixelUmpireScene canvas lifecycle',()=>{
   it('loads all local art, draws a native canvas scene, then reports ready',async()=>{
     const {container}=harness();
-    expect(images).toHaveLength(4);
+    expect(images).toHaveLength(5);
     await loadAll();
     expect(onReady).toHaveBeenCalledWith(true);
     const canvases=container.querySelectorAll('canvas');
     expect(canvases).toHaveLength(2);
-    expect(canvases[0].width).toBe(240);
-    expect(canvases[0].height).toBe(298);
+    expect(canvases[0].width).toBe(PIXEL_SCENE_WIDTH);
+    expect(canvases[0].height).toBe(Math.round(PIXEL_SCENE_WIDTH*484/390));
     expect(context.drawImage).toHaveBeenCalled();
+    const mound=images.find(image=>image.src?.includes('mound'));
+    const moundDraw=context.drawImage.mock.calls.find(call=>call[0]===mound);
+    expect(moundDraw).toBeDefined();
+    expect(moundDraw[3]).toBe(Math.round(v2Manifest.mound.displayWidthU*3.84));
+    expect(moundDraw[1]+v2Manifest.mound.rubber[0]*moundDraw[3]).toBeCloseTo(320,0);
+    expect(moundDraw[2]+v2Manifest.mound.rubber[1]*moundDraw[4]).toBeCloseTo(176,0);
     expect(container.querySelector('.bp-scene').style.getPropertyValue('--pixel-pitcher-x')).toMatch(/px$/);
     expect(parseFloat(container.querySelector('.bp-scene').style.getPropertyValue('--pixel-pitcher-height'))).toBeGreaterThan(0);
   });
@@ -124,7 +132,7 @@ describe('PixelUmpireScene canvas lifecycle',()=>{
       <PixelUmpireScene sceneRef={view.sceneRef} pitcherAtlas="/pitcher-violet.png" artId="regular-01-red-rush"
         shot={null} fxStage={null} impactAt={200} playToken={2} pitchZone={null} revealed={null} onReady={onReady}/>
     </section>);
-    expect(images).toHaveLength(count+4);
+    expect(images).toHaveLength(count+5);
     await loadAll();
     const redRush=images[count+2];
     expect(context.drawImage.mock.calls.some(call=>call[0]===redRush)).toBe(true);

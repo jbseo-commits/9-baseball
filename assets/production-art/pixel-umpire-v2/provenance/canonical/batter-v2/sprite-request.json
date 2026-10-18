@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "batter-v2",
+    "description": "Fixed elevated homeplate umpire camera, looking at the batter from behind and his rear-right shoulder. Adult right-handed batter faces the distant pitcher toward image upper-right; face stays hidden under the rear helmet. Anatomical RIGHT rear shoe is nearer/lower on image-left; anatomical LEFT lead shoe is deeper/higher on image-right. Both gloved hands connect naturally to one straight wooden bat. No horizontal mirroring, ball, ground, cast shadow, text or UI.",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 256,
+    "height": 256,
+    "safe_margin_x": 16,
+    "safe_margin_y": 16,
+    "size": 256,
+    "safe_margin": 16
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "windup": {
+      "frames": 4,
+      "fps": 8,
+      "loop": false,
+      "action": "Four chronological baseball preparation poses: (0) the accepted grounded READY; (1) compact rearward gather, with the front knee lifting less than10 native pixels and no pitcher-like high knee; (2) short front-left lead-foot stride, a small move toward the distant upper-right pitcher; (3) controlled lead-foot plant before the swing. Own right rear forefoot remains grounded at the same lower-left reference. Keep the same approximately180-native-pixel helmet-crown-to-cleat body size in every drawing. Do not scale each pose to its bat-inclusive bounding box."
+    },
+    "swing": {
+      "frames": 4,
+      "fps": 12,
+      "loop": false,
+      "action": "Four chronological right-handed swing drawings: (0) pelvis initiates with hands still lagging; (1) hands lead the barrel into the hitting plane; (2) CONTACT, two hands connected to one straight bat in front of the body toward image-right; (3) full extension through the same plane, also used as the pass-through pose for a whiff. The planted front-left lead leg receives weight while the rear-right heel lifts about its grounded forefoot. Pelvis and ribcage rotate naturally; no shoulder-only arm swipe. Preserve the same crown-to-cleat body size as READY, about180 native pixels. No ball, impact effect, trails or extra bat."
+    },
+    "follow": {
+      "frames": 4,
+      "fps": 10,
+      "loop": false,
+      "action": "Four chronological follow-through drawings: (0) barrel rises after extension; (1) bat travels over the opposite anatomical left shoulder; (2) balanced decelerated finish with front-side support and rear-toe pivot; (3) hold that balanced finish with only a small natural settling movement. Do not return to READY in this row and do not reverse the swing. Body size remains identical to the READY reference even when bat position changes."
+    },
+    "reset": {
+      "frames": 4,
+      "fps": 8,
+      "loop": false,
+      "action": "Four chronological recovery drawings: (0) lower the bat from the balanced finish without a sudden torso flip; (1) regrip with both hands naturally returning to the handle; (2) knees, hips and hands settle into the original stance; (3) match the accepted reference READY precisely. Final frame3 is the canonical idle/READY used by the game. Keep camera, anatomy, helmet-crown-to-cleat size and anatomical forefoot roles constant; no growth as the bat lowers."
+    },
+    "bunt": {
+      "frames": 4,
+      "fps": 10,
+      "loop": false,
+      "action": "Four chronological controlled bunt drawings: (0) accepted READY; (1) square slightly for a bunt, own left hand stays near the handle while own right hand slides toward the bat middle for control; (2) HORIZONTAL BUNT CONTACT with one straight bat and a short controlled reach; (3) return toward the accepted READY. No full swing, floating bat or ball. Keep body size, rear-facing identity and grounded lower-left right rear forefoot consistent."
+    }
+  },
+  "style": "The attached accepted native256 READY is the sole style and identity truth. Copy its actual pixel-cluster density, adult proportions, restrained contours, material planes and palette exactly. Preserve that quality instead of simplifying it into thick outline cartoon art. No new render medium, smoothing, dithering, decorative texture noise or recolored highlights.",
+  "body_plan": [
+    {
+      "plan": "biped",
+      "figure": ""
+    }
+  ],
+  "layout": "taxonomy/v1",
+  "fit": {
+    "pixel_unfake": true,
+    "logical_height": 256,
+    "palette_size": 64,
+    "align_x": "foot-centroid",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "detail_bias": false,
+    "outline": false
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}

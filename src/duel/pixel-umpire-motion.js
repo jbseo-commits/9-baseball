@@ -1,4 +1,68 @@
-export const PIXEL_SCENE_WIDTH=240;
+export const PIXEL_SCENE_BASE_WIDTH=240;
+export const PIXEL_SCENE_WIDTH=384;
+export const PIXEL_SCENE_SCALE=PIXEL_SCENE_WIDTH/PIXEL_SCENE_BASE_WIDTH;
+
+export function atlasCell(manifest,atlas){
+  return {...(manifest?.cell||{}),...(atlas?.cell||{})};
+}
+
+export function pixelBallRects(x,y){
+  const width=Math.round(5*PIXEL_SCENE_SCALE),height=Math.round(4*PIXEL_SCENE_SCALE);
+  const innerWidth=Math.round(3*PIXEL_SCENE_SCALE),innerHeight=Math.round(2*PIXEL_SCENE_SCALE);
+  return {
+    outer:{x:Math.round(x-width/2),y:Math.round(y-height/2),width,height},
+    inner:{x:Math.round(x-innerWidth/2),y:Math.round(y-innerHeight/2),width:innerWidth,height:innerHeight},
+  };
+}
+
+export function coverPlacement(imageWidth,imageHeight,width,height,{fieldLineY,desiredHorizon}={}){
+  const scale=Math.max(width/imageWidth,height/imageHeight);
+  const drawWidth=Math.round(imageWidth*scale),drawHeight=Math.round(imageHeight*scale);
+  const x=Math.round((width-drawWidth)/2);
+  let y=Math.round((height-drawHeight)/2);
+  if(Number.isFinite(fieldLineY)&&fieldLineY>=0&&fieldLineY<=imageHeight&&Number.isFinite(desiredHorizon)){
+    const aligned=desiredHorizon-(fieldLineY/imageHeight)*drawHeight;
+    y=Math.round(Math.max(height-drawHeight,Math.min(0,aligned)));
+  }
+  return {x,y,width:drawWidth,height:drawHeight};
+}
+
+export function contactShadowRects(frontFoot,scale){
+  if(!frontFoot||!Number.isFinite(frontFoot.x)||!Number.isFinite(frontFoot.y)||!Number.isFinite(scale)||scale<=0)return null;
+  const width=Math.max(2,Math.round(14*scale)),height=Math.max(1,Math.round(3*scale));
+  const innerWidth=Math.max(1,Math.round(width*.56)),innerHeight=Math.max(1,Math.round(height*.5));
+  const centerY=Math.round(frontFoot.y+2*scale);
+  return {
+    outer:{x:Math.round(frontFoot.x-width/2),y:Math.round(centerY-height/2),width,height},
+    inner:{x:Math.round(frontFoot.x-innerWidth/2),y:Math.round(centerY-innerHeight/2),width:innerWidth,height:innerHeight},
+  };
+}
+
+export function orientedBatterBox(rearFoot,frontFoot,u,{nearU=6,farU=8,sideHalfU=3,rightLimit=Infinity,bottomLimit=Infinity}={}){
+  if(!rearFoot||!frontFoot||![rearFoot.x,rearFoot.y,frontFoot.x,frontFoot.y,u].every(Number.isFinite)||u<=0)return null;
+  const dx=frontFoot.x-rearFoot.x,dy=frontFoot.y-rearFoot.y,length=Math.hypot(dx,dy)||1,ax=dx/length,ay=dy/length,nx=-ay,ny=ax;
+  const near={x:rearFoot.x-ax*nearU*u,y:rearFoot.y-ay*nearU*u};
+  const far={x:frontFoot.x+ax*farU*u,y:frontFoot.y+ay*farU*u};
+  const half=sideHalfU*u;
+  const corners=[
+    {x:near.x+nx*half,y:near.y+ny*half},
+    {x:far.x+nx*half,y:far.y+ny*half},
+    {x:far.x-nx*half,y:far.y-ny*half},
+    {x:near.x-nx*half,y:near.y-ny*half},
+  ];
+  const xs=corners.map(p=>p.x),ys=corners.map(p=>p.y);
+  let shiftX=Math.max(0,-Math.min(...xs));
+  if(Math.max(...xs)+shiftX>rightLimit)shiftX+=rightLimit-(Math.max(...xs)+shiftX);
+  let shiftY=Math.max(0,-Math.min(...ys));
+  if(Math.max(...ys)+shiftY>bottomLimit)shiftY+=bottomLimit-(Math.max(...ys)+shiftY);
+  const moved=corners.map(p=>({x:Math.round(p.x+shiftX),y:Math.round(p.y+shiftY)}));
+  return {
+    shift:{x:Math.round(shiftX),y:Math.round(shiftY)},
+    rearFoot:{x:Math.round(rearFoot.x+shiftX),y:Math.round(rearFoot.y+shiftY)},
+    frontFoot:{x:Math.round(frontFoot.x+shiftX),y:Math.round(frontFoot.y+shiftY)},
+    box:{leftTop:moved[0],rightTop:moved[1],rightBottom:moved[2],leftBottom:moved[3]},
+  };
+}
 
 export function safe2dContext(canvas,options={alpha:true,desynchronized:true}){
   try{return canvas?.getContext?.('2d',options)||null;}catch{return null;}
@@ -33,7 +97,7 @@ export function sequenceFrame(frames,progress){
   return frames[Math.min(frames.length-1,Math.floor(clamp01(progress)*frames.length))];
 }
 
-export function atlasMotion({stage,elapsed=0,impactAt=0,action='swing',kind='whiff',bunt=false,states={}}={}){
+export function atlasMotion({stage,elapsed=0,impactAt=0,action='swing',kind='whiff',bunt=false,states={},poseOrder='v1'}={}){
   const windup=states.windup||[0],swing=states.swing||[0],follow=states.follow||swing,reset=states.reset||[0],buntFrames=states.bunt||swing;
   const impact=Math.max(0,Number(impactAt)||0),t=Math.max(0,Number(elapsed)||0),d=t-impact;
   const attacking=action!=='take',contact=kind==='hit'||kind==='foul'||kind==='sacrifice'||kind==='out';
@@ -57,8 +121,8 @@ export function atlasMotion({stage,elapsed=0,impactAt=0,action='swing',kind='whi
   // follow/0 is the rising barrel between contact and swing/3. follow/3 is a
   // ready candidate, not a follow-through: do not play it before lowering the bat.
   if(d<50)return {phase:'swing',batter:swingFrames[Math.min(contact?2:3,swingFrames.length-1)],attacking,contact};
-  if(d<110)return {phase:'follow',batter:contact?follow[0]:swingFrames.at(-1),attacking,contact};
-  if(d<170)return {phase:'follow',batter:swingFrames.at(-1),attacking,contact};
+  if(d<110)return {phase:poseOrder==='v2'?'swing':'follow',batter:poseOrder==='v2'?swingFrames.at(-1):contact?follow[0]:swingFrames.at(-1),attacking,contact};
+  if(d<170)return {phase:'follow',batter:poseOrder==='v2'?follow[0]:swingFrames.at(-1),attacking,contact};
   if(d<240)return {phase:'follow',batter:follow[Math.min(1,follow.length-1)],attacking,contact};
   if(d<320)return {phase:'follow',batter:follow[Math.min(2,follow.length-1)],attacking,contact};
   if(d<520)return {phase:'reset',batter:sequenceFrame(reset,(d-320)/200),attacking,contact};

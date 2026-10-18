@@ -1,0 +1,918 @@
+{
+  "kind": "canonical-batter-v2-final-delivery-audit",
+  "cell": [
+    256,
+    256
+  ],
+  "atlas": [
+    1024,
+    1280
+  ],
+  "palettePinned64": true,
+  "detailBias": false,
+  "outline": false,
+  "sourcePreserved": true,
+  "extractedCount": 20,
+  "runtimeUniqueSourceCount": 18,
+  "excludedSourceKeys": [
+    "reset2",
+    "reset3"
+  ],
+  "readySource": "windup0",
+  "resetRuntimeSources": [
+    "reset0",
+    "reset1",
+    "windup1",
+    "windup0"
+  ],
+  "all20AtlasCellsMatchCurated": true,
+  "all20HardAlpha": true,
+  "all20MinMarginAtLeast16": true,
+  "all100MeasuredAnchorPixelsOpaque": true,
+  "placementEvidence": [
+    {
+      "state": "windup",
+      "sharedPhysicalCap": [
+        256,
+        240
+      ],
+      "commonCapFactor": 0.3755868544600939,
+      "sourcePitchWasExactIntegerEnlargement": false,
+      "frames": [
+        {
+          "index": 0,
+          "rawComponentPixels": [
+            334,
+            639
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            4.174538745387454,
+            2.4205042016806724
+          ],
+          "physicalCapOutputPixels": [
+            125,
+            240
+          ],
+          "opaqueBeforePlacement": 12185,
+          "opaqueAfterPlacement": 12185,
+          "lostOpaqueAtPlacement": 0
+        },
+        {
+          "index": 1,
+          "rawComponentPixels": [
+            328,
+            633
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            4.9242824440922695,
+            2.4280230326295587
+          ],
+          "physicalCapOutputPixels": [
+            123,
+            238
+          ],
+          "opaqueBeforePlacement": 12205,
+          "opaqueAfterPlacement": 12205,
+          "lostOpaqueAtPlacement": 0
+        },
+        {
+          "index": 2,
+          "rawComponentPixels": [
+            360,
+            630
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            4.957008349618049,
+            5.035000951112802
+          ],
+          "physicalCapOutputPixels": [
+            135,
+            237
+          ],
+          "opaqueBeforePlacement": 12354,
+          "opaqueAfterPlacement": 12354,
+          "lostOpaqueAtPlacement": 0
+        },
+        {
+          "index": 3,
+          "rawComponentPixels": [
+            353,
+            631
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            4.97197962154294,
+            6.975029726516052
+          ],
+          "physicalCapOutputPixels": [
+            133,
+            237
+          ],
+          "opaqueBeforePlacement": 12074,
+          "opaqueAfterPlacement": 12074,
+          "lostOpaqueAtPlacement": 0
+        }
+      ]
+    },
+    {
+      "state": "swing",
+      "sharedPhysicalCap": [
+        256,
+        240
+      ],
+      "commonCapFactor": 0.4195804195804196,
+      "sourcePitchWasExactIntegerEnlargement": false,
+      "frames": [
+        {
+          "index": 0,
+          "rawComponentPixels": [
+            341,
+            572
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            2.34583227767925,
+            2.384404924760602
+          ],
+          "physicalCapOutputPixels": [
+            143,
+            240
+          ],
+          "opaqueBeforePlacement": 12847,
+          "opaqueAfterPlacement": 12847,
+          "lostOpaqueAtPlacement": 0
+        },
+        {
+          "index": 1,
+          "rawComponentPixels": [
+            485,
+            481
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            2.366554054054054,
+            2.3802154750244857
+          ],
+          "physicalCapOutputPixels": [
+            203,
+            202
+          ],
+          "opaqueBeforePlacement": 12940,
+          "opaqueAfterPlacement": 12940,
+          "lostOpaqueAtPlacement": 0
+        },
+        {
+          "index": 2,
+          "rawComponentPixels": [
+            523,
+            490
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            2.351997963858488,
+            2.371450208254449
+          ],
+          "physicalCapOutputPixels": [
+            219,
+            206
+          ],
+          "opaqueBeforePlacement": 13127,
+          "opaqueAfterPlacement": 13127,
+          "lostOpaqueAtPlacement": 0
+        },
+        {
+          "index": 3,
+          "rawComponentPixels": [
+            493,
+            495
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            2.392670157068063,
+            2.3871957455512374
+          ],
+          "physicalCapOutputPixels": [
+            207,
+            208
+          ],
+          "opaqueBeforePlacement": 12364,
+          "opaqueAfterPlacement": 12364,
+          "lostOpaqueAtPlacement": 0
+        }
+      ]
+    },
+    {
+      "state": "follow",
+      "sharedPhysicalCap": [
+        256,
+        240
+      ],
+      "commonCapFactor": 0.3791469194312796,
+      "sourcePitchWasExactIntegerEnlargement": false,
+      "frames": [
+        {
+          "index": 0,
+          "rawComponentPixels": [
+            503,
+            633
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            2.325242718446602,
+            2.346886912325286
+          ],
+          "physicalCapOutputPixels": [
+            191,
+            240
+          ],
+          "opaqueBeforePlacement": 12294,
+          "opaqueAfterPlacement": 12294,
+          "lostOpaqueAtPlacement": 0
+        },
+        {
+          "index": 1,
+          "rawComponentPixels": [
+            357,
+            558
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            2.3392652123995408,
+            2.3752490591100286
+          ],
+          "physicalCapOutputPixels": [
+            135,
+            212
+          ],
+          "opaqueBeforePlacement": 11680,
+          "opaqueAfterPlacement": 11680,
+          "lostOpaqueAtPlacement": 0
+        },
+        {
+          "index": 2,
+          "rawComponentPixels": [
+            361,
+            551
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            2.3429044726670347,
+            2.3962264150943398
+          ],
+          "physicalCapOutputPixels": [
+            137,
+            209
+          ],
+          "opaqueBeforePlacement": 11906,
+          "opaqueAfterPlacement": 11906,
+          "lostOpaqueAtPlacement": 0
+        },
+        {
+          "index": 3,
+          "rawComponentPixels": [
+            355,
+            551
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            2.316591422121896,
+            2.4036265950302216
+          ],
+          "physicalCapOutputPixels": [
+            135,
+            209
+          ],
+          "opaqueBeforePlacement": 11742,
+          "opaqueAfterPlacement": 11742,
+          "lostOpaqueAtPlacement": 0
+        }
+      ]
+    },
+    {
+      "state": "reset",
+      "sharedPhysicalCap": [
+        256,
+        240
+      ],
+      "commonCapFactor": 0.39279869067103107,
+      "sourcePitchWasExactIntegerEnlargement": false,
+      "frames": [
+        {
+          "index": 0,
+          "rawComponentPixels": [
+            359,
+            558
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            2.316849816849817,
+            2.3908677982309348
+          ],
+          "physicalCapOutputPixels": [
+            141,
+            219
+          ],
+          "opaqueBeforePlacement": 12802,
+          "opaqueAfterPlacement": 12802,
+          "lostOpaqueAtPlacement": 0
+        },
+        {
+          "index": 1,
+          "rawComponentPixels": [
+            444,
+            554
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            2.3257328990228014,
+            2.3559322033898304
+          ],
+          "physicalCapOutputPixels": [
+            174,
+            218
+          ],
+          "opaqueBeforePlacement": 12999,
+          "opaqueAfterPlacement": 12999,
+          "lostOpaqueAtPlacement": 0
+        },
+        {
+          "index": 2,
+          "rawComponentPixels": [
+            362,
+            611
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            2.3218166620228478,
+            2.3403693931398415
+          ],
+          "physicalCapOutputPixels": [
+            142,
+            240
+          ],
+          "opaqueBeforePlacement": 12823,
+          "opaqueAfterPlacement": 12823,
+          "lostOpaqueAtPlacement": 0
+        },
+        {
+          "index": 3,
+          "rawComponentPixels": [
+            365,
+            611
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            2.3480032599837,
+            2.3636991028295378
+          ],
+          "physicalCapOutputPixels": [
+            143,
+            240
+          ],
+          "opaqueBeforePlacement": 12881,
+          "opaqueAfterPlacement": 12881,
+          "lostOpaqueAtPlacement": 0
+        }
+      ]
+    },
+    {
+      "state": "bunt",
+      "sharedPhysicalCap": [
+        256,
+        240
+      ],
+      "commonCapFactor": 0.41025641025641024,
+      "sourcePitchWasExactIntegerEnlargement": false,
+      "frames": [
+        {
+          "index": 0,
+          "rawComponentPixels": [
+            326,
+            585
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            2.454888230541341,
+            2.4143396226415095
+          ],
+          "physicalCapOutputPixels": [
+            134,
+            240
+          ],
+          "opaqueBeforePlacement": 11796,
+          "opaqueAfterPlacement": 11796,
+          "lostOpaqueAtPlacement": 0
+        },
+        {
+          "index": 1,
+          "rawComponentPixels": [
+            452,
+            489
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            2.469813055470426,
+            2.412280701754386
+          ],
+          "physicalCapOutputPixels": [
+            185,
+            201
+          ],
+          "opaqueBeforePlacement": 11790,
+          "opaqueAfterPlacement": 11790,
+          "lostOpaqueAtPlacement": 0
+        },
+        {
+          "index": 2,
+          "rawComponentPixels": [
+            506,
+            487
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            2.450682852807284,
+            2.408726625111309
+          ],
+          "physicalCapOutputPixels": [
+            208,
+            200
+          ],
+          "opaqueBeforePlacement": 12141,
+          "opaqueAfterPlacement": 12141,
+          "lostOpaqueAtPlacement": 0
+        },
+        {
+          "index": 3,
+          "rawComponentPixels": [
+            337,
+            585
+          ],
+          "actualDetectedPitch": [
+            [
+              1.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "runlenPitch": [
+            2.476354029062087,
+            2.440213436817851
+          ],
+          "physicalCapOutputPixels": [
+            138,
+            240
+          ],
+          "opaqueBeforePlacement": 12004,
+          "opaqueAfterPlacement": 12004,
+          "lostOpaqueAtPlacement": 0
+        }
+      ]
+    }
+  ],
+  "frames": [
+    {
+      "sourceKey": "windup0",
+      "atlasIndex": 0,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 63,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 16,
+      "runtimeApproved": true,
+      "sha256": "08e04d0243f7672c6b1745daf1b72ee09370fc38966892c2d56522384f04c041"
+    },
+    {
+      "sourceKey": "windup1",
+      "atlasIndex": 1,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 64,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 18,
+      "runtimeApproved": true,
+      "sha256": "6723a8356bdce91ff8473da15e0416e47899ad292e7b4b56813e16d6e3d18c00"
+    },
+    {
+      "sourceKey": "windup2",
+      "atlasIndex": 2,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 64,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 19,
+      "runtimeApproved": true,
+      "sha256": "c918a28acb17762aacb6aded0fe6a57c3bc6f6170090d16d66052e783e4452c6"
+    },
+    {
+      "sourceKey": "windup3",
+      "atlasIndex": 3,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 64,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 19,
+      "runtimeApproved": true,
+      "sha256": "efea2998d1ea4df599786aee256dd0cfe63d229e8141475cf7ae7d300a23c2d5"
+    },
+    {
+      "sourceKey": "swing0",
+      "atlasIndex": 4,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 61,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 21,
+      "runtimeApproved": true,
+      "sha256": "79c943375ce228fe252f141f9531933be3f44ec99821e84c18bd8004726b245e"
+    },
+    {
+      "sourceKey": "swing1",
+      "atlasIndex": 5,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 63,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 21,
+      "runtimeApproved": true,
+      "sha256": "0056cec5e488561ba9a826e5972700070e66cee6e533265f70bfbe45f479df39"
+    },
+    {
+      "sourceKey": "swing2",
+      "atlasIndex": 6,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 63,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 17,
+      "runtimeApproved": true,
+      "sha256": "b65853fda803c3234b0d80f8c3a1de7a9aea1bc8e6e16fa99f8f772775053a78"
+    },
+    {
+      "sourceKey": "swing3",
+      "atlasIndex": 7,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 64,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 18,
+      "runtimeApproved": true,
+      "sha256": "689228aa61a307e399a21cf9472c98053fe0fe2114de49a560183519abb2e5b3"
+    },
+    {
+      "sourceKey": "follow0",
+      "atlasIndex": 8,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 63,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 21,
+      "runtimeApproved": true,
+      "sha256": "e5ad3200161c91922a623b513530075624c7e4bff8c0a9132e7e7eb46742f7e3"
+    },
+    {
+      "sourceKey": "follow1",
+      "atlasIndex": 9,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 64,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 21,
+      "runtimeApproved": true,
+      "sha256": "1c103c013383de054fbdde6f7a9a1988e37562e1635cdb88d03ca32b9a008c68"
+    },
+    {
+      "sourceKey": "follow2",
+      "atlasIndex": 10,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 64,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 21,
+      "runtimeApproved": true,
+      "sha256": "99755a34b65b5afe58d8f73077971cad77c4dc28159d1b083155ea38ccfe7868"
+    },
+    {
+      "sourceKey": "follow3",
+      "atlasIndex": 11,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 64,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 21,
+      "runtimeApproved": true,
+      "sha256": "0994a0e189000607d6ecc58107c4971b9521eb67af8bb537a885d5674c629880"
+    },
+    {
+      "sourceKey": "reset0",
+      "atlasIndex": 12,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 64,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 20,
+      "runtimeApproved": true,
+      "sha256": "2a70fa377a8983f86671ca7d57e1d27b06913b2b8dd84f58de023cb66947c4d2"
+    },
+    {
+      "sourceKey": "reset1",
+      "atlasIndex": 13,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 64,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 21,
+      "runtimeApproved": true,
+      "sha256": "0719d0a2377a955aa8beef8d8f9a21c038ce1ef67eb954417c37915637dd033b"
+    },
+    {
+      "sourceKey": "reset2",
+      "atlasIndex": 14,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 64,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 23,
+      "runtimeApproved": false,
+      "sha256": "0214d7dba62065f1e63cd90a0f494ee68c887d3ddd5bb69dce291a7b5773465e"
+    },
+    {
+      "sourceKey": "reset3",
+      "atlasIndex": 15,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 64,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 23,
+      "runtimeApproved": false,
+      "sha256": "ef33fb9a5d3598151c94dd930c5acb882efafb17bd03d9009f3818b0644583c2"
+    },
+    {
+      "sourceKey": "bunt0",
+      "atlasIndex": 16,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 64,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 18,
+      "runtimeApproved": true,
+      "sha256": "bee68c6511dddb521bcdf42e32829bbcb09ccf40abe0cf77c58604c4e7c416c6"
+    },
+    {
+      "sourceKey": "bunt1",
+      "atlasIndex": 17,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 64,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 21,
+      "runtimeApproved": true,
+      "sha256": "a11820000a852d2d32de7732b9ee577dba32c0d31a529c53128afa6d0bbf9965"
+    },
+    {
+      "sourceKey": "bunt2",
+      "atlasIndex": 18,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 64,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 18,
+      "runtimeApproved": true,
+      "sha256": "58747d864ed7b38c235e462f9afaa55b0eb9e9e01a61b995ebacf721ad95c4bc"
+    },
+    {
+      "sourceKey": "bunt3",
+      "atlasIndex": 19,
+      "atlasMatchesCurated": true,
+      "opaquePalette": 64,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "minMargin": 18,
+      "runtimeApproved": true,
+      "sha256": "61f16dad47880cb9e54476b9f5cf500e0157344fded2fe047f9149cbd85c88fa"
+    }
+  ],
+  "limits": [
+    "Sources were generated finer than an exact native256 grid and then reduced using the canonical pipeline. Not lossless conversion.",
+    "20 source frames are preserved but only18 distinct source drawings are active; reset2/3 rejected for camera depth.",
+    "This bundle replaces only the batter. It does not remake every roster character, pitcher or stadium.",
+    "Palette/alpha/artifact checks do not establish final motion quality. Live field placement, contact and animation review still required."
+  ],
+  "integration": "Merge atlases.batter from batter-manifest.json into the existing game manifest. Storage dimensions256x256 match the existing cells; this new actor has native logical256 scale1 and64colors. Preserve existing pitcher/stadium entries and their provenance."
+}

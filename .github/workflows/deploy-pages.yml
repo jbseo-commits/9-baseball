@@ -75,6 +75,13 @@ jobs:
             preview-artifacts/ballpark-motion-v5
             scripts
 
+      - name: Check out the pinned Pixel Umpire v1 source
+        if: github.ref_name != 'main'
+        uses: actions/checkout@v6
+        with:
+          ref: eb22ab6d15cedf08e0c7a717fbb8f47d1883f7bd
+          path: preserved-pixel-v1
+
       - name: Verify and copy preserved previews
         if: github.ref_name != 'main'
         shell: bash
@@ -85,6 +92,17 @@ jobs:
           mkdir -p production/dist/previews/codex-ballpark-motion-v5-preview
           cp preserved-v6/preview-artifacts/ballpark-motion-v6/index.html production/dist/previews/codex-ballpark-motion-v6-preview/index.html
           cp preserved-v5/preview-artifacts/ballpark-motion-v5/index.html production/dist/previews/codex-ballpark-motion-v5-preview/index.html
+
+      - name: Build and preserve the pinned Pixel Umpire v1 preview
+        if: github.ref_name != 'main'
+        shell: bash
+        run: |
+          cd preserved-pixel-v1
+          pnpm install --frozen-lockfile
+          VITE_BASE=/9-baseball/previews/codex-pixel-umpire-original/ pnpm run build
+          test -f dist/index.html
+          mkdir -p ../production/dist/previews/codex-pixel-umpire-original
+          cp -a dist/. ../production/dist/previews/codex-pixel-umpire-original/
 
       - name: Build isolated branch preview
         if: github.ref_name != 'main'

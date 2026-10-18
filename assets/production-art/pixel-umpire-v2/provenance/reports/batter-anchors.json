@@ -1,0 +1,1171 @@
+{
+  "schemaVersion": 1,
+  "cell": {
+    "width": 256,
+    "height": 256,
+    "scale": 1
+  },
+  "measurement": "Hand-authored grip/wood centers on actual curated native256 frames. Feet are observed lowest opaque cleat/sole contact representatives within manually identified anatomical rear image-left/front image-right shoe ROIs; not claimed as a complete anatomical rig. Barrel is wood sweet spot about12–20native pixels inboard of endcap, never the endcap itself. Bunt hands are separated and grip denotes handle-side control along the same bat axis.",
+  "canonicalReady": 0,
+  "poseOrder": "v2",
+  "states": {
+    "windup": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "swing": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "follow": [
+      8,
+      9,
+      10,
+      11
+    ],
+    "reset": [
+      12,
+      13,
+      1,
+      0
+    ],
+    "bunt": [
+      16,
+      17,
+      18,
+      19
+    ]
+  },
+  "extractedCount": 20,
+  "runtimeUniqueSourceCount": 18,
+  "runtimeExcludedIndices": [
+    14,
+    15
+  ],
+  "frames": [
+    {
+      "index": 0,
+      "sourceKey": "windup0",
+      "file": "curated/windup-frame-0.png",
+      "runtimeApproved": true,
+      "anchorsPixels": {
+        "feet": [
+          92,
+          234
+        ],
+        "frontFoot": [
+          167,
+          219
+        ],
+        "grip": [
+          178,
+          91
+        ],
+        "barrel": [
+          134,
+          33
+        ],
+        "batTip": [
+          124,
+          20
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.359375,
+          0.9140625
+        ],
+        "frontFoot": [
+          0.65234375,
+          0.85546875
+        ],
+        "grip": [
+          0.6953125,
+          0.35546875
+        ],
+        "barrel": [
+          0.5234375,
+          0.12890625
+        ],
+        "batTip": [
+          0.484375,
+          0.078125
+        ]
+      },
+      "bounds": {
+        "x": 0.3125,
+        "y": 0.0625,
+        "width": 0.4453125,
+        "height": 0.85546875
+      }
+    },
+    {
+      "index": 1,
+      "sourceKey": "windup1",
+      "file": "curated/windup-frame-1.png",
+      "runtimeApproved": true,
+      "anchorsPixels": {
+        "feet": [
+          95,
+          234
+        ],
+        "frontFoot": [
+          169,
+          219
+        ],
+        "grip": [
+          178,
+          88
+        ],
+        "barrel": [
+          133,
+          35
+        ],
+        "batTip": [
+          121,
+          22
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.37109375,
+          0.9140625
+        ],
+        "frontFoot": [
+          0.66015625,
+          0.85546875
+        ],
+        "grip": [
+          0.6953125,
+          0.34375
+        ],
+        "barrel": [
+          0.51953125,
+          0.13671875
+        ],
+        "batTip": [
+          0.47265625,
+          0.0859375
+        ]
+      },
+      "bounds": {
+        "x": 0.328125,
+        "y": 0.0703125,
+        "width": 0.44140625,
+        "height": 0.84765625
+      }
+    },
+    {
+      "index": 2,
+      "sourceKey": "windup2",
+      "file": "curated/windup-frame-2.png",
+      "runtimeApproved": true,
+      "anchorsPixels": {
+        "feet": [
+          87,
+          234
+        ],
+        "frontFoot": [
+          168,
+          214
+        ],
+        "grip": [
+          180,
+          90
+        ],
+        "barrel": [
+          138,
+          37
+        ],
+        "batTip": [
+          126,
+          23
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.33984375,
+          0.9140625
+        ],
+        "frontFoot": [
+          0.65625,
+          0.8359375
+        ],
+        "grip": [
+          0.703125,
+          0.3515625
+        ],
+        "barrel": [
+          0.5390625,
+          0.14453125
+        ],
+        "batTip": [
+          0.4921875,
+          0.08984375
+        ]
+      },
+      "bounds": {
+        "x": 0.29296875,
+        "y": 0.07421875,
+        "width": 0.48046875,
+        "height": 0.84375
+      }
+    },
+    {
+      "index": 3,
+      "sourceKey": "windup3",
+      "file": "curated/windup-frame-3.png",
+      "runtimeApproved": true,
+      "anchorsPixels": {
+        "feet": [
+          88,
+          234
+        ],
+        "frontFoot": [
+          170,
+          217
+        ],
+        "grip": [
+          181,
+          92
+        ],
+        "barrel": [
+          137,
+          38
+        ],
+        "batTip": [
+          124,
+          24
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.34375,
+          0.9140625
+        ],
+        "frontFoot": [
+          0.6640625,
+          0.84765625
+        ],
+        "grip": [
+          0.70703125,
+          0.359375
+        ],
+        "barrel": [
+          0.53515625,
+          0.1484375
+        ],
+        "batTip": [
+          0.484375,
+          0.09375
+        ]
+      },
+      "bounds": {
+        "x": 0.30078125,
+        "y": 0.07421875,
+        "width": 0.47265625,
+        "height": 0.84375
+      }
+    },
+    {
+      "index": 4,
+      "sourceKey": "swing0",
+      "file": "curated/swing-frame-0.png",
+      "runtimeApproved": true,
+      "anchorsPixels": {
+        "feet": [
+          85,
+          234
+        ],
+        "frontFoot": [
+          161,
+          229
+        ],
+        "grip": [
+          185,
+          91
+        ],
+        "barrel": [
+          152,
+          40
+        ],
+        "batTip": [
+          143,
+          28
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.33203125,
+          0.9140625
+        ],
+        "frontFoot": [
+          0.62890625,
+          0.89453125
+        ],
+        "grip": [
+          0.72265625,
+          0.35546875
+        ],
+        "barrel": [
+          0.59375,
+          0.15625
+        ],
+        "batTip": [
+          0.55859375,
+          0.109375
+        ]
+      },
+      "bounds": {
+        "x": 0.27734375,
+        "y": 0.0859375,
+        "width": 0.49609375,
+        "height": 0.83203125
+      }
+    },
+    {
+      "index": 5,
+      "sourceKey": "swing1",
+      "file": "curated/swing-frame-1.png",
+      "runtimeApproved": true,
+      "anchorsPixels": {
+        "feet": [
+          79,
+          234
+        ],
+        "frontFoot": [
+          145,
+          230
+        ],
+        "grip": [
+          164,
+          109
+        ],
+        "barrel": [
+          212,
+          131
+        ],
+        "batTip": [
+          223,
+          137
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.30859375,
+          0.9140625
+        ],
+        "frontFoot": [
+          0.56640625,
+          0.8984375
+        ],
+        "grip": [
+          0.640625,
+          0.42578125
+        ],
+        "barrel": [
+          0.828125,
+          0.51171875
+        ],
+        "batTip": [
+          0.87109375,
+          0.53515625
+        ]
+      },
+      "bounds": {
+        "x": 0.19921875,
+        "y": 0.21875,
+        "width": 0.703125,
+        "height": 0.69921875
+      }
+    },
+    {
+      "index": 6,
+      "sourceKey": "swing2",
+      "file": "curated/swing-frame-2.png",
+      "runtimeApproved": true,
+      "anchorsPixels": {
+        "feet": [
+          61,
+          234
+        ],
+        "frontFoot": [
+          137,
+          225
+        ],
+        "grip": [
+          156,
+          108
+        ],
+        "barrel": [
+          218,
+          122
+        ],
+        "batTip": [
+          235,
+          126
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.23828125,
+          0.9140625
+        ],
+        "frontFoot": [
+          0.53515625,
+          0.87890625
+        ],
+        "grip": [
+          0.609375,
+          0.421875
+        ],
+        "barrel": [
+          0.8515625,
+          0.4765625
+        ],
+        "batTip": [
+          0.91796875,
+          0.4921875
+        ]
+      },
+      "bounds": {
+        "x": 0.171875,
+        "y": 0.20703125,
+        "width": 0.76171875,
+        "height": 0.7109375
+      }
+    },
+    {
+      "index": 7,
+      "sourceKey": "swing3",
+      "file": "curated/swing-frame-3.png",
+      "runtimeApproved": true,
+      "anchorsPixels": {
+        "feet": [
+          65,
+          237
+        ],
+        "frontFoot": [
+          135,
+          227
+        ],
+        "grip": [
+          150,
+          94
+        ],
+        "barrel": [
+          218,
+          84
+        ],
+        "batTip": [
+          230,
+          81
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.25390625,
+          0.92578125
+        ],
+        "frontFoot": [
+          0.52734375,
+          0.88671875
+        ],
+        "grip": [
+          0.5859375,
+          0.3671875
+        ],
+        "barrel": [
+          0.8515625,
+          0.328125
+        ],
+        "batTip": [
+          0.8984375,
+          0.31640625
+        ]
+      },
+      "bounds": {
+        "x": 0.1953125,
+        "y": 0.20703125,
+        "width": 0.71484375,
+        "height": 0.72265625
+      }
+    },
+    {
+      "index": 8,
+      "sourceKey": "follow0",
+      "file": "curated/follow-frame-0.png",
+      "runtimeApproved": true,
+      "anchorsPixels": {
+        "feet": [
+          83,
+          234
+        ],
+        "frontFoot": [
+          152,
+          226
+        ],
+        "grip": [
+          178,
+          71
+        ],
+        "barrel": [
+          216,
+          37
+        ],
+        "batTip": [
+          226,
+          30
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.32421875,
+          0.9140625
+        ],
+        "frontFoot": [
+          0.59375,
+          0.8828125
+        ],
+        "grip": [
+          0.6953125,
+          0.27734375
+        ],
+        "barrel": [
+          0.84375,
+          0.14453125
+        ],
+        "batTip": [
+          0.8828125,
+          0.1171875
+        ]
+      },
+      "bounds": {
+        "x": 0.26171875,
+        "y": 0.10546875,
+        "width": 0.6484375,
+        "height": 0.8125
+      }
+    },
+    {
+      "index": 9,
+      "sourceKey": "follow1",
+      "file": "curated/follow-frame-1.png",
+      "runtimeApproved": true,
+      "anchorsPixels": {
+        "feet": [
+          101,
+          234
+        ],
+        "frontFoot": [
+          174,
+          226
+        ],
+        "grip": [
+          112,
+          65
+        ],
+        "barrel": [
+          167,
+          90
+        ],
+        "batTip": [
+          180,
+          94
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.39453125,
+          0.9140625
+        ],
+        "frontFoot": [
+          0.6796875,
+          0.8828125
+        ],
+        "grip": [
+          0.4375,
+          0.25390625
+        ],
+        "barrel": [
+          0.65234375,
+          0.3515625
+        ],
+        "batTip": [
+          0.703125,
+          0.3671875
+        ]
+      },
+      "bounds": {
+        "x": 0.33203125,
+        "y": 0.19921875,
+        "width": 0.45703125,
+        "height": 0.71875
+      }
+    },
+    {
+      "index": 10,
+      "sourceKey": "follow2",
+      "file": "curated/follow-frame-2.png",
+      "runtimeApproved": true,
+      "anchorsPixels": {
+        "feet": [
+          101,
+          234
+        ],
+        "frontFoot": [
+          174,
+          226
+        ],
+        "grip": [
+          111,
+          82
+        ],
+        "barrel": [
+          172,
+          103
+        ],
+        "batTip": [
+          184,
+          106
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.39453125,
+          0.9140625
+        ],
+        "frontFoot": [
+          0.6796875,
+          0.8828125
+        ],
+        "grip": [
+          0.43359375,
+          0.3203125
+        ],
+        "barrel": [
+          0.671875,
+          0.40234375
+        ],
+        "batTip": [
+          0.71875,
+          0.4140625
+        ]
+      },
+      "bounds": {
+        "x": 0.328125,
+        "y": 0.2109375,
+        "width": 0.46484375,
+        "height": 0.70703125
+      }
+    },
+    {
+      "index": 11,
+      "sourceKey": "follow3",
+      "file": "curated/follow-frame-3.png",
+      "runtimeApproved": true,
+      "anchorsPixels": {
+        "feet": [
+          101,
+          234
+        ],
+        "frontFoot": [
+          172,
+          225
+        ],
+        "grip": [
+          113,
+          81
+        ],
+        "barrel": [
+          174,
+          99
+        ],
+        "batTip": [
+          187,
+          103
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.39453125,
+          0.9140625
+        ],
+        "frontFoot": [
+          0.671875,
+          0.87890625
+        ],
+        "grip": [
+          0.44140625,
+          0.31640625
+        ],
+        "barrel": [
+          0.6796875,
+          0.38671875
+        ],
+        "batTip": [
+          0.73046875,
+          0.40234375
+        ]
+      },
+      "bounds": {
+        "x": 0.33203125,
+        "y": 0.2109375,
+        "width": 0.45703125,
+        "height": 0.70703125
+      }
+    },
+    {
+      "index": 12,
+      "sourceKey": "reset0",
+      "file": "curated/reset-frame-0.png",
+      "runtimeApproved": true,
+      "anchorsPixels": {
+        "feet": [
+          91,
+          235
+        ],
+        "frontFoot": [
+          157,
+          225
+        ],
+        "grip": [
+          108,
+          79
+        ],
+        "barrel": [
+          166,
+          96
+        ],
+        "batTip": [
+          178,
+          99
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.35546875,
+          0.91796875
+        ],
+        "frontFoot": [
+          0.61328125,
+          0.87890625
+        ],
+        "grip": [
+          0.421875,
+          0.30859375
+        ],
+        "barrel": [
+          0.6484375,
+          0.375
+        ],
+        "batTip": [
+          0.6953125,
+          0.38671875
+        ]
+      },
+      "bounds": {
+        "x": 0.2890625,
+        "y": 0.20703125,
+        "width": 0.45703125,
+        "height": 0.71484375
+      }
+    },
+    {
+      "index": 13,
+      "sourceKey": "reset1",
+      "file": "curated/reset-frame-1.png",
+      "runtimeApproved": true,
+      "anchorsPixels": {
+        "feet": [
+          84,
+          234
+        ],
+        "frontFoot": [
+          157,
+          225
+        ],
+        "grip": [
+          165,
+          133
+        ],
+        "barrel": [
+          197,
+          163
+        ],
+        "batTip": [
+          207,
+          174
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.328125,
+          0.9140625
+        ],
+        "frontFoot": [
+          0.61328125,
+          0.87890625
+        ],
+        "grip": [
+          0.64453125,
+          0.51953125
+        ],
+        "barrel": [
+          0.76953125,
+          0.63671875
+        ],
+        "batTip": [
+          0.80859375,
+          0.6796875
+        ]
+      },
+      "bounds": {
+        "x": 0.26171875,
+        "y": 0.20703125,
+        "width": 0.56640625,
+        "height": 0.7109375
+      }
+    },
+    {
+      "index": 14,
+      "sourceKey": "reset2",
+      "file": "curated/reset-frame-2.png",
+      "runtimeApproved": false,
+      "anchorsPixels": {
+        "feet": [
+          87,
+          232
+        ],
+        "frontFoot": [
+          165,
+          231
+        ],
+        "grip": [
+          178,
+          105
+        ],
+        "barrel": [
+          139,
+          46
+        ],
+        "batTip": [
+          129,
+          36
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.33984375,
+          0.90625
+        ],
+        "frontFoot": [
+          0.64453125,
+          0.90234375
+        ],
+        "grip": [
+          0.6953125,
+          0.41015625
+        ],
+        "barrel": [
+          0.54296875,
+          0.1796875
+        ],
+        "batTip": [
+          0.50390625,
+          0.140625
+        ]
+      },
+      "bounds": {
+        "x": 0.296875,
+        "y": 0.12890625,
+        "width": 0.46484375,
+        "height": 0.78125
+      }
+    },
+    {
+      "index": 15,
+      "sourceKey": "reset3",
+      "file": "curated/reset-frame-3.png",
+      "runtimeApproved": false,
+      "anchorsPixels": {
+        "feet": [
+          102,
+          232
+        ],
+        "frontFoot": [
+          169,
+          231
+        ],
+        "grip": [
+          175,
+          103
+        ],
+        "barrel": [
+          136,
+          50
+        ],
+        "batTip": [
+          126,
+          37
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.3984375,
+          0.90625
+        ],
+        "frontFoot": [
+          0.66015625,
+          0.90234375
+        ],
+        "grip": [
+          0.68359375,
+          0.40234375
+        ],
+        "barrel": [
+          0.53125,
+          0.1953125
+        ],
+        "batTip": [
+          0.4921875,
+          0.14453125
+        ]
+      },
+      "bounds": {
+        "x": 0.3125,
+        "y": 0.12890625,
+        "width": 0.46484375,
+        "height": 0.78125
+      }
+    },
+    {
+      "index": 16,
+      "sourceKey": "bunt0",
+      "file": "curated/bunt-frame-0.png",
+      "runtimeApproved": true,
+      "anchorsPixels": {
+        "feet": [
+          88,
+          234
+        ],
+        "frontFoot": [
+          169,
+          215
+        ],
+        "grip": [
+          175,
+          94
+        ],
+        "barrel": [
+          133,
+          33
+        ],
+        "batTip": [
+          124,
+          22
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.34375,
+          0.9140625
+        ],
+        "frontFoot": [
+          0.66015625,
+          0.83984375
+        ],
+        "grip": [
+          0.68359375,
+          0.3671875
+        ],
+        "barrel": [
+          0.51953125,
+          0.12890625
+        ],
+        "batTip": [
+          0.484375,
+          0.0859375
+        ]
+      },
+      "bounds": {
+        "x": 0.296875,
+        "y": 0.0703125,
+        "width": 0.47265625,
+        "height": 0.84765625
+      }
+    },
+    {
+      "index": 17,
+      "sourceKey": "bunt1",
+      "file": "curated/bunt-frame-1.png",
+      "runtimeApproved": true,
+      "anchorsPixels": {
+        "feet": [
+          73,
+          234
+        ],
+        "frontFoot": [
+          154,
+          214
+        ],
+        "grip": [
+          158,
+          98
+        ],
+        "barrel": [
+          210,
+          83
+        ],
+        "batTip": [
+          222,
+          80
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.28515625,
+          0.9140625
+        ],
+        "frontFoot": [
+          0.6015625,
+          0.8359375
+        ],
+        "grip": [
+          0.6171875,
+          0.3828125
+        ],
+        "barrel": [
+          0.8203125,
+          0.32421875
+        ],
+        "batTip": [
+          0.8671875,
+          0.3125
+        ]
+      },
+      "bounds": {
+        "x": 0.234375,
+        "y": 0.20703125,
+        "width": 0.65234375,
+        "height": 0.7109375
+      }
+    },
+    {
+      "index": 18,
+      "sourceKey": "bunt2",
+      "file": "curated/bunt-frame-2.png",
+      "runtimeApproved": true,
+      "anchorsPixels": {
+        "feet": [
+          63,
+          234
+        ],
+        "frontFoot": [
+          147,
+          213
+        ],
+        "grip": [
+          169,
+          95
+        ],
+        "barrel": [
+          223,
+          94
+        ],
+        "batTip": [
+          235,
+          93
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.24609375,
+          0.9140625
+        ],
+        "frontFoot": [
+          0.57421875,
+          0.83203125
+        ],
+        "grip": [
+          0.66015625,
+          0.37109375
+        ],
+        "barrel": [
+          0.87109375,
+          0.3671875
+        ],
+        "batTip": [
+          0.91796875,
+          0.36328125
+        ]
+      },
+      "bounds": {
+        "x": 0.1953125,
+        "y": 0.2109375,
+        "width": 0.734375,
+        "height": 0.70703125
+      }
+    },
+    {
+      "index": 19,
+      "sourceKey": "bunt3",
+      "file": "curated/bunt-frame-3.png",
+      "runtimeApproved": true,
+      "anchorsPixels": {
+        "feet": [
+          89,
+          234
+        ],
+        "frontFoot": [
+          169,
+          214
+        ],
+        "grip": [
+          181,
+          92
+        ],
+        "barrel": [
+          137,
+          38
+        ],
+        "batTip": [
+          124,
+          22
+        ]
+      },
+      "anchors": {
+        "feet": [
+          0.34765625,
+          0.9140625
+        ],
+        "frontFoot": [
+          0.66015625,
+          0.8359375
+        ],
+        "grip": [
+          0.70703125,
+          0.359375
+        ],
+        "barrel": [
+          0.53515625,
+          0.1484375
+        ],
+        "batTip": [
+          0.484375,
+          0.0859375
+        ]
+      },
+      "bounds": {
+        "x": 0.29296875,
+        "y": 0.0703125,
+        "width": 0.48828125,
+        "height": 0.84765625
+      }
+    }
+  ]
+}
