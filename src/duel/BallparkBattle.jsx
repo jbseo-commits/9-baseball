@@ -8,6 +8,7 @@ import GimmickVfx from './GimmickVfx.jsx';
 import ImpactFx from './ImpactFx.jsx';
 import {pitcherLine,momentOf} from './pitcher-voice.js';
 import BallparkActors,{pixiAvailable,pitcherStance} from './BallparkActors.jsx';
+import PixelUmpireScene from './PixelUmpireScene.jsx';
 import {lessonFor,planText} from './DecisionDebrief.jsx';
 import batterV14MasterSheet from '../../assets/ui-kit/batter/batter-v14-master-sheet.png';
 import cardArtSheet from '../../assets/ui-kit/cards/battle-core-v14-master-sheet.png';
@@ -139,7 +140,8 @@ export default function BallparkBattle({
   const landed=!inFx||LANDED.has(fxStage);
   const showVerdict=!!shot&&(inFx||s.phase!=='battle')&&(landed||!judged);
   /* which actors Pixi has taken over (null = DOM actors only) */
-  const [pixi,setPixi]=useState(null);
+  const [pixi,setPixi]=useState(null),[pixelUmpireReady,setPixelUmpireReady]=useState(false);
+  const pixelContactPoint=useRef(null);
   const [canPixi]=useState(()=>!!batterPoses&&pixiAvailable());
   /* First-battle guide is opt-in only (help → 전투 가이드): never auto-shown,
      never re-shown by resetting its seen key. */
@@ -512,7 +514,7 @@ export default function BallparkBattle({
     </div>
 
     <div className="bp-stage" ref={stageRef}>
-    <section className={'bp-scene'+(pixi?.batter?' pixi-batter':'')+(pixi?.pitcher?' pixi-pitcher':'')+(inFx?' fx-stage-'+fxStage+(shot?' fx-'+(shot.grade||shot.kind):''):'')+(cam?' cam-'+cam:'')} ref={sceneRef} aria-label="승부 구장" data-gimmick={gm?.id} data-gtier={gtier} data-gphase={gm?(pre?shownGimmickPhase:(pitcher?.phase||'steady')):undefined}>
+    <section className={'bp-scene'+(pixi?.batter?' pixi-batter':'')+(pixi?.pitcher?' pixi-pitcher':'')+(pixelUmpireReady?' pixel-umpire-ready':'')+(inFx?' fx-stage-'+fxStage+(shot?' fx-'+(shot.grade||shot.kind):''):'')+(cam?' cam-'+cam:'')} ref={sceneRef} aria-label="승부 구장" data-gimmick={gm?.id} data-gtier={gtier} data-gphase={gm?(pre?shownGimmickPhase:(pitcher?.phase||'steady')):undefined}>
       <div className="bp-bg bp-cam" aria-hidden="true"/>
       <div className="bp-haze" aria-hidden="true"/>
       {autoLesson&&<aside className={'bp-auto-lesson '+lessonPhase} data-testid="bp-auto-lesson" aria-live="polite">
@@ -542,8 +544,9 @@ export default function BallparkBattle({
           {autoPlan?.coverage>0&&lessonPhase!=='plan'&&<i>{autoPlan.coverage}존 커버</i>}
         </div>}
       </aside>}
-      {canPixi&&<BallparkActors sceneRef={sceneRef} pitcherAtlas={pitcherAtlas} artId={artId} batterPoses={batterPoses} batterSheet={batterSheet} batterRig={batterRig} pitchZone={judged?r.zone:null} shot={shot} fxStage={fxStage} playToken={playToken} knockedOut={judged&&((pre?hpWas:pitcher?.hp)??1)===0} onReady={setPixi}/>}
-      <div className="bp-pitcher bp-cam" ref={pitcherRef} aria-hidden="true" style={{'--stance-x':pitcherStance(artId)[0],'--stance-y':pitcherStance(artId)[1]}}>{pitcherArt}{gm&&<GimmickVfx id={gm.id} tier={gtier} phase={pre?shownGimmickPhase:(pitcher?.phase||'steady')}/>}</div>
+      {pitcherAtlas&&<PixelUmpireScene sceneRef={sceneRef} pitcherAtlas={pitcherAtlas} artId={artId} shot={shot} fxStage={fxStage} impactAt={impactAt} playToken={playToken} pitchZone={judged?r.zone:null} revealed={r} knockedOut={judged&&((pre?hpWas:pitcher?.hp)??1)===0} contactPointRef={pixelContactPoint} onReady={setPixelUmpireReady}/>}
+      {canPixi&&!pixelUmpireReady&&<BallparkActors sceneRef={sceneRef} pitcherAtlas={pitcherAtlas} artId={artId} batterPoses={batterPoses} batterSheet={batterSheet} batterRig={batterRig} pitchZone={judged?r.zone:null} shot={shot} fxStage={fxStage} playToken={playToken} knockedOut={judged&&((pre?hpWas:pitcher?.hp)??1)===0} onReady={setPixi}/>}
+      <div className="bp-pitcher bp-cam" ref={pitcherRef} aria-hidden="true" style={{'--stance-x':pitcherStance(artId)[0],'--stance-y':pitcherStance(artId)[1]}}><span className="bp-legacy-art">{pitcherArt}</span>{gm&&<GimmickVfx id={gm.id} tier={gtier} phase={pre?shownGimmickPhase:(pitcher?.phase||'steady')}/>}</div>
       <div className="bp-pcol">
       <div className="bp-ptag" aria-label={`${pitcher?.name} 투수 HP ${pre?hpWas:pitcher?.hp} / ${pitcher?.maxHp}`}>
         <div className="bp-pitcher-badge-row">
@@ -586,12 +589,12 @@ export default function BallparkBattle({
         </div>;
       })()}
       {inFx&&vfx}
-      {inFx&&shot&&judged&&<ImpactFx key={'ifx'+playToken} sceneRef={sceneRef} stage={fxStage} grade={shot.grade||shot.kind} zone={r?.zone} token={playToken}/>}
+      {inFx&&shot&&judged&&<ImpactFx key={'ifx'+playToken} sceneRef={sceneRef} stage={fxStage} grade={shot.grade||shot.kind} zone={r?.zone} token={playToken} worldPointRef={pixelUmpireReady?pixelContactPoint:null}/>}
       {inFx&&<i className="bp-flash" key={'x'+playToken+fxStage} aria-hidden="true"/>}
       {fxStage==='slowmo'&&shot?.motion?.slowmo>0&&<span className="bp-slowmo" aria-hidden="true">{shot.grade==='near-miss'||shot.grade==='near-miss-k'?'ONE ZONE':shot.grade==='homer'||shot.grade==='grand-slam'?'TIME STOPS':'SLOW'}</span>}
       {cam==='near'&&fxStage==='slowmo'&&<i className="bp-letterbox" key={'lb'+playToken} aria-hidden="true"/>}
-      {judged&&inFx&&!landed&&!pixi?.pitcher&&<i className="bp-flight" ref={flightRef} key={'f'+playToken} aria-hidden="true"/>}
-      <div className="bp-batter bp-cam" aria-hidden="true">{batterArt}</div>
+      {judged&&inFx&&!landed&&!pixi?.pitcher&&!pixelUmpireReady&&<i className="bp-flight" ref={flightRef} key={'f'+playToken} aria-hidden="true"/>}
+      <div className="bp-batter bp-cam" aria-hidden="true"><span className="bp-legacy-art">{batterArt}</span></div>
       {/* 기세: active values live by the batter; at 0 there is no instrument —
          the value and its cause live in the inspector. Until the ball lands
          the gauge holds what this pitch was thrown into. */}

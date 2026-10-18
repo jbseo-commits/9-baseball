@@ -1,0 +1,39 @@
+{
+  "oldCell": [
+    192,
+    256
+  ],
+  "newStorageCell": [
+    256,
+    256
+  ],
+  "logicalHeight": 128,
+  "scale": 2,
+  "generationRepeated": false,
+  "reason": "Wider canonical component-fitting storage prevents row-registration slack from clipping props. Original generated guides/prompts remain in archive and row-generation.json.",
+  "outline": false,
+  "outlineReason": "Source already contains black outlines. Disable additional darkening which exaggerated stepped jersey edges at the physical downscale cap.",
+  "runs": [
+    {
+      "id": "batter",
+      "archive": "pixel-original-v1/archive-192-generation-inputs-and-outputs/batter",
+      "rawSha256": {
+        "bunt.png": "f211c81874fab650c57ff41c3288e0149bad0e3f614d240fa0d5bdfd6290ff46",
+        "follow.png": "b41b862c03a8c790d2ebc038df8d0353b52bb0b6ea268a8b509cec0e5a28f595",
+        "reset.png": "1dd455377e7adba9a5c9d57af0d5a9d961bec29f4935891a323257708abcd7fc",
+        "swing.png": "b3cd96ed7b7896acb71bf94a70bb80ccf64a583bf65cc3fb83895d90dbd6cea1",
+        "windup.png": "e4d7ef7d76a9d708357676a10ee7a4d18323a70d0626b9e828f4fd6557a6f5fd"
+      }
+    },
+    {
+      "id": "pitcher",
+      "archive": "pixel-original-v1/archive-192-generation-inputs-and-outputs/pitcher",
+      "rawSha256": {
+        "drive-original.png": "a67daad53e024c9291cb68dfc126eb1ffe2133f1c298b337368618f8bd9aa357",
+        "drive.png": "59186af49b4d94a321b922937365bd03fd6cff553b9bb51a086a2cf0079931d6",
+        "reset.png": "6f6e9e5a239a637cb00ef0865815b39af6906b36273ae59e9fba7a60e9f6e99e",
+        "windup.png": "d6e7b99c5930312efdba096c37fd2d085a43a54f6bf53c792622ee5df94227df"
+      }
+    }
+  ]
+}

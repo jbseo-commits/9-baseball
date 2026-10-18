@@ -1,0 +1,983 @@
+{
+  "schemaVersion": 1,
+  "cell": {
+    "width": 256,
+    "height": 256,
+    "scale": 2
+  },
+  "atlases": {
+    "batter": {
+      "file": "batter-atlas.png",
+      "columns": 4,
+      "rows": 5,
+      "states": {
+        "windup": [
+          15,
+          15,
+          0,
+          1
+        ],
+        "swing": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "follow": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "reset": [
+          12,
+          13,
+          14,
+          15
+        ],
+        "bunt": [
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      "frames": [
+        {
+          "source": "windup/2",
+          "sourceFile": "curated/windup-frame-2.png",
+          "bounds": {
+            "x": 0.40625,
+            "y": 0.0546875,
+            "width": 0.40625,
+            "height": 0.9140625
+          },
+          "anchors": {
+            "feet": [
+              0.523438,
+              0.941406
+            ],
+            "frontFoot": [
+              0.703125,
+              0.699219
+            ],
+            "grip": [
+              0.746094,
+              0.363281
+            ],
+            "barrel": [
+              0.609375,
+              0.160156
+            ],
+            "batTip": [
+              0.558594,
+              0.074219
+            ]
+          }
+        },
+        {
+          "source": "windup/3",
+          "sourceFile": "curated/windup-frame-3.png",
+          "bounds": {
+            "x": 0.2421875,
+            "y": 0.0703125,
+            "width": 0.59375,
+            "height": 0.8984375
+          },
+          "anchors": {
+            "feet": [
+              0.351562,
+              0.9375
+            ],
+            "frontFoot": [
+              0.691406,
+              0.859375
+            ],
+            "grip": [
+              0.75,
+              0.367188
+            ],
+            "barrel": [
+              0.632812,
+              0.164062
+            ],
+            "batTip": [
+              0.574219,
+              0.085938
+            ]
+          }
+        },
+        {
+          "unused": true,
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          "anchors": {
+            "feet": [
+              0.5,
+              0.95
+            ],
+            "barrel": [
+              0.5,
+              0.5
+            ]
+          }
+        },
+        {
+          "unused": true,
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          "anchors": {
+            "feet": [
+              0.5,
+              0.95
+            ],
+            "barrel": [
+              0.5,
+              0.5
+            ]
+          }
+        },
+        {
+          "source": "swing/0",
+          "sourceFile": "curated/swing-frame-0.png",
+          "bounds": {
+            "x": 0.3359375,
+            "y": 0.0546875,
+            "width": 0.453125,
+            "height": 0.9140625
+          },
+          "anchors": {
+            "feet": [
+              0.441406,
+              0.9375
+            ],
+            "frontFoot": [
+              0.683594,
+              0.808594
+            ],
+            "grip": [
+              0.707031,
+              0.398438
+            ],
+            "barrel": [
+              0.574219,
+              0.164062
+            ],
+            "batTip": [
+              0.550781,
+              0.082031
+            ]
+          }
+        },
+        {
+          "source": "swing/1",
+          "sourceFile": "curated/swing-frame-1.png",
+          "bounds": {
+            "x": 0.2890625,
+            "y": 0.171875,
+            "width": 0.671875,
+            "height": 0.796875
+          },
+          "anchors": {
+            "feet": [
+              0.390625,
+              0.9375
+            ],
+            "frontFoot": [
+              0.695312,
+              0.808594
+            ],
+            "grip": [
+              0.695312,
+              0.382812
+            ],
+            "barrel": [
+              0.890625,
+              0.4375
+            ],
+            "batTip": [
+              0.949219,
+              0.457031
+            ]
+          }
+        },
+        {
+          "source": "swing/2",
+          "sourceFile": "curated/swing-frame-2.png",
+          "bounds": {
+            "x": 0.28125,
+            "y": 0.1796875,
+            "width": 0.6875,
+            "height": 0.7890625
+          },
+          "anchors": {
+            "feet": [
+              0.371094,
+              0.933594
+            ],
+            "frontFoot": [
+              0.667969,
+              0.816406
+            ],
+            "grip": [
+              0.695312,
+              0.375
+            ],
+            "barrel": [
+              0.890625,
+              0.371094
+            ],
+            "batTip": [
+              0.949219,
+              0.371094
+            ]
+          }
+        },
+        {
+          "source": "swing/3",
+          "sourceFile": "curated/swing-frame-3.png",
+          "bounds": {
+            "x": 0.3203125,
+            "y": 0.109375,
+            "width": 0.5859375,
+            "height": 0.859375
+          },
+          "anchors": {
+            "feet": [
+              0.375,
+              0.9375
+            ],
+            "frontFoot": [
+              0.691406,
+              0.816406
+            ],
+            "grip": [
+              0.707031,
+              0.289062
+            ],
+            "barrel": [
+              0.851562,
+              0.164062
+            ],
+            "batTip": [
+              0.886719,
+              0.125
+            ]
+          }
+        },
+        {
+          "source": "follow/0",
+          "sourceFile": "curated/follow-frame-0.png",
+          "bounds": {
+            "x": 0.234375,
+            "y": 0.1484375,
+            "width": 0.734375,
+            "height": 0.8203125
+          },
+          "anchors": {
+            "feet": [
+              0.351562,
+              0.921875
+            ],
+            "frontFoot": [
+              0.589844,
+              0.792969
+            ],
+            "grip": [
+              0.636719,
+              0.304688
+            ],
+            "barrel": [
+              0.902344,
+              0.191406
+            ],
+            "batTip": [
+              0.949219,
+              0.171875
+            ]
+          }
+        },
+        {
+          "source": "follow/1",
+          "sourceFile": "curated/follow-frame-1.png",
+          "bounds": {
+            "x": 0.3046875,
+            "y": 0.0859375,
+            "width": 0.46875,
+            "height": 0.8828125
+          },
+          "anchors": {
+            "feet": [
+              0.371094,
+              0.917969
+            ],
+            "frontFoot": [
+              0.652344,
+              0.835938
+            ],
+            "grip": [
+              0.46875,
+              0.128906
+            ],
+            "barrel": [
+              0.695312,
+              0.222656
+            ],
+            "batTip": [
+              0.746094,
+              0.238281
+            ]
+          }
+        },
+        {
+          "source": "follow/2",
+          "sourceFile": "curated/follow-frame-2.png",
+          "bounds": {
+            "x": 0.3359375,
+            "y": 0.109375,
+            "width": 0.4140625,
+            "height": 0.859375
+          },
+          "anchors": {
+            "feet": [
+              0.394531,
+              0.929688
+            ],
+            "frontFoot": [
+              0.675781,
+              0.824219
+            ],
+            "grip": [
+              0.648438,
+              0.339844
+            ],
+            "barrel": [
+              0.441406,
+              0.164062
+            ],
+            "batTip": [
+              0.390625,
+              0.128906
+            ]
+          }
+        },
+        {
+          "source": "follow/3",
+          "sourceFile": "curated/follow-frame-3.png",
+          "bounds": {
+            "x": 0.3203125,
+            "y": 0.0546875,
+            "width": 0.4453125,
+            "height": 0.9140625
+          },
+          "anchors": {
+            "feet": [
+              0.484375,
+              0.9375
+            ],
+            "frontFoot": [
+              0.691406,
+              0.824219
+            ],
+            "grip": [
+              0.691406,
+              0.410156
+            ],
+            "barrel": [
+              0.605469,
+              0.15625
+            ],
+            "batTip": [
+              0.558594,
+              0.085938
+            ]
+          }
+        },
+        {
+          "source": "reset/0",
+          "sourceFile": "curated/reset-frame-0.png",
+          "bounds": {
+            "x": 0.203125,
+            "y": 0.1328125,
+            "width": 0.640625,
+            "height": 0.8359375
+          },
+          "anchors": {
+            "feet": [
+              0.5625,
+              0.945312
+            ],
+            "frontFoot": [
+              0.773438,
+              0.800781
+            ],
+            "grip": [
+              0.457031,
+              0.535156
+            ],
+            "barrel": [
+              0.269531,
+              0.652344
+            ],
+            "batTip": [
+              0.226562,
+              0.679688
+            ]
+          }
+        },
+        {
+          "source": "reset/1",
+          "sourceFile": "curated/reset-frame-1.png",
+          "bounds": {
+            "x": 0.28125,
+            "y": 0.140625,
+            "width": 0.59375,
+            "height": 0.828125
+          },
+          "anchors": {
+            "feet": [
+              0.398438,
+              0.921875
+            ],
+            "frontFoot": [
+              0.644531,
+              0.820312
+            ],
+            "grip": [
+              0.660156,
+              0.441406
+            ],
+            "barrel": [
+              0.808594,
+              0.339844
+            ],
+            "batTip": [
+              0.855469,
+              0.292969
+            ]
+          }
+        },
+        {
+          "source": "reset/2",
+          "sourceFile": "curated/reset-frame-2.png",
+          "bounds": {
+            "x": 0.3671875,
+            "y": 0.078125,
+            "width": 0.4296875,
+            "height": 0.890625
+          },
+          "anchors": {
+            "feet": [
+              0.417969,
+              0.9375
+            ],
+            "frontFoot": [
+              0.667969,
+              0.824219
+            ],
+            "grip": [
+              0.722656,
+              0.433594
+            ],
+            "barrel": [
+              0.695312,
+              0.183594
+            ],
+            "batTip": [
+              0.683594,
+              0.097656
+            ]
+          }
+        },
+        {
+          "source": "reset/3",
+          "sourceFile": "curated/reset-frame-3.png",
+          "bounds": {
+            "x": 0.3515625,
+            "y": 0.0546875,
+            "width": 0.4609375,
+            "height": 0.9140625
+          },
+          "anchors": {
+            "feet": [
+              0.460938,
+              0.9375
+            ],
+            "frontFoot": [
+              0.667969,
+              0.804688
+            ],
+            "grip": [
+              0.742188,
+              0.34375
+            ],
+            "barrel": [
+              0.578125,
+              0.148438
+            ],
+            "batTip": [
+              0.542969,
+              0.082031
+            ]
+          }
+        },
+        {
+          "source": "bunt/0",
+          "sourceFile": "curated/bunt-frame-0.png",
+          "bounds": {
+            "x": 0.359375,
+            "y": 0.0546875,
+            "width": 0.421875,
+            "height": 0.9140625
+          },
+          "anchors": {
+            "feet": [
+              0.449219,
+              0.9375
+            ],
+            "frontFoot": [
+              0.671875,
+              0.824219
+            ],
+            "grip": [
+              0.6875,
+              0.398438
+            ],
+            "barrel": [
+              0.566406,
+              0.175781
+            ],
+            "batTip": [
+              0.542969,
+              0.085938
+            ]
+          }
+        },
+        {
+          "source": "bunt/1",
+          "sourceFile": "curated/bunt-frame-1.png",
+          "bounds": {
+            "x": 0.34375,
+            "y": 0.171875,
+            "width": 0.53125,
+            "height": 0.796875
+          },
+          "anchors": {
+            "feet": [
+              0.503906,
+              0.941406
+            ],
+            "frontFoot": [
+              0.699219,
+              0.800781
+            ],
+            "grip": [
+              0.71875,
+              0.355469
+            ],
+            "barrel": [
+              0.816406,
+              0.289062
+            ],
+            "batTip": [
+              0.863281,
+              0.269531
+            ]
+          }
+        },
+        {
+          "source": "bunt/2",
+          "sourceFile": "curated/bunt-frame-2.png",
+          "bounds": {
+            "x": 0.296875,
+            "y": 0.2109375,
+            "width": 0.671875,
+            "height": 0.7578125
+          },
+          "anchors": {
+            "feet": [
+              0.410156,
+              0.941406
+            ],
+            "frontFoot": [
+              0.640625,
+              0.800781
+            ],
+            "grip": [
+              0.777344,
+              0.375
+            ],
+            "barrel": [
+              0.902344,
+              0.367188
+            ],
+            "batTip": [
+              0.949219,
+              0.367188
+            ]
+          }
+        },
+        {
+          "source": "bunt/3",
+          "sourceFile": "curated/bunt-frame-3.png",
+          "bounds": {
+            "x": 0.359375,
+            "y": 0.0546875,
+            "width": 0.4296875,
+            "height": 0.9140625
+          },
+          "anchors": {
+            "feet": [
+              0.460938,
+              0.9375
+            ],
+            "frontFoot": [
+              0.6875,
+              0.816406
+            ],
+            "grip": [
+              0.695312,
+              0.40625
+            ],
+            "barrel": [
+              0.578125,
+              0.171875
+            ],
+            "batTip": [
+              0.550781,
+              0.089844
+            ]
+          }
+        }
+      ]
+    },
+    "redRush": {
+      "file": "red-rush-atlas.png",
+      "columns": 4,
+      "rows": 3,
+      "states": {
+        "windup": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "drive": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "reset": [
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "frames": [
+        {
+          "source": "windup/0",
+          "sourceFile": "curated/windup-frame-0.png",
+          "bounds": {
+            "x": 0.296875,
+            "y": 0.0625,
+            "width": 0.4765625,
+            "height": 0.90625
+          },
+          "anchors": {
+            "feet": [
+              0.351562,
+              0.9375
+            ],
+            "otherFoot": [
+              0.640625,
+              0.9375
+            ],
+            "barrel": [
+              0.351562,
+              0.9375
+            ]
+          }
+        },
+        {
+          "source": "windup/1",
+          "sourceFile": "curated/windup-frame-1.png",
+          "bounds": {
+            "x": 0.28125,
+            "y": 0.0625,
+            "width": 0.4921875,
+            "height": 0.90625
+          },
+          "anchors": {
+            "feet": [
+              0.351562,
+              0.9375
+            ],
+            "otherFoot": [
+              0.648438,
+              0.945312
+            ],
+            "barrel": [
+              0.351562,
+              0.9375
+            ]
+          }
+        },
+        {
+          "source": "windup/2",
+          "sourceFile": "curated/windup-frame-2.png",
+          "bounds": {
+            "x": 0.28125,
+            "y": 0.0859375,
+            "width": 0.5078125,
+            "height": 0.8828125
+          },
+          "anchors": {
+            "feet": [
+              0.335938,
+              0.933594
+            ],
+            "otherFoot": [
+              0.519531,
+              0.902344
+            ],
+            "barrel": [
+              0.335938,
+              0.933594
+            ]
+          }
+        },
+        {
+          "source": "windup/3",
+          "sourceFile": "curated/windup-frame-3.png",
+          "bounds": {
+            "x": 0.3046875,
+            "y": 0.0546875,
+            "width": 0.484375,
+            "height": 0.9140625
+          },
+          "anchors": {
+            "feet": [
+              0.472656,
+              0.929688
+            ],
+            "otherFoot": [
+              0.433594,
+              0.65625
+            ],
+            "barrel": [
+              0.472656,
+              0.929688
+            ]
+          }
+        },
+        {
+          "source": "drive/0",
+          "sourceFile": "curated/drive-frame-0.png",
+          "bounds": {
+            "x": 0.2890625,
+            "y": 0.0625,
+            "width": 0.5234375,
+            "height": 0.90625
+          },
+          "anchors": {
+            "feet": [
+              0.429688,
+              0.933594
+            ],
+            "otherFoot": [
+              0.675781,
+              0.757812
+            ],
+            "barrel": [
+              0.429688,
+              0.933594
+            ]
+          }
+        },
+        {
+          "source": "drive/1",
+          "sourceFile": "curated/drive-frame-1.png",
+          "bounds": {
+            "x": 0.2890625,
+            "y": 0.0625,
+            "width": 0.546875,
+            "height": 0.90625
+          },
+          "anchors": {
+            "feet": [
+              0.351562,
+              0.925781
+            ],
+            "otherFoot": [
+              0.753906,
+              0.847656
+            ],
+            "barrel": [
+              0.351562,
+              0.925781
+            ]
+          }
+        },
+        {
+          "source": "drive/2",
+          "sourceFile": "curated/drive-frame-2.png",
+          "bounds": {
+            "x": 0.1953125,
+            "y": 0.0546875,
+            "width": 0.6640625,
+            "height": 0.9140625
+          },
+          "anchors": {
+            "feet": [
+              0.46875,
+              0.9375
+            ],
+            "otherFoot": [
+              0.585938,
+              0.785156
+            ],
+            "release": [
+              0.214844,
+              0.433594
+            ],
+            "barrel": [
+              0.214844,
+              0.433594
+            ]
+          }
+        },
+        {
+          "source": "drive/3",
+          "sourceFile": "curated/drive-frame-3.png",
+          "bounds": {
+            "x": 0.21875,
+            "y": 0.0625,
+            "width": 0.5546875,
+            "height": 0.90625
+          },
+          "anchors": {
+            "feet": [
+              0.5,
+              0.933594
+            ],
+            "otherFoot": [
+              0.277344,
+              0.597656
+            ],
+            "barrel": [
+              0.5,
+              0.933594
+            ]
+          }
+        },
+        {
+          "source": "reset/0",
+          "sourceFile": "curated/reset-frame-0.png",
+          "bounds": {
+            "x": 0.2734375,
+            "y": 0.0703125,
+            "width": 0.5859375,
+            "height": 0.8984375
+          },
+          "anchors": {
+            "feet": [
+              0.664062,
+              0.929688
+            ],
+            "otherFoot": [
+              0.808594,
+              0.445312
+            ],
+            "barrel": [
+              0.664062,
+              0.929688
+            ]
+          }
+        },
+        {
+          "source": "reset/1",
+          "sourceFile": "curated/reset-frame-1.png",
+          "bounds": {
+            "x": 0.2734375,
+            "y": 0.0703125,
+            "width": 0.546875,
+            "height": 0.8984375
+          },
+          "anchors": {
+            "feet": [
+              0.433594,
+              0.9375
+            ],
+            "otherFoot": [
+              0.589844,
+              0.839844
+            ],
+            "barrel": [
+              0.433594,
+              0.9375
+            ]
+          }
+        },
+        {
+          "source": "reset/2",
+          "sourceFile": "curated/reset-frame-2.png",
+          "bounds": {
+            "x": 0.21875,
+            "y": 0.125,
+            "width": 0.5625,
+            "height": 0.84375
+          },
+          "anchors": {
+            "feet": [
+              0.234375,
+              0.941406
+            ],
+            "otherFoot": [
+              0.707031,
+              0.941406
+            ],
+            "barrel": [
+              0.234375,
+              0.941406
+            ]
+          }
+        },
+        {
+          "source": "reset/3",
+          "sourceFile": "curated/reset-frame-3.png",
+          "bounds": {
+            "x": 0.28125,
+            "y": 0.0546875,
+            "width": 0.4921875,
+            "height": 0.9140625
+          },
+          "anchors": {
+            "feet": [
+              0.367188,
+              0.945312
+            ],
+            "otherFoot": [
+              0.652344,
+              0.941406
+            ],
+            "barrel": [
+              0.367188,
+              0.945312
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "stadium": "stadium.png"
+}

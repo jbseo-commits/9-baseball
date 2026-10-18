@@ -1,0 +1,107 @@
+{
+  "kind": "actual-painted-wood-raster-second-opinion",
+  "worst": {
+    "swing": {
+      "zone": 6,
+      "dt": -1,
+      "frameIndex": 5,
+      "source": "swing/1",
+      "ball": [
+        146,
+        196
+      ],
+      "nearestWoodPixel": [
+        143,
+        197
+      ],
+      "paintedWoodOuterGapNative": 0.0,
+      "paintedWoodOuterGapCss": 0.0,
+      "overlappingNativePixels": 2,
+      "classifiedSourceWoodPixels": 552
+    },
+    "bunt": {
+      "zone": 0,
+      "dt": -11,
+      "frameIndex": 17,
+      "source": "bunt/1",
+      "ball": [
+        142,
+        181
+      ],
+      "nearestWoodPixel": [
+        125,
+        175
+      ],
+      "paintedWoodOuterGapNative": 14.560219778561036,
+      "paintedWoodOuterGapCss": 23.660357140161683,
+      "overlappingNativePixels": 0,
+      "classifiedSourceWoodPixels": 323
+    }
+  },
+  "overlapSamples": [
+    {
+      "action": "swing",
+      "zone": 6,
+      "dt": -3,
+      "frameIndex": 5,
+      "source": "swing/1",
+      "ball": [
+        146,
+        195
+      ],
+      "nearestWoodPixel": [
+        143,
+        197
+      ],
+      "paintedWoodOuterGapNative": 0.0,
+      "paintedWoodOuterGapCss": 0.0,
+      "overlappingNativePixels": 1,
+      "classifiedSourceWoodPixels": 552
+    },
+    {
+      "action": "swing",
+      "zone": 6,
+      "dt": -2,
+      "frameIndex": 5,
+      "source": "swing/1",
+      "ball": [
+        146,
+        195
+      ],
+      "nearestWoodPixel": [
+        143,
+        197
+      ],
+      "paintedWoodOuterGapNative": 0.0,
+      "paintedWoodOuterGapCss": 0.0,
+      "overlappingNativePixels": 1,
+      "classifiedSourceWoodPixels": 552
+    },
+    {
+      "action": "swing",
+      "zone": 6,
+      "dt": -1,
+      "frameIndex": 5,
+      "source": "swing/1",
+      "ball": [
+        146,
+        196
+      ],
+      "nearestWoodPixel": [
+        143,
+        197
+      ],
+      "paintedWoodOuterGapNative": 0.0,
+      "paintedWoodOuterGapCss": 0.0,
+      "overlappingNativePixels": 2,
+      "classifiedSourceWoodPixels": 552
+    }
+  ],
+  "overlapSampleCount": 3,
+  "method": "Classify actual honey/gold material pixels in the authored grip-tip capsule, include adjacent dark outline pixels up to2 source pixels, and rasterize them with current source-foot registration and nearest sampling. Measure the actual native painted pixel-square union against the5x4 ball outer rectangle.",
+  "limits": [
+    "The pixel material classifier is a diagnostic mask, not an authored perfect semantic mask.",
+    "Nearest canvas sampling is reproduced by source sampling at native pixel centers; browser raster rounding can differ by approximately1nativepixel.",
+    "Same fixture geometry and Red Rush path assumptions as whiff-clearance-report.json."
+  ]
+}

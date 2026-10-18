@@ -807,8 +807,8 @@ export default function Duel(){
     // Local art preview enters a real V10 battle without touching the player's save.
     const previewId=import.meta.env.DEV&&typeof window!=='undefined'
       ?new URLSearchParams(window.location.search).get('previewPitcher'):null;
-    if(previewId==='tide-vesper'){
-      const preview=createV10Duel(7);
+    if(previewId&&pitcherAtlases[previewId]){
+      const preview=createV10Duel(7,{tutorial:previewId==='regular-01-red-rush'});
       const node=preview.runMap.nodes.find(n=>n.opponent?.artId===previewId);
       if(node){
         preview.runMap.reachableIds=[node.id];

@@ -1,0 +1,419 @@
+{
+  "ok": true,
+  "engine": "component-row",
+  "engine_revision": "15971e732787",
+  "extract_args": {},
+  "run_dir": "pixel-original-v1/runs/batter",
+  "cell": {
+    "shape": "square",
+    "width": 256,
+    "height": 256,
+    "safe_margin_x": 8,
+    "safe_margin_y": 8,
+    "size": 256,
+    "safe_margin": 8
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "rows": [
+    {
+      "state": "windup",
+      "frames": 4,
+      "method": "components",
+      "files": [
+        "frames/windup/frame-0.png",
+        "frames/windup/frame-1.png",
+        "frames/windup/frame-2.png",
+        "frames/windup/frame-3.png"
+      ],
+      "frame_records": [
+        {
+          "index": 0,
+          "nontransparent_pixels": 13208,
+          "bbox": [
+            78,
+            4,
+            218,
+            248
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 1,
+          "nontransparent_pixels": 12500,
+          "bbox": [
+            88,
+            4,
+            220,
+            248
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 2,
+          "nontransparent_pixels": 12504,
+          "bbox": [
+            104,
+            0,
+            214,
+            248
+          ],
+          "edge_pixels": 12,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 3,
+          "nontransparent_pixels": 14064,
+          "bbox": [
+            58,
+            4,
+            220,
+            248
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        }
+      ],
+      "ok": true,
+      "engine_revision": "15971e732787",
+      "plain_files": [
+        "frames/windup/frame-0.plain.png",
+        "frames/windup/frame-1.plain.png",
+        "frames/windup/frame-2.plain.png",
+        "frames/windup/frame-3.plain.png"
+      ],
+      "orig_files": [
+        "frames/windup/orig/frame-0.png",
+        "frames/windup/orig/frame-1.png",
+        "frames/windup/orig/frame-2.png",
+        "frames/windup/orig/frame-3.png"
+      ]
+    },
+    {
+      "state": "swing",
+      "frames": 4,
+      "method": "components",
+      "files": [
+        "frames/swing/frame-0.png",
+        "frames/swing/frame-1.png",
+        "frames/swing/frame-2.png",
+        "frames/swing/frame-3.png"
+      ],
+      "frame_records": [
+        {
+          "index": 0,
+          "nontransparent_pixels": 13592,
+          "bbox": [
+            84,
+            0,
+            208,
+            248
+          ],
+          "edge_pixels": 12,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 1,
+          "nontransparent_pixels": 12792,
+          "bbox": [
+            72,
+            32,
+            254,
+            248
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 2,
+          "nontransparent_pixels": 11992,
+          "bbox": [
+            70,
+            34,
+            256,
+            248
+          ],
+          "edge_pixels": 16,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 3,
+          "nontransparent_pixels": 11836,
+          "bbox": [
+            80,
+            14,
+            240,
+            248
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        }
+      ],
+      "ok": true,
+      "engine_revision": "15971e732787",
+      "plain_files": [
+        "frames/swing/frame-0.plain.png",
+        "frames/swing/frame-1.plain.png",
+        "frames/swing/frame-2.plain.png",
+        "frames/swing/frame-3.plain.png"
+      ],
+      "orig_files": [
+        "frames/swing/orig/frame-0.png",
+        "frames/swing/orig/frame-1.png",
+        "frames/swing/orig/frame-2.png",
+        "frames/swing/orig/frame-3.png"
+      ]
+    },
+    {
+      "state": "follow",
+      "frames": 4,
+      "method": "components",
+      "files": [
+        "frames/follow/frame-0.png",
+        "frames/follow/frame-1.png",
+        "frames/follow/frame-2.png",
+        "frames/follow/frame-3.png"
+      ],
+      "frame_records": [
+        {
+          "index": 0,
+          "nontransparent_pixels": 13808,
+          "bbox": [
+            56,
+            30,
+            256,
+            254
+          ],
+          "edge_pixels": 12,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 1,
+          "nontransparent_pixels": 13160,
+          "bbox": [
+            76,
+            14,
+            202,
+            256
+          ],
+          "edge_pixels": 48,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 2,
+          "nontransparent_pixels": 12448,
+          "bbox": [
+            84,
+            20,
+            196,
+            254
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 3,
+          "nontransparent_pixels": 13180,
+          "bbox": [
+            80,
+            0,
+            200,
+            248
+          ],
+          "edge_pixels": 12,
+          "chroma_adjacent_pixels": 0
+        }
+      ],
+      "ok": true,
+      "engine_revision": "15971e732787",
+      "plain_files": [
+        "frames/follow/frame-0.plain.png",
+        "frames/follow/frame-1.plain.png",
+        "frames/follow/frame-2.plain.png",
+        "frames/follow/frame-3.plain.png"
+      ],
+      "orig_files": [
+        "frames/follow/orig/frame-0.png",
+        "frames/follow/orig/frame-1.png",
+        "frames/follow/orig/frame-2.png",
+        "frames/follow/orig/frame-3.png"
+      ]
+    },
+    {
+      "state": "reset",
+      "frames": 4,
+      "method": "components",
+      "files": [
+        "frames/reset/frame-0.png",
+        "frames/reset/frame-1.png",
+        "frames/reset/frame-2.png",
+        "frames/reset/frame-3.png"
+      ],
+      "frame_records": [
+        {
+          "index": 0,
+          "nontransparent_pixels": 13312,
+          "bbox": [
+            48,
+            22,
+            222,
+            248
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 1,
+          "nontransparent_pixels": 12904,
+          "bbox": [
+            70,
+            28,
+            230,
+            254
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 2,
+          "nontransparent_pixels": 13364,
+          "bbox": [
+            92,
+            6,
+            210,
+            248
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 3,
+          "nontransparent_pixels": 13236,
+          "bbox": [
+            88,
+            0,
+            214,
+            248
+          ],
+          "edge_pixels": 12,
+          "chroma_adjacent_pixels": 0
+        }
+      ],
+      "ok": true,
+      "engine_revision": "15971e732787",
+      "plain_files": [
+        "frames/reset/frame-0.plain.png",
+        "frames/reset/frame-1.plain.png",
+        "frames/reset/frame-2.plain.png",
+        "frames/reset/frame-3.plain.png"
+      ],
+      "orig_files": [
+        "frames/reset/orig/frame-0.png",
+        "frames/reset/orig/frame-1.png",
+        "frames/reset/orig/frame-2.png",
+        "frames/reset/orig/frame-3.png"
+      ]
+    },
+    {
+      "state": "bunt",
+      "frames": 4,
+      "method": "components",
+      "files": [
+        "frames/bunt/frame-0.png",
+        "frames/bunt/frame-1.png",
+        "frames/bunt/frame-2.png",
+        "frames/bunt/frame-3.png"
+      ],
+      "frame_records": [
+        {
+          "index": 0,
+          "nontransparent_pixels": 12508,
+          "bbox": [
+            90,
+            0,
+            206,
+            248
+          ],
+          "edge_pixels": 12,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 1,
+          "nontransparent_pixels": 11728,
+          "bbox": [
+            86,
+            32,
+            230,
+            248
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 2,
+          "nontransparent_pixels": 11496,
+          "bbox": [
+            74,
+            42,
+            256,
+            248
+          ],
+          "edge_pixels": 12,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 3,
+          "nontransparent_pixels": 12748,
+          "bbox": [
+            90,
+            0,
+            208,
+            248
+          ],
+          "edge_pixels": 12,
+          "chroma_adjacent_pixels": 0
+        }
+      ],
+      "ok": true,
+      "engine_revision": "15971e732787",
+      "plain_files": [
+        "frames/bunt/frame-0.plain.png",
+        "frames/bunt/frame-1.plain.png",
+        "frames/bunt/frame-2.plain.png",
+        "frames/bunt/frame-3.plain.png"
+      ],
+      "orig_files": [
+        "frames/bunt/orig/frame-0.png",
+        "frames/bunt/orig/frame-1.png",
+        "frames/bunt/orig/frame-2.png",
+        "frames/bunt/orig/frame-3.png"
+      ]
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "windup: pitch disagreement — detect 1.00x1.00 (uniformity 263.3) vs runlen 2.50x2.49 (36.3); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+    "windup: native logical exceeds the physical cap 128x124 — capped frames (reroll candidates): 0:391x684, 1:371x684, 2:309x696, 3:454x684",
+    "swing: pitch disagreement — detect 1.00x1.00 (uniformity 264.7) vs runlen 2.48x2.48 (39.3); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+    "swing: native logical exceeds the physical cap 128x124 — capped frames (reroll candidates): 0:344x685, 1:502x594, 2:516x591, 3:440x646",
+    "follow: pitch disagreement — detect 1.00x1.00 (uniformity 262.9) vs runlen 2.48x2.47 (37.4); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+    "follow: native logical exceeds the physical cap 128x124 — capped frames (reroll candidates): 0:558x625, 1:351x688, 2:314x652, 3:337x692",
+    "reset: pitch disagreement — detect 1.00x1.00 (uniformity 268.2) vs runlen 3.03x2.95 (39.0); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+    "reset: native logical exceeds the physical cap 128x124 — capped frames (reroll candidates): 0:492x641, 1:455x641, 2:332x683, 3:354x702",
+    "bunt: pitch disagreement — detect 1.00x1.00 (uniformity 271.6) vs runlen 2.91x2.49 (41.9); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+    "bunt: native logical exceeds the physical cap 128x124 — capped frames (reroll candidates): 0:326x694, 1:401x605, 2:509x579, 3:332x695",
+    "palette: pinned (40 colors, palette.lock.json)",
+    "follow: frame 01 has 48 non-transparent edge pixels",
+    "pixel unfake: pitch=1.0,1.0,1.0,1.0,1.0 scale=2x logical<=128x128 palette=40"
+  ]
+}

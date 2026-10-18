@@ -1,0 +1,205 @@
+{
+  "ok": true,
+  "engine": "component-row",
+  "kind": "sprite-gen-inspect-report",
+  "run_dir": "pixel-original-v1/runs/batter",
+  "states": [
+    "windup",
+    "swing",
+    "follow",
+    "reset",
+    "bunt"
+  ],
+  "thresholds": {
+    "histogram_min": 0.0,
+    "dhash_min": 0.55,
+    "motion_min": 0.01
+  },
+  "rows": [
+    {
+      "state": "windup",
+      "source": "frames",
+      "expected_frames": 4,
+      "found_frames": 4,
+      "natural_pose_count": 4,
+      "frame_files": [
+        "frames/windup/frame-0.png",
+        "frames/windup/frame-1.png",
+        "frames/windup/frame-2.png",
+        "frames/windup/frame-3.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.9241588784865645,
+          "mean": 0.9541105292606521
+        },
+        "dhash_similarity": {
+          "min": 0.71875,
+          "mean": 0.8385416666666666
+        },
+        "motion_presence": 0.07322208180147058,
+        "centroid_sigma": {
+          "x": 3.9092854255076284,
+          "y": 5.006800946120156
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "windup: pitch disagreement — detect 1.00x1.00 (uniformity 263.3) vs runlen 2.50x2.49 (36.3); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+        "windup: native logical exceeds the physical cap 128x124 — capped frames (reroll candidates): 0:391x684, 1:371x684, 2:309x696, 3:454x684"
+      ]
+    },
+    {
+      "state": "swing",
+      "source": "frames",
+      "expected_frames": 4,
+      "found_frames": 4,
+      "natural_pose_count": 4,
+      "frame_files": [
+        "frames/swing/frame-0.png",
+        "frames/swing/frame-1.png",
+        "frames/swing/frame-2.png",
+        "frames/swing/frame-3.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.9471020565344583,
+          "mean": 0.9649208393845998
+        },
+        "dhash_similarity": {
+          "min": 0.828125,
+          "mean": 0.8619791666666666
+        },
+        "motion_presence": 0.05582259433721406,
+        "centroid_sigma": {
+          "x": 1.8896794169666853,
+          "y": 2.4454705115204307
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "swing: pitch disagreement — detect 1.00x1.00 (uniformity 264.7) vs runlen 2.48x2.48 (39.3); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+        "swing: native logical exceeds the physical cap 128x124 — capped frames (reroll candidates): 0:344x685, 1:502x594, 2:516x591, 3:440x646"
+      ]
+    },
+    {
+      "state": "follow",
+      "source": "frames",
+      "expected_frames": 4,
+      "found_frames": 4,
+      "natural_pose_count": 4,
+      "frame_files": [
+        "frames/follow/frame-0.png",
+        "frames/follow/frame-1.png",
+        "frames/follow/frame-2.png",
+        "frames/follow/frame-3.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.9424520045944319,
+          "mean": 0.9631265085440095
+        },
+        "dhash_similarity": {
+          "min": 0.625,
+          "mean": 0.7786458333333334
+        },
+        "motion_presence": 0.09373061236213236,
+        "centroid_sigma": {
+          "x": 7.657185849837979,
+          "y": 2.188353160660446
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "follow: pitch disagreement — detect 1.00x1.00 (uniformity 262.9) vs runlen 2.48x2.47 (37.4); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+        "follow: native logical exceeds the physical cap 128x124 — capped frames (reroll candidates): 0:558x625, 1:351x688, 2:314x652, 3:337x692",
+        "follow: frame 01 has 48 non-transparent edge pixels"
+      ]
+    },
+    {
+      "state": "reset",
+      "source": "frames",
+      "expected_frames": 4,
+      "found_frames": 4,
+      "natural_pose_count": 4,
+      "frame_files": [
+        "frames/reset/frame-0.png",
+        "frames/reset/frame-1.png",
+        "frames/reset/frame-2.png",
+        "frames/reset/frame-3.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.9514308496707573,
+          "mean": 0.9636280204132037
+        },
+        "dhash_similarity": {
+          "min": 0.6875,
+          "mean": 0.7734375
+        },
+        "motion_presence": 0.1227988249336193,
+        "centroid_sigma": {
+          "x": 10.991418699460121,
+          "y": 3.9699355648728085
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "reset: pitch disagreement — detect 1.00x1.00 (uniformity 268.2) vs runlen 3.03x2.95 (39.0); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+        "reset: native logical exceeds the physical cap 128x124 — capped frames (reroll candidates): 0:492x641, 1:455x641, 2:332x683, 3:354x702"
+      ]
+    },
+    {
+      "state": "bunt",
+      "source": "frames",
+      "expected_frames": 4,
+      "found_frames": 4,
+      "natural_pose_count": 4,
+      "frame_files": [
+        "frames/bunt/frame-0.png",
+        "frames/bunt/frame-1.png",
+        "frames/bunt/frame-2.png",
+        "frames/bunt/frame-3.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.9590548022706197,
+          "mean": 0.9668193087320737
+        },
+        "dhash_similarity": {
+          "min": 0.859375,
+          "mean": 0.9166666666666666
+        },
+        "motion_presence": 0.06364259408190359,
+        "centroid_sigma": {
+          "x": 1.0015625096547047,
+          "y": 3.464791537640679
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "bunt: pitch disagreement — detect 1.00x1.00 (uniformity 271.6) vs runlen 2.91x2.49 (41.9); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+        "bunt: native logical exceeds the physical cap 128x124 — capped frames (reroll candidates): 0:326x694, 1:401x605, 2:509x579, 3:332x695"
+      ]
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "windup: pitch disagreement — detect 1.00x1.00 (uniformity 263.3) vs runlen 2.50x2.49 (36.3); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+    "windup: native logical exceeds the physical cap 128x124 — capped frames (reroll candidates): 0:391x684, 1:371x684, 2:309x696, 3:454x684",
+    "swing: pitch disagreement — detect 1.00x1.00 (uniformity 264.7) vs runlen 2.48x2.48 (39.3); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+    "swing: native logical exceeds the physical cap 128x124 — capped frames (reroll candidates): 0:344x685, 1:502x594, 2:516x591, 3:440x646",
+    "follow: pitch disagreement — detect 1.00x1.00 (uniformity 262.9) vs runlen 2.48x2.47 (37.4); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+    "follow: native logical exceeds the physical cap 128x124 — capped frames (reroll candidates): 0:558x625, 1:351x688, 2:314x652, 3:337x692",
+    "follow: frame 01 has 48 non-transparent edge pixels",
+    "reset: pitch disagreement — detect 1.00x1.00 (uniformity 268.2) vs runlen 3.03x2.95 (39.0); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+    "reset: native logical exceeds the physical cap 128x124 — capped frames (reroll candidates): 0:492x641, 1:455x641, 2:332x683, 3:354x702",
+    "bunt: pitch disagreement — detect 1.00x1.00 (uniformity 271.6) vs runlen 2.91x2.49 (41.9); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+    "bunt: native logical exceeds the physical cap 128x124 — capped frames (reroll candidates): 0:326x694, 1:401x605, 2:509x579, 3:332x695"
+  ]
+}

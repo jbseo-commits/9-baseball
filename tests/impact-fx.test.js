@@ -1,5 +1,6 @@
 import {describe,it,expect} from 'vitest';
 import {IMPACT_GRADES,impactProfile,impactDuration,createImpactState,drawImpactFx} from '../src/duel/impact-fx.js';
+import {contactPoint} from '../src/duel/ImpactFx.jsx';
 
 /* 캔버스 없이 호출만 센다. */
 function fakeCtx(){
@@ -12,6 +13,14 @@ const W=130,H=176;
 const frame=(grade,t,seed=5)=>{const c=fakeCtx();drawImpactFx(c,createImpactState({W,H,px:70,py:110,grade,seed}),t);return c;};
 
 describe('타격감 임팩트 연출',()=>{
+  it('uses the physical pixel contact when present and keeps the tactical fallback otherwise',()=>{
+    const scene={getBoundingClientRect:()=>({left:0,top:44,width:390,height:484}),querySelector:()=>({getBoundingClientRect:()=>({left:172,top:286,width:140,height:168})})};
+    const physical={x:210,y:310,sw:390,sh:484};
+    expect(contactPoint(scene,0,physical)).toBe(physical);
+    expect(contactPoint(scene,8,physical)).toBe(physical);
+    expect(contactPoint(scene,4)).toEqual({x:242,y:326,sw:390,sh:484});
+    expect(contactPoint(scene,4,{x:NaN})).toEqual(contactPoint(scene,4));
+  });
   it('모든 판정 등급이 프로필과 길이를 가진다',()=>{
     for(const g of IMPACT_GRADES){expect(impactProfile(g)).toBeTruthy();expect(impactDuration(g)).toBeGreaterThan(.5);}
     expect(impactProfile('read')).toBeNull();expect(createImpactState({W,H,px:1,py:1,grade:'ball'})).toBeNull();
