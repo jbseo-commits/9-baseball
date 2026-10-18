@@ -1,10 +1,80 @@
 import {describe,it,expect,vi} from 'vitest';
-import {atlasCell,atlasMotion,cancelAnimationFrameId,contactShadowRects,coverPlacement,incomingPitchPoint,normalizedActorFrame,orientedBatterBox,outgoingPitchPoint,passedPitchPoint,pixelBallRects,pixelPitcherFrame,safe2dContext,sequenceFrame,shouldAnimatePixelScene,sourceFeetForFrame,sourcePointForFrame,physicalPitchPoint,stageMotionElapsed,transformedPoint,PIXEL_SCENE_BASE_WIDTH,PIXEL_SCENE_SCALE,PIXEL_SCENE_WIDTH} from '../src/duel/pixel-umpire-motion.js';
+import {atlasCell,atlasMotion,BATTER_BOX_CENTER_LATERAL_FT,BATTER_REAR_LATERAL_FT,batterPlantTransform,cancelAnimationFrameId,contactShadowRects,coverPlacement,createFieldCamera,impactPresentationElapsed,incomingPitchPoint,normalizedActorFrame,orientedBatterBox,outgoingPitchPoint,passedPitchPoint,pixelBallRects,pixelPitcherFrame,projectBatterBox,projectFieldHeight,projectFieldPoint,projectHomePlate,responsiveFieldCameraFraming,safe2dContext,sampleMotionTrack,sequenceFrame,shouldAnimatePixelScene,sourceFeetForFrame,sourcePointForFrame,sourceSoleGroundline,physicalPitchPoint,stageMotionElapsed,trackRecoveryDuration,transformedPoint,unprojectGroundPoint,PIXEL_SCENE_BASE_WIDTH,PIXEL_SCENE_SCALE,PIXEL_SCENE_WIDTH,PLATE_TO_RUBBER_FT,PLATE_TO_RUBBER_M} from '../src/duel/pixel-umpire-motion.js';
 import v2Manifest from '../assets/production-art/pixel-umpire-v2/runtime/manifest.json' with {type:'json'};
+import v3Manifest from '../assets/production-art/pixel-umpire-v3/runtime/manifest.json' with {type:'json'};
 
 const states={windup:[0,1,2,3],swing:[4,5,6,7],follow:[8,9],reset:[10,11],bunt:[12,13],drive:[0,1,2,3]};
+const insidePolygon=(p,vertices)=>{
+  let sign=0;
+  for(let i=0;i<vertices.length;i++){
+    const a=vertices[i],b=vertices[(i+1)%vertices.length],cross=(b.x-a.x)*(p.y-a.y)-(b.y-a.y)*(p.x-a.x);
+    if(Math.abs(cross)<1e-6)continue;
+    if(sign&&Math.sign(cross)!==sign)return false;
+    sign=Math.sign(cross);
+  }
+  return true;
+};
+const segmentDistance=(p,a,b)=>{
+  const dx=b.x-a.x,dy=b.y-a.y,t=Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/(dx*dx+dy*dy||1)));
+  return Math.hypot(p.x-(a.x+t*dx),p.y-(a.y+t*dy));
+};
 
 describe('pixel umpire presentation-only timeline',()=>{
+  it('shares one 50ms impact hold between batter and ball and never crosses an unconfirmed impact',()=>{
+    expect(impactPresentationElapsed(800,800,'windup')).toBe(799);
+    expect(impactPresentationElapsed(1800,800,'windup')).toBe(799);
+    expect(impactPresentationElapsed(800,800,'impact')).toBe(800);
+    expect(impactPresentationElapsed(850,800,'slowmo')).toBe(800);
+    expect(impactPresentationElapsed(851,800,'slowmo')).toBe(801);
+    expect(impactPresentationElapsed(900,800,'release')).toBe(850);
+    expect(impactPresentationElapsed(0,0,'release')).toBe(0);
+    expect(impactPresentationElapsed(50,0,'release')).toBe(0);
+    expect(impactPresentationElapsed(51,0,'release')).toBe(1);
+  });
+
+  it('keeps the canonical field frame and zooms out on short scenes while respecting the measured zone',()=>{
+    const mobile=responsiveFieldCameraFraming({width:384,height:477,zoneCenterX:238,centerRatio:.55,zoneInsetRatio:.07,referenceHeight:477,viewWidthFt:15.5});
+    const pc=responsiveFieldCameraFraming({width:384,height:341,zoneCenterX:307,centerRatio:.55,zoneInsetRatio:.07,referenceHeight:477,viewWidthFt:15.5});
+    const shortPhone=responsiveFieldCameraFraming({width:384,height:299,zoneCenterX:298,centerRatio:.55,zoneInsetRatio:.07,referenceHeight:477,viewWidthFt:15.5});
+    expect(mobile).toEqual({centerX:211,viewWidthFt:15.5,sceneScale:1});
+    expect(pc.centerX).toBe(211);
+    expect(pc.sceneScale).toBeCloseTo(.69,2);
+    expect(shortPhone.centerX).toBe(211);
+    expect(shortPhone.sceneScale).toBeCloseTo(.595,2);
+    expect(pc.viewWidthFt).toBeGreaterThan(mobile.viewWidthFt);
+    expect(shortPhone.viewWidthFt).toBeGreaterThan(pc.viewWidthFt);
+  });
+
+  it('keeps a prior authored recovery track alive through its final ready keyframe',()=>{
+    const track=[{atMs:-700,frame:1},{atMs:0,frame:9},{atMs:670,frame:21},{atMs:1340,frame:0,phase:'ready'}];
+    expect(trackRecoveryDuration(track,0)).toBe(1340);
+    expect(sampleMotionTrack(track,670,{contact:true,readyFrame:0})).toMatchObject({frame:21});
+    expect(sampleMotionTrack(track,1339,{contact:true,readyFrame:0})).toMatchObject({frame:21});
+    expect(sampleMotionTrack(track,1340,{contact:true,readyFrame:0})).toMatchObject({frame:0,phase:'ready'});
+    const buntRecovery=[{atMs:0,frame:30,contactOnly:true},{atMs:80,frame:32},{atMs:220,frame:33},{atMs:380,frame:34},{atMs:540,frame:35},{atMs:700,frame:0,phase:'ready'}];
+    expect(trackRecoveryDuration(buntRecovery,0)).toBe(1340);
+    expect(sampleMotionTrack(buntRecovery,1000,{contact:true,readyFrame:0})).toMatchObject({frame:0,phase:'ready'});
+  });
+
+  it('uses the post-impact ready keyframe rather than the initial ready pose for recovery duration',()=>{
+    const track=v3Manifest.atlases.batter.timelines.swing;
+    expect(track[0]).toMatchObject({atMs:-1567,frame:0,phase:'ready'});
+    expect(trackRecoveryDuration(track,0)).toBe(1440);
+    expect(sampleMotionTrack(track,1439,{contact:true,readyFrame:0})).toMatchObject({frame:23});
+    expect(sampleMotionTrack(track,1440,{contact:true,readyFrame:0})).toMatchObject({frame:0,phase:'ready'});
+  });
+
+  it('shows the bunt default pose on a miss and contact pose only after confirmed contact',()=>{
+    const art=v3Manifest.atlases.batter;
+    const states=art.states;
+    const defaults=atlasMotion({stage:'impact',elapsed:0,actorElapsed:0,impactAt:0,action:'bunt',kind:'whiff',bunt:true,states,poseOrder:art.poseOrder,timelines:art.timelines});
+    const contact=atlasMotion({stage:'impact',elapsed:0,actorElapsed:0,impactAt:0,action:'bunt',kind:'sacrifice',bunt:true,states,poseOrder:art.poseOrder,timelines:art.timelines});
+    expect(defaults.batter).toBe(25);
+    expect(defaults.contact).toBe(false);
+    expect(contact.batter).toBe(26);
+    expect(contact.contact).toBe(true);
+  });
+
   it('keeps the same batter windup for contact and misses before the parent impactAt',()=>{
     const hit=atlasMotion({stage:'windup',elapsed:30,impactAt:200,action:'place',kind:'hit',states});
     const miss=atlasMotion({stage:'windup',elapsed:30,impactAt:200,action:'place',kind:'whiff',states});
@@ -41,6 +111,22 @@ describe('pixel umpire presentation-only timeline',()=>{
     expect(sample(300,'v2',v2States)).toBe(10);
     expect(sample(80,undefined)).toBe(8);
     expect(sample(140,undefined)).toBe(7);
+  });
+
+  it('samples optional signed-impact pose tracks with variable authored frame spacing',()=>{
+    const track=[
+      {atMs:-1400,frame:15,phase:'windup'}, {atMs:-850,frame:0,phase:'windup'},
+      {atMs:-150,frame:4,phase:'swing'}, {atMs:-75,frame:5,phase:'swing'},
+      {atMs:0,frame:6,phase:'swing',contactOnly:true}, {atMs:1,frame:7,phase:'swing'},
+      {atMs:90,frame:8,phase:'follow'}, {atMs:210,frame:9,phase:'follow'},
+      {atMs:430,frame:10,phase:'reset'}, {atMs:690,frame:11,phase:'reset'},
+      {atMs:1050,frame:0,phase:'ready'},
+    ];
+    expect(atlasMotion({stage:'windup',elapsed:100,impactAt:1400,states,timelines:{swing:track}}).batter).toBe(15);
+    expect(atlasMotion({stage:'impact',elapsed:1400,actorElapsed:0,impactAt:1400,kind:'hit',states,timelines:{swing:track}}).batter).toBe(6);
+    expect(atlasMotion({stage:'impact',elapsed:1400,actorElapsed:0,impactAt:1400,kind:'whiff',states,timelines:{swing:track}}).batter).toBe(5);
+    expect(atlasMotion({stage:'impact',elapsed:1400,actorElapsed:250,impactAt:1400,kind:'hit',states,timelines:{swing:track}}).batter).toBe(9);
+    expect(sampleMotionTrack(track,1050,{contact:true,readyFrame:11})).toMatchObject({frame:0,phase:'ready'});
   });
 
   it('never swings on a take',()=>{
@@ -82,6 +168,8 @@ describe('pixel umpire presentation-only timeline',()=>{
     expect(ball.inner.width).toBe(Math.round(3*PIXEL_SCENE_SCALE));
     expect(ball.inner.height).toBe(Math.round(2*PIXEL_SCENE_SCALE));
     expect(ball.outer.width/PIXEL_SCENE_WIDTH).toBeCloseTo(5/PIXEL_SCENE_BASE_WIDTH,4);
+    expect(pixelBallRects(120,100,.69)).toMatchObject({outer:{width:6,height:4},inner:{width:3,height:2}});
+    expect(pixelBallRects(120,100,.595)).toMatchObject({outer:{width:5,height:4},inner:{width:3,height:2}});
   });
 
   it('aligns the authored stadium field line to the computed pitcher horizon and keeps legacy centering',()=>{
@@ -120,6 +208,253 @@ describe('pixel umpire presentation-only timeline',()=>{
     expect(Math.max(...corners.map(p=>p.y))).toBeLessThanOrEqual(475);
     expect(Math.min(...corners.map(p=>p.x))).toBeGreaterThanOrEqual(0);
     expect(Math.min(...corners.map(p=>p.y))).toBeGreaterThanOrEqual(0);
+  });
+
+  it('projects the plate, 60 ft 6 in rubber, mound axis, and fixed 4 by 6 ft batter box together',()=>{
+    expect(PLATE_TO_RUBBER_M).toBe(18.44);
+    expect(PLATE_TO_RUBBER_FT).toBeCloseTo(60.5,0);
+    const camera=createFieldCamera({width:384,height:477,centerX:Math.round(384*v3Manifest.field.cameraCenterRatio),plateY:456,cameraDepthFt:PLATE_TO_RUBBER_FT,cameraHeightFt:12,viewWidthFt:15.5,pitcherDepthFt:PLATE_TO_RUBBER_FT,pitcherTargetY:210});
+    const plate=projectFieldPoint(camera,{lateralFt:0,depthFt:0});
+    const rubber=projectFieldPoint(camera,{lateralFt:0,depthFt:60.5});
+    const plateCorners=projectHomePlate(camera);
+    expect(plate).toMatchObject({x:211,y:456});
+    expect(rubber).toMatchObject({x:211,y:210});
+    expect(Math.max(...plateCorners.map(point=>point.x))-Math.min(...plateCorners.map(point=>point.x))).toBeGreaterThan(30);
+    expect(Math.max(...plateCorners.map(point=>point.x))-Math.min(...plateCorners.map(point=>point.x))).toBeLessThan(40);
+    expect(projectFieldHeight(camera,60.5,6.2)/projectFieldHeight(camera,-1,6.1)).toBeCloseTo(.5,1);
+    const box=projectBatterBox(camera);
+    expect(box.world).toMatchObject({widthFt:4,lengthFt:6,centerLateralFt:BATTER_BOX_CENTER_LATERAL_FT,nearDepthFt:-2,farDepthFt:4});
+    expect(box.points.leftNear.y).toBeGreaterThan(box.points.leftFar.y);
+    expect(box.points.rightNear.x-box.points.leftNear.x).toBeGreaterThan(box.points.rightFar.x-box.points.leftFar.x);
+    expect((box.points.leftNear.x+box.points.rightNear.x)/2).toBeLessThan(plate.x);
+    expect(BATTER_BOX_CENTER_LATERAL_FT+2).toBeCloseTo(-(17/24+.5));
+  });
+
+  it('keeps home plate flat edge toward the pitcher and the point toward the catcher',()=>{
+    const camera=createFieldCamera({width:384,height:477,centerX:238,plateY:456,cameraDepthFt:PLATE_TO_RUBBER_FT,cameraHeightFt:12,viewWidthFt:15.5});
+    const vertices=projectHomePlate(camera);
+    const world=vertices.map(point=>unprojectGroundPoint(camera,point));
+    const half=17/24,depth=17/12;
+    expect(world).toHaveLength(5);
+    const expected=[[-half,depth],[half,depth],[half,depth/2],[0,0],[-half,depth/2]];
+    for(let i=0;i<expected.length;i++){
+      expect(Math.abs(world[i].lateralFt-expected[i][0])).toBeLessThan(.15);
+      expect(Math.abs(world[i].depthFt-expected[i][1])).toBeLessThan(.15);
+    }
+    expect(vertices[0].y).toBe(vertices[1].y);
+    expect(vertices[3].y).toBeGreaterThan(vertices[0].y);
+  });
+
+  it('places the fixed six-inch-gap box and authored contact barrel beside home plate',()=>{
+    const art=v2Manifest.atlases.batter,cell=atlasCell(v2Manifest,art),contact=art.frames[art.states.swing[2]];
+    const camera=createFieldCamera({width:384,height:477,centerX:238,plateY:456,pitcherTargetY:210});
+    const rear=projectFieldPoint(camera,{lateralFt:BATTER_REAR_LATERAL_FT,depthFt:-1});
+    const ready=art.frames[art.states.reset.at(-1)],readyHeight=ready.bounds.height*cell.height;
+    const scale=projectFieldHeight(camera,-1,6.1)/readyHeight;
+    const contactRear=sourceFeetForFrame(contact,cell).rear,barrel=sourcePointForFrame(contact,'barrel',cell);
+    const barrelPoint={x:Math.round(rear.x+(barrel.x-contactRear.x)*scale),y:Math.round(rear.y+(barrel.y-contactRear.y)*scale)};
+    const plate=projectFieldPoint(camera,{depthFt:0}),halfPlatePx=projectFieldPoint(camera,{lateralFt:17/24,depthFt:0}).x-plate.x;
+    expect(Math.abs(barrelPoint.x-plate.x)).toBeLessThan(halfPlatePx);
+    expect(barrelPoint.x).toBeCloseTo(229,0);
+  });
+
+  it('keeps both authored ready soles inside the fixed world-space box without moving the box to the sprite',()=>{
+    const art=v2Manifest.atlases.batter,cell=atlasCell(v2Manifest,art),frameIndex=art.states.reset.at(-1),frame=art.frames[frameIndex];
+    const camera=createFieldCamera({width:384,height:477,centerX:238,plateY:456,pitcherTargetY:210});
+    const box=projectBatterBox(camera).points;
+    const rear=projectFieldPoint(camera,{lateralFt:BATTER_REAR_LATERAL_FT,depthFt:-1});
+    const sourceRear=sourceFeetForFrame(frame,cell).rear,sourceLead=sourcePointForFrame(frame,'frontFoot',cell);
+    const scale=projectFieldHeight(camera,-1,6.1)/(frame.bounds.height*cell.height);
+    const lead={x:Math.round(rear.x+(sourceLead.x-sourceRear.x)*scale),y:Math.round(rear.y+(sourceLead.y-sourceRear.y)*scale)};
+    const polygon=[box.leftNear,box.rightNear,box.rightFar,box.leftFar];
+    const rearWorld=unprojectGroundPoint(camera,rear),leadWorld=unprojectGroundPoint(camera,lead);
+    const margin=point=>Math.min(point.lateralFt-(BATTER_BOX_CENTER_LATERAL_FT-2),BATTER_BOX_CENTER_LATERAL_FT+2-point.lateralFt,point.depthFt-(-2),4-point.depthFt);
+    expect(insidePolygon(rear,polygon)).toBe(true);
+    expect(insidePolygon(lead,polygon)).toBe(true);
+    expect(margin(rearWorld)).toBeGreaterThan(.4);
+    expect(margin(leadWorld)).toBeGreaterThan(.4);
+  });
+
+  it('checks every active authored v2 sole against the same fixed batter box',()=>{
+    const art=v2Manifest.atlases.batter,cell=atlasCell(v2Manifest,art),indices=[...new Set(Object.values(art.states).flat())];
+    const camera=createFieldCamera({width:384,height:477,centerX:238,plateY:456,pitcherTargetY:210}),box=projectBatterBox(camera).points;
+    const polygon=[box.leftNear,box.rightNear,box.rightFar,box.leftFar],rear=projectFieldPoint(camera,{lateralFt:BATTER_REAR_LATERAL_FT,depthFt:-1});
+    const reference=art.frames[art.states.reset.at(-1)],height=projectFieldHeight(camera,-1,6.1),scale=height/(reference.bounds.height*cell.height);
+    for(const index of indices){
+      const frame=art.frames[index],sourceRear=sourceFeetForFrame(frame,cell)?.rear,sourceLead=sourcePointForFrame(frame,'frontFoot',cell);
+      if(!sourceRear||!sourceLead)continue;
+      const lead={x:Math.round(rear.x+(sourceLead.x-sourceRear.x)*scale),y:Math.round(rear.y+(sourceLead.y-sourceRear.y)*scale)};
+      expect(insidePolygon(rear,polygon),`rear foot frame ${index}`).toBe(true);
+      expect(insidePolygon(lead,polygon),`lead foot frame ${index}`).toBe(true);
+    }
+  });
+
+  it('loads the 4 by 9 V3 batter atlas and counts only timeline-active source poses',()=>{
+    const art=v3Manifest.atlases.batter;
+    const active=new Set([...art.timelines.swing,...art.timelines.bunt,...art.timelines.take].map(entry=>entry.frame));
+    expect(art).toMatchObject({columns:4,rows:9,poseOrder:'v3'});
+    expect(art.frames).toHaveLength(36);
+    expect(active.size).toBe(30);
+    expect(active.size).toBe(art.timelineUniqueSourceCount);
+    expect([...active].sort((a,b)=>a-b)).not.toContain(24); // bunt0 exists, but no authored track visits it
+    expect(active.has(26)).toBe(true);
+    expect(active.has(15)).toBe(false);
+    expect(active.has(7)).toBe(true);
+    expect(trackRecoveryDuration(art.timelines.swing,art.timelines.readyFrame)).toBe(1440);
+  });
+
+  it('keeps the same calibrated normal swing poses for hits and whiffs through pre-impact frame 7',()=>{
+    const art=v3Manifest.atlases.batter;
+    expect(art.timelines.swing).toContainEqual({atMs:-40,frame:7,phase:'swing'});
+    const sample=(delta,kind)=>atlasMotion({stage:delta<0?'windup':'impact',elapsed:300+delta,impactAt:300,action:'swing',kind,states:art.states,poseOrder:art.poseOrder,timelines:art.timelines});
+    for(const delta of [-41,-1]){
+      const hit=sample(delta,'hit'),miss=sample(delta,'whiff');
+      expect(hit).toEqual(miss);
+      expect(hit.contact).toBe(false);
+      expect(hit.batter).toBe(delta===-41?6:7);
+    }
+  });
+
+  it('uses the motion-reviewed opaque-wood contact anchors for normal and bunt',()=>{
+    const art=v3Manifest.atlases.batter,cell=atlasCell(v3Manifest,art);
+    // These native atlas pixels were checked against the actual painted wood and opaque alpha.
+    expect(sourcePointForFrame(art.frames[8],'barrel',cell)).toEqual({x:191,y:78});
+    expect(sourcePointForFrame(art.frames[26],'barrel',cell)).toEqual({x:197,y:82});
+  });
+
+  it('pins the planted front sole from normal plant3 and bunt25 while keeping pre-plant rear anchoring',()=>{
+    const art=v3Manifest.atlases.batter,cell=atlasCell(v3Manifest,art),ready=art.frames[art.timelines.readyFrame];
+    const camera=createFieldCamera({width:384,height:477,centerX:Math.round(384*v3Manifest.field.cameraCenterRatio),plateY:456,cameraDepthFt:PLATE_TO_RUBBER_FT,cameraHeightFt:12,viewWidthFt:15.5,pitcherDepthFt:PLATE_TO_RUBBER_FT,pitcherTargetY:210});
+    const rear=projectFieldPoint(camera,{lateralFt:v3Manifest.field.batterRearLateralFt,depthFt:v3Manifest.field.batterRearDepthFt});
+    const height=projectFieldHeight(camera,v3Manifest.field.batterRearDepthFt,6.1),bodyHeight=ready.bodyBounds.height*cell.height;
+    const pre=batterPlantTransform({frame:art.frames[2],frameIndex:2,readyFrame:ready,plantFrame:art.frames[3],plantFrames:[3,4,5],cell,targetRear:rear,targetHeight:height,referenceBodyHeight:bodyHeight});
+    const planted=batterPlantTransform({frame:art.frames[6],frameIndex:6,readyFrame:ready,plantFrame:art.frames[3],plantFrames:[3,4,5,6],cell,targetRear:rear,targetHeight:height,referenceBodyHeight:bodyHeight});
+    const normalReset=batterPlantTransform({frame:art.frames[23],frameIndex:23,readyFrame:ready,plantFrame:art.frames[3],plantFrames:[3,4,5,6,23],cell,targetRear:rear,targetHeight:height,referenceBodyHeight:bodyHeight});
+    const readyAgain=batterPlantTransform({frame:ready,frameIndex:0,readyFrame:ready,plantFrame:art.frames[3],plantFrames:[3,4,5,6,23],cell,targetRear:rear,targetHeight:height,referenceBodyHeight:bodyHeight});
+    const bunt=batterPlantTransform({frame:art.frames[26],frameIndex:26,readyFrame:ready,plantFrame:art.frames[25],plantFrames:[25,26,28,29,30,31],cell,targetRear:rear,targetHeight:height,referenceBodyHeight:bodyHeight});
+    const pinCenter=(frame,transform)=>{
+      const line=sourceSoleGroundline(frame,'front',cell);
+      return transformedPoint({x:(line[0].x+line[1].x)/2,y:(line[0].y+line[1].y)/2},transform);
+    };
+    const normalPlantTarget=pinCenter(art.frames[3],batterPlantTransform({frame:art.frames[3],frameIndex:3,readyFrame:ready,plantFrame:art.frames[3],plantFrames:[3],cell,targetRear:rear,targetHeight:height,referenceBodyHeight:bodyHeight}));
+    const buntPlantTarget=pinCenter(art.frames[25],batterPlantTransform({frame:art.frames[25],frameIndex:25,readyFrame:ready,plantFrame:art.frames[25],plantFrames:[25],cell,targetRear:rear,targetHeight:height,referenceBodyHeight:bodyHeight}));
+    expect(pre.frontPlanted).toBe(false);
+    expect(pre.anchor).toEqual(sourcePointForFrame(art.frames[2],'feet',cell));
+    expect(planted.frontPlanted).toBe(true);
+    expect(normalReset.frontPlanted).toBe(true);
+    expect(readyAgain.frontPlanted).toBe(false);
+    expect(bunt.frontPlanted).toBe(true);
+    expect(pinCenter(art.frames[6],planted)).toEqual(normalPlantTarget);
+    expect(pinCenter(art.frames[23],normalReset)).toEqual(normalPlantTarget);
+    expect(pinCenter(art.frames[26],bunt)).toEqual(buntPlantTarget);
+    expect(planted.scale).toBeCloseTo(height/192,4);
+  });
+
+  it('fits every unique active V3 groundline inside the fixed world box at authored 6.1 ft scale',()=>{
+    const art=v3Manifest.atlases.batter,cell=atlasCell(v3Manifest,art),ready=art.frames[art.timelines.readyFrame];
+    const indices=[...new Set([...art.timelines.swing,...art.timelines.bunt,...art.timelines.take].map(entry=>entry.frame))];
+    const camera=createFieldCamera({width:384,height:477,centerX:Math.round(384*v3Manifest.field.cameraCenterRatio),plateY:456,cameraDepthFt:PLATE_TO_RUBBER_FT,cameraHeightFt:12,viewWidthFt:15.5,pitcherDepthFt:PLATE_TO_RUBBER_FT,pitcherTargetY:210});
+    const target=projectFieldPoint(camera,{lateralFt:v3Manifest.field.batterRearLateralFt,depthFt:v3Manifest.field.batterRearDepthFt});
+    const height=projectFieldHeight(camera,v3Manifest.field.batterRearDepthFt,6.1),bodyHeight=ready.bodyBounds.height*cell.height;
+    const bounds={left:BATTER_BOX_CENTER_LATERAL_FT-2,right:BATTER_BOX_CENTER_LATERAL_FT+2,near:-2,far:4};
+    let minimumMargin=Infinity;
+    for(const index of indices){
+      const frame=art.frames[index],isBunt=index>=25&&index<=31;
+      const plantFrame=isBunt?art.frames[25]:art.frames[3];
+      const plantFrames=isBunt?[25,26,27,28,29,30,31]:[3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,20,21,22,23,32,33,34,35];
+      const transform=batterPlantTransform({frame,frameIndex:index,readyFrame:ready,plantFrame,plantFrames,cell,targetRear:target,targetHeight:height,referenceBodyHeight:bodyHeight});
+      expect(transform.scale).toBeCloseTo(height/192,4);
+      for(const side of ['rear','front']){
+        if(frame.footContact?.[side]===false)continue;
+        const line=sourceSoleGroundline(frame,side,cell);
+        expect(line,`missing ${side} sole line on frame ${index}`).toHaveLength(2);
+        for(const source of line){
+          const world=unprojectGroundPoint(camera,transformedPoint(source,transform));
+          const margin=Math.min(world.lateralFt-bounds.left,bounds.right-world.lateralFt,world.depthFt-bounds.near,bounds.far-world.depthFt);
+          minimumMargin=Math.min(minimumMargin,margin);
+          expect(margin,`frame ${index} ${side} sole endpoint ${JSON.stringify(world)}`).toBeGreaterThan(0);
+        }
+      }
+    }
+    expect(minimumMargin).toBeGreaterThan(.15);
+    expect(v3Manifest.field.batterRearLateralFt).toBe(-3.65);
+    expect(v3Manifest.field.batterRearDepthFt).toBe(-1.5);
+    expect(bounds.right).toBeCloseTo(-1.208333,5);
+  });
+
+  it('keeps V3 body, active soles, and box in frame for canonical mobile and shorter PC scene fixtures',()=>{
+    const art=v3Manifest.atlases.batter,cell=atlasCell(v3Manifest,art),ready=art.frames[art.timelines.readyFrame];
+    const indices=[...new Set([...art.timelines.swing,...art.timelines.bunt,...art.timelines.take].map(entry=>entry.frame))];
+    const fixtures=[{height:477,zoneCenterX:238,zoneLeft:169},{height:341,zoneCenterX:307,zoneLeft:242},{height:299,zoneCenterX:298,zoneLeft:224}];
+    for(const fixture of fixtures){
+      const {height,zoneCenterX,zoneLeft}=fixture,width=384,framing=responsiveFieldCameraFraming({width,height,zoneCenterX,centerRatio:v3Manifest.field.cameraCenterRatio,zoneInsetRatio:v3Manifest.field.cameraZoneInsetRatio,referenceHeight:v3Manifest.field.cameraReferenceHeight,viewWidthFt:v3Manifest.field.cameraViewWidthFt});
+      const camera=createFieldCamera({width,height,centerX:framing.centerX,plateY:height-.055*width,cameraDepthFt:PLATE_TO_RUBBER_FT,cameraHeightFt:12,viewWidthFt:framing.viewWidthFt,pitcherDepthFt:PLATE_TO_RUBBER_FT,pitcherTargetY:height*.44});
+      const target=projectFieldPoint(camera,{lateralFt:v3Manifest.field.batterRearLateralFt,depthFt:v3Manifest.field.batterRearDepthFt});
+      const targetHeight=projectFieldHeight(camera,v3Manifest.field.batterRearDepthFt,6.1),bodyHeight=ready.bodyBounds.height*cell.height;
+      const bounds={left:BATTER_BOX_CENTER_LATERAL_FT-2,right:BATTER_BOX_CENTER_LATERAL_FT+2,near:-2,far:4};
+      const polygon=Object.values(projectBatterBox(camera).points),readyTransform=batterPlantTransform({frame:ready,frameIndex:0,readyFrame:ready,plantFrame:ready,plantFrames:[],cell,targetRear:target,targetHeight,referenceBodyHeight:bodyHeight});
+      const bodyTop={x:(ready.bodyBounds.x+ready.bodyBounds.width/2)*cell.width,y:ready.bodyBounds.y*cell.height};
+      const upperBody=transformedPoint(bodyTop,readyTransform);
+      expect(framing.centerX).toBe(211);
+      expect(Math.round(zoneCenterX)).toBe(fixture.height===477?238:zoneCenterX);
+      expect(upperBody.x).toBeLessThan(zoneLeft);
+      for(const index of indices){
+        const frame=art.frames[index],isBunt=index>=25&&index<=31,plantFrame=isBunt?art.frames[25]:art.frames[3];
+        const plantFrames=isBunt?[25,26,27,28,29,30,31]:[3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,20,21,22,23,32,33,34,35];
+        const transform=batterPlantTransform({frame,frameIndex:index,readyFrame:ready,plantFrame,plantFrames,cell,targetRear:target,targetHeight,referenceBodyHeight:bodyHeight});
+        const content=frame.contentBounds,contentCorners=[{x:content.x*cell.width,y:content.y*cell.height},{x:(content.x+content.width)*cell.width,y:content.y*cell.height},{x:content.x*cell.width,y:(content.y+content.height)*cell.height},{x:(content.x+content.width)*cell.width,y:(content.y+content.height)*cell.height}].map(point=>transformedPoint(point,transform));
+        expect(Math.min(...contentCorners.map(p=>p.x)),`frame ${index} left at H${height}`).toBeGreaterThanOrEqual(0);
+        expect(Math.max(...contentCorners.map(p=>p.x)),`frame ${index} right at H${height}`).toBeLessThanOrEqual(width);
+        expect(Math.min(...contentCorners.map(p=>p.y)),`frame ${index} top at H${height}`).toBeGreaterThanOrEqual(0);
+        expect(Math.max(...contentCorners.map(p=>p.y)),`frame ${index} bottom at H${height}`).toBeLessThanOrEqual(height);
+        for(const side of ['rear','front']){
+          if(frame.footContact?.[side]===false)continue;
+          for(const point of sourceSoleGroundline(frame,side,cell)){
+            const screen=transformedPoint(point,transform),world=unprojectGroundPoint(camera,screen);
+            const margin=Math.min(world.lateralFt-bounds.left,bounds.right-world.lateralFt,world.depthFt-bounds.near,bounds.far-world.depthFt);
+            expect(margin,`frame ${index} ${side} foot at H${height}`).toBeGreaterThan(0);
+          }
+        }
+      }
+      expect(Math.max(...polygon.map(p=>p.x))).toBeLessThan(width);
+    }
+  });
+
+  it('places normal and bunt contact barrels inside the plate span and keeps whiffs clear of dense wood',()=>{
+    const art=v3Manifest.atlases.batter,cell=atlasCell(v3Manifest,art),ready=art.frames[art.timelines.readyFrame];
+    const camera=createFieldCamera({width:384,height:477,centerX:Math.round(384*v3Manifest.field.cameraCenterRatio),plateY:456,cameraDepthFt:PLATE_TO_RUBBER_FT,cameraHeightFt:12,viewWidthFt:15.5,pitcherDepthFt:PLATE_TO_RUBBER_FT,pitcherTargetY:210});
+    const targetRear=projectFieldPoint(camera,{lateralFt:v3Manifest.field.batterRearLateralFt,depthFt:v3Manifest.field.batterRearDepthFt});
+    const height=projectFieldHeight(camera,v3Manifest.field.batterRearDepthFt,6.1),bodyHeight=ready.bodyBounds.height*cell.height;
+    const plate=projectFieldPoint(camera,{depthFt:0}),halfPlate=projectFieldPoint(camera,{lateralFt:17/24,depthFt:0}).x-plate.x;
+    for(const {contactIndex,missIndex,plantIndex,plantFrames} of [
+      {contactIndex:8,missIndex:10,plantIndex:3,plantFrames:[3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,20,21,22,23,32,33,34,35]},
+      {contactIndex:26,missIndex:25,plantIndex:25,plantFrames:[25,26,27,28,29,30,31]},
+    ]){
+      const transform=index=>batterPlantTransform({frame:art.frames[index],frameIndex:index,readyFrame:ready,plantFrame:art.frames[plantIndex],plantFrames,cell,targetRear,targetHeight:height,referenceBodyHeight:bodyHeight});
+      const contactFrame=art.frames[contactIndex],contactTransform=transform(contactIndex);
+      const barrel=transformedPoint(sourcePointForFrame(contactFrame,'barrel',cell),contactTransform);
+      const grip=transformedPoint(sourcePointForFrame(contactFrame,'grip',cell),contactTransform);
+      const tip=transformedPoint(sourcePointForFrame(contactFrame,'batTip',cell),contactTransform);
+      const axisSource=contactFrame.anchors.batAxis,axis={x:axisSource[0],y:axisSource[1],unitScale:contactTransform.scale*(cell.scale||1)};
+      const targets=Array.from({length:9},(_,zone)=>physicalPitchPoint(zone,barrel,axis));
+      expect(Math.abs(barrel.x-plate.x)).toBeLessThan(halfPlate);
+      // The authored contact anchors sit on the painted wood; this centerline proxy allows for bat thickness.
+      expect(Math.max(...targets.map(point=>segmentDistance(point,grip,tip)))).toBeLessThan(5);
+      const missFrame=art.frames[missIndex],missTransform=transform(missIndex);
+      const missGrip=transformedPoint(sourcePointForFrame(missFrame,'grip',cell),missTransform);
+      const missTip=transformedPoint(sourcePointForFrame(missFrame,'batTip',cell),missTransform);
+      expect(Math.min(...targets.map(point=>segmentDistance(point,missGrip,missTip)))).toBeGreaterThan(5);
+    }
+  });
+
+  it('fits the one projected camera in portrait and short landscape without clipping the pitcher',()=>{
+    for(const height of [477,216,160]){
+      const width=384,plateY=height-.055*width,viewWidthFt=Math.max(15.5,15.5*240/height),pitcherY=height*.44;
+      const camera=createFieldCamera({width,height,centerX:192,plateY,cameraDepthFt:60.5,cameraHeightFt:12,viewWidthFt,pitcherDepthFt:60.5,pitcherTargetY:pitcherY});
+      const rubber=projectFieldPoint(camera,{depthFt:60.5}),body=projectFieldHeight(camera,60.5,6.2);
+      expect(rubber.y).toBeCloseTo(pitcherY,0);
+      expect(rubber.y-body).toBeGreaterThanOrEqual(0);
+    }
   });
 
   it('projects all nine tactical zones onto one authored physical barrel plane',()=>{

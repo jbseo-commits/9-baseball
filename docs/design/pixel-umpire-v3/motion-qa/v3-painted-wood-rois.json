@@ -1,0 +1,1129 @@
+{
+  "schemaVersion": 1,
+  "measurement": "Manual visible-painted-wood ROI polygons inspected directly in immutable runtime atlas, then checked against source alpha and color; not generated from anchor segments.",
+  "coordinates": "Source-cell native 256x256 storage pixels. Vertices lie on pixel-edge boundaries; test pixel centres at [x+0.5,y+0.5]. Multiple polygons are a union, with no bridge through occluding hands.",
+  "sourceAtlas": "runtime-batter-v3/batter-atlas.png",
+  "sourceAnchors": "runtime-batter-v3/batter-anchor-measurements.json",
+  "scope": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    25,
+    26,
+    28
+  ],
+  "notes": "Conservative masks include the plainly exposed wood plus its painted dark outline. Wood hidden under gloves/body is omitted; no generic full-bat capsule or reconstructed segment is supplied. Some glove-contact boundaries remain visually uncertain by about 2 storage px as noted per pose. Alpha checks establish opacity only; manual source inspection supplies the wood/skin/glove distinction.",
+  "frames": [
+    {
+      "atlasIndex": 5,
+      "source": "swingA1",
+      "pose": "Foreshortened raised bat stub above the paired gloves.",
+      "polygons": [
+        [
+          [
+            152,
+            70
+          ],
+          [
+            158,
+            70
+          ],
+          [
+            158,
+            86
+          ],
+          [
+            156,
+            86
+          ],
+          [
+            156,
+            90
+          ],
+          [
+            150,
+            90
+          ],
+          [
+            150,
+            82
+          ],
+          [
+            148,
+            82
+          ],
+          [
+            148,
+            78
+          ],
+          [
+            150,
+            78
+          ],
+          [
+            150,
+            72
+          ],
+          [
+            152,
+            72
+          ]
+        ]
+      ],
+      "notes": "The exposed stub is short. Mask stops before the pale lower glove; hidden handle is not reconstructed. The dark left-edge pixels at y78..81 belong to the bat silhouette.",
+      "sourceAlphaCheck": {
+        "interiorPixelCentres": 156,
+        "allAlpha255": true
+      },
+      "referenceWoodSamples": {
+        "barrel": {
+          "pixel": [
+            153,
+            82
+          ],
+          "rgba": [
+            176,
+            101,
+            50,
+            255
+          ],
+          "insidePolygon": true
+        },
+        "batTip": {
+          "pixel": [
+            154,
+            74
+          ],
+          "rgba": [
+            230,
+            163,
+            90,
+            255
+          ],
+          "insidePolygon": true
+        }
+      }
+    },
+    {
+      "atlasIndex": 6,
+      "source": "swingA2",
+      "pose": "Diagonal exposed shaft and widening barrel emerging beyond the hands.",
+      "polygons": [
+        [
+          [
+            186,
+            60
+          ],
+          [
+            188,
+            60
+          ],
+          [
+            188,
+            62
+          ],
+          [
+            192,
+            62
+          ],
+          [
+            192,
+            68
+          ],
+          [
+            186,
+            68
+          ],
+          [
+            186,
+            70
+          ],
+          [
+            184,
+            70
+          ],
+          [
+            184,
+            72
+          ],
+          [
+            182,
+            72
+          ],
+          [
+            182,
+            74
+          ],
+          [
+            176,
+            74
+          ],
+          [
+            176,
+            76
+          ],
+          [
+            172,
+            76
+          ],
+          [
+            172,
+            78
+          ],
+          [
+            166,
+            78
+          ],
+          [
+            166,
+            80
+          ],
+          [
+            160,
+            80
+          ],
+          [
+            160,
+            76
+          ],
+          [
+            162,
+            76
+          ],
+          [
+            162,
+            74
+          ],
+          [
+            164,
+            74
+          ],
+          [
+            164,
+            72
+          ],
+          [
+            168,
+            72
+          ],
+          [
+            168,
+            70
+          ],
+          [
+            170,
+            70
+          ],
+          [
+            170,
+            68
+          ],
+          [
+            176,
+            68
+          ],
+          [
+            176,
+            66
+          ],
+          [
+            180,
+            66
+          ],
+          [
+            180,
+            64
+          ],
+          [
+            182,
+            64
+          ],
+          [
+            182,
+            62
+          ],
+          [
+            186,
+            62
+          ]
+        ]
+      ],
+      "notes": "Traced the stair-stepped painted outline. Starts at x160 after the glove boundary; excludes the partly hidden handle at x156..159.",
+      "sourceAlphaCheck": {
+        "interiorPixelCentres": 244,
+        "allAlpha255": true
+      },
+      "referenceWoodSamples": {
+        "barrel": {
+          "pixel": [
+            177,
+            70
+          ],
+          "rgba": [
+            176,
+            101,
+            50,
+            255
+          ],
+          "insidePolygon": true
+        },
+        "batTip": {
+          "pixel": [
+            187,
+            64
+          ],
+          "rgba": [
+            230,
+            163,
+            90,
+            255
+          ],
+          "insidePolygon": true
+        }
+      }
+    },
+    {
+      "atlasIndex": 7,
+      "source": "swingA3",
+      "pose": "Near-horizontal thin shaft and thick right-side barrel.",
+      "polygons": [
+        [
+          [
+            184,
+            78
+          ],
+          [
+            204,
+            78
+          ],
+          [
+            204,
+            80
+          ],
+          [
+            206,
+            80
+          ],
+          [
+            206,
+            86
+          ],
+          [
+            204,
+            86
+          ],
+          [
+            204,
+            88
+          ],
+          [
+            176,
+            88
+          ],
+          [
+            176,
+            86
+          ],
+          [
+            156,
+            86
+          ],
+          [
+            156,
+            82
+          ],
+          [
+            170,
+            82
+          ],
+          [
+            170,
+            80
+          ],
+          [
+            184,
+            80
+          ]
+        ]
+      ],
+      "notes": "Includes the lower dark wooden rim at y86..87, and excludes the glove at x150..155.",
+      "sourceAlphaCheck": {
+        "interiorPixelCentres": 368,
+        "allAlpha255": true
+      },
+      "referenceWoodSamples": {
+        "barrel": {
+          "pixel": [
+            190,
+            82
+          ],
+          "rgba": [
+            210,
+            138,
+            75,
+            255
+          ],
+          "insidePolygon": true
+        },
+        "batTip": {
+          "pixel": [
+            202,
+            82
+          ],
+          "rgba": [
+            206,
+            130,
+            65,
+            255
+          ],
+          "insidePolygon": true
+        }
+      }
+    },
+    {
+      "atlasIndex": 8,
+      "source": "swingB0",
+      "pose": "Normal CONTACT: horizontal exposed wood extending right from hands.",
+      "polygons": [
+        [
+          [
+            188,
+            76
+          ],
+          [
+            202,
+            76
+          ],
+          [
+            202,
+            78
+          ],
+          [
+            204,
+            78
+          ],
+          [
+            204,
+            88
+          ],
+          [
+            154,
+            88
+          ],
+          [
+            154,
+            80
+          ],
+          [
+            172,
+            80
+          ],
+          [
+            172,
+            78
+          ],
+          [
+            188,
+            78
+          ]
+        ]
+      ],
+      "notes": "Main exposed wood and dark end outline only. Pale pixels in the shaft at x154+ are wood highlights, verified against the enlarged painted source; glove/handle junction left of x154 is excluded.",
+      "sourceAlphaCheck": {
+        "interiorPixelCentres": 492,
+        "allAlpha255": true
+      },
+      "referenceWoodSamples": {
+        "barrel": {
+          "pixel": [
+            188,
+            83
+          ],
+          "rgba": [
+            235,
+            175,
+            117,
+            255
+          ],
+          "insidePolygon": true
+        },
+        "batTip": {
+          "pixel": [
+            200,
+            82
+          ],
+          "rgba": [
+            230,
+            163,
+            90,
+            255
+          ],
+          "insidePolygon": true
+        }
+      }
+    },
+    {
+      "atlasIndex": 9,
+      "source": "swingB1",
+      "pose": "Horizontal extension with a broad barrel and lower dark painted rim.",
+      "polygons": [
+        [
+          [
+            190,
+            80
+          ],
+          [
+            212,
+            80
+          ],
+          [
+            212,
+            82
+          ],
+          [
+            214,
+            82
+          ],
+          [
+            214,
+            88
+          ],
+          [
+            212,
+            88
+          ],
+          [
+            212,
+            90
+          ],
+          [
+            210,
+            90
+          ],
+          [
+            210,
+            92
+          ],
+          [
+            180,
+            92
+          ],
+          [
+            180,
+            90
+          ],
+          [
+            152,
+            90
+          ],
+          [
+            152,
+            84
+          ],
+          [
+            168,
+            84
+          ],
+          [
+            168,
+            82
+          ],
+          [
+            190,
+            82
+          ]
+        ]
+      ],
+      "notes": "Includes the dark underside at y90..91 on the barrel; excludes all glove pixels left of x152.",
+      "sourceAlphaCheck": {
+        "interiorPixelCentres": 564,
+        "allAlpha255": true
+      },
+      "referenceWoodSamples": {
+        "barrel": {
+          "pixel": [
+            198,
+            84
+          ],
+          "rgba": [
+            246,
+            200,
+            127,
+            255
+          ],
+          "insidePolygon": true
+        },
+        "batTip": {
+          "pixel": [
+            210,
+            84
+          ],
+          "rgba": [
+            210,
+            138,
+            75,
+            255
+          ],
+          "insidePolygon": true
+        }
+      }
+    },
+    {
+      "atlasIndex": 10,
+      "source": "swingB2",
+      "pose": "Rising diagonal wood after contact.",
+      "polygons": [
+        [
+          [
+            196,
+            60
+          ],
+          [
+            202,
+            60
+          ],
+          [
+            202,
+            62
+          ],
+          [
+            204,
+            62
+          ],
+          [
+            204,
+            70
+          ],
+          [
+            202,
+            70
+          ],
+          [
+            202,
+            72
+          ],
+          [
+            198,
+            72
+          ],
+          [
+            198,
+            74
+          ],
+          [
+            180,
+            74
+          ],
+          [
+            180,
+            76
+          ],
+          [
+            174,
+            76
+          ],
+          [
+            174,
+            78
+          ],
+          [
+            166,
+            78
+          ],
+          [
+            166,
+            80
+          ],
+          [
+            160,
+            80
+          ],
+          [
+            160,
+            82
+          ],
+          [
+            152,
+            82
+          ],
+          [
+            152,
+            76
+          ],
+          [
+            154,
+            76
+          ],
+          [
+            154,
+            74
+          ],
+          [
+            160,
+            74
+          ],
+          [
+            160,
+            72
+          ],
+          [
+            166,
+            72
+          ],
+          [
+            166,
+            70
+          ],
+          [
+            170,
+            70
+          ],
+          [
+            170,
+            68
+          ],
+          [
+            174,
+            68
+          ],
+          [
+            174,
+            66
+          ],
+          [
+            178,
+            66
+          ],
+          [
+            178,
+            64
+          ],
+          [
+            184,
+            64
+          ],
+          [
+            184,
+            62
+          ],
+          [
+            196,
+            62
+          ]
+        ]
+      ],
+      "notes": "Follows the painted jagged silhouette rather than an idealized segment. The main exposed wood begins at x152; glove-side pixels farther left are excluded.",
+      "sourceAlphaCheck": {
+        "interiorPixelCentres": 520,
+        "allAlpha255": true
+      },
+      "referenceWoodSamples": {
+        "barrel": {
+          "pixel": [
+            189,
+            68
+          ],
+          "rgba": [
+            210,
+            138,
+            75,
+            255
+          ],
+          "insidePolygon": true
+        },
+        "batTip": {
+          "pixel": [
+            200,
+            64
+          ],
+          "rgba": [
+            199,
+            128,
+            65,
+            255
+          ],
+          "insidePolygon": true
+        }
+      }
+    },
+    {
+      "atlasIndex": 25,
+      "source": "bunt1",
+      "pose": "Bunt presentation: visible handle between hands plus separate forward barrel.",
+      "polygons": [
+        [
+          [
+            146,
+            88
+          ],
+          [
+            152,
+            88
+          ],
+          [
+            152,
+            90
+          ],
+          [
+            150,
+            90
+          ],
+          [
+            150,
+            92
+          ],
+          [
+            140,
+            92
+          ],
+          [
+            140,
+            90
+          ],
+          [
+            146,
+            90
+          ]
+        ],
+        [
+          [
+            182,
+            82
+          ],
+          [
+            194,
+            82
+          ],
+          [
+            194,
+            84
+          ],
+          [
+            196,
+            84
+          ],
+          [
+            196,
+            90
+          ],
+          [
+            194,
+            90
+          ],
+          [
+            194,
+            92
+          ],
+          [
+            164,
+            92
+          ],
+          [
+            164,
+            86
+          ],
+          [
+            168,
+            86
+          ],
+          [
+            168,
+            84
+          ],
+          [
+            182,
+            84
+          ]
+        ]
+      ],
+      "notes": "Two disjoint visible wood regions; the glove at x152..163 separates them. Thin near-hand fragment has about 2px uncertainty at the hand-contact boundary. Lower forearm skin is excluded.",
+      "sourceAlphaCheck": {
+        "interiorPixelCentres": 300,
+        "allAlpha255": true
+      },
+      "referenceWoodSamples": {
+        "barrel": {
+          "pixel": [
+            180,
+            87
+          ],
+          "rgba": [
+            242,
+            176,
+            108,
+            255
+          ],
+          "insidePolygon": true
+        },
+        "batTip": {
+          "pixel": [
+            192,
+            87
+          ],
+          "rgba": [
+            176,
+            101,
+            50,
+            255
+          ],
+          "insidePolygon": true
+        }
+      }
+    },
+    {
+      "atlasIndex": 26,
+      "source": "bunt2",
+      "pose": "BUNT CONTACT: thin handle between hands and exposed sweet-spot barrel beyond supporting glove.",
+      "polygons": [
+        [
+          [
+            152,
+            84
+          ],
+          [
+            164,
+            84
+          ],
+          [
+            164,
+            88
+          ],
+          [
+            160,
+            88
+          ],
+          [
+            160,
+            90
+          ],
+          [
+            140,
+            90
+          ],
+          [
+            140,
+            86
+          ],
+          [
+            152,
+            86
+          ]
+        ],
+        [
+          [
+            196,
+            78
+          ],
+          [
+            206,
+            78
+          ],
+          [
+            206,
+            80
+          ],
+          [
+            208,
+            80
+          ],
+          [
+            208,
+            88
+          ],
+          [
+            196,
+            88
+          ],
+          [
+            196,
+            90
+          ],
+          [
+            176,
+            90
+          ],
+          [
+            176,
+            82
+          ],
+          [
+            182,
+            82
+          ],
+          [
+            182,
+            80
+          ],
+          [
+            196,
+            80
+          ]
+        ]
+      ],
+      "notes": "Two disjoint masks avoid the forward white glove and the skin below the handle. Hand-contact edge at x162..176 is visually ambiguous by about 2px; no hidden wood bridge is inferred. The measured CONTACT barrel [192,82] and tip [204,82] fall in the forward wooden mask.",
+      "sourceAlphaCheck": {
+        "interiorPixelCentres": 416,
+        "allAlpha255": true
+      },
+      "referenceWoodSamples": {
+        "barrel": {
+          "pixel": [
+            192,
+            82
+          ],
+          "rgba": [
+            244,
+            190,
+            113,
+            255
+          ],
+          "insidePolygon": true
+        },
+        "batTip": {
+          "pixel": [
+            204,
+            82
+          ],
+          "rgba": [
+            155,
+            92,
+            42,
+            255
+          ],
+          "insidePolygon": true
+        }
+      }
+    },
+    {
+      "atlasIndex": 28,
+      "source": "buntReset0",
+      "pose": "Bunt withdrawal: horizontal wood split by the forward glove.",
+      "polygons": [
+        [
+          [
+            152,
+            84
+          ],
+          [
+            160,
+            84
+          ],
+          [
+            160,
+            90
+          ],
+          [
+            138,
+            90
+          ],
+          [
+            138,
+            86
+          ],
+          [
+            152,
+            86
+          ]
+        ],
+        [
+          [
+            204,
+            80
+          ],
+          [
+            212,
+            80
+          ],
+          [
+            212,
+            82
+          ],
+          [
+            214,
+            82
+          ],
+          [
+            214,
+            88
+          ],
+          [
+            188,
+            88
+          ],
+          [
+            188,
+            90
+          ],
+          [
+            182,
+            90
+          ],
+          [
+            182,
+            88
+          ],
+          [
+            176,
+            88
+          ],
+          [
+            176,
+            84
+          ],
+          [
+            184,
+            84
+          ],
+          [
+            184,
+            82
+          ],
+          [
+            204,
+            82
+          ]
+        ]
+      ],
+      "notes": "Near-hand fragment ends above the visible forearm skin at y90+. Separate forward mask includes only the small painted underside tab at x182..187, y88..89. Contact boundaries against glove have about 2px uncertainty.",
+      "sourceAlphaCheck": {
+        "interiorPixelCentres": 344,
+        "allAlpha255": true
+      },
+      "referenceWoodSamples": {
+        "barrel": {
+          "pixel": [
+            199,
+            85
+          ],
+          "rgba": [
+            246,
+            200,
+            127,
+            255
+          ],
+          "insidePolygon": true
+        },
+        "batTip": {
+          "pixel": [
+            211,
+            85
+          ],
+          "rgba": [
+            210,
+            138,
+            75,
+            255
+          ],
+          "insidePolygon": true
+        }
+      }
+    }
+  ],
+  "sourceSha256": {
+    "atlas": "4d4d84b157529f1233fa3507d848aa58ba6681338cf540d78589e7c3be1755af",
+    "anchors": "2a150cb39bc6c89fc17d308044f70f556e55b91e558fd4e67ede0b941d9ffbaa"
+  }
+}

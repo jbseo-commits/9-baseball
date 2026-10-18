@@ -1,5 +1,7 @@
 # Original-game pixel umpire scene V2
 
+> Historical checkpoint: `b2fccdf`. 아래 GIF·수치·원화는 이전 V2 기록이다. 같은 프리뷰 주소의 현재 구현과 검증은 [V3 문서](../pixel-umpire-v3/README.md)를 따른다.
+
 기존 카드 일러스트와 9존 입력 위에 후면 타자, Red Rush, 야간 구장과 흙 마운드를 연결한 플레이 검토용 브랜치다. 타자 얼굴은 거의 보이지 않는 심판캠이며 투구, 스윙, 체중 이동, 감속과 준비 자세 복귀가 실제 전투의 한 타이밍을 공유한다.
 
 [브랜치 프리뷰](https://jbseo-commits.github.io/9-baseball/previews/codex-pixel-umpire-art-v2/) · [기존 V1](https://jbseo-commits.github.io/9-baseball/previews/codex-pixel-umpire-original/)

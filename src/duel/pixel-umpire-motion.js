@@ -1,14 +1,115 @@
 export const PIXEL_SCENE_BASE_WIDTH=240;
 export const PIXEL_SCENE_WIDTH=384;
 export const PIXEL_SCENE_SCALE=PIXEL_SCENE_WIDTH/PIXEL_SCENE_BASE_WIDTH;
+export const FEET_PER_METER=3.280839895;
+export const PLATE_TO_RUBBER_M=18.44;
+export const PLATE_TO_RUBBER_FT=PLATE_TO_RUBBER_M*FEET_PER_METER;
+export const BATTER_BOX_WIDTH_FT=4;
+export const BATTER_BOX_LENGTH_FT=6;
+export const BATTER_BOX_PLATE_GAP_FT=.5;
+export const HOME_PLATE_HALF_WIDTH_FT=17/24;
+export const BATTER_BOX_CENTER_LATERAL_FT=-(HOME_PLATE_HALF_WIDTH_FT+BATTER_BOX_PLATE_GAP_FT+BATTER_BOX_WIDTH_FT/2);
+export const BATTER_REAR_LATERAL_FT=BATTER_BOX_CENTER_LATERAL_FT-BATTER_BOX_WIDTH_FT/2+.5;
+export const VISUAL_HITSTOP_MS=50;
+
+/** Reframe the field away from the measured tactical zone and zoom out on short scenes. */
+export function responsiveFieldCameraFraming({width,height,zoneCenterX,centerRatio=.55,zoneInsetRatio=.07,referenceHeight=477,viewWidthFt=15.5}={}){
+  if(![width,height,centerRatio,zoneInsetRatio,referenceHeight,viewWidthFt].every(Number.isFinite)||width<=0||height<=0||referenceHeight<=0||viewWidthFt<=0)return null;
+  const preferred=width*Math.max(.1,Math.min(.9,centerRatio));
+  const uiAware=Number.isFinite(zoneCenterX)?zoneCenterX-width*Math.max(0,zoneInsetRatio):preferred;
+  const referenceTravel=.56*referenceHeight-.055*width,currentTravel=.56*height-.055*width;
+  return {
+    centerX:Math.round(Math.max(0,Math.min(preferred,uiAware))),
+    viewWidthFt:viewWidthFt*Math.max(1,referenceTravel/Math.max(1,currentTravel)),
+    sceneScale:Math.min(1,Math.max(.1,currentTravel/Math.max(1,referenceTravel))),
+  };
+}
+
+/** Shared ball/actor clock: honor the parent's impact gate, then hold contact briefly. */
+export function impactPresentationElapsed(clockElapsed,impactAt,stage,hitStopMs=VISUAL_HITSTOP_MS){
+  const t=Math.max(0,Number(clockElapsed)||0),impact=Math.max(0,Number(impactAt)||0);
+  const confirmed=['impact','slowmo','release','settle'].includes(stage);
+  if(!confirmed)return Math.min(t,Math.max(0,impact-1));
+  if(t<=impact+Math.max(0,hitStopMs))return impact;
+  return impact+t-impact-Math.max(0,hitStopMs);
+}
+
+/** Preserve the previous batter track through the next prep; short tracks hold ready to 1.34s. */
+export function trackRecoveryDuration(track,readyFrame=0,minimumMs=1340){
+  if(!Array.isArray(track))return Math.max(0,minimumMs);
+  const entries=track.filter(entry=>entry&&Number.isFinite(entry.atMs)&&Number.isInteger(entry.frame));
+  const ready=entries.filter(entry=>entry.atMs>=0&&entry.frame===readyFrame&&entry.phase==='ready').at(-1);
+  const end=ready?ready.atMs:entries.length?Math.max(...entries.map(entry=>entry.atMs)):0;
+  return Math.max(Number.isFinite(minimumMs)?minimumMs:0,end);
+}
+
+/** One compressed catcher-camera projection for the entire field, in feet. */
+export function createFieldCamera({width,height,centerX,plateY,cameraDepthFt=PLATE_TO_RUBBER_FT,cameraHeightFt=12,viewWidthFt=15.5,pitcherDepthFt=PLATE_TO_RUBBER_FT,pitcherTargetY}={}){
+  if(![width,height,centerX,plateY,cameraDepthFt,cameraHeightFt,viewWidthFt,pitcherDepthFt].every(Number.isFinite)||width<=0||height<=0||cameraDepthFt<=0||cameraHeightFt<=0||viewWidthFt<=0||cameraDepthFt+pitcherDepthFt<=0)return null;
+  const focal=width/viewWidthFt*cameraDepthFt;
+  const fittedHeight=Number.isFinite(pitcherTargetY)&&pitcherDepthFt>0
+    ?(plateY-pitcherTargetY)*cameraDepthFt*(cameraDepthFt+pitcherDepthFt)/(focal*pitcherDepthFt)
+    :cameraHeightFt;
+  const selectedHeight=Math.max(.25,fittedHeight);
+  const horizonY=plateY-focal*selectedHeight/cameraDepthFt;
+  return {width,height,centerX,plateY,cameraDepthFt,cameraHeightFt:selectedHeight,requestedCameraHeightFt:cameraHeightFt,viewWidthFt,focalPx:focal,horizonY,pitcherDepthFt,pitcherTargetY};
+}
+
+export function projectFieldPoint(camera,{lateralFt=0,depthFt=0,heightFt=0}={}){
+  if(!camera||![lateralFt,depthFt,heightFt].every(Number.isFinite))return null;
+  const cameraDistance=camera.cameraDepthFt+depthFt;
+  if(cameraDistance<=0)return null;
+  const scale=camera.focalPx/cameraDistance;
+  return {x:Math.round(camera.centerX+lateralFt*scale),y:Math.round(camera.horizonY+(camera.cameraHeightFt-heightFt)*scale),scale};
+}
+
+export function unprojectGroundPoint(camera,{x,y}={}){
+  if(!camera||![x,y].every(Number.isFinite))return null;
+  const vertical=y-camera.horizonY;
+  if(vertical<=0)return null;
+  const distance=camera.focalPx*camera.cameraHeightFt/vertical;
+  const scale=camera.focalPx/distance;
+  return {lateralFt:(x-camera.centerX)/scale,depthFt:distance-camera.cameraDepthFt};
+}
+
+export function projectFieldHeight(camera,depthFt,heightFt){
+  if(!camera||!Number.isFinite(depthFt)||!Number.isFinite(heightFt)||heightFt<0)return 0;
+  const distance=camera.cameraDepthFt+depthFt;
+  return distance>0?camera.focalPx*heightFt/distance:0;
+}
+
+export function projectBatterBox(camera,{centerLateralFt=BATTER_BOX_CENTER_LATERAL_FT,nearDepthFt=-2,farDepthFt=4,widthFt=BATTER_BOX_WIDTH_FT}={}){
+  if(!camera||![centerLateralFt,nearDepthFt,farDepthFt,widthFt].every(Number.isFinite)||farDepthFt<=nearDepthFt||widthFt<=0)return null;
+  const half=widthFt/2;
+  const points={
+    leftNear:projectFieldPoint(camera,{lateralFt:centerLateralFt-half,depthFt:nearDepthFt}),
+    rightNear:projectFieldPoint(camera,{lateralFt:centerLateralFt+half,depthFt:nearDepthFt}),
+    rightFar:projectFieldPoint(camera,{lateralFt:centerLateralFt+half,depthFt:farDepthFt}),
+    leftFar:projectFieldPoint(camera,{lateralFt:centerLateralFt-half,depthFt:farDepthFt}),
+  };
+  return {points,world:{centerLateralFt,nearDepthFt,farDepthFt,widthFt,lengthFt:farDepthFt-nearDepthFt}};
+}
+
+export function projectHomePlate(camera,{widthIn=17,depthIn=17}={}){
+  if(!camera||![widthIn,depthIn].every(Number.isFinite)||widthIn<=0||depthIn<=0)return null;
+  const half=widthIn/24,depth=depthIn/12;
+  return [
+    projectFieldPoint(camera,{lateralFt:-half,depthFt:depth}),
+    projectFieldPoint(camera,{lateralFt:half,depthFt:depth}),
+    projectFieldPoint(camera,{lateralFt:half,depthFt:depth/2}),
+    projectFieldPoint(camera,{lateralFt:0,depthFt:0}),
+    projectFieldPoint(camera,{lateralFt:-half,depthFt:depth/2}),
+  ];
+}
 
 export function atlasCell(manifest,atlas){
   return {...(manifest?.cell||{}),...(atlas?.cell||{})};
 }
 
-export function pixelBallRects(x,y){
-  const width=Math.round(5*PIXEL_SCENE_SCALE),height=Math.round(4*PIXEL_SCENE_SCALE);
-  const innerWidth=Math.round(3*PIXEL_SCENE_SCALE),innerHeight=Math.round(2*PIXEL_SCENE_SCALE);
+export function pixelBallRects(x,y,sceneScale=1){
+  const factor=Math.max(.1,Number.isFinite(sceneScale)?sceneScale:1);
+  const width=Math.max(1,Math.round(5*PIXEL_SCENE_SCALE*factor)),height=Math.max(1,Math.round(4*PIXEL_SCENE_SCALE*factor));
+  const innerWidth=Math.max(1,Math.round(3*PIXEL_SCENE_SCALE*factor)),innerHeight=Math.max(1,Math.round(2*PIXEL_SCENE_SCALE*factor));
   return {
     outer:{x:Math.round(x-width/2),y:Math.round(y-height/2),width,height},
     inner:{x:Math.round(x-innerWidth/2),y:Math.round(y-innerHeight/2),width:innerWidth,height:innerHeight},
@@ -97,12 +198,36 @@ export function sequenceFrame(frames,progress){
   return frames[Math.min(frames.length-1,Math.floor(clamp01(progress)*frames.length))];
 }
 
-export function atlasMotion({stage,elapsed=0,impactAt=0,action='swing',kind='whiff',bunt=false,states={},poseOrder='v1'}={}){
+/** Sample authored pose keyframes whose atMs values are relative to impact. */
+export function sampleMotionTrack(track,elapsedMs,{contact=false,readyFrame=0}={}){
+  if(!Array.isArray(track)||!track.length)return {frame:readyFrame,phase:'ready'};
+  const entries=track.filter(entry=>entry&&Number.isFinite(entry.atMs)&&Number.isInteger(entry.frame)).sort((a,b)=>a.atMs-b.atMs);
+  if(!entries.length)return {frame:readyFrame,phase:'ready'};
+  const usable=entries.filter(entry=>!(entry.contactOnly&&!contact));
+  if(!usable.length)return {frame:readyFrame,phase:'ready'};
+  const t=Number.isFinite(elapsedMs)?elapsedMs:0;
+  const last=usable.at(-1),lastEndsAt=Number.isFinite(last.untilMs)?last.untilMs:Number.isFinite(last.durationMs)?last.atMs+Math.max(0,last.durationMs):Infinity;
+  if(t>=lastEndsAt)return {frame:readyFrame,phase:'ready'};
+  let selected=usable[0];
+  for(const entry of usable){if(entry.atMs>t)break;selected=entry;}
+  return {frame:selected.frame,phase:selected.phase||phaseAtOffset(selected.atMs)};
+}
+
+const phaseAtOffset=atMs=>atMs< -150?'windup':atMs<=0?'swing':atMs<320?'follow':'reset';
+
+export function atlasMotion({stage,elapsed=0,actorElapsed,impactAt=0,action='swing',kind='whiff',bunt=false,states={},poseOrder='v1',timelines=null}={}){
   const windup=states.windup||[0],swing=states.swing||[0],follow=states.follow||swing,reset=states.reset||[0],buntFrames=states.bunt||swing;
   const impact=Math.max(0,Number(impactAt)||0),t=Math.max(0,Number(elapsed)||0),d=t-impact;
   const attacking=action!=='take',contact=kind==='hit'||kind==='foul'||kind==='sacrifice'||kind==='out';
-  const readyBatter=reset[reset.length-1];
+  const readyBatter=Number.isInteger(timelines?.readyFrame)?timelines.readyFrame:reset[reset.length-1];
   if(!stage)return {phase:'idle',batter:readyBatter,pitcher:'idle',attacking:false,contact:false};
+  const authoredTrack=timelines?.[bunt?'bunt':action==='take'?'take':'swing'];
+  if(authoredTrack){
+    const motionTime=d<0?d:Math.max(d,Number.isFinite(actorElapsed)?actorElapsed:d);
+    const sampled=sampleMotionTrack(authoredTrack,motionTime,{contact,readyFrame:readyBatter});
+    if(stage==='windup'&&d>=0)return {phase:'windup',batter:sampleMotionTrack(authoredTrack,-1,{contact,readyFrame:readyBatter}).frame,pitcher:'idle',attacking,contact:false};
+    return {phase:sampled.phase,batter:sampled.frame,pitcher:'idle',attacking,contact:d>=0&&contact};
+  }
   if(!attacking)return {phase:'pitch',batter:readyBatter,pitcher:sequenceFrame(states.windup||[0],impact?t/impact:0),attacking:false,contact:false};
 
   // Contact is authored at swing index 2. Identical timing and poses apply to hits and misses;
@@ -141,11 +266,12 @@ export function pixelPitcherFrame(elapsed,releaseAt,impactAt,states,active=true)
   return sequenceFrame(states.reset,(elapsed-impactAt-45)/475);
 }
 
-export function outgoingPitchPoint(progress,target,{width,height,kind,grade=''}={}){
+export function outgoingPitchPoint(progress,target,{width,height,kind,grade='',sceneScale=1}={}){
   const p=clamp01(progress),e=1-Math.pow(1-p,1.35);
-  if(kind==='foul')return {x:Math.round(target.x-e*width*.65),y:Math.round(target.y+e*height*.2)};
-  if(kind==='out'||kind==='sacrifice')return {x:Math.round(target.x+e*width*.36),y:Math.round(target.y-e*height*.1-Math.sin(e*Math.PI)*height*.025)};
-  return {x:Math.round(target.x+e*width*.82),y:Math.round(target.y-e*height*(/homer|grand/.test(grade)?.72:.35)-Math.sin(e*Math.PI)*height*.1)};
+  const zoom=Math.max(.1,Number.isFinite(sceneScale)?sceneScale:1),w=width*zoom,h=height*zoom;
+  if(kind==='foul')return {x:Math.round(target.x-e*w*.65),y:Math.round(target.y+e*h*.2)};
+  if(kind==='out'||kind==='sacrifice')return {x:Math.round(target.x+e*w*.36),y:Math.round(target.y-e*h*.1-Math.sin(e*Math.PI)*h*.025)};
+  return {x:Math.round(target.x+e*w*.82),y:Math.round(target.y-e*h*(/homer|grand/.test(grade)?.72:.35)-Math.sin(e*Math.PI)*h*.1)};
 }
 
 export function transformedPoint(framePoint,transform){
@@ -165,6 +291,38 @@ export function sourceFeetForFrame(frame,cell){
 export function sourcePointForFrame(frame,anchor,cell){
   const normalized=point(frame?.anchors?.[anchor]);
   return normalized&&cell?.width&&cell?.height?pointInCell(normalized,cell):null;
+}
+
+/** Authored opaque sole endpoints, separated from the elevated foot/ankle anchors. */
+export function sourceSoleGroundline(frame,side,cell){
+  const endpoints=frame?.soleGroundline?.[side]?.endpoints;
+  if(!Array.isArray(endpoints)||endpoints.length<2||!cell?.width||!cell?.height)return null;
+  const points=endpoints.slice(0,2).map(point).filter(Boolean);
+  return points.length===2?points.map(value=>pointInCell(value,cell)):null;
+}
+
+/** Fit the body to its ready-pose height, pinning the authored front sole while planted. */
+export function batterPlantTransform({frame,frameIndex,readyFrame,plantFrame,plantFrames,cell,targetRear,targetHeight,referenceBodyHeight}){
+  if(!frame||!cell?.width||!cell?.height||!targetRear)return null;
+  const rear=sourcePointForFrame(frame,'feet',cell)||{x:Math.round(cell.width*.5),y:Math.round(cell.height*.94)};
+  const bodyHeight=Number(referenceBodyHeight)>0?Number(referenceBodyHeight):cell.height*.78;
+  const anatomyScale=Number.isFinite(frame.anatomyScale)&&frame.anatomyScale>0?frame.anatomyScale:1;
+  const scale=(Number(targetHeight)>0?Number(targetHeight):cell.height*.7)/bodyHeight*anatomyScale;
+  const plantRear=sourcePointForFrame(plantFrame,'feet',cell)||sourcePointForFrame(readyFrame,'feet',cell)||rear;
+  const plantFront=sourceSoleGroundline(plantFrame,'front',cell);
+  const plantFrontAnchor=plantFront?{x:(plantFront[0].x+plantFront[1].x)/2,y:(plantFront[0].y+plantFront[1].y)/2}:sourcePointForFrame(plantFrame,'frontFoot',cell);
+  const frontPlantTarget=plantFrontAnchor?transformedPoint(plantFrontAnchor,{x:targetRear.x,y:targetRear.y,scale,rotation:0,anchor:plantRear}):null;
+  const front=sourceSoleGroundline(frame,'front',cell);
+  const frontAnchor=front?{x:(front[0].x+front[1].x)/2,y:(front[0].y+front[1].y)/2}:null;
+  const index=Number.isInteger(frameIndex)?frameIndex:-1;
+  const inPlantWindow=Array.isArray(plantFrames)?plantFrames.includes(index):false;
+  const frontPlanted=inPlantWindow&&frame.footContact?.front===true&&frontAnchor&&frontPlantTarget;
+  return {
+    x:frontPlanted?frontPlantTarget.x:targetRear.x,
+    y:frontPlanted?frontPlantTarget.y:targetRear.y,
+    scale,rotation:0,anchor:frontPlanted?frontAnchor:rear,
+    frontPlantTarget,frontPlanted:!!frontPlanted,
+  };
 }
 
 export function physicalPitchPoint(actualZone,barrelAnchor,batAxis={x:1,y:0}){
@@ -187,10 +345,10 @@ export function incomingPitchPoint(elapsed,flightStart,impactAt,releasePoint,tar
   return {x:Math.round(releasePoint.x+(target.x-releasePoint.x)*u),y:Math.round(releasePoint.y+(target.y-releasePoint.y)*u)};
 }
 
-export function passedPitchPoint(elapsed,impactAt,releasePoint,target){
+export function passedPitchPoint(elapsed,impactAt,releasePoint,target,sceneScale=1){
   if(!releasePoint||!target)return null;
   const length=Math.hypot(target.x-releasePoint.x,target.y-releasePoint.y)||1;
-  const distance=Math.min(18,Math.max(0,elapsed-impactAt)*.07);
+  const zoom=Math.max(.1,Number.isFinite(sceneScale)?sceneScale:1),distance=Math.min(18*zoom,Math.max(0,elapsed-impactAt)*.07*zoom);
   return {x:Math.round(target.x+(target.x-releasePoint.x)/length*distance),y:Math.round(target.y+(target.y-releasePoint.y)/length*distance)};
 }
 

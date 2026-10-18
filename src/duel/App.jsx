@@ -805,14 +805,19 @@ function RunStory({s,compact=false}){
 export default function Duel(){
   const [initial]=useState(()=>{
     // Local art preview enters a real V10 battle without touching the player's save.
-    const previewId=import.meta.env.DEV&&typeof window!=='undefined'
-      ?new URLSearchParams(window.location.search).get('previewPitcher'):null;
+    const previewParams=import.meta.env.DEV&&typeof window!=='undefined'?new URLSearchParams(window.location.search):null;
+    const previewId=previewParams?.get('previewPitcher');
     if(previewId&&pitcherAtlases[previewId]){
       const preview=createV10Duel(7,{tutorial:previewId==='regular-01-red-rush'});
       const node=preview.runMap.nodes.find(n=>n.opponent?.artId===previewId);
       if(node){
         preview.runMap.reachableIds=[node.id];
-        return {save:enterV10Node(preview,node.id),preview:true};
+        const battle=enterV10Node(preview,node.id),previewCard=previewParams?.get('previewCard');
+        if(previewCard==='bunt'&&battle.battle?.hand?.length){
+          const firstHandId=battle.battle.hand[0],entry=battle.deck.find(card=>card.id===firstHandId);
+          if(entry)entry.kind='bunt';
+        }
+        return {save:battle,preview:true};
       }
     }
     /* A corrupt V10 save must not look like "no save": the run is unrecoverable,

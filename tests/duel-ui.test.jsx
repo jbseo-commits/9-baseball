@@ -3,7 +3,7 @@ import React from 'react';
 import {render,screen,fireEvent,cleanup,act} from '@testing-library/react';
 import {afterEach,beforeEach,describe,it,expect,vi} from 'vitest';
 import Duel from '../src/duel/App.jsx';
-import {createDuel,startBattle,chooseRoute,playCard,advanceBatter,readDuel,saveDuel,createV10Duel,enterV10Node,saveV10Duel,readV10Duel} from '../src/duel/engine.js';
+import {createDuel,startBattle,chooseRoute,playCard,advanceBatter,readDuel,saveDuel,createV10Duel,enterV10Node,saveV10Duel,readV10Duel,V10_SAVE_KEY} from '../src/duel/engine.js';
 import {planAction} from '../src/duel/policy.js';
 import {presentationFor,presentationTimeline} from '../src/duel/presentation.js';
 import {redRushTimeline} from '../src/duel/pitcher-sd.js';
@@ -33,6 +33,24 @@ function beginV10(zone=5,roll=.5,build='away'){
 }
 function useCard(kind){fireEvent.click(screen.getByRole('button',{name:CARDS[kind].type==='skill'?'준비하기':'스윙하기',exact:true}));fireEvent.click(screen.getAllByRole('button',{name:CARDS[kind].name,exact:true})[0]);fireEvent.click(screen.getByTestId('execute-action'));finish();}
 describe('9-zone strategic UI',()=>{
+  it('offers a dev-only Red Rush bunt art preview through the actual V10 hand without writing saves',()=>{
+    const priorUrl=window.location.href;
+    const baseline=createV10Duel(7,{tutorial:true}),node=baseline.runMap.nodes.find(n=>n.opponent?.artId==='regular-01-red-rush');
+    baseline.runMap.reachableIds=[node.id];
+    const baselineBattle=enterV10Node(baseline,node.id),firstHandId=baselineBattle.battle.hand[0];
+    expect(baselineBattle.deck.find(card=>card.id===firstHandId).kind).toBe('place');
+    localStorage.setItem(V10_SAVE_KEY,'leave-this-save-alone');
+    window.history.replaceState({},'', '/?previewPitcher=regular-01-red-rush&previewCard=bunt');
+    try{
+      render(<Duel/>);
+      expect(screen.getByRole('button',{name:/희생 번트/}).getAttribute('data-card-kind')).toBe('bunt');
+      expect(localStorage.getItem(V10_SAVE_KEY)).toBe('leave-this-save-alone');
+    }finally{
+      cleanup();
+      const url=new URL(priorUrl);window.history.replaceState({},'',url.pathname+url.search+url.hash);
+    }
+  });
+
   it('selects a distinct starter deck and trial seed without overwriting legacy saves',()=>{
     localStorage.setItem('9zone-lineup-v3','legacy');render(<Duel/>);
     fireEvent.click((openSettings(),screen.getByRole('button',{name:/몸쪽 장타/})));
