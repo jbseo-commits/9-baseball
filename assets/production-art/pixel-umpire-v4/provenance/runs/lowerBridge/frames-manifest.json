@@ -1,0 +1,112 @@
+{
+  "ok": true,
+  "engine": "component-row",
+  "engine_revision": "15971e732787",
+  "extract_args": {},
+  "run_dir": "<ART_WORKSPACE>\\lowerBridge-run",
+  "cell": {
+    "shape": "square",
+    "width": 256,
+    "height": 256,
+    "safe_margin_x": 16,
+    "safe_margin_y": 16,
+    "size": 256,
+    "safe_margin": 16
+  },
+  "chroma_key": {
+    "name": "cyan",
+    "hex": "#00FFFF",
+    "rgb": [
+      0,
+      255,
+      255
+    ],
+    "selection": "manual"
+  },
+  "rows": [
+    {
+      "state": "lowerBridge",
+      "frames": 4,
+      "method": "components",
+      "files": [
+        "frames/lowerBridge/frame-0.png",
+        "frames/lowerBridge/frame-1.png",
+        "frames/lowerBridge/frame-2.png",
+        "frames/lowerBridge/frame-3.png"
+      ],
+      "frame_records": [
+        {
+          "index": 0,
+          "nontransparent_pixels": 11640,
+          "bbox": [
+            54,
+            0,
+            176,
+            240
+          ],
+          "edge_pixels": 20,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 1,
+          "nontransparent_pixels": 11312,
+          "bbox": [
+            54,
+            14,
+            174,
+            240
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 2,
+          "nontransparent_pixels": 11296,
+          "bbox": [
+            54,
+            36,
+            206,
+            240
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 3,
+          "nontransparent_pixels": 10988,
+          "bbox": [
+            50,
+            38,
+            204,
+            240
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        }
+      ],
+      "ok": true,
+      "engine_revision": "15971e732787",
+      "plain_files": [
+        "frames/lowerBridge/frame-0.plain.png",
+        "frames/lowerBridge/frame-1.plain.png",
+        "frames/lowerBridge/frame-2.plain.png",
+        "frames/lowerBridge/frame-3.plain.png"
+      ],
+      "orig_files": [
+        "frames/lowerBridge/orig/frame-0.png",
+        "frames/lowerBridge/orig/frame-1.png",
+        "frames/lowerBridge/orig/frame-2.png",
+        "frames/lowerBridge/orig/frame-3.png"
+      ]
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "lowerBridge: pitch disagreement — detect 1.00x1.00 (uniformity 263.9) vs runlen 4.98x5.04 (43.3); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+    "lowerBridge: native logical exceeds the physical cap 128x120 — capped frames (reroll candidates): 0:336x663, 1:334x627, 2:420x563, 3:423x558",
+    "palette: pinned (96 colors, palette.lock.json)",
+    "pixel unfake: pitch=1.0 scale=2x logical<=128x128 palette=96"
+  ]
+}
+
+

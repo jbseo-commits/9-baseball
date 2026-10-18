@@ -1,5 +1,5 @@
 import {describe,it,expect,vi} from 'vitest';
-import {atlasCell,atlasMotion,BATTER_BOX_CENTER_LATERAL_FT,BATTER_REAR_LATERAL_FT,batterPlantTransform,cancelAnimationFrameId,contactShadowRects,coverPlacement,createFieldCamera,impactPresentationElapsed,incomingPitchPoint,normalizedActorFrame,orientedBatterBox,outgoingPitchPoint,passedPitchPoint,pixelBallRects,pixelPitcherFrame,projectBatterBox,projectFieldHeight,projectFieldPoint,projectHomePlate,responsiveFieldCameraFraming,safe2dContext,sampleMotionTrack,sequenceFrame,shouldAnimatePixelScene,sourceFeetForFrame,sourcePointForFrame,sourceSoleGroundline,physicalPitchPoint,stageMotionElapsed,trackRecoveryDuration,transformedPoint,unprojectGroundPoint,PIXEL_SCENE_BASE_WIDTH,PIXEL_SCENE_SCALE,PIXEL_SCENE_WIDTH,PLATE_TO_RUBBER_FT,PLATE_TO_RUBBER_M} from '../src/duel/pixel-umpire-motion.js';
+import {actorShadowProjection,atlasCell,atlasMotion,BATTER_BOX_CENTER_LATERAL_FT,BATTER_REAR_LATERAL_FT,batterPlantTransform,cancelAnimationFrameId,contactShadowRects,coverPlacement,createFieldCamera,createFrameMaskCache,impactPresentationElapsed,incomingPitchPoint,normalizedActorFrame,orientedBatterBox,outgoingPitchPoint,passedPitchPoint,pixelBallRects,pixelPitcherFrame,projectBatterBox,projectFieldHeight,projectFieldPoint,projectHomePlate,responsiveFieldCameraFraming,safe2dContext,sampleMotionTrack,sequenceFrame,shouldAnimatePixelScene,sourceFeetForFrame,sourcePointForFrame,sourceSoleGroundline,sourceSoleCenter,physicalPitchPoint,stageMotionElapsed,stadiumLitPixel,trackRecoveryDuration,transformedPoint,unprojectGroundPoint,PIXEL_SCENE_BASE_WIDTH,PIXEL_SCENE_SCALE,PIXEL_SCENE_WIDTH,PLATE_TO_RUBBER_FT,PLATE_TO_RUBBER_M} from '../src/duel/pixel-umpire-motion.js';
 import v2Manifest from '../assets/production-art/pixel-umpire-v2/runtime/manifest.json' with {type:'json'};
 import v3Manifest from '../assets/production-art/pixel-umpire-v3/runtime/manifest.json' with {type:'json'};
 
@@ -348,6 +348,48 @@ describe('pixel umpire presentation-only timeline',()=>{
     expect(pinCenter(art.frames[23],normalReset)).toEqual(normalPlantTarget);
     expect(pinCenter(art.frames[26],bunt)).toEqual(buntPlantTarget);
     expect(planted.scale).toBeCloseTo(height/192,4);
+  });
+
+  it('uses authored support metadata to replant a rear sole against the ready frame without changing scale',()=>{
+    const art=v3Manifest.atlases.batter,cell=atlasCell(v3Manifest,art),ready=art.frames[art.timelines.readyFrame],frame={...art.frames[6],grounding:{support:'rear',targetFrame:0,targetSupport:'rear'}};
+    const targetRear={x:211,y:390},targetHeight=180,bodyHeight=192;
+    const transform=batterPlantTransform({frame,frameIndex:6,readyFrame:ready,plantFrame:art.frames[3],plantFrames:[],frames:art.frames,cell,targetRear,targetHeight,referenceBodyHeight:bodyHeight});
+    const readyFeet=sourcePointForFrame(ready,'feet',cell),readySole=sourceSoleCenter(ready,'rear',cell);
+    const expected=transformedPoint(readySole,{x:targetRear.x,y:targetRear.y,scale:targetHeight/bodyHeight,rotation:0,anchor:readyFeet});
+    expect(transform.grounding).toEqual({support:'rear',source:sourceSoleCenter(frame,'rear',cell),target:expected});
+    expect(transformedPoint(transform.grounding.source,transform)).toEqual(expected);
+    expect(transform.anchor).toEqual(transform.grounding.source);
+    expect(transform.scale).toBeCloseTo(targetHeight/bodyHeight,8);
+    expect(transform.frontPlanted).toBe(false);
+  });
+
+  it('keeps a bounded least-recently-used cache for derived per-frame masks',()=>{
+    const cache=createFrameMaskCache(2),make=value=>()=>({value});
+    expect(cache.get(1,make('one'))).toEqual({value:'one'});
+    cache.get(2,make('two'));cache.get(1,make('unused'));cache.get(3,make('three'));
+    expect(cache.size).toBe(2);
+    expect(cache.get(2,make('two-again'))).toEqual({value:'two-again'});
+    expect(cache.size).toBe(2);
+    cache.clear();expect(cache.size).toBe(0);
+  });
+
+  it('anchors cast shadows at the support point and projects the upper body down-left',()=>{
+    const projection=actorShadowProjection({target:{x:120,y:220},scale:.5,anchor:{x:40,y:200}}),{matrix,anchor,target}=projection;
+    const project=point=>({x:target.x+matrix.a*(point.x-anchor.x)+matrix.c*(point.y-anchor.y),y:target.y+matrix.b*(point.x-anchor.x)+matrix.d*(point.y-anchor.y)});
+    expect(project(anchor)).toEqual(target);
+    const crown=project({x:80,y:40});
+    expect(crown.x).toBeLessThan(target.x);
+    expect(crown.y).toBeGreaterThan(target.y);
+  });
+
+  it('warms and cools actor surface pixels with bounded changes while preserving alpha and red identity',()=>{
+    const highlight=stadiumLitPixel(236,226,204,173),shadow=stadiumLitPixel(8,14,26,91),red=stadiumLitPixel(210,28,38,255);
+    expect(highlight[0]).toBeGreaterThan(236);
+    expect(shadow[2]).toBeGreaterThan(26);
+    expect(highlight[3]).toBe(173);
+    expect(shadow[3]).toBe(91);
+    expect(red[0]).toBeGreaterThan(red[1]*1.8);
+    expect(red[3]).toBe(255);
   });
 
   it('fits every unique active V3 groundline inside the fixed world box at authored 6.1 ft scale',()=>{

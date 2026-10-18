@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "batter-v4-recovery",
+    "description": "",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 256,
+    "height": 256,
+    "safe_margin_x": 16,
+    "safe_margin_y": 16,
+    "size": 256,
+    "safe_margin": 16
+  },
+  "chroma_key": {
+    "name": "cyan",
+    "hex": "#00FFFF",
+    "rgb": [
+      0,
+      255,
+      255
+    ],
+    "selection": "auto",
+    "score": 232.23,
+    "min_subject_distance": 218.24,
+    "background": {
+      "mode": "transparent",
+      "opaque_border_fraction": 0.0,
+      "subject_pixels": 6805
+    },
+    "candidates": [
+      {
+        "name": "magenta",
+        "hex": "#FF00FF",
+        "score": 206.67,
+        "min_subject_distance": 200.13,
+        "clears_erase_radius": true
+      },
+      {
+        "name": "green",
+        "hex": "#00FF00",
+        "score": 219.6,
+        "min_subject_distance": 210.68,
+        "clears_erase_radius": true
+      },
+      {
+        "name": "cyan",
+        "hex": "#00FFFF",
+        "score": 232.23,
+        "min_subject_distance": 218.24,
+        "clears_erase_radius": true
+      },
+      {
+        "name": "blue",
+        "hex": "#004DFF",
+        "score": 150.65,
+        "min_subject_distance": 141.64,
+        "clears_erase_radius": true
+      }
+    ],
+    "selection_reason": "highest 1st-percentile subject distance among the 4 candidate(s) clearing the 96 erase radius"
+  },
+  "states": {
+    "unwind": {
+      "frames": 4,
+      "fps": 12,
+      "loop": false,
+      "action": "Four consecutive new whole-body drawings immediately after the supplied FINISH endpoint. 0 decelerate the wrapped finish with hands only slightly below the left shoulder, rear heel still raised after pivot; 1 torso and pelvis start to relax, hands lower toward sternum, same straight bat descends forward/outside the body; 2 hands lower toward abdomen as the rear heel begins settling and the lead knee softens; 3 relaxed low bat near waist, rear heel has replanted, upright chest beginning to turn back toward pitcher. The hands descend in one continuous modest arc, never travel back over the helmet. The rear heel lowers ONCE, not alternating foot wiggles. Lead foot remains grounded until rear replant. Show actual hip/ribcage/knee change with stable adult proportions. Keep the barrel's depth/foreshortening plausible as it lowers from the shoulder. Do not create four variants of a held finish."
+    },
+    "regather": {
+      "frames": 4,
+      "fps": 12,
+      "loop": false,
+      "action": "Four consecutive whole-body recovery drawings from the supplied preceding LOW-BAT endpoint toward exact READY. 0 rear foot now planted and supporting weight, torso upright, hands low in front; 1 lead foot makes one small controlled reposition to the READY stance while the barrel passes forward/near end-on below face height; 2 both soles settle, knees load again and hands lift toward rear-right shoulder with the bat rising through a compact forward arc; 3 nearly exact supplied READY, hands beside rear-right shoulder, bat pointing upper-left, both feet quiet. Final runtime reuses exact READY. Never reverse the full-length bat in one frame, never use overhead regrip, dancing toe motions, side-view legs, skating, limb warp or several little shuffle steps. Preserve helmet/hip/leg proportions and paint stable upper-right keylight planes, not sparkly all-edge outlines."
+    }
+  },
+  "style": "Match the existing clean128logical-pixel native sprite, enlarged2x into256storage. Strong readable clusters: warm ivory lit planes from upper-right stadium lights, cool slate-blue shadows on left/down planes, navy silhouette. At least3 value groups, no stippling, no new fine cloth texture. Existing base anatomy, camera and identity remain fixed; body crown-to-cleat about192storage pixels. Each frame is a physical continuation with full body mechanics, not crossfade or abstract deformation.",
+  "body_plan": [
+    {
+      "plan": "biped",
+      "figure": ""
+    }
+  ],
+  "layout": "taxonomy/v1",
+  "fit": {
+    "pixel_unfake": true,
+    "logical_height": 128,
+    "palette_size": 96,
+    "align_x": "bbox-center",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "detail_bias": false,
+    "outline": false
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}
+
+

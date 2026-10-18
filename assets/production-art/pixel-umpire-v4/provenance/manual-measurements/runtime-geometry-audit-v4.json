@@ -1,0 +1,448 @@
+{
+  "schema": "runtime-geometry-audit/v1",
+  "status": "read-only geometry computation using active V4 manifest and unchanged V3 390x844 fixture with src/duel/pixel-umpire-motion.js helpers",
+  "inputs": {
+    "manifest": "repo/assets/production-art/pixel-umpire-v4/runtime/manifest.json",
+    "fixture": "pixel-original-v3-art/final-motion-qa-public-responsive3/v3-responsive-fixture-390x844.json",
+    "canvas": [
+      384,
+      477
+    ],
+    "timelineIndices": [
+      36,
+      52,
+      48,
+      37,
+      38,
+      39,
+      40,
+      41,
+      44,
+      45,
+      42,
+      43,
+      0
+    ]
+  },
+  "camera": {
+    "centerX": 211,
+    "plateY": 456,
+    "horizonY": -36.24,
+    "cameraHeightFt": 19.8691,
+    "focalPx": 1498.8065,
+    "sceneScale": 1,
+    "batterRearScreen": [
+      118,
+      469
+    ],
+    "batterTargetHeightPx": 154.965,
+    "referenceBodyHeightPx": 192
+  },
+  "boxWorldFt": {
+    "lateral": [
+      -5.2083,
+      -1.2083
+    ],
+    "depth": [
+      -2,
+      4
+    ]
+  },
+  "soleCenterPositions": [
+    {
+      "frame": 36,
+      "support": "front",
+      "frontScreen": [
+        150,
+        433
+      ],
+      "frontWorldFt": [
+        -2.58,
+        2.97
+      ],
+      "rearScreen": [
+        110,
+        462
+      ],
+      "rearWorldFt": [
+        -4.03,
+        -0.73
+      ]
+    },
+    {
+      "frame": 52,
+      "support": "front",
+      "gripOccluded": true,
+      "gripPointIsInferred": true,
+      "frontScreen": [
+        150,
+        433
+      ],
+      "frontWorldFt": [
+        -2.58,
+        2.97
+      ],
+      "rearScreen": [
+        107,
+        463
+      ],
+      "rearWorldFt": [
+        -4.14,
+        -0.85
+      ]
+    },
+    {
+      "frame": 48,
+      "support": "front",
+      "frontScreen": [
+        150,
+        433
+      ],
+      "frontWorldFt": [
+        -2.58,
+        2.97
+      ],
+      "rearScreen": [
+        101,
+        464
+      ],
+      "rearWorldFt": [
+        -4.37,
+        -0.97
+      ]
+    },
+    {
+      "frame": 37,
+      "support": "front",
+      "frontScreen": [
+        150,
+        433
+      ],
+      "frontWorldFt": [
+        -2.58,
+        2.97
+      ],
+      "rearScreen": [
+        109,
+        462
+      ],
+      "rearWorldFt": [
+        -4.07,
+        -0.73
+      ]
+    },
+    {
+      "frame": 38,
+      "support": "front",
+      "frontScreen": [
+        150,
+        433
+      ],
+      "frontWorldFt": [
+        -2.58,
+        2.97
+      ],
+      "rearScreen": [
+        113,
+        461
+      ],
+      "rearWorldFt": [
+        -3.92,
+        -0.61
+      ]
+    },
+    {
+      "frame": 39,
+      "support": "front",
+      "frontScreen": [
+        150,
+        433
+      ],
+      "frontWorldFt": [
+        -2.58,
+        2.97
+      ],
+      "rearScreen": [
+        121,
+        456
+      ],
+      "rearWorldFt": [
+        -3.63,
+        0
+      ]
+    },
+    {
+      "frame": 40,
+      "support": "front",
+      "frontScreen": [
+        150,
+        433
+      ],
+      "frontWorldFt": [
+        -2.58,
+        2.97
+      ],
+      "rearScreen": [
+        119,
+        460
+      ],
+      "rearWorldFt": [
+        -3.68,
+        -0.49
+      ]
+    },
+    {
+      "frame": 41,
+      "support": "front",
+      "frontScreen": [
+        150,
+        433
+      ],
+      "frontWorldFt": [
+        -2.58,
+        2.97
+      ],
+      "rearScreen": [
+        118,
+        463
+      ],
+      "rearWorldFt": [
+        -3.7,
+        -0.85
+      ]
+    },
+    {
+      "frame": 44,
+      "support": "front",
+      "frontScreen": [
+        150,
+        433
+      ],
+      "frontWorldFt": [
+        -2.58,
+        2.97
+      ],
+      "rearScreen": [
+        123,
+        468
+      ],
+      "rearWorldFt": [
+        -3.47,
+        -1.44
+      ]
+    },
+    {
+      "frame": 45,
+      "support": "rear",
+      "frontScreen": [
+        137,
+        432
+      ],
+      "frontWorldFt": [
+        -3.14,
+        3.1
+      ],
+      "rearScreen": [
+        108,
+        467
+      ],
+      "rearWorldFt": [
+        -4.07,
+        -1.32
+      ]
+    },
+    {
+      "frame": 42,
+      "support": "rear",
+      "frontScreen": [
+        142,
+        439
+      ],
+      "frontWorldFt": [
+        -2.88,
+        2.16
+      ],
+      "rearScreen": [
+        108,
+        467
+      ],
+      "rearWorldFt": [
+        -4.07,
+        -1.32
+      ]
+    },
+    {
+      "frame": 43,
+      "support": "rear",
+      "frontScreen": [
+        137,
+        436
+      ],
+      "frontWorldFt": [
+        -3.11,
+        2.56
+      ],
+      "rearScreen": [
+        108,
+        467
+      ],
+      "rearWorldFt": [
+        -4.07,
+        -1.32
+      ]
+    },
+    {
+      "frame": 0,
+      "support": "rear reference fit (legacy target)",
+      "frontScreen": [
+        146,
+        432
+      ],
+      "frontWorldFt": [
+        -2.76,
+        3.1
+      ],
+      "rearScreen": [
+        108,
+        467
+      ],
+      "rearWorldFt": [
+        -4.07,
+        -1.32
+      ]
+    }
+  ],
+  "adjacentMotionPx": [
+    {
+      "from": 36,
+      "to": 52,
+      "head": 4.2,
+      "hip": 12.5,
+      "grip": 59.5,
+      "rearSole": 3.2,
+      "frontSole": 0,
+      "note": "Grip is occluded/inferred in frame52; exclude grip delta as a visible landmark."
+    },
+    {
+      "from": 52,
+      "to": 48,
+      "head": 8.5,
+      "hip": 5,
+      "grip": 12,
+      "rearSole": 6.1,
+      "frontSole": 0
+    },
+    {
+      "from": 48,
+      "to": 37,
+      "head": 10,
+      "hip": 17,
+      "grip": 14.3,
+      "rearSole": 8.2,
+      "frontSole": 0
+    },
+    {
+      "from": 37,
+      "to": 38,
+      "head": 1,
+      "hip": 3.6,
+      "grip": 16,
+      "rearSole": 4.1,
+      "frontSole": 0
+    },
+    {
+      "from": 38,
+      "to": 39,
+      "head": 4.1,
+      "hip": 8.6,
+      "grip": 6,
+      "rearSole": 9.4,
+      "frontSole": 0
+    },
+    {
+      "from": 39,
+      "to": 40,
+      "head": 7.3,
+      "hip": 8.2,
+      "grip": 7.6,
+      "rearSole": 4.5,
+      "frontSole": 0
+    },
+    {
+      "from": 40,
+      "to": 41,
+      "head": 2.2,
+      "hip": 4.5,
+      "grip": 12,
+      "rearSole": 3.2,
+      "frontSole": 0
+    },
+    {
+      "from": 41,
+      "to": 44,
+      "head": 13.3,
+      "hip": 3.2,
+      "grip": 38.5,
+      "rearSole": 7.1,
+      "frontSole": 0,
+      "note": "Bat/grip pose transitions to upright bridge."
+    },
+    {
+      "from": 44,
+      "to": 45,
+      "head": 16,
+      "hip": 12,
+      "grip": 13.4,
+      "rearSole": 15,
+      "frontSole": 13,
+      "note": "Authored support switches front\u2192rear; whole actor shifts left about 15px."
+    },
+    {
+      "from": 45,
+      "to": 42,
+      "head": 1,
+      "hip": 1.4,
+      "grip": 21.5,
+      "rearSole": 0,
+      "frontSole": 8.6
+    },
+    {
+      "from": 42,
+      "to": 43,
+      "head": 2.8,
+      "hip": 4.1,
+      "grip": 9,
+      "rearSole": 0,
+      "frontSole": 5.8
+    },
+    {
+      "from": 43,
+      "to": 0,
+      "head": null,
+      "hip": null,
+      "grip": 17,
+      "rearSole": 0,
+      "frontSole": 9.8,
+      "note": "Ready0 has no authored head/hip anchors; visual grid inspection suggests approximate head continuity, not a numeric helper-derived delta."
+    }
+  ],
+  "soleEndpointBoxMargin": {
+    "minimumFeet": 0.0736,
+    "frame": 37,
+    "side": "front",
+    "worldPointFt": [
+      -1.8483,
+      3.9264
+    ],
+    "nearestBoundary": "far depth edge at 4ft",
+    "caveat": "Far sole endpoint is manually annotated with low confidence; all other points remain inside box with larger margin."
+  },
+  "interpretation": [
+    "The rear-support cluster frames 42\u219243\u2192ready0 maintains the rear contact at exactly the same projected point (108,467), which is the cleanest READY seam. Front sole moves 9.8px into ready0; body appearance is close by visual comparison.",
+    "The 44\u219245 support switch creates the largest visible whole-body translation: 16px head, 12px hip, and 13\u201315px feet. It is consistent with authored front-to-rear weight transfer and does not move contacts outside the projected batter box. Preserve unless live review reads as a snap.",
+    "Optional smoothing choice: keep both 44/45 on front support to remove the 44\u219245 shift, but that would shift frame45\u2019s actor relative to rear-support frames42/43 and relocate the discontinuity to 45\u219242. I recommend keeping the current transfer and reviewing playback before retuning.",
+    "Screen-y separation of near/far soles is perspective. Unprojection maps both contact points to plausible distinct in-box depths, so this is not evidence that either foot is airborne."
+  ],
+  "reproducibility": "Computed transformed anchors, authored sole centers, batter-box projection and ground unprojection with the active V4 helpers. Frame0 head/hip remain unanchored in manifest and are deliberately not reported as precise helper measurements."
+}
+

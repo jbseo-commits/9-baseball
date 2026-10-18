@@ -301,27 +301,81 @@ export function sourceSoleGroundline(frame,side,cell){
   return points.length===2?points.map(value=>pointInCell(value,cell)):null;
 }
 
+export function sourceSoleCenter(frame,side,cell){
+  const line=sourceSoleGroundline(frame,side,cell);
+  return line?{x:(line[0].x+line[1].x)/2,y:(line[0].y+line[1].y)/2}:null;
+}
+
+/** Small LRU for per-frame derived canvas assets such as actor shadow masks. */
+export function createFrameMaskCache(limit=16){
+  const capacity=Math.max(1,Number.isInteger(limit)?limit:16),entries=new Map();
+  return {
+    get(key,create){
+      if(entries.has(key)){const value=entries.get(key);entries.delete(key);entries.set(key,value);return value;}
+      const value=create?.();if(value==null)return null;
+      entries.set(key,value);
+      while(entries.size>capacity)entries.delete(entries.keys().next().value);
+      return value;
+    },
+    clear(){entries.clear();},
+    get size(){return entries.size;},
+  };
+}
+
+export function actorShadowProjection({target,scale,anchor}={}){
+  if(!target||!anchor||![target.x,target.y,anchor.x,anchor.y,scale].every(Number.isFinite)||scale<=0)return null;
+  return {
+    target:{x:target.x,y:target.y},
+    matrix:{a:scale,b:0,c:.3*scale,d:-.1*scale,e:0,f:0},
+    anchor:{x:anchor.x,y:anchor.y},
+  };
+}
+
+export function stadiumLitPixel(r,g,b,a){
+  const luma=(.2126*r+.7152*g+.0722*b)/255;
+  const ramp=Math.max(-1,Math.min(1,(luma-.48)/.52));
+  let amount=Math.abs(ramp)*.12;
+  const redDominant=r>g*1.28&&r>b*1.28&&r>96;
+  if(redDominant)amount*=.2;
+  const light=ramp>=0?[248,222,182]:[20,37,56];
+  return [Math.round(r+(light[0]-r)*amount),Math.round(g+(light[1]-g)*amount),Math.round(b+(light[2]-b)*amount),a];
+}
+
 /** Fit the body to its ready-pose height, pinning the authored front sole while planted. */
-export function batterPlantTransform({frame,frameIndex,readyFrame,plantFrame,plantFrames,cell,targetRear,targetHeight,referenceBodyHeight}){
+export function batterPlantTransform({frame,frameIndex,readyFrame,plantFrame,plantFrames,frames,cell,targetRear,targetHeight,referenceBodyHeight}){
   if(!frame||!cell?.width||!cell?.height||!targetRear)return null;
   const rear=sourcePointForFrame(frame,'feet',cell)||{x:Math.round(cell.width*.5),y:Math.round(cell.height*.94)};
   const bodyHeight=Number(referenceBodyHeight)>0?Number(referenceBodyHeight):cell.height*.78;
   const anatomyScale=Number.isFinite(frame.anatomyScale)&&frame.anatomyScale>0?frame.anatomyScale:1;
   const scale=(Number(targetHeight)>0?Number(targetHeight):cell.height*.7)/bodyHeight*anatomyScale;
   const plantRear=sourcePointForFrame(plantFrame,'feet',cell)||sourcePointForFrame(readyFrame,'feet',cell)||rear;
-  const plantFront=sourceSoleGroundline(plantFrame,'front',cell);
-  const plantFrontAnchor=plantFront?{x:(plantFront[0].x+plantFront[1].x)/2,y:(plantFront[0].y+plantFront[1].y)/2}:sourcePointForFrame(plantFrame,'frontFoot',cell);
-  const frontPlantTarget=plantFrontAnchor?transformedPoint(plantFrontAnchor,{x:targetRear.x,y:targetRear.y,scale,rotation:0,anchor:plantRear}):null;
-  const front=sourceSoleGroundline(frame,'front',cell);
-  const frontAnchor=front?{x:(front[0].x+front[1].x)/2,y:(front[0].y+front[1].y)/2}:null;
+  const legacyPlantFront=sourceSoleCenter(plantFrame,'front',cell)||sourcePointForFrame(plantFrame,'frontFoot',cell);
+  const legacyFrontTarget=legacyPlantFront?transformedPoint(legacyPlantFront,{x:targetRear.x,y:targetRear.y,scale,rotation:0,anchor:plantRear}):null;
   const index=Number.isInteger(frameIndex)?frameIndex:-1;
   const inPlantWindow=Array.isArray(plantFrames)?plantFrames.includes(index):false;
-  const frontPlanted=inPlantWindow&&frame.footContact?.front===true&&frontAnchor&&frontPlantTarget;
+  const authored=frame.grounding;
+  const support=['front','rear'].includes(authored?.support)&&['front','rear'].includes(authored?.targetSupport)&&Number.isInteger(authored?.targetFrame)?authored.support:null;
+  const targetSide=support?authored.targetSupport:'front';
+  const targetFrame=Number.isInteger(authored?.targetFrame)?authored.targetFrame:null;
+  const resolvedReference=targetFrame!=null?(Array.isArray(frames)?frames[targetFrame]:null)||(targetFrame===0?readyFrame:null):null;
+  const customTarget= support&&resolvedReference
+    ?sourceSoleCenter(resolvedReference,targetSide,cell)
+    :null;
+  const customTargetWorld=customTarget?transformedPoint(customTarget,{x:targetRear.x,y:targetRear.y,scale,rotation:0,anchor:sourcePointForFrame(resolvedReference,'feet',cell)||plantRear}):null;
+  const supportCenter=support?sourceSoleCenter(frame,support,cell):null;
+  const authoredPlanted=!!(support&&customTargetWorld&&supportCenter&&frame.footContact?.[support]!==false);
+  const legacyCenter=sourceSoleCenter(frame,'front',cell)||sourcePointForFrame(frame,'frontFoot',cell);
+  const legacyPlanted=!support&&inPlantWindow&&frame.footContact?.front===true&&legacyCenter&&legacyFrontTarget;
+  const planted=authoredPlanted||legacyPlanted;
+  const activeCenter=authoredPlanted?supportCenter:legacyCenter;
+  const activeTarget=authoredPlanted?customTargetWorld:legacyFrontTarget;
+  const grounding=planted?{support:authoredPlanted?support:'front',source:activeCenter,target:activeTarget}:null;
   return {
-    x:frontPlanted?frontPlantTarget.x:targetRear.x,
-    y:frontPlanted?frontPlantTarget.y:targetRear.y,
-    scale,rotation:0,anchor:frontPlanted?frontAnchor:rear,
-    frontPlantTarget,frontPlanted:!!frontPlanted,
+    x:planted?activeTarget.x:targetRear.x,
+    y:planted?activeTarget.y:targetRear.y,
+    scale,rotation:0,anchor:planted?activeCenter:rear,
+    frontPlantTarget:legacyFrontTarget,frontPlanted:!!(legacyPlanted||authoredPlanted&&support==='front'),
+    grounding,
   };
 }
 

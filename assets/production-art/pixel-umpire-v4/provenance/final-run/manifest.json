@@ -1,0 +1,534 @@
+{
+  "characterId": ".final-run.sg-staging",
+  "engine": "component-row",
+  "game_input": "sprite-sheet-alpha.png",
+  "degraded_static_fallback": false,
+  "curation_applied": false,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "sprite-sheet-alpha.png",
+  "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
+  "base_image": null,
+  "cell": {
+    "shape": "square",
+    "width": 256,
+    "height": 256,
+    "size": 256,
+    "safe_margin": 0
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ]
+  },
+  "animation": {
+    "cellWidth": 256,
+    "cellHeight": 256,
+    "columns": 4,
+    "rows": {
+      "00_windup": {
+        "row": 0,
+        "frames": 4,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500,
+          500,
+          500
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "01_swingA": {
+        "row": 1,
+        "frames": 4,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500,
+          500,
+          500
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "02_swingB": {
+        "row": 2,
+        "frames": 4,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500,
+          500,
+          500
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "03_followA": {
+        "row": 3,
+        "frames": 4,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500,
+          500,
+          500
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "04_followB": {
+        "row": 4,
+        "frames": 4,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500,
+          500,
+          500
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "05_resetCompact": {
+        "row": 5,
+        "frames": 4,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500,
+          500,
+          500
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "06_bunt": {
+        "row": 6,
+        "frames": 4,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500,
+          500,
+          500
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "07_buntReset": {
+        "row": 7,
+        "frames": 4,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500,
+          500,
+          500
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "08_resetLift": {
+        "row": 8,
+        "frames": 4,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500,
+          500,
+          500
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "09_unwind": {
+        "row": 9,
+        "frames": 4,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500,
+          500,
+          500
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "10_regather": {
+        "row": 10,
+        "frames": 4,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500,
+          500,
+          500
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "11_liftBridge": {
+        "row": 11,
+        "frames": 2,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "12_upperChest": {
+        "row": 12,
+        "frames": 1,
+        "fps": 2,
+        "durations_ms": [
+          500
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "13_occluded": {
+        "row": 13,
+        "frames": 1,
+        "fps": 2,
+        "durations_ms": [
+          500
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 1024,
+    "sheetHeight": 3584,
+    "cellWidth": 256,
+    "cellHeight": 256,
+    "rows": {
+      "00_windup": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256
+        }
+      ],
+      "01_swingA": [
+        {
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256
+        }
+      ],
+      "02_swingB": [
+        {
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256
+        }
+      ],
+      "03_followA": [
+        {
+          "x": 0,
+          "y": 768,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 256,
+          "y": 768,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 512,
+          "y": 768,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 768,
+          "y": 768,
+          "w": 256,
+          "h": 256
+        }
+      ],
+      "04_followB": [
+        {
+          "x": 0,
+          "y": 1024,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 256,
+          "y": 1024,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 512,
+          "y": 1024,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 768,
+          "y": 1024,
+          "w": 256,
+          "h": 256
+        }
+      ],
+      "05_resetCompact": [
+        {
+          "x": 0,
+          "y": 1280,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 256,
+          "y": 1280,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 512,
+          "y": 1280,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 768,
+          "y": 1280,
+          "w": 256,
+          "h": 256
+        }
+      ],
+      "06_bunt": [
+        {
+          "x": 0,
+          "y": 1536,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 256,
+          "y": 1536,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 512,
+          "y": 1536,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 768,
+          "y": 1536,
+          "w": 256,
+          "h": 256
+        }
+      ],
+      "07_buntReset": [
+        {
+          "x": 0,
+          "y": 1792,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 256,
+          "y": 1792,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 512,
+          "y": 1792,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 768,
+          "y": 1792,
+          "w": 256,
+          "h": 256
+        }
+      ],
+      "08_resetLift": [
+        {
+          "x": 0,
+          "y": 2048,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 256,
+          "y": 2048,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 512,
+          "y": 2048,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 768,
+          "y": 2048,
+          "w": 256,
+          "h": 256
+        }
+      ],
+      "09_unwind": [
+        {
+          "x": 0,
+          "y": 2304,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 256,
+          "y": 2304,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 512,
+          "y": 2304,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 768,
+          "y": 2304,
+          "w": 256,
+          "h": 256
+        }
+      ],
+      "10_regather": [
+        {
+          "x": 0,
+          "y": 2560,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 256,
+          "y": 2560,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 512,
+          "y": 2560,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 768,
+          "y": 2560,
+          "w": 256,
+          "h": 256
+        }
+      ],
+      "11_liftBridge": [
+        {
+          "x": 0,
+          "y": 2816,
+          "w": 256,
+          "h": 256
+        },
+        {
+          "x": 256,
+          "y": 2816,
+          "w": 256,
+          "h": 256
+        }
+      ],
+      "12_upperChest": [
+        {
+          "x": 0,
+          "y": 3072,
+          "w": 256,
+          "h": 256
+        }
+      ],
+      "13_occluded": [
+        {
+          "x": 0,
+          "y": 3328,
+          "w": 256,
+          "h": 256
+        }
+      ]
+    }
+  }
+}
+
+

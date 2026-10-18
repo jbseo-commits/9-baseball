@@ -1,5 +1,7 @@
 # Original-game pixel umpire scene V3
 
+이 문서는 `803d248`의 V3 기록이다. 공용 브랜치 프리뷰는 현재 [V4 복귀·광원 후보](../pixel-umpire-v4/README.md)를 표시하며 아래 녹화/수치는 당시 버전의 근거다.
+
 타자의 후면 원화·스윙·복귀를 교체하고, 홈플레이트·배터박스·투수·마운드를 하나의 필드 카메라에 맞췄다. 원래 카드 일러스트와 카드/9존 선택 방식, 전투 판정과 저장 형식은 유지한다. 이 결과는 플레이 검토용이며 Dimraeth·Holstin과 동급이라는 판정이 아니다.
 
 [브랜치 프리뷰](https://jbseo-commits.github.io/9-baseball/previews/codex-pixel-umpire-art-v2/) · [Draft PR #49](https://github.com/jbseo-commits/9-baseball/pull/49) · [실제 참고 화면과 아트 판단](ART-COMPARISON.md)

@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "batter-v4-regatherR2",
+    "description": "",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 256,
+    "height": 256,
+    "safe_margin_x": 16,
+    "safe_margin_y": 16,
+    "size": 256,
+    "safe_margin": 16
+  },
+  "chroma_key": {
+    "name": "cyan",
+    "hex": "#00FFFF",
+    "rgb": [
+      0,
+      255,
+      255
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "regatherR2": {
+      "frames": 4,
+      "fps": 12,
+      "loop": false,
+      "action": "Exactly four INTERVENING whole-body drawings between supplied LOW-BAT endpoint and exact canonical READY. Do not repeat endpoints. The grip travels evenly about20%,40%,60%,80% along the modest low-waist to rear-right-shoulder arc; never above the helmet. The visible straight bat lifts on the FRONT side through projected angles about25,55,85,115 degrees above image-right horizontal, then exactREADY points about135degreesupper-left. No instant90degreebatflip, no magical endcaps. Near anatomicalRIGHT rear shoe stays planted at LOWER-LEFT once heel is down. Far anatomicalLEFT lead shoe makes ONE small reposition towards UPPER-RIGHT back to the exactREADY depth, NOTtoward the near shoe and NOT side-by-side. Match final READY foot-depth: far sole about43storagepixels ABOVE the near sole on256canvas, not the30px side-view flattening in a rejected prior take. Chest/hips/knees settle intoREADY gradually; no shuffles, toe-tapping, camera changes, body shrink, or dislocatedhands. Preserve192storagepx adult body height."
+    }
+  },
+  "style": "Match the existing clean128logical-pixel native sprite, enlarged2x into256storage. Strong readable clusters: warm ivory lit planes from upper-right stadium lights, cool slate-blue shadows on left/down planes, navy silhouette. At least3 value groups, no stippling, no new fine cloth texture. Existing base anatomy, camera and identity remain fixed; body crown-to-cleat about192storage pixels. Each frame is a physical continuation with full body mechanics, not crossfade or abstract deformation.",
+  "body_plan": [
+    {
+      "plan": "biped",
+      "figure": ""
+    }
+  ],
+  "layout": "taxonomy/v1",
+  "fit": {
+    "pixel_unfake": true,
+    "logical_height": 128,
+    "palette_size": 96,
+    "align_x": "bbox-center",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "detail_bias": false,
+    "outline": false
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}
+
+

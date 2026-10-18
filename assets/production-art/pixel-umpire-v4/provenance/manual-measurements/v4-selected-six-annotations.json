@@ -1,0 +1,831 @@
+{
+  "schema": "selected-six-pose-annotations/v1",
+  "status": "manual native-grid QA; all listed point coordinates pixel-alpha checked against matching 256x256 export",
+  "coordinateSystem": {
+    "origin": "top-left",
+    "units": "native pixels",
+    "dimensions": [
+      256,
+      256
+    ],
+    "pointConvention": "integer pixel center; every annotated point alpha=255",
+    "qaGrid": "qa-grid/{regatherR2-0..3,lowerBridge-0..1}-export-grid3x.png; 3x nearest enlargement with 16px grid",
+    "shoeQACrops": "qa-grid/{regatherR2-0..3,lowerBridge-0..1}-{rear,front}-shoe-zoom.png",
+    "exports": "regatherR2-export/frame-{0..3}.png and lowerBridge-export/frame-{0..1}.png"
+  },
+  "footIdentity": {
+    "rear": "anatomical RIGHT, near lower-left shoe in this camera; raised heel may coexist with planted toe",
+    "front": "anatomical LEFT lead shoe, far upper-right shoe; often foreshortened"
+  },
+  "boundsConvention": "inclusive [left,top,right,bottom], batter body and limbs only; bat excluded",
+  "selectedFrames": [
+    {
+      "source": "regatherR2-export/frame-0.png",
+      "run": "regatherR2-run",
+      "sourceFrame": 0,
+      "bodyBounds": [
+        52,
+        47,
+        149,
+        239
+      ],
+      "uncertainty": "Rear shoe is the near lower-left foot; heel lifts, toe/forefoot sole remains planted. Far foot is foreshortened but visible sole strip is retained.",
+      "bodyHeightHelmetToSolePx": 193,
+      "landmarks": {
+        "head": {
+          "point": [
+            108,
+            61
+          ],
+          "alpha": 255
+        },
+        "hip": {
+          "point": [
+            91,
+            137
+          ],
+          "alpha": 255
+        },
+        "grip": {
+          "point": [
+            120,
+            143
+          ],
+          "alpha": 255
+        },
+        "batTip": {
+          "point": [
+            199,
+            164
+          ],
+          "alpha": 255
+        },
+        "barrel": {
+          "point": [
+            177,
+            150
+          ],
+          "alpha": 255
+        },
+        "rearHeel": {
+          "point": [
+            54,
+            224
+          ],
+          "alpha": 255
+        },
+        "rearToe": {
+          "point": [
+            90,
+            235
+          ],
+          "alpha": 255
+        },
+        "rearContact": {
+          "point": [
+            90,
+            235
+          ],
+          "alpha": 255
+        },
+        "frontHeel": {
+          "point": [
+            111,
+            201
+          ],
+          "alpha": 255
+        },
+        "frontToe": {
+          "point": [
+            146,
+            201
+          ],
+          "alpha": 255
+        },
+        "frontContact": {
+          "point": [
+            146,
+            201
+          ],
+          "alpha": 255
+        }
+      },
+      "footGroundContact": {
+        "rear": {
+          "point": [
+            90,
+            235
+          ],
+          "touchesGround": true,
+          "contactType": "toe/forefoot sole"
+        },
+        "front": {
+          "point": [
+            146,
+            201
+          ],
+          "touchesGround": true,
+          "contactType": "sole paint",
+          "confidence": "low"
+        }
+      },
+      "soleEndpoints": {
+        "rear": {
+          "heel": [
+            54,
+            224
+          ],
+          "toe": [
+            90,
+            235
+          ]
+        },
+        "front": {
+          "heel": [
+            111,
+            201
+          ],
+          "toe": [
+            146,
+            201
+          ]
+        }
+      }
+    },
+    {
+      "source": "regatherR2-export/frame-1.png",
+      "run": "regatherR2-run",
+      "sourceFrame": 1,
+      "bodyBounds": [
+        54,
+        47,
+        155,
+        239
+      ],
+      "uncertainty": "Far shoe\u2019s short fragmented sole paint is low confidence; contact is marked on the visible pale segment, not the raised heel.",
+      "bodyHeightHelmetToSolePx": 193,
+      "landmarks": {
+        "head": {
+          "point": [
+            109,
+            61
+          ],
+          "alpha": 255
+        },
+        "hip": {
+          "point": [
+            91,
+            138
+          ],
+          "alpha": 255
+        },
+        "grip": {
+          "point": [
+            135,
+            131
+          ],
+          "alpha": 255
+        },
+        "batTip": {
+          "point": [
+            188,
+            70
+          ],
+          "alpha": 255
+        },
+        "barrel": {
+          "point": [
+            160,
+            104
+          ],
+          "alpha": 255
+        },
+        "rearHeel": {
+          "point": [
+            54,
+            224
+          ],
+          "alpha": 255
+        },
+        "rearToe": {
+          "point": [
+            93,
+            237
+          ],
+          "alpha": 255
+        },
+        "rearContact": {
+          "point": [
+            93,
+            237
+          ],
+          "alpha": 255
+        },
+        "frontHeel": {
+          "point": [
+            128,
+            198
+          ],
+          "alpha": 255
+        },
+        "frontToe": {
+          "point": [
+            138,
+            201
+          ],
+          "alpha": 255
+        },
+        "frontContact": {
+          "point": [
+            138,
+            201
+          ],
+          "alpha": 255
+        }
+      },
+      "footGroundContact": {
+        "rear": {
+          "point": [
+            93,
+            237
+          ],
+          "touchesGround": true,
+          "contactType": "toe/forefoot sole"
+        },
+        "front": {
+          "point": [
+            138,
+            201
+          ],
+          "touchesGround": true,
+          "contactType": "sole paint",
+          "confidence": "low"
+        }
+      },
+      "soleEndpoints": {
+        "rear": {
+          "heel": [
+            54,
+            224
+          ],
+          "toe": [
+            93,
+            237
+          ]
+        },
+        "front": {
+          "heel": [
+            128,
+            198
+          ],
+          "toe": [
+            138,
+            201
+          ]
+        }
+      }
+    },
+    {
+      "source": "regatherR2-export/frame-2.png",
+      "run": "regatherR2-run",
+      "sourceFrame": 2,
+      "bodyBounds": [
+        56,
+        47,
+        157,
+        239
+      ],
+      "uncertainty": "Bat tip is last visible orange pixel. Far sole patch is tiny and partially occluded; ground-contact point is low confidence.",
+      "bodyHeightHelmetToSolePx": 193,
+      "landmarks": {
+        "head": {
+          "point": [
+            124,
+            61
+          ],
+          "alpha": 255
+        },
+        "hip": {
+          "point": [
+            91,
+            137
+          ],
+          "alpha": 255
+        },
+        "grip": {
+          "point": [
+            149,
+            115
+          ],
+          "alpha": 255
+        },
+        "batTip": {
+          "point": [
+            78,
+            22
+          ],
+          "alpha": 255
+        },
+        "barrel": {
+          "point": [
+            95,
+            40
+          ],
+          "alpha": 255
+        },
+        "rearHeel": {
+          "point": [
+            60,
+            224
+          ],
+          "alpha": 255
+        },
+        "rearToe": {
+          "point": [
+            99,
+            237
+          ],
+          "alpha": 255
+        },
+        "rearContact": {
+          "point": [
+            99,
+            237
+          ],
+          "alpha": 255
+        },
+        "frontHeel": {
+          "point": [
+            140,
+            202
+          ],
+          "alpha": 255
+        },
+        "frontToe": {
+          "point": [
+            143,
+            203
+          ],
+          "alpha": 255
+        },
+        "frontContact": {
+          "point": [
+            143,
+            203
+          ],
+          "alpha": 255
+        }
+      },
+      "footGroundContact": {
+        "rear": {
+          "point": [
+            99,
+            237
+          ],
+          "touchesGround": true,
+          "contactType": "toe/forefoot sole"
+        },
+        "front": {
+          "point": [
+            143,
+            203
+          ],
+          "touchesGround": true,
+          "contactType": "sole paint",
+          "confidence": "low"
+        }
+      },
+      "soleEndpoints": {
+        "rear": {
+          "heel": [
+            60,
+            224
+          ],
+          "toe": [
+            99,
+            237
+          ]
+        },
+        "front": {
+          "heel": [
+            140,
+            202
+          ],
+          "toe": [
+            143,
+            203
+          ]
+        }
+      }
+    },
+    {
+      "source": "regatherR2-export/frame-3.png",
+      "run": "regatherR2-run",
+      "sourceFrame": 3,
+      "bodyBounds": [
+        56,
+        47,
+        162,
+        239
+      ],
+      "uncertainty": "Rear heel is lifted while the lower forefoot remains down. Far shoe sole is a narrow fragmented strip, low confidence.",
+      "bodyHeightHelmetToSolePx": 193,
+      "landmarks": {
+        "head": {
+          "point": [
+            128,
+            63
+          ],
+          "alpha": 255
+        },
+        "hip": {
+          "point": [
+            88,
+            138
+          ],
+          "alpha": 255
+        },
+        "grip": {
+          "point": [
+            150,
+            104
+          ],
+          "alpha": 255
+        },
+        "batTip": {
+          "point": [
+            78,
+            12
+          ],
+          "alpha": 255
+        },
+        "barrel": {
+          "point": [
+            98,
+            38
+          ],
+          "alpha": 255
+        },
+        "rearHeel": {
+          "point": [
+            60,
+            226
+          ],
+          "alpha": 255
+        },
+        "rearToe": {
+          "point": [
+            101,
+            237
+          ],
+          "alpha": 255
+        },
+        "rearContact": {
+          "point": [
+            101,
+            237
+          ],
+          "alpha": 255
+        },
+        "frontHeel": {
+          "point": [
+            120,
+            198
+          ],
+          "alpha": 255
+        },
+        "frontToe": {
+          "point": [
+            153,
+            200
+          ],
+          "alpha": 255
+        },
+        "frontContact": {
+          "point": [
+            153,
+            200
+          ],
+          "alpha": 255
+        }
+      },
+      "footGroundContact": {
+        "rear": {
+          "point": [
+            101,
+            237
+          ],
+          "touchesGround": true,
+          "contactType": "toe/forefoot sole"
+        },
+        "front": {
+          "point": [
+            153,
+            200
+          ],
+          "touchesGround": true,
+          "contactType": "sole paint",
+          "confidence": "low"
+        }
+      },
+      "soleEndpoints": {
+        "rear": {
+          "heel": [
+            60,
+            226
+          ],
+          "toe": [
+            101,
+            237
+          ]
+        },
+        "front": {
+          "heel": [
+            120,
+            198
+          ],
+          "toe": [
+            153,
+            200
+          ]
+        }
+      }
+    },
+    {
+      "source": "lowerBridge-export/frame-0.png",
+      "run": "lowerBridge-run",
+      "sourceFrame": 0,
+      "bodyBounds": [
+        58,
+        46,
+        173,
+        239
+      ],
+      "uncertainty": "The far shoe has a short painted sole line with gaps; selected toe/contact point is on the last visible segment.",
+      "bodyHeightHelmetToSolePx": 194,
+      "landmarks": {
+        "head": {
+          "point": [
+            127,
+            59
+          ],
+          "alpha": 255
+        },
+        "hip": {
+          "point": [
+            89,
+            133
+          ],
+          "alpha": 255
+        },
+        "grip": {
+          "point": [
+            157,
+            82
+          ],
+          "alpha": 255
+        },
+        "batTip": {
+          "point": [
+            136,
+            18
+          ],
+          "alpha": 255
+        },
+        "barrel": {
+          "point": [
+            143,
+            41
+          ],
+          "alpha": 255
+        },
+        "rearHeel": {
+          "point": [
+            60,
+            229
+          ],
+          "alpha": 255
+        },
+        "rearToe": {
+          "point": [
+            101,
+            237
+          ],
+          "alpha": 255
+        },
+        "rearContact": {
+          "point": [
+            101,
+            237
+          ],
+          "alpha": 255
+        },
+        "frontHeel": {
+          "point": [
+            118,
+            194
+          ],
+          "alpha": 255
+        },
+        "frontToe": {
+          "point": [
+            151,
+            194
+          ],
+          "alpha": 255
+        },
+        "frontContact": {
+          "point": [
+            151,
+            194
+          ],
+          "alpha": 255
+        }
+      },
+      "footGroundContact": {
+        "rear": {
+          "point": [
+            101,
+            237
+          ],
+          "touchesGround": true,
+          "contactType": "toe/forefoot sole"
+        },
+        "front": {
+          "point": [
+            151,
+            194
+          ],
+          "touchesGround": true,
+          "contactType": "sole paint",
+          "confidence": "low"
+        }
+      },
+      "soleEndpoints": {
+        "rear": {
+          "heel": [
+            60,
+            229
+          ],
+          "toe": [
+            101,
+            237
+          ]
+        },
+        "front": {
+          "heel": [
+            118,
+            194
+          ],
+          "toe": [
+            151,
+            194
+          ]
+        }
+      }
+    },
+    {
+      "source": "lowerBridge-export/frame-1.png",
+      "run": "lowerBridge-run",
+      "sourceFrame": 1,
+      "bodyBounds": [
+        58,
+        46,
+        173,
+        239
+      ],
+      "uncertainty": "The far sole line is segmented and foreshortened; toe/contact point is the rightmost visible sole pixel. Heel is not used as contact.",
+      "bodyHeightHelmetToSolePx": 194,
+      "landmarks": {
+        "head": {
+          "point": [
+            124,
+            60
+          ],
+          "alpha": 255
+        },
+        "hip": {
+          "point": [
+            90,
+            135
+          ],
+          "alpha": 255
+        },
+        "grip": {
+          "point": [
+            159,
+            91
+          ],
+          "alpha": 255
+        },
+        "batTip": {
+          "point": [
+            126,
+            28
+          ],
+          "alpha": 255
+        },
+        "barrel": {
+          "point": [
+            141,
+            55
+          ],
+          "alpha": 255
+        },
+        "rearHeel": {
+          "point": [
+            60,
+            229
+          ],
+          "alpha": 255
+        },
+        "rearToe": {
+          "point": [
+            99,
+            237
+          ],
+          "alpha": 255
+        },
+        "rearContact": {
+          "point": [
+            99,
+            237
+          ],
+          "alpha": 255
+        },
+        "frontHeel": {
+          "point": [
+            120,
+            194
+          ],
+          "alpha": 255
+        },
+        "frontToe": {
+          "point": [
+            151,
+            194
+          ],
+          "alpha": 255
+        },
+        "frontContact": {
+          "point": [
+            151,
+            194
+          ],
+          "alpha": 255
+        }
+      },
+      "footGroundContact": {
+        "rear": {
+          "point": [
+            99,
+            237
+          ],
+          "touchesGround": true,
+          "contactType": "toe/forefoot sole"
+        },
+        "front": {
+          "point": [
+            151,
+            194
+          ],
+          "touchesGround": true,
+          "contactType": "sole paint",
+          "confidence": "low"
+        }
+      },
+      "soleEndpoints": {
+        "rear": {
+          "heel": [
+            60,
+            229
+          ],
+          "toe": [
+            99,
+            237
+          ]
+        },
+        "front": {
+          "heel": [
+            120,
+            194
+          ],
+          "toe": [
+            151,
+            194
+          ]
+        }
+      }
+    }
+  ],
+  "unusedSourceFrames": {
+    "run": "lowerBridge-run",
+    "frames": [
+      2,
+      3
+    ],
+    "reason": "not selected in curation and not exported"
+  },
+  "limits": "Bounds, centers, and sole endpoints are manually estimated from native grid/crops. Far-foot contact is uncertain where sole paint is fragmented or occluded. Bat endpoints are last visibly painted orange pixels."
+}
+

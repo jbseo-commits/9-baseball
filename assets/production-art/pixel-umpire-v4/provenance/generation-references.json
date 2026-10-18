@@ -1,0 +1,165 @@
+{
+  "records": [
+    {
+      "name": "unwind",
+      "roles": [
+        {
+          "source": "references/v3-ready.png",
+          "role": "READY identity and camera",
+          "sourceEvidence": "prompt says Image1 exact native READY"
+        },
+        {
+          "source": "references/v3-finish-followB-frame-3.png",
+          "role": "finished swing START endpoint",
+          "sourceEvidence": "prompt says Image2 actual finished swing; V3 manifest maps source frame 19 to followB-frame-3"
+        },
+        {
+          "source": "runs/recovery-unwind/layout-guides/unwind.png",
+          "role": "official empty layout guide",
+          "sourceEvidence": "retained prepared run guide"
+        }
+      ]
+    },
+    {
+      "name": "stadium",
+      "roles": [
+        {
+          "source": "runs/stadium/base-source.png",
+          "role": "supplied stadium",
+          "sourceEvidence": "retained run base source"
+        },
+        {
+          "source": "runs/stadium/layout-guides/background.png",
+          "role": "prepared extraction geometry guide; attachment use not verified",
+          "sourceEvidence": "Retained pipeline guide alone is not evidence that it was attached to the standalone background generation."
+        }
+      ]
+    },
+    {
+      "name": "regather-rejected",
+      "roles": [
+        {
+          "source": "references/v3-ready.png",
+          "role": "canonical READY identity",
+          "sourceEvidence": "prompt role"
+        },
+        {
+          "source": null,
+          "role": "low-bat START endpoint",
+          "sourceEvidence": "prompt names role; exact attached file not retained"
+        },
+        {
+          "source": "not-retained",
+          "role": "empty layout guide",
+          "sourceEvidence": "prompt role only"
+        }
+      ]
+    },
+    {
+      "name": "lowerBridge",
+      "roles": [
+        {
+          "source": "references/v3-ready.png",
+          "role": "READY identity/density/camera",
+          "sourceEvidence": "prompt role"
+        },
+        {
+          "source": null,
+          "role": "START and END motion-only endpoints for the requested lowering interval",
+          "sourceEvidence": "Generic prompt names START/END; its parenthetical low-bat/READY clause applies to regather, not this state. Exact attachment filenames not retained in the packet."
+        },
+        {
+          "source": "runs/lowerBridge/layout-guides/lowerBridge.png",
+          "role": "four-slot geometry guide",
+          "sourceEvidence": "retained prepared run guide"
+        }
+      ]
+    },
+    {
+      "name": "regatherR2",
+      "roles": [
+        {
+          "source": "references/v3-ready.png",
+          "role": "READY identity/density/camera",
+          "sourceEvidence": "prompt role"
+        },
+        {
+          "source": null,
+          "role": "low-bat START endpoint",
+          "sourceEvidence": "prompt role; exact attached image not retained"
+        },
+        {
+          "source": "runs/regatherR2/layout-guides/regatherR2.png",
+          "role": "four-slot geometry guide",
+          "sourceEvidence": "retained prepared run guide"
+        }
+      ]
+    },
+    {
+      "name": "lowerBridgeR2-rejected",
+      "roles": [
+        {
+          "source": "references/v3-ready.png",
+          "role": "READY identity/density/camera",
+          "sourceEvidence": "prompt role"
+        },
+        {
+          "source": null,
+          "role": "finish/intermediate endpoints",
+          "sourceEvidence": "prompt describes Image1 start and Image2 end; exact sources not retained"
+        },
+        {
+          "source": null,
+          "role": "geometry guide",
+          "sourceEvidence": "prompt role; no retained run for this rejected take"
+        }
+      ]
+    },
+    {
+      "name": "lowerMid-rejected",
+      "roles": [
+        {
+          "source": "native-exports/09_unwind/frame-0.png",
+          "role": "just-finished unwind identity/pose Image1",
+          "sourceEvidence": "Actual built-in call used curated unwind-frame-0, not V3 finish19."
+        },
+        {
+          "source": null,
+          "role": "one-slot guide",
+          "sourceEvidence": "prompt role; guide not retained"
+        }
+      ]
+    },
+    {
+      "name": "lowerMidR2",
+      "roles": [
+        {
+          "source": "native-exports/09_unwind/frame-1.png",
+          "role": "upper-chest pose/identity Image1",
+          "sourceEvidence": "Actual built-in call used curated unwind-frame-1."
+        },
+        {
+          "source": "runs/lowerMidR2/layout-guides/lowerMid.png",
+          "role": "one-slot guide",
+          "sourceEvidence": "retained prepared run guide"
+        }
+      ]
+    },
+    {
+      "name": "lowerOccluded",
+      "roles": [
+        {
+          "source": "runs/lowerOccluded/base-source.png",
+          "role": "identity/camera Image1",
+          "sourceEvidence": "retained base source; prompt role"
+        },
+        {
+          "source": "runs/lowerOccluded/layout-guides/lowerMid.png",
+          "role": "one-slot guide",
+          "sourceEvidence": "retained prepared run guide"
+        }
+      ]
+    }
+  ],
+  "schema": "generation-references/v1"
+}

@@ -3,8 +3,8 @@ import React,{createRef} from 'react';
 import {act,cleanup,render} from '@testing-library/react';
 import {afterEach,beforeEach,describe,expect,it,vi} from 'vitest';
 import PixelUmpireScene from '../src/duel/PixelUmpireScene.jsx';
-import {PIXEL_SCENE_WIDTH} from '../src/duel/pixel-umpire-motion.js';
-import v3Manifest from '../assets/production-art/pixel-umpire-v3/runtime/manifest.json' with {type:'json'};
+import {atlasCell,physicalPitchPoint,PIXEL_SCENE_WIDTH,sourcePointForFrame} from '../src/duel/pixel-umpire-motion.js';
+import v3Manifest from '../assets/production-art/pixel-umpire-v4/runtime/manifest.json' with {type:'json'};
 
 const makeContext=()=>({
   clearRect:vi.fn(),drawImage:vi.fn(),save:vi.fn(),restore:vi.fn(),translate:vi.fn(),scale:vi.fn(),rotate:vi.fn(),
@@ -12,6 +12,7 @@ const makeContext=()=>({
 });
 let images,context,raf,cancelRaf,onReady,layout;
 const authoredTimelines=JSON.parse(JSON.stringify(v3Manifest.atlases.batter.timelines));
+const authoredFrame8Grounding=v3Manifest.atlases.batter.frames[8].grounding;
 
 class DeferredImage{
   constructor(){this.complete=false;this.naturalWidth=0;this.naturalHeight=0;this.decoding='';images.push(this);}
@@ -35,7 +36,7 @@ function harness(props={}){
 async function loadAll(){
   await act(async()=>{
     for(const image of [...images]){
-      const dimensions=image.src?.includes('stadium')?[384,576]:image.src?.includes('batter-atlas')?[1024,2304]:image.src?.includes('red-rush-atlas')?[1024,768]:image.src?.includes('mound')?[192,64]:[1000,1200];
+      const dimensions=image.src?.includes('stadium')?[384,576]:image.src?.includes('batter-atlas')?[1024,3584]:image.src?.includes('red-rush-atlas')?[1024,768]:image.src?.includes('mound')?[192,64]:[1000,1200];
       image.load(...dimensions);
     }
     await Promise.resolve();await Promise.resolve();
@@ -60,10 +61,10 @@ beforeEach(()=>{
     return rect(0,0,0,0);
   });
 });
-afterEach(()=>{cleanup();v3Manifest.atlases.batter.timelines=JSON.parse(JSON.stringify(authoredTimelines));vi.restoreAllMocks();vi.unstubAllGlobals();});
+afterEach(()=>{cleanup();v3Manifest.atlases.batter.timelines=JSON.parse(JSON.stringify(authoredTimelines));if(authoredFrame8Grounding===undefined)delete v3Manifest.atlases.batter.frames[8].grounding;else v3Manifest.atlases.batter.frames[8].grounding=authoredFrame8Grounding;vi.restoreAllMocks();vi.unstubAllGlobals();});
 
 describe('PixelUmpireScene canvas lifecycle',()=>{
-  it('keeps V3 recovery through its authored 1440ms ready and hands back without skipping that pose',async()=>{
+  it('keeps recovery through its authored ready and hands back without skipping that pose',async()=>{
     let now=0;
     vi.spyOn(performance,'now').mockImplementation(()=>now);
     const view=harness({fxStage:'impact',shot:{grade:'single',motion:{duration:1600}},impactAt:630,playToken:31,pitchZone:4,revealed:{action:'swing',kind:'hit'}});
@@ -82,9 +83,10 @@ describe('PixelUmpireScene canvas lifecycle',()=>{
     await act(async()=>contactFrame?.(630));
     expect(lastFrame()).toBe(8);
     view.rerender(<section ref={view.sceneRef} className="bp-scene"><div className="bp-zone"/><div className="bp-pitcher"/><PixelUmpireScene sceneRef={view.sceneRef} pitcherAtlas="/pitcher-violet.png" artId="regular-05-violet-sting" shot={{grade:'single',motion:{duration:1600}}} fxStage="windup" impactAt={1200} playToken={32} pitchZone={4} revealed={{action:'swing',kind:'hit'}} onReady={onReady}/></section>);
-    await nextFrame(2100); // old impact + 1470 wall ms = 1420ms on the shared post-impact clock
-    expect(lastFrame()).toBe(23);
-    await nextFrame(2120); // old track reaches its authored 1440ms ready frame
+    const readyAt=authoredTimelines.swing.at(-1).atMs;
+    await nextFrame(630+50+readyAt-20); // shared post-impact clock preserves its visual hold
+    expect(lastFrame()).toBe(authoredTimelines.swing.at(-2).frame);
+    await nextFrame(630+50+readyAt);
     expect(lastFrame()).toBe(0);
   });
 
@@ -129,6 +131,59 @@ describe('PixelUmpireScene canvas lifecycle',()=>{
     view.rerender(<section ref={view.sceneRef} className="bp-scene"><div className="bp-zone"/><div className="bp-pitcher"/><PixelUmpireScene sceneRef={view.sceneRef} pitcherAtlas="/pitcher-violet.png" artId="regular-05-violet-sting" shot={{grade:'single',motion:{duration:1500}}} fxStage="windup" impactAt={1200} playToken={3} pitchZone={4} revealed={{action:'swing',kind:'hit'}} onReady={onReady}/></section>);
     await nextFrame(2600);
     expect(lastFrame()).toBe(3); // reduced motion samples the current play's fixed windup pose
+  });
+
+  it('keeps the previous action plant context when a swing recovery overlaps a new bunt',async()=>{
+    let now=0;vi.spyOn(performance,'now').mockImplementation(()=>now);
+    v3Manifest.atlases.batter.timelines={readyFrame:0,swing:[
+      {atMs:-1500,frame:0,phase:'windup'},
+      {atMs:0,frame:6,phase:'follow'},
+      {atMs:700,frame:0,phase:'ready'},
+    ],bunt:authoredTimelines.bunt,take:authoredTimelines.take};
+    const view=harness();
+    const atlas=images.find(image=>image.src?.includes('batter-atlas')),draws=[];let lastTranslate=null;
+    context.translate.mockImplementation((...args)=>{lastTranslate=args;});
+    context.drawImage.mockImplementation((image,...args)=>{
+      if(image===atlas){const index=Math.round(args[1]/256)*4+Math.round(args[0]/256);draws.push({index,translate:lastTranslate});}
+    });
+    await loadAll();
+    await act(async()=>raf.mock.calls.at(-1)?.[0]?.(0));
+    const readyTranslate=draws.find(entry=>entry.index===0)?.translate;
+    expect(readyTranslate).toBeDefined();
+    view.rerender(<section ref={view.sceneRef} className="bp-scene"><div className="bp-zone"/><div className="bp-pitcher"/><PixelUmpireScene sceneRef={view.sceneRef} pitcherAtlas="/pitcher-violet.png" artId="regular-05-violet-sting" shot={{grade:'single',motion:{duration:1500}}} fxStage="impact" impactAt={0} playToken={1} pitchZone={4} revealed={{action:'swing',kind:'hit'}} onReady={onReady}/></section>);
+    await act(async()=>raf.mock.calls.at(-1)?.[0]?.(0));
+    const swingTranslate=draws.filter(entry=>entry.index===6).at(-1)?.translate;
+    expect(swingTranslate).toBeDefined();
+    view.rerender(<section ref={view.sceneRef} className="bp-scene"><div className="bp-zone"/><div className="bp-pitcher"/><PixelUmpireScene sceneRef={view.sceneRef} pitcherAtlas="/pitcher-violet.png" artId="regular-05-violet-sting" shot={{grade:'single',motion:{duration:1500}}} fxStage="windup" impactAt={1200} playToken={2} pitchZone={4} revealed={{action:'bunt',kind:'hit'}} onReady={onReady}/></section>);
+    now=100;const callback=raf.mock.calls.at(-1)?.[0];await act(async()=>callback?.(now));
+    const recoveryTranslate=draws.filter(entry=>entry.index===6).at(-1)?.translate;
+    expect(recoveryTranslate).toBeDefined();
+    expect(recoveryTranslate).toEqual(swingTranslate); // It must retain its old swing transform through the next bunt windup.
+  });
+
+  it('uses the contact frame grounding reference to place the contact point on the visible bat',async()=>{
+    vi.spyOn(performance,'now').mockReturnValue(0);
+    const art=v3Manifest.atlases.batter,frame=art.frames[8];
+    frame.grounding={support:'rear',targetFrame:3,targetSupport:'front'};
+    const contactPointRef=createRef(),view=harness({fxStage:'impact',shot:{grade:'single',motion:{duration:1200}},impactAt:0,playToken:1,pitchZone:4,revealed:{action:'swing',kind:'hit'},contactPointRef});
+    const atlas=images.find(image=>image.src?.includes('batter-atlas'));let translate=null,scale=null,contactSprite=null;
+    context.translate.mockImplementation((...args)=>{translate=args;});
+    context.scale.mockImplementation((...args)=>{scale=args;});
+    context.drawImage.mockImplementation((image,...args)=>{
+      if(image!==atlas)return;
+      const index=Math.round(args[1]/256)*4+Math.round(args[0]/256);
+      if(index===8)contactSprite={translate,scale,offset:{x:args[4],y:args[5]}};
+    });
+    await loadAll();await act(async()=>raf.mock.calls.at(-1)?.[0]?.(0));
+    expect(contactSprite).toBeDefined();
+    const cell=atlasCell(v3Manifest,art),barrelSource=sourcePointForFrame(frame,'barrel',cell),barrel={
+      x:contactSprite.translate[0]+(barrelSource.x+contactSprite.offset.x)*contactSprite.scale[0],
+      y:contactSprite.translate[1]+(barrelSource.y+contactSprite.offset.y)*contactSprite.scale[1],
+    };
+    const axis={x:frame.anchors.batAxis[0],y:frame.anchors.batAxis[1],unitScale:contactSprite.scale[0]*(cell.scale||1)};
+    const expected=physicalPitchPoint(4,barrel,axis);
+    expect(contactPointRef.current.x*PIXEL_SCENE_WIDTH/390).toBeCloseTo(expected.x,6);
+    expect(contactPointRef.current.y*477/484).toBeCloseTo(expected.y,6);
   });
 
   it('loads all local art, draws a native canvas scene, then reports ready',async()=>{

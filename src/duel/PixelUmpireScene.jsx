@@ -1,13 +1,13 @@
 import React,{useEffect,useRef} from 'react';
-import manifest from '../../assets/production-art/pixel-umpire-v3/runtime/manifest.json' with {type:'json'};
-import stadiumUrl from '../../assets/production-art/pixel-umpire-v2/runtime/stadium.png';
-import batterAtlasUrl from '../../assets/production-art/pixel-umpire-v3/runtime/batter-atlas.png';
+import manifest from '../../assets/production-art/pixel-umpire-v4/runtime/manifest.json' with {type:'json'};
+import stadiumUrl from '../../assets/production-art/pixel-umpire-v4/runtime/stadium.png';
+import batterAtlasUrl from '../../assets/production-art/pixel-umpire-v4/runtime/batter-atlas.png';
 import redRushAtlasUrl from '../../assets/production-art/pixel-umpire-v2/runtime/red-rush-atlas.png';
 import moundUrl from '../../assets/production-art/pixel-umpire-v2/runtime/mound.png';
 import {PITCH_FLIGHT_MS,RED_RUSH_ASSET_ID,hasPitchVisual,redRushFrameAt,redRushTimeline,withKnockoutHold} from './pitcher-sd.js';
 import RELEASE from './pitcher-release.json';
 import STANCE from './pitcher-stance.json';
-import {atlasCell,atlasMotion,BATTER_BOX_CENTER_LATERAL_FT,BATTER_REAR_LATERAL_FT,batterPlantTransform,cancelAnimationFrameId,contactShadowRects,coverPlacement,createFieldCamera,impactPresentationElapsed,incomingPitchPoint,normalizedActorFrame,outgoingPitchPoint,passedPitchPoint,physicalPitchPoint,pixelBallRects,pixelPitcherFrame,projectBatterBox,projectFieldHeight,projectFieldPoint,projectHomePlate,PLATE_TO_RUBBER_FT,PIXEL_SCENE_WIDTH,responsiveFieldCameraFraming,safe2dContext,shouldAnimatePixelScene,sourceFeetForFrame,sourcePointForFrame,sourceSoleGroundline,stageMotionElapsed,trackRecoveryDuration,sampleMotionTrack,transformedPoint} from './pixel-umpire-motion.js';
+import {actorShadowProjection,atlasCell,atlasMotion,BATTER_BOX_CENTER_LATERAL_FT,BATTER_REAR_LATERAL_FT,batterPlantTransform,cancelAnimationFrameId,contactShadowRects,coverPlacement,createFieldCamera,createFrameMaskCache,impactPresentationElapsed,incomingPitchPoint,normalizedActorFrame,outgoingPitchPoint,passedPitchPoint,physicalPitchPoint,pixelBallRects,pixelPitcherFrame,projectBatterBox,projectFieldHeight,projectFieldPoint,projectHomePlate,PLATE_TO_RUBBER_FT,PIXEL_SCENE_WIDTH,responsiveFieldCameraFraming,safe2dContext,shouldAnimatePixelScene,sourceFeetForFrame,sourcePointForFrame,sourceSoleGroundline,stageMotionElapsed,stadiumLitPixel,trackRecoveryDuration,sampleMotionTrack,transformedPoint} from './pixel-umpire-motion.js';
 import './pixel-umpire-scene.css';
 
 const loadImage=src=>new Promise((resolve,reject)=>{
@@ -20,11 +20,12 @@ const authoredBodyHeight=(bounds,cellHeight)=>{
   if(!(height>0))return cellHeight*.78;
   return height<=1?height*cellHeight:height;
 };
-const drawSprite=(ctx,image,rect,w,h,transform)=>{
+const drawSprite=(ctx,image,rect,w,h,transform,surface=null)=>{
   ctx.save();ctx.translate(round(transform.x),round(transform.y));
   if(transform.rotation)ctx.rotate(transform.rotation);
   ctx.scale(transform.scale,transform.scale);
-  ctx.drawImage(image,rect.sx,rect.sy,rect.sw,rect.sh,-round(transform.anchor.x),-round(transform.anchor.y),rect.sw,rect.sh);
+  if(surface)ctx.drawImage(surface,0,0,rect.sw,rect.sh,-round(transform.anchor.x),-round(transform.anchor.y),rect.sw,rect.sh);
+  else ctx.drawImage(image,rect.sx,rect.sy,rect.sw,rect.sh,-round(transform.anchor.x),-round(transform.anchor.y),rect.sw,rect.sh);
   ctx.restore();
 };
 const cover=(ctx,image,w,h,fieldLineY,desiredHorizon)=>{
@@ -35,6 +36,35 @@ const drawContactShadow=(ctx,frontFoot,scale)=>{
   const shadow=contactShadowRects(frontFoot,scale);if(!shadow)return;
   ctx.save();ctx.fillStyle='#352d28';ctx.fillRect(shadow.outer.x,shadow.outer.y,shadow.outer.width,shadow.outer.height);
   ctx.fillStyle='#6b513d';ctx.fillRect(shadow.inner.x,shadow.inner.y,shadow.inner.width,shadow.inner.height);ctx.restore();
+};
+const createActorFrameAssets=(image,rect)=>{
+  if(typeof document==='undefined'||typeof document.createElement!=='function'||!image||!rect)return null;
+  try{
+    const source=document.createElement('canvas');source.width=rect.sw;source.height=rect.sh;
+    const sourceCtx=source.getContext?.('2d');if(!sourceCtx?.drawImage)return null;
+    sourceCtx.imageSmoothingEnabled=false;sourceCtx.drawImage(image,rect.sx,rect.sy,rect.sw,rect.sh,0,0,rect.sw,rect.sh);
+    let surface=source;
+    try{
+      const pixels=sourceCtx.getImageData(0,0,rect.sw,rect.sh),data=pixels.data;
+      for(let i=0;i<data.length;i+=4){if(data[i+3]===0)continue;const lit=stadiumLitPixel(data[i],data[i+1],data[i+2],data[i+3]);data[i]=lit[0];data[i+1]=lit[1];data[i+2]=lit[2];}
+      sourceCtx.putImageData(pixels,0,0);
+    }catch{surface=null;}
+    let shadow=null;
+    try{
+      shadow=document.createElement('canvas');shadow.width=rect.sw;shadow.height=rect.sh;
+      const shadowCtx=shadow.getContext?.('2d');if(!shadowCtx?.drawImage)shadow=null;
+      else{shadowCtx.imageSmoothingEnabled=false;shadowCtx.drawImage(source,0,0);shadowCtx.globalCompositeOperation='source-in';shadowCtx.fillStyle='#16151a';shadowCtx.fillRect(0,0,rect.sw,rect.sh);}
+    }catch{shadow=null;}
+    return {surface,shadow};
+  }catch{return null;}
+};
+const actorFrameAssets=(image,rect,frameKey,cache)=>cache.get(frameKey,()=>createActorFrameAssets(image,rect)||false)||{surface:null,shadow:null};
+const drawActorSilhouetteShadow=(ctx,shadow,transform)=>{
+  if(!ctx?.transform||!ctx?.translate||!shadow||!transform?.anchor||!Number.isFinite(transform.scale))return false;
+  const projection=actorShadowProjection({target:{x:transform.x,y:transform.y},scale:transform.scale,anchor:transform.anchor});
+  if(!projection)return false;
+  const {matrix,anchor,target}=projection;
+  ctx.save();ctx.globalAlpha=.28;ctx.translate(target.x,target.y);ctx.transform(matrix.a,matrix.b,matrix.c,matrix.d,matrix.e,matrix.f);ctx.drawImage(shadow,-anchor.x,-anchor.y);ctx.restore();return true;
 };
 const soleCenter=(frame,side,cell)=>{
   const line=sourceSoleGroundline(frame,side,cell);
@@ -119,9 +149,10 @@ export default function PixelUmpireScene({sceneRef,pitcherAtlas,artId,shot,fxSta
 
   useEffect(()=>{
     let alive=true,raf=0,ro=null,mo=null,ctx=null,ballCtx=null,scene=null,canvas=null,ballCanvas=null,startAt=0,lastToken=null,tailAt=null,images=null,lastReady=null,contextLost=false,lastActorPlay=null,recovery=null;
+    const batterFrameCache=createFrameMaskCache(16),pitcherFrameCache=createFrameMaskCache(16);
     const ready=value=>{if(lastReady!==value){lastReady=value;live.current.onReady?.(value);}};
     const recoveryAlive=(play,now)=>!!play&&now>=play.impactTime&&impactPresentationElapsed(now-play.impactTime,0,'release')<play.recoveryMs;
-    const cleanup=()=>{alive=false;raf=cancelAnimationFrameId(raf);ro?.disconnect();mo?.disconnect();window.removeEventListener('resize',resize);document.removeEventListener('visibilitychange',visibility);canvas?.removeEventListener('contextlost',lost);canvas?.removeEventListener('contextrestored',restored);ballCanvas?.removeEventListener('contextlost',lost);ballCanvas?.removeEventListener('contextrestored',restored);scene?.removeAttribute('data-pixel-umpire-short-scene');ready(false);};
+    const cleanup=()=>{alive=false;raf=cancelAnimationFrameId(raf);batterFrameCache.clear();pitcherFrameCache.clear();ro?.disconnect();mo?.disconnect();window.removeEventListener('resize',resize);document.removeEventListener('visibilitychange',visibility);canvas?.removeEventListener('contextlost',lost);canvas?.removeEventListener('contextrestored',restored);ballCanvas?.removeEventListener('contextlost',lost);ballCanvas?.removeEventListener('contextrestored',restored);scene?.removeAttribute('data-pixel-umpire-short-scene');ready(false);};
     const resize=()=>{if(!canvas||!scene||!ctx)return;const r=scene.getBoundingClientRect();if(!r.width||!r.height)return;
       const height=Math.max(1,round(PIXEL_SCENE_WIDTH*r.height/r.width));
       if(canvas.width!==PIXEL_SCENE_WIDTH||canvas.height!==height){canvas.width=PIXEL_SCENE_WIDTH;canvas.height=height;}
@@ -156,20 +187,22 @@ export default function PixelUmpireScene({sceneRef,pitcherAtlas,artId,shot,fxSta
       const batterInfo=manifest.atlases.batter,batStates=batterInfo.states,batterCell=atlasCell(manifest,batterInfo);
       const actorAction=state.revealed?.action||'swing',actorKind=state.revealed?.kind||'whiff',actorTimelines=batterInfo.timelines;
       const currentTrack=actorTimelines?.[actorAction==='bunt'?'bunt':actorAction==='take'?'take':'swing'];
+      const plantConfig=action=>action==='take'?{plantStart:null,plantFrames:[]}:action==='bunt'?{plantStart:25,plantFrames:[25,26,27,28,29,30,31]}:{plantStart:3,plantFrames:[3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,20,21,22,23,32,33,34,35,36,37,38,39,40,41,42,43]};
       const readyIndex=batStates.reset[batStates.reset.length-1],readyFrame=Number.isInteger(actorTimelines?.readyFrame)?actorTimelines.readyFrame:readyIndex;
       const recoveryElapsed=recovery?impactPresentationElapsed(now-recovery.impactTime,0,'release'):null;
       const recoveryActive=!!recovery&&now>=recovery.impactTime&&recoveryElapsed<recovery.recoveryMs;
       const gatherAt=currentTrack?.find(entry=>entry?.phase==='gather'&&Number.isFinite(entry.atMs))?.atMs??-700;
       const newPlayStillOpening=active&&!reduceMotion&&state.fxStage==='windup'&&!!currentTrack&&clockElapsed-(Number(state.impactAt)||0)<gatherAt;
-      const recoveryPhase=recoveryActive&&(!active||newPlayStillOpening)?sampleMotionTrack(recovery.track,recoveryElapsed,{contact:recovery.contact,readyFrame:recovery.readyFrame}):null;
-      const phase=recoveryPhase?{phase:recoveryPhase.phase,batter:recoveryPhase.frame,pitcher:'idle',attacking:true,contact:recovery.contact}:
+      const sampledRecovery=recoveryActive&&(!active||newPlayStillOpening)?sampleMotionTrack(recovery.track,recoveryElapsed,{contact:recovery.contact,readyFrame:recovery.readyFrame}):null;
+      const recoveryPhase=sampledRecovery?{...sampledRecovery,action:recovery.action,plantConfig:recovery.plantConfig,grounding:recovery.groundingByFrame?.[sampledRecovery.frame]||null}:null;
+      const phase=recoveryPhase?{phase:recoveryPhase.phase,batter:recoveryPhase.frame,pitcher:'idle',attacking:true,contact:recovery.contact,action:recoveryPhase.action,grounding:recoveryPhase.grounding}:
         atlasMotion({stage:sampledStage,elapsed,actorElapsed,impactAt:state.impactAt,action:actorAction,kind:actorKind,bunt:actorAction==='bunt',states:batStates,poseOrder:batterInfo.poseOrder||'v1',timelines:actorTimelines});
       if(active&&currentTrack){
-        lastActorPlay={playToken:state.playToken,track:currentTrack,contact:['hit','foul','sacrifice','out'].includes(actorKind),readyFrame,impactTime:startAt+Math.max(0,Number(state.impactAt)||0),recoveryMs:trackRecoveryDuration(currentTrack,readyFrame)};
+        lastActorPlay={playToken:state.playToken,track:currentTrack,action:actorAction,plantConfig:plantConfig(actorAction),groundingByFrame:Object.fromEntries(currentTrack.map(entry=>[entry.frame,batterInfo.frames?.[entry.frame]?.grounding||null])),contact:['hit','foul','sacrifice','out'].includes(actorKind),readyFrame,impactTime:startAt+Math.max(0,Number(state.impactAt)||0),recoveryMs:trackRecoveryDuration(currentTrack,readyFrame)};
       }
       if(!recoveryActive)recovery=null;
       const batterAtlas=images.batter,batInfo=batterInfo,batRect=atlasFrame(batterAtlas,batInfo.columns,batInfo.rows,phase.batter);
-      const batterFrames=batInfo.frames||manifest.frames?.batter||[],frame=batterFrames[phase.batter],feet=sourceFeetForFrame(frame,batterCell);
+      const batterFrames=batInfo.frames||manifest.frames?.batter||[],frame=batterFrames[phase.batter],authoredFrame=phase.grounding?{...frame,grounding:phase.grounding}:frame,feet=sourceFeetForFrame(frame,batterCell);
       const referenceBatterFrame=batterFrames[readyIndex];
       const batterBounds=referenceBatterFrame?.bounds||referenceBatterFrame?.contentBounds;
       const batterHeight=g?.batterHeight||Math.min(w/100,h/118)*6.1;
@@ -182,9 +215,10 @@ export default function PixelUmpireScene({sceneRef,pitcherAtlas,artId,shot,fxSta
       const batterTarget=g?.batterRear||{x:round(w*.25),y:round(h-w*.025)};
       const batterRearFoot=sourcePointForFrame(frame,'feet',batterCell)||feet?.rear,batterFrontFoot=sourcePointForFrame(frame,'frontFoot',batterCell);
       const rearGroundline=soleCenter(frame,'rear',batterCell),frontGroundline=soleCenter(frame,'front',batterCell);
-      const plantStart=actorAction==='bunt'?25:3,plantEnd=actorAction==='bunt'?31:23;
-      const plantFrames=actorAction==='take'?[]:actorAction==='bunt'?[25,26,27,28,29,30,31]:[3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,20,21,22,23,32,33,34,35];
-      const batFit=batterPlantTransform({frame,frameIndex:phase.batter,readyFrame:referenceBatterFrame,plantFrame:batterFrames[plantStart],plantFrames,cell:batterCell,targetRear:batterTarget,targetHeight:batterHeight,referenceBodyHeight:authoredBodyHeight(batterBounds,batRect.sh)});
+      const {plantStart,plantFrames}=recoveryPhase?recoveryPhase.plantConfig:plantConfig(actorAction);
+      const batFit=batterPlantTransform({frame:authoredFrame,frameIndex:phase.batter,readyFrame:referenceBatterFrame,plantFrame:plantStart==null?null:batterFrames[plantStart],plantFrames,frames:batterFrames,cell:batterCell,targetRear:batterTarget,targetHeight:batterHeight,referenceBodyHeight:authoredBodyHeight(batterBounds,batRect.sh)});
+      const batterAssets=actorFrameAssets(batterAtlas,batRect,phase.batter,batterFrameCache);
+      drawActorSilhouetteShadow(ctx,batterAssets.shadow,batFit);
       if(frame?.footContact?.rear!==false){
         const rearShadowSource=rearGroundline||batterRearFoot;
         if(rearShadowSource)drawContactShadow(ctx,transformedPoint(rearShadowSource,batFit),batFit.scale);
@@ -193,12 +227,12 @@ export default function PixelUmpireScene({sceneRef,pitcherAtlas,artId,shot,fxSta
         const frontShadowSource=frontGroundline||batterFrontFoot;
         if(frontShadowSource)drawContactShadow(ctx,transformedPoint(frontShadowSource,batFit),batFit.scale);
       }
-      drawSprite(ctx,batterAtlas,batRect,w,h,batFit);
+      drawSprite(ctx,batterAtlas,batRect,w,h,batFit,batterAssets.surface);
       const contactStates=state.revealed?.action==='bunt'?batStates.bunt||batStates.swing:batStates.swing;
       const contactIndex=contactStates[Math.min(2,contactStates.length-1)],contactFrame=batterFrames[contactIndex],contactRect=atlasFrame(batterAtlas,batInfo.columns,batInfo.rows,contactIndex);
       const contactPlantStart=state.revealed?.action==='bunt'?25:3;
       const contactPlantFrames=state.revealed?.action==='bunt'?[25,26,27,28,29,30,31]:[3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,20,21,22,23,32,33,34,35];
-      const contactFit=batterPlantTransform({frame:contactFrame,frameIndex:contactIndex,readyFrame:referenceBatterFrame,plantFrame:batterFrames[contactPlantStart],plantFrames:contactPlantFrames,cell:batterCell,targetRear:batterTarget,targetHeight:batterHeight,referenceBodyHeight:authoredBodyHeight(batterBounds,contactRect.sh)});
+      const contactFit=batterPlantTransform({frame:contactFrame,frameIndex:contactIndex,readyFrame:referenceBatterFrame,plantFrame:batterFrames[contactPlantStart],plantFrames:contactPlantFrames,frames:batterFrames,cell:batterCell,targetRear:batterTarget,targetHeight:batterHeight,referenceBodyHeight:authoredBodyHeight(batterBounds,contactRect.sh)});
       const barrelSource=sourcePointForFrame(contactFrame,'barrel',batterCell),barrelScene=barrelSource&&transformedPoint(barrelSource,contactFit);
       const grip=sourcePointForFrame(contactFrame,'grip',batterCell),axisAnchor=contactFrame?.anchors?.batAxis;
       const unitScale=contactFit.scale*(batterCell.scale||1);
@@ -206,13 +240,14 @@ export default function PixelUmpireScene({sceneRef,pitcherAtlas,artId,shot,fxSta
       const contactPoint=Number.isInteger(state.pitchZone)&&barrelScene?physicalPitchPoint(state.pitchZone,barrelScene,batAxis):null;
       if(state.contactPointRef){const sr=scene.getBoundingClientRect();state.contactPointRef.current=contactPoint?{x:contactPoint.x*sr.width/w,y:contactPoint.y*sr.height/h,sw:sr.width,sh:sr.height}:null;}
       const isRedRush=state.artId===RED_RUSH_ASSET_ID,atlas=isRedRush?images.redRush:images.roster,atlasInfo=isRedRush?manifest.atlases.redRush:null,redRushCell=atlasInfo?atlasCell(manifest,atlasInfo):null;
-      let pitcherRect,stance=STANCE[state.artId]||[.5,1],release=RELEASE[state.artId]||[.05,.35],pitcherBodyHeight=0,pitcherAnatomyScale=1,pitcherGroundFoot=null;
+      let pitcherRect,pitcherFrameIndex=0,stance=STANCE[state.artId]||[.5,1],release=RELEASE[state.artId]||[.05,.35],pitcherBodyHeight=0,pitcherAnatomyScale=1,pitcherGroundFoot=null;
       const flightStart=Math.max(0,(Number(state.impactAt)||0)-Math.min(PITCH_FLIGHT_MS,(Number(state.impactAt)||0)*.3));
       if(isRedRush){
         const redStates=atlasInfo.states,windup=redStates.windup||[0],drive=redStates.drive||[0],reset=redStates.reset||[0];
         const pitcherFrames=atlasInfo.frames||manifest.frames?.redRush||[],referencePitcherFrame=pitcherFrames[reset[reset.length-1]];
         pitcherBodyHeight=authoredBodyHeight(referencePitcherFrame?.bounds,atlas.naturalHeight/atlasInfo.rows);
         const ix=state.knockedOut&&active&&elapsed>=state.impactAt?drive[3]:pixelPitcherFrame(elapsed,flightStart,Number(state.impactAt)||0,redStates,active);
+        pitcherFrameIndex=ix;
         pitcherRect=atlasFrame(atlas,atlasInfo.columns,atlasInfo.rows,ix);
         const releaseIndex=drive[2],poseIndex=ix;
         const releaseMeta=pitcherFrames[releaseIndex];
@@ -223,6 +258,7 @@ export default function PixelUmpireScene({sceneRef,pitcherAtlas,artId,shot,fxSta
         pitcherAnatomyScale=pitcherFrames[poseIndex]?.anatomyScale||1;
       }else if(atlas?.naturalWidth){
         const cols=10,rows=12,ix=active?redRushFrameAt(state.knockedOut?Math.min(elapsed,state.impactAt):elapsed):0;
+        pitcherFrameIndex=ix;
         pitcherRect=atlasFrame(atlas,cols,rows,ix);
       }
       let releasePoint=null;
@@ -235,10 +271,13 @@ export default function PixelUmpireScene({sceneRef,pitcherAtlas,artId,shot,fxSta
         // A defeated pitcher stays lowered through the parent's existing KO tail.
         const koSince=state.knockedOut&&active&&tailAt!==null&&!reduceMotion?Math.max(0,now-tailAt-120):0;
         const koEase=1-Math.pow(1-Math.min(1,koSince/380),3);
+        const pitcherAssets=actorFrameAssets(atlas,pitcherRect,`${state.artId}:${pitcherFrameIndex}`,pitcherFrameCache);
+        if(!koEase)drawActorSilhouetteShadow(ctx,pitcherAssets.shadow,{x:target.x,y:target.y,scale,anchor});
         if(pitcherGroundFoot&&!koEase)drawContactShadow(ctx,transformedPoint(pitcherGroundFoot,{x:target.x,y:target.y,scale,rotation:0,anchor}),scale);
         ctx.save();
         if(koEase){ctx.translate(target.x+koEase*3,target.y);ctx.rotate(koEase*.26);ctx.scale(1,1-koEase*.14);ctx.translate(-target.x,-target.y);}
-        ctx.drawImage(atlas,pitcherRect.sx,pitcherRect.sy,pitcherRect.sw,pitcherRect.sh,actorLeft,actorTop,displayW,round(fh*scale));
+        if(pitcherAssets.surface)ctx.drawImage(pitcherAssets.surface,0,0,fw,fh,actorLeft,actorTop,displayW,round(fh*scale));
+        else ctx.drawImage(atlas,pitcherRect.sx,pitcherRect.sy,pitcherRect.sw,pitcherRect.sh,actorLeft,actorTop,displayW,round(fh*scale));
         ctx.restore();
         // Compute the ball origin from the held release pose even while a windup pose is displayed.
         if(isRedRush&&release?.x!=null){
