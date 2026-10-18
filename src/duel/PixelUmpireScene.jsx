@@ -59,9 +59,9 @@ const createActorFrameAssets=(image,rect)=>{
   }catch{return null;}
 };
 const actorFrameAssets=(image,rect,frameKey,cache)=>cache.get(frameKey,()=>createActorFrameAssets(image,rect)||false)||{surface:null,shadow:null};
-const drawActorSilhouetteShadow=(ctx,shadow,transform)=>{
+const drawActorSilhouetteShadow=(ctx,shadow,transform,grounding={})=>{
   if(!ctx?.transform||!ctx?.translate||!shadow||!transform?.anchor||!Number.isFinite(transform.scale))return false;
-  const projection=actorShadowProjection({target:{x:transform.x,y:transform.y},scale:transform.scale,anchor:transform.anchor});
+  const projection=actorShadowProjection({target:{x:transform.x,y:transform.y},scale:transform.scale,anchor:transform.anchor,...grounding});
   if(!projection)return false;
   const {matrix,anchor,target}=projection;
   ctx.save();ctx.globalAlpha=.28;ctx.translate(target.x,target.y);ctx.transform(matrix.a,matrix.b,matrix.c,matrix.d,matrix.e,matrix.f);ctx.drawImage(shadow,-anchor.x,-anchor.y);ctx.restore();return true;
@@ -218,7 +218,7 @@ export default function PixelUmpireScene({sceneRef,pitcherAtlas,artId,shot,fxSta
       const {plantStart,plantFrames}=recoveryPhase?recoveryPhase.plantConfig:plantConfig(actorAction);
       const batFit=batterPlantTransform({frame:authoredFrame,frameIndex:phase.batter,readyFrame:referenceBatterFrame,plantFrame:plantStart==null?null:batterFrames[plantStart],plantFrames,frames:batterFrames,cell:batterCell,targetRear:batterTarget,targetHeight:batterHeight,referenceBodyHeight:authoredBodyHeight(batterBounds,batRect.sh)});
       const batterAssets=actorFrameAssets(batterAtlas,batRect,phase.batter,batterFrameCache);
-      drawActorSilhouetteShadow(ctx,batterAssets.shadow,batFit);
+      drawActorSilhouetteShadow(ctx,batterAssets.shadow,batFit,{groundPoints:{rear:rearGroundline,front:frontGroundline},footContact:frame?.footContact});
       if(frame?.footContact?.rear!==false){
         const rearShadowSource=rearGroundline||batterRearFoot;
         if(rearShadowSource)drawContactShadow(ctx,transformedPoint(rearShadowSource,batFit),batFit.scale);

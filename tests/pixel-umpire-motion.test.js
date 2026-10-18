@@ -382,6 +382,36 @@ describe('pixel umpire presentation-only timeline',()=>{
     expect(crown.y).toBeGreaterThan(target.y);
   });
 
+  it('keeps both grounded shadow soles on their perspective groundline with an off-line draw anchor',()=>{
+    const anchor={x:112,y:239},target={x:118,y:469},scale=.8,groundPoints={rear:{x:90,y:238},front:{x:145,y:196}};
+    const {matrix}=actorShadowProjection({anchor,target,scale,groundPoints,footContact:{rear:true,front:true}});
+    const cast=p=>{const x=p.x-anchor.x,y=p.y-anchor.y;return {x:target.x+matrix.a*x+matrix.c*y+matrix.e,y:target.y+matrix.b*x+matrix.d*y+matrix.f};};
+    for(const p of Object.values(groundPoints)){
+      expect(cast(p).x).toBeCloseTo(target.x+(p.x-anchor.x)*scale,8);
+      expect(cast(p).y).toBeCloseTo(target.y+(p.y-anchor.y)*scale,8);
+    }
+    const head={x:130,y:55},shadow=cast(head);
+    expect(shadow.x).toBeLessThan(target.x+(head.x-anchor.x)*scale);
+    expect(shadow.y).toBeGreaterThan(target.y+(head.y-anchor.y)*scale);
+  });
+
+  it('uses only the planted shadow sole when the other foot is lifted',()=>{
+    const anchor={x:112,y:239},target={x:118,y:469},scale=.8,rear={x:90,y:238};
+    const {matrix}=actorShadowProjection({anchor,target,scale,groundPoints:{rear,front:{x:145,y:160}},footContact:{rear:true,front:false}});
+    expect(matrix.a).toBe(scale);expect(matrix.b).toBe(0);
+    const x=rear.x-anchor.x,y=rear.y-anchor.y;
+    expect(target.x+matrix.a*x+matrix.c*y+matrix.e).toBeCloseTo(target.x+x*scale,8);
+    expect(target.y+matrix.b*x+matrix.d*y+matrix.f).toBeCloseTo(target.y+y*scale,8);
+  });
+
+  it('uses a finite one-sole shadow fallback for a near-vertical foot line',()=>{
+    const anchor={x:112,y:239},rear={x:90,y:238},scale=.8;
+    const {matrix}=actorShadowProjection({anchor,target:{x:118,y:469},scale,groundPoints:{rear,front:{x:90.1,y:196}},footContact:{rear:true,front:true}});
+    expect(Object.values(matrix).every(Number.isFinite)).toBe(true);
+    expect(matrix.b).toBe(0);
+    expect(matrix.e).toBeCloseTo(-.3*(rear.y-anchor.y)*scale,8);
+  });
+
   it('warms and cools actor surface pixels with bounded changes while preserving alpha and red identity',()=>{
     const highlight=stadiumLitPixel(236,226,204,173),shadow=stadiumLitPixel(8,14,26,91),red=stadiumLitPixel(210,28,38,255);
     expect(highlight[0]).toBeGreaterThan(236);

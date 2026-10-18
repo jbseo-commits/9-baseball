@@ -322,11 +322,21 @@ export function createFrameMaskCache(limit=16){
   };
 }
 
-export function actorShadowProjection({target,scale,anchor}={}){
+export function actorShadowProjection({target,scale,anchor,groundPoints,footContact}={}){
   if(!target||!anchor||![target.x,target.y,anchor.x,anchor.y,scale].every(Number.isFinite)||scale<=0)return null;
+  const points=['rear','front'].flatMap(side=>{
+    const point=groundPoints?.[side];
+    return footContact?.[side]===true&&point&&[point.x,point.y].every(Number.isFinite)?[point]:[];
+  });
+  let slope=0,intercept=points.length?points[0].y-anchor.y:0;
+  if(points.length===2){
+    const dx=points[1].x-points[0].x,dy=points[1].y-points[0].y;
+    // A lifted foot is excluded above; a steep/degenerate line uses one known sole.
+    if(Math.abs(dx)>=4&&Math.abs(dy)<=Math.abs(dx)*3){slope=dy/dx;intercept=points[0].y-anchor.y-slope*(points[0].x-anchor.x);}
+  }
   return {
     target:{x:target.x,y:target.y},
-    matrix:{a:scale,b:0,c:.3*scale,d:-.1*scale,e:0,f:0},
+    matrix:{a:(1-.3*slope)*scale,b:1.1*slope*scale,c:.3*scale,d:-.1*scale,e:-.3*intercept*scale,f:1.1*intercept*scale},
     anchor:{x:anchor.x,y:anchor.y},
   };
 }
