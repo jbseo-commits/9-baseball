@@ -37,9 +37,9 @@
 .sp-rule span{flex-basis:100%;font-size:11px;color:var(--sp-slate)}
 
 /* pack list: scrolls on short phones, the commit button stays put */
-.sp-list{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;display:grid;align-content:start;gap:10px;padding:2px 2px 8px;-webkit-overflow-scrolling:touch}
+.sp-list{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;display:grid;grid-auto-rows:max-content;align-content:start;gap:10px;padding:2px 2px 8px;-webkit-overflow-scrolling:touch}
 .sp-pack{--tone:#e0503a;--tone-dim:#e0503a33;
-  appearance:none;position:relative;display:grid;grid-template-columns:132px minmax(0,1fr);gap:10px;align-items:center;
+  appearance:none;position:relative;display:grid;grid-template-columns:132px minmax(0,1fr);gap:10px;align-items:center;height:max-content;align-self:start;
   width:100%;min-height:132px;padding:12px 12px 12px 10px;text-align:left;color:inherit;cursor:pointer;
   border:8px solid transparent;border-image:url('../../assets/ui-kit/A6-card-frame-common.png') 32 / 8px repeat;image-rendering:pixelated;
   background:linear-gradient(90deg,var(--tone-dim),transparent 60%),#0d1124;background-clip:padding-box;
@@ -77,7 +77,9 @@
 .sp-cards>span{display:inline-flex;align-items:baseline;gap:4px;padding:2px 6px;border:1px solid #3a4475;border-radius:5px;
   background:#0b0e1ccc;font-size:11px;line-height:1.35;color:var(--sp-bone)}
 .sp-cards>span.skill{border-color:#3d6b5a}
+.sp-cards>span.common{border-color:#82704a;background:#211d14}
 .sp-cards small{font-size:9px;color:var(--tone)}
+.sp-cards>span.common small{color:var(--sp-gold)}
 .sp-check{position:absolute;right:6px;top:6px;width:22px;height:22px;border-radius:50%;border:2px solid #3a4475;background:#0b0e1c}
 .sp-pack.on .sp-check{border-color:var(--sp-gold);background:var(--sp-gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3 3 7-7' fill='none' stroke='%231a1204' stroke-width='2.4'/%3E%3C/svg%3E") center/14px no-repeat}
 

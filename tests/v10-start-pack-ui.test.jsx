@@ -4,7 +4,8 @@ import {render,screen,fireEvent,cleanup} from '@testing-library/react';
 import {afterEach,beforeEach,describe,it,expect} from 'vitest';
 import Duel from '../src/duel/App.jsx';
 import {createV10Duel,enterV10Node,saveV10Duel,readV10Duel} from '../src/duel/engine.js';
-import {START_PACKS} from '../src/duel/engine.js';
+import {START_PACKS,START_PACK_COMMON} from '../src/duel/engine.js';
+import {CARDS} from '../src/duel/cards.js';
 
 beforeEach(()=>{localStorage.clear();localStorage.setItem('9zone-bp-coach-v1','done');});
 afterEach(()=>{cleanup();});
@@ -27,6 +28,7 @@ describe('V10 start-pack pick',()=>{
     expect(s.deck).toHaveLength(9);
     for(const kind of pack.kinds)expect(s.deck.map(c=>c.kind)).toContain(kind);
     expect(s.v10.startPack.pack).toBe(pack.id);
+    expect(s.v10.startPack.ids).toHaveLength(7);
     expect(s.phase).toBe('map');
   });
 
@@ -41,8 +43,26 @@ describe('V10 start-pack pick',()=>{
     expect(readV10Duel(localStorage)).toBeNull();
     expect(go.disabled).toBe(false);
     expect(go.textContent).toContain(second.getAttribute('aria-label'));
-    // every pack shows its three cards with the engine cost
+    // Every pack keeps its three representative artworks.
     for(const p of packs())expect(p.querySelectorAll('.sp-mini-cost')).toHaveLength(3);
+  });
+
+  it('shows the full nine-card composition and duplicate counts beside the representative art',()=>{
+    render(<Duel/>);newGame();
+    for(const button of packs()){
+      const pack=START_PACKS.find(p=>p.id===button.dataset.pack),counts=new Map();
+      for(const k of [...START_PACK_COMMON,...pack.kinds])counts.set(k,(counts.get(k)||0)+1);
+      expect(button.querySelectorAll('.sp-cards>span')).toHaveLength(3);
+      fireEvent.click(button);
+      const labels=[...button.querySelectorAll('.sp-cards>span')].map(x=>x.textContent);
+      expect(labels).toHaveLength(counts.size);
+      for(const [kind,count] of counts){
+        const name=CARDS[kind]?.name||kind;
+        expect(labels.some(label=>label.includes(name)&&(count===1?!label.includes('×'):label.includes(`×${count}`)))).toBe(true);
+      }
+    }
+    expect(document.querySelector('.sp-rule').textContent).toContain('공통 2장');
+    expect(document.querySelector('.sp-rule').textContent).toContain('방향 7장');
   });
 
   it('overwriting a run goes through pack pick, cancelling keeps the old run',()=>{

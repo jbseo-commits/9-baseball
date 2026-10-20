@@ -172,17 +172,26 @@ export function startBattle(state){
   // Dealing only from deck ids keeps the old crash (a hand id missing from the deck)
   // impossible by construction; loads additionally drop stale ids (v10NormalizeHand).
   draw(s,HAND_OPEN);
-  // Start-pack taste (P2): the run's first battle always holds at least one pack
-  // card, so the chosen direction is experienced immediately. Later battles deal
-  // normally; V9 states carry no v10 record and skip this entirely.
+  // First battle role-pair guarantee applies only to the new seven-card pack
+  // record. Old three-ID records retain their original taste swap and RNG path.
   if(s.version===10&&s.stats?.pitches===0){
-    const taste=(s.v10?.startPack?.ids||[]).filter(id=>s.deck.some(c=>c.id===id)&&!s.battle.hand.includes(id));
-    if(taste.length){
-      const pick=shuffle(s,[...taste])[0],b=s.battle;
-      const out=b.hand.find(id=>!s.v10.startPack.ids.includes(id))??b.hand[0];
-      b.hand=b.hand.filter(id=>id!==out);b.hand.push(pick);
-      for(const pile of [b.draw,b.discard]){const at=pile.indexOf(pick);if(at>=0){pile.splice(at,1);break;}}
-      b.draw.push(out);
+    const record=s.v10?.startPack,pack=START_PACKS.find(p=>p.id===record?.pack);
+    const ids=Array.isArray(record?.ids)?record.ids:[];
+    const recordedKinds=ids.map(id=>s.deck.find(c=>c.id===id)?.kind).sort();
+    const newRecordValid=pack&&ids.length===7&&new Set(ids).size===7
+      &&ids.every(id=>s.deck.some(c=>c.id===id))
+      &&recordedKinds.join('|')===[...pack.kinds].sort().join('|');
+    if(newRecordValid){
+      ensureStartPackRoles(s,pack,ids);
+    }else if(ids.length===3){
+      const taste=ids.filter(id=>s.deck.some(c=>c.id===id)&&!s.battle.hand.includes(id));
+      if(taste.length){
+        const pick=shuffle(s,[...taste])[0],b=s.battle;
+        const out=b.hand.find(id=>!ids.includes(id))??b.hand[0];
+        b.hand=b.hand.filter(id=>id!==out);b.hand.push(pick);
+        for(const pile of [b.draw,b.discard]){const at=pile.indexOf(pick);if(at>=0){pile.splice(at,1);break;}}
+        b.draw.push(out);
+      }
     }
   }
   dealPitch(s);s.last={kind:'start',text:'1번 강한결 입장 · 경향을 읽고 노릴 존과 스윙을 고르세요.',events:[],runs:0,outs:0};return s;
@@ -796,16 +805,43 @@ const v10ZoneLabel=zone=>zone===9?'존 밖':ZONES[zone]||'코스 미확인';
 const v10ChoiceLabel=choice=>choice==='take'?'한 구 지켜보기':choice==='basic'?'기본 스윙':CARDS[choice]?.name||String(choice||'');
 const v10EndedPA=r=>['hit','out','sacrifice'].includes(r?.kind)||r?.label==='볼넷';
 
-/* P2 start packs (2026-10-09 analysis): 6 common cards plus one 3-card direction
-   pack, chosen before the first battle. Packs are tastes, not locked builds —
-   later rewards can shift or mix freely. Common core keeps 2 place, 1 strike
-   and the 3 preparation cards; each pack replaces 2 place + 1 strike. */
+/* Starter directions: two common cards plus seven direction cards,
+   chosen before the first battle. Packs are tastes, not locked builds —
+   later rewards can shift or mix freely. Each fresh deck keeps place + scout
+   and replaces the other seven cards with a repeatable direction. */
 export const START_PACKS=[
-  {id:'power',name:'한 방 승부',desc:'장타 3종 — 좁게 겨냥하고 크게 넘긴다',kinds:['slug','place','strike']},
-  {id:'link',name:'연결 야구',desc:'진루 3종 — 주자를 내보내고 불러들인다',kinds:['rally','flow','strike']},
-  {id:'hold',name:'버티기',desc:'생존 3종 — 맞히고 살아남아 다음을 기약한다',kinds:['defend','calm','strike']},
+  {id:'power',name:'한 방 승부',desc:'좁은 강타와 추가 피해에 투자한다. 범위와 준비 에너지가 빠듯하다.',kinds:['slug','slug','soloShot','gapHunter','loadPower','setup','watch'],featured:['slug','loadPower','soloShot']},
+  {id:'link',name:'연결 야구',desc:'빈 베이스에서 출루한 뒤 주자를 밀어준다. 주자가 없으면 히트앤드런 사인은 쓸 수 없다.',kinds:['tableSetter','tableSetter','rally','hitAndRun','flow','relayBat','watch'],featured:['tableSetter','rally','flow']},
+  {id:'hold',name:'버티기',desc:'안타를 노리며 빗나갔을 때 파울 생존과 추가 피해를 챙긴다. 주력 타격은 단타다.',kinds:['cutMaster','cutMaster','foulTip','fightOff','wearDown','calm','benchCheer'],featured:['cutMaster','wearDown','foulTip']},
 ];
-const START_PACK_DROP=['place','place','strike'];
+export const START_PACK_COMMON=Object.freeze(['place','scout']);
+const START_PACK_DROP=['place','place','place','strike','strike','setup','watch'];
+const START_PACK_ROLES={
+  power:[['slug','soloShot'],['loadPower','setup']],
+  link:[['tableSetter'],['rally','hitAndRun','relayBat']],
+  hold:[['cutMaster','foulTip','fightOff'],['wearDown','benchCheer']],
+};
+function ensureStartPackRoles(state,pack,ids){
+  const b=state.battle,groups=START_PACK_ROLES[pack.id],protectedIds=new Set();
+  if(!groups)return;
+  const kindsById=new Map(state.deck.map(c=>[c.id,c.kind]));
+  const present=groups.map(group=>b.hand.find(id=>group.includes(kindsById.get(id)))||null);
+  for(const id of present)if(id)protectedIds.add(id);
+  for(let i=0;i<groups.length;i++){
+    const group=groups[i];
+    if(present[i])continue;
+    const candidates=ids.filter(id=>group.includes(kindsById.get(id))&&!b.hand.includes(id));
+    if(!candidates.length)continue;
+    const pick=shuffle(state,[...candidates])[0];
+    const out=b.hand.find(id=>!protectedIds.has(id)&&!ids.includes(id))
+      ??b.hand.find(id=>!protectedIds.has(id));
+    if(!out)continue;
+    let pile=null,index=-1;
+    for(const p of [b.draw,b.discard]){const at=p.indexOf(pick);if(at>=0){pile=p;index=at;break;}}
+    if(!pile)continue;
+    b.hand[b.hand.indexOf(out)]=pick;pile[index]=out;protectedIds.add(pick);
+  }
+}
 export function startPackOffers(seed=0){
   const order=START_PACKS.map(p=>p.id);
   let r=draftMix(seed>>>0)||1;
@@ -815,10 +851,11 @@ export function startPackOffers(seed=0){
 export function applyStartPack(state,packId){
   const pack=START_PACKS.find(p=>p.id===packId);
   if(!pack||state?.version!==10||state.phase!=='map'||state.battle||state.stats?.pitches!==0
-    ||(state.rewards?.length||0)>0||state.deck?.length!==9||state.v10?.startPack)return state;
+    ||(state.rewards?.length||0)>0||state.deck?.length!==9||state.v10?.startPack
+    ||state.deck.map(c=>c.kind).sort().join('|')!==[...BUILDS[DECKBUILDER_BUILD].cards].sort().join('|'))return state;
   const drop=[...START_PACK_DROP],ids=[];
-  for(const entry of state.deck){const at=drop.indexOf(entry.kind);if(at>=0){drop.splice(at,1);ids.push(entry.id);}if(ids.length===3)break;}
-  if(ids.length<3)return state;
+  for(const entry of state.deck){const at=drop.indexOf(entry.kind);if(at>=0){drop.splice(at,1);ids.push(entry.id);}if(ids.length===7)break;}
+  if(ids.length<7)return state;
   const s=clone(state);
   ids.forEach((id,i)=>{s.deck.find(c=>c.id===id).kind=pack.kinds[i];});
   s.v10={...s.v10,startPack:{pack:packId,ids:[...ids]}};
