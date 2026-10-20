@@ -8,6 +8,9 @@
     min-height:calc(628px + env(safe-area-inset-bottom,0px));
     grid-template-rows:44px minmax(0,1fr) 176px 64px calc(76px + env(safe-area-inset-bottom,0px));
   }
+  .v14-battle-portrait>.bp-battle.bp-readable:has(.bp-plan-effects){
+    grid-template-rows:44px minmax(0,1fr) 176px auto calc(76px + env(safe-area-inset-bottom,0px));
+  }
   /* the older v14 fixed heights (hand 148, verbs 113 when energy shows) would overflow these
      tracks: the 168px cards were clipped and the verbs fell 49px under the fold.
      :has(.bp-plan) lifts these above v14's `.bp-battle:has(.bp-energy) .bp-verbs`. */
@@ -39,6 +42,21 @@
   .bp-battle.bp-readable .bp-plan-fields{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:1px}
   .bp-battle.bp-readable .bp-plan-predict{font:600 12px/15px var(--bp-ko);color:#ffcc83;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .bp-battle.bp-readable .bp-plan-input{font:400 12px/15px var(--bp-ko);color:#c4cde4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  /* Active preparation status gets a full-width row below the existing plan;
+     it never competes with energy, the current prediction, or its warning. */
+  .bp-battle.bp-readable .bp-plan.has-effects{
+    height:auto;min-height:64px;max-height:none;display:grid;
+    grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto;
+    align-items:center;row-gap:2px;
+  }
+  .bp-battle.bp-readable .bp-plan.has-effects .bp-energy{grid-column:1;grid-row:1}
+  .bp-battle.bp-readable .bp-plan.has-effects .bp-plan-fields{grid-column:2;grid-row:1}
+  .bp-battle.bp-readable .bp-plan-effects{
+    grid-column:1/-1;grid-row:2;min-width:0;display:flex;align-items:flex-start;gap:5px;color:#a8e5d8;
+    font:500 11px/12px var(--bp-ko);white-space:normal;word-break:keep-all;overflow:visible;text-overflow:clip;
+  }
+  .bp-battle.bp-readable .bp-plan-effects>b{flex:0 0 auto;color:#ffcc83;font-weight:700}
+  .bp-battle.bp-readable .bp-plan-effects>span{min-width:0;white-space:normal;word-break:keep-all;overflow:visible;text-overflow:clip}
 
   /* arena stage: scene and inspector share one box */
   .bp-battle.bp-readable .bp-stage{position:relative;min-height:0;min-width:0}

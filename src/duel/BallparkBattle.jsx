@@ -14,6 +14,7 @@ import cardArtSheet from '../../assets/ui-kit/cards/battle-core-v14-master-sheet
 import {cardArtFor,cardArtFocusFor} from './card-art.js';
 import {pitcherPhase} from './pitcher-hp.js';
 import {cardFaceOf,shortCardProblem,ROLE_MARKS} from './card-face.js';
+import {preparationDrawPreview,activePreparationFeedback} from './preparation-feedback.js';
 import BattleInspector from './BattleInspector.jsx';
 import './battle-inspector.css';
 import {HomeRunCut,KnockoutCut} from './phone-art-v18.jsx';
@@ -179,6 +180,8 @@ export default function BallparkBattle({
   },[playToken,judged,inFx]);
 
   const byId=id=>hand.find(x=>x.id===id);
+  const prepEffects=deciding||(!inFx&&!locked&&!commitBeat&&s.phase==='pitch')
+    ?activePreparationFeedback(b,s.phase):[];
   const swingCards=hand.filter(x=>!isSkill(x.entry)),prepCards=hand.filter(x=>isSkill(x.entry));
   const mainEntry=selected&&selected!=='basic'?byId(selected)?.entry:null;
   const mainIsSkill=isSkill(mainEntry);
@@ -406,7 +409,7 @@ export default function BallparkBattle({
     const supportCandidate=canStack&&selected&&!mainIsSkill&&selected!==x.id&&inStack<0&&!isBuntKind(x.entry.kind);
     const overBudget=supportCandidate&&stackCost+cost>energyLimit;
     const roleTag=def.role||(isSkillCard?'집중':'정확');
-    const face=cardFaceOf(x.entry,{strikes:shownCount.strikes});
+    const face=cardFaceOf(x.entry,{strikes:shownCount.strikes,drawPreview:preparationDrawPreview(s,x.id)});
     const warning=shortCardProblem(problem)||(overBudget?'지원 비용 초과':'');
     /* Condition and current risk are separate slots: a cost warning must never
        hide the bunt 2S foul-strikeout (or any requires/cost) condition. */
@@ -476,9 +479,10 @@ export default function BallparkBattle({
     if(!selected)return {input:'카드와 코스를 고르세요'};
     if(mainIsSkill){
       const problem=byId(selected)?.preview?.problem;
+      const face=cardFaceOf(mainEntry,{strikes:shownCount.strikes,drawPreview:preparationDrawPreview(s,selected)});
       return {
-        predict:cardFaceOf(mainEntry,{strikes:shownCount.strikes}).summary,
-        input:problem?shortCardProblem(problem)||problem:(prepLeft>0?`준비 ${prepLeft}회 남음 · 실행하세요`:'준비 횟수 소진'),
+        predict:face.summary,
+        input:problem?shortCardProblem(problem)||problem:(prepLeft>0?[face.drawNote,`준비 ${prepLeft}회 남음`,face.drawNote?'':'실행하세요'].filter(Boolean).join(' · '):'준비 횟수 소진'),
       };
     }
     if(armed){
@@ -668,7 +672,7 @@ export default function BallparkBattle({
           ?{backgroundImage:`url(${customArt})`,backgroundPosition:focus?.objectPosition||'center 25%',backgroundSize:'cover'}
           :{backgroundImage:`url(${cardArtSheet})`,backgroundPosition:'0% 0%'};
         const roleTag=def.role||'준비';
-        const face=cardFaceOf(x.entry,{strikes:shownCount.strikes});
+        const face=cardFaceOf(x.entry,{strikes:shownCount.strikes,drawPreview:preparationDrawPreview(s,x.id)});
         const warning=shortCardProblem(problem)||(!prepLeft?'준비 횟수 소진':'');
         const condition=face.condition;
         const note=warning||condition;
@@ -677,7 +681,7 @@ export default function BallparkBattle({
         return <button key={x.id} type="button"
           className={'bp-card skill prep-card bp-token-card'+(selected===x.id?' main':'')+(isOff?' off':'')+(note?' has-note':'')+(condition&&warning?' has-both':'')}
           aria-pressed={selected===x.id}
-          aria-label={[def.name+(x.entry.plus?'+':''),'코스트 '+cardCost(x.entry),'준비 '+prepLeft+'회 남음',face.summary,condition,warning,problem].filter(Boolean).join(' · ')}
+          aria-label={[def.name+(x.entry.plus?'+':''),'코스트 '+cardCost(x.entry),'준비 '+prepLeft+'회 남음',face.summary,face.drawNote,condition,warning,problem].filter(Boolean).join(' · ')}
           data-card-kind={x.entry.kind} data-card-plus={x.entry.plus?1:0} data-card-problem={problem||undefined}
           disabled={!deciding}
           onClick={()=>pickPrep(x.id)}>
@@ -705,7 +709,7 @@ export default function BallparkBattle({
       })}
     </div>
 
-    <div className="bp-plan" data-testid="bp-plan" aria-label="현재 플랜 요약">
+    <div className={'bp-plan'+(prepEffects.length?' has-effects':'')} data-testid="bp-plan" aria-label="현재 플랜 요약">
       {s.version===10&&energyHud}
       <div className="bp-plan-fields">
         {planSummary.predict&&<span className="bp-plan-predict">{planSummary.predict}</span>}
@@ -713,6 +717,9 @@ export default function BallparkBattle({
           ?<span className="bp-plan-input">{planSummary.input}</span>
           :<span className="bp-plan-input" aria-hidden="true"> </span>}
       </div>
+      {prepEffects.length>0&&<div className="bp-plan-effects" data-testid="bp-plan-effects" aria-label={'유지 중인 준비 효과: '+prepEffects.join(' · ')}>
+        <b>준비 유지</b><span>{prepEffects.join(' · ')}</span>
+      </div>}
     </div>
     {onNext&&!deciding&&s.phase!=='battle'?<div className="bp-verbs next">
       {s.version===10&&null}
