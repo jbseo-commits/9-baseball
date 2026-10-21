@@ -1,13 +1,19 @@
 import {CARDS,shadeNameFor,rangeFor} from './cards.js';
-import {createV10Duel,enterV10Node,publicProbabilities,knownPitchZones,readLevel} from './engine.js';
+import {createV10Duel,applyStartPack,START_PACKS,enterV10Node,publicProbabilities,knownPitchZones,readLevel} from './engine.js';
 import {probabilityBounds} from './information.js';
 
-// A varied nine-card study deck, using unchanged production cards and rules.
-export function createPreviewBattle(seed=20261015){
-  const run=createV10Duel(seed);
-  const kinds=['place','strike','slug','defend','setup','scout','rally','watch','laser'];
-  run.deck=run.deck.map((c,i)=>({...c,kind:kinds[i]}));
+// Reuse the real starter catalog and opening-role guarantees from the main game.
+export function createPreviewBattle(seed=20261015,packId='power'){
+  const pack=START_PACKS.find(p=>p.id===packId)||START_PACKS[0];
+  const run=applyStartPack(createV10Duel(seed),pack.id);
   return enterV10Node(run,'a1-entry');
+}
+
+const SHAPE_LABELS={point:'1존',row:'가로',column:'세로',cross:'십자',all:'전체',pairH:'가로 2칸',pairV:'세로 2칸',diag:'대각선',x:'X자',box:'주변',corners:'모서리'};
+export function handOverview(s){
+  const hand=(s.battle?.hand||[]).map(id=>s.deck.find(c=>c.id===id)).filter(Boolean);
+  return {shapes:[...new Set(hand.filter(c=>CARDS[c.kind]?.type==='attack').map(c=>SHAPE_LABELS[CARDS[c.kind].shape]||'특수 범위'))],
+    preparations:hand.filter(c=>CARDS[c.kind]?.type==='skill').length,kinds:hand.slice(0,3).map(c=>c.kind)};
 }
 
 export function publicZoneFaces(s){

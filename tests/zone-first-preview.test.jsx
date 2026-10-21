@@ -4,8 +4,8 @@ import {render,screen,fireEvent,cleanup} from '@testing-library/react';
 import {act} from 'react';
 import {afterEach,describe,it,expect,vi} from 'vitest';
 import ZoneFirstPreview,{PREVIEW_IMPACT_MS} from '../src/duel/ZoneFirstPreview.jsx';
-import {createPreviewBattle,resultFeedback,publicZoneFaces,publicCoverText} from '../src/duel/zone-first-model.js';
-import {setAimZone,playV10Action,coverageAt,publicProbabilities,readLevel} from '../src/duel/engine.js';
+import {createPreviewBattle,handOverview,resultFeedback,publicZoneFaces,publicCoverText} from '../src/duel/zone-first-model.js';
+import {setAimZone,playV10Action,coverageAt,publicProbabilities,readLevel,START_PACKS,START_PACK_COMMON} from '../src/duel/engine.js';
 
 afterEach(()=>{cleanup();vi.useRealTimers();localStorage.clear();});
 const zones=()=>[...document.querySelectorAll('.zf-zone')];
@@ -13,6 +13,9 @@ const card=kind=>document.querySelector(`.zf-card[data-kind="${kind}"]`);
 const stage=()=>document.querySelector('.zf-preview').dataset.step;
 const fixture=()=>{
   const s=createPreviewBattle();
+  // Interaction fixtures are deliberately independent of the real start packs.
+  const kinds=['place','strike','slug','defend','setup','scout','rally','watch','laser'];
+  s.deck=s.deck.map((c,i)=>({...c,kind:kinds[i]}));
   s.battle.hand=['c0','c1','c2','c3','c4'];
   s.battle.draw=s.deck.filter(c=>!s.battle.hand.includes(c.id)).map(c=>c.id);s.battle.discard=[];
   return s;
@@ -33,6 +36,73 @@ describe('zone-first preview interaction',()=>{
     fireEvent.click(zones()[2]);
     expect(stage()).toBe('ready');expect(zones()[2].getAttribute('aria-pressed')).toBe('true');
     expect(zones().flatMap((el,z)=>el.classList.contains('covered')?[z]:[])).toEqual(coverageAt(s,'c1',2));
+  });
+  it('lets cards come first without showing a guessed target or allowing an attack',()=>{
+    const s=start();fireEvent.click(screen.getByRole('button',{name:/손패 보기/}));fireEvent.click(card('strike'));
+    expect(stage()).toBe('ready');expect(document.querySelector('.zf-zone.covered')).toBeNull();
+    expect(zones().some(x=>x.getAttribute('aria-pressed')==='true')).toBe(false);
+    expect(document.querySelector('.zf-board-caption').textContent).not.toContain('적중권');
+    expect(screen.getByRole('button',{name:'코스를 선택하세요'}).disabled).toBe(true);
+    expect(screen.queryByRole('button',{name:'＋ 지원 추가'})).toBeNull();
+    fireEvent.click(zones()[2]);
+    expect(zones().flatMap((el,z)=>el.classList.contains('covered')?[z]:[])).toEqual(coverageAt(s,'c1',2));
+    expect(screen.getByRole('button',{name:'타격! 에너지 1'}).disabled).toBe(false);
+  });
+  it('permits swapping and returning before a target is chosen',()=>{
+    start();fireEvent.click(screen.getByRole('button',{name:/손패 보기/}));fireEvent.click(card('place'));
+    fireEvent.click(screen.getByRole('button',{name:'카드 바꾸기'}));
+    fireEvent.click(screen.getByRole('button',{name:'선택으로 돌아가기'}));
+    expect(stage()).toBe('ready');expect(document.querySelector('.zf-zone.covered')).toBeNull();
+    expect(screen.getByRole('button',{name:'코스를 선택하세요'}).disabled).toBe(true);
+  });
+  it('folds an inspected hand without changing cards or choosing a target',()=>{
+    start();fireEvent.click(screen.getByRole('button',{name:/손패 보기/}));fireEvent.click(screen.getByRole('button',{name:'손패 접기'}));
+    expect(stage()).toBe('aim');expect(document.querySelector('.zf-hand')).toBeNull();
+    expect(zones().some(x=>x.getAttribute('aria-pressed')==='true')).toBe(false);
+    fireEvent.click(zones()[2]);fireEvent.click(screen.getByRole('button',{name:'손패 접기'}));
+    expect(zones()[2].getAttribute('aria-pressed')).toBe('true');
+    fireEvent.click(screen.getByRole('button',{name:/손패 보기/}));expect(card('place')).not.toBeNull();
+  });
+  it('uses a preparation without selecting a zone and still requires one for an attack',()=>{
+    start();fireEvent.click(screen.getByRole('button',{name:/손패 보기/}));fireEvent.click(card('setup'));
+    fireEvent.click(screen.getByRole('button',{name:'준비 사용 에너지 0'}));
+    expect(stage()).toBe('hand');expect(card('setup')).toBeNull();
+    expect(zones().some(x=>x.getAttribute('aria-pressed')==='true')).toBe(false);
+    fireEvent.click(card('place'));
+    expect(document.querySelector('.zf-notice').textContent).toContain('집중 +1');
+    expect(screen.getByRole('button',{name:'코스를 선택하세요'}).disabled).toBe(true);
+  });
+  it('shows the real draw count and hand limit before using a draw card',()=>{
+    const s=fixture();s.deck[4].kind='watch';render(<ZoneFirstPreview initialState={s}/>);
+    fireEvent.click(screen.getByRole('button',{name:/손패 보기/}));
+    expect(card('watch').textContent).toContain('뽑기 1장');expect(card('watch').textContent).toContain('손패 5장 한도');
+    fireEvent.click(card('watch'));
+    expect(document.querySelector('.zf-main-card').textContent).toContain('뽑기 1장');
+    fireEvent.click(screen.getByRole('button',{name:'준비 사용 에너지 1'}));
+    expect(document.querySelectorAll('.zf-card:not([data-kind="basic"])')).toHaveLength(5);
+    expect(stage()).toBe('hand');
+  });
+  it('shows repeated prerequisite wording once and retains distinct strikeout and cost warnings',()=>{
+    const s=fixture();s.deck[4].kind='flow';s.deck[3].kind='bunt';s.battle.energy=0;s.battle.strikes=2;
+    render(<ZoneFirstPreview initialState={s}/>);fireEvent.click(screen.getByRole('button',{name:/손패 보기/}));
+    expect([...card('flow').querySelectorAll('.zf-card-warning')].filter(x=>x.textContent==='주자 필요')).toHaveLength(1);
+    expect(card('bunt').textContent).toContain('파울도 삼진');expect(card('bunt').textContent).toContain('에너지 부족');
+  });
+  it('keeps the real power preparation visible after choosing an attack',()=>{
+    const s=fixture();s.deck[4].kind='loadPower';render(<ZoneFirstPreview initialState={s}/>);
+    fireEvent.click(screen.getByRole('button',{name:/손패 보기/}));fireEvent.click(card('loadPower'));
+    fireEvent.click(screen.getByRole('button',{name:'준비 사용 에너지 1'}));fireEvent.click(card('place'));
+    expect(document.querySelector('.zf-notice').textContent).toContain('파워 +18');
+  });
+  it('explicitly restarts with another real deck instead of replacing a live hand',()=>{
+    localStorage.setItem('9zone-v10-run','existing-run');start();aimAndPick('place');
+    fireEvent.click(screen.getByRole('button',{name:'전투 정보'}));
+    fireEvent.click(screen.getByRole('button',{name:/연결 야구.*이 덱으로 다시 시작/}));
+    expect(stage()).toBe('aim');expect(document.querySelector('.zf-hand')).toBeNull();
+    expect(document.querySelector('.zf-footnote').textContent).toContain('연결 야구');
+    expect(zones().some(x=>x.getAttribute('aria-pressed')==='true')).toBe(false);
+    expect(screen.getByRole('meter').getAttribute('aria-valuenow')).toBe(screen.getByRole('meter').getAttribute('aria-valuemax'));
+    expect(localStorage.getItem('9zone-v10-run')).toBe('existing-run');
   });
   it('allows returning from the hand with the current plan preserved',()=>{
     start();aimAndPick('strike');fireEvent.click(screen.getByRole('button',{name:'카드 바꾸기'}));
@@ -112,6 +182,15 @@ describe('zone-first preview interaction',()=>{
 });
 
 describe('truthful result interpretation and public information',()=>{
+  it('uses each production start pack and summarizes only cards in the current hand',()=>{
+    for(const pack of START_PACKS){
+      const s=createPreviewBattle(20261015,pack.id);
+      expect(s.v10.startPack.pack).toBe(pack.id);
+      expect(s.deck.map(c=>c.kind).sort()).toEqual([...START_PACK_COMMON,...pack.kinds].sort());
+      s.battle.hand=[s.deck.find(c=>c.kind==='place').id];
+      expect(handOverview(s)).toEqual({shapes:['1존'],preparations:0,kinds:['place']});
+    }
+  });
   const state=(r,extra={})=>({pitcher:{hp:30},battle:{outs:0,revealed:r},v10:{lastCombat:{damage:3}},...extra});
   it('calls only actual orthogonally adjacent misses a one-cell miss',()=>{
     expect(resultFeedback(state({kind:'whiff',zone:5,coverage:[4],label:'헛스윙'})).tone).toBe('near');

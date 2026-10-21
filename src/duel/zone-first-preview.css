@@ -71,8 +71,16 @@
 .zf-wait-mark{font:300 36px/1 system-ui;color:#f4c56c80;margin-bottom:2px}
 .zf-wait strong{font-size:13px;font-weight:500;color:#d9e3df}
 .zf-wait small{font-size:11px;color:#90a6af}
+.zf-hand-peek{height:146px;display:flex;align-items:center;gap:15px;padding:12px 6px}
+.zf-peek-art{width:83px;height:90px;position:relative;flex:none}
+.zf-peek-art i{position:absolute;width:48px;height:70px;top:10px;left:0;transform:rotate(-12deg);border:1px solid #bbad87;border-radius:5px;background-color:#233c47;background-size:cover;box-shadow:0 3px 9px #0007}
+.zf-peek-art i:nth-child(2){left:16px;top:4px;transform:rotate(0)}.zf-peek-art i:nth-child(3){left:32px;transform:rotate(12deg)}
+.zf-peek-copy{min-width:0;display:flex;flex-direction:column;gap:7px;align-items:flex-start}
+.zf-peek-copy>strong{font-size:12px;font-weight:600;line-height:1.4}
+.zf-peek-copy>span{font-size:11px;color:#b7c6c5;line-height:1.4}
+.zf-preview .zf-peek-copy button{min-height:44px;background:#f4c56c13;border-color:#f4c56c77;color:var(--zf-gold);font-size:12px;padding:7px 13px;display:flex;align-items:center;gap:20px}
 .zf-hand{display:flex;gap:8px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;padding:0 2px 5px;scrollbar-width:thin;scrollbar-color:#47616b transparent;touch-action:pan-x pan-y}
-.zf-preview .zf-card{flex:0 0 112px;width:112px;height:157px;min-height:157px;padding:0 0 5px;display:flex;flex-direction:column;overflow:hidden;text-align:left;background:#172d37;border:1px solid #546564;border-radius:7px;scroll-snap-align:start}
+.zf-preview .zf-card{flex:0 0 128px;width:128px;height:157px;min-height:157px;padding:0 0 5px;display:flex;flex-direction:column;overflow:hidden;text-align:left;background:#172d37;border:1px solid #546564;border-radius:7px;scroll-snap-align:start}
 .zf-card[aria-disabled="true"]{filter:saturate(.5)}
 .zf-card-art{width:100%;height:73px;flex:none;position:relative;display:block;background-color:#223c47;background-size:cover;background-repeat:no-repeat;border-bottom:1px solid #6f796f55}
 .zf-card[data-kind="basic"] .zf-card-art{background:linear-gradient(140deg,#152c38,#354c53)}
@@ -84,6 +92,7 @@
 .zf-card-warning{display:block;padding:3px 6px 0;font-size:9px;line-height:1.25;color:#ffca9c;overflow-wrap:anywhere}
 .zf-preview .zf-card.is-picked{border-color:var(--zf-gold)}
 .zf-plan{height:155px;display:flex;flex-direction:column;gap:6px;padding-top:4px}
+.zf-plan-body{min-height:0;flex:1;overflow-y:auto;overscroll-behavior-y:contain;scrollbar-width:thin}
 .zf-main-card{display:flex;align-items:center;gap:11px;min-height:65px}
 .zf-mini-art{display:block;width:52px;height:65px;flex:none;border:1px solid #b2a47877;border-radius:5px;background-color:#233d46;background-size:cover;background-repeat:no-repeat}
 .zf-main-card>div{min-width:0;display:flex;flex-direction:column;gap:3px}
@@ -116,6 +125,10 @@
 .zf-preview .zf-dialog{position:fixed;margin:auto;inset:0;padding:22px;width:min(360px,calc(100% - 32px));max-height:80dvh;border:1px solid #a6baad66;border-radius:12px;background:#10232d;color:var(--zf-paper);box-shadow:0 20px 80px #0008;overflow-y:auto;font-size:13px}
 .zf-dialog::backdrop{background:#02090dc9;backdrop-filter:blur(5px)}
 .zf-preview .zf-dialog h2{font-size:20px;margin-bottom:15px}.zf-preview .zf-dialog p{margin-bottom:15px;line-height:1.65}.zf-preview .zf-dialog button{width:100%;background:var(--zf-gold);color:var(--zf-ink);font-weight:700}
+.zf-deck-picks{border:0;padding:0;margin:20px 0;display:flex;flex-direction:column;gap:8px}
+.zf-deck-picks legend{font-size:13px;color:var(--zf-gold);margin-bottom:9px}
+.zf-preview .zf-deck-picks button{display:flex;flex-direction:column;gap:5px;text-align:left;background:#1d3540;color:var(--zf-paper);border-color:#738e9755;padding:12px}
+.zf-deck-picks small{font-size:11px;line-height:1.5;color:#c0d1d0;font-weight:400}.zf-deck-picks span{font-size:11px;color:var(--zf-gold)}
 @keyframes zf-flight{0%,65%{opacity:0;transform:translate(0,-180px) scale(.3)}70%{opacity:1}100%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 @keyframes zf-ring{0%{opacity:.9;transform:scale(.3)}100%{opacity:0;transform:scale(1.5)}}
 @keyframes zf-impact{0%{filter:brightness(1.6);translate:0 1px}40%{translate:-2px 0}100%{filter:none;translate:0 0}}
@@ -124,9 +137,11 @@
 @keyframes zf-breathe{50%{opacity:.3}}
 .zf-breath{animation:zf-breathe 1s ease-in-out infinite}
 @media(min-width:700px){.zf-preview{padding:20px}.zf-shell{height:min(900px,calc(100dvh - 40px));border:1px solid #ffffff1a;border-radius:16px}.zf-scenery{background-size:100% 100%,100% auto}}
-@media(max-width:370px){.zf-header{gap:3px}.zf-preview-tag{font-size:8px;letter-spacing:1px}.zf-scoreboard{gap:10px;padding-inline:12px}.zf-focus{transform:translateX(-42%)}.zf-preview .zf-card{flex-basis:108px;width:108px}.zf-main-card strong{font-size:15px}}
+@media(max-width:370px){.zf-header{gap:3px}.zf-preview-tag{font-size:8px;letter-spacing:1px}.zf-scoreboard{gap:10px;padding-inline:12px}.zf-focus{transform:translateX(-42%)}.zf-main-card strong{font-size:15px}}
 @media(max-height:740px){.zf-shell{min-height:640px}.zf-header{height:46px}.zf-scoreboard{height:57px}.zf-dock{height:200px}.zf-card-art{height:64px}.zf-preview .zf-card{height:144px;min-height:144px}.zf-wait{height:130px}.zf-plan{height:139px}.zf-result-card{height:130px}.zf-focus{bottom:4px}.zf-field{min-height:247px}.zf-board{width:168px;height:168px}.zf-pitcher{bottom:155px;width:100px;height:100px;right:-1%}.zf-batter{height:177px;width:175px;bottom:0;left:-34px}.zf-board-caption{min-height:27px;padding-top:7px}.zf-prompt{margin-bottom:7px;min-height:36px}.zf-prompt h1{font-size:15px}.zf-prompt>span{font-size:8px;margin-bottom:3px}.zf-plan-tools button{min-height:34px}}
 /* At 640px the fixed rows leave 235px for the field. Fit the complete shell so focusing a
    horizontally scrolled card cannot scroll an overflow:hidden ancestor. */
 @media(max-height:660px){.zf-field{min-height:235px}.zf-board{width:160px;height:160px}.zf-board-caption{min-height:25px}.zf-prompt{min-height:34px}.zf-pitcher{bottom:128px}}
+.zf-preview .zf-card.has-notes .zf-card-art{height:48px}
+@media(max-height:740px){.zf-hand-peek{height:130px;padding-block:6px}.zf-preview .zf-card{flex-basis:124px;width:124px}.zf-preview .zf-card.has-notes .zf-card-art{height:42px}}
 @media(prefers-reduced-motion:reduce){.zf-preview *,.zf-preview *:before,.zf-preview *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.zf-ball-flight{opacity:0}}

@@ -29,6 +29,15 @@ try{
     const original=await box(p.locator('.zf-board'));
     check(label+' actions fit viewport',(await box(p.locator('.zf-actions'))).y+(await box(p.locator('.zf-actions'))).height<=height+1);
     await shot(p,label+'-aim');
+    await p.getByRole('button',{name:/손패 보기/}).click();
+    await p.getByRole('button',{name:'손패 접기',exact:true}).click();
+    check(label+' hand can be folded without selecting',await p.locator('.zf-preview').getAttribute('data-step')==='aim');
+    await p.getByRole('button',{name:/손패 보기/}).click();await p.locator('[data-kind="place"]').click();
+    check(label+' card-first has no guessed coverage',await p.locator('.zf-zone.covered').count()===0);
+    check(label+' card-first has no guessed aim',await p.locator('.zf-zone[aria-pressed="true"]').count()===0);
+    check(label+' card-first cannot attack before aiming',await p.getByRole('button',{name:'코스를 선택하세요',exact:true}).isDisabled());
+    check(label+' card-first board remains fixed',stable(original,await box(p.locator('.zf-board'))));
+    await shot(p,label+'-card-first');await p.getByRole('button',{name:'처음부터',exact:true}).click();
     await p.locator('.zf-zone').nth(2).click();
     check(label+' hand opens',await p.locator('.zf-hand').isVisible());
     check(label+' board stays fixed with hand',stable(original,await box(p.locator('.zf-board'))));
@@ -51,15 +60,15 @@ try{
       await p.waitForFunction(()=>document.querySelector('.zf-hand')?.scrollLeft>10);
       check(label+' horizontal wheel scrolls hand',await p.locator('.zf-hand').evaluate(el=>el.scrollLeft>10));
     }
-    await p.locator('[data-kind="strike"]').click();
+    await p.locator('[data-kind="place"]').click();
     check(label+' hand folds after selection',await p.locator('.zf-hand').count()===0);
     check(label+' board stays fixed after selection',stable(original,await box(p.locator('.zf-board'))));
     await p.locator('.zf-zone').nth(5).click();
     check(label+' direct re-aim',await p.locator('.zf-zone').nth(5).getAttribute('aria-pressed')==='true');
     await p.getByRole('button',{name:'＋ 지원 추가'}).click();
-    await p.locator('[data-kind="defend"]').click();await p.locator('.zf-zone').nth(4).click();
+    await p.locator('[data-kind="gapHunter"]').click();await p.locator('.zf-zone').nth(4).click();
     check(label+' support keeps main aim',await p.locator('.zf-zone').nth(5).getAttribute('aria-pressed')==='true');
-    await p.getByRole('button',{name:'커트 스윙 지원 제거'}).click();
+    await p.getByRole('button',{name:'좌중간 가르기 지원 제거'}).click();
     await p.getByRole('button',{name:'전투 정보'}).click();await p.locator('.zf-dialog').waitFor();
     await p.getByRole('button',{name:'닫기',exact:true}).click();
     await shot(p,label+'-ready');
@@ -78,6 +87,26 @@ try{
     check(label+' no production save written',await p.evaluate(()=>localStorage.getItem('9zone-v10-run')===null));
     await context.close();
   }
+  const packsContext=await browser.newContext({viewport:{width:360,height:640},isMobile:true,hasTouch:true}),packsPage=await packsContext.newPage();
+  await packsPage.goto(target.href);await packsPage.locator('.zf-board').waitFor();
+  const packsBoard=await box(packsPage.locator('.zf-board'));
+  for(const [id,name] of [['link','연결 야구'],['hold','버티기'],['power','한 방 승부']]){
+    await packsPage.getByRole('button',{name:'전투 정보'}).click();
+    await packsPage.getByRole('button',{name:new RegExp(name+'.*이 덱으로 다시 시작')}).click();
+    check(id+' deck explicitly starts a fresh battle',await packsPage.locator('.zf-preview').getAttribute('data-step')==='aim');
+    check(id+' deck name is visible',(await packsPage.locator('.zf-footnote').innerText()).includes(name));
+    check(id+' deck keeps board fixed',stable(packsBoard,await box(packsPage.locator('.zf-board'))));
+    await packsPage.getByRole('button',{name:/손패 보기/}).click();
+    check(id+' deck critical card text fits',await packsPage.locator('.zf-card').evaluateAll(cards=>cards.every(c=>[...c.querySelectorAll('strong,.zf-card-effect,.zf-card-warning')].every(el=>el.getBoundingClientRect().bottom<=c.getBoundingClientRect().bottom))));
+    check(id+' deck has no shell overflow',await packsPage.locator('.zf-shell').evaluate(el=>el.scrollHeight<=el.clientHeight+1));
+    await shot(packsPage,'deck-'+id+'-hand');
+  }
+  await packsPage.locator('[data-kind="loadPower"]').click();
+  check('preparation is usable before aiming',await packsPage.getByRole('button',{name:'준비 사용 에너지 1'}).isEnabled());
+  await packsPage.getByRole('button',{name:'준비 사용 에너지 1'}).click();await packsPage.locator('[data-kind="place"]').click();
+  check('power preparation stays visible',(await packsPage.locator('.zf-notice').innerText()).includes('파워 +18'));
+  check('preparation does not silently choose a zone',await packsPage.locator('.zf-zone[aria-pressed="true"]').count()===0);
+  await shot(packsPage,'prepared-before-aim');await packsContext.close();
   const context=await browser.newContext({viewport:{width:390,height:844},hasTouch:true,isMobile:true,reducedMotion:'reduce'}),p=await context.newPage();
   await p.goto(target.href);await p.locator('.zf-board').waitFor();
   check('reduced motion has no decorative animation',await p.locator('.zf-board').evaluate(el=>getComputedStyle(el).animationName==='none'));
