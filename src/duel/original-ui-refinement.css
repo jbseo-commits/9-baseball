@@ -21,6 +21,20 @@
 .bp-battle.bp-readable .bp-gimmick-current{display:block;color:#ffcc83}
 
 @media (orientation:portrait){
+  /* Keep the plan's energy instrument compact so the existing prediction and
+     action/warning text keep enough width at phone sizes. */
+  .bp-battle.bp-readable .bp-plan .bp-energy{
+    width:108px;min-width:108px;box-sizing:border-box;display:grid;
+    grid-template-columns:auto 1fr;grid-template-rows:15px 10px auto;
+    justify-content:start;align-items:center;gap:2px 5px;letter-spacing:.02em;
+  }
+  .bp-battle.bp-readable .bp-plan .bp-energy-leds{grid-column:1/-1}
+  .bp-battle.bp-readable .bp-plan .bp-energy>small{
+    grid-column:1/-1;white-space:normal;word-break:keep-all;
+    font-size:10px;line-height:12px;text-align:left;
+  }
+  .bp-battle.bp-readable .bp-plan .bp-energy>span:first-child{font-size:9px}
+  .bp-battle.bp-readable .bp-plan .bp-energy>strong{font-size:14px}
   .bp-battle.bp-readable .bp-hand{align-items:stretch}
   .bp-battle.bp-readable .bp-card{
     height:168px;min-height:168px;flex:0 0 108px;padding:6px 6px 5px;gap:2px;

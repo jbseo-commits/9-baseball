@@ -5,11 +5,13 @@ export const ROLE_MARKS={'정타':'◎','장타':'↗','범위':'▦','진루':'
 
 /* One public payoff on the small face; coverage has its own glyph. Conditions and
    costs are separate, so reducing prose never hides what makes a card unusable. */
-export function cardFaceOf(entry,{strikes=0}={}){
+export function cardFaceOf(entry,{strikes=0,drawPreview=null}={}){
   const kind=entry?.kind;
   if(kind==='basic')return {summary:'카드 소모 없음',condition:'',axis:'1존'};
   const d=CARDS[kind];if(!d)return {summary:'',condition:'',axis:''};
   const fx=(entry.plus&&d.plusFx)||d.fx||{};
+  const drawText=drawPreview?`뽑기 ${drawPreview.count}장`:'';
+  const drawNote=drawPreview?.reason==='hand'?'손패 5장 한도':drawPreview?.reason==='stock'?'뽑을 카드 부족':'';
   const core={
     place:()=>`정타 HP +${Math.round(d.pressure*100)}%`,
     strike:()=> '적중하면 안타',
@@ -34,6 +36,10 @@ export function cardFaceOf(entry,{strikes=0}={}){
   // condition (e.g. pullHook '파워 +18 · 몸쪽 공 파워 +18', readStrike
   // '파워 +18 · 간파한 공 안타 +6 HP'). payoffs[0]-only dropped the lane.
   let summary=d.bunt?'진루 +1 · 아웃 +1':core[kind]?.()||payoffs.join(' · ')||AXIS_NAMES[d.axis]||'타석 준비';
+  if(drawText){
+    const rest=kind==='watch'?'':summary.replace(/(?:^| · )카드 \+\d+/g,'').replace(/^ · | · $/g,'').trim();
+    summary=[drawText,rest].filter(Boolean).join(' · ');
+  }
   // The + marker already identifies an upgrade. Update a displayed power/draw
   // number from its definition; never invent power upgrades for singles/bunts.
   // Plus adds base power even when the face leads with a lane/pressure payoff
@@ -54,7 +60,7 @@ export function cardFaceOf(entry,{strikes=0}={}){
   }
   summary=summary.replace(/정확 적중/g,'정타').replace(/이번 타석 /g,'').replace(/베이스/g,'루');
   const condition=d.bunt?`희생 ${Math.round((entry.plus?d.bunt.plusSac:d.bunt.sac)*100)}%${strikes===2?' · 파울도 삼진':''}`:REQUIREMENTS[d.requires]||'';
-  return {summary,condition,axis:AXIS_NAMES[d.axis]||'준비'};
+  return {summary,condition,axis:AXIS_NAMES[d.axis]||'준비',drawNote};
 }
 
 export function shortCardProblem(problem){

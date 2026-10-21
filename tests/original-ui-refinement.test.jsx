@@ -66,6 +66,40 @@ describe('original battle readability',()=>{
     expect(cardFaceOf({kind:'tableSetter',plus:true}).summary).not.toContain('파워');
     for(const kind of Object.keys(CARDS))expect(cardFaceOf({kind}).summary,kind).toBeTruthy();
   });
+  it('shows the actual post-play draw count on preparation cards and in the selected plan',()=>{
+    expect(cardFaceOf({kind:'watch'},{drawPreview:{requested:2,count:0,reason:'hand'}}).summary).toBe('뽑기 0장');
+    expect(cardFaceOf({kind:'watch',plus:true},{drawPreview:{requested:3,count:1,reason:'hand'}}).drawNote).toBe('손패 5장 한도');
+    expect(cardFaceOf({kind:'scout'},{drawPreview:{requested:1,count:1,reason:null}}).summary).toBe('뽑기 1장 · 높이·볼 간파');
+    expect(cardFaceOf({kind:'calm'}).summary).toBe('생존 · 카드 +1');
+    expect(cardFaceOf({kind:'calm',plus:true},{drawPreview:{requested:2,count:0,reason:'stock'}})).toMatchObject({summary:'뽑기 0장 · 생존',drawNote:'뽑을 카드 부족'});
+    const view=open({kinds:['watch']});
+    const s={...view.props.s,deck:view.props.s.deck.map((c,i)=>i===0?{...c,kind:'watch',plus:true}:c),
+      battle:{...view.props.s.battle,hand:['c0','c1','c2','c3','c4'],draw:[],discard:[]}};
+    const hand=[{id:'c0',entry:{kind:'watch',plus:true},preview:{problem:null}}];
+    view.rerender(<BallparkBattle {...view.props} s={s} hand={hand} selected="c0"/>);
+    expect(document.querySelector('[data-card-kind="watch"]').textContent).toContain('뽑기 1장');
+    expect(document.querySelector('.bp-plan-predict').textContent).toBe('뽑기 1장');
+    expect(document.querySelector('.bp-plan-input').textContent).toContain('손패 5장 한도');
+    const blocked=[{...hand[0],preview:{problem:'이번 타석의 준비 2회를 모두 사용했습니다.'}}];
+    view.rerender(<BallparkBattle {...view.props} s={s} hand={blocked} selected="c0"/>);
+    expect(document.querySelector('.bp-plan-input').textContent).toBe('준비 횟수 소진');
+  });
+  it('shows active preparation effects from battle state and hides them after the plate appearance',()=>{
+    const view=open({kinds:['watch','flow']});
+    const active={...view.props.s,battle:{...view.props.s.battle,aim:2,runSignal:true,runSignalPlus:true,
+      expanded:true,expandedPlus:true,bonusPower:3,bonusDmg:2,bonusPressure:.25,bonusBall:4,bonusWalk:5,bonusFoul:6,
+      patient:true,scouted:true,scoutPlus:true,scoutBall:true}};
+    view.rerender(<BallparkBattle {...view.props} s={active}/>);
+    const effects=screen.getByTestId('bp-plan-effects');
+    for(const phrase of ['준비 유지','집중 +2','안타 시 주자 +2루','범위 +1 · 타석 유지','파워 +54','안타 HP +2','정타 HP +25%','볼 HP +4','볼넷 HP +5','파울 HP +6','존 안 미적중 파울 확률↑','이번 공 간파: 높이·안팎'])expect(effects.textContent).toContain(phrase);
+    view.rerender(<BallparkBattle {...view.props} s={{...active,phase:'pitch'}} fxStage="windup"/>);
+    expect(screen.queryByTestId('bp-plan-effects')).toBeNull();
+    view.rerender(<BallparkBattle {...view.props} s={{...active,phase:'pitch'}}/>);
+    expect(screen.getByTestId('bp-plan-effects').textContent).toContain('준비 유지');
+    const between={...active,phase:'between'};
+    view.rerender(<BallparkBattle {...view.props} s={between}/>);
+    expect(screen.queryByTestId('bp-plan-effects')).toBeNull();
+  });
   it('keeps the same tap for selection and the second tap arms a support without a dialog',()=>{
     const view=open({kinds:['place','strike']});
     fireEvent.click(document.querySelector('[data-card-kind="place"]'));
