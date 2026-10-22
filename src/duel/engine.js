@@ -393,6 +393,10 @@ export function swingOdds(s,id,zone){
   if(!covered){const foul=clamp((def?.foulMiss!=null?def.foulMiss+(plus?.12:0):.12)+(b.patient?.12:0),0,.66);return {hit:0,foul,out:0,whiff:1-foul,power:0,covered:false};}
   return {hit:1,foul:0,out:0,whiff:0,power:0,covered:true};
 }
+export function holdNaturalFoulEligible(pack,mainKind,resultKind,{bunt=false,assistOnly=false}={}){
+  return pack==='hold'&&['defend','cutMaster','foulTip','fightOff'].includes(mainKind)
+    &&resultKind==='foul'&&!bunt&&!assistOnly;
+}
 export function previewCard(s,id,probabilities=publicProbabilities(s)){
   const problem=cardProblem(s,id);if(problem)return {problem,cost:v10ActionCost(s,id),energy:v10Energy(s)};
   if(id!=='basic'&&CARDS[card(s,id).kind].type==='skill')return {label:cardText(card(s,id).kind,card(s,id).plus),cost:v10ActionCost(s,id),energy:v10Energy(s)};
@@ -491,6 +495,7 @@ function resolve(state,id,supports=[]){
   else result=battingResult(s,id,{coverageSize:usedCoverage.length});
   const k=id==='basic'?'basic':id?card(s,id).kind:null;
   const lab=state.defenseLab?.schema===1?state.defenseLab:null;
+  const holdNaturalFoul=holdNaturalFoulEligible(lab?.pack,k,result.kind,{bunt:!!CARDS[k]?.bunt,assistOnly:!!result.assistOnly});
   const eligibleDefender=['defend',...(lab?.pack==='hold'?['cutMaster','foulTip','fightOff','wearDown']:[])];
   const attackMain=!!(id==='basic'||CARDS[k]?.type==='attack');
   const defenseEligible=!!(lab&&attackMain&&b.strikes===2&&!CARDS[k]?.bunt
@@ -558,12 +563,14 @@ function resolve(state,id,supports=[]){
     stackLinks:stackPlan?.links||[],stackSteps:stackPlan?.steps||[],
     assistCoverage:firstSupport?.coverage||[],assistZone:firstSupport?.aimZone??null,assistKind:firstSupport?.entry?.kind||null,
     assistOnly:!!result.assistOnly,aimZone:id?b.aimZone:null,action:k||'take',...(s.version===10?{takeEnergyBonus:takeEnergyReward,takeDrawBonus:takeDrawPreview.count,takeDrawReason:takeDrawPreview.reason}:{}),ballsBefore:countBefore.balls,strikesBefore:countBefore.strikes,outsBefore:before.outs,growthEvents,basesBefore};
+  if(holdNaturalFoul)b.revealed.holdNaturalFoul=true;
   if(result.defenseProtected)b.revealed.defenseProtected=true;
   if(result.savedStrikeout)b.revealed.savedStrikeout=true;
   if(defenseEligible)b.revealed.protectionSpent=true;
   if(lab)b.revealed.existingRunnerSteps=existingRunnerSteps;
   if(lab)b.revealed.defenseLabBefore={activeConstraint:lab.activeConstraint,threat:defenseLabThreat(state),
-    protectionUsed:lab.protectionUsed,transferredProtection:lab.transferredProtection,counterReady:lab.counterReady,powerInvested:lab.powerInvested};
+    protectionUsed:lab.protectionUsed,transferredProtection:lab.transferredProtection,counterReady:lab.counterReady,
+    counterEarned:lab.counterEarned===true||(lab.counterEarned===undefined&&(lab.counterReady||lab.protectionUsed)),powerInvested:lab.powerInvested};
   b.history.push({zone:pending.zone,label:result.label,aimZone:id?b.aimZone:null,turn:b.turn,...countBefore});
   b.history=b.history.slice(-18);b.pending=null;b.scouted=false;b.scoutPlus=false;b.scoutBall=false;
   // Upgraded 코스 조정 survives the swing and lasts the rest of the plate appearance.
@@ -921,7 +928,7 @@ export function defenseLabThreat(state){
 }
 export function validateDefenseLabState(state){
   const lab=state?.defenseLab;
-  const labFields=['schema','pack','scenario','seed','activeConstraint','protectionUsed','transferredProtection','deliverProtection','counterReady','powerInvested','protectedPitches','lastEvent','events'];
+  const labFields=['schema','pack','scenario','seed','activeConstraint','protectionUsed','transferredProtection','deliverProtection','counterReady','counterEarned','powerInvested','protectedPitches','lastEvent','events'];
   const expectedKinds=lab&&DEFENSE_LAB_PACKS.has(lab.pack)?[...START_PACK_COMMON,...START_PACKS.find(p=>p.id===lab.pack).kinds,'defend'].sort():[];
   const actualKinds=Array.isArray(state?.deck)?state.deck.map(c=>c?.kind).sort():[];
   const validConstraint=lab?.activeConstraint===null||lab?.activeConstraint===undefined
@@ -930,6 +937,8 @@ export function validateDefenseLabState(state){
     &&typeof e.protected==='boolean'&&typeof e.savedStrikeout==='boolean'&&typeof e.transferred==='boolean'
     &&typeof e.protectionSpent==='boolean'&&Number.isInteger(e.counterDamage)&&[0,8].includes(e.counterDamage)
     &&Number.isInteger(e.runnerSteps)&&e.runnerSteps>=0&&e.runnerSteps<=4
+    &&(e.responseEarned===undefined||typeof e.responseEarned==='boolean')
+    &&(e.responseUsed===undefined||typeof e.responseUsed==='boolean')
     &&(e.threat===null||DEFENSE_LAB_THREATS.some(t=>t.key===e.threat))
     &&(e.reason===null||typeof e.reason==='string'));
   if(!validateV10State(state)||!['battle','pitch','between','won','lost'].includes(state.phase)
@@ -938,6 +947,7 @@ export function validateDefenseLabState(state){
     ||!Number.isInteger(lab.protectedPitches)||lab.protectedPitches<0
     ||typeof lab.protectionUsed!=='boolean'||typeof lab.transferredProtection!=='boolean'
     ||typeof lab.deliverProtection!=='boolean'||typeof lab.counterReady!=='boolean'
+    ||(lab.counterEarned!==undefined&&typeof lab.counterEarned!=='boolean')
     ||typeof lab.powerInvested!=='boolean'||!Array.isArray(lab.events)||lab.events.length>12
     ||!validConstraint||!validEvent(lab.lastEvent)||!lab.events.every(e=>e&&validEvent(e))
     ||JSON.stringify(actualKinds)!==JSON.stringify(expectedKinds)
@@ -998,7 +1008,7 @@ export function createDefenseLabState(seedOrOptions=20261022,packArg='link',scen
   const defendId='defense-lab-defend';
   state.deck.push({id:defendId,kind:'defend'});state.nextId=(state.nextId||0)+1;
   state.defenseLab={schema:1,pack,scenario,seed:state.initialSeed,activeConstraint:null,
-    protectionUsed:false,transferredProtection:false,deliverProtection:false,counterReady:false,
+    protectionUsed:false,transferredProtection:false,deliverProtection:false,counterReady:false,counterEarned:false,
     powerInvested:false,protectedPitches:0,lastEvent:null,events:[]};
   const node=(state.runMap.reachableIds||[]).map(id=>state.runMap.nodes.find(n=>n.id===id)).find(n=>n?.opponent);
   if(!node)throw new Error('실험 상대를 찾지 못했습니다.');
@@ -1143,6 +1153,8 @@ export function playV10Action(state,action){
   const lab=state.defenseLab?.schema===1?state.defenseLab:null;
   const fxPlan=v10CardFxPlan(state,next,action.type==='card'?choice:null,r,pitchInPA);
   const labCounter=!!(lab?.pack==='hold'&&lab.counterReady&&r.kind==='hit');
+  const counterEarnedBefore=!!(lab&&(lab.counterEarned===true
+    ||(lab.counterEarned===undefined&&(lab.counterReady||lab.protectionUsed))));
   const pressureBase=precisionRate?damageForOutcome(outcome,next.pitcher.foulStreak||0).damage:0;
   const precisionBonus=precisionRate?Math.max(0,Math.round(pressureBase*relicPlan.damageRate*precisionRate)):0;
   // 주자 압박: 공 던지기 전 루상 주자 수 기준. 안타일 때만.
@@ -1177,17 +1189,22 @@ export function playV10Action(state,action){
   },0):0;
   const linkBlocked=!!(lab?.pack==='link'&&movedRunnerSteps>=2);
   const protectedOutcome=!!r.defenseProtected;
-  const labContinues=!!(next.pitcher?.hp>0&&next.battle?.outs<3);
-  const blocked=!!(lab&&labContinues&&labThreat?.key!=='rest'&&(protectedOutcome||linkBlocked||powerBlocked));
+  const labContinues=!!(next.pitcher?.hp>0&&next.battle?.outs<3&&!['lost','won'].includes(next.phase));
+  const holdResponseEarned=!!(lab?.pack==='hold'&&!counterEarnedBefore&&labContinues
+    &&(!!r.holdNaturalFoul||protectedOutcome));
+  const blocked=!!(lab&&labContinues&&labThreat?.key!=='rest'
+    &&(linkBlocked||powerBlocked||(lab.pack==='hold'?holdResponseEarned:protectedOutcome)));
   const labEvent=lab?{
-    threat:labThreat?.key||null,blocked,reason:protectedOutcome?'보호 파울':linkBlocked?'주자 2베이스 이상 진루':powerBlocked?'힘 준비 후 좁은 강타 적중':null,
+    threat:labThreat?.key||null,blocked,reason:protectedOutcome?'보호 파울':holdResponseEarned?'첫 커트 파울 대응':linkBlocked?'주자 2베이스 이상 진루':powerBlocked?'힘 준비 후 좁은 강타 적중':null,
     protected:protectedOutcome,savedStrikeout:!!r.savedStrikeout,counterDamage:labCounter?8:0,
     transferred:linkBlocked&&labContinues,protectionSpent:!!r.protectionSpent,runnerSteps:movedRunnerSteps,
+    responseEarned:holdResponseEarned,responseUsed:labCounter,
   }:null;
   if(lab){
     const resolvedLab=next.defenseLab||lab;
     next.defenseLab={...resolvedLab,activeConstraint:blocked||!labContinues||labThreat?.key==='rest'?null:labThreat,protectedPitches:lab.protectedPitches+(protectedOutcome?1:0),
-      counterReady:lab.pack==='hold'?(protectedOutcome?true:labCounter?false:lab.counterReady):false,
+      counterReady:lab.pack==='hold'?(labContinues&&!paEnded?(holdResponseEarned?true:labCounter?false:lab.counterReady):false):false,
+      counterEarned:lab.pack==='hold'?(counterEarnedBefore||holdResponseEarned):false,
       deliverProtection:linkBlocked&&labContinues,lastEvent:labEvent,events:[...(lab.events||[]),labEvent].slice(-12),powerInvested:paEnded?false:lab.powerInvested};
   }
   next.v10={...next.v10,lastCombat:{
@@ -1266,7 +1283,7 @@ export function advanceDefenseLabBatter(state){
   const constraint=state.defenseLab.activeConstraint;
   if(constraint?.key==='pressure'&&next.battle)next.battle.energy=Math.max(0,Math.min(v10EnergyCap(next),v10Energy(next)-1));
   next.defenseLab={...state.defenseLab,transferredProtection:!!state.defenseLab.deliverProtection,
-    deliverProtection:false,protectionUsed:false,counterReady:false,powerInvested:false};
+    deliverProtection:false,protectionUsed:false,counterReady:false,counterEarned:false,powerInvested:false};
   return next;
 }
 

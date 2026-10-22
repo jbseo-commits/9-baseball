@@ -21,7 +21,7 @@ function isolatedStorage(){
 it('starts, returns to conditions and resumes without accessing production run storage',()=>{
   const assertIsolated=isolatedStorage();render(<Duel/>);
   expect(screen.getByRole('main',{name:'3아웃 공방 실험'})).toBeTruthy();
-  fireEvent.click(screen.getByRole('button',{name:/^버티기 2스트라이크/}));
+  fireEvent.click(screen.getByRole('button',{name:/^버티기 메인 실제 파울/}));
   fireEvent.click(screen.getByRole('button',{name:'레드 러시와 승부 시작'}));
   expect(document.querySelector('.defense-lab-battle')).toBeTruthy();
   expect(document.querySelector('.bp-hand .bp-lab-card-note')).toBeTruthy();
@@ -56,7 +56,7 @@ it('shows the experiment role on both a strong attack and its preparation card',
 it('keeps the saved pack, scenario and seed when returning to conditions after reload',()=>{
   saveDefenseLabState(localStorage,createDefenseLabState({seed:13,pack:'hold',scenario:'crisis'}));render(<Duel/>);
   fireEvent.click(screen.getByRole('button',{name:'실험 조건 변경'}));
-  expect(screen.getByRole('button',{name:/^버티기 2스트라이크/}).getAttribute('aria-pressed')).toBe('true');
+  expect(screen.getByRole('button',{name:/^버티기 메인 실제 파울/}).getAttribute('aria-pressed')).toBe('true');
   expect(screen.getByRole('button',{name:'위기 연습 · 2아웃 2스트라이크'}).getAttribute('aria-pressed')).toBe('true');
   expect(screen.getByRole('textbox',{name:'실험 시드'}).value).toBe('13');
 });

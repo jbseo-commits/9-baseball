@@ -1101,14 +1101,14 @@ export default function Duel(){
       <p>같은 레드 러시(HP 88)에게 세 방향의 덱으로 대응합니다. 본 런 저장과 분리된 실험입니다.</p>
       <label className="defense-lab-seed">비교 시드<input aria-label="실험 시드" inputMode="numeric" maxLength={10} value={labSeed} onChange={e=>setLabSeed(e.target.value)}/></label>
       <div className="defense-lab-packs" role="group" aria-label="시작 덱">
-        {[['link','연결 야구','출루 뒤 실제 주자 진루를 잇습니다.'],['hold','버티기','2스트라이크 보호 파울과 다음 안타 반격을 노립니다.'],['power','한 방 승부','힘 준비 뒤 좁은 강타로 예고를 막습니다.']].map(([id,name,desc])=><button type="button" key={id} aria-pressed={labPack===id} onClick={()=>setLabPack(id)}><strong>{name}</strong><small>{desc}</small></button>)}
+        {[['link','연결 야구','출루 뒤 실제 주자 진루를 잇습니다.'],['hold','버티기','메인 실제 파울 첫 1회에 다음 예고 봉쇄와 안타 +8을 얻고, 기존 2S 보호도 남습니다.'],['power','한 방 승부','힘 준비 뒤 좁은 강타로 예고를 막습니다.']].map(([id,name,desc])=><button type="button" key={id} aria-pressed={labPack===id} onClick={()=>setLabPack(id)}><strong>{name}</strong><small>{desc}</small></button>)}
       </div>
       <div className="defense-lab-scenarios" role="group" aria-label="시작 상황">
         <button type="button" aria-pressed={labScenario==='normal'} onClick={()=>setLabScenario('normal')}>정상 시작 · 0아웃 0스트라이크</button>
         <button type="button" aria-pressed={labScenario==='crisis'} onClick={()=>setLabScenario('crisis')}>위기 연습 · 2아웃 2스트라이크</button>
       </div>
-      <p className="defense-lab-rules">10장 덱 · 고유 역할 2장과 공통 커트 스윙을 첫 손패에 보장합니다. 2스트라이크에서 보호 카드를 메인으로 내면 존 안 미적중을 파울로 바꿉니다. 타석당 1회이며 존 밖 스윙·루킹·번트는 보호하지 않습니다.</p>
-      <p className="defense-lab-rules">현재 제약은 이번 공에만 적용됩니다. 이번 예고를 봉쇄하면 다음 공의 제약이 사라집니다. 연결은 주자 한 명의 실제 2루 이상 진루, 버티기는 보호 파울, 한 방은 힘 투자 후 좁은 강타 적중이 조건입니다.</p>
+      <p className="defense-lab-rules">10장 덱 · 고유 역할 2장과 공통 커트 스윙을 첫 손패에 보장합니다. 커트 스윙 메인의 2스트라이크 보호는 타석당 1회, 존 안 미적중만 파울로 바꿉니다. 버티기의 다른 커트 카드도 같은 보호를 사용합니다. 존 밖 스윙·루킹·번트는 보호하지 않습니다.</p>
+      <p className="defense-lab-rules">현재 제약은 이번 공에만 적용됩니다. 이번 예고를 봉쇄하면 다음 공의 제약이 사라집니다. 연결은 주자 한 명의 실제 2루 이상 진루, 버티기는 메인 실제 파울의 타석 첫 1회(숨 고르기는 봉쇄 없음), 한 방은 힘 투자 후 좁은 강타 적중이 조건입니다. 버티기의 기존 파울 HP 피해와 2S 보호는 별도 유지됩니다.</p>
       {s?.defenseLab&&!['won','lost'].includes(s.phase)&&<button className="defense-lab-resume" onClick={()=>setScreen('run')}>진행 중인 실험 이어하기</button>}
       <button className="primary" onClick={()=>freshDefenseLab()}>레드 러시와 승부 시작</button>
     </main>

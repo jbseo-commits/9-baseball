@@ -4,7 +4,7 @@ import {defenseLabThreat} from './engine.js';
 export const LAB_PACK_NAMES={link:'연결 야구',hold:'버티기',power:'한 방 승부'};
 export const LAB_RULES={
   link:'기존 주자 한 명을 2루 이상 보내면 봉쇄 · 다음 타자 보호',
-  hold:'2스트라이크 커트 보호 → 다음 안타 반격 +8',
+  hold:'첫 메인 커트 파울 → 예고 봉쇄·다음 안타 +8 · 2S 보호 별도 1회',
   power:'힘 투자 유지 → 1~2존 강타 메인 적중으로 봉쇄',
 };
 const threatText=t=>t?.key==='stack'?'다음 공 스택 최대 2장':t?.key==='pressure'?'다음 공 에너지 −1':'추가 위협 없음';
@@ -15,13 +15,17 @@ export function defenseLabDisplay(s,before=false){
   const frozen=before?s.battle?.revealed?.defenseLabBefore:null;
   const flags=frozen||lab,threat=frozen?.threat||defenseLabThreat(s);
   const active=flags.activeConstraint;
-  const status=[flags.protectionUsed?'보호 소진':flags.transferredProtection?'연결 보호 1 · 2S 메인':'2S 커트 메인 · 보호 1회'];
+  const status=[flags.protectionUsed?'2S 커트 보호 소진':flags.transferredProtection?'연결 보호 1 · 2S 메인':'2S 커트 보호 1회 남음'];
   if(flags.counterReady)status.push('다음 안타 +8');
+  const counterEarned=flags.counterEarned===true||(flags.counterEarned===undefined&&(flags.counterReady||flags.protectionUsed));
+  if(lab.pack==='hold'&&counterEarned&&!flags.counterReady)
+    status.push('이번 타석 추가 대응 획득 완료');
   if(flags.powerInvested)status.push('힘 투자 유지');
   const event=before?null:lab.lastEvent;
   let result='';
   if(event){
     const parts=[];
+    if(event.responseEarned)parts.push('첫 파울 대응 획득');
     if(event.protected)parts.push(event.savedStrikeout?'삼진 방어':'보호 파울');
     if(event.blocked)parts.push('예고 봉쇄');
     if(event.transferred)parts.push('다음 타자 보호');
@@ -36,8 +40,8 @@ export function defenseLabDisplay(s,before=false){
 
 export function defenseLabCardLabel(pack,entry){
   const def=CARDS[entry?.kind];if(!def)return '';
-  if(entry.kind==='defend')return '2S 보호 · 타석당 1회';
-  if(pack==='hold'&&['cutMaster','foulTip','fightOff'].includes(entry.kind))return '2S 보호 → 반격';
+  if(pack==='hold'&&['defend','cutMaster','foulTip','fightOff'].includes(entry.kind))return '메인 실제 파울 첫 1회 · 봉쇄/+8';
+  if(entry.kind==='defend')return '2S 커트 보호 · 타석당 1회';
   if(pack==='link'&&(def.advance>=2||def.fx?.run))return '진루 → 봉쇄·전달';
   if(pack==='power'&&['loadPower','sluggerInstinct','calledShot'].includes(entry.kind))return '힘 투자 · 봉쇄 준비';
   if(pack==='power'&&['point','pairH','pairV'].includes(def.shape)&&cardPower(entry)>=2)return '힘 투자 후 봉쇄';
