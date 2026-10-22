@@ -1,6 +1,6 @@
 import {describe,it,expect} from 'vitest';
 import {createDefenseLabState,validateDefenseLabState,readDefenseLabState,DEFENSE_LAB_SAVE_KEY,
-  playDefenseLabAction,holdNaturalFoulEligible,advanceDefenseLabPitch,advanceDefenseLabBatter} from '../src/duel/engine.js';
+  playDefenseLabAction,holdNaturalFoulEligible,coverage,coverageAt,advanceDefenseLabPitch,advanceDefenseLabBatter} from '../src/duel/engine.js';
 import {LINEUP} from '../src/duel/cards.js';
 import {defenseLabDisplay} from '../src/duel/defense-lab-view.js';
 
@@ -41,16 +41,27 @@ describe('defense lab boundary contracts',()=>{
     expect(readDefenseLabState({getItem:key=>{calls.push(key);return JSON.stringify(s);}})).toBeNull();
     expect(calls).toEqual([DEFENSE_LAB_SAVE_KEY]);
   });
-  it('distinguishes a natural foul from an actual saved strikeout, and does not recharge',()=>{
+  it('keeps a 2-strike natural foul, then spends hold protection only on a saved whiff',()=>{
     let s=pitch(ready(),'defend',0,0);
-    expect(s.battle.revealed).toMatchObject({kind:'foul',defenseProtected:true});
+    expect(s.battle.revealed).toMatchObject({kind:'foul',label:'파울'});
+    expect(s.battle.revealed.defenseProtected).toBeUndefined();
+    expect(s.battle.revealed.protectionSpent).toBeUndefined();
     expect(s.defenseLab.lastEvent.savedStrikeout).toBe(false);
+    expect(s.defenseLab.protectionUsed).toBe(false);
+    expect(s.defenseLab.counterReady).toBe(true);
     s=advanceDefenseLabPitch(s);
     s=pitch(s,'defend',0,.99);
-    expect(s.phase).toBe('lost');
-    expect(s.battle.outs).toBe(3);
+    expect(s.phase).toBe('pitch');
+    expect(s.battle.outs).toBe(2);
+    expect(s.battle.revealed).toMatchObject({kind:'foul',defenseProtected:true,savedStrikeout:true,protectionSpent:true});
     expect(s.defenseLab.protectedPitches).toBe(1);
-    expect(s.defenseLab.lastEvent).toMatchObject({protected:false,blocked:false});
+    expect(s.defenseLab.protectionUsed).toBe(true);
+    expect(s.defenseLab.lastEvent).toMatchObject({protected:true,blocked:false,savedStrikeout:true,responseEarned:false});
+    expect(s.defenseLab.counterReady).toBe(true);
+    s=advanceDefenseLabPitch(s);s=pitch(s,'fightOff',0,.99);
+    expect(s.phase).toBe('lost');expect(s.battle.outs).toBe(3);
+    expect(s.defenseLab.protectedPitches).toBe(1);
+    expect(s.defenseLab.lastEvent).toMatchObject({protected:false,blocked:false,responseEarned:false});
   });
   it.each([0,1,2])('earns one hold response from a main natural foul at %s strikes',strikes=>{
     let s=ready('hold','normal');s.battle.strikes=strikes;
@@ -58,7 +69,7 @@ describe('defense lab boundary contracts',()=>{
     expect(s.battle.revealed).toMatchObject({kind:'foul',holdNaturalFoul:true});
     expect(s.defenseLab.lastEvent).toMatchObject({responseEarned:true,blocked:true,threat:'stack'});
     expect(s.defenseLab).toMatchObject({counterReady:true,counterEarned:true});
-    expect(s.defenseLab.protectionUsed).toBe(strikes===2);
+    expect(s.defenseLab.protectionUsed).toBe(false);
   });
   it('keeps the 2-strike shield after an early natural foul and prevents repeated charge or block',()=>{
     let s=pitch(ready('hold','normal'),'defend',9,0);
@@ -86,6 +97,23 @@ describe('defense lab boundary contracts',()=>{
     expect(s.defenseLab.lastEvent).toMatchObject({threat:'rest',responseEarned:true,blocked:false});
     expect(s.defenseLab.counterReady).toBe(true);
     expect(s.defenseLab.activeConstraint).toBeNull();
+  });
+  it('does not spend hold protection on an out-of-zone natural foul',()=>{
+    let s=pitch(ready(),'defend',9,0);
+    expect(s.battle.revealed).toMatchObject({kind:'foul',holdNaturalFoul:true});
+    expect(s.battle.revealed.defenseProtected).toBeUndefined();
+    expect(s.battle.revealed.protectionSpent).toBeUndefined();
+    expect(s.defenseLab.protectionUsed).toBe(false);
+  });
+  it('does not spend hold protection when only a support card covers the 2-strike pitch',()=>{
+    let s=ready();const main=inHand(s,'fightOff'),support=inHand(s,'defend');
+    const zone=coverageAt(s,support,4).find(z=>!coverage(s,main).includes(z));
+    expect(zone).toBeDefined();
+    s.battle.aimZone=4;s.battle.pending={zone,roll:0,powerRoll:0};
+    s=playDefenseLabAction(s,{type:'card',id:main,supports:[{id:support,aimZone:4}]});
+    expect(s.battle.revealed).toMatchObject({kind:'hit',assistOnly:true});
+    expect(s.battle.revealed.protectionSpent).toBeUndefined();
+    expect(s.defenseLab.protectionUsed).toBe(false);
   });
   it('does not award a hold response for support-only cut, TAKE, bunt, or whiff',()=>{
     expect(holdNaturalFoulEligible('hold','tableSetter','foul',{supportKinds:['fightOff']})).toBe(false);
@@ -117,6 +145,10 @@ describe('defense lab boundary contracts',()=>{
       const corrupt=ready('hold','normal');corrupt.defenseLab.counterEarned=value;
       expect(validateDefenseLabState(corrupt)).toBe(false);
     }
+    let used=ready('hold','normal');delete used.defenseLab.counterEarned;used.defenseLab.protectionUsed=true;
+    used=pitch(used,'defend',9,0);
+    expect(used.defenseLab.lastEvent.responseEarned).toBe(false);
+    expect(used.defenseLab.counterReady).toBe(false);
   });
   it('does not protect TAKE, even if transferred protection exists',()=>{
     let s=ready('link');s.defenseLab.transferredProtection=true;

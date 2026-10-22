@@ -1108,7 +1108,7 @@ export default function Duel(){
         <button type="button" aria-pressed={labScenario==='crisis'} onClick={()=>setLabScenario('crisis')}>위기 연습 · 2아웃 2스트라이크</button>
       </div>
       <p className="defense-lab-rules">10장 덱 · 고유 역할 2장과 공통 커트 스윙을 첫 손패에 보장합니다. 커트 스윙 메인의 2스트라이크 보호는 타석당 1회, 존 안 미적중만 파울로 바꿉니다. 버티기의 다른 커트 카드도 같은 보호를 사용합니다. 존 밖 스윙·루킹·번트는 보호하지 않습니다.</p>
-      <p className="defense-lab-rules">현재 제약은 이번 공에만 적용됩니다. 이번 예고를 봉쇄하면 다음 공의 제약이 사라집니다. 연결은 주자 한 명의 실제 2루 이상 진루, 버티기는 메인 실제 파울의 타석 첫 1회(숨 고르기는 봉쇄 없음), 한 방은 힘 투자 후 좁은 강타 적중이 조건입니다. 버티기의 기존 파울 HP 피해와 2S 보호는 별도 유지됩니다.</p>
+      <p className="defense-lab-rules">현재 제약은 이번 공에만 적용됩니다. 이번 예고를 봉쇄하면 다음 공의 제약이 사라집니다. 연결은 주자 한 명의 실제 2루 이상 진루, 버티기는 메인 실제 파울의 타석 첫 1회(숨 고르기는 봉쇄 없음), 한 방은 힘 투자 후 좁은 강타 적중이 조건입니다. 버티기 2S 자연 파울은 보호를 유지하고, 존 안 헛스윙 구제 때만 소진됩니다.</p>
       {s?.defenseLab&&!['won','lost'].includes(s.phase)&&<button className="defense-lab-resume" onClick={()=>setScreen('run')}>진행 중인 실험 이어하기</button>}
       <button className="primary" onClick={()=>freshDefenseLab()}>레드 러시와 승부 시작</button>
     </main>

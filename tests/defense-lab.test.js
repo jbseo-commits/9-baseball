@@ -140,15 +140,26 @@ describe('defense experiment lab',()=>{
     expect(s.defenseLab.activeConstraint).toBeNull();
   });
 
-  it('spends 2-strike protection on an out-of-zone attack without converting the whiff',()=>{
+  it('does not spend hold protection on an out-of-zone attack whiff',()=>{
     let s=createDefenseLabState({seed:773,pack:'hold',scenario:'crisis'});
     const defend=s.deck.find(c=>c.kind==='defend');pinToHand(s,defend.id);
     s.battle.aimZone=4;s.battle.pending={zone:9,roll:.5,powerRoll:.5};
     s=playDefenseLabAction(s,{type:'card',id:defend.id});
-    expect(s.battle.revealed).toMatchObject({kind:'whiff',protectionSpent:true});
+    expect(s.battle.revealed).toMatchObject({kind:'whiff'});
+    expect(s.battle.revealed.protectionSpent).toBeUndefined();
     expect(s.battle.revealed.defenseProtected).toBeUndefined();
-    expect(s.defenseLab.protectionUsed).toBe(true);
+    expect(s.defenseLab.protectionUsed).toBe(false);
     expect(s.defenseLab.lastEvent.blocked).toBe(false);
+  });
+
+  it.each(['link','power'])('keeps %s 2-strike protection consumption unchanged',pack=>{
+    let s=createDefenseLabState({seed:773,pack,scenario:'crisis'});
+    const defend=s.deck.find(c=>c.kind==='defend');pinToHand(s,defend.id);
+    s.battle.aimZone=4;s.battle.pending={zone:0,roll:.99,powerRoll:.5};
+    s=playDefenseLabAction(s,{type:'card',id:defend.id});
+    expect(s.battle.revealed).toMatchObject({kind:'foul',defenseProtected:true,savedStrikeout:true,protectionSpent:true});
+    expect(s.defenseLab.protectionUsed).toBe(true);
+    expect(s.defenseLab.lastEvent.protected).toBe(true);
   });
 
   it('applies a pending pressure cost when the next batter enters',()=>{

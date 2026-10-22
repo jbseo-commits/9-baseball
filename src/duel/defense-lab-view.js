@@ -4,7 +4,7 @@ import {defenseLabThreat} from './engine.js';
 export const LAB_PACK_NAMES={link:'연결 야구',hold:'버티기',power:'한 방 승부'};
 export const LAB_RULES={
   link:'기존 주자 한 명을 2루 이상 보내면 봉쇄 · 다음 타자 보호',
-  hold:'첫 메인 커트 파울 → 예고 봉쇄·다음 안타 +8 · 2S 보호 별도 1회',
+  hold:'첫 메인 커트 파울 → 봉쇄·다음 안타 +8 · 2S 헛스윙 구제만 보호 소진',
   power:'힘 투자 유지 → 1~2존 강타 메인 적중으로 봉쇄',
 };
 const threatText=t=>t?.key==='stack'?'다음 공 스택 최대 2장':t?.key==='pressure'?'다음 공 에너지 −1':'추가 위협 없음';

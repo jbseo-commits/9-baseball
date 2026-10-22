@@ -500,14 +500,16 @@ function resolve(state,id,supports=[]){
   const attackMain=!!(id==='basic'||CARDS[k]?.type==='attack');
   const defenseEligible=!!(lab&&attackMain&&b.strikes===2&&!CARDS[k]?.bunt
     &&!lab.protectionUsed&&(lab.transferredProtection||eligibleDefender.includes(k)));
-  if(defenseEligible&&pending.zone<9&&!mainCoverage.includes(pending.zone)
-    &&['foul','whiff'].includes(result.kind)){
+  const holdProtectionFoul=!!(defenseEligible&&lab?.pack==='hold'&&pending.zone<9
+    &&!mainCoverage.includes(pending.zone)&&result.kind==='whiff');
+  const convertedProtectionFoul=defenseEligible&&pending.zone<9&&!mainCoverage.includes(pending.zone)
+    &&(lab?.pack==='hold'?result.kind==='whiff':['foul','whiff'].includes(result.kind));
+  if(convertedProtectionFoul){
     const savedStrikeout=result.kind==='whiff'&&b.strikes===2;
     result={...result,kind:'foul',label:'보호 파울',defenseProtected:true,savedStrikeout};
-  }else if(defenseEligible&&result.kind==='foul'&&pending.zone<9&&!mainCoverage.includes(pending.zone)){
-    result={...result,label:'보호 파울',defenseProtected:true,savedStrikeout:false};
   }
-  if(defenseEligible)s.defenseLab={...s.defenseLab,protectionUsed:true,transferredProtection:false};
+  const protectionSpent=lab?.pack==='hold'?holdProtectionFoul:defenseEligible;
+  if(protectionSpent)s.defenseLab={...s.defenseLab,protectionUsed:true,transferredProtection:false};
   if(id&&id!=='basic'){b.hand.splice(b.hand.indexOf(id),1);b.discard.push(id);s.stats.cards++;}
   for(const support of supportItems){b.hand.splice(b.hand.indexOf(support.id),1);b.discard.push(support.id);s.stats.cards++;}
   s.stats.pitches++;s.phase='pitch';
@@ -566,7 +568,7 @@ function resolve(state,id,supports=[]){
   if(holdNaturalFoul)b.revealed.holdNaturalFoul=true;
   if(result.defenseProtected)b.revealed.defenseProtected=true;
   if(result.savedStrikeout)b.revealed.savedStrikeout=true;
-  if(defenseEligible)b.revealed.protectionSpent=true;
+  if(protectionSpent)b.revealed.protectionSpent=true;
   if(lab)b.revealed.existingRunnerSteps=existingRunnerSteps;
   if(lab)b.revealed.defenseLabBefore={activeConstraint:lab.activeConstraint,threat:defenseLabThreat(state),
     protectionUsed:lab.protectionUsed,transferredProtection:lab.transferredProtection,counterReady:lab.counterReady,
