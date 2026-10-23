@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-22",
+  "reviewer": "/root/playtest_evidence_review",
+  "capturedByRoot": true,
+  "scope": "Independent read-only contract, implementation-boundary and evidence review. Final result claims were compared with original public UI DOM and method.json. The reviewer did not play these six experimental battles.",
+  "status": "no_blocking_findings_for_draft_experiment",
+  "mainReleaseApproved": false,
+  "blockers": [],
+  "finalReviewerMessage": "정상 3전·위기 3전의 수치는 원본 DOM과 모두 일치합니다. 중단 probe·0구 재시작도 구분됐고, 보호·삼진 구제·반격 +8의 실제 UI 미관측 한계와 본편 미병합 방침도 명확합니다. 출시 과장은 없습니다. 한 문구만 권고합니다. ‘보호가 늦게 등장하는 설계 문제’보다 ‘이번 플레이에서는 보호가 유효한 방어 선택으로 이어지는 장면을 확인하지 못했다’가 관측에 충실합니다. 차단사항은 없습니다.",
+  "nonblockingSuggestion": {
+    "issue": "Do not attribute the lack of observed protection to a proven late-availability design cause.",
+    "resolution": "Applied to the design report: the UI play did not demonstrate protection as an effective defensive choice; its cause remains unproven."
+  },
+  "verifiedEvidence": {
+    "normalComparisons": "Three seed914 battles: all won in 10 pitches with 1 out, hits6/5/4, protected fouls0.",
+    "separateCrisisQA": "20261022:5pitches/5hits/win/2outs;32768:1pitch/loss/HP87/3outs;90210:4pitches/1hit/loss/HP75/3outs.",
+    "disclosure": "Two unfinished first-pitch probes and zero-pitch changes are excluded from complete-run counts."
+  },
+  "notObservedInUI": ["protected foul conversion", "strikeout actually saved by protection", "hold counter +8 applied"],
+  "unitFixturesOnly": "Protection activation, exclusions, expiry, saved-strikeout distinction and +8 reward are tested with controlled engine states, not represented as natural UI play.",
+  "limits": [
+    "No win-rate, relative deck-strength, counterfactual benefit, human-fun or commercial-quality conclusion.",
+    "Latest responsive measurements and screenshots were captured by root, following reviewer advice; do not describe them as reviewer-operated browser checks.",
+    "No physical mobile device, browser-bar, safe-area or physical rotation verification.",
+    "No manual act2/3 full runs or production deployment."
+  ],
+  "evidenceFiles": ["method.json", "ui-log.json", "normal-flow.json", "normal-equivalence.json", "vitest-final.txt", "smoke-summary.json", "build-final.txt", "battle-responsive.json", "compact-action-rects.json"]
+}

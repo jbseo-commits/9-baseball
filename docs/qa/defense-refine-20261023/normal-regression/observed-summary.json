@@ -1,0 +1,38 @@
+{
+  "test": "normal UI regression; isolated Chrome tab via CUA; ordinary URL without experiment query",
+  "deck": "연결 야구, 9 cards",
+  "path": "Act 1 start → Violet Sting → Locker Room → selected Ivory Ace",
+  "battle": {
+    "enemy": "바이올렛 스팅",
+    "startHp": 60,
+    "events": [
+      {
+        "action": "테이블 세터 + 몸쪽 낮게",
+        "range": "28–56%",
+        "result": "안타; HP 60→45; 강한결 출루 1루"
+      },
+      {
+        "action": "3-card stack: 주자 연결, 테이블 세터, 정타 노림; body-low → center-low → outer-low",
+        "range": "42–84%; cost 3/3",
+        "result": "안타; HP 45→34; 강한결 1→3루, 이민준 출루 1루"
+      },
+      {
+        "action": "Later stack after public scouting: 히트 앤드 런 + 이어치기",
+        "publicInfo": "low-zone bands each 30–35%; outside-band ball 0–5%; planned range 90–100%",
+        "result": "안타; HP 19→0; hitter on 1루; earlier runners advanced 1→2 and 2→3; 승리"
+      }
+    ],
+    "uncertain": "One two-card stack was followed by a screen with HP unchanged at 32, outs still 1, runners first and third; result banner had cleared, so no result is assigned."
+  },
+  "take": "At 0–1 a take produced a strike, count 0–2.",
+  "reward": "selected 히트 앤드 런; deck 9→10",
+  "facility": "entered locker room, checked removal UI, chose 그냥 간다",
+  "reload": "after reload, title showed Continue 1막·덱 10장; resumed same map with Ivory Ace selected; no second battle started",
+  "limits": [
+    "only Act 1 opener; no Act 2/3/full-run testing",
+    "no real-device or responsive layout validation",
+    "no hidden state reads, injection, or QA mode",
+    "no source, test, or docs edits"
+  ],
+  "evidenceDir": "C:/Users/정현아/.codex/visualizations/2026/10/09/01a12069-f2c6-7d30-be4d-2861e35673ae/defense-refine-audit-20261023/normal-regression"
+}

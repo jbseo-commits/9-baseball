@@ -1,0 +1,96 @@
+- iframe [active]:
+  - main "타석":
+    - generic: 1막
+    - generic "볼 0 스트라이크 0 아웃 1":
+      - generic: B
+      - generic: S
+      - generic: O
+    - button "패 더미 보기 · 더미 0 버림 5": 더미 0 / 버림 5
+    - button "설정 및 도움말": ⚙
+    - region "승부 구장":
+      - generic "바이올렛 스팅 투수 HP 20 / 60":
+        - generic: 🔥
+        - generic: 바이올렛 스팅
+        - button "투수 정보 보기": 정보 ▾
+        - generic: HP 20 / 60
+        - generic "투수 흔들림 1 / 3 · 볼 증가 · 읽기 +1":
+          - emphasis: 흔들림
+          - generic: 1/3
+          - generic: 볼 증가 · 읽기 +1
+      - status "기세 1 / 5 · 피해 ×1.1":
+        - emphasis: 기세
+        - generic: ×1.1
+      - group "노릴 코스":
+        - button "몸쪽 높게 · 던지지 않는 코스":
+          - text: 안 던짐
+          - generic: 안 던짐
+        - button "가운데 높게":
+          - generic: 0~5%
+        - button "바깥쪽 높게 · 던지지 않는 코스":
+          - text: 안 던짐
+          - generic: 안 던짐
+        - button "몸쪽":
+          - generic: 5~10%
+        - button "가운데":
+          - generic: 5~10%
+        - button "바깥쪽":
+          - generic: 5~10%
+        - button "몸쪽 낮게 · 노림" [pressed]:
+          - generic: 20~25% 최다
+        - button "가운데 낮게":
+          - generic: 15~20%
+        - button "바깥쪽 낮게":
+          - generic: 20~25%
+        - generic: 몸쪽
+        - generic: 바깥쪽
+        - generic "읽기 1/2 · 흔들림":
+          - emphasis: 읽기
+          - generic: 흔들림
+        - emphasis: 바깥 띠 = 볼 10~15%
+      - generic "주자 1루, 2루"
+    - generic "손패":
+      - button "코스트 0 맨손 스윙 기본 단타 카드 소모 없음":
+        - generic "코스트 0": "0"
+        - strong: 맨손 스윙
+        - generic: 기본
+        - generic: ·단타
+        - paragraph: 카드 소모 없음
+      - button "정타 노림 · 코스트 1 · 1존 · 정타 HP +50%":
+        - generic "코스트 1": "1"
+        - strong: 정타 노림
+        - generic: ◎정타
+        - paragraph: 정타 HP +50%
+      - button "이어치기 · 코스트 1 · 가로 3존 · 주자 +2루 · 겹쳐 쓰면 안타 +3 HP":
+        - generic "코스트 1": "1"
+        - strong: 이어치기
+        - generic: ◇진루
+        - paragraph: 주자 +2루 · 겹쳐 쓰면 안타 +3 HP
+      - button "히트앤드런 사인 · 코스트 1 · 준비 2회 남음 · 안타 → 주자 +1루 · 주자 필요":
+        - generic "에너지 코스트 1 · 준비 2회 남음": "1"
+        - generic: ✦
+        - strong: 히트앤드런 사인
+        - generic: 준비
+        - generic: ◇진루
+        - paragraph: 안타 → 주자 +1루
+        - paragraph: 주자 필요
+      - button "릴리스 간파 · 코스트 1 · 준비 2회 남음 · 뽑기 1장 · 높이·볼 간파":
+        - generic "에너지 코스트 1 · 준비 2회 남음": "1"
+        - generic: ✦
+        - strong: 릴리스 간파
+        - generic: 준비
+        - generic: ◉관찰
+        - paragraph: 뽑기 1장 · 높이·볼 간파
+    - generic "현재 플랜 요약":
+      - generic "에너지 3/3":
+        - generic: ENERGY
+        - strong:
+          - text: "3"
+          - generic: /3
+        - generic: 기본 0 · 지켜보기 0
+      - generic: 카드와 코스를 고르세요
+    - button "휘두른다 조준 구역을 힘차게 타격" [disabled]:
+      - generic: 휘두른다
+      - text: 조준 구역을 힘차게 타격
+    - button "지켜본다 다음 공 +1":
+      - generic: 지켜본다
+      - generic: 다음 공 +1

@@ -1,0 +1,111 @@
+- iframe [active]:
+  - banner:
+    - button "9ZONE HOMEBOUND":
+      - text: 9ZONE
+      - generic: HOMEBOUND
+    - navigation:
+      - button "소리 꺼짐": ♪ OFF
+      - button "BGM 음악 주크박스": 🎧 BGM 1
+      - button "투수 도감": 도감
+      - button "덱"
+      - button "?"
+  - main "라커룸":
+    - generic: 쉬어 가는 곳
+    - button "덱 10"
+    - heading "라커룸" [level=1]
+    - paragraph: 손에 안 붙는 배트는 두고 간다.
+    - button "코스트 1 테이블 세터 가로 2존 · 단타 빈 베이스 +3 HP · 카드 +1 연결 · COMMON":
+      - generic "코스트 1": "1"
+      - strong: 테이블 세터
+      - generic: 가로 2존 · 단타
+      - generic: 빈 베이스 +3 HP · 카드 +1
+      - emphasis:
+        - generic: 연결
+        - generic: ·
+        - generic: COMMON
+    - button "코스트 1 테이블 세터 가로 2존 · 단타 빈 베이스 +3 HP · 카드 +1 연결 · COMMON":
+      - generic "코스트 1": "1"
+      - strong: 테이블 세터
+      - generic: 가로 2존 · 단타
+      - generic: 빈 베이스 +3 HP · 카드 +1
+      - emphasis:
+        - generic: 연결
+        - generic: ·
+        - generic: COMMON
+    - button "코스트 1 주자 연결 가로 3존 커버 주자 +2베이스 (2·3루 홈인) 연결 · COMMON":
+      - generic "코스트 1": "1"
+      - strong: 주자 연결
+      - generic: 가로 3존 커버
+      - generic: 주자 +2베이스 (2·3루 홈인)
+      - emphasis:
+        - generic: 연결
+        - generic: ·
+        - generic: COMMON
+    - button "코스트 1 정타 노림 1존 커버 정확 적중 HP +50% 정밀 · COMMON":
+      - generic "코스트 1": "1"
+      - strong: 정타 노림
+      - generic: 1존 커버
+      - generic: 정확 적중 HP +50%
+      - emphasis:
+        - generic: 정밀
+        - generic: ·
+        - generic: COMMON
+    - button "코스트 1 히트 앤드 런 세로 3존 · 주자 +2베이스 주자 1명당 +2 HP 연결 · COMMON":
+      - generic "코스트 1": "1"
+      - strong: 히트 앤드 런
+      - generic: 세로 3존 · 주자 +2베이스
+      - generic: 주자 1명당 +2 HP
+      - emphasis:
+        - generic: 연결
+        - generic: ·
+        - generic: COMMON
+    - button "코스트 1 준비 히트앤드런 사인 주자 +1루 연결 · COMMON":
+      - generic "코스트 1": "1"
+      - generic: 준비
+      - strong: 히트앤드런 사인
+      - generic: 주자 +1루
+      - emphasis:
+        - generic: 연결
+        - generic: ·
+        - generic: COMMON
+    - button "코스트 1 이어치기 가로 3존 · 주자 +2베이스 겹쳐 쓰면 안타 +3 HP 연결 · UNCOMMON":
+      - generic "코스트 1": "1"
+      - strong: 이어치기
+      - generic: 가로 3존 · 주자 +2베이스
+      - generic: 겹쳐 쓰면 안타 +3 HP
+      - emphasis:
+        - generic: 연결
+        - generic: ·
+        - generic: UNCOMMON
+    - button "코스트 1 준비 작전 확인 카드 +2 속공 · COMMON":
+      - generic "코스트 1": "1"
+      - generic: 준비
+      - strong: 작전 확인
+      - generic: 카드 +2
+      - emphasis:
+        - generic: 속공
+        - generic: ·
+        - generic: COMMON
+    - button "코스트 1 준비 릴리스 간파 행 정보 카드 +1 분석 · COMMON":
+      - generic "코스트 1": "1"
+      - generic: 준비
+      - strong: 릴리스 간파
+      - generic: 행 정보
+      - generic: 카드 +1
+      - emphasis:
+        - generic: 분석
+        - generic: ·
+        - generic: COMMON
+    - button "코스트 1 히트 앤드 런 세로 3존 · 주자 +2베이스 주자 1명당 +2 HP 연결 · COMMON":
+      - generic "코스트 1": "1"
+      - strong: 히트 앤드 런
+      - generic: 세로 3존 · 주자 +2베이스
+      - generic: 주자 1명당 +2 HP
+      - emphasis:
+        - generic: 연결
+        - generic: ·
+        - generic: COMMON
+    - button "뺀다 · 뺄 카드를 고르세요" [disabled]:
+      - generic: 뺀다
+      - generic: ▲ 뺄 카드를 고르세요
+    - button "그냥 간다"

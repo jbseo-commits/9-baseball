@@ -1,0 +1,166 @@
+[
+  {
+    "id": "A-link-normal",
+    "pack": "link",
+    "scenario": "normal",
+    "seed": 914,
+    "result": "won",
+    "pitches": 9,
+    "hits": 5,
+    "fouls": 1,
+    "outs": 1,
+    "hp": 0,
+    "protectedFouls": 0,
+    "evidence": "A-link-normal-after-p9",
+    "pilotNotes": [
+      "At pitch5 the plan already said 적중권 범위 밖; pilot executed anyway. This was a judgment error, not attributed to deck strength.",
+      "Support stacking was used at pitch9; earlier single-card decisions and learning are retained."
+    ]
+  },
+  {
+    "id": "A-hold-normal",
+    "pack": "hold",
+    "scenario": "normal",
+    "seed": 914,
+    "result": "won",
+    "pitches": 9,
+    "hits": 5,
+    "fouls": 3,
+    "outs": 0,
+    "hp": 0,
+    "protectedFouls": 0,
+    "counterAppliedOnLastHit": 8,
+    "evidence": "A-hold-normal-terminal",
+    "observations": [
+      "Pitch6 natural foul at 0S→1S, HP23→18: first response reserved +8, shield still available. Rest turn, so no block counted.",
+      "Following fouls did not refresh the response or block another special.",
+      "Last hit ended with explicit counter +8 message. Do not infer an extra8 actual HP loss when HP remaining15 caps damage.",
+      "Pitch5 public ball100% was taken, rather than forcing a swing."
+    ]
+  },
+  {
+    "id": "A-power-normal",
+    "pack": "power",
+    "scenario": "normal",
+    "seed": 914,
+    "result": "won",
+    "pitches": 15,
+    "hits": 4,
+    "fouls": 0,
+    "outs": 1,
+    "hp": 0,
+    "protectedFouls": 0,
+    "evidence": "A-power-normal-after-p15",
+    "observations": [
+      "First invested narrow attack missed; investment persisted. Second invested main hit reduced HP86→60 and blocked pressure.",
+      "A later narrow-attack sequence ended in one strikeout. At 2S chose common cut and support instead; hit ended PA, no shield conversion.",
+      "Public lure clues at pitches7 and14 were taken.",
+      "Power had three preparation cards and no attack card at pitch12; used free basic swing.",
+      "Terminal four hits equal total before final two-card attempt; do not describe the terminal pitch as a finishing hit. Small remaining HP was removed despite no additional recorded hit."
+    ],
+    "limits": [
+      "One pilot, learned public information; no causal win-rate or late-run balance inference."
+    ]
+  },
+  {
+    "id": "A-hold-crisis",
+    "pack": "hold",
+    "scenario": "crisis",
+    "seed": 20261023,
+    "result": "won",
+    "pitches": 8,
+    "hits": 5,
+    "fouls": 2,
+    "outs": 2,
+    "initialOuts": 2,
+    "hp": 0,
+    "protectedFouls": 1,
+    "savedStrikeoutsObserved": 0,
+    "evidence": "A-hold-crisis-after-p8",
+    "observations": [
+      "Pitch1 initial2S scout+wearDown+fightOff aimed publichighesthighright56–100% hit; no forced miss.",
+      "Pitch3 foulTip main with point support made actual natural foul at0S→1S, HP62→57, reserved8 on rest.",
+      "An intended next-pitch click raced auto advance and submitted TAKE at pitch4; count1S→2S, HP57unchanged. This is a pilot/tool timing error, not strategic evidence. No rewind.",
+      "Pitch5 foulTip aimpublichighestbody3 made a foul, HP57→51; old A labeled protected foul and spent shield, but no savedStrikeout label. Not claimed as actual strikeout rescue.",
+      "Pitch6 two-cut stack hit HP51→27, explicit counter+8 applied.",
+      "This separate crisis is not included in the three normal comparison fights."
+    ],
+    "errors": [
+      "One unintentional TAKE due transient AX next-button reuse across auto advance; no repeat action or rewind."
+    ]
+  },
+  {
+    "id": "B-hold-normal",
+    "source": "059a572",
+    "pack": "hold",
+    "scenario": "normal",
+    "seed": 914,
+    "result": "won",
+    "pitches": 9,
+    "hits": 5,
+    "fouls": 3,
+    "outs": 0,
+    "hp": 0,
+    "protectedFouls": 0,
+    "counterAppliedOnLastHit": 8,
+    "evidence": "B-hold-normal-terminal",
+    "observations": [
+      "Replayed learned A choices without hidden reads or rewinds.",
+      "Pitch8 2S natural foul: HP15 unchanged, next pitch shield still1 and counter8 reserved, unlike A charge spent.",
+      "Pitch9 hit consumed counter8 and ended battle. No actual strikeout rescue in this normal run."
+    ],
+    "errors": [
+      "At pitch2 selected-card zone name included 노림; exact bare-name locator had no match. Plan was already aimed5; inspected fresh state then executed once. No extra pitch."
+    ]
+  },
+  {
+    "id": "B-hold-crisis",
+    "source": "059a572",
+    "pack": "hold",
+    "scenario": "crisis",
+    "seed": 20261024,
+    "result": "lost",
+    "pitches": 4,
+    "hits": 1,
+    "fouls": 0,
+    "outs": 3,
+    "initialOuts": 2,
+    "hp": 71,
+    "protectedFouls": 0,
+    "evidence": "B-hold-crisis-terminal",
+    "observations": [
+      "Predeclared additional crisis, not normal comparison. First narrow cut at publichighesthighright hit.",
+      "Pitch2 calm+foulTip at publichighestoutside missed; pitch3 free basic conserved broadcuts for2S and missed.",
+      "Pitch4 commondefend at publichighesthighright missed and ended at3outs; no protected result. Do not count any strikeout rescue or claim shield is reliable against every pitch."
+    ],
+    "limits": [
+      "Different seed and pilot choices from A crisis; not a causal A/B experiment."
+    ]
+  },
+  {
+    "id": "B-mechanic-check",
+    "source": "059a572",
+    "pack": "hold",
+    "scenario": "crisis",
+    "seed": 914,
+    "result": "incomplete-functional-probe",
+    "pitches": 2,
+    "initialOuts": 2,
+    "outs": 2,
+    "hp": 66,
+    "completed": false,
+    "protectedFoulsObserved": 0,
+    "savedStrikeoutsObserved": 0,
+    "evidence": "B-mechanic-check-after-reload",
+    "method": "Deliberately lower public coverage highoutside2 instead of publichighestbody3; no preparation/support. Separate from normal strategic/balance evidence.",
+    "observations": [
+      "Pitch1 natural2S foul HP88→86; shield retained, first response reserved8 and blocked stack.",
+      "Pitch2 same low-coverage choice unexpectedly hit HP86→66, consumed counter8; PA ended so no further2S opportunity.",
+      "Reload retained HP66,2O and counter consumed; no repeated reward.",
+      "Stopped after2pitches within predeclared max3 because PA ended. No actual strikeout rescue observed; do not invent it."
+    ],
+    "errors": [
+      "Setup body dead-zone label guessed incorrectly; read public DOM, revised intended lower-coverage target BEFORE first pitch. No pitch/seed rewind."
+    ]
+  }
+]
