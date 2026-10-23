@@ -1,0 +1,96 @@
+{
+  "change": "Asset-led main battle, visible-word refinement",
+  "judge": "Codex /root/asset_final_blind_judge",
+  "note": "Independent fresh-context judge read only rubric, two sheets and template. Observed stronger panel/action art and HP readability; actors/composition and small supporting text remain below target. Scores recorded before reveal.",
+  "sheets": {
+    "phone-portrait-battle-decide.png": {
+      "R1 화풍 통일": {
+        "A": 3,
+        "B": 3
+      },
+      "R2 UI 그림화": {
+        "A": 2.5,
+        "B": 3.5
+      },
+      "R3 빛·환경 통합": {
+        "A": 2.5,
+        "B": 2.5
+      },
+      "R4 캐릭터 존재감": {
+        "A": 3,
+        "B": 3
+      },
+      "R5 구도": {
+        "A": 3,
+        "B": 3
+      },
+      "R6 글자 가독": {
+        "A": 2.5,
+        "B": 3
+      },
+      "R7 정보 위계": {
+        "A": 2.5,
+        "B": 3
+      },
+      "R8 마감": {
+        "A": 2.5,
+        "B": 3
+      }
+    },
+    "small-portrait-battle-decide.png": {
+      "R1 화풍 통일": {
+        "A": 3,
+        "B": 3
+      },
+      "R2 UI 그림화": {
+        "A": 2.5,
+        "B": 3.5
+      },
+      "R3 빛·환경 통합": {
+        "A": 2.5,
+        "B": 2.5
+      },
+      "R4 캐릭터 존재감": {
+        "A": 3,
+        "B": 3
+      },
+      "R5 구도": {
+        "A": 3,
+        "B": 3
+      },
+      "R6 글자 가독": {
+        "A": 2.5,
+        "B": 3
+      },
+      "R7 정보 위계": {
+        "A": 2.5,
+        "B": 3
+      },
+      "R8 마감": {
+        "A": 2.5,
+        "B": 3
+      }
+    }
+  },
+  "revealedMapping": {
+    "phone-portrait-battle-decide.png": {
+      "A": "before",
+      "B": "after"
+    },
+    "small-portrait-battle-decide.png": {
+      "A": "before",
+      "B": "after"
+    }
+  },
+  "baseline": "e2040ba98dba5cbd63222000191133b65cbcf5c0",
+  "result": {
+    "before": 2.6875,
+    "after": 3.0,
+    "gain": 0.3125,
+    "improvedAxes": 4,
+    "maxDrop": 0,
+    "improved": true,
+    "barMet": false
+  },
+  "limitations": "Two planning stills at 412×743 and 375×667, same seed and fixture. Not a human playtest or proof of commercial quality."
+}

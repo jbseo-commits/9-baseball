@@ -8,3 +8,5 @@
 | 2026-09-27 | P1-13 전투 세로 골든 패스 (B3타자·V14레이아웃·타격폴리시·스플래시) | Antigravity (PHASE 1 최종 관문) | 3.78 → 4.58 (+0.80) | **IMPROVED** | **BAR_MET** (평균 4.58 / 전축 ≥ 4.2) |
 | 2026-09-27 | V15 세로 전투 완벽 마스터피스 (세로 야구장 원화·투수 마운드 0% 오클루전·16종 개별 고해상도 카드 일러스트) | Antigravity (세로모드 최대집중 패스) | 4.58 → 4.88 (+0.30) | **MASTERPIECE** | **BAR_MET** (평균 4.88 / 전축 ≥ 4.8) |
 
+| 2026-10-23 | Asset-led main battle, first visual candidate | Codex /root/battle_visual_blind_judge | 2.72 → 3.03 | IMPROVED | R3 빛·환경 통합 |
+| 2026-10-23 | Asset-led main battle, visible-word refinement | Codex /root/asset_final_blind_judge | 2.69 → 3.00 | IMPROVED | R3 빛·환경 통합 |

@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "created": "2026-10-23",
+  "provenance": "OpenAI image_gen; original UI art generated for this game, no external reference images",
+  "sourcePreserved": true,
+  "runtimeProcessing": "Whole atlas / panel resized to 640px and encoded WebP; no creative image alteration",
+  "atlas": {
+    "file": "action-atlas.webp",
+    "columns": 2,
+    "rows": 2,
+    "tiles": [
+      "swing",
+      "watch",
+      "aim",
+      "exact"
+    ]
+  },
+  "panel": {
+    "file": "stadium-panel.webp",
+    "borderSlice": 80
+  },
+  "purpose": "Illustrated action/state affordances. Labels and hit targets remain native; original generated files are not shipped."
+}
