@@ -56,7 +56,7 @@ for(const [w,h,label] of VIEWPORTS){
     return {p,errors};
   };
   const measure=p=>p.evaluate(()=>{
-    const q=s=>{const e=document.querySelector(s);if(!e)return null;const r=e.getBoundingClientRect();return r.width&&r.height?{x:r.x,y:r.y,w:r.width,h:r.height}:null;};
+    const q=s=>{const e=document.querySelector(s);if(!e)return null;const style=getComputedStyle(e);if(style.visibility==='hidden'||style.display==='none'||Number(style.opacity)===0)return null;const r=e.getBoundingClientRect();return r.width&&r.height?{x:r.x,y:r.y,w:r.width,h:r.height}:null;};
     return {hscroll:document.documentElement.scrollWidth>innerWidth+1,vover:document.documentElement.scrollHeight-innerHeight,
       pitcher:q('.bp-pitcher'),swing:q('[data-testid=bp-swing]'),hand:q('.bp-hand'),cards:[...document.querySelectorAll('.bp-hand .bp-card')].map(e=>e.getBoundingClientRect().bottom),ih:innerHeight,appOver:(e=>e?e.scrollHeight-e.clientHeight:0)(document.querySelector('.duel-app')),hud:['.bp-ptag','.bp-verdict','.bp-voice','.bp-count'].map(q)};
   });
@@ -74,7 +74,11 @@ for(const [w,h,label] of VIEWPORTS){
     check(`${label} battle: swing button fully on screen`,!!m.swing&&m.swing.y+m.swing.h<=m.ih+1,m.swing?`bottom ${Math.round(m.swing.y+m.swing.h)} / ${m.ih}`:'missing');
     check(`${label} battle: hand cards not clipped`,!!m.hand&&m.cards.every(b=>b<=m.hand.y+m.hand.h+1),m.hand?`hand bottom ${Math.round(m.hand.y+m.hand.h)}, card bottom ${Math.round(Math.max(...m.cards))}`:'missing');
     await p.locator('.bp-card.basic').first().click();await p.locator('.bp-cell').nth(4).click();await p.getByTestId('bp-swing').click();
-    await p.waitForTimeout(3500);m=await measure(p);await shot(p,'battle-result');
+    // Measure the visible result after its finite entrance animation. A fixed
+    // delay could sample the transparent 2.4x first frame and report 100% cover.
+    await p.locator('.bp-verdict').waitFor();
+    await p.evaluate(async()=>{const el=document.querySelector('.bp-verdict');if(el)await Promise.allSettled(el.getAnimations().filter(a=>Number.isFinite(a.effect?.getComputedTiming().endTime)).map(a=>a.finished));});
+    m=await measure(p);await shot(p,'battle-result');
     const cover=Math.max(...m.hud.map(b=>overlap(m.pitcher,b)));
     check(`${label} battle: pitcher not covered by HUD`,cover<.35,`covered ${(cover*100|0)}%`);
     await p.close();}

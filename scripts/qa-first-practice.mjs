@@ -16,6 +16,7 @@ try{
   const c=await browser.newContext({viewport:{width,height},isMobile:width<500,hasTouch:width<500});
   const p=await c.newPage();p.on('pageerror',e=>errors.push(e.message));p.on('response',r=>{if(r.status()>=400)failures.push({url:r.url(),status:r.status()});});
   await p.goto(target);let f=await ui(p);
+  await f.locator('.title-screen').waitFor();
   const shot=name=>p.screenshot({path:path.join(out,label+'-'+name+'.png'),animations:'disabled'});
   check(label+' five title entries',await f.locator('.ts-item').count()===5);
   check(label+' practice recommended',await f.getByRole('button',{name:'첫 타격 연습',exact:true}).evaluate(e=>e.classList.contains('lead')));

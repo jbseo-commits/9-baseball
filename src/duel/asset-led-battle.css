@@ -1,0 +1,115 @@
+/* Functional art for the established MAIN RUN renderer. No page, actor anchor,
+   scroll container, engine timing or experiment layout is changed here. */
+.bp-battle.bp-readable.bp-asset-led{
+  --ba-atlas:url('../../assets/production-art/asset-led-battle-v1/action-atlas.webp');
+  --ba-panel:url('../../assets/production-art/asset-led-battle-v1/stadium-panel.webp');
+  --ba-signals:url('../../assets/production-art/asset-led-battle-v1/course-signals.svg');
+  --ba-energy:url('../../assets/production-art/asset-led-battle-v1/energy.svg');
+}
+.bp-asset-led .ba-icon{display:inline-block;width:36px;height:36px;flex:none;background-image:var(--ba-atlas);background-size:200% 200%;background-repeat:no-repeat;pointer-events:none;image-rendering:auto}
+.bp-asset-led .ba-swing{background-position:0 0}
+.bp-asset-led .ba-watch{background-position:100% 0}
+.bp-asset-led .ba-aim{background-position:0 100%}
+.bp-asset-led .ba-exact{background-position:100% 100%}
+.bp-asset-led .ba-course{display:block;width:48px;height:36px;background:var(--ba-signals) 0 50%/400% 100% no-repeat;pointer-events:none}
+.bp-asset-led .ba-some{background-position:33.333% 50%}
+.bp-asset-led .ba-often{background-position:66.667% 50%}
+.bp-asset-led .ba-closed{background-position:100% 50%;opacity:.7}
+.bp-asset-led .ba-word{position:absolute!important;white-space:nowrap;pointer-events:none}
+
+@media(orientation:portrait){
+  /* Uniform nine-sliced artwork stays crisp across tall cards and wide actions. */
+  .bp-battle.bp-readable.bp-asset-led :is(.bp-ptag,.bp-card,.bp-verb,.bp-bso-strip){
+    border:1px solid transparent!important;
+    border-image:var(--ba-panel) 80 fill / 16px / 3px stretch!important;
+    border-radius:0!important;background:transparent!important;backdrop-filter:none!important;
+  }
+  .bp-battle.bp-readable.bp-asset-led .bp-bar{background:#0b1621;border-bottom:1px solid #84704b}
+  .bp-battle.bp-readable.bp-asset-led .bp-bso-strip{padding:7px 10px;box-shadow:none;border-image-width:9px!important}
+  .bp-battle.bp-readable.bp-asset-led .bp-ptag{padding:8px 10px;box-shadow:0 5px 12px #0006!important}
+  .bp-battle.bp-readable.bp-asset-led .bp-pitcher-title-name{padding:0;border:none;background:none;font-size:12px}
+  .bp-battle.bp-readable.bp-asset-led .bp-pitcher-flame{display:none}
+  .bp-battle.bp-readable.bp-asset-led .bp-inspect-open{color:#d7e3de;background:transparent;border:0;box-shadow:none;min-width:44px;width:44px;padding:0}
+  .bp-battle.bp-readable.bp-asset-led .bp-ptag>small{font:500 10px/12px var(--bp-ko);letter-spacing:0}
+  .bp-battle.bp-readable.bp-asset-led .bp-hp-gauge-container{height:9px;border-color:#9b834c;background:#09131d}
+  .bp-battle.bp-readable.bp-asset-led .bp-hp-gauge-bar{background:url('../../assets/production-art/asset-led-battle-v1/hp-fill.svg') left center/32px 100% repeat-x;box-shadow:none}
+
+  /* More target area; identical hit boxes in aim, support, flight and result. */
+  .bp-battle.bp-readable.bp-asset-led .bp-zone{
+    --ba-zone-width:clamp(160px,46vw,196px);
+    width:var(--ba-zone-width);height:clamp(144px,40vw,172px);
+    left:calc(62 * var(--u,1vw) - var(--ba-zone-width)/2);
+    border:1px solid transparent!important;border-image:var(--ba-panel) 80 fill / 14px / 6px stretch!important;
+    border-radius:0!important;background:none!important;backdrop-filter:none!important;
+    box-shadow:0 7px 16px #0006!important;
+  }
+  .bp-battle.bp-readable.bp-asset-led .bp-cell{
+    border:1px solid #6d858044!important;background:#172d3922!important;
+    box-shadow:none!important;overflow:visible;
+  }
+  .bp-battle.bp-readable.bp-asset-led .bp-cell .ba-course{position:absolute;left:50%;top:32%;transform:translate(-50%,-50%)}
+  .bp-battle.bp-readable.bp-asset-led .bp-cell .ba-closed{top:50%}
+  .bp-battle.bp-readable.bp-asset-led .bp-cell .bp-pct.ba-word{left:0;right:0;top:auto!important;bottom:4px;transform:none;font:500 11px/13px var(--bp-ko)!important;color:#e5ddbd!important;text-shadow:none!important}
+  .bp-battle.bp-readable.bp-asset-led .bp-cell.dead:not(.cover):not(.assist)::before{content:none}
+  .bp-battle.bp-readable.bp-asset-led .bp-dead{display:none}
+  .bp-battle.bp-readable.bp-asset-led .bp-cell:is(.aim,.cover){background:#b9862840!important;border-color:#e8c46b!important;box-shadow:inset 0 0 9px #e7b85f33!important}
+  .bp-battle.bp-readable.bp-asset-led .bp-cell.assist{background:#378b9d44!important;border:2px dashed #8bd6db!important;box-shadow:none!important}
+  .bp-battle.bp-readable.bp-asset-led .bp-cell.aim::after{content:none}
+  .bp-battle.bp-readable.bp-asset-led .ba-aim-marker{position:absolute;left:50%;top:0;transform:translateX(-50%);width:40px;height:35px;background-size:200% 200%;opacity:.95;z-index:1}
+  .bp-battle.bp-readable.bp-asset-led .bp-cell:is(.aim,.assist) .ba-course{display:none}
+  .bp-battle.bp-readable.bp-asset-led .bp-cell.aim .bp-pct:not(.ba-word){position:relative;z-index:3;text-shadow:0 1px 3px #000,0 0 4px #000!important;font-size:12px!important}
+  .bp-battle.bp-readable.bp-asset-led .bp-cell .bp-token{left:2px;top:2px;width:19px;height:19px;font-size:11px!important;box-shadow:0 1px 3px #0008!important}
+  .bp-battle.bp-readable.bp-asset-led .bp-cell.assist .bp-token{background:#a3e1dd!important;border-radius:2px;border-color:#437c8a!important;color:#112a36!important}
+  .bp-battle.bp-readable.bp-asset-led .bp-read{left:auto;right:0;top:-22px;border-color:#958458;background:#0e1e29}
+  .bp-battle.bp-readable.bp-asset-led .bp-band em{background:#10202c;color:#ecdbb1;white-space:nowrap}
+  .bp-battle.bp-readable.bp-asset-led .bp-side{display:none}
+  .bp-battle.bp-readable.bp-asset-led .ba-legend{position:absolute;top:calc(100% + 29px);left:50%;transform:translateX(-50%);width:224px;max-width:calc(100vw - 16px);display:flex;justify-content:center;gap:8px;pointer-events:none;padding:2px 4px;background:#0b1925e8;border-radius:2px;color:#d0d6c9;font:400 10px/14px var(--bp-ko)}
+  .bp-asset-led .ba-legend>span{display:flex;gap:1px;align-items:center;white-space:nowrap}
+  .bp-asset-led .ba-legend .ba-course{width:26px;height:19px;flex:none}
+  .bp-battle.bp-readable.bp-asset-led .bp-pitch-mark{width:24px;height:24px;margin:-12px 0 0 -12px;border:0!important;background:url('../../assets/production-art/asset-led-battle-v1/ball.svg') center/contain no-repeat!important;box-shadow:none!important;border-radius:0!important}
+  .bp-battle.bp-readable.bp-asset-led.bp-exact-read .bp-cell.actual .bp-pitch-mark{width:44px;height:44px;margin:-22px 0 0 -22px;background:var(--ba-atlas) 100% 100%/200% 200% no-repeat!important;animation:ba-contact .45s ease-out both;z-index:8}
+
+  /* Art remains the card's hero; text stays live for legibility and localization. */
+  .bp-battle.bp-readable.bp-asset-led .bp-hand{background:#0a1721;border-top:1px solid #697363;gap:7px}
+  .bp-battle.bp-readable.bp-asset-led .bp-card{padding:7px 7px 5px;box-shadow:none!important;border-image-width:10px!important}
+  .bp-battle.bp-readable.bp-asset-led .bp-card-art-box{border-bottom:1px solid #b5a17277}
+  .bp-battle.bp-readable.bp-asset-led .bp-card:not(.main):not(.armed){filter:saturate(.85)}
+  .bp-battle.bp-readable.bp-asset-led .bp-card:is(.main,.armed){outline:2px solid #ffe0a0;outline-offset:-1px;box-shadow:0 0 14px #e9b65055!important}
+  .bp-battle.bp-readable.bp-asset-led .bp-card-cost{background:url('../../assets/production-art/asset-led-battle-v1/cost.svg') center/contain no-repeat!important;color:#102330!important;border:0!important;border-radius:0;box-shadow:none!important;text-shadow:0 1px #ffe8a0;width:25px;height:27px}
+  .bp-battle.bp-readable.bp-asset-led .bp-plan{background:#0a1721;border-top:1px solid #374d54}
+  .bp-battle.bp-readable.bp-asset-led .bp-energy-leds{gap:3px}
+  .bp-battle.bp-readable.bp-asset-led .bp-energy-leds i{width:15px;height:15px;background:var(--ba-energy) center/contain no-repeat;border:0;box-shadow:none;opacity:.22;filter:grayscale(1)}
+  .bp-battle.bp-readable.bp-asset-led .bp-energy-leds i.on{opacity:1;filter:none}
+  .bp-battle.bp-readable.bp-asset-led .bp-progress{gap:6px;align-items:center}
+  .bp-battle.bp-readable.bp-asset-led .bp-progress li{display:flex;align-items:center;gap:1px}
+  .bp-battle.bp-readable.bp-asset-led .bp-progress .ba-icon{width:13px;height:13px}
+  .bp-battle.bp-readable.bp-asset-led .bp-progress b{display:none}
+  .bp-battle.bp-readable.bp-asset-led .bp-verbs{background:#0a1721}
+  .bp-battle.bp-readable.bp-asset-led .bp-verb{outline:none!important;box-shadow:none!important;padding:7px 10px!important;grid-template-columns:40px minmax(0,1fr)!important;column-gap:4px;}
+  .bp-battle.bp-readable.bp-asset-led .bp-verb::before{content:''!important;width:40px!important;height:40px!important;background:var(--ba-atlas) 0 0/200% 200% no-repeat;filter:none;grid-column:1;grid-row:1/3;align-self:center;}
+  .bp-battle.bp-readable.bp-asset-led .bp-verb.wait::before{background-position:100% 0}
+  .bp-battle.bp-readable.bp-asset-led .bp-verbs.next .bp-verb.go::before{background:url('../../assets/production-art/asset-led-battle-v1/ball.svg') center/contain no-repeat}
+  .bp-battle.bp-readable.bp-asset-led .bp-verb.go[data-action-kind="prepare"]::before{background:var(--ba-energy) center/contain no-repeat}
+  .bp-battle.bp-readable.bp-asset-led .bp-verb.go:not(:disabled){color:#ffe4a0!important;box-shadow:0 0 13px #e9b65033!important}
+  .bp-battle.bp-readable.bp-asset-led .bp-verb.go:disabled{color:#a7a38d!important;filter:saturate(.4)}
+  .bp-battle.bp-readable.bp-asset-led .bp-verb .bp-verb-word{font-size:clamp(17px,5vw,22px)!important;text-align:left;line-height:1.1}
+  .bp-battle.bp-readable.bp-asset-led .bp-verb::after,.bp-battle.bp-readable.bp-asset-led .bp-verb small{font-size:11px!important;text-align:left}
+  .bp-battle.bp-readable.bp-asset-led .bp-verb.go::after{content:'코스와 카드를 선택'!important;white-space:nowrap}
+  .bp-battle.bp-readable.bp-asset-led .bp-verb.go:not(:disabled)::after{content:'이 코스로 승부'!important}
+  .bp-battle.bp-readable.bp-asset-led .bp-verb:has(small)::after{display:none!important}
+  .bp-battle.bp-readable.bp-asset-led .ba-action-caption{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bp-battle.bp-readable.bp-asset-led .bp-verbs:has(.bp-info){grid-template-columns:minmax(0,1.3fr) minmax(125px,1fr) 40px}
+  .bp-battle.bp-readable.bp-asset-led .bp-verbs:has(.bp-info) .bp-verb{grid-template-columns:29px minmax(0,1fr)!important;padding:7px!important}
+  .bp-battle.bp-readable.bp-asset-led .bp-verbs:has(.bp-info) .bp-verb::before{width:29px!important;height:32px!important}
+  .bp-battle.bp-readable.bp-asset-led .bp-info{background:#142b37;border-color:#65776d;color:#ecdbaf}
+
+  .bp-battle.bp-readable.bp-asset-led .bp-verdict:not(.splash){border:1px solid transparent!important;border-image:var(--ba-panel) 80 fill / 16px / 4px stretch!important;border-radius:0!important;background:none!important;padding:10px 14px 10px 50px;text-align:left;min-width:155px;box-shadow:0 8px 20px #0008!important}
+  .bp-asset-led .ba-verdict-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);width:36px;height:36px}
+  .bp-asset-led .ba-exact-label{display:block;color:#f7d083;font:700 11px/14px var(--bp-ko);letter-spacing:.12em}
+  .bp-battle.bp-readable.bp-asset-led[data-battle-step="result"] .bp-verdict:not(.splash):not(:has(.bp-moves)){left:calc(62 * var(--u,1vw));right:auto;top:auto;bottom:5px;translate:-50% 0;transform:none;width:max-content;max-width:75%;box-sizing:border-box}
+  .bp-battle.bp-readable.bp-asset-led[data-battle-step="result"] .bp-band em{visibility:hidden}
+  .bp-battle.bp-readable.bp-asset-led .bp-verdict:not(.splash) strong{font-size:26px;line-height:1.1}
+  .bp-battle.bp-readable.bp-asset-led button:focus-visible{outline:3px solid #fff1c5!important;outline-offset:2px}
+}
+@keyframes ba-contact{from{transform:scale(.65);opacity:.4}to{transform:scale(1);opacity:1}}
+@media(prefers-reduced-motion:reduce){.bp-battle.bp-readable.bp-asset-led.bp-exact-read .bp-cell.actual .bp-pitch-mark{animation:none}}

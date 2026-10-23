@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="48" viewBox="0 0 256 48">
+  <defs>
+    <g id="off"><circle r="6" fill="#152734" stroke="#47616a"/><path d="M-3-4 0-5 3-4" fill="none" stroke="#81958f"/></g>
+    <g id="ball"><circle cy="1" r="6.5" fill="#07121b"/><circle r="6" fill="#c9aa6e"/><path d="M-5 0-3-4 1-5 4-3 5 0 2 4-2 4Z" fill="#f5e7b9"/><path d="M-3-4-1-1-2 3M3-3 1 0 2 4" fill="none" stroke="#ac6950" stroke-width="1.3"/><path d="m-4-3 2 1m-3 2 3 1m3-3 3-1M1 2l3-1" fill="none" stroke="#9a4b39"/></g>
+  </defs>
+  <g transform="translate(0 24)"><use href="#ball" x="16"/><use href="#off" x="32"/><use href="#off" x="48"/></g>
+  <g transform="translate(64 24)"><use href="#ball" x="16"/><use href="#ball" x="32"/><use href="#off" x="48"/></g>
+  <g transform="translate(128 24)"><use href="#ball" x="16"/><use href="#ball" x="32"/><use href="#ball" x="48"/></g>
+  <g transform="translate(192 0)"><path d="M22 15h20v18H22Z" fill="#0a1924" stroke="#425b65"/><path d="m24 31 16-14m-16 7 8-7m0 14 8-7" stroke="#68818a" stroke-width="2"/><path d="M23 15h18" stroke="#9baca6"/></g>
+</svg>
