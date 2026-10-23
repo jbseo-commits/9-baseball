@@ -25,17 +25,17 @@ export const TITLE_CAST=[
   {id:'regular-01-red-rush',slot:'hero'},
 ];
 
-export default function TitleScreen({run=null,onNew,onContinue,onDeck,onDex,onSettings}){
+export default function TitleScreen({run=null,onNew,onContinue,onDeck,onDex,onSettings,onPractice}){
   const listRef=useRef(null);
   const items=[
     {key:'new',label:'새로운 게임',sub:'투수를 끌어내리는 3막 원정',on:onNew},
     {key:'continue',label:'이어하기',sub:run?(run.ended?'지난 런 결과 보기':run.tutorial?`튜토리얼 · 덱 ${run.deck}장`:`${run.act}막 · 덱 ${run.deck}장`):'진행 중인 런 없음',on:onContinue,off:!run},
-    {key:'deck',label:'덱 관리',sub:run?`현재 덱 ${run.deck}장`:'런을 시작하면 열립니다',on:onDeck,off:!run},
+    ...(!run&&onPractice?[{key:'practice',label:'첫 타격 연습',sub:'코스부터 집중까지 · 세 번의 스윙',on:onPractice}]:[{key:'deck',label:'덱 관리',sub:run?`현재 덱 ${run.deck}장`:'런을 시작하면 열립니다',on:onDeck,off:!run}]),
     {key:'dex',label:'도감',sub:'만난 투수와 카드',on:onDex},
     {key:'settings',label:'설정',sub:'사운드 · 도움말 · 튜토리얼',on:onSettings},
   ];
   /* the item a returning player wants lights up first: continue when a run exists, else new game */
-  const lead=run&&!run.ended?'continue':'new';
+  const lead=run&&!run.ended?'continue':!run&&onPractice?'practice':'new';
   /* arrow keys walk the menu like a console title */
   const onKeyDown=e=>{
     if(e.key!=='ArrowDown'&&e.key!=='ArrowUp')return;

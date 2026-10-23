@@ -41,9 +41,10 @@ describe('V9 main-run UI',()=>{
       const button=screen.getByRole('button',{name:new RegExp(name)});
       expect(within(button).getByText('튜토리얼 · 완성형 체험')).toBeTruthy();
     }
-    /* 메인런은 따로, 그리고 제일 밝게 들어간다. */
+    /* 메인런은 별도 진입을 유지하고, 첫 방문은 타격 연습을 권한다. */
     const main=screen.getByRole('button',{name:'새로운 게임'});
-    expect(main.classList.contains('lead')).toBe(true);   // the title's lit row (no run yet → 새로운 게임)
+    expect(main.disabled).toBe(false);
+    expect(screen.getAllByRole('button',{name:'첫 타격 연습'})[0].classList.contains('lead')).toBe(true);
   });
 
   it('makes the map an actual opponent choice before a main-run battle',()=>{

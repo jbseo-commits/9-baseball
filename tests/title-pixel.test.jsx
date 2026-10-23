@@ -34,7 +34,7 @@ describe('title pixel panel (INBOX #10)',()=>{
     expect(title.textContent).not.toMatch(/READ → BET → REVEAL → IMPACT|TUTORIAL ·|V9\.2 \/ 4경기/);
     /* 2026-09-28 entry screen (target title.png): one wordmark and the five-row menu */
     expect(screen.getByRole('heading',{name:'9ZONE HOMEBOUND'})).toBeTruthy();
-    expect([...document.querySelectorAll('.ts-item b')].map(b=>b.textContent)).toEqual(['새로운 게임','이어하기','덱 관리','도감','설정']);
-    expect(screen.getByRole('button',{name:'새로운 게임'}).classList.contains('lead')).toBe(true);
+    expect([...document.querySelectorAll('.ts-item b')].map(b=>b.textContent)).toEqual(['새로운 게임','이어하기','첫 타격 연습','도감','설정']);
+    expect(screen.getByRole('button',{name:'첫 타격 연습'}).classList.contains('lead')).toBe(true);
   });
 });

@@ -14,23 +14,24 @@ afterEach(()=>{cleanup();localStorage.clear();});
 const item=k=>document.querySelector(`.ts-item[data-item="${k}"]`);
 
 describe('title screen',()=>{
-  it('is the target menu: 새로운 게임 · 이어하기 · 덱 관리 · 도감 · 설정, with the app header hidden',()=>{
+  it('keeps five rows and offers practice in the empty deck slot, with the app header hidden',()=>{
     render(<Duel/>);
-    expect([...document.querySelectorAll('.ts-item b')].map(b=>b.textContent)).toEqual(['새로운 게임','이어하기','덱 관리','도감','설정']);
+    expect([...document.querySelectorAll('.ts-item b')].map(b=>b.textContent)).toEqual(['새로운 게임','이어하기','첫 타격 연습','도감','설정']);
     expect(document.querySelector('.duel-app').classList.contains('title-mode')).toBe(true);
     expect(fs.readFileSync('src/duel/title-screen.css','utf8')).toContain('.duel-app.title-mode>.duel-header{display:none}');
   });
-  it('without a run: new game is lit, continue and deck say why they are closed',()=>{
+  it('without a run: practice is recommended and continue explains its unavailable state',()=>{
     render(<Duel/>);
-    expect(item('new').classList.contains('lead')).toBe(true);
+    expect(item('practice').classList.contains('lead')).toBe(true);
     expect(item('continue').disabled).toBe(true);
     expect(screen.getByText('진행 중인 런 없음')).toBeTruthy();
-    expect(item('deck').disabled).toBe(true);
+    expect(item('practice').disabled).toBe(false);expect(item('deck')).toBeNull();
   });
   it('with a run: continue is lit and shows the act and deck; new game asks before replacing it',()=>{
     const s=createV10Duel(3);saveV10Duel(localStorage,s);
     render(<Duel/>);
     expect(item('continue').classList.contains('lead')).toBe(true);
+    expect(item('deck').disabled).toBe(false);expect(item('practice')).toBeNull();
     expect(item('continue').textContent).toContain(`1막 · 덱 ${s.deck.length}장`);
     fireEvent.click(item('new'));
     expect(screen.getByRole('dialog',{name:'새로운 게임'})).toBeTruthy();
