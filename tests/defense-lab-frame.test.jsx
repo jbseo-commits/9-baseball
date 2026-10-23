@@ -20,8 +20,15 @@ it('fits the lab controls into a short wide window using a scaled logical portra
   height.mockReturnValue(720);fireEvent(window,new Event('resize'));
   expect(frame.style.transform).toBe('');expect(frame.style.height).toBe('');
 });
-it('leaves the existing production frame sizing alone at the same short height',()=>{
-  vi.spyOn(window,'innerHeight','get').mockReturnValue(390);
-  const {container}=render(<PortraitFrame/>);
-  expect(container.querySelector('iframe').getAttribute('style')).toBeNull();
+it('fits main-run controls in a short PC window and preserves the iframe when resized',()=>{
+  const height=vi.spyOn(window,'innerHeight','get').mockReturnValue(700);
+  const {container}=render(<PortraitFrame/>);const frame=container.querySelector('iframe'),src=frame.getAttribute('src');
+  expect(frame.getAttribute('style')).toBeNull();
+  height.mockReturnValue(500);fireEvent(window,new Event('resize'));
+  expect(frame.style.height).toBe('640px');expect(frame.style.width).toBe('360px');
+  expect(frame.style.transform).toBe(`scale(${500/640})`);
+  expect(container.querySelector('iframe')).toBe(frame);expect(frame.getAttribute('src')).toBe(src);
+  height.mockReturnValue(640);fireEvent(window,new Event('resize'));
+  expect(frame.style.transform).toBe('');expect(frame.style.height).toBe('');
+  expect(container.querySelector('iframe')).toBe(frame);expect(frame.getAttribute('src')).toBe(src);
 });

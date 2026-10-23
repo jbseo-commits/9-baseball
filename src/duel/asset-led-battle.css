@@ -85,22 +85,26 @@
   .bp-battle.bp-readable.bp-asset-led .bp-progress .ba-icon{width:13px;height:13px}
   .bp-battle.bp-readable.bp-asset-led .bp-progress b{display:none}
   .bp-battle.bp-readable.bp-asset-led .bp-verbs{background:#0a1721}
-  .bp-battle.bp-readable.bp-asset-led .bp-verb{outline:none!important;box-shadow:none!important;padding:7px 10px!important;grid-template-columns:40px minmax(0,1fr)!important;column-gap:4px;}
+  /* Keep both text lines in the icon's two-row group. The inherited 10px row
+     gap and old full-width captions pushed the second line into the frame. */
+  .bp-battle.bp-readable.bp-asset-led .bp-verb{outline:none!important;box-shadow:none!important;padding:7px 10px!important;grid-template-columns:40px minmax(0,1fr)!important;grid-template-rows:auto auto;column-gap:4px;row-gap:2px;}
   .bp-battle.bp-readable.bp-asset-led .bp-verb::before{content:''!important;width:40px!important;height:40px!important;background:var(--ba-atlas) 0 0/200% 200% no-repeat;filter:none;grid-column:1;grid-row:1/3;align-self:center;}
   .bp-battle.bp-readable.bp-asset-led .bp-verb.wait::before{background-position:100% 0}
   .bp-battle.bp-readable.bp-asset-led .bp-verbs.next .bp-verb.go::before{background:url('../../assets/production-art/asset-led-battle-v1/ball.svg') center/contain no-repeat}
   .bp-battle.bp-readable.bp-asset-led .bp-verb.go[data-action-kind="prepare"]::before{background:var(--ba-energy) center/contain no-repeat}
   .bp-battle.bp-readable.bp-asset-led .bp-verb.go:not(:disabled){color:#ffe4a0!important;box-shadow:0 0 13px #e9b65033!important}
   .bp-battle.bp-readable.bp-asset-led .bp-verb.go:disabled{color:#a7a38d!important;filter:saturate(.4)}
-  .bp-battle.bp-readable.bp-asset-led .bp-verb .bp-verb-word{font-size:clamp(17px,5vw,22px)!important;text-align:left;line-height:1.1}
-  .bp-battle.bp-readable.bp-asset-led .bp-verb::after,.bp-battle.bp-readable.bp-asset-led .bp-verb small{font-size:11px!important;text-align:left}
+  .bp-battle.bp-readable.bp-asset-led .bp-verb .bp-verb-word{grid-column:2;grid-row:1;font-size:clamp(17px,5vw,22px)!important;text-align:left;line-height:1.1}
+  .bp-battle.bp-readable.bp-asset-led .bp-verb::after,
+  .bp-battle.bp-readable.bp-asset-led .bp-verb small,
+  .bp-battle.bp-readable.bp-asset-led .bp-verb small.bp-verb-sub{grid-column:2;grid-row:2;margin-top:0;font-size:11px!important;text-align:left}
   .bp-battle.bp-readable.bp-asset-led .bp-verb.go::after{content:'코스와 카드를 선택'!important;white-space:nowrap}
   .bp-battle.bp-readable.bp-asset-led .bp-verb.go:not(:disabled)::after{content:'이 코스로 승부'!important}
   .bp-battle.bp-readable.bp-asset-led .bp-verb:has(small)::after{display:none!important}
   .bp-battle.bp-readable.bp-asset-led .ba-action-caption{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .bp-battle.bp-readable.bp-asset-led .bp-verbs:has(.bp-info){grid-template-columns:minmax(0,1.3fr) minmax(125px,1fr) 40px}
   .bp-battle.bp-readable.bp-asset-led .bp-verbs:has(.bp-info) .bp-verb{grid-template-columns:29px minmax(0,1fr)!important;padding:7px!important}
-  .bp-battle.bp-readable.bp-asset-led .bp-verbs:has(.bp-info) .bp-verb::before{width:29px!important;height:32px!important}
+  .bp-battle.bp-readable.bp-asset-led .bp-verbs:has(.bp-info) .bp-verb::before{grid-row:1/3;width:29px!important;height:32px!important}
   .bp-battle.bp-readable.bp-asset-led .bp-info{background:#142b37;border-color:#65776d;color:#ecdbaf}
 
   .bp-battle.bp-readable.bp-asset-led .bp-verdict:not(.splash){border:1px solid transparent!important;border-image:var(--ba-panel) 80 fill / 16px / 4px stretch!important;border-radius:0!important;background:none!important;padding:10px 14px 10px 50px;text-align:left;min-width:155px;box-shadow:0 8px 20px #0008!important}
