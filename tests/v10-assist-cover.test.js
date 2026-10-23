@@ -1,6 +1,6 @@
 import {describe,it,expect} from 'vitest';
 import {
-  createV10Duel,enterV10Node,setAimZone,previewCard,previewV10Stack,playV10Action,selectV10Combat,
+  createV10Duel,enterV10Node,setAimZone,previewCard,previewV10Stack,playV10Action,advanceV10Pitch,selectV10Combat,
   v10SwingDamageRate,V10_SWING_STACK_MAX,
 } from '../src/duel/engine.js';
 import {validateV10State} from '../src/duel/v10-storage.js';
@@ -10,6 +10,11 @@ function pinHand(s,ids=['c0','c1','c2','c3','c4']){const b=s.battle,pool=[...b.h
 function armed(){
   let s=createV10Duel(20260917);
   s=pinHand(enterV10Node(s,'a1-entry'));
+  s.deck.find(c=>c.id==='c4').kind='laser';
+  s.battle.hand=['c4','c0','c1','c6','c7'];
+  s.battle.draw=s.deck.map(c=>c.id).filter(id=>!s.battle.hand.includes(id));s.battle.discard=[];
+  s=playV10Action(s,{type:'card',id:'c7'}); // paid preparation
+  s=advanceV10Pitch(playV10Action(s,{type:'take'})); // real TAKE reward supplies the 3-energy stack budget
   s=setAimZone(s,0);
   return s;
 }
@@ -64,7 +69,7 @@ describe('V10 스윙 스택',()=>{
     expect(combat.damageRate).toBeCloseTo(.72);
     expect(combat.connectCount).toBe(1);
     expect(combat.cardCount).toBe(3);
-    expect(combat.choiceLabel).toBe('밀어치기 + 정타 노림 + 정타 노림');
+    expect(combat.choiceLabel).toBe('라인드라이브 + 정타 노림 + 정타 노림');
     expect(combat.aimLabel).toContain('바깥 낮음');
     expect(validateV10State(s)).toBe(true);
   });

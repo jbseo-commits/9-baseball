@@ -77,8 +77,8 @@ describe('V11 result debrief',()=>{
       {choice:'take',verdict:'볼',takeEnergyBonus:0,hpAfter:0},
       {zone:9,primaryCoverage:[],assistOnly:false,label:'볼'}
     );
-    expect(rewardedBall.title).toContain('다음 공 4');expect(rewardedBall.title).toContain('카드 +1');
-    expect(rewardedWalk.title).toContain('다음 타자 첫 공 4');expect(rewardedWalk.title).toContain('카드 +1');
+    expect(rewardedBall.title).toContain('다음 공 에너지 +1');expect(rewardedBall.title).toContain('카드 +1');
+    expect(rewardedWalk.title).toContain('다음 타자 첫 공 에너지 +1');expect(rewardedWalk.title).toContain('카드 +1');
     expect(strikeout.title).toContain('보상 없음');
     expect(pitcherOut.title).toContain('보상 없음');
   });

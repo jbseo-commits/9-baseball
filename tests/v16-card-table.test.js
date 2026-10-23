@@ -49,11 +49,14 @@ describe('card table contract (151 kinds)',()=>{
       expect([0,1,2].includes(cost),'cost:'+kind).toBe(true);
       expect(cost===0,'cost0:'+kind).toBe(kind==='setup');
       expect(cost===2,'cost2:'+kind).toBe(docTwo.has(kind));
+      if(d.type==='attack'&&['row','column','diag','cross','x','box','corners','all'].includes(d.shape)&&!d.bunt&&d.rarity!=='signature')expect(cost,'ordinary-wide:'+kind).toBe(2);
       expect(typeof d.family==='string'&&d.family.length>0,'family:'+kind).toBe(true);
       if(!CORE_KINDS.includes(kind))expect(Object.hasOwn(FAMILIES,d.family),'family:'+kind).toBe(true);
       if(d.rarity!==undefined)expect(RARITIES.has(d.rarity),'rarity:'+kind).toBe(true);
     }
     expect(cardCost('setup')).toBe(0);
+    expect(cardCost('laser')).toBe(1);expect(cardCost('commit')).toBe(1);
+    expect(cardCost('wall')).toBe(2);expect(cardCost('thunder')).toBe(2);
   });
 
   it('every keyword the cards use is a keyword the engine handles',()=>{

@@ -14,7 +14,7 @@ const stage=()=>document.querySelector('.zf-preview').dataset.step;
 const fixture=()=>{
   const s=createPreviewBattle();
   // Interaction fixtures are deliberately independent of the real start packs.
-  const kinds=['place','strike','slug','defend','setup','scout','rally','watch','laser'];
+  const kinds=['place','laser','slug','defend','setup','scout','rally','watch','laser'];
   s.deck=s.deck.map((c,i)=>({...c,kind:kinds[i]}));
   s.battle.hand=['c0','c1','c2','c3','c4'];
   s.battle.draw=s.deck.filter(c=>!s.battle.hand.includes(c.id)).map(c=>c.id);s.battle.discard=[];
@@ -36,9 +36,9 @@ describe('zone-first preview interaction',()=>{
     expect(document.querySelector('.zf-hand [data-kind="basic"]')).toBeNull();
     fireEvent.click(card('basic'));expect(stage()).toBe('plan');expect(card('basic').getAttribute('aria-pressed')).toBe('true');
     expect(zones().some(x=>x.getAttribute('aria-pressed')==='true')).toBe(false);
-    fireEvent.click(zones()[4]);expect(screen.getByRole('button',{name:'타격! 에너지 0 / 3'}).disabled).toBe(false);
+    fireEvent.click(zones()[4]);expect(screen.getByRole('button',{name:'타격! 에너지 0 / 2'}).disabled).toBe(false);
     const expected=playV10Action(setAimZone(s,4),{type:'card',id:'basic',supports:[]});
-    fireEvent.click(screen.getByRole('button',{name:'타격! 에너지 0 / 3'}));
+    fireEvent.click(screen.getByRole('button',{name:'타격! 에너지 0 / 2'}));
     expect(card('basic').disabled).toBe(true);expect(stage()).toBe('flight');
     act(()=>vi.advanceTimersByTime(PREVIEW_IMPACT_MS));expect(stage()).toBe('result');
     expect(screen.getByRole('meter').getAttribute('aria-valuenow')).toBe(String(expected.pitcher.hp));
@@ -47,29 +47,29 @@ describe('zone-first preview interaction',()=>{
     const s=fixture();s.deck[4].kind='watch';render(<ZoneFirstPreview initialState={s}/>);
     fireEvent.click(card('watch'));const summary=document.querySelector('.zf-selection');
     expect(summary.textContent).toContain('뽑기 1장');expect(summary.textContent).toContain('손패 5장 한도');
-    expect(screen.getByRole('button',{name:'준비 사용 에너지 1 / 3'}).disabled).toBe(false);
+    expect(screen.getByRole('button',{name:'준비 사용 에너지 1 / 2'}).disabled).toBe(false);
     fireEvent.click(card('place'));expect(summary.textContent).toContain('정타 HP +50%');
     expect(summary.textContent).not.toContain('손패 5장 한도');
   });
   it('announces support removal when selecting a different main card',()=>{
     start();aimAndPick('place');fireEvent.click(screen.getByRole('button',{name:'＋ 지원 추가'}));
-    fireEvent.click(card('strike'));fireEvent.click(zones()[2]);
+    fireEvent.click(card('laser'));fireEvent.click(zones()[2]);
     expect(document.querySelector('.zf-selection').textContent).toContain('지원 1장');
     fireEvent.click(card('basic'));
     expect(document.querySelectorAll('.zf-card.is-support')).toHaveLength(0);
     expect(document.querySelector('.zf-notice').textContent).toContain('지원 1장 해제');
-    expect(screen.getByRole('button',{name:'타격! 에너지 0 / 3'}).disabled).toBe(false);
+    expect(screen.getByRole('button',{name:'타격! 에너지 0 / 2'}).disabled).toBe(false);
     expect(stage()).toBe('plan');
   });
   it('keeps cards visible through selection and direct re-aiming',()=>{
-    const s=start();aimAndPick('strike');
+    const s=start();aimAndPick('laser');
     expect(stage()).toBe('plan');expect(document.querySelector('.zf-hand')).not.toBeNull();
     fireEvent.click(zones()[2]);
     expect(stage()).toBe('plan');expect(zones()[2].getAttribute('aria-pressed')).toBe('true');
     expect(zones().flatMap((el,z)=>el.classList.contains('covered')?[z]:[])).toEqual(coverageAt(s,'c1',2));
   });
   it('lets cards come first without showing a guessed target or allowing an attack',()=>{
-    const s=start();fireEvent.click(card('strike'));
+    const s=start();fireEvent.click(card('laser'));
     expect(stage()).toBe('plan');expect(document.querySelector('.zf-zone.covered')).toBeNull();
     expect(zones().some(x=>x.getAttribute('aria-pressed')==='true')).toBe(false);
     expect(document.querySelector('.zf-board-caption').textContent).not.toContain('적중권');
@@ -81,15 +81,15 @@ describe('zone-first preview interaction',()=>{
   });
   it('swaps cards directly while keeping the same hand mounted',()=>{
     start();const hand=document.querySelector('.zf-hand');fireEvent.click(card('place'));
-    fireEvent.click(card('strike'));expect(document.querySelector('.zf-hand')).toBe(hand);
-    expect(card('strike').getAttribute('aria-pressed')).toBe('true');expect(card('place').getAttribute('aria-pressed')).toBe('false');
+    fireEvent.click(card('laser'));expect(document.querySelector('.zf-hand')).toBe(hand);
+    expect(card('laser').getAttribute('aria-pressed')).toBe('true');expect(card('place').getAttribute('aria-pressed')).toBe('false');
     expect(document.querySelector('.zf-zone.covered')).toBeNull();
     expect(screen.getByRole('button',{name:/^코스를 선택하세요/}).disabled).toBe(true);
     expect(screen.queryByRole('button',{name:/손패 보기|손패 접기|선택으로 돌아가기|카드 바꾸기/})).toBeNull();
   });
   it('chooses a zone first without a reveal step and replaces the attack in place',()=>{
     const s=start();const hand=document.querySelector('.zf-hand');fireEvent.click(zones()[2]);
-    fireEvent.click(card('strike'));fireEvent.click(card('place'));
+    fireEvent.click(card('laser'));fireEvent.click(card('place'));
     expect(document.querySelector('.zf-hand')).toBe(hand);expect(stage()).toBe('plan');
     expect(zones()[2].getAttribute('aria-pressed')).toBe('true');
     expect(zones().flatMap((el,z)=>el.classList.contains('covered')?[z]:[])).toEqual(coverageAt(s,'c0',2));
@@ -137,26 +137,26 @@ describe('zone-first preview interaction',()=>{
     expect(localStorage.getItem('9zone-v10-run')).toBe('existing-run');
   });
   it('keeps the hand visible while support mode is entered and cancelled',()=>{
-    start();aimAndPick('strike');const hand=document.querySelector('.zf-hand');
+    start();aimAndPick('laser');const hand=document.querySelector('.zf-hand');
     fireEvent.click(screen.getByRole('button',{name:'＋ 지원 추가'}));
     expect(document.querySelector('.zf-hand')).toBe(hand);expect(card('setup')).not.toBeNull();
     fireEvent.click(screen.getByRole('button',{name:'지원 선택 취소'}));
-    expect(card('strike').getAttribute('aria-pressed')).toBe('true');expect(zones()[4].getAttribute('aria-pressed')).toBe('true');
+    expect(card('laser').getAttribute('aria-pressed')).toBe('true');expect(zones()[4].getAttribute('aria-pressed')).toBe('true');
     expect(screen.getByRole('button',{name:/^타격! 에너지 1/}).disabled).toBe(false);
   });
   it('places and removes support without moving the main aim',()=>{
     start();aimAndPick('place');fireEvent.click(screen.getByRole('button',{name:'＋ 지원 추가'}));
-    fireEvent.click(card('strike'));expect(stage()).toBe('plan');
+    fireEvent.click(card('laser'));expect(stage()).toBe('plan');
     expect(screen.getByRole('button',{name:/^지원을 배치하세요/}).disabled).toBe(true);
     fireEvent.click(zones()[2]);
     expect(zones()[4].getAttribute('aria-pressed')).toBe('true');
     expect(zones()[2].querySelector('[aria-label="지원 위치"]')).not.toBeNull();
     expect(screen.getByRole('button',{name:/타격!/}).textContent).toContain('에너지 2');
-    fireEvent.click(screen.getByRole('button',{name:'밀어치기 지원 제거'}));
+    fireEvent.click(screen.getByRole('button',{name:'라인드라이브 지원 제거'}));
     expect(screen.getByRole('button',{name:/타격!/}).textContent).toContain('에너지 1');
   });
   it('cancels an armed support on mobile without consuming anything',()=>{
-    start();aimAndPick('place');fireEvent.click(screen.getByRole('button',{name:'＋ 지원 추가'}));fireEvent.click(card('strike'));
+    start();aimAndPick('place');fireEvent.click(screen.getByRole('button',{name:'＋ 지원 추가'}));fireEvent.click(card('laser'));
     fireEvent.click(screen.getByRole('button',{name:'배치 취소'}));
     expect(zones()[4].getAttribute('aria-pressed')).toBe('true');
     expect(screen.getByRole('button',{name:/타격!/}).textContent).toContain('에너지 1');
@@ -169,10 +169,10 @@ describe('zone-first preview interaction',()=>{
     for(const kind of ['setup','place'])expect(card(kind).getAttribute('aria-disabled')).toBe('true');
   });
   it('rejects an over-budget support with the real engine reason',()=>{
-    const s=fixture();s.battle.energy=2;render(<ZoneFirstPreview initialState={s}/>);
+    const s=fixture();s.deck.find(c=>c.id==='c1').kind='strike';s.battle.energy=2;render(<ZoneFirstPreview initialState={s}/>);
     aimAndPick('slug');fireEvent.click(screen.getByRole('button',{name:'＋ 지원 추가'}));fireEvent.click(card('strike'));
     expect(stage()).toBe('plan');expect(document.querySelector('.zf-notice').textContent).toContain('에너지가 부족');
-    expect(document.querySelector('.zf-notice').textContent).toContain('3/2');
+    expect(document.querySelector('.zf-notice').textContent).toContain('4/2');
   });
   it('uses a preparation without pitching and retains its active effect',()=>{
     start();aimAndPick('setup');fireEvent.click(screen.getByRole('button',{name:/^준비 사용 에너지 0/}));
@@ -202,7 +202,7 @@ describe('zone-first preview interaction',()=>{
     expect(document.querySelector('.zf-zone.landed')).toBeNull();expect(document.querySelector('.zf-result-card')).toBeNull();
     expect(screen.getByRole('button',{name:/지켜보기/}).disabled).toBe(true);
     expect(document.querySelector('.zf-hand')).not.toBeNull();expect([...document.querySelectorAll('.zf-card')].every(c=>c.disabled)).toBe(true);
-    const chosen=card('place');fireEvent.click(card('strike'));expect(chosen.getAttribute('aria-pressed')).toBe('true');
+    const chosen=card('place');fireEvent.click(card('laser'));expect(chosen.getAttribute('aria-pressed')).toBe('true');
     act(()=>vi.advanceTimersByTime(PREVIEW_IMPACT_MS-1));expect(stage()).toBe('flight');
     act(()=>vi.advanceTimersByTime(1));expect(stage()).toBe('result');
     expect(screen.getByRole('meter').getAttribute('aria-valuenow')).toBe(String(expected.pitcher.hp));

@@ -14,12 +14,13 @@ import {intentLines,hpTicks} from '../src/duel/ballpark-copy.js';
 beforeEach(()=>{localStorage.clear()});
 afterEach(()=>{cleanup()});
 
-function begin(hand,energy){
+function begin(hand,energy,overrides={}){
   let s=createV10Duel(1);
   s.build='away';s.deck=['place','place','strike','rally','strike','bunt','place','place','place','place','place','place'].map((kind,i)=>({id:'c'+i,kind}));
   s.deck[1]=Object.assign({},s.deck[1],{plus:true});
   s.deck[3]=Object.assign({},s.deck[3],{plus:true});
   s.deck[6]=Object.assign({},s.deck[6],{plus:true});
+  for(const [id,kind] of Object.entries(overrides))s.deck.find(c=>c.id===id).kind=kind;
   s.nextId=s.deck.length;
   s=enterV10Node(s,'a1-entry');
   // Stack mechanics under test address c0(place)/c1(place+); the opening deal
@@ -146,20 +147,19 @@ describe('V13 BALLPARK battle',()=>{
   });
 
   it('a growing stack names its running energy total against the pitch energy left',()=>{
-    // MAIN RUN pays from the per-pitch pool (3): place(1) alone shows 1/3,
-    // and place(1) + place+(1) = 2/3 while stacking.
+    // The ordinary 2-energy pitch pays place(1) + place+(1) = 2/2.
     begin(['c0','c1','c2','c3','c4']);
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
-    expect(screen.getByTestId('bp-plan').textContent).toMatch(/합계 1\/3/);
+    expect(screen.getByTestId('bp-plan').textContent).toMatch(/합계 1\/2/);
     fireEvent.click(cards()[1]);fireEvent.click(cells()[2]);
-    expect(screen.getByTestId('bp-plan').textContent).toMatch(/합계 2\/3/);
+    expect(screen.getByTestId('bp-plan').textContent).toMatch(/합계 2\/2/);
   });
 
   it('a support candidate that would overflow the energy left says so shortly',()=>{
-    // 1 energy left: strike(1) main fits; a rally+(1) candidate cannot join as
+    // 1 energy left: signature laser(1) main fits; place(1) cannot join as
     // support, so its face says so shortly without a false exact sum. Tapping
     // it replaces the main instead (existing pickSwing behavior).
-    begin(['c2','c3','c4','c0','c1'],1);
+    begin(['c2','c3','c4','c0','c1'],1,{c2:'laser',c3:'place'});
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
     expect(screen.getByTestId('bp-plan').textContent).toMatch(/합계 1\/1/);
     expect(swingBtn().disabled).toBe(false);

@@ -1,6 +1,6 @@
 import React,{useEffect,useLayoutEffect,useRef,useState} from 'react';
 import {CARDS,LINEUP,bandFor,rangeFor,shadeNameFor,cardCost} from './cards.js';
-import {publicProbabilities,readLevel,readSources,knownPitchZones,v10StackMax,v10PrepMax,v10Energy,v10EnergyCap,v10ActionCost,v10TakeDrawPreview,V11_SWING_ENERGY,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM,defenseLabThreat} from './engine.js';
+import {publicProbabilities,readLevel,readSources,knownPitchZones,v10StackMax,v10PrepMax,v10Energy,v10EnergyCap,v10EnergyBase,v10NextEnergyMax,v10ActionCost,v10TakeDrawPreview,V11_SWING_ENERGY,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM,defenseLabThreat} from './engine.js';
 import {probabilityBounds} from './information.js';
 import {intentLines,hpTicks,ZONE_WORDS,runnerMoves} from './ballpark-copy.js';
 import ZoneLinks from './ZoneLinks.jsx';
@@ -201,11 +201,11 @@ export default function BallparkBattle({
   const prepLeft=Math.max(0,v10PrepMax(s)-(b.preparations||0));
   const energy=v10Energy(s),energyCap=v10EnergyCap(s),actionCost=selected?choice?.cost??(selected==='basic'?0:cardCost(byId(selected)?.entry)):null;
   const takeDrawPreview=v10TakeDrawPreview(s),drawHint=takeDrawPreview.count===1?'카드+1':takeDrawPreview.reason==='full'?'6장 한도':'추가 0';
-  const pendingEnergyText=s.phase==='between'?`다음 타자 4 · ${drawHint}`:`다음 공 4 · ${drawHint}`;
+  const pendingEnergyText=s.phase==='between'?`다음 타자 ${v10NextEnergyMax(s)} · ${drawHint}`:`다음 공 ${v10NextEnergyMax(s)} · ${drawHint}`;
   const energyHud=<div className="bp-energy" data-testid="bp-energy" aria-label={`에너지 ${energy}/${energyCap}`}>
     <span>ENERGY</span><strong>{energy}<i>/{energyCap}</i></strong>
     <span className="bp-energy-leds" aria-hidden="true">{Array.from({length:energyCap},(_,i)=><i key={i} className={i<energy?'on':''}/>)}</span>
-    <small>{s.phase==='battle'?(selected?`비용 ${actionCost} · 남음 ${Math.max(0,energy-(actionCost||0))}${actionCost>energy?` · 에너지 부족 ${actionCost-energy}`:''}`:s.last?.takeDrawn===1?'충전 · 카드 +1':`기본 0 · 지켜보기 0${energyCap===4?' · 보너스 공':''}`):s.battle?.takeEnergyBonus===1?pendingEnergyText:'다음 공에 3 충전'}</small>
+    <small>{s.phase==='battle'?(selected?`비용 ${actionCost} · 남음 ${Math.max(0,energy-(actionCost||0))}${actionCost>energy?` · 에너지 부족 ${actionCost-energy}`:''}`:s.last?.takeDrawn===1?'충전 · 카드 +1':`기본 0 · 지켜보기 0${energyCap>v10EnergyBase(s)?' · 보너스 공':''}`):s.battle?.takeEnergyBonus===1?pendingEnergyText:`다음 공에 ${v10EnergyBase(s)} 충전`}</small>
   </div>;
 
   const probs=b.pending?publicProbabilities(s):b.intent?.probabilities||[];
