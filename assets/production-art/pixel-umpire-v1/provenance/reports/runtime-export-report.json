@@ -1,0 +1,1189 @@
+{
+  "manualAnchorConvention": "Normalized curated cell coordinates; coordinates identify opaque source texture/contact, not inferred canvas centers.",
+  "rejectedBatterCandidates": [
+    "windup/0",
+    "windup/1"
+  ],
+  "batterUniqueAcceptedPoses": 18,
+  "pitcherUniqueAcceptedPoses": 12,
+  "alphaNotes": [
+    {
+      "anchor": "batter/windup/2/barrel",
+      "manualEstimate": [
+        156,
+        42
+      ],
+      "opaqueTexturePoint": [
+        156,
+        41
+      ],
+      "distance": 1.0
+    },
+    {
+      "anchor": "batter/follow/1/barrel",
+      "manualEstimate": [
+        178,
+        58
+      ],
+      "opaqueTexturePoint": [
+        178,
+        57
+      ],
+      "distance": 1.0
+    },
+    {
+      "anchor": "batter/follow/1/batTip",
+      "manualEstimate": [
+        191,
+        63
+      ],
+      "opaqueTexturePoint": [
+        191,
+        61
+      ],
+      "distance": 2.0
+    },
+    {
+      "anchor": "batter/follow/2/frontFoot",
+      "manualEstimate": [
+        173,
+        212
+      ],
+      "opaqueTexturePoint": [
+        173,
+        211
+      ],
+      "distance": 1.0
+    },
+    {
+      "anchor": "batter/follow/2/barrel",
+      "manualEstimate": [
+        114,
+        42
+      ],
+      "opaqueTexturePoint": [
+        113,
+        42
+      ],
+      "distance": 1.0
+    },
+    {
+      "anchor": "batter/follow/3/frontFoot",
+      "manualEstimate": [
+        180,
+        215
+      ],
+      "opaqueTexturePoint": [
+        177,
+        211
+      ],
+      "distance": 5.0
+    },
+    {
+      "anchor": "batter/follow/3/grip",
+      "manualEstimate": [
+        184,
+        106
+      ],
+      "opaqueTexturePoint": [
+        177,
+        105
+      ],
+      "distance": 7.07
+    },
+    {
+      "anchor": "batter/follow/3/barrel",
+      "manualEstimate": [
+        158,
+        39
+      ],
+      "opaqueTexturePoint": [
+        155,
+        40
+      ],
+      "distance": 3.16
+    },
+    {
+      "anchor": "batter/follow/3/batTip",
+      "manualEstimate": [
+        153,
+        19
+      ],
+      "opaqueTexturePoint": [
+        143,
+        22
+      ],
+      "distance": 10.44
+    },
+    {
+      "anchor": "batter/reset/1/frontFoot",
+      "manualEstimate": [
+        166,
+        210
+      ],
+      "opaqueTexturePoint": [
+        165,
+        210
+      ],
+      "distance": 1.0
+    },
+    {
+      "anchor": "batter/reset/2/frontFoot",
+      "manualEstimate": [
+        173,
+        213
+      ],
+      "opaqueTexturePoint": [
+        171,
+        211
+      ],
+      "distance": 2.83
+    },
+    {
+      "anchor": "pitcher/reset/3/otherFoot",
+      "manualEstimate": [
+        168,
+        241
+      ],
+      "opaqueTexturePoint": [
+        167,
+        241
+      ],
+      "distance": 1.0
+    }
+  ],
+  "frames": [
+    {
+      "actor": "batter",
+      "source": "windup/2",
+      "index": 0,
+      "bbox": [
+        104,
+        14,
+        208,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 38,
+      "anchorsPixels": {
+        "feet": [
+          134,
+          241
+        ],
+        "frontFoot": [
+          180,
+          179
+        ],
+        "grip": [
+          191,
+          93
+        ],
+        "barrel": [
+          156,
+          41
+        ],
+        "batTip": [
+          143,
+          19
+        ]
+      }
+    },
+    {
+      "actor": "batter",
+      "source": "windup/3",
+      "index": 1,
+      "bbox": [
+        62,
+        18,
+        214,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 35,
+      "anchorsPixels": {
+        "feet": [
+          90,
+          240
+        ],
+        "frontFoot": [
+          177,
+          220
+        ],
+        "grip": [
+          192,
+          94
+        ],
+        "barrel": [
+          162,
+          42
+        ],
+        "batTip": [
+          147,
+          22
+        ]
+      }
+    },
+    {
+      "actor": "batter",
+      "source": "swing/0",
+      "index": 4,
+      "bbox": [
+        86,
+        14,
+        202,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 37,
+      "anchorsPixels": {
+        "feet": [
+          113,
+          240
+        ],
+        "frontFoot": [
+          175,
+          207
+        ],
+        "grip": [
+          181,
+          102
+        ],
+        "barrel": [
+          147,
+          42
+        ],
+        "batTip": [
+          141,
+          21
+        ]
+      }
+    },
+    {
+      "actor": "batter",
+      "source": "swing/1",
+      "index": 5,
+      "bbox": [
+        74,
+        44,
+        246,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 38,
+      "anchorsPixels": {
+        "feet": [
+          100,
+          240
+        ],
+        "frontFoot": [
+          178,
+          207
+        ],
+        "grip": [
+          178,
+          98
+        ],
+        "barrel": [
+          228,
+          112
+        ],
+        "batTip": [
+          243,
+          117
+        ]
+      }
+    },
+    {
+      "actor": "batter",
+      "source": "swing/2",
+      "index": 6,
+      "bbox": [
+        72,
+        46,
+        248,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 36,
+      "anchorsPixels": {
+        "feet": [
+          95,
+          239
+        ],
+        "frontFoot": [
+          171,
+          209
+        ],
+        "grip": [
+          178,
+          96
+        ],
+        "barrel": [
+          228,
+          95
+        ],
+        "batTip": [
+          243,
+          95
+        ]
+      }
+    },
+    {
+      "actor": "batter",
+      "source": "swing/3",
+      "index": 7,
+      "bbox": [
+        82,
+        28,
+        232,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 33,
+      "anchorsPixels": {
+        "feet": [
+          96,
+          240
+        ],
+        "frontFoot": [
+          177,
+          209
+        ],
+        "grip": [
+          181,
+          74
+        ],
+        "barrel": [
+          218,
+          42
+        ],
+        "batTip": [
+          227,
+          32
+        ]
+      }
+    },
+    {
+      "actor": "batter",
+      "source": "follow/0",
+      "index": 8,
+      "bbox": [
+        60,
+        38,
+        248,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 37,
+      "anchorsPixels": {
+        "feet": [
+          90,
+          236
+        ],
+        "frontFoot": [
+          151,
+          203
+        ],
+        "grip": [
+          163,
+          78
+        ],
+        "barrel": [
+          231,
+          49
+        ],
+        "batTip": [
+          243,
+          44
+        ]
+      }
+    },
+    {
+      "actor": "batter",
+      "source": "follow/1",
+      "index": 9,
+      "bbox": [
+        78,
+        22,
+        198,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 35,
+      "anchorsPixels": {
+        "feet": [
+          95,
+          235
+        ],
+        "frontFoot": [
+          167,
+          214
+        ],
+        "grip": [
+          120,
+          33
+        ],
+        "barrel": [
+          178,
+          57
+        ],
+        "batTip": [
+          191,
+          61
+        ]
+      }
+    },
+    {
+      "actor": "batter",
+      "source": "follow/2",
+      "index": 10,
+      "bbox": [
+        86,
+        28,
+        192,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 37,
+      "anchorsPixels": {
+        "feet": [
+          101,
+          238
+        ],
+        "frontFoot": [
+          173,
+          211
+        ],
+        "grip": [
+          166,
+          87
+        ],
+        "barrel": [
+          113,
+          42
+        ],
+        "batTip": [
+          100,
+          33
+        ]
+      }
+    },
+    {
+      "actor": "batter",
+      "source": "follow/3",
+      "index": 11,
+      "bbox": [
+        82,
+        14,
+        196,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 35,
+      "anchorsPixels": {
+        "feet": [
+          124,
+          240
+        ],
+        "frontFoot": [
+          177,
+          211
+        ],
+        "grip": [
+          177,
+          105
+        ],
+        "barrel": [
+          155,
+          40
+        ],
+        "batTip": [
+          143,
+          22
+        ]
+      }
+    },
+    {
+      "actor": "batter",
+      "source": "reset/0",
+      "index": 12,
+      "bbox": [
+        52,
+        34,
+        216,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 40,
+      "anchorsPixels": {
+        "feet": [
+          144,
+          242
+        ],
+        "frontFoot": [
+          198,
+          205
+        ],
+        "grip": [
+          117,
+          137
+        ],
+        "barrel": [
+          69,
+          167
+        ],
+        "batTip": [
+          58,
+          174
+        ]
+      }
+    },
+    {
+      "actor": "batter",
+      "source": "reset/1",
+      "index": 13,
+      "bbox": [
+        72,
+        36,
+        224,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 37,
+      "anchorsPixels": {
+        "feet": [
+          102,
+          236
+        ],
+        "frontFoot": [
+          165,
+          210
+        ],
+        "grip": [
+          169,
+          113
+        ],
+        "barrel": [
+          207,
+          87
+        ],
+        "batTip": [
+          219,
+          75
+        ]
+      }
+    },
+    {
+      "actor": "batter",
+      "source": "reset/2",
+      "index": 14,
+      "bbox": [
+        94,
+        20,
+        204,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 39,
+      "anchorsPixels": {
+        "feet": [
+          107,
+          240
+        ],
+        "frontFoot": [
+          171,
+          211
+        ],
+        "grip": [
+          185,
+          111
+        ],
+        "barrel": [
+          178,
+          47
+        ],
+        "batTip": [
+          175,
+          25
+        ]
+      }
+    },
+    {
+      "actor": "batter",
+      "source": "reset/3",
+      "index": 15,
+      "bbox": [
+        90,
+        14,
+        208,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 37,
+      "anchorsPixels": {
+        "feet": [
+          118,
+          240
+        ],
+        "frontFoot": [
+          171,
+          206
+        ],
+        "grip": [
+          190,
+          88
+        ],
+        "barrel": [
+          148,
+          38
+        ],
+        "batTip": [
+          139,
+          21
+        ]
+      }
+    },
+    {
+      "actor": "batter",
+      "source": "bunt/0",
+      "index": 16,
+      "bbox": [
+        92,
+        14,
+        200,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 38,
+      "anchorsPixels": {
+        "feet": [
+          115,
+          240
+        ],
+        "frontFoot": [
+          172,
+          211
+        ],
+        "grip": [
+          176,
+          102
+        ],
+        "barrel": [
+          145,
+          45
+        ],
+        "batTip": [
+          139,
+          22
+        ]
+      }
+    },
+    {
+      "actor": "batter",
+      "source": "bunt/1",
+      "index": 17,
+      "bbox": [
+        88,
+        44,
+        224,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 38,
+      "anchorsPixels": {
+        "feet": [
+          129,
+          241
+        ],
+        "frontFoot": [
+          179,
+          205
+        ],
+        "grip": [
+          184,
+          91
+        ],
+        "barrel": [
+          209,
+          74
+        ],
+        "batTip": [
+          221,
+          69
+        ]
+      }
+    },
+    {
+      "actor": "batter",
+      "source": "bunt/2",
+      "index": 18,
+      "bbox": [
+        76,
+        54,
+        248,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 36,
+      "anchorsPixels": {
+        "feet": [
+          105,
+          241
+        ],
+        "frontFoot": [
+          164,
+          205
+        ],
+        "grip": [
+          199,
+          96
+        ],
+        "barrel": [
+          231,
+          94
+        ],
+        "batTip": [
+          243,
+          94
+        ]
+      }
+    },
+    {
+      "actor": "batter",
+      "source": "bunt/3",
+      "index": 19,
+      "bbox": [
+        92,
+        14,
+        202,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 39,
+      "anchorsPixels": {
+        "feet": [
+          118,
+          240
+        ],
+        "frontFoot": [
+          176,
+          209
+        ],
+        "grip": [
+          178,
+          104
+        ],
+        "barrel": [
+          148,
+          44
+        ],
+        "batTip": [
+          141,
+          23
+        ]
+      }
+    },
+    {
+      "actor": "pitcher",
+      "source": "windup/0",
+      "index": 0,
+      "bbox": [
+        76,
+        16,
+        198,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 39,
+      "anchorsPixels": {
+        "feet": [
+          90,
+          240
+        ],
+        "otherFoot": [
+          164,
+          240
+        ]
+      }
+    },
+    {
+      "actor": "pitcher",
+      "source": "windup/1",
+      "index": 1,
+      "bbox": [
+        72,
+        16,
+        198,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 39,
+      "anchorsPixels": {
+        "feet": [
+          90,
+          240
+        ],
+        "otherFoot": [
+          166,
+          242
+        ]
+      }
+    },
+    {
+      "actor": "pitcher",
+      "source": "windup/2",
+      "index": 2,
+      "bbox": [
+        72,
+        22,
+        202,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 40,
+      "anchorsPixels": {
+        "feet": [
+          86,
+          239
+        ],
+        "otherFoot": [
+          133,
+          231
+        ]
+      }
+    },
+    {
+      "actor": "pitcher",
+      "source": "windup/3",
+      "index": 3,
+      "bbox": [
+        78,
+        14,
+        202,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 39,
+      "anchorsPixels": {
+        "feet": [
+          121,
+          238
+        ],
+        "otherFoot": [
+          111,
+          168
+        ]
+      }
+    },
+    {
+      "actor": "pitcher",
+      "source": "drive/0",
+      "index": 4,
+      "bbox": [
+        74,
+        16,
+        208,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 40,
+      "anchorsPixels": {
+        "feet": [
+          110,
+          239
+        ],
+        "otherFoot": [
+          173,
+          194
+        ]
+      }
+    },
+    {
+      "actor": "pitcher",
+      "source": "drive/1",
+      "index": 5,
+      "bbox": [
+        74,
+        16,
+        214,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 38,
+      "anchorsPixels": {
+        "feet": [
+          90,
+          237
+        ],
+        "otherFoot": [
+          193,
+          217
+        ]
+      }
+    },
+    {
+      "actor": "pitcher",
+      "source": "drive/2",
+      "index": 6,
+      "bbox": [
+        50,
+        14,
+        220,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 39,
+      "anchorsPixels": {
+        "feet": [
+          120,
+          240
+        ],
+        "otherFoot": [
+          150,
+          201
+        ],
+        "release": [
+          55,
+          111
+        ]
+      }
+    },
+    {
+      "actor": "pitcher",
+      "source": "drive/3",
+      "index": 7,
+      "bbox": [
+        56,
+        16,
+        198,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 37,
+      "anchorsPixels": {
+        "feet": [
+          128,
+          239
+        ],
+        "otherFoot": [
+          71,
+          153
+        ]
+      }
+    },
+    {
+      "actor": "pitcher",
+      "source": "reset/0",
+      "index": 8,
+      "bbox": [
+        70,
+        18,
+        220,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 39,
+      "anchorsPixels": {
+        "feet": [
+          170,
+          238
+        ],
+        "otherFoot": [
+          207,
+          114
+        ]
+      }
+    },
+    {
+      "actor": "pitcher",
+      "source": "reset/1",
+      "index": 9,
+      "bbox": [
+        70,
+        18,
+        210,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 39,
+      "anchorsPixels": {
+        "feet": [
+          111,
+          240
+        ],
+        "otherFoot": [
+          151,
+          215
+        ]
+      }
+    },
+    {
+      "actor": "pitcher",
+      "source": "reset/2",
+      "index": 10,
+      "bbox": [
+        56,
+        32,
+        200,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 39,
+      "anchorsPixels": {
+        "feet": [
+          60,
+          241
+        ],
+        "otherFoot": [
+          181,
+          241
+        ]
+      }
+    },
+    {
+      "actor": "pitcher",
+      "source": "reset/3",
+      "index": 11,
+      "bbox": [
+        72,
+        14,
+        198,
+        248
+      ],
+      "border": 8,
+      "alpha": [
+        0,
+        255
+      ],
+      "opaqueColors": 37,
+      "anchorsPixels": {
+        "feet": [
+          94,
+          242
+        ],
+        "otherFoot": [
+          167,
+          241
+        ]
+      }
+    }
+  ],
+  "batterAtlasSha256": "ff9b5206e21a7a5146e75cee44ed28aed25801d14a447f26c174141adc8db7b2",
+  "pitcherAtlasSha256": "28aa0573e8e21d8a7a0aed04be5ae9d7154884a21378f5f7b0f09b2900b04a3f"
+}

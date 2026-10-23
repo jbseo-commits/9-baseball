@@ -1,0 +1,26 @@
+[
+  {
+    "id": "batter-base",
+    "provider": "built-in image_gen",
+    "prompt": "Use case: style-transfer. Asset: actual low-resolution PIXEL ART animation identity anchor for baseball game. REFERENCE IS IDENTITY AND REAR CAMERA ONLY; COMPLETELY REPLACE its painted medium. Draw ONE full-body adult male right-handed batter in READY STANCE from fixed elevated homeplate umpire camera, BACK/right rear shoulder toward viewer, facing pitcher distant upper-right, face hidden under rear helmet. Cream/navy/gold uniform, teal navy helmet, white gloves, honey wood bat, left lead shin guard. Right rear shoe nearest camera lower-left; left guarded lead shoe deeper upper-right. BOTH feet grounded, knees flexed, bat behind rear shoulder tilted up-left. Professional hand-placed pixel clusters, ambitious modern premium pixel-RPG craft, 6-7 head proportions (not chibi), strong readable silhouette, navy darkest contours, 3-4 cel ramps per material, small cream edge lights. STRICT VIRTUAL128x192PIXEL CANVAS enlarged exactly8x nearest to1024x1536. Occupied sprite roughly82x158logicalpx. Each logical pixel is one flat8x8 square. Every stair-step cluster rests on same grid. No antialiasing, gradients, painting, texture noise, glows, subpixel lines, vector curves or 3D shading. Genuine transparent outside the sprite, generouspaddingallaround; full bat and soles within canvas. Keep figure anatomy and perspective plausible at NATIVE128x192. NO ground, shadows, scenery, UI, lettering, ball, motion streaks or extra limbs. This is a new pixel sprite drawn for its native grid, not a filter of the reference.",
+    "transparent": true,
+    "sourceBasename": "exec-d315e0e1-90cc-4024-9c0a-9909b1ea5c52.png",
+    "preservedCopy": "bases/batter-base.png"
+  },
+  {
+    "id": "pitcher-base",
+    "provider": "built-in image_gen",
+    "prompt": "Use case: style-transfer. Asset: actual low-resolution PIXEL ART baseball pitcher identity anchor. Reference is ONLY existing adult25+ RedRush character identity: vivid red high ponytail, darknavycap with smallredemblem, amber eyes, black/crimson cropped jersey, ivory shorts, navy kneehigh socks, redblack cleats, brown glove on OWN LEFT HAND, ball OWN RIGHT. Completely replace painted rendering. Draw ONE FULL-BODY READY SET stance, both feet planted on rubber, hands together at chest in glove, knees slightlysoft. CAMERA at homeplate umpire elevated, looking toward mound: pitcher faces TOWARD CAMERA and slightly imageLEFT, front/threequarterface visible, slight viewdown at captop and shoulders. Right-handed thrower, glove in ownleft (imageRIGHT), right throwinghand hidden in glove. 6-7head athletic proportions, premium modern hand-placed pixel-RPG art, strongsmallscale silhouette, coherent pixelclusters, 3-4tone cel ramps, darknavy contours, subtle cream edges. STRICT128x192logicalpixelcanvas enlarged exactly8x NEAREST to1024x1536; figure around76x154nativepx withfullponytail and shoesinside. ONElogicalpixel=flat8x8block; allclusters samegrid. Genuine transparent background, hard alpha, NO painting, antialiasing, gradients, subpixel curves, glow/haze, casts shadow, ground, UI, text, multipleposes, duplicate bodyparts or detached ball. Identitypreserved, SAMEPIXELMEDIUM as newmale batter navy/cream/gold palette withredaccent.",
+    "transparent": true,
+    "sourceBasename": "exec-5b15d6d2-b722-48aa-9b36-3b050881fa66.png",
+    "preservedCopy": "bases/pitcher-base.png"
+  },
+  {
+    "id": "stadium-base",
+    "provider": "built-in image_gen",
+    "prompt": "Use case: stylized-concept. Production game background, premium true PIXEL ART baseball stadium from elevated HOMEPLATE UMPIRE CAMERA looking toward mound at dusk. ONE empty integrated baseball field, no people. Handcrafted pixelRPG craft, coherent staircase edges and clustered flatcolor pixels, elegant3tone material ramps, selective warm stadium lights against ink navy/twilight violet/cool teal. STRICT256x384logicalpixel painting shown exactly4xNEAREST on1024x1536canvas. All details obey4x4squarepixel grid, no antialiasing, no painterlytexture/no microdetail/no blurred orsmoothgradients. Perspective: behind homeplate, stadiumstands occupy upperquarter, horizonaroundy90logical, low sunset amber sky above, detailed navybrass structural beams andwarm floodlights frameleftandright, orderlytiny crowdclusters. Field projects deep toward UPPERRIGHT, grass green blueolive diamond in middle, dirtwedge FOREGROUND bottomthird. Leave empty clear foreground left area for batter and clearrightzonefor UI. Mound will be separate runtime layer: DO NOT DRAW mound/rubber, homeplate, batterboxes or foulchalk; keep theseplacementareas as uninterrupted grass/dirt. No floating effects, no text, logos, bannerswithletters, HUD,cards,people,bats,balls,catcher,umpire. Entire scene same deliberate lowresolution pixelcraft as a premium isometric pixel RPG adapted to originalbaseball, with grounded believable umpire perspective. The pixel grid must be visible and uniform at native256x384, not a highresolution illustration or photo withpixel filter.",
+    "transparent": false,
+    "sourceBasename": "exec-d0a3b29f-9155-413e-9985-35dc2fd9db78.png",
+    "preservedCopy": "bases/stadium-base.png"
+  }
+]

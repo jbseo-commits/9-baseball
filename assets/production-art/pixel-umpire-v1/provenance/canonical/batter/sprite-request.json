@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "pixel-original-batter",
+    "description": "Fixed elevated homeplate umpire camera. Adult right-handed male batter, back/right rear shoulder toward viewer; face hidden by rear helmet, pitcher is distant upper-right. Own right rear unguarded shoe is nearest lower-left, own left guarded lead shoe is deeper upper-right. One complete bat remains gripped in both hands; no detached bat or ball. No horizontal mirroring.",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 256,
+    "height": 256,
+    "safe_margin_x": 8,
+    "safe_margin_y": 8,
+    "size": 256,
+    "safe_margin": 8
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "windup": {
+      "frames": 4,
+      "fps": 8,
+      "loop": false,
+      "action": "Four distinct chronological poses: (1) grounded ready, (2) hip/shoulder coil loading rear leg, (3) guarded left lead knee lifted with right rear sole supporting weight, (4) left lead foot planted deeper upper-right. Camera and same rear-shoe ground line stay fixed."
+    },
+    "swing": {
+      "frames": 4,
+      "fps": 12,
+      "loop": false,
+      "action": "Four distinct chronological poses: (1) hips initiate launch after left lead plant, (2) hands lead and barrel enters the hitting plane, (3) two-handed contact in front of homeplate toward image-right, (4) both arms extend through the ball path. Rear heel rotates up about its forefoot; front sole stays planted. Bat stays one straight solid object."
+    },
+    "follow": {
+      "frames": 4,
+      "fps": 10,
+      "loop": false,
+      "action": "Four distinct chronological poses after contact: (1) wrists turn over with arms extending, (2) balanced high finish with bat over opposite shoulder, (3) deceleration brake with torso still turned, (4) controlled unwind toward ready. Keep feet grounded; rear heel can remain raised. Do not play the contact pose backward."
+    },
+    "reset": {
+      "frames": 4,
+      "fps": 8,
+      "loop": false,
+      "action": "Four distinct chronological recovery poses: (1) lower bat from follow-through, (2) regrip two-handed with relaxed elbows, (3) knees and hips settle into stance, (4) original grounded ready pose. Correct continuous anatomical shoulder/arm roles through the back-facing camera."
+    },
+    "bunt": {
+      "frames": 4,
+      "fps": 8,
+      "loop": false,
+      "action": "Four distinct chronological poses: (1) original ready, (2) square slightly for bunt while remaining in the same batter box, (3) controlled two-handed bunt contact with a short horizontal bat reach, (4) recover to original ready. No full swing. Keep rear-facing identity, correct guarded left lead leg and balanced support."
+    }
+  },
+  "style": "Copy the accepted reference identity, body proportions, asymmetric equipment, outline character, material ramps and palette. Draw coherent native pixel clusters, not painted or antialiased art. The native animation cell is 96x128 logical pixels, enlarged 2x NEAREST into a 192x256 runtime cell. The full body occupies about 105 to 116 logical pixels high, with all props and soles contained. Do not introduce a new rendering medium or change the character design.",
+  "body_plan": [
+    {
+      "plan": "biped",
+      "figure": ""
+    }
+  ],
+  "layout": "taxonomy/v1",
+  "fit": {
+    "pixel_unfake": true,
+    "logical_height": 128,
+    "palette_size": 40,
+    "align_x": "foot-centroid",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "detail_bias": true,
+    "outline": false
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}

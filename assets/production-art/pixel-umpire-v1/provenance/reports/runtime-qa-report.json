@@ -1,0 +1,395 @@
+{
+  "status": "structural-pass; visual-composite-and-motion-review-owned-by-root",
+  "storageCell": {
+    "width": 256,
+    "height": 256,
+    "scale": 2
+  },
+  "actors": {
+    "batter": {
+      "dimensions": [
+        1024,
+        1280
+      ],
+      "colors": 40,
+      "alpha": [
+        0,
+        255
+      ],
+      "bad2x2Blocks": 0,
+      "activeUniqueCells": 18,
+      "unusedAtlasSlots": [
+        2,
+        3
+      ],
+      "exactDuplicateActiveCells": [],
+      "sha256": "ff9b5206e21a7a5146e75cee44ed28aed25801d14a447f26c174141adc8db7b2",
+      "frames": [
+        {
+          "index": 0,
+          "source": "windup/2",
+          "bounds": [
+            104,
+            14,
+            208,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 1,
+          "source": "windup/3",
+          "bounds": [
+            62,
+            18,
+            214,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 4,
+          "source": "swing/0",
+          "bounds": [
+            86,
+            14,
+            202,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 5,
+          "source": "swing/1",
+          "bounds": [
+            74,
+            44,
+            246,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 6,
+          "source": "swing/2",
+          "bounds": [
+            72,
+            46,
+            248,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 7,
+          "source": "swing/3",
+          "bounds": [
+            82,
+            28,
+            232,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 8,
+          "source": "follow/0",
+          "bounds": [
+            60,
+            38,
+            248,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 9,
+          "source": "follow/1",
+          "bounds": [
+            78,
+            22,
+            198,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 10,
+          "source": "follow/2",
+          "bounds": [
+            86,
+            28,
+            192,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 11,
+          "source": "follow/3",
+          "bounds": [
+            82,
+            14,
+            196,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 12,
+          "source": "reset/0",
+          "bounds": [
+            52,
+            34,
+            216,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 13,
+          "source": "reset/1",
+          "bounds": [
+            72,
+            36,
+            224,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 14,
+          "source": "reset/2",
+          "bounds": [
+            94,
+            20,
+            204,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 15,
+          "source": "reset/3",
+          "bounds": [
+            90,
+            14,
+            208,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 16,
+          "source": "bunt/0",
+          "bounds": [
+            92,
+            14,
+            200,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 17,
+          "source": "bunt/1",
+          "bounds": [
+            88,
+            44,
+            224,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 18,
+          "source": "bunt/2",
+          "bounds": [
+            76,
+            54,
+            248,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 19,
+          "source": "bunt/3",
+          "bounds": [
+            92,
+            14,
+            202,
+            248
+          ],
+          "transparentBorder": 8
+        }
+      ]
+    },
+    "redRush": {
+      "dimensions": [
+        1024,
+        768
+      ],
+      "colors": 40,
+      "alpha": [
+        0,
+        255
+      ],
+      "bad2x2Blocks": 0,
+      "activeUniqueCells": 12,
+      "unusedAtlasSlots": [],
+      "exactDuplicateActiveCells": [],
+      "sha256": "28aa0573e8e21d8a7a0aed04be5ae9d7154884a21378f5f7b0f09b2900b04a3f",
+      "frames": [
+        {
+          "index": 0,
+          "source": "windup/0",
+          "bounds": [
+            76,
+            16,
+            198,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 1,
+          "source": "windup/1",
+          "bounds": [
+            72,
+            16,
+            198,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 2,
+          "source": "windup/2",
+          "bounds": [
+            72,
+            22,
+            202,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 3,
+          "source": "windup/3",
+          "bounds": [
+            78,
+            14,
+            202,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 4,
+          "source": "drive/0",
+          "bounds": [
+            74,
+            16,
+            208,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 5,
+          "source": "drive/1",
+          "bounds": [
+            74,
+            16,
+            214,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 6,
+          "source": "drive/2",
+          "bounds": [
+            50,
+            14,
+            220,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 7,
+          "source": "drive/3",
+          "bounds": [
+            56,
+            16,
+            198,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 8,
+          "source": "reset/0",
+          "bounds": [
+            70,
+            18,
+            220,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 9,
+          "source": "reset/1",
+          "bounds": [
+            70,
+            18,
+            210,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 10,
+          "source": "reset/2",
+          "bounds": [
+            56,
+            32,
+            200,
+            248
+          ],
+          "transparentBorder": 8
+        },
+        {
+          "index": 11,
+          "source": "reset/3",
+          "bounds": [
+            72,
+            14,
+            198,
+            248
+          ],
+          "transparentBorder": 8
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "Generated raw rows contain finer painted/pixel-ish detail than requested96x128. Canonical extraction warns about native cap and measured pitch1; final assets are explicit canonical downscaled hard pixels, not falsely described as perfect native source pixels.",
+    "Windup0/1 batter candidates have incorrect foot depth and are excluded. Active windup intentionally holds reset3 twice before knee-lift and plant; this is18 accepted unique batter poses, not20 unique poses.",
+    "Manually observed feet/grip/sweetspot/tip anchors use curated source material; opaque-near adjustments are recorded in runtime-export-report.json. They are approximate authored sprite contact points, not a full anatomical rig.",
+    "Palette/alpha/grid checks establish export integrity and do not prove commercial art quality or natural motion.",
+    "Pitcher detail_bias=false candidate is separate; production runtime is frozen unless root adopts it."
+  ],
+  "stadium": {
+    "dimensions": [
+      256,
+      384
+    ],
+    "mode": "RGB",
+    "colors": 64,
+    "method": "Explicit deterministic background cleanup; not a canonical sprite row."
+  }
+}

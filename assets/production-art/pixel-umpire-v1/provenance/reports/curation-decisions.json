@@ -1,0 +1,64 @@
+[
+  {
+    "id": "batter",
+    "scale": 0.94,
+    "baselineDy": 7,
+    "frameAnchorYShift": {
+      "windup/0": 0,
+      "windup/1": 0,
+      "windup/2": 0,
+      "windup/3": 0,
+      "swing/0": 0,
+      "swing/1": 0,
+      "swing/2": 0,
+      "swing/3": 0,
+      "follow/0": -4,
+      "follow/1": -6,
+      "follow/2": -4,
+      "follow/3": 0,
+      "reset/0": 0,
+      "reset/1": -4,
+      "reset/2": 0,
+      "reset/3": 0,
+      "bunt/0": 0,
+      "bunt/1": 0,
+      "bunt/2": 0,
+      "bunt/3": 0
+    },
+    "reason": "Preserve native two-pixel grid while reserving a true transparent border around bat, hair and shoes. Translation retains bottom contact baseline.",
+    "rejectedSourceFrames": [
+      "windup/0",
+      "windup/1"
+    ],
+    "rejectionReason": "Guarded lead shoe is lower/nearer than unguarded rear shoe, inconsistent with fixed umpire camera.",
+    "runtimeWindup": [
+      "reset/3",
+      "reset/3",
+      "windup/2",
+      "windup/3"
+    ]
+  },
+  {
+    "id": "pitcher",
+    "scale": 0.94,
+    "baselineDy": 7,
+    "frameAnchorYShift": {
+      "windup/0": 0,
+      "windup/1": 0,
+      "windup/2": 0,
+      "windup/3": -2,
+      "drive/0": 0,
+      "drive/1": -4,
+      "drive/2": 0,
+      "drive/3": 0,
+      "reset/0": -2,
+      "reset/1": 0,
+      "reset/2": 0,
+      "reset/3": 0
+    },
+    "reason": "Preserve native two-pixel grid while reserving a true transparent border around bat, hair and shoes. Translation retains bottom contact baseline.",
+    "rejectedSourceFrames": [],
+    "rejectionReason": null,
+    "runtimeWindup": null
+  }
+]

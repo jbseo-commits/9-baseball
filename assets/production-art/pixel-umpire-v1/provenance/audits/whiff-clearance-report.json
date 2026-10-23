@@ -1,0 +1,683 @@
+{
+  "kind": "read-only-current-source-whiff-wood-clearance",
+  "sourceFiles": [
+    "src/duel/pixel-umpire-motion.js",
+    "src/duel/PixelUmpireScene.jsx",
+    "assets/production-art/pixel-umpire-v1/runtime/manifest.json"
+  ],
+  "sourceSha256": {
+    "pixel-umpire-motion.js": "b8ec648cd1937c8a3337223a9f55e5709eb6bbf099c2dee12c7323d22352c475",
+    "PixelUmpireScene.jsx": "40c55b8791ee6a8c93414d13dbc2b2b616beae6a436d13fd1749a4c80a95877e",
+    "manifest.json": "56c230cf868c18bae1cb5763d543aaffa33be7947c977e25d5ab7ede09c2f695"
+  },
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "sceneCss": {
+    "width": 390,
+    "height": 484
+  },
+  "zoneCss": {
+    "left": 171.6,
+    "top": 285.9,
+    "width": 140.4,
+    "height": 168
+  },
+  "nativeCanvas": {
+    "width": 240,
+    "height": 298
+  },
+  "method": "Import actual pure motion helpers and current checkout manifest. Reproduce the current non-exported fit/ground formulas for the390x844 test-fixture geometry. Sample each millisecond from impact-100 through impact+100 for zones0..9. Measure ball center to authored grip-tip wood segment and ball outer5x4 rectangle to segment. Subtract a conservative6 source-pixel wood half-width and1 native-pixel raster tolerance.",
+  "assumptions": [
+    "Scene/zone rectangles come from the current390x484 component fixture, not a new live DOM measurement.",
+    "Red Rush release and1567 impact/300ms flight are used. Other roster release paths are not audited.",
+    "Bat wood is represented by its authored straight grip-tip segment plus conservative half-width; hidden knob behind the grip is not separately traced.",
+    "Parent hit-stop freezes logical impact time; source sampling reports logical animation time rather than wall-clock hit-stop duration."
+  ],
+  "ground": {
+    "batterRear": {
+      "x": 60,
+      "y": 292
+    },
+    "pitcher": {
+      "x": 200,
+      "y": 110
+    }
+  },
+  "referenceBatterHeight": 234,
+  "batScale": 0.6974358974358974,
+  "releasePoint": {
+    "x": 179,
+    "y": 68
+  },
+  "woodHalfWidthSourcePixels": 6,
+  "rasterToleranceNativePixels": 1,
+  "actions": {
+    "swing": {
+      "zones": [
+        {
+          "zone": 0,
+          "target": {
+            "x": 146,
+            "y": 188
+          },
+          "worst": {
+            "dt": -1,
+            "frameIndex": 5,
+            "source": "swing/1",
+            "ball": {
+              "x": 146,
+              "y": 188
+            },
+            "grip": {
+              "x": 114,
+              "y": 193
+            },
+            "tip": {
+              "x": 160,
+              "y": 206
+            },
+            "centerToWoodSegmentNative": 13.514171182766319,
+            "ballRectangleToSegmentNative": 10.083328962992827,
+            "conservativeGapNative": 4.898713578377443,
+            "conservativeGapCss": 7.960409564863344
+          }
+        },
+        {
+          "zone": 1,
+          "target": {
+            "x": 153,
+            "y": 188
+          },
+          "worst": {
+            "dt": -1,
+            "frameIndex": 5,
+            "source": "swing/1",
+            "ball": {
+              "x": 153,
+              "y": 188
+            },
+            "grip": {
+              "x": 114,
+              "y": 193
+            },
+            "tip": {
+              "x": 160,
+              "y": 206
+            },
+            "centerToWoodSegmentNative": 15.417870219347952,
+            "ballRectangleToSegmentNative": 11.98702799957446,
+            "conservativeGapNative": 6.802412614959076,
+            "conservativeGapCss": 11.053920499308498
+          }
+        },
+        {
+          "zone": 2,
+          "target": {
+            "x": 160,
+            "y": 188
+          },
+          "worst": {
+            "dt": -1,
+            "frameIndex": 5,
+            "source": "swing/1",
+            "ball": {
+              "x": 160,
+              "y": 188
+            },
+            "grip": {
+              "x": 114,
+              "y": 193
+            },
+            "tip": {
+              "x": 160,
+              "y": 206
+            },
+            "centerToWoodSegmentNative": 17.32156925592959,
+            "ballRectangleToSegmentNative": 13.890727036156093,
+            "conservativeGapNative": 8.70611165154071,
+            "conservativeGapCss": 14.147431433753653
+          }
+        },
+        {
+          "zone": 3,
+          "target": {
+            "x": 146,
+            "y": 192
+          },
+          "worst": {
+            "dt": -1,
+            "frameIndex": 5,
+            "source": "swing/1",
+            "ball": {
+              "x": 146,
+              "y": 192
+            },
+            "grip": {
+              "x": 114,
+              "y": 193
+            },
+            "tip": {
+              "x": 160,
+              "y": 206
+            },
+            "centerToWoodSegmentNative": 9.664933570337523,
+            "ballRectangleToSegmentNative": 6.234091350564029,
+            "conservativeGapNative": 1.0494759659486448,
+            "conservativeGapCss": 1.7053984446665478
+          }
+        },
+        {
+          "zone": 4,
+          "target": {
+            "x": 153,
+            "y": 192
+          },
+          "worst": {
+            "dt": -1,
+            "frameIndex": 5,
+            "source": "swing/1",
+            "ball": {
+              "x": 153,
+              "y": 192
+            },
+            "grip": {
+              "x": 114,
+              "y": 193
+            },
+            "tip": {
+              "x": 160,
+              "y": 206
+            },
+            "centerToWoodSegmentNative": 11.568632606919156,
+            "ballRectangleToSegmentNative": 8.137790387145662,
+            "conservativeGapNative": 2.953175002530278,
+            "conservativeGapCss": 4.798909379111702
+          }
+        },
+        {
+          "zone": 5,
+          "target": {
+            "x": 160,
+            "y": 192
+          },
+          "worst": {
+            "dt": -1,
+            "frameIndex": 5,
+            "source": "swing/1",
+            "ball": {
+              "x": 160,
+              "y": 192
+            },
+            "grip": {
+              "x": 114,
+              "y": 193
+            },
+            "tip": {
+              "x": 160,
+              "y": 206
+            },
+            "centerToWoodSegmentNative": 13.47233164350079,
+            "ballRectangleToSegmentNative": 10.041489423727295,
+            "conservativeGapNative": 4.856874039111911,
+            "conservativeGapCss": 7.8924203135568565
+          }
+        },
+        {
+          "zone": 6,
+          "target": {
+            "x": 146,
+            "y": 196
+          },
+          "worst": {
+            "dt": -1,
+            "frameIndex": 5,
+            "source": "swing/1",
+            "ball": {
+              "x": 146,
+              "y": 196
+            },
+            "grip": {
+              "x": 114,
+              "y": 193
+            },
+            "tip": {
+              "x": 160,
+              "y": 206
+            },
+            "centerToWoodSegmentNative": 5.815695957908726,
+            "ballRectangleToSegmentNative": 2.3848537381352317,
+            "conservativeGapNative": -2.7997616464801522,
+            "conservativeGapCss": -4.5496126755302475
+          }
+        },
+        {
+          "zone": 7,
+          "target": {
+            "x": 153,
+            "y": 196
+          },
+          "worst": {
+            "dt": -1,
+            "frameIndex": 5,
+            "source": "swing/1",
+            "ball": {
+              "x": 153,
+              "y": 196
+            },
+            "grip": {
+              "x": 114,
+              "y": 193
+            },
+            "tip": {
+              "x": 160,
+              "y": 206
+            },
+            "centerToWoodSegmentNative": 7.71939499449036,
+            "ballRectangleToSegmentNative": 4.288552774716866,
+            "conservativeGapNative": -0.896062609898518,
+            "conservativeGapCss": -1.4561017410850918
+          }
+        },
+        {
+          "zone": 8,
+          "target": {
+            "x": 160,
+            "y": 196
+          },
+          "worst": {
+            "dt": -1,
+            "frameIndex": 5,
+            "source": "swing/1",
+            "ball": {
+              "x": 160,
+              "y": 196
+            },
+            "grip": {
+              "x": 114,
+              "y": 193
+            },
+            "tip": {
+              "x": 160,
+              "y": 206
+            },
+            "centerToWoodSegmentNative": 9.623094031071991,
+            "ballRectangleToSegmentNative": 6.192251811298498,
+            "conservativeGapNative": 1.0076364266831144,
+            "conservativeGapCss": 1.6374091933600607
+          }
+        },
+        {
+          "zone": 9,
+          "target": {
+            "x": 167,
+            "y": 192
+          },
+          "worst": {
+            "dt": -1,
+            "frameIndex": 5,
+            "source": "swing/1",
+            "ball": {
+              "x": 167,
+              "y": 192
+            },
+            "grip": {
+              "x": 114,
+              "y": 193
+            },
+            "tip": {
+              "x": 160,
+              "y": 206
+            },
+            "centerToWoodSegmentNative": 15.652475842498529,
+            "ballRectangleToSegmentNative": 12.08304597359457,
+            "conservativeGapNative": 6.898430588979187,
+            "conservativeGapCss": 11.209949707091178
+          }
+        }
+      ],
+      "worst": {
+        "zone": 6,
+        "target": {
+          "x": 146,
+          "y": 196
+        },
+        "worst": {
+          "dt": -1,
+          "frameIndex": 5,
+          "source": "swing/1",
+          "ball": {
+            "x": 146,
+            "y": 196
+          },
+          "grip": {
+            "x": 114,
+            "y": 193
+          },
+          "tip": {
+            "x": 160,
+            "y": 206
+          },
+          "centerToWoodSegmentNative": 5.815695957908726,
+          "ballRectangleToSegmentNative": 2.3848537381352317,
+          "conservativeGapNative": -2.7997616464801522,
+          "conservativeGapCss": -4.5496126755302475
+        }
+      }
+    },
+    "bunt": {
+      "zones": [
+        {
+          "zone": 0,
+          "target": {
+            "x": 141,
+            "y": 185
+          },
+          "worst": {
+            "dt": -19,
+            "frameIndex": 17,
+            "source": "bunt/1",
+            "ball": {
+              "x": 143,
+              "y": 178
+            },
+            "grip": {
+              "x": 98,
+              "y": 187
+            },
+            "tip": {
+              "x": 124,
+              "y": 172
+            },
+            "centerToWoodSegmentNative": 19.924858845171276,
+            "ballRectangleToSegmentNative": 17.720045146669353,
+            "conservativeGapNative": 12.535429762053969,
+            "conservativeGapCss": 20.3700733633377
+          }
+        },
+        {
+          "zone": 1,
+          "target": {
+            "x": 148,
+            "y": 185
+          },
+          "worst": {
+            "dt": -14,
+            "frameIndex": 17,
+            "source": "bunt/1",
+            "ball": {
+              "x": 149,
+              "y": 180
+            },
+            "grip": {
+              "x": 98,
+              "y": 187
+            },
+            "tip": {
+              "x": 124,
+              "y": 172
+            },
+            "centerToWoodSegmentNative": 26.248809496813376,
+            "ballRectangleToSegmentNative": 24.041630560342615,
+            "conservativeGapNative": 18.85701517572723,
+            "conservativeGapCss": 30.64264966055675
+          }
+        },
+        {
+          "zone": 2,
+          "target": {
+            "x": 155,
+            "y": 184
+          },
+          "worst": {
+            "dt": -18,
+            "frameIndex": 17,
+            "source": "bunt/1",
+            "ball": {
+              "x": 156,
+              "y": 177
+            },
+            "grip": {
+              "x": 98,
+              "y": 187
+            },
+            "tip": {
+              "x": 124,
+              "y": 172
+            },
+            "centerToWoodSegmentNative": 32.38826948140329,
+            "ballRectangleToSegmentNative": 30.26549190084311,
+            "conservativeGapNative": 25.080876516227725,
+            "conservativeGapCss": 40.756424338870055
+          }
+        },
+        {
+          "zone": 3,
+          "target": {
+            "x": 141,
+            "y": 189
+          },
+          "worst": {
+            "dt": -27,
+            "frameIndex": 17,
+            "source": "bunt/1",
+            "ball": {
+              "x": 144,
+              "y": 178
+            },
+            "grip": {
+              "x": 98,
+              "y": 187
+            },
+            "tip": {
+              "x": 124,
+              "y": 172
+            },
+            "centerToWoodSegmentNative": 20.8806130178211,
+            "ballRectangleToSegmentNative": 18.681541692269406,
+            "conservativeGapNative": 13.496926307654022,
+            "conservativeGapCss": 21.932505249937783
+          }
+        },
+        {
+          "zone": 4,
+          "target": {
+            "x": 148,
+            "y": 189
+          },
+          "worst": {
+            "dt": -24,
+            "frameIndex": 17,
+            "source": "bunt/1",
+            "ball": {
+              "x": 150,
+              "y": 179
+            },
+            "grip": {
+              "x": 98,
+              "y": 187
+            },
+            "tip": {
+              "x": 124,
+              "y": 172
+            },
+            "centerToWoodSegmentNative": 26.92582403567252,
+            "ballRectangleToSegmentNative": 24.73863375370596,
+            "conservativeGapNative": 19.554018369090578,
+            "conservativeGapCss": 31.77527984977219
+          }
+        },
+        {
+          "zone": 5,
+          "target": {
+            "x": 155,
+            "y": 189
+          },
+          "worst": {
+            "dt": -31,
+            "frameIndex": 17,
+            "source": "bunt/1",
+            "ball": {
+              "x": 157,
+              "y": 176
+            },
+            "grip": {
+              "x": 98,
+              "y": 187
+            },
+            "tip": {
+              "x": 124,
+              "y": 172
+            },
+            "centerToWoodSegmentNative": 33.24154027718932,
+            "ballRectangleToSegmentNative": 31.144823004794876,
+            "conservativeGapNative": 25.960207620179492,
+            "conservativeGapCss": 42.18533738279167
+          }
+        },
+        {
+          "zone": 6,
+          "target": {
+            "x": 141,
+            "y": 194
+          },
+          "worst": {
+            "dt": -35,
+            "frameIndex": 17,
+            "source": "bunt/1",
+            "ball": {
+              "x": 145,
+              "y": 179
+            },
+            "grip": {
+              "x": 98,
+              "y": 187
+            },
+            "tip": {
+              "x": 124,
+              "y": 172
+            },
+            "centerToWoodSegmentNative": 22.135943621178658,
+            "ballRectangleToSegmentNative": 19.924858845171276,
+            "conservativeGapNative": 14.740243460555892,
+            "conservativeGapCss": 23.952895623403325
+          }
+        },
+        {
+          "zone": 7,
+          "target": {
+            "x": 148,
+            "y": 193
+          },
+          "worst": {
+            "dt": -33,
+            "frameIndex": 17,
+            "source": "bunt/1",
+            "ball": {
+              "x": 151,
+              "y": 179
+            },
+            "grip": {
+              "x": 98,
+              "y": 187
+            },
+            "tip": {
+              "x": 124,
+              "y": 172
+            },
+            "centerToWoodSegmentNative": 27.892651361962706,
+            "ballRectangleToSegmentNative": 25.709920264364882,
+            "conservativeGapNative": 20.5253048797495,
+            "conservativeGapCss": 33.35362042959294
+          }
+        },
+        {
+          "zone": 8,
+          "target": {
+            "x": 155,
+            "y": 193
+          },
+          "worst": {
+            "dt": -31,
+            "frameIndex": 17,
+            "source": "bunt/1",
+            "ball": {
+              "x": 157,
+              "y": 180
+            },
+            "grip": {
+              "x": 98,
+              "y": 187
+            },
+            "tip": {
+              "x": 124,
+              "y": 172
+            },
+            "centerToWoodSegmentNative": 33.95585369269929,
+            "ballRectangleToSegmentNative": 31.780497164141405,
+            "conservativeGapNative": 26.59588177952602,
+            "conservativeGapCss": 43.218307891729786
+          }
+        },
+        {
+          "zone": 9,
+          "target": {
+            "x": 162,
+            "y": 188
+          },
+          "worst": {
+            "dt": -26,
+            "frameIndex": 17,
+            "source": "bunt/1",
+            "ball": {
+              "x": 163,
+              "y": 178
+            },
+            "grip": {
+              "x": 98,
+              "y": 187
+            },
+            "tip": {
+              "x": 124,
+              "y": 172
+            },
+            "centerToWoodSegmentNative": 39.45883931389771,
+            "ballRectangleToSegmentNative": 37.33630940518894,
+            "conservativeGapNative": 32.15169402057356,
+            "conservativeGapCss": 52.246502783432035
+          }
+        }
+      ],
+      "worst": {
+        "zone": 0,
+        "target": {
+          "x": 141,
+          "y": 185
+        },
+        "worst": {
+          "dt": -19,
+          "frameIndex": 17,
+          "source": "bunt/1",
+          "ball": {
+            "x": 143,
+            "y": 178
+          },
+          "grip": {
+            "x": 98,
+            "y": 187
+          },
+          "tip": {
+            "x": 124,
+            "y": 172
+          },
+          "centerToWoodSegmentNative": 19.924858845171276,
+          "ballRectangleToSegmentNative": 17.720045146669353,
+          "conservativeGapNative": 12.535429762053969,
+          "conservativeGapCss": 20.3700733633377
+        }
+      }
+    }
+  },
+  "outcome": "overlap risk found in tested source geometry"
+}

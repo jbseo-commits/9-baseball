@@ -55,6 +55,37 @@ jobs:
           ref: ${{ github.ref }}
           path: preview
 
+      - name: Preserve the reviewed motion previews
+        if: github.ref_name != 'main'
+        uses: actions/checkout@v6
+        with:
+          ref: 44989fb73d9ba40360863befa28724269de344ab
+          path: preserved-v6
+          sparse-checkout: |
+            preview-artifacts/ballpark-motion-v6
+            scripts
+
+      - name: Preserve the previous v5 preview
+        if: github.ref_name != 'main'
+        uses: actions/checkout@v6
+        with:
+          ref: f1e548ad580d59952ff690599f2bec43817e214f
+          path: preserved-v5
+          sparse-checkout: |
+            preview-artifacts/ballpark-motion-v5
+            scripts
+
+      - name: Verify and copy preserved previews
+        if: github.ref_name != 'main'
+        shell: bash
+        run: |
+          (cd preserved-v6 && node scripts/check-ballpark-preview.mjs)
+          (cd preserved-v5 && node scripts/check-ballpark-preview.mjs)
+          mkdir -p production/dist/previews/codex-ballpark-motion-v6-preview
+          mkdir -p production/dist/previews/codex-ballpark-motion-v5-preview
+          cp preserved-v6/preview-artifacts/ballpark-motion-v6/index.html production/dist/previews/codex-ballpark-motion-v6-preview/index.html
+          cp preserved-v5/preview-artifacts/ballpark-motion-v5/index.html production/dist/previews/codex-ballpark-motion-v5-preview/index.html
+
       - name: Build isolated branch preview
         if: github.ref_name != 'main'
         id: preview

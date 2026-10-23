@@ -1,0 +1,18 @@
+{
+  "kind": "manual-deterministic-background-pixel-cleanup",
+  "source": "pixel-original-v1/bases/stadium-base.png",
+  "sourceSha256": "d474015c100adf34f49da6850ce0777907951ae0feca59ab1fc36b5f82b566d6",
+  "sourcePixels": [
+    1024,
+    1536
+  ],
+  "output": "pixel-original-v1/runtime/stadium.png",
+  "outputPixels": [
+    256,
+    384
+  ],
+  "method": "sprite-gen dominant two-cluster block sampler, then Pillow median-cut palette64 without dithering; RGB opaque. This is not canonical row extraction.",
+  "colors": 64,
+  "alpha": "opaque RGB",
+  "runtimeGeometry": "No painted plate, mound or chalk. Runtime owns field geometry."
+}

@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "pixel-original-pitcher",
+    "description": "Fixed elevated homeplate umpire camera looking toward the mound. Adult right-handed female pitcher faces toward viewer and slightly image-left, front-three-quarter face visible, throwing toward homeplate lower-left. Glove is always on the anatomical LEFT hand, whose forearm can cross the chest; ball is in the anatomical RIGHT hand. Keep front/back foot roles physically consistent; no mirroring, detached ball, trails or scenery.",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 256,
+    "height": 256,
+    "safe_margin_x": 8,
+    "safe_margin_y": 8,
+    "size": 256,
+    "safe_margin": 8
+  },
+  "chroma_key": {
+    "name": "green",
+    "hex": "#00FF00",
+    "rgb": [
+      0,
+      255,
+      0
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "windup": {
+      "frames": 4,
+      "fps": 8,
+      "loop": false,
+      "action": "Four distinct chronological poses: (1) set with hands together in left glove at chest and both shoes planted, (2) glove and joined hands lift, (3) torso coils over supporting own-right drive leg, (4) own-left lead knee reaches apex with right shoe supporting weight. Ponytail follows motion; fixed camera."
+    },
+    "drive": {
+      "frames": 4,
+      "fps": 12,
+      "loop": false,
+      "action": "Four distinct chronological poses: (1) own-left lead foot strides diagonally lower-left toward homeplate while own-right drive shoe pushes off, (2) left lead sole plants and right throwing arm cocks, (3) right hand releases in front of shoulder toward lower-left while left glove counterbalances, (4) continuous natural forward follow-through with rear right leg swinging forward. No detached drawn ball; runtime draws the ball."
+    },
+    "reset": {
+      "frames": 4,
+      "fps": 8,
+      "loop": false,
+      "action": "Four distinct chronological poses: (1) deep follow-through over fixed left lead foot, (2) trailing right shoe drags/swings down beside the left stride foot with weight landing naturally, (3) balanced bent-knee fielding-ready stance with both feet supporting body, (4) return set posture. Do not teleport the right shoe back to the rubber in mid follow-through; any return is an explicit small recovery step. Keep left glove and right throwing arm roles fixed."
+    }
+  },
+  "style": "Copy the accepted reference identity, body proportions, asymmetric equipment, outline character, material ramps and palette. Draw coherent native pixel clusters, not painted or antialiased art. The native animation cell is 96x128 logical pixels, enlarged 2x NEAREST into a 192x256 runtime cell. The full body occupies about 105 to 116 logical pixels high, with all props and soles contained. Do not introduce a new rendering medium or change the character design.",
+  "body_plan": [
+    {
+      "plan": "biped",
+      "figure": ""
+    }
+  ],
+  "layout": "taxonomy/v1",
+  "fit": {
+    "pixel_unfake": true,
+    "logical_height": 128,
+    "palette_size": 40,
+    "align_x": "foot-centroid",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "detail_bias": true,
+    "outline": false
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}
