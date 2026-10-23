@@ -1,6 +1,6 @@
 import React,{useEffect,useRef,useState} from 'react';
 import {CARDS,cardCost,LINEUP} from './cards.js';
-import {setAimZone,coverageAt,previewV10Stack,cardProblem,stackSupportProblem,playV10Action,advanceV10Pitch,advanceV10Batter,v10Energy,v10EnergyCap,v10PrepMax,v10StackMax,v10TakeDrawPreview,pitchClue,START_PACKS} from './engine.js';
+import {setAimZone,coverageAt,previewV10Stack,cardProblem,stackSupportProblem,playV10Action,advanceV10Pitch,advanceV10Batter,v10Energy,v10EnergyCap,v10NextEnergyMax,v10PrepMax,v10StackMax,v10TakeDrawPreview,pitchClue,START_PACKS} from './engine.js';
 import {cardFaceOf,shortCardProblem} from './card-face.js';
 import {preparationDrawPreview,activePreparationFeedback} from './preparation-feedback.js';
 import {cardArtFor,cardArtFocusFor} from './card-art.js';
@@ -198,7 +198,7 @@ function BattlePreview({initialState,lesson=null,sound,onToggleSound,onSkip,onLe
           {hand.map(c=><Card key={c.id} s={game} entry={c} problem={supports.some(x=>x.id===c.id)?'':cardProblemFor(c)} selected={picked===c.id} support={supports.some(x=>x.id===c.id)} armed={armed===c.id} locked={flying} onClick={()=>chooseCard(c)}/>)}
         </div>}
         </>}
-        {result&&<div className={'zf-result-card zf-'+feedback.tone}><strong>{learning&&lesson===0?revealed?.label:game.v10.lastCombat?.damage?`−${game.v10.lastCombat.damage} HP`:revealed?.label}</strong><span>{learning&&lesson===0?'내가 고른 코스와 실제 공을 비교해보세요.':feedback.detail}</span><p className="zf-explanation">{resultExplanation(game)}</p>{game.battle.takeEnergyBonus===1&&['pitch','between'].includes(game.phase)&&<small>다음 공 에너지 4 · {takeDraw.count===1?'추가 카드 +1':takeDraw.reason==='full'?'손패 6장 한도':'추가 드로우 없음'}</small>}<small>{learning?(revealed?.kind==='hit'?(lesson===2?'준비 끝 · 이제 원정에서 승부하세요':'성공! 다음에는 한 가지만 더 알아봅니다'):'같은 연습 공으로 다시 도전할 수 있어요'):game.phase==='lost'?'3아웃 · 체험 종료':['reward','won'].includes(game.phase)?'투수 격파 · 체험 종료':game.phase==='between'?'다음 타자가 들어옵니다':'같은 타자 · 다음 공'}</small></div>}
+        {result&&<div className={'zf-result-card zf-'+feedback.tone}><strong>{learning&&lesson===0?revealed?.label:game.v10.lastCombat?.damage?`−${game.v10.lastCombat.damage} HP`:revealed?.label}</strong><span>{learning&&lesson===0?'내가 고른 코스와 실제 공을 비교해보세요.':feedback.detail}</span><p className="zf-explanation">{resultExplanation(game)}</p>{game.battle.takeEnergyBonus===1&&['pitch','between'].includes(game.phase)&&<small>다음 공 에너지 {v10NextEnergyMax(game)} · {takeDraw.count===1?'추가 카드 +1':takeDraw.reason==='full'?'손패 6장 한도':'추가 드로우 없음'}</small>}<small>{learning?(revealed?.kind==='hit'?(lesson===2?'준비 끝 · 이제 원정에서 승부하세요':'성공! 다음에는 한 가지만 더 알아봅니다'):'같은 연습 공으로 다시 도전할 수 있어요'):game.phase==='lost'?'3아웃 · 체험 종료':['reward','won'].includes(game.phase)?'투수 격파 · 체험 종료':game.phase==='between'?'다음 타자가 들어옵니다':'같은 타자 · 다음 공'}</small></div>}
         <p className={'zf-notice'+(!notice&&!problem?' zf-active-effects':'')} role="status">{!result&&!flying?(notice||problem||activeEffects):''}</p>
       </section>
       <footer className="zf-actions">

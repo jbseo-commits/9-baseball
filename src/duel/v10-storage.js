@@ -1,6 +1,7 @@
 import {validateRunMap} from './run-map.js';
 import {isPitcherHp} from './pitcher-hp.js';
 import {CARDS} from './cards.js';
+import {v10EnergyCap} from './energy.js';
 
 export const V10_SAVE_KEY='9zone-v10-run';
 const PHASES=new Set(['map','battle','pitch','between','reward','lost','won','training','locker','shop','rest','event']);
@@ -8,9 +9,9 @@ const PHASES=new Set(['map','battle','pitch','between','reward','lost','won','tr
 export function validateV10State(s){
   if(!s||s.version!==10||!Number.isInteger(s.initialSeed)||!PHASES.has(s.phase)||!validateRunMap(s.runMap))return false;
   if(s.battle?.energy!==undefined&&(!Number.isInteger(s.battle.energy)||s.battle.energy<0||s.battle.energy>4))return false;
-  const energyCap=s.battle?.energyCap===undefined?3:s.battle.energyCap;
+  const energyCap=s.battle?.energyCap===undefined?v10EnergyCap(s):s.battle.energyCap;
   const takeEnergyBonus=s.battle?.takeEnergyBonus===undefined?0:s.battle.takeEnergyBonus;
-  if(!Number.isInteger(energyCap)||![3,4].includes(energyCap)||!Number.isInteger(takeEnergyBonus)||![0,1].includes(takeEnergyBonus))return false;
+  if(!Number.isInteger(energyCap)||![2,3,4].includes(energyCap)||!Number.isInteger(takeEnergyBonus)||![0,1].includes(takeEnergyBonus))return false;
   if(s.battle?.energy!==undefined&&s.battle.energy>energyCap)return false;
   if(!Array.isArray(s.deck)||s.deck.some(c=>!c||typeof c.id!=='string'||typeof c.kind!=='string'))return false;
   /* kind must exist in CARDS. Checking only `typeof kind === 'string'` let real saves

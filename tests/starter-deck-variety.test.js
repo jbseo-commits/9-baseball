@@ -1,6 +1,6 @@
 import {describe,it,expect} from 'vitest';
 import {CARDS} from '../src/duel/cards.js';
-import {START_PACK_COMMON,START_PACKS,applyStartPack,createV10Duel,enterV10Node,advanceBatter,playCard,playV10Action,swingOdds,hitProfile,matchup} from '../src/duel/engine.js';
+import {START_PACK_COMMON,START_PACKS,applyStartPack,createV10Duel,enterV10Node,advanceBatter,advanceV10Pitch,playCard,playV10Action,swingOdds,hitProfile,matchup} from '../src/duel/engine.js';
 
 const roleGroups={
   power:[['slug','soloShot'],['loadPower','setup']],
@@ -114,6 +114,7 @@ describe('starter deck variety',()=>{
     const flow=pinDeckKind(s,'flow'),rally=pinDeckKind(s,'rally');
     expect(swingOdds(s,rally,4).hit).toBe(1);
     s=playCard(s,flow);
+    s=advanceV10Pitch(playV10Action(s,{type:'take'})); // spend the prep, then use the actual next-pitch +1 to fund rally
     expect(s.battle.runSignal).toBe(true);
     s.battle.aimZone=4;s.battle.pending={zone:4,roll:.1,powerRoll:.99};
     const runsBefore=s.battle.runs;
@@ -129,6 +130,8 @@ describe('starter deck variety',()=>{
     s=playCard(s,wear);
     expect(s.battle.patient).toBe(true);
     expect(swingOdds(s,cut,0).foul).toBeCloseTo(.62,6);
+    s=advanceV10Pitch(playV10Action(s,{type:'take'})); // take the current pitch after prep; the next actual pitch has 3 energy
+    s.battle.pending={...s.battle.pending,zone:0,roll:.55,powerRoll:.5};
     const hpBefore=s.pitcher.hp;
     s=playV10Action(s,{type:'card',id:cut});
     expect(s.battle.revealed.kind).toBe('foul');
@@ -140,7 +143,8 @@ describe('starter deck variety',()=>{
     let plain=firstBattle(1003,'power');
     const load=pinDeckKind(plain,'loadPower'),slug=pinDeckKind(plain,'slug');
     plain.battle.aimZone=4;plain.battle.pending={zone:4,roll:.1,powerRoll:.99};
-    const prepared=playCard(plain,load);
+    let prepared=playCard(plain,load);
+    prepared=advanceV10Pitch(playV10Action(prepared,{type:'take'})); // next pitch reward funds the 2-cost slug after its prep
     const baseEdge=matchup(plain,slug,4).powerEdge,preparedEdge=matchup(prepared,slug,4).powerEdge;
     expect(preparedEdge-baseEdge).toBe(18);
     expect(hitProfile(prepared,slug,4)[0].p).toBeGreaterThan(hitProfile(plain,slug,4)[0].p);

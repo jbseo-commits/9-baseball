@@ -43,17 +43,17 @@ describe('plan summary states',()=>{
   it('main selection shows cost total, public range and rate in separate fields',()=>{
     const view=open();
     choose(view,0);
-    expect(summary()).toMatch(/합계 1\/3/);
+    expect(summary()).toMatch(/합계 1\/2/);
     expect(summary()).toMatch(/적중권|피해 ×/);
     expect(summary()).toContain('실행하세요');
   });
   it('armed names the pending join total and waits for a zone',()=>{
-    const view=open({kinds:['place','strike']});
+    const view=open({kinds:['place','laser']});
     choose(view,0);
-    fireEvent.click(document.querySelector('[data-card-kind="strike"]'));
-    expect(document.querySelector('[data-card-kind="strike"]').classList.contains('armed')).toBe(true);
+    fireEvent.click(document.querySelector('[data-card-kind="laser"]'));
+    expect(document.querySelector('[data-card-kind="laser"]').classList.contains('armed')).toBe(true);
     expect(summary()).toContain('지원할 코스 선택');
-    expect(summary()).toMatch(/합계 2\/3/);
+    expect(summary()).toMatch(/합계 2\/2/);
   });
   it('prep selection shows cost, remaining count and usability',()=>{
     const view=open();

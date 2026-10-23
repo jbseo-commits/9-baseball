@@ -30,7 +30,14 @@ export const CARDS={...CORE_CARDS,...CARDS_V16};
 const V10_COST_TWO=new Set(['slug','wall','laser','commit','needle','perfectRead','fullSwing','moonshot','cleanup','soloShot','calledShot',
   'thunder','basesLoaded','homeRush','shieldBat','attrition','timeOut','threeOh','hawkEye','lastChance','edgeSwing','walkOff','hotStart',
   'allIn','fullStack','teamwork','analyst','fullScout','killerInstinct','collapse','laneMaster','sinkerBuster']);
-for(const [kind,def] of Object.entries(CARDS))def.cost=kind==='setup'?0:V10_COST_TWO.has(kind)?2:1;
+const WIDE_ATTACK_SHAPES=new Set(['row','column','diag','cross','x','box','corners','all']);
+const EFFICIENT_SIGNATURES=new Set(['laser','commit']);
+for(const [kind,def] of Object.entries(CARDS)){
+  // A normal wide attack spends the whole base budget. Sacrifice bunts retain
+  // their separate out-for-advancement tradeoff; signatures can buy efficiency.
+  def.cost=kind==='setup'?0:EFFICIENT_SIGNATURES.has(kind)?1:
+    V10_COST_TWO.has(kind)||(def.type==='attack'&&!def.bunt&&WIDE_ATTACK_SHAPES.has(def.shape))?2:1;
+}
 export function cardCost(kindOrEntry){
   const kind=typeof kindOrEntry==='string'?kindOrEntry:kindOrEntry?.kind;
   const def=CARDS[kind];

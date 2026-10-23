@@ -1,5 +1,5 @@
 import React,{useEffect,useRef,useState} from 'react';
-import {V10_SWING_DAMAGE_RATES,V11_STACK_CONNECT_BONUS,V10_MOMENTUM,V10_RUNNER_PRESSURE,V10_ENERGY_BASE,V10_ENERGY_MAX,V10_SWING_STACK_MAX} from './engine.js';
+import {V10_SWING_DAMAGE_RATES,V11_STACK_CONNECT_BONUS,V10_MOMENTUM,V10_RUNNER_PRESSURE,V10_ENERGY_BASE,V10_ENERGY_MAX} from './engine.js';
 import './welcome.css';
 
 /* 게임 방법 — the rules of the main run, one idea per page, each drawn with the game's own pieces
@@ -36,7 +36,7 @@ export const WELCOME_CHAPTERS=[
     body:[<>카드의 작은 3×3 그림이 <b>덮는 칸</b>입니다. 그 칸으로 공이 오면 <b>안타 확정</b>(희생 번트는 작전 성공을 노립니다).</>,<>덮지 못한 스트라이크는 헛스윙이나 파울. <b>볼에 휘두르면 대부분 헛스윙</b> — 볼은 지켜보면 볼입니다.</>,<>넓게 덮을수록 힘이 분산돼 <b>장타가 줄어듭니다</b>.</>],
     art:()=><div className="wg-pair"><Zone small cells={{2:{cls:'cover'},5:{cls:'cover aim'},8:{cls:'cover'}}} ball={5}/><span className="wg-verdict good">안타</span><Zone small cells={{2:{cls:'cover'},5:{cls:'cover aim'},8:{cls:'cover'}}} ball={9}/><span className="wg-verdict">볼 · 지켜보면 볼</span></div>},
   {key:'stack',eyebrow:'STACK · CONNECT',title:'여러 장 겹치기',
-    body:[<>메인 카드와 지원을 합쳐 최대 {Math.min(V10_SWING_DAMAGE_RATES.length,V10_SWING_STACK_MAX)}장까지 놓을 수 있습니다. 일부 투수 기믹에서는 더 적게 놓을 수 있습니다. 합산 에너지 비용이 남은 에너지보다 크면 실행할 수 없습니다. 덮는 칸이 넓어지면 <b>피해 배율이 내려갑니다</b>: {V10_SWING_DAMAGE_RATES.slice(0,V10_SWING_STACK_MAX).map((r,i)=>(i+1)+'장 '+pct(r)+'%').join(' · ')}.</>,
+    body:[<>기본 에너지는 {V10_ENERGY_BASE}입니다. 비용 1 공격은 메인·지원 합쳐 {V10_ENERGY_BASE}장, 지켜보기 보상을 받은 공에는 {V10_ENERGY_MAX}장까지 쓸 수 있습니다. 일반 3칸 이상 공격은 비용 2라 기본 예산을 모두 씁니다. 일부 투수 기믹에서는 더 적게 놓을 수 있습니다. 합산 에너지 비용이 남은 에너지보다 크면 실행할 수 없습니다. 덮는 칸이 넓어지면 <b>피해 배율이 내려갑니다</b>: {V10_SWING_DAMAGE_RATES.slice(0,V10_ENERGY_MAX).map((r,i)=>(i+1)+'장 '+pct(r)+'%').join(' · ')}.</>,
       <>놓은 순서(①→②→③)대로 <b>노린 칸이 붙어 있으면 CONNECT</b> — 실선, 한 번마다 +{pct(V11_STACK_CONNECT_BONUS)}%p를 되찾습니다(최대 100%). 떨어지면 점선 <b>BREAK</b>.</>,
       <>메인 카드가 못 덮은 공을 지원 카드가 덮으면 단타로 막아 줍니다.</>],
     art:()=><div className="wg-pair"><Zone small cells={{4:{cls:'cover aim',text:'①'},5:{cls:'support',text:'②'},8:{cls:'support',text:'③'}}} links={[[4,5,1],[5,8,1]]}/><span className="wg-verdict good">CONNECT 2/2</span><Zone small cells={{0:{cls:'cover aim',text:'①'},8:{cls:'support',text:'②'}}} links={[[0,8,0]]}/><span className="wg-verdict">BREAK</span></div>},

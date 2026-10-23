@@ -83,7 +83,7 @@ try{
     await p.getByRole('button',{name:'닫기',exact:true}).click();
     await shot(p,label+'-ready');
     const hp=await p.getByRole('meter').getAttribute('aria-valuenow');
-    await p.getByRole('button',{name:'타격! 에너지 1 / 3'}).click();
+    await p.getByRole('button',{name:'타격! 에너지 1 / 2'}).click();
     check(label+' freezes HP during flight',await p.getByRole('meter').getAttribute('aria-valuenow')===hp);
     check(label+' no early result',await p.locator('.zf-result-card').count()===0);
     check(label+' hand remains visible and locked during flight',await p.locator('.zf-card').evaluateAll(cards=>cards.length>0&&cards.every(c=>c.disabled)));

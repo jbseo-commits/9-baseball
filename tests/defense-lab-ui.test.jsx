@@ -53,6 +53,15 @@ it('shows the experiment role on both a strong attack and its preparation card',
   expect(document.querySelector('.bp-hand [data-card-kind="slug"] .bp-lab-card-note')?.textContent).toBe('힘 투자 후 봉쇄');
   expect(document.querySelector('.bp-hand [data-card-kind="loadPower"] .bp-lab-card-note')?.textContent).toBe('힘 투자 · 봉쇄 준비');
 });
+it('explains the lab energy budget without substituting the main-run budget',()=>{
+  saveDefenseLabState(localStorage,createDefenseLabState({seed:914,pack:'power'}));render(<Duel/>);
+  expect(screen.getByTestId('bp-energy').getAttribute('aria-label')).toBe('에너지 3/3');
+  fireEvent.click(screen.getByRole('button',{name:'?',exact:true}));
+  const help=screen.getByRole('dialog').textContent;
+  expect(help).toContain('기본은 다음 실제 공마다 3을 충전');
+  expect(help).toContain('다음 실제 공에 +1(최대 4)');
+  expect(help).not.toContain('기본은 다음 실제 공마다 2을 충전');
+});
 it('keeps the saved pack, scenario and seed when returning to conditions after reload',()=>{
   saveDefenseLabState(localStorage,createDefenseLabState({seed:13,pack:'hold',scenario:'crisis'}));render(<Duel/>);
   fireEvent.click(screen.getByRole('button',{name:'실험 조건 변경'}));

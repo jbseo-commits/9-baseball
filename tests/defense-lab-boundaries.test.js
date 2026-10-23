@@ -189,6 +189,7 @@ describe('defense lab boundary contracts',()=>{
     s=pitch(s,'slug',4,0);expect(s.defenseLab.lastEvent.blocked).toBe(false);
     s=ready('power','normal');s.defenseLab.powerInvested=true;
     const slug=inHand(s,'slug'),defend=inHand(s,'defend');
+    s=advanceDefenseLabPitch(playDefenseLabAction(s,{type:'take'})); // the lab keeps its isolated 3/4 pool; TAKE funds this four-cost stack
     s.battle.aimZone=4;s.battle.pending={zone:0,roll:0,powerRoll:0};
     s=playDefenseLabAction(s,{type:'card',id:slug,supports:[{id:defend,aimZone:1}]});
     expect(s.battle.revealed.assistOnly).toBe(true);

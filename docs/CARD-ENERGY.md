@@ -1,5 +1,27 @@
 # MAIN RUN 카드 에너지
 
+## 현재 규칙 — 2026-10-23
+
+본편 기본 충전은 **2**, 지켜보기 생존 보상을 받은 다음 실제 공은 **3**이다.
+일반 3칸 이상 공격은 **비용 2**, 시그니처 `laser`·`commit`은 **비용 1**,
+`wall`·`thunder`는 **비용 2와 기존 십자 최대 5칸**을 유지한다.
+기존 일반 광역 카드의 범위는 유지하며 비용을 2로 조정한다. 희생 번트는 별도 작전 예외다.
+기본 스윙·지켜보기·`setup`은 무료이며 유료 준비도 현재 에너지를 소비한다.
+현재 비용 분포는 0비용 1종·1비용 80종·2비용 70종이다.
+
+기존 저장의 현재 공 3/4 상한과 잔량 0을 보존한다. 실제 다음 공부터 2/3으로
+전환하며 새 전투는 2로 시작한다. 수비 실험의 에너지는 3/4, V11 고정 한도는 6이다.
+공통 카드 비용은 도감·보상·전투에 동일하게 반영한다.
+[영향도·선택 예시·검증](design/TWO-ENERGY-DECISIONS.md)을 참고한다.
+
+| 비용 | 현재 카드 |
+| --- | --- |
+| 0 | `setup` |
+| 2 | `strike`, `slug`, `rally`, `finisher`, `defend`, `wall`, `needle`, `laserEye`, `perfectRead`, `fullSwing`, `moonshot`, `pullHook`, `oppoPower`, `upperCut`, `highHeat`, `cleanup`, `soloShot`, `calledShot`, `thunder`, `advanceHit`, `hitAndRun`, `steppingStone`, `basesLoaded`, `homeRush`, `relayBat`, `cutMaster`, `longAtBat`, `shieldBat`, `grinder`, `attrition`, `timeOut`, `threeOh`, `hawkEye`, `twoStrikeApproach`, `lastChance`, `chokeUp`, `edgeSwing`, `zoneProtect`, `walkOff`, `comebackSwing`, `aggressive`, `quickWrists`, `hotStart`, `allIn`, `wideNet`, `chainLink`, `teamBatting`, `fullStack`, `cornerGuard`, `xSwing`, `diagCut`, `teamwork`, `patternRead`, `analyst`, `pitchChart`, `brainBat`, `fullScout`, `rattle`, `killerInstinct`, `momentum`, `collapse`, `dagger`, `insideGuard`, `outsideReach`, `highLane`, `lowLane`, `cornerSpecialist`, `laneMaster`, `sinkerBuster`, `crossLane` |
+| 1 | 위 두 행에 없는 카드. `laser`, `commit` 포함 |
+
+## 최초 구현 기록 (아래 수치와 검증은 당시 기준)
+
 사용자 요청: 카드 자원을 소비하는 슬더스식 전투. 기준은 `origin/main`의 `efff947`. 이번 변경은 카드 에너지와 비용을 연결하며 세계관, 투구 확률, HP 피해 공식, 런 구조를 바꾸지 않는다. 참고 GitHub 주소는 아직 확인되지 않았으며 외부 코드·이미지를 가져오지 않는다.
 
 후속 보상의 규칙은 [지켜보기 보상](TAKE-REWARD.md), 추가 카드의 영향도 분석과 최신 검증은 [추가 드로우](TAKE-DRAW.md)에 기록한다. 아래 최초 구현의 검증 기록과 구분한다.

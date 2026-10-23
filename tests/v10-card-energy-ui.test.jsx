@@ -17,30 +17,31 @@ function pinHand(s,ids=['c0','c1','c2','c3','c4']){const b=s.battle,pool=[...b.h
 describe('V10 ballpark energy UI',()=>{
   it('shows remaining energy, a numeric prep cost, the selected stack total, and preserves support removal',()=>{
     let s=pinHand(enterV10Node(createV10Duel(441),'a1-entry'));
+    s.deck.find(c=>c.id==='c4').kind='laser'; // signature 1-cost main + one 1-cost support fits the real 2-energy budget
     const hand=[...s.battle.hand,'c6'].map(id=>({id,entry:s.deck.find(c=>c.id===id),preview:previewCard(s,id)}));
-    const supports=[{id:'c0',aimZone:8},{id:'c1',aimZone:7},{id:'c2',aimZone:2}];
+    const supports=[{id:'c0',aimZone:8}];
     const choice=previewV10Stack(s,'c4',supports);
     const onStack=vi.fn();
     const {container,rerender}=render(<BallparkBattle s={s} hand={hand} selected="c4" swingStack={supports} choice={choice}
       pitcher={s.pitcher} onStack={onStack} onSelect={()=>{}} onAim={()=>{}} onSwing={()=>{}} onTake={()=>{}}/>);
-    expect(screen.getByTestId('bp-energy').getAttribute('aria-label')).toBe('에너지 3/3');
+    expect(screen.getByTestId('bp-energy').getAttribute('aria-label')).toBe('에너지 2/2');
     expect(screen.getByTestId('bp-take').textContent).toContain('다음 공 +1');
     expect(container.querySelector('.bp-card-cost.prep').textContent).toBe(String(cardCost('setup')));
-    expect(container.querySelector('.bp-verbs .bp-verb.go').disabled).toBe(true);
+    expect(container.querySelector('.bp-verbs .bp-verb.go').disabled).toBe(false);
     fireEvent.click(container.querySelector('.bp-card[data-card-kind="place"]'));
-    expect(onStack).toHaveBeenCalledWith([{id:'c1',aimZone:7},{id:'c2',aimZone:2}]);
+    expect(onStack).toHaveBeenCalledWith([]);
     const twoStrike=structuredClone(s);twoStrike.battle.strikes=2;
     rerender(<BallparkBattle s={twoStrike} hand={hand} selected="c4" swingStack={supports} choice={choice}
       pitcher={twoStrike.pitcher} onStack={onStack} onSelect={()=>{}} onAim={()=>{}} onSwing={()=>{}} onTake={()=>{}}/>);
     expect(screen.getByTestId('bp-take').textContent).toContain('볼 +1 · 삼진 0');
-    const boosted=structuredClone(s);boosted.battle.energy=0;boosted.battle.energyCap=4;
+    const boosted=structuredClone(s);boosted.battle.energy=0;boosted.battle.energyCap=3;
     rerender(<BallparkBattle s={boosted} hand={hand} selected="c4" swingStack={supports} choice={choice}
       pitcher={boosted.pitcher} onStack={onStack} onSelect={()=>{}} onAim={()=>{}} onSwing={()=>{}} onTake={()=>{}}/>);
-    expect(screen.getByTestId('bp-energy').getAttribute('aria-label')).toBe('에너지 0/4');
+    expect(screen.getByTestId('bp-energy').getAttribute('aria-label')).toBe('에너지 0/3');
     boosted.phase='pitch';boosted.battle.takeEnergyBonus=1;
     rerender(<BallparkBattle s={boosted} hand={hand} selected="c4" swingStack={supports} choice={choice}
       pitcher={boosted.pitcher} onStack={onStack} onSelect={()=>{}} onAim={()=>{}} onSwing={()=>{}} onTake={()=>{}}/>);
-    expect(screen.getByTestId('bp-energy').textContent).toContain('다음 공 4 · 카드+1');
+    expect(screen.getByTestId('bp-energy').textContent).toContain('다음 공 3 · 카드+1');
   });
 
   it('reports only the actual result-phase card outcome and keeps pre-action hints generic',()=>{
@@ -51,7 +52,7 @@ describe('V10 ballpark energy UI',()=>{
     expect([...container.querySelectorAll('[data-testid="bp-take"]')].every(x=>x.textContent.includes('다음 공 +1'))).toBe(true);
     const result=structuredClone(s);result.phase='pitch';result.battle.takeEnergyBonus=1;
     rerender(<BallparkBattle s={result} {...props}/>);
-    expect(container.querySelector('[data-testid="bp-energy"]').textContent).toContain('다음 공 4 · 카드+1');
+    expect(container.querySelector('[data-testid="bp-energy"]').textContent).toContain('다음 공 3 · 카드+1');
     const full=structuredClone(result);full.battle.hand=[...full.battle.hand,...full.deck.slice(5,6).map(c=>c.id)];
     rerender(<BallparkBattle s={full} {...props}/>);
     expect(container.querySelector('[data-testid="bp-energy"]').textContent).toContain('6장 한도');
@@ -60,7 +61,7 @@ describe('V10 ballpark energy UI',()=>{
     expect(container.querySelector('[data-testid="bp-energy"]').textContent).toContain('추가 0');
     const between=structuredClone(result);between.phase='between';
     rerender(<BallparkBattle s={between} {...props}/>);
-    expect(container.querySelector('[data-testid="bp-energy"]').textContent).toContain('다음 타자 4 · 카드+1');
+    expect(container.querySelector('[data-testid="bp-energy"]').textContent).toContain('다음 타자 3 · 카드+1');
   });
 
   it('does not promise a card in debrief for old metadata or a blocked draw',()=>{
@@ -69,7 +70,7 @@ describe('V10 ballpark energy UI',()=>{
     const walk=lessonFor({...combat,verdict:'볼넷',takeDrawBonus:1},{zone:9,primaryCoverage:[],label:'볼넷'});
     const full=lessonFor({...combat,takeDrawBonus:0,takeDrawReason:'full'},{zone:4,primaryCoverage:[],label:'루킹 스트라이크'});
     expect(ball.title).not.toContain('카드 +1');
-    expect(walk.title).toContain('다음 타자 첫 공 4');expect(walk.title).toContain('카드 +1');
+    expect(walk.title).toContain('다음 타자 첫 공 에너지 +1');expect(walk.title).toContain('카드 +1');
     expect(full.title).toContain('6장 한도');
   });
 

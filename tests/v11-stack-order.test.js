@@ -66,7 +66,7 @@ describe('V11 9ZONE STACK ORDER',()=>{
       {id:'c0',aimZone:4},{id:'c1',aimZone:8},
     ]);
     expect(p.cardCount).toBe(3);
-    expect(p.cost).toBe(3);
+    expect(p.cost).toBe(4);
     expect(p.connectCount).toBe(2);
     expect(p.connectBonus).toBeCloseTo(.14);
     expect(p.baseStackDamageRate).toBe(.65);

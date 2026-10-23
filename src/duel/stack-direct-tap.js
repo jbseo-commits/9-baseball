@@ -102,7 +102,7 @@ function setGuide(drawer,panel,armed=null){
     // V12 P3-3: the cover count is the engine's covered cells (C1), not the number of cards
     const covered=zoneCells(panel?.ownerDocument||document).filter(c=>c.classList.contains('covered')).length;
     strong.textContent=count?`${count}장 배치`+(covered?` · 커버 ${covered}칸`:''):'카드를 9존에 직접 놓으세요';
-    small.textContent=count?'카드를 더 놓으면 커버는 넓어지고 피해 효율은 내려갑니다.':'탭 → 존 탭, 또는 카드를 존까지 드래그 · 최대 4장';
+    small.textContent=count?'카드를 더 놓으면 커버는 넓어지고 피해 효율은 내려갑니다.':'탭 → 존 탭, 또는 카드를 존까지 드래그 · 남은 에너지 안에서';
   }
   // a multiplier on HP damage, never an HP value (C3)
   powerStrong.textContent=`×${(rate/100).toFixed(2)}`;

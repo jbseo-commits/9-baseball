@@ -4,10 +4,8 @@ import {applyRewardToDeck,rewardProblem} from './deck.js';
 import {gimmickRules,addShare,trickNeighbors} from './gimmick.js';
 const clone=s=>JSON.parse(JSON.stringify(s));
 const card=(s,id)=>s.deck.find(c=>c.id===id);
-export const V10_ENERGY_BASE=3;
-export const V10_ENERGY_MAX=4;
-export const v10Energy=state=>Number.isInteger(state?.battle?.energy)?state.battle.energy:V10_ENERGY_BASE;
-export const v10EnergyCap=state=>state?.version===10&&(state?.battle?.energyCap===V10_ENERGY_BASE||state?.battle?.energyCap===V10_ENERGY_MAX)?state.battle.energyCap:V10_ENERGY_BASE;
+import {v10EnergyBase,v10Energy,v10EnergyCap} from './energy.js';
+export {V10_ENERGY_BASE,V10_ENERGY_MAX,v10EnergyBase,v10NextEnergyMax,v10Energy,v10EnergyCap} from './energy.js';
 export function v10ActionCost(state,id,supports=[]){
   if(id==null||id==='basic'||id==='take')return 0;
   const main=card(state,id);if(!main)return 0;
@@ -159,7 +157,7 @@ export function chooseRoute(state,routeId){
 export function startBattle(state){
   if(state.phase!=='map'||state.build===DECKBUILDER_BUILD&&!routeChoice(state.stage,state.route))return state;const s=clone(state);s.phase='battle';
   const defenseCrisis=s.defenseLab?.schema===1&&s.defenseLab.scenario==='crisis';
-  s.battle={turn:1,batterIndex:0,preparations:0,runSignal:false,results:[],history:[],outs:Math.min(2,Math.max(0,defenseCrisis?2:s.runOuts|0)),runs:0,strikes:defenseCrisis?2:0,balls:0,...(s.version===10?{energy:V10_ENERGY_BASE,energyCap:V10_ENERGY_BASE,takeEnergyBonus:0}:{}),
+  s.battle={turn:1,batterIndex:0,preparations:0,runSignal:false,results:[],history:[],outs:Math.min(2,Math.max(0,defenseCrisis?2:s.runOuts|0)),runs:0,strikes:defenseCrisis?2:0,balls:0,...(s.version===10?{energy:v10EnergyBase(s),energyCap:v10EnergyBase(s),takeEnergyBonus:0}:{}),
     aim:0,aimZone:s.build==='pull'?3:s.build==='away'?5:4,expanded:false,patient:false,scouted:false,
     expandedPlus:false,scoutPlus:false,runSignalPlus:false,scoutBall:false,
     bonusPower:0,bonusDmg:0,bonusPressure:0,bonusBall:0,bonusWalk:0,bonusFoul:0,
@@ -616,7 +614,7 @@ export function playCard(state,id,opts={}){
 }
 export const endTurn=state=>state.phase==='battle'?resolve(state,null):state;
 export function advancePitch(state){
-  if(state.phase!=='pitch')return state;const s=clone(state),takeBonus=s.version===10&&s.battle.takeEnergyBonus===1;s.phase='battle';if(s.version===10){const bonus=takeBonus?1:0;s.battle.energyCap=V10_ENERGY_BASE+bonus;s.battle.energy=s.battle.energyCap;s.battle.takeEnergyBonus=0;}
+  if(state.phase!=='pitch')return state;const s=clone(state),takeBonus=s.version===10&&s.battle.takeEnergyBonus===1;s.phase='battle';if(s.version===10){const bonus=takeBonus?1:0;s.battle.energyCap=v10EnergyBase(s)+bonus;s.battle.energy=s.battle.energyCap;s.battle.takeEnergyBonus=0;}
   draw(s,1);const takeDrawn=takeBonus?draw(s,1,V10_TAKE_HAND_MAX):0;dealPitch(s);
   s.last={kind:'entry',text:currentBatter(s).name+' · 다음 공을 읽으세요.',events:takeDrawn?['지켜보기 보상 · 카드 +1']:[],runs:0,outs:0,...(takeBonus?{takeDrawn}: {})};return s;
 }
@@ -624,7 +622,7 @@ export function advanceBatter(state){
   if(state.phase!=='between')return state;const s=clone(state),b=s.battle,index=(b.batterIndex+1)%9,widthBefore=repertoireWidth(s);
   const takeBonus=s.version===10&&b.takeEnergyBonus===1;
   if(b.bases.includes(LINEUP[index].id))return state;
-  b.batterIndex=index;b.turn++;b.strikes=0;b.balls=0;b.aim=0;b.preparations=0;b.runSignal=false;b.expanded=false;b.patient=false;if(s.version===10){const bonus=takeBonus?1:0;b.energyCap=V10_ENERGY_BASE+bonus;b.energy=b.energyCap;b.takeEnergyBonus=0;}
+  b.batterIndex=index;b.turn++;b.strikes=0;b.balls=0;b.aim=0;b.preparations=0;b.runSignal=false;b.expanded=false;b.patient=false;if(s.version===10){const bonus=takeBonus?1:0;b.energyCap=v10EnergyBase(s)+bonus;b.energy=b.energyCap;b.takeEnergyBonus=0;}
   b.expandedPlus=false;b.scoutPlus=false;b.runSignalPlus=false;
   b.bonusPower=0;b.bonusDmg=0;b.bonusPressure=0;b.bonusBall=0;b.bonusWalk=0;b.bonusFoul=0;
   b.waitCharge=0;b.growthMode='normal';b.relayActive=b.relayPending;b.relayPending=0;
@@ -1331,8 +1329,8 @@ export function v10NormalizeHand(state){
   const hand=state?.battle?.hand;if(!Array.isArray(hand)||!Array.isArray(state.deck))return state;
   const ids=new Set(state.deck.map(c=>c.id)),kept=hand.filter(id=>ids.has(id));
   if(kept.length===hand.length&&Number.isInteger(state.battle.energy)&&Number.isInteger(state.battle.energyCap)&&Number.isInteger(state.battle.takeEnergyBonus))return state;
-  return {...state,battle:{...state.battle,hand:kept,energy:Number.isInteger(state.battle.energy)?state.battle.energy:V10_ENERGY_BASE,
-    energyCap:Number.isInteger(state.battle.energyCap)?state.battle.energyCap:V10_ENERGY_BASE,
+  return {...state,battle:{...state.battle,hand:kept,energy:v10Energy(state),
+    energyCap:v10EnergyCap(state),
     takeEnergyBonus:Number.isInteger(state.battle.takeEnergyBonus)?state.battle.takeEnergyBonus:0}};
 }
 export function readV10Duel(storage){return v10NormalizeHand(readV10State(storage));}
