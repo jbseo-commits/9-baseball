@@ -1,6 +1,6 @@
 import React,{useEffect,useLayoutEffect,useRef,useState} from 'react';
 import {CARDS,LINEUP,bandFor,rangeFor,shadeNameFor,cardCost} from './cards.js';
-import {publicProbabilities,readLevel,readSources,knownPitchZones,v10StackMax,v10PrepMax,v10Energy,v10EnergyCap,v10ActionCost,v10TakeDrawPreview,V11_SWING_ENERGY,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM} from './engine.js';
+import {publicProbabilities,readLevel,readSources,knownPitchZones,v10StackMax,v10PrepMax,v10Energy,v10EnergyCap,v10ActionCost,v10TakeDrawPreview,V11_SWING_ENERGY,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM,defenseLabThreat} from './engine.js';
 import {probabilityBounds} from './information.js';
 import {intentLines,hpTicks,ZONE_WORDS,runnerMoves} from './ballpark-copy.js';
 import ZoneLinks from './ZoneLinks.jsx';
@@ -17,6 +17,8 @@ import {cardFaceOf,shortCardProblem,ROLE_MARKS} from './card-face.js';
 import {preparationDrawPreview,activePreparationFeedback} from './preparation-feedback.js';
 import BattleInspector from './BattleInspector.jsx';
 import './battle-inspector.css';
+import './defense-lab.css';
+import {defenseLabDisplay,defenseLabCardLabel} from './defense-lab-view.js';
 import {HomeRunCut,KnockoutCut} from './phone-art-v18.jsx';
 import {pitcherFigures,pitcherPortraits} from './pitcher-visuals.js';
 import './ballpark.css';
@@ -93,6 +95,7 @@ export default function BallparkBattle({
   batterSheet=batterV14MasterSheet,batterRig=null,
   onSelect,onAim,onStack,onSwing,onTake,onDetail,onPile,onHome,onHelp,onSettings,onToggleSound,sound=false,onJukebox=null,
   autoLesson=false,autoPlan=null,onExitLesson=null,previewMode=false,coachSignal=0,
+  defenseLab=null,
 }){
   const b=s.battle||{},rootRef=useRef(null),sceneRef=useRef(null),pitcherRef=useRef(null),zoneRef=useRef(null),flightRef=useRef(null),stageRef=useRef(null);
   const [armed,setArmed]=useState(null),[commitBeat,setCommitBeat]=useState(null),commitTimer=useRef(null);
@@ -249,6 +252,7 @@ export default function BallparkBattle({
   /* 공이 닿기 전(pre)에는 결과를 미리 보여주지 않는다: HP·주자·카운트는 이 공을 던지기 전 값이다.
      오버킬이면 hp+피해가 원래 HP보다 커져 막대가 다시 차 보이므로 엔진이 적어 둔 hpBefore를 쓴다. */
   const pre=judged&&!landed;
+  const labView=defenseLab?defenseLabDisplay(s,pre):null;
   const hpWas=judged?Math.min(pitcher?.maxHp||0,Number.isInteger(s.v10?.lastCombat?.hpBefore)?s.v10.lastCombat.hpBefore:(pitcher?.hp||0)+(pitcher?.lastDamage||0)):pitcher?.hp;
   const ticks=hpTicks(pitcher?.hp,pitcher?.maxHp),ticksWere=judged?hpTicks(hpWas,pitcher?.maxHp):ticks;
   const shownBases=pre&&Array.isArray(r.basesBefore)?r.basesBefore:(b.bases||[]);
@@ -415,14 +419,16 @@ export default function BallparkBattle({
        hide the bunt 2S foul-strikeout (or any requires/cost) condition. */
     const condition=face.condition;
     const note=warning||condition;
+    const labNote=defenseLab?defenseLabCardLabel(defenseLab.pack,x.entry):'';
 
     return <button key={x.id} type="button" className={'bp-card'+state+(problem?' off':'')+cardKindClass+(note?' has-note':'')+(condition&&warning?' has-both':'')} aria-pressed={selected===x.id||inStack>=0}
-      aria-label={[def.name+(x.entry.plus?'+':''),'코스트 '+cost,face.axis,face.summary,condition,warning,problem].filter(Boolean).join(' · ')}
+      aria-label={[def.name+(x.entry.plus?'+':''),'코스트 '+cost,face.axis,face.summary,condition,warning,problem,labNote].filter(Boolean).join(' · ')}
       data-card-kind={x.entry.kind} data-card-plus={x.entry.plus?1:0} data-card-problem={problem||undefined} disabled={!deciding} onClick={()=>pickSwing(x.id)}>
       <span className="bp-card-cost" aria-label={`코스트 ${cost}`}>{cost}</span>
       <div className="bp-card-art-box">
         <div className="bp-card-art" style={artStyle}/>
         <div className="bp-card-mini-map"><CardGlyph zones={x.preview?.coverage}/></div>
+        {labNote&&<span className="bp-lab-card-note">{labNote}</span>}
       </div>
       <div className="bp-card-header">
         <strong>{def.name||x.entry.kind}{x.entry.plus&&<sup>+</sup>}</strong>
@@ -501,9 +507,9 @@ export default function BallparkBattle({
   const piles=[{key:'draw',title:'남은 더미',n:b.draw?.length??0,groups:pileGroups(b.draw)},{key:'discard',title:'버림 더미',n:b.discard?.length??0,groups:pileGroups(b.discard)}];
   const shownModel={count:shownCount,bases:shownBases,momentum,momentumRate:v10MomentumRate(momentum),shaken,mentalCap,
     hp:pre?hpWas:pitcher?.hp,maxHp:pitcher?.maxHp,phase:shownGimmickPhase,tendency:lines.whisper,tendencyDetail:lines.coach};
-  return <main ref={rootRef} className={'bp-battle bp-readable'+(autoLesson?' auto-lesson':'')+(commitBeat?' committing':'')+(deciding?'':' resolving')+(inFx?' fx-'+fxStage:'')+(inspect?' inspecting':'')} aria-label="타석">
+  return <main ref={rootRef} className={'bp-battle bp-readable'+(defenseLab?' defense-lab-battle':'')+(autoLesson?' auto-lesson':'')+(commitBeat?' committing':'')+(deciding?'':' resolving')+(inFx?' fx-'+fxStage:'')+(inspect?' inspecting':'')} aria-label="타석">
     <div className="bp-bar">
-      <b className="bp-hud-inning">{label}</b>
+      <b className="bp-hud-inning">{labView?'실험 · '+labView.packName:label}</b>
       <div className="bp-bso-strip" aria-label={`볼 ${shownCount.balls} 스트라이크 ${shownCount.strikes} 아웃 ${shownCount.outs}`}>
         <div className="bp-bso-unit b"><b className="bp-bso-name">B</b><span className="bp-bso-leds">{Array.from({length:3},(_,i)=><i key={i} className={i<shownCount.balls?'on':''}/>)}</span></div>
         <div className="bp-bso-unit s"><b className="bp-bso-name">S</b><span className="bp-bso-leds">{Array.from({length:2},(_,i)=><i key={i} className={i<shownCount.strikes?'on':''}/>)}</span></div>
@@ -511,7 +517,7 @@ export default function BallparkBattle({
       </div>
       <span className="bp-piles">
         <button type="button" className="bp-pile-btn" disabled={!deciding} onClick={()=>openInspect('pile',{pile:'both'})} aria-label={`패 더미 보기 · 더미 ${b.draw?.length??0} 버림 ${b.discard?.length??0}`}>더미 {b.draw?.length??0} / 버림 {b.discard?.length??0}</button>
-        <button type="button" className="bp-pile-btn bp-settings-btn" aria-label="설정 및 도움말" onClick={onSettings||onHelp}>⚙</button>
+        <button type="button" className="bp-pile-btn bp-settings-btn" aria-label={defenseLab?'실험 조건 변경':'설정 및 도움말'} onClick={onSettings||onHelp}>{defenseLab?'실험':'⚙'}</button>
       </span>
     </div>
 
@@ -666,6 +672,7 @@ export default function BallparkBattle({
       {swingCards.map(cardButton)}
       {prepCards.map(x=>{
         const def=CARDS[x.entry.kind]||{},problem=x.preview?.problem;
+        const labNote=defenseLab?defenseLabCardLabel(defenseLab.pack,x.entry):'';
         const customArt=cardArtFor(x.entry.kind);
         const focus=customArt?cardArtFocusFor(x.entry.kind):null;
         const artStyle=customArt
@@ -681,7 +688,7 @@ export default function BallparkBattle({
         return <button key={x.id} type="button"
           className={'bp-card skill prep-card bp-token-card'+(selected===x.id?' main':'')+(isOff?' off':'')+(note?' has-note':'')+(condition&&warning?' has-both':'')}
           aria-pressed={selected===x.id}
-          aria-label={[def.name+(x.entry.plus?'+':''),'코스트 '+cardCost(x.entry),'준비 '+prepLeft+'회 남음',face.summary,face.drawNote,condition,warning,problem].filter(Boolean).join(' · ')}
+          aria-label={[def.name+(x.entry.plus?'+':''),'코스트 '+cardCost(x.entry),'준비 '+prepLeft+'회 남음',face.summary,face.drawNote,condition,warning,problem,labNote].filter(Boolean).join(' · ')}
           data-card-kind={x.entry.kind} data-card-plus={x.entry.plus?1:0} data-card-problem={problem||undefined}
           disabled={!deciding}
           onClick={()=>pickPrep(x.id)}>
@@ -691,6 +698,7 @@ export default function BallparkBattle({
             <div className="bp-card-mini-map prep-badge">
               <span className="bp-prep-glyph" aria-hidden="true">✦</span>
             </div>
+            {labNote&&<span className="bp-lab-card-note">{labNote}</span>}
           </div>
           <div className="bp-card-header">
             <strong>{def.name||x.entry.kind}{x.entry.plus&&<sup>+</sup>}</strong>
@@ -709,7 +717,7 @@ export default function BallparkBattle({
       })}
     </div>
 
-    <div className={'bp-plan'+(prepEffects.length?' has-effects':'')} data-testid="bp-plan" aria-label="현재 플랜 요약">
+    <div className={'bp-plan'+(prepEffects.length?' has-effects':'')+(defenseLab?' has-lab':'')} data-testid="bp-plan" aria-label="현재 플랜 요약">
       {s.version===10&&energyHud}
       <div className="bp-plan-fields">
         {planSummary.predict&&<span className="bp-plan-predict">{planSummary.predict}</span>}
@@ -720,6 +728,11 @@ export default function BallparkBattle({
       {prepEffects.length>0&&<div className="bp-plan-effects" data-testid="bp-plan-effects" aria-label={'유지 중인 준비 효과: '+prepEffects.join(' · ')}>
         <b>준비 유지</b><span>{prepEffects.join(' · ')}</span>
       </div>}
+      {defenseLab&&<div className="bp-lab-hud" data-testid="bp-defense-lab-hud" aria-label="현재 제약과 다음 예고">
+        <span className="bp-lab-intent"><b>{labView.rest?'휴식':'공 종료 후'}</b> {labView.threat}<i>│</i><span>{labView.active}</span></span>
+        <span className="bp-lab-status"><b>{labView.status}</b>{labView.result&&<> <i>·</i> {labView.result}</>}</span>
+        <span className="bp-lab-rule">{labView.rule}</span>
+      </div>}
     </div>
     {onNext&&!deciding&&s.phase!=='battle'?<div className="bp-verbs next">
       {s.version===10&&null}
@@ -729,7 +742,7 @@ export default function BallparkBattle({
       <button type="button" className="bp-verb go" data-testid="bp-swing" disabled={!deciding||!selected||!!choice?.problem||!!inspect} onClick={commitSwing} aria-busy={!!commitBeat}>
         <span className="bp-verb-word">{verb}</span>{commitBeat&&<small className="bp-verb-sub"><span>진행 중…</span></small>}
       </button>
-      <button type="button" className="bp-verb wait" data-testid="bp-take" disabled={!deciding||!!inspect} onClick={()=>{if(!inspect)onTake?.();}}><span className="bp-verb-word">지켜본다</span>{s.version===10&&<small>{b.strikes===2?'볼 +1 · 삼진 0':'다음 공 +1'}</small>}</button>
+      <button type="button" className="bp-verb wait" data-testid="bp-take" disabled={!deciding||!!inspect} onClick={()=>{if(!inspect)onTake?.();}}><span className="bp-verb-word">지켜본다</span>{s.version===10&&<small>{b.strikes===2?(defenseLab?'루킹은 삼진 · 보호 제외':'볼 +1 · 삼진 0'):'다음 공 +1'}</small>}</button>
       {mainEntry&&deciding&&<button type="button" className="bp-info" aria-label={mainName+' 카드 검사'} onClick={()=>openInspect('card',{kind:mainEntry.kind,plus:mainEntry.plus,problem:byId(selected)?.preview?.problem||null})}>ⓘ</button>}
     </div>}
     {coachOn&&<BallparkCoach rootRef={rootRef} onDone={()=>setCoachOn(false)}/>}

@@ -1,0 +1,96 @@
+- iframe [active]:
+  - main "타이틀":
+    - heading "9ZONE HOMEBOUND" [level=1]:
+      - generic: "9"
+      - text: Z
+      - text: NE
+    - paragraph: BASEBALL ROGUELIKE
+    - navigation "메인 메뉴":
+      - list:
+        - button "새로운 게임":
+          - generic: 새로운 게임
+          - generic: 투수를 끌어내리는 3막 원정
+        - button "이어하기" [disabled]:
+          - generic: 이어하기
+          - generic: 진행 중인 런 없음
+        - button "덱 관리" [disabled]:
+          - generic: 덱 관리
+          - generic: 런을 시작하면 열립니다
+        - button "도감":
+          - generic: 도감
+          - generic: 만난 투수와 카드
+        - button "설정":
+          - generic: 설정
+          - generic: 사운드 · 도움말 · 튜토리얼
+  - dialog "시작 팩 선택":
+    - button "닫기": ×
+    - banner:
+      - generic: MAIN RUN · START PACK
+      - paragraph:
+        - text: “첫 경기다.
+        - text: 어떤 야구로 갈래?”
+    - heading "어떤 야구로 시작할까" [level=2]
+    - paragraph:
+      - generic: 공통 2장
+      - generic: +
+      - generic: 방향 7장
+      - generic: =
+      - generic: 9장 덱
+      - generic: 보상에서 언제든 바꾸거나 섞을 수 있다
+    - radiogroup "시작 팩":
+      - radio "한 방 승부":
+        - generic: "2"
+        - generic: "1"
+        - generic: "2"
+        - generic: 대표 3종 · 장타
+        - strong: 한 방 승부
+        - emphasis: 좁은 강타와 추가 피해에 투자한다. 범위와 준비 에너지가 빠듯하다.
+        - generic "대표 카드 3종":
+          - text: 당겨 넘기기
+          - generic: 장타
+          - text: 힘 모으기
+          - generic: 장타
+          - text: 솔로포 각
+          - generic: 장타
+      - radio "연결 야구" [checked] [active]:
+        - generic: "1"
+        - generic: "1"
+        - generic: "1"
+        - generic: 전체 9장 구성 · 진루
+        - strong: 연결 야구
+        - emphasis: 빈 베이스에서 출루한 뒤 주자를 밀어준다. 주자가 없으면 히트앤드런 사인은 쓸 수 없다.
+        - generic "전체 9장 구성":
+          - text: 정타 노림
+          - generic: 공통
+          - text: 릴리스 간파
+          - generic: 공통
+          - text: 테이블 세터 ×2
+          - generic: 진루
+          - text: 주자 연결
+          - generic: 진루
+          - text: 히트 앤드 런
+          - generic: 진루
+          - text: 히트앤드런 사인
+          - generic: 진루
+          - text: 이어치기
+          - generic: 진루
+          - text: 작전 확인
+          - generic: 수급
+      - radio "버티기":
+        - generic: "1"
+        - generic: "1"
+        - generic: "1"
+        - generic: 대표 3종 · 생존
+        - strong: 버티기
+        - emphasis: 안타를 노리며 빗나갔을 때 파울 생존과 추가 피해를 챙긴다. 주력 타격은 단타다.
+        - generic "대표 카드 3종":
+          - text: 커트 장인
+          - generic: 생존
+          - text: 투구 수 늘리기
+          - generic: 생존
+          - text: 파울팁
+          - generic: 생존
+    - contentinfo:
+      - button "연결 야구로 출발 공통 2장 + 방향 7장 · 총 9장 덱":
+        - generic: 연결 야구로 출발
+        - generic: 공통 2장 + 방향 7장 · 총 9장 덱

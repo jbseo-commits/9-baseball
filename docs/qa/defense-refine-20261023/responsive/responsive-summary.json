@@ -1,0 +1,24 @@
+{
+  "testedAt": "2026-10-23 Asia/Seoul",
+  "url": "http://127.0.0.1:51826/?experiment=defense",
+  "sourceIdentity": "As reported by parent: source 3ed0651; not independently read from app files.",
+  "method": "Chrome CUA only; visible UI actions and read-only DOM bounding-box/overflow measurements; no product edits, hidden state access, pitches, or save injection.",
+  "path": [
+    "Opened defense experiment lobby from the requested preview URL.",
+    "Selected 버티기 with 정상 시작 · 0아웃 0스트라이크 using visible UI; entered battle against 레드 러시.",
+    "Initial visible state: 0 balls, 0 strikes, 0 outs, pitcher HP 88/88; did not select a card/zone, pitch, or use TAKE.",
+    "Visited lobby via visible 실험 조건 변경, then resumed the in-progress experiment via visible 진행 중인 실험 이어하기 to check the same zero-pitch state at landscape and after reload."
+  ],
+  "findings": {
+    "320x568": "Outer document 320x568 with no page-level overflow. Battle fills viewport; hand is intentionally horizontally scrollable (scrollWidth 694/clientWidth 320). Only about 2 cards plus part of the next are visible. Pitcher name and top controls are cramped/truncated; batter art extends past the left edge of the scene. All action buttons fit at the bottom; swing remains disabled until a plan is chosen; TAKE visible.",
+    "412x743": "Outer document 412x743 with no page-level overflow. Full scene and pitcher label visible; hand remains horizontally scrollable (694/412) and shows about 3 cards plus part of the next. Plan/condition text and action buttons fit.",
+    "844x390": "Outer document has no page-level overflow. The app is rendered as a portrait inner document (320x568) inside a centered iframe x=312,width=220,height=390 (scale approx .6875). After resuming and reloading at 0/0/0, scene, zone grid, hand, plan and both action buttons all render within the inner viewport; the whole interface is very small in landscape. A screenshot taken during initial render briefly showed a blank scene, but a later screenshot after AX settled and after reload showed the scene normally; treat missing scene as transient, not persistent.",
+    "1280x720": "Outer document has no page-level overflow; centered iframe is x≈438,width=405,height=720, preserving portrait presentation. Scene, cards, plan and actions fit within the app column; hand row is horizontally scrollable. Lobby was observed at this size and is vertically scrollable, with lower explanatory copy/start action below the initial viewport."
+  },
+  "limits": [
+    "Chrome desktop browser viewport only; not physical-device testing.",
+    "Lobby was captured at default and 1280x720; the four requested measurements focus on the battle screen.",
+    "No battle result, balancing, touch ergonomics, or later-run flow tested."
+  ],
+  "evidenceDir": "C:/Users/정현아/.codex/visualizations/2026/10/09/01a12069-f2c6-7d30-be4d-2861e35673ae/defense-refine-audit-20261023/responsive"
+}

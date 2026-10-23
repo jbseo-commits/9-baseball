@@ -1,0 +1,73 @@
+.duel-app .defense-lab-lobby,
+.duel-app .defense-lab-end{
+  box-sizing:border-box;max-width:760px;margin:clamp(18px,5vh,56px) auto;padding:clamp(18px,4vw,34px);
+  color:#f4f0e8;background:linear-gradient(145deg,#171b2d,#0a0c15);border:1px solid #35405e;border-radius:14px;
+}
+.duel-app .defense-lab-lobby h1,.duel-app .defense-lab-end h1{margin:8px 0 12px;font-size:clamp(24px,5vw,38px)}
+.duel-app .defense-lab-lobby>p,.duel-app .defense-lab-end>p{color:#c2c9db;line-height:1.55}
+.duel-app .defense-lab-packs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:18px 0}
+.duel-app .defense-lab-packs button{min-height:92px;padding:12px;text-align:left;background:#12182a;color:#f4f0e8;border:1px solid #394563;border-radius:9px}
+.duel-app .defense-lab-packs button[aria-pressed="true"],.duel-app .defense-lab-scenarios button[aria-pressed="true"]{border-color:#f2c879;box-shadow:inset 0 0 0 1px #f2c879}
+.duel-app .defense-lab-packs strong,.duel-app .defense-lab-packs small{display:block}
+.duel-app .defense-lab-packs small{margin-top:7px;color:#aab5cd;line-height:1.4}
+.duel-app .defense-lab-scenarios{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.duel-app .defense-lab-scenarios button{min-height:44px;padding:8px 12px;background:#111627;color:#e8eaf0;border:1px solid #394563;border-radius:8px}
+.duel-app .defense-lab-lobby .defense-lab-rules{padding:10px 12px;background:#0c1020;border-left:3px solid #d6ae63;font-size:13px}
+.duel-app .defense-lab-lobby>.primary,.duel-app .defense-lab-end>.primary{min-height:48px;margin-top:10px;padding:0 20px}
+.duel-app.defense-lab-app>.duel-header{display:none}
+.duel-app .defense-lab-seed{display:flex;align-items:center;gap:12px;color:#c2c9db;font-size:13px}
+.duel-app .defense-lab-seed input{width:140px;min-height:36px;padding:4px 10px;background:#090e1b;color:#f2c879;border:1px solid #53617e;border-radius:5px;font:inherit}
+.duel-app .defense-lab-resume{min-height:44px;display:block;margin:10px 0;background:#162d30;color:#ade2d6;border:1px solid #548c82;padding:8px 16px}
+.bp-battle.defense-lab-battle .bp-card-art-box{position:relative}
+.duel-app.v14-battle-portrait>.bp-battle.defense-lab-battle .bp-card span.bp-lab-card-note{position:absolute;left:0;right:0;bottom:0;padding:2px;background:#0d1d2fef;color:#a6e7e0;font:700 10px/12px var(--bp-ko);text-align:center;pointer-events:none}
+.bp-battle.bp-readable .bp-plan.has-lab{
+  height:100%;min-height:0;max-height:none;display:grid;grid-template-columns:auto minmax(0,1fr);
+  grid-template-rows:auto auto minmax(0,1fr);align-items:center;row-gap:2px;overflow:visible;
+}
+.bp-battle.bp-readable .bp-plan.has-lab .bp-energy{grid-column:1;grid-row:1}
+.bp-battle.bp-readable .bp-plan.has-lab .bp-plan-fields{grid-column:2;grid-row:1}
+.bp-battle.bp-readable .bp-plan.has-lab .bp-plan-effects{grid-column:1/-1;grid-row:2}
+.bp-battle.bp-readable .bp-lab-hud{grid-column:1/-1;grid-row:3;min-width:0;display:flex;flex-direction:column;gap:1px;color:#d3d8e6;font:500 11px/13px var(--bp-ko);}
+.bp-battle.bp-readable .bp-lab-hud>span{display:block;min-width:0;white-space:normal;word-break:keep-all;overflow-wrap:anywhere}
+.bp-battle.bp-readable .bp-lab-hud b{color:#f2c879;font-weight:700}
+.bp-battle.bp-readable .bp-lab-hud i{padding:0 3px;color:#727e9c;font-style:normal}
+.bp-battle.bp-readable .bp-lab-rule{color:#b2bdcc;font-size:10px;line-height:12px}
+.bp-battle.bp-readable .bp-lab-intent>span{color:#d6a7a1}
+.bp-battle.defense-lab-battle .bp-verb.wait small{grid-column:1/-1;margin-top:0}
+.bp-battle.defense-lab-battle .bp-verb.wait::before{grid-row:1}
+@media(orientation:portrait){
+  .duel-app.v14-battle-portrait>.bp-battle.defense-lab-battle{
+    height:100dvh;min-height:0;--lab-hand-height:180px;
+    grid-template-rows:44px minmax(0,1fr) var(--lab-hand-height) 116px calc(76px + env(safe-area-inset-bottom,0px));
+  }
+  .duel-app.v14-battle-portrait>.bp-battle.defense-lab-battle>.bp-stage,
+  .duel-app.v14-battle-portrait>.bp-battle.defense-lab-battle .bp-scene{min-height:0;height:100%}
+  .duel-app.v14-battle-portrait>.bp-battle.defense-lab-battle>.bp-hand{height:var(--lab-hand-height);min-height:0}
+  .duel-app.v14-battle-portrait>.bp-battle.defense-lab-battle>.bp-plan{height:116px;min-height:0;box-sizing:border-box;padding:5px 9px}
+  .duel-app.v14-battle-portrait>.bp-battle.defense-lab-battle>.bp-verbs{height:calc(76px + env(safe-area-inset-bottom,0px));min-height:0}
+}
+@media(max-width:520px){
+  .duel-app .defense-lab-lobby,.duel-app .defense-lab-end{margin:12px 8px;padding:16px}
+  .duel-app .defense-lab-packs{grid-template-columns:1fr;gap:6px;margin:12px 0}
+  .duel-app .defense-lab-packs button{min-height:64px}
+  .duel-app .defense-lab-packs small{margin-top:3px}
+}
+@media(orientation:portrait) and (max-height:620px){
+  .duel-app.v14-battle-portrait>.bp-battle.defense-lab-battle{
+    --lab-hand-height:152px;
+    grid-template-rows:44px minmax(0,1fr) var(--lab-hand-height) 116px calc(52px + env(safe-area-inset-bottom,0px));
+  }
+  .duel-app.v14-battle-portrait>.bp-battle.defense-lab-battle .bp-card{height:140px;min-height:140px}
+  .duel-app.v14-battle-portrait>.bp-battle.defense-lab-battle .bp-card-art-box{height:36px;flex-basis:36px}
+  .duel-app.v14-battle-portrait>.bp-battle.defense-lab-battle .bp-zone{bottom:22px}
+  .duel-app.v14-battle-portrait>.bp-battle.defense-lab-battle .bp-ptag{padding:3px 6px;gap:1px}
+  .duel-app.v14-battle-portrait>.bp-battle.defense-lab-battle>.bp-verbs{height:calc(52px + env(safe-area-inset-bottom,0px));padding:3px 8px}
+  /* The original portrait buttons have !important minimums and padding. Keep the
+     real TAKE warning in a full-width second row; omit only the generic swing hint. */
+  .duel-app.v14-battle-portrait>.bp-battle.defense-lab-battle>.bp-verbs .bp-verb{height:44px;min-height:44px!important;padding:2px 8px!important;box-sizing:border-box;grid-template-columns:18px minmax(0,1fr)!important;column-gap:4px;row-gap:0}
+  .duel-app.v14-battle-portrait>.bp-battle.defense-lab-battle .bp-verb-word{font-size:17px;line-height:20px}
+  .duel-app.v14-battle-portrait>.bp-battle.defense-lab-battle .bp-verb::before{width:18px;height:18px;grid-row:1}
+  .duel-app.v14-battle-portrait>.bp-battle.defense-lab-battle .bp-verb::after{content:none!important;display:none!important}
+  .duel-app.v14-battle-portrait>.bp-battle.defense-lab-battle .bp-verb small{grid-column:1/-1;margin-top:0;font-size:10px!important;line-height:12px!important;white-space:nowrap}
+  .duel-app.v14-battle-portrait>.bp-battle.defense-lab-battle .bp-info{height:44px;min-height:44px}
+}

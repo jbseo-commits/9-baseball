@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-23 Asia/Seoul",
+  "codeCommit": "059a572ae967ed167ced5bb21f3d81229dd2f8b9",
+  "fullTests": {"files":178,"tests":1092,"exitCode":0,"log":"B-vitest.txt"},
+  "relatedTests": {"files":4,"tests":52,"result":"passed","reporter":"native worker; parent observed report and full suite independently"},
+  "build": {"exitCode":0,"distMegabytes":58.4,"budgetMegabytes":60,"log":"B-build.txt","note":"Existing >500kB bundle advice remains a warning, not a failed check."},
+  "smoke": {"reports":4,"result":"all exit0","log":"B-smoke-summary.json"},
+  "normalEngineDifferential": {"baseline":"9fe86cbd43a1fb806e5bd38f142f9bbd9188e58f","runs":75,"pitches":1059,"completeStatesCompared":4014,"allEqual":true,"log":"normal-equivalence.json","limit":"Automated engineering regression, not direct play or balancing evidence."},
+  "normalUIRegression": "normal-regression/observed-summary.json",
+  "responsiveA": "responsive/responsive-summary.json",
+  "responsiveB": "responsive/B/post-build-summary.json",
+  "reviewCode": {"reviewer":"/root/playtest_evidence_review","A":"No additional code issue found at3ed0651","B":"No actionable code issue found at059a572","final":"Passed for bounded opt-in publication and authorized main merge; see review-summary.json"},
+  "deployment": "Pre-merge validation snapshot. Actual post-merge production verification is reported in PR52: https://github.com/jbseo-commits/9-baseball/pull/52. This snapshot itself does not claim deployment success."
+}

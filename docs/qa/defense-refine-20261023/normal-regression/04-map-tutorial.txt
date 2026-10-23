@@ -1,0 +1,86 @@
+- iframe [active]:
+  - banner:
+    - button "9ZONE HOMEBOUND":
+      - text: 9ZONE
+      - generic: HOMEBOUND
+    - navigation:
+      - button "소리 꺼짐": ♪ OFF
+      - button "BGM 음악 주크박스": 🎧 BGM 1
+      - button "투수 도감": 도감
+      - button "덱"
+      - button "?"
+  - main "원정 지도":
+    - generic: 1막
+    - generic: 덱 9
+    - heading "어느 마운드부터 무너뜨릴까." [level=1]
+    - button "정규전 바이올렛 스팅 · 갈 수 있음" [pressed]:
+      - emphasis: 바이올렛 스팅
+    - button "라커룸":
+      - emphasis: 라커룸
+    - button "정규전 청록 미라주":
+      - emphasis: 청록 미라주
+    - button "정규전 로즈 페인트":
+      - emphasis: 로즈 페인트
+    - button "정규전 아이보리 에이스":
+      - emphasis: 아이보리 에이스
+    - button "라커룸":
+      - emphasis: 라커룸
+    - button "휴식일":
+      - emphasis: 휴식일
+    - button "정규전 타이드 베스퍼":
+      - emphasis: 타이드 베스퍼
+    - button "이벤트":
+      - emphasis: 이벤트
+    - button "이벤트":
+      - emphasis: 이벤트
+    - button "정규전 스카이 팬텀":
+      - emphasis: 스카이 팬텀
+    - button "정규전 앰버 싱커":
+      - emphasis: 앰버 싱커
+    - button "강적 코발트 임팩트":
+      - emphasis: 코발트 임팩트
+    - button "이벤트":
+      - emphasis: 이벤트
+    - button "장비 상점":
+      - emphasis: 장비 상점
+    - button "정규전 바이올렛 스팅 2":
+      - emphasis: 바이올렛 스팅 2
+    - button "휴식일":
+      - emphasis: 휴식일
+    - button "정규전 청록 미라주 2":
+      - emphasis: 청록 미라주 2
+    - button "막 보스 에메랄드 타이런트":
+      - emphasis: 에메랄드 타이런트
+    - paragraph:
+      - generic: 2막 · 투수 HP 88~140
+      - generic: 3막 · 투수 HP 112~164
+    - complementary:
+      - button "바이올렛 스팅 초상 크게 보기"
+      - generic: 정규전
+      - strong: 바이올렛 스팅
+      - emphasis: 낮게, 더 낮게.
+      - generic "HP 60":
+        - generic: HP 60
+      - generic: 이기면 카드 3장 중 1장
+      - generic: 이 길 너머
+      - generic: 강적 1
+      - generic: 이벤트 3
+      - generic: 상점 1
+      - generic: 휴식 2
+      - generic: 라커룸 2
+      - button "이 구장으로 간다"
+  - dialog "게임 방법":
+    - generic: 1 / 9 · 목표
+    - button "건너뛰기" [active]
+    - heading "투수를 강판시켜라" [level=2]
+    - generic: 상대 투수
+    - generic: HP 0 / 60 · 강판
+    - generic: O
+    - generic: 3아웃 전에!
+    - list:
+      - listitem: 한 경기는 1이닝입니다. 3아웃이 되기 전에 투수 HP를 0으로 만들면 강판 · 승리.
+      - listitem: 3아웃을 당하면 런이 끝납니다. 득점은 승패가 아니라 투수를 흔드는 데 쓰입니다.
+      - listitem: 승리해도 아웃은 다음 상대로 이어집니다. 보스 보상 포기로 0으로 회복할 수 있습니다.
+      - listitem: 3막 지도를 지나 마지막 보스까지 끌어내리면 완주.
+    - button "이전" [disabled]
+    - button "다음"

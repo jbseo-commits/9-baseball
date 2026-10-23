@@ -1,0 +1,76 @@
+- iframe [active]:
+  - main "타석":
+    - generic: 1막
+    - generic "볼 0 스트라이크 0 아웃 0":
+      - generic: B
+      - generic: S
+      - generic: O
+    - button "패 더미 보기 · 더미 3 버림 4" [disabled]: 더미 3 / 버림 4
+    - button "설정 및 도움말": ⚙
+    - region "승부 구장":
+      - generic "바이올렛 스팅 투수 HP 34 / 60":
+        - generic: 🔥
+        - generic: 바이올렛 스팅
+        - button "투수 정보 보기": 정보 ▾
+        - generic: "-11"
+        - generic: HP 34 / 60
+      - text: “
+      - status:
+        - strong: 안타
+        - list:
+          - listitem: 이민준 출루 · 1루
+          - listitem: 강한결 1→3루
+      - status "기세 2 / 5 · 피해 ×1.2":
+        - emphasis: 기세
+        - generic: ×1.2
+        - generic: "+1"
+      - group "노릴 코스":
+        - button "몸쪽 높게 · 던지지 않는 코스" [disabled]:
+          - text: 안 던짐
+          - generic: 안 던짐
+        - button "가운데 높게 · 던지지 않는 코스" [disabled]:
+          - text: 안 던짐
+          - generic: 안 던짐
+        - button "바깥쪽 높게 · 던지지 않는 코스" [disabled]:
+          - text: 안 던짐
+          - generic: 안 던짐
+        - button "몸쪽 · 던지지 않는 코스" [disabled]:
+          - text: 안 던짐
+          - generic: 안 던짐
+        - button "가운데" [disabled]
+        - button "바깥쪽" [disabled]
+        - button "몸쪽 낮게 · 노림" [disabled] [pressed]:
+          - generic: "1"
+        - button "가운데 낮게" [disabled]:
+          - generic: "2"
+          - generic "실제 공"
+        - button "바깥쪽 낮게" [disabled]:
+          - generic: "3"
+        - status: 순서 연결 · ①→② 연결 · ②→③ 연결
+        - generic: 몸쪽
+        - generic: 바깥쪽
+        - emphasis: 바깥 띠 = 볼
+      - generic "주자 1루, 3루"
+    - generic "손패":
+      - button "맨손 스윙 카드 소모 없음" [disabled]:
+        - strong: 맨손 스윙
+        - paragraph: 카드 소모 없음
+      - button "작전 확인 · 코스트 1 · 준비 2회 남음 · 뽑기 2장 · 먼저 투구 결과를 확인하고 다음 공/타자를 진행하세요. · 먼저 투구 결과를 확인하고 다음 공/타자를 진행하세요." [disabled]:
+        - strong: 작전 확인
+        - paragraph: 뽑기 2장
+        - paragraph: 먼저 투구 결과를 확인하고 다음 공/타자를 진행하세요.
+      - button "히트앤드런 사인 · 코스트 1 · 준비 2회 남음 · 안타 → 주자 +1루 · 주자 필요 · 먼저 투구 결과를 확인하고 다음 공/타자를 진행하세요. · 먼저 투구 결과를 확인하고 다음 공/타자를 진행하세요." [disabled]:
+        - strong: 히트앤드런 사인
+        - paragraph: 안타 → 주자 +1루
+        - paragraph: 주자 필요
+        - paragraph: 먼저 투구 결과를 확인하고 다음 공/타자를 진행하세요.
+    - generic "현재 플랜 요약":
+      - generic "에너지 0/3":
+        - generic: ENERGY
+        - strong:
+          - text: "0"
+          - generic: /3
+        - generic: 다음 공에 3 충전
+    - button "다음 타자 타석 종료 · 다음 타자가 들어선다":
+      - generic: 다음 타자
+      - generic: 타석 종료 · 다음 타자가 들어선다

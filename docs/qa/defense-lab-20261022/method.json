@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-22",
+  "repository": "jbseo-commits/9-baseball",
+  "baseline": "9fe86cbd43a1fb806e5bd38f142f9bbd9188e58f",
+  "branch": "codex/duel-defense-lab",
+  "userScope": "3아웃 유지, 타석 보호·특수행동 봉쇄 실험 전투, 연결·버티기·한 방을 같은 적에 실제 UI 플레이 후 수정",
+  "previousAudit": "../full-run-audit-20261021/review-summary.json",
+  "method": {
+    "comparisonPilot": "root agent, all three experimental decks",
+    "controls": "CUA UI only; no hidden pending, save injection or chosen outcomes. The normal comparison had no rewinds. Separate functional probes and layout restarts are disclosed below.",
+    "publicInformationOnly": true,
+    "normalAndCrisisSeparated": true,
+    "sameSeedCaveat": "동일 초기 시드는 같은 후속 공 전체를 보장하지 않는다. 카드/드로우/행동이 달라지면 난수 소비가 달라질 수 있다.",
+    "forcedUnitFixtures": "엔진 경계 검사의 고정 pending은 실제 UI 플레이 결과와 별개다.",
+    "limitations": "사람 참가자 검증이나 승률/재미/상업성 입증이 아니다."
+  },
+  "plannedObservations": [
+    "현재 제약과 다음 예고의 구분, 정상 공 진행과 예고 순환",
+    "보호 발동과 실제 헛스윙 삼진 구제의 구분",
+    "실제 기존 주자 2베이스 이동에 의한 연결 봉쇄",
+    "버티기 보호 뒤 반격 적용과 보호 소진",
+    "한 방의 전용 힘 투자와 좁은 메인 적중, 지원만 적중 제외",
+    "규칙상 봉쇄 성공과 실제 다음 선택에 미친 영향의 구분",
+    "일반 런 저장 보존, 리로드 재개와 중복 보상 방지",
+    "모바일 세로/짧은 높이/가로 프레임의 표시 및 입력"
+  ],
+  "completedRuns": [
+    {"id":"link-normal","pack":"link","scenario":"normal","seed":914,"result":"won","pitches":10,"hits":6,"fouls":0,"outs":1,"hp":0,"protectedFouls":0,"evidence":"link-normal-terminal"},
+    {"id":"hold-normal","pack":"hold","scenario":"normal","seed":914,"result":"won","pitches":10,"hits":5,"fouls":1,"outs":1,"hp":0,"protectedFouls":0,"evidence":"hold-normal-terminal"},
+    {"id":"power-normal","pack":"power","scenario":"normal","seed":914,"result":"won","pitches":10,"hits":4,"fouls":1,"outs":1,"hp":0,"protectedFouls":0,"evidence":"power-normal-pitch10-ready"},
+    {"id":"hold-crisis","pack":"hold","scenario":"crisis","seed":20261022,"result":"won","pitches":5,"hits":5,"fouls":0,"outs":2,"hp":0,"protectedFouls":0,"evidence":"hold-crisis-terminal-confirmed","comparison":false},
+    {"id":"hold-functional-32768","pack":"hold","scenario":"crisis","seed":32768,"result":"lost","pitches":1,"hits":0,"fouls":0,"outs":3,"hp":87,"protectedFouls":0,"evidence":"hold-crisis-probe-seed32768-result1","comparison":false},
+    {"id":"hold-functional-90210","pack":"hold","scenario":"crisis","seed":90210,"result":"lost","pitches":4,"hits":1,"fouls":0,"outs":3,"hp":75,"protectedFouls":0,"evidence":"hold-functional-2S-result4","comparison":false,"policyNote":"After the opening hit, deliberately TAKE twice to reach 2S for functional QA; not a strategic pilot evaluation."}
+  ],
+  "partialProbes": [
+    {"pack":"hold","scenario":"crisis","seed":1,"pitches":1,"hits":1,"finished":false},
+    {"pack":"hold","scenario":"crisis","seed":2,"pitches":1,"hits":1,"finished":false}
+  ],
+  "zeroPitchRestarts": ["Link normal seed1 was an incorrectly retained lobby selection, corrected before any pitch; a regression test and saved-condition restoration were added.","Hold crisis seed3 changed conditions before any pitch.","Additional no-pitch production-preview and layout-only starts are not runs."],
+  "observed": {"linkBlockAndNextEnergy3":true,"linkTransferredProtection":true,"powerInvestmentSurvivedMiss":true,"powerBlockAndNextEnergy3":true,"normalProductionSavePreserved":true,"threeOutLoss":true},
+  "notObservedInUI": ["protected foul conversion","actual strikeout saved by protection","hold counter +8 applied"],
+  "unitFixtureOnly": ["protected foul and saved-strikeout distinction","hold counter +8 application","cap/exclusion/expiry boundaries"],
+  "conclusion": "Offensive paths and block conditions differ; protection's normal-play value remains unproven. Do not infer win rates, deck balance or fun, and do not merge to main on this evidence.",
+  "verification": {"testFiles":178,"testsPassed":1079,"normalDifferentialRuns":75,"normalDifferentialComparisons":4014,"normalDifferentialPitches":1059,"normalStatesEqual":true,"smokes":"smoke-summary.json","build":"build-final.txt","distMB":58.4,"distBudgetMB":60,"responsive":"battle-responsive.json","rawUI":"ui-log.json"},
+  "limitations": ["No physical mobile device or browser-bar measurements","No manual act2/3 full runs","No human fun evaluation","Small-height stage has less space; no art-quality claim"]
+}

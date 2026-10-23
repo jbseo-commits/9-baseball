@@ -1,0 +1,70 @@
+- iframe [active]:
+  - banner:
+    - button "9ZONE HOMEBOUND":
+      - text: 9ZONE
+      - generic: HOMEBOUND
+    - navigation:
+      - button "소리 꺼짐": ♪ OFF
+      - button "BGM 음악 주크박스": 🎧 BGM 1
+      - button "투수 도감": 도감
+      - button "덱"
+      - button "?"
+  - main "원정 지도":
+    - generic: 1막
+    - text: 덱 10 · 아웃
+    - generic: 1/2
+    - heading "다음 마운드." [level=1]
+    - button "정규전 바이올렛 스팅":
+      - emphasis: 바이올렛 스팅
+    - button "라커룸":
+      - emphasis: 라커룸
+    - button "정규전 청록 미라주":
+      - emphasis: 청록 미라주
+    - button "정규전 로즈 페인트":
+      - emphasis: 로즈 페인트
+    - button "정규전 아이보리 에이스 · 갈 수 있음" [pressed]:
+      - emphasis: 아이보리 에이스
+    - button "라커룸 · 갈 수 있음":
+      - emphasis: 라커룸
+    - button "휴식일":
+      - emphasis: 휴식일
+    - button "정규전 타이드 베스퍼":
+      - emphasis: 타이드 베스퍼
+    - button "이벤트":
+      - emphasis: 이벤트
+    - button "이벤트":
+      - emphasis: 이벤트
+    - button "정규전 스카이 팬텀":
+      - emphasis: 스카이 팬텀
+    - button "정규전 앰버 싱커":
+      - emphasis: 앰버 싱커
+    - button "강적 코발트 임팩트":
+      - emphasis: 코발트 임팩트
+    - button "이벤트":
+      - emphasis: 이벤트
+    - button "장비 상점":
+      - emphasis: 장비 상점
+    - button "정규전 바이올렛 스팅 2":
+      - emphasis: 바이올렛 스팅 2
+    - button "휴식일":
+      - emphasis: 휴식일
+    - button "정규전 청록 미라주 2":
+      - emphasis: 청록 미라주 2
+    - button "막 보스 에메랄드 타이런트":
+      - emphasis: 에메랄드 타이런트
+    - paragraph:
+      - generic: 2막 · 투수 HP 88~140
+      - generic: 3막 · 투수 HP 112~164
+    - complementary:
+      - button "아이보리 에이스 초상 크게 보기"
+      - generic: 정규전
+      - strong: 아이보리 에이스
+      - emphasis: 낮게, 더 낮게.
+      - generic "HP 60":
+        - generic: HP 60
+      - generic: 이기면 카드 3장 중 1장
+      - generic: 이 길 너머
+      - generic: 강적 1
+      - generic: 이벤트 3
+      - generic: 휴식 1
+      - button "이 구장으로 간다"

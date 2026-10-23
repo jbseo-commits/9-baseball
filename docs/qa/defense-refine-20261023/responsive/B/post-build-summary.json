@@ -1,0 +1,97 @@
+{
+  "testedAt": "2026-10-23 Asia/Seoul",
+  "preview": "http://127.0.0.1:51826/?experiment=defense",
+  "sourceIdentity": "Parent reported final source B059a572; no source inspection or edits.",
+  "method": "Own Chrome tab and CUA only. UI reload, card-button selection, zone-button selection, screenshots, read-only DOM bbox/overflow checks. No swing/TAKE clicked; no pitch or save injection.",
+  "initialState": "Resumed isolated 버티기 실험, normal start. Visible UI showed 0 balls / 0 strikes / 0 outs and pitcher HP 88/88 before and after reload.",
+  "copy": "첫 메인 커트 파울 → 봉쇄·다음 안타 +8 · 2S 헛스윙 구제만 보호 소진",
+  "actions": {
+    "320x568": "After reload, clicked 커트 스윙 card, then 가운데 · 노림 zone.",
+    "412x743": "Reloaded to clear selection, clicked 커트 스윙 card, then 가운데 · 노림 zone. No swing/TAKE action."
+  },
+  "results": {
+    "320x568": {
+      "viewport": [
+        320,
+        568
+      ],
+      "document": [
+        320,
+        568
+      ],
+      "selectedPlan": "cost 1, remaining 2, hit band 28–98%, damage x1.0, sum 1/3; 2S cut protection 1 use remaining; enabled swing and TAKE buttons fit viewport.",
+      "copyBounds": {
+        "x": 9,
+        "y": 489,
+        "width": 302,
+        "height": 12,
+        "scrollWidth": 302,
+        "clientWidth": 302
+      },
+      "buttons": {
+        "swing": {
+          "x": 8,
+          "y": 520,
+          "width": 116,
+          "height": 44
+        },
+        "take": {
+          "x": 130,
+          "y": 520,
+          "width": 136,
+          "height": 44
+        }
+      },
+      "hand": {
+        "width": 320,
+        "scrollWidth": 694,
+        "overflow": "horizontal auto scroll"
+      },
+      "warnings": []
+    },
+    "412x743": {
+      "viewport": [
+        412,
+        743
+      ],
+      "document": [
+        412,
+        743
+      ],
+      "selectedPlan": "cost 1, remaining 2, hit band 28–98%, damage x1.0, sum 1/3; 2S cut protection 1 use remaining; enabled swing and TAKE buttons fit viewport.",
+      "copyBounds": {
+        "x": 9,
+        "y": 640,
+        "width": 394,
+        "height": 12,
+        "scrollWidth": 394,
+        "clientWidth": 394
+      },
+      "buttons": {
+        "swing": {
+          "x": 8,
+          "y": 674,
+          "width": 204,
+          "height": 64
+        },
+        "take": {
+          "x": 218,
+          "y": 674,
+          "width": 140,
+          "height": 64
+        }
+      },
+      "hand": {
+        "width": 412,
+        "scrollWidth": 694,
+        "overflow": "horizontal auto scroll"
+      },
+      "warnings": []
+    }
+  },
+  "limits": [
+    "Only the two requested narrow browser viewport sizes were retested for the updated copy; not a device test.",
+    "No pitch resolution, balance, or post-pitch protection consumption behavior was tested."
+  ],
+  "evidenceDir": "C:/Users/정현아/.codex/visualizations/2026/10/09/01a12069-f2c6-7d30-be4d-2861e35673ae/defense-refine-audit-20261023/responsive/B"
+}
