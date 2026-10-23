@@ -6,7 +6,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 const arg=(key,fallback)=>{const i=process.argv.indexOf('--'+key);return i<0?fallback:process.argv[i+1];};
 const base=arg('url','http://127.0.0.1:5173/'),out=arg('out','/tmp/zone-first-qa');
-const target=new URL(base);target.searchParams.set('showcase','zone-first');
+const target=new URL(base);target.searchParams.set('showcase','zone-first');target.searchParams.set('learn','0');
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE||'playwright');
 const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||undefined,args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
 fs.mkdirSync(out,{recursive:true});
