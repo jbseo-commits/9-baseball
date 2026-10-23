@@ -105,6 +105,7 @@ export default function ZoneFirstPreview({initialState}){
     if(handMode==='support'){setArmed(c.id);return;}
     if(c.id===picked)return;
     setPicked(c.id);setSupports([]);setArmed(null);
+    if(supports.length)setNotice(`타격 카드 변경 · 지원 ${supports.length}장 해제`);
   };
   const execute=(take=false)=>{
     if(busy.current||result||(!take&&(!picked||armed||handMode==='support'||(!skill&&aim===null)||problem)))return;
@@ -129,6 +130,8 @@ export default function ZoneFirstPreview({initialState}){
   const cardProblemFor=c=>handMode==='support'?stackSupportProblem(game,picked,[...supports,{id:c.id,aimZone:aim}]):cardProblem(game,c.id);
   const ballZone=flying?pending.current?.battle.revealed?.zone:revealed?.zone;
   const ballStyle=Number.isInteger(ballZone)?{'--ball-x':`${ballZone===9?116:((ballZone%3)+.5)/3*100}%`,'--ball-y':`${ballZone===9?50:(Math.floor(ballZone/3)+.5)/3*100}%`}:{};
+  const selectedFace=entry?cardFaceOf(entry,{strikes:game.battle.strikes,drawPreview:preparationDrawPreview(game,entry.id)}):null;
+  const selectedText=selectedFace?[...new Set([selectedFace.summary,selectedFace.condition,selectedFace.drawNote].filter(Boolean))].join(' · '):'';
   const activeEffects=activePreparationFeedback(game.battle,game.phase).filter(t=>!t.startsWith('이번 공 간파:')).join(' · ');
   const clue=pitchClue(game);
   const caption=result?`실제 투구 · ${revealed?.zone===9?'존 밖':ZONE_WORDS[revealed?.zone]}`:
@@ -170,9 +173,8 @@ export default function ZoneFirstPreview({initialState}){
         </div>
       </div>
       <section className="zf-dock" aria-label="이번 공 선택">
-        <div className="zf-dock-top"><span>{result?'이번 공의 결과':entry?entryName(entry):`내 손패 ${hand.length}장`}</span><span className="zf-energy" aria-label={`에너지 ${v10Energy(game)}/${v10EnergyCap(game)}`}>에너지 <b>{v10Energy(game)}</b><span>/{v10EnergyCap(game)}</span></span>{!result&&(canSupport||handMode==='support')&&<button type="button" className="zf-support-toggle" aria-pressed={handMode==='support'} onClick={toggleSupport} disabled={flying}>{handMode==='support'?(armed?'배치 취소':'지원 선택 취소'):'＋ 지원 추가'}</button>}</div>
+        <div className="zf-dock-top"><div className="zf-selection" aria-label="현재 선택"><strong>{result?'이번 공의 결과':entry?entryName(entry):`내 손패 ${hand.length}장`}</strong>{!result&&<span>{selectedText+(supports.length?` · 지원 ${supports.length}장 · 피해 ×${preview.damageRate.toFixed(2)}`:'')||(hand.length>3?'좌우로 넘겨 카드를 비교하세요':'카드와 코스를 원하는 순서로 고르세요')}</span>}</div>{!result&&(canSupport||handMode==='support')&&<button type="button" className="zf-support-toggle" aria-pressed={handMode==='support'} onClick={toggleSupport} disabled={flying}>{handMode==='support'?(armed?'배치 취소':'지원 선택 취소'):'＋ 지원 추가'}</button>}</div>
         {!result&&<div className="zf-hand" role="group" aria-label={handMode==='support'?'지원 카드 선택':'카드 선택'}>
-          <Card s={game} entry={BASIC} onClick={()=>chooseCard({id:'basic',kind:'basic'})} problem={cardProblemFor({id:'basic',kind:'basic'})} selected={picked==='basic'} locked={flying}/>
           {hand.map(c=><Card key={c.id} s={game} entry={c} problem={supports.some(x=>x.id===c.id)?'':cardProblemFor(c)} selected={picked===c.id} support={supports.some(x=>x.id===c.id)} armed={armed===c.id} locked={flying} onClick={()=>chooseCard(c)}/>)}
         </div>}
         {result&&<div className={'zf-result-card zf-'+feedback.tone}><strong>{game.v10.lastCombat?.damage?`−${game.v10.lastCombat.damage} HP`:revealed?.label}</strong><span>{feedback.detail}</span>{game.battle.takeEnergyBonus===1&&['pitch','between'].includes(game.phase)&&<small>다음 공 에너지 4 · {takeDraw.count===1?'추가 카드 +1':takeDraw.reason==='full'?'손패 6장 한도':'추가 드로우 없음'}</small>}<small>{game.phase==='lost'?'3아웃 · 체험 종료':['reward','won'].includes(game.phase)?'투수 격파 · 체험 종료':game.phase==='between'?'다음 타자가 들어옵니다':'같은 타자 · 다음 공'}</small></div>}
@@ -180,12 +182,13 @@ export default function ZoneFirstPreview({initialState}){
       </section>
       <footer className="zf-actions">
         {result?<button type="button" className="zf-go" data-zf-next onClick={nextTurn}>{game.phase==='pitch'?'다음 공':game.phase==='between'?'다음 타자':'다시 플레이'} <span>→</span></button>:<>
+          <button type="button" className="zf-basic" data-kind="basic" aria-pressed={picked==='basic'} onClick={()=>chooseCard({id:'basic',kind:'basic'})} disabled={flying||handMode==='support'}>기본 스윙<small>비용 0 · 카드 없음</small></button>
           <button type="button" className="zf-take" onClick={()=>execute(true)} disabled={flying}>지켜보기<small>{game.battle.strikes===2?'볼이면 +1 · 삼진 피해 0':'다음 공 에너지 +1'}</small></button>
-          <button type="button" className="zf-go" onClick={()=>execute()} disabled={flying||!picked||!!armed||handMode==='support'||!!problem||(!skill&&aim===null)}>{flying?'투구 중…':handMode==='support'?'지원을 배치하세요':skill?'준비 사용':picked&&aim!==null?'타격!':picked?'코스를 선택하세요':'카드를 선택하세요'}<small>{!flying&&picked&&!armed&&handMode!=='support'&&(skill||aim!==null)?`에너지 ${preview?.cost??0}${supports.length?' · 피해 ×'+preview.damageRate.toFixed(2):''}`:''}</small></button>
+          <button type="button" className="zf-go" onClick={()=>execute()} disabled={flying||!picked||!!armed||handMode==='support'||!!problem||(!skill&&aim===null)}>{flying?'투구 중…':handMode==='support'?'지원을 배치하세요':skill?'준비 사용':picked&&aim!==null?'타격!':picked?'코스를 선택하세요':'카드를 선택하세요'}<small>{!flying&&picked&&!armed&&handMode!=='support'&&(skill||aim!==null)?`에너지 ${preview?.cost??0} / ${v10Energy(game)}`:!flying?`에너지 ${v10Energy(game)} / ${v10EnergyCap(game)}`:''}</small></button>
         </>}
       </footer>
       <div className="zf-footnote"><span>{pack.name} · UX PREVIEW</span><button type="button" onClick={()=>restartDeck()} disabled={flying}>처음부터</button></div>
-      {info&&<dialog ref={dialog} className="zf-dialog" onCancel={()=>setInfo(false)} onClose={()=>setInfo(false)} aria-labelledby="zf-info-title"><h2 id="zf-info-title">전투 정보</h2><p>손패는 항상 표시됩니다. 카드와 코스는 원하는 순서로 고르세요. 선택한 지원 카드를 다시 누르면 제거됩니다. 준비 카드는 코스 선택 없이 쓸 수 있습니다.</p><p>기존 덱빌딩 규칙과 실제 시작 덱을 사용하는 단일 전투 체험입니다. 새로고침하면 초기화됩니다.</p><p>현재 타자: {LINEUP[game.battle.batterIndex].name}<br/>준비: {game.battle.preparations}/{v10PrepMax(game)} · 집중 {game.battle.aim||0}<br/>기세 {game.battle.momentum||0} · 투수 흔들림 {game.battle.shaken||0}<br/>주자: {game.battle.bases.map((id,i)=>id?`${i+1}루 ${LINEUP.find(x=>x.id===id)?.name||'주자'}`:null).filter(Boolean).join(' · ')||'없음'}</p>{activeEffects&&<p><strong>유지 중인 준비 효과</strong><br/>{activeEffects}</p>}{entry&&<p><strong>{entryName(entry)}</strong><br/>{entry.kind==='basic'?'한 존을 노립니다. 비용 0 · 카드 소모 없음.':CARDS[entry.kind].text}</p>}<p>손패 {hand.length}장 · 더미 {game.battle.draw.length}장 · 버림 {game.battle.discard.length}장</p><fieldset className="zf-deck-picks"><legend>다른 시작 덱 체험</legend>{START_PACKS.map(p=><button type="button" key={p.id} onClick={()=>restartDeck(p.id)}><strong>{p.name}{p.id===pack.id?' · 현재':''}</strong><small>{p.desc}</small><span>이 덱으로 다시 시작 →</span></button>)}</fieldset><button type="button" onClick={()=>setInfo(false)}>닫기</button></dialog>}
+      {info&&<dialog ref={dialog} className="zf-dialog" onCancel={()=>setInfo(false)} onClose={()=>setInfo(false)} aria-labelledby="zf-info-title"><h2 id="zf-info-title">전투 정보</h2><p>손패는 항상 표시됩니다. 카드와 코스는 원하는 순서로 고르세요. 기본 스윙은 아래 버튼으로 선택하며, 타격 버튼을 눌러 실행합니다. 선택한 지원 카드를 다시 누르면 제거됩니다. 준비 카드는 코스 선택 없이 쓸 수 있습니다.</p><p>기존 덱빌딩 규칙과 실제 시작 덱을 사용하는 단일 전투 체험입니다. 새로고침하면 초기화됩니다.</p><p>현재 타자: {LINEUP[game.battle.batterIndex].name}<br/>준비: {game.battle.preparations}/{v10PrepMax(game)} · 집중 {game.battle.aim||0}<br/>기세 {game.battle.momentum||0} · 투수 흔들림 {game.battle.shaken||0}<br/>주자: {game.battle.bases.map((id,i)=>id?`${i+1}루 ${LINEUP.find(x=>x.id===id)?.name||'주자'}`:null).filter(Boolean).join(' · ')||'없음'}</p>{activeEffects&&<p><strong>유지 중인 준비 효과</strong><br/>{activeEffects}</p>}{entry&&<p><strong>{entryName(entry)}</strong><br/>{entry.kind==='basic'?'한 존을 노립니다. 비용 0 · 카드 소모 없음.':CARDS[entry.kind].text}</p>}<p>손패 {hand.length}장 · 더미 {game.battle.draw.length}장 · 버림 {game.battle.discard.length}장</p><fieldset className="zf-deck-picks"><legend>다른 시작 덱 체험</legend>{START_PACKS.map(p=><button type="button" key={p.id} onClick={()=>restartDeck(p.id)}><strong>{p.name}{p.id===pack.id?' · 현재':''}</strong><small>{p.desc}</small><span>이 덱으로 다시 시작 →</span></button>)}</fieldset><button type="button" onClick={()=>setInfo(false)}>닫기</button></dialog>}
     </section>
   </main>;
 }

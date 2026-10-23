@@ -20,11 +20,11 @@ This is an isolated playable battle study, not a replacement for the main game.
 
 ## Interaction contract
 
-- Initial state shows nine zones and the actual hand. No hand reveal, folding, returning or card-switch button is required. The default basic swing is a zero-cost card alongside the hand.
+- Initial state shows nine zones and the actual hand. No hand reveal, folding, returning or card-switch button is required. Basic swing is an always-visible zero-cost selection button beside take and execute; it no longer occupies a hand slot.
 - Choose a card or zone first. Both directly update the same board; an attack requires an actual aim. No range, odds or arbitrary center appears before aiming.
-- Selecting or swapping a card keeps the hand visible and mounted. Selection is marked on the card, range on the board, cost on the execution button. The fixed toolbar shows the selected name, energy and support control.
+- Selecting or swapping a card keeps the hand visible and mounted. Selection is marked on the card, range on the board, cost on the execution button. The fixed toolbar retains the selected name, core effect, conditions and draw limitations while the hand scrolls. The execution button shows total cost / available energy; the toolbar keeps the support control.
 - Cards show their cost, range/role, core effect and applicable conditions. Long descriptions, pile counts and extended combat details remain in the information dialog.
-- Support mode keeps all cards visible. Ineligible cards show the real engine reason. Choose a support card and its zone; tap an existing support card to remove it. Cancel or Escape preserves the main aim and existing supports. Attacks remain disabled until support placement is complete or cancelled.
+- Support mode keeps all cards visible. Ineligible cards show the real engine reason. Choose a support card and its zone; tap an existing support card to remove it. Cancel or Escape preserves the main aim and existing supports. Replacing the main card explicitly announces how many supports were cleared. Attacks remain disabled until support placement is complete or cancelled.
 - Preparation requires one explicit use action and works without an aim. Actual draw capacity and retained preparation effects use production helpers. The hand remains available afterward.
 - Pitching keeps the hand visible but disables all planning controls. HP/count remain unchanged until actual impact. The result replaces the hand area; the next pitch immediately restores the new hand. Board and action positions stay fixed.
 - Audio is opt-in; respect reduced motion and public information boundaries. Near-miss language requires an actually adjacent miss after reveal.
@@ -33,14 +33,14 @@ This is an isolated playable battle study, not a replacement for the main game.
 
 ## Validation
 
-- Full Vitest suite: **175 files / 1,068 tests passed**, including **28** preview tests.
+- Full Vitest suite: **179 files / 1,123 tests passed**, including **31** preview tests.
 - Existing game browser regression: **53/53** checks passed (title/map/battle/card-stack/pitch/HP/reward/facility/next route/resume/rotation).
-- Built preview browser QA: **234/234** checks passed on 360×640, 375×667, 390×844 and 1440×900, 1440×750, 700×741 and 700×690, plus reduced motion and touch rotation. Includes immediate hand visibility, both selection orders, direct swaps, hand locking during flight, real CDP touch swipes on phones, horizontal wheel on PC, board-coordinate invariance, support controls, HP staging and no failed resources.
-- All three real starter hands checked at 360px for clipped card names, effects and conditions; preparation before aim and retained power bonus checked in the production browser.
+- Built preview browser QA: **276/276** checks passed on 360×640, 375×667, 390×844 and 1440×900, 1440×750, 700×741 and 700×690, plus reduced motion and touch rotation. Includes immediate hand visibility, both selection orders, direct swaps, basic selection without pitching, persistent selected effects while cards scroll offscreen, minimum 44px action targets, hand locking during flight, real CDP touch swipes on phones, horizontal wheel on PC, board-coordinate invariance, support controls, HP staging and no failed resources.
+- All three real starter hands checked at 360px for clipped card names, effects and conditions, and every playable card checked for selected-toolbar fit; preparation before aim and retained power bonus checked in the production browser.
 - Production main route/start flow and native map scrolling: **8/8** checks passed.
-- Smoke: `node scripts/zone-report.js 10` completed. Engine, balance, card data and preparation helpers match the merged `origin/main` (`9fe86cb`); this preview adds presentation only.
+- Smoke: `node scripts/zone-report.js 10` completed. Engine, balance, card data and preparation helpers match the merged `origin/main` (`91cd80e`); this preview adds presentation only.
 - Production build with exact branch Pages base path passed. Shipped size: **58.4 MB / 60 MB**.
-- Independent review covers information boundaries, support cancellation/removal, preparation, flight locking and mobile layout. Duplicate-condition regression coverage is retained.
+- Independent review covers information boundaries, basic selection, persistent selected effects, support cancellation/removal, preparation, flight locking and mobile layout. Duplicate-condition regression coverage is retained.
 
 The review references inform a UX hypothesis: keeping essential choices visible while reducing secondary details should reduce scanning and extra actions. Automated tests establish behavior and regressions; they do not establish commercial quality or enjoyment. Compare the three decks in actual phone play before replacing the main battle screen or broadening into asset and replayability work.
 
