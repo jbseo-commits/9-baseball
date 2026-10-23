@@ -9,6 +9,8 @@ import ImpactFx from './ImpactFx.jsx';
 import {pitcherLine,momentOf} from './pitcher-voice.js';
 import BallparkActors,{pixiAvailable,pitcherStance} from './BallparkActors.jsx';
 import {lessonFor,planText} from './DecisionDebrief.jsx';
+import {resultExplanation,isExactRead} from './zone-first-model.js';
+import './battle-progress.css';
 import batterV14MasterSheet from '../../assets/ui-kit/batter/batter-v14-master-sheet.png';
 import cardArtSheet from '../../assets/ui-kit/cards/battle-core-v14-master-sheet.png';
 import {cardArtFor,cardArtFocusFor} from './card-art.js';
@@ -141,6 +143,10 @@ export default function BallparkBattle({
   const r=b.revealed,inFx=!!fxStage,deciding=s.phase==='battle'&&!inFx&&!locked&&!commitBeat;
   const judged=!!r&&s.last?.kind!=='skill'&&(inFx||s.phase!=='battle');
   const landed=!inFx||LANDED.has(fxStage);
+  const showProgress=s.version===10&&!autoLesson&&!defenseLab;
+  const battleStep=judged?(landed?'result':'flight'):commitBeat?'flight':'plan';
+  const reviewLine=showProgress&&judged&&landed?resultExplanation(s):'';
+  const exactRead=showProgress&&judged&&landed&&isExactRead(s);
   const showVerdict=!!shot&&(inFx||s.phase!=='battle')&&(landed||!judged);
   /* which actors Pixi has taken over (null = DOM actors only) */
   const [pixi,setPixi]=useState(null);
@@ -507,7 +513,7 @@ export default function BallparkBattle({
   const piles=[{key:'draw',title:'남은 더미',n:b.draw?.length??0,groups:pileGroups(b.draw)},{key:'discard',title:'버림 더미',n:b.discard?.length??0,groups:pileGroups(b.discard)}];
   const shownModel={count:shownCount,bases:shownBases,momentum,momentumRate:v10MomentumRate(momentum),shaken,mentalCap,
     hp:pre?hpWas:pitcher?.hp,maxHp:pitcher?.maxHp,phase:shownGimmickPhase,tendency:lines.whisper,tendencyDetail:lines.coach};
-  return <main ref={rootRef} className={'bp-battle bp-readable'+(defenseLab?' defense-lab-battle':'')+(autoLesson?' auto-lesson':'')+(commitBeat?' committing':'')+(deciding?'':' resolving')+(inFx?' fx-'+fxStage:'')+(inspect?' inspecting':'')} aria-label="타석">
+  return <main ref={rootRef} className={'bp-battle bp-readable'+(defenseLab?' defense-lab-battle':'')+(autoLesson?' auto-lesson':'')+(commitBeat?' committing':'')+(deciding?'':' resolving')+(inFx?' fx-'+fxStage:'')+(inspect?' inspecting':'')+(exactRead?' bp-exact-read':'')} aria-label="타석">
     <div className="bp-bar">
       <b className="bp-hud-inning">{labView?'실험 · '+labView.packName:label}</b>
       <div className="bp-bso-strip" aria-label={`볼 ${shownCount.balls} 스트라이크 ${shownCount.strikes} 아웃 ${shownCount.outs}`}>
@@ -717,13 +723,15 @@ export default function BallparkBattle({
       })}
     </div>
 
-    <div className={'bp-plan'+(prepEffects.length?' has-effects':'')+(defenseLab?' has-lab':'')} data-testid="bp-plan" aria-label="현재 플랜 요약">
+    <div className={'bp-plan'+(prepEffects.length?' has-effects':'')+(defenseLab?' has-lab':'')+(reviewLine?' has-result':'')} data-testid="bp-plan" aria-label="현재 플랜 요약">
       {s.version===10&&energyHud}
       <div className="bp-plan-fields">
+        {showProgress&&<ol className="bp-progress" aria-label="이번 공 진행">{[['plan','코스 노리기'],['flight','공 날아옴'],['result','결과']].map(([id,name],i)=><li key={id} aria-current={battleStep===id?'step':undefined}><b>{i+1}</b> {name}</li>)}</ol>}
+        {reviewLine?<p className="bp-result-explanation" data-testid="bp-result-explanation" role="status">{reviewLine}</p>:<>
         {planSummary.predict&&<span className="bp-plan-predict">{planSummary.predict}</span>}
         {planSummary.input
           ?<span className="bp-plan-input">{planSummary.input}</span>
-          :<span className="bp-plan-input" aria-hidden="true"> </span>}
+          :<span className="bp-plan-input" aria-hidden="true"> </span>}</> }
       </div>
       {prepEffects.length>0&&<div className="bp-plan-effects" data-testid="bp-plan-effects" aria-label={'유지 중인 준비 효과: '+prepEffects.join(' · ')}>
         <b>준비 유지</b><span>{prepEffects.join(' · ')}</span>

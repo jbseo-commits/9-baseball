@@ -2,9 +2,9 @@
 
 User-authorized scope: retain deckbuilding; keep the hand visible throughout planning;
 allow cards and zones in either order; keep attention around the board; give truthful, proportionate feedback on results.
-This is an isolated playable battle study, not a replacement for the main game.
+The isolated battle study remains available for comparison. Its practice is also connected to the main game, and the main battle now uses the same progress and truthful result explanation.
 
-## Impact analysis (before implementation)
+## Original preview impact analysis (before implementation)
 
 | Axis | Assessment | Response |
 | --- | --- | --- |
@@ -18,7 +18,42 @@ This is an isolated playable battle study, not a replacement for the main game.
 | Tests / regression | Impact | Add interaction tests for both selection orders, direct swapping, persistent hand, actual starter decks, preparation feedback, re-aim, support, locked pitch and true result feedback; run full existing suite and smoke report. |
 | Build / deploy | Check required | Lazy-load preview from main entry; reuse shipped art. Build and size gate; push branch and use existing isolated Pages preview workflow. Do not merge to main. |
 
-## First experience (2026-10-23)
+## Main integration (2026-10-23)
+
+The user explicitly authorized review, completion and merging this branch into
+main. The integrated release keeps the established campaign renderer, saving,
+rewards, facilities, opponents and V15/Pixi cinematics.
+
+- Without a saved run, the title replaces the unavailable deck-management row
+  with **첫 타격 연습** and recommends it. The menu stays at five rows. With a run,
+  continue and deck management retain their places; practice is available in settings.
+- Practice completion and skip are now App-owned transitions. An unfinished saved
+  run resumes at its actual phase; without one, the existing starter selection opens.
+  The brand button returns to the title without changing a save. Cancelling starter
+  selection returns to the title. The standalone study keeps its independent battle.
+- Integrated practice shares the App sound toggle, so its label and BGM cannot disagree. Escape is isolated from hidden main-run shortcuts and tutorial preferences.
+- The App reads the live save in both title and practice. The old disposable
+  autobattle flag is cleared on entering practice, so resuming a main run cannot
+  inherit sandbox persistence rules. No schema or tutorial-progress key was added.
+- Main battle progress uses the existing fixed 64px planning area. Prediction,
+  actionable instructions and warnings stay visible. After actual impact, energy
+  gives way to a full-width explanation of the recorded aim, course and result.
+  Existing automatic continuation is retained without an extra confirmation.
+- Accurate main hits receive a subtle zone glow after impact. Preparation remains
+  in planning. The defense lab and older autobattle lesson keep their own HUDs.
+- The full sandbox battle does not replace the campaign battle: it does not own
+  rewards, facilities, saves, V15/Pixi actors or the full cinematic pipeline.
+
+Release impact analysis recorded before edits: title layout/input and App transitions
+are affected; keep five menu rows and use App callbacks. Save compatibility needs
+explicit exit/skip/continue checks and uses the current live save. Battle layout
+stays inside its existing planning area; CSS stays component-scoped and reduced
+motion is respected. Engine/balance/schema are unchanged. Mobile viewport,
+scrolling and complete campaign flows require regression coverage. Lazy reuse
+avoids new art, and root-path production build/CI/Pages verification is required
+before declaring the authorized main release complete.
+
+## Standalone study first experience (2026-10-23)
 
 The preview now opens a skippable, three-part practice. Each part starts the same
 independent practice pitch: **zone + swing → HP → concentration**. This introduces
@@ -66,27 +101,28 @@ the full normal-battle regression.
 
 ## Validation
 
-- Full Vitest suite: **180 files / 1,130 tests passed**, including **38** preview and learning tests.
+- Full Vitest suite: **182 files / 1,138 tests passed**, including **39** standalone preview/learning tests and **7** main integration/progress tests.
 - First-experience production browser QA: **184/184 checks passed**. Covers all three lessons, failure/retry, skip during flight, replay, mobile rotation, reduced motion, result timing and clipping.
+- Main practice production browser regression: **65/65 checks passed**, including controlled sound, Escape isolation, two preparation effects and result fit at 360px. Covers title → three lessons → real starter selection → saved run → battle, plus saved-run exit/skip and old-autobattle-to-normal persistence.
 - Existing game browser regression: **53/53** checks passed (title/map/battle/card-stack/pitch/HP/reward/facility/next route/resume/rotation).
 - Built preview browser QA: **276/276** checks passed on 360×640, 375×667, 390×844 and 1440×900, 1440×750, 700×741 and 700×690, plus reduced motion and touch rotation. Includes immediate hand visibility, both selection orders, direct swaps, basic selection without pitching, persistent selected effects while cards scroll offscreen, minimum 44px action targets, hand locking during flight, real CDP touch swipes on phones, horizontal wheel on PC, board-coordinate invariance, support controls, HP staging and no failed resources.
 - All three real starter hands checked at 360px for clipped card names, effects and conditions, and every playable card checked for selected-toolbar fit; preparation before aim and retained power bonus checked in the production browser.
 - Production main route/start flow and native map scrolling: **8/8** checks passed.
 - Smoke: `node scripts/zone-report.js 10` completed. Engine, balance, card data and preparation helpers match the merged `origin/main` (`91cd80e`); shared engine and normal balance are unchanged; the explicit practice config is isolated in the preview model.
-- Production build with exact branch Pages base path passed. Shipped size: **58.5 MB / 60 MB**.
+- Production build with the main Pages base `/9-baseball/` passed. Shipped size: **58.4 MB / 60 MB**.
 - Independent review covers information boundaries, basic selection, persistent selected effects, support cancellation/removal, preparation, flight locking and mobile layout. Duplicate-condition regression coverage is retained.
 
-The review references inform a UX hypothesis: keeping essential choices visible while reducing secondary details should reduce scanning and extra actions. Automated tests establish behavior and regressions; they do not establish commercial quality or enjoyment. Compare the three decks in actual phone play before replacing the main battle screen or broadening into asset and replayability work.
+The review references inform a UX hypothesis: keeping essential choices visible while reducing secondary details should reduce scanning and extra actions. Automated tests establish behavior and regressions; they do not establish commercial quality or enjoyment. Player understanding and enjoyment still require actual phone playtests; this release does not establish commercial quality.
 
 ## Preview scope and access
 
 Branch: `codex/zone-first-preview`. Entry: `?showcase=zone-first`.
-The root route continues to open the original game. The existing Pages workflow
-builds production from main and this branch into its own preview directory; no main
-merge is part of this change. Remote deployment and live-site verification are recorded
-in the pull request after the workflow finishes.
+The root route opens the main game with the integrated first-practice entry. The
+existing Pages workflow publishes the main build after the approved merge. The
+standalone study remains query-addressable; branch-preview folders may disappear
+when the root release is deployed. Merge and deployment evidence are recorded in the PR.
 
-Preview URL: https://jbseo-commits.github.io/9-baseball/previews/codex-zone-first-preview/?showcase=zone-first
+Preview URL: https://jbseo-commits.github.io/9-baseball/?showcase=zone-first
 
 After the short practice, the preview uses the actual nine-card starter decks and a real seeded opponent. It supports basic swings, taking, preparation, support placement,
 removal, re-aiming and consecutive pitches/batters. It ends at defeat or pitcher
@@ -108,3 +144,9 @@ Card-first selection before choosing a zone:
 | First aim | Real result | Concentration lesson |
 | --- | --- | --- |
 | ![First aim](zone-first-preview/learn-first.png) | ![Real result](zone-first-preview/learn-result.png) | ![Concentration](zone-first-preview/learn-skill.png) |
+
+## Main release screenshots
+
+| First visit | Main battle | Actual result |
+| --- | --- | --- |
+| ![First visit](zone-first-preview/main-title.png) | ![Main battle](zone-first-preview/main-battle.png) | ![Main result](zone-first-preview/main-result.png) |

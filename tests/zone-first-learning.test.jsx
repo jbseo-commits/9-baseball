@@ -101,3 +101,12 @@ it('explains only revealed results and distinguishes balls, missed swings and su
   expect(resultExplanation(covered)).toContain('범위 적중');expect(isExactRead(covered)).toBe(false);
   expect(isExactRead(described({...covered.battle.revealed,kind:'foul',zone:5}))).toBe(false);
 });
+
+it('uses the host sound state in integrated practice while standalone practice keeps its own preference',()=>{
+  const toggle=vi.fn(),finish=vi.fn();
+  const view=render(<ZoneFirstPreview onFinish={finish} sound={true} onToggleSound={toggle}/>);
+  fireEvent.click(screen.getByRole('button',{name:'소리 끄기'}));expect(toggle).toHaveBeenCalledOnce();
+  expect(screen.getByRole('button',{name:'소리 끄기'})).toBeTruthy();
+  view.rerender(<ZoneFirstPreview onFinish={finish} sound={false} onToggleSound={toggle}/>);
+  expect(screen.getByRole('button',{name:'소리 켜기'})).toBeTruthy();
+});

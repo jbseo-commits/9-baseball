@@ -42,16 +42,19 @@ function Card({s,entry,onClick,problem,selected=false,support=false,armed=false,
   </button>;
 }
 
-export default function ZoneFirstPreview({initialState}){
-  const [sound,setSound]=useState(false);
-  const [session,setSession]=useState(()=>({id:0,lesson:initialState||new URLSearchParams(globalThis.location?.search||'').get('learn')==='0'?null:0}));
+export default function ZoneFirstPreview({initialState,onFinish,onExit,finishLabel='내 덱으로 시작',sound:controlledSound,onToggleSound}){
+  const [localSound,setLocalSound]=useState(false);
+  const sound=controlledSound??localSound;
+  const toggleSound=()=>onToggleSound?onToggleSound():setLocalSound(v=>!v);
+  const [session,setSession]=useState(()=>({id:0,lesson:onFinish?0:initialState||new URLSearchParams(globalThis.location?.search||'').get('learn')==='0'?null:0}));
   const change=lesson=>setSession(s=>({id:s.id+1,lesson}));
+  const finish=()=>onFinish?onFinish():change(null);
   return <BattlePreview key={session.id} initialState={session.lesson===null?initialState:createLessonBattle()}
-    lesson={session.lesson} sound={sound} setSound={setSound} onSkip={()=>change(null)} onLearn={()=>change(0)}
-    onLessonComplete={()=>change(session.lesson===2?null:session.lesson+1)}/>;
+    lesson={session.lesson} sound={sound} onToggleSound={toggleSound} onSkip={finish} onExit={onExit} finishLabel={finishLabel} onLearn={()=>change(0)}
+    onLessonComplete={()=>session.lesson===2?finish():change(session.lesson+1)}/>;
 }
 
-function BattlePreview({initialState,lesson=null,sound,setSound,onSkip,onLearn,onLessonComplete}){
+function BattlePreview({initialState,lesson=null,sound,onToggleSound,onSkip,onLearn,onLessonComplete,onExit,finishLabel}){
   const learning=lesson!==null,lessonInfo=FIRST_LESSONS[lesson];
   const [game,setGame]=useState(()=>initialState||createPreviewBattle());
   const [step,setStep]=useState('plan'),[aim,setAim]=useState(null),[picked,setPicked]=useState(learning&&lesson<2?'basic':null);
@@ -158,8 +161,8 @@ function BattlePreview({initialState,lesson=null,sound,setSound,onSkip,onLearn,o
     if(e.key==='Escape'&&!flying&&!result&&!info)cancelSupport();
   }}>
     <section className="zf-shell" aria-label="존 우선 전투 프리뷰" style={{'--zf-stadium':`url("${stadium}")`}}>
-      <header className="zf-header"><a className="zf-brand" href={import.meta.env.BASE_URL}>9<span>ZONE</span></a><span className="zf-preview-tag">{learning?`${lessonInfo.name} · ${lesson+1}/3`:'BATTLE STUDY'}</span>
-        <button type="button" aria-label={sound?'소리 끄기':'소리 켜기'} aria-pressed={sound} onClick={()=>setSound(v=>!v)}>{sound?'♪ ON':'♪ OFF'}</button>
+      <header className="zf-header">{onExit?<button type="button" className="zf-brand" aria-label="타이틀로 돌아가기" onClick={onExit}>9<span>ZONE</span></button>:<a className="zf-brand" href={import.meta.env.BASE_URL}>9<span>ZONE</span></a>}<span className="zf-preview-tag">{learning?`${lessonInfo.name} · ${lesson+1}/3`:'BATTLE STUDY'}</span>
+        <button type="button" aria-label={sound?'소리 끄기':'소리 켜기'} aria-pressed={sound} onClick={onToggleSound}>{sound?'♪ ON':'♪ OFF'}</button>
         {learning?<button type="button" className="zf-skip" onClick={onSkip}>건너뛰기</button>:<button type="button" aria-label="전투 정보" onClick={()=>setInfo(true)} disabled={flying}>ⓘ</button>}
       </header>
       <div className="zf-scoreboard">{learning&&lesson===0?<p className="zf-first-goal">코스를 읽고, 한 번의 안타.</p>:<>
@@ -195,11 +198,11 @@ function BattlePreview({initialState,lesson=null,sound,setSound,onSkip,onLearn,o
           {hand.map(c=><Card key={c.id} s={game} entry={c} problem={supports.some(x=>x.id===c.id)?'':cardProblemFor(c)} selected={picked===c.id} support={supports.some(x=>x.id===c.id)} armed={armed===c.id} locked={flying} onClick={()=>chooseCard(c)}/>)}
         </div>}
         </>}
-        {result&&<div className={'zf-result-card zf-'+feedback.tone}><strong>{learning&&lesson===0?revealed?.label:game.v10.lastCombat?.damage?`−${game.v10.lastCombat.damage} HP`:revealed?.label}</strong><span>{learning&&lesson===0?'내가 고른 코스와 실제 공을 비교해보세요.':feedback.detail}</span><p className="zf-explanation">{resultExplanation(game)}</p>{game.battle.takeEnergyBonus===1&&['pitch','between'].includes(game.phase)&&<small>다음 공 에너지 4 · {takeDraw.count===1?'추가 카드 +1':takeDraw.reason==='full'?'손패 6장 한도':'추가 드로우 없음'}</small>}<small>{learning?(revealed?.kind==='hit'?(lesson===2?'준비 끝 · 이제 내 덱으로 승부하세요':'성공! 다음에는 한 가지만 더 알아봅니다'):'같은 연습 공으로 다시 도전할 수 있어요'):game.phase==='lost'?'3아웃 · 체험 종료':['reward','won'].includes(game.phase)?'투수 격파 · 체험 종료':game.phase==='between'?'다음 타자가 들어옵니다':'같은 타자 · 다음 공'}</small></div>}
+        {result&&<div className={'zf-result-card zf-'+feedback.tone}><strong>{learning&&lesson===0?revealed?.label:game.v10.lastCombat?.damage?`−${game.v10.lastCombat.damage} HP`:revealed?.label}</strong><span>{learning&&lesson===0?'내가 고른 코스와 실제 공을 비교해보세요.':feedback.detail}</span><p className="zf-explanation">{resultExplanation(game)}</p>{game.battle.takeEnergyBonus===1&&['pitch','between'].includes(game.phase)&&<small>다음 공 에너지 4 · {takeDraw.count===1?'추가 카드 +1':takeDraw.reason==='full'?'손패 6장 한도':'추가 드로우 없음'}</small>}<small>{learning?(revealed?.kind==='hit'?(lesson===2?'준비 끝 · 이제 원정에서 승부하세요':'성공! 다음에는 한 가지만 더 알아봅니다'):'같은 연습 공으로 다시 도전할 수 있어요'):game.phase==='lost'?'3아웃 · 체험 종료':['reward','won'].includes(game.phase)?'투수 격파 · 체험 종료':game.phase==='between'?'다음 타자가 들어옵니다':'같은 타자 · 다음 공'}</small></div>}
         <p className={'zf-notice'+(!notice&&!problem?' zf-active-effects':'')} role="status">{!result&&!flying?(notice||problem||activeEffects):''}</p>
       </section>
       <footer className="zf-actions">
-        {result?<button type="button" className="zf-go" data-zf-next onClick={nextTurn}>{learning?(revealed?.kind!=='hit'?'같은 공 다시 도전':lesson===0?'다음 · 투수 HP':lesson===1?'다음 · 집중 카드':'내 덱으로 시작'):(game.phase==='pitch'?'다음 공':game.phase==='between'?'다음 타자':'다시 플레이')} <span>→</span></button>:<>
+        {result?<button type="button" className="zf-go" data-zf-next onClick={nextTurn}>{learning?(revealed?.kind!=='hit'?'같은 공 다시 도전':lesson===0?'다음 · 투수 HP':lesson===1?'다음 · 집중 카드':finishLabel):(game.phase==='pitch'?'다음 공':game.phase==='between'?'다음 타자':'다시 플레이')} <span>→</span></button>:<>
           {!learning&&<><button type="button" className="zf-basic" data-kind="basic" aria-pressed={picked==='basic'} onClick={()=>chooseCard({id:'basic',kind:'basic'})} disabled={flying||handMode==='support'}>기본 스윙<small>비용 0 · 카드 없음</small></button>
           <button type="button" className="zf-take" onClick={()=>execute(true)} disabled={flying}>지켜보기<small>{game.battle.strikes===2?'볼이면 +1 · 삼진 피해 0':'다음 공 에너지 +1'}</small></button></>}
           <button type="button" className="zf-go" onClick={()=>execute()} disabled={flying||(needsPreparation&&!skill)||!picked||!!armed||handMode==='support'||!!problem||(!skill&&aim===null)}>{flying?'투구 중…':handMode==='support'?'지원을 배치하세요':skill?'준비 사용':picked&&aim!==null?'타격!':picked?'코스를 선택하세요':'카드를 선택하세요'}<small>{!learning&&!flying&&picked&&!armed&&handMode!=='support'&&(skill||aim!==null)?`에너지 ${preview?.cost??0} / ${v10Energy(game)}`:!learning&&!flying?`에너지 ${v10Energy(game)} / ${v10EnergyCap(game)}`:''}</small></button>
