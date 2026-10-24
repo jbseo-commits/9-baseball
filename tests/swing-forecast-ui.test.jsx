@@ -7,7 +7,8 @@ import path from 'node:path';
 import Duel from '../src/duel/App.jsx';
 import {createV10Duel,enterV10Node,saveV10Duel} from '../src/duel/engine.js';
 import {previewSwing,formatHitChance} from '../src/duel/swing-preview.js';
-import {riskColor} from '../src/duel/SwingForecast.jsx';
+import {riskColor,forecastFor,ForecastChip,HpForecastBand} from '../src/duel/SwingForecast.jsx';
+import {readLevel} from '../src/duel/engine.js';
 
 beforeEach(()=>{localStorage.clear()});
 afterEach(()=>{cleanup()});
@@ -35,7 +36,7 @@ describe('P1 swing forecast UI',()=>{
     const chip=screen.getByTestId('bp-forecast');
     const pv=previewSwing(s,{id:'c0'});
     expect(screen.getByTestId('bp-forecast-hit').textContent).toContain(formatHitChance(pv.hitBounds));
-    expect(screen.getByTestId('bp-forecast-dmg').textContent).toMatch(/데미지 (\d+~\d+|\d+|-)/);
+    expect(screen.getByTestId('bp-forecast-dmg').textContent).toMatch(/안타 시 (\d+~\d+|\d+|-)/);
     expect(screen.queryByTestId('bp-forecast-runners')).toBeNull();
     expect(screen.queryByTestId('bp-forecast-shaken')).toBeNull();
     expect(chip.style.position).toBe('absolute'); // overlays the board: no new layout height on a 380px phone
@@ -69,7 +70,7 @@ describe('P1 swing forecast UI',()=>{
   it('runner and shaken badges appear only when they change the damage picture',()=>{
     begin({bases:['p2','p3',null],shaken:1});
     fireEvent.click(card('pinpoint'));
-    expect(screen.getByTestId('bp-forecast-runners').textContent).toBe('×1.2 (주자 2명)');
+    expect(screen.getByTestId('bp-forecast-runners').textContent).toBe('주자 2명 · 기본 피해 +20%');
     expect(screen.getByTestId('bp-forecast-shaken').textContent).toContain('투수 흔들림 1');
   });
 
@@ -112,5 +113,47 @@ describe('P1 swing forecast UI',()=>{
     const src=fs.readFileSync(path.resolve('src/duel/SwingForecast.jsx'),'utf8');
     expect(src.match(/pointerEvents:'none'/g).length).toBeGreaterThanOrEqual(3);
     expect(fs.readFileSync(path.resolve('src/duel/swing-forecast.css'),'utf8')).toMatch(/pointer-events:none/);
+  });
+
+  it('a not-yet-used shake preparation cannot reveal higher-read probability buckets',()=>{
+    const s=begin({kinds:['pinpoint','taunt','place','place','place']});
+    expect(readLevel(s)).toBe(0);
+    const plain=forecastFor({s,selected:'c0'}),prepared=forecastFor({s,selected:'c0',skillId:'c1'});
+    expect(prepared.skill).toBe('c1');
+    expect(prepared.now.hitBounds).toEqual(plain.now.hitBounds);
+    expect(prepared.now.shaken).toBeGreaterThan(plain.now.shaken);
+  });
+
+  it('preparation preview explains when its remaining energy cannot execute the planned swing',()=>{
+    const s=begin({kinds:['strike','focusBreath','place','place','place']});
+    s.battle.energy=2;s.battle.energyCap=2;
+    const f=forecastFor({s,selected:'c0',skillId:'c1'});
+    expect(f.problem).toContain('에너지');
+    cleanup();render(<><ForecastChip forecast={f}/><HpForecastBand forecast={f} hp={60} maxHp={60}/></>);
+    expect(screen.getByTestId('bp-forecast-problem').textContent).toContain('준비 후 실행 불가');
+    expect(screen.queryByTestId('bp-hp-forecast')).toBeNull();
+  });
+
+  it('bunt chips name sacrifice damage rather than a guaranteed hit',()=>{
+    const s=begin({kinds:['bunt','place','place','place','place']});
+    const f=forecastFor({s,selected:'c0'});cleanup();render(<ForecastChip forecast={f}/>);
+    expect(screen.getByTestId('bp-forecast-hit').textContent).toContain('희생타');
+    expect(screen.getByTestId('bp-forecast-dmg').textContent).toContain('4');
+  });
+  it('scouting preparation keeps its deterministic damage bonus without revealing the new clue',()=>{
+    const s=begin({kinds:['analyst','scout','place','place','place']});
+    const raw=JSON.stringify(s),a=forecastFor({s,selected:'c0'}),f=forecastFor({s,selected:'c0',skillId:'c1'});
+    expect(f.now.hitBounds).toEqual(a.now.hitBounds);
+    expect(f.now.dmgMin-a.now.dmgMin).toBe(8);expect(f.now.dmgMax-a.now.dmgMax).toBe(8);
+    expect(JSON.stringify(s)).toBe(raw);
+    const changed=structuredClone(s);changed.battle.pending.zone=(s.battle.pending.zone+3)%9;
+    const g=forecastFor({s:changed,selected:'c0',skillId:'c1'});
+    expect([g.now.hitBounds,g.now.dmgMin,g.now.dmgMax]).toEqual([f.now.hitBounds,f.now.dmgMin,f.now.dmgMax]);
+  });
+  it('sacrifice does not claim the hit-only runner damage bonus',()=>{
+    const s=begin({kinds:['bunt','place','place','place','place'],bases:['p2','p3',null]});
+    const f=forecastFor({s,selected:'c0'});cleanup();render(<ForecastChip forecast={f}/>);
+    expect(screen.queryByTestId('bp-forecast-runners')).toBeNull();
+    expect(screen.getByTestId('bp-forecast-dmg').textContent).toBe('희생타 시 4');
   });
 });

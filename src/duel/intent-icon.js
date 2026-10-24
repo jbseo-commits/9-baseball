@@ -1,8 +1,8 @@
 /* P2 투수 의도 아이콘 (2026-10-24): 확률표를 읽지 않아도 이번 공의 성격을 한눈에.
-   이번 공의 실제 분포(swing-preview v10PitchDistribution — 속임수 이동·정찰 단서 반영)를 다섯 의도로 분류한다.
-   틀린 아이콘은 만들지 않는다: 읽기 단계가 낮으면 흐리게만 보인다(엔진의 "틀린 숫자 금지" 계약).
+   공개 확률 구간·획득한 정찰로 보장되는 의도만 표시한다. 구간 안의 숨은 수치는 쓰지 않는다.
+   의도를 확정할 수 없으면 읽기 힘듦으로 남긴다. 흐린 투명도도 정보 제한을 대신하지 않는다.
    임계값은 아래 상수로 튜닝한다. 존 번호: 0 1 2 / 3 4 5 / 6 7 8, 열 0 = 몸쪽, 열 2 = 바깥쪽, 9 = 볼. */
-import {v10PitchDistribution} from './swing-preview.js';
+import {publicPitchBounds,publicMassBounds} from './swing-preview.js';
 import {readLevel} from './engine.js';
 
 export const INTENT_THRESHOLDS=Object.freeze({
@@ -15,11 +15,11 @@ export const INTENT_THRESHOLDS=Object.freeze({
 export const INTENT_OPACITY=Object.freeze([.45,.72,1]);
 
 export const INTENTS=Object.freeze({
-  strike:{icon:'🎯',label:'승부구',note:'존 안으로 들어온다'},
+  strike:{icon:'🎯',label:'승부구',note:'존 안 비중이 높다'},
   lure:{icon:'🪤',label:'유인구',note:'존 밖 볼이 많다'},
   inside:{icon:'⬅️',label:'몸쪽 공략',note:'몸쪽 열로 몰린다'},
   outside:{icon:'➡️',label:'바깥쪽 공략',note:'바깥쪽 열로 몰린다'},
-  unclear:{icon:'❓',label:'읽기 힘듦',note:'고르게 흩어진다'},
+  unclear:{icon:'❓',label:'읽기 힘듦',note:'공개 정보로 의도를 확정할 수 없다'},
 });
 
 export function classifyIntent(probs,t=INTENT_THRESHOLDS){
@@ -46,6 +46,17 @@ export function intentMatches(kind,zone){
 
 export function pitcherIntentIcon(s){
   const b=s?.battle;if(!b?.intent||s.phase!=='battle')return null;
-  const kind=classifyIntent(v10PitchDistribution(s)),level=readLevel(s);
+  const bounds=publicPitchBounds(s),mass=zs=>publicMassBounds(bounds,zs),t=INTENT_THRESHOLDS;
+  const [ballLo,ballHi]=mass([9]),[zoneLo,zoneHi]=mass([0,1,2,3,4,5,6,7,8]);
+  const inside=mass([0,3,6]),outside=mass([2,5,8]);
+  let kind='unclear';
+  if(ballLo>=t.lureBall)kind='lure';
+  else if(ballHi<t.lureBall){
+    if(zoneHi>0&&inside[0]>=t.sideShare*zoneHi)kind='inside';
+    else if(zoneHi>0&&outside[0]>=t.sideShare*zoneHi)kind='outside';
+    else if(zoneLo>=t.strikeZone&&Math.max(...bounds.slice(0,9).map(x=>x[0]))>=t.strikePeak
+      &&inside[1]<t.sideShare*zoneLo&&outside[1]<t.sideShare*zoneLo)kind='strike';
+  }
+  const level=readLevel(s);
   return {kind,...INTENTS[kind],level,opacity:INTENT_OPACITY[level]??1};
 }

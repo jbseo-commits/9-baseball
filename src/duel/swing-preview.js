@@ -8,7 +8,7 @@
 import {CARDS} from './cards.js';
 import {trickNeighbors} from './gimmick.js';
 import {publicProbabilities,knownPitchZones,coverage,coverageAt,swingOdds,hitProfile,v11StackPlan,v10GimmickRules,
-  v10DamageTerms,v10Shaken,readLevel,playV10Action,V10_RUNNER_PRESSURE} from './engine.js';
+  v10DamageTerms,v10Shaken,readLevel,playV10Action,V10_RUNNER_PRESSURE,cardProblem,stackSupportProblem} from './engine.js';
 import {pitcherDamageFor} from './pitcher-hp.js';
 import {probabilityBounds} from './information.js';
 
@@ -36,14 +36,25 @@ export function v10PitchDistribution(s){
 
 /* 화면에 보이는 적중 확률. 읽기 2단계는 정확한 값, 낮은 단계는 공개 구간(틀린 숫자는 보이지 않는다).
    공개 칸 구간을 속임수 이동에 그대로 통과시킨다: 이동은 비음수 선형이라 구간이 보존된다. */
-export function v10HitBounds(s,zones){
-  const list=(zones||[]).filter(z=>z<9);if(!list.length)return [0,0];
-  const exact=v10PitchDistribution(s);
-  if(readLevel(s)===2){const v=list.reduce((a,z)=>a+exact[z],0);return [v,v];}
+export function publicPitchBounds(s){
+  const known=knownPitchZones(s);
+  if(known.length===1)return Array.from({length:10},(_,z)=>known.includes(z)?[1,1]:[0,0]);
+  if(readLevel(s)===2)return v10PitchDistribution(s).map(v=>[v,v]);
   const t=trickRateFor(s),bounds=probabilityBounds(s);
+  // A scout describes the already-shifted landing, not a new pre-trick pitch.
+  // Partial clues at coarse read cannot reconstruct its conditional weights.
+  if(s.battle.scouted){
+    return t?bounds.map((_,z)=>known.includes(z)?[0,1]:[0,0]):bounds;
+  }
   const lo=trickMix(bounds.map(x=>x[0]),t),hi=trickMix(bounds.map(x=>x[1]),t);
-  const sum=(arr,inside)=>arr.reduce((a,v,z)=>a+((list.includes(z))===inside?v:0),0);
-  return [Math.max(0,sum(lo,true),1-sum(hi,false)),Math.min(1,sum(hi,true),1-sum(lo,false))];
+  return lo.map((v,z)=>[v,hi[z]]);
+}
+export function publicMassBounds(bounds,zones){
+  const set=new Set(zones),sum=(inside,index)=>bounds.reduce((a,v,z)=>a+(set.has(z)===inside?v[index]:0),0);
+  return [Math.max(0,sum(true,0),1-sum(false,1)),Math.min(1,sum(true,1),1-sum(false,0))];
+}
+export function v10HitBounds(s,zones){
+  return publicMassBounds(publicPitchBounds(s),[...new Set(zones||[])].filter(z=>z>=0&&z<9));
 }
 export function formatHitChance([lo,hi]){
   if(hi<EPS)return '0%';
@@ -63,45 +74,57 @@ function handAfterFor(s,id,supports,hit){
 
 /* 계획된 스윙(메인 id + 지원 카드)의 결과 분포와 투수 HP 피해.
    반환: hitChance(진짜 확률) · dmgMin/dmgMax(안타일 때) · multiplier(HP 배율) · multiplierReason(배율의 이유) 등. */
-export function previewSwing(s,{id='basic',supports=[]}={},probabilities=v10PitchDistribution(s)){
+export function previewSwing(s,{id='basic',supports=[]}={},probabilities=v10PitchDistribution(s),publicView=s){
   const b=s.battle;if(!b||!s.pitcher||!id)return null;
   const k=kindOf(s,id);if(id!=='basic'&&CARDS[k]?.type!=='attack')return null;
+  if(cardProblem(s,id)||stackSupportProblem(s,id,supports))return null;
   const main=coverage(s,id),items=supports.map(x=>({id:x.id,aimZone:x.aimZone,kind:kindOf(s,x.id),coverage:coverageAt(s,x.id,x.aimZone)}));
   const combined=[...new Set([...main,...items.flatMap(x=>x.coverage)])];
   const plan=v11StackPlan(s,id,supports),stackCardCount=1+items.length,stackDamageRate=plan.orderedDamageRate??plan.damageRate;
   const pitchInPA=1+(b.history||[]).filter(h=>h.turn===b.turn).length;
   const action={type:'card',id,supports},foulStreak=s.pitcher.foulStreak||0;
+  const makeOutcomes=distribution=>{
   const outcomes=[];
   const push=(p,r,outcome)=>{
     if(p<=EPS)return;
-    const terms=v10DamageTerms(s,{action,choice:k,r,outcome,stackCardCount,stackDamageRate,pitchInPA,
+    const terms=v10DamageTerms(s,{action,choice:k,r:{...r,label:outcome.label,bases:outcome.bases},outcome,stackCardCount,stackDamageRate,pitchInPA,
       handAfter:handAfterFor(s,id,items,r.kind==='hit'),foulStreak});
     const {damage}=pitcherDamageFor(outcome,foulStreak,{damageMultiplier:terms.damageMultiplier,damageBonus:terms.damageBonus});
     outcomes.push({p,kind:r.kind,bases:outcome.bases||0,zone:outcome.zone,label:outcome.label,damage,terms});
   };
   const base={aimZone:b.aimZone,primaryCoverage:main,supportKinds:items.map(x=>x.kind),stackLinks:plan.links||[]};
-  probabilities.forEach((p,z)=>{
+  distribution.forEach((p,z)=>{
     if(p<=EPS)return;
-    if(z!==9&&main.includes(z)){
+    const o=swingOdds(s,id,z);
+    if(o.hit>0){
       for(const t of hitProfile(s,id,z,combined.length)){
         const outcome={kind:'hit',label:t.label,bases:t.bases,zone:z,aimZone:b.aimZone,covered:true};
-        push(p*t.p,{...base,kind:'hit',zone:z,assistOnly:false},outcome);
+        push(p*o.hit*t.p,{...base,kind:'hit',zone:z,assistOnly:false},outcome);
       }
       return;
     }
-    const saver=z!==9?items.find(x=>x.coverage.includes(z)):null;
+    const saver=z!==9&&!main.includes(z)?items.find(x=>x.coverage.includes(z)):null;
     if(saver){
       push(p,{...base,kind:'hit',zone:z,assistOnly:true},{kind:'hit',label:'겹친 카드 단타',bases:1,zone:z,aimZone:b.aimZone,covered:true});
       return;
     }
-    const o=swingOdds(s,id,z);
     for(const kind of ['foul','whiff','out','sacrifice'])
       push(p*(o[kind]||0),{...base,kind,zone:z},{kind,label:kind,bases:0,zone:z,aimZone:b.aimZone,covered:false});
   });
+  return outcomes;
+  };
+  const outcomes=makeOutcomes(probabilities);
+  // Display damage endpoints from every publicly possible zone. Hidden zeroes
+  // within a coarse bucket must not change the chip or its HP band.
+  const publicOutcomes=makeOutcomes(publicPitchBounds(publicView).map(x=>x[1]));
   const hits=outcomes.filter(o=>o.kind==='hit'),misses=outcomes.filter(o=>o.kind!=='hit');
   const hitChance=hits.reduce((a,o)=>a+o.p,0);
   const range=list=>list.length?[Math.min(...list.map(o=>o.damage)),Math.max(...list.map(o=>o.damage))]:[0,0];
-  const [dmgMin,dmgMax]=range(hits),[missMin,missMax]=range(misses);
+  const [dmgMin,dmgMax]=range(publicOutcomes.filter(o=>o.kind==='hit')),[missMin,missMax]=range(misses);
+  const sacrifice=!!CARDS[k]?.bunt;
+  const [sacMin,sacMax]=range(publicOutcomes.filter(o=>o.kind==='sacrifice'));
+  const sacRate=sacrifice?(swingOdds(s,id,0).sacrifice||0):0;
+  const sacBounds=v10HitBounds(publicView,Array.from({length:9},(_,z)=>z)).map(v=>v*sacRate);
   const expected=outcomes.reduce((a,o)=>a+o.p*o.damage,0);
   const hitTerms=hits[0]?.terms||outcomes[0]?.terms;
   const runners=(b.bases||[]).filter(Boolean).length,shaken=v10Shaken(s);
@@ -114,18 +137,22 @@ export function previewSwing(s,{id='basic',supports=[]}={},probabilities=v10Pitc
   if(precision)reasons.push({key:'precision',label:'정확 적중 +'+Math.round(precision*100)+'%'});
   if(runners)reasons.push({key:'runners',label:'+'+Math.round(runners*V10_RUNNER_PRESSURE*100)+'% (주자 '+runners+'명)'});
   const shakenHp=shaken?(CARDS[k]?.fx?.shaken||0)*shaken:0;
-  return {hitChance,hitBounds:v10HitBounds(s,combined),dmgMin,dmgMax,missMin,missMax,expected,
+  return {hitChance,hitBounds:sacrifice?[0,0]:v10HitBounds(publicView,combined),dmgMin,dmgMax,missMin,missMax,expected,
+    sacrifice,sacBounds,sacMin,sacMax,
     multiplier,multiplierReason:reasons.map(x=>x.label).join(' · '),reasons,
     runners,shaken,shakenHp,coverage:combined.sort((a,c)=>a-c),cardCount:stackCardCount,outcomes};
 }
 
-/* 준비 카드를 쓴다고 가정한 상태: 실제 playV10Action을 그대로 돌린 뒤, 정찰로 드러날 숨은 공 정보만 지운다.
-   (정찰 결과를 미리 보여 주면 숨은 난수가 새어 나간다.) */
+/* Forecast-only prepared state, never execute or save it: keep real damage
+   effects, but no newly earned scouting clue (pending=null). Callers display
+   probability using the original public view. */
 export function previewAfterSkill(s,skillId){
   const entry=s.deck.find(c=>c.id===skillId),def=entry&&CARDS[entry.kind];
   if(!def||def.type!=='skill')return null;
   const next=playV10Action(s,{type:'card',id:skillId});
   if(next===s||!next.battle)return null;
-  next.battle.scouted=false;next.battle.scoutPlus=false;next.battle.scoutBall=false;
+  for(const flag of ['scoutPlus','scoutBall'])next.battle[flag]=s.battle[flag];
+  if(!s.battle.scouted)next.battle.pending=null;
+  next.last=s.last;next.battle.log=s.battle.log;
   return next;
 }
