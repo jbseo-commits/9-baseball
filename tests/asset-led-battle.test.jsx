@@ -57,7 +57,8 @@ it('retains main/support order and native zone input while the selected card rem
   expect(document.querySelector('.bp-cell.aim .ba-aim-marker')).toBeTruthy();
   expect([...document.querySelectorAll('.bp-token')].map(e=>e.textContent)).toEqual(['1','2']);
   expect(document.querySelector('.bp-cell.assist')).toBeTruthy();
-  expect(document.querySelector('.ba-action-caption').textContent).toBe('정타 노림');
+  expect(document.querySelector('.bp-compact-summary').textContent).toContain('정타 노림');
+  expect(document.querySelector('.ba-action-caption')).toBeNull();
   const cells=document.querySelectorAll('.bp-cell');fireEvent.click(cells[7]);expect(p.onAim).toHaveBeenCalledWith(7);
   expect(document.querySelectorAll('.bp-hand button')).toHaveLength(3);
 });

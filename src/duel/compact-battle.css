@@ -1,0 +1,91 @@
+/* One viewport, scoped to the actual battle. Map/rewards/title retain their
+   own document scrolling. Logical rows follow the five rendered children. */
+@media(orientation:portrait){
+  .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bp-compact{
+    --compact-hand:176px;--compact-card:164px;--compact-art:64px;
+    --compact-plan:48px;--compact-actions:60px;
+    height:100dvh;min-height:0;max-height:100dvh;box-sizing:border-box;
+    grid-template-rows:44px minmax(0,1fr) var(--compact-hand) var(--compact-plan) calc(var(--compact-actions) + env(safe-area-inset-bottom,0px));
+    overflow:clip;
+  }
+  .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bp-compact.defense-lab-battle{--compact-plan:100px}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bp-compact>.bp-stage,
+  .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bp-compact .bp-scene{height:100%;min-height:0;max-height:none;min-width:0}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bp-compact .bp-bar{height:44px;display:flex;gap:4px;padding:0 5px;border:0;box-sizing:border-box}
+  .bp-compact .bp-menu-open{flex:0 0 44px;width:44px;height:44px;min-height:44px;padding:0;border:0;background:transparent;color:#f0d8a2;font-size:22px;line-height:1}
+  .bp-compact .bp-menu-open:focus-visible{outline:2px solid #ffe6a1;outline-offset:-3px}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-hud-inning{max-width:46px;overflow:hidden;text-overflow:ellipsis;font-size:11px;flex-shrink:1}
+  .bp-compact .bp-bar .bp-bso-strip{flex:1;justify-content:center;min-width:0;padding:6px 4px}
+  .bp-compact .bp-bar .bp-energy{position:relative;width:48px;min-width:48px;display:flex;flex-direction:column;gap:2px;letter-spacing:0}
+  .bp-compact .bp-bar .bp-energy>span:first-child,.bp-compact .bp-bar .bp-energy>small{display:none}
+  .bp-compact .bp-bar .bp-energy>strong{font-size:12px;line-height:14px}
+  .bp-compact .bp-bar .bp-energy-leds{gap:2px;justify-content:center}
+  .bp-compact .bp-bar .bp-energy-leds i{width:9px;height:9px}
+
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact>.bp-hand{height:var(--compact-hand);min-height:0;max-height:var(--compact-hand);box-sizing:border-box;padding:5px 6px 7px;gap:7px;overflow-y:hidden;touch-action:pan-x}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-card{height:var(--compact-card);min-height:var(--compact-card);max-height:var(--compact-card);padding:5px;gap:3px;box-sizing:border-box;flex-shrink:0;overflow:hidden}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-card-art-box{height:var(--compact-art);min-height:var(--compact-art);flex:0 0 var(--compact-art)}
+  .bp-compact .bp-card-chips{display:none}
+  .bp-compact .bp-card.off{opacity:.78;filter:saturate(.7)}
+  .bp-compact .bp-card .bp-card-header{margin:0}
+  .bp-compact .bp-card .bp-card-desc{min-height:0;display:flex;flex-direction:column;gap:1px;overflow:visible;-webkit-line-clamp:unset}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-card-desc p{font-size:11px;line-height:13px}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-card.has-note strong{min-height:14px;max-height:14px;display:block;white-space:nowrap;text-overflow:ellipsis}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-card.has-note{gap:0}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-card.has-note .bp-card-desc>p:first-child{display:block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;line-height:13px}
+  .bp-compact .bp-card-desc .bp-card-condition{max-height:26px;overflow:hidden}
+  .bp-compact .bp-card-desc .bp-card-warning{max-height:13px;white-space:nowrap;overflow:hidden}
+
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact>.bp-plan{height:var(--compact-plan);min-height:0;max-height:var(--compact-plan);padding:3px 8px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;align-items:stretch;gap:2px;overflow:hidden}
+  .bp-compact .bp-plan>.bp-plan-fields{display:none}
+  .bp-compact-summary{min-width:0;color:#e7d8b4;font:600 12px/16px var(--bp-ko);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bp-compact-summary.warning{color:#ffb7a2}
+  .bp-compact .bp-plan.has-result .bp-compact-summary{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;max-height:32px}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-plan-effects{display:flex;gap:5px;flex:none;min-height:15px;max-height:16px;overflow-x:auto;overflow-y:hidden;align-items:center;white-space:nowrap;font-size:11px;line-height:14px;scrollbar-width:none;touch-action:pan-x}
+  .bp-compact .bp-plan-effects>b{font-size:0}
+  .bp-compact .bp-plan-effects>b::before{content:'✦';font-size:12px}
+  .bp-compact .bp-plan-effects>span{white-space:nowrap;overflow:visible;flex-shrink:0}
+  .bp-compact .bp-lab-hud{display:flex;flex-direction:column;gap:1px;font:500 10px/12px var(--bp-ko);min-height:0;flex:none}
+  .bp-compact .bp-lab-hud .bp-lab-rule,.bp-compact .bp-lab-hud .bp-lab-result{display:none}
+
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact>.bp-verbs{height:calc(var(--compact-actions) + env(safe-area-inset-bottom,0px));min-height:0;padding:2px 7px calc(2px + env(safe-area-inset-bottom,0px));box-sizing:border-box;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:7px}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact>.bp-verbs.next{grid-template-columns:minmax(0,1fr)}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-verb{height:100%;min-height:44px!important;min-width:0;padding:2px 8px!important;grid-template-columns:26px minmax(0,1fr)!important;grid-template-rows:1fr;gap:0 5px;align-content:center;align-items:center;overflow:hidden}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-verb::before{grid-row:1;grid-column:1;width:26px!important;height:26px!important}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-verb::after{content:none!important;display:none!important}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-verb-word{grid-column:2;grid-row:1;font-size:18px!important;line-height:22px;white-space:nowrap}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-verb small{grid-column:2;grid-row:2;font-size:10px!important;line-height:12px!important;margin:0}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-verb.wait:has(small){grid-template-rows:22px 12px}
+  .bp-compact .bp-verbs.next .bp-verb small{display:none}
+
+  /* One probability legend replaces nine repeated words. Exact/range numbers
+     and the earned '확정' clue stay live; main/support order badges stay. */
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-cell .bp-pct.ba-word{display:none}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-cell:is(.aim,.assist) .ba-course{display:block;top:auto;bottom:1px;transform:translateX(-50%);height:19px;width:34px}
+  .bp-compact .bp-intent-label{display:none}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-read{display:none}
+  .bp-compact .bp-forecast{transform:translateX(-50%)!important;bottom:calc(100% + 5px)!important}
+  .bp-compact .bp-forecast .bp-forecast-badges{display:none!important}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .ba-legend{top:calc(100% + 19px);font-size:10px;line-height:12px;padding:0 3px;width:210px}
+  .bp-compact .bp-inline-menu button{min-height:44px;padding:7px 12px;margin:3px 6px 3px 0}
+  .bp-compact .bp-inspect-tabs{padding:0 5px;gap:2px}
+  .bp-compact .bp-inspect-tabs button{min-width:0;min-height:44px;padding:3px 1px;font-size:11px}
+  .bp-compact .bp-inspect-head{padding:0 7px}
+  .bp-compact .bp-inspect-kept{display:none}
+  /* Actor/intent layers own inline visibility; keep them out of the in-place inspector. */
+  .bp-compact.inspecting .bp-scene *{visibility:hidden!important}
+}
+@media(orientation:portrait) and (max-height:620px){
+  .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bp-compact{--compact-hand:148px;--compact-card:136px;--compact-art:56px;--compact-plan:40px;--compact-actions:48px}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bp-compact.defense-lab-battle{--compact-plan:88px}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact[data-read-level="1"] .bp-cell .bp-pct{left:0;right:0;max-width:100%;text-align:center;white-space:nowrap;font:700 10px/12px var(--bp-ko)!important;letter-spacing:-.35px}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-pct.top::after{content:none!important;display:none!important}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-card{flex-basis:96px;width:96px;min-width:96px}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-zone{width:156px;height:156px;left:calc(62 * var(--u,1vw) - 78px);bottom:35px;box-sizing:border-box;padding:3px;gap:2px;grid-template-rows:repeat(3,minmax(0,1fr))}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-cell{min-width:44px;min-height:44px}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-ptag{padding:3px 6px;gap:1px}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-pitcher-badge-row{height:16px}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-ptag>small{font-size:10px;line-height:12px}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-mental-effect{display:none}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-gimmick{font-size:10px;line-height:12px}
+}

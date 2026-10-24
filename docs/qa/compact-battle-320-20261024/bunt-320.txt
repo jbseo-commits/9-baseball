@@ -1,0 +1,76 @@
+- main "타석":
+  - generic: 1막
+  - generic "볼 0 스트라이크 2 아웃 0":
+    - generic: B
+    - generic: S
+    - generic: O
+  - generic "에너지 0/2":
+    - strong:
+      - text: "0"
+      - generic: /2
+  - button "경기 정보 및 메뉴": ☰
+  - region "승부 구장":
+    - generic: ➡️
+    - generic "바이올렛 스팅 투수 HP 60 / 60 · 의도 바깥쪽 공략":
+      - generic: 바이올렛 스팅
+      - generic: HP 60 / 60
+    - text: “
+    - group "노릴 코스":
+      - button "몸쪽 높게 · 던지지 않는 코스"
+      - button "가운데 높게 · 던지지 않는 코스"
+      - button "바깥쪽 높게":
+        - generic: 15~20%
+      - button "몸쪽 · 던지지 않는 코스"
+      - button "가운데 · 노림" [pressed]:
+        - generic: 10~15%
+      - button "바깥쪽":
+        - generic: 25~30%
+      - button "몸쪽 낮게 · 던지지 않는 코스"
+      - button "가운데 낮게 · 던지지 않는 코스"
+      - button "바깥쪽 낮게":
+        - generic: 20~25%
+      - emphasis: 볼 15~20%
+      - 'generic "코스 표식: 공 한 개는 드묾, 두 개는 가끔, 세 개는 자주, 빗금은 안 던짐"':
+        - generic: 안 던짐
+    - generic "주자"
+  - generic "손패":
+    - button "코스트 0 맨손 스윙 카드 소모 없음":
+      - generic "코스트 0": "0"
+      - strong: 맨손 스윙
+      - paragraph: 카드 소모 없음
+    - button "희생 번트 · 코스트 1 · 9존 · 진루 +1 · 아웃 +1 · 희생 70% · 파울도 삼진 · 에너지 부족 · 에너지가 부족합니다 · 1/0 필요":
+      - generic "코스트 1": "1"
+      - strong: 희생 번트
+      - paragraph: 진루 +1 · 아웃 +1
+      - paragraph: 희생 70% · 파울도 삼진
+      - paragraph: 에너지 부족
+    - button "스퀴즈 · 코스트 1 · 9존 · 진루 +1 · 아웃 +1 · 희생 82% · 파울도 삼진 · 에너지 부족 · 에너지가 부족합니다 · 1/0 필요":
+      - generic "코스트 1": "1"
+      - strong: 스퀴즈
+      - paragraph: 진루 +1 · 아웃 +1
+      - paragraph: 희생 82% · 파울도 삼진
+      - paragraph: 에너지 부족
+    - button "정타 노림 · 코스트 1 · 1존 · 정타 HP +50% · 에너지 부족 · 에너지가 부족합니다 · 1/0 필요":
+      - generic "코스트 1": "1"
+      - strong: 정타 노림
+      - paragraph: 정타 HP +50%
+      - paragraph: 에너지 부족
+    - button "히트앤드런 사인 · 코스트 1 · 준비 2회 남음 · 안타 → 주자 +1루 · 주자 필요 · 주자 필요 · 먼저 베이스에 주자가 필요합니다.":
+      - generic "에너지 코스트 1 · 준비 2회 남음": "1"
+      - generic: ✦
+      - strong: 히트앤드런 사인
+      - paragraph: 안타 → 주자 +1루
+      - paragraph: 주자 필요
+    - button "릴리스 간파 · 코스트 1 · 준비 2회 남음 · 뽑기 1장 · 높이·볼 간파 · 에너지 부족 · 에너지가 부족합니다 · 1/0 필요":
+      - generic "에너지 코스트 1 · 준비 2회 남음": "1"
+      - generic: ✦
+      - strong: 릴리스 간파
+      - paragraph: 뽑기 1장 · 높이·볼 간파
+      - paragraph: 에너지 부족
+  - generic "현재 플랜 요약":
+    - generic: 카드를 고르고 코스를 누르세요
+  - button "휘두른다 코스와 카드를 선택" [disabled]:
+    - generic: 휘두른다
+  - button "지켜본다 볼 +1 · 삼진 0":
+    - generic: 지켜본다
+    - generic: 볼 +1 · 삼진 0

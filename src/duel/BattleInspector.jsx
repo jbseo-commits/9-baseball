@@ -2,6 +2,7 @@ import React from 'react';
 import {READ_LEVELS} from './cards.js';
 import {cardDetailOf} from './CardDetailSheet.jsx';
 import {lessonFor,planText} from './DecisionDebrief.jsx';
+import {v10EnergyBase} from './engine.js';
 import './battle-inspector.css';
 
 /* Battle inspector — manual, on-demand only. It swaps the arena region in
@@ -26,11 +27,12 @@ function CardBody({inspectCard,problem}){
   </div>;
 }
 
-function PitcherBody({s,pitcher,shown,gm,gtier}){
+function PitcherBody({s,pitcher,shown,gm,gtier,intent}){
   const opp=s.v10?.opponent;
   const tendency=shown.tendency;
   return <div>
     <strong>{pitcher?.name||'투수'}</strong>
+    {intent&&<p>의도: {intent.icon} {intent.label} · {intent.note}</p>}
     {opp?.archetype&&<p>성향: {opp.archetype}</p>}
     {tendency&&<p className="bp-inspect-tendency">현재 투구 경향: {tendency} — 예측이며 확정 코스가 아닙니다.</p>}
     {shown.tendencyDetail&&<p className="bp-inspect-tendency-detail">{shown.tendencyDetail}</p>}
@@ -76,10 +78,11 @@ function PileBody({piles}){
   </div>;
 }
 
-export default function BattleInspector({tab,setTab,pileKind,inspectCard,inspectProblem,s,shown,pitcher,label,read,lastCombat,r,piles,onClose}){
+export default function BattleInspector({tab,setTab,pileKind,inspectCard,inspectProblem,s,shown,pitcher,label,read,lastCombat,r,piles,onClose,
+  compact=false,effects=[],labView=null,energy=null,intent=null,onHome,onToggleSound,sound=false,onConditions,onPractice}){
   const gm=s.v10?.opponent?.gimmick,gtier=gm?(s.v10?.opponent?.rewardTier===3?'boss':'elite'):null;
-  const tabs=pileKind?[...TABS,['pile','더미']]:TABS;
-  return <section className="bp-inspect" aria-label="정보 보기" data-testid="bp-inspect">
+  const tabs=compact?[...TABS,['pile','더미'],['menu','메뉴']]:pileKind?[...TABS,['pile','더미']]:TABS;
+  return <section id="bp-information" className="bp-inspect" aria-label="정보 보기" data-testid="bp-inspect">
     <header className="bp-inspect-head">
       <strong>정보 보기</strong>
       <span className="bp-inspect-kept">계획은 유지됩니다</span>
@@ -90,10 +93,22 @@ export default function BattleInspector({tab,setTab,pileKind,inspectCard,inspect
     </div>
     <div className="bp-inspect-body">
       {tab==='card'&&<CardBody inspectCard={inspectCard} problem={inspectProblem}/>}
-      {tab==='pitcher'&&<PitcherBody s={s} pitcher={pitcher} shown={shown} gm={gm} gtier={gtier}/>}
+      {tab==='pitcher'&&<PitcherBody s={s} pitcher={pitcher} shown={shown} gm={gm} gtier={gtier} intent={intent}/>}
       {tab==='read'&&<ReadBody read={read}/>}
       {tab==='pitch'&&<PitchBody lastCombat={lastCombat} r={r}/>}
       {tab==='pile'&&<PileBody piles={piles}/>}
+      {tab==='menu'&&<div className="bp-inline-menu">
+        <strong>카드 → 코스 → 휘두른다</strong>
+        <p>카드는 한 번 눌러 고르고 코스를 누릅니다. 다른 공격 카드를 더 고르면 지원 코스를 정합니다. 무료 맨손 스윙은 에너지가 없어도 쓸 수 있습니다.</p>
+        <p>카드를 길게 누르면 설명을 봅니다. 정보 보기 중 손패를 누르면 계획을 바꾸지 않고 그 카드만 확인합니다.</p>
+        {energy&&<p>에너지 {energy.current}/{energy.cap} · 기본은 다음 실제 공마다 {v10EnergyBase(s)}을 충전합니다. 볼·삼진 전 스트라이크를 지켜보면 다음 실제 공에 +1(최대 {v10EnergyBase(s)+1})을 예약합니다. 볼넷은 다음 타자에게 전달되며 삼진·투수 강판에는 보상이 없습니다. 기본 보충 뒤 카드 1장을 더 뽑습니다(손패 최대6장·더미 한도 적용).</p>}
+        {effects.length>0&&<div><strong>유지 중인 준비</strong>{effects.map(x=><p key={x}>{x}</p>)}</div>}
+        {labView&&<div><strong>{labView.packName}</strong><p>{labView.rule}</p><p>{labView.active} · {labView.threat}</p><p>{labView.status}</p>{labView.result&&<p>{labView.result}</p>}</div>}
+        {onToggleSound&&<button type="button" onClick={onToggleSound}>{sound?'소리 끄기':'소리 켜기'}</button>}
+        {onPractice&&<button type="button" onClick={onPractice}>첫 타격 연습</button>}
+        {onConditions&&<button type="button" onClick={onConditions}>실험 조건 변경</button>}
+        {onHome&&<button type="button" onClick={onHome}>{labView?'실험 선택으로':'타이틀로'}</button>}
+      </div>}
     </div>
     <small className="bp-inspect-status" aria-hidden="true">{label}</small>
   </section>;

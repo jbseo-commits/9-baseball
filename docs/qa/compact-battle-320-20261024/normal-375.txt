@@ -1,0 +1,71 @@
+- main "타석":
+  - generic: 1막
+  - generic "볼 0 스트라이크 0 아웃 0":
+    - generic: B
+    - generic: S
+    - generic: O
+  - generic "에너지 2/2":
+    - strong:
+      - text: "2"
+      - generic: /2
+  - button "경기 정보 및 메뉴": ☰
+  - region "승부 구장":
+    - generic: ➡️
+    - generic "바이올렛 스팅 투수 HP 10 / 60 · 의도 바깥쪽 공략":
+      - generic: 바이올렛 스팅
+      - text: BOSS 지배자의 압박
+      - generic: 낮은 3코스 +20%p · 준비 1회
+      - generic: HP 10 / 60
+    - text: “
+    - group "노릴 코스":
+      - button "몸쪽 높게 · 던지지 않는 코스"
+      - button "가운데 높게 · 던지지 않는 코스"
+      - button "바깥쪽 높게":
+        - generic: 15~20%
+      - button "몸쪽 · 던지지 않는 코스"
+      - button "가운데 · 노림" [pressed]:
+        - generic: 10~15%
+      - button "바깥쪽":
+        - generic: 25~30% 최다
+      - button "몸쪽 낮게 · 던지지 않는 코스"
+      - button "가운데 낮게 · 던지지 않는 코스"
+      - button "바깥쪽 낮게":
+        - generic: 20~25%
+      - emphasis: 볼 15~20%
+      - 'generic "코스 표식: 공 한 개는 드묾, 두 개는 가끔, 세 개는 자주, 빗금은 안 던짐"':
+        - generic: 안 던짐
+    - generic "주자"
+  - generic "손패":
+    - button "코스트 0 맨손 스윙 카드 소모 없음":
+      - generic "코스트 0": "0"
+      - strong: 맨손 스윙
+      - paragraph: 카드 소모 없음
+    - button "핀포인트 · 코스트 1 · 1존 · 정타 HP +70%":
+      - generic "코스트 1": "1"
+      - strong: 핀포인트
+      - paragraph: 정타 HP +70%
+    - button "밀어치기 · 코스트 2 · 세로 3존 · 적중하면 안타":
+      - generic "코스트 2": "2"
+      - strong: 밀어치기
+      - paragraph: 적중하면 안타
+    - button "분석가 · 코스트 2 · 1존 · 파워 +18 · 정확 +40% · 간파한 공 +8 HP":
+      - generic "코스트 2": "2"
+      - strong: 분석가
+      - paragraph: 파워 +18 · 정확 +40% · 간파한 공 +8 HP
+    - button "작전 확인 · 코스트 1 · 준비 1회 남음 · 뽑기 1장 · 손패 5장 한도":
+      - generic "에너지 코스트 1 · 준비 1회 남음": "1"
+      - generic: ✦
+      - strong: 작전 확인
+      - paragraph: 뽑기 1장
+    - button "집중 호흡 · 코스트 1 · 준비 1회 남음 · 집중 +1 · 정확 HP +40%":
+      - generic "에너지 코스트 1 · 준비 1회 남음": "1"
+      - generic: ✦
+      - strong: 집중 호흡
+      - paragraph: 집중 +1 · 정확 HP +40%
+  - generic "현재 플랜 요약":
+    - generic: 카드를 고르고 코스를 누르세요
+  - button "휘두른다 코스와 카드를 선택" [disabled]:
+    - generic: 휘두른다
+  - button "지켜본다 다음 공 +1":
+    - generic: 지켜본다
+    - generic: 다음 공 +1

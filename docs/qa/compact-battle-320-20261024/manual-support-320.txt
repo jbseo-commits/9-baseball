@@ -1,0 +1,73 @@
+- main "타석":
+  - generic: 1막
+  - generic "볼 0 스트라이크 0 아웃 0":
+    - generic: B
+    - generic: S
+    - generic: O
+  - generic "에너지 2/2":
+    - strong:
+      - text: "2"
+      - generic: /2
+  - button "경기 정보 및 메뉴": ☰
+  - region "승부 구장":
+    - generic: ❓
+    - generic "아이보리 에이스 투수 HP 29 / 60 · 의도 읽기 힘듦":
+      - generic: 아이보리 에이스
+      - generic: HP 29 / 60
+    - status "기세 2 / 5 · 피해 ×1.2":
+      - emphasis: 기세
+      - generic: ×1.2
+    - group "노릴 코스":
+      - status "예측 안타 0–28% · 안타 데미지 16 · 주자 2명":
+        - generic: 적중 0–28%
+        - generic: 안타 시 16
+      - button "몸쪽 높게 · 던지지 않는 코스"
+      - button "가운데 높게 · 던지지 않는 코스"
+      - button "바깥쪽 높게 · 던지지 않는 코스"
+      - button "몸쪽"
+      - button "가운데"
+      - button "바깥쪽" [active]:
+        - generic: "2"
+      - button "몸쪽 낮게"
+      - button "가운데 낮게 · 노림" [pressed]:
+        - generic: "1"
+      - button "바깥쪽 낮게"
+      - status: 순서 연결 · ①→② 연결
+      - emphasis: 볼 드묾
+      - 'generic "코스 표식: 공 한 개는 드묾, 두 개는 가끔, 세 개는 자주, 빗금은 안 던짐"':
+        - generic: 공이 많을수록 자주
+        - generic: 안 던짐
+    - generic "주자 1루, 3루"
+  - generic "손패":
+    - button "코스트 0 맨손 스윙 카드 소모 없음":
+      - generic "코스트 0": "0"
+      - strong: 맨손 스윙
+      - paragraph: 카드 소모 없음
+    - button "정타 노림 · 코스트 1 · 1존 · 정타 HP +50%" [pressed]:
+      - generic "코스트 1": "1"
+      - strong: 정타 노림
+      - paragraph: 정타 HP +50%
+      - generic: "2"
+    - button "주자 연결 · 코스트 2 · 가로 3존 · 안타 → 주자 +2루 · 지원 비용 초과":
+      - generic "코스트 2": "2"
+      - strong: 주자 연결
+      - paragraph: 안타 → 주자 +2루
+      - paragraph: 지원 비용 초과
+    - button "테이블 세터 · 코스트 1 · 가로 2존 · 단타 · 빈 루 +3 HP · 카드 +1" [pressed]:
+      - generic "코스트 1": "1"
+      - strong: 테이블 세터
+      - paragraph: 단타 · 빈 루 +3 HP · 카드 +1
+      - generic: "1"
+    - button "히트앤드런 사인 · 코스트 1 · 준비 2회 남음 · 안타 → 주자 +1루 · 주자 필요":
+      - generic "에너지 코스트 1 · 준비 2회 남음": "1"
+      - generic: ✦
+      - strong: 히트앤드런 사인
+      - paragraph: 안타 → 주자 +1루
+      - paragraph: 주자 필요
+  - generic "현재 플랜 요약":
+    - generic: 테이블 세터 · ⚡ 2
+  - button "휘두른다 테이블 세터":
+    - generic: 휘두른다
+  - button "지켜본다 다음 공 +1":
+    - generic: 지켜본다
+    - generic: 다음 공 +1

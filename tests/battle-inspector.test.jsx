@@ -120,7 +120,8 @@ describe('arena inspector',()=>{
   });
   it('pile entry shows counts and kind groups with the order concealed',()=>{
     open();
-    fireEvent.click(screen.getByRole('button',{name:/패 더미 보기/}));
+    fireEvent.click(screen.getByRole('button',{name:'경기 정보 및 메뉴'}));
+    fireEvent.click(screen.getByRole('tab',{name:'더미',exact:true}));
     const body=screen.getByTestId('bp-inspect').textContent;
     expect(body).toContain('순서 비공개');
     expect(body).toMatch(/남은 더미 \d+장/);
