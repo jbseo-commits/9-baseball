@@ -1,0 +1,61 @@
+- main "타석":
+  - generic: 1막
+  - generic "볼 0 스트라이크 0 아웃 0":
+    - generic: B
+    - generic: S
+    - generic: O
+  - generic "에너지 1/2":
+    - strong:
+      - text: "1"
+      - generic: /2
+  - button "경기 정보 및 메뉴": ☰
+  - region "승부 구장":
+    - generic "바이올렛 스팅 투수 HP 40 / 60":
+      - generic: 바이올렛 스팅
+      - generic: "-20"
+      - generic: HP 40 / 60
+    - text: “
+    - status:
+      - generic: 읽었다!
+      - strong: 안타
+      - list:
+        - listitem: 강한결 출루 · 1루
+    - status "기세 1 / 5 · 피해 ×1.1":
+      - emphasis: 기세
+      - generic: ×1.1
+      - generic: "+1"
+    - group "노릴 코스":
+      - button "몸쪽 높게 · 던지지 않는 코스" [disabled]
+      - button "가운데 높게 · 던지지 않는 코스" [disabled]
+      - button "바깥쪽 높게" [disabled]
+      - button "몸쪽 · 던지지 않는 코스" [disabled]
+      - button "가운데 · 노림" [disabled] [pressed]:
+        - generic: "1"
+        - generic "실제 공"
+      - button "바깥쪽" [disabled]
+      - button "몸쪽 낮게 · 던지지 않는 코스" [disabled]
+      - button "가운데 낮게 · 던지지 않는 코스" [disabled]
+      - button "바깥쪽 낮게" [disabled]
+    - generic "주자 1루"
+  - generic "손패":
+    - button "맨손 스윙 카드 소모 없음" [disabled]:
+      - strong: 맨손 스윙
+      - paragraph: 카드 소모 없음
+    - button "밀어치기 · 코스트 2 · 세로 3존 · 적중하면 안타" [disabled]:
+      - strong: 밀어치기
+      - paragraph: 적중하면 안타
+    - button "분석가 · 코스트 2 · 1존 · 파워 +18 · 정확 +40% · 간파한 공 +8 HP" [disabled]:
+      - strong: 분석가
+      - paragraph: 파워 +18 · 정확 +40% · 간파한 공 +8 HP
+    - button "작전 확인 · 코스트 1 · 준비 2회 남음 · 뽑기 2장 · 먼저 투구 결과를 확인하고 다음 공/타자를 진행하세요. · 먼저 투구 결과를 확인하고 다음 공/타자를 진행하세요." [disabled]:
+      - strong: 작전 확인
+      - paragraph: 뽑기 2장
+      - paragraph: 먼저 투구 결과를 확인하고 다음 공/타자를 진행하세요.
+    - button "집중 호흡 · 코스트 1 · 준비 2회 남음 · 집중 +1 · 정확 HP +40% · 먼저 투구 결과를 확인하고 다음 공/타자를 진행하세요. · 먼저 투구 결과를 확인하고 다음 공/타자를 진행하세요." [disabled]:
+      - strong: 집중 호흡
+      - paragraph: 집중 +1 · 정확 HP +40%
+      - paragraph: 먼저 투구 결과를 확인하고 다음 공/타자를 진행하세요.
+  - generic "현재 플랜 요약":
+    - generic: 가운데 노림 → 실제 가운데 → 정확 적중 · 땅볼 안타
+  - button "다음 타자":
+    - generic: 다음 타자

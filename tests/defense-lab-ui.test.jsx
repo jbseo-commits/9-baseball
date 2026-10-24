@@ -18,6 +18,11 @@ function isolatedStorage(){
     }
   };
 }
+function conditions(){
+  fireEvent.click(screen.getByRole('button',{name:'경기 정보 및 메뉴'}));
+  fireEvent.click(screen.getByRole('tab',{name:'메뉴',exact:true}));
+  fireEvent.click(screen.getByRole('button',{name:'실험 조건 변경'}));
+}
 it('starts, returns to conditions and resumes without accessing production run storage',()=>{
   const assertIsolated=isolatedStorage();render(<Duel/>);
   expect(screen.getByRole('main',{name:'3아웃 공방 실험'})).toBeTruthy();
@@ -26,7 +31,7 @@ it('starts, returns to conditions and resumes without accessing production run s
   expect(document.querySelector('.defense-lab-battle')).toBeTruthy();
   expect(document.querySelector('.bp-hand .bp-lab-card-note')).toBeTruthy();
   expect(readDefenseLabState(localStorage).defenseLab.pack).toBe('hold');
-  fireEvent.click(screen.getByRole('button',{name:'실험 조건 변경'}));
+  conditions();
   expect(screen.getByRole('main',{name:'3아웃 공방 실험'})).toBeTruthy();
   fireEvent.click(screen.getByRole('button',{name:'진행 중인 실험 이어하기'}));
   expect(document.querySelector('.defense-lab-battle')).toBeTruthy();assertIsolated();
@@ -56,15 +61,17 @@ it('shows the experiment role on both a strong attack and its preparation card',
 it('explains the lab energy budget without substituting the main-run budget',()=>{
   saveDefenseLabState(localStorage,createDefenseLabState({seed:914,pack:'power'}));render(<Duel/>);
   expect(screen.getByTestId('bp-energy').getAttribute('aria-label')).toBe('에너지 3/3');
-  fireEvent.click(screen.getByRole('button',{name:'?',exact:true}));
-  const help=screen.getByRole('dialog').textContent;
+  fireEvent.click(screen.getByRole('button',{name:'경기 정보 및 메뉴'}));
+  fireEvent.click(screen.getByRole('tab',{name:'메뉴',exact:true}));
+  const help=screen.getByTestId('bp-inspect').textContent;
+  expect(screen.queryByRole('dialog')).toBeNull();
   expect(help).toContain('기본은 다음 실제 공마다 3을 충전');
   expect(help).toContain('다음 실제 공에 +1(최대 4)');
   expect(help).not.toContain('기본은 다음 실제 공마다 2을 충전');
 });
 it('keeps the saved pack, scenario and seed when returning to conditions after reload',()=>{
   saveDefenseLabState(localStorage,createDefenseLabState({seed:13,pack:'hold',scenario:'crisis'}));render(<Duel/>);
-  fireEvent.click(screen.getByRole('button',{name:'실험 조건 변경'}));
+  conditions();
   expect(screen.getByRole('button',{name:/^버티기 메인 실제 파울/}).getAttribute('aria-pressed')).toBe('true');
   expect(screen.getByRole('button',{name:'위기 연습 · 2아웃 2스트라이크'}).getAttribute('aria-pressed')).toBe('true');
   expect(screen.getByRole('textbox',{name:'실험 시드'}).value).toBe('13');

@@ -41,6 +41,7 @@ import "./duel/hud-clarity.css";
 import "./duel/battle-readability.css";
 // A main-battle-only skin. It must follow legacy portrait rules; no global selectors.
 import "./duel/asset-led-battle.css";
+import "./duel/compact-battle.css";
 import "./duel/title-pixel.css";
 
 watchLayoutMode();

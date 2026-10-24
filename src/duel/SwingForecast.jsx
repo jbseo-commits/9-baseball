@@ -71,7 +71,7 @@ export function ForecastChip({forecast}){
         {outcomeName} 시 {before&&dmgBefore!==dmg?<><s style={{opacity:.6}}>{dmgBefore}</s> → <b style={{color:changeColor(before.dmgMax,now.dmgMax)}}>{dmg}</b></>:<b style={{color:'#ffd27a'}}>{dmg}</b>}
       </span>
     </span>
-    {((now.runners>0&&!now.sacrifice)||now.shaken>0)&&<span style={{display:'flex',gap:'4px'}}>
+    {((now.runners>0&&!now.sacrifice)||now.shaken>0)&&<span className="bp-forecast-badges" style={{display:'flex',gap:'4px'}}>
       {now.runners>0&&!now.sacrifice&&<span data-testid="bp-forecast-runners" style={{...badge,background:'#3a2a05',border:'1px solid #ffcf4a',color:'#ffe38a'}}>주자 {now.runners}명 · 기본 피해 +{now.runners*10}%</span>}
       {now.shaken>0&&<span data-testid="bp-forecast-shaken" style={{...badge,background:'#3a0f12',border:'1px solid #ff6b6b',color:'#ffb3b3'}}>투수 흔들림 {now.shaken}{now.shakenHp?` · 안타 +${now.shakenHp}`:' · 볼 증가'}</span>}
     </span>}</>}

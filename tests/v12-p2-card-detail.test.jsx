@@ -135,7 +135,7 @@ describe('V12 P2-1 in the ballpark battle',()=>{
     beginV10();
     const card=document.querySelector('.bp-hand .bp-card:not(.basic)'),name=CARDS[card.dataset.cardKind].name;
     fireEvent.click(card);
-    const open=screen.getByRole('button',{name:name+' 카드 검사'});
+    const open=screen.getByRole('button',{name:'경기 정보 및 메뉴'});
     open.focus();fireEvent.click(open);
     const body=screen.getByTestId('bp-inspect');
     expect(body.textContent).toContain(name);
