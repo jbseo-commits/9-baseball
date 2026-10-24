@@ -64,6 +64,9 @@
   background:#0b0e1ccc;border:1px solid #3a4475;border-radius:8px}
 
 @keyframes ev-in{from{opacity:0}to{opacity:1}}
+/* P3: 사건은 모달 팝 대신 카드 한 장이 떨어지듯 들어온다 (0.42초, transform/opacity만) */
+.ev-root:not(.is-result) .ev-paper{animation:ev-card-drop .42s cubic-bezier(.2,.9,.25,1.12) both}
+@keyframes ev-card-drop{from{opacity:0;transform:translateY(-42vh) rotate(-7deg)}70%{opacity:1}to{opacity:1;transform:none}}
 @keyframes ev-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @media (max-height:700px){
   .ev-head{margin-top:0}.ev-title{font-size:25px;margin-bottom:8px}
@@ -71,4 +74,4 @@
   .ev-choice{min-height:56px;padding-top:8px;padding-bottom:8px}.ev-choice strong{font-size:18px}
 }
 @media (min-width:720px){.ev-root{padding-left:max(14px,calc(50% - 300px));padding-right:max(14px,calc(50% - 300px))}}
-@media (prefers-reduced-motion:reduce){.ev-root,.ev-choice,.ev-outcome p{animation:none}.ev-choice{transition:none}}
+@media (prefers-reduced-motion:reduce){.ev-root,.ev-choice,.ev-outcome p,.ev-root .ev-paper{animation:none!important}.ev-choice{transition:none}}

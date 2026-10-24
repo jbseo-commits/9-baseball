@@ -34,6 +34,12 @@ const CUES={
   'game-win':{type:'triangle',gain:.05,noise:.02,noiseDur:.04,swell:.085,echo:.08,notes:[[294,0,.07,1.04,-.12],[440,.075,.09,1.03,0],[588,.17,.12,1.02,.14],[784,.29,.16,1.01,0]]},
   champion:{type:'triangle',gain:.054,noise:.025,noiseDur:.05,swell:.12,echo:.13,notes:[[262,0,.07,1.05,-.15],[392,.08,.1,1.04,-.02],[523,.18,.13,1.03,.12],[784,.34,.18,1.02,.2],[1047,.56,.23,1.01,0]]},
   'rival-champion':{type:'square',gain:.05,noise:.032,noiseDur:.065,swell:.15,echo:.18,notes:[[220,0,.08,1.05,-.18],[330,.08,.1,1.04,.16],[440,.19,.14,1.03,-.08],[660,.36,.18,1.02,.18],[880,.58,.24,1.01,0]]},
+  /* P3 카드 연출: 획득 / 레어 획득 / 사용 / 에너지 소모 / 라커룸 제거 */
+  cardGet:{type:'triangle',gain:.036,noise:.01,noiseDur:.03,notes:[[520,0,.05,1.02,-.1],[780,.05,.08,1.02,.1]]},
+  cardRare:{type:'triangle',gain:.042,noise:.012,noiseDur:.03,echo:.08,notes:[[523,0,.06,1.01,-.15],[659,.06,.07,1.01,0],[784,.12,.09,1.01,.12],[1047,.2,.16,1.0,0]]},
+  cardUse:{type:'sine',gain:.04,noise:.03,noiseDur:.05,notes:[[300,0,.06,1.6,-.1],[620,.07,.08,.9,.1]]},
+  cardSpend:{type:'square',gain:.026,noise:.05,noiseDur:.05,notes:[[1400,0,.03,.6,.1],[900,.03,.05,.5,-.1]]},
+  cardBurn:{type:'sawtooth',gain:.026,noise:.09,noiseDur:.32,notes:[[180,0,.18,.7,0],[660,.22,.12,1.2,.1]]},
   'game-loss':{type:'triangle',gain:.042,noise:.016,noiseDur:.04,notes:[[220,0,.08,.78,.08],[165,.11,.12,.7,-.06],[110,.27,.18,.62,0]]},
 };
 export function audio(){

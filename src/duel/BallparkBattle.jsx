@@ -30,6 +30,7 @@ import './original-ui-refinement.css';
 import BallparkCoach from './BallparkCoach.jsx';
 import {forecastFor,ForecastChip,HpForecastBand,RiskTint} from './SwingForecast.jsx';
 import {pitcherIntentIcon} from './intent-icon.js';
+import {playUse,playSpend} from './card-fx.js';
 
 /* V13 BALLPARK — the battle as one ballpark scene (docs/design/v13/BALLPARK.md).
    Same engine contract as the legacy screen: `selected` + battle.aimZone is the main card,
@@ -215,6 +216,16 @@ export default function BallparkBattle({
     if(e.type==='pointerup'&&t.at!=null&&t.at!==t.from){pickZone(t.at);suppressZoneClick.current=Date.now()+400;}};
   const prepLeft=Math.max(0,v10PrepMax(s)-(b.preparations||0));
   const energy=v10Energy(s),energyCap=v10EnergyCap(s),actionCost=selected?choice?.cost??(selected==='basic'?0:cardCost(byId(selected)?.entry)):null;
+  /* P3: spent energy orbs shatter (the engine already took the energy; this only draws it) */
+  const energyWas=useRef(energy);
+  useLayoutEffect(()=>{
+    const was=energyWas.current;energyWas.current=energy;
+    if(energy>=was)return;
+    const leds=[...(rootRef.current?.querySelectorAll('.bp-energy-leds i')||[])].slice(energy,was);
+    playSpend(leds);
+  },[energy]);
+  /* the auto-play lesson suppresses card flourishes, like its banners and sounds */
+  useEffect(()=>{if(!autoLesson)return;document.documentElement.dataset.autoSim='1';return()=>{delete document.documentElement.dataset.autoSim;};},[autoLesson]);
   const takeDrawPreview=v10TakeDrawPreview(s),drawHint=takeDrawPreview.count===1?'카드+1':takeDrawPreview.reason==='full'?'6장 한도':'추가 0';
   const pendingEnergyText=s.phase==='between'?`다음 타자 ${v10NextEnergyMax(s)} · ${drawHint}`:`다음 공 ${v10NextEnergyMax(s)} · ${drawHint}`;
   const energyHud=<div className="bp-energy" data-testid="bp-energy" aria-label={`에너지 ${energy}/${energyCap}`}>
@@ -325,7 +336,9 @@ export default function BallparkBattle({
     if(!deciding||!selected||choice?.problem||inspect)return;
     // Solo swings stay instant. A 2–4 card STACK gets a brief commitment beat so the player
     // can read the exact trade they authored before Pixi takes over the scene.
-    if(mainIsSkill||!stack.length){onSwing?.();return;}
+    /* P3: a preparation card flies into the zone grid and the grid flashes as its effect lands */
+    if(mainIsSkill){playUse(rootRef.current?.querySelector('.bp-hand .bp-card.prep-card.main'),zoneRef.current);onSwing?.();return;}
+    if(!stack.length){onSwing?.();return;}
     const links=choice?.stackPlan?.links||[],coverage=choice?.coverage||[];
     const cards=[mainName,...stack.map(x=>CARDS[byId(x.id)?.entry?.kind]?.name||'지원')].filter(Boolean);
     const zones=[lessonZoneName(b.aimZone),...stack.map(x=>lessonZoneName(x.aimZone))];

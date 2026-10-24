@@ -1,10 +1,11 @@
-import React,{useState} from 'react';
+import React,{useRef,useState} from 'react';
 import {CARDS,cardCost,upgradeText,FAMILIES,DECK_MAX} from './cards.js';
 import {shapeHas} from './engine.js';
 import {cardArtFor} from './card-art.js';
 import {V10_ALL_RELICS} from './v10-relics.js';
 import {relicArtFor} from './relic-art.js';
 import {pitcherLine} from './pitcher-voice.js';
+import {playAcquire,playBurn} from './card-fx.js';
 import stadium from '../../assets/duel/stadium.png';
 import rewardPrecisionBlue from '../../assets/production-art/mockup-world-v15/reward-precision-blue.png';
 import rewardFlameRed from '../../assets/production-art/mockup-world-v15/reward-flame-red.png';
@@ -113,7 +114,18 @@ export default function BallparkStop({kind,opponent=null,portrait=null,options=[
   const relicName=selR!=null?V10_ALL_RELICS[relics[selR]]?.name:'';
   const goSub=needRelic?(selR!=null?relicName+(o?' + '+offerName(o):''):'유물을 고르세요'):o?offerName(o,kind==='locker'?deck.some(d=>d.id===o.id&&d.plus):false):c.pick;
   const goOk=needRelic?selR!=null:!!o;
-  return <main className={'bp-stop bp-choice stop-'+kind} aria-label={c.title(opponent)} style={{'--bp-sky':`url(${stadium})`}}>
+  const rootRef=useRef(null);
+  /* P3: the pick is applied at once; the chosen card's flight (or burn) plays above the next screen */
+  const playPick=()=>{
+    const root=rootRef.current;if(!root)return;
+    const deckBtn=root.querySelector('.bp-bar .bp-piles button');
+    const card=root.querySelector('.bp-offers .bp-offer.on');
+    if(card&&o?.type==='remove')playBurn(card);
+    else if(card&&o&&o.type!=='skip')playAcquire(card,deckBtn,o.type==='relic'?'rare':CARDS[o.kind]?.rarity||'common');
+    const relic=needRelic&&root.querySelector('.bp-relic-offers .bp-offer.on');
+    if(relic)playAcquire(relic,deckBtn,relicTier==='boss'?'signature':'rare');
+  };
+  return <main ref={rootRef} className={'bp-stop bp-choice stop-'+kind} aria-label={c.title(opponent)} style={{'--bp-sky':`url(${stadium})`}}>
     <div className="bp-bar"><span>{kind==='reward'?'승리':'쉬어 가는 곳'}</span><span className="bp-piles"><button type="button" onClick={onDeck}>덱 {deckCount}{after!==deckCount&&<> → <b>{after}</b></>}</button></span></div>
     <header className="bp-shead">
       {portrait&&<button type="button" className="bp-sport" aria-label={opponent?.name+' 초상 크게 보기'} onClick={e=>onInspect?.(opponent,e)}><img alt="" src={portrait}/></button>}
@@ -128,7 +140,7 @@ export default function BallparkStop({kind,opponent=null,portrait=null,options=[
       <p className="bp-relic-desc" data-testid="bp-relic-desc">{selR!=null?V10_ALL_RELICS[relics[selR]]?.text:'유물을 눌러 효과를 확인한다.'}</p></section>}
     <div className="bp-verbs stop">
       {/* the verb is always on the button; the second line guides (nothing picked) or names the pick */}
-      {(!!options.length||needRelic)&&<button type="button" className={'bp-verb go'+(goOk?' picked':'')} data-testid="bp-stop-go" disabled={!goOk} onClick={()=>goOk&&(needRelic?onPick?.(o||{type:'skip'},relics[selR]):onPick?.(o))}
+      {(!!options.length||needRelic)&&<button type="button" className={'bp-verb go'+(goOk?' picked':'')} data-testid="bp-stop-go" disabled={!goOk} onClick={()=>{if(!goOk)return;playPick();needRelic?onPick?.(o||{type:'skip'},relics[selR]):onPick?.(o);}}
         aria-label={c.go+' · '+goSub}>
         <span className="bp-go-verb">{c.go}</span><span className="bp-go-sub" data-testid="bp-stop-go-sub">{goSub}</span></button>}
       {needRelic&&canRecover&&<button type="button" className="bp-verb wait bp-recover" data-testid="bp-recover" onClick={()=>onRecover?.()}

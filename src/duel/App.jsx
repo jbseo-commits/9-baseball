@@ -37,6 +37,7 @@ import StackResolve,{stackResolveDuration} from './StackResolve.jsx';
 import StackRouteEcho from './StackRouteEcho.jsx';
 import BattleReadout from './BattleReadout.jsx';
 import BallparkBattle from './BallparkBattle.jsx';
+import {setCardFxSound} from './card-fx.js';
 import HomerunVideo,{isHomerVideoEligible} from './HomerunVideo.jsx';
 /* the main-run batter is the V15 target-mockup hero (batter-v15.js); the V14 3x3 sheet stays BallparkBattle's default */
 import {BATTER_V15_SHEET,BATTER_V15_RIG,sheetCellStyle} from './batter-v15.js';
@@ -865,6 +866,7 @@ export default function Duel(){
   const [orderOpen,setOrderOpen]=useState(false),orderOpener=useRef(null);
   const closeOrder=()=>{setOrderOpen(false);const el=orderOpener.current;orderOpener.current=null;setTimeout(()=>{const t=el?.isConnected?el:document.querySelector('[data-testid=execute-action]');t?.focus();},0);};
   const closeCardDetail=()=>{setCardDetail(null);const el=detailOpener.current;detailOpener.current=null;setTimeout(()=>{if(el?.isConnected)el.focus();},0);};
+  useEffect(()=>{setCardFxSound(sound);},[sound]);
   const handleToggleSound=()=>{
     const next=!sound;
     setSound(next);
