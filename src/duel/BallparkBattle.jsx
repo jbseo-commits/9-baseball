@@ -28,6 +28,7 @@ import './ballpark.css';
 import './momentum.css';
 import './original-ui-refinement.css';
 import BallparkCoach from './BallparkCoach.jsx';
+import {forecastFor,ForecastChip,HpForecastBand,RiskTint} from './SwingForecast.jsx';
 
 /* V13 BALLPARK — the battle as one ballpark scene (docs/design/v13/BALLPARK.md).
    Same engine contract as the legacy screen: `selected` + battle.aimZone is the main card,
@@ -198,6 +199,18 @@ export default function BallparkBattle({
   const isBuntKind=k=>!!CARDS[k]?.bunt;
   const canStack=!!(mainEntry&&!mainIsSkill&&!isBuntKind(mainEntry.kind)&&b.growthMode!=='patience');
   const stack=canStack?swingStack.filter(x=>x.id!==selected&&byId(x.id)):[];
+  /* P1 스윙 예측: 확정 전 hover/터치 슬라이드 존과 고른 준비 카드로 결과를 미리 계산한다 (판정은 바꾸지 않음) */
+  const [hoverZone,setHoverZone]=useState(null),[hoverSkill,setHoverSkill]=useState(null);
+  const touchSlide=useRef(null),suppressZoneClick=useRef(0),lastSwing=useRef(null);
+  if(selected&&!mainIsSkill)lastSwing.current={id:selected,supports:stack};
+  const forecast=deciding&&!inspect?forecastFor({s,selected:mainIsSkill?null:selected,stack,armed,hoverZone,
+    skillId:hoverSkill||(mainIsSkill?selected:null),lastSwing:lastSwing.current}):null;
+  useEffect(()=>{if(!deciding){setHoverZone(null);setHoverSkill(null);touchSlide.current=null;}},[deciding]);
+  const zoneAt=(x,y)=>{const el=document.elementFromPoint?.(x,y)?.closest?.('[data-zone]');return el&&zoneRef.current?.contains(el)?Number(el.dataset.zone):null;};
+  const slideStart=e=>{if(e.pointerType!=='touch'||!deciding)return;const z=zoneAt(e.clientX,e.clientY);touchSlide.current={id:e.pointerId,from:z,at:z};if(z!=null)setHoverZone(z);};
+  const slideMove=e=>{const t=touchSlide.current;if(!t||t.id!==e.pointerId)return;const z=zoneAt(e.clientX,e.clientY);if(z!=null&&z!==t.at){t.at=z;setHoverZone(z);}};
+  const slideEnd=e=>{const t=touchSlide.current;if(!t||t.id!==e.pointerId)return;touchSlide.current=null;setHoverZone(null);
+    if(e.type==='pointerup'&&t.at!=null&&t.at!==t.from){pickZone(t.at);suppressZoneClick.current=Date.now()+400;}};
   const prepLeft=Math.max(0,v10PrepMax(s)-(b.preparations||0));
   const energy=v10Energy(s),energyCap=v10EnergyCap(s),actionCost=selected?choice?.cost??(selected==='basic'?0:cardCost(byId(selected)?.entry)):null;
   const takeDrawPreview=v10TakeDrawPreview(s),drawHint=takeDrawPreview.count===1?'카드+1':takeDrawPreview.reason==='full'?'6장 한도':'추가 0';
@@ -302,6 +315,7 @@ export default function BallparkBattle({
     setArmed(null);onStack([]);onSelect(selected===id?null:id);}
   function pickZone(z){
     if(locked||commitBeat||inspect)return;
+    if(suppressZoneClick.current>Date.now())return;
     if(armed){onStack([...stack,{id:armed,aimZone:z}]);setArmed(null);return;}
     onAim(z);
   }
@@ -570,6 +584,7 @@ export default function BallparkBattle({
         </div>
         <div className="bp-hp-gauge-container">
           <div className="bp-hp-gauge-bar" style={{'--hp-pct': `${Math.max(0, Math.min(100, Math.round(((pre?hpWas:pitcher?.hp)||0)/(pitcher?.maxHp||1)*100)))}%`}} />
+          {forecast&&<HpForecastBand forecast={forecast} hp={pitcher?.hp} maxHp={pitcher?.maxHp}/>}
           <span className="bp-ticks" aria-hidden="true">{Array.from({length:12},(_,i)=><i key={i} className={tickClass(i)}/>)}</span>
         </div>
         {gm&&<div className="bp-gimmick" data-testid="bp-gimmick"><i className="bp-gtier">{gtier==='boss'?'BOSS':'ELITE'}</i> <b>{gm.label}</b>
@@ -622,12 +637,16 @@ export default function BallparkBattle({
         {momentumRose&&<small className="bp-momentum-pop" aria-hidden="true">+{combat.momentumAfter-combat.momentumBefore}</small>}
       </div>}
 
-      <div className={'bp-zone'+(cover.size?' has-cover':'')} ref={zoneRef} role="group" aria-label="노릴 코스">
+      <div className={'bp-zone'+(cover.size?' has-cover':'')} ref={zoneRef} role="group" aria-label="노릴 코스"
+        onPointerDown={slideStart} onPointerMove={slideMove} onPointerUp={slideEnd} onPointerCancel={slideEnd}
+        onPointerLeave={e=>{if(e.pointerType==='mouse')setHoverZone(null);}}>
+        <ForecastChip forecast={forecast}/>
         {ZONE_WORDS.map((word,z)=>{
           const share=(probs[z]||0)/inZone,dead=!live.includes(z),tok=tokens.filter(t=>t.z===z);
           const actual=judged&&landed&&r.zone===z;
           const face=dead?'안 던짐':cellFace(z),mark=showProgress?courseMark(face):null;
-          return <button key={z} type="button" disabled={!deciding} onClick={()=>pickZone(z)}
+          return <button key={z} type="button" data-zone={z} disabled={!deciding} onClick={()=>pickZone(z)}
+            onPointerEnter={e=>{if(e.pointerType==='mouse'&&deciding)setHoverZone(z);}}
             aria-label={word+(dead?' · 던지지 않는 코스':'')+(b.aimZone===z?' · 노림':'')} aria-pressed={b.aimZone===z}
             aria-description={showProgress&&deciding?face:undefined}
             className={'bp-cell'+(dead?' dead':'')+(cover.has(z)?' cover':'')+(support.has(z)?' assist':'')+(aimAt===z?' aim':'')+(armed?' target':'')+(actual?' actual'+(good?' good':''):'')}
@@ -635,6 +654,7 @@ export default function BallparkBattle({
             {dead&&!cover.has(z)&&<small className="bp-dead">안 던짐</small>}{!dead&&deciding&&<span className={'bp-pct'+(z===topCell&&(!showProgress||level>0)?' top':'')+((showProgress?face==='0%':pct(z)===0)?' zero':'')+(mark?' ba-word':'')}>{cellFace(z)}</span>}
             {showProgress&&deciding&&mark&&<CourseMark face={face}/>}
             {showProgress&&aimAt===z&&<BattleIcon kind="aim" className="ba-aim-marker"/>}
+            {deciding&&forecast&&forecast.now.coverage.includes(z)&&<RiskTint cells={forecast.now.coverage.length}/>}
             {tok.map(t=><b key={t.n} className="bp-token" data-board-order={t.n}>{t.n}</b>)}{actual&&<i className="bp-pitch-mark" aria-label="실제 공"/>}
           </button>;
         })}
@@ -706,6 +726,8 @@ export default function BallparkBattle({
           aria-label={[def.name+(x.entry.plus?'+':''),'코스트 '+cardCost(x.entry),'준비 '+prepLeft+'회 남음',face.summary,face.drawNote,condition,warning,problem,labNote].filter(Boolean).join(' · ')}
           data-card-kind={x.entry.kind} data-card-plus={x.entry.plus?1:0} data-card-problem={problem||undefined}
           disabled={!deciding}
+          onPointerEnter={e=>{if(e.pointerType==='mouse'&&deciding&&!isOff)setHoverSkill(x.id);}}
+          onPointerLeave={e=>{if(e.pointerType==='mouse')setHoverSkill(null);}}
           onClick={()=>pickPrep(x.id)}>
           <span className="bp-card-cost prep" aria-label={`에너지 코스트 ${cardCost(x.entry)} · 준비 ${prepLeft}회 남음`}>{cardCost(x.entry)}</span>
           <div className="bp-card-art-box">

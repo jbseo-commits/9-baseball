@@ -1,0 +1,4 @@
+/* P1 스윙 예측 — 색·위치는 SwingForecast.jsx 인라인 style. 여기는 깜빡임 애니메이션만. */
+.bp-hp-forecast{position:absolute;inset:0;pointer-events:none;z-index:1;animation:bp-forecast-blink .9s ease-in-out infinite}
+@keyframes bp-forecast-blink{0%,100%{opacity:.9}50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.bp-hp-forecast{animation:none;opacity:.7}}

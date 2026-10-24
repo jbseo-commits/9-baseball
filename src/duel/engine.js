@@ -141,6 +141,8 @@ function dealPitch(s){
   b.pending={zone,roll:unit(s,'pitchSeed'),powerRoll:unit(s,'pitchSeed')};
   b.scouted=false;b.scoutPlus=false;b.scoutBall=false;b.revealed=null;
 }
+/* 검증·시뮬레이션용: 같은 상태에서 공만 새로 뽑는다 (dealPitch와 같은 규칙, 상태는 복제). */
+export function redealPitch(state,pitchSeed=state.pitchSeed){const s=clone(state);s.pitchSeed=pitchSeed>>>0;dealPitch(s);return s;}
 export function createDuel(seed=Date.now()>>>0,build='away'){
   if(!Object.hasOwn(BUILDS,build))build=DECKBUILDER_BUILD;
   const baseDeck=BUILDS[build].cards;
@@ -1122,6 +1124,29 @@ export function v10CardFxPlan(state,next,choice,r,pitchInPA){
   if(r?.label==='볼넷')add((b.bonusWalk||0)+(b.bonusBall||0),'준비 효과 · 볼넷');
   return {bonus,shake,events};
 }
+/* The HP terms of one pitch: the same function serves the real resolution (playV10Action) and the
+   swing preview (swing-preview.js), so a preview can never use a different formula from the judge.
+   Reads the state BEFORE the pitch; `handAfter` and `foulStreak` are the only after-pitch inputs. */
+export function v10DamageTerms(state,{action,choice,r,outcome,stackCardCount=1,stackDamageRate=1,pitchInPA=1,handAfter=0,foulStreak=0}){
+  const relicPlan0=v10RelicDamagePlan({relics:state.relics||[],outcome,cardCount:stackCardCount,damageRate:stackDamageRate,pitchInPA,
+    runnersBefore:(state.battle?.bases||[]).filter(Boolean).length,pitcherPhase:state.pitcher?.phase||'steady'});
+  /* 기세: the rate this pitch hits with = the stack/relic rate × the momentum built before it */
+  const momentumBefore=v10Momentum(state),momentumRate=v10MomentumRate(momentumBefore);
+  const relicPlan={...relicPlan0,damageRate:relicPlan0.damageRate*momentumRate};
+  const precisionRate=action.type==='card'&&r.kind==='hit'&&!r.assistOnly&&Array.isArray(r.primaryCoverage)&&r.primaryCoverage.includes(r.zone)
+    ?(CARDS[choice]?.pressure||0)+(state.battle?.bonusPressure||0):0;
+  const lab=state.defenseLab?.schema===1?state.defenseLab:null;
+  const fxPlan=v10CardFxPlan(state,{battle:{hand:new Array(Math.max(0,handAfter|0))}},action.type==='card'?choice:null,r,pitchInPA);
+  const labCounter=!!(lab?.pack==='hold'&&lab.counterReady&&r.kind==='hit');
+  const pressureBase=precisionRate?damageForOutcome(outcome,foulStreak).damage:0;
+  const precisionBonus=precisionRate?Math.max(0,Math.round(pressureBase*relicPlan.damageRate*precisionRate)):0;
+  // 주자 압박: 공 던지기 전 루상 주자 수 기준. 안타일 때만.
+  const runnersBefore=(state.battle?.bases||[]).filter(Boolean).length;
+  const runnerRate=r.kind==='hit'?runnersBefore*V10_RUNNER_PRESSURE:0;
+  const runnerBonus=runnerRate?Math.max(0,Math.round(damageForOutcome(outcome,0).damage*relicPlan.damageRate*runnerRate)):0;
+  return {relicPlan0,relicPlan,momentumBefore,momentumRate,precisionRate,precisionBonus,runnersBefore,runnerRate,runnerBonus,fxPlan,labCounter,
+    damageMultiplier:relicPlan.damageRate,damageBonus:relicPlan.damageBonus+precisionBonus+runnerBonus+fxPlan.bonus+(labCounter?8:0)};
+}
 export function playV10Action(state,action){
   if(!(state?.version===10||state?.version===11)||state.phase!=='battle'||!state.pitcher||state.pitcher.hp<=0||!action)return state;
   const beforePitches=state.stats.pitches;
@@ -1143,26 +1168,14 @@ export function playV10Action(state,action){
   const outcome={kind:r.kind,label:r.label,bases:v10BasesForReveal(r),zone:r.zone,aimZone:r.aimZone,
     covered:Array.isArray(r.coverage)&&r.coverage.includes(r.zone)};
   const pitchInPA=Math.max(1,(next.battle?.history||[]).filter(h=>h.turn===next.battle.turn).length);
-  const relicPlan0=v10RelicDamagePlan({relics:next.relics||[],outcome,cardCount:stackCardCount,damageRate:stackDamageRate,pitchInPA,
-    runnersBefore:(state.battle?.bases||[]).filter(Boolean).length,pitcherPhase:state.pitcher?.phase||'steady'});
-  /* 기세: the rate this pitch hits with = the stack/relic rate × the momentum built before it */
-  const momentumBefore=v10Momentum(state),momentumRate=v10MomentumRate(momentumBefore);
-  const relicPlan={...relicPlan0,damageRate:relicPlan0.damageRate*momentumRate};
-  const precisionRate=action.type==='card'&&r.kind==='hit'&&!r.assistOnly&&Array.isArray(r.primaryCoverage)&&r.primaryCoverage.includes(r.zone)
-    ?(CARDS[choice]?.pressure||0)+(state.battle?.bonusPressure||0):0;
   const lab=state.defenseLab?.schema===1?state.defenseLab:null;
-  const fxPlan=v10CardFxPlan(state,next,action.type==='card'?choice:null,r,pitchInPA);
-  const labCounter=!!(lab?.pack==='hold'&&lab.counterReady&&r.kind==='hit');
+  const terms=v10DamageTerms(state,{action,choice,r,outcome,stackCardCount,stackDamageRate,pitchInPA,
+    handAfter:(next.battle?.hand||[]).length,foulStreak:next.pitcher.foulStreak||0});
+  const {relicPlan0,relicPlan,momentumBefore,momentumRate,precisionRate,precisionBonus,runnersBefore,runnerRate,runnerBonus,fxPlan,labCounter}=terms;
   const counterEarnedBefore=!!(lab&&(lab.counterEarned===true
     ||(lab.counterEarned===undefined&&(lab.counterReady||lab.protectionUsed))));
-  const pressureBase=precisionRate?damageForOutcome(outcome,next.pitcher.foulStreak||0).damage:0;
-  const precisionBonus=precisionRate?Math.max(0,Math.round(pressureBase*relicPlan.damageRate*precisionRate)):0;
-  // 주자 압박: 공 던지기 전 루상 주자 수 기준. 안타일 때만.
-  const runnersBefore=(state.battle?.bases||[]).filter(Boolean).length;
-  const runnerRate=r.kind==='hit'?runnersBefore*V10_RUNNER_PRESSURE:0;
-  const runnerBonus=runnerRate?Math.max(0,Math.round(damageForOutcome(outcome,0).damage*relicPlan.damageRate*runnerRate)):0;
-  const applied=applyPitcherOutcome(next.pitcher,outcome,{pitchId:next.stats.pitches,damageMultiplier:relicPlan.damageRate,
-    damageBonus:relicPlan.damageBonus+precisionBonus+runnerBonus+fxPlan.bonus+(labCounter?8:0)});
+  const applied=applyPitcherOutcome(next.pitcher,outcome,{pitchId:next.stats.pitches,damageMultiplier:terms.damageMultiplier,
+    damageBonus:terms.damageBonus});
   // 멘탈: 타석이 끝날 때만 갱신. 실점이면 흔들림 누적, 무실점이면 1단계 회복.
   const runsScored=Math.max(0,(next.battle?.runs||0)-(state.battle?.runs||0));
   const shakenBefore=v10Shaken(state),paEnded=(next.battle?.results?.length||0)>(state.battle?.results?.length||0);
