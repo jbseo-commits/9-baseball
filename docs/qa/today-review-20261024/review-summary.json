@@ -1,0 +1,20 @@
+{
+  "scope": "Review and repair 2026-10-24 main changes, then user-authorized main merge",
+  "base": "71cafd15f9f3756ec47aec39cb97c853586bce2f",
+  "independentReviewer": {
+    "agent": "today_review",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "reportedOutcomeComparisons": 3303,
+    "reportedDamageMismatches": 0,
+    "finalCodeBlockers": 0,
+    "judgement": "bounded main merge permitted after responsive and deployment verification"
+  },
+  "explorer": {"agent":"today_explore","model":"gpt-6-luna","effort":"high","readOnly":true},
+  "tests": {"files":189,"passed":1187,"failed":0},
+  "smoke": {"zone10":0,"v9_30":0,"growth2":0,"deck1":0},
+  "build": {"passed":true,"base":"/9-baseball/","distMB":58.6,"budgetMB":60},
+  "actualPlay": {"origin":"http://127.0.0.1:51925/","pack":"power","opponent":"Rose Paint","preparations":1,"pitches":1,"hpBefore":60,"hpAfter":59,"balls":0,"strikes":1,"outs":0,"verdictCaptured":false},
+  "limits": ["320x568 needs vertical scrolling", "landscape uses scaled portrait iframe", "physical touch/rotation not tested", "manual full campaign not completed", "no masterpiece or balance certification"],
+  "releaseStatus": "pre-merge validation snapshot; see PR for actual merge and deploy result"
+}

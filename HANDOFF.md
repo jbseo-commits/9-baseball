@@ -11,7 +11,7 @@
 
 ## 2026-10-24 — 예측 프리뷰 · 의도 아이콘 · 카드 연출 (알파 피드백 "뭘 하는지 모르겠음")
 
-- 브랜치 `ccr-ba05ecb2-hs9sry`. P1만 작업 지시서에 따라 main에 fast-forward 반영(`e65ee23`). P2(`1d24fb7`)·P3(`34d7b3d`)는 브랜치에만 있고 main 미반영.
+- 브랜치 `ccr-ba05ecb2-hs9sry`. P1(`e65ee23`)·P2(`1d24fb7`)·P3(`34d7b3d`) 모두 실제 main `71cafd15`에 포함되어 있으며 Pages run `40075929603` 성공. 이전의 P2/P3 미반영 문구는 원격 이력과 맞지 않아 2026-10-24 검토에서 정정했다.
 - 지시서의 함수명(resolveContact·applyReadNoise·decidedRef·레벨업·스토브리그·Tone.js)은 현 코드에 없어 실제 구조에 대응시켰다: 스와이프 범위 = 카드 커버+노림존(+지원 스택), 집중 스킬 = 준비 카드, 집중 자원 = 에너지, 스토브리그 특성 제거 = 라커룸 카드 제거, 자동시뮬 = 자동 체험(autoLesson), 효과음 = `audio.js` Web Audio 큐.
 - **P1 예측**: `playV10Action`의 HP 계산을 `v10DamageTerms`(engine)·`pitcherDamageFor`(pitcher-hp)로 분리해 판정과 프리뷰가 같은 함수를 쓴다. `swing-preview.js`의 `previewSwing(state,{id,supports})` → `{hitChance,dmgMin,dmgMax,multiplier,multiplierReason,…}`. 속임수 코스 이동을 분포에 반영(`v10PitchDistribution`). 화면(`SwingForecast.jsx`): 존 위 `적중 N% / 데미지 a~b`(읽기 단계 낮으면 공개 구간), `×1.2 (주자 2명)`·`투수 흔들림` 뱃지, HP바 예상 구간 깜빡임, 커버 칸 위험색(1칸 빨강 → 6칸+ 파랑), 마우스 hover·터치 슬라이드 미리보기(손 뗀 칸 확정), 준비 카드 선택/hover 시 이전 → 새값. 색은 인라인 style.
 - 검증: 결과별 피해 정확 일치(판정 강제 대조 100건+), 1만 회 실제 판정 — 기본 14.1%/14.1%, 2장 스택 35.2%/35.2%, 기대 HP 6.67/6.67. 380·390px 세로에서 스크롤 높이 불변.

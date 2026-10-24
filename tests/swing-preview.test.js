@@ -121,7 +121,8 @@ describe('swing preview = real judgement',()=>{
     const after=previewSwing(previewAfterSkill(s,'c1'),{id:'c0'});
     expect(after.dmgMax).toBeGreaterThan(before.dmgMax); // 집중 호흡: 정확 적중 +40%
     const scout=previewAfterSkill(s,'c2');
-    expect(scout.battle.scouted).toBe(false);
+    expect(scout.battle.scouted).toBe(true); // the deterministic scouted damage bonus is active
+    expect(scout.battle.pending).toBeNull(); // its newly earned clue is unavailable until played
     expect(previewSwing(scout,{id:'c0'}).hitChance).toBe(before.hitChance);
     expect(previewAfterSkill(s,'c0')).toBeNull();
     expect(CARDS.focusBreath.type).toBe('skill');

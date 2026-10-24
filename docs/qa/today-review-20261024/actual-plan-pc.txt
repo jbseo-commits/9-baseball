@@ -1,0 +1,98 @@
+- iframe [active]:
+  - main "타석":
+    - generic: 1막
+    - generic "볼 0 스트라이크 1 아웃 0":
+      - generic: B
+      - generic: S
+      - generic: O
+    - button "패 더미 보기 · 더미 3 버림 2": 더미 3 / 버림 2
+    - button "설정 및 도움말": ⚙
+    - region "승부 구장":
+      - generic: ❓
+      - text: 읽기 힘듦
+      - generic "로즈 페인트 투수 HP 59 / 60 · 의도 읽기 힘듦":
+        - generic: 로즈 페인트
+        - button "투수 정보 보기": 정보 ▾
+        - generic: HP 59 / 60
+      - group "노릴 코스":
+        - status "예측 안타 14–28% · 안타 데미지 18~45":
+          - generic: 적중 14–28%
+          - generic: 안타 시 18~45
+        - button "몸쪽 높게 · 던지지 않는 코스"
+        - button "가운데 높게 · 던지지 않는 코스"
+        - button "바깥쪽 높게 · 던지지 않는 코스"
+        - button "몸쪽 · 던지지 않는 코스"
+        - button "가운데":
+          - generic: 드묾
+        - button "바깥쪽":
+          - generic: 드묾
+        - button "몸쪽 낮게":
+          - generic: 가끔
+        - button "가운데 낮게":
+          - generic: 가끔
+        - button "바깥쪽 낮게 · 노림" [pressed]:
+          - generic: 가끔
+          - generic: "1"
+        - generic "읽기 0/2":
+          - emphasis: 읽기
+        - emphasis: 바깥 띠 = 볼 드묾
+        - 'generic "코스 표식: 공 한 개는 드묾, 두 개는 가끔, 세 개는 자주, 빗금은 안 던짐"':
+          - generic: 공이 많을수록 자주
+          - generic: 안 던짐
+      - generic "주자"
+    - generic "손패":
+      - button "코스트 0 맨손 스윙 기본 단타 카드 소모 없음":
+        - generic "코스트 0": "0"
+        - strong: 맨손 스윙
+        - generic: 기본
+        - generic: ·단타
+        - paragraph: 카드 소모 없음
+      - button "정타 노림 · 코스트 1 · 1존 · 정타 HP +50%" [active] [pressed]:
+        - generic "코스트 1": "1"
+        - strong: 정타 노림
+        - generic: ◎정타
+        - paragraph: 정타 HP +50%
+        - generic: "1"
+      - button "당겨 넘기기 · 코스트 2 · 1존 · 파워 +36 · 지원 비용 초과":
+        - generic "코스트 2": "2"
+        - strong: 당겨 넘기기
+        - generic: ↗장타
+        - paragraph: 파워 +36
+        - paragraph: 지원 비용 초과
+      - button "작전 확인 · 코스트 1 · 준비 1회 남음 · 뽑기 2장":
+        - generic "에너지 코스트 1 · 준비 1회 남음": "1"
+        - generic: ✦
+        - strong: 작전 확인
+        - generic: 준비
+        - generic: ↻수급
+        - paragraph: 뽑기 2장
+      - button "힘 모으기 · 코스트 1 · 준비 1회 남음 · 파워 +18":
+        - generic "에너지 코스트 1 · 준비 1회 남음": "1"
+        - generic: ✦
+        - strong: 힘 모으기
+        - generic: 준비
+        - generic: ↗장타
+        - paragraph: 파워 +18
+    - generic "현재 플랜 요약":
+      - generic "에너지 2/2":
+        - generic: ENERGY
+        - strong:
+          - text: "2"
+          - generic: /2
+        - generic: 비용 1 · 남음 1
+      - list "이번 공 진행":
+        - listitem: 코스 노리기
+        - listitem: 공 날아옴
+        - listitem: 결과
+      - generic: 적중권 14–28% · 피해 ×1.0 · 합계 1/2
+      - generic: 실행하세요
+      - 'generic "유지 중인 준비 효과: 집중 +1"':
+        - generic: 준비 유지
+        - generic: 집중 +1
+    - button "휘두른다 정타 노림":
+      - generic: 휘두른다
+      - generic: 정타 노림
+    - button "지켜본다 다음 공 +1":
+      - generic: 지켜본다
+      - generic: 다음 공 +1
+    - button "정타 노림 카드 검사": ⓘ
