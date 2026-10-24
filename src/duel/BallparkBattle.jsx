@@ -29,6 +29,7 @@ import './momentum.css';
 import './original-ui-refinement.css';
 import BallparkCoach from './BallparkCoach.jsx';
 import {forecastFor,ForecastChip,HpForecastBand,RiskTint} from './SwingForecast.jsx';
+import {pitcherIntentIcon} from './intent-icon.js';
 
 /* V13 BALLPARK — the battle as one ballpark scene (docs/design/v13/BALLPARK.md).
    Same engine contract as the legacy screen: `selected` + battle.aimZone is the main card,
@@ -205,6 +206,7 @@ export default function BallparkBattle({
   if(selected&&!mainIsSkill)lastSwing.current={id:selected,supports:stack};
   const forecast=deciding&&!inspect?forecastFor({s,selected:mainIsSkill?null:selected,stack,armed,hoverZone,
     skillId:hoverSkill||(mainIsSkill?selected:null),lastSwing:lastSwing.current}):null;
+  const intentIcon=deciding?pitcherIntentIcon(s):null;
   useEffect(()=>{if(!deciding){setHoverZone(null);setHoverSkill(null);touchSlide.current=null;}},[deciding]);
   const zoneAt=(x,y)=>{const el=document.elementFromPoint?.(x,y)?.closest?.('[data-zone]');return el&&zoneRef.current?.contains(el)?Number(el.dataset.zone):null;};
   const slideStart=e=>{if(e.pointerType!=='touch'||!deciding)return;const z=zoneAt(e.clientX,e.clientY);touchSlide.current={id:e.pointerId,from:z,at:z};if(z!=null)setHoverZone(z);};
@@ -574,9 +576,13 @@ export default function BallparkBattle({
         </div>}
       </aside>}
       {canPixi&&<BallparkActors sceneRef={sceneRef} pitcherAtlas={pitcherAtlas} artId={artId} batterPoses={batterPoses} batterSheet={batterSheet} batterRig={batterRig} pitchZone={judged?r.zone:null} shot={shot} fxStage={fxStage} playToken={playToken} knockedOut={judged&&((pre?hpWas:pitcher?.hp)??1)===0} onReady={setPixi}/>}
-      <div className="bp-pitcher bp-cam" ref={pitcherRef} aria-hidden="true" style={{'--stance-x':pitcherStance(artId)[0],'--stance-y':pitcherStance(artId)[1]}}>{pitcherArt}{gm&&<GimmickVfx id={gm.id} tier={gtier} phase={pre?shownGimmickPhase:(pitcher?.phase||'steady')}/>}</div>
+      <div className="bp-pitcher bp-cam" ref={pitcherRef} aria-hidden="true" style={{'--stance-x':pitcherStance(artId)[0],'--stance-y':pitcherStance(artId)[1]}}>{pitcherArt}{intentIcon&&<span className="bp-intent-icon" data-testid="bp-intent-icon" data-intent={intentIcon.kind} data-read={intentIcon.level}
+        style={{position:'absolute',left:'50%',top:'-6%',width:'auto',height:'auto',transform:'translateX(-50%)',visibility:'visible',zIndex:6,pointerEvents:'none',
+          display:'flex',alignItems:'center',gap:'3px',padding:'2px 6px',borderRadius:'999px',background:'rgba(8,12,22,.82)',border:'1px solid rgba(255,214,120,.7)',
+          color:'#f3ead2',font:'700 11px/1.1 system-ui,sans-serif',whiteSpace:'nowrap',opacity:intentIcon.opacity}}>
+        <b style={{fontSize:'15px',lineHeight:1}}>{intentIcon.icon}</b>{intentIcon.label}</span>}{gm&&<GimmickVfx id={gm.id} tier={gtier} phase={pre?shownGimmickPhase:(pitcher?.phase||'steady')}/>}</div>
       <div className="bp-pcol">
-      <div className="bp-ptag" aria-label={`${pitcher?.name} 투수 HP ${pre?hpWas:pitcher?.hp} / ${pitcher?.maxHp}`}>
+      <div className="bp-ptag" aria-label={`${pitcher?.name} 투수 HP ${pre?hpWas:pitcher?.hp} / ${pitcher?.maxHp}`+(intentIcon?` · 의도 ${intentIcon.label}`:'')}>
         <div className="bp-pitcher-badge-row">
           <span className="bp-pitcher-flame" aria-hidden="true">🔥</span>
           <span className="bp-pitcher-title-name"><b className="bp-pname">{pitcher?.name||'투수'}</b></span>
