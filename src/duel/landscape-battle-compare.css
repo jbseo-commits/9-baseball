@@ -152,7 +152,17 @@ html:has(.battle-layout-compare),html:has(.battle-layout-compare) body,html:has(
   .bp-layout-compare .bp-verdict small,.bp-layout-compare .bp-moves{font-size:11px;line-height:14px}
   .bp-layout-compare .bp-commit{top:12%;max-width:90%;padding:6px}
   .bp-layout-compare .bp-commit-kicker{display:none}
-  .bp-layout-compare .bp-inspect{position:absolute;inset:0;max-width:100%;max-height:100%;z-index:12}
+  .bp-layout-compare .bp-inspect{position:absolute;inset:0;max-width:100%;max-height:100%;min-height:0;display:flex;flex-direction:column;overflow:hidden;z-index:12;background:#091c27;border:1px solid #536b75}
+  .bp-layout-compare .bp-inspect-head{display:flex;align-items:center;gap:6px;flex:none;min-height:44px;padding:0 8px}
+  .bp-layout-compare .bp-inspect-head strong{font-size:12px}
+  .bp-layout-compare .bp-inspect-kept,.bp-layout-compare .bp-inspect-status{display:none}
+  .bp-layout-compare .bp-inspect-back{margin-left:auto;min-height:44px;min-width:64px;font-size:12px}
+  .bp-layout-compare .bp-inspect-tabs{display:flex;gap:3px;flex:none;padding:0 6px}
+  .bp-layout-compare .bp-inspect-tabs button{min-height:44px;flex:1;min-width:0;padding:2px;font-size:11px}
+  .bp-layout-compare .bp-inspect-tabs button.on{color:#ffe0a0;border-color:#c6a56d}
+  .bp-layout-compare .bp-inspect-body{flex:1;min-height:0;overflow:auto;padding:5px 9px;font-size:12px;line-height:1.4;overscroll-behavior:contain}
+  .bp-layout-compare .bp-inspect-gives{color:#ffe0a0}
+  .bp-layout-compare .bp-inline-menu button{min-height:44px;margin:3px 5px 3px 0;padding:5px 8px}
   .bp-layout-compare.inspecting .bp-scene *{visibility:hidden!important}
 }
 @media(orientation:landscape) and (max-height:330px){
