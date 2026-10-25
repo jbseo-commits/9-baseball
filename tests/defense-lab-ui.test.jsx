@@ -49,14 +49,15 @@ it('resumes a saved lab with both exhausted protection and the earned next-hit c
   const s=createDefenseLabState({seed:914,pack:'hold'});
   s.defenseLab.protectionUsed=true;s.defenseLab.counterReady=true;
   saveDefenseLabState(localStorage,s);render(<Duel/>);
-  expect(screen.getByLabelText('현재 제약과 다음 예고').textContent).toContain('보호 소진');
-  expect(screen.getByLabelText('현재 제약과 다음 예고').textContent).toContain('다음 안타 +8');
+  expect(screen.getByLabelText('현재 제약과 다음 예고').textContent).toContain('2S 보호 0');
+  expect(screen.getByLabelText('현재 제약과 다음 예고').textContent).toContain('반격 +8');
+  expect(document.querySelector('.bp-lab-status').getAttribute('aria-label')).toContain('다음 안타 +8');
   expect(screen.queryByRole('dialog')).toBeNull();
 });
 it('shows the experiment role on both a strong attack and its preparation card',()=>{
   saveDefenseLabState(localStorage,createDefenseLabState({seed:914,pack:'power'}));render(<Duel/>);
-  expect(document.querySelector('.bp-hand [data-card-kind="slug"] .bp-lab-card-note')?.textContent).toBe('힘 투자 후 봉쇄');
-  expect(document.querySelector('.bp-hand [data-card-kind="loadPower"] .bp-lab-card-note')?.textContent).toBe('힘 투자 · 봉쇄 준비');
+  expect(document.querySelector('.bp-hand [data-card-kind="slug"] .bp-lab-card-note')?.getAttribute('aria-label')).toBe('힘 투자 후 봉쇄');
+  expect(document.querySelector('.bp-hand [data-card-kind="loadPower"] .bp-lab-card-note')?.getAttribute('aria-label')).toBe('힘 투자 · 봉쇄 준비');
 });
 it('explains the lab energy budget without substituting the main-run budget',()=>{
   saveDefenseLabState(localStorage,createDefenseLabState({seed:914,pack:'power'}));render(<Duel/>);

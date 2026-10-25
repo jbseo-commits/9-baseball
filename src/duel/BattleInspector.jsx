@@ -53,6 +53,7 @@ function ReadBody({read}){
   return <div>
     <strong>읽기 {read.level}/2 · {lv.name}</strong>
     <p>{lv.detail}</p>
+    <p>공 한 개는 드묾, 두 개는 가끔, 세 개는 자주 오는 코스입니다. 빗금은 던지지 않는 코스입니다.</p>
     {!!read.sources.length&&<p>기여: {read.sources.map(x=>`${x.label}${x.amount>1?' +'+x.amount:''}`).join(' · ')}</p>}
   </div>;
 }
@@ -98,8 +99,9 @@ export default function BattleInspector({tab,setTab,pileKind,inspectCard,inspect
       {tab==='pitch'&&<PitchBody lastCombat={lastCombat} r={r}/>}
       {tab==='pile'&&<PileBody piles={piles}/>}
       {tab==='menu'&&<div className="bp-inline-menu">
-        <strong>카드 → 코스 → 휘두른다</strong>
-        <p>카드는 한 번 눌러 고르고 코스를 누릅니다. 다른 공격 카드를 더 고르면 지원 코스를 정합니다. 무료 맨손 스윙은 에너지가 없어도 쓸 수 있습니다.</p>
+        <strong>카드 → 코스 → 실행</strong>
+        <p>카드를 고르지 않고 실행하면 지켜봅니다. 공격 카드는 조준해 타격하고 준비 카드는 공을 소비하지 않고 사용합니다. 고른 카드를 다시 누르면 선택과 지원을 비웁니다.</p>
+        <p>다른 공격 카드를 더 고르면 지원 코스를 정합니다. 무료 맨손 스윙은 에너지가 없어도 쓸 수 있습니다.</p>
         <p>카드를 길게 누르면 설명을 봅니다. 정보 보기 중 손패를 누르면 계획을 바꾸지 않고 그 카드만 확인합니다.</p>
         {energy&&<p>에너지 {energy.current}/{energy.cap} · 기본은 다음 실제 공마다 {v10EnergyBase(s)}을 충전합니다. 볼·삼진 전 스트라이크를 지켜보면 다음 실제 공에 +1(최대 {v10EnergyBase(s)+1})을 예약합니다. 볼넷은 다음 타자에게 전달되며 삼진·투수 강판에는 보상이 없습니다. 기본 보충 뒤 카드 1장을 더 뽑습니다(손패 최대6장·더미 한도 적용).</p>}
         {effects.length>0&&<div><strong>유지 중인 준비</strong>{effects.map(x=><p key={x}>{x}</p>)}</div>}

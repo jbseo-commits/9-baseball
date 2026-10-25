@@ -50,7 +50,7 @@ const dmgText=f=>{
 };
 const changeColor=(a,b)=>b>a?'#7dff9a':b<a?'#ff7a6b':'#f3ead2';
 
-export function ForecastChip({forecast}){
+export function ForecastChip({forecast,compact=false}){
   if(!forecast)return null;
   const {now,before,problem}=forecast,color=riskColor(now.coverage.length);
   const hit=formatHitChance(chanceBounds(now)),hitBefore=before&&formatHitChance(chanceBounds(before));
@@ -65,10 +65,10 @@ export function ForecastChip({forecast}){
       whiteSpace:'nowrap',font:'700 11.5px/1.15 system-ui,sans-serif',color:'#f3ead2'}}>
     {problem?<span data-testid="bp-forecast-problem" style={{...pill,color:'#ffbd9b'}}>준비 후 실행 불가 · {problem.includes('에너지')?'공격 에너지 부족':problem}</span>:<><span style={{display:'flex',gap:'4px'}}>
       <span data-testid="bp-forecast-hit" style={{...pill,border:`1px solid ${color}`,boxShadow:`0 0 8px ${color}66`}}>
-        {now.sacrifice?'희생타':'적중'} {before&&hitBefore!==hit?<><s style={{opacity:.6}}>{hitBefore}</s> → <b style={{color:changeColor(chanceBounds(before)[0],chanceBounds(now)[0])}}>{hit}</b></>:<b style={{color}}>{hit}</b>}
+        {now.sacrifice?'희생타':compact?<span aria-hidden="true">◎</span>:'적중'} {before&&hitBefore!==hit?<><s style={{opacity:.6}}>{hitBefore}</s> → <b style={{color:changeColor(chanceBounds(before)[0],chanceBounds(now)[0])}}>{hit}</b></>:<b style={{color}}>{hit}</b>}
       </span>
       <span data-testid="bp-forecast-dmg" style={{...pill,border:'1px solid #ffb347'}}>
-        {outcomeName} 시 {before&&dmgBefore!==dmg?<><s style={{opacity:.6}}>{dmgBefore}</s> → <b style={{color:changeColor(before.dmgMax,now.dmgMax)}}>{dmg}</b></>:<b style={{color:'#ffd27a'}}>{dmg}</b>}
+        {compact?<span aria-hidden="true">♥ −</span>:outcomeName+' 시 '}{before&&dmgBefore!==dmg?<><s style={{opacity:.6}}>{dmgBefore}</s> → <b style={{color:changeColor(before.dmgMax,now.dmgMax)}}>{dmg}</b></>:<b style={{color:'#ffd27a'}}>{dmg}</b>}
       </span>
     </span>
     {((now.runners>0&&!now.sacrifice)||now.shaken>0)&&<span className="bp-forecast-badges" style={{display:'flex',gap:'4px'}}>

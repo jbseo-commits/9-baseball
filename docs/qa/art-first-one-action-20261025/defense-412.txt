@@ -1,0 +1,62 @@
+- main "타석":
+  - generic: 실험 · 버티기
+  - generic "볼 0 스트라이크 2 아웃 2":
+    - generic: B
+    - generic: S
+    - generic: O
+  - generic "에너지 3/3":
+    - strong:
+      - text: "3"
+      - generic: /3
+  - button "경기 정보 및 메뉴": ☰
+  - region "승부 구장":
+    - generic: ❓
+    - generic "레드 러시 투수 HP 88 / 88 · 의도 읽기 힘듦":
+      - generic: 레드 러시
+      - generic: 88 / 88
+    - text: “
+    - group "노릴 코스":
+      - button "몸쪽 높게 · 던지지 않는 코스"
+      - button "가운데 높게"
+      - button "바깥쪽 높게"
+      - button "몸쪽"
+      - button "가운데 · 노림" [pressed]
+      - button "바깥쪽"
+      - button "몸쪽 낮게 · 던지지 않는 코스"
+      - button "가운데 낮게"
+      - button "바깥쪽 낮게"
+      - emphasis: 볼 가끔
+    - generic "주자"
+  - generic "손패":
+    - button "코스트 0 맨손 스윙":
+      - generic "코스트 0": "0"
+      - strong: 맨손 스윙
+    - button "커트 장인 · 코스트 2 · 십자 5존 · 단타 · 파울 50% · 파울 +2 HP · 메인 실제 파울 첫 1회 · 봉쇄/+8":
+      - generic "코스트 2": "2"
+      - generic "메인 실제 파울 첫 1회 · 봉쇄/+8": ⚑
+      - strong: 커트 장인
+    - button "커트 스윙 · 코스트 2 · 십자 5존 · 단타 · 파울 생존 · 메인 실제 파울 첫 1회 · 봉쇄/+8":
+      - generic "코스트 2": "2"
+      - generic "메인 실제 파울 첫 1회 · 봉쇄/+8": ⚑
+      - strong: 커트 스윙
+    - button "정타 노림 · 코스트 1 · 1존 · 정타 HP +50%":
+      - generic "코스트 1": "1"
+      - strong: 정타 노림
+    - button "투구 수 늘리기 · 코스트 1 · 준비 2회 남음 · 파울 생존 · 파울 +3 HP":
+      - generic "에너지 코스트 1 · 준비 2회 남음": "1"
+      - generic: ✦
+      - strong: 투구 수 늘리기
+    - button "호흡 고르기 · 코스트 1 · 준비 2회 남음 · 뽑기 1장 · 생존":
+      - generic "에너지 코스트 1 · 준비 2회 남음": "1"
+      - generic: ✦
+      - strong: 호흡 고르기
+  - generic "현재 플랜 요약":
+    - status "지켜보기 · 스트라이크면 삼진 · 보호 제외": 스트라이크면 삼진 · 보호 제외
+    - 'generic "유지 중인 준비 효과: 집중 +2 · 안타 시 주자 +2루 · 범위 +1 · 타석 유지 · 파워 +54 · 안타 HP +2 · 존 안 미적중 파울 확률↑"':
+      - generic: ✦준비 유지
+      - generic: 집중 +2 · 안타 시 주자 +2루 · 범위 +1 · 타석 유지 · 파워 +54 · 안타 HP +2 · 존 안 미적중 파울 확률↑
+    - generic "현재 제약과 다음 예고":
+      - generic "제약 없음 · 공 종료 후 다음 공 스택 최대 2장": 이번 —→다음 2장
+      - generic "2S 커트 보호 1회 남음 · 다음 안타 +8": 2S 커트보호 1 · 반격 +8
+  - button "지켜본다 · 스트라이크면 삼진 · 보호 제외":
+    - generic: 실행

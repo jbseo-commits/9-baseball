@@ -24,7 +24,7 @@ describe('welcome guide first-run persistence',()=>{
     // Zone chapter (index 2): no exact-% norm, boundary is >= 30%.
     render(<WelcomeGuide start={2} onClose={()=>{}} onCards={()=>{}}/>);
     let text=document.querySelector('.wg-page').textContent;
-    expect(text).toContain('처음엔 낱말로');
+    expect(text).toContain('처음엔 공 표식');
     expect(text).toContain('30% 이상이면');
     expect(text).not.toContain('30%를 넘으면');
     cleanup();

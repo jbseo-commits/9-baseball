@@ -34,6 +34,9 @@ export function defenseLabDisplay(s,before=false){
     result='지난 공: '+parts.join(' · ');
   }
   return {packName:LAB_PACK_NAMES[lab.pack],rule:LAB_RULES[lab.pack],
+    compactActive:active?.key==='stack'?'이번 2장':active?.key==='pressure'?'이번 ⚡−1':'이번 —',
+    compactThreat:threat?.key==='stack'?'다음 2장':threat?.key==='pressure'?'다음 ⚡−1':'다음 —',
+    compactStatus:[flags.protectionUsed?'2S 보호 0':flags.transferredProtection?'2S 연결보호 1':'2S 커트보호 1',flags.counterReady?'반격 +8':lab.pack==='hold'&&counterEarned?'대응 ✓':'',flags.powerInvested?'힘 투자 ✓':''].filter(Boolean).join(' · '),
     active:active?.key==='stack'?'스택 최대 2장':active?.key==='pressure'?'에너지 −1 적용':'제약 없음',
     threat:threatText(threat),rest:threat.key==='rest',status:status.join(' · '),result};
 }

@@ -100,7 +100,7 @@ describe('first-battle coach marks',()=>{
     fireEvent.click(screen.getByRole('button',{name:'경기 정보 및 메뉴'}));
     fireEvent.click(screen.getByRole('tab',{name:'메뉴',exact:true}));
     const layer=screen.getByTestId('bp-inspect');
-    expect(layer.textContent).toContain('카드 → 코스 → 휘두른다');
+    expect(layer.textContent).toContain('카드 → 코스 → 실행');
     expect(screen.queryByRole('dialog')).toBeNull();
     for(const step of COACH_STEPS)expect(document.querySelector('.bp-battle '+step.sel),step.sel).toBeTruthy();
     fireEvent.click(screen.getByRole('button',{name:'경기로'}));

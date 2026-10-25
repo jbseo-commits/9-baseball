@@ -1,0 +1,61 @@
+- main "타석":
+  - generic: 1막
+  - generic "볼 0 스트라이크 2 아웃 0":
+    - generic: B
+    - generic: S
+    - generic: O
+  - generic "에너지 2/2":
+    - strong:
+      - text: "2"
+      - generic: /2
+  - button "경기 정보 및 메뉴": ☰
+  - region "승부 구장":
+    - generic: ❓
+    - generic "로즈 페인트 투수 HP 56 / 60 · 의도 읽기 힘듦":
+      - generic: 로즈 페인트
+      - generic: 56 / 60
+    - group "노릴 코스":
+      - status "예측 안타 28–56% · 안타 데미지 12":
+        - generic: ◎ 28–56%
+        - generic: ♥ −12
+      - button "몸쪽 높게 · 던지지 않는 코스"
+      - button "가운데 높게"
+      - button "바깥쪽 높게"
+      - button "몸쪽 · 던지지 않는 코스"
+      - button "가운데"
+      - button "바깥쪽 · 노림" [active] [pressed]:
+        - generic: "1"
+      - button "몸쪽 낮게 · 던지지 않는 코스"
+      - button "가운데 낮게"
+      - button "바깥쪽 낮게"
+      - emphasis: 볼 가끔
+    - generic "주자"
+  - generic "손패":
+    - button "코스트 0 맨손 스윙":
+      - generic "코스트 0": "0"
+      - strong: 맨손 스윙
+    - button "파울팁 · 코스트 1 · 세로 2존 · 단타 · 파울 55% · 파울 +2 HP" [pressed]:
+      - generic "코스트 1": "1"
+      - strong: 파울팁
+      - generic: "1"
+    - button "걷어내기 · 코스트 1 · 가로 2존 · 단타 · 파울 45% · 파울 +2 HP":
+      - generic "코스트 1": "1"
+      - strong: 걷어내기
+    - button "정타 노림 · 코스트 1 · 1존 · 정타 HP +50%":
+      - generic "코스트 1": "1"
+      - strong: 정타 노림
+    - button "투구 수 늘리기 · 코스트 1 · 준비 1회 남음 · 파울 생존 · 파울 +3 HP":
+      - generic "에너지 코스트 1 · 준비 1회 남음": "1"
+      - generic: ✦
+      - strong: 투구 수 늘리기
+    - button "벤치의 격려 · 코스트 1 · 준비 1회 남음 · 뽑기 1장 · 파울 +2 HP":
+      - generic "에너지 코스트 1 · 준비 1회 남음": "1"
+      - generic: ✦
+      - strong: 벤치의 격려
+  - generic "현재 플랜 요약":
+    - status: 단타 · 파울 55% · 파울 +2 HP
+    - 'generic "유지 중인 준비 효과: 존 안 미적중 파울 확률↑"':
+      - generic: ✦준비 유지
+      - generic: 존 안 미적중 파울 확률↑
+  - button "휘두른다 파울팁":
+    - generic: 실행

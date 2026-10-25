@@ -25,7 +25,7 @@ describe('V10 ballpark energy UI',()=>{
     const {container,rerender}=render(<BallparkBattle s={s} hand={hand} selected="c4" swingStack={supports} choice={choice}
       pitcher={s.pitcher} onStack={onStack} onSelect={()=>{}} onAim={()=>{}} onSwing={()=>{}} onTake={()=>{}}/>);
     expect(screen.getByTestId('bp-energy').getAttribute('aria-label')).toBe('에너지 2/2');
-    expect(screen.getByTestId('bp-take').textContent).toContain('다음 공 +1');
+    expect(screen.getByTestId('bp-swing').getAttribute('data-action-kind')).toBe('swing');
     expect(container.querySelector('.bp-card-cost.prep').textContent).toBe(String(cardCost('setup')));
     expect(container.querySelector('.bp-verbs .bp-verb.go').disabled).toBe(false);
     fireEvent.click(container.querySelector('.bp-card[data-card-kind="place"]'));
@@ -33,7 +33,7 @@ describe('V10 ballpark energy UI',()=>{
     const twoStrike=structuredClone(s);twoStrike.battle.strikes=2;
     rerender(<BallparkBattle s={twoStrike} hand={hand} selected="c4" swingStack={supports} choice={choice}
       pitcher={twoStrike.pitcher} onStack={onStack} onSelect={()=>{}} onAim={()=>{}} onSwing={()=>{}} onTake={()=>{}}/>);
-    expect(screen.getByTestId('bp-take').textContent).toContain('볼 +1 · 삼진 0');
+    expect(screen.getByTestId('bp-swing').getAttribute('data-action-kind')).toBe('swing');
     const boosted=structuredClone(s);boosted.battle.energy=0;boosted.battle.energyCap=3;
     rerender(<BallparkBattle s={boosted} hand={hand} selected="c4" swingStack={supports} choice={choice}
       pitcher={boosted.pitcher} onStack={onStack} onSelect={()=>{}} onAim={()=>{}} onSwing={()=>{}} onTake={()=>{}}/>);
@@ -49,7 +49,7 @@ describe('V10 ballpark energy UI',()=>{
     const hand=s.battle.hand.map(id=>({id,entry:s.deck.find(c=>c.id===id),preview:previewCard(s,id)}));
     const props={hand,selected:null,swingStack:[],choice:null,pitcher:s.pitcher,onStack:()=>{},onSelect:()=>{},onAim:()=>{},onSwing:()=>{},onTake:()=>{}};
     const {container,rerender}=render(<BallparkBattle s={s} {...props}/>);
-    expect([...container.querySelectorAll('[data-testid="bp-take"]')].every(x=>x.textContent.includes('다음 공 +1'))).toBe(true);
+    expect(container.querySelector('.bp-compact-summary').textContent).toContain('다음 공 ⚡+1');
     const result=structuredClone(s);result.phase='pitch';result.battle.takeEnergyBonus=1;
     rerender(<BallparkBattle s={result} {...props}/>);
     expect(container.querySelector('[data-testid="bp-energy"]').textContent).toContain('다음 공 3 · 카드+1');

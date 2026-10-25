@@ -1,0 +1,34 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Local compact battle fixtures</title>
+<body style="background:#0a1721;color:#eee;font:16px/1.6 system-ui;padding:16px">
+<h1>로컬 전용 화면 검증</h1><p>생성된 테스트 저장으로 현재 로컬 원정을 교체합니다. 실제 플레이·밸런스 증거가 아닙니다. docs는 production dist에 포함되지 않습니다.</p>
+<div id="choices"></div><pre id="result"></pre>
+<script type="module">
+import * as E from '/src/duel/engine.js';
+const localHost=['localhost','127.0.0.1'].includes(location.hostname);
+if(!localHost)throw new Error('Local fixtures only');
+const scenarios=[['bunt','2S 번트 · 에너지0 · 조건과 경고'],['effects','활성 준비 다수 · 에너지0'],['boss','보스 기믹 · 긴 이름'],['result','실제 엔진 타격 결과'],['lab','공방 위기 · 보호·반격'],['lab-effects','공방 · 준비 효과 다수']];
+for(const [key,name] of scenarios){
+  const button=document.createElement('button');button.textContent=name;button.style.cssText='min-height:44px;display:block;margin:12px 0;padding:8px';
+  button.onclick=()=>{
+    try{
+      const isLab=key.startsWith('lab');
+      let s=isLab?E.createDefenseLabState({seed:914,pack:'hold',scenario:'crisis'}):E.enterV10Node(E.createV10Duel(90211),'a1-entry');
+      if(isLab){s.defenseLab.counterReady=true;s.defenseLab.counterEarned=true;if(key==='lab-effects')Object.assign(s.battle,{aim:2,runSignal:true,runSignalPlus:true,expanded:true,expandedPlus:true,bonusPower:3,bonusDmg:2,patient:true});E.saveDefenseLabState(localStorage,s);if(!E.readDefenseLabState(localStorage))throw new Error('Invalid lab fixture');}
+      else{
+        const kinds=key==='bunt'?['bunt','squeeze','flow','place','scout']:['pinpoint','strike','watch','focusBreath','analyst'];
+        s.deck.forEach((c,i)=>{if(kinds[i])c.kind=kinds[i];});
+        s.battle.hand=s.deck.slice(0,5).map(c=>c.id);s.battle.draw=s.deck.slice(5).map(c=>c.id);s.battle.discard=[];
+        s.battle.energy=key==='bunt'||key==='effects'?0:2;s.battle.energyCap=2;
+        if(key==='bunt')s.battle.strikes=2;
+        if(key==='effects')Object.assign(s.battle,{aim:2,runSignal:true,runSignalPlus:true,expanded:true,expandedPlus:true,bonusPower:3,bonusDmg:2,bonusPressure:.25,bonusBall:4,bonusWalk:5,bonusFoul:6,patient:true,scouted:true,scoutPlus:true,scoutBall:true});
+        if(key==='boss'){s.v10.opponent.gimmick={id:'tyrant',label:'지배자의 압박',summary:'낮은 3코스 비중 +10%p.',phases:{critical:'낮은 3코스 +20%p.'}};s.v10.opponent.rewardTier=3;s.pitcher.hp=10;s.pitcher.phase='critical';}
+        if(key==='result'){s.battle.aimZone=4;s.battle.pending={zone:4,roll:.1,powerRoll:.5};s=E.playV10Action(s,{type:'card',id:'c0'});}
+        E.saveV10Duel(localStorage,s);if(!E.readV10Duel(localStorage))throw new Error('Invalid normal fixture');
+      }
+      location.href=isLab?'/?experiment=defense':'/';
+    }catch(e){document.getElementById('result').textContent=String(e);}
+  };
+  document.getElementById('choices').appendChild(button);
+}
+</script></body></html>

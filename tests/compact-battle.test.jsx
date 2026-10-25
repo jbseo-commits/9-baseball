@@ -13,11 +13,11 @@ function begin({strikes=0,energy=2}={}){
   E.saveV10Duel(localStorage,s);render(<Duel/>);
   fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));return s;
 }
-it('has one auxiliary entry and two actions, keeping hand and nine zones',()=>{
+it('has one auxiliary entry and one execution, keeping hand and nine zones',()=>{
   begin();
   expect(document.querySelector('.bp-battle').classList.contains('bp-compact')).toBe(true);
   expect(document.querySelectorAll('.bp-bar button')).toHaveLength(1);
-  expect(document.querySelectorAll('.bp-verbs button')).toHaveLength(2);
+  expect(document.querySelectorAll('.bp-verbs button')).toHaveLength(1);
   expect(document.querySelector('.bp-ptag button')).toBeNull();
   expect(document.querySelectorAll('.bp-cell')).toHaveLength(9);
   expect(document.querySelector('.bp-card.basic .bp-card-art').style.backgroundImage).toContain('url(');
@@ -48,7 +48,8 @@ it('keeps execution locked while inspecting and returns focus to its single open
 it('keeps the free swing and the lethal two-strike take warning available',()=>{
   begin({strikes:2,energy:0});fireEvent.click(document.querySelector('.bp-card.basic'));
   expect(screen.getByTestId('bp-swing').disabled).toBe(false);
-  expect(screen.getByTestId('bp-take').textContent).toMatch(/삼진/);
+  fireEvent.click(document.querySelector('.bp-card.basic'));
+  expect(document.querySelector('.bp-compact-summary').textContent).toMatch(/삼진/);
 });
 it('changes sound inline without altering game state or opening settings',()=>{
   begin();const before=JSON.stringify(E.readV10Duel(localStorage));

@@ -58,7 +58,7 @@ it('does not carry the disposable autobattle flag back into a saved main run',as
   fireEvent.click(screen.getByRole('button',{name:'설정 및 도움말'}));await enter();
   fireEvent.click(screen.getByRole('button',{name:'건너뛰기'}));
   expect(screen.queryByTestId('bp-auto-lesson')).toBeNull();
-  vi.useFakeTimers();fireEvent.click(screen.getByTestId('bp-take'));
+  vi.useFakeTimers();fireEvent.click(screen.getByTestId('bp-swing'));
   expect(readV10Duel(localStorage).stats.pitches).toBe(saved.stats.pitches+1);
 });
 

@@ -1,0 +1,60 @@
+- main "타석":
+  - generic: 1막
+  - generic "볼 0 스트라이크 0 아웃 0":
+    - generic: B
+    - generic: S
+    - generic: O
+  - generic "에너지 2/2":
+    - strong:
+      - text: "2"
+      - generic: /2
+  - button "경기 정보 및 메뉴": ☰
+  - region "승부 구장":
+    - generic: ➡️
+    - generic "스카이 팬텀 투수 HP 60 / 60 · 의도 바깥쪽 공략":
+      - generic: 스카이 팬텀
+      - generic: 60 / 60
+    - text: “
+    - group "노릴 코스":
+      - button "몸쪽 높게 · 던지지 않는 코스"
+      - button "가운데 높게 · 던지지 않는 코스"
+      - button "바깥쪽 높게":
+        - generic: 15~20%
+      - button "몸쪽 · 던지지 않는 코스"
+      - button "가운데 · 노림" [pressed]:
+        - generic: 10~15%
+      - button "바깥쪽":
+        - generic: 25~30%
+      - button "몸쪽 낮게 · 던지지 않는 코스"
+      - button "가운데 낮게 · 던지지 않는 코스"
+      - button "바깥쪽 낮게":
+        - generic: 20~25%
+      - emphasis: 볼 15~20%
+    - generic "주자"
+  - generic "손패":
+    - button "코스트 0 맨손 스윙":
+      - generic "코스트 0": "0"
+      - strong: 맨손 스윙
+    - button "밀어치기 · 코스트 2 · 세로 3존 · 적중하면 안타":
+      - generic "코스트 2": "2"
+      - strong: 밀어치기
+    - button "핀포인트+ · 코스트 1 · 1존 · 파워 +18 · 정타 HP +70%":
+      - generic "코스트 1": "1"
+      - strong:
+        - text: 핀포인트
+        - superscript: +
+    - button "밀어치기 · 코스트 2 · 세로 3존 · 적중하면 안타":
+      - generic "코스트 2": "2"
+      - strong: 밀어치기
+    - button "릴리스 간파 · 코스트 1 · 준비 2회 남음 · 뽑기 1장 · 높이·볼 간파":
+      - generic "에너지 코스트 1 · 준비 2회 남음": "1"
+      - generic: ✦
+      - strong: 릴리스 간파
+    - button "타이밍 맞추기 · 코스트 0 · 준비 2회 남음 · 집중 +1":
+      - generic "에너지 코스트 0 · 준비 2회 남음": "0"
+      - generic: ✦
+      - strong: 타이밍 맞추기
+  - generic "현재 플랜 요약":
+    - status "지켜보기 · 다음 공 ⚡+1": 다음 공 ⚡+1
+  - button "지켜본다 · 다음 공 ⚡+1":
+    - generic: 실행
