@@ -1,0 +1,32 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>로컬 확률·자원 검증</title><body style="background:#10212b;color:#eee;font:16px/1.6 system-ui;padding:16px">
+<h1>로컬 테스트 상태</h1><p>이 origin의 테스트 저장을 교체합니다. 실제 원정이나 밸런스 평가가 아닙니다. 공개 사이트에서는 실행하지 않습니다.</p><div id="choices"></div><pre id="result"></pre>
+<script type="module">
+import * as E from '/src/duel/engine.js';
+if(!['127.0.0.1','localhost'].includes(location.hostname))throw new Error('Local fixtures only');
+const cases=[['low','낱말 읽기 · 아웃3'],['range','구간 읽기 · 아웃2'],['exact','정확 읽기 · 아웃1'],['bounds-range','0~5% 경계'],['bounds-exact','0% 반올림 경계'],['zero','에너지0 · 2S 번트'],['bonus','보너스 에너지3'],['legacy4','구 저장 에너지4'],['clue','확정 정찰'],['ledger','볼만 정확'],['defense','공방 · 아웃1'],['flow','강판 이후 흐름']];
+for(const [key,name] of cases){
+  const button=document.createElement('button');button.textContent=name;button.style.cssText='display:block;min-height:44px;margin:12px 0;padding:8px';
+  button.onclick=()=>{try{
+    const lab=key==='defense';let s;
+    if(lab)s=E.createDefenseLabState({seed:914,pack:'hold',scenario:'crisis'});
+    else{
+      let initial=E.createV10Duel(90211);
+      const level=key==='range'||key==='bounds-range'?1:key==='exact'||key==='bounds-exact'?2:0;
+      const kinds=['place','place','bunt','scout','calm','place','place','place','place'];
+      for(let i=0;i<level*2;i++)kinds[8-i]='scout';
+      initial.deck=kinds.map((kind,i)=>({id:'r'+i,kind}));initial.nextId=9;
+      s=E.enterV10Node(initial,'a1-entry');s.battle.hand=s.deck.slice(0,5).map(c=>c.id);s.battle.draw=s.deck.slice(5).map(c=>c.id);s.battle.discard=[];
+      s.battle.outs=key==='range'?1:key==='exact'||key==='zero'?2:0;s.battle.energy=key==='zero'?0:key==='bonus'?3:key==='legacy4'?4:2;s.battle.energyCap=key==='bonus'?3:key==='legacy4'?4:2;
+      if(key==='zero')s.battle.strikes=2;
+      if(key==='clue'){s.battle.scouted=true;s.battle.scoutPlus=true;}
+      if(key==='ledger')s.relics=['ledger'];
+      if(key.startsWith('bounds-')){const p=Array(10).fill(0);s.battle.intent.repertoire.forEach((z,i)=>{p[z]=[.004,.036,.7,.2][i]||0;});p[9]=.06;s.battle.intent.probabilities=p;}
+      if(key==='flow'){s.pitcher.hp=1;s.pitcher.phase='critical';s.battle.pending={zone:4,roll:.1,powerRoll:.5};}
+    }
+    if(lab)E.saveDefenseLabState(localStorage,s);else E.saveV10Duel(localStorage,s);
+    location.href=lab?'/?experiment=defense':'/';
+  }catch(e){document.getElementById('result').textContent=e.message;}};
+  document.getElementById('choices').append(button);
+}
+</script></body></html>
