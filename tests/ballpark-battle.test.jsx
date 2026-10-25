@@ -156,15 +156,17 @@ describe('V13 BALLPARK battle',()=>{
     expect(screen.getByTestId('bp-plan').textContent).toMatch(/합계 2\/2/);
   });
 
-  it('a support candidate that would overflow the energy left says so shortly',()=>{
+  it('a support candidate marks its limit without repeating warning prose',()=>{
     // 1 energy left: signature laser(1) main fits; place(1) cannot join as
-    // support, so its face says so shortly without a false exact sum. Tapping
+    // support, so its cost marker says so without a false exact sum. Tapping
     // it replaces the main instead (existing pickSwing behavior).
     begin(['c2','c3','c4','c0','c1'],1,{c2:'laser',c3:'place'});
     fireEvent.click(cards()[0]);fireEvent.click(cells()[4]);
     expect(screen.getByTestId('bp-plan').textContent).toMatch(/합계 1\/1/);
     expect(swingBtn().disabled).toBe(false);
-    expect(cards()[1].textContent).toContain('지원 비용 초과');
+    expect(cards()[1].getAttribute('aria-label')).toContain('지원 비용 초과');
+    expect(cards()[1].querySelector('.bp-card-support-limit')).not.toBeNull();
+    expect(cards()[1].querySelector('.bp-card-warning')).toBeNull();
     expect(cards()[1].textContent).not.toContain('합치면');
   });
 
