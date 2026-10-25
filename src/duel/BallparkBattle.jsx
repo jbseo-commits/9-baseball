@@ -11,7 +11,7 @@ import BallparkActors,{pixiAvailable,pitcherStance} from './BallparkActors.jsx';
 import {lessonFor,planText} from './DecisionDebrief.jsx';
 import {resultExplanation,isExactRead} from './zone-first-model.js';
 import './battle-progress.css';
-import {BattleIcon,CourseMark,CourseLegend,courseMark} from './BattleArt.jsx';
+import {BattleIcon,CourseMark,CourseLegend,courseMark,courseHeat} from './BattleArt.jsx';
 import batterV14MasterSheet from '../../assets/ui-kit/batter/batter-v14-master-sheet.png';
 import cardArtSheet from '../../assets/ui-kit/cards/battle-core-v14-master-sheet.png';
 import {cardArtFor,cardArtFocusFor} from './card-art.js';
@@ -230,7 +230,7 @@ export default function BallparkBattle({
   useEffect(()=>{if(!autoLesson)return;document.documentElement.dataset.autoSim='1';return()=>{delete document.documentElement.dataset.autoSim;};},[autoLesson]);
   const takeDrawPreview=v10TakeDrawPreview(s),drawHint=takeDrawPreview.count===1?'카드+1':takeDrawPreview.reason==='full'?'6장 한도':'추가 0';
   const pendingEnergyText=s.phase==='between'?`다음 타자 ${v10NextEnergyMax(s)} · ${drawHint}`:`다음 공 ${v10NextEnergyMax(s)} · ${drawHint}`;
-  const energyHud=<div className="bp-energy" data-testid="bp-energy" aria-label={`에너지 ${energy}/${energyCap}`}>
+  const energyHud=<div className="bp-energy" data-testid="bp-energy" data-energy={energy} aria-label={`에너지 ${energy}/${energyCap}`}>
     <span>ENERGY</span><strong>{energy}<i>/{energyCap}</i></strong>
     <span className="bp-energy-leds" aria-hidden="true">{Array.from({length:energyCap},(_,i)=><i key={i} className={i<energy?'on':''}/>)}</span>
     <small>{s.phase==='battle'?(selected?`비용 ${actionCost} · 남음 ${Math.max(0,energy-(actionCost||0))}${actionCost>energy?` · 에너지 부족 ${actionCost-energy}`:''}`:s.last?.takeDrawn===1?'충전 · 카드 +1':`기본 0 · 지켜보기 0${energyCap>v10EnergyBase(s)?' · 보너스 공':''}`):s.battle?.takeEnergyBonus===1?pendingEnergyText:`다음 공에 ${v10EnergyBase(s)} 충전`}</small>
@@ -558,7 +558,10 @@ export default function BallparkBattle({
       <div className="bp-bso-strip" aria-label={`볼 ${shownCount.balls} 스트라이크 ${shownCount.strikes} 아웃 ${shownCount.outs}`}>
         <div className="bp-bso-unit b"><b className="bp-bso-name">B</b><span className="bp-bso-leds">{Array.from({length:3},(_,i)=><i key={i} className={i<shownCount.balls?'on':''}/>)}</span></div>
         <div className="bp-bso-unit s"><b className="bp-bso-name">S</b><span className="bp-bso-leds">{Array.from({length:2},(_,i)=><i key={i} className={i<shownCount.strikes?'on':''}/>)}</span></div>
-        <div className="bp-bso-unit o"><b className="bp-bso-name">O</b><span className="bp-bso-leds">{Array.from({length:2},(_,i)=><i key={i} className={i<shownCount.outs?'on':''}/>)}</span></div>
+        {!compact&&<div className="bp-bso-unit o"><b className="bp-bso-name">O</b><span className="bp-bso-leds">{Array.from({length:2},(_,i)=><i key={i} className={i<shownCount.outs?'on':''}/>)}</span></div>}
+        {compact&&<div className="bp-outs-left" data-testid="bp-outs-left" data-outs-left={Math.max(0,3-shownCount.outs)} role="status" aria-label={`남은 아웃 ${Math.max(0,3-shownCount.outs)}/3`}>
+          <span aria-hidden="true">남은 아웃</span><strong aria-hidden="true">{Math.max(0,3-shownCount.outs)}<small>/3</small></strong>
+        </div>}
       </div>
       {compact&&s.version===10&&energyHud}
       {compact?<button type="button" className="bp-menu-open" data-testid="bp-inspect-open" aria-label="경기 정보 및 메뉴" aria-expanded={!!inspect} aria-controls="bp-information" disabled={locked||!!commitBeat||inFx}
@@ -672,15 +675,16 @@ export default function BallparkBattle({
         onPointerLeave={e=>{if(e.pointerType==='mouse')setHoverZone(null);}}>
         <ForecastChip forecast={forecast} compact={compact}/>
         {ZONE_WORDS.map((word,z)=>{
-          const share=(probs[z]||0)/inZone,dead=!live.includes(z),tok=tokens.filter(t=>t.z===z);
+          const dead=!live.includes(z),tok=tokens.filter(t=>t.z===z);
           const actual=judged&&landed&&r.zone===z;
           const face=dead?'안 던짐':cellFace(z),mark=showMarks?courseMark(face):null;
+          const heat=deciding?courseHeat(face):null;
           return <button key={z} type="button" data-zone={z} disabled={!deciding} onClick={()=>pickZone(z)}
             onPointerEnter={e=>{if(e.pointerType==='mouse'&&deciding)setHoverZone(z);}}
             aria-label={word+(dead?' · 던지지 않는 코스':'')+(b.aimZone===z?' · 노림':'')} aria-pressed={b.aimZone===z}
-            aria-description={showMarks&&deciding?face:undefined}
+            aria-description={showMarks&&deciding?face:undefined} data-prob-tone={compact?heat:undefined}
             className={'bp-cell'+(dead?' dead':'')+(cover.has(z)?' cover':'')+(support.has(z)?' assist':'')+(aimAt===z?' aim':'')+(armed?' target':'')+(actual?' actual'+(good?' good':''):'')}
-            style={{'--heat':showMarks?({rare:.15,some:.4,often:.75}[mark]||0):dead?0:Math.min(1,share*3).toFixed(2)}}>
+            style={{'--heat':({'1':.15,'2':.3,'3':.4,'4':.6,'5':.75,certain:.75}[heat]||0)}}>
             {dead&&!cover.has(z)&&<small className="bp-dead">안 던짐</small>}{!dead&&deciding&&<span className={'bp-pct'+(z===topCell&&(!showMarks||level>0)?' top':'')+((showMarks?face==='0%':pct(z)===0)?' zero':'')+(mark?' ba-word':'')}>{cellFace(z)}</span>}
             {showMarks&&deciding&&mark&&<CourseMark face={face}/>}
             {showMarks&&aimAt===z&&<BattleIcon kind="aim" className="ba-aim-marker"/>}

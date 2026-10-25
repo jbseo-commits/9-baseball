@@ -127,3 +127,45 @@
   .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-mental-effect{display:none}
   .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-gimmick{font-size:10px;line-height:12px}
 }
+
+/* Probability has one color scale; card roles have outlines and order badges.
+   Every tone is selected from the public face, never a hidden numeric value. */
+@media(orientation:portrait){
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-cell[data-prob-tone]{background:var(--bp-public-fill,#172633)!important;box-sizing:border-box}
+  .bp-compact [data-prob-tone="1"]{--bp-public-fill:#102b3d}
+  .bp-compact [data-prob-tone="2"]{--bp-public-fill:#123c53}
+  .bp-compact [data-prob-tone="3"]{--bp-public-fill:#164e68}
+  .bp-compact [data-prob-tone="4"]{--bp-public-fill:#19627c}
+  .bp-compact [data-prob-tone="5"]{--bp-public-fill:#19758c}
+  .bp-compact [data-prob-tone="zero"]{--bp-public-fill:#0e2434}
+  .bp-compact [data-prob-tone="unknown"]{--bp-public-fill:#202c37}
+  .bp-compact [data-prob-tone="certain"]{--bp-public-fill:#286374}
+  .bp-compact [data-prob-tone="closed"]{--bp-public-fill:repeating-linear-gradient(135deg,#0a1926 0 6px,#253541 6px 7px)}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-cell[data-prob-tone] .bp-pct{color:#f5fbff!important;opacity:1!important;text-shadow:0 1px 2px #05111d!important}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-cell[data-prob-tone]:is(.aim,.cover){border:2px solid #ffe1a0!important;box-shadow:inset 0 0 0 1px #ba9248!important}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-cell[data-prob-tone].assist{border:2px dashed #c6f0e5!important;box-shadow:inset 0 0 0 1px #193f48!important}
+  .bp-compact .bp-cell[data-prob-tone] .bp-risk-tint{display:none}
+
+  /* Preserve all five screen rows: the two large resources fit the same 44px bar. */
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-bar{display:grid;grid-template-columns:24px minmax(0,1fr) 70px 44px;gap:4px}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-hud-inning{box-sizing:border-box;max-width:24px;padding:3px 2px;font-size:10px;white-space:nowrap}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-bso-strip{display:grid;grid-template-columns:36px minmax(0,1fr);grid-template-rows:14px 14px;gap:0 6px;padding:0;align-content:center}
+  .bp-compact .bp-bso-unit.b{grid-column:1;grid-row:1}
+  .bp-compact .bp-bso-unit.s{grid-column:1;grid-row:2}
+  .bp-compact .bp-bso-unit{gap:3px}
+  .bp-compact .bp-bso-name{min-width:8px;font-size:10px}
+  .bp-compact .bp-bso-leds{gap:2px}
+  .bp-compact .bp-bso-leds i{width:6px;height:6px;box-sizing:border-box}
+  .bp-compact .bp-outs-left{grid-column:2;grid-row:1/3;justify-self:center;align-self:center;display:grid;justify-items:center;gap:1px;min-width:56px;letter-spacing:0;color:#f3eddb}
+  .bp-compact .bp-outs-left>span{font:600 9px/10px var(--bp-ko);color:#acbec7;white-space:nowrap}
+  .bp-compact .bp-outs-left>strong{font:700 23px/24px var(--bp-led);color:inherit}
+  .bp-compact .bp-outs-left small{font:500 10px/12px var(--bp-led);color:#adbdc4;margin-left:2px}
+  .bp-compact .bp-outs-left:is([data-outs-left="0"],[data-outs-left="1"]){color:#ffb5a4}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-bar>.bp-energy{display:grid;grid-template-columns:22px minmax(0,1fr);grid-template-rows:24px 8px;gap:2px 4px;width:70px;min-width:0;justify-content:normal;align-items:center}
+  .bp-compact .bp-bar>.bp-energy::before{content:'';grid-column:1;grid-row:1;width:22px;height:24px;background:var(--ba-energy) center/contain no-repeat}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-bar>.bp-energy>strong{grid-column:2;grid-row:1;font:700 22px/24px var(--bp-led);white-space:nowrap;color:#ffe3a2}
+  .bp-compact .bp-bar>.bp-energy>strong i{font-size:11px;color:#b5c7ca}
+  .bp-compact .bp-bar>.bp-energy[data-energy="0"]>strong{color:#b9c4ca}
+  .bp-compact .bp-bar>.bp-energy .bp-energy-leds{grid-column:2;grid-row:2;justify-content:flex-start;gap:2px}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-bar .bp-energy-leds i{width:8px;height:8px;box-sizing:border-box}
+}

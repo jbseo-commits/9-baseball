@@ -54,6 +54,7 @@ function ReadBody({read}){
     <strong>읽기 {read.level}/2 · {lv.name}</strong>
     <p>{lv.detail}</p>
     <p>공 한 개는 드묾, 두 개는 가끔, 세 개는 자주 오는 코스입니다. 빗금은 던지지 않는 코스입니다.</p>
+    <p>색이 진할수록 자주 오는 코스입니다. 농도는 공개된 낱말·구간·정수 확률만 따릅니다. 0%는 반올림된 값이며, 빗금인 미투구 코스와 다릅니다.</p>
     {!!read.sources.length&&<p>기여: {read.sources.map(x=>`${x.label}${x.amount>1?' +'+x.amount:''}`).join(' · ')}</p>}
   </div>;
 }

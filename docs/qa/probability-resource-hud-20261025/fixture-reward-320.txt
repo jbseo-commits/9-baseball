@@ -1,0 +1,47 @@
+- banner:
+  - button "9ZONE HOMEBOUND":
+    - text: 9ZONE
+    - generic: HOMEBOUND
+  - navigation:
+    - button "소리 꺼짐": ♪ OFF
+    - button "BGM 음악 주크박스": 🎧 BGM 1
+    - button "투수 도감": 도감
+    - button "덱"
+    - button "?"
+- main "바이올렛 스팅 강판":
+  - generic: 승리
+  - button "덱 9"
+  - button "바이올렛 스팅 초상 크게 보기"
+  - generic: “독이 안 통하네. 다음엔 더 깊이 찌를게.
+  - heading "바이올렛 스팅 강판" [level=1]
+  - paragraph: 새로운 힘으로, 다음 경기를 준비하세요.
+  - button "코스트 1 데이터 타격 가로 2존 커버 간파한 공 안타 +5 HP 분석 · COMMON":
+    - generic "코스트 1": "1"
+    - strong: 데이터 타격
+    - generic: 가로 2존 커버
+    - generic: 간파한 공 안타 +5 HP
+    - emphasis:
+      - generic: 분석
+      - generic: ·
+      - generic: COMMON
+  - button "코스트 2 당겨 넘기기 파워 +36 장타 · COMMON":
+    - generic "코스트 2": "2"
+    - strong: 당겨 넘기기
+    - generic: 파워 +36
+    - emphasis:
+      - generic: 장타
+      - generic: ·
+      - generic: COMMON
+  - button "코스트 2 대각 베기 대각선 커버 겹쳐 쓰면 안타 +2 HP 연계 · COMMON":
+    - generic "코스트 2": "2"
+    - strong: 대각 베기
+    - generic: 대각선 커버
+    - generic: 겹쳐 쓰면 안타 +2 HP
+    - emphasis:
+      - generic: 연계
+      - generic: ·
+      - generic: COMMON
+  - button "챙긴다 · 카드를 고르세요" [disabled]:
+    - generic: 챙긴다
+    - generic: ▲ 카드를 고르세요
+  - button "그냥 간다"
