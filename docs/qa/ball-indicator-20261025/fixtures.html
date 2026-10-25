@@ -1,0 +1,15 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Local momentum layout fixtures</title>
+<h1>로컬 기세 배치 검증</h1><p>현재 로컬 테스트 저장을 교체합니다. 실제 플레이/밸런스 증거가 아닙니다.</p><div id="choices"></div><pre id="error"></pre>
+<script type="module">
+import * as E from '/src/duel/engine.js';
+if(!['localhost','127.0.0.1'].includes(location.hostname))throw new Error('Local only');
+for(const [mode,label] of [['normal','기세 5 일반'],['boss','기세 5 보스'],['lab','기세 5 공방']]){
+  const b=document.createElement('button');b.textContent=label;b.style.cssText='display:block;min-height:44px;margin:16px';
+  b.onclick=()=>{try{let s=mode==='lab'?E.createDefenseLabState({seed:914,pack:'hold',scenario:'crisis'}):E.enterV10Node(E.createV10Duel(90211),'a1-entry');s.battle.momentum=5;
+    if(mode==='boss'){s.v10.opponent.gimmick={id:'tyrant',label:'지배자의 압박',summary:'낮은 3코스 비중 +10%p.',phases:{critical:'낮은 3코스 +20%p.'}};s.v10.opponent.rewardTier=3;s.pitcher.hp=10;s.pitcher.phase='critical';}
+    if(mode==='lab'){E.saveDefenseLabState(localStorage,s);if(!E.readDefenseLabState(localStorage))throw new Error('Invalid lab');}
+    else{E.saveV10Duel(localStorage,s);if(!E.readV10Duel(localStorage))throw new Error('Invalid normal');}
+    location.href=mode==='lab'?'/?experiment=defense':'/';
+  }catch(e){document.getElementById('error').textContent=String(e);}};document.getElementById('choices').appendChild(b);
+}
+</script>
