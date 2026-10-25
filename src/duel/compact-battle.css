@@ -92,7 +92,12 @@
   .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-gimmick .bp-gtier{display:none}
   .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-gimmick>b{display:none}
   .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-momentum em{display:none}
-  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-momentum{padding:2px 5px;gap:3px}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-momentum{left:auto;right:8px;top:6px;bottom:auto;width:60px;box-sizing:border-box;padding:2px 4px;gap:2px;animation:none!important;box-shadow:none!important}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-momentum::before{content:'🔥';font-size:12px;line-height:14px}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-momentum b{min-width:0;font:700 12px/14px var(--bp-ko)}
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-momentum-pips,
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-momentum-pop,
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-momentum.out::after{display:none}
   .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-pct.top::after{display:none!important}
   .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-read{display:none}
   .bp-compact .bp-forecast{transform:translateX(-50%)!important;bottom:calc(100% + 2px)!important}
