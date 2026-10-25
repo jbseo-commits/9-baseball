@@ -456,13 +456,16 @@ export default function BallparkBattle({
     /* Condition and current risk are separate slots: a cost warning must never
        hide the bunt 2S foul-strikeout (or any requires/cost) condition. */
     const condition=face.condition;
-    const note=warning||condition;
+    const supportLimit=compact&&overBudget&&!problem;
+    const faceWarning=supportLimit?'':warning;
+    const note=faceWarning||condition;
     const labNote=defenseLab?defenseLabCardLabel(defenseLab.pack,x.entry):'';
 
-    return <button key={x.id} type="button" className={'bp-card'+state+(problem?' off':'')+cardKindClass+(note?' has-note':'')+(condition&&warning?' has-both':'')} aria-pressed={selected===x.id||inStack>=0}
+    return <button key={x.id} type="button" className={'bp-card'+state+(problem?' off':'')+cardKindClass+(note?' has-note':'')+(condition&&faceWarning?' has-both':'')} aria-pressed={selected===x.id||inStack>=0}
       aria-label={[def.name+(x.entry.plus?'+':''),'코스트 '+cost,face.axis,face.summary,condition,warning,problem,labNote].filter(Boolean).join(' · ')}
-      data-card-kind={x.entry.kind} data-card-plus={x.entry.plus?1:0} data-card-problem={problem||undefined} disabled={!deciding} onClick={()=>pickSwing(x.id)}>
+      data-card-kind={x.entry.kind} data-card-plus={x.entry.plus?1:0} data-card-problem={problem||undefined} data-support-over-budget={supportLimit||undefined} disabled={!deciding} onClick={()=>pickSwing(x.id)}>
       <span className="bp-card-cost" aria-label={`코스트 ${cost}`}>{cost}</span>
+      {supportLimit&&<span className="bp-card-support-limit" aria-hidden="true">＋<i/></span>}
       <div className="bp-card-art-box">
         <div className="bp-card-art" style={artStyle}/>
         <div className="bp-card-mini-map"><CardGlyph zones={x.preview?.coverage}/></div>
@@ -478,7 +481,7 @@ export default function BallparkBattle({
       <div className={'bp-card-desc'+(overBudget?' over':'')}>
         <p className="bp-card-payoff">{face.summary}</p>
         {condition&&<p className="bp-card-condition">{condition}</p>}
-        {warning&&warning!==condition&&<p className="bp-card-warning">{warning}</p>}
+        {faceWarning&&faceWarning!==condition&&<p className="bp-card-warning">{faceWarning}</p>}
       </div>
       {selected===x.id&&<b className="bp-order">1</b>}{inStack>=0&&<b className="bp-order">{inStack+2}</b>}
     </button>;

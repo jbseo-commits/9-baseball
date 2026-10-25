@@ -62,21 +62,37 @@ export const WELCOME_CHAPTERS=[
     words:[[`에너지 ${V10_ENERGY_BASE}/${V10_ENERGY_BASE}`,`기본은 공마다 ${V10_ENERGY_BASE} 충전. 지켜본 볼·삼진 전 스트라이크는 다음 실제 공만 ${V10_ENERGY_MAX}로 충전하며, 기본 보충 뒤 자리가 있고 카드 더미가 있으면 한 장 더 뽑습니다(손패 최대 6). 준비·공격·지원 비용은 실행할 때 합산하고 부족하면 기본 스윙(0)이나 지켜보기(0).`],['적중권 N%','고른 카드가 덮은 칸으로 공이 올 확률'],['피해 ×N','이번 스윙이 투수 HP에 들어가는 배율 (겹치기 · 기세 반영)'],['STACK','메인 + 지원 카드를 겹쳐 치기'],['CONNECT / BREAK','순서대로 노린 칸이 붙음(실선) / 떨어짐(점선)'],['정확 적중','메인 카드 커버 안으로 온 안타 — 카드별 추가 피해'],['주자 압박','주자가 있을 때 안타 피해 추가'],['흔들림','실점한 투수의 점 표시 — 볼이 늘어남'],['기세','좋은 타석이 쌓는 피해 배율, 삼진이면 꺼짐'],['내 선택 → 실제 공 → 다음엔','결과 뒤 복기: 무엇을 노렸고, 공이 어디로 왔고, 다음엔 뭘 할지'],['ⓘ · 길게 누르기','카드의 원문 규칙 보기']]},
 ];
 
-export default function WelcomeGuide({start=0,onClose,onCards}){
-  const [i,setI]=useState(Math.max(0,Math.min(WELCOME_CHAPTERS.length-1,start)));
-  const c=WELCOME_CHAPTERS[i],last=i===WELCOME_CHAPTERS.length-1;
+/* Only the automatic first-run introduction is short. The explicit rulebook
+   keeps its nine chapters and the existing seen key so returning players are
+   never sent through the introduction again. */
+export const WELCOME_INTRO_CHAPTERS=[
+  {...WELCOME_CHAPTERS[0],body:[
+    <><b>3아웃</b>이 되기 전에 투수 <b>HP를 0</b>으로 만들면 강판 · 승리.</>,
+    <>3아웃이면 <b>런이 끝납니다</b>. 승리해도 아웃은 <b>다음 상대로 이어집니다</b>.</>,
+  ]},
+  WELCOME_CHAPTERS[1],
+  {...WELCOME_CHAPTERS[3],body:[
+    <>카드의 작은 3×3 그림만큼 덮습니다. <b>덮은 칸에 오면 안타</b>. <b>희생 번트</b>는 작전 성공을 노립니다.</>,
+    <>카드 비용은 남은 에너지 안에서. <b>볼은 지켜보면 볼</b>, 휘두르면 대부분 헛스윙입니다.</>,
+  ]},
+];
+
+export default function WelcomeGuide({start=0,mode='full',onClose,onCards}){
+  const chapters=mode==='intro'?WELCOME_INTRO_CHAPTERS:WELCOME_CHAPTERS;
+  const [i,setI]=useState(Math.max(0,Math.min(chapters.length-1,start)));
+  const c=chapters[i],last=i===chapters.length-1;
   const drag=useRef(null),closeRef=useRef(null);
   useEffect(()=>{closeRef.current?.focus();},[]);
   const done=()=>{try{localStorage.setItem(WELCOME_SEEN_KEY,'seen')}catch{}onClose?.();};
-  const go=d=>setI(x=>Math.max(0,Math.min(WELCOME_CHAPTERS.length-1,x+d)));
+  const go=d=>setI(x=>Math.max(0,Math.min(chapters.length-1,x+d)));
   const onKeyDown=e=>{if(e.key==='ArrowRight')go(1);else if(e.key==='ArrowLeft')go(-1);else if(e.key==='Escape')done();};
   /* swipe between pages */
   const down=e=>{drag.current={x:e.clientX,y:e.clientY};};
   const up=e=>{const d=drag.current;drag.current=null;if(!d)return;const dx=e.clientX-d.x;if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(e.clientY-d.y))go(dx<0?1:-1);};
-  return <div className="wg-backdrop" role="dialog" aria-modal="true" aria-label="게임 방법" onKeyDown={onKeyDown}>
+  return <div className={'wg-backdrop'+(mode==='intro'?' wg-intro':'')} role="dialog" aria-modal="true" aria-label="게임 방법" onKeyDown={onKeyDown}>
     <section className="wg-sheet" onPointerDown={down} onPointerUp={up}>
       <header className="wg-head">
-        <span className="wg-eyebrow">{i+1} / {WELCOME_CHAPTERS.length} · {c.eyebrow}</span>
+        <span className="wg-eyebrow">{i+1} / {chapters.length} · {c.eyebrow}</span>
         <button ref={closeRef} type="button" className="wg-skip" onClick={done}>{last?'닫기':'건너뛰기'}</button>
       </header>
       <div className="wg-page" key={c.key}>
@@ -87,7 +103,7 @@ export default function WelcomeGuide({start=0,onClose,onCards}){
       </div>
       <footer className="wg-foot">
         <button type="button" className="wg-prev" onClick={()=>go(-1)} disabled={i===0}>이전</button>
-        <span className="wg-dots" aria-hidden="true">{WELCOME_CHAPTERS.map((_,k)=><i key={k} className={k===i?'on':''} onClick={()=>setI(k)}/>)}</span>
+        <span className="wg-dots" aria-hidden="true">{chapters.map((_,k)=><i key={k} className={k===i?'on':''} onClick={()=>setI(k)}/>)}</span>
         {last?<span className="wg-end">{onCards&&<button type="button" className="wg-cards" onClick={()=>{try{localStorage.setItem(WELCOME_SEEN_KEY,'seen')}catch{}onCards?.()}}>카드 도감</button>}<button type="button" className="wg-next primary" onClick={done}>플레이 시작</button></span>
           :<button type="button" className="wg-next primary" onClick={()=>go(1)}>다음</button>}
       </footer>

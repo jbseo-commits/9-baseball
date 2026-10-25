@@ -154,13 +154,15 @@ describe('original battle readability',()=>{
     expect(bunt.querySelector('.bp-card-condition')?.textContent).toContain('파울도 삼진');
     expect(bunt.querySelector('.bp-card-warning')?.textContent).toBe('에너지 부족');
   });
-  it('keeps the support short on an over-budget face and the exact sum in the summary',()=>{
+  it('keeps a support budget marker and an accessible cause on an over-budget face',()=>{
     const view=open({kinds:['slug','laser']});
     view.rerender(<BallparkBattle {...view.props} selected="c0"/>);
     const laser=document.querySelector('[data-card-kind="laser"]');
-    // Face: short cause only — the exact sum would assume a support join that
+    // Face: marker only — the exact sum would assume a support join that
     // pickSwing may turn into a main replacement.
-    expect(laser.querySelector('.bp-card-warning')?.textContent).toBe('지원 비용 초과');
+    expect(laser.querySelector('.bp-card-warning')).toBeNull();
+    expect(laser.querySelector('.bp-card-support-limit')).not.toBeNull();
+    expect(laser.getAttribute('aria-label')).toContain('지원 비용 초과');
     expect(laser.textContent).not.toContain('합치면');
     expect(laser.textContent).toContain('파워 +18');
   });

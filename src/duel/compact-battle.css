@@ -32,6 +32,10 @@
   .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-card-art-box{height:calc(var(--compact-card) - 8px);min-height:calc(var(--compact-card) - 8px);flex:0 0 calc(var(--compact-card) - 8px);border:0;border-radius:3px}
   .bp-compact .bp-card-chips{display:none}
   .bp-compact .bp-card.off{opacity:.78;filter:saturate(.7)}
+  /* A crossed support-plus is not a disabled card: tapping can still replace
+     the main. Keep real card problems and their condition/warning strips. */
+  .duel-app.v14-battle-portrait>.bp-battle.bp-compact .bp-card span.bp-card-support-limit{position:absolute;top:7px;left:30px;z-index:3;display:grid;place-items:center;width:17px;height:17px;box-sizing:border-box;border:1px dashed #ddbc8a;border-radius:50%;background:#15242ded;color:#f1d2a4;font:700 13px/1 var(--bp-ko);pointer-events:none}
+  .bp-compact .bp-card-support-limit i{position:absolute;width:16px;height:1px;background:currentColor;transform:rotate(-45deg)}
   .bp-compact .bp-card{--note-space:0px}
   .bp-compact .bp-card.has-note{--note-space:26px}
   .bp-compact .bp-card.has-both{--note-space:39px}
