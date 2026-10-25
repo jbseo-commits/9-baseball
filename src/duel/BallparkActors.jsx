@@ -6,6 +6,7 @@ import {ballExitProfile,drawBallExitTrail,drawBallTrailDots} from './ballExitVfx
 import RELEASE from './pitcher-release.json';
 import STRIDE from './pitcher-stride.json';
 import STANCE from './pitcher-stance.json';
+import {pitchTargetElements} from './battle-layout.js';
 import impactSlashVfx from '../../assets/production-art/battle-polish-v16/impact-slash.png';
 
 /* V13 C2 — the batter and the pitcher drawn by PixiJS (WebGL) over the CSS stadium.
@@ -126,7 +127,8 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
         const scene=sceneRef.current;if(!scene)return;
         const rel=el=>layoutBox(el,scene);
         boxes.b=rel(scene.querySelector('.bp-batter'));boxes.p=rel(scene.querySelector('.bp-pitcher'));
-        boxes.cells=[...scene.querySelectorAll('.bp-cell')].map(rel);boxes.zone=rel(scene.querySelector('.bp-zone'));
+        const targets=pitchTargetElements(scene);
+        boxes.cells=targets.cells.map(rel);boxes.zone=rel(targets.zone);
         measuredAt=performance.now();
       };
       measure();

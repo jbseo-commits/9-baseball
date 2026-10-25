@@ -31,6 +31,7 @@ import BallparkCoach from './BallparkCoach.jsx';
 import {forecastFor,ForecastChip,HpForecastBand,RiskTint} from './SwingForecast.jsx';
 import {pitcherIntentIcon} from './intent-icon.js';
 import {playUse,playSpend} from './card-fx.js';
+import {useBattleLayoutSignal,pitchTargetElements} from './battle-layout.js';
 
 /* V13 BALLPARK — the battle as one ballpark scene (docs/design/v13/BALLPARK.md).
    Same engine contract as the legacy screen: `selected` + battle.aimZone is the main card,
@@ -146,6 +147,7 @@ export default function BallparkBattle({
     return ()=>{if(window.__bpInspect===reg)delete window.__bpInspect;};
   },[]);
   const r=b.revealed,inFx=!!fxStage,deciding=s.phase==='battle'&&!inFx&&!locked&&!commitBeat;
+  const layoutCompare=useBattleLayoutSignal(!!(locked||inFx||commitBeat),compact);
   const judged=!!r&&s.last?.kind!=='skill'&&(inFx||s.phase!=='battle');
   const landed=!inFx||LANDED.has(fxStage);
   const showProgress=s.version===10&&!autoLesson&&!defenseLab;
@@ -185,14 +187,19 @@ export default function BallparkBattle({
   },[inspect]);
   /* the ball leaves the pitcher's glove and lands on its cell (or beside the zone) at the impact beat */
   useLayoutEffect(()=>{
-    const f=flightRef.current,scene=sceneRef.current,p=pitcherRef.current,zone=zoneRef.current;
-    if(!f||!scene||!p||!zone||!r)return;
+    const f=flightRef.current,scene=sceneRef.current,p=pitcherRef.current;
+    if(!f||!scene||!p||!zoneRef.current||!r)return;
+    const set=()=>{
+    const zone=pitchTargetElements(scene).zone;
     const sr=scene.getBoundingClientRect(),pr=p.getBoundingClientRect(),zr=zone.getBoundingClientRect();
     const z=r.zone,x1=z===9?zr.right+zr.width*.18:zr.left+zr.width*((z%3)+.5)/3,y1=z===9?zr.top+zr.height*.5:zr.top+zr.height*(Math.floor(z/3)+.5)/3;
     f.style.setProperty('--x0',(pr.left+pr.width*.45-sr.left)+'px');f.style.setProperty('--y0',(pr.top+pr.height*.42-sr.top)+'px');
     f.style.setProperty('--x1',(x1-sr.left)+'px');f.style.setProperty('--y1',(y1-sr.top)+'px');
     f.style.setProperty('--delay',Math.max(0,impactAt-360)+'ms');
-  },[playToken,judged,inFx]);
+    };set();
+    const ro=layoutCompare&&typeof ResizeObserver!=='undefined'?new ResizeObserver(set):null;ro?.observe(scene);
+    return()=>ro?.disconnect();
+  },[playToken,judged,inFx,layoutCompare]);
 
   const byId=id=>hand.find(x=>x.id===id);
   const prepEffects=deciding||(!inFx&&!locked&&!commitBeat&&s.phase==='pitch')
@@ -552,7 +559,7 @@ export default function BallparkBattle({
   const takeHint=shownCount.strikes===2?'스트라이크면 삼진'+(defenseLab?' · 보호 제외':''):'다음 공 ⚡+1';
   const selectionDetail=armed?planSummary.input:selectedFace?[selectedFace.summary,mainIsSkill?[selectedFace.drawNote,`준비 ${prepLeft}회`].filter(Boolean).join(' · '):stack.length?`지원 ${stack.length} · ⚡${stackCost}/${energyLimit}`:''].filter(Boolean).join(' · '):takeHint;
   const executeKind=mainIsSkill?'prepare':selected?'swing':'watch';
-  return <main ref={rootRef} className={'bp-battle bp-readable'+(compact?' bp-compact':'')+(showMarks?' bp-asset-led':'')+(defenseLab?' defense-lab-battle':'')+(autoLesson?' auto-lesson':'')+(commitBeat?' committing':'')+(deciding?'':' resolving')+(inFx?' fx-'+fxStage:'')+(inspect?' inspecting':'')+(exactRead?' bp-exact-read':'')} data-battle-step={showProgress?battleStep:undefined} data-read-level={level} aria-label="타석">
+  return <main ref={rootRef} className={'bp-battle bp-readable'+(compact?' bp-compact':'')+(layoutCompare?' bp-layout-compare':'')+(showMarks?' bp-asset-led':'')+(defenseLab?' defense-lab-battle':'')+(autoLesson?' auto-lesson':'')+(commitBeat?' committing':'')+(deciding?'':' resolving')+(inFx?' fx-'+fxStage:'')+(inspect?' inspecting':'')+(exactRead?' bp-exact-read':'')} style={layoutCompare?{'--wide-hand-count':hand.length+1}:undefined} data-battle-step={showProgress?battleStep:undefined} data-read-level={level} aria-label="타석">
     <div className="bp-bar">
       <b className="bp-hud-inning">{labView?'실험 · '+labView.packName:label}</b>
       <div className="bp-bso-strip" aria-label={`볼 ${shownCount.balls} 스트라이크 ${shownCount.strikes} 아웃 ${shownCount.outs}`}>
@@ -670,6 +677,7 @@ export default function BallparkBattle({
         {momentumRose&&<small className="bp-momentum-pop" aria-hidden="true">+{combat.momentumAfter-combat.momentumBefore}</small>}
       </div>}
 
+      {layoutCompare&&<div className="bp-field-target" aria-hidden="true">{ZONE_WORDS.map((_,z)=><i key={z} className={(cover.has(z)?' covered':'')+(judged&&landed&&r.zone===z?' landed':'')}/>)}</div>}
       <div className={'bp-zone'+(cover.size?' has-cover':'')} ref={zoneRef} role="group" aria-label="노릴 코스"
         onPointerDown={slideStart} onPointerMove={slideMove} onPointerUp={slideEnd} onPointerCancel={slideEnd}
         onPointerLeave={e=>{if(e.pointerType==='mouse')setHoverZone(null);}}>
@@ -795,6 +803,7 @@ export default function BallparkBattle({
       {compact&&<div className={'bp-compact-summary'+(choice?.problem||(!selected&&shownCount.strikes===2)?' warning':'')} role="status" aria-label={deciding&&!selected?'지켜보기 · '+takeHint:undefined}>
         {deciding&&!selected&&<BattleIcon kind="watch"/>}{reviewLine||(!deciding?planSummary.input:<>{choice?.problem&&<b className="bp-selection-warning">{shortCardProblem(choice.problem)||choice.problem} · </b>}{selectionDetail}</>)}
       </div>}
+      {layoutCompare&&selectedFace?.condition&&<span className="bp-wide-selected-condition">{selectedFace.condition}</span>}
       <div className="bp-plan-fields">
         {showProgress&&<ol className="bp-progress" aria-label="이번 공 진행">{[['plan','코스 노리기'],['flight','공 날아옴'],['result','결과']].map(([id,name],i)=><li key={id} aria-current={battleStep===id?'step':undefined}><BattleIcon kind={['aim','swing','exact'][i]}/><b>{i+1}</b> {name}</li>)}</ol>}
         {reviewLine?<p className="bp-result-explanation" data-testid="bp-result-explanation" role="status">{reviewLine}</p>:<>
