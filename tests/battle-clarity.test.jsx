@@ -54,7 +54,7 @@ describe('battle clarity',()=>{
   it('a watched pitch moves on by itself and its cause stays in the info panel',()=>{
     vi.useFakeTimers();
     begin();
-    fireEvent.click(screen.getByTestId('bp-take'));
+    fireEvent.click(screen.getByTestId('bp-swing'));
     act(()=>{vi.advanceTimersByTime(6000)});
     act(()=>{vi.advanceTimersByTime(3000)});
     act(()=>{vi.advanceTimersByTime(3000)});

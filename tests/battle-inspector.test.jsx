@@ -109,7 +109,6 @@ describe('arena inspector',()=>{
     view.rerender(<BallparkBattle {...view.props} selected="c0"/>);
     fireEvent.click(screen.getByTestId('bp-inspect-open'));
     expect(screen.getByTestId('bp-swing').disabled).toBe(true);
-    expect(screen.getByTestId('bp-take').disabled).toBe(true);
     view.onSwing.mockClear();
     fireEvent.click(screen.getByTestId('bp-swing'));
     expect(view.onSwing).not.toHaveBeenCalled();

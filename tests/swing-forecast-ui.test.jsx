@@ -36,7 +36,8 @@ describe('P1 swing forecast UI',()=>{
     const chip=screen.getByTestId('bp-forecast');
     const pv=previewSwing(s,{id:'c0'});
     expect(screen.getByTestId('bp-forecast-hit').textContent).toContain(formatHitChance(pv.hitBounds));
-    expect(screen.getByTestId('bp-forecast-dmg').textContent).toMatch(/안타 시 (\d+~\d+|\d+|-)/);
+    expect(screen.getByTestId('bp-forecast-dmg').textContent).toMatch(/♥ −(\d+~\d+|\d+|-)/);
+    expect(chip.getAttribute('aria-label')).toMatch(/안타 데미지/);
     expect(screen.queryByTestId('bp-forecast-runners')).toBeNull();
     expect(screen.queryByTestId('bp-forecast-shaken')).toBeNull();
     expect(chip.style.position).toBe('absolute'); // overlays the board: no new layout height on a 380px phone

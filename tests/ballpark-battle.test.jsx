@@ -44,14 +44,15 @@ describe('V13 BALLPARK battle',()=>{
     const app=fs.readFileSync(path.resolve('src/duel/App.jsx'),'utf8');
     expect(app).not.toMatch(/parkOn|9zone-park/);
   });
-  it('opens on the scene: nine zones, the hand, two verbs, and nothing to swing yet',()=>{
+  it('opens on the scene: nine zones, hand and one submit that watches an empty plan',()=>{
     begin();
     expect(document.querySelector('.bp-battle')).not.toBeNull();
     expect(document.querySelector('.duel-combat')).toBeNull();
     expect(cells()).toHaveLength(9);
     expect(cards().length).toBeGreaterThan(0);
-    expect(swingBtn().disabled).toBe(true);
-    expect(screen.getByTestId('bp-take').textContent).toMatch(/^지켜본다/);
+    expect(swingBtn().disabled).toBe(false);
+    expect(swingBtn().getAttribute('data-action-kind')).toBe('watch');
+    expect(document.querySelectorAll('.bp-verbs button')).toHaveLength(1);
   });
   it('speaks in short lines, not rules',()=>{
     // The standing coach row is gone; short guidance lives in the fixed plan
@@ -169,8 +170,8 @@ describe('V13 BALLPARK battle',()=>{
 
   it('the take button is always available',()=>{
     begin();
-    expect(screen.getByTestId('bp-take')).not.toBeNull();
-    expect(screen.getByTestId('bp-take').disabled).toBe(false);
+    expect(screen.getByTestId('bp-swing')).not.toBeNull();
+    expect(screen.getByTestId('bp-swing').disabled).toBe(false);
   });
 });
 describe('Design P1 battle readability',()=>{
@@ -207,7 +208,7 @@ describe('Design P1 battle readability',()=>{
   it('the auto step waits while the info panel is open',()=>{
     vi.useFakeTimers();
     begin();
-    fireEvent.click(screen.getByTestId('bp-take'));
+    fireEvent.click(screen.getByTestId('bp-swing'));
     act(()=>{vi.advanceTimersByTime(6000)});
     expect(screen.getByTestId('bp-next')).not.toBeNull();
     fireEvent.click(screen.getByTestId('bp-inspect-open'));

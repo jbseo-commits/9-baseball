@@ -101,7 +101,7 @@ describe('#103 M03/M04/M08 — battle text reads whole',()=>{
   it('the wait verb is one unbroken word and the summary keeps numbers whole',()=>{
     begin();
     fireEvent.click(document.querySelector('.bp-hand .bp-card:not(.basic)'));
-    expect(screen.getByTestId('bp-take').querySelector('.bp-verb-word').textContent).toBe('지켜본다');
+    expect(screen.getByTestId('bp-swing').querySelector('.bp-verb-word').textContent).toBe('실행');
     // Level-0 deck (no observation cards): public range per the readLevel contract.
     // Numbers live in the fixed summary (one ellipsis line: it can only cut at
     // the end, never inside a number); the go button stays lean.
