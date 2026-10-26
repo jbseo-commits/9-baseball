@@ -1,4 +1,15 @@
-import {useEffect,useRef} from 'react';
+import {useEffect,useRef,useState} from 'react';
+
+export function useWideBattle(enabled){
+  const [wide,setWide]=useState(()=>!!(enabled&&typeof window!=='undefined'&&window.matchMedia?.('(orientation: landscape)').matches));
+  useEffect(()=>{
+    if(!enabled){setWide(false);return;}
+    const media=window.matchMedia?.('(orientation: landscape)');if(!media)return;
+    const update=()=>setWide(media.matches);update();media.addEventListener?.('change',update);
+    return()=>media.removeEventListener?.('change',update);
+  },[enabled]);
+  return enabled&&wide;
+}
 
 export function comparisonMode(win=typeof window!=='undefined'?window:null){
   const value=new URLSearchParams(win?.location?.search||'').get('battleLayout');

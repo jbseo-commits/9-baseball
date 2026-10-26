@@ -31,7 +31,9 @@ import BallparkCoach from './BallparkCoach.jsx';
 import {forecastFor,ForecastChip,HpForecastBand,RiskTint} from './SwingForecast.jsx';
 import {pitcherIntentIcon} from './intent-icon.js';
 import {playUse,playSpend} from './card-fx.js';
-import {useBattleLayoutSignal,pitchTargetElements} from './battle-layout.js';
+import {useBattleLayoutSignal,useWideBattle,pitchTargetElements} from './battle-layout.js';
+import LandscapeCardArt from './LandscapeCardArt.jsx';
+import LandscapeSelection from './LandscapeSelection.jsx';
 
 /* V13 BALLPARK — the battle as one ballpark scene (docs/design/v13/BALLPARK.md).
    Same engine contract as the legacy screen: `selected` + battle.aimZone is the main card,
@@ -148,6 +150,7 @@ export default function BallparkBattle({
   },[]);
   const r=b.revealed,inFx=!!fxStage,deciding=s.phase==='battle'&&!inFx&&!locked&&!commitBeat;
   const layoutCompare=useBattleLayoutSignal(!!(locked||inFx||commitBeat),compact);
+  const wide=useWideBattle(layoutCompare);
   const judged=!!r&&s.last?.kind!=='skill'&&(inFx||s.phase!=='battle');
   const landed=!inFx||LANDED.has(fxStage);
   const showProgress=s.version===10&&!autoLesson&&!defenseLab;
@@ -475,9 +478,11 @@ export default function BallparkBattle({
       {supportLimit&&<span className="bp-card-support-limit" aria-hidden="true">＋<i/></span>}
       <div className="bp-card-art-box">
         <div className="bp-card-art" style={artStyle}/>
+        {layoutCompare&&<LandscapeCardArt src={customArt} atlasSrc={cardArtSheet} position={artPos}/>}
         <div className="bp-card-mini-map"><CardGlyph zones={x.preview?.coverage}/></div>
         {labNote&&<span className="bp-lab-card-note" aria-label={labNote}>{compact?'⚑':labNote}</span>}
       </div>
+      {layoutCompare&&<span className="bp-wide-mini-map" aria-hidden="true"><CardGlyph zones={x.preview?.coverage}/></span>}
       <div className="bp-card-header">
         <strong>{def.name||x.entry.kind}{x.entry.plus&&<sup>+</sup>}</strong>
         <div className="bp-card-chips">
@@ -559,7 +564,7 @@ export default function BallparkBattle({
   const takeHint=shownCount.strikes===2?'스트라이크면 삼진'+(defenseLab?' · 보호 제외':''):'다음 공 ⚡+1';
   const selectionDetail=armed?planSummary.input:selectedFace?[selectedFace.summary,mainIsSkill?[selectedFace.drawNote,`준비 ${prepLeft}회`].filter(Boolean).join(' · '):stack.length?`지원 ${stack.length} · ⚡${stackCost}/${energyLimit}`:''].filter(Boolean).join(' · '):takeHint;
   const executeKind=mainIsSkill?'prepare':selected?'swing':'watch';
-  return <main ref={rootRef} className={'bp-battle bp-readable'+(compact?' bp-compact':'')+(layoutCompare?' bp-layout-compare':'')+(showMarks?' bp-asset-led':'')+(defenseLab?' defense-lab-battle':'')+(autoLesson?' auto-lesson':'')+(commitBeat?' committing':'')+(deciding?'':' resolving')+(inFx?' fx-'+fxStage:'')+(inspect?' inspecting':'')+(exactRead?' bp-exact-read':'')} style={layoutCompare?{'--wide-hand-count':hand.length+1}:undefined} data-battle-step={showProgress?battleStep:undefined} data-read-level={level} aria-label="타석">
+  return <main ref={rootRef} className={'bp-battle bp-readable'+(compact?' bp-compact':'')+(layoutCompare?' bp-layout-compare':'')+(showMarks?' bp-asset-led':'')+(defenseLab?' defense-lab-battle':'')+(autoLesson?' auto-lesson':'')+(commitBeat?' committing':'')+(deciding?'':' resolving')+(inFx?' fx-'+fxStage:'')+(inspect?' inspecting':'')+(exactRead?' bp-exact-read':'')} style={layoutCompare?{'--wide-hand-count':hand.length+1,'--wide-held-count':hand.length,'--wide-card-columns':hand.length?`48px repeat(${hand.length},minmax(0,1fr))`:'48px'}:undefined} data-battle-step={showProgress?battleStep:undefined} data-read-level={level} aria-label="타석">
     <div className="bp-bar">
       <b className="bp-hud-inning">{labView?'실험 · '+labView.packName:label}</b>
       <div className="bp-bso-strip" aria-label={`볼 ${shownCount.balls} 스트라이크 ${shownCount.strikes} 아웃 ${shownCount.outs}`}>
@@ -640,6 +645,7 @@ export default function BallparkBattle({
       </div>
       {voice&&<q className={'bp-voice m-'+moment} key={'q'+playToken+moment} data-testid="bp-voice">{voice}</q>}
       </div>
+      {wide&&deciding&&<span className={'bp-wide-ball-read'+(lure?' warning':'')}>{lure?'볼 주의':'볼'} {bandFace}</span>}
       {showVerdict&&(()=>{
         const isHomerSplash=Boolean(shot?.grade==='homer'||shot?.grade==='grand-slam'||(call&&call.includes('홈런')));
         const isKoSplash=Boolean(judged&&(pitcher?.hp??1)===0);
@@ -681,7 +687,7 @@ export default function BallparkBattle({
       <div className={'bp-zone'+(cover.size?' has-cover':'')} ref={zoneRef} role="group" aria-label="노릴 코스"
         onPointerDown={slideStart} onPointerMove={slideMove} onPointerUp={slideEnd} onPointerCancel={slideEnd}
         onPointerLeave={e=>{if(e.pointerType==='mouse')setHoverZone(null);}}>
-        <ForecastChip forecast={forecast} compact={compact}/>
+        {!wide&&<ForecastChip forecast={forecast} compact={compact}/>}
         {ZONE_WORDS.map((word,z)=>{
           const dead=!live.includes(z),tok=tokens.filter(t=>t.z===z);
           const actual=judged&&landed&&r.zone===z;
@@ -734,8 +740,10 @@ export default function BallparkBattle({
         <span className="bp-card-cost" aria-label="코스트 0">0</span>
         <div className="bp-card-art-box">
           <div className="bp-card-art" style={{backgroundImage:`url(${cardArtSheet})`,backgroundPosition:'100% 100%'}}/>
+          {layoutCompare&&<LandscapeCardArt atlasSrc={cardArtSheet} position="100% 100%"/>}
           <div className="bp-card-mini-map"><CardGlyph zones={[b.aimZone]}/></div>
         </div>
+        {layoutCompare&&<span className="bp-wide-mini-map" aria-hidden="true"><CardGlyph zones={[b.aimZone]}/></span>}
         <div className="bp-card-header">
           <strong>맨손 스윙</strong>
           <div className="bp-card-chips">
@@ -776,11 +784,13 @@ export default function BallparkBattle({
           <span className="bp-card-cost prep" aria-label={`에너지 코스트 ${cardCost(x.entry)} · 준비 ${prepLeft}회 남음`}>{cardCost(x.entry)}</span>
           <div className="bp-card-art-box">
             <div className="bp-card-art" style={artStyle}/>
+            {layoutCompare&&<LandscapeCardArt src={customArt} atlasSrc={cardArtSheet}/>}
             <div className="bp-card-mini-map prep-badge">
               <span className="bp-prep-glyph" aria-hidden="true">✦</span>
             </div>
             {labNote&&<span className="bp-lab-card-note" aria-label={labNote}>{compact?'⚑':labNote}</span>}
           </div>
+          {layoutCompare&&<span className="bp-wide-mini-map prep" aria-hidden="true">✦</span>}
           <div className="bp-card-header">
             <strong>{def.name||x.entry.kind}{x.entry.plus&&<sup>+</sup>}</strong>
             <div className="bp-card-chips">
@@ -798,12 +808,21 @@ export default function BallparkBattle({
       })}
     </div>
 
+    {wide&&(prepEffects.length>0||labView)&&<div className="bp-wide-hand-status" aria-label="유지 효과와 공방 예고">
+      {prepEffects.length>0&&<span>✦ {prepEffects.join(' · ')}</span>}
+      {labView&&<span>{labView.compactStatus} · {labView.compactActive} → {labView.compactThreat}</span>}
+    </div>}
+
     <div className={'bp-plan'+(prepEffects.length?' has-effects':'')+(defenseLab?' has-lab':'')+(reviewLine?' has-result':'')} data-testid="bp-plan" aria-label="현재 플랜 요약">
       {!compact&&s.version===10&&energyHud}
-      {compact&&<div className={'bp-compact-summary'+(choice?.problem||(!selected&&shownCount.strikes===2)?' warning':'')} role="status" aria-label={deciding&&!selected?'지켜보기 · '+takeHint:undefined}>
+      {wide&&<LandscapeSelection deciding={deciding} selected={!!selected} name={mainName} face={selectedFace} prepare={mainIsSkill}
+        armedName={armed?CARDS[byId(armed)?.entry?.kind]?.name||'지원 카드':''}
+        cost={(mainIsSkill?cardCost(mainEntry):stackCost)+(armed?cardCost(byId(armed)?.entry):0)} energy={energyLimit} prepLeft={prepLeft} stackCount={stack.length}
+        problem={choice?.problem||''} forecast={forecast} takeHint={takeHint} review={reviewLine}/>}
+      {compact&&!wide&&<div className={'bp-compact-summary'+(choice?.problem||(!selected&&shownCount.strikes===2)?' warning':'')} role="status" aria-label={deciding&&!selected?'지켜보기 · '+takeHint:undefined}>
         {deciding&&!selected&&<BattleIcon kind="watch"/>}{reviewLine||(!deciding?planSummary.input:<>{choice?.problem&&<b className="bp-selection-warning">{shortCardProblem(choice.problem)||choice.problem} · </b>}{selectionDetail}</>)}
       </div>}
-      {layoutCompare&&selectedFace?.condition&&<span className="bp-wide-selected-condition">{selectedFace.condition}</span>}
+      {layoutCompare&&!wide&&selectedFace?.condition&&<span className="bp-wide-selected-condition">{selectedFace.condition}</span>}
       <div className="bp-plan-fields">
         {showProgress&&<ol className="bp-progress" aria-label="이번 공 진행">{[['plan','코스 노리기'],['flight','공 날아옴'],['result','결과']].map(([id,name],i)=><li key={id} aria-current={battleStep===id?'step':undefined}><BattleIcon kind={['aim','swing','exact'][i]}/><b>{i+1}</b> {name}</li>)}</ol>}
         {reviewLine?<p className="bp-result-explanation" data-testid="bp-result-explanation" role="status">{reviewLine}</p>:<>

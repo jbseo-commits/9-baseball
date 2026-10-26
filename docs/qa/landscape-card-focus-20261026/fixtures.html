@@ -1,0 +1,11 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>로컬 원화·효과 검증</title><body style="background:#10212b;color:#eee;font:16px/1.6 system-ui;padding:16px"><h1>로컬 원화·효과 검증</h1><p>로컬 테스트 저장만 변경합니다.</p><div id="choices"></div><pre id="result"></pre>
+<script type="module">
+import * as E from '/src/duel/engine.js';
+if(!['127.0.0.1','localhost'].includes(location.hostname))throw new Error('Local only');
+for(const [key,label] of [['empty','빈 손패'],['long','긴 효과·조건 6장'],['stack','4장 지원'],['defense','공방 준비 유지']]){
+ const el=document.createElement('button');el.textContent=label;el.style.cssText='display:block;min-height:44px;margin:12px 0';el.onclick=()=>{try{
+ let s;if(key==='defense'){s=E.createDefenseLabState({seed:914,pack:'hold',scenario:'crisis'});const id=s.battle.hand.find(id=>s.deck.find(c=>c.id===id)?.kind==='wearDown');if(id)s=E.playV10Action(s,{type:'card',id});E.saveDefenseLabState(localStorage,s);}
+ else{const initial=E.createV10Duel(90211);const kinds=key==='long'?['bunt','flow','pullHook','counterRead','calledShot','gripTape','scout','scout','scout']:Array(9).fill('place');initial.deck=kinds.map((kind,i)=>({id:'f'+i,kind}));initial.nextId=9;s=E.enterV10Node(initial,'a1-entry');s.battle.hand=s.deck.slice(0,6).map(c=>c.id);s.battle.draw=s.deck.slice(6).map(c=>c.id);s.battle.discard=[];s.battle.energy=4;s.battle.energyCap=4;if(key==='long'){s.battle.strikes=2;s.battle.outs=2;}if(key==='empty'){s.battle.hand=[];s.battle.draw=[];s.battle.discard=s.deck.map(c=>c.id);}E.saveV10Duel(localStorage,s);}
+ location.href='/?battleLayout=compare&qa=1'+(key==='defense'?'&experiment=defense':'');}catch(err){document.getElementById('result').textContent=err.message;}};document.getElementById('choices').append(el);
+}
+</script></body></html>

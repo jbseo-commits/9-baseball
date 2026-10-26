@@ -1,0 +1,79 @@
+/* Full card illustrations and their consequence. Only the opt-in landscape
+   presentation changes; portrait keeps its existing DOM, crop and five rows. */
+.bp-wide-card-image,.bp-wide-atlas,.bp-wide-mini-map{display:none}
+@media(orientation:landscape){
+  .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bp-compact.bp-layout-compare{
+    --wide-dock:clamp(168px,21.3vw,260px);--wide-zone:calc(var(--wide-dock) - 24px);--wide-board-height:132px;--wide-hand:clamp(148px,55dvh,250px);
+  }
+  .duel-app.v14-battle-portrait>.bp-layout-compare .bp-zone{height:var(--wide-board-height)}
+  .duel-app.v14-battle-portrait>.bp-layout-compare .bp-batter{min-height:0}
+  .duel-app.v14-battle-portrait>.bp-layout-compare .bp-pitcher{min-height:0}
+  .bp-layout-compare .bp-band em{display:none}
+  .bp-wide-ball-read{position:absolute;left:8px;top:6px;z-index:6;padding:2px 5px;border:1px solid #5c7478;border-radius:3px;background:#0b202be6;color:#dce1c9;font:600 10px/12px var(--bp-ko);white-space:nowrap}
+  .bp-wide-ball-read.warning{color:#ffc4a4;border-color:#c68d76}
+
+  /* The small free action leaves width for real cards. Short hands keep their
+     proportions instead of stretching one illustration across the entire row. */
+  .duel-app.v14-battle-portrait>.bp-layout-compare>.bp-hand{
+    width:min(100%,calc(60px + var(--wide-held-count)*160px));max-width:100%;justify-self:start;
+    grid-template-columns:var(--wide-card-columns);padding:5px 6px 4px;gap:4px;
+  }
+  .duel-app.v14-battle-portrait>.bp-layout-compare .bp-card{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:16px minmax(0,1fr) 24px;align-items:stretch;padding:2px!important;gap:1px;outline:none}
+  .duel-app.v14-battle-portrait>.bp-layout-compare .bp-card-art-box{grid-column:1;grid-row:2;display:flex;align-items:center;justify-content:center;min-height:0;height:100%;width:100%;flex:none;background:#0b1c27;overflow:hidden;border-radius:1px}
+  .bp-layout-compare .bp-card .bp-card-art{display:none!important}
+  .bp-layout-compare .bp-wide-card-image,.bp-layout-compare .bp-wide-atlas{display:block;width:100%;height:100%;min-width:0;min-height:0;object-fit:contain;object-position:center;transform:none!important;pointer-events:none;user-select:none}
+  .duel-app.v14-battle-portrait>.bp-layout-compare .bp-card .bp-card-header{position:static;grid-column:1;grid-row:3;inset:auto;display:flex;justify-content:center;align-items:center;height:24px;margin:0;padding:0;background:none;overflow:visible}
+  .bp-layout-compare .bp-card strong{font:700 clamp(9px,1.4vw,12px)/11px var(--bp-ko);max-height:24px;text-align:center;word-break:keep-all;overflow-wrap:anywhere}
+  .bp-layout-compare .bp-card .bp-card-cost{top:2px;left:2px;width:16px;height:16px;font-size:10px;line-height:14px}
+  .bp-layout-compare .bp-card .bp-order{top:2px;right:2px;width:16px;min-width:16px;height:16px;font-size:10px;line-height:16px}
+  .bp-layout-compare .bp-card .bp-wide-mini-map{display:block;position:absolute;left:21px;top:5px;width:10px;height:10px;pointer-events:none;z-index:3;color:#b8e2da;font-size:11px;line-height:10px}
+  .bp-layout-compare .bp-card .bp-wide-mini-map .bp-glyph{grid-template-columns:repeat(3,2px);gap:1px}
+  .bp-layout-compare .bp-card .bp-wide-mini-map .bp-glyph i{width:2px;height:2px}
+  .bp-layout-compare .bp-card-mini-map,.bp-layout-compare .bp-card-desc,.bp-layout-compare .bp-lab-card-note{display:none!important}
+  .bp-layout-compare .bp-card .bp-card-support-limit{top:2px;left:auto;right:2px;bottom:auto;background:#132b35;z-index:5}
+  .bp-layout-compare .bp-card.has-note .bp-card-header strong{color:#ffd0a0}
+
+  /* Board -> selected main ability / support area / preparation -> execution. */
+  .duel-app.v14-battle-portrait>.bp-layout-compare>.bp-plan{height:calc(100% - var(--wide-bar) - var(--wide-board-height) - 64px);padding:0 7px;display:block;background:linear-gradient(#172f39,#102630);overflow:visible;border-top:1px solid #3c5960}
+  .bp-layout-compare .bp-plan>.bp-plan-effects,.bp-layout-compare .bp-plan>.bp-lab-hud{display:none!important}
+  .bp-selection-dock{position:relative;display:flex;flex-direction:column;justify-content:center;gap:4px;height:100%;min-width:0;padding:4px 0;color:#edf0df}
+  .bp-selection-dock>header{display:flex;align-items:center;gap:5px;min-width:0;line-height:16px}
+  .bp-selection-dock>header strong{min-width:0;font:700 14px/17px var(--bp-ko);color:#f5e4b5;overflow-wrap:anywhere}
+  .bp-selection-dock>header>small{margin-left:auto;flex:none;white-space:nowrap;font:700 10px/14px var(--bp-ko);color:#c8dce0}
+  .bp-selection-dock>header>small.blocked{color:#ffb7a0}
+  .bp-selection-badge{flex:none;display:grid;place-items:center;width:18px;height:18px;border-radius:3px;background:#e1c68a;color:#102936;font:700 12px/1 var(--bp-ko)}
+  .bp-selection-dock.mode-support .bp-selection-badge{background:#a2dcd2}
+  .bp-selection-effect{display:flex;flex-wrap:wrap;column-gap:7px;row-gap:2px;margin:0;padding:0;font:700 14px/17px var(--bp-ko);color:#fff3d2;word-break:keep-all}
+  .bp-selection-effect>span{white-space:normal}
+  .bp-selection-condition,.bp-selection-warning{font:600 11px/14px var(--bp-ko);color:#ffba9e;white-space:normal}
+  .bp-selection-detail{font:500 11px/14px var(--bp-ko);color:#a9d4d0}
+  .bp-selection-forecast{display:flex;align-items:center;gap:5px;min-width:0}
+  .bp-selection-forecast>small{flex:none;font:500 10px/12px var(--bp-ko);color:#b0c9ce}
+  .bp-selection-forecast .bp-forecast{position:static!important;left:auto!important;right:auto!important;bottom:auto!important;transform:none!important;align-items:flex-start!important;width:auto!important;max-width:100%!important;gap:2px!important;font-size:11px!important}
+  .bp-selection-forecast .bp-forecast>span>span{padding:2px 4px!important;font-size:11px!important;line-height:13px!important}
+  .bp-wide-hand-status{position:absolute;left:6px;bottom:calc(var(--wide-hand) - 26px);width:calc(100% - var(--wide-dock) - 12px);height:22px;display:flex;align-content:center;align-items:center;flex-wrap:wrap;column-gap:10px;row-gap:0;z-index:10;font:600 10px/11px var(--bp-ko);color:#b9ddd5;overflow:hidden}
+  .bp-wide-hand-status>span{white-space:normal}
+  .duel-app.v14-battle-portrait>.bp-layout-compare:has(>.bp-wide-hand-status)>.bp-hand{padding-top:28px}
+}
+@media(orientation:landscape) and (max-height:499px){
+  .duel-app.v14-battle-portrait>.bp-layout-compare .bp-zone{padding:0;gap:0;border:0!important;box-shadow:0 0 0 1px #7b9299!important}
+}
+@media(orientation:landscape) and (max-height:330px){
+  .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bp-compact.bp-layout-compare{--wide-zone:132px;--wide-board-height:132px;--wide-hand:132px}
+  .duel-app.v14-battle-portrait>.bp-layout-compare:has(>.bp-wide-hand-status){--wide-hand:148px}
+  .bp-selection-dock{gap:1px;padding:1px 0}
+  .bp-selection-dock>header strong{font-size:10px;line-height:11px}
+  .bp-selection-dock>header>small{font-size:9px;line-height:11px}
+  .bp-selection-badge{width:12px;height:12px;font-size:9px}
+  .bp-selection-effect{font-size:10px;line-height:11px;gap:0 4px}
+  .bp-selection-condition,.bp-selection-warning,.bp-selection-detail{font-size:9px;line-height:10px}
+  .bp-selection-forecast{position:absolute;right:4px;bottom:calc(100% + var(--wide-board-height) + 4px);gap:0}
+  .bp-selection-forecast>small{display:block;font-size:8px;line-height:10px;margin-right:3px}
+  .bp-selection-forecast .bp-forecast>span>span{padding:1px 2px!important;font-size:9px!important;line-height:11px!important}
+}
+@media(orientation:landscape) and (min-height:500px){
+  .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bp-compact.bp-layout-compare{--wide-board-height:192px}
+  .bp-selection-dock{justify-content:flex-start;padding-top:16px;gap:12px}
+  .bp-selection-dock>header strong{font-size:17px;line-height:21px}
+  .bp-selection-effect{font-size:19px;line-height:26px}
+}
