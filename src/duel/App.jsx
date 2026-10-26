@@ -348,14 +348,14 @@ function useRedRushFrame(active,token){
 function Sprite({who,stage=null,shot=null,golden=false,variant=null,playToken=0,syncRedRush=false,sheet=null}){
   const rebootEnabled=golden&&who==='batter';
   const rebootPose=useBatterMotionV3Pose(stage,shot,playToken,rebootEnabled,syncRedRush);
-  const qaPose=rebootEnabled&&typeof window!=='undefined'&&new URLSearchParams(window.location.search).get('cinema')==='1'
+  const qaPose=rebootEnabled&&typeof window!=='undefined'&&(new URLSearchParams(window.location.search).get('cinema')==='1'||new URLSearchParams(window.location.search).get('qa')==='1')
     ?new URLSearchParams(window.location.search).get('batterPose'):null;
   const displayedRebootPose=qaPose&&BATTER_REBOOT_V3[qaPose]?qaPose:rebootPose;
   /* #103 M09: with a sheet, the DOM batter is the same drawing Pixi shows (BallparkActors), cell for
      cell on the same baseline, so a WebGL fallback or a slow Pixi start never swaps the batter */
   if(rebootEnabled&&sheet){
     return <span data-batter-pose={displayedRebootPose} className={'sprite-stage sprite-batter batter-sheet-actor pose-'+displayedRebootPose}>
-      <span aria-hidden="true" className="batter-sheet-frame" style={{...sheetCellStyle(sheet,displayedRebootPose),'--baseline':sheet.baseline??1}}/>
+      <span aria-hidden="true" className="batter-sheet-frame" style={sheetCellStyle(sheet,displayedRebootPose)}/>
     </span>;
   }
   if(rebootEnabled){

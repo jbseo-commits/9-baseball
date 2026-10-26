@@ -1,14 +1,17 @@
 import React,{useEffect,useRef} from 'react';
 import {IMPACT_PX,createImpactState,drawImpactFx,impactDuration,impactProfile} from './impact-fx.js';
+import {pitchTargetElements} from './battle-layout.js';
+import {targetPoint} from './landscape-camera.js';
 
 /* 접점(공이 들어온 존 칸)에서 터지는 타격 연출 캔버스. 장식이라 입력을 받지 않는다.
    stage가 'impact'가 되는 순간 시작하고, 히트스톱(짧은 정지)을 scene에 건다. */
 const STOP_MS=g=>({'grand-slam':110,homer:95,extra:75,'dead-center':65,solid:50,lucky:40,jammed:36,'battle-foul':40,foul:34,'near-miss-k':55,'chase-k':55,strikeout:60,'called-k':60}[g]||0);
 
 export function contactPoint(scene,zone){
-  const sr=scene.getBoundingClientRect(),zr=scene.querySelector('.bp-zone')?.getBoundingClientRect();
+  const sr=scene.getBoundingClientRect(),target=pitchTargetElements(scene).zone,zr=target?.getBoundingClientRect();
   if(!zr||!sr.width)return {x:sr.width*.55,y:sr.height*.6,sw:sr.width,sh:sr.height};
   const z=Number.isInteger(zone)?zone:4;
+  if(target?.classList.contains('bp-field-target'))return {...targetPoint({x:zr.left-sr.left,y:zr.top-sr.top,w:zr.width,h:zr.height},z),sw:sr.width,sh:sr.height};
   if(z>8)return {x:zr.left-sr.left+zr.width*.5,y:zr.bottom-sr.top+zr.height*.06,sw:sr.width,sh:sr.height};
   const col=z%3,row=Math.floor(z/3);
   return {x:zr.left-sr.left+zr.width*(col+.5)/3,y:zr.top-sr.top+zr.height*(row+.5)/3,sw:sr.width,sh:sr.height};

@@ -28,6 +28,8 @@ export function sheetCellStyle(sheet,pose){
   const cols=sheet.cols||1,rows=sheet.rows||1,cell=sheet.order?.[pose]??0;
   const col=cell%cols,row=Math.floor(cell/cols);
   return {
+    '--baseline':sheet.anchors?.[pose]?.baseline??sheet.baseline??1,
+    '--pose-x':sheet.anchors?.[pose]?.x??0,
     backgroundImage:`url(${sheet.src})`,
     backgroundSize:`${cols*100}% ${rows*100}%`,
     backgroundPosition:`${cols>1?col*100/(cols-1):0}% ${rows>1?row*100/(rows-1):0}%`,

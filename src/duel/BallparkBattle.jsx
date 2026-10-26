@@ -34,6 +34,9 @@ import {playUse,playSpend} from './card-fx.js';
 import {useBattleLayoutSignal,useWideBattle,pitchTargetElements} from './battle-layout.js';
 import LandscapeCardArt from './LandscapeCardArt.jsx';
 import LandscapeSelection from './LandscapeSelection.jsx';
+import LandscapeField from './LandscapeField.jsx';
+import {cameraGeometry} from './landscape-camera.js';
+import {LANDSCAPE_BATTER} from './landscape-batter.js';
 
 /* V13 BALLPARK — the battle as one ballpark scene (docs/design/v13/BALLPARK.md).
    Same engine contract as the legacy screen: `selected` + battle.aimZone is the main card,
@@ -151,6 +154,16 @@ export default function BallparkBattle({
   const r=b.revealed,inFx=!!fxStage,deciding=s.phase==='battle'&&!inFx&&!locked&&!commitBeat;
   const layoutCompare=useBattleLayoutSignal(!!(locked||inFx||commitBeat),compact);
   const wide=useWideBattle(layoutCompare);
+  const [cameraSize,setCameraSize]=useState({width:0,height:0});
+  const camera=wide?cameraGeometry(cameraSize.width,cameraSize.height):null;
+  const cameraStyle=box=>box?{'--camera-x':box.x+'px','--camera-y':box.y+'px','--camera-w':box.w+'px','--camera-h':box.h+'px'}:undefined;
+  useLayoutEffect(()=>{
+    if(!wide||!sceneRef.current)return;
+    const scene=sceneRef.current;
+    const measure=()=>setCameraSize(old=>old.width===scene.clientWidth&&old.height===scene.clientHeight?old:{width:scene.clientWidth,height:scene.clientHeight});
+    measure();const ro=typeof ResizeObserver!=='undefined'?new ResizeObserver(measure):null;ro?.observe(scene);
+    window.addEventListener('resize',measure);return()=>{ro?.disconnect();window.removeEventListener('resize',measure);};
+  },[wide]);
   const judged=!!r&&s.last?.kind!=='skill'&&(inFx||s.phase!=='battle');
   const landed=!inFx||LANDED.has(fxStage);
   const showProgress=s.version===10&&!autoLesson&&!defenseLab;
@@ -586,6 +599,7 @@ export default function BallparkBattle({
     <div className="bp-stage" ref={stageRef}>
     <section className={'bp-scene'+(pixi?.batter?' pixi-batter':'')+(pixi?.pitcher?' pixi-pitcher':'')+(inFx?' fx-stage-'+fxStage+(shot?' fx-'+(shot.grade||shot.kind):''):'')+(cam?' cam-'+cam:'')} ref={sceneRef} aria-label="승부 구장" data-gimmick={gm?.id} data-gtier={gtier} data-gphase={gm?(pre?shownGimmickPhase:(pitcher?.phase||'steady')):undefined}>
       <div className="bp-bg bp-cam" aria-hidden="true"/>
+      {wide&&<LandscapeField {...cameraSize}/>}
       <div className="bp-haze" aria-hidden="true"/>
       {autoLesson&&<aside className={'bp-auto-lesson '+lessonPhase} data-testid="bp-auto-lesson" aria-live="polite">
         <header>
@@ -614,8 +628,8 @@ export default function BallparkBattle({
           {autoPlan?.coverage>0&&lessonPhase!=='plan'&&<i>{autoPlan.coverage}존 커버</i>}
         </div>}
       </aside>}
-      {canPixi&&<BallparkActors sceneRef={sceneRef} pitcherAtlas={pitcherAtlas} artId={artId} batterPoses={batterPoses} batterSheet={batterSheet} batterRig={batterRig} pitchZone={judged?r.zone:null} shot={shot} fxStage={fxStage} playToken={playToken} knockedOut={judged&&((pre?hpWas:pitcher?.hp)??1)===0} onReady={setPixi}/>}
-      <div className="bp-pitcher bp-cam" ref={pitcherRef} aria-hidden="true" style={{'--stance-x':pitcherStance(artId)[0],'--stance-y':pitcherStance(artId)[1]}}>{pitcherArt}{intentIcon&&<span className="bp-intent-icon" data-testid="bp-intent-icon" data-intent={intentIcon.kind} data-read={intentIcon.level}
+      {canPixi&&<BallparkActors sceneRef={sceneRef} pitcherAtlas={pitcherAtlas} artId={artId} batterPoses={batterPoses} batterSheet={wide?LANDSCAPE_BATTER:batterSheet} batterRig={wide?null:batterRig} fieldCamera={wide} pitchZone={judged?r.zone:null} shot={shot} fxStage={fxStage} playToken={playToken} knockedOut={judged&&((pre?hpWas:pitcher?.hp)??1)===0} onReady={setPixi}/>}
+      <div className="bp-pitcher bp-cam" ref={pitcherRef} aria-hidden="true" style={{...cameraStyle(camera?.pitcher),'--stance-x':pitcherStance(artId)[0],'--stance-y':pitcherStance(artId)[1]}}>{pitcherArt}{intentIcon&&<span className="bp-intent-icon" data-testid="bp-intent-icon" data-intent={intentIcon.kind} data-read={intentIcon.level}
         style={{position:'absolute',left:'50%',top:'-6%',width:'auto',height:'auto',transform:'translateX(-50%)',visibility:'visible',zIndex:6,pointerEvents:'none',
           display:'flex',alignItems:'center',gap:'3px',padding:'2px 6px',borderRadius:'999px',background:'rgba(8,12,22,.82)',border:'1px solid rgba(255,214,120,.7)',
           color:'#f3ead2',font:'700 11px/1.1 system-ui,sans-serif',whiteSpace:'nowrap',opacity:intentIcon.opacity}}>
@@ -665,13 +679,13 @@ export default function BallparkBattle({
           {!!moves.length&&<ul className="bp-moves" data-testid="bp-moves">{moves.map((m,i)=><li key={i}>{m}</li>)}</ul>}
         </div>;
       })()}
-      {inFx&&vfx}
-      {inFx&&shot&&judged&&<ImpactFx key={'ifx'+playToken} sceneRef={sceneRef} stage={fxStage} grade={shot.grade||shot.kind} zone={r?.zone} token={playToken}/>}
+      {inFx&&!wide&&vfx}
+      {inFx&&shot&&judged&&(!wide||!pixi?.batter)&&<ImpactFx key={'ifx'+playToken} sceneRef={sceneRef} stage={fxStage} grade={shot.grade||shot.kind} zone={r?.zone} token={playToken}/>}
       {inFx&&<i className="bp-flash" key={'x'+playToken+fxStage} aria-hidden="true"/>}
       {fxStage==='slowmo'&&shot?.motion?.slowmo>0&&<span className="bp-slowmo" aria-hidden="true">{shot.grade==='near-miss'||shot.grade==='near-miss-k'?'ONE ZONE':shot.grade==='homer'||shot.grade==='grand-slam'?'TIME STOPS':'SLOW'}</span>}
       {cam==='near'&&fxStage==='slowmo'&&<i className="bp-letterbox" key={'lb'+playToken} aria-hidden="true"/>}
       {judged&&inFx&&!landed&&!pixi?.pitcher&&<i className="bp-flight" ref={flightRef} key={'f'+playToken} aria-hidden="true"/>}
-      <div className="bp-batter bp-cam" aria-hidden="true">{batterArt}</div>
+      <div className="bp-batter bp-cam" style={cameraStyle(camera?.batter)} aria-hidden="true">{wide&&React.isValidElement(batterArt)?React.cloneElement(batterArt,{sheet:LANDSCAPE_BATTER}):batterArt}</div>
       {/* 기세: active values live by the batter; at 0 there is no instrument —
          the value and its cause live in the inspector. Until the ball lands
          the gauge holds what this pitch was thrown into. */}
@@ -683,7 +697,7 @@ export default function BallparkBattle({
         {momentumRose&&<small className="bp-momentum-pop" aria-hidden="true">+{combat.momentumAfter-combat.momentumBefore}</small>}
       </div>}
 
-      {layoutCompare&&<div className="bp-field-target" aria-hidden="true">{ZONE_WORDS.map((_,z)=><i key={z} className={(cover.has(z)?' covered':'')+(judged&&landed&&r.zone===z?' landed':'')}/>)}</div>}
+      {layoutCompare&&<div className="bp-field-target" style={cameraStyle(camera?.target)} aria-hidden="true">{ZONE_WORDS.map((_,z)=><i key={z} className={(cover.has(z)?' covered':'')+(judged&&landed&&r.zone===z?' landed':'')}/>)}</div>}
       <div className={'bp-zone'+(cover.size?' has-cover':'')} ref={zoneRef} role="group" aria-label="노릴 코스"
         onPointerDown={slideStart} onPointerMove={slideMove} onPointerUp={slideEnd} onPointerCancel={slideEnd}
         onPointerLeave={e=>{if(e.pointerType==='mouse')setHoverZone(null);}}>

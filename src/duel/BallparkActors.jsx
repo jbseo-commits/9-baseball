@@ -7,6 +7,7 @@ import RELEASE from './pitcher-release.json';
 import STRIDE from './pitcher-stride.json';
 import STANCE from './pitcher-stance.json';
 import {pitchTargetElements} from './battle-layout.js';
+import {targetPoint} from './landscape-camera.js';
 import impactSlashVfx from '../../assets/production-art/battle-polish-v16/impact-slash.png';
 
 /* V13 C2 — the batter and the pitcher drawn by PixiJS (WebGL) over the CSS stadium.
@@ -23,6 +24,8 @@ import impactSlashVfx from '../../assets/production-art/battle-polish-v16/impact
 
 export function pixiAvailable(){
   if(typeof window==='undefined'||typeof document==='undefined')return false;
+  const qa=new URLSearchParams(window.location.search);
+  if(qa.get('qa')==='1'&&qa.get('renderer')==='dom')return false;
   if(!window.WebGL2RenderingContext&&!window.WebGLRenderingContext)return false;
   try{const c=document.createElement('canvas');return !!(c.getContext('webgl2')||c.getContext('webgl'));}catch{return false;}
 }
@@ -30,6 +33,7 @@ export function pixiAvailable(){
 const HIT_STOP_MS=90;
 export const SLOW_RATE=.35,CATCH_RATE=2;
 const crisp=(sc,dpr)=>sc*dpr>=2?Math.max(1,Math.floor(sc*dpr))/dpr:sc;
+export const actorDrawScale=(height,textureHeight,dpr,fieldCamera=false)=>fieldCamera?height/textureHeight:crisp(height/textureHeight,dpr);
 const IDLE_BREATH_MS=2600;
 export const WHIP_FROM=8,WHIP_TO=3,KO_DELAY_MS=120,KO_FALL_MS=380;
 export const pitcherStance=artId=>STANCE[artId]||[.5,1];
@@ -42,7 +46,7 @@ export function layoutBox(el,scene){
 }
 const REMEASURE_MS=400;
 
-export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterPoses,batterSheet=null,batterRig=null,shot,fxStage,playToken,pitchZone=null,knockedOut=false,onReady}){
+export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterPoses,batterSheet=null,batterRig=null,fieldCamera=false,shot,fxStage,playToken,pitchZone=null,knockedOut=false,onReady}){
   const hostRef=useRef(null),live=useRef({});
   live.current={shot,fxStage,playToken,pitchZone,artId,knockedOut};
 
@@ -50,6 +54,7 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
     if(!pixiAvailable())return;
     let app=null,alive=true,ro=null;const cleanup=[];
     const reduced=!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    const qaParams=new URLSearchParams(window.location.search),forcedPose=qaParams.get('qa')==='1'?qaParams.get('batterPose'):null;
     (async()=>{
       const PIXI=await import('pixi.js');
       if(!alive)return;
@@ -185,7 +190,7 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
         if(pitcher&&p){
           const fi=active?redRushFrameAt(t):0,{artId:aid0,knockedOut:ko}=live.current;
           pitcher.texture=pitchFrames[fi];
-          const sc=crisp(p.h/pitcher.texture.height,app.renderer.resolution);
+          const sc=actorDrawScale(p.h,pitcher.texture.height,app.renderer.resolution,fieldCamera);
           const [fx0,fy0]=pitcherStance(aid0),tw=pitcher.texture.width*sc,th=pitcher.texture.height*sc;
           const px=p.x+p.w/2+(.5-fx0)*tw,py=p.y+p.h+(1-fy0)*th;
           pitcher.scale.set(sc,sc*(active?1:1+breath*.008));pitcher.position.set(px,py);pitcher.rotation=0;pitcher.alpha=1;pitcher.tint=0xffffff;
@@ -219,28 +224,30 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
         if(b){
           const inStop=active&&hit&&stopAt&&now<stopUntil;
           if(inStop){const ci=timeline.findIndex(k=>k.pose==='contact');if(ci>=0)shownIndex=ci;}
-          const pose=active?(inStop?'contact':poseAt(t)):(shownIndex=0,'ready');
+          const pose=forcedPose&&poseTex[forcedPose]?forcedPose:active?(inStop?'contact':poseAt(t)):(shownIndex=0,'ready');
           if(pose!==prevPose){prevPoses.unshift({pose:prevPose,at:now});prevPoses=prevPoses.slice(0,2);prevPose=pose;}
           const tex=poseTex[pose]||poseTex.ready;batter.texture=tex;flash.texture=tex;
-          const sc=crisp(b.h/tex.height,app.renderer.resolution),x=Math.round(b.x+b.w/2),y=Math.round(b.y+b.h+(1-batterBaseline)*b.h);
+          const anchor=batterSheet?.anchors?.[pose];
+          const sc=actorDrawScale(b.h,tex.height,app.renderer.resolution,fieldCamera),x=Math.round(b.x+b.w/2+(anchor?.x??0)*tex.width*sc),y=Math.round(b.y+b.h+(1-(anchor?.baseline??batterBaseline))*b.h);
           batter.scale.set(sc,sc*(active?1:1+breath*.006));batter.position.set(x,y);
           const rigOn=!!rig&&!reduced&&!inStop&&(pose==='ready'||pose==='load');
           if(rig){rig.root.visible=rigOn;batter.visible=!rigOn;if(rigOn){const la=timeline.find(k=>k.pose==='load')?.at,ta=timeline.find(k=>k.pose==='trigger')?.at;rig.set(active&&pose==='load'&&la!=null&&ta!=null?batterRigLoad(now,(t-la)/Math.max(1,ta-la)):batterRigIdle(now));rig.root.scale.set(crisp(b.h/(batterRig.cell[1]),app.renderer.resolution));rig.root.position.set(x,y);}}
           flash.scale.copyFrom(batter.scale);flash.position.copyFrom(batter.position);
-          shadows.ellipse(x,b.y+b.h-b.h*.02,b.w*.3,b.h*.035).fill({color:0x000000,alpha:.35});
+          shadows.ellipse(fieldCamera?b.x+b.w/2:x,b.y+b.h-b.h*(fieldCamera?.01:.02),b.w*(fieldCamera?.18:.3),b.h*(fieldCamera?.012:.035)).fill({color:0x000000,alpha:.35});
           const fast=active&&swing&&t>=(timeline.find(k=>k.pose==='swing-start')?.at??1e9)&&t<impactAt+160;
           ghosts.forEach((g,i)=>{const src=prevPoses[i];if(fast&&src&&!reduced){g.texture=poseTex[src.pose]||poseTex.ready;g.scale.copyFrom(batter.scale);g.position.copyFrom(batter.position);g.alpha=Math.max(0,(i?.16:.32)*(1-(now-src.at)/180));g.tint=0xfff1c4;}else g.alpha=0;});
           arc.clear();const ss=timeline.find(k=>k.pose==='swing-start')?.at;
-          if(active&&swing&&!reduced&&ss!=null&&t>=ss&&t<impactAt+220){const k=Math.min(1,(t-ss)/Math.max(60,impactAt-ss)),fade=t>impactAt?1-(t-impactAt)/220:1;const cx=x+b.w*.08,cy=y-b.h*.48,r=b.h*.33,a0=-1.9,a1=a0+(0.3+1.9)*k;arc.arc(cx,cy,r,a0,a1).stroke({width:Math.max(3,b.h*.025),color:hit?0xffe08a:0xffffff,alpha:.45*fade,cap:'round'});arc.arc(cx,cy,r*.93,a0+.2,a1).stroke({width:Math.max(2,b.h*.012),color:0xffffff,alpha:.35*fade,cap:'round'});}
+          if(!fieldCamera&&active&&swing&&!reduced&&ss!=null&&t>=ss&&t<impactAt+220){const k=Math.min(1,(t-ss)/Math.max(60,impactAt-ss)),fade=t>impactAt?1-(t-impactAt)/220:1;const cx=x+b.w*.08,cy=y-b.h*.48,r=b.h*.33,a0=-1.9,a1=a0+(0.3+1.9)*k;arc.arc(cx,cy,r,a0,a1).stroke({width:Math.max(3,b.h*.025),color:hit?0xffe08a:0xffffff,alpha:.45*fade,cap:'round'});arc.arc(cx,cy,r*.93,a0+.2,a1).stroke({width:Math.max(2,b.h*.012),color:0xffffff,alpha:.35*fade,cap:'round'});}
           flash.alpha=active&&hit&&stopAt&&now<stopUntil+60?Math.max(0,.4-(now-stopAt)/300):0;
-          if(active&&!dusted.stride&&t>=(timeline.find(k=>k.pose==='trigger')?.at??1e9)){dusted.stride=1;if(!reduced)spawnDust(x+b.w*.28,y-b.h*.02,10,b.h);}
-          if(active&&hit&&!dusted.hit&&stopAt){dusted.hit=1;if(!reduced)spawnDust(x+b.w*.3,y-b.h*.02,16,b.h);}
+          if(active&&!dusted.stride&&t>=(timeline.find(k=>k.pose==='trigger')?.at??1e9)){dusted.stride=1;if(!reduced)spawnDust(fieldCamera?b.x+b.w*.72:x+b.w*.28,fieldCamera?b.y+b.h:y-b.h*.02,fieldCamera?4:10,b.h);}
+          if(active&&hit&&!dusted.hit&&stopAt){dusted.hit=1;if(!reduced)spawnDust(fieldCamera?b.x+b.w*.72:x+b.w*.3,fieldCamera?b.y+b.h:y-b.h*.02,fieldCamera?6:16,b.h);}
           if(active&&hit&&stopAt&&!reduced){
             const elapsed=now-stopAt;
             if(elapsed>=0&&elapsed<240){
               const z=boxes.zone,bb=b||{x:z?.x-z?.w||0,y:z?.y||0,w:z?.h||0,h:z?.h||0},bh=bb.h,bxc=bb.x+bb.w/2,byb=bb.y+bb.h;
               const pz=live.current.pitchZone;const row=pz!=null&&pz<9?Math.floor(pz/3):2.4,col=pz!=null&&pz<9?pz%3:2.6;
-              const itx=bxc+bh*(.39-(col-1)*.03),ity=byb-bh*(.53-row*.07);const isPower=/homer|grand|extra|dead/.test(sh?.grade||'');
+              const contact=fieldCamera?targetPoint(z,pz):null;
+              const itx=contact?.x??(bxc+bh*(.39-(col-1)*.03)),ity=contact?.y??(byb-bh*(.53-row*.07));const isPower=/homer|grand|extra|dead/.test(sh?.grade||'');
               const prog=Math.min(1,elapsed/200),ringR=Math.max(6,bh*.06)+prog*bh*(isPower?.32:.22),ringAlpha=(1-prog)*(isPower?.9:.7);
               impactFx.circle(itx,ity,ringR).stroke({width:Math.max(1.5,bh*.016*(1-prog*.5)),color:isPower?0xffd32a:0xffffff,alpha:ringAlpha});
               if(elapsed<130){const spk=1-elapsed/130,bw=bh*(isPower?.28:.2)*spk,thk=Math.max(1.5,bh*.022*spk);impactFx.rect(itx-bw,ity-thk*.5,bw*2,thk).fill({color:0xffffff,alpha:spk*.95});impactFx.rect(itx-thk*.5,ity-bw,thk,bw*2).fill({color:0xffffff,alpha:spk*.95});impactFx.circle(itx,ity,bh*(isPower?.06:.04)*spk).fill({color:isPower?0xffe08a:0xffffff,alpha:spk});impactFx.circle(itx,ity,bh*(isPower?.1:.07)*spk).fill({color:isPower?0xff9f43:0xffc861,alpha:spk*.45});}
@@ -256,7 +263,8 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
           const hx=pitcher.position.x-tw/2+rp[0]*tw,hy=pitcher.position.y-th+rp[1]*th;
           const z=boxes.zone,bb=b||{x:z.x-z.w,y:z.y,w:z.h,h:z.h},bh=bb.h,bxc=bb.x+bb.w/2,byb=bb.y+bb.h;
           const row=pz<9?Math.floor(pz/3):2.4,col=pz<9?pz%3:2.6;
-          const tx=bxc+bh*(.39-(col-1)*.03),ty=byb-bh*(.53-row*.07);
+          const contact=fieldCamera?targetPoint(z,pz):null;
+          const tx=contact?.x??(bxc+bh*(.39-(col-1)*.03)),ty=contact?.y??(byb-bh*(.53-row*.07));
           const unit=bh/100,span=Math.max(1,impactAt-RED_RUSH_RELEASE_MS),k=(t-RED_RUSH_RELEASE_MS)/span;
           let bx,by,r,a=1;
           if(k<=1){const e=Math.pow(k,1.1);bx=hx+(tx-hx)*e;by=hy+(ty-hy)*e-Math.sin(Math.PI*k)*unit*3;r=unit*(1.3+.4*e);}
@@ -280,7 +288,7 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
       });
     })().catch(()=>{onReady?.(null);});
     return ()=>{alive=false;ro?.disconnect();cleanup.forEach(f=>f());onReady?.(null);try{app?.destroy(true,{children:true});}catch{}};
-  },[pitcherAtlas,batterSheet]);
+  },[pitcherAtlas,batterSheet,fieldCamera]);
 
   return <div ref={hostRef} className="bp-pixi bp-cam" aria-hidden="true"/>;
 }
