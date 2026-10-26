@@ -2,3 +2,15 @@
 .bp-hp-forecast{position:absolute;inset:0;pointer-events:none;z-index:1;animation:bp-forecast-blink .9s ease-in-out infinite}
 @keyframes bp-forecast-blink{0%,100%{opacity:.9}50%{opacity:.25}}
 @media (prefers-reduced-motion:reduce){.bp-hp-forecast{animation:none;opacity:.7}}
+
+/* 사격 모드(시범): 이번 공에서 빗나간 칸. 금 간 구멍 + 흐린 칸. 칸 위 글자는 0%로 남는다. */
+.bp-cell.shot-hole{filter:saturate(.35) brightness(.7)}
+.bp-shot-hole{position:absolute;left:50%;top:50%;width:46%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;z-index:2;
+  background:radial-gradient(circle,#05070c 0 34%,#2a2118 36% 44%,transparent 46%),
+    conic-gradient(from 20deg,transparent 0 8%,#d9c7a055 8% 9%,transparent 9% 33%,#d9c7a055 33% 34%,transparent 34% 61%,#d9c7a055 61% 62%,transparent 62% 84%,#d9c7a055 84% 85%,transparent 85%);
+  box-shadow:0 0 0 1px #00000088;animation:bp-shot-punch .28s cubic-bezier(.2,.9,.3,1.4) both}
+@keyframes bp-shot-punch{from{transform:translate(-50%,-50%) scale(.2);opacity:0}to{transform:translate(-50%,-50%) scale(1);opacity:1}}
+.bp-shot-count{position:absolute;left:50%;top:-4px;transform:translate(-50%,-100%);white-space:nowrap;pointer-events:none;z-index:4;
+  font:800 11px/1 system-ui,sans-serif;color:#ffd9a0;background:#1a0f08e6;border:1px solid #ff8a2b;border-radius:10px;padding:3px 8px}
+@media (prefers-reduced-motion:reduce){.bp-shot-hole{animation:none}}
+.bp-shot-label{position:absolute;left:0;right:0;bottom:3px;text-align:center;pointer-events:none;z-index:3;font:700 10px/1 system-ui,sans-serif;color:#ffb27a;text-shadow:0 1px 2px #000}

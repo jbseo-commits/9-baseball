@@ -139,7 +139,7 @@ function dealPitch(s){
     const near=trickNeighbors(zone);zone=near[Math.floor(unit(s,'pitchSeed')*near.length)%near.length];
   }
   b.pending={zone,roll:unit(s,'pitchSeed'),powerRoll:unit(s,'pitchSeed')};
-  b.scouted=false;b.scoutPlus=false;b.scoutBall=false;b.revealed=null;
+  b.scouted=false;b.scoutPlus=false;b.scoutBall=false;b.revealed=null;if(b.shot)delete b.shot;
 }
 /* 검증·시뮬레이션용: 같은 상태에서 공만 새로 뽑는다 (dealPitch와 같은 규칙, 상태는 복제). */
 export function redealPitch(state,pitchSeed=state.pitchSeed){const s=clone(state);s.pitchSeed=pitchSeed>>>0;dealPitch(s);return s;}
@@ -333,16 +333,23 @@ export function setGrowthMode(state,mode){
 }
 // Only deliberate scouting exposes which row/column contains this already-dealt pitch.
 export function knownPitchZones(s){
-  const b=s.battle;
-  if(!b?.scouted||!b.pending)return Array.from({length:10},(_,z)=>z);
+  const b=s.battle,missed=b?.pending?v10ShotMissed(s):[],cut=zones=>missed.length?zones.filter(z=>!missed.includes(z)):zones;
+  if(!b?.scouted||!b.pending)return cut(Array.from({length:10},(_,z)=>z));
   const zone=b.pending.zone;
   if(zone===9)return [9];
-  if(b.scoutBall&&!b.scoutPlus)return Array.from({length:9},(_,z)=>z);
-  return Array.from({length:9},(_,z)=>z).filter(z=>Math.floor(z/3)===Math.floor(zone/3)&&(!b.scoutPlus||z%3===zone%3));
+  if(b.scoutBall&&!b.scoutPlus)return cut(Array.from({length:9},(_,z)=>z));
+  return cut(Array.from({length:9},(_,z)=>z).filter(z=>Math.floor(z/3)===Math.floor(zone/3)&&(!b.scoutPlus||z%3===zone%3)));
 }
+/* 사격 모드(시범, 2026-10-26): 카드 한 번 = 한 발. 빗나간 칸은 이번 공에서 지워지고 같은 공을 다시 노린다.
+   빗나감은 1스트라이크, 2스트라이크의 빗나감은 기존 판정(헛스윙 삼진·카드의 파울 생존)으로 넘어간다.
+   맞힌 발 순서가 늦을수록 피해가 줄어든다. 설정에서 켠 런에만 적용된다(state.v10.shotMode). */
+export const V10_SHOT_RATES=Object.freeze([1.2,1,.8,.65]);
+export function v10ShotMode(s){return !!(s?.version===10&&s.v10?.shotMode&&s.defenseLab?.schema!==1);}
+export function v10ShotMissed(s){return v10ShotMode(s)&&Array.isArray(s.battle?.shot?.missed)?s.battle.shot.missed:[];}
+export function v10ShotRate(s){const n=Math.max(0,s?.battle?.shot?.n|0);return V10_SHOT_RATES[Math.min(n,V10_SHOT_RATES.length-1)];}
 export function publicProbabilities(s){
   const b=s.battle,p=b.intent.probabilities;
-  if(!b.scouted||!b.pending)return [...p];
+  if(!b.pending||!b.scouted&&!v10ShotMissed(s).length)return [...p];
   const known=knownPitchZones(s);
   const visible=p.map((v,z)=>known.includes(z)?v:0),sum=visible.reduce((a,x)=>a+x,0);
   return visible.map(v=>v/sum);
@@ -574,7 +581,7 @@ function resolve(state,id,supports=[]){
     protectionUsed:lab.protectionUsed,transferredProtection:lab.transferredProtection,counterReady:lab.counterReady,
     counterEarned:lab.counterEarned===true||(lab.counterEarned===undefined&&(lab.counterReady||lab.protectionUsed)),powerInvested:lab.powerInvested};
   b.history.push({zone:pending.zone,label:result.label,aimZone:id?b.aimZone:null,turn:b.turn,...countBefore});
-  b.history=b.history.slice(-18);b.pending=null;b.scouted=false;b.scoutPlus=false;b.scoutBall=false;
+  b.history=b.history.slice(-18);b.pending=null;if(b.shot)delete b.shot;b.scouted=false;b.scoutPlus=false;b.scoutBall=false;
   // Upgraded 코스 조정 survives the swing and lasts the rest of the plate appearance.
   if(id&&!b.expandedPlus)b.expanded=false;
   events.unshift('실제 코스: '+(result.zone===9?'존 밖 볼':ZONES[result.zone]));
@@ -1132,7 +1139,8 @@ export function v10DamageTerms(state,{action,choice,r,outcome,stackCardCount=1,s
     runnersBefore:(state.battle?.bases||[]).filter(Boolean).length,pitcherPhase:state.pitcher?.phase||'steady'});
   /* 기세: the rate this pitch hits with = the stack/relic rate × the momentum built before it */
   const momentumBefore=v10Momentum(state),momentumRate=v10MomentumRate(momentumBefore);
-  const relicPlan={...relicPlan0,damageRate:relicPlan0.damageRate*momentumRate};
+  const shotRate=action.type==='card'&&v10ShotMode(state)?v10ShotRate(state):1;
+  const relicPlan={...relicPlan0,damageRate:relicPlan0.damageRate*momentumRate*shotRate};
   const precisionRate=action.type==='card'&&r.kind==='hit'&&!r.assistOnly&&Array.isArray(r.primaryCoverage)&&r.primaryCoverage.includes(r.zone)
     ?(CARDS[choice]?.pressure||0)+(state.battle?.bonusPressure||0):0;
   const lab=state.defenseLab?.schema===1?state.defenseLab:null;
@@ -1144,7 +1152,7 @@ export function v10DamageTerms(state,{action,choice,r,outcome,stackCardCount=1,s
   const runnersBefore=(state.battle?.bases||[]).filter(Boolean).length;
   const runnerRate=r.kind==='hit'?runnersBefore*V10_RUNNER_PRESSURE:0;
   const runnerBonus=runnerRate?Math.max(0,Math.round(damageForOutcome(outcome,0).damage*relicPlan.damageRate*runnerRate)):0;
-  return {relicPlan0,relicPlan,momentumBefore,momentumRate,precisionRate,precisionBonus,runnersBefore,runnerRate,runnerBonus,fxPlan,labCounter,
+  return {relicPlan0,relicPlan,momentumBefore,momentumRate,shotRate,precisionRate,precisionBonus,runnersBefore,runnerRate,runnerBonus,fxPlan,labCounter,
     damageMultiplier:relicPlan.damageRate,damageBonus:relicPlan.damageBonus+precisionBonus+runnerBonus+fxPlan.bonus+(labCounter?8:0)};
 }
 export function playV10Action(state,action){
@@ -1154,6 +1162,14 @@ export function playV10Action(state,action){
     ?(action.id==='basic'?'basic':card(state,action.id)?.kind||String(action.id||'')):'';
   if(!choice)return state;
   const supports=Array.isArray(action.supports)?action.supports:(action.assistId?[{id:action.assistId,aimZone:action.assistZone}]:[]);
+  if(action.type==='card'&&v10ShotMode(state)&&state.battle?.pending&&state.battle.strikes<2){
+    const def=choice==='basic'?null:CARDS[choice];
+    if(def?.type!=='skill'&&!def?.bunt){
+      if(cardProblem(state,action.id)||stackSupportProblem(state,action.id,supports))return state;
+      const shotZones=stackCoverage(state,action.id,supports);
+      if(!shotZones.includes(state.battle.pending.zone))return v10ShotMiss(state,action.id,supports,shotZones);
+    }
+  }
   let next=action.type==='take'?endTurn(state):action.type==='card'?playCard(state,action.id,{supports}):state;
   if(next===state)return state;
   if(next.stats.pitches===beforePitches){
@@ -1271,6 +1287,22 @@ export function playV10Action(state,action){
   return next;
 }
 
+function v10ShotMiss(state,id,supports,shotZones){
+  const s=clone(state),b=s.battle,n=(b.shot?.n|0)+1,ids=[id,...supports.map(x=>x.id)].filter(x=>x&&x!=='basic');
+  b.energy=Math.max(0,v10Energy(s)-v10ActionCost(s,id,supports));
+  for(const x of ids){b.hand.splice(b.hand.indexOf(x),1);b.discard.push(x);s.stats.cards++;}
+  const afx=id!=='basic'?CARDS[card(state,id)?.kind]?.fx:null;
+  if(afx?.drawPlay)draw(s,afx.drawPlay);
+  b.strikes++;s.stats.whiffs++;
+  b.shot={n,missed:[...new Set([...(b.shot?.missed||[]),...shotZones])].sort((a,c)=>a-c)};
+  if(!b.expandedPlus)b.expanded=false;
+  const left=V10_SHOT_RATES[Math.min(n,V10_SHOT_RATES.length-1)];
+  const text=n+'발째 빗나감 · '+b.balls+'B '+b.strikes+'S';
+  const events=['빈 칸: '+shotZones.map(v10ZoneLabel).join(' · '),'같은 공 · 남은 칸 확률이 올라갑니다 · 다음 명중 피해 ×'+left];
+  s.last={kind:'shot',text,events,runs:0,outs:0,shot:{n,zones:shotZones}};
+  b.log=[text,...(b.log||[])].slice(0,12);
+  return s;
+}
 export function advanceV10Pitch(state){
   if(state?.version!==10||state.phase!=='pitch'||!state.pitcher||state.pitcher.hp<=0)return state;
   return advancePitch(state);

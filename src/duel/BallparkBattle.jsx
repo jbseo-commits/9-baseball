@@ -1,6 +1,6 @@
 import React,{useEffect,useLayoutEffect,useRef,useState} from 'react';
 import {CARDS,LINEUP,bandFor,rangeFor,shadeNameFor,cardCost} from './cards.js';
-import {publicProbabilities,readLevel,readSources,knownPitchZones,v10StackMax,v10PrepMax,v10Energy,v10EnergyCap,v10EnergyBase,v10NextEnergyMax,v10ActionCost,v10TakeDrawPreview,V11_SWING_ENERGY,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM,defenseLabThreat} from './engine.js';
+import {publicProbabilities,readLevel,readSources,knownPitchZones,v10StackMax,v10PrepMax,v10Energy,v10EnergyCap,v10EnergyBase,v10NextEnergyMax,v10ActionCost,v10TakeDrawPreview,V11_SWING_ENERGY,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM,defenseLabThreat,v10ShotMissed,v10ShotMode,v10ShotRate} from './engine.js';
 import {probabilityBounds} from './information.js';
 import {intentLines,hpTicks,ZONE_WORDS,runnerMoves} from './ballpark-copy.js';
 import ZoneLinks from './ZoneLinks.jsx';
@@ -238,6 +238,7 @@ export default function BallparkBattle({
 
   const probs=b.pending?publicProbabilities(s):b.intent?.probabilities||[];
   const live=b.intent?.repertoire||[0,1,2,3,4,5,6,7,8];
+  const shotHoles=new Set(v10ShotMissed(s)),shotN=v10ShotMode(s)?(b.shot?.n|0):0;
   const inZone=probs.slice(0,9).reduce((a,x)=>a+x,0)||1;
   /* 읽은 만큼만 숫자로 보인다(레거시 ZoneBoard와 같은 계약): 0등급 명암 낱말 → 1등급 구간 → 2등급 정확한 확률.
      원천은 같은 publicProbabilities이며, 낮은 등급에 틀린 숫자를 보여주지 않는다.
@@ -674,6 +675,7 @@ export default function BallparkBattle({
         onPointerDown={slideStart} onPointerMove={slideMove} onPointerUp={slideEnd} onPointerCancel={slideEnd}
         onPointerLeave={e=>{if(e.pointerType==='mouse')setHoverZone(null);}}>
         <ForecastChip forecast={forecast} compact={compact}/>
+        {deciding&&shotN>0&&<span className="bp-shot-count" data-testid="bp-shot-count" role="status">{shotN}발 빗나감 · 같은 공 · 다음 명중 ×{v10ShotRate(s)}</span>}
         {ZONE_WORDS.map((word,z)=>{
           const dead=!live.includes(z),tok=tokens.filter(t=>t.z===z);
           const actual=judged&&landed&&r.zone===z;
@@ -681,14 +683,15 @@ export default function BallparkBattle({
           const heat=deciding?courseHeat(face):null;
           return <button key={z} type="button" data-zone={z} disabled={!deciding} onClick={()=>pickZone(z)}
             onPointerEnter={e=>{if(e.pointerType==='mouse'&&deciding)setHoverZone(z);}}
-            aria-label={word+(dead?' · 던지지 않는 코스':'')+(b.aimZone===z?' · 노림':'')} aria-pressed={b.aimZone===z}
+            aria-label={word+(dead?' · 던지지 않는 코스':'')+(shotHoles.has(z)?' · 빗나간 칸':'')+(b.aimZone===z?' · 노림':'')} aria-pressed={b.aimZone===z}
             aria-description={showMarks&&deciding?face:undefined} data-prob-tone={compact?heat:undefined}
-            className={'bp-cell'+(dead?' dead':'')+(cover.has(z)?' cover':'')+(support.has(z)?' assist':'')+(aimAt===z?' aim':'')+(armed?' target':'')+(actual?' actual'+(good?' good':''):'')}
+            className={'bp-cell'+(dead?' dead':'')+(cover.has(z)?' cover':'')+(support.has(z)?' assist':'')+(aimAt===z?' aim':'')+(armed?' target':'')+(actual?' actual'+(good?' good':''):'')+(shotHoles.has(z)?' shot-hole':'')}
             style={{'--heat':({'1':.15,'2':.3,'3':.4,'4':.6,'5':.75,certain:.75}[heat]||0)}}>
-            {dead&&!cover.has(z)&&<small className="bp-dead">안 던짐</small>}{!dead&&deciding&&<span className={'bp-pct'+(z===topCell&&(!showMarks||level>0)?' top':'')+((showMarks?face==='0%':pct(z)===0)?' zero':'')+(mark?' ba-word':'')}>{cellFace(z)}</span>}
-            {showMarks&&deciding&&mark&&<CourseMark face={face}/>}
+            {dead&&!cover.has(z)&&<small className="bp-dead">안 던짐</small>}{!dead&&deciding&&!shotHoles.has(z)&&<span className={'bp-pct'+(z===topCell&&(!showMarks||level>0)?' top':'')+((showMarks?face==='0%':pct(z)===0)?' zero':'')+(mark?' ba-word':'')}>{cellFace(z)}</span>}
+            {showMarks&&deciding&&mark&&!shotHoles.has(z)&&<CourseMark face={face}/>}
             {showMarks&&aimAt===z&&<BattleIcon kind="aim" className="ba-aim-marker"/>}
             {deciding&&forecast&&forecast.now.coverage.includes(z)&&<RiskTint cells={forecast.now.coverage.length}/>}
+            {shotHoles.has(z)&&<><i className="bp-shot-hole" data-testid="bp-shot-hole" aria-hidden="true"/><small className="bp-shot-label">빗나감</small></>}
             {tok.map(t=><b key={t.n} className="bp-token" data-board-order={t.n}>{t.n}</b>)}{actual&&<i className="bp-pitch-mark" aria-label="실제 공"/>}
           </button>;
         })}

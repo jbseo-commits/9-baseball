@@ -8,7 +8,7 @@
 import {CARDS} from './cards.js';
 import {trickNeighbors} from './gimmick.js';
 import {publicProbabilities,knownPitchZones,coverage,coverageAt,swingOdds,hitProfile,v11StackPlan,v10GimmickRules,
-  v10DamageTerms,v10Shaken,readLevel,playV10Action,V10_RUNNER_PRESSURE,cardProblem,stackSupportProblem} from './engine.js';
+  v10DamageTerms,v10Shaken,v10ShotMode,v10ShotMissed,readLevel,playV10Action,V10_RUNNER_PRESSURE,cardProblem,stackSupportProblem} from './engine.js';
 import {pitcherDamageFor} from './pitcher-hp.js';
 import {probabilityBounds} from './information.js';
 
@@ -29,7 +29,7 @@ function trickMix(p,t){
 /* 이번 공이 실제로 떨어질 분포 (판정용 진짜 확률). 정찰 단서가 있으면 그 범위로 좁힌다. */
 export function v10PitchDistribution(s){
   const b=s.battle,mixed=trickMix(b.intent.probabilities,trickRateFor(s));
-  if(!b.scouted||!b.pending)return mixed;
+  if(!b.pending||!b.scouted&&!v10ShotMissed(s).length)return mixed;
   const known=knownPitchZones(s),visible=mixed.map((v,z)=>known.includes(z)?v:0),sum=visible.reduce((a,x)=>a+x,0);
   return sum>0?visible.map(v=>v/sum):publicProbabilities(s);
 }
@@ -40,14 +40,21 @@ export function publicPitchBounds(s){
   const known=knownPitchZones(s);
   if(known.length===1)return Array.from({length:10},(_,z)=>known.includes(z)?[1,1]:[0,0]);
   if(readLevel(s)===2)return v10PitchDistribution(s).map(v=>[v,v]);
-  const t=trickRateFor(s),bounds=probabilityBounds(s);
+  /* 사격 모드: 빗나간 칸은 착지(속임수 이동 뒤) 정보다. 지우기 전 구간을 이동시킨 다음 조건부로 좁힌다:
+     z의 몫은 lo_z/(lo_z+남은 칸 hi 합) ~ hi_z/(hi_z+남은 칸 lo 합). */
+  const missed=v10ShotMissed(s).length>0;
+  const t=trickRateFor(s),bounds=probabilityBounds(missed?{...s,battle:{...s.battle,shot:null}}:s);
+  const cond=(lo,hi)=>{
+    if(!missed)return lo.map((v,z)=>[v,hi[z]]);
+    const rest=(arr,z)=>known.reduce((a,y)=>a+(y===z?0:arr[y]),0);
+    return lo.map((v,z)=>known.includes(z)?[v/((v+rest(hi,z))||1),Math.min(1,hi[z]/((hi[z]+rest(lo,z))||1))]:[0,0]);
+  };
   // A scout describes the already-shifted landing, not a new pre-trick pitch.
   // Partial clues at coarse read cannot reconstruct its conditional weights.
   if(s.battle.scouted){
-    return t?bounds.map((_,z)=>known.includes(z)?[0,1]:[0,0]):bounds;
+    return t?bounds.map((_,z)=>known.includes(z)?[0,1]:[0,0]):cond(bounds.map(x=>x[0]),bounds.map(x=>x[1]));
   }
-  const lo=trickMix(bounds.map(x=>x[0]),t),hi=trickMix(bounds.map(x=>x[1]),t);
-  return lo.map((v,z)=>[v,hi[z]]);
+  return cond(trickMix(bounds.map(x=>x[0]),t),trickMix(bounds.map(x=>x[1]),t));
 }
 export function publicMassBounds(bounds,zones){
   const set=new Set(zones),sum=(inside,index)=>bounds.reduce((a,v,z)=>a+(set.has(z)===inside?v[index]:0),0);
@@ -83,6 +90,7 @@ export function previewSwing(s,{id='basic',supports=[]}={},probabilities=v10Pitc
   const plan=v11StackPlan(s,id,supports),stackCardCount=1+items.length,stackDamageRate=plan.orderedDamageRate??plan.damageRate;
   const pitchInPA=1+(b.history||[]).filter(h=>h.turn===b.turn).length;
   const action={type:'card',id,supports},foulStreak=s.pitcher.foulStreak||0;
+  const shotMiss=v10ShotMode(s)&&b.strikes<2&&!CARDS[k]?.bunt;
   const makeOutcomes=distribution=>{
   const outcomes=[];
   const push=(p,r,outcome)=>{
@@ -108,6 +116,8 @@ export function previewSwing(s,{id='basic',supports=[]}={},probabilities=v10Pitc
       push(p,{...base,kind:'hit',zone:z,assistOnly:true},{kind:'hit',label:'겹친 카드 단타',bases:1,zone:z,aimZone:b.aimZone,covered:true});
       return;
     }
+    /* 사격 모드 2스트라이크 전: 빗나감은 같은 공 1스트라이크, 피해 없음 */
+    if(shotMiss){outcomes.push({p,kind:'whiff',bases:0,zone:z,label:'빗나감',damage:0,terms:null});return;}
     for(const kind of ['foul','whiff','out','sacrifice'])
       push(p*(o[kind]||0),{...base,kind,zone:z},{kind,label:kind,bases:0,zone:z,aimZone:b.aimZone,covered:false});
   });
@@ -132,6 +142,7 @@ export function previewSwing(s,{id='basic',supports=[]}={},probabilities=v10Pitc
   /* 배율의 이유: 실제로 피해에 들어가는 항목만, 화면 뱃지 순서대로 */
   const reasons=[];
   if(stackCardCount>1)reasons.push({key:'stack',label:stackCardCount+'장 스택 ×'+(stackDamageRate).toFixed(2).replace(/0$/,'')});
+  if(hitTerms&&v10ShotMode(s))reasons.push({key:'shot',label:((b.shot?.n|0)+1)+'발째 ×'+hitTerms.shotRate});
   if(hitTerms?.momentumBefore>0)reasons.push({key:'momentum',label:'기세 ×'+hitTerms.momentumRate.toFixed(1)});
   const precision=hits.find(o=>o.terms.precisionRate>0)?.terms.precisionRate||0;
   if(precision)reasons.push({key:'precision',label:'정확 적중 +'+Math.round(precision*100)+'%'});

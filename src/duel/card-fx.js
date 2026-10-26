@@ -117,3 +117,21 @@ export function playBurn(fromEl){
   if(soundOn)cue('cardBurn');
   return true;
 }
+
+/* 사격 모드(시범): 카드 한 발이 칸에 꽂힌다. 빗나간 칸은 총알 구멍처럼 금이 가고, 명중 칸은 금빛으로 터진다.
+   칸 자체의 뚫린 자국(.bp-shot-hole)은 화면이 상태로 그린다. 이 층은 0.3초 남짓의 순간만 그린다. */
+export const SHOT_FX_MS=360;
+export function playShot(zones,hitZone=null,root=document){
+  if(cardFxSuppressed()||!zones?.length)return false;
+  for(const z of zones){
+    const cell=root.querySelector?.(`.bp-zone [data-zone="${z}"]`);if(!cell?.getBoundingClientRect)continue;
+    const r=cell.getBoundingClientRect(),hit=z===hitZone,c=center(r),size=Math.min(r.width,r.height)*.9;
+    const {el,done}=piece({left:c.x-size/2,top:c.y-size/2,width:size,height:size},{borderRadius:'50%',pointerEvents:'none',
+      background:hit?'radial-gradient(circle,#fff 0%,#ffe27a 30%,rgba(255,170,30,.55) 55%,transparent 72%)'
+        :'radial-gradient(circle,#fff 0%,rgba(255,236,200,.9) 18%,rgba(120,90,60,.45) 40%,transparent 66%)'});
+    el.animate([{opacity:0,transform:'scale(.3)'},{opacity:1,transform:'scale(1.1)',offset:.25},{opacity:0,transform:`scale(${hit?1.7:1.25})`}],
+      {duration:SHOT_FX_MS,easing:'cubic-bezier(.2,.8,.3,1)'}).onfinish=done;
+  }
+  if(soundOn)cue(hitZone!=null?'cardRare':'cardSpend');
+  return true;
+}
