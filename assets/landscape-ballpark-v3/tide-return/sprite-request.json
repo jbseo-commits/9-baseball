@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "tide-vesper-return",
+    "description": "",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 256,
+    "height": 256,
+    "safe_margin_x": 6,
+    "safe_margin_y": 6,
+    "size": 256,
+    "safe_margin": 6
+  },
+  "chroma_key": {
+    "name": "cyan",
+    "hex": "#00FFFF",
+    "rgb": [
+      0,
+      255,
+      255
+    ],
+    "selection": "auto",
+    "score": 214.94,
+    "min_subject_distance": 168.36,
+    "background": {
+      "mode": "transparent",
+      "opaque_border_fraction": 0.0,
+      "subject_pixels": 6920
+    },
+    "candidates": [
+      {
+        "name": "magenta",
+        "hex": "#FF00FF",
+        "score": 207.78,
+        "min_subject_distance": 201.95,
+        "clears_erase_radius": true
+      },
+      {
+        "name": "green",
+        "hex": "#00FF00",
+        "score": 202.04,
+        "min_subject_distance": 192.68,
+        "clears_erase_radius": true
+      },
+      {
+        "name": "cyan",
+        "hex": "#00FFFF",
+        "score": 214.94,
+        "min_subject_distance": 168.36,
+        "clears_erase_radius": true
+      },
+      {
+        "name": "blue",
+        "hex": "#004DFF",
+        "score": 146.75,
+        "min_subject_distance": 137.42,
+        "clears_erase_radius": true
+      }
+    ],
+    "selection_reason": "highest 1st-percentile subject distance among the 4 candidate(s) clearing the 96 erase radius"
+  },
+  "states": {
+    "recovery": {
+      "frames": 6,
+      "fps": 10,
+      "loop": false,
+      "action": "Six consecutive DISTINCT small recovery poses, returning from the attached follow-through reference to the attached set-pose base. Fixed catcher camera and identical adult body scale. Frame1: the exact forward-folded follow-through, weight firmly on the planted LEFT lead leg at screen right, RIGHT rear leg still extended back toward screen left, empty right throwing hand down, glove LEFT. Frame2 rear right leg lowers halfway, chest begins to rise, arms settle naturally. Frame3 rear right shoe lands beside and slightly behind the planted left foot, knee flexed, torso half upright, empty throwing hand drawing inward toward the glove. Frame4 nearly upright balanced stance with both feet grounded, hands near abdomen. Frame5 hands and glove rise to chest, wide base stance almost set. Frame6 matches the base's exact ready/set pose and foot positions. Stable head/torso size; do not shrink the first bent pose or zoom. Do not repeat the release or lift the front knee. No separate baseball in empty hand, no mirroring, no duplicate limbs, no photographic style, no scenery. Smooth leg lowering and body uncoiling, no reverse pitch frames."
+    }
+  },
+  "style": "Match the supplied 256px game sprite precisely: original adult female athletic pitcher Tide Vesper, long dark teal ponytail, navy blue jersey with restrained gold trim, white pants, navy socks, dark cleats, left brown glove. Full-body fine pixel cluster rendering at the same density and small-runtime legibility as reference. Locked frontal catcher camera with subtle three-quarter torso, no camera change. Preserve coherent four-tone shading, outline, head and hair identity. Every planted LEFT shoe rests on the exact same screen-right floor point until final balanced reset; constant character proportions across six drawings. All limbs and ponytail fully inside frame. Flat key background only, no text or labels.",
+  "layout": "taxonomy/v1",
+  "fit": {
+    "resample": "nearest",
+    "align_x": "center",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "pixel_unfake": true,
+    "logical_height": 128,
+    "palette_size": 48
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}

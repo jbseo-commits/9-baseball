@@ -9,6 +9,9 @@ import {sheetCellStyle} from '../src/duel/batter-v15.js';
 import LandscapeField from '../src/duel/LandscapeField.jsx';
 import {contactPoint} from '../src/duel/ImpactFx.jsx';
 import {actorDrawScale} from '../src/duel/BallparkActors.jsx';
+import {pitcherReleasePoint} from '../src/duel/actor-anchors.js';
+import RELEASE from '../src/duel/pitcher-release.json';
+import STANCE from '../src/duel/pitcher-stance.json';
 describe('one ground camera for the opt-in wide battle',()=>{
   it('preserves camera-projected actor height at large PC sizes and every DPR; portrait retains its old crisp scale',()=>{
     for(const height of [104,540,767,2048])for(const dpr of [1,2,3])expect(actorDrawScale(height,512,dpr,true)*512).toBeCloseTo(height);
@@ -17,12 +20,27 @@ describe('one ground camera for the opt-in wide battle',()=>{
   it.each([[400,104],[664,125],[1020,420]])('keeps batter feet in the left box and rubber beyond plate at %s×%s',(w,h)=>{
     const g=cameraGeometry(w,h),inner=projectField(w,h,-FIELD.plate/2-FIELD.boxGap,-.25),outer=projectField(w,h,-FIELD.plate/2-FIELD.boxGap-FIELD.boxWidth,-.25);
     expect(g.feet.x).toBeGreaterThan(outer.x);expect(g.feet.x).toBeLessThan(inner.x);
-    expect(g.rubber.x).toBe(g.plate.x);expect(g.rubber.y).toBeLessThan(g.plate.y);
+    expect(g.rubber.x).toBeGreaterThan(g.plate.x);expect(g.rubber.y).toBeLessThan(g.plate.y);
     expect(g.pitcher.y+g.pitcher.h).toBeCloseTo(g.rubber.y);
     expect(g.batter.y+g.batter.h).toBeCloseTo(g.feet.y);
     expect(targetPoint(g.target,4).x).toBeCloseTo(g.contact.x);
     expect(targetPoint(g.target,4).y).toBeCloseTo(g.contact.y);
     for(const b of [g.batter,g.pitcher,g.target]){expect(b.w).toBeGreaterThan(0);expect(b.h).toBeGreaterThan(0);}
+  });
+  it('keeps the complete oblique actor envelope in the field at phone, PC and ultrawide sizes',()=>{
+    for(const [w,h] of [[400,104],[664,125],[1180,574],[1800,200]]){
+      const g=cameraGeometry(w,h);
+      for(const b of [g.batter,g.pitcher]){expect(b.x).toBeGreaterThanOrEqual(0);expect(b.x+b.w).toBeLessThanOrEqual(w);expect(b.y+b.h).toBeLessThan(h);}
+    }
+  });
+  it('uses the same measured stance/release point for DOM flight and the wide square atlas',()=>{
+    const box={x:50,y:20,w:100,h:100};
+    for(const id of Object.keys(RELEASE)){
+      const [sx,sy]=STANCE[id]||[.5,1],[rx,ry]=RELEASE[id];
+      const p=pitcherReleasePoint(box,id);
+      expect(p.x).toBeCloseTo(box.x+box.w/2+(rx-sx)*box.h);
+      expect(p.y).toBeCloseTo(box.y+box.h+(ry-sy)*box.h);
+    }
   });
   it('projects one plate, two boxes, and a separate rubber without baking duplicate ground in art',()=>{
     render(<LandscapeField width={664} height={125}/>);
@@ -33,7 +51,7 @@ describe('one ground camera for the opt-in wide battle',()=>{
   it('has a new frame and measured anchor for every timeline pose; DOM uses same anchors',()=>{
     for(const pose of BATTER_MOTION_V3_SEQUENCE){
       expect(LANDSCAPE_BATTER.order[pose]).toBeGreaterThanOrEqual(0);
-      expect(LANDSCAPE_BATTER.order[pose]).toBeLessThan(8);
+      expect(LANDSCAPE_BATTER.order[pose]).toBeLessThan(LANDSCAPE_BATTER.rects.length);
       const anchor=LANDSCAPE_BATTER.anchors[pose];expect(anchor.baseline).toBeGreaterThan(.9);
       expect(sheetCellStyle(LANDSCAPE_BATTER,pose)['--baseline']).toBe(anchor.baseline);
       expect(sheetCellStyle(LANDSCAPE_BATTER,pose)['--pose-x']).toBe(anchor.x);

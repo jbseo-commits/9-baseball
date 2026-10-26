@@ -15,6 +15,9 @@ export function comparisonMode(win=typeof window!=='undefined'?window:null){
   const value=new URLSearchParams(win?.location?.search||'').get('battleLayout');
   return value==='compare'||value==='inside'?value:null;
 }
+export function isBattlePreview(win=typeof window!=='undefined'?window:null){
+  return comparisonMode(win)==='inside'&&new URLSearchParams(win?.location?.search||'').get('battlePreview')==='1';
+}
 export function comparisonViewport({width,height,wide,battle}){
   const available=Math.max(1,height-32);
   const h=wide&&battle?Math.max(288,available):Math.max(width<360?568:640,available);

@@ -3,9 +3,9 @@ import {shortCardProblem} from './card-face.js';
 import {ForecastChip} from './SwingForecast.jsx';
 
 /* Presentation only: face/forecast already obey the engine's public boundary. */
-export default function LandscapeSelection({deciding,selected,name,face,prepare=false,armedName='',cost=0,energy=0,prepLeft=0,stackCount=0,problem='',forecast=null,takeHint='',review=''}){
+export default function LandscapeSelection({deciding,selected,name,face,prepare=false,armedName='',cost=0,energy=0,prepLeft=0,stackCount=0,problem='',forecast=null,takeHint='',review='',phase=null,verdict=''}){
   const mode=!deciding?'resolving':armedName?'support':!selected?'watch':prepare?'prepare':'main';
-  const title=!deciding?(review?'이번 공':'실행 중'):armedName||(!selected?'지켜보기':name);
+  const title=!deciding?(verdict||({windup:'투구 중',impact:'타격',release:'결과',settle:'준비 자세로'}[phase])||(review?'이번 공':'실행 중')):armedName||(!selected?'지켜보기':name);
   const summary=!deciding?review:armedName?'범위 추가':!selected?takeHint:face?.summary||'';
   const warning=deciding&&!armedName&&selected?shortCardProblem(problem):'';
   return <section className={'bp-selection-dock mode-'+mode} data-testid="wide-selection" data-mode={mode} aria-label="선택한 카드 효과">

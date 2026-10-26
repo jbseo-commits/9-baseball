@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "batter-oblique-v3",
+    "description": "",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "rect",
+    "width": 384,
+    "height": 320,
+    "safe_margin_x": 20,
+    "safe_margin_y": 20
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "anticipation": {
+      "frames": 4,
+      "fps": 8,
+      "loop": false,
+      "action": "Four consecutive DISTINCT preparation poses from the accepted base: 1 exact chest-side ready pose; 2 small coil loading weight onto rear RIGHT leg with hands near rear shoulder; 3 a restrained lift of the lead LEFT foot, hands staying back; 4 short stride and planted lead LEFT foot toward pitcher, hips just beginning to lead. Rear right foot stays anchored. No swing/contact yet. Fixed body mass, consistent hips and helmet volume, no random idle gestures or limb teleport."
+    },
+    "swing": {
+      "frames": 4,
+      "fps": 12,
+      "loop": false,
+      "action": "Four consecutive RIGHT-HANDED batting swing poses under the SAME locked camera and body scale. CRITICAL anatomy: the helmet top stays within 22-27 percent of each cell height, pelvis at about58percent, shoe ground at94percent; head-to-shoe body height must vary less than5percent. The head stays quiet over the base, not dropping into a deep crouch. Contact must NOT make the man smaller or foreshorten him into a child. His lead LEFT leg firms during contact, torso remains adult-length. Poses: 1 planted left lead foot, hips beginning to lead and hands still back; 2 small next rotation, hands/bat moving down toward contact; 3 clear two-handed CONTACT, bat extending toward plate at screen right at waist height, rear RIGHT heel pivoting and torso turning while the helmet stays at the same height; 4 early follow-through across opposite shoulder, chest rotating to show the back. Feet do not slide, bat grip/limb lengths remain consistent. No camera change, mirrored pose, detached effects, duplicate drawings or shrink-to-fit wide bat. Keep ALL characters same physical height even where the bat becomes horizontal."
+    },
+    "recovery": {
+      "frames": 6,
+      "fps": 8,
+      "loop": false,
+      "action": "Six small consecutive recovery steps in the SAME locked camera, adult body scale and planted lead LEFT foot location. Helmet top around22-27percent cell height, pelvis58percent and shoes94percent; no pose may shrink more than5percent. Start with a balanced full right-handed follow-through and visible jersey back, right rear heel raised. Frame2 the bat and shoulders decelerate a LITTLE, still predominantly back/side; frame3 the hands stay together, bat comes lower across the near shoulder and torso turns only partially toward side view; frame4 a halfway front/side torso with bat lowered in front of the body and rear heel settling; frame5 chest-side stance nearly ready, hands travel continuously back toward rear shoulder; frame6 exact chest-side READY base stance. The rotation must be gradual across ALL six frames, never jumping from flat back to flat chest in one frame. Hands remain connected on the handle and visibly follow an arc around the torso, no hand teleport through ribs, no crossed idle legs, no walking or independently moving feet. Preserve identity, camera and clothing."
+    }
+  },
+  "style": "Premium consistent-grid 9ZONE pixel art. Preserve the accepted base identity, clothing, bat, helmet, proportions, pixel density and four-tone material shading. Locked oblique behind-plate game camera. Original adult RIGHT-HANDED batter in left batting box, chest toward plate and head toward pitcher at upper right. Left hand below right hand on the handle. Left foot is lead, right foot rear. The torso rotates naturally through the swing: chest-side at ready, back more visible after contact. Do not rotate the camera, mirror the athlete, change scale, add scenery, effects, captions or a separate ball. Both complete cleats and the whole bat remain visible in every frame. One consistent ground line.",
+  "layout": "taxonomy/v1",
+  "fit": {
+    "resample": "nearest",
+    "align_x": "foot-centroid",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "pixel_unfake": true,
+    "logical_height": 160,
+    "palette_size": 48
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}

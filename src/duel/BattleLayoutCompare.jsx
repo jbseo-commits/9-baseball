@@ -28,7 +28,7 @@ export default function BattleLayoutCompare(){
   const viewport=comparisonViewport({...size,wide,battle:stage.battle});
   return <div className="battle-layout-compare" data-view={wide?'landscape':'portrait'}>
     <header className="blc-toolbar">
-      <span role="status">{stage.busy?'실행 중':stage.battle?'같은 전투 · 화면만 전환':'전투에 들어가면 비교할 수 있어요'}</span>
+      <span role="status">{stage.busy?'실행 중':stage.battle?(new URL(src).searchParams.get('battlePreview')==='1'?'한 전투 프리뷰 · 저장 안 함':'같은 전투 · 화면만 전환'):'전투에 들어가면 비교할 수 있어요'}</span>
       <div role="group" aria-label="같은 전투 화면 비교">
         <button type="button" aria-label="기존 세로 화면" aria-pressed={!wide} disabled={!stage.battle||stage.busy} onClick={()=>choose(false)}>세로</button>
         <button type="button" aria-label="새 가로 화면" aria-pressed={wide} disabled={!stage.battle||stage.busy} onClick={()=>choose(true)}>가로</button>

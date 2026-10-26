@@ -47,6 +47,7 @@ import "./duel/compact-battle.css";
 import "./duel/landscape-battle-compare.css";
 import "./duel/landscape-card-focus.css";
 import "./duel/landscape-camera.css";
+import "./duel/landscape-battle-scene.css";
 import "./duel/title-pixel.css";
 
 watchLayoutMode();
