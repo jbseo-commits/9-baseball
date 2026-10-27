@@ -32,7 +32,8 @@ const isBuntKind=kind=>!!CARDS[kind]?.bunt;
 /* 엔진 phase + 연출 단계에서 표시 phase를 도출한다. 엔진 phase를 바꾸지 않는다. */
 export function battlePhase({s,fxStage=null,commitBeat=false,locked=false}){
   const b=s?.battle;
-  if(!b||!['battle','pitch','between'].includes(s.phase))return 'transition';
+  /* 강판·패배는 엔진이 곧바로 reward 등으로 넘어간다. 그 공의 연출이 도는 동안은 결과를 보여준다 */
+  if(!b||(!['battle','pitch','between'].includes(s.phase)&&!fxStage))return 'transition';
   if(commitBeat)return 'committing';
   if(isJudged(s,fxStage))return fxStage&&!LANDED_STAGES.includes(fxStage)?'flight':'result';
   if(fxStage)return 'committing';

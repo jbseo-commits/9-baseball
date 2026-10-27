@@ -58,6 +58,18 @@ describe('view model은 순수 표시 변환이다',()=>{
     expect(vm.input).toMatchObject({canSelect:false,canExecute:false,callback:null});
     expect(battlePhase({s:{phase:'map'}})).toBe('transition');
   });
+
+  it('강판: 엔진이 reward로 넘어가도 그 공의 연출 동안은 결과를 보여준다',()=>{
+    const input=buildFixture('swing-main'),s=structuredClone(input.s);
+    s.pitcher.hp=1;s.battle.aimZone=2;
+    const ko=E.playV10Action(s,{type:'card',id:input.selected});
+    expect(ko.phase).not.toMatch(/^(battle|pitch|between)$/);
+    const during=buildBattleViewModel({s:ko,hand:[],fxStage:'settle'});
+    expect(during.phase).toBe('result');
+    expect(during.result).toMatchObject({knockedOut:true,hpAfter:0,next:null});
+    expect(during.input.actionKind).toBe('none');
+    expect(buildBattleViewModel({s:ko,hand:[]}).phase).toBe('transition');
+  });
 });
 
 describe('정보 경계 — 읽기 단계 아래의 정답·정확 확률이 섞이지 않는다',()=>{
