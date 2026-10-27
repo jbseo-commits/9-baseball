@@ -1,0 +1,57 @@
+import React from 'react';
+import {cardArtFor,cardArtFocusFor} from '../card-art.js';
+import cardsSheetUrl from '../../../assets/production-art/mockup-v1-intake/cards.webp';
+
+/* C03 — 손패 카드 한 장. 데이터는 view model hand[] 항목(C01) 그대로, 문구는 cardFaceOf 결과다.
+   선택은 색 + 테두리 모양(메인 실선 · 지원 점선 · 대기 점선 깜빡임) + 순서 표시로 구별한다. */
+
+/* 기본: 기존 kind별 원화(card-art.js, 읽기만). */
+export function defaultCardArt(item){
+  const url=cardArtFor(item.kind);if(!url)return null;
+  return {url,position:cardArtFocusFor(item.kind)?.objectPosition||'50% 25%',size:'cover'};
+}
+/* A01 선정 6칸 시트. kind 매핑은 승인되지 않았다(scene-layout cards.cardKindMapping=null).
+   검토 화면에서 명시적으로 칸을 고를 때만 쓴다. 0 접촉 · 1 주루 · 2 라인드라이브 · 3 눈 · 4 임팩트 · 5 타격 자세 */
+export const MOCKUP_CARD_SHEET=Object.freeze({url:cardsSheetUrl,columns:3,rows:2});
+export function mockupSheetArt(cell){
+  const c=cell%3,r=Math.floor(cell/3)%2;
+  return {url:cardsSheetUrl,position:`${c*50}% ${r*100}%`,size:'300% 200%'};
+}
+
+const ORDER_MARK=['','①','②','③','④'];
+export function selectionTag(item){
+  if(item.selectionRole==='main')return `${ORDER_MARK[1]} 메인`;
+  if(item.selectionRole==='support')return `${ORDER_MARK[item.order]||item.order} 지원`;
+  if(item.selectionRole==='armed')return '코스 선택 대기';
+  return '';
+}
+
+export function CoverageGlyph({zones}){
+  return <span className="bv-glyph" aria-hidden="true">{Array.from({length:9},(_,z)=><i key={z} className={zones?.includes(z)?'on':''}/>)}</span>;
+}
+
+export default function BattleCard({item,art=null,onTap,onDetail,detailDisabled=false,onKeyDown,cardRef}){
+  const tag=selectionTag(item);
+  const label=[item.name,'에너지 '+item.cost,item.type==='prepare'?'준비':'',item.summary,item.condition,item.warning,tag].filter(Boolean).join(' · ');
+  const cls='bv-card t-'+item.type+(item.selectionRole?' is-'+item.selectionRole:'')+(item.unavailable?' is-unavailable':'')+(item.plus?' is-plus':'');
+  return <li className="bv-card-slot" data-card-id={item.id}>
+    <button ref={cardRef} type="button" className={cls} data-testid="bv-card" data-card-kind={item.kind} data-selection={item.selectionRole||undefined}
+      aria-pressed={item.selectionRole==='main'||item.selectionRole==='support'} aria-label={label} title={item.name}
+      disabled={item.disabled} onClick={()=>onTap?.(item.id)} onKeyDown={onKeyDown}
+      onContextMenu={e=>{if(!onDetail||detailDisabled)return;e.preventDefault();onDetail(item.id,e.currentTarget);}}>
+      <span className="bv-card-art" style={art?{backgroundImage:`url(${art.url})`,backgroundPosition:art.position,backgroundSize:art.size}:undefined} data-art={art?'set':'none'}>
+        <b className="bv-card-cost" aria-hidden="true"><small>⚡</small>{item.cost}</b>
+        <span className="bv-card-range">{item.type==='prepare'?<span className="bv-prep-glyph" aria-hidden="true">◎</span>:<CoverageGlyph zones={item.coverage}/>}</span>
+      </span>
+      <strong className="bv-card-name">{item.name}</strong>
+      <span className="bv-card-effect">{item.summary}</span>
+      {(item.condition||item.warning||item.drawNote)&&<span className="bv-card-notes">
+        {item.condition&&<span className="bv-card-condition">{item.condition}</span>}
+        {item.drawNote&&item.drawNote!==item.condition&&<span className="bv-card-condition">{item.drawNote}</span>}
+        {item.warning&&item.warning!==item.condition&&<span className="bv-card-warning">{item.warning}</span>}
+      </span>}
+      <span className="bv-card-foot" aria-hidden="true"><span className="bv-card-role">{item.type==='prepare'?'준비 · ':''}{item.role}</span>{tag&&<b className="bv-card-tag">{tag}</b>}</span>
+    </button>
+    {onDetail&&<button type="button" className="bv-card-detail" aria-label={item.name+' 자세히'} disabled={detailDisabled} onClick={e=>onDetail(item.id,e.currentTarget)}>ⓘ</button>}
+  </li>;
+}
