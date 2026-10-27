@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "source_base": "bb409c093fb27b83f30105d0642593e541eacb90",
+  "status": "reference derivatives; not registered in the game",
+  "pillow_version": "12.3.0",
+  "libwebp_version": "1.6.0",
+  "settings": {
+    "format": "WEBP",
+    "quality": 92,
+    "method": 6,
+    "alpha_quality": 100,
+    "exact": true
+  },
+  "geometry": "scene-layout.json",
+  "coverage": "actor-coverage.json",
+  "metadata_sha256": {
+    "scene-layout.json": "ab9b698b271ce65b873050f5eb995c01d2bfd197f2fefd24433a473242c517df",
+    "actor-coverage.json": "b14cd731267e344abbcb8bb7dd274493ea856c7a8a253e6fba4d53a261e806cc"
+  },
+  "source_bytes": 8565812,
+  "runtime_bytes": 1274798,
+  "assets": [
+    {
+      "source": "docs/design/mockup-v1/reference/art/stadium-wide.png",
+      "source_sha256": "a69e6ba11690f45f6daf066bffc9fe4dbe0ada5157ff5ca8ff188426fd579d2c",
+      "source_bytes": 2630492,
+      "file": "stadium-wide.webp",
+      "sha256": "a54801e367f6b116dfd4a8c51ed3811d254349b5cbcb5a614ae12509f31d4568",
+      "bytes": 464936,
+      "dimensions": [
+        1672,
+        941
+      ],
+      "source_mode": "RGB",
+      "alpha_exact": true,
+      "worst_composited_rgb_rmse": 5.0798,
+      "worst_composited_psnr_db": 34.014
+    },
+    {
+      "source": "docs/design/mockup-v1/reference/art/batter-catcher.png",
+      "source_sha256": "2575d2fd6ef2626318947e1df477c4ccb6e1f3b49a15d8b35b2e33624441c059",
+      "source_bytes": 1535324,
+      "file": "batter-catcher.webp",
+      "sha256": "b0cfb40eb7d8c82f2a4be6514b6ba8cd4d13f55604d2c60a6fde923d85920754",
+      "bytes": 164948,
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "source_mode": "RGBA",
+      "alpha_exact": true,
+      "worst_composited_rgb_rmse": 2.2861,
+      "worst_composited_psnr_db": 40.949
+    },
+    {
+      "source": "docs/design/mockup-v1/reference/art/pitcher-home.png",
+      "source_sha256": "98d16d04e65898d71ed100d555e1c7eaa781aa98608f49d3c42d8a0ac8a6c48f",
+      "source_bytes": 1750364,
+      "file": "pitcher-home.webp",
+      "sha256": "190d20fdff68f61eac5778b68688bf92e40f732f40c4f13a6464ae4413d13bb0",
+      "bytes": 218394,
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "source_mode": "RGBA",
+      "alpha_exact": true,
+      "worst_composited_rgb_rmse": 2.5176,
+      "worst_composited_psnr_db": 40.111
+    },
+    {
+      "source": "docs/design/mockup-v1/reference/art/cards.png",
+      "source_sha256": "07a1ed7fa78de3ce1321fad10710bbfbcb11593d301bdebfe428210256f8cf5c",
+      "source_bytes": 2649632,
+      "file": "cards.webp",
+      "sha256": "f5468a3ec500ff86f0f70c2e6f0b8ce2cfdcbeb8f3f112ccd50ff90b62fe4499",
+      "bytes": 426520,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "source_mode": "RGB",
+      "alpha_exact": true,
+      "worst_composited_rgb_rmse": 3.6353,
+      "worst_composited_psnr_db": 36.92
+    }
+  ]
+}
