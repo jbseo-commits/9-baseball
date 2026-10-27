@@ -11,16 +11,19 @@ export default function LandscapeField({width,height}){
   const moundZ=FIELD.rubberDistance-.4572,horizon=cameraLens(width,height).y;
   const shadow=(x,z,bodyHeight,rx,rz,y,id)=>{
     const [ex,ez]=castShadowEnd(x,z,bodyHeight),foot=projectField(width,height,x,z,y);
+    const dx=ex-x,dz=ez-z,length=Math.hypot(dx,dz)||1;
+    const cast=Array.from({length:48},(_,i)=>{const a=i*Math.PI/24,t=(1-Math.cos(a))/2,w=Math.sin(a)*rx*.7;return [x+dx*t-dz/length*w,z+dz*t+dx/length*w,y];});
     return <g data-testid={'ground-shadow-'+id} data-foot={`${foot.x},${foot.y}`}>
-      <polygon points={poly([[x-rx,z,y],[x+rx,z,y],[ex+rx*.6,ez,y],[ex-rx*.6,ez,y]])} fill="url(#wide-cast)"/>
-      <polygon points={poly(ring(1).map(([px,pz])=>[x+px*rx,z+pz*rz,y]))} fill="#071b23" opacity=".48"/>
+      <polygon points={poly(cast)} fill="url(#wide-cast)"/>
+      <polygon points={poly(ring(1).map(([px,pz])=>[x+px*rx,z+pz*rz,y]))} fill="url(#wide-contact)"/>
     </g>;
   };
   return <svg className="bp-camera-ground" viewBox={`0 0 ${width} ${height}`} aria-hidden="true" data-testid="camera-ground">
     <defs>
       <linearGradient id="wide-turf" x2="0" y2="1"><stop stopColor="#173e38"/><stop offset="1" stopColor="#38513d"/></linearGradient>
       <linearGradient id="wide-dirt" x2="1" y2="1"><stop stopColor="#a17b52"/><stop offset=".5" stopColor="#73583e"/><stop offset="1" stopColor="#493f36"/></linearGradient>
-      <linearGradient id="wide-cast" x2="1" y2="1"><stop stopColor="#061722" stopOpacity=".45"/><stop offset="1" stopColor="#061722" stopOpacity="0"/></linearGradient>
+      <radialGradient id="wide-cast"><stop stopColor="#061722" stopOpacity=".28"/><stop offset=".45" stopColor="#061722" stopOpacity=".17"/><stop offset="1" stopColor="#061722" stopOpacity="0"/></radialGradient>
+      <radialGradient id="wide-contact"><stop stopColor="#071b23" stopOpacity=".48"/><stop offset=".55" stopColor="#071b23" stopOpacity=".25"/><stop offset="1" stopColor="#071b23" stopOpacity="0"/></radialGradient>
       <pattern id="wide-grain" width="31" height="23" patternUnits="userSpaceOnUse"><path d="M3 5h2v1H3z M17 13h3v1h-3z M26 2h1v2h-1z" fill="#f4dcab" opacity=".08"/><path d="M9 17h3v1H9z M22 9h2v2h-2z" fill="#061f26" opacity=".2"/></pattern>
       <clipPath id="wide-dirt-clip"><polygon points={poly(ring(4.3))}/></clipPath>
       <clipPath id="wide-mound-clip"><polygon points={poly(ring(FIELD.moundRadius,0,moundZ))}/></clipPath>

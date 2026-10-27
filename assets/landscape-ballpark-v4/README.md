@@ -23,5 +23,6 @@
 - `turf-source.png`, `clay-source.png`: GPT가 생성한 새 지면 재질 원본. 흙의 첫 사진형 후보는 불채택하고 도트 재질로 다시 생성했다. 프롬프트는 같은 폴더에 보존한다. WebP는 크기 변경 없이 포맷만 내보냈다.
 - 마운드·타석·rubber는 재질에 굽지 않는다. `LandscapeField`가 기존 world camera로 투영하고 .254m plateau와 sloped radial faces를 만든다. 흙을 같은 표면에 clip해 사용한다.
 - 광원은 world(-12,22,16)의 상부 좌측 조명 기준이다. 공통 SVG ground layer가 두 배우의 접촉 그림자와 방향성 cast를 그리며 wide의 기존 DOM/Pixi ellipse/drop-shadow는 껐다. 기존120프레임 투수의 움직이는 사지 전체를 추적한 물리 그림자는 아니고 고정 접점/접지 영역 기준이다.
+- PC에서 직선 모서리가 보이던 cast 사각형은 같은 광원 방향의48점 타원과 방사 감쇠로 보완했다. 접촉 영역도 중심에서 가장자리로 농도를 낮춰 검은 판처럼 보이는 경계를 줄였다.
 
 실행 기록은 `docs/qa/landscape-refine-20261027/README.md`에 정리한다. 이 작업을 전체 로스터·실기기·상업적 완성도 검증으로 주장하지 않는다.
