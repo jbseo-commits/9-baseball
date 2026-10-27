@@ -119,3 +119,38 @@ A01(PR #64, `assets/production-art/mockup-v1-intake/`)의 WebP와 `scene-layout.
 - 320×568: 헤더가 3줄로 접힌다. 카드 1.3장만 보이므로 남은 카드 힌트(`N ›`)에 의존.
 - 지원 대기 카드 꼬리표 “코스 선택 대기”가 좁은 카드에서 ⓘ와 붙는다.
 - 긴 이름(투스트라이크 어프로치)은 2줄로 접히고 전체 이름은 접근성 이름·title로만.
+
+## 규칙 실험 경계 (2026-10-27 · 배틀쉽식 규칙 후보 검토 반영)
+
+Codex의 조사 문서(“배틀쉽식 규칙 후보 — 현재 9ZONE 적용 비판 검토”, 기준 main `f3ec4be`, PR #40·#52 대조)의 결론을 이식 작업의 제약으로 둔다.
+
+- 9존은 **투구 코스 전용**이다. 수비 보드·고정 약점 칸·지난 미스 칸 제거 같은 의미를 얹지 않는다. 다음 공은 매번 새로 정해지므로 지난 미스를 “알아낸 약점”처럼 표시하면 틀린 인과를 가르친다.
+- PR #40(전술 수비 3단계)·PR #52(공방 실험) 규칙을 본편 엔진·표시 모델에 합치지 않는다. 공방 실험의 에너지 3/4·−1 제약을 본 런으로 옮기지 않는다(`energy.js`: 본 런 기본 2).
+- 수비·보호·반격 UI를 상시 겹치지 않는다. 미래의 적 상태용 표시 자리는 데이터가 생길 때만 렌더하고, 빈 패널을 상시 만들지 않는다.
+- 결과 해설은 새 규칙 없이 실제 결과만으로 **정확 적중 / 범위 적중 / 지원 적중 / 한 칸 차이(근접 실패)**를 구별한다(C04).
+- 기본 UI(G1)가 안정된 뒤 별도 단일 적에서 ① 기존 카드로 예고 봉쇄, ② 타석 간 수비 3단계를 **하나씩** OFF/ON 비교한다. 이 검증은 G1 이식 검증과 별도로 기록한다.
+
+# C04 — DecisionPanel / BattleHud / ResultReadout
+
+| export | 용도 |
+|---|---|
+| `DecisionPanel` (default) | `{zones, forecast, input, hand, energy, result, phase, effects, shotGrade, recent?, onZoneTap(z), onZoneHover?(z\|null), onTake, onSwing, onNext}` |
+| `planSummary`, `planCaption`, `faceDensity` | 요약 문구 · 노림 순서 캡션 · 공개 표면 문자열 → 칸 농도 |
+| `BattleHud` (default) | `{hud, forecast, sources, phase, title?, onMenu?, menuOpen?}` — 에너지 없음 |
+| `hpForecastBand(hud,forecast)` | 선택 중 HP 빗금 띠(“안타 시 −a~b 예상”) |
+| `ResultReadout` (default) | `{result, shotGrade, variant:'stage'\|'line', recent?}` |
+| `resultTone`, `damageText` | 정확/범위/지원 적중 · 한 칸 차이 · 볼 · 루킹 · 희생타 · 강판 · 파울 · 유인구 스윙 · 범위 밖 |
+
+- 행동 버튼은 하나. 클릭은 `input.callback` 이름의 prop(`onTake/onSwing/onNext`)을 그대로 부른다. `onSwing`에는 컨테이너의 `commitSwing`을 넘긴다. `data-testid`는 기존처럼 `bp-swing`(결과 단계는 `bp-next`), `data-action-kind`는 view model의 `actionKind`(`watch/swing/prepare/support-zone/busy/next/none`) — 기존 값(`watch/swing/prepare`)과 같은 이름이다.
+- 이중 클릭·Enter 키 반복은 한 번만 실행한다(입력 상태가 바뀌면 다시 열림).
+- 칸 농도는 화면에 보이는 표면 문자열에서만 계산한다. 읽기 0/1에서 숫자 %를 렌더하지 않는다(테스트로 고정).
+- 결과 중에는 요약 자리에 `ResultReadout variant="line"`이 들어가 선택 요약을 대신한다. 무대 판정(`variant="stage"`)의 배치는 C05가 정한다.
+- `recent`(최근 결과 한 줄)는 부모가 언제 비울지 정한다. 이 컴포넌트들은 `setTimeout/setInterval`을 쓰지 않는다(테스트로 고정).
+
+### C04 → C05 연결 메모
+
+1. 무대 판정과 결정 영역 결과 한 줄이 같은 해설을 두 번 보인다(검토 화면 1440×900). 짧은 가로에서는 무대 해설을 CSS로 숨겼다. 넓은 화면에서 둘 중 무엇을 남길지 C05가 결정.
+2. 무대 판정 위치: 844×390에서 `top:18%`, 오른쪽 레일을 피해 중앙 정렬하면 손패 헤더와 겹치지 않았다. 26%는 겹쳤다.
+3. 667×375에서 손패 헤더가 두 줄이 되고 배우가 대부분 가려진다(C03 위험과 같음).
+4. `onZoneHover`는 마우스 진입·포커스만 보낸다. 지금 `BallparkBattle`의 터치 슬라이드 미리보기(`slideStart/Move/End`)는 컨테이너에 남기고 `hoverZone`으로 view model에 넣는다.
+5. 강판 결과는 엔진이 곧바로 `reward`로 넘어가므로 `fxStage`가 도는 동안만 `result`다(C01 보정 `bdc9d58`). 그 뒤 화면 전환은 기존 흐름.
