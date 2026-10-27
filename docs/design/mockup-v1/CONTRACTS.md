@@ -36,6 +36,8 @@ App의 실제 엔진 상태 + 기존 선택/지원/연출 상태
 | `result` | 판정명, 노림/실제, 정확/지원/근접, 실제 HP·진루, 다음 흐름 | 공개 시점 이후만 제공. 실패 피해는 성공 예상과 분리 |
 | `scene` | 검수된 actor artId, playToken, fxStage, release/contact, motionEnabled | 없는 로스터를 샘플 투수로 몰래 대체하지 않음 |
 
+**C01 확정(2026-10-27):** 실제 API는 [`src/duel/battle-vnext/README.md`](../../../src/duel/battle-vnext/README.md)다. 위 제안과 이름이 달라진 곳: `hand.coverageGlyph → coverage`, `hand.shortEffect → summary`, `zones`의 aim/mainCoverage/supports → `cells[].aim/cover/support/tokens`, `energy`에 `shortfall/armedCost/upcoming/refill` 추가, `input.callback`은 `onTake|onSwing|onNext` 중 하나(새 `onExecute`는 이 값으로 기존 콜백을 부른다). 지원 코스 대기 중에는 실행을 잠근다(지금 본편과 다름, README의 “다르게 확정한 점” 참고).
+
 콜백의 외부 의미는 기존 것과 같다. 지원 카드를 누르면 필요할 때 지원 코스를 고르는 기존 절차를 보존한다. 비활성 카드도 “왜 못 쓰는지”를 확인할 방법을 제공한다. 정보창 닫기 뒤 선택·가로 스크롤·키보드 포커스를 복원한다.
 
 ## 3. 단일 행동 버튼
