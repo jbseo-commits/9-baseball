@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-27",
+  "purpose": "landscape battle concept",
+  "background": {
+    "file": "stadium-wide.png",
+    "width": 1672,
+    "height": 941,
+    "source": "exec-0117cb7f-38a0-44fc-8de4-6bd45a37dbc6.png",
+    "referenceNote": "MLB 2026 Appendix 2 and actual field photographs; references/README.md"
+  },
+  "actors": {
+    "batter": {
+      "file": "batter-catcher.png",
+      "format": "RGBA",
+      "width": 1024,
+      "height": 1536,
+      "poses": 1,
+      "source": "exec-37ffd2f0-f635-45ee-bdc7-86426b095f2e.png",
+      "camera": "behind catcher toward mound; batter right side and jersey front visible",
+      "worldHeight": 670,
+      "rearFoot": [
+        520,
+        909
+      ],
+      "pose": "static right-handed ready stance with feet staggered along box depth",
+      "sourceFootAnchor": [
+        470,
+        1485
+      ],
+      "handedness": "right",
+      "leadFootApprox": [
+        594,
+        814
+      ],
+      "grip": "right hand toward barrel; left hand beside knob"
+    },
+    "pitcher": {
+      "file": "pitcher-home.png",
+      "format": "RGBA",
+      "width": 1024,
+      "height": 1536,
+      "poses": 1,
+      "source": "exec-4277d0be-7a1c-4633-8d68-4b6926261ceb.png",
+      "gaze": "toward home",
+      "worldHeight": 310,
+      "supportFoot": [
+        832,
+        580
+      ]
+    }
+  },
+  "cards": {
+    "file": "cards.png",
+    "columns": 3,
+    "rows": 2,
+    "source": "exec-440c2383-14c1-47d9-ad35-b6a502450dba.png"
+  },
+  "productionAnimationReady": false,
+  "scene": {
+    "width": 1672,
+    "height": 941,
+    "home": [
+      815,
+      824
+    ],
+    "mound": [
+      832,
+      580
+    ],
+    "sharedCamera": true
+  }
+}

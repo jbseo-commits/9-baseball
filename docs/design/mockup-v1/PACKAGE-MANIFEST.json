@@ -1,0 +1,273 @@
+{
+  "package": "9zone-mockup-implementation-plan",
+  "date": "2026-10-27",
+  "repository": "jbseo-commits/9-baseball",
+  "baseline_sha": "f3ec4beef5b245e0e98696d3174d47b6a8b09005",
+  "status": "implementation planning and reference package; game runtime and deployment unchanged",
+  "selected_runtime_art": [
+    {
+      "path": "reference/art/stadium-wide.png",
+      "bytes": 2630492,
+      "sha256": "a69e6ba11690f45f6daf066bffc9fe4dbe0ada5157ff5ca8ff188426fd579d2c",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "status": "visual-reference; static pose or sample atlas, not complete production animation"
+    },
+    {
+      "path": "reference/art/batter-catcher.png",
+      "bytes": 1535324,
+      "sha256": "2575d2fd6ef2626318947e1df477c4ccb6e1f3b49a15d8b35b2e33624441c059",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "status": "visual-reference; static pose or sample atlas, not complete production animation"
+    },
+    {
+      "path": "reference/art/pitcher-home.png",
+      "bytes": 1750364,
+      "sha256": "98d16d04e65898d71ed100d555e1c7eaa781aa98608f49d3c42d8a0ac8a6c48f",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "status": "visual-reference; static pose or sample atlas, not complete production animation"
+    },
+    {
+      "path": "reference/art/cards.png",
+      "bytes": 2649632,
+      "sha256": "07a1ed7fa78de3ce1321fad10710bbfbcb11593d301bdebfe428210256f8cf5c",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "status": "visual-reference; static pose or sample atlas, not complete production animation"
+    }
+  ],
+  "source_art_bytes": 8565812,
+  "reference_only": [
+    "reference/baseball/",
+    "reference/scene.js",
+    "reference/scene.css",
+    "reference/style.css"
+  ],
+  "files": [
+    {
+      "path": "ART.md",
+      "bytes": 7293,
+      "sha256": "f64ef3c491ae108582cfa4c67acdb6a4da11e1150bc2c9847127587d9a5b03c3"
+    },
+    {
+      "path": "CLAUDE-START.md",
+      "bytes": 4752,
+      "sha256": "b080870d2a4334d707cb82de319caf731a1f2d1ff7bf5e313ba84ce07f0b43ac"
+    },
+    {
+      "path": "CONTRACTS.md",
+      "bytes": 8464,
+      "sha256": "ff4a4d17c16e39aeecf049f883dcf92871df1aa6550f854f26431e2740bf3f69"
+    },
+    {
+      "path": "PLAN.md",
+      "bytes": 14507,
+      "sha256": "f41bafd3858e270f050b941f1ec0167efb0744aed3dfb4e1a1a31e0ed2ff349a"
+    },
+    {
+      "path": "QA.md",
+      "bytes": 8430,
+      "sha256": "e518b2a6bb72b516306a0e49730032f32668f1f4ac766630928884c27a52468f"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1621,
+      "sha256": "47d5597cfbb21f1f12e784c7f9223d58ce19aeae7ca251e48f527e36d3a7a3f1"
+    },
+    {
+      "path": "WORKLOG.md",
+      "bytes": 2029,
+      "sha256": "d5a7443eb6684e99783f13ee1a130923714dfad7b1b3415ce401e88c99c14193"
+    },
+    {
+      "path": "reference/LICENSE",
+      "bytes": 1584,
+      "sha256": "13f6fc93646e892850eb68805a9996962dc485abcebde1a8d0c755fc88a5e1c8"
+    },
+    {
+      "path": "reference/MOCKUP-IMPLEMENTATION.md",
+      "bytes": 9304,
+      "sha256": "f92fb95e812197e9359125c3702abeeee7f4fe15b5948bb7110984e58e6a115b"
+    },
+    {
+      "path": "reference/NOTICE.md",
+      "bytes": 2033,
+      "sha256": "b83e651e6cd7a2cd3300a6089d3e814b38add4b8e0279d0381ce3cb024c05090"
+    },
+    {
+      "path": "reference/art/batter-catcher.png",
+      "bytes": 1535324,
+      "sha256": "2575d2fd6ef2626318947e1df477c4ccb6e1f3b49a15d8b35b2e33624441c059"
+    },
+    {
+      "path": "reference/art/cards.png",
+      "bytes": 2649632,
+      "sha256": "07a1ed7fa78de3ce1321fad10710bbfbcb11593d301bdebfe428210256f8cf5c"
+    },
+    {
+      "path": "reference/art/manifest.json",
+      "bytes": 1678,
+      "sha256": "8f270236067cd3fcd97ddf21fc08a4cf38308a3c5fb1588712c9767b1ff2dce4"
+    },
+    {
+      "path": "reference/art/pitcher-home.png",
+      "bytes": 1750364,
+      "sha256": "98d16d04e65898d71ed100d555e1c7eaa781aa98608f49d3c42d8a0ac8a6c48f"
+    },
+    {
+      "path": "reference/art/stadium-wide.png",
+      "bytes": 2630492,
+      "sha256": "a69e6ba11690f45f6daf066bffc9fe4dbe0ada5157ff5ca8ff188426fd579d2c"
+    },
+    {
+      "path": "reference/baseball/README.md",
+      "bytes": 2577,
+      "sha256": "c45c5104c465dc2e8709a78e347967ed10bec26ce52c72e9fe31376e40a965b3"
+    },
+    {
+      "path": "reference/baseball/catcher-view-field.jpg",
+      "bytes": 490181,
+      "sha256": "60802fc8ec9217604fb807f10577f091e703ff6b0a07f47fd5e6092785505ec0"
+    },
+    {
+      "path": "reference/baseball/ground-layout.json",
+      "bytes": 908,
+      "sha256": "34dd6261ec991feb2ec8ab65a3568014fcf28690e07283156eae9e00ee42f4b0"
+    },
+    {
+      "path": "reference/baseball/perspective-guide.png",
+      "bytes": 25573,
+      "sha256": "41a5354ea09ccefde3cf08aad4e49b5c31187418dc8569f3c45a6cd4f26bd04e"
+    },
+    {
+      "path": "reference/baseball/perspective-guide.svg",
+      "bytes": 649,
+      "sha256": "dcddc20690e32014fd768baa4e1c6e5ee62d26c09747f741ecfc51dba48e99a4"
+    },
+    {
+      "path": "reference/baseball/real-batter-box.jpg",
+      "bytes": 381552,
+      "sha256": "b2a6938f5508f6c26337cd0011fbaa8d216364ba3f8095d939b8e050a5b07605"
+    },
+    {
+      "path": "reference/baseball-references.md",
+      "bytes": 396,
+      "sha256": "c7365c44aff8fbc5aa6203c04972d6bfbfed4d2137a0f8eda2baf6d618ed4ba1"
+    },
+    {
+      "path": "reference/scene.css",
+      "bytes": 1366,
+      "sha256": "438a2650774843cf0a0b3a737840338fbd64be31138ccb51d1855bdf0708b63e"
+    },
+    {
+      "path": "reference/scene.js",
+      "bytes": 1989,
+      "sha256": "2f21e874a5dd841ce95d73cbc4895fd3fbc761c497e35252ce9e747962d4223d"
+    },
+    {
+      "path": "reference/shots/desktop.png",
+      "bytes": 4973411,
+      "sha256": "46c19adfc3793e335f1bb6e55bc5968f7861c1de3efadaca9147c660e11288ad"
+    },
+    {
+      "path": "reference/shots/diamond.png",
+      "bytes": 5929057,
+      "sha256": "861377b172889d018815a0d9e2ee7c716121a644fcec7a8bd57f40851e0bf889"
+    },
+    {
+      "path": "reference/shots/energy-verification.txt",
+      "bytes": 769,
+      "sha256": "ad3402c14d0c6ea4d0886331f54ccc115d5d0914c88761bf7ecfff845496352b"
+    },
+    {
+      "path": "reference/shots/layout.json",
+      "bytes": 28040,
+      "sha256": "c770b9a9814dfb4c5208a95767d7bb8d386cba309f987bdfc4e45e0cebc82279"
+    },
+    {
+      "path": "reference/shots/phone.png",
+      "bytes": 1354635,
+      "sha256": "2d12dc247fc37712c3b8a261faf7fc8b497e41c5e9d7e61f3353f152e89d0a5a"
+    },
+    {
+      "path": "reference/shots/result.png",
+      "bytes": 1528977,
+      "sha256": "bbe9ed8fd4514cccccce3e8fc41a4e7ca82abc9bd3c5d4504a591cd6b328f2c5"
+    },
+    {
+      "path": "reference/shots/scene-verification.txt",
+      "bytes": 799,
+      "sha256": "6489357f96e0af2d617b0aa6551c7cc27db58386fab87a04252b2216cf4cfe8c"
+    },
+    {
+      "path": "reference/shots/verification.txt",
+      "bytes": 2152,
+      "sha256": "06bbcdad8e398376fafbfc1c4ee181af048d6b59fc2bc7cf3f258e9fc1beb149"
+    },
+    {
+      "path": "reference/style.css",
+      "bytes": 25445,
+      "sha256": "8342e5b7d86ba37733f0e7947b7b22d88b53dbf80f9c7f4d202a6e0b6e88720b"
+    },
+    {
+      "path": "tasks/C00-baseline.md",
+      "bytes": 1658,
+      "sha256": "6b5e984aab46eaab2196f3e8e455c9607386468a5449d4645aefb6532d21e1dd"
+    },
+    {
+      "path": "tasks/C01-contract.md",
+      "bytes": 2132,
+      "sha256": "197e93604081d1ce8d71dc10bd01861d1b2e9fede36f3a0b47d4011a09361bda"
+    },
+    {
+      "path": "tasks/C02-scene.md",
+      "bytes": 2196,
+      "sha256": "1eac423b237e5aef8b8de57aad5d9cad3828de676457d098f7b05aaf52aeffb5"
+    },
+    {
+      "path": "tasks/C03-hand.md",
+      "bytes": 2219,
+      "sha256": "6158c9202f5d0e6dae59545a6a9588d29c6cebc09a9d4dd6ff34604f51bbc61b"
+    },
+    {
+      "path": "tasks/C04-decision.md",
+      "bytes": 2273,
+      "sha256": "3d42387de39d00bac43da660ca57e076d25b9d3fdb48cc5163cd6baefdec70b5"
+    },
+    {
+      "path": "tasks/C05-integration.md",
+      "bytes": 3530,
+      "sha256": "86b86ea71e3b165c5db4bba44cd70831cb7971cbbb6142b20bb87b917c9583db"
+    },
+    {
+      "path": "tasks/C06-motion.md",
+      "bytes": 2037,
+      "sha256": "0c2fe5fc66f5370ee643c33b8873aa90716d34b91fa19d7e907309569ab98e26"
+    },
+    {
+      "path": "tasks/C07-validation.md",
+      "bytes": 1979,
+      "sha256": "4fb3e0f0e45b664f5cf7210aadaa5c567669b3e8df6c5fa5ab8c8fffa52c1c6f"
+    },
+    {
+      "path": "tasks/C08-rollout.md",
+      "bytes": 4059,
+      "sha256": "8e962226cff7aa06d5243217d879ad3b544e17c2345a869165740a289af2ccbb"
+    }
+  ],
+  "publication_branch": "docs/mockup-implementation-handoff-20261027"
+}
