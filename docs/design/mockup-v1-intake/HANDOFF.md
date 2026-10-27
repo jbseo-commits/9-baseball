@@ -39,3 +39,9 @@ A01의 최적화·배치 정보 산출물이며 본편 연결/전체 A01 로스�
 저장소 루트에서 `python -m http.server 5194 --bind 127.0.0.1` 후 `/docs/qa/mockup-v1-intake/`를 연다. 이 서버는 원화 비교 도구이며 본편 실행 서버가 아니다. PNG와 WebP 전환으로 그립·신발·배트·윤곽·카드 원화를 비교할 수 있다.
 
 실제 실행 결과와 캡처는 `docs/qa/mockup-v1-intake/RESULTS.md`에 기록한다. 미실행 항목은 통과로 취급하지 않는다.
+
+## Windows 줄바꿈 보완
+
+Claude의 실제 `core.autocrlf=true` 체크아웃에서 JSON 메타데이터 해시가 거짓 실패하는 문제를 보완했다. 최신 검증기는 JSON의 CRLF만 LF로 정규화해 해시를 대조한다. PNG/WebP는 여전히 원본 바이너리 해시를 엄격히 검사하며, JSON 값이나 다른 공백 변경은 허용하지 않는다. 생성 manifest는 UTF-8/LF로 저장한다.
+
+회귀 실행: `python -m unittest discover -s tools/art/mockup-v1-intake -p 'test_*.py'`. CRLF 체크아웃 통과·비변경 확인, geometry 값 변경 거절, WebP 바이너리 변경 거절의 3건을 통과했다.

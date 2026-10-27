@@ -24,8 +24,14 @@ def sha256(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def metadata_sha256(path):
+    # Git autocrlf may change JSON line endings on Windows. Normalize only CRLF,
+    # never JSON values/spacing or the PNG/WebP bytes protected by sha256().
+    return hashlib.sha256(path.read_bytes().replace(b'\r\n', b'\n')).hexdigest()
+
+
 def selected_sources():
-    receipt = json.loads((PACKAGE / 'PACKAGE-MANIFEST.json').read_text())
+    receipt = json.loads((PACKAGE / 'PACKAGE-MANIFEST.json').read_text(encoding='utf-8'))
     entries = {Path(x['path']).name: x for x in receipt['selected_runtime_art']}
     if set(entries) != set(NAMES):
         raise ValueError('Selected source set changed; review before export.')
@@ -82,20 +88,21 @@ def build():
                 'status': 'reference derivatives; not registered in the game',
                 'pillow_version': pillow_version, 'libwebp_version': features.version('webp'),
                 'settings': SETTINGS, 'geometry': 'scene-layout.json', 'coverage': 'actor-coverage.json',
-                'metadata_sha256': {name: sha256(OUTPUT / name) for name in ('scene-layout.json', 'actor-coverage.json')},
+                'metadata_sha256_mode': 'CRLF-to-LF; all other bytes unchanged',
+                'metadata_sha256': {name: metadata_sha256(OUTPUT / name) for name in ('scene-layout.json', 'actor-coverage.json')},
                 'source_bytes': sum(e['source_bytes'] for e in entries),
                 'runtime_bytes': sum(e['bytes'] for e in entries), 'assets': entries}
-    (OUTPUT / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
+    (OUTPUT / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
 
 
 def check():
     sources = selected_sources()
-    manifest = json.loads((OUTPUT / 'manifest.json').read_text())
+    manifest = json.loads((OUTPUT / 'manifest.json').read_text(encoding='utf-8'))
     entries = {e['file']: e for e in manifest['assets']}
     if manifest['settings'] != SETTINGS:
         raise ValueError('Export settings changed; regenerate and review.')
     for name in ('scene-layout.json', 'actor-coverage.json'):
-        if sha256(OUTPUT / name) != manifest['metadata_sha256'][name]:
+        if metadata_sha256(OUTPUT / name) != manifest['metadata_sha256'][name]:
             raise ValueError(f'Metadata changed: {name}')
     if set(entries) != {Path(n).stem + '.webp' for n in NAMES}:
         raise ValueError('Missing or unexpected derivative entry.')

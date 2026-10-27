@@ -15,3 +15,5 @@ WebP는 손실 압축이다. 알파와 크기는 정확히 보존하며 그림 �
 런타임 연결은 Claude의 C02/C03/C05가 담당한다. 신규 컴포넌트에서 이 폴더의 WebP를 Vite import하면 되고 원본 PNG나 docs 파일을 게임에서 import할 필요가 없다. 기존 `assets/runtime-opt/manifest.json`과 최적화 스크립트는 이 작업에서 변경하지 않는다. WebP는 이미 파생본이므로 기존 PNG 최적화 manifest에 이중 등록하지 않는다.
 
 출처: `docs/design/mockup-v1/reference/art/manifest.json`, 권리: `docs/design/mockup-v1/reference/NOTICE.md`. 제3자 참고 사진은 이 폴더에 포함하지 않는다.
+
+JSON 메타데이터 해시는 Windows의 CRLF만 LF로 정규화한다. 이미지 파일의 해시·알파 검사는 엄격히 유지한다. `test_portability.py`가 이 차이와 변조 검출을 검증한다.
