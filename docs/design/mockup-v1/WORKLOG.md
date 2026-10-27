@@ -127,3 +127,12 @@ A01 확인:
 남은 문제 / 다음 티켓 / 다음 담당: README C05 메모 1–5와 위험 목록. 다음 = Codex 리뷰 → C04(Claude) → C05(Codex)
 PR / 프리뷰 / 배포 상태: feat/mockup-battle-v1 로컬 커밋. 이 묶음은 아직 push 안 함. PR #63·#64는 그대로 OPEN
 ```
+
+## 규칙 실험 경계 기록 — 2026-10-27 · Claude
+
+```text
+사용자 지시: Codex의 배틀쉽식 규칙 후보 검토를 이식 작업 제약으로 기록하고 C04 시작.
+기록 위치: src/duel/battle-vnext/README.md “규칙 실험 경계”. 엔진·규칙 변경 없음.
+C01–C03 대조: 9존은 코스 전용, PR #40/#52 규칙 미병합, 수비/보호/반격 UI 없음 — 위반 없음 (코드 변경 불필요).
+정정: 위 A01+C02+C03 묶음은 이후 origin에 push됨 (feat/mockup-battle-v1 = 05610d1).
+```
