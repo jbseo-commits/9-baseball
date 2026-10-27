@@ -68,7 +68,7 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
       hostRef.current.appendChild(app.canvas);
       PIXI.TextureSource.defaultOptions.scaleMode='nearest';
 
-      const poseNames=[...new Set([...Object.keys(batterPoses),...Object.keys(batterSheet?.order||{})])];
+      const poseNames=[...new Set([...Object.keys(batterPoses),...Object.keys(batterSheet?.order||{}),...Object.keys(batterSheet?.poseSheets||{})])];
       let batterBaseline=1;
       const poseTex={};
       if(batterSheet){
@@ -80,6 +80,12 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
         const frames=rects.map(r=>new PIXI.Texture({source:sheet.source,frame:new PIXI.Rectangle(r.x,r.y,r.w,r.h)}));
         const order=layout.order||{ready:0,load:0,trigger:1,'swing-start':2,'swing-mid':3,contact:4,'follow-through-early':5,'follow-through-late':6,finish:7,settle:8};
         for(const n of poseNames)poseTex[n]=frames[order[n]??0];
+        for(const page of new Set(Object.values(layout.poseSheets||{}))){
+          const tex=await PIXI.Assets.load(page.src);tex.source.scaleMode='nearest';
+          for(const [pose,index] of Object.entries(page.order)){
+            const r=page.rects[index];poseTex[pose]=new PIXI.Texture({source:tex.source,frame:new PIXI.Rectangle(r.x,r.y,r.w,r.h)});
+          }
+        }
       }else{
         await Promise.all(poseNames.map(async n=>{poseTex[n]=await PIXI.Assets.load(batterPoses[n]);poseTex[n].source.scaleMode='nearest';}));
       }
@@ -230,7 +236,7 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
               shadowW=p.w*(.26+e*.1);if(!dusted.ko&&since>KO_FALL_MS*.7){dusted.ko=1;spawnDust(px,py-p.h*.02,12,p.h*1.6);}
             }
           }
-          shadows.ellipse(p.x+p.w/2,p.y+p.h-p.h*.01,shadowW,p.h*.035).fill({color:0x000000,alpha:.35});
+          if(!fieldCamera)shadows.ellipse(p.x+p.w/2,p.y+p.h-p.h*.01,shadowW,p.h*.035).fill({color:0x000000,alpha:.35});
           if(hostRef.current)hostRef.current.dataset.pitcherPose=pstate.source+'-'+pstate.frame;
         }
         if(b){
@@ -240,12 +246,12 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
           if(pose!==prevPose){prevPoses.unshift({pose:prevPose,at:now});prevPoses=prevPoses.slice(0,2);prevPose=pose;}
           const tex=poseTex[pose]||poseTex.ready;batter.texture=tex;flash.texture=tex;
           const anchor=batterSheet?.anchors?.[pose];
-          const sc=actorDrawScale(b.h,tex.height,app.renderer.resolution,fieldCamera),x=Math.round(b.x+b.w/2+(anchor?.x??0)*tex.width*sc),y=Math.round(b.y+b.h+(1-(anchor?.baseline??batterBaseline))*b.h);
+          const sc=actorDrawScale(b.h,tex.height,app.renderer.resolution,fieldCamera)*(anchor?.scale??1),x=Math.round(b.x+b.w/2+(anchor?.x??0)*tex.width*sc),y=Math.round(b.y+b.h+(1-(anchor?.baseline??batterBaseline))*(fieldCamera?tex.height*sc:b.h));
           batter.scale.set(sc,sc*(active?1:1+breath*.006));batter.position.set(x,y);
           const rigOn=!!rig&&!reduced&&!inStop&&(pose==='ready'||pose==='load');
           if(rig){rig.root.visible=rigOn;batter.visible=!rigOn;if(rigOn){const la=timeline.find(k=>k.pose==='load')?.at,ta=timeline.find(k=>k.pose==='trigger')?.at;rig.set(active&&pose==='load'&&la!=null&&ta!=null?batterRigLoad(now,(t-la)/Math.max(1,ta-la)):batterRigIdle(now));rig.root.scale.set(crisp(b.h/(batterRig.cell[1]),app.renderer.resolution));rig.root.position.set(x,y);}}
           flash.scale.copyFrom(batter.scale);flash.position.copyFrom(batter.position);
-          shadows.ellipse(fieldCamera?b.x+b.w/2:x,b.y+b.h-b.h*(fieldCamera?.01:.02),b.w*(fieldCamera?.18:.3),b.h*(fieldCamera?.012:.035)).fill({color:0x000000,alpha:.35});
+          if(!fieldCamera)shadows.ellipse(x,b.y+b.h-b.h*.02,b.w*.3,b.h*.035).fill({color:0x000000,alpha:.35});
           const fast=active&&swing&&t>=(timeline.find(k=>k.pose==='swing-start')?.at??1e9)&&t<impactAt+160;
           ghosts.forEach((g,i)=>{const src=prevPoses[i];if(!fieldCamera&&fast&&src&&!reduced){g.texture=poseTex[src.pose]||poseTex.ready;g.scale.copyFrom(batter.scale);g.position.copyFrom(batter.position);g.alpha=Math.max(0,(i?.16:.32)*(1-(now-src.at)/180));g.tint=0xfff1c4;}else g.alpha=0;});
           arc.clear();const ss=timeline.find(k=>k.pose==='swing-start')?.at;

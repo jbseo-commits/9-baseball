@@ -1,0 +1,17 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><title>로컬 복귀·전환 회귀</title>
+<body style="background:#10212b;color:#eee;font:16px/1.6 system-ui;padding:16px"><h1>로컬 회귀 상태</h1><p>이 로컬 origin의 테스트 저장만 교체합니다. 자연 플레이·밸런스 증거가 아닙니다.</p><div id="choices"></div><pre id="result"></pre>
+<script type="module">
+import * as E from '/src/duel/engine.js';
+if(!['127.0.0.1','localhost'].includes(location.hostname))throw new Error('Local fixtures only');
+for(const [key,label] of [['ko','KO 공개 경계'],['training','훈련장 전환']]){
+  const b=document.createElement('button');b.textContent=label;b.style.cssText='display:block;min-height:44px;margin:12px;padding:8px';
+  b.onclick=()=>{try{
+    let s=E.createV10Duel(7);const n=key==='ko'?s.runMap.nodes.find(n=>n.opponent?.artId==='tide-vesper'):s.runMap.nodes.find(n=>n.type===key);
+    s.runMap.reachableIds=[n.id];s=E.enterV10Node(s,n.id);
+    if(key==='ko'){s.pitcher.hp=1;s.pitcher.phase='critical';}
+    E.saveV10Duel(localStorage,s);if(!E.readV10Duel(localStorage))throw new Error('Invalid fixture');
+    location.href='/?battleLayout=compare&qa=1';
+  }catch(e){document.getElementById('result').textContent=e.message;}};
+  document.getElementById('choices').append(b);
+}
+</script></body></html>

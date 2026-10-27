@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "batter-recovery-v4",
+    "description": "",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "rect",
+    "width": 384,
+    "height": 320,
+    "safe_margin_x": 16,
+    "safe_margin_y": 16
+  },
+  "chroma_key": {
+    "name": "green",
+    "hex": "#00FF00",
+    "rgb": [
+      0,
+      255,
+      0
+    ],
+    "selection": "auto",
+    "score": 224.97,
+    "min_subject_distance": 216.28,
+    "background": {
+      "mode": "transparent",
+      "opaque_border_fraction": 0.0,
+      "subject_pixels": 5226
+    },
+    "candidates": [
+      {
+        "name": "magenta",
+        "hex": "#FF00FF",
+        "score": 198.68,
+        "min_subject_distance": 198.68,
+        "clears_erase_radius": true
+      },
+      {
+        "name": "green",
+        "hex": "#00FF00",
+        "score": 224.97,
+        "min_subject_distance": 216.28,
+        "clears_erase_radius": true
+      },
+      {
+        "name": "cyan",
+        "hex": "#00FFFF",
+        "score": 208.69,
+        "min_subject_distance": 160.01,
+        "clears_erase_radius": true
+      },
+      {
+        "name": "blue",
+        "hex": "#004DFF",
+        "score": 119.47,
+        "min_subject_distance": 108.03,
+        "clears_erase_radius": true
+      }
+    ],
+    "selection_reason": "highest 1st-percentile subject distance among the 4 candidate(s) clearing the 96 erase radius"
+  },
+  "states": {
+    "recovery": {
+      "frames": 8,
+      "fps": 12,
+      "loop": false,
+      "action": "Eight consecutive SMALL stages of an adult right-handed batter's recovery, from the attached finish reference (jersey back facing camera, bat resting across shoulders, rear right heel up) to the EXACT attached ready reference (chest-side facing camera, hands at rear shoulder and bat raised). Not eight separate poses: draw one continuous unwinding action. Stage1 holds the back-facing finish, hands and bat just beginning to relax. Stage2 shoulders turn only a little, connected hands moving down along the NEAR side of his shoulder, bat still diagonal across the upper back. Stage3 hands come around the near ribs, bat slopes down, torso three-quarter BACK. Stage4 hands stay visibly joined in FRONT of the abdomen, torso only half-way untwisted, bat tip forward and down. Stage5 rear heel settles, hips/chest rotate three-quarter side, connected hands begin to move back toward the rear shoulder. Stage6 hands lift through chest height, bat rising diagonally, shoulders almost ready. Stage7 hands arrive at the rear shoulder, bat nearly vertical and head still watching pitcher. Stage8 matches the ready reference exactly. Hands never teleport through his torso: hide the far forearm naturally behind the chest until it comes around the near side. The lead LEFT shoe (screen RIGHT) remains planted at exactly the same ground location throughout. Rear RIGHT heel pivots down without skating or a walking step. Both leg lengths, pelvis height, helmet size, torso volume and body height remain constant. Do not shrink wider poses to fit. The camera, navy helmet, cream uniform, navy socks and jersey number9 remain unchanged. No camera rotation, mirrored hands, crossed legs, effects or ball. Each cell contains the COMPLETE bat and both cleats."
+    }
+  },
+  "style": "Match the reference's crisp fixed-grid pixel art exactly: adult athlete with navy helmet and socks, cream white baseball uniform with navy piping and number9, white gloves, honey-brown wooden bat. Oblique behind-home-plate camera with pitcher direction at screen upper-right. Keep the exact reference body scale, light direction and four-tone shading, never a smooth painted reskin. A single continuous foot baseline and constant head-to-ground height. The full body fits in each cell without resizing pose by pose.",
+  "layout": "taxonomy/v1",
+  "fit": {
+    "resample": "nearest",
+    "align_x": "foot-centroid",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "pixel_unfake": true,
+    "logical_height": 160,
+    "palette_size": 48
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}

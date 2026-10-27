@@ -3,6 +3,16 @@
    No engine state, pitch probabilities or save values enter this module. */
 export const FIELD={plate:.4318,rubberDistance:18.4404,rubberWidth:.6096,moundRadius:2.7432,boxWidth:1.2192,boxDepth:1.8288,boxGap:.1524};
 export const CAMERA={yaw:-20*Math.PI/180,distance:10,eye:2,aspect:384/320};
+export const FIELD_LIGHT={x:-12,z:22,y:16};
+export function moundHeight(x,z){
+  const r=Math.hypot(x,z-(FIELD.rubberDistance-.4572));
+  if(r<=.9)return .254;
+  const t=Math.max(0,1-(r-.9)/(FIELD.moundRadius-.9));
+  return .254*t*t*(3-2*t);
+}
+export function castShadowEnd(x,z,bodyHeight){
+  return [x+(x-FIELD_LIGHT.x)*bodyHeight/FIELD_LIGHT.y,z+(z-FIELD_LIGHT.z)*bodyHeight/FIELD_LIGHT.y];
+}
 export function cameraLens(width,height){
   const focal=Math.min(height*3.6,width*1.7);
   // One shared optical centre, constrained by the complete batter/bat envelope.

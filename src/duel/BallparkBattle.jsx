@@ -841,15 +841,15 @@ export default function BallparkBattle({
         {deciding&&!selected&&<BattleIcon kind="watch"/>}{reviewLine||(!deciding?planSummary.input:<>{choice?.problem&&<b className="bp-selection-warning">{shortCardProblem(choice.problem)||choice.problem} · </b>}{selectionDetail}</>)}
       </div>}
       {layoutCompare&&!wide&&selectedFace?.condition&&<span className="bp-wide-selected-condition">{selectedFace.condition}</span>}
-      <div className="bp-plan-fields">
+      {!wide&&<div className="bp-plan-fields">
         {showProgress&&<ol className="bp-progress" aria-label="이번 공 진행">{[['plan','코스 노리기'],['flight','공 날아옴'],['result','결과']].map(([id,name],i)=><li key={id} aria-current={battleStep===id?'step':undefined}><BattleIcon kind={['aim','swing','exact'][i]}/><b>{i+1}</b> {name}</li>)}</ol>}
         {reviewLine?<p className="bp-result-explanation" data-testid="bp-result-explanation" role="status">{reviewLine}</p>:<>
         {planSummary.predict&&<span className="bp-plan-predict">{planSummary.predict}</span>}
         {planSummary.input
           ?<span className="bp-plan-input">{planSummary.input}</span>
           :<span className="bp-plan-input" aria-hidden="true"> </span>}</> }
-      </div>
-      {prepEffects.length>0&&<div className="bp-plan-effects" data-testid="bp-plan-effects" aria-label={'유지 중인 준비 효과: '+prepEffects.join(' · ')}>
+      </div>}
+      {!wide&&prepEffects.length>0&&<div className="bp-plan-effects" data-testid="bp-plan-effects" aria-label={'유지 중인 준비 효과: '+prepEffects.join(' · ')}>
         <b>준비 유지</b><span>{prepEffects.join(' · ')}</span>
       </div>}
       {defenseLab&&<div className="bp-lab-hud" data-testid="bp-defense-lab-hud" aria-label="현재 제약과 다음 예고">
@@ -858,10 +858,12 @@ export default function BallparkBattle({
         <span className="bp-lab-rule">{labView.rule}</span>
       </div>}
     </div>
-    {onNext&&!deciding&&s.phase!=='battle'?<div className="bp-verbs next">
+    {wide&&inFx&&!landed?<div className="bp-verbs single">
+      <button type="button" className="bp-verb pending" data-testid="bp-next" disabled aria-busy="true" aria-label={s.last?.kind==='skill'?'준비 중':'투구 중'}><span className="bp-verb-word">{s.last?.kind==='skill'?'준비 중':'투구 중'}</span></button>
+    </div>:onNext&&!deciding&&s.phase!=='battle'?<div className="bp-verbs next">
       {s.version===10&&null}
       {/* #103 M04: the hint names the same step as the verb (it said "next pitch" under "next batter") */}
-      <button type="button" className={'bp-verb go'+(autoNext?' auto':'')} data-testid="bp-next" disabled={inFx||locked||!!inspect} onClick={()=>{if(!inspect)onNext?.();}}><span className="bp-verb-word">{nextLabel}</span>{nextHint(s.phase,inFx||locked)&&<small className="bp-verb-sub"><span>{nextHint(s.phase,inFx||locked)}</span></small>}</button>
+      <button type="button" className={'bp-verb go'+(autoNext?' auto':'')} data-testid="bp-next" disabled={inFx||locked||!!inspect} onClick={()=>{if(!inspect)onNext?.();}}><span className="bp-verb-word">{nextLabel}</span>{!wide&&nextHint(s.phase,inFx||locked)&&<small className="bp-verb-sub"><span>{nextHint(s.phase,inFx||locked)}</span></small>}</button>
     </div>:compact?<div className="bp-verbs single">
       <button type="button" className={'bp-verb '+(selected?'go':'wait')} data-testid="bp-swing" data-action-kind={executeKind} disabled={!deciding||!!inspect||(!!selected&&!!choice?.problem)}
         aria-label={selected?`${verb} ${mainName}`:`지켜본다 · ${takeHint}`} aria-busy={!!commitBeat}

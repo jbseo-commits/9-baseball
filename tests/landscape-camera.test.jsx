@@ -2,7 +2,7 @@
 import React from 'react';
 import {describe,it,expect} from 'vitest';
 import {render,screen,cleanup} from '@testing-library/react';
-import {cameraGeometry,FIELD,projectField,targetPoint} from '../src/duel/landscape-camera.js';
+import {cameraGeometry,FIELD,projectField,targetPoint,moundHeight,castShadowEnd} from '../src/duel/landscape-camera.js';
 import {LANDSCAPE_BATTER} from '../src/duel/landscape-batter.js';
 import {BATTER_MOTION_V3_SEQUENCE} from '../src/duel/batterMotionV3.js';
 import {sheetCellStyle} from '../src/duel/batter-v15.js';
@@ -47,6 +47,18 @@ describe('one ground camera for the opt-in wide battle',()=>{
     expect(screen.getByTestId('camera-plate').tagName.toLowerCase()).toBe('polygon');
     expect(screen.getByTestId('camera-box-left').getAttribute('points').split(' ')).toHaveLength(4);
     expect(screen.getByTestId('camera-rubber')).toBeTruthy();cleanup();
+  });
+  it('grounds the rubber and pitcher at the same raised plateau and sends their shared shadow away from the key light',()=>{
+    expect(moundHeight(0,FIELD.rubberDistance)).toBe(.254);
+    expect(moundHeight(0,FIELD.rubberDistance-.4572)).toBe(.254);
+    expect(moundHeight(FIELD.moundRadius,FIELD.rubberDistance-.4572)).toBe(0);
+    expect(moundHeight(1.5,FIELD.rubberDistance-.4572)).toBeGreaterThan(0);
+    expect(moundHeight(1.5,FIELD.rubberDistance-.4572)).toBeLessThan(.254);
+    const end=castShadowEnd(-.96,-.25,1.8);expect(end[0]).toBeGreaterThan(-.96);expect(end[1]).toBeLessThan(-.25);
+    render(<LandscapeField width={664} height={202}/>);
+    expect(screen.getByTestId('camera-mound').querySelectorAll('polygon')).toHaveLength(17);
+    const foot=screen.getByTestId('ground-shadow-pitcher').dataset.foot.split(',').map(Number),g=cameraGeometry(664,202);
+    expect(foot[0]).toBeCloseTo(g.rubber.x);expect(foot[1]).toBeCloseTo(g.rubber.y);cleanup();
   });
   it('has a new frame and measured anchor for every timeline pose; DOM uses same anchors',()=>{
     for(const pose of BATTER_MOTION_V3_SEQUENCE){

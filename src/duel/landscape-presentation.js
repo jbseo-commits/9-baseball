@@ -3,7 +3,7 @@ import {hasPitchVisual} from './pitcher-sd.js';
 
 export const WIDE_CONTACT_GRADES=new Set([...BATTER_MOTION_V3_HIT_GRADES,'foul','battle-foul','out','sacrifice','sacrifice-run']);
 export const WIDE_SWING_GRADES=new Set([...WIDE_CONTACT_GRADES,...BATTER_MOTION_V3_MISS_GRADES]);
-export const WIDE_RECOVERY_END=1040;
+export const WIDE_RECOVERY_END=1120;
 /* A presentation contract, never an engine delay or another roll. The pitch
    arrival is unchanged. Authored recovery gets real screen time on one clock;
    ordinary misses no longer slow the actor clock and race the result clock. */

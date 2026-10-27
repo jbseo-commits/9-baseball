@@ -25,9 +25,10 @@ export const BATTER_V15_SHEET={
 
 /* one pose of a sheet as CSS background values (the DOM fallback) */
 export function sheetCellStyle(sheet,pose){
+  if(sheet.poseSheets?.[pose])return sheetCellStyle(sheet.poseSheets[pose],pose);
   const rect=sheet.rects?.[sheet.order?.[pose]??0];
   if(rect)return {
-    '--baseline':sheet.anchors?.[pose]?.baseline??sheet.baseline??1,'--pose-x':sheet.anchors?.[pose]?.x??0,
+    '--baseline':sheet.anchors?.[pose]?.baseline??sheet.baseline??1,'--pose-x':sheet.anchors?.[pose]?.x??0,'--pose-scale':sheet.anchors?.[pose]?.scale??1,
     '--sheet-aspect':rect.w/rect.h,backgroundImage:`url(${sheet.src})`,
     backgroundSize:`${sheet.width/rect.w*100}% ${sheet.height/rect.h*100}%`,
     backgroundPosition:`${sheet.width>rect.w?rect.x/(sheet.width-rect.w)*100:0}% ${sheet.height>rect.h?rect.y/(sheet.height-rect.h)*100:0}%`,

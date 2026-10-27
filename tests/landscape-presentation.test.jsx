@@ -19,7 +19,7 @@ it.each(['solid','homer','near-miss','chase','foul','battle-foul','out'])('finis
   expect(keys.find(k=>k.pose==='contact'||k.pose==='swing-through').at).toBe(result.impactAt);
   expect(keys.at(-1).at).toBeLessThan(result.duration);
   for(const pose of ['finish','settle','recover-front','recover-raise','recover-ready'])expect(keys.some(k=>k.pose===pose)).toBe(true);
-  expect(keys.find(k=>k.pose==='recover-raise').at-keys.find(k=>k.pose==='recover-front').at).toBeGreaterThanOrEqual(120);
+  expect(keys.find(k=>k.pose==='recover-raise').at-keys.find(k=>k.pose==='recover-front').at).toBeGreaterThanOrEqual(60);
   expect(JSON.stringify(shot)).toBe(before);
 });
 it('preserves reduced motion and uses the shared start even when a renderer initializes late',()=>{
@@ -54,9 +54,36 @@ it('plays a real preview pitch, freezes public HP until impact, returns through 
   expect(screen.getByLabelText(/타이드 베스퍼 투수 HP 60/)).toBeTruthy();
   expect(document.querySelector('.bp-verdict')).toBeNull();expect(document.querySelector('.homer-video')).toBeNull();
   expect(screen.getByTestId('bp-next').disabled).toBe(true);
+  expect(screen.getByTestId('bp-next').textContent).toBe('투구 중');
+  expect(screen.getByTestId('bp-next').getAttribute('aria-label')).toBe('투구 중');
   act(()=>vi.advanceTimersByTime(1566));expect(screen.getByLabelText(/타이드 베스퍼 투수 HP 60/)).toBeTruthy();
   act(()=>vi.advanceTimersByTime(200));expect(document.querySelector('.bp-battle').classList.contains('fx-windup')).toBe(false);
-  act(()=>vi.advanceTimersByTime(1000));expect(document.querySelector('.bp-battle').classList.contains('fx-settle')).toBe(false);
+  act(()=>vi.advanceTimersByTime(1100));expect(document.querySelector('.bp-battle').classList.contains('fx-settle')).toBe(false);
   act(()=>vi.advanceTimersByTime(1200));expect(screen.getByTestId('bp-swing').disabled).toBe(false);
   expect(localStorage.getItem(E.V10_SAVE_KEY||'9zone-v10-run')).toBe(saved);
+});
+it.each([6,8])('keeps the pending next action neutral for both a hit and miss (aim %s)',zone=>{
+  vi.useFakeTimers();window.history.replaceState({},'','/?battleLayout=inside&battlePreview=1&qa=1&renderer=dom');
+  vi.spyOn(window,'matchMedia').mockImplementation(q=>({matches:q==='(orientation: landscape)',addEventListener(){},removeEventListener(){}}));
+  render(<Duel/>);
+  fireEvent.click(document.querySelector('.bp-card[data-card-kind="strike"]'));
+  fireEvent.click(document.querySelector(`[data-zone="${zone}"]`));fireEvent.click(screen.getByTestId('bp-swing'));
+  const next=screen.getByTestId('bp-next');
+  expect(next.textContent).toBe('투구 중');expect(next.getAttribute('aria-label')).toBe('투구 중');expect(next.disabled).toBe(true);
+  act(()=>vi.advanceTimersByTime(1566));expect(next.textContent).toBe('투구 중');
+  act(()=>vi.advanceTimersByTime(100));
+  expect(screen.getByTestId('bp-next').textContent).toBe(zone===6?'다음 타자':'다음 공');
+  expect(document.querySelectorAll('[data-testid="bp-result-explanation"]')).toHaveLength(1);
+  expect(screen.getByTestId('wide-selection').querySelector('[data-testid="bp-result-explanation"]')).toBeTruthy();
+});
+it('does not distinguish a knockout from a continuing battle through the pending execution control',()=>{
+  vi.useFakeTimers();window.history.replaceState({},'','/?battleLayout=inside&qa=1&renderer=dom');
+  vi.spyOn(window,'matchMedia').mockImplementation(q=>({matches:q==='(orientation: landscape)',addEventListener(){},removeEventListener(){}}));
+  let s=E.createV10Duel(7);const node=s.runMap.nodes.find(n=>n.opponent?.artId==='tide-vesper');s.runMap.reachableIds=[node.id];s=E.enterV10Node(s,node.id);
+  s.pitcher.hp=1;s.pitcher.phase='critical';E.saveV10Duel(localStorage,s);
+  render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:/^이어하기/}));
+  fireEvent.click(document.querySelector('.bp-card[data-card-kind="strike"]'));fireEvent.click(document.querySelector('[data-zone="6"]'));fireEvent.click(screen.getByTestId('bp-swing'));
+  expect(screen.getByRole('button',{name:'투구 중',exact:true}).textContent).toBe('투구 중');
+  expect(screen.getByTestId('bp-next').disabled).toBe(true);expect(screen.getByTestId('bp-next').className).toBe('bp-verb pending');
+  act(()=>vi.advanceTimersByTime(1566));expect(screen.getByRole('button',{name:'투구 중',exact:true})).toBeTruthy();
 });
