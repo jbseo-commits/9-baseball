@@ -1,6 +1,6 @@
 # 인수 기록
 
-계획 패키지 작성 완료. C00 기준 확인(Claude, 축약) · C01 · A01 반입(PR #64 병합) · C02 · C03 구현 완료 — 아래 기록. C04–C08은 TODO.
+계획 패키지 작성 완료. C00 기준 확인(Claude, 축약) · C01 · A01 반입(PR #64 병합) · C02 · C03 · C04 구현 완료 — 아래 기록. C05–C08은 TODO.
 
 기준 main: `f3ec4beef5b245e0e98696d3174d47b6a8b09005` (2026-10-27 조회).
 문서 게시 브랜치: `docs/mockup-implementation-handoff-20261027`.
@@ -14,7 +14,7 @@
 | C01 | 구현·코드 검증 | Claude | `4457144` | Codex 독립 리뷰 → C03 |
 | C02 | 구현·코드 검증 | Claude | `396506c` | 정지 원화만. 실제 상대 매핑 없음 → C05 |
 | C03 | 구현·코드 검증 | Claude | `99922ae` | 검토 캡처만. 본편 연결은 C05 |
-| C04 | TODO | Claude | — | 판단·결과 |
+| C04 | 구현·코드 검증 | Claude | `b64b123` | 검토 캡처만. 본편 연결은 C05 |
 | C05 | TODO | Codex | — | 통합·G1 |
 | C06 | TODO | Claude/아트 교대 | — | 모션·G2 |
 | C07 | TODO | Claude 수정/Codex 검수 | — | G3 |
@@ -135,4 +135,34 @@ PR / 프리뷰 / 배포 상태: feat/mockup-battle-v1 로컬 커밋. 이 묶음�
 기록 위치: src/duel/battle-vnext/README.md “규칙 실험 경계”. 엔진·규칙 변경 없음.
 C01–C03 대조: 9존은 코스 전용, PR #40/#52 규칙 미병합, 수비/보호/반격 UI 없음 — 위반 없음 (코드 변경 불필요).
 정정: 위 A01+C02+C03 묶음은 이후 origin에 push됨 (feat/mockup-battle-v1 = 05610d1).
+```
+
+## C04 — 2026-10-27 · Claude
+
+```text
+티켓: C04 9존·예측·단일 행동·결과 (+ C01 강판 phase 보정)
+기준 BASE_SHA / 직전 인수 SHA: f3ec4beef5b245e0e98696d3174d47b6a8b09005 / 05610d1 (origin 게시) · 10f4c0d(규칙 경계 기록)
+작업 브랜치 / HEAD_SHA: feat/mockup-battle-v1 / bdc9d58 (C01 보정: 강판 연출 중 result 유지) · b64b123 (C04) · 이 기록은 그 다음 커밋
+실제 담당 모델 / effort: Claude Opus 5.5 (claude-opus-5-5). advisor 도구 없음 → 미실행. 서브에이전트 미사용
+편집 소유권: Claude 단독. 작업 중 이 작업 폴더에 Claude가 만들지 않은 미추적 파일
+  docs/art/MOCKUP-V1-STYLE-UNIFICATION-AUDIT.md (20:01, 기준 bdc9d58로 기재)이 생겼다 — 커밋·수정하지 않고 그대로 둠. 작성자 확인 필요
+변경 파일과 목적:
+  src/duel/battle-vnext/DecisionPanel.jsx · BattleHud.jsx · ResultReadout.jsx · decision.css · tests/battle-vnext-decision.test.jsx
+  view-model.js/model test (C01 보정 1건) · README(C04 API·C05 메모 1–5)
+  공통 파일·엔진·SwingForecast 계산 미수정
+결과 fixture (seed 20261027 · a1-entry, 본편 엔진 행동, 테스트 안에 단계 기록):
+  정확 적중 aim2 strike · 범위 적중 aim5 strike · 지원 적중 take→next, place aim4 + strike 지원 aim2 · 한 칸 차이 aim1 strike
+  볼 take·next ×… 6번째 지켜보기 · 루킹 take · 희생타 take→next 뒤 번트+주자(엔진 밖 조정) · 강판 HP 1(엔진 밖 조정) 후 aim2 strike
+실행한 검사 / 명령 / exit code / 결과:
+  pnpm exec vitest run tests/battle-vnext-decision.test.jsx → 0, 31/31
+  pnpm test → 0, 198 files / 1317 tests passed
+  pnpm build → 0 · pnpm run check:dist → 0, 58.6MB/60MB · dist에 battle-vnext 0건
+실제 브라우저 증거 (커밋 안 함): .qa-bv 검토 화면에 HUD·손패·결정 레일·무대 판정을 임시 배치, Chrome headless+CDP 캡처
+  .qa-bv/shots/support-stacked-1440x900 · support-stacked-844x390 · result-hit-1440x900 · cost-short-844x390 · result-take-844x390 · support-armed-667x375
+  캡처로 고친 결함: 9존 오른쪽 열이 화면 밖(grid minmax) · 844×390에서 결정 레일이 HUD 아래로 넘침 · 무대 판정이 손패와 겹침(짧은 가로 축소) · 지원 대기 중 칸이 고를 수 있어 보이지 않음
+미실행·차단 검증과 이유: 본편 연결·AGENTS §3 회귀(런타임 무변경) · 실기기/Safari · 회전 · 사람 플레이 이해도 · advisor
+시각 검수: 검토 화면 기준 자체 확인만. 1440×900은 목업 데스크톱 배치와 일치, 667×375 배우 가림과 결과 해설 중복은 C05 → PASS 아님
+코드·동작 검수: 자체 테스트 통과. 독립 검수 전 → 최종 PASS 아님
+남은 문제 / 다음 티켓 / 다음 담당: README C04→C05 메모 1–5. 다음 = Codex 리뷰 → C05(Codex 통합)
+PR / 프리뷰 / 배포 상태: feat/mockup-battle-v1 로컬 커밋, 10f4c0d 이후 push 안 함
 ```
