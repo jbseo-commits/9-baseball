@@ -43,3 +43,5 @@ JPG는 브라우저 검토 화면의 캡처이며 배포용 원화가 아니다.
 ## 다음 통합
 
 Claude는 C02/C03에서 WebP를 직접 import하고 C05에서 실제 artId·카드 kind 매핑을 검수한다. 기존 optimizer/manifest를 이중 수정하지 않는다. `actor-coverage.json`에 승인된 artId가 없으므로 G1 로스터 게이트는 아직 남아 있다.
+
+독립 reviewer가 코드·메타데이터·원본/변환본 캡처를 검토하고 `prepare.py --check`를 별도로 실행해 통과를 확인했다. 인수 시 용량 여유를 명시하라는 의견을 반영했다: 현재 dist 61,457,462 bytes에 새 WebP를 전부 더하면 60 MiB 한도까지 182,300 bytes가 남으므로 실제 import 후 재측정해야 한다. 지연 로딩은 dist 총량을 줄이지 않는다.

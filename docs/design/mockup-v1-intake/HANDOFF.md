@@ -10,7 +10,7 @@
 
 ## 가져다 쓰기
 
-이 브랜치를 fetch한 뒤 해당 커밋을 작업 브랜치에 cherry-pick하거나, PR을 통합한다. 이 경로가 이미 만들어졌다면 덮어쓰지 말고 기존 변경과 비교한다. 두 명이 원화와 receipt를 동시에 재생성하지 않는다.
+이 브랜치를 fetch한 뒤 PR #63 이후의 intake 커밋들을 작업 브랜치에 cherry-pick하거나, PR을 통합한다. 최신 HEAD 하나만 가져오면 문서 보완만 포함될 수 있으므로 커밋 범위를 확인한다. 이 경로가 이미 만들어졌다면 덮어쓰지 말고 기존 변경과 비교한다. 두 명이 원화와 receipt를 동시에 재생성하지 않는다.
 
 `src/duel/battle-vnext/`에서 사용할 예:
 
@@ -23,6 +23,8 @@ import layout from '../../../assets/production-art/mockup-v1-intake/scene-layout
 ```
 
 원본은 `docs/design/mockup-v1/reference/art/`에 이미 있으므로 같은 PNG를 다시 반입하지 않는다. 실제 빌드에서는 WebP URL을 import해 Pages base path와 해시 파일명을 Vite가 처리하게 한다. 문서 폴더를 public으로 복사하지 않는다.
+
+현재 측정 dist는 61,457,462 bytes(58.6104 MiB)다. 기존 파일을 유지한 채 WebP 네 개를 모두 추가하면 62,732,260 bytes(59.8261 MiB)로, 60 MiB 한도까지 182,300 bytes만 남는다. C05에서 실제 import 후 코드·새 자산까지 포함해 용량 검사를 다시 해야 한다. 지연 로딩도 dist 총량에는 포함된다. 용량을 맞추려고 필요한 fallback/기존 로스터를 먼저 삭제하거나 예산을 임의로 올리지 않는다.
 
 ## C02/C05가 지킬 것
 
