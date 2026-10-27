@@ -19,6 +19,9 @@ import './adaptive-performance.css';
 import {coverageText} from './information.js';
 import {cue} from './audio.js';
 import {presentationFor,presentationTimeline} from './presentation.js';
+import {comparisonMode,isBattlePreview} from './battle-layout.js';
+import {landscapePresentationTimeline,presentationElapsed,timelinePoseAt} from './landscape-presentation.js';
+import {widePitcherFrame,TIDE_RETURN} from './landscape-pitcher.js';
 import {batterMotionV3Timeline} from './batterMotionV3.js';
 import {haptic} from './haptics.js';
 import PixelVFX from './PixelVFX.jsx';
@@ -288,7 +291,7 @@ function v4SheetFor(who,shot){
   const homer=['homer','grand-slam'].includes(shot.grade);
   return homer?batterHomerV4:miss?batterMissV4:batterSwingV4;
 }
-function useBatterMotionV3Pose(stage,shot,playToken,enabled,syncRedRush=false){
+function useBatterMotionV3Pose(stage,shot,playToken,enabled,syncRedRush=false,timelineFor=batterMotionV3Timeline,startedAt=null){
   const [pose,setPose]=useState('ready');
   const timer=useRef(null);
   const raf=useRef(null);
@@ -300,8 +303,16 @@ function useBatterMotionV3Pose(stage,shot,playToken,enabled,syncRedRush=false){
   useEffect(()=>{
     clear();
     if(!enabled||!shot||!stage){setPose('ready');return clear;}
-    const timeline=batterMotionV3Timeline(syncRedRush?redRushBatterShot(shot,!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches):shot);
+    const timeline=timelineFor(syncRedRush?redRushBatterShot(shot,!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches):shot),started=performance.now();
     setPose(timeline[0]?.pose||'ready');
+    if(timelineFor!==batterMotionV3Timeline){
+      let previous=timeline[0]?.pose;
+      const tick=now=>{const elapsed=presentationElapsed(now,startedAt,started),current=timelinePoseAt(timeline,elapsed);
+        if(current!==previous){previous=current;flushSync(()=>setPose(current));}
+        if(elapsed<timeline.at(-1).at)raf.current=requestAnimationFrame(tick);
+      };
+      raf.current=requestAnimationFrame(tick);return clear;
+    }
     // V3 schedules one authored silhouette at a time and waits for a browser
     // paint before arming the next timer. This avoids React/WebGL load turning
     // the fastest part of the swing into an invisible state jump.
@@ -309,7 +320,7 @@ function useBatterMotionV3Pose(stage,shot,playToken,enabled,syncRedRush=false){
       if(index>=timeline.length)return;
       const previous=timeline[index-1]||timeline[0];
       const keyframe=timeline[index];
-      const delay=Math.max(30,keyframe.at-previous.at);
+      const delay=timelineFor===batterMotionV3Timeline?Math.max(30,keyframe.at-previous.at):Math.max(0,keyframe.at-presentationElapsed(performance.now(),startedAt,started));
       timer.current=setTimeout(()=>{
         // React may defer DOM commits under the landscape WebGL load. Commit
         // this sparse authored frame synchronously, then wait for a browser
@@ -324,10 +335,10 @@ function useBatterMotionV3Pose(stage,shot,playToken,enabled,syncRedRush=false){
     };
     schedule(1);
     return clear;
-  },[enabled,playToken,shot?.grade,shot?.motion?.impactAt,shot?.motion?.settleAt,shot?.motion?.duration,shot?.motion?.freeze,shot?.motion?.slowmo,syncRedRush]);
+  },[enabled,playToken,shot?.grade,shot?.motion?.impactAt,shot?.motion?.settleAt,shot?.motion?.duration,shot?.motion?.freeze,shot?.motion?.slowmo,syncRedRush,timelineFor,startedAt]);
   return pose;
 }
-function useRedRushFrame(active,token){
+function useRedRushFrame(active,token,startedAt=null,wide=false){
   const [frame,setFrame]=useState(0);
   useEffect(()=>{
     if(!active){setFrame(0);return;}
@@ -335,27 +346,27 @@ function useRedRushFrame(active,token){
     const request=window.requestAnimationFrame?.bind(window)||((fn)=>window.setTimeout(()=>fn(performance.now()),16));
     const cancel=window.cancelAnimationFrame?.bind(window)||window.clearTimeout.bind(window);
     const tick=now=>{
-      if(start==null)start=now;
-      const next=redRushFrameAt(now-start);
+      if(start==null)start=Number.isFinite(startedAt)&&startedAt>0?startedAt:now;
+      const next=wide?Math.min(162,Math.floor((now-start)*60/1000)):redRushFrameAt(now-start);
       setFrame(next);
-      if(next<119)handle=request(tick);
+      if(next<(wide?162:119))handle=request(tick);
     };
     handle=request(tick);
     return ()=>cancel(handle);
-  },[active,token]);
+  },[active,token,startedAt,wide]);
   return frame;
 }
-function Sprite({who,stage=null,shot=null,golden=false,variant=null,playToken=0,syncRedRush=false,sheet=null}){
+function Sprite({who,stage=null,shot=null,golden=false,variant=null,playToken=0,syncRedRush=false,sheet=null,startedAt=null}){
   const rebootEnabled=golden&&who==='batter';
-  const rebootPose=useBatterMotionV3Pose(stage,shot,playToken,rebootEnabled,syncRedRush);
-  const qaPose=rebootEnabled&&typeof window!=='undefined'&&new URLSearchParams(window.location.search).get('cinema')==='1'
+  const rebootPose=useBatterMotionV3Pose(stage,shot,playToken,rebootEnabled,syncRedRush,sheet?.timeline||batterMotionV3Timeline,startedAt);
+  const qaPose=rebootEnabled&&typeof window!=='undefined'&&(new URLSearchParams(window.location.search).get('cinema')==='1'||new URLSearchParams(window.location.search).get('qa')==='1')
     ?new URLSearchParams(window.location.search).get('batterPose'):null;
   const displayedRebootPose=qaPose&&BATTER_REBOOT_V3[qaPose]?qaPose:rebootPose;
   /* #103 M09: with a sheet, the DOM batter is the same drawing Pixi shows (BallparkActors), cell for
      cell on the same baseline, so a WebGL fallback or a slow Pixi start never swaps the batter */
   if(rebootEnabled&&sheet){
     return <span data-batter-pose={displayedRebootPose} className={'sprite-stage sprite-batter batter-sheet-actor pose-'+displayedRebootPose}>
-      <span aria-hidden="true" className="batter-sheet-frame" style={{...sheetCellStyle(sheet,displayedRebootPose),'--baseline':sheet.baseline??1}}/>
+      <span aria-hidden="true" className="batter-sheet-frame" style={sheetCellStyle(sheet,displayedRebootPose)}/>
     </span>;
   }
   if(rebootEnabled){
@@ -376,12 +387,13 @@ function Sprite({who,stage=null,shot=null,golden=false,variant=null,playToken=0,
     <i className="sprite-bloom" aria-hidden="true"/>
   </span>;
 }
-function PitcherAtlasSprite({atlas,stage=null,shot=null,playToken=0}){
+function PitcherAtlasSprite({atlas,stage=null,shot=null,playToken=0,startedAt=null,wide=false,artId=null,knockedOut=false}){
   const reduced=typeof window!=='undefined'&&!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-  const frame=useRedRushFrame(!!stage&&hasPitchVisual(shot)&&!reduced,playToken);
-  const pose=actorPose('pitcher',stage,shot),col=frame%10,row=Math.floor(frame/10);
-  const atlasStyle={backgroundImage:'url('+atlas+')',backgroundSize:'1000% 1200%',backgroundPosition:(col*100/9)+'% '+(row*100/11)+'%'};
-  return <span className={'sprite-stage sprite-pitcher pose-'+pose+' golden-actor red-rush-actor'}>
+  const frame=useRedRushFrame(!!stage&&hasPitchVisual(shot)&&!reduced,playToken,startedAt,wide);
+  const current=wide?widePitcherFrame(frame*1000/60,artId,knockedOut):{source:'atlas',frame};
+  const returning=current.source==='return',pose=actorPose('pitcher',stage,shot),col=current.frame%10,row=Math.floor(current.frame/10);
+  const atlasStyle=returning?{backgroundImage:`url(${TIDE_RETURN.src})`,backgroundSize:'600% 100%',backgroundPosition:(current.frame*100/5)+'% 0%',transform:`translateX(${current.x*100}%) scale(${current.scale})`,transformOrigin:'center bottom'}:{backgroundImage:'url('+atlas+')',backgroundSize:'1000% 1200%',backgroundPosition:(col*100/9)+'% '+(row*100/11)+'%'};
+  return <span data-pitcher-pose={returning?'return-'+current.frame:'atlas-'+current.frame} style={returning?{'--stance-y':1-(1-current.baseline)*current.scale}:undefined} className={'sprite-stage sprite-pitcher pose-'+pose+' golden-actor red-rush-actor'}>
     <i className="actor-contact-shadow" aria-hidden="true"/>
     <span aria-hidden="true" className="sprite-echo echo-back red-rush-frame" style={atlasStyle}/>
     <span aria-hidden="true" className="sprite-echo echo-mid red-rush-frame" style={atlasStyle}/>
@@ -812,8 +824,9 @@ export default function Duel(){
       try{const save=readDefenseLabState(localStorage),hasLabSave=!!localStorage.getItem(DEFENSE_LAB_SAVE_KEY);return {save,defenseExperiment:true,...(!save&&hasLabSave?{error:'실험 저장이 손상됐습니다. 새 조건으로 다시 시작할 수 있습니다.'}:{})};}
       catch{let corrupt=false;try{corrupt=!!localStorage.getItem(DEFENSE_LAB_SAVE_KEY)}catch{}return {save:null,defenseExperiment:true,error:corrupt?'실험 저장이 손상됐습니다. 새 조건으로 다시 시작할 수 있습니다.':''};}
     }
-    // Local art preview enters a real V10 battle without touching the player's save.
-    const previewId=import.meta.env.DEV&&typeof window!=='undefined'
+    // Explicit comparison preview starts one real seeded V10 battle, disposable
+    // in production too. The normal URL and the player's saved run stay intact.
+    const previewId=isBattlePreview()?'tide-vesper':import.meta.env.DEV&&typeof window!=='undefined'
       ?new URLSearchParams(window.location.search).get('previewPitcher'):null;
     if(previewId==='tide-vesper'){
       const preview=createV10Duel(7);
@@ -851,6 +864,7 @@ export default function Duel(){
   const [homerVideo,setHomerVideo]=useState(null),homerVideoActive=useRef(false),presentationActive=useRef(false);
   const [cardDetail,setCardDetail]=useState(null),detailOpener=useRef(null);
   const [fxImpactAt,setFxImpactAt]=useState(0);
+  const [fxStartedAt,setFxStartedAt]=useState(null);
   // Experimental tutorial: keep the real V10 rules, but teach the loop as
   // PLAN -> WATCH THE BUILD EXECUTE -> REVIEW. It never overwrites the saved main run.
   const [autoLesson,setAutoLesson]=useState(false),[autoPlan,setAutoPlan]=useState(null);
@@ -983,14 +997,16 @@ export default function Duel(){
   }
   function startPresentation(next){
     const shot=presentationFor(next),reduced=next.version!==10||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    const withVideo=isHomerVideoEligible({version:next.version,grade:shot?.grade,reduced});
+    const wide=comparisonMode()==='inside'&&window.matchMedia?.('(orientation: landscape)').matches;
+    const withVideo=!wide&&isHomerVideoEligible({version:next.version,grade:shot?.grade,reduced});
     presentationActive.current=true;homerVideoActive.current=withVideo;
     setHomerVideo(withVideo?{token:(next.stats?.pitches||0)+'-'+Date.now()}:null);
     const pitchJudgement=!!next.battle?.revealed&&next.last?.kind!=='skill';
     const nextNode=next.runMap?.nodes?.find(n=>n.id===next.runMap.currentNodeId);
     const baseTimeline=presentationTimeline(shot,reduced);
-    const timeline=withKnockoutHold(pitcherAtlases[nextNode?.opponent?.artId]&&pitchJudgement?redRushTimeline(baseTimeline,reduced):baseTimeline,next.version===10&&pitchJudgement&&!reduced&&next.pitcher?.hp===0);
-    lock.current=true;revealArena();setFxImpactAt(timeline.impactAt||0);setFx(next.last);setFxStage('windup');setFrame(1);
+    const pitchTimeline=pitcherAtlases[nextNode?.opponent?.artId]&&pitchJudgement?redRushTimeline(baseTimeline,reduced):baseTimeline;
+    const timeline=withKnockoutHold(wide?landscapePresentationTimeline(pitchTimeline,shot,reduced):pitchTimeline,next.version===10&&pitchJudgement&&!reduced&&next.pitcher?.hp===0);
+    lock.current=true;revealArena();setFxStartedAt(performance.now());setFxImpactAt(timeline.impactAt||0);setFx(next.last);setFxStage('windup');setFrame(1);
     if(sound&&!withVideo)cue(pitchJudgement?'pitch':shot?.cue||next.last.kind);
     const stakes=stakesFor(next),scheduled=[
       setTimeout(()=>{setFxStage('impact');setFrame(2);if(sound&&pitchJudgement&&!withVideo)cue(shot?.cue||next.last.kind);haptic(timeline.haptic);},timeline.impactAt)
@@ -1143,7 +1159,7 @@ export default function Duel(){
       label={v10Node?.act+'막'} pitcher={s.pitcher}
       pitcherArt={pitcherAtlas?<PitcherAtlasSprite atlas={pitcherAtlas} stage={fxStage} shot={fxPresentation} playToken={s.stats.pitches}/>:<Sprite who="pitcher" stage={fxStage} shot={fxPresentation} golden variant={pitcherForm} playToken={s.stats.pitches}/>}
       batterArt={<Sprite who="batter" stage={fxStage} shot={fxPresentation} golden playToken={s.stats.pitches} syncRedRush={redRushEncounter} sheet={BATTER_V15_SHEET}/>}
-      fxStage={fxStage} shot={fxPresentation||resultPresentation} impactAt={fxImpactAt} playToken={s.stats.pitches}
+      fxStage={fxStage} shot={fxPresentation||resultPresentation} impactAt={fxImpactAt} startedAt={fxStartedAt} playToken={s.stats.pitches}
       pitcherAtlas={pitcherAtlas} artId={v10Node?.opponent?.artId} batterPoses={BATTER_REBOOT_V3} batterSheet={BATTER_V15_SHEET} batterRig={BATTER_V15_RIG}
       vfx={<PixelVFX stage={fxStage} shot={fxPresentation} token={s.stats.pitches} drawCore={false} quality={perfTier}/>}
       onNext={s.phase==='pitch'?()=>{setAutoPlan(null);act(doNextPitch)}:s.phase==='between'?()=>{setAutoPlan(null);act(doNextBatter)}:null}

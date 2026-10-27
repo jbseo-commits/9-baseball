@@ -1,0 +1,22 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>로컬 가로 전투 검증 상태</title>
+<body style="background:#10212b;color:#eee;font:16px/1.6 system-ui;padding:16px"><h1>로컬 비교 검증</h1><p>이 로컬 origin의 테스트 저장만 교체합니다. 실제 원정·밸런스 증거가 아닙니다.</p><div id="choices"></div><pre id="result"></pre>
+<script type="module">
+import * as E from '/src/duel/engine.js';
+if(!['127.0.0.1','localhost'].includes(location.hostname))throw new Error('Local fixtures only');
+for(const [key,name] of [['six','카드6장 · 최대 손패'],['condition','2S · 번트·주자 조건'],['effects','준비 효과 유지'],['defense','공방 전투'],['flow','보상·시설 전환']]){
+  const button=document.createElement('button');button.textContent=name;button.style.cssText='display:block;min-height:44px;margin:12px 0;padding:8px';
+  button.onclick=()=>{try{
+    let s;if(key==='defense')s=E.createDefenseLabState({seed:914,pack:'hold',scenario:'crisis'});
+    else{
+      const initial=E.createV10Duel(90211);initial.deck=['place','defend','bunt','flow','scout','calm','place','scout','place'].map((kind,i)=>({id:'w'+i,kind}));initial.nextId=9;
+      s=E.enterV10Node(initial,'a1-entry');s.battle.hand=s.deck.slice(0,6).map(c=>c.id);s.battle.draw=s.deck.slice(6).map(c=>c.id);s.battle.discard=[];s.battle.energy=4;s.battle.energyCap=4;
+      if(key==='condition'){s.battle.strikes=2;s.battle.outs=2;s.battle.energy=0;}
+      if(key==='effects'){s=E.playV10Action(s,{type:'card',id:'w5'});}
+      if(key==='flow'){s.pitcher.hp=1;s.pitcher.phase='critical';s.battle.pending={zone:4,roll:.1,powerRoll:.5};}
+    }
+    if(key==='defense')E.saveDefenseLabState(localStorage,s);else E.saveV10Duel(localStorage,s);
+    location.href='/?battleLayout=compare&qa=1'+(key==='defense'?'&experiment=defense':'');
+  }catch(e){document.getElementById('result').textContent=e.message;}};
+  document.getElementById('choices').append(button);
+}
+</script></body></html>

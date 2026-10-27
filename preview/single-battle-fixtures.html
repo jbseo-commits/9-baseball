@@ -1,0 +1,20 @@
+<!doctype html><meta charset="utf-8"><title>Local one-battle regression fixtures</title>
+<style>body{background:#13232c;color:#eee;font:16px/1.6 system-ui;padding:24px}button{display:block;margin:14px 0;padding:12px;font:inherit}</style>
+<h1>로컬 회귀 검증</h1><p>DEV 전용. 이 로컬 origin에만 테스트 저장을 만든 뒤 실제 게임을 엽니다.</p>
+<button id="ko">HP1 전투 → 보상·경로·시설 검증</button><button id="hand">최대 손패·지원·번트 조건 검증</button><button id="facility">시설 → 경로 검증</button><button id="normal">일반 시작 저장 → 메뉴·이어하기 검증</button><output id="status"></output>
+<script type="module">
+import * as E from '../src/duel/engine.js';
+function fixture(kind){
+  if(!import.meta.env.DEV){document.querySelector('#status').textContent='로컬 DEV 전용입니다.';return;}
+  let s=E.createV10Duel(7);
+  if(kind!=='normal'){
+    if(kind==='hand'){s.deck=['place','place','place','scout','bunt','defend','place','watch','place'].map((kind,i)=>({id:'qa-'+i,kind}));s.nextId=9;}
+    const n=kind==='facility'?s.runMap.nodes.find(n=>['training','locker','shop','rest'].includes(n.type)):s.runMap.nodes.find(n=>n.opponent?.artId==='tide-vesper');s.runMap.reachableIds=[n.id];s=E.enterV10Node(s,n.id);
+    if(kind==='ko'){s.pitcher.hp=1;s.pitcher.phase='critical';}
+    if(kind==='hand'){s.battle.hand=s.deck.slice(0,6).map(c=>c.id);s.battle.draw=s.deck.slice(6).map(c=>c.id);s.battle.energy=4;s.battle.energyCap=4;s.battle.strikes=2;}
+  }
+  E.saveV10Duel(localStorage,s);
+  location.href='/?battleLayout=compare&qa=1';
+}
+document.querySelector('#ko').onclick=()=>fixture('ko');document.querySelector('#hand').onclick=()=>fixture('hand');document.querySelector('#facility').onclick=()=>fixture('facility');document.querySelector('#normal').onclick=()=>fixture('normal');
+</script>

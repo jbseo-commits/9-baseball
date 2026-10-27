@@ -77,7 +77,8 @@ describe('V13 C3 the pitch in Pixi',()=>{
     const actors=read('src/duel/BallparkActors.jsx');
     expect(actors).toMatch(/RELEASE\[aid\]/);
     expect(actors).not.toMatch(/boxes\.cells\[pz\]/);
-    expect(actors).toMatch(/const tx=bxc\+bh\*/);
+    expect(actors).toMatch(/const contact=fieldCamera\?targetPoint\(z,pz\):null/);
+    expect(actors).toMatch(/const tx=contact\?\.x\?\?\(bxc\+bh\*/);
     expect(read('src/duel/ballpark.css')).toMatch(/\.bp-scene\[class\*="fx-stage-"\] \.bp-pixi\{z-index:4\}/);
   });
 });

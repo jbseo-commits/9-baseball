@@ -3,6 +3,7 @@
      the same page (PortraitFrame), so the phone CSS applies as-is and landscape rules never match.
    - A phone held sideways gets the rotate hint (portrait-lock.css); the game waits underneath.
    - JS landscape sidecars read their media from landscapeMedia(), so they stay off. */
+import {comparisonMode} from './battle-layout.js';
 export const PORTRAIT_ONLY=true;
 
 const never={matches:false,addEventListener(){},removeEventListener(){},addListener(){},removeListener(){}};
@@ -17,6 +18,7 @@ export const PHONE_SIDEWAYS='(orientation: landscape) and (max-height: 540px) an
 
 /* 'frame': top-level wide window -> render the portrait iframe; 'app': render the game */
 export function layoutMode(win=typeof window!=='undefined'?window:null){
+  if(comparisonMode(win))return 'app';
   if(!PORTRAIT_ONLY||!win)return 'app';
   let framed=false;try{framed=win.self!==win.top;}catch{framed=true;}
   if(framed)return 'app';
@@ -27,6 +29,7 @@ export function layoutMode(win=typeof window!=='undefined'?window:null){
 /* the app itself (not the frame): if the window turns wide, reload into the portrait frame so a
    landscape layout never shows (a phone turned sideways stays in the app under the rotate hint) */
 export function watchLayoutMode(win=typeof window!=='undefined'?window:null){
+  if(comparisonMode(win))return ()=>{};
   if(!PORTRAIT_ONLY||!win?.matchMedia||layoutMode(win)!=='app')return ()=>{};
   let framed=false;try{framed=win.self!==win.top;}catch{framed=true;}
   if(framed)return ()=>{};

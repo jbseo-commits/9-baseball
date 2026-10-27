@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "batter-uncoil",
+    "description": "",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "rect",
+    "width": 384,
+    "height": 320,
+    "safe_margin_x": 16,
+    "safe_margin_y": 16
+  },
+  "chroma_key": {
+    "name": "green",
+    "hex": "#00FF00",
+    "rgb": [
+      0,
+      255,
+      0
+    ],
+    "selection": "auto",
+    "score": 224.97,
+    "min_subject_distance": 216.28,
+    "background": {
+      "mode": "transparent",
+      "opaque_border_fraction": 0.0,
+      "subject_pixels": 5226
+    },
+    "candidates": [
+      {
+        "name": "magenta",
+        "hex": "#FF00FF",
+        "score": 198.68,
+        "min_subject_distance": 198.68,
+        "clears_erase_radius": true
+      },
+      {
+        "name": "green",
+        "hex": "#00FF00",
+        "score": 224.97,
+        "min_subject_distance": 216.28,
+        "clears_erase_radius": true
+      },
+      {
+        "name": "cyan",
+        "hex": "#00FFFF",
+        "score": 208.69,
+        "min_subject_distance": 160.01,
+        "clears_erase_radius": true
+      },
+      {
+        "name": "blue",
+        "hex": "#004DFF",
+        "score": 119.47,
+        "min_subject_distance": 108.03,
+        "clears_erase_radius": true
+      }
+    ],
+    "selection_reason": "highest 1st-percentile subject distance among the 4 candidate(s) clearing the 96 erase radius"
+  },
+  "states": {
+    "uncoil": {
+      "frames": 1,
+      "fps": 12,
+      "loop": false,
+      "action": "Draw ONE missing intermediate frame, strictly BETWEEN the attached finish (second image) and the following shoulder-lowering pose (third image). Adult batter remains BACK-FACING, head looking over right shoulder toward pitcher at screen upper-right, rear RIGHT heel still raised and lead LEFT shoe planted at screen right. Joined gloved hands remain at UPPER SHOULDER HEIGHT just behind the neck on the far side. The wooden BAT BARREL points almost VERTICALLY UPWARD above his helmet, having lifted off his back shoulder as he gently unwinds. It is NOT a front-facing batting ready stance. His shoulders have turned only a little from the finish; most of number9 on his BACK is still visible. Torso, hands and helmet are rigidly connected and hands never jump to abdomen yet. Draw the complete bat including tip above head and both cleats with padding. This pose supplies the visible passage of the bat over the shoulder before lowering. Do not copy either endpoint, do not move the camera, do not flip left/right, do not create extra limbs or effects."
+    }
+  },
+  "style": "Match the exact adult right-handed baseball batter from the attached canonical pixel-art reference: cream uniform/navy helmet and socks/white gloves/wooden bat/number9. SAME physical body height, proportions, scale, pixel clusters and four-tone material shading. Locked oblique umpire camera. No scenery/shadows/balls/UI/text. The person must stay back-facing, never ready front-facing.",
+  "layout": "taxonomy/v1",
+  "fit": {
+    "resample": "nearest",
+    "align_x": "foot-centroid",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "pixel_unfake": true,
+    "logical_height": 160,
+    "palette_size": 48
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}

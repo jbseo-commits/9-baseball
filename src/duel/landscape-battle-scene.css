@@ -1,0 +1,73 @@
+/* One battle scene. Every rule is opt-in + landscape: the original portrait,
+   map scrolling, input handlers and card illustration sources are unchanged. */
+@media(orientation:landscape){
+  .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bp-compact.bp-layout-compare{
+    --wide-hand:clamp(108px,34dvh,170px);--wide-bar:34px;
+    --wide-dock:clamp(168px,23vw,252px);--wide-board-height:132px;
+    background:#101e27;
+  }
+  .duel-app.v14-battle-portrait>.bp-layout-compare>.bp-bar{background:#101e27;border-bottom:1px solid #a68a5d55}
+  .duel-app.v14-battle-portrait>.bp-layout-compare>.bp-stage{overflow:visible}
+  .duel-app.v14-battle-portrait>.bp-layout-compare .bp-scene{overflow:visible}
+  .duel-app.v14-battle-portrait>.bp-layout-compare>.bp-hand{
+    width:100%;height:var(--wide-hand);padding:6px 6px 4px;gap:5px;
+    background:linear-gradient(#182a31,#0a1720);border-top:1px solid #ac91635c;
+  }
+  .duel-app.v14-battle-portrait>.bp-layout-compare .bp-card{grid-template-rows:minmax(0,1fr) 22px;gap:1px;background:#132630!important;border-color:#77847b!important;border-radius:3px!important}
+  .duel-app.v14-battle-portrait>.bp-layout-compare .bp-card-art-box{grid-row:1;background:transparent;min-height:0}
+  .duel-app.v14-battle-portrait>.bp-layout-compare .bp-card .bp-card-header{grid-row:2;height:22px}
+  .bp-layout-compare .bp-card .bp-wide-mini-map{display:none}
+  .duel-app.v14-battle-portrait>.bp-layout-compare .bp-card.main{border-color:#f0d39a!important;background:#2a3838!important;box-shadow:inset 0 0 0 1px #edc98766!important}
+  .duel-app.v14-battle-portrait>.bp-layout-compare .bp-card.support{border-color:#90cbbf!important}
+  .bp-layout-compare.resolving .bp-card{opacity:.7}
+  .bp-layout-compare .bp-wide-hand-status{bottom:calc(var(--wide-hand) + 4px);height:24px;left:calc((100% - var(--wide-dock)) * .46);gap:2px 9px;width:calc((100% - var(--wide-dock)) * .54 - 56px);padding:3px 6px;background:#0b1b22df;border-left:2px solid #94c6b6;color:#d3eee2;font-size:10px;z-index:6}
+  .bp-layout-compare:has(>.bp-wide-hand-status) .bp-momentum{bottom:auto;top:6px;right:calc(clamp(150px,29%,215px) + 20px)}
+  .duel-app.v14-battle-portrait>.bp-layout-compare:has(>.bp-wide-hand-status)>.bp-hand{padding-top:6px}
+  .bp-layout-compare .bp-pcol{top:8px;right:10px;width:clamp(150px,29%,215px)}
+  .bp-layout-compare .bp-ptag{background:#0b1b23cc;border:1px solid #a48c6659!important;box-shadow:none;padding:5px 7px}
+  .bp-layout-compare .bp-hp-gauge-container{height:5px}
+  .bp-layout-compare .bp-field-target{opacity:0;transition:opacity .15s;background:none;box-shadow:none}
+  .bp-layout-compare .bp-field-target:is(.planning,.revealed){opacity:1}
+  .bp-layout-compare .bp-field-target i{border-color:#e6d9b424;background:#10232a12}
+  .bp-layout-compare .bp-field-target.planning i.covered{background:#f2d39266;border:1px solid #ffedb7a8;box-shadow:0 0 8px #f2cf8055}
+  .duel-app.v14-battle-portrait>.bp-layout-compare .bp-zone{top:16px;border-radius:2px;background:#132833!important;box-shadow:0 0 0 1px #c5b38a77!important}
+  .duel-app.v14-battle-portrait>.bp-layout-compare>.bp-plan{background:linear-gradient(#1c3139,#132630);border-top-color:#bd9d6355;top:calc(var(--wide-bar) + var(--wide-board-height) + 24px);bottom:52px;height:auto;padding:0 10px;justify-content:flex-start}
+  .bp-selection-dock{gap:6px;justify-content:flex-start;padding-top:13px}
+  .bp-selection-effect{font-size:15px;line-height:19px}
+  .bp-selection-dock.mode-resolving>header strong{font-size:20px;color:#f1d7a3}
+  .bp-selection-dock.mode-resolving .bp-selection-effect{font-size:12px;line-height:18px;color:#c1d4d6}
+  .duel-app.v14-battle-portrait>.bp-layout-compare>.bp-verbs{height:52px;padding:3px 7px 5px}
+  .duel-app.v14-battle-portrait>.bp-layout-compare .bp-verb{border-radius:3px;background:#dfc28b!important;border-color:#f1d8a8!important;color:#182b32!important}
+  .bp-layout-compare .bp-verb.pending::before{background:none!important;content:'·';color:currentColor;font-size:24px;line-height:24px;text-align:center}
+  .bp-layout-compare .bp-flash,.bp-layout-compare .bp-letterbox{display:none!important}
+  .bp-layout-compare .bp-commit{top:auto;bottom:10px;background:#13262eef;border:1px solid #b4976366;padding:7px 12px}
+}
+@media(orientation:landscape) and (max-height:330px){
+  .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bp-compact.bp-layout-compare{--wide-hand:108px;--wide-bar:32px}
+  .bp-selection-dock{gap:2px;padding-top:5px}
+  .bp-selection-effect{font-size:11px;line-height:13px}
+  .bp-selection-dock>header strong{font-size:12px;line-height:14px}
+  .bp-selection-condition,.bp-selection-warning,.bp-selection-detail{font-size:9px;line-height:11px}
+  .duel-app.v14-battle-portrait>.bp-layout-compare .bp-zone{top:4px}
+  .duel-app.v14-battle-portrait>.bp-layout-compare>.bp-plan{top:calc(var(--wide-bar) + var(--wide-board-height) + 6px)}
+  .bp-selection-dock{padding-top:3px;gap:2px}
+  .bp-layout-compare .bp-selection-forecast{position:static;gap:2px}
+  .bp-layout-compare .bp-selection-forecast>small{display:block}
+  .bp-layout-compare .bp-selection-dock.mode-resolving>header{height:16px;flex:none}
+  .bp-layout-compare .bp-selection-dock.mode-resolving>header strong{font-size:14px;line-height:16px}
+  .bp-layout-compare .bp-selection-dock.mode-resolving .bp-selection-review{font-size:11px;line-height:13px;margin:0}
+  .bp-layout-compare .bp-pcol{top:6px;right:6px;width:102px}
+  .bp-layout-compare .bp-ptag{padding:3px 5px;display:grid;gap:1px}
+  .bp-layout-compare .bp-pitcher-badge-row{padding-right:0;height:12px}
+  .bp-layout-compare .bp-ptag>small{position:static;font-size:9px;line-height:10px;text-align:right}
+  .bp-layout-compare .bp-hp-gauge-container{height:4px}
+  .bp-layout-compare .bp-pitcher-title-name{font-size:10px}
+  .bp-layout-compare .bp-wide-hand-status{height:22px;font-size:9px;line-height:10px}
+  .bp-layout-compare:has(>.bp-wide-hand-status) .bp-momentum{right:118px}
+}
+@media(orientation:landscape) and (min-height:500px){
+  .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bp-compact.bp-layout-compare{--wide-bar:44px;--wide-board-height:192px;--wide-hand:180px}
+  .bp-selection-dock{gap:12px;padding-top:20px}
+  .bp-selection-effect{font-size:19px;line-height:25px}
+  .bp-layout-compare .bp-pcol{top:18px;right:18px;width:220px}
+}

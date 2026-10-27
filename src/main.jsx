@@ -7,6 +7,8 @@ import {HomeRunCut} from "./duel/phone-art-v18.jsx";
 import HomerV3 from "./duel/HomerV3.jsx";
 import ErrorBoundary from "./duel/ErrorBoundary.jsx";
 import PortraitFrame from "./duel/PortraitFrame.jsx";
+import BattleLayoutCompare from "./duel/BattleLayoutCompare.jsx";
+import {comparisonMode} from "./duel/battle-layout.js";
 import { layoutMode, watchLayoutMode } from "./duel/layout-mode.js";
 import "./duel/tokens.css";
 import "./duel/stack-direct-tap.js";
@@ -42,10 +44,15 @@ import "./duel/battle-readability.css";
 // A main-battle-only skin. It must follow legacy portrait rules; no global selectors.
 import "./duel/asset-led-battle.css";
 import "./duel/compact-battle.css";
+import "./duel/landscape-battle-compare.css";
+import "./duel/landscape-card-focus.css";
+import "./duel/landscape-camera.css";
+import "./duel/landscape-battle-scene.css";
 import "./duel/title-pixel.css";
 
 watchLayoutMode();
 const params=new URLSearchParams(window.location.search);
+if(comparisonMode()==='inside')document.documentElement.dataset.battleLayout='inside';
 const ZoneFirstPreview=React.lazy(()=>import("./duel/ZoneFirstPreview.jsx"));
 const zoneFirstPreview=params.get("showcase")==="zone-first";
 const showcase=params.get("showcase")==="cinematic-v2";
@@ -78,7 +85,7 @@ createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     {zoneFirstPreview ? <ErrorBoundary><React.Suspense fallback={<p role="status">전투 프리뷰 준비 중…</p>}><ZoneFirstPreview /></React.Suspense></ErrorBoundary> : homerPreview ? <ErrorBoundary><HomerunVideoPreview /></ErrorBoundary> : homerV3Qa ? <ErrorBoundary><HomerV3 /></ErrorBoundary> : homerQa ? <ErrorBoundary><HomerQa /></ErrorBoundary> : showcase ? (
       <ErrorBoundary><CinematicV2Showcase /></ErrorBoundary>
-    ) : layoutMode() === "frame" ? <PortraitFrame /> : (
+    ) : comparisonMode()==='compare' ? <ErrorBoundary><BattleLayoutCompare /></ErrorBoundary> : layoutMode() === "frame" ? <PortraitFrame /> : (
       <ErrorBoundary>
         <Duel />
       </ErrorBoundary>

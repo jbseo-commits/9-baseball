@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "batter-recovery-bridge",
+    "description": "",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "rect",
+    "width": 384,
+    "height": 320,
+    "safe_margin_x": 16,
+    "safe_margin_y": 16
+  },
+  "chroma_key": {
+    "name": "green",
+    "hex": "#00FF00",
+    "rgb": [
+      0,
+      255,
+      0
+    ],
+    "selection": "auto",
+    "score": 224.97,
+    "min_subject_distance": 216.28,
+    "background": {
+      "mode": "transparent",
+      "opaque_border_fraction": 0.0,
+      "subject_pixels": 5226
+    },
+    "candidates": [
+      {
+        "name": "magenta",
+        "hex": "#FF00FF",
+        "score": 198.68,
+        "min_subject_distance": 198.68,
+        "clears_erase_radius": true
+      },
+      {
+        "name": "green",
+        "hex": "#00FF00",
+        "score": 224.97,
+        "min_subject_distance": 216.28,
+        "clears_erase_radius": true
+      },
+      {
+        "name": "cyan",
+        "hex": "#00FFFF",
+        "score": 208.69,
+        "min_subject_distance": 160.01,
+        "clears_erase_radius": true
+      },
+      {
+        "name": "blue",
+        "hex": "#004DFF",
+        "score": 119.47,
+        "min_subject_distance": 108.03,
+        "clears_erase_radius": true
+      }
+    ],
+    "selection_reason": "highest 1st-percentile subject distance among the 4 candidate(s) clearing the 96 erase radius"
+  },
+  "states": {
+    "unwind": {
+      "frames": 5,
+      "fps": 12,
+      "loop": false,
+      "action": "Five small consecutive INTERMEDIATE frames ONLY BETWEEN the second attached finish image and the third attached low-front image. This is only the DECELERATION AND LOWERING section, never the full return to ready. He starts back-facing, hands at the upper shoulder and bat behind neck; he ends side-facing with hands low at belly and bat lowered forward. Frame1: still mostly back-facing, connected hands descending a little from shoulder to chest, barrel follows outside his LEFT shoulder. Frame2: three-quarter back, hands chest-height and barrel passing outside his left waist, visible around the near side of body. Frame3: torso halfway to side-facing, hands near abdomen, barrel pointing almost down outside the silhouette. Frame4: torso side-facing, joined hands travel in front of belly, barrel passes to screen lower-right. Frame5: match the THIRD attached low-front end reference exactly. Hands travel around the near side of ribs in one continuous visible path; far forearm is hidden where needed, then reappears naturally. The torso only UNWINDS in one direction, never back and forth. The bat NEVER lifts above the helmet or returns to ready during these five frames. Lead LEFT cleat at screen RIGHT remains planted, rear RIGHT heel gradually settles with no step or sliding. Every pose adult-length torso, same hip height and helmet volume. Whole bat and both shoes visible with safe padding. No animation smear, isolated hand, duplicated limb or effects."
+    }
+  },
+  "style": "Match exactly the attached accepted 384x320 fixed-grid pixel art: cream baseball uniform,navy helmet/socks/piping,white gloves,wooden bat,adult male number9,right-handed locked oblique behind-home-plate camera looking screen upper-right. Identical body scale and four-tone shading across all poses. All figures must have same head-to-shoe height; the end has the bat DOWN, do not invent a raised ready stance. No scenery, shadows, balls, UI or text.",
+  "layout": "taxonomy/v1",
+  "fit": {
+    "resample": "nearest",
+    "align_x": "foot-centroid",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "pixel_unfake": true,
+    "logical_height": 160,
+    "palette_size": 48
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}
