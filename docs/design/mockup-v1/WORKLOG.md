@@ -15,7 +15,7 @@
 | C02 | 구현·코드 검증 | Claude | `396506c` | 정지 원화만. 실제 상대 매핑 없음 → C05 |
 | C03 | 구현·코드 검증 | Claude | `99922ae` | 검토 캡처만. 본편 연결은 C05 |
 | C04 | 구현·코드 검증 | Claude | `b64b123` | 검토 캡처만. 본편 연결은 C05 |
-| C05 | TODO | Codex | — | 통합·G1 |
+| C05 | 부분 구현·검증 | Codex | 인수 문서 참고 | query 통합·메모리 검수. 실제 상대 artId 승인 없어 G1 미완료 |
 | C06 | TODO | Claude/아트 교대 | — | 모션·G2 |
 | C07 | TODO | Claude 수정/Codex 검수 | — | G3 |
 | C08 | TODO | Codex | — | 확장 상태·G4 |
@@ -166,3 +166,12 @@ C01–C03 대조: 9존은 코스 전용, PR #40/#52 규칙 미병합, 수비/보
 남은 문제 / 다음 티켓 / 다음 담당: README C04→C05 메모 1–5. 다음 = Codex 리뷰 → C05(Codex 통합)
 PR / 프리뷰 / 배포 상태: feat/mockup-battle-v1 로컬 커밋, 10f4c0d 이후 push 안 함
 ```
+
+
+## C05 부분 인수 — 2026-10-28 · Codex
+
+기준 d7ac2b5(PR #65 반영), 작업 `codex/mockup-v1-c05-integration`. Codex 단독 편집, explorer 읽기 전용 탐색 및 별도 reviewer 사전·완료 검수. 새 query 통합/메모리 sandbox/전체 legacy fallback 구현. engine/cards/storage schema 변경 없음.
+
+[구현 범위·연결·인수 제한](../mockup-v1-integration/README.md) / [영향도 분석](../mockup-v1-integration/IMPACT.md) / [검증 및 실 캡처](../../qa/mockup-v1-integration/RESULTS.md).
+
+**C05/G1 미완료**: approvedArtIds=[] 유지, 실제 상대의 새 원화 연결 없음. 첫 연습은 기존 표현 경로 유지. 별도 브랜치/PR까지이며 main 기본 화면 전환/배포 없음. 다음: 실제 상대 원화 매핑 검수 → 새 View 실제 런 G1 → C06.

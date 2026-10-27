@@ -936,6 +936,9 @@ export default function Duel(){
   useEffect(()=>installCardDetailGestures(window,(d,el)=>{
     /* Battle targets route to the arena inspector through one dispatch point;
        anything outside .bp-battle keeps the global sheet. */
+    // VNext owns its detail lock. A rejected flight/commit gesture must not
+    // fall through to the global sheet and bypass the lock.
+    if(el?.closest?.('.battle-vnext')){window.__bpInspect?.open?.(d,el);return;}
     if(el?.closest?.('.bp-battle')&&window.__bpInspect?.open?.(d,el))return;
     detailOpener.current=el;setCardDetail(cardDetailOf(d.kind,d.plus,d.problem,isV10));
   }),[isV10]);

@@ -43,9 +43,15 @@ import "./duel/battle-readability.css";
 import "./duel/asset-led-battle.css";
 import "./duel/compact-battle.css";
 import "./duel/title-pixel.css";
+import {battleUiMode} from './duel/battle-ui-mode.js';
+import './duel/battle-vnext/legacy-fallback.css';
+import './duel/battle-vnext/layout.css';
 
+const battleUi=battleUiMode();
+if(battleUi.vnext)document.documentElement.dataset.battleUi='vnext';
 watchLayoutMode();
 const params=new URLSearchParams(window.location.search);
+const BattleIntegrationPreview=React.lazy(()=>import('./duel/battle-vnext/IntegrationPreview.jsx'));
 const ZoneFirstPreview=React.lazy(()=>import("./duel/ZoneFirstPreview.jsx"));
 const zoneFirstPreview=params.get("showcase")==="zone-first";
 const showcase=params.get("showcase")==="cinematic-v2";
@@ -76,11 +82,11 @@ function HomerQa(){
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {zoneFirstPreview ? <ErrorBoundary><React.Suspense fallback={<p role="status">전투 프리뷰 준비 중…</p>}><ZoneFirstPreview /></React.Suspense></ErrorBoundary> : homerPreview ? <ErrorBoundary><HomerunVideoPreview /></ErrorBoundary> : homerV3Qa ? <ErrorBoundary><HomerV3 /></ErrorBoundary> : homerQa ? <ErrorBoundary><HomerQa /></ErrorBoundary> : showcase ? (
+    {battleUi.fixture ? <ErrorBoundary><React.Suspense fallback={<p role="status">검수 화면 준비 중…</p>}><BattleIntegrationPreview fixture={battleUi.fixture}/></React.Suspense></ErrorBoundary> : zoneFirstPreview ? <ErrorBoundary><React.Suspense fallback={<p role="status">전투 프리뷰 준비 중…</p>}><ZoneFirstPreview /></React.Suspense></ErrorBoundary> : homerPreview ? <ErrorBoundary><HomerunVideoPreview /></ErrorBoundary> : homerV3Qa ? <ErrorBoundary><HomerV3 /></ErrorBoundary> : homerQa ? <ErrorBoundary><HomerQa /></ErrorBoundary> : showcase ? (
       <ErrorBoundary><CinematicV2Showcase /></ErrorBoundary>
     ) : layoutMode() === "frame" ? <PortraitFrame /> : (
       <ErrorBoundary>
-        <Duel />
+        {battleUi.vnext?<div className="vnext-shell"><aside className="bv-fixture-tools" aria-label="전투 UI 검수">실제 런 · 새 원화 미지원 상대는 기존 전투 화면 <a href="?battleUi=vnext&amp;battleFixture=swing-main">새 원화 검수로</a></aside><Duel /></div>:<Duel />}
       </ErrorBoundary>
     )}
   </React.StrictMode>,

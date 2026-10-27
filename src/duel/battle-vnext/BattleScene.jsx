@@ -21,7 +21,7 @@ export function approvedPitcherArt(artId){
 
 const ACTORS=['pitcher','batter'];
 
-export default function BattleScene({scene=null,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className=''}){
+export default function BattleScene({scene=null,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false}){
   const rootRef=useRef(null);
   const [measured,setMeasured]=useState(null);
   const onLayoutRef=useRef(onLayout);onLayoutRef.current=onLayout;
@@ -35,9 +35,12 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
     return ()=>window.removeEventListener('resize',read);
   },[size]);
   const box=size||measured||{width:0,height:0};
-  const camera=worldCamera(box.width,box.height);
-  const snap=box.width>0&&box.height>0?sceneSnapshot(box.width,box.height):null;
-  useLayoutEffect(()=>{if(snap)onLayoutRef.current?.(snap);},[box.width,box.height]);// eslint-disable-line react-hooks/exhaustive-deps
+  // Short landscape keeps the whole world together above the foreground hand.
+  // No actor-only translation, scaling or mirroring.
+  const inset=reserveHand&&box.width>=box.height&&box.height<=540?Math.min(30,box.height*.09):0;
+  const camera=worldCamera(box.width,Math.max(1,box.height-inset));
+  const snap=box.width>0&&box.height>0?sceneSnapshot(box.width,box.height,inset):null;
+  useLayoutEffect(()=>{if(snap)onLayoutRef.current?.(snap);},[box.width,box.height,inset]);// eslint-disable-line react-hooks/exhaustive-deps
   const vars=snap?{'--bv-home-x':snap.home.x+'px','--bv-home-y':snap.home.y+'px','--bv-release-x':snap.release.x+'px','--bv-release-y':snap.release.y+'px',
     '--bv-contact-x':snap.contact.x+'px','--bv-contact-y':snap.contact.y+'px','--bv-world-scale':camera.scale}:{};
   return <section ref={rootRef} className={'bv-scene'+(className?' '+className:'')} aria-label="승부 구장" style={vars}

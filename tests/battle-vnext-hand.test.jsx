@@ -6,7 +6,8 @@ import {readFileSync} from 'node:fs';
 import {CARDS} from '../src/duel/cards.js';
 import {cardArtFor} from '../src/duel/card-art.js';
 import HandDock,{energyLine,energyPips,SWIPE_SLOP_PX} from '../src/duel/battle-vnext/HandDock.jsx';
-import {defaultCardArt,mockupSheetArt,MOCKUP_CARD_SHEET,selectionTag} from '../src/duel/battle-vnext/BattleCard.jsx';
+import {defaultCardArt,selectionTag} from '../src/duel/battle-vnext/BattleCard.jsx';
+import {mockupSheetArt,MOCKUP_CARD_SHEET} from '../src/duel/battle-vnext/sample-card-art.js';
 import {buildBattleViewModel} from '../src/duel/battle-vnext/view-model.js';
 import {buildFixture,appInputs} from '../src/duel/battle-vnext/fixtures.js';
 

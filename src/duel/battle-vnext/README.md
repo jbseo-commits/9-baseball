@@ -1,6 +1,6 @@
 # battle-vnext — 표시 계약 (C01 확정본)
 
-`docs/design/mockup-v1/CONTRACTS.md`의 제안을 실제 코드(main `f3ec4be` + 패키지 `bb409c0`)에 맞춰 확정한 API다. C02–C04는 이 모델만 받아 그린다. 본편 런타임은 아직 이 폴더를 import하지 않는다(연결은 C05).
+`docs/design/mockup-v1/CONTRACTS.md`의 제안을 실제 코드(main `f3ec4be` + 패키지 `bb409c0`)에 맞춰 확정한 API다. C02–C04는 이 모델만 받아 그린다. C05에서 명시적 query 경로를 연결했다. 실제 상대는 승인된 artId가 있어야 새 View를 사용하며, 현재는 전체 기존 View fallback이다. [통합 인수](../../../docs/design/mockup-v1-integration/README.md)를 참고한다.
 
 ```text
 App (엔진 상태 s · hand · selected · swingStack · choice · fx/locked · onNext)
@@ -98,7 +98,7 @@ A01(PR #64, `assets/production-art/mockup-v1-intake/`)의 WebP와 `scene-layout.
 | `energyLine`, `energyPips`, `SWIPE_SLOP_PX` | 에너지 문구·칸 상태, 스와이프 판정 거리(10px) |
 | `BattleCard` (default) | 카드 한 장 `{item, art, onTap, onDetail, detailDisabled, onKeyDown, cardRef}` |
 | `defaultCardArt(item)` | 기존 `cardArtFor/cardArtFocusFor`(읽기만) |
-| `mockupSheetArt(cell)`, `MOCKUP_CARD_SHEET` | A01 6칸 시트. kind 매핑 미승인이므로 `artFor`로 명시할 때만 |
+| `mockupSheetArt(cell)`, `MOCKUP_CARD_SHEET` (`sample-card-art.js`) | A01 6칸 시트. kind 매핑 미승인이므로 `artFor`로 명시할 때만 |
 
 - `onCardTap(id)`는 지금 `BallparkBattle`의 `pickSwing/pickPrep`에, `'basic'`은 기본 스윙 선택에 연결한다. HandDock은 선택 상태를 갖지 않는다.
 - 비용 부족 카드는 눌러진다(선택 후 이유가 보이는 기존 흐름). 입력 잠금(투구 중·정보창)은 `disabled` + 헤더의 잠금 문구로 구별한다.
@@ -154,3 +154,8 @@ Codex의 조사 문서(“배틀쉽식 규칙 후보 — 현재 9ZONE 적용 비
 3. 667×375에서 손패 헤더가 두 줄이 되고 배우가 대부분 가려진다(C03 위험과 같음).
 4. `onZoneHover`는 마우스 진입·포커스만 보낸다. 지금 `BallparkBattle`의 터치 슬라이드 미리보기(`slideStart/Move/End`)는 컨테이너에 남기고 `hoverZone`으로 view model에 넣는다.
 5. 강판 결과는 엔진이 곧바로 `reward`로 넘어가므로 `fxStage`가 도는 동안만 `result`다(C01 보정 `bdc9d58`). 그 뒤 화면 전환은 기존 흐름.
+
+
+## C05 부분 인수
+
+`BattleView`와 명시적 메모리 검수 route가 연결됐다. [통합 계약 및 제한](../../../docs/design/mockup-v1-integration/README.md)과 [검증 기록](../../../docs/qa/mockup-v1-integration/RESULTS.md)이 현재 기준이며 위 C05 메모는 착수 전 기록이다. 실제 artId 매핑·첫 연습 표시 이식은 남아 있어 G1 완료가 아니다.

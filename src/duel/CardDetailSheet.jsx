@@ -20,7 +20,7 @@ export const LONG_PRESS_MS=480;
 // under stack-direct-tap's 9px drag start, so a drag or a hand scroll never turns into a detail
 const LONG_PRESS_SLOP=8;
 /* legacy hand cards (tutorial) and the ballpark hand */
-const HAND_CARD='.duel-hand .duel-card[data-card-kind], .bp-hand [data-card-kind]';
+const HAND_CARD='.duel-hand .duel-card[data-card-kind], .bp-hand [data-card-kind], .bv-hand-row [data-card-kind]';
 
 const STACK={
   none:null,

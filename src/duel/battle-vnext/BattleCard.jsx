@@ -1,6 +1,5 @@
 import React from 'react';
 import {cardArtFor,cardArtFocusFor} from '../card-art.js';
-import cardsSheetUrl from '../../../assets/production-art/mockup-v1-intake/cards.webp';
 
 /* C03 — 손패 카드 한 장. 데이터는 view model hand[] 항목(C01) 그대로, 문구는 cardFaceOf 결과다.
    선택은 색 + 테두리 모양(메인 실선 · 지원 점선 · 대기 점선 깜빡임) + 순서 표시로 구별한다. */
@@ -10,14 +9,6 @@ export function defaultCardArt(item){
   const url=cardArtFor(item.kind);if(!url)return null;
   return {url,position:cardArtFocusFor(item.kind)?.objectPosition||'50% 25%',size:'cover'};
 }
-/* A01 선정 6칸 시트. kind 매핑은 승인되지 않았다(scene-layout cards.cardKindMapping=null).
-   검토 화면에서 명시적으로 칸을 고를 때만 쓴다. 0 접촉 · 1 주루 · 2 라인드라이브 · 3 눈 · 4 임팩트 · 5 타격 자세 */
-export const MOCKUP_CARD_SHEET=Object.freeze({url:cardsSheetUrl,columns:3,rows:2});
-export function mockupSheetArt(cell){
-  const c=cell%3,r=Math.floor(cell/3)%2;
-  return {url:cardsSheetUrl,position:`${c*50}% ${r*100}%`,size:'300% 200%'};
-}
-
 const ORDER_MARK=['','①','②','③','④'];
 export function selectionTag(item){
   if(item.selectionRole==='main')return `${ORDER_MARK[1]} 메인`;
@@ -37,7 +28,7 @@ export default function BattleCard({item,art=null,onTap,onDetail,detailDisabled=
     supportLimited?'지원 추가 비용 초과 · 메인으로 교체 가능':'',tag].filter(Boolean).join(' · ');
   const cls='bv-card t-'+item.type+(item.selectionRole?' is-'+item.selectionRole:'')+(item.unavailable?' is-unavailable':'')+(item.plus?' is-plus':'');
   return <li className="bv-card-slot" data-card-id={item.id}>
-    <button ref={cardRef} type="button" className={cls} data-testid="bv-card" data-card-kind={item.kind} data-selection={item.selectionRole||undefined}
+    <button ref={cardRef} type="button" className={cls} data-testid="bv-card" data-card-kind={item.kind} data-card-plus={item.plus?'1':'0'} data-card-problem={item.problem||undefined} data-selection={item.selectionRole||undefined}
       aria-pressed={item.selectionRole==='main'||item.selectionRole==='support'} aria-label={label} title={item.name}
       disabled={item.disabled} onClick={()=>onTap?.(item.id)} onKeyDown={onKeyDown}
       onContextMenu={e=>{if(!onDetail||detailDisabled)return;e.preventDefault();onDetail(item.id,e.currentTarget);}}>

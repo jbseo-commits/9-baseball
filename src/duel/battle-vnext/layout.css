@@ -1,0 +1,117 @@
+/* Explicit vnext query only. No html/body overflow lock and no legacy sidecar activation. */
+.vnext-shell{min-height:100dvh;background:#0d2029}
+.vnext-shell>.duel-app{width:100%;max-width:none;margin:0;min-height:100dvh}
+.vnext-shell>.duel-app:has(>.battle-vnext)>.duel-header{display:none}
+.battle-vnext{position:relative;isolation:isolate;box-sizing:border-box;width:100%;min-height:640px;height:100dvh;
+  padding:0;overflow:hidden;background:#10272b;color:#f5edda;font-family:'Noto Sans KR',system-ui,sans-serif;
+  --bv-rail:clamp(240px,23vw,340px);--bv-gap:clamp(12px,2vw,32px)}
+.battle-vnext *{box-sizing:border-box}
+.battle-vnext .bv-stage{position:absolute;inset:0 var(--bv-rail) 0 0}
+.battle-vnext>.bv-hud{position:relative;z-index:2;margin-right:var(--bv-rail)}
+.battle-vnext .bv-hand-area{position:absolute;bottom:max(8px,env(safe-area-inset-bottom));left:var(--bv-gap);right:calc(var(--bv-rail) + var(--bv-gap));z-index:3}
+.battle-vnext .bv-decision-area{position:absolute;inset:0 0 0 auto;width:var(--bv-rail);padding:18px 16px max(12px,env(safe-area-inset-bottom));background:#10272bee;z-index:3;overflow-y:auto;touch-action:pan-y}
+.battle-vnext .bv-inspector-area{position:absolute;z-index:5;inset:100px calc(var(--bv-rail) + 12px) 280px 12px;min-height:220px}
+.battle-vnext .bv-inspector-area>.bp-inspect{position:absolute;inset:0;width:100%;height:100%;max-height:none;border:1px solid #8ad1c166;background:#10272bf5;color:#f5edda}
+.battle-vnext .bv-inspector-area .bp-inspect-body{min-height:0;overflow-y:auto}
+.battle-vnext .bv-review-notice{position:absolute;left:12px;top:105px;z-index:2;margin:0;color:#d6e3d4;font-size:10px;pointer-events:none}
+.battle-vnext .bv-stage[inert]{visibility:hidden}
+.battle-vnext .bv-hand-legend{display:none}
+/* Short landscape: reserve a visible field above the hand. All critical inputs
+   have 44px targets; long rail summaries scroll instead of clipping the action. */
+@media(min-width:600px) and (max-height:600px){
+  .battle-vnext{min-height:360px;--bv-rail:224px;--bv-gap:10px}
+  .battle-vnext .bv-hud-bar{min-height:44px;padding:0 8px;gap:10px}
+  .battle-vnext .bv-hud-title{display:none}
+  .battle-vnext .bv-hud-notes{padding:0 8px;gap:4px}
+  .battle-vnext .bv-hud-notes p{padding:4px 6px;font-size:10px}
+  .battle-vnext .bv-hand-dock{--bv-card-w:122px;--bv-art-h:50px}
+  .battle-vnext .bv-hand-head{gap:2px;min-height:44px;flex-wrap:wrap}
+  .battle-vnext .bv-energy{padding:3px 5px;gap:3px}
+  .battle-vnext .bv-energy strong{font-size:21px}
+  .battle-vnext .bv-energy-label,.battle-vnext .bv-energy-pips,.battle-vnext .bv-hand-count{display:none}
+  .battle-vnext .bv-energy-line{font-size:10px;margin-left:2px}
+  .battle-vnext .bv-hand-tools{gap:4px;padding:0 3px}
+  .battle-vnext .bv-basic-chip,.battle-vnext .bv-piles{font-size:10px}
+  .battle-vnext .bv-hand-row{gap:7px;padding-bottom:4px}
+  .battle-vnext .bv-card-name{font-size:13px;padding:4px 6px 2px}
+  .battle-vnext .bv-card-effect{font-size:11px;padding:0 6px}
+  .battle-vnext .bv-card-notes{font-size:10px;padding:2px 6px 0}
+  .battle-vnext .bv-card-foot{font-size:10px;padding:3px 6px}
+  .battle-vnext .bv-card-cost{top:3px;left:3px;min-width:27px;height:27px;font-size:16px}
+  .battle-vnext .bv-decision-area{padding:6px 10px}
+  .battle-vnext .bv-decision{gap:4px}
+  .battle-vnext .bv-zone-caption{min-height:16px;font-size:10px}
+  .battle-vnext .bv-zone{gap:3px;padding:3px}
+  .battle-vnext .bv-cell{min-height:44px;aspect-ratio:auto}
+  .battle-vnext .bv-plan{padding:5px 7px;min-height:52px}
+  .battle-vnext .bv-plan-metrics strong{font-size:16px}
+  .battle-vnext .bv-action{min-height:48px;padding:0 10px}
+  .battle-vnext .bv-action b{font-size:19px}
+  .battle-vnext .bv-action small{font-size:10px}
+  .battle-vnext .bv-inspector-area{inset:75px calc(var(--bv-rail) + 8px) 8px 8px;min-height:0}
+  .battle-vnext .bv-review-notice{top:114px}
+}
+/* Same DOM in portrait: scene, hand, then the decision rail becomes a 2-column
+   panel. It scrolls on small phones rather than losing hand or action controls. */
+@media(max-width:599px){
+  .battle-vnext{height:auto;min-height:100dvh;overflow:visible;display:flex;flex-direction:column}
+  .battle-vnext>.bv-hud{order:0;margin:0}
+  .battle-vnext .bv-hud-bar{padding:0 8px;gap:8px}
+  .battle-vnext .bv-hud-title{display:none}
+  .battle-vnext .bv-hud-notes{padding:4px 8px;gap:4px}
+  .battle-vnext .bv-hud-notes p{padding:5px 7px;font-size:11px}
+  .battle-vnext .bv-stage{position:relative;inset:auto;order:1;flex:none;height:240px}
+  .battle-vnext .bv-hand-area{position:relative;inset:auto;order:2;padding:0 8px 6px;background:#10272b}
+  .battle-vnext .bv-hand-dock{--bv-card-w:124px;--bv-art-h:66px}
+  .battle-vnext .bv-hand-head{gap:3px}
+  .battle-vnext .bv-hand-count,.battle-vnext .bv-energy-pips{display:none}
+  .battle-vnext .bv-energy{padding:4px 6px}
+  .battle-vnext .bv-energy-line{font-size:10px}
+  .battle-vnext .bv-hand-tools{padding:0;gap:6px}
+  .battle-vnext .bv-piles{font-size:10px}
+  .battle-vnext .bv-decision-area{position:relative;inset:auto;order:3;width:auto;padding:8px 10px max(12px,env(safe-area-inset-bottom));overflow:visible}
+  .battle-vnext .bv-decision{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px 10px}
+  .battle-vnext .bv-zone-caption{grid-column:1/-1}
+  .battle-vnext .bv-zone{grid-column:1;grid-row:2/4;gap:3px;padding:3px}
+  .battle-vnext .bv-cell{aspect-ratio:auto;min-height:44px;font-size:12px}
+  .battle-vnext .bv-band{grid-column:1;grid-row:4;font-size:10px}
+  .battle-vnext .bv-plan{grid-column:2;grid-row:2;min-height:85px;padding:7px}
+  .battle-vnext .bv-plan-metrics strong{font-size:16px}
+  .battle-vnext .bv-action{grid-column:2;grid-row:3/5;padding:0 8px;gap:5px;min-height:48px;flex-wrap:wrap}
+  .battle-vnext .bv-action b{font-size:18px}
+  .battle-vnext .bv-action small{font-size:10px}
+  .battle-vnext .bv-inspector-area{position:absolute;inset:110px 8px auto;height:250px;min-height:0}
+  .battle-vnext .bv-review-notice{top:112px}
+}
+/* Entire existing View fallback. Explicit dimensions also work when portrait
+   media queries do not match. Allow the document to scroll on short screens. */
+.vnext-shell .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bv-legacy-fallback{position:relative;width:min(100%,440px);max-width:440px;margin:0 auto;
+  height:auto;min-height:800px;max-height:none;display:grid;grid-template-columns:minmax(0,1fr);
+  grid-template-rows:44px 350px 210px auto 56px;overflow:visible;contain:none}
+.vnext-shell .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bv-legacy-fallback>.bp-stage{grid-column:1;grid-row:2;position:relative;min-height:350px;height:350px;overflow:hidden}
+.vnext-shell .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bv-legacy-fallback .bp-scene{position:relative;inset:auto;width:100%;height:350px;min-height:350px;max-height:none}
+.vnext-shell .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bv-legacy-fallback>.bp-bar{grid-column:1;grid-row:1;min-height:44px}
+.vnext-shell .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bv-legacy-fallback>.bp-hand{grid-column:1;grid-row:3;position:relative;inset:auto;display:flex;min-width:0;height:210px;max-height:210px;overflow-x:auto;overflow-y:hidden;touch-action:pan-x}
+.vnext-shell .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bv-legacy-fallback>.bp-plan{grid-column:1;grid-row:4;position:relative;inset:auto;height:auto;min-height:64px;max-height:none}
+.vnext-shell .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bv-legacy-fallback>.bp-verbs{grid-column:1;grid-row:5;position:relative;inset:auto;min-height:56px;height:auto;display:flex}
+.vnext-shell .duel-app.v14-battle-portrait>.bp-battle.bp-readable.bv-legacy-fallback .bp-cell{min-width:44px;min-height:44px}
+.vnext-shell .bv-fallback-note{margin:0 auto;padding:8px 12px;max-width:440px;font:12px/1.5 system-ui,sans-serif;color:#c8d7cd}
+.bv-fixture-tools{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:8px 12px;background:#10272b;color:#f5edda;font:12px system-ui,sans-serif}
+.bv-fixture-tools button,.bv-fixture-tools select{min-height:44px;background:#17363b;color:#f5edda;border:1px solid #809c8d;border-radius:4px;padding:4px 8px;font:inherit}
+.bv-fixture-tools a{color:#8ad1c1}
+html[data-battle-ui=vnext] body::after{content:none}
+
+.vnext-shell:has(>.bv-fixture-tools):not(:has(>.duel-app)){display:flex;flex-direction:column;min-height:100dvh}
+.vnext-shell:has(>.bv-fixture-tools):not(:has(>.duel-app))>.battle-vnext{flex:1}
+@media(min-width:600px) and (max-height:600px){
+  .vnext-shell:has(>.bv-fixture-tools):not(:has(>.duel-app)){height:100dvh}
+  .vnext-shell:has(>.bv-fixture-tools):not(:has(>.duel-app))>.battle-vnext{height:auto;min-height:330px}
+  .bv-fixture-tools{padding:2px 8px;gap:6px;flex-shrink:0}
+  .bv-fixture-tools select{max-width:190px}
+  .bv-fixture-tools .bv-sandbox-seed{display:none}
+  .battle-vnext .bv-review-notice{display:none}
+}
+.vnext-shell .duel-app.v14-battle-portrait>.bv-legacy-fallback .bp-verbs>.bp-verb{flex:1;width:100%}
+.vnext-shell .duel-app:has(>.bv-legacy-fallback)>.duel-header{display:none}
+
+.battle-vnext :is(.bv-hand-area,.bv-decision-area){user-select:none;-webkit-user-select:none}

@@ -44,8 +44,8 @@ export const toScreen=(camera,p)=>({x:p.x*camera.scale+camera.x,y:p.y*camera.sca
 export const cameraMatrix=camera=>`matrix(${camera.scale},0,0,${camera.scale},${camera.x},${camera.y})`;
 
 /* C04/C05 오버레이가 쓸 화면 좌표 묶음 (Scene root 기준 px) */
-export function sceneSnapshot(width,height){
-  const camera=worldCamera(width,height),at=p=>toScreen(camera,p);
+export function sceneSnapshot(width,height,insetBottom=0){
+  const camera=worldCamera(width,Math.max(1,height-insetBottom)),at=p=>toScreen(camera,p);
   return {width,height,camera,home:at(SCENE.home),mound:at(SCENE.mound),
     batterFoot:at(SCENE.batter.worldFoot),pitcherFoot:at(SCENE.pitcher.worldFoot),
     release:at(SCENE.sampleFlight.release),contact:at(SCENE.sampleFlight.contact)};
