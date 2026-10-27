@@ -108,7 +108,7 @@ A01(PR #64, `assets/production-art/mockup-v1-intake/`)의 WebP와 `scene-layout.
 
 1. `App.jsx`/`BallparkBattle.jsx`에서 `buildBattleViewModel` 입력을 모으고 `BattleScene`(배경) 위에 `HandDock`(좌하단)·C04 결정 패널(우측)을 배치한다. 루트 `.battle-vnext`는 C05 소유.
 2. 배우: `actors={{batter:SAMPLE_ACTORS.batter, pitcher:approvedPitcherArt(artId)}}`가 기본. 실제 상대 1명 매핑 승인 전에는 투수 자리가 빈다 — G1 차단 조건.
-3. 용량: 런타임이 WebP 3장(구장·타자·투수 848,278B)만 import하면 A01 기준 dist 61,457,462B + 848,278B = 62,305,740B ≈ 59.42 MiB. 카드는 기존 원화를 쓰므로 `cards.webp`(426,520B)는 `artFor`로 고르지 않는 한 번들되지 않는다. 실제 수치는 C05 빌드에서 다시 잰다.
+3. 용량: 독립 Vite production 검증에서 기본 카드 원화만 그려도 BattleCard의 정적 import 때문에 `cards.webp`(426,520B)까지 네 WebP가 모두 emit됐다. 원본 A01 dist 61,457,462B에 네 장 1,274,798B를 단순 추가하면 62,732,260B(59.8261 MiB), 60 MiB 한도까지 182,300B만 남는다. `artFor` 미사용이나 지연 렌더가 dist 제외를 보장하지 않는다. C05에서 실제 import 후 재측정하고 필요하면 샘플 시트 도구를 별도 모듈로 분리한다.
 4. 정렬 `yAlign=1`(짧은 가로)에서 손패 헤더가 투수 몸통과 겹친다(667×375 검토 캡처). 세로 .4에서는 가로 중앙 카메라라 타자가 화면 왼쪽 밖으로 잘린다(390×844·320×568). 세로 재배치·카메라 초점은 C05에서 결정한다(배우만 따로 옮기지 않는다).
 5. Windows `core.autocrlf=true` 체크아웃에서는 `scene-layout.json`·`actor-coverage.json` 디스크 해시가 manifest와 달라진다(커밋 blob은 일치). `prepare.py --check`가 거짓 실패할 수 있으니 `.gitattributes`로 LF 고정을 검토.
 

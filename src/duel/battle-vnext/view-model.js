@@ -16,6 +16,7 @@ import {preparationDrawPreview,activePreparationFeedback} from '../preparation-f
 import {forecastFor} from '../SwingForecast.jsx';
 import {formatHitChance} from '../swing-preview.js';
 import {pitcherIntentIcon} from '../intent-icon.js';
+import {pitcherPhase} from '../pitcher-hp.js';
 
 export const VIEW_PHASES=Object.freeze(['deciding','committing','flight','result','transition']);
 /* BallparkBattle LANDED와 같은 집합: 이 연출 단계부터 공이 도착해 결과를 보여도 된다 */
@@ -32,9 +33,12 @@ const isBuntKind=kind=>!!CARDS[kind]?.bunt;
 /* 엔진 phase + 연출 단계에서 표시 phase를 도출한다. 엔진 phase를 바꾸지 않는다. */
 export function battlePhase({s,fxStage=null,commitBeat=false,locked=false}){
   const b=s?.battle;
-  if(!b||!['battle','pitch','between'].includes(s.phase))return 'transition';
+  if(!b)return 'transition';
+  const combatPhase=['battle','pitch','between'].includes(s.phase);
   if(commitBeat)return 'committing';
-  if(isJudged(s,fxStage))return fxStage&&!LANDED_STAGES.includes(fxStage)?'flight':'result';
+  // The engine can already enter reward/won/lost while the last pitch is in flight.
+  if(isJudged(s,fxStage)&&(combatPhase||!!fxStage))return fxStage&&!LANDED_STAGES.includes(fxStage)?'flight':'result';
+  if(!combatPhase)return 'transition';
   if(fxStage)return 'committing';
   return s.phase==='battle'&&!locked?'deciding':'transition';
 }
@@ -106,6 +110,16 @@ export function buildBattleViewModel({
   if(!b)return {phase,input:emptyInput(),energy:null,hand:[],zones:null,forecast:null,hud:null,result:null,scene:null,effects:[]};
   const deciding=phase==='deciding',judged=phase==='flight'||phase==='result',landed=phase==='result';
   const r=judged?b.revealed:null;
+  const pitcher=selectV10Pitcher(s),combat=selectV10Combat(s),pre=phase==='flight';
+  const hpBefore=judged?Math.min(pitcher?.maxHp||0,Number.isInteger(combat?.hpBefore)?combat.hpBefore:(pitcher?.hp||0)+(pitcher?.lastDamage||0)):pitcher?.hp;
+  // Derived public fields must use the same snapshot as visible HP and count.
+  // Clone only presentation inputs; never mutate state or consult pending rolls.
+  const displayState=pre?{...s,
+    pitcher:pitcher&&s.pitcher?{...s.pitcher,hp:hpBefore,phase:pitcherPhase(hpBefore,pitcher.maxHp)}:s.pitcher,
+    battle:{...b,
+      shaken:Number.isInteger(combat?.shakenBefore)?combat.shakenBefore:b.shaken,
+      momentum:Number.isInteger(combat?.momentumBefore)?combat.momentumBefore:b.momentum},
+  }:s;
   const byId=id=>hand.find(x=>x.id===id);
   const mainEntry=selected&&selected!=='basic'?byId(selected)?.entry:null;
   const mainIsSkill=isSkillKind(mainEntry?.kind);
@@ -150,7 +164,7 @@ export function buildBattleViewModel({
     const supportCandidate=canStack&&!mainIsSkill&&selected!==x.id&&!stack.some(y=>y.id===x.id)&&!isBuntKind(kind)&&!isPrep;
     const overBudget=deciding&&supportCandidate&&stackCost+cost>energyLimit;
     const exhausted=isPrep&&!prepLeft;
-    const warning=shortCardProblem(problem)||(overBudget?'지원 비용 초과':'')||(exhausted?'준비 횟수 소진':'');
+    const warning=shortCardProblem(problem)||(exhausted?'준비 횟수 소진':'');
     handView.push({id:x.id,kind,plus:!!x.entry.plus,name:def.name+(x.entry.plus?'+':''),type:isPrep?'prepare':'swing',cost,artKey:kind,
       coverage:isPrep?null:[...(x.preview?.coverage||cardCoverage(s,x.id))],role:def.role||(isPrep?'준비':'정확'),
       summary:face.summary,condition:face.condition,drawNote:face.drawNote||'',warning,problem,overBudget,
@@ -159,7 +173,7 @@ export function buildBattleViewModel({
   const ordered=[handView[0],...handView.slice(1).filter(x=>x.type==='swing'),...handView.slice(1).filter(x=>x.type==='prepare')];
 
   /* ── 9존 ── */
-  const level=readLevel(s),known=knownPitchZones(s),probs=publicProbabilities(s);
+  const level=readLevel(displayState),known=knownPitchZones(displayState),probs=publicProbabilities(displayState);
   const live=b.intent?.repertoire||[0,1,2,3,4,5,6,7,8];
   const plan=judged
     ?{cover:r.primaryCoverage||r.coverage||[],support:(r.supportCoverages||[]).flatMap(x=>x.coverage),aim:r.coverage?.length?r.aimZone:null,
@@ -172,7 +186,7 @@ export function buildBattleViewModel({
     face:deciding?zoneFace(s,z,{level,known,probs}):null,
     aimed:b.aimZone===z,aim:plan.aim===z,cover:plan.cover.includes(z),support:plan.support.includes(z),
     tokens:plan.tokens.filter(t=>t.z===z).map(t=>t.n),actual:landed&&r.zone===z}));
-  const zones={level,sources:readSources(s).map(x=>x.label),cells,
+  const zones={level,sources:readSources(displayState).map(x=>x.label),cells,
     band:{face:deciding?bandFace(s,{level,probs}):null,actual:landed&&r.zone===9},
     clue:known.length<10,targetingSupport:!!liveArmed,links:judged?r.stackLinks||[]:stack.length?choice?.stackPlan?.links||[]:[]};
 
@@ -182,13 +196,10 @@ export function buildBattleViewModel({
       skillId:hoverSkill||(mainIsSkill?selected:null),lastSwing})):null;
 
   /* ── HUD: 공이 닿기 전에는 던지기 전 값 ── */
-  const pitcher=selectV10Pitcher(s),combat=selectV10Combat(s);
-  const pre=phase==='flight';
-  const hpBefore=judged?Math.min(pitcher?.maxHp||0,Number.isInteger(combat?.hpBefore)?combat.hpBefore:(pitcher?.hp||0)+(pitcher?.lastDamage||0)):pitcher?.hp;
   const bases=(pre&&Array.isArray(r.basesBefore)?r.basesBefore:(b.bases||[])).map(Boolean);
   const intent=deciding?pitcherIntentIcon(s):null,lines=intentLines(b.intent);
   const hud={
-    pitcher:pitcher?{name:pitcher.name,hp:pre?hpBefore:pitcher.hp,maxHp:pitcher.maxHp,phase:pitcher.phase}:null,
+    pitcher:pitcher?{name:pitcher.name,hp:pre?hpBefore:pitcher.hp,maxHp:pitcher.maxHp,phase:pre?displayState.pitcher.phase:pitcher.phase}:null,
     count:shownCount,outsLeft:Math.max(0,3-shownCount.outs),bases,
     tell:lines.whisper,tellDetail:lines.coach,intent:intent?{kind:intent.kind,label:intent.label,icon:intent.icon,level:intent.level}:null,
     readLevel:level,

@@ -59,6 +59,7 @@
   display:flex;align-items:center;justify-content:center;gap:1px;
   background:var(--bv-paper);color:var(--bv-ink);font:800 19px/1 Arial,sans-serif;box-shadow:0 1px 3px #0003}
 .bv-card-cost small{font-size:11px;margin-right:1px}
+.bv-card-cost .bv-support-limit{align-self:flex-start;flex-shrink:0;margin:2px 0 0 1px;white-space:nowrap;font:700 10px/1 Arial,sans-serif;color:#845027}
 .bv-card.is-plus .bv-card-cost{background:var(--bv-orange)}
 .bv-card-range{position:absolute;right:6px;top:6px;z-index:1;background:#f3ecdaee;padding:4px;border-radius:3px;box-shadow:0 1px 3px #0003}
 .bv-glyph{width:24px;height:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px}
