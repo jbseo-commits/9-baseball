@@ -63,7 +63,59 @@ App (엔진 상태 s · hand · selected · swingStack · choice · fx/locked ·
 4. `resultCall`·`zoneFace`·`bandFace`는 `BallparkBattle`의 `callOf`·`cellFace`·`bandFace`와 같은 규칙의 사본이다. C05에서 `BallparkBattle`이 이 모듈을 import하게 바꿔 한 곳으로 합친다.
 5. `forecastFor`는 `SwingForecast.jsx`(React·CSS import)에 있다. 순수 모듈로 옮기면 Node 단독 실행도 된다 — 통합자 판단.
 6. 기존 불일치(유지): 읽기 0 칸 낱말은 존 안 비율(`p/inZone`), `probabilityBounds`는 전체 비율로 명암을 정한다.
+7. 카드 범위 glyph는 `preview.coverage`가 없으면(비용 부족·결과 화면) 엔진 `coverage(s,id)`로 채운다. 지금 본편은 이때 빈 glyph다.
 
 ## fixture
 
 seed `20261027`, 노드 `a1-entry`, 첫 손패 strike(2)·strike(2)·scout(1)·place(1)·watch(1), 에너지 2/2. 단계(`steps`)는 엔진 함수 호출 그대로이고, 엔진 밖 단계는 `grant-relics`(읽기 1/2용 스코프·호크아이 부여) 하나다. `defense-lab`은 `createDefenseLabState(20261022)`로 본 런과 분리된다. storage를 받지 않아 생산 세이브를 읽거나 쓰지 않는다.
+
+---
+
+# C02 — BattleScene (정지 원화 · 공유 카메라)
+
+A01(PR #64, `assets/production-art/mockup-v1-intake/`)의 WebP와 `scene-layout.json`을 쓴다.
+
+| export | 용도 |
+|---|---|
+| `BattleScene` (default) | `{scene, actors:{batter,pitcher}, size?, phase, reviewNotice?, onLayout?, children?}` |
+| `SAMPLE_ACTORS` | 선정 정지 포즈 URL. **검토 화면·fixture 전용** |
+| `approvedPitcherArt(artId)` | `actor-coverage.json` 승인 목록에 있을 때만 URL. 지금은 항상 `null` |
+| `STADIUM_URL` | 구장 WebP |
+| `scene-geometry.js` | `SCENE`, `worldCamera(w,h)`, `cameraYAlign`, `actorBox`, `toScreen`, `cameraMatrix`, `sceneSnapshot(w,h)` |
+
+- 배경·그림자·배우가 `.bv-world` 하나의 `matrix(scale,0,0,scale,x,y)` 안에 있다. 배우 상자는 구장 좌표에서 고정이고 화면 크기는 카메라만 바꾼다.
+- 정렬: 가로·높이 540 이하 = 아래(1), PC 가로 = .42, 세로 = .4, 가로 중앙.
+- 투수 그림이 없으면 자리를 비우고 `data-actor-missing`을 단다(샘플 대체 금지). 타자도 `actors.batter`를 넘겨야 그린다.
+- root에 `--bv-home-x/y`, `--bv-release-x/y`, `--bv-contact-x/y`, `--bv-world-scale`과 `onLayout(snapshot)`을 준다. release/contact는 목업 참고점이다(C06에서 프레임 이벤트로 교체).
+- `data-motion="static"`, `data-fx-stage`, `data-play-token`만 노출한다. 판정·다음 공 호출 없음. `reviewNotice`는 “정지 원화 · 동작 없음(· 샘플 투수)” 표시.
+
+# C03 — HandDock / BattleCard (항상 보이는 손패 + 바로 위 에너지)
+
+| export | 용도 |
+|---|---|
+| `HandDock` (default, forwardRef) | `{hand, energy, input, phase, piles?, onCardTap(id), onCardDetail?(id,el), onPiles?, artFor?}` |
+| ref | `getScroll()`, `setScroll(x)`, `focusCard(id)` — 정보창 닫힌 뒤 복원용 |
+| `energyLine`, `energyPips`, `SWIPE_SLOP_PX` | 에너지 문구·칸 상태, 스와이프 판정 거리(10px) |
+| `BattleCard` (default) | 카드 한 장 `{item, art, onTap, onDetail, detailDisabled, onKeyDown, cardRef}` |
+| `defaultCardArt(item)` | 기존 `cardArtFor/cardArtFocusFor`(읽기만) |
+| `mockupSheetArt(cell)`, `MOCKUP_CARD_SHEET` | A01 6칸 시트. kind 매핑 미승인이므로 `artFor`로 명시할 때만 |
+
+- `onCardTap(id)`는 지금 `BallparkBattle`의 `pickSwing/pickPrep`에, `'basic'`은 기본 스윙 선택에 연결한다. HandDock은 선택 상태를 갖지 않는다.
+- 비용 부족 카드는 눌러진다(선택 후 이유가 보이는 기존 흐름). 입력 잠금(투구 중·정보창)은 `disabled` + 헤더의 잠금 문구로 구별한다.
+- 상세는 ⓘ 버튼과 contextmenu(길게 누르기). 투구 중에는 잠근다. 지금 App의 전역 카드 상세 제스처(`window.__bpInspect`, `.bp-battle` 판정)는 `.bv-hand-dock`을 모르므로 C05에서 연결해야 한다.
+
+## C05 연결 메모 (통합자)
+
+1. `App.jsx`/`BallparkBattle.jsx`에서 `buildBattleViewModel` 입력을 모으고 `BattleScene`(배경) 위에 `HandDock`(좌하단)·C04 결정 패널(우측)을 배치한다. 루트 `.battle-vnext`는 C05 소유.
+2. 배우: `actors={{batter:SAMPLE_ACTORS.batter, pitcher:approvedPitcherArt(artId)}}`가 기본. 실제 상대 1명 매핑 승인 전에는 투수 자리가 빈다 — G1 차단 조건.
+3. 용량: 런타임이 WebP 3장(구장·타자·투수 848,278B)만 import하면 A01 기준 dist 61,457,462B + 848,278B = 62,305,740B ≈ 59.42 MiB. 카드는 기존 원화를 쓰므로 `cards.webp`(426,520B)는 `artFor`로 고르지 않는 한 번들되지 않는다. 실제 수치는 C05 빌드에서 다시 잰다.
+4. 정렬 `yAlign=1`(짧은 가로)에서 손패 헤더가 투수 몸통과 겹친다(667×375 검토 캡처). 세로 .4에서는 가로 중앙 카메라라 타자가 화면 왼쪽 밖으로 잘린다(390×844·320×568). 세로 재배치·카메라 초점은 C05에서 결정한다(배우만 따로 옮기지 않는다).
+5. Windows `core.autocrlf=true` 체크아웃에서는 `scene-layout.json`·`actor-coverage.json` 디스크 해시가 manifest와 달라진다(커밋 blob은 일치). `prepare.py --check`가 거짓 실패할 수 있으니 `.gitattributes`로 LF 고정을 검토.
+
+### C05에서 검수할 화면 위험 (667×375 · 320×568)
+
+- 667×375: 카드 폭 118–150px, 그림 52px. 손패 헤더 + 카드 ≈ 230px로 높이의 60%. 9존·행동 패널과 세로 예산 충돌, 투수 실루엣 가림.
+- 667×375: 헤더 한 줄에 에너지·손패 수·기본 칩·더미가 겨우 들어간다. 잠금 문구가 붙으면 두 줄.
+- 320×568: 헤더가 3줄로 접힌다. 카드 1.3장만 보이므로 남은 카드 힌트(`N ›`)에 의존.
+- 지원 대기 카드 꼬리표 “코스 선택 대기”가 좁은 카드에서 ⓘ와 붙는다.
+- 긴 이름(투스트라이크 어프로치)은 2줄로 접히고 전체 이름은 접근성 이름·title로만.

@@ -1,10 +1,10 @@
 # 인수 기록
 
-계획 패키지 작성 완료. C00 기준 확인(Claude, 축약)과 C01 구현 완료 — 아래 기록. C02–C08은 TODO.
+계획 패키지 작성 완료. C00 기준 확인(Claude, 축약) · C01 · A01 반입(PR #64 병합) · C02 · C03 구현 완료 — 아래 기록. C04–C08은 TODO.
 
 기준 main: `f3ec4beef5b245e0e98696d3174d47b6a8b09005` (2026-10-27 조회).
 문서 게시 브랜치: `docs/mockup-implementation-handoff-20261027`.
-실제 게임 구현 브랜치: `feat/mockup-battle-v1` (로컬 작업 폴더 `9-baseball-mockup-v1`, 원격 미게시). 패키지 커밋 `bb409c0` 위에서 시작.
+실제 게임 구현 브랜치: `feat/mockup-battle-v1` (로컬 작업 폴더 `9-baseball-mockup-v1`, origin에 push — C01까지 `2d1cde8`). 패키지 커밋 `bb409c0` 위에서 시작.
 
 계획 검토: 독립 reviewer의 문서 검토를 수행했다. C08 착수/완료 의존성, 샘플 배우의 실제 artId 매핑과 기존 세로 View fallback, 첫 연습 파일 소유권, 전체 확장 후 재검증 조건을 반영했다. 이는 구현 테스트 통과 기록이 아니다.
 
@@ -12,8 +12,8 @@
 |---|---|---|---|---|
 | C00 | 부분 (Claude) | Claude | `bb409c0` | SHA·브랜치·테스트 기준만. 본편 캡처·해시 확인은 미실행 |
 | C01 | 구현·코드 검증 | Claude | `4457144` | Codex 독립 리뷰 → C03 |
-| C02 | TODO | Claude | — | Scene |
-| C03 | TODO | Claude | — | 손패 |
+| C02 | 구현·코드 검증 | Claude | `396506c` | 정지 원화만. 실제 상대 매핑 없음 → C05 |
+| C03 | 구현·코드 검증 | Claude | `99922ae` | 검토 캡처만. 본편 연결은 C05 |
 | C04 | TODO | Claude | — | 판단·결과 |
 | C05 | TODO | Codex | — | 통합·G1 |
 | C06 | TODO | Claude/아트 교대 | — | 모션·G2 |
@@ -89,4 +89,41 @@ PR / 프리뷰 / 배포 상태: 실제 존재하는 것만:
 코드·동작 검수: 자체 테스트 통과. 독립 검수 전이므로 최종 PASS 아님
 남은 문제 / 다음 티켓 / 다음 담당: 위 연결 1–6은 C03–C05에서 처리. 다음 = Codex의 C01 읽기 전용 리뷰 → C03(Claude) 또는 A01 준비 시 C02
 PR / 프리뷰 / 배포 상태: feat/mockup-battle-v1 로컬 커밋만. push·PR·프리뷰·main 병합 없음
+```
+
+## A01 반입 + C02 + C03 — 2026-10-27 · Claude
+
+```text
+티켓: A01 결과(PR #64) 확인·반입, C02 Scene, C03 손패·에너지 (같은 세션에서 순서대로, 편집자 1명)
+기준 BASE_SHA / 직전 인수 SHA: f3ec4beef5b245e0e98696d3174d47b6a8b09005 / 2d1cde8 (C01 인수, origin 게시)
+작업 브랜치 / HEAD_SHA: feat/mockup-battle-v1
+  727c627 Merge A01 (origin/codex/mockup-v1-asset-intake 2fef9d3·2f0caf6, --no-ff, 충돌 없음)
+  396506c C02 · 78e7078 C01 보정(glyph) · 99922ae C03 · 이 WORKLOG/README는 그 다음 커밋
+실제 담당 모델 / effort: Claude Opus 5.5 (claude-opus-5-5). advisor 도구 없음 → 상담 미실행. 서브에이전트 미사용
+편집 소유권: Claude 단독. A01 경로(assets/…/mockup-v1-intake, tools/art/…, docs/*/mockup-v1-intake)는 Codex 산출물을 병합만, 수정 없음
+변경 파일과 목적:
+  C02: src/duel/battle-vnext/BattleScene.jsx · scene-geometry.js · scene.css · tests/battle-vnext-scene.test.jsx · tests/battle-vnext-geometry.test.js
+  C03: src/duel/battle-vnext/HandDock.jsx · BattleCard.jsx · hand.css · tests/battle-vnext-hand.test.jsx
+  C01 보정: view-model.js — 문제 있는 카드·결과 화면에서도 glyph를 엔진 coverage(s,id)로 채움 (+회귀 1)
+  README.md(battle-vnext) — C02/C03 API, C05 연결 메모, 667×375·320×568 위험 목록
+  공통 파일(App.jsx, BallparkBattle.jsx, main.jsx, 전역 CSS, layout-mode, PortraitFrame, card-art.js, cards.js, 최적화 manifest) 미수정
+A01 확인:
+  WebP 4개 sha256·bytes·원본 PNG sha256 = manifest 일치 (Node 검사). scene-layout/actor-coverage는 커밋 blob이 manifest 해시와 일치,
+  디스크 파일은 core.autocrlf=true로 CRLF가 되어 불일치 → prepare.py --check 거짓 실패 가능 (Python 없어 --check 자체는 미실행)
+  approvedArtIds=[] · cardKindMapping=null 그대로 존중 (투수 자리 비움 / 카드는 기존 kind별 원화)
+계약 변경 및 통합자에게 필요한 연결: battle-vnext/README.md “C05 연결 메모” 1–5
+실행한 검사 / 명령 / exit code / 결과:
+  pnpm exec vitest run (battle-vnext 4개 파일) → 0, 66/66
+  pnpm test → 0, 197 files / 1285 tests passed
+  pnpm build → 0 · pnpm run check:dist → 0, 58.6MB / 60MB (battle-vnext·intake WebP 런타임 미포함 확인: dist 문자열 0건)
+실제 브라우저 증거 (검토 화면, 커밋 안 함):
+  .qa-bv/index.html (gitignore) — BattleScene + HandDock을 실제 fixture로 겹침, Vite dev localhost:5197
+  Chrome headless + CDP 3.5s 대기 캡처: .qa-bv/shots/{support-stacked-844x390, support-stacked-1440x900, cost-short-844x390,
+  cost-short-320x568, support-armed-667x375, result-swing-844x390, swing-main-390x844}.png — 로컬에만 있음
+  캡처로 찾아 고친 결함: 카드 이름 색(버튼 리셋 특이도) · 비용 배지 줄바꿈 · Chrome button align-items로 그림 폭 0 · 더미 문구 정렬 · 세로 헤더 넘침 · 비용 부족 카드 빈 glyph
+미실행·차단 검증과 이유: 9존·행동 패널과 겹친 화면(C04/C05 전) · 본편 런 연결/AGENTS §3 회귀(런타임 무변경) · 실기기/Safari · 회전 · prepare.py --check(Python 없음) · advisor
+시각 검수: 검토 화면 기준 Claude 자체 확인만. 목업 대비 구장·배우 구도와 카드 면은 일치, 667×375 투수 가림·세로 타자 잘림은 미해결 → PASS 아님
+코드·동작 검수: 자체 테스트 통과. 독립 검수 전 → 최종 PASS 아님
+남은 문제 / 다음 티켓 / 다음 담당: README C05 메모 1–5와 위험 목록. 다음 = Codex 리뷰 → C04(Claude) → C05(Codex)
+PR / 프리뷰 / 배포 상태: feat/mockup-battle-v1 로컬 커밋. 이 묶음은 아직 push 안 함. PR #63·#64는 그대로 OPEN
 ```
