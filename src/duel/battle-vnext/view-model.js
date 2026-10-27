@@ -8,7 +8,7 @@
 import {CARDS,LINEUP,bandFor,rangeFor,shadeNameFor,cardCost} from '../cards.js';
 import {publicProbabilities,readLevel,readSources,knownPitchZones,v10StackMax,v10PrepMax,v10Energy,v10EnergyCap,v10EnergyBase,
   v10NextEnergyMax,v10ActionCost,v10TakeDrawPreview,V11_SWING_ENERGY,v10Momentum,v10MomentumRate,v10Shaken,v10MentalCap,
-  selectV10Pitcher,selectV10Combat} from '../engine.js';
+  selectV10Pitcher,selectV10Combat,coverage as cardCoverage} from '../engine.js';
 import {intentLines,ZONE_WORDS,runnerMoves} from '../ballpark-copy.js';
 import {resultExplanation,isExactRead} from '../zone-first-model.js';
 import {cardFaceOf,shortCardProblem} from '../card-face.js';
@@ -152,7 +152,7 @@ export function buildBattleViewModel({
     const exhausted=isPrep&&!prepLeft;
     const warning=shortCardProblem(problem)||(overBudget?'지원 비용 초과':'')||(exhausted?'준비 횟수 소진':'');
     handView.push({id:x.id,kind,plus:!!x.entry.plus,name:def.name+(x.entry.plus?'+':''),type:isPrep?'prepare':'swing',cost,artKey:kind,
-      coverage:isPrep?null:[...(x.preview?.coverage||[])],role:def.role||(isPrep?'준비':'정확'),
+      coverage:isPrep?null:[...(x.preview?.coverage||cardCoverage(s,x.id))],role:def.role||(isPrep?'준비':'정확'),
       summary:face.summary,condition:face.condition,drawNote:face.drawNote||'',warning,problem,overBudget,
       selectionRole:roleOf(x.id),order:orderOf(x.id),disabled:!input.canSelect,unavailable:!!problem||exhausted});
   }

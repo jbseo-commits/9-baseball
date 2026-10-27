@@ -210,6 +210,16 @@ describe('선택·지원·에너지·피해 조건이 실제 selector 값과 같
     expect(vm.hand.find(x=>x.id===input.selected)).toMatchObject({type:'prepare',coverage:null,selectionRole:'main'});
   });
 
+  it('못 쓰는 카드·결과 화면에서도 범위 모양(glyph)은 엔진 coverage로 남는다',()=>{
+    for(const id of ['cost-short','result-swing']){
+      const {input,vm}=vmOf(id);
+      for(const card of vm.hand.filter(x=>x.type==='swing')){
+        expect(card.coverage.length,id+' '+card.kind).toBeGreaterThan(0);
+        expect(card.coverage,id+' '+card.kind).toEqual(E.coverage(input.s,card.id));
+      }
+    }
+  });
+
   it('손패는 기본 칩 → 스윙 → 준비 순서이며 kind와 id를 구별한다',()=>{
     const {input,vm}=vmOf('watch-read0');
     expect(vm.hand[0]).toMatchObject({id:'basic',type:'basic',cost:0});
