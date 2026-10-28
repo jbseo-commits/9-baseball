@@ -1,5 +1,6 @@
 import React,{useEffect,useRef} from 'react';
 import {nearCoverage} from './motion-timeline.js';
+import ResultSequence from './ResultSequence.jsx';
 import ResultReadout from './ResultReadout.jsx';
 import './decision.css';
 
@@ -37,7 +38,7 @@ export function planSummary({hand=[],forecast=null,input=null,energy=null,effect
     hint:input.blockedReason&&!input.canExecute&&input.canSelect?'고른 카드를 다시 누르면 지켜보기로 돌아간다':''};
 }
 
-export default function DecisionPanel({zones=null,forecast=null,input=null,hand=[],energy=null,result=null,phase='deciding',effects=[],
+export default function DecisionPanel({zones=null,forecast=null,input=null,hand=[],energy=null,result=null,phase='deciding',effects=[],scene=null,execution=null,
   shotGrade=null,recent=null,showAction=true,onZoneTap,onZoneHover=null,onTake,onSwing,onNext}){
   if(!zones||!input)return null;
   const deciding=phase==='deciding',sum=deciding?planSummary({hand,forecast,input,energy,effects}):null;
@@ -79,7 +80,9 @@ export default function DecisionPanel({zones=null,forecast=null,input=null,hand=
       </>}
       {!deciding&&(result
         ?<ResultReadout result={result} shotGrade={shotGrade} variant="line"/>
-        :<p className="bv-plan-detail">{phase==='flight'||phase==='committing'?'공을 기다린다':''}</p>)}
+        :execution?.preparation&&['impact','slowmo','release','settle'].includes(scene?.fxStage)?<div className="bv-preparation-confirm" role="status"><b>{execution.preparation.name} · 적용</b><span>{execution.preparation.detail}</span></div>
+        :<p className="bv-plan-detail">{phase==='flight'||phase==='committing'?(execution?.action==='prepare'?'준비 효과 적용 중':'공을 기다린다'):''}</p>)}
+      {result&&<ResultSequence result={result} execution={execution}/>}
       {deciding&&<ResultReadout recent={recent}/>}
     </div>
 

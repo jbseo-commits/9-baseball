@@ -21,3 +21,23 @@
  .bv-scene .bv-contact-focus,.bv-scene .bv-contact-burst{display:none}
  .battle-vnext[data-phase] .bv-result-spotlight{animation:none}
 }
+/* Consequences follow contact; these are CSS confirmations, not engine timers. */
+.battle-vnext[data-phase] .bv-result-sequence{list-style:none;display:flex;flex-wrap:wrap;gap:4px;margin:7px 0 0;padding:0;font-size:10px;line-height:1.35}
+.battle-vnext[data-phase] .bv-result-sequence li{padding:3px 5px;border:1px solid #c2ddcb33;border-radius:2px;color:#cce5d8;animation:bv-consequence .14s ease-out both;animation-delay:var(--beat-delay)}
+.battle-vnext[data-phase] .bv-result-sequence .k-hp{color:#ffdaa1;border-color:#e5b67a55}
+.battle-vnext[data-phase] .bv-result-line em{animation:bv-consequence .14s ease-out .09s both}
+.battle-vnext[data-phase] .bv-hud-hp.is-damaged .bv-hud-hp-fill{transition:width .3s ease-out .04s}
+.battle-vnext[data-phase] .bv-hud-hp-ghost{position:absolute;inset:0 auto 0 0;background:#ef9d60;animation:bv-hp-ghost .5s ease-out .13s both}
+.battle-vnext[data-phase] .bv-hp-number{position:relative}
+.battle-vnext[data-phase] .bv-hp-number.is-damaged .bv-hp-now{animation:bv-consequence .1s .04s both}
+.battle-vnext[data-phase] .bv-hp-was{position:absolute;left:0;animation:bv-old-hp .04s both}
+.battle-vnext[data-phase] .bv-preparation-confirm{display:grid;gap:5px;font-size:11px;color:#cce5d8;animation:bv-consequence .16s both}
+.battle-vnext[data-phase] .bv-preparation-confirm b{color:#aee1d0;font-size:13px}
+@keyframes bv-consequence{from{opacity:0;translate:0 3px}to{opacity:1;translate:0 0}}
+@keyframes bv-hp-ghost{from{width:var(--hp-from)}to{width:var(--hp-to)}}
+@keyframes bv-old-hp{from{opacity:1}to{opacity:0}}
+@media(prefers-reduced-motion:reduce){
+ .battle-vnext[data-phase] .bv-result-sequence li,.battle-vnext[data-phase] .bv-result-line em,.battle-vnext[data-phase] .bv-hp-now,.battle-vnext[data-phase] .bv-preparation-confirm{animation:none}
+ .battle-vnext[data-phase] .bv-hud-hp-ghost,.battle-vnext[data-phase] .bv-hp-was{display:none}
+ .battle-vnext[data-phase] .bv-hud-hp-fill{transition:none!important}
+}

@@ -19,6 +19,7 @@ import './adaptive-performance.css';
 import {coverageText} from './information.js';
 import {cue} from './audio.js';
 import {presentationFor,presentationTimeline} from './presentation.js';
+import {captureExecution} from './presentation-snapshot.js';
 import {startPresentationClock} from './presentation-clock.js';
 import {batterMotionV3Timeline} from './batterMotionV3.js';
 import {haptic} from './haptics.js';
@@ -852,6 +853,7 @@ export default function Duel(){
   const [homerVideo,setHomerVideo]=useState(null),homerVideoActive=useRef(false),presentationActive=useRef(false);
   const [cardDetail,setCardDetail]=useState(null),detailOpener=useRef(null);
   const [fxImpactAt,setFxImpactAt]=useState(0);
+  const [fxExecution,setFxExecution]=useState(null);
   const [fxPlayback,setFxPlayback]=useState(null),presentationClock=useRef(null),presentationToken=useRef(0),soundRef=useRef(sound);soundRef.current=sound;
   // Experimental tutorial: keep the real V10 rules, but teach the loop as
   // PLAN -> WATCH THE BUILD EXECUTE -> REVIEW. It never overwrites the saved main run.
@@ -986,7 +988,7 @@ export default function Duel(){
     if(visible>=r.height*.9)return;
     el.scrollIntoView?.({block:'center',behavior:'auto'});
   }
-  function startPresentation(next){
+  function startPresentation(next,execution=null){
     const shot=presentationFor(next),reduced=next.version!==10||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     const withVideo=isHomerVideoEligible({version:next.version,grade:shot?.grade,reduced});
     presentationActive.current=true;homerVideoActive.current=withVideo;
@@ -1000,7 +1002,7 @@ export default function Duel(){
     presentationClock.current?.cancel();
     const playback={startedAt:performance.now(),timeline,token:++presentationToken.current,
       action:next.last?.kind==='skill'?'prepare':next.battle?.revealed?.action==='take'?'take':'swing'};
-    setFxPlayback(playback);
+    setFxPlayback(playback);setFxExecution(execution);
     const stakes=stakesFor(next);
     presentationClock.current=startPresentationClock(timeline,{startedAt:playback.startedAt,
       onStage:stage=>{setFxStage(stage);setFrame(stage==='windup'?1:stage?2:0);},
@@ -1017,8 +1019,9 @@ export default function Duel(){
   }
   function act(fn,animate=false,resolvePlan=null){
     if(lock.current||tour.open)return;
-    const next=fn(current.current);
-    if(next===current.current)return;
+    const before=current.current,next=fn(before);
+    if(next===before)return;
+    const executed=animate?captureExecution(before,next,{selected}):null;
     const reduced=next.version!==10||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     const resolveMs=animate&&!reduced&&resolvePlan?.steps?.length>1?stackResolveDuration(resolvePlan):0;
     setSelected(null);setSwingStack([]);setStackEdit(null);setGrowthChoice(null);setRewardAction(null);setFacilityChoice(null);setDecisionMode(null);
@@ -1029,13 +1032,13 @@ export default function Duel(){
       const timer=setTimeout(()=>{
         setStackResolve(null);
         persist(next);
-        startPresentation(next);
+        startPresentation(next,executed);
       },resolveMs);
       timers.current=[timer];
       return;
     }
     persist(next);
-    if(animate)startPresentation(next);
+    if(animate)startPresentation(next,executed);
   }
   function clearActionUi(){setGrowthChoice(null);setRewardAction(null);setFacilityChoice(null);setStackResolve(null);setModal(null);setSelected(null);setSwingStack([]);setStackEdit(null);setDecisionMode(null);setTour({open:false,step:0});setEventResult(null);}
   /* the title reads the live main-run save every time it shows: the mount-time snapshot (initial.v10)
@@ -1150,7 +1153,7 @@ export default function Duel(){
       label={v10Node?.act+'막'} pitcher={s.pitcher}
       pitcherArt={pitcherAtlas?<PitcherAtlasSprite atlas={pitcherAtlas} stage={fxStage} shot={fxPresentation} playToken={s.stats.pitches}/>:<Sprite who="pitcher" stage={fxStage} shot={fxPresentation} golden variant={pitcherForm} playToken={s.stats.pitches}/>}
       batterArt={<Sprite who="batter" stage={fxStage} shot={fxPresentation} golden playToken={s.stats.pitches} syncRedRush={redRushEncounter} sheet={BATTER_V15_SHEET}/>}
-      fxStage={fxStage} shot={fxPresentation||resultPresentation} impactAt={fxImpactAt} playToken={s.stats.pitches} playback={fxPlayback}
+      fxStage={fxStage} shot={fxPresentation||resultPresentation} impactAt={fxImpactAt} playToken={s.stats.pitches} playback={fxPlayback} execution={fxExecution}
       pitcherAtlas={pitcherAtlas} artId={v10Node?.opponent?.artId} batterPoses={BATTER_REBOOT_V3} batterSheet={BATTER_V15_SHEET} batterRig={BATTER_V15_RIG}
       vfx={<PixelVFX stage={fxStage} shot={fxPresentation} token={s.stats.pitches} drawCore={false} quality={perfTier}/>}
       onNext={s.phase==='pitch'?()=>{setAutoPlan(null);act(doNextPitch)}:s.phase==='between'?()=>{setAutoPlan(null);act(doNextBatter)}:null}

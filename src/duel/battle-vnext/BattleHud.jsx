@@ -16,10 +16,12 @@ export function hpForecastBand(hud,forecast){
   return {left:pct(lo),width:pct(p.hp)-pct(lo),label:forecast.damageLabel};
 }
 
-export default function BattleHud({hud=null,forecast=null,sources=[],phase='deciding',title='',onMenu=null,menuOpen=false}){
+export default function BattleHud({hud=null,forecast=null,sources=[],phase='deciding',result=null,playback=null,resultKey=0,title='',onMenu=null,menuOpen=false}){
   if(!hud)return null;
   const p=hud.pitcher,c=hud.count,band=phase==='deciding'?hpForecastBand(hud,forecast):null;
   const hpPct=p&&p.maxHp>0?Math.max(0,Math.min(100,p.hp/p.maxHp*100)):0;
+  const changing=!!p&&phase==='result'&&!!playback&&result?.damage>0&&result.hpBefore>result.hpAfter;
+  const beforePct=changing?Math.min(100,result.hpBefore/p.maxHp*100):hpPct;
   const runners=[0,1,2].filter(i=>hud.bases[i]).map(i=>i+1+'루');
   const twoStrike=phase==='deciding'&&c.strikes===2;
   return <header className="bv-hud" data-testid="bv-hud" data-phase={phase}>
@@ -27,11 +29,12 @@ export default function BattleHud({hud=null,forecast=null,sources=[],phase='deci
       {title&&<span className="bv-hud-title">{title}</span>}
       {p&&<div className="bv-hud-opponent" aria-label={`${p.name} 투수 HP ${p.hp} / ${p.maxHp}`+(band?` · ${band.label} 예상`:'')}>
         <b className="bv-hud-name">{p.name}</b>
-        <span className="bv-hud-hp" aria-hidden="true">
+        <span key={resultKey} className={'bv-hud-hp'+(changing?' is-damaged':'')} aria-hidden="true" style={{'--hp-from':beforePct+'%','--hp-to':hpPct+'%'}}>
+          {changing&&<i className="bv-hud-hp-ghost" style={{width:beforePct+'%'}}/>}
           <i className="bv-hud-hp-fill" style={{width:hpPct+'%'}}/>
           {band&&<i className="bv-hud-hp-forecast" data-testid="bv-hp-forecast" title={band.label+' 예상'} style={{left:band.left+'%',width:band.width+'%'}}/>}
         </span>
-        <small aria-hidden="true">{p.hp} / {p.maxHp}</small>
+        <small key={'hp-'+resultKey} className={changing?'bv-hp-number is-damaged':''} aria-hidden="true">{changing&&<span className="bv-hp-was">{result.hpBefore}</span>}<span className="bv-hp-now">{p.hp}</span> / {p.maxHp}</small>
       </div>}
       <div className="bv-hud-count" role="img" aria-label={`볼 ${c.balls} 스트라이크 ${c.strikes} 아웃 ${c.outs} · 남은 아웃 ${hud.outsLeft}`}>
         {[['B',3,c.balls],['S',2,c.strikes],['O',2,c.outs]].map(([k,n,v])=><span key={k} className={'k-'+k}><em>{k}</em>{Array.from({length:n},(_,i)=><i key={i} className={i<v?'on':''}/>)}</span>)}

@@ -2,6 +2,7 @@ import React,{useEffect,useRef,useState} from 'react';
 import BallparkBattle from '../BallparkBattle.jsx';
 import {playV10Action,setAimZone,advanceV10Pitch,advanceV10Batter} from '../engine.js';
 import {presentationFor,presentationTimeline} from '../presentation.js';
+import {captureExecution} from '../presentation-snapshot.js';
 import {startPresentationClock} from '../presentation-clock.js';
 import {withKnockoutHold} from '../pitcher-sd.js';
 import {audio,cue} from '../audio.js';
@@ -20,7 +21,7 @@ export default function IntegrationPreview({fixture='swing-main'}){
 function PreviewSession({fixture,onChange}){
   const [initial]=useState(()=>buildFixture(fixture));
   const [s,setS]=useState(initial.s),[selected,setSelected]=useState(initial.selected),[swingStack,setSwingStack]=useState(initial.swingStack);
-  const [fxStage,setFxStage]=useState(initial.fxStage),[playback,setPlayback]=useState(null),[sound,setSound]=useState(false);
+  const [fxStage,setFxStage]=useState(initial.fxStage),[playback,setPlayback]=useState(null),[execution,setExecution]=useState(null),[sound,setSound]=useState(false);
   const current=useRef(s),busy=useRef(false),clock=useRef(null),token=useRef(0),soundRef=useRef(sound);current.current=s;soundRef.current=sound;
   useEffect(()=>()=>clock.current?.cancel(),[]);
   useEffect(()=>{
@@ -39,7 +40,8 @@ function PreviewSession({fixture,onChange}){
     const before=current.current;
     const next=playV10Action(before,type==='take'?{type:'take'}:{type:'card',id:selected,supports:inputs.swingStack});
     if(next===before)return;
-    commit(next);
+    const executed=captureExecution(before,next,{selected});
+    commit(next);setExecution(executed);
     const shot=presentationFor(next),reduced=!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     const isPitch=next.last?.kind!=='skill';
     const timeline=withKnockoutHold(presentationTimeline(shot,reduced),isPitch&&!reduced&&next.pitcher?.hp===0);
@@ -68,7 +70,7 @@ function PreviewSession({fixture,onChange}){
       {terminal&&<strong role="status">{s.phase==='reward'?'투수 강판':s.phase==='won'?'승리':'경기 종료'} · 다시 시작으로 검수 계속</strong>}
     </nav>
     <BallparkBattle s={s} {...inputs} selected={selected} pitcher={s.pitcher} label="검수" artId={initial.artId}
-      vnextReview={initial} previewMode playback={playback} fxStage={fxStage} shot={fxStage||s.battle?.revealed?presentationFor(s):null} playToken={s.stats.pitches}
+      vnextReview={initial} previewMode playback={playback} execution={execution} fxStage={fxStage} shot={fxStage||s.battle?.revealed?presentationFor(s):null} playToken={s.stats.pitches}
       onSelect={setSelected} onStack={setSwingStack} onAim={z=>{if(!busy.current&&!fxStage){const next=setAimZone(current.current,z);current.current=next;setS(next);}}}
       onSwing={()=>action('card')} onTake={()=>action('take')}
       sound={sound} onToggleSound={()=>{audio();setSound(v=>!v);}} onNext={!terminal?next:null} nextLabel={s.phase==='pitch'?'다음 공':s.phase==='between'?'다음 타자':''}/>

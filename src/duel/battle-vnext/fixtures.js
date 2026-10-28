@@ -4,6 +4,7 @@
    storage를 받지 않으므로 생산 세이브(9zone-v10-run)를 읽거나 쓰지 않는다. */
 import {createV10Duel,enterV10Node,setAimZone,playV10Action,advanceV10Pitch,previewCard,previewV10Stack,
   createDefenseLabState} from '../engine.js';
+import {captureExecution} from '../presentation-snapshot.js';
 import {CARDS} from '../cards.js';
 import {coverageText} from '../information.js';
 
@@ -33,24 +34,24 @@ export function handId(s,kind,nth=0){
 }
 
 function runSteps(seed,steps){
-  let s=null;
+  let s=null,execution=null;
   for(const st of steps){
     if(st.op==='new')s=createV10Duel(seed);
     else if(st.op==='defense-lab')s=createDefenseLabState(seed,st.pack||'link',st.scenario||'normal');
     else if(st.op==='enter')s=enterV10Node(s,st.node);
     else if(st.op==='aim')s=setAimZone(s,st.zone);
-    else if(st.op==='take')s=playV10Action(s,{type:'take'});
+    else if(st.op==='take'){const before=s;s=playV10Action(s,{type:'take'});execution=captureExecution(before,s);}
     else if(st.op==='play'){
       const id=st.card==='basic'?'basic':handId(s,st.card,st.nth||0);
       const supports=(st.supports||[]).map(x=>({id:handId(s,x.card,x.nth||0),aimZone:x.aimZone}));
-      s=playV10Action(s,{type:'card',id,...(supports.length?{supports}:{})});
+      const before=s;s=playV10Action(s,{type:'card',id,...(supports.length?{supports}:{})});execution=captureExecution(before,s,{selected:id});
     }
     else if(st.op==='next')s=advanceV10Pitch(s);
     /* 엔진 밖: 보상 화면에서 얻는 유물을 바로 부여 (읽기 단계 검수용) */
     else if(st.op==='grant-relics')s={...s,relics:[...(s.relics||[]),...st.relics]};
     else throw new Error('fixture: 알 수 없는 단계 '+st.op);
   }
-  return s;
+  return {s,execution};
 }
 
 const OPEN=[{op:'new'},{op:'enter',node:FIXTURE_NODE}];
@@ -90,13 +91,13 @@ export const VNEXT_FIXTURES=Object.freeze([
 export function buildFixture(idOrFixture){
   const f=typeof idOrFixture==='string'?VNEXT_FIXTURES.find(x=>x.id===idOrFixture):idOrFixture;
   if(!f)throw new Error('fixture: 없음 '+idOrFixture);
-  const s=runSteps(f.seed,f.steps),ui=f.ui||{};
+  const {s,execution}=runSteps(f.seed,f.steps),ui=f.ui||{};
   const idOf=card=>card==='basic'?'basic':handId(s,card);
   const selected=ui.select?idOf(ui.select):null;
   const swingStack=(ui.stack||[]).map(x=>({id:idOf(x.card),aimZone:x.aimZone}));
   const {hand,choice,swingStack:active}=s.phase==='battle'?appInputs(s,{selected,swingStack}):{hand:appInputs(s).hand,choice:null,swingStack:[]};
   const nextLabel=s.phase==='pitch'?'다음 공':s.phase==='between'?'다음 타자':'';
-  return {s,hand,selected,swingStack:active,choice,
+  return {s,execution,hand,selected,swingStack:active,choice,
     armed:ui.armed?idOf(ui.armed):null,inspectOpen:!!ui.inspectOpen,fxStage:ui.fxStage||null,
     hasNext:!!ui.hasNext&&!!nextLabel,nextLabel,playToken:s.stats?.pitches||0,
     artId:s.v10?.opponent?.artId||null,defenseLab:f.defenseLab?s.defenseLab:null};

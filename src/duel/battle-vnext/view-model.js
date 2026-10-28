@@ -149,6 +149,8 @@ export function buildBattleViewModel({
   const input=inputFor({phase,deciding,selected,mainIsSkill,choice,armed:liveArmed,inspectOpen,locked,fxStage,commitBeat,
     hasNext,nextLabel,s,takeHint:energy?.nextTakeHint||''});
 
+  if(phase==='committing'&&fxStage&&s.last?.kind==='skill'){input.actionLabel='준비 중…';input.ariaLabel='준비 효과 적용 중';}
+
   /* ── 손패: 기본 스윙 칩 → 스윙 카드 → 준비 카드 (기존 순서) ── */
   const prepLeft=Math.max(0,v10PrepMax(s)-(b.preparations||0));
   const roleOf=id=>selected===id?'main':stack.some(x=>x.id===id)?'support':liveArmed===id?'armed':null;
@@ -219,6 +221,7 @@ export function buildBattleViewModel({
       aimZone:swung?r.aimZone:null,actualZone:r.zone,outside,outsideNote:outside?(swung?'볼에 손이 나갔다':'볼을 골라냈다'):'',
       coverage:[...(r.coverage||[])],primaryCoverage:[...(r.primaryCoverage||[])],supportCoverages:(r.supportCoverages||[]).map(x=>({...x,coverage:[...(x.coverage||[])]})),
       explanation:resultExplanation(s),damage:Math.max(0,combat?.damage??pitcher?.lastDamage??0),
+      precisionBonus:combat?.precisionBonus||0,relicBonus:combat?.relicBonus||0,relicEvents:[...(combat?.relicEvents||[])],
       hpBefore,hpAfter:pitcher?.hp??null,knockedOut:(pitcher?.hp??1)===0,moves,
       next:s.phase==='pitch'?'pitch':s.phase==='between'?'batter':null};
   }
