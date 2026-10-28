@@ -1,0 +1,323 @@
+[
+  {
+    "fixture": "cinema-exact",
+    "t": 0,
+    "errors": [],
+    "phase": "flight",
+    "stage": "windup",
+    "poses": [
+      "set",
+      "ready"
+    ],
+    "hp": null,
+    "scroll": [
+      844,
+      844,
+      390,
+      390
+    ]
+  },
+  {
+    "fixture": "cinema-exact",
+    "t": 110,
+    "errors": [],
+    "phase": "flight",
+    "stage": "windup",
+    "poses": [
+      "coil",
+      "stride"
+    ],
+    "hp": null,
+    "scroll": [
+      844,
+      844,
+      390,
+      390
+    ]
+  },
+  {
+    "fixture": "cinema-exact",
+    "t": 245,
+    "errors": [],
+    "phase": "result",
+    "stage": "impact",
+    "shot": "jammed",
+    "poses": [
+      "follow",
+      "contact"
+    ],
+    "effect": "exact",
+    "title": "안타읽었다!",
+    "hp": null,
+    "scroll": [
+      844,
+      844,
+      390,
+      390
+    ]
+  },
+  {
+    "fixture": "cinema-exact",
+    "t": 600,
+    "errors": [],
+    "phase": "result",
+    "stage": "release",
+    "shot": "jammed",
+    "poses": [
+      "follow",
+      "follow"
+    ],
+    "effect": "exact",
+    "title": "안타읽었다!",
+    "hp": null,
+    "scroll": [
+      844,
+      844,
+      390,
+      390
+    ]
+  },
+  {
+    "fixture": "cinema-exact",
+    "t": 1000,
+    "errors": [],
+    "phase": "result",
+    "stage": "settle",
+    "shot": "jammed",
+    "poses": [
+      "set",
+      "recover"
+    ],
+    "effect": "exact",
+    "title": "안타읽었다!",
+    "hp": null,
+    "scroll": [
+      844,
+      844,
+      390,
+      390
+    ]
+  },
+  {
+    "fixture": "cinema-near",
+    "t": 0,
+    "errors": [],
+    "phase": "flight",
+    "stage": "windup",
+    "poses": [
+      "set",
+      "ready"
+    ],
+    "hp": null,
+    "scroll": [
+      844,
+      844,
+      390,
+      390
+    ]
+  },
+  {
+    "fixture": "cinema-near",
+    "t": 245,
+    "errors": [],
+    "phase": "result",
+    "stage": "impact",
+    "shot": "near-miss",
+    "poses": [
+      "follow",
+      "contact"
+    ],
+    "effect": "near",
+    "title": "헛스윙한 칸 차이",
+    "hp": null,
+    "scroll": [
+      844,
+      844,
+      390,
+      390
+    ]
+  },
+  {
+    "fixture": "cinema-near",
+    "t": 600,
+    "errors": [],
+    "phase": "result",
+    "stage": "slowmo",
+    "shot": "near-miss",
+    "poses": [
+      "follow",
+      "early-follow"
+    ],
+    "effect": "near",
+    "title": "헛스윙한 칸 차이",
+    "hp": null,
+    "scroll": [
+      844,
+      844,
+      390,
+      390
+    ]
+  },
+  {
+    "fixture": "cinema-homer",
+    "t": 0,
+    "errors": [],
+    "phase": "flight",
+    "stage": "windup",
+    "poses": [
+      "set",
+      "ready"
+    ],
+    "hp": null,
+    "scroll": [
+      844,
+      844,
+      390,
+      390
+    ]
+  },
+  {
+    "fixture": "cinema-homer",
+    "t": 400,
+    "errors": [],
+    "phase": "result",
+    "stage": "slowmo",
+    "shot": "homer",
+    "poses": [
+      "follow",
+      "early-follow"
+    ],
+    "effect": "homer",
+    "title": "홈런읽었다!",
+    "hp": null,
+    "scroll": [
+      844,
+      844,
+      390,
+      390
+    ]
+  },
+  {
+    "fixture": "cinema-homer",
+    "t": 1000,
+    "errors": [],
+    "phase": "result",
+    "stage": "release",
+    "shot": "homer",
+    "poses": [
+      "follow",
+      "follow"
+    ],
+    "effect": "homer",
+    "title": "코스를 읽어낸 한 방홈런",
+    "hp": null,
+    "scroll": [
+      844,
+      844,
+      390,
+      390
+    ]
+  },
+  {
+    "fixture": "cinema-homer",
+    "t": 1600,
+    "errors": [],
+    "phase": "result",
+    "stage": "settle",
+    "shot": "homer",
+    "poses": [
+      "set",
+      "return-low"
+    ],
+    "effect": "homer",
+    "title": "코스를 읽어낸 한 방홈런",
+    "hp": null,
+    "scroll": [
+      844,
+      844,
+      390,
+      390
+    ]
+  },
+  {
+    "fixture": "cinema-knockout",
+    "t": 0,
+    "errors": [],
+    "phase": "flight",
+    "stage": "windup",
+    "poses": [
+      "set",
+      "ready"
+    ],
+    "hp": null,
+    "scroll": [
+      844,
+      844,
+      390,
+      390
+    ]
+  },
+  {
+    "fixture": "cinema-knockout",
+    "t": 245,
+    "errors": [],
+    "phase": "result",
+    "stage": "impact",
+    "shot": "jammed",
+    "poses": [
+      "follow",
+      "contact"
+    ],
+    "effect": "exact",
+    "title": "안타읽었다!",
+    "hp": null,
+    "scroll": [
+      844,
+      844,
+      390,
+      390
+    ]
+  },
+  {
+    "fixture": "cinema-knockout",
+    "t": 1100,
+    "errors": [],
+    "phase": "result",
+    "stage": "settle",
+    "shot": "jammed",
+    "poses": [
+      "fatigue",
+      "follow"
+    ],
+    "effect": "exact",
+    "title": "투수 HP 0 · 승부를 끝냈다강판",
+    "hp": null,
+    "scroll": [
+      844,
+      844,
+      390,
+      390
+    ]
+  },
+  {
+    "fixture": "cinema-knockout",
+    "t": 1800,
+    "errors": [],
+    "phase": "result",
+    "stage": "settle",
+    "shot": "jammed",
+    "poses": [
+      "fatigue",
+      "return-low"
+    ],
+    "effect": "exact",
+    "title": "투수 HP 0 · 승부를 끝냈다강판",
+    "hp": null,
+    "scroll": [
+      844,
+      844,
+      390,
+      390
+    ]
+  }
+]

@@ -15,6 +15,12 @@ export function captureExecution(before,next,{selected=null}={}){
     preparation:prep?{name:cards[0]?.name||'준비',detail:next.last.events?.[0]||next.last.text||'준비 효과 적용'}:null};
 }
 
+/* Damage can overkill; HP feedback names the amount the meter actually lost. */
+export function actualHpLoss(result){
+  return Number.isInteger(result?.hpBefore)&&Number.isInteger(result?.hpAfter)
+    ?Math.max(0,result.hpBefore-result.hpAfter):Math.max(0,result?.damage||0);
+}
+
 export function resultSequence(result,execution){
   if(!result)return [];
   const steps=[],hit=['hit','sacrifice'].includes(result.kind);
@@ -26,6 +32,7 @@ export function resultSequence(result,execution){
     if(result.precisionBonus>0)steps.push({kind:'precision',text:`정확 적중 +${result.precisionBonus} HP`});
     else if(result.relicBonus>0&&result.relicEvents?.length)steps.push({kind:'relic',text:result.relicEvents[0]});
   }
-  if(result.damage>0)steps.push({kind:'hp',text:`${hit?'투수 HP':'압박'} −${result.damage}`});
+  const loss=actualHpLoss(result);
+  if(loss>0)steps.push({kind:'hp',text:`${hit?'투수 HP':'압박'} −${loss}`});
   return steps.slice(0,3);
 }

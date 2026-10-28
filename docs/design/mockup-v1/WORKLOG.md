@@ -180,3 +180,9 @@ PR / 프리뷰 / 배포 상태: feat/mockup-battle-v1 로컬 커밋, 10f4c0d 이
 ## C05 가로 사용성 보완 — 2026-10-28 · Codex
 
 사용자 지시 “세로는 생각하지마, 가로로 개선하고 완성하자”에 따라 가로만 추가 개선. 동일 PR #66, 단일 command rail 행동·실제 결과 spotlight·완전한 인과 해설·키보드 포커스 보완. [사전 영향도](../mockup-v1-usability/IMPACT.md) / [가로24조합·production 실 조작·전체1345테스트](../../qa/mockup-v1-usability/RESULTS.md). 기존 원화 승인/G1 제한은 유지된다.
+
+## C06 가로 연출 pilot — 2026-10-28 · Codex
+
+사용자가 요청한 5단계를 순서대로 구현. 본편 shared presentation clock/cues, 등록된 새 타자14포즈·투수5포즈, 결과 공개 후 공/VFX 분기, 실제 execution snapshot 기반 카드→HP 확인, 실제 홈런/HP0 전용 마무리. source atlas/등록 builder 보존. 기존 에너지2·카드 비용·판정·저장 schema·로스터 승인 상태는 유지한다.
+
+[설계/연결](../landscape-battle-cinema/README.md) · [전체 테스트·실제 브라우저·소리 포함 영상·배포 검증](../../qa/landscape-battle-cinema/RESULTS.md). 샘플 배우 메모리 검수 범위이며 G1/G2/G4·전체 roster·실기기 인수 완료로 올리지 않는다. 기존 PR #66에서 검수 가능하다.

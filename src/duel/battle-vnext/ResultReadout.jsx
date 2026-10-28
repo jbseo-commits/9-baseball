@@ -1,5 +1,6 @@
 import React from 'react';
 import './decision.css';
+import {actualHpLoss} from '../presentation-snapshot.js';
 
 /* C04 — 방금 일어난 일. view model result(C01)만 읽는다: 판정은 엔진 결과, 해설은 resultExplanation.
    새 계산·타이머 없음. 최근 결과 한 줄을 언제까지 남길지는 부모가 recent로 정한다. */
@@ -25,7 +26,7 @@ export function resultTone(result,shotGrade=null){
 /* 실제 피해: 확정된 값이다(예측이 아니다). 안타가 아닌데 HP가 줄었으면 그 이유를 같은 줄에 붙인다. */
 export function damageText(result,tone){
   if(!result||!(result.damage>0))return '';
-  const base=`투수 HP −${result.damage}`;
+  const base=`투수 HP −${actualHpLoss(result)}`;
   const hp=Number.isInteger(result.hpBefore)&&Number.isInteger(result.hpAfter)?` (${result.hpBefore}→${result.hpAfter})`:'';
   const why=tone?.key==='near'?' · 한 칸 차이 압박':result.kind==='hit'||result.kind==='sacrifice'?'':' · 압박';
   return base+hp+why;

@@ -2,6 +2,7 @@
 import React from 'react';
 import {render,cleanup,screen,act,fireEvent} from '@testing-library/react';
 import {afterEach,it,expect,vi} from 'vitest';
+import {damageText} from '../src/duel/battle-vnext/ResultReadout.jsx';
 import {cinemaMoment} from '../src/duel/battle-vnext/cinema-director.js';
 import {buildFixture} from '../src/duel/battle-vnext/fixtures.js';
 import {buildBattleViewModel} from '../src/duel/battle-vnext/view-model.js';
@@ -25,7 +26,7 @@ it('reproduces a real home run and real final damage from explicit engine fixtur
  expect(hr.s.battle.revealed.label).toBe('홈런');expect(hr.execution.cards[0].name).toBeTruthy();
  expect(hr.s.pitcher.hp).toBeGreaterThan(0);
  expect(ko.s.pitcher.hp).toBe(0);expect(ko.s.phase).toBe('reward');
- const vm=buildBattleViewModel({...ko,fxStage:'impact',shot:presentationFor(ko.s)});expect(vm.result.hpBefore).toBe(1);expect(vm.result.hpAfter).toBe(0);expect(vm.result.damage).toBeGreaterThan(0);
+ const vm=buildBattleViewModel({...ko,fxStage:'impact',shot:presentationFor(ko.s)});expect(vm.result.hpBefore).toBe(1);expect(vm.result.hpAfter).toBe(0);expect(vm.result.damage).toBeGreaterThan(0);expect(damageText(vm.result)).toBe('투수 HP −1 (1→0)');
 });
 it('holds terminal knockout without auto-next, and replay cancels the previous clock',()=>{
  vi.useFakeTimers({toFake:['setTimeout','clearTimeout','performance']});window.history.replaceState({},'','/?battleUi=vnext');
