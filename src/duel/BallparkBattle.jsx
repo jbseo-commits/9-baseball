@@ -115,6 +115,7 @@ export default function BallparkBattle({
   const handDockRef=useRef(null);
   const [recentResult,setRecentResult]=useState(null);
   const b=s.battle||{},rootRef=useRef(null),sceneRef=useRef(null),pitcherRef=useRef(null),zoneRef=useRef(null),flightRef=useRef(null),stageRef=useRef(null);
+  const [supportMode,setSupportMode]=useState(()=>!!vnextReview?.armed);
   const [armed,setArmed]=useState(()=>vnextReview?.armed||null),[commitBeat,setCommitBeat]=useState(null),commitTimer=useRef(null);
   /* Inspector: manual arena-region swap. {tab, kind, plus, problem, pile} or null.
      The plan (selected/swingStack/armed) is never touched while it is open. */
@@ -214,6 +215,7 @@ export default function BallparkBattle({
   const isBuntKind=k=>!!CARDS[k]?.bunt;
   const canStack=!!(mainEntry&&!mainIsSkill&&!isBuntKind(mainEntry.kind)&&b.growthMode!=='patience');
   const stack=canStack?swingStack.filter(x=>x.id!==selected&&byId(x.id)):[];
+  useEffect(()=>{if(useVnext&&(!deciding||!canStack)){setSupportMode(false);setArmed(null);}},[useVnext,deciding,canStack]);
   /* P1 스윙 예측: 확정 전 hover/터치 슬라이드 존과 고른 준비 카드로 결과를 미리 계산한다 (판정은 바꾸지 않음) */
   const [hoverZone,setHoverZone]=useState(null),[hoverSkill,setHoverSkill]=useState(null);
   const touchSlide=useRef(null),suppressZoneClick=useRef(0),lastSwing=useRef(null);
@@ -326,8 +328,17 @@ export default function BallparkBattle({
       if(id==='basic'){openInspect('card',{kind:'basic'});return;}
       const e=byId(id)?.entry;if(e)openInspect('card',{kind:e.kind,plus:e.plus,problem:byId(id)?.preview?.problem||null});return;
     }
-    if(useVnext)setRecentResult(null);
-    if(useVnext&&armed===id){setArmed(null);return;}
+    if(useVnext){
+      setRecentResult(null);
+      if(!supportMode){setArmed(null);if(selected!==id){onStack([]);onSelect(id);}return;}
+      if(id===selected){setArmed(null);setSupportMode(false);return;}
+      if(armed===id){setArmed(null);return;}
+      if(stack.some(x=>x.id===id)){setArmed(null);onStack(stack.filter(x=>x.id!==id));return;}
+      const kind=byId(id)?.entry?.kind,nextStack=[...stack,{id,aimZone:b.aimZone}];
+      if(canStack&&id!=='basic'&&kind&&!isBuntKind(kind)&&stack.length<v10StackMax(s)-1
+        &&v10ActionCost(s,selected,nextStack)<=energy)setArmed(id);
+      return; // invalid support never silently replaces the main card
+    }
     setArmed(null);
     if(selected===id){onSelect(null);onStack([]);return;}
     if(stack.some(x=>x.id===id)){onStack(stack.filter(x=>x.id!==id));return;}
@@ -341,7 +352,15 @@ export default function BallparkBattle({
   function pickPrep(id){if(locked)return;
     if(inspect){const e=byId(id)?.entry;if(e)openInspect('card',{kind:e.kind,plus:e.plus,problem:byId(id)?.preview?.problem||null});return;}
     if(useVnext)setRecentResult(null);
-    setArmed(null);onStack([]);onSelect(selected===id?null:id);}
+    setArmed(null);if(useVnext)setSupportMode(false);onStack([]);onSelect(useVnext?id:selected===id?null:id);}
+  function clearPlan(){
+    if(!deciding||inspect)return;
+    setArmed(null);setSupportMode(false);onStack([]);onSelect(null);
+  }
+  function toggleSupport(){
+    if(!deciding||inspect||!canStack)return;
+    setArmed(null);setSupportMode(v=>!v);
+  }
   function pickZone(z){
     if(locked||commitBeat||inspect)return;
     if(suppressZoneClick.current>Date.now())return;
@@ -574,7 +593,7 @@ export default function BallparkBattle({
       compact={compact} effects={prepEffects} labView={labView} energy={{current:energy,cap:energyCap}} intent={intentIcon}
       onHome={onHome} onToggleSound={onToggleSound} sound={sound} onConditions={defenseLab?onSettings:null} onPractice={onPractice}/>:null;
   const model=useVnext?buildBattleViewModel({s,hand,selected,swingStack,choice,locked,fxStage,shot,playToken,nextLabel,hasNext:!!onNext,
-      artId,defenseLab,armed,commitBeat,inspectOpen:!!inspect,hoverZone,hoverSkill,lastSwing:lastSwing.current}):null;
+      artId,defenseLab,armed,supportMode,commitBeat,inspectOpen:!!inspect,hoverZone,hoverSkill,lastSwing:lastSwing.current}):null;
   useEffect(()=>{
     if(!model?.result)return;
     setRecentResult({key:artId+':'+s.runMap?.currentNodeId,text:model.result.explanation+(model.result.damage>0?` · 투수 HP −${model.result.damage}`:'')});
@@ -585,7 +604,7 @@ export default function BallparkBattle({
       inspector={inspectorView} menuOpen={!!inspect} onMenu={()=>openInspect('menu')}
       onCardTap={id=>{if(!deciding&&!inspect)return;isSkill(byId(id)?.entry)?pickPrep(id):pickSwing(id);}}
       onCardDetail={id=>{const x=byId(id);openInspect('card',{kind:id==='basic'?'basic':x?.entry.kind,plus:x?.entry.plus,problem:x?.preview?.problem});}}
-      onPiles={()=>openInspect('pile')} piles={{draw:b.draw?.length||0,discard:b.discard?.length||0}}
+      onToggleSupport={toggleSupport} onClearPlan={clearPlan} onPiles={()=>openInspect('pile')} piles={{draw:b.draw?.length||0,discard:b.discard?.length||0}}
       onZoneTap={pickZone} onZoneHover={setHoverZone} onPointerDown={slideStart} onPointerMove={slideMove} onPointerUp={slideEnd} onPointerCancel={slideEnd}
       onTake={onTake} onSwing={commitSwing} onNext={onNext}/>;
   }

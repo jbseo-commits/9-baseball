@@ -87,7 +87,7 @@ describe('C01 independent review: last pitch and reveal boundary',()=>{
 
 describe('C03 independent review: support limit is not an unplayable card',()=>{
   it('separates support-cost limits from card problems and keeps own-cost warnings',()=>{
-    const input=buildFixture('support-stacked'),vm=buildBattleViewModel(input);
+    const input=buildFixture('support-stacked'),vm=buildBattleViewModel({...input,supportMode:true});
     const limited=vm.hand.filter(x=>x.overBudget&&!x.problem);
     expect(limited.length).toBeGreaterThan(0);
     for(const card of limited){

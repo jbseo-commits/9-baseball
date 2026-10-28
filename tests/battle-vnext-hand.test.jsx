@@ -129,11 +129,11 @@ describe('입력',()=>{
     fireEvent.click(container.querySelector('[data-testid=bv-basic-chip]'));
     expect(tap).toHaveBeenLastCalledWith('basic');
   });
-  it('기본 스윙 선택 상태를 칩에 표시하고 다시 누르면 해제할 수 있다고 알린다',()=>{
+  it('기본 스윙 선택 상태를 칩에 표시한다',()=>{
     const {container}=dock(vmFor('basic-swing'));
     const chip=container.querySelector('[data-testid=bv-basic-chip]');
     expect(chip.getAttribute('aria-pressed')).toBe('true');
-    expect(chip.getAttribute('aria-label')).toMatch(/다시 누르면 해제/);
+    expect(chip.getAttribute('aria-label')).toMatch(/선택됨/);expect(chip.getAttribute('aria-label')).not.toMatch(/다시 누르면 해제/);
   });
   it('가로 스와이프 뒤 click은 선택을 바꾸지 않는다',()=>{
     const tap=vi.fn(),{container}=dock(vmFor('watch-read0'),{onCardTap:tap});

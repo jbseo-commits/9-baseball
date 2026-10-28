@@ -186,3 +186,7 @@ PR / 프리뷰 / 배포 상태: feat/mockup-battle-v1 로컬 커밋, 10f4c0d 이
 사용자가 요청한 5단계를 순서대로 구현. 본편 shared presentation clock/cues, 등록된 새 타자14포즈·투수5포즈, 결과 공개 후 공/VFX 분기, 실제 execution snapshot 기반 카드→HP 확인, 실제 홈런/HP0 전용 마무리. source atlas/등록 builder 보존. 기존 에너지2·카드 비용·판정·저장 schema·로스터 승인 상태는 유지한다.
 
 [설계/연결](../landscape-battle-cinema/README.md) · [전체 테스트·실제 브라우저·소리 포함 영상·배포 검증](../../qa/landscape-battle-cinema/RESULTS.md). 샘플 배우 메모리 검수 범위이며 G1/G2/G4·전체 roster·실기기 인수 완료로 올리지 않는다. 기존 PR #66에서 검수 가능하다.
+
+## 가로 직접 선택 보완 — 2026-10-28 · Codex
+
+사용자 ‘코스와 카드 선택이 번거로움’ 피드백 반영. vnext 일반 카드 탭의 암묵적 지원 전환을 제거하고 교체/안정된 재탭/선명한 코스 선택으로 통일. 가능할 때만 명시적 겹치기, 실행 옆 고정44px 해제. 실측으로 작은 화면의 해제/피해 설명 잘림을 수정했다. engine/legacy/save/판정 불변. [영향도](../direct-selection/IMPACT.md) · [실제 터치와 회귀 검증](../../qa/direct-selection/RESULTS.md). 동일 PR66, 가로 우선.

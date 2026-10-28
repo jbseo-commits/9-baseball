@@ -25,7 +25,7 @@ export default function BattleCard({item,art=null,onTap,onDetail,detailDisabled=
   const tag=selectionTag(item);
   const supportLimited=item.overBudget&&!item.problem;
   const label=[item.name,'에너지 '+item.cost,item.type==='prepare'?'준비':'',item.summary,item.condition,item.warning,
-    supportLimited?'지원 추가 비용 초과 · 메인으로 교체 가능':'',tag].filter(Boolean).join(' · ');
+    supportLimited?'지원 추가 비용 초과 · 겹치기를 끄면 메인으로 교체 가능':'',tag].filter(Boolean).join(' · ');
   const cls='bv-card t-'+item.type+(item.selectionRole?' is-'+item.selectionRole:'')+(item.unavailable?' is-unavailable':'')+(item.plus?' is-plus':'');
   return <li className="bv-card-slot" data-card-id={item.id}>
     <button ref={cardRef} type="button" className={cls} data-testid="bv-card" data-card-kind={item.kind} data-card-plus={item.plus?'1':'0'} data-card-problem={item.problem||undefined} data-selection={item.selectionRole||undefined}
@@ -33,7 +33,7 @@ export default function BattleCard({item,art=null,onTap,onDetail,detailDisabled=
       disabled={item.disabled} onClick={()=>onTap?.(item.id)} onKeyDown={onKeyDown}
       onContextMenu={e=>{if(!onDetail||detailDisabled)return;e.preventDefault();onDetail(item.id,e.currentTarget);}}>
       <span className="bv-card-art" style={art?{backgroundImage:`url(${art.url})`,backgroundPosition:art.position,backgroundSize:art.size}:undefined} data-art={art?'set':'none'}>
-        <b className="bv-card-cost" aria-hidden="true"><small>⚡</small>{item.cost}{supportLimited&&<sup className="bv-support-limit" title="지원 추가 비용 초과 · 메인으로 교체 가능">＋제한</sup>}</b>
+        <b className="bv-card-cost" aria-hidden="true"><small>⚡</small>{item.cost}{supportLimited&&<sup className="bv-support-limit" title="지원 추가 비용 초과 · 겹치기를 끄면 메인으로 교체 가능">＋제한</sup>}</b>
         <span className="bv-card-range">{item.type==='prepare'?<span className="bv-prep-glyph" aria-hidden="true">◎</span>:<CoverageGlyph zones={item.coverage}/>}</span>
       </span>
       <strong className="bv-card-name">{item.name}</strong>

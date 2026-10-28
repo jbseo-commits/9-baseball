@@ -33,7 +33,7 @@ function lockText(input,phase){
   return '';
 }
 
-const HandDock=forwardRef(function HandDock({hand=[],energy=null,input=null,phase='deciding',piles=null,
+const HandDock=forwardRef(function HandDock({hand=[],energy=null,input=null,phase='deciding',piles=null,selection=null,onToggleSupport=null,
   onCardTap,onCardDetail=null,onPiles=null,artFor=defaultCardArt},ref){
   const rowRef=useRef(null),cardRefs=useRef(new Map()),drag=useRef(null),suppress=useRef(false);
   const [hidden,setHidden]=useState({left:0,right:0});
@@ -91,9 +91,10 @@ const HandDock=forwardRef(function HandDock({hand=[],energy=null,input=null,phas
       <span className="bv-hand-tools">
         {basic&&<button type="button" className={'bv-basic-chip'+(basic.selectionRole==='main'?' is-main':'')} data-testid="bv-basic-chip"
           aria-pressed={basic.selectionRole==='main'} disabled={basic.disabled} onClick={()=>onCardTap?.('basic')}
-          aria-label={'기본 스윙 · 에너지 0 · 카드 소모 없음'+(basic.selectionRole==='main'?' · 선택됨, 다시 누르면 해제':'')}>
+          aria-label={'기본 스윙 · 에너지 0 · 카드 소모 없음'+(basic.selectionRole==='main'?' · 선택됨':'')}>
           기본 스윙 <b aria-hidden="true">⚡0</b>{basic.selectionRole==='main'&&<i aria-hidden="true">{selectionTag(basic)}</i>}
         </button>}
+        {selection?.canStack&&onToggleSupport&&<button type="button" className={'bv-support-toggle'+(selection.supportMode?' is-on':'')} aria-pressed={selection.supportMode} onClick={onToggleSupport}>카드 겹치기</button>}
         {piles&&(onPiles
           ?<button type="button" className="bv-piles" onClick={onPiles} disabled={detailDisabled}>더미 {piles.draw} · 버림 {piles.discard}</button>
           :<span className="bv-piles">더미 {piles.draw} · 버림 {piles.discard}</span>)}

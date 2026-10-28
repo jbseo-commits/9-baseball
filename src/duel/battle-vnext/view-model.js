@@ -102,7 +102,7 @@ export function publicForecast(f){
    locked, fxStage, shot, playToken, nextLabel, hasNext, artId, defenseLab: App 연출·흐름 상태 */
 export function buildBattleViewModel({
   s,hand=[],selected=null,swingStack=[],choice=null,
-  armed=null,commitBeat=null,inspectOpen=false,hoverZone=null,hoverSkill=null,lastSwing=null,
+  armed=null,supportMode=false,commitBeat=null,inspectOpen=false,hoverZone=null,hoverSkill=null,lastSwing=null,
   locked=false,fxStage=null,shot=null,playToken=0,nextLabel='',hasNext=false,artId=null,defenseLab=null,
 }={}){
   const b=s?.battle;
@@ -133,6 +133,7 @@ export function buildBattleViewModel({
   const stackCost=selected&&!mainIsSkill?(selected==='basic'?0:cardCost(mainEntry))+stack.reduce((n,x)=>n+cardCost(byId(x.id)?.entry),0):0;
   const selectedCost=deciding&&selected?(choice?.cost??v10ActionCost(s,selected,stack)):0;
   const armedCost=liveArmed?cardCost(byId(liveArmed)?.entry):0;
+  const canAddSupport=canStack&&stack.length<v10StackMax(s)-1&&hand.some(x=>x.id!==selected&&!stack.some(y=>y.id===x.id)&&!isSkillKind(x.entry?.kind)&&!isBuntKind(x.entry?.kind)&&v10ActionCost(s,selected,[...stack,{id:x.id,aimZone:b.aimZone}])<=energyLimit);
   const takeDraw=v10TakeDrawPreview(s);
   const drawHint=takeDraw.count===1?'카드+1':takeDraw.reason==='full'?'6장 한도':'추가 0';
   const energy=s.version===10?{
@@ -163,7 +164,7 @@ export function buildBattleViewModel({
     const kind=x.entry.kind,isPrep=def.type==='skill',cost=cardCost(x.entry);
     const problem=deciding?x.preview?.problem||null:null;
     const face=cardFaceOf(x.entry,{strikes:shownCount.strikes,drawPreview:preparationDrawPreview(s,x.id)});
-    const supportCandidate=canStack&&!mainIsSkill&&selected!==x.id&&!stack.some(y=>y.id===x.id)&&!isBuntKind(kind)&&!isPrep;
+    const supportCandidate=(supportMode||!!liveArmed)&&canStack&&!mainIsSkill&&selected!==x.id&&!stack.some(y=>y.id===x.id)&&!isBuntKind(kind)&&!isPrep;
     const overBudget=deciding&&supportCandidate&&stackCost+cost>energyLimit;
     const exhausted=isPrep&&!prepLeft;
     const warning=shortCardProblem(problem)||(exhausted?'준비 횟수 소진':'');
@@ -182,13 +183,13 @@ export function buildBattleViewModel({
       tokens:[r.coverage?.length?{z:r.aimZone,n:1}:null,...(r.supportZones||[]).map((z,i)=>({z,n:i+2}))].filter(Boolean)}
     :{cover:stack.length?choice?.primaryCoverage||[]:(!mainIsSkill&&selected?choice?.coverage||[]:[]),
       support:stack.length?(choice?.supportCoverages||[]).flatMap(x=>x.coverage):[],
-      aim:selected&&!mainIsSkill?b.aimZone:null,
+      aim:deciding?b.aimZone:null,
       tokens:[selected&&!mainIsSkill?{z:b.aimZone,n:1}:null,...stack.map((x,i)=>({z:x.aimZone,n:i+2}))].filter(Boolean)};
   const cells=ZONE_WORDS.map((word,z)=>({zone:z,word,live:live.includes(z),
     face:deciding?zoneFace(s,z,{level,known,probs}):null,
     aimed:b.aimZone===z,aim:plan.aim===z,cover:plan.cover.includes(z),support:plan.support.includes(z),
     tokens:plan.tokens.filter(t=>t.z===z).map(t=>t.n),actual:landed&&r.zone===z}));
-  const zones={level,sources:readSources(displayState).map(x=>x.label),cells,
+  const zones={level,aimWord:deciding?ZONE_WORDS[b.aimZone]||'':null,sources:readSources(displayState).map(x=>x.label),cells,
     band:{face:deciding?bandFace(s,{level,probs}):null,actual:landed&&r.zone===9},
     clue:known.length<10,targetingSupport:!!liveArmed,links:judged?r.stackLinks||[]:stack.length?choice?.stackPlan?.links||[]:[]};
 
@@ -230,7 +231,7 @@ export function buildBattleViewModel({
     pitchZone:landed?r.zone:null,knockedOut:landed&&(pitcher?.hp??1)===0,motionEnabled:false};
   /* 준비 유지 효과: 선택 중, 그리고 같은 타자의 다음 공을 기다리는 동안 (BallparkBattle prepEffects와 같다) */
   const effects=deciding||(landed&&!fxStage&&!locked&&s.phase==='pitch')?activePreparationFeedback(b,s.phase):[];
-  return {phase,input,energy,hand:ordered,zones,forecast,hud,result,scene,effects};
+  return {phase,input,selection:{canClear:input.canSelect&&!!selected,canStack:input.canSelect&&canStack&&!!(canAddSupport||stack.length||supportMode||liveArmed),supportMode:!!(supportMode||liveArmed)},energy,hand:ordered,zones,forecast,hud,result,scene,effects};
 }
 
 function countShown(b,r,landed){

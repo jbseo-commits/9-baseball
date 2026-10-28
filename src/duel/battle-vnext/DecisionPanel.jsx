@@ -20,6 +20,7 @@ const ORDER=['','①','②','③','④'];
 export function planCaption(zones){
   if(!zones)return '';
   const steps=zones.cells.flatMap(c=>c.tokens.map(n=>({n,word:c.word}))).sort((a,b)=>a.n-b.n);
+  if(!steps.length&&zones.aimWord)return '노림 · '+zones.aimWord;
   return steps.map(s=>(steps.length>1?ORDER[s.n]+' ':'')+s.word).join(' → ');
 }
 
@@ -35,17 +36,17 @@ export function planSummary({hand=[],forecast=null,input=null,energy=null,effect
   return {title,cost:energy?.selectedCost??null,chance:chance&&(before?chance.replace(forecast.chanceText,before+forecast.chanceText):chance),
     damage:forecast?.damageLabel||'',reasons:forecast?.reasons||[],problem:input.blockedReason||forecast?.problem||'',
     detail:input.actionKind==='prepare'&&effects.length?'준비 유지 · '+effects.join(' · '):'',
-    hint:input.blockedReason&&!input.canExecute&&input.canSelect?'고른 카드를 다시 누르면 지켜보기로 돌아간다':''};
+    hint:input.blockedReason&&!input.canExecute&&input.canSelect?'선택 해제로 지켜보기로 전환':''};
 }
 
 export default function DecisionPanel({zones=null,forecast=null,input=null,hand=[],energy=null,result=null,phase='deciding',effects=[],scene=null,execution=null,
-  shotGrade=null,recent=null,showAction=true,onZoneTap,onZoneHover=null,onTake,onSwing,onNext}){
+  shotGrade=null,recent=null,showAction=true,selection=null,onZoneTap,onZoneHover=null,onTake,onSwing,onNext}){
   if(!zones||!input)return null;
   const deciding=phase==='deciding',sum=deciding?planSummary({hand,forecast,input,energy,effects}):null;
   const caption=planCaption(zones),near=result?.kind==='whiff'?nearCoverage(result):null;
   const pt=z=>({x:(z%3)*100+50,y:Math.floor(z/3)*100+50});
   return <section className={'bv-decision'+(zones.targetingSupport?' is-targeting':'')} data-testid="bv-decision" data-phase={phase} aria-label="코스와 행동">
-    <p className="bv-zone-caption"><span>{caption||(deciding?'노릴 코스':'')}</span>{deciding&&zones.clue&&<b>단서 적용</b>}</p>
+    <p className="bv-zone-caption"><span>{deciding&&selection?.supportMode&&!zones.targetingSupport?'겹칠 카드를 고르세요':caption||(deciding?'노릴 코스':'')}</span>{deciding&&zones.clue&&<b>단서 적용</b>}</p>
     <div className="bv-zone" role="group" aria-label="노릴 코스" data-read-level={zones.level}>
       {near&&<svg className="bv-near-link" viewBox="0 0 300 300" preserveAspectRatio="none" aria-hidden="true" data-testid="bv-near-link"><path d={`M${pt(near.from).x},${pt(near.from).y}L${pt(near.to).x},${pt(near.to).y}`}/><circle cx={pt(near.from).x} cy={pt(near.from).y} r="20"/></svg>}
       {zones.cells.map(c=>{

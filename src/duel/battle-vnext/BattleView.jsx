@@ -6,12 +6,13 @@ import DecisionPanel,{BattleAction} from './DecisionPanel.jsx';
 import {cinemaMoment} from './cinema-director.js';
 import ResultReadout from './ResultReadout.jsx';
 import './layout.css';
+import './selection.css';
 
 /* Presentation only. BallparkBattle keeps selection, inspector, commit and next
    timers; App still owns the engine, save and pitch presentation lifecycle. */
 export default function BattleView({model,actors,playback=null,execution=null,rootRef,sceneRef,zoneRef,handRef,title,review=false,
   inspector=null,menuOpen=false,recent=null,onMenu,onCardTap,onCardDetail,onPiles,onZoneTap,onZoneHover,
-  onPointerDown,onPointerMove,onPointerUp,onPointerCancel,onTake,onSwing,onNext,piles}){
+  onToggleSupport,onClearPlan,onPointerDown,onPointerMove,onPointerUp,onPointerCancel,onTake,onSwing,onNext,piles}){
   const finale=cinemaMoment(model.result,model.scene.fxStage,!!playback);
   const spotlight=model.result&&playback&&!finale?{...model.result,knockedOut:false}:model.result;
   return <main ref={rootRef} className={'battle-vnext'+(menuOpen?' inspecting':'')} data-phase={model.phase} style={{'--bv-verdict-delay':playback?'120ms':'0ms'}} aria-label="타석">
@@ -23,7 +24,7 @@ export default function BattleView({model,actors,playback=null,execution=null,ro
     <BattleHud result={model.result} playback={playback} resultKey={model.scene.playToken} hud={model.hud} forecast={model.forecast} sources={model.zones?.sources} phase={model.phase}
       title={title} onMenu={onMenu} menuOpen={menuOpen}/>
     <div className="bv-hand-area">
-      <HandDock ref={handRef} hand={menuOpen?model.hand.map(c=>({...c,disabled:false})):model.hand} energy={model.energy}
+      <HandDock selection={model.selection} onToggleSupport={onToggleSupport} ref={handRef} hand={menuOpen?model.hand.map(c=>({...c,disabled:false})):model.hand} energy={model.energy}
         input={menuOpen?{...model.input,canSelect:true}:model.input} phase={model.phase}
         piles={piles} onCardTap={onCardTap} onCardDetail={onCardDetail} onPiles={onPiles}/>
     </div>
@@ -34,6 +35,7 @@ export default function BattleView({model,actors,playback=null,execution=null,ro
         onTake={onTake} onSwing={onSwing} onNext={onNext}/>
     </div>
     <footer className="bv-action-dock" aria-label="이번 공 실행">
+      {onClearPlan&&model.input.actionKind!=='none'&&<button type="button" className="bv-plan-clear" disabled={!model.selection?.canClear} aria-label="선택 해제 · 지켜보기로 전환" onClick={onClearPlan}>해제</button>}
       <BattleAction input={model.input} energy={model.energy} phase={model.phase} onTake={onTake} onSwing={onSwing} onNext={onNext}/>
     </footer>
     </div>

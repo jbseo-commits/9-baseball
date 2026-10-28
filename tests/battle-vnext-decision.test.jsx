@@ -79,7 +79,7 @@ describe('C04 단일 행동 — 문구와 실제 콜백이 같다',()=>{
   it('비용 부족: 이유와 해제 방법을 요약에 보인다',()=>{
     const {container}=panel(vmFor('cost-short'));
     expect(container.querySelector('.bv-plan-problem').textContent).toBe('에너지 부족');
-    expect(container.querySelector('.bv-plan-hint').textContent).toMatch(/다시 누르면 지켜보기/);
+    expect(container.querySelector('.bv-plan-hint').textContent).toMatch(/선택 해제로 지켜보기/);
   });
   it('키 반복으로 두 번 실행되지 않는다',()=>{
     const c=cbs(),{container}=panel(vmFor('swing-main'),c);
