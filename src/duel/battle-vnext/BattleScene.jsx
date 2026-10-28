@@ -3,6 +3,9 @@ import {SCENE,worldCamera,actorBox,cameraMatrix,sceneSnapshot} from './scene-geo
 import coverage from '../../../assets/production-art/mockup-v1-intake/actor-coverage.json';
 import stadiumUrl from '../../../assets/production-art/mockup-v1-intake/stadium-wide.webp';
 import {PILOT_ACTORS,PILOT_MOTION,motionAt,MOTION_CONTACT,MOTION_RELEASE} from './motion-timeline.js';
+import SceneEffects from './SceneEffects.jsx';
+import {sceneEffectAt} from './scene-effects.js';
+import './motion.css';
 import useSceneClock from './use-scene-clock.js';
 import './scene.css';
 
@@ -25,6 +28,7 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
   const rootRef=useRef(null);
   const elapsed=useSceneClock(playback);
   const reduced=playback?.timeline?.duration<=60;
+  const effect=sceneEffectAt({elapsed,playback,result,phase});
   const pose=motionAt({elapsed,timeline:playback?.timeline,action:playback?.action,landed:phase==='result',knockedOut:!!result?.knockedOut,reduced});
   const [measured,setMeasured]=useState(null);
   const onLayoutRef=useRef(onLayout);onLayoutRef.current=onLayout;
@@ -52,6 +56,7 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
   return <section ref={rootRef} className={'bv-scene'+(className?' '+className:'')} aria-label="승부 구장" style={vars}
     data-phase={phase} data-fx-stage={scene?.fxStage||undefined} data-play-token={scene?.playToken??undefined}
     data-shot={scene?.shotGrade||undefined} data-motion={authored?'authored':'static'} data-camera-align={camera.yAlign}>
+    <div className="bv-world-camera" style={{transform:effect?.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:'none'}}>
     <div className="bv-world" aria-hidden="true" style={{width:SCENE.world.width,height:SCENE.world.height,transform:cameraMatrix(camera),visibility:camera.scale?'visible':'hidden'}}>
       <img className="bv-stadium" src={stadiumUrl} alt="" width={SCENE.world.width} height={SCENE.world.height} draggable="false" decoding="async"/>
       {SCENE.shadows.map((s,i)=><i key={i} className="bv-ground-shadow" style={{left:s.x,top:s.y,width:s.width,height:s.height,transform:`rotate(${s.rotation}deg)`}}/>)}
@@ -62,9 +67,11 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
           {url&&(isAtlas?<div className="bv-motion-crop"><img src={url} alt="" width={meta.sourceWidth*meta.columns} height={meta.sourceHeight*meta.rows} draggable="false" decoding="async" style={{width:meta.columns*100+'%',height:meta.rows*100+'%',left:-(frame%meta.columns)*100+'%',top:-Math.floor(frame/meta.columns)*100+'%'}}/></div>:<img src={url} alt="" width={meta.sourceWidth} height={meta.sourceHeight} draggable="false" decoding="async"/>)}
         </div>;
       })}
-    </div>
+      <SceneEffects effect={effect}/>
+    </div></div>
     <div className="bv-scene-shade" aria-hidden="true"/>
     {reviewNotice&&<p className="bv-scene-notice" role="note">그림 포즈 모션 검수{actors.pitcher&&actors.pitcher===SAMPLE_ACTORS.pitcher?' · 샘플 투수':''}</p>}
+    {effect?.kind==='exact'&&effect.flash>0&&<div className="bv-contact-focus" style={{opacity:effect.flash*.65}} aria-hidden="true"/>}
     {children}
   </section>;
 }

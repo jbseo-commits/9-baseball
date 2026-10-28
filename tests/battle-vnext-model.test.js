@@ -147,7 +147,8 @@ describe('정보 경계 — 읽기 단계 아래의 정답·정확 확률이 섞
     expect(vm.zones.cells.every(c=>c.face===null)).toBe(true);
     expect(vm.hud.count).toEqual({balls:r.ballsBefore,strikes:r.strikesBefore,outs:r.outsBefore});
     expect(vm.hud.pitcher.hp).toBe(input.s.v10.lastCombat.hpBefore);
-    expect(vm.scene.pitchZone).toBe(r.zone); // 연출용: 이미 판정된 공의 도착 칸
+    expect(vm.scene.pitchZone).toBeNull(); // 비행중 새 효과/DOM에도 실제 코스 유출 없음
+    expect(vm.scene.shotGrade).toBeNull();
   });
 });
 

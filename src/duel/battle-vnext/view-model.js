@@ -217,13 +217,14 @@ export function buildBattleViewModel({
     result={call,label:r.label||'',kind:r.kind,action:r.action==='take'?'take':'swing',
       good:r.kind==='hit'||r.kind==='sacrifice'||call==='볼넷',exact:isExactRead(s),assistOnly:!!r.assistOnly,
       aimZone:swung?r.aimZone:null,actualZone:r.zone,outside,outsideNote:outside?(swung?'볼에 손이 나갔다':'볼을 골라냈다'):'',
+      coverage:[...(r.coverage||[])],primaryCoverage:[...(r.primaryCoverage||[])],supportCoverages:(r.supportCoverages||[]).map(x=>({...x,coverage:[...(x.coverage||[])]})),
       explanation:resultExplanation(s),damage:Math.max(0,combat?.damage??pitcher?.lastDamage??0),
       hpBefore,hpAfter:pitcher?.hp??null,knockedOut:(pitcher?.hp??1)===0,moves,
       next:s.phase==='pitch'?'pitch':s.phase==='between'?'batter':null};
   }
 
-  const scene={artId,playToken,fxStage,shotGrade:shot?.grade||shot?.kind||null,
-    pitchZone:judged?r.zone:null,knockedOut:judged&&((pre?hpBefore:pitcher?.hp)??1)===0,motionEnabled:false};
+  const scene={artId,playToken,fxStage,shotGrade:landed?(shot?.grade||shot?.kind||null):null,
+    pitchZone:landed?r.zone:null,knockedOut:landed&&(pitcher?.hp??1)===0,motionEnabled:false};
   /* 준비 유지 효과: 선택 중, 그리고 같은 타자의 다음 공을 기다리는 동안 (BallparkBattle prepEffects와 같다) */
   const effects=deciding||(landed&&!fxStage&&!locked&&s.phase==='pitch')?activePreparationFeedback(b,s.phase):[];
   return {phase,input,energy,hand:ordered,zones,forecast,hud,result,scene,effects};

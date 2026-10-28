@@ -33,7 +33,7 @@ describe('C01 independent review: last pitch and reveal boundary',()=>{
     const flight=buildBattleViewModel({s:after,fxStage:'windup'});
     expect(flight.phase).toBe('flight');
     expect(flight.result).toBeNull();
-    expect(flight.scene.pitchZone).toBe(after.battle.revealed.zone);
+    expect(flight.scene.pitchZone).toBeNull();expect(flight.scene.shotGrade).toBeNull();
     expect(flight.hud.pitcher).toMatchObject({hp:1,phase:'critical'});
     const landed=buildBattleViewModel({s:after,fxStage:'impact'});
     expect(landed.phase).toBe('result');

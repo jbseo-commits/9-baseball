@@ -45,7 +45,7 @@ export default function ResultReadout({result=null,shotGrade=null,variant='stage
     // Decorative counterpart of the rail's one live result announcement.
     // No explanation/damage duplication, no outcome before impact.
     return <div className={'bv-result-spotlight t-'+tone.key} data-testid="bv-result-spotlight" aria-hidden="true">
-      <span>{tone.key==='exact'?'읽었다!':tone.label}</span><strong>{result.call||tone.label}</strong>
+      <span>{['exact','near'].includes(tone.key)?result.call||tone.label:tone.label}</span><strong>{tone.key==='exact'?'읽었다!':tone.key==='near'?'한 칸 차이':result.call||tone.label}</strong>
     </div>;
   }
   if(variant==='line'){
