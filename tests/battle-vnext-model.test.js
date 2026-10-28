@@ -19,7 +19,7 @@ describe('battle-vnext fixtures — 본편 엔진으로 만든 고정 상태',()
   it('모든 fixture가 기대 phase로 만들어지고 생산 세이브 저장소를 건드리지 않는다',()=>{
     const touch=()=>{throw new Error('fixture가 storage에 접근했다');};
     vi.stubGlobal('localStorage',{getItem:touch,setItem:touch,removeItem:touch,clear:touch,key:touch,length:0});
-    const want={flight:'flight','result-swing':'result','result-hit':'result','result-take':'result'};
+    const want={flight:'flight','result-swing':'result','result-hit':'result','result-near':'result','result-take':'result'};
     for(const f of VNEXT_FIXTURES){
       const {vm}=vmOf(f.id);
       expect(vm.phase,f.id).toBe(want[f.id]||'deciding');
@@ -73,7 +73,7 @@ describe('view model은 순수 표시 변환이다',()=>{
 });
 
 describe('정보 경계 — 읽기 단계 아래의 정답·정확 확률이 섞이지 않는다',()=>{
-  const deciding=VNEXT_FIXTURES.filter(f=>f.id!=='defense-lab'&&!['flight','result-swing','result-hit','result-take'].includes(f.id));
+  const deciding=VNEXT_FIXTURES.filter(f=>f.id!=='defense-lab'&&!['flight','result-swing','result-hit','result-take','result-near'].includes(f.id));
 
   it('숨은 판정 값의 키가 view model에 없다',()=>{
     for(const f of VNEXT_FIXTURES){

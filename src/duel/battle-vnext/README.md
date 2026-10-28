@@ -159,3 +159,7 @@ Codex의 조사 문서(“배틀쉽식 규칙 후보 — 현재 9ZONE 적용 비
 ## C05 부분 인수
 
 `BattleView`와 명시적 메모리 검수 route가 연결됐다. [통합 계약 및 제한](../../../docs/design/mockup-v1-integration/README.md)과 [검증 기록](../../../docs/qa/mockup-v1-integration/RESULTS.md)이 현재 기준이며 위 C05 메모는 착수 전 기록이다. 실제 artId 매핑·첫 연습 표시 이식은 남아 있어 G1 완료가 아니다.
+
+## 가로 사용성 보완
+
+사용자 지시로 추가 개선은 가로에 집중한다. `BattleAction`은 기존 DecisionPanel inline 또는 BattleView command rail footer 중 한 곳에서만 렌더한다. 설명만 스크롤하고 동적 행동은 남는다. Spotlight는 실제 공개 결과의 call/tag만 시각 강조하며 해설/피해/라이브 알림은 기존 rail에 유지한다. [가로 검수](../../../docs/qa/mockup-v1-usability/RESULTS.md).

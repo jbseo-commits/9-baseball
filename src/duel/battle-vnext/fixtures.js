@@ -80,6 +80,8 @@ export const VNEXT_FIXTURES=Object.freeze([
   /* 이 seed의 첫 공은 바깥쪽 높게(2)로 온다: 같은 코스를 노리면 정확 적중 */
   {id:'result-hit',title:'정확 적중 결과',rules:'main-run',seed:FIXTURE_SEED,
     steps:[...OPEN,{op:'aim',zone:2},{op:'play',card:'strike'}],ui:{hasNext:true}},
+  {id:'result-near',title:'한 칸 차이 실패',rules:'main-run',seed:FIXTURE_SEED,
+    steps:[...OPEN,{op:'aim',zone:1},{op:'play',card:'strike'}],ui:{hasNext:true}},
   {id:'result-take',title:'지켜보기 결과',rules:'main-run',seed:FIXTURE_SEED,steps:[...OPEN,{op:'take'}],ui:{hasNext:true}},
   {id:'defense-lab',title:'방어 실험 규칙 (본 런 아님)',rules:'defense-lab',seed:20261022,steps:[{op:'defense-lab'}],ui:{},defenseLab:true},
 ]);

@@ -37,18 +37,10 @@ export function planSummary({hand=[],forecast=null,input=null,energy=null,effect
 }
 
 export default function DecisionPanel({zones=null,forecast=null,input=null,hand=[],energy=null,result=null,phase='deciding',effects=[],
-  shotGrade=null,recent=null,onZoneTap,onZoneHover=null,onTake,onSwing,onNext}){
-  const fired=useRef(false);
-  useEffect(()=>{fired.current=false;},[input?.actionKind,input?.canExecute,phase]);
+  shotGrade=null,recent=null,showAction=true,onZoneTap,onZoneHover=null,onTake,onSwing,onNext}){
   if(!zones||!input)return null;
   const deciding=phase==='deciding',sum=deciding?planSummary({hand,forecast,input,energy,effects}):null;
-  const handlers={onTake,onSwing,onNext};
-  const run=()=>{
-    if(fired.current||!input.canExecute||!input.callback)return;
-    fired.current=true;handlers[input.callback]?.();
-  };
   const caption=planCaption(zones);
-  const cost=input.actionKind==='swing'||input.actionKind==='prepare'?energy?.selectedCost:null;
   return <section className={'bv-decision'+(zones.targetingSupport?' is-targeting':'')} data-testid="bv-decision" data-phase={phase} aria-label="코스와 행동">
     <p className="bv-zone-caption"><span>{caption||(deciding?'노릴 코스':'')}</span>{deciding&&zones.clue&&<b>단서 적용</b>}</p>
     <div className="bv-zone" role="group" aria-label="노릴 코스" data-read-level={zones.level}>
@@ -88,6 +80,23 @@ export default function DecisionPanel({zones=null,forecast=null,input=null,hand=
       {deciding&&<ResultReadout recent={recent}/>}
     </div>
 
+    {showAction&&<BattleAction input={input} energy={energy} phase={phase} onTake={onTake} onSwing={onSwing} onNext={onNext}/>}
+  </section>;
+}
+
+
+/* The sole action may be mounted by BattleView's persistent dock or inline by
+   standalone DecisionPanel. Identical input lock and repeated-click guard. */
+export function BattleAction({input,energy,phase='deciding',onTake,onSwing,onNext}){
+  const fired=useRef(false);
+  useEffect(()=>{fired.current=false;},[input?.actionKind,input?.canExecute,phase]);
+  if(!input)return null;
+  const cost=input.actionKind==='swing'||input.actionKind==='prepare'?energy?.selectedCost:null;
+  const run=()=>{
+    if(fired.current||!input.canExecute||!input.callback)return;
+    fired.current=true;({onTake,onSwing,onNext})[input.callback]?.();
+  };
+  return (
     <button type="button" className={'bv-action k-'+input.actionKind} data-testid={input.actionKind==='next'?'bp-next':'bp-swing'}
       data-action-kind={input.actionKind} aria-label={input.ariaLabel||input.actionLabel} aria-busy={input.actionKind==='busy'}
       aria-disabled={!input.canExecute||undefined} disabled={!input.canExecute}
@@ -97,5 +106,5 @@ export default function DecisionPanel({zones=null,forecast=null,input=null,hand=
       {input.actionKind==='watch'&&energy?.nextTakeHint&&<small aria-hidden="true">{energy.nextTakeHint}</small>}
       {(input.actionKind==='swing'||input.actionKind==='prepare')&&<span className="bv-action-arrow" aria-hidden="true">↗</span>}
     </button>
-  </section>;
+  );
 }

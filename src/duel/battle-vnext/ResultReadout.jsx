@@ -41,6 +41,13 @@ export default function ResultReadout({result=null,shotGrade=null,variant='stage
   }
   const tone=resultTone(result,shotGrade),dmg=damageText(result,tone);
   const moves=result.moves||[],extra=moves.length-MOVES_SHOWN;
+  if(variant==='spotlight'){
+    // Decorative counterpart of the rail's one live result announcement.
+    // No explanation/damage duplication, no outcome before impact.
+    return <div className={'bv-result-spotlight t-'+tone.key} data-testid="bv-result-spotlight" aria-hidden="true">
+      <span>{tone.key==='exact'?'읽었다!':tone.label}</span><strong>{result.call||tone.label}</strong>
+    </div>;
+  }
   if(variant==='line'){
     return <p className={'bv-result-line t-'+tone.key} data-testid="bv-result-line" role="status" title={result.explanation}>
       <b>{tone.label}</b><span>{result.explanation}</span>{dmg&&<em>{dmg}</em>}

@@ -1,6 +1,6 @@
 /* C04 결정 영역 · HUD · 결과. .bv-decision / .bv-hud / .bv-result* 아래만 칠한다 — 전역 셀렉터 없음.
    토큰은 선정 목업(reference/style.css): 짙은 청록 패널 · 크림 글자 · 주황 메인 · 청록 지원 */
-.bv-decision,.bv-hud,.bv-result,.bv-result-line,.bv-result-recent{
+.bv-decision,.bv-hud,.bv-action,.bv-result,.bv-result-line,.bv-result-recent{
   --bv-ink:#12272b;--bv-paper:#f5edda;--bv-orange:#f87943;--bv-teal:#8ad1c1;--bv-muted:#b1c5b7;--bv-panel:#10272bea;
   font-family:'Noto Sans KR',system-ui,sans-serif;color:var(--bv-paper);
 }

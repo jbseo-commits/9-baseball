@@ -175,3 +175,8 @@ PR / 프리뷰 / 배포 상태: feat/mockup-battle-v1 로컬 커밋, 10f4c0d 이
 [구현 범위·연결·인수 제한](../mockup-v1-integration/README.md) / [영향도 분석](../mockup-v1-integration/IMPACT.md) / [검증 및 실 캡처](../../qa/mockup-v1-integration/RESULTS.md).
 
 **C05/G1 미완료**: approvedArtIds=[] 유지, 실제 상대의 새 원화 연결 없음. 첫 연습은 기존 표현 경로 유지. 별도 브랜치/PR까지이며 main 기본 화면 전환/배포 없음. 다음: 실제 상대 원화 매핑 검수 → 새 View 실제 런 G1 → C06.
+
+
+## C05 가로 사용성 보완 — 2026-10-28 · Codex
+
+사용자 지시 “세로는 생각하지마, 가로로 개선하고 완성하자”에 따라 가로만 추가 개선. 동일 PR #66, 단일 command rail 행동·실제 결과 spotlight·완전한 인과 해설·키보드 포커스 보완. [사전 영향도](../mockup-v1-usability/IMPACT.md) / [가로24조합·production 실 조작·전체1345테스트](../../qa/mockup-v1-usability/RESULTS.md). 기존 원화 승인/G1 제한은 유지된다.
