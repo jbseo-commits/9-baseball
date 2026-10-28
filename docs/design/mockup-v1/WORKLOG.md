@@ -190,3 +190,7 @@ PR / 프리뷰 / 배포 상태: feat/mockup-battle-v1 로컬 커밋, 10f4c0d 이
 ## 가로 직접 선택 보완 — 2026-10-28 · Codex
 
 사용자 ‘코스와 카드 선택이 번거로움’ 피드백 반영. vnext 일반 카드 탭의 암묵적 지원 전환을 제거하고 교체/안정된 재탭/선명한 코스 선택으로 통일. 가능할 때만 명시적 겹치기, 실행 옆 고정44px 해제. 실측으로 작은 화면의 해제/피해 설명 잘림을 수정했다. engine/legacy/save/판정 불변. [영향도](../direct-selection/IMPACT.md) · [실제 터치와 회귀 검증](../../qa/direct-selection/RESULTS.md). 동일 PR66, 가로 우선.
+
+## 두 전투UI 비교 페이지 — 2026-10-29 KST · Codex
+
+사용자 요청에 따라 별도query 비교 페이지: Desktop나란히/휴대폰가로A·B탭, 같은 엔진fixture/공통초기화/독립조작/저장격리. 기존 productionDOM배우와 wrapper를 재사용하고 새UI와 실제 조작비교. 숨긴iframe은입력·다음공 잠금, 비교오류복구는 실제 저장 삭제 기능 없음. [설계/영향도](../battle-comparison/README.md) · [실제브라우저/회귀](../../qa/battle-comparison/RESULTS.md). 동일PR66/branchpreview이며main기본화면은변경하지 않는다.

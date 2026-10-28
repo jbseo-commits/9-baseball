@@ -111,7 +111,7 @@ export default function BallparkBattle({
   const vnextRequested=battleUiMode().vnext;
   const approvedArt=approvedPitcherArt(artId);
   // Only a labeled, memory-only review harness may opt into the sample actor.
-  const useVnext=vnextRequested&&!autoLesson&&!defenseLab&&!!(approvedArt||vnextReview);
+  const useVnext=vnextRequested&&!autoLesson&&!defenseLab&&vnextReview?.variant!=='legacy'&&!!(approvedArt||vnextReview);
   const handDockRef=useRef(null);
   const [recentResult,setRecentResult]=useState(null);
   const b=s.battle||{},rootRef=useRef(null),sceneRef=useRef(null),pitcherRef=useRef(null),zoneRef=useRef(null),flightRef=useRef(null),stageRef=useRef(null);
