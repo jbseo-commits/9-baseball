@@ -3,6 +3,7 @@ import BattleScene from './BattleScene.jsx';
 import BattleHud from './BattleHud.jsx';
 import HandDock from './HandDock.jsx';
 import DecisionPanel,{BattleAction} from './DecisionPanel.jsx';
+import {cinemaMoment} from './cinema-director.js';
 import ResultReadout from './ResultReadout.jsx';
 import './layout.css';
 
@@ -11,10 +12,12 @@ import './layout.css';
 export default function BattleView({model,actors,playback=null,execution=null,rootRef,sceneRef,zoneRef,handRef,title,review=false,
   inspector=null,menuOpen=false,recent=null,onMenu,onCardTap,onCardDetail,onPiles,onZoneTap,onZoneHover,
   onPointerDown,onPointerMove,onPointerUp,onPointerCancel,onTake,onSwing,onNext,piles}){
+  const finale=cinemaMoment(model.result,model.scene.fxStage,!!playback);
+  const spotlight=model.result&&playback&&!finale?{...model.result,knockedOut:false}:model.result;
   return <main ref={rootRef} className={'battle-vnext'+(menuOpen?' inspecting':'')} data-phase={model.phase} style={{'--bv-verdict-delay':playback?'120ms':'0ms'}} aria-label="타석">
     <div className="bv-stage" ref={sceneRef}>
-      <BattleScene playback={playback} result={model.result} scene={model.scene} actors={actors} phase={model.phase} reserveHand>
-        {model.phase==='result'&&model.result&&<ResultReadout result={model.result} shotGrade={model.scene.shotGrade} variant="spotlight"/>}
+      <BattleScene playback={playback} result={model.result} finale={finale} scene={model.scene} actors={actors} phase={model.phase} reserveHand>
+        {model.phase==='result'&&model.result&&<ResultReadout finale={finale} result={spotlight} shotGrade={model.scene.shotGrade} variant="spotlight"/>}
       </BattleScene>
     </div>
     <BattleHud result={model.result} playback={playback} resultKey={model.scene.playToken} hud={model.hud} forecast={model.forecast} sources={model.zones?.sources} phase={model.phase}

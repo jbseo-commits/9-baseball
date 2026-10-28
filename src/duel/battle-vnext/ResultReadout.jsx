@@ -33,19 +33,19 @@ export function damageText(result,tone){
 
 const MOVES_SHOWN=3;
 
-export default function ResultReadout({result=null,shotGrade=null,variant='stage',recent=null}){
+export default function ResultReadout({result=null,shotGrade=null,variant='stage',recent=null,finale=null}){
   /* 다음 선택 중: 부모가 남긴 최근 결과 한 줄만 */
   if(!result){
     if(!recent)return null;
     return <p className="bv-result-recent" data-testid="bv-result-recent" role="status">{recent}</p>;
   }
-  const tone=resultTone(result,shotGrade),dmg=damageText(result,tone);
+  const tone=variant==='spotlight'&&finale?{key:finale,label:finale==='homer'?'홈런':'강판'}:resultTone(result,shotGrade),dmg=damageText(result,tone);
   const moves=result.moves||[],extra=moves.length-MOVES_SHOWN;
   if(variant==='spotlight'){
     // Decorative counterpart of the rail's one live result announcement.
     // No explanation/damage duplication, no outcome before impact.
     return <div className={'bv-result-spotlight t-'+tone.key} data-testid="bv-result-spotlight" aria-hidden="true">
-      <span>{['exact','near'].includes(tone.key)?result.call||tone.label:tone.label}</span><strong>{tone.key==='exact'?'읽었다!':tone.key==='near'?'한 칸 차이':result.call||tone.label}</strong>
+      <span>{finale?(finale==='knockout'?'투수 HP 0 · 승부를 끝냈다':result.exact?'코스를 읽어낸 한 방':'담장을 넘겼다'):['exact','near'].includes(tone.key)?result.call||tone.label:tone.label}</span><strong>{finale==='knockout'?'강판':finale==='homer'?(/만루/.test(result.call||'')?'만루홈런':'홈런'):tone.key==='exact'?'읽었다!':tone.key==='near'?'한 칸 차이':result.call||tone.label}</strong>
     </div>;
   }
   if(variant==='line'){

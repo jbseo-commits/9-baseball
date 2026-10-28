@@ -9,8 +9,8 @@ import './motion.css';
 import useSceneClock from './use-scene-clock.js';
 import './scene.css';
 
-/* C02 — 구장과 배우를 한 카메라로 그린다. 정지 원화 단계이며 동작은 C06.
-   엔진 판정·다음 공을 부르지 않는다. playToken/fxStage는 data 속성으로만 노출한다. */
+/* Registered authored poses and VFX share one camera and host clock.
+   This render-only scene never judges or advances the engine. */
 
 /* 선정 정지 포즈. 어떤 기존 상대 artId에도 승인된 매핑이 없다(actor-coverage.json approvedArtIds=[]).
    검토 화면·fixture에서만 명시적으로 넘긴다. 실제 상대를 이 그림으로 몰래 대체하지 않는다. */
@@ -24,7 +24,7 @@ export function approvedPitcherArt(artId){
 
 const ACTORS=['pitcher','batter'];
 
-export default function BattleScene({scene=null,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,playback=null,result=null}){
+export default function BattleScene({scene=null,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,playback=null,result=null,finale=null}){
   const rootRef=useRef(null);
   const elapsed=useSceneClock(playback);
   const reduced=playback?.timeline?.duration<=60;
@@ -47,7 +47,7 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
   const inset=reserveHand&&box.width>=box.height&&box.height<=540?Math.min(30,box.height*.09):0;
   const camera=worldCamera(box.width,Math.max(1,box.height-inset));
   const snap=box.width>0&&box.height>0?sceneSnapshot(box.width,box.height,inset):null;
-  useLayoutEffect(()=>{if(snap)onLayoutRef.current?.(snap);},[box.width,box.height,inset]);// eslint-disable-line react-hooks/exhaustive-deps
+  useLayoutEffect(()=>{if(snap){const at=p=>({x:p.x*camera.scale+camera.x,y:p.y*camera.scale+camera.y});const pilot=actors.batter===SAMPLE_ACTORS.batter||actors.pitcher===SAMPLE_ACTORS.pitcher;onLayoutRef.current?.(pilot?{...snap,contact:at(MOTION_CONTACT),release:at(MOTION_RELEASE)}:snap);}},[box.width,box.height,inset,actors.batter,actors.pitcher]);// eslint-disable-line react-hooks/exhaustive-deps
   const authored=actors.batter===SAMPLE_ACTORS.batter||actors.pitcher===SAMPLE_ACTORS.pitcher;
   const at=p=>({x:p.x*camera.scale+camera.x,y:p.y*camera.scale+camera.y});
   const contact=at(authored?MOTION_CONTACT:SCENE.sampleFlight.contact),release=at(authored?MOTION_RELEASE:SCENE.sampleFlight.release);
@@ -67,11 +67,12 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
           {url&&(isAtlas?<div className="bv-motion-crop"><img src={url} alt="" width={meta.sourceWidth*meta.columns} height={meta.sourceHeight*meta.rows} draggable="false" decoding="async" style={{width:meta.columns*100+'%',height:meta.rows*100+'%',left:-(frame%meta.columns)*100+'%',top:-Math.floor(frame/meta.columns)*100+'%'}}/></div>:<img src={url} alt="" width={meta.sourceWidth} height={meta.sourceHeight} draggable="false" decoding="async"/>)}
         </div>;
       })}
-      <SceneEffects effect={effect}/>
+      <SceneEffects effect={effect} finale={finale}/>
     </div></div>
     <div className="bv-scene-shade" aria-hidden="true"/>
     {reviewNotice&&<p className="bv-scene-notice" role="note">그림 포즈 모션 검수{actors.pitcher&&actors.pitcher===SAMPLE_ACTORS.pitcher?' · 샘플 투수':''}</p>}
     {effect?.kind==='exact'&&effect.flash>0&&<div className="bv-contact-focus" style={{opacity:effect.flash*.65}} aria-hidden="true"/>}
+    {finale&&<div className={"bv-finale-focus f-"+finale} aria-hidden="true"/>}
     {children}
   </section>;
 }

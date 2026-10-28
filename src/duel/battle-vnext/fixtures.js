@@ -3,7 +3,7 @@
    seed와 steps가 곧 재현 기록이다. 엔진 밖에서 손댄 단계는 op 이름에 grant를 붙여 구별한다.
    storage를 받지 않으므로 생산 세이브(9zone-v10-run)를 읽거나 쓰지 않는다. */
 import {createV10Duel,enterV10Node,setAimZone,playV10Action,advanceV10Pitch,previewCard,previewV10Stack,
-  createDefenseLabState} from '../engine.js';
+  createDefenseLabState,applyStartPack} from '../engine.js';
 import {captureExecution} from '../presentation-snapshot.js';
 import {CARDS} from '../cards.js';
 import {coverageText} from '../information.js';
@@ -38,6 +38,9 @@ function runSteps(seed,steps){
   for(const st of steps){
     if(st.op==='new')s=createV10Duel(seed);
     else if(st.op==='defense-lab')s=createDefenseLabState(seed,st.pack||'link',st.scenario||'normal');
+    else if(st.op==='start-pack')s=applyStartPack(s,st.pack);
+    /* Explicit diagnostic HP setup; the actual attack/KO is still engine-resolved. */
+    else if(st.op==='grant-hp')s={...s,pitcher:{...s.pitcher,hp:st.hp}};
     else if(st.op==='enter')s=enterV10Node(s,st.node);
     else if(st.op==='aim')s=setAimZone(s,st.zone);
     else if(st.op==='take'){const before=s;s=playV10Action(s,{type:'take'});execution=captureExecution(before,s);}
@@ -84,6 +87,10 @@ export const VNEXT_FIXTURES=Object.freeze([
   {id:'result-near',title:'한 칸 차이 실패',rules:'main-run',seed:FIXTURE_SEED,
     steps:[...OPEN,{op:'aim',zone:1},{op:'play',card:'strike'}],ui:{hasNext:true}},
   {id:'result-take',title:'지켜보기 결과',rules:'main-run',seed:FIXTURE_SEED,steps:[...OPEN,{op:'take'}],ui:{hasNext:true}},
+  {id:'cinema-exact',title:'연출 · 정확 적중',rules:'main-run',seed:FIXTURE_SEED,steps:[...OPEN,{op:'aim',zone:2},{op:'play',card:'strike'}],ui:{animate:true,hasNext:true}},
+  {id:'cinema-near',title:'연출 · 한 칸 차이',rules:'main-run',seed:FIXTURE_SEED,steps:[...OPEN,{op:'aim',zone:1},{op:'play',card:'strike'}],ui:{animate:true,hasNext:true}},
+  {id:'cinema-homer',title:'연출 · 홈런',rules:'main-run',seed:5,steps:[{op:'new'},{op:'start-pack',pack:'power'},{op:'enter',node:FIXTURE_NODE},{op:'aim',zone:6},{op:'play',card:'slug'}],ui:{animate:true,hasNext:true}},
+  {id:'cinema-knockout',title:'연출 · 강판 (HP 1 검수)',rules:'main-run',seed:FIXTURE_SEED,steps:[...OPEN,{op:'grant-hp',hp:1},{op:'aim',zone:2},{op:'play',card:'strike'}],ui:{animate:true,hasNext:true}},
   {id:'defense-lab',title:'방어 실험 규칙 (본 런 아님)',rules:'defense-lab',seed:20261022,steps:[{op:'defense-lab'}],ui:{},defenseLab:true},
 ]);
 
@@ -97,8 +104,8 @@ export function buildFixture(idOrFixture){
   const swingStack=(ui.stack||[]).map(x=>({id:idOf(x.card),aimZone:x.aimZone}));
   const {hand,choice,swingStack:active}=s.phase==='battle'?appInputs(s,{selected,swingStack}):{hand:appInputs(s).hand,choice:null,swingStack:[]};
   const nextLabel=s.phase==='pitch'?'다음 공':s.phase==='between'?'다음 타자':'';
-  return {s,execution,hand,selected,swingStack:active,choice,
-    armed:ui.armed?idOf(ui.armed):null,inspectOpen:!!ui.inspectOpen,fxStage:ui.fxStage||null,
+  return {s,execution,animate:!!ui.animate,hand,selected,swingStack:active,choice,
+    armed:ui.armed?idOf(ui.armed):null,inspectOpen:!!ui.inspectOpen,fxStage:ui.animate?'windup':ui.fxStage||null,
     hasNext:!!ui.hasNext&&!!nextLabel,nextLabel,playToken:s.stats?.pitches||0,
     artId:s.v10?.opponent?.artId||null,defenseLab:f.defenseLab?s.defenseLab:null};
 }

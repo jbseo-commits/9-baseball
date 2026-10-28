@@ -19,7 +19,7 @@ describe('battle-vnext fixtures — 본편 엔진으로 만든 고정 상태',()
   it('모든 fixture가 기대 phase로 만들어지고 생산 세이브 저장소를 건드리지 않는다',()=>{
     const touch=()=>{throw new Error('fixture가 storage에 접근했다');};
     vi.stubGlobal('localStorage',{getItem:touch,setItem:touch,removeItem:touch,clear:touch,key:touch,length:0});
-    const want={flight:'flight','result-swing':'result','result-hit':'result','result-near':'result','result-take':'result'};
+    const want={'cinema-exact':'flight','cinema-near':'flight','cinema-homer':'flight','cinema-knockout':'flight',flight:'flight','result-swing':'result','result-hit':'result','result-near':'result','result-take':'result'};
     for(const f of VNEXT_FIXTURES){
       const {vm}=vmOf(f.id);
       expect(vm.phase,f.id).toBe(want[f.id]||'deciding');

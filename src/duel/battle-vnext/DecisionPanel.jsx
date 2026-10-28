@@ -82,7 +82,7 @@ export default function DecisionPanel({zones=null,forecast=null,input=null,hand=
         ?<ResultReadout result={result} shotGrade={shotGrade} variant="line"/>
         :execution?.preparation&&['impact','slowmo','release','settle'].includes(scene?.fxStage)?<div className="bv-preparation-confirm" role="status"><b>{execution.preparation.name} · 적용</b><span>{execution.preparation.detail}</span></div>
         :<p className="bv-plan-detail">{phase==='flight'||phase==='committing'?(execution?.action==='prepare'?'준비 효과 적용 중':'공을 기다린다'):''}</p>)}
-      {result&&<ResultSequence result={result} execution={execution}/>}
+      {result&&<ResultSequence hideHp result={result} execution={execution}/>}
       {deciding&&<ResultReadout recent={recent}/>}
     </div>
 
@@ -96,7 +96,7 @@ export default function DecisionPanel({zones=null,forecast=null,input=null,hand=
 export function BattleAction({input,energy,phase='deciding',onTake,onSwing,onNext}){
   const fired=useRef(false);
   useEffect(()=>{fired.current=false;},[input?.actionKind,input?.canExecute,phase]);
-  if(!input)return null;
+  if(!input||(input.actionKind==='none'&&phase==='result'))return null;
   const cost=input.actionKind==='swing'||input.actionKind==='prepare'?energy?.selectedCost:null;
   const run=()=>{
     if(fired.current||!input.canExecute||!input.callback)return;
