@@ -11,7 +11,7 @@
 - 실제 접촉/근접 실패/홈런/강판을 같은 presentation 시계로 고정 촬영. [프레임/포즈 기록](final-captures.json), 아래 대표 장면.
 - 독립 읽기 전용 reviewer: clock/snapshot/effects/motion/finale 25개 테스트 및844×390 최종 장면 확인, 검토 범위 내 blocker 없음. 지연 복귀 시 CSS 확인 애니메이션이 다시 짧게 재생될 수 있다는 비차단 의견은 남긴다. 게임 판정/자동 진행/소리의 중복은 방지한다.
 - production build + `check:dist`: **59.9MB / 60MB**, 예산 증액 없음. [빌드 로그](build.txt). 새 runtime atlas651,516B, 원본/무손실 atlas는 배포하지 않는다.
-- GitHub Pages branch 배포 후 실제 공개 번들·재생 검증은 [deployed.json](deployed.json)에 기록한다. production root는 main에서 빌드되는 기존 정책을 유지한다.
+- GitHub Pages branch 배포 후 실제 공개 번들·재생 검증 결과는 [PR #66](https://github.com/jbseo-commits/9-baseball/pull/66)의 배포 확인 항목에 기록한다. production root는 main에서 빌드되는 기존 정책을 유지한다.
 
 ## 실제 브라우저 영상과 소리
 
