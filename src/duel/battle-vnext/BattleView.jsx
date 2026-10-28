@@ -13,7 +13,7 @@ export default function BattleView({model,actors,playback=null,rootRef,sceneRef,
   onPointerDown,onPointerMove,onPointerUp,onPointerCancel,onTake,onSwing,onNext,piles}){
   return <main ref={rootRef} className={'battle-vnext'+(menuOpen?' inspecting':'')} data-phase={model.phase} aria-label="타석">
     <div className="bv-stage" ref={sceneRef}>
-      <BattleScene playback={playback} scene={model.scene} actors={actors} phase={model.phase} reserveHand>
+      <BattleScene playback={playback} result={model.result} scene={model.scene} actors={actors} phase={model.phase} reserveHand>
         {model.phase==='result'&&model.result&&<ResultReadout result={model.result} shotGrade={model.scene.shotGrade} variant="spotlight"/>}
       </BattleScene>
     </div>
@@ -35,6 +35,6 @@ export default function BattleView({model,actors,playback=null,rootRef,sceneRef,
     </footer>
     </div>
     {menuOpen&&<div className="bv-inspector-area">{inspector}</div>}
-    {review&&<p className="bv-review-notice">메모리 검수 · 샘플 투수 · 정지 원화</p>}
+    {review&&<p className="bv-review-notice">메모리 검수 · 샘플 배우</p>}
   </main>;
 }

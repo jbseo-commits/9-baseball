@@ -1,0 +1,686 @@
+{
+  "schema": 1,
+  "scope": "explicit sample-actor landscape preview; existing roster mapping unchanged",
+  "authoredBatterPoses": 14,
+  "authoredPitcherPoses": 5,
+  "not120IndependentDrawings": true,
+  "handedness": {
+    "batter": "right",
+    "pitcher": "right",
+    "pitcherGlove": "left"
+  },
+  "batter": {
+    "file": "batter-atlas.webp",
+    "sourceWidth": 640,
+    "sourceHeight": 640,
+    "columns": 4,
+    "rows": 4,
+    "frames": [
+      {
+        "id": 0,
+        "name": "ready",
+        "source": "assets/production-art/landscape-cinema/source/batter-keys.png",
+        "crop": [
+          0,
+          0,
+          512,
+          520
+        ],
+        "sourceFoot": [
+          233.0,
+          516
+        ],
+        "sourceHeadY": 65,
+        "scale": 0.9977827050997783,
+        "registration": [
+          -82,
+          75
+        ],
+        "foot": [
+          150,
+          590
+        ],
+        "alphaBounds": [
+          34,
+          80,
+          298,
+          591
+        ]
+      },
+      {
+        "id": 1,
+        "name": "half-load",
+        "source": "assets/production-art/landscape-cinema/source/batter-bridges.png",
+        "crop": [
+          0,
+          0,
+          512,
+          520
+        ],
+        "sourceFoot": [
+          195.0,
+          513
+        ],
+        "sourceHeadY": 63,
+        "scale": 1.0,
+        "registration": [
+          -45,
+          77
+        ],
+        "foot": [
+          150,
+          590
+        ],
+        "alphaBounds": [
+          28,
+          83,
+          305,
+          591
+        ]
+      },
+      {
+        "id": 2,
+        "name": "load",
+        "source": "assets/production-art/landscape-cinema/source/batter-keys.png",
+        "crop": [
+          512,
+          0,
+          1024,
+          520
+        ],
+        "sourceFoot": [
+          235.0,
+          515
+        ],
+        "sourceHeadY": 64,
+        "scale": 0.9977827050997783,
+        "registration": [
+          -84,
+          76
+        ],
+        "foot": [
+          150,
+          590
+        ],
+        "alphaBounds": [
+          5,
+          84,
+          267,
+          591
+        ]
+      },
+      {
+        "id": 3,
+        "name": "stride",
+        "source": "assets/production-art/landscape-cinema/source/batter-bridges.png",
+        "crop": [
+          512,
+          0,
+          1024,
+          520
+        ],
+        "sourceFoot": [
+          185.0,
+          513
+        ],
+        "sourceHeadY": 63,
+        "scale": 1.0,
+        "registration": [
+          -35,
+          77
+        ],
+        "foot": [
+          150,
+          590
+        ],
+        "alphaBounds": [
+          31,
+          91,
+          426,
+          591
+        ]
+      },
+      {
+        "id": 4,
+        "name": "plant",
+        "source": "assets/production-art/landscape-cinema/source/batter-keys.png",
+        "crop": [
+          1024,
+          0,
+          1536,
+          520
+        ],
+        "sourceFoot": [
+          161.0,
+          514
+        ],
+        "sourceHeadY": 64,
+        "scale": 1.0,
+        "registration": [
+          -11,
+          76
+        ],
+        "foot": [
+          150,
+          590
+        ],
+        "alphaBounds": [
+          51,
+          91,
+          409,
+          591
+        ]
+      },
+      {
+        "id": 5,
+        "name": "hip-drive",
+        "source": "assets/production-art/landscape-cinema/source/batter-drive.png",
+        "crop": [
+          0,
+          0,
+          631,
+          623
+        ],
+        "sourceFoot": [
+          255.0,
+          622
+        ],
+        "sourceHeadY": 80,
+        "scale": 0.8302583025830258,
+        "registration": [
+          -62,
+          74
+        ],
+        "foot": [
+          150,
+          590
+        ],
+        "alphaBounds": [
+          72,
+          88,
+          432,
+          591
+        ]
+      },
+      {
+        "id": 6,
+        "name": "barrel-lag",
+        "source": "assets/production-art/landscape-cinema/source/batter-drive.png",
+        "crop": [
+          631,
+          0,
+          1262,
+          623
+        ],
+        "sourceFoot": [
+          171.0,
+          622
+        ],
+        "sourceHeadY": 80,
+        "scale": 0.8302583025830258,
+        "registration": [
+          8,
+          74
+        ],
+        "foot": [
+          150,
+          590
+        ],
+        "alphaBounds": [
+          31,
+          142,
+          443,
+          591
+        ]
+      },
+      {
+        "id": 7,
+        "name": "downswing",
+        "source": "assets/production-art/landscape-cinema/source/batter-drive.png",
+        "crop": [
+          0,
+          623,
+          695,
+          1246
+        ],
+        "sourceFoot": [
+          212.0,
+          572
+        ],
+        "sourceHeadY": 15,
+        "scale": 0.8078994614003591,
+        "registration": [
+          -21,
+          128
+        ],
+        "foot": [
+          150,
+          590
+        ],
+        "alphaBounds": [
+          89,
+          128,
+          534,
+          591
+        ]
+      },
+      {
+        "id": 8,
+        "name": "contact",
+        "source": "assets/production-art/landscape-cinema/source/batter-keys.png",
+        "crop": [
+          0,
+          520,
+          596,
+          1024
+        ],
+        "sourceFoot": [
+          161.0,
+          469
+        ],
+        "sourceHeadY": 40,
+        "scale": 1.048951048951049,
+        "registration": [
+          -19,
+          98
+        ],
+        "foot": [
+          150,
+          590
+        ],
+        "alphaBounds": [
+          86,
+          136,
+          595,
+          591
+        ],
+        "contact": {
+          "x": 489.7412587412587,
+          "y": 276.3216783216783
+        }
+      },
+      {
+        "id": 9,
+        "name": "early-follow",
+        "source": "assets/production-art/landscape-cinema/source/batter-bridges.png",
+        "crop": [
+          596,
+          520,
+          1060,
+          1024
+        ],
+        "sourceFoot": [
+          86.0,
+          465
+        ],
+        "sourceHeadY": 20,
+        "scale": 1.0112359550561798,
+        "registration": [
+          63,
+          120
+        ],
+        "foot": [
+          150,
+          590
+        ],
+        "alphaBounds": [
+          89,
+          136,
+          521,
+          592
+        ]
+      },
+      {
+        "id": 10,
+        "name": "follow",
+        "source": "assets/production-art/landscape-cinema/source/batter-keys.png",
+        "crop": [
+          596,
+          520,
+          1024,
+          1024
+        ],
+        "sourceFoot": [
+          111.0,
+          470
+        ],
+        "sourceHeadY": 35,
+        "scale": 1.0344827586206897,
+        "registration": [
+          35,
+          104
+        ],
+        "foot": [
+          150,
+          590
+        ],
+        "alphaBounds": [
+          38,
+          109,
+          421,
+          591
+        ]
+      },
+      {
+        "id": 11,
+        "name": "recover",
+        "source": "assets/production-art/landscape-cinema/source/batter-keys.png",
+        "crop": [
+          1024,
+          520,
+          1536,
+          1024
+        ],
+        "sourceFoot": [
+          167.5,
+          473
+        ],
+        "sourceHeadY": 35,
+        "scale": 1.0273972602739727,
+        "registration": [
+          -22,
+          104
+        ],
+        "foot": [
+          150,
+          590
+        ],
+        "alphaBounds": [
+          71,
+          134,
+          460,
+          591
+        ]
+      },
+      {
+        "id": 12,
+        "name": "return-low",
+        "source": "assets/production-art/landscape-cinema/source/batter-return.png",
+        "crop": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "sourceFoot": [
+          404.0,
+          861
+        ],
+        "sourceHeadY": 145,
+        "scale": 0.6284916201117319,
+        "registration": [
+          -104,
+          49
+        ],
+        "foot": [
+          150,
+          590
+        ],
+        "alphaBounds": [
+          77,
+          138,
+          429,
+          590
+        ]
+      },
+      {
+        "id": 13,
+        "name": "return-high",
+        "source": "assets/production-art/landscape-cinema/source/batter-return.png",
+        "crop": [
+          887,
+          0,
+          1774,
+          887
+        ],
+        "sourceFoot": [
+          290.0,
+          859
+        ],
+        "sourceHeadY": 145,
+        "scale": 0.6302521008403361,
+        "registration": [
+          -33,
+          49
+        ],
+        "foot": [
+          150,
+          590
+        ],
+        "alphaBounds": [
+          36,
+          56,
+          326,
+          591
+        ]
+      }
+    ],
+    "anchor": {
+      "x": 150,
+      "y": 590
+    },
+    "worldFoot": {
+      "x": 520,
+      "y": 909
+    },
+    "worldHeight": 809.2444444444444,
+    "event": {
+      "x": 489.7412587412587,
+      "y": 276.3216783216783
+    },
+    "runtimeBytes": 564722,
+    "sha256": "1a83d74ae221d51bfcd8e7a5176687b1b1918dfb4a3e5be9a526e33c85ecf775"
+  },
+  "pitcher": {
+    "file": "pitcher-atlas.webp",
+    "sourceWidth": 384,
+    "sourceHeight": 384,
+    "columns": 3,
+    "rows": 2,
+    "frames": [
+      {
+        "id": 0,
+        "name": "set",
+        "source": "assets/production-art/landscape-cinema/source/pitcher-poses.png",
+        "crop": [
+          0,
+          0,
+          512,
+          768
+        ],
+        "sourceFoot": [
+          148,
+          753
+        ],
+        "sourceHeadY": 18,
+        "scale": 0.35374149659863946,
+        "registration": [
+          78,
+          54
+        ],
+        "foot": [
+          130,
+          320
+        ],
+        "alphaBounds": [
+          110,
+          58,
+          228,
+          324
+        ]
+      },
+      {
+        "id": 1,
+        "name": "release",
+        "source": "assets/production-art/landscape-cinema/source/pitcher-poses.png",
+        "crop": [
+          512,
+          0,
+          1024,
+          768
+        ],
+        "sourceFoot": [
+          165,
+          650
+        ],
+        "sourceHeadY": 96,
+        "scale": 0.4693140794223827,
+        "registration": [
+          53,
+          15
+        ],
+        "foot": [
+          130,
+          320
+        ],
+        "alphaBounds": [
+          67,
+          21,
+          281,
+          373
+        ],
+        "release": {
+          "x": 76.46570397111913,
+          "y": 30.95667870036101
+        }
+      },
+      {
+        "id": 2,
+        "name": "follow",
+        "source": "assets/production-art/landscape-cinema/source/pitcher-poses.png",
+        "crop": [
+          0,
+          768,
+          600,
+          1536
+        ],
+        "sourceFoot": [
+          193,
+          723
+        ],
+        "sourceHeadY": 22,
+        "scale": 0.37089871611982883,
+        "registration": [
+          58,
+          52
+        ],
+        "foot": [
+          130,
+          320
+        ],
+        "alphaBounds": [
+          103,
+          59,
+          274,
+          325
+        ]
+      },
+      {
+        "id": 3,
+        "name": "fatigue",
+        "source": "assets/production-art/landscape-cinema/source/pitcher-poses.png",
+        "crop": [
+          600,
+          768,
+          1024,
+          1536
+        ],
+        "sourceFoot": [
+          86,
+          703
+        ],
+        "sourceHeadY": 22,
+        "scale": 0.38179148311306904,
+        "registration": [
+          97,
+          52
+        ],
+        "foot": [
+          130,
+          320
+        ],
+        "alphaBounds": [
+          111,
+          61,
+          236,
+          327
+        ]
+      },
+      {
+        "id": 4,
+        "name": "coil",
+        "source": "assets/production-art/mockup-v1-intake/pitcher-home.webp",
+        "crop": [
+          0,
+          0,
+          1024,
+          1536
+        ],
+        "sourceFoot": [
+          595,
+          1495
+        ],
+        "sourceHeadY": 45,
+        "scale": 0.1793103448275862,
+        "registration": [
+          23,
+          52
+        ],
+        "foot": [
+          130,
+          320
+        ],
+        "alphaBounds": [
+          54,
+          60,
+          189,
+          321
+        ]
+      }
+    ],
+    "anchor": {
+      "x": 130,
+      "y": 320
+    },
+    "worldFoot": {
+      "x": 832,
+      "y": 580
+    },
+    "worldHeight": 432.73846153846154,
+    "event": {
+      "x": 76.46570397111913,
+      "y": 30.95667870036101
+    },
+    "runtimeBytes": 86794,
+    "sha256": "d174e4df76581f32e0c2a6b085fc7f6f8cf5363a4af1ca1dad98ef818cc9258d"
+  },
+  "sources": [
+    {
+      "file": "assets/production-art/landscape-cinema/source/batter-drive.png",
+      "sha256": "8840c3c6fdb23ecf9a05c9d68106cbbee5bd63df4000c63b83ae5b0a0d4efa99"
+    },
+    {
+      "file": "assets/production-art/landscape-cinema/source/batter-return.png",
+      "sha256": "4322eeb04fde6a28acd7bd292f711ca9ca424af6a5d0448fd894a697c68060ae"
+    },
+    {
+      "file": "assets/production-art/landscape-cinema/source/pitcher-poses.png",
+      "sha256": "8163278a10bee583286437df3460f1c8f30366f155696ce6c7b2b4c8a6b3d897"
+    },
+    {
+      "file": "assets/production-art/landscape-cinema/source/batter-keys.png",
+      "sha256": "4b94f3e9cd51bc82624c58a568a8bb7d152230b0af9fbdea5150ea18f43343d7"
+    },
+    {
+      "file": "assets/production-art/landscape-cinema/source/batter-bridges.png",
+      "sha256": "1231ee1d99c4413dcf49d38f345d73caff50ed5bc63521852667ec783b7ed41e"
+    }
+  ],
+  "imagegenRuns": [
+    "exec-9e5b730b-cb94-41aa-9133-ee76ff704d99",
+    "exec-41cbc478-0b2c-48b7-b713-7dc81c1bb19d",
+    "exec-0f11948a-b491-4400-bd59-61730212c290",
+    "exec-697a7961-e01d-4f44-8a21-c5f3d0030f98",
+    "exec-a7e53f96-86b2-4922-8748-d4152ec73e21"
+  ]
+}

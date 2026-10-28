@@ -4,6 +4,7 @@ import {describe,it,expect,vi,afterEach} from 'vitest';
 import {render,cleanup,act} from '@testing-library/react';
 import {readFileSync} from 'node:fs';
 import BattleScene,{SAMPLE_ACTORS,approvedPitcherArt,STADIUM_URL} from '../src/duel/battle-vnext/BattleScene.jsx';
+import {PILOT_MOTION} from '../src/duel/battle-vnext/motion-timeline.js';
 import {worldCamera,cameraMatrix,actorBox,SCENE} from '../src/duel/battle-vnext/scene-geometry.js';
 import {buildBattleViewModel} from '../src/duel/battle-vnext/view-model.js';
 import {buildFixture} from '../src/duel/battle-vnext/fixtures.js';
@@ -17,7 +18,7 @@ describe('BattleScene — 정지 원화 Scene',()=>{
     expect(world.style.transform).toBe(cameraMatrix(worldCamera(844,390)));
     expect(world.querySelector('.bv-stadium').getAttribute('src')).toBe(STADIUM_URL);
     for(const name of ['batter','pitcher']){
-      const el=world.querySelector('.bv-actor-'+name),b=actorBox(SCENE[name]);
+      const el=world.querySelector('.bv-actor-'+name),b=actorBox(PILOT_MOTION[name]);
       const px=v=>parseFloat(v);
       expect(px(el.style.left)).toBeCloseTo(b.x,4);expect(px(el.style.top)).toBeCloseTo(b.y,4);
       expect(px(el.style.width)).toBeCloseTo(b.width,4);expect(px(el.style.height)).toBeCloseTo(b.height,4);
@@ -72,9 +73,9 @@ describe('BattleScene — 정지 원화 Scene',()=>{
     const vm=buildBattleViewModel(buildFixture('flight'));
     const {container}=render(<BattleScene scene={vm.scene} phase={vm.phase} size={{width:844,height:390}} actors={SAMPLE_ACTORS} reviewNotice/>);
     const root=container.querySelector('.bv-scene');
-    expect(root.dataset).toMatchObject({phase:'flight',fxStage:'windup',motion:'static'});
+    expect(root.dataset).toMatchObject({phase:'flight',fxStage:'windup',motion:'authored'});
     expect(root.dataset.playToken).toBe(String(vm.scene.playToken));
-    expect(container.querySelector('.bv-scene-notice').textContent).toMatch(/동작은 아직 없음.*샘플 투수/);
+    expect(container.querySelector('.bv-scene-notice').textContent).toMatch(/포즈 모션 검수.*샘플 투수/);
   });
 
   it('화면 좌표를 CSS 변수로 넘긴다 (C04/C05 오버레이용)',()=>{
