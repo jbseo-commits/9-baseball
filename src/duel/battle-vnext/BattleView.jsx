@@ -8,12 +8,12 @@ import './layout.css';
 
 /* Presentation only. BallparkBattle keeps selection, inspector, commit and next
    timers; App still owns the engine, save and pitch presentation lifecycle. */
-export default function BattleView({model,actors,rootRef,sceneRef,zoneRef,handRef,title,review=false,
+export default function BattleView({model,actors,playback=null,rootRef,sceneRef,zoneRef,handRef,title,review=false,
   inspector=null,menuOpen=false,recent=null,onMenu,onCardTap,onCardDetail,onPiles,onZoneTap,onZoneHover,
   onPointerDown,onPointerMove,onPointerUp,onPointerCancel,onTake,onSwing,onNext,piles}){
   return <main ref={rootRef} className={'battle-vnext'+(menuOpen?' inspecting':'')} data-phase={model.phase} aria-label="타석">
     <div className="bv-stage" ref={sceneRef}>
-      <BattleScene scene={model.scene} actors={actors} phase={model.phase} reserveHand>
+      <BattleScene playback={playback} scene={model.scene} actors={actors} phase={model.phase} reserveHand>
         {model.phase==='result'&&model.result&&<ResultReadout result={model.result} shotGrade={model.scene.shotGrade} variant="spotlight"/>}
       </BattleScene>
     </div>

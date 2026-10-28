@@ -19,6 +19,7 @@ import './adaptive-performance.css';
 import {coverageText} from './information.js';
 import {cue} from './audio.js';
 import {presentationFor,presentationTimeline} from './presentation.js';
+import {startPresentationClock} from './presentation-clock.js';
 import {batterMotionV3Timeline} from './batterMotionV3.js';
 import {haptic} from './haptics.js';
 import PixelVFX from './PixelVFX.jsx';
@@ -851,6 +852,7 @@ export default function Duel(){
   const [homerVideo,setHomerVideo]=useState(null),homerVideoActive=useRef(false),presentationActive=useRef(false);
   const [cardDetail,setCardDetail]=useState(null),detailOpener=useRef(null);
   const [fxImpactAt,setFxImpactAt]=useState(0);
+  const [fxPlayback,setFxPlayback]=useState(null),presentationClock=useRef(null),presentationToken=useRef(0),soundRef=useRef(sound);soundRef.current=sound;
   // Experimental tutorial: keep the real V10 rules, but teach the loop as
   // PLAN -> WATCH THE BUILD EXECUTE -> REVIEW. It never overwrites the saved main run.
   const [autoLesson,setAutoLesson]=useState(false),[autoPlan,setAutoPlan]=useState(null);
@@ -929,7 +931,7 @@ export default function Duel(){
   const tourStep=TOUR_STEPS[tour.step];
   const tourCardTop=['prepare','swing','watch','events'].includes(tourStep?.target);
 
-  useEffect(()=>()=>timers.current.forEach(clearTimeout),[]);
+  useEffect(()=>()=>{timers.current.forEach(clearTimeout);presentationClock.current?.cancel();},[]);
   useEffect(()=>installCoverPreview(document),[]);
   // switching swing <-> prepare reorders the hand; keep the chosen card (or the start of the row) in view
   useEffect(()=>{if(!decisionMode||decisionMode==='watch')return;const id=requestAnimationFrame(()=>{const hand=document.querySelector('.card-drawer .duel-hand');if(!hand)return;const sel=hand.querySelector('.duel-card.selected');if(sel)sel.scrollIntoView?.({block:'nearest',inline:'nearest'});else hand.scrollLeft=0;});return()=>cancelAnimationFrame(id);},[decisionMode]);
@@ -995,17 +997,19 @@ export default function Duel(){
     const timeline=withKnockoutHold(pitcherAtlases[nextNode?.opponent?.artId]&&pitchJudgement?redRushTimeline(baseTimeline,reduced):baseTimeline,next.version===10&&pitchJudgement&&!reduced&&next.pitcher?.hp===0);
     lock.current=true;revealArena();setFxImpactAt(timeline.impactAt||0);setFx(next.last);setFxStage('windup');setFrame(1);
     if(sound&&!withVideo)cue(pitchJudgement?'pitch':shot?.cue||next.last.kind);
-    const stakes=stakesFor(next),scheduled=[
-      setTimeout(()=>{setFxStage('impact');setFrame(2);if(sound&&pitchJudgement&&!withVideo)cue(shot?.cue||next.last.kind);haptic(timeline.haptic);},timeline.impactAt)
-    ];
-    if(timeline.slowmo>0)scheduled.push(setTimeout(()=>setFxStage('slowmo'),timeline.impactAt+timeline.freeze));
-    scheduled.push(
-      setTimeout(()=>setFxStage('release'),timeline.releaseAt),
-      setTimeout(()=>{setFxStage('settle');if(sound&&stakes&&!withVideo)cue(stakes);if(stakes==='game-win')haptic([12,22,28]);if(stakes==='champion'||stakes==='rival-champion')haptic([18,18,38,24,58]);},timeline.settleAt),
-      setTimeout(()=>{setFx(null);setFxStage(null);setFrame(0);presentationActive.current=false;lock.current=homerVideoActive.current;timers.current=[]},timeline.duration)
-    );
-    timers.current.push(...scheduled);
+    presentationClock.current?.cancel();
+    const playback={startedAt:performance.now(),timeline,token:++presentationToken.current,
+      action:next.last?.kind==='skill'?'prepare':next.battle?.revealed?.action==='take'?'take':'swing'};
+    setFxPlayback(playback);
+    const stakes=stakesFor(next);
+    presentationClock.current=startPresentationClock(timeline,{startedAt:playback.startedAt,
+      onStage:stage=>{setFxStage(stage);setFrame(stage==='windup'?1:stage?2:0);},
+      onImpact:({audible})=>{if(!audible)return;if(soundRef.current&&pitchJudgement&&!withVideo)cue(shot?.cue||next.last.kind);haptic(timeline.haptic);},
+      onSettle:({audible})=>{if(!audible)return;if(soundRef.current&&stakes&&!withVideo)cue(stakes);if(stakes==='game-win')haptic([12,22,28]);if(stakes==='champion'||stakes==='rival-champion')haptic([18,18,38,24,58]);},
+      onComplete:()=>{setFx(null);setFxPlayback(null);setFrame(0);presentationActive.current=false;lock.current=homerVideoActive.current;}
+    });
   }
+
   function finishHomerVideo(){
     homerVideoActive.current=false;setHomerVideo(null);
     // A very early skip still waits for the original short result presentation.
@@ -1070,7 +1074,7 @@ export default function Duel(){
     current.current=next;setS(next);setError('');setAutoPlan(null);setAutoLesson(true);setScreen('run');
   }
   function exitAutoLesson(){
-    timers.current.forEach(clearTimeout);timers.current=[];lock.current=false;
+    timers.current.forEach(clearTimeout);timers.current=[];presentationClock.current?.cancel();setFxPlayback(null);lock.current=false;
     setFx(null);setFxStage(null);setFrame(0);setStackResolve(null);setAutoPlan(null);setAutoLesson(false);
     const restored=initial.save||null;current.current=restored;setS(restored);setScreen('menu');setModal(null);setSelected(null);setSwingStack([]);setStackEdit(null);
   }
@@ -1146,7 +1150,7 @@ export default function Duel(){
       label={v10Node?.act+'막'} pitcher={s.pitcher}
       pitcherArt={pitcherAtlas?<PitcherAtlasSprite atlas={pitcherAtlas} stage={fxStage} shot={fxPresentation} playToken={s.stats.pitches}/>:<Sprite who="pitcher" stage={fxStage} shot={fxPresentation} golden variant={pitcherForm} playToken={s.stats.pitches}/>}
       batterArt={<Sprite who="batter" stage={fxStage} shot={fxPresentation} golden playToken={s.stats.pitches} syncRedRush={redRushEncounter} sheet={BATTER_V15_SHEET}/>}
-      fxStage={fxStage} shot={fxPresentation||resultPresentation} impactAt={fxImpactAt} playToken={s.stats.pitches}
+      fxStage={fxStage} shot={fxPresentation||resultPresentation} impactAt={fxImpactAt} playToken={s.stats.pitches} playback={fxPlayback}
       pitcherAtlas={pitcherAtlas} artId={v10Node?.opponent?.artId} batterPoses={BATTER_REBOOT_V3} batterSheet={BATTER_V15_SHEET} batterRig={BATTER_V15_RIG}
       vfx={<PixelVFX stage={fxStage} shot={fxPresentation} token={s.stats.pitches} drawCore={false} quality={perfTier}/>}
       onNext={s.phase==='pitch'?()=>{setAutoPlan(null);act(doNextPitch)}:s.phase==='between'?()=>{setAutoPlan(null);act(doNextBatter)}:null}

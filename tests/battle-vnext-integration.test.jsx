@@ -6,6 +6,8 @@ import BallparkBattle,{AUTO_NEXT_MS,STACK_COMMIT_MS} from '../src/duel/BallparkB
 import IntegrationPreview from '../src/duel/battle-vnext/IntegrationPreview.jsx';
 import {buildFixture,appInputs} from '../src/duel/battle-vnext/fixtures.js';
 import {battleUiMode} from '../src/duel/battle-ui-mode.js';
+import {presentationFor,presentationTimeline} from '../src/duel/presentation.js';
+import {playV10Action} from '../src/duel/engine.js';
 import {LONG_PRESS_MS} from '../src/duel/CardDetailSheet.jsx';
 import {layoutMode,watchLayoutMode,landscapeMedia} from '../src/duel/layout-mode.js';
 const approval=vi.hoisted(()=>({enabled:false}));
@@ -114,15 +116,18 @@ describe('memory-only sandbox uses engine and preserves production save',()=>{
     expect(screen.queryByTestId('bp-inspect')).toBeNull();expect(screen.queryByRole('dialog')).toBeNull();
   });
   it('spends preparation energy without a pitch, then advances actual pitch and refills',()=>{
-    vi.useFakeTimers();localStorage.setItem('9zone-v10-run','production-sentinel');
+    vi.useFakeTimers({toFake:['setTimeout','clearTimeout','setInterval','clearInterval','Date','performance']});localStorage.setItem('9zone-v10-run','production-sentinel');
     render(<IntegrationPreview fixture="prepare"/>);
     expect(screen.getByTestId('bv-energy').dataset.energy).toBe('2');
     fireEvent.click(screen.getByTestId('bp-swing'));
     expect(screen.getByTestId('bv-energy').dataset.energy).toBe('1');
     expect(document.querySelector('.bv-scene').dataset.playToken).toBe('0');
+    expect(screen.getByTestId('bp-swing').disabled).toBe(true);
+    const prepared=buildFixture('cost-short').s;
+    act(()=>vi.advanceTimersByTime(presentationTimeline(presentationFor(prepared)).duration));
     fireEvent.click(screen.getByTestId('bp-swing')); // unselected = take
     expect(document.querySelector('.bv-scene').dataset.playToken).toBe('1');
-    act(()=>vi.advanceTimersByTime(950));act(()=>vi.advanceTimersByTime(AUTO_NEXT_MS));
+    act(()=>vi.advanceTimersByTime(presentationTimeline(presentationFor(playV10Action(prepared,{type:'take'}))).duration));act(()=>vi.advanceTimersByTime(AUTO_NEXT_MS));
     expect(screen.getByTestId('bv-energy').dataset.energy).toBe('3');
     expect(screen.getByTestId('bv-result-recent').textContent).toMatch(/실제|노림|지켜/);
     fireEvent.click(card('place'));
