@@ -1,5 +1,5 @@
 import React,{useLayoutEffect,useRef,useState} from 'react';
-import {SCENE,worldCamera,actorBox,cameraMatrix,sceneSnapshot} from './scene-geometry.js';
+import {SCENE,worldCamera,atbatCamera,actorBox,cameraMatrix,sceneSnapshot} from './scene-geometry.js';
 import coverage from '../../../assets/production-art/mockup-v1-intake/actor-coverage.json';
 import stadiumUrl from '../../../assets/production-art/mockup-v1-intake/stadium-wide.webp';
 import {PILOT_ACTORS,PILOT_MOTION,motionAt,MOTION_CONTACT,MOTION_RELEASE} from './motion-timeline.js';
@@ -8,6 +8,7 @@ import {sceneEffectAt} from './scene-effects.js';
 import './motion.css';
 import useSceneClock from './use-scene-clock.js';
 import './scene.css';
+import {ATBAT_COMPOSITION} from './atbat-composition.js';
 
 /* Registered authored poses and VFX share one camera and host clock.
    This render-only scene never judges or advances the engine. */
@@ -24,11 +25,12 @@ export function approvedPitcherArt(artId){
 
 const ACTORS=['pitcher','batter'];
 
-export default function BattleScene({scene=null,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,playback=null,result=null,finale=null}){
+export default function BattleScene({scene=null,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,framing='cover',playback=null,result=null,finale=null}){
   const rootRef=useRef(null);
   const elapsed=useSceneClock(playback);
+  const composition=framing==='atbat'?ATBAT_COMPOSITION:null;
   const reduced=playback?.timeline?.duration<=60;
-  const effect=sceneEffectAt({elapsed,playback,result,phase});
+  const effect=sceneEffectAt({elapsed,playback,result,phase,composition});
   const pose=motionAt({elapsed,timeline:playback?.timeline,action:playback?.action,landed:phase==='result',knockedOut:!!result?.knockedOut,reduced});
   const [measured,setMeasured]=useState(null);
   const onLayoutRef=useRef(onLayout);onLayoutRef.current=onLayout;
@@ -45,12 +47,12 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
   // Short landscape keeps the whole world together above the foreground hand.
   // No actor-only translation, scaling or mirroring.
   const inset=reserveHand&&box.width>=box.height&&box.height<=540?Math.min(30,box.height*.09):0;
-  const camera=worldCamera(box.width,Math.max(1,box.height-inset));
-  const snap=box.width>0&&box.height>0?sceneSnapshot(box.width,box.height,inset):null;
-  useLayoutEffect(()=>{if(snap){const at=p=>({x:p.x*camera.scale+camera.x,y:p.y*camera.scale+camera.y});const pilot=actors.batter===SAMPLE_ACTORS.batter||actors.pitcher===SAMPLE_ACTORS.pitcher;onLayoutRef.current?.(pilot?{...snap,contact:at(MOTION_CONTACT),release:at(MOTION_RELEASE)}:snap);}},[box.width,box.height,inset,actors.batter,actors.pitcher]);// eslint-disable-line react-hooks/exhaustive-deps
+  const camera=(framing==='atbat'?atbatCamera:worldCamera)(box.width,Math.max(1,box.height-inset));
+  const snap=box.width>0&&box.height>0?sceneSnapshot(box.width,box.height,inset,framing):null;
+  useLayoutEffect(()=>{if(snap){const at=p=>({x:p.x*camera.scale+camera.x,y:p.y*camera.scale+camera.y});const pilot=actors.batter===SAMPLE_ACTORS.batter||actors.pitcher===SAMPLE_ACTORS.pitcher;onLayoutRef.current?.(pilot?{...snap,contact:at(composition?.contact||MOTION_CONTACT),release:at(composition?.release||MOTION_RELEASE)}:snap);}},[box.width,box.height,inset,framing,actors.batter,actors.pitcher]);// eslint-disable-line react-hooks/exhaustive-deps
   const authored=actors.batter===SAMPLE_ACTORS.batter||actors.pitcher===SAMPLE_ACTORS.pitcher;
   const at=p=>({x:p.x*camera.scale+camera.x,y:p.y*camera.scale+camera.y});
-  const contact=at(authored?MOTION_CONTACT:SCENE.sampleFlight.contact),release=at(authored?MOTION_RELEASE:SCENE.sampleFlight.release);
+  const contact=at(composition?.contact||(authored?MOTION_CONTACT:SCENE.sampleFlight.contact)),release=at(composition?.release||(authored?MOTION_RELEASE:SCENE.sampleFlight.release));
   const vars=snap?{'--bv-home-x':snap.home.x+'px','--bv-home-y':snap.home.y+'px','--bv-release-x':release.x+'px','--bv-release-y':release.y+'px',
     '--bv-contact-x':contact.x+'px','--bv-contact-y':contact.y+'px','--bv-world-scale':camera.scale}:{};
   return <section ref={rootRef} className={'bv-scene'+(className?' '+className:'')} aria-label="승부 구장" style={vars}
@@ -58,16 +60,16 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
     data-shot={scene?.shotGrade||undefined} data-motion={authored?'authored':'static'} data-camera-align={camera.yAlign}>
     <div className="bv-world-camera" style={{transform:effect?.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:'none'}}>
     <div className="bv-world" aria-hidden="true" style={{width:SCENE.world.width,height:SCENE.world.height,transform:cameraMatrix(camera),visibility:camera.scale?'visible':'hidden'}}>
-      <img className="bv-stadium" src={stadiumUrl} alt="" width={SCENE.world.width} height={SCENE.world.height} draggable="false" decoding="async"/>
-      {SCENE.shadows.map((s,i)=><i key={i} className="bv-ground-shadow" style={{left:s.x,top:s.y,width:s.width,height:s.height,transform:`rotate(${s.rotation}deg)`}}/>)}
+      <img className="bv-stadium" src={composition?.stadium||stadiumUrl} alt="" width={SCENE.world.width} height={SCENE.world.height} draggable="false" decoding="async"/>
+      {(composition?.shadows||SCENE.shadows).map((s,i)=><i key={i} className="bv-ground-shadow" style={{left:s.x,top:s.y,width:s.width,height:s.height,transform:`rotate(${s.rotation}deg)`}}/>)}
       {ACTORS.map(name=>{
-        const url=actors[name]||null,isAtlas=url===SAMPLE_ACTORS[name],meta=isAtlas?PILOT_MOTION[name]:SCENE[name],b=actorBox(meta),frame=pose[name];
+        const url=actors[name]||null,isAtlas=url===SAMPLE_ACTORS[name],meta=isAtlas?(composition?.[name]||PILOT_MOTION[name]):SCENE[name],b=actorBox(meta),frame=pose[name];
         return <div key={name} className={'bv-actor bv-actor-'+name} data-actor={name} data-actor-missing={url?undefined:'true'}
           data-pose={isAtlas?meta.frames[frame].name:undefined} style={{left:b.x,top:b.y,width:b.width,height:b.height}}>
           {url&&(isAtlas?<div className="bv-motion-crop"><img src={url} alt="" width={meta.sourceWidth*meta.columns} height={meta.sourceHeight*meta.rows} draggable="false" decoding="async" style={{width:meta.columns*100+'%',height:meta.rows*100+'%',left:-(frame%meta.columns)*100+'%',top:-Math.floor(frame/meta.columns)*100+'%'}}/></div>:<img src={url} alt="" width={meta.sourceWidth} height={meta.sourceHeight} draggable="false" decoding="async"/>)}
         </div>;
       })}
-      <SceneEffects effect={effect} finale={finale}/>
+      <SceneEffects effect={effect} finale={finale} composition={composition}/>
     </div></div>
     <div className="bv-scene-shade" aria-hidden="true"/>
     {reviewNotice&&<p className="bv-scene-notice" role="note">그림 포즈 모션 검수{actors.pitcher&&actors.pitcher===SAMPLE_ACTORS.pitcher?' · 샘플 투수':''}</p>}

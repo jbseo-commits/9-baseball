@@ -34,27 +34,30 @@ function lockText(input,phase){
 }
 
 const HandDock=forwardRef(function HandDock({hand=[],energy=null,input=null,phase='deciding',piles=null,selection=null,onToggleSupport=null,
-  onCardTap,onCardDetail=null,onPiles=null,artFor=defaultCardArt},ref){
+  onCardTap,onCardDetail=null,onPiles=null,artFor=defaultCardArt,grid=false},ref){
   const rowRef=useRef(null),cardRefs=useRef(new Map()),drag=useRef(null),suppress=useRef(false);
   const [hidden,setHidden]=useState({left:0,right:0});
   const basic=hand.find(x=>x.type==='basic'),cards=hand.filter(x=>x.type!=='basic');
 
   /* 부모가 정보창을 닫은 뒤 선택·스크롤·포커스를 되돌릴 수 있게 한다 */
   useImperativeHandle(ref,()=>({
-    getScroll:()=>rowRef.current?.scrollLeft||0,
-    setScroll:x=>{if(rowRef.current)rowRef.current.scrollLeft=x;},
+    getScroll:()=>grid?{x:rowRef.current?.scrollLeft||0,y:rowRef.current?.scrollTop||0}:rowRef.current?.scrollLeft||0,
+    setScroll:position=>{if(rowRef.current){rowRef.current.scrollLeft=typeof position==='number'?position:position?.x||0;rowRef.current.scrollTop=typeof position==='number'?0:position?.y||0;}},
     focusCard:id=>{const el=cardRefs.current.get(id);if(!el)return false;el.focus();el.scrollIntoView?.({block:'nearest',inline:'nearest'});return true;},
-  }),[]);
+  }),[grid]);
 
   const measure=useCallback(()=>{
     const row=rowRef.current;if(!row)return;
-    const lo=row.scrollLeft,hi=lo+row.clientWidth;let left=0,right=0;
+    const vertical=grid&&getComputedStyle(row).display==='grid';
+    const r=row.getBoundingClientRect(),lo=vertical?row.scrollTop:r.left,hi=vertical?lo+row.clientHeight:r.right;let left=0,right=0;
     for(const el of row.querySelectorAll('.bv-card-slot')){
-      const a=el.offsetLeft,b=a+el.offsetWidth;
-      if(b-1>hi&&row.clientWidth>0)right++;else if(a+1<lo)left++;
+      /* Fan/selection transforms must not invent hidden cards during entry.
+         The grid row is positioned; offsets describe its stable scroll layout. */
+      const b=el.getBoundingClientRect(),a=vertical?el.offsetTop:b.left,end=vertical?a+el.offsetHeight:b.right;
+      if(end-1>hi&&row.clientWidth>0)right++;else if(a+1<lo)left++;
     }
     setHidden(h=>h.left===left&&h.right===right?h:{left,right});
-  },[]);
+  },[grid]);
   useLayoutEffect(()=>{
     measure();
     const row=rowRef.current;if(!row||typeof ResizeObserver==='undefined')return undefined;
@@ -69,14 +72,17 @@ const HandDock=forwardRef(function HandDock({hand=[],energy=null,input=null,phas
   const onClickCapture=e=>{if(suppress.current){e.preventDefault();e.stopPropagation();suppress.current=false;}};
 
   const onCardKey=(e,i)=>{
-    if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;
-    const next=cards[i+(e.key==='ArrowRight'?1:-1)];if(!next)return;
+    const columns=grid?getComputedStyle(rowRef.current).gridTemplateColumns.split(' ').filter(Boolean).length:1;
+    const delta={ArrowRight:1,ArrowLeft:-1,...(grid?{ArrowDown:Math.max(1,columns),ArrowUp:-Math.max(1,columns)}:{})}[e.key];
+    if(!delta)return;
+    const next=cards[i+delta];if(!next)return;
     e.preventDefault();cardRefs.current.get(next.id)?.focus();
+    cardRefs.current.get(next.id)?.scrollIntoView?.({block:'nearest',inline:'nearest'});
   };
 
   const line=energyLine(energy,phase),pips=energyPips(energy),lock=lockText(input,phase);
   const detailDisabled=phase==='committing'||phase==='flight';
-  return <section className={'bv-hand-dock'+(input?.canSelect?'':' is-locked')} data-testid="bv-hand-dock" data-phase={phase} aria-label="손패">
+  return <section className={'bv-hand-dock'+(grid?' bv-hand-grid':'')+(grid==='orbit'?' bv-hand-orbit':'')+(input?.canSelect?'':' is-locked')} data-testid="bv-hand-dock" data-phase={phase} aria-label="손패">
     <header className="bv-hand-head">
       {energy&&<div className={'bv-energy'+(energy.shortfall>0?' is-short':'')} data-testid="bv-energy" data-energy={energy.current} data-cap={energy.cap}
         role="status" aria-label={`에너지 ${energy.current}/${energy.cap}`+(line?' · '+line:'')}>
@@ -104,13 +110,13 @@ const HandDock=forwardRef(function HandDock({hand=[],energy=null,input=null,phas
       <ol ref={rowRef} className="bv-hand-row" data-testid="bv-hand" aria-label={`손패 ${cards.length}장`}
         onScroll={measure} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerEnd} onPointerCancel={onPointerEnd}
         onClickCapture={onClickCapture}>
-        {cards.map((item,i)=><BattleCard key={item.id} item={item} art={artFor?artFor(item):null}
+        {cards.map((item,i)=><BattleCard key={item.id} item={item} art={artFor?artFor(item):null} dealIndex={i} dealCount={cards.length}
           cardRef={el=>{if(el)cardRefs.current.set(item.id,el);else cardRefs.current.delete(item.id);}}
           onTap={onCardTap} onDetail={onCardDetail} detailDisabled={detailDisabled} onKeyDown={e=>onCardKey(e,i)}/>)}
         {!cards.length&&<li className="bv-hand-empty">손패 없음 · 기본 스윙은 언제나 쓸 수 있다</li>}
       </ol>
-      {hidden.left>0&&<span className="bv-hand-more left" aria-hidden="true">‹ {hidden.left}</span>}
-      {hidden.right>0&&<span className="bv-hand-more right" data-testid="bv-hand-more" aria-hidden="true">{hidden.right} ›</span>}
+      {hidden.left>0&&<span className="bv-hand-more left" aria-hidden="true">{grid?'↑':'‹'} {hidden.left}</span>}
+      {hidden.right>0&&<span className="bv-hand-more right" data-testid="bv-hand-more" aria-hidden="true">{hidden.right} {grid?'↓':'›'}</span>}
     </div>
     <p className="bv-hand-legend" aria-hidden="true"><i className="k-main"/>메인 <i className="k-support"/>지원</p>
   </section>;

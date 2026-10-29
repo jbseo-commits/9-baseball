@@ -40,9 +40,9 @@ export function planSummary({hand=[],forecast=null,input=null,energy=null,effect
 }
 
 export default function DecisionPanel({zones=null,forecast=null,input=null,hand=[],energy=null,result=null,phase='deciding',effects=[],scene=null,execution=null,
-  shotGrade=null,recent=null,showAction=true,selection=null,onZoneTap,onZoneHover=null,onTake,onSwing,onNext}){
+  shotGrade=null,recent=null,showAction=true,showPlan=true,selection=null,onZoneTap,onZoneHover=null,onTake,onSwing,onNext}){
   if(!zones||!input)return null;
-  const deciding=phase==='deciding',sum=deciding?planSummary({hand,forecast,input,energy,effects}):null;
+  const deciding=phase==='deciding';
   const caption=planCaption(zones),near=result?.kind==='whiff'?nearCoverage(result):null;
   const pt=z=>({x:(z%3)*100+50,y:Math.floor(z/3)*100+50});
   return <section className={'bv-decision'+(zones.targetingSupport?' is-targeting':'')} data-testid="bv-decision" data-phase={phase} aria-label="코스와 행동">
@@ -70,7 +70,16 @@ export default function DecisionPanel({zones=null,forecast=null,input=null,hand=
       <span>존 밖 볼</span>{zones.band.face&&<b>{zones.band.face}</b>}
     </p>
 
-    <div className="bv-plan" data-testid="bv-plan" aria-live="polite">
+    {showPlan&&<DecisionSummary {...{hand,forecast,input,energy,effects,phase,result,shotGrade,execution,scene,recent}}/>}
+
+    {showAction&&<BattleAction input={input} energy={energy} phase={phase} onTake={onTake} onSwing={onSwing} onNext={onNext}/>}
+  </section>;
+}
+
+/* One causal readout, also usable outside the field's touch/slide surface. */
+export function DecisionSummary({hand=[],forecast,input,energy,effects=[],phase='deciding',result,shotGrade,execution,scene,recent}){
+  const deciding=phase==='deciding',sum=deciding?planSummary({hand,forecast,input,energy,effects}):null;
+  return <div className="bv-plan" data-testid="bv-plan" aria-live="polite">
       {deciding&&sum&&<>
         <p className="bv-plan-title">{sum.title}{sum.cost>0&&<small> · ⚡{sum.cost}</small>}</p>
         {sum.chance&&<p className="bv-plan-metrics"><strong>{sum.chance}</strong>{sum.damage&&<span>{sum.damage}</span>}</p>}
@@ -85,16 +94,13 @@ export default function DecisionPanel({zones=null,forecast=null,input=null,hand=
         :<p className="bv-plan-detail">{phase==='flight'||phase==='committing'?(execution?.action==='prepare'?'준비 효과 적용 중':'공을 기다린다'):''}</p>)}
       {result&&<ResultSequence hideHp result={result} execution={execution}/>}
       {deciding&&<ResultReadout recent={recent}/>}
-    </div>
-
-    {showAction&&<BattleAction input={input} energy={energy} phase={phase} onTake={onTake} onSwing={onSwing} onNext={onNext}/>}
-  </section>;
+    </div>;
 }
 
 
 /* The sole action may be mounted by BattleView's persistent dock or inline by
    standalone DecisionPanel. Identical input lock and repeated-click guard. */
-export function BattleAction({input,energy,phase='deciding',onTake,onSwing,onNext}){
+export function BattleAction({input,energy,phase='deciding',actionName='',onTake,onSwing,onNext}){
   const fired=useRef(false);
   useEffect(()=>{fired.current=false;},[input?.actionKind,input?.canExecute,phase]);
   if(!input||(input.actionKind==='none'&&phase==='result'))return null;
@@ -105,11 +111,11 @@ export function BattleAction({input,energy,phase='deciding',onTake,onSwing,onNex
   };
   return (
     <button type="button" className={'bv-action k-'+input.actionKind} data-testid={input.actionKind==='next'?'bp-next':'bp-swing'}
-      data-action-kind={input.actionKind} aria-label={input.ariaLabel||input.actionLabel} aria-busy={input.actionKind==='busy'}
+      data-action-kind={input.actionKind} aria-label={[actionName,input.ariaLabel||input.actionLabel].filter(Boolean).join(' · ')} aria-busy={input.actionKind==='busy'}
       aria-disabled={!input.canExecute||undefined} disabled={!input.canExecute}
       onKeyDown={e=>{if(e.repeat&&(e.key==='Enter'||e.key===' '))e.preventDefault();}} onClick={run}>
       {cost>0&&<span className="bv-action-cost" aria-hidden="true">⚡{cost}</span>}
-      <b>{input.actionLabel}</b>
+      <b>{actionName&&<span className="bv-action-name">{actionName} </span>}{input.actionLabel}</b>
       {input.actionKind==='watch'&&energy?.nextTakeHint&&<small aria-hidden="true">{energy.nextTakeHint}</small>}
       {(input.actionKind==='swing'||input.actionKind==='prepare')&&<span className="bv-action-arrow" aria-hidden="true">↗</span>}
     </button>

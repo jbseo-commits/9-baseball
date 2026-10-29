@@ -21,13 +21,13 @@ export function CoverageGlyph({zones}){
   return <span className="bv-glyph" aria-hidden="true">{Array.from({length:9},(_,z)=><i key={z} className={zones?.includes(z)?'on':''}/>)}</span>;
 }
 
-export default function BattleCard({item,art=null,onTap,onDetail,detailDisabled=false,onKeyDown,cardRef}){
+export default function BattleCard({item,art=null,onTap,onDetail,detailDisabled=false,onKeyDown,cardRef,dealIndex=0,dealCount=1}){
   const tag=selectionTag(item);
   const supportLimited=item.overBudget&&!item.problem;
   const label=[item.name,'에너지 '+item.cost,item.type==='prepare'?'준비':'',item.summary,item.condition,item.warning,
     supportLimited?'지원 추가 비용 초과 · 겹치기를 끄면 메인으로 교체 가능':'',tag].filter(Boolean).join(' · ');
   const cls='bv-card t-'+item.type+(item.selectionRole?' is-'+item.selectionRole:'')+(item.unavailable?' is-unavailable':'')+(item.plus?' is-plus':'');
-  return <li className="bv-card-slot" data-card-id={item.id}>
+  return <li className="bv-card-slot" data-card-id={item.id} style={{'--bv-deal-delay':Math.min(8,dealIndex)*18+'ms','--bv-fan-angle':Math.max(-5,Math.min(5,(dealIndex-(dealCount-1)/2)*2))+'deg'}}>
     <button ref={cardRef} type="button" className={cls} data-testid="bv-card" data-card-kind={item.kind} data-card-plus={item.plus?'1':'0'} data-card-problem={item.problem||undefined} data-selection={item.selectionRole||undefined}
       aria-pressed={item.selectionRole==='main'||item.selectionRole==='support'} aria-label={label} title={item.name}
       disabled={item.disabled} onClick={()=>onTap?.(item.id)} onKeyDown={onKeyDown}

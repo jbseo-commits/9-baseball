@@ -1,11 +1,12 @@
-import {MOTION_CONTACT as C,MOTION_RELEASE as R,nearCoverage} from './motion-timeline.js';
+import {MOTION_CONTACT as DEFAULT_CONTACT,MOTION_RELEASE as DEFAULT_RELEASE,nearCoverage} from './motion-timeline.js';
 const clamp=n=>Math.max(0,Math.min(1,n));
 const lerp=(a,b,p)=>({x:a.x+(b.x-a.x)*p,y:a.y+(b.y-a.y)*p});
 const quadratic=(a,b,c,p)=>({x:(1-p)**2*a.x+2*(1-p)*p*b.x+p*p*c.x,y:(1-p)**2*a.y+2*(1-p)*p*b.y+p*p*c.y});
 
 /* All flight before impact is outcome-independent. Actual course/result is
    accepted ONLY through the landed result, never scene.pitchZone/pending. */
-export function sceneEffectAt({elapsed=0,playback=null,result=null,phase='deciding'}={}){
+export function sceneEffectAt({elapsed=0,playback=null,result=null,phase='deciding',composition=null}={}){
+  const C=composition?.contact||DEFAULT_CONTACT,R=composition?.release||DEFAULT_RELEASE;
   if(!playback||playback.timeline.duration<=60||playback.action==='prepare')return null;
   const t=playback.timeline,a=t.impactAt,age=elapsed-a,landed=phase==='result'&&!!result;
   const throwAt=a*.54;
@@ -21,8 +22,9 @@ export function sceneEffectAt({elapsed=0,playback=null,result=null,phase='decidi
   if(contact){
     const p=clamp((age-(t.freeze||0))/Math.max(250,(power?t.settleAt-a:560)));
     const ground=/땅볼/.test(result.label||result.call||'');
-    const end=power?{x:1180,y:90}:result.kind==='foul'?{x:350,y:610}:ground?{x:865,y:580}:{x:865,y:360};
-    const control=power?{x:1040,y:-110}:ground?{x:900,y:640}:{x:810,y:350};
+    const fieldPoint=p=>composition?{x:p.x+composition.mound.x-832,y:p.y+composition.mound.y-580}:p;
+    const end=fieldPoint(power?{x:1180,y:90}:result.kind==='foul'?{x:350,y:610}:ground?{x:865,y:580}:{x:865,y:360});
+    const control=fieldPoint(power?{x:1040,y:-110}:ground?{x:900,y:640}:{x:810,y:350});
     const ball=quadratic(C,control,end,p),previous=quadratic(C,control,end,Math.max(0,p-.1));
     return {kind:power?'homer':result.kind==='foul'?'foul':result.exact?'exact':'contact',ball,previous,
       radius:Math.max(1.7,7*(1-p)),age,flash:age>=0&&age<180?(1-age/180):0,

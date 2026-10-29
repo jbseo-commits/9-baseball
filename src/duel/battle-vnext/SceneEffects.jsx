@@ -1,18 +1,19 @@
 import React from 'react';
 import ballUrl from '../../../assets/production-art/asset-led-battle-v1/ball.svg';
-import {MOTION_CONTACT as C} from './motion-timeline.js';
+import {MOTION_CONTACT as DEFAULT_CONTACT} from './motion-timeline.js';
 
 /* Painted actors and world remain on the shared camera; these few local shapes
    explain contact, direction and release without adding a UI panel. */
-export default function SceneEffects({effect=null,finale=null}){
+export default function SceneEffects({effect=null,finale=null,composition=null}){
   if(!effect&&!finale)return null;
+  const C=composition?.contact||DEFAULT_CONTACT,mound=composition?.mound||{x:832,y:580};
   const e=effect||{kind:finale,hidden:true,flash:0,radius:0},warm=['exact','contact','homer','foul'].includes(e.kind),r=e.radius;
   return <svg className={'bv-world-effects e-'+e.kind} viewBox="0 0 1672 941" width="1672" height="941" aria-hidden="true" data-testid="bv-scene-effects" data-effect={e.kind}>
     {finale==='homer'&&<g className="bv-homer-rays" opacity=".35">
       {[0,1,2,3,4].map(i=><path key={i} d={`M${640+i*95} 0L${830+i*50} 480L${720+i*95} 0Z`} fill="#ffdba0" opacity={i%2?'.18':'.3'}/>)}
       <path d="M640 400Q920 160 1200 110" fill="none" stroke="#ffe2a3" strokeWidth="2" strokeDasharray="2 18"/>
     </g>}
-    {finale==='knockout'&&<g className="bv-mound-resolve"><ellipse cx="832" cy="580" rx="108" ry="29" fill="#e5c092" opacity=".1"/><ellipse cx="832" cy="580" rx="108" ry="29" fill="none" stroke="#f4d6a0" strokeWidth="2" opacity=".6"/></g>}
+    {finale==='knockout'&&<g className="bv-mound-resolve"><ellipse cx={mound.x} cy={mound.y} rx="108" ry="29" fill="#e5c092" opacity=".1"/><ellipse cx={mound.x} cy={mound.y} rx="108" ry="29" fill="none" stroke="#f4d6a0" strokeWidth="2" opacity=".6"/></g>}
     {!e.hidden&&<g opacity={e.opacity??1}>
       <path d={`M${e.previous.x},${e.previous.y}L${e.ball.x},${e.ball.y}`} fill="none" stroke={warm?'#ffd386':'#c5eff1'} strokeWidth={warm?5:3} strokeLinecap="round" opacity=".7"/>
       <image href={ballUrl} x={e.ball.x-r} y={e.ball.y-r} width={r*2} height={r*2}/>
