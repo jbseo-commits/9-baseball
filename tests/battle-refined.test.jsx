@@ -30,10 +30,10 @@ it('the quiet watch state has one reward hint and keeps the real action accessib
   fireEvent.click(screen.getByTestId('bp-swing'));expect(take).toHaveBeenCalledTimes(1);
 });
 
-it('reduces repeated dead-cell copy without removing accessible course names or cost shortage reasons',()=>{
+it('keeps visible and accessible dead-course information and cost shortage reasons',()=>{
   render(<BattleView model={vm('cost-short')} actors={{}}/>);
   for(const cell of document.querySelectorAll('.bv-cell.is-dead')){
-    expect(cell.querySelector('.bv-cell-face').textContent).toBe('');
+    expect(cell.querySelector('.bv-cell-face').textContent).toBe('안 던짐');
     expect(cell.getAttribute('aria-label')).toContain('던지지 않는 코스');
   }
   expect(document.querySelector('.bv-plan-problem').textContent).toBe('에너지 부족');

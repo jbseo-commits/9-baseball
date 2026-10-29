@@ -26,6 +26,7 @@ export default function IntegrationPreview({fixture='swing-main',variant='vnext'
 }
 
 function PreviewSession({fixture,onChange,sound,setSound,variant,embedded}){
+  const clean=new URLSearchParams(window.location.search).get('battlePresentation')==='clean';
   const [active,setActive]=useState(!embedded),activeRef=useRef(!embedded);activeRef.current=active;
   useEffect(()=>{if(!embedded)return;const receive=e=>{if(validComparisonActivity(e,window))setActive(e.data.active);};window.addEventListener('message',receive);window.parent.postMessage({type:'9zone-battle-compare-ready',version:1},window.location.origin);return()=>window.removeEventListener('message',receive);},[embedded]);
   const [initial]=useState(()=>buildFixture(fixture));
@@ -79,7 +80,7 @@ function PreviewSession({fixture,onChange,sound,setSound,variant,embedded}){
       onSelect={setSelected} onStack={setSwingStack} onAim={z=>{if(activeRef.current&&!busy.current&&!fxStage){const next=setAimZone(current.current,z);current.current=next;setS(next);}}}
       onSwing={()=>action('card')} onTake={()=>action('take')}
       sound={embedded?false:sound} onToggleSound={embedded?null:()=>{audio();setSound(v=>!v);}} onNext={!terminal&&active?next:null} nextLabel={s.phase==='pitch'?'다음 공':s.phase==='between'?'다음 타자':''}/>);
-  return <div className={'vnext-shell'+(embedded?' bc-embedded':'')}>
+  return <div className={'vnext-shell'+(embedded?' bc-embedded':'')+(clean?' bv-clean-preview':'')}>
     <nav className="bv-fixture-tools" aria-label="검수 화면 선택">
       <label>메모리 검수 <select aria-label="검수 상태" value={fixture} onChange={e=>onChange(e.target.value)}>
         {VNEXT_FIXTURES.filter(f=>!f.defenseLab).map(f=><option key={f.id} value={f.id}>{f.title}</option>)}

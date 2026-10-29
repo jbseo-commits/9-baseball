@@ -31,7 +31,7 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
   const composition=framing==='atbat'?ATBAT_COMPOSITION:null;
   const reduced=playback?.timeline?.duration<=60;
   const effect=sceneEffectAt({elapsed,playback,result,phase,composition});
-  const pose=motionAt({elapsed,timeline:playback?.timeline,action:playback?.action,landed:phase==='result',knockedOut:!!result?.knockedOut,reduced});
+  const pose=motionAt({elapsed,timeline:playback?.timeline,action:playback?.action,landed:phase==='result',knockedOut:!!result?.knockedOut,reduced,readyCoil:framing==='atbat'&&(phase==='deciding'||phase==='flight')});
   const [measured,setMeasured]=useState(null);
   const onLayoutRef=useRef(onLayout);onLayoutRef.current=onLayout;
   useLayoutEffect(()=>{
@@ -64,9 +64,11 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
       {(composition?.shadows||SCENE.shadows).map((s,i)=><i key={i} className="bv-ground-shadow" style={{left:s.x,top:s.y,width:s.width,height:s.height,transform:`rotate(${s.rotation}deg)`}}/>)}
       {ACTORS.map(name=>{
         const url=actors[name]||null,isAtlas=url===SAMPLE_ACTORS[name],meta=isAtlas?(composition?.[name]||PILOT_MOTION[name]):SCENE[name],b=actorBox(meta),frame=pose[name];
+        const readyImage=isAtlas&&frame===0&&meta.readyImage;
         return <div key={name} className={'bv-actor bv-actor-'+name} data-actor={name} data-actor-missing={url?undefined:'true'}
           data-pose={isAtlas?meta.frames[frame].name:undefined} style={{left:b.x,top:b.y,width:b.width,height:b.height}}>
           {url&&(isAtlas?<div className="bv-motion-crop"><img src={url} alt="" width={meta.sourceWidth*meta.columns} height={meta.sourceHeight*meta.rows} draggable="false" decoding="async" style={{width:meta.columns*100+'%',height:meta.rows*100+'%',left:-(frame%meta.columns)*100+'%',top:-Math.floor(frame/meta.columns)*100+'%'}}/></div>:<img src={url} alt="" width={meta.sourceWidth} height={meta.sourceHeight} draggable="false" decoding="async"/>)}
+          {readyImage&&<img className="bv-ready-drawing" src={readyImage.url} alt="" draggable="false" decoding="async" style={{position:'absolute',zIndex:1,width:readyImage.width/meta.sourceWidth*100+'%',height:readyImage.height/meta.sourceHeight*100+'%',left:readyImage.x/meta.sourceWidth*100+'%',top:readyImage.y/meta.sourceHeight*100+'%'}}/>}
         </div>;
       })}
       <SceneEffects effect={effect} finale={finale} composition={composition}/>

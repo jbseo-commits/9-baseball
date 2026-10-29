@@ -5,7 +5,7 @@ const base=process.env.QA_BASE||'http://127.0.0.1:5227/';
 const out=process.env.QA_OUT||'/tmp/9zone-folded-hand';fs.mkdirSync(out,{recursive:true});
 const sizes=[[667,375],[740,360],[844,390],[1024,768],[1440,900],[1920,1080]];
 const open=async p=>{const h=p.getByRole('button',{name:'손패 펼치기',exact:true});if(await h.count())await h.tap();await p.waitForFunction(()=>document.querySelector('.battle-vnext').dataset.handOpen==='true');await p.waitForTimeout(400);};
-const start=async(p,id)=>{await p.goto(base+'?battleUi=vnext&battleFixture='+id+(process.env.QA_VERSION?'&v='+process.env.QA_VERSION:''));await p.locator('.bv-actor-batter img').evaluate(e=>e.decode());await p.locator('.bv-actor-pitcher img').evaluate(e=>e.decode());await p.evaluate(()=>document.fonts.ready);await p.waitForTimeout(400);};
+const start=async(p,id)=>{await p.goto(base+'?battleUi=vnext&battleFixture='+id+(process.env.QA_VERSION?'&v='+process.env.QA_VERSION:'')+(process.env.QA_PRESENTATION==='clean'?'&battlePresentation=clean':''));await p.locator('.bv-actor-batter img').first().waitFor();await p.locator('.bv-actor img').evaluateAll(es=>Promise.all(es.map(e=>e.decode())));await p.evaluate(()=>document.fonts.ready);await p.waitForTimeout(400);};
 const box=async(p,s)=>p.locator(s).first().boundingBox();
 const same=(a,b)=>['x','y','width','height'].every(k=>Math.abs(a[k]-b[k])<1);
 (async()=>{
@@ -22,11 +22,15 @@ const same=(a,b)=>['x','y','width','height'].every(k=>Math.abs(a[k]-b[k])<1);
   const row=await box(p,'.bv-hand-row');assert.ok(row.x>=zone.x+zone.width-1,'expanded cards stay right of zone');
   assert.ok((await box(p,'.bv-energy')).y<row.y,'energy directly above cards');
   if(await p.locator('.bv-refined').count()){
-    assert.ok(await p.locator('.bv-card-strip').evaluateAll(es=>es.every(e=>{const a=e.querySelector('.bv-card-art'),cost=e.querySelector('.bv-card-cost'),copy=e.querySelector('.bv-card-copy'),range=e.querySelector('.bv-card-range');return cost.offsetLeft>=a.offsetLeft+a.offsetWidth&&range.offsetLeft>=copy.offsetLeft+copy.offsetWidth-1;})),'cost and range do not overlap the illustration/copy');
+    assert.ok(await p.locator('.bv-card-strip').evaluateAll(es=>es.every(e=>{const a=e.querySelector('.bv-card-art'),cost=e.querySelector('.bv-card-cost'),copy=e.querySelector('.bv-card-copy'),range=e.querySelector('.bv-card-range');const reference=!!e.closest('.bv-reference');return (reference?cost.offsetLeft>=4&&cost.offsetLeft+cost.offsetWidth<=a.offsetLeft+a.offsetWidth:cost.offsetLeft>=a.offsetLeft+a.offsetWidth)&&range.offsetLeft>=copy.offsetLeft+copy.offsetWidth-1;})),'live cost badge and separate range occupy their authored slots');
     const action=await box(p,'.bv-action');assert.ok(Math.abs(action.width-action.height)<1,'the primary action is circular');
   }
   await p.screenshot({path:`${out}/expanded-${w}.jpg`,quality:88});
-  const strike=p.locator('.bv-card[data-card-kind=strike]').first();await strike.tap();await p.locator('.bv-cell[data-zone="2"]').tap();
+  const strike=p.locator('.bv-card[data-card-kind=strike]').first();await strike.tap();
+  // Hold the 800 ms decorative lifetime while screenshot/geometry IPC runs.
+  // Native touch still dispatches; resume before the real pitch lifecycle.
+  const captureTime=Date.now();await p.clock.install({time:captureTime});await p.clock.pauseAt(captureTime+50);
+  await p.locator('.bv-cell[data-zone="2"]').tap();
   assert.equal(await p.locator('.battle-vnext').getAttribute('data-hand-open'),'false');
   assert.deepEqual(await p.locator('[data-insert-zone]').evaluateAll(es=>es.map(e=>Number(e.dataset.insertZone))),[2,5,8]);
   const overlay=await box(p,'.bv-insert-fx'),root=await box(p,'.battle-vnext');assert.ok(same(overlay,root),'insert overlay uses field coordinate space');
@@ -34,7 +38,7 @@ const same=(a,b)=>['x','y','width','height'].every(k=>Math.abs(a[k]-b[k])<1);
   await p.locator('.bv-insert-fx').evaluate(e=>{for(const el of e.querySelectorAll('*'))for(const a of el.getAnimations()){a.pause();a.currentTime=370}});
   await p.screenshot({path:`${out}/insert-${w}.jpg`,quality:88});
   assert.equal(await p.locator('.bv-scene').getAttribute('data-play-token'),'0','placing does not throw');
-  await p.getByTestId('bp-swing').tap();await p.waitForSelector('.bv-result-line');
+  await p.clock.resume();await p.getByTestId('bp-swing').tap();await p.waitForSelector('.bv-result-line');
   assert.ok((await p.locator('.bv-hud-opponent').getAttribute('aria-label')).includes('48 / 60'),'real damage');
   assert.ok((await p.locator('.bv-result-line').textContent()).includes('노림'));
   assert.equal(await p.locator('.bv-insert-fx').count(),0,'placement cancels at pitch');

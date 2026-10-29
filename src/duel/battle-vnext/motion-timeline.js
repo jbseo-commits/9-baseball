@@ -1,6 +1,6 @@
-import motion from '../../../assets/production-art/landscape-cinema/motion.json';
-import batterAtlas from '../../../assets/production-art/landscape-cinema/batter-atlas.webp';
-import pitcherAtlas from '../../../assets/production-art/landscape-cinema/pitcher-atlas.webp';
+import motion from '../../../assets/production-art/mockup-rebuild/motion.json';
+import batterAtlas from '../../../assets/production-art/mockup-rebuild/batter-atlas.avif';
+import pitcherAtlas from '../../../assets/production-art/mockup-rebuild/pitcher-atlas.avif';
 
 export const PILOT_MOTION=motion;
 export const PILOT_ACTORS=Object.freeze({batter:batterAtlas,pitcher:pitcherAtlas});
@@ -14,13 +14,13 @@ const clamp=n=>Math.max(0,Math.min(1,n));
 
 /* Pose choice reads the one host clock. It never advances or judges a pitch.
    The 14 cells are authored drawings; no limb warp / image rotation. */
-export function motionAt({elapsed=0,timeline=null,action='take',landed=false,knockedOut=false,reduced=false}={}){
-  if(!timeline||reduced)return {batter:0,pitcher:knockedOut?3:0};
+export function motionAt({elapsed=0,timeline=null,action='take',landed=false,knockedOut=false,reduced=false,readyCoil=false}={}){
+  if(!timeline||reduced)return {batter:0,pitcher:knockedOut?3:readyCoil?4:0};
   const t=Math.max(0,elapsed),a=timeline.impactAt,release=timeline.releaseAt,end=timeline.duration;
   if(t>=end)return {batter:0,pitcher:knockedOut?3:0};
   if(action==='prepare')return {batter:0,pitcher:0};
   const p=clamp(t/Math.max(1,a));
-  const pitcher=knockedOut&&landed&&t>=timeline.settleAt?3:p<.18?0:p<.45?4:p<.60?1:t<timeline.settleAt?2:0;
+  const pitcher=knockedOut&&landed&&t>=timeline.settleAt?3:p<.18?(readyCoil?4:0):p<.45?4:p<.60?1:t<timeline.settleAt?2:0;
   if(action!=='swing')return {batter:0,pitcher};
   if(!landed||t<a)return {batter:Math.min(7,Math.floor(p*8)),pitcher};
   if(t<a+(timeline.freeze||0))return {batter:8,pitcher};

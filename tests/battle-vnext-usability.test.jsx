@@ -9,11 +9,11 @@ import {presentationFor} from '../src/duel/presentation.js';
 const fixture=id=>{const f=buildFixture(id);return buildBattleViewModel({...f,shot:f.s.battle.revealed?presentationFor(f.s):null});};
 function hitAt(zone){const f=VNEXT_FIXTURES.find(f=>f.id==='result-hit');const inputs=buildFixture({...f,steps:f.steps.map(st=>st.op==='aim'?{...st,zone}:st)});return buildBattleViewModel({...inputs,shot:presentationFor(inputs.s)});}
 afterEach(cleanup);
-describe('landscape one action and readable outcome',()=>{
+describe('landscape contextual action, direct watch and readable outcome',()=>{
   it('mounts the same sole action outside scroll content and preserves duplicate-click guard',()=>{
     const onSwing=vi.fn();render(<BattleView model={fixture('swing-main')} actors={{}} onSwing={onSwing}/>);
     const button=screen.getByTestId('bp-swing');
-    expect(document.querySelectorAll('.bv-action')).toHaveLength(1);
+    expect(document.querySelectorAll('.bv-action')).toHaveLength(2);
     expect(button.closest('.bv-action-dock')).not.toBeNull();
     expect(button.closest('.bv-decision-area')).toBeNull();
     fireEvent.click(button);fireEvent.click(button);expect(onSwing).toHaveBeenCalledTimes(1);
@@ -24,7 +24,7 @@ describe('landscape one action and readable outcome',()=>{
     v.rerender(<BattleView model={fixture('prepare')} actors={{}} onTake={onTake} onSwing={onSwing}/>);
     expect(screen.getByTestId('bp-swing').textContent).toContain('준비 사용');
     fireEvent.click(screen.getByTestId('bp-swing'));expect(onSwing).toHaveBeenCalledTimes(1);
-    expect(document.querySelectorAll('.bv-action')).toHaveLength(1);
+    expect(document.querySelectorAll('.bv-action')).toHaveLength(2);
   });
   it('keeps the action locked while support targeting or inspector is open',()=>{
     const onSwing=vi.fn();const v=render(<BattleView model={fixture('support-armed')} actors={{}} onSwing={onSwing}/>);

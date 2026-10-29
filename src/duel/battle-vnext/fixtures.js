@@ -41,6 +41,7 @@ function runSteps(seed,steps){
     else if(st.op==='start-pack')s=applyStartPack(s,st.pack);
     /* Explicit diagnostic HP setup; the actual attack/KO is still engine-resolved. */
     else if(st.op==='grant-hp')s={...s,pitcher:{...s.pitcher,hp:st.hp}};
+    else if(st.op==='grant-reachable')s={...s,runMap:{...s.runMap,reachableIds:[st.node]}};
     else if(st.op==='enter')s=enterV10Node(s,st.node);
     else if(st.op==='aim')s=setAimZone(s,st.zone);
     else if(st.op==='take'){const before=s;s=playV10Action(s,{type:'take'});execution=captureExecution(before,s);}
@@ -63,6 +64,8 @@ const TAKE_THEN_NEXT=[...OPEN,{op:'take'},{op:'next'}];
 
 /* ui: 컨테이너의 로컬 조정 상태와 선택. card 이름은 손패 kind로 적고 build에서 id로 바꾼다. */
 export const VNEXT_FIXTURES=Object.freeze([
+  {id:'reference-boss',title:'목업 아트 검수 · 실제 1막 보스 · HP78 설정',rules:'main-run',seed:FIXTURE_SEED,
+    steps:[{op:'new'},{op:'grant-reachable',node:'a1-boss'},{op:'enter',node:'a1-boss'},{op:'grant-hp',hp:78},{op:'aim',zone:7}],ui:{select:'strike'}},
   {id:'watch-read0',title:'무선택 · 읽기 0',rules:'main-run',seed:FIXTURE_SEED,steps:OPEN,ui:{}},
   {id:'swing-main',title:'공격 카드 선택 · 가운데 노림',rules:'main-run',seed:FIXTURE_SEED,steps:[...OPEN,{op:'aim',zone:4}],ui:{select:'strike'}},
   {id:'basic-swing',title:'맨손 스윙 선택',rules:'main-run',seed:FIXTURE_SEED,steps:[...OPEN,{op:'aim',zone:4}],ui:{select:'basic'}},

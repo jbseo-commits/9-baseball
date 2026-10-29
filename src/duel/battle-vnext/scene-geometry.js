@@ -49,13 +49,14 @@ export const ATBAT_BOUNDS=Object.freeze([ATBAT_COMPOSITION.batter,ATBAT_COMPOSIT
 export function atbatCamera(width,height){
   const base=worldCamera(width,height);
   if(!base.scale||width<height*.7)return base;
-  const pad=8,b=ATBAT_BOUNDS;
-  const scale=base.scale;
-  const minX=pad-b.left*scale,maxX=width-pad-b.right*scale;
-  const x=Math.max(width-SCENE.world.width*scale,Math.min(0,Math.max(minX,Math.min(maxX,width*.48-ATBAT_COMPOSITION.home.x*scale))));
-  const minY=pad-b.top*scale,maxY=height-pad-b.bottom*scale;
-  const y=Math.max(height-SCENE.world.height*scale,Math.min(0,Math.max(minY,Math.min(maxY,(height-SCENE.world.height*scale)*.42))));
-  return {...base,scale,x,y};
+  const scale=base.scale,c=ATBAT_COMPOSITION.camera;
+  const zoneSize=Math.max(c.minZoneSize,Math.min(360,c.zoneWorldSize*scale));
+  const x=width*c.focalX-ATBAT_COMPOSITION.home.x*scale;
+  // Authored close foreground, not a distant full-body fit. A short landscape
+  // keeps the pitcher's planted foot and a touchable zone together. The near
+  // leg/bat may intentionally leave the viewport; source atlas cells do not.
+  const y=Math.min(0,height-c.bottomReserve-zoneSize-c.zoneGap-ATBAT_COMPOSITION.mound.y*scale);
+  return {...base,scale,x,y,zoneSize};
 }
 
 /* 배우 상자(구장 좌표): actorScale = worldHeight/sourceHeight, origin = worldFoot − anchor×scale */
@@ -72,7 +73,7 @@ export const cameraMatrix=camera=>`matrix(${camera.scale},0,0,${camera.scale},${
 export function sceneSnapshot(width,height,insetBottom=0,framing='cover'){
   const camera=(framing==='atbat'?atbatCamera:worldCamera)(width,Math.max(1,height-insetBottom)),at=p=>toScreen(camera,p);
   const composition=framing==='atbat'?ATBAT_COMPOSITION:SCENE;
-  return {width,height,camera,home:at(composition.home),mound:at(composition.mound),
+  return {width,height,camera,zoneSize:camera.zoneSize,home:at(composition.home),mound:at(composition.mound),
     batterFoot:at(composition.batter.worldFoot),pitcherFoot:at(composition.pitcher.worldFoot),
     release:at(composition.release||SCENE.sampleFlight.release),contact:at(composition.contact||SCENE.sampleFlight.contact)};
 }

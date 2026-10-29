@@ -208,13 +208,15 @@ export function buildBattleViewModel({
   const bases=(pre&&Array.isArray(r.basesBefore)?r.basesBefore:(b.bases||[])).map(Boolean);
   const intent=deciding?pitcherIntentIcon(s):null,lines=intentLines(b.intent);
   const hud={
+    actLabel:s.version===10?`${s.v10?.opponent?.act||1}막`:null,
     pitcher:pitcher?{name:pitcher.name,hp:pre?hpBefore:pitcher.hp,maxHp:pitcher.maxHp,phase:pre?displayState.pitcher.phase:pitcher.phase}:null,
     count:shownCount,outsLeft:Math.max(0,3-shownCount.outs),bases,
     tell:lines.whisper,tellDetail:lines.coach,intent:intent?{kind:intent.kind,label:intent.label,icon:intent.icon,level:intent.level}:null,
     readLevel:level,
     momentum:pre&&Number.isInteger(combat?.momentumBefore)?combat.momentumBefore:v10Momentum(s),
     shaken:pre&&Number.isInteger(combat?.shakenBefore)?combat.shakenBefore:v10Shaken(s),mentalCap:v10MentalCap(s),
-    gimmick:s.v10?.opponent?.gimmick?{id:s.v10.opponent.gimmick.id,label:s.v10.opponent.gimmick.label}:null,
+    tier:s.v10?.opponent?.rewardTier||1,
+    gimmick:s.v10?.opponent?.gimmick?{id:s.v10.opponent.gimmick.id,label:s.v10.opponent.gimmick.label,summary:s.v10.opponent.gimmick.summary||''}:null,
   };
   hud.momentumRate=v10MomentumRate(hud.momentum);
 

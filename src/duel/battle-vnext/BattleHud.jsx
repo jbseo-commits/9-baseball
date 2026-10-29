@@ -36,9 +36,10 @@ export default function BattleHud({hud=null,forecast=null,sources=[],phase='deci
           {band&&<i className="bv-hud-hp-forecast" data-testid="bv-hp-forecast" title={band.label+' 예상'} style={{left:band.left+'%',width:band.width+'%'}}/>}
         </span>
         <small key={'hp-'+resultKey} className={changing?'bv-hp-number is-damaged':''} aria-hidden="true">{changing&&<span className="bv-hp-was">{result.hpBefore}</span>}<span className="bv-hp-now">{p.hp}</span> / {p.maxHp}</small>
+        {refined&&hud.gimmick&&<p className="bv-hud-gimmick"><span className="bv-opponent-tier">{hud.tier===3?'BOSS':'ELITE'}</span><b>{hud.gimmick.label}</b><span>{hud.gimmick.summary}</span></p>}
       </div>}
       <div className="bv-hud-count" role="img" aria-label={`볼 ${c.balls} 스트라이크 ${c.strikes} 아웃 ${c.outs} · 남은 아웃 ${hud.outsLeft}`}>
-        {[['B',3,c.balls],['S',2,c.strikes],['O',2,c.outs]].map(([k,n,v])=><span key={k} className={'k-'+k}><em>{k}</em>{Array.from({length:n},(_,i)=><i key={i} className={i<v?'on':''}/>)}</span>)}
+        {[['B',3,c.balls],['S',2,c.strikes],['O',refined?3:2,c.outs]].map(([k,n,v])=><span key={k} className={'k-'+k}><em>{k}</em>{Array.from({length:n},(_,i)=><i key={i} className={i<v?'on':''}/>)}</span>)}
       </div>
       <span className="bv-hud-read" data-testid="bv-read" aria-label={`읽기 ${hud.readLevel}단계 · ${READ_NAME[hud.readLevel]}`+(sources.length?' · '+sources.join(' · '):'')}>
         <em aria-hidden="true">READ</em><b aria-hidden="true">{READ_MARK[hud.readLevel]}</b>
@@ -52,7 +53,7 @@ export default function BattleHud({hud=null,forecast=null,sources=[],phase='deci
         <span aria-hidden="true">{runners.length?runners.join(' · '):'주자 없음'}</span>
       </p>
       {twoStrike&&<p className="bv-hud-warn" role="status">2스트라이크 · 존 안을 지켜보면 삼진</p>}
-      {hud.gimmick&&<p className="bv-hud-gimmick">{hud.gimmick.label}</p>}
+      {!refined&&hud.gimmick&&<p className="bv-hud-gimmick">{hud.gimmick.label}</p>}
     </div>
   </header>;
 }

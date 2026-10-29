@@ -14,23 +14,31 @@ import {presentationFor,presentationTimeline} from '../src/duel/presentation.js'
 const vm=id=>buildBattleViewModel(buildFixture(id));
 afterEach(cleanup);
 
-describe('at-bat registration preserves whole poses and follows the painted ground',()=>{
-  for(const [w,h] of [[379,327],[451,312],[515,342],[625,720],[893,840],[1320,1080],[667,327],[740,312],[844,342],[1440,840]])it(`field ${w}x${h}: every pose inside one stable camera`,()=>{
-    const camera=atbatCamera(w,h);
-    expect(camera.x).toBeLessThanOrEqual(.01);expect(camera.y).toBeLessThanOrEqual(.01);
-    expect(camera.x+SCENE.world.width*camera.scale).toBeGreaterThanOrEqual(w-.01);
-    expect(camera.y+SCENE.world.height*camera.scale).toBeGreaterThanOrEqual(h-.01);
-    for(const name of ['batter','pitcher']){
-      const a=C[name],box=actorBox(a);
-      for(const f of a.frames){const [l,t,r,b]=f.alphaBounds;
-        const lo=toScreen(camera,{x:box.x+l*box.scale,y:box.y+t*box.scale});
-        const hi=toScreen(camera,{x:box.x+r*box.scale,y:box.y+b*box.scale});
-        expect(lo.x,`${name} ${f.name} left`).toBeGreaterThanOrEqual(-.01);
-        expect(lo.y,`${name} ${f.name} top`).toBeGreaterThanOrEqual(-.01);
-        expect(hi.x,`${name} ${f.name} right`).toBeLessThanOrEqual(w+.01);
-        expect(hi.y,`${name} ${f.name} bottom`).toBeLessThanOrEqual(h+.01);
-      }
-      expect(toScreen(camera,{x:box.x+a.anchor.x*box.scale,y:box.y+a.anchor.y*box.scale})).toEqual(toScreen(camera,a.worldFoot));
+describe('reference foreground crop, stable camera and painted ground registration',()=>{
+  for(const [w,h] of [[667,375],[740,360],[844,390],[1024,768],[1440,900],[1672,941],[1920,1080]])it(`field ${w}x${h}: near batter, complete pitcher and accessible contact`,()=>{
+    const camera=atbatCamera(w,h),b=C.batter,box=actorBox(b),ready=b.frames[0];
+    expect(toScreen(camera,C.home).x).toBeCloseTo(w/2,5);
+    expect(camera.zoneSize).toBeGreaterThanOrEqual(138);
+    const [l,t,r,bottom]=ready.alphaBounds;
+    const lo=toScreen(camera,{x:box.x+l*box.scale,y:box.y+t*box.scale});
+    const hi=toScreen(camera,{x:box.x+r*box.scale,y:box.y+bottom*box.scale});
+    expect(hi.x-lo.x).toBeGreaterThan(w*.28);
+    expect(hi.y).toBeGreaterThan(h); // deliberate near-leg crop, not an asset cut
+    expect(lo.y).toBeLessThan(h*.18);
+    const contact=toScreen(camera,C.contact);
+    expect(contact.x).toBeGreaterThan(0);expect(contact.x).toBeLessThan(w);
+    expect(contact.y).toBeGreaterThan(44);expect(contact.y).toBeLessThan(h);
+    const p=C.pitcher,pb=actorBox(p);
+    for(const f of p.frames){const [pl,pt,pr,pbott]=f.alphaBounds;
+      const a=toScreen(camera,{x:pb.x+pl*pb.scale,y:pb.y+pt*pb.scale});
+      const z=toScreen(camera,{x:pb.x+pr*pb.scale,y:pb.y+pbott*pb.scale});
+      expect(a.x).toBeGreaterThan(0);expect(a.y).toBeGreaterThan(0);
+      expect(z.x).toBeLessThan(w);expect(z.y).toBeLessThan(h);
+    }
+    for(const a of [C.batter,C.pitcher])for(const f of a.frames){
+      expect(f.alphaBounds[0]).toBeGreaterThan(0);expect(f.alphaBounds[1]).toBeGreaterThan(0);
+      expect(f.alphaBounds[2]).toBeLessThan(a.sourceWidth);expect(f.alphaBounds[3]).toBeLessThan(a.sourceHeight);
+      expect(f.foot).toEqual(Object.values(a.anchor));
     }
     expect(C.pitcher.worldFoot).toEqual(C.mound);
   });
@@ -53,11 +61,11 @@ describe('at-bat registration preserves whole poses and follows the painted grou
   });
 });
 
-describe('one field target and one right-side action',()=>{
+describe('one field target and separate swing/watch choices',()=>{
   it('moves existing controls without adding a hand-opening or execution step',()=>{
     const model=vm('swing-main'),onSwing=vi.fn();const {container}=render(<BattleView model={model} actors={{}} onSwing={onSwing}/>);
     expect(container.querySelectorAll('.bv-zone')).toHaveLength(1);
-    expect(container.querySelectorAll('.bv-action')).toHaveLength(1);
+    expect(container.querySelectorAll('.bv-action')).toHaveLength(2);
     expect(container.querySelector('.bv-zone').closest('.bv-command-rail')).toBeNull();
     expect(container.querySelector('.bv-hand-grid').closest('.bv-command-rail')).not.toBeNull();
     expect(container.querySelector('.bv-plan').closest('.bv-command-rail')).not.toBeNull();

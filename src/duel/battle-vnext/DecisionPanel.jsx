@@ -101,7 +101,7 @@ export function DecisionSummary({hand=[],forecast,input,energy,effects=[],phase=
 
 /* The sole action may be mounted by BattleView's persistent dock or inline by
    standalone DecisionPanel. Identical input lock and repeated-click guard. */
-export function BattleAction({input,energy,phase='deciding',actionName='',symbolic=false,onTake,onSwing,onNext}){
+export function BattleAction({input,energy,phase='deciding',actionName='',symbolic=false,testId=null,onTake,onSwing,onNext}){
   const fired=useRef(false);
   useEffect(()=>{fired.current=false;},[input?.actionKind,input?.canExecute,phase]);
   if(!input||(input.actionKind==='none'&&phase==='result'))return null;
@@ -111,7 +111,7 @@ export function BattleAction({input,energy,phase='deciding',actionName='',symbol
     fired.current=true;({onTake,onSwing,onNext})[input.callback]?.();
   };
   return (
-    <button type="button" className={'bv-action k-'+input.actionKind} data-testid={input.actionKind==='next'?'bp-next':'bp-swing'}
+    <button type="button" className={'bv-action k-'+input.actionKind} data-testid={testId||(input.actionKind==='next'?'bp-next':'bp-swing')}
       data-action-kind={input.actionKind} aria-label={[actionName,input.ariaLabel||input.actionLabel].filter(Boolean).join(' · ')} aria-busy={input.actionKind==='busy'}
       aria-disabled={!input.canExecute||undefined} disabled={!input.canExecute}
       onKeyDown={e=>{if(e.repeat&&(e.key==='Enter'||e.key===' '))e.preventDefault();}} onClick={run}>

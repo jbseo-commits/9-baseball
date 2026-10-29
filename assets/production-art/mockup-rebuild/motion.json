@@ -1,0 +1,682 @@
+{
+  "schema": 2,
+  "scope": "authored sample actors; actual roster approval unchanged",
+  "authoredBatterPoses": 14,
+  "authoredPitcherPoses": 5,
+  "not120IndependentDrawings": true,
+  "handedness": {
+    "batter": "right",
+    "pitcher": "right",
+    "pitcherGlove": "left"
+  },
+  "batter": {
+    "file": "batter-atlas.avif",
+    "sourceWidth": 768,
+    "sourceHeight": 768,
+    "columns": 4,
+    "rows": 4,
+    "frames": [
+      {
+        "id": 0,
+        "name": "ready",
+        "source": "assets/production-art/mockup-rebuild/source/ready.png",
+        "sourceComponent": 1,
+        "crop": [
+          35,
+          3,
+          986,
+          1536
+        ],
+        "sourceFoot": [
+          250.0,
+          1527
+        ],
+        "sourceHeadY": 252,
+        "scale": 0.35294117647058826,
+        "registration": [
+          122,
+          161
+        ],
+        "foot": [
+          210,
+          700
+        ],
+        "alphaBounds": [
+          124,
+          163,
+          456,
+          700
+        ]
+      },
+      {
+        "id": 1,
+        "name": "half-load",
+        "source": "assets/production-art/mockup-rebuild/source/pre.png",
+        "sourceComponent": 1,
+        "crop": [
+          81,
+          4,
+          434,
+          516
+        ],
+        "sourceFoot": [
+          72.5,
+          506
+        ],
+        "sourceHeadY": 76,
+        "scale": 1.0465116279069768,
+        "registration": [
+          134,
+          170
+        ],
+        "foot": [
+          210,
+          700
+        ],
+        "alphaBounds": [
+          139,
+          175,
+          498,
+          701
+        ]
+      },
+      {
+        "id": 2,
+        "name": "load",
+        "source": "assets/production-art/mockup-rebuild/source/pre.png",
+        "sourceComponent": 2,
+        "crop": [
+          611,
+          4,
+          941,
+          516
+        ],
+        "sourceFoot": [
+          77.5,
+          506
+        ],
+        "sourceHeadY": 66,
+        "scale": 1.0227272727272727,
+        "registration": [
+          131,
+          182
+        ],
+        "foot": [
+          210,
+          700
+        ],
+        "alphaBounds": [
+          136,
+          187,
+          464,
+          701
+        ]
+      },
+      {
+        "id": 3,
+        "name": "stride",
+        "source": "assets/production-art/mockup-rebuild/source/pre.png",
+        "sourceComponent": 3,
+        "crop": [
+          1042,
+          9,
+          1508,
+          516
+        ],
+        "sourceFoot": [
+          80.0,
+          501
+        ],
+        "sourceHeadY": 76,
+        "scale": 1.0588235294117647,
+        "registration": [
+          125,
+          170
+        ],
+        "foot": [
+          210,
+          700
+        ],
+        "alphaBounds": [
+          130,
+          175,
+          613,
+          702
+        ]
+      },
+      {
+        "id": 4,
+        "name": "plant",
+        "source": "assets/production-art/mockup-rebuild/source/pre.png",
+        "sourceComponent": 4,
+        "crop": [
+          47,
+          511,
+          495,
+          1015
+        ],
+        "sourceFoot": [
+          85.0,
+          498
+        ],
+        "sourceHeadY": 34,
+        "scale": 0.9698275862068966,
+        "registration": [
+          128,
+          217
+        ],
+        "foot": [
+          210,
+          700
+        ],
+        "alphaBounds": [
+          133,
+          222,
+          557,
+          701
+        ]
+      },
+      {
+        "id": 5,
+        "name": "hip-drive",
+        "source": "assets/production-art/mockup-rebuild/source/pre.png",
+        "sourceComponent": 5,
+        "crop": [
+          579,
+          515,
+          1027,
+          1010
+        ],
+        "sourceFoot": [
+          59.0,
+          471
+        ],
+        "sourceHeadY": 13,
+        "scale": 0.982532751091703,
+        "registration": [
+          152,
+          237
+        ],
+        "foot": [
+          210,
+          700
+        ],
+        "alphaBounds": [
+          157,
+          242,
+          588,
+          719
+        ]
+      },
+      {
+        "id": 6,
+        "name": "barrel-lag",
+        "source": "assets/production-art/mockup-rebuild/source/pre.png",
+        "sourceComponent": 6,
+        "crop": [
+          1066,
+          526,
+          1517,
+          1010
+        ],
+        "sourceFoot": [
+          52.0,
+          468
+        ],
+        "sourceHeadY": 19,
+        "scale": 1.0022271714922049,
+        "registration": [
+          158,
+          231
+        ],
+        "foot": [
+          210,
+          700
+        ],
+        "alphaBounds": [
+          163,
+          235,
+          605,
+          711
+        ]
+      },
+      {
+        "id": 7,
+        "name": "downswing",
+        "source": "assets/production-art/mockup-rebuild/source/post.png",
+        "sourceComponent": 3,
+        "crop": [
+          46,
+          9,
+          563,
+          506
+        ],
+        "sourceFoot": [
+          76.0,
+          469
+        ],
+        "sourceHeadY": 8,
+        "scale": 0.9761388286334056,
+        "registration": [
+          136,
+          242
+        ],
+        "foot": [
+          210,
+          700
+        ],
+        "alphaBounds": [
+          140,
+          247,
+          637,
+          722
+        ]
+      },
+      {
+        "id": 8,
+        "name": "contact",
+        "source": "assets/production-art/mockup-rebuild/source/post.png",
+        "sourceComponent": 2,
+        "crop": [
+          536,
+          8,
+          1077,
+          501
+        ],
+        "sourceFoot": [
+          76.0,
+          487
+        ],
+        "sourceHeadY": 9,
+        "scale": 0.9414225941422594,
+        "registration": [
+          138,
+          242
+        ],
+        "foot": [
+          210,
+          700
+        ],
+        "alphaBounds": [
+          142,
+          247,
+          642,
+          702
+        ],
+        "contact": {
+          "x": 611.5355648535565,
+          "y": 398.27615062761504
+        }
+      },
+      {
+        "id": 9,
+        "name": "early-follow",
+        "source": "assets/production-art/mockup-rebuild/source/post.png",
+        "sourceComponent": 1,
+        "crop": [
+          1040,
+          6,
+          1509,
+          502
+        ],
+        "sourceFoot": [
+          74.0,
+          490
+        ],
+        "sourceHeadY": 9,
+        "scale": 0.9355509355509356,
+        "registration": [
+          141,
+          242
+        ],
+        "foot": [
+          210,
+          700
+        ],
+        "alphaBounds": [
+          145,
+          247,
+          576,
+          701
+        ]
+      },
+      {
+        "id": 10,
+        "name": "follow",
+        "source": "assets/production-art/mockup-rebuild/source/post.png",
+        "sourceComponent": 6,
+        "crop": [
+          70,
+          505,
+          521,
+          1007
+        ],
+        "sourceFoot": [
+          104.0,
+          496
+        ],
+        "sourceHeadY": 22,
+        "scale": 0.9493670886075949,
+        "registration": [
+          111,
+          229
+        ],
+        "foot": [
+          210,
+          700
+        ],
+        "alphaBounds": [
+          115,
+          234,
+          534,
+          702
+        ]
+      },
+      {
+        "id": 11,
+        "name": "recover",
+        "source": "assets/production-art/mockup-rebuild/source/post.png",
+        "sourceComponent": 7,
+        "crop": [
+          586,
+          509,
+          1033,
+          1013
+        ],
+        "sourceFoot": [
+          84.0,
+          466
+        ],
+        "sourceHeadY": 18,
+        "scale": 1.0044642857142858,
+        "registration": [
+          126,
+          232
+        ],
+        "foot": [
+          210,
+          700
+        ],
+        "alphaBounds": [
+          131,
+          237,
+          570,
+          733
+        ]
+      },
+      {
+        "id": 12,
+        "name": "return-low",
+        "source": "assets/production-art/mockup-rebuild/source/post.png",
+        "sourceComponent": 5,
+        "crop": [
+          1093,
+          489,
+          1483,
+          1018
+        ],
+        "sourceFoot": [
+          98.0,
+          523
+        ],
+        "sourceHeadY": 59,
+        "scale": 0.9698275862068966,
+        "registration": [
+          115,
+          193
+        ],
+        "foot": [
+          210,
+          700
+        ],
+        "alphaBounds": [
+          120,
+          197,
+          488,
+          701
+        ]
+      },
+      {
+        "id": 13,
+        "name": "return-high",
+        "source": "assets/production-art/mockup-rebuild/source/return.png",
+        "sourceComponent": 1,
+        "crop": [
+          113,
+          7,
+          996,
+          1522
+        ],
+        "sourceFoot": [
+          230.0,
+          1509
+        ],
+        "sourceHeadY": 230,
+        "scale": 0.3518373729476153,
+        "registration": [
+          129,
+          169
+        ],
+        "foot": [
+          210,
+          700
+        ],
+        "alphaBounds": [
+          131,
+          171,
+          438,
+          700
+        ]
+      }
+    ],
+    "anchor": {
+      "x": 210,
+      "y": 700
+    },
+    "worldFoot": {
+      "x": 520,
+      "y": 909
+    },
+    "worldHeight": 971.0933333333334,
+    "event": {
+      "x": 611.5355648535565,
+      "y": 398.27615062761504
+    },
+    "ready": {
+      "file": "batter-ready.avif",
+      "width": 336,
+      "height": 541,
+      "x": 122,
+      "y": 161
+    },
+    "runtimeBytes": 542325
+  },
+  "pitcher": {
+    "file": "pitcher-atlas.avif",
+    "sourceWidth": 640,
+    "sourceHeight": 640,
+    "columns": 3,
+    "rows": 2,
+    "frames": [
+      {
+        "id": 0,
+        "name": "set",
+        "source": "assets/production-art/mockup-rebuild/source/pitcher.png",
+        "sourceComponent": 1,
+        "crop": [
+          200,
+          0,
+          452,
+          526
+        ],
+        "sourceFoot": [
+          77.0,
+          520
+        ],
+        "sourceHeadY": 8,
+        "scale": 0.6640625,
+        "registration": [
+          249,
+          225
+        ],
+        "foot": [
+          300,
+          570
+        ],
+        "alphaBounds": [
+          252,
+          228,
+          412,
+          570
+        ]
+      },
+      {
+        "id": 1,
+        "name": "release",
+        "source": "assets/production-art/mockup-rebuild/source/pitcher.png",
+        "sourceComponent": 5,
+        "crop": [
+          1145,
+          57,
+          1467,
+          532
+        ],
+        "sourceFoot": [
+          257.0,
+          469
+        ],
+        "sourceHeadY": 8,
+        "scale": 0.6490238611713666,
+        "registration": [
+          133,
+          266
+        ],
+        "foot": [
+          300,
+          570
+        ],
+        "alphaBounds": [
+          136,
+          269,
+          339,
+          571
+        ],
+        "release": {
+          "x": 148.5765726681128,
+          "y": 384.1223427331887
+        }
+      },
+      {
+        "id": 2,
+        "name": "follow",
+        "source": "assets/production-art/mockup-rebuild/source/pitcher.png",
+        "sourceComponent": 44,
+        "crop": [
+          23,
+          536,
+          536,
+          1004
+        ],
+        "sourceFoot": [
+          404.0,
+          462
+        ],
+        "sourceHeadY": 47,
+        "scale": 0.6963855421686747,
+        "registration": [
+          19,
+          248
+        ],
+        "foot": [
+          300,
+          570
+        ],
+        "alphaBounds": [
+          22,
+          252,
+          373,
+          571
+        ]
+      },
+      {
+        "id": 3,
+        "name": "fatigue",
+        "source": "assets/production-art/mockup-rebuild/source/pitcher.png",
+        "sourceComponent": 43,
+        "crop": [
+          671,
+          519,
+          920,
+          1005
+        ],
+        "sourceFoot": [
+          204.0,
+          480
+        ],
+        "sourceHeadY": 8,
+        "scale": 0.6627118644067796,
+        "registration": [
+          165,
+          252
+        ],
+        "foot": [
+          300,
+          570
+        ],
+        "alphaBounds": [
+          168,
+          255,
+          326,
+          571
+        ]
+      },
+      {
+        "id": 4,
+        "name": "coil",
+        "source": "assets/production-art/mockup-rebuild/source/pitcher.png",
+        "sourceComponent": 2,
+        "crop": [
+          612,
+          1,
+          967,
+          520
+        ],
+        "sourceFoot": [
+          153.5,
+          513
+        ],
+        "sourceHeadY": 7,
+        "scale": 0.6719367588932806,
+        "registration": [
+          197,
+          225
+        ],
+        "foot": [
+          300,
+          570
+        ],
+        "alphaBounds": [
+          200,
+          228,
+          433,
+          571
+        ]
+      }
+    ],
+    "anchor": {
+      "x": 300,
+      "y": 570
+    },
+    "worldFoot": {
+      "x": 832,
+      "y": 580
+    },
+    "worldHeight": 551.5294117647059,
+    "event": {
+      "x": 148.5765726681128,
+      "y": 384.1223427331887
+    },
+    "ready": null,
+    "runtimeBytes": 97864
+  }
+}
