@@ -15,7 +15,7 @@
 ## 체크 결과
 
 - 전체 Vitest: **210파일 / 1405테스트 통과**.
-- production Vite build + dist budget60MiB 통과. 신규 원본은 보존, 실행용 구장·9카드 약170KB. 기존 큰 JS chunk 안내는 유지.
+- production Vite build + dist budget60MiB 통과. 신규 원본은 보존, 실행용 구장·9카드 약152KB. 기존 큰 JS chunk 안내는 유지.
 - 첫 sandbox 전체 실행은 하위 Git/Node EPERM4건으로 실패. 정상 실행 권한으로 전체를 다시 실행해 통과; 게임 오류로 분류하지 않음.
 - 배포 후 확인: PR66 설명에 최종 커밋·Pages 실행·공개 브라우저 검증 결과를 기록한다. 이 문서의 파일들은 로컬 실제 렌더 증거다.
 
@@ -29,3 +29,7 @@
 ## 범위와 제한
 
 샘플 배우를 쓰는 명시적 메모리 프리뷰다. 실제 로스터의 원화 승인 목록은 그대로이며, 미승인 상대의 본편 UI를 강제로 교체하지 않는다. 작은 가로에서는 오른쪽 손패를 세로 스크롤하며 동작은 생략하지 않고 빠르게 진행한다. 신규 원화9종 외 카드 그림은 기존 파일을 유지한다. main 병합 없음.
+
+## 실제 Pages base 빌드
+
+긴 base `/9-baseball/previews/codex-mockup-v1-c05-integration/`에서도 budget60MiB 통과. CSS 리소스950개(폰트929/이미지21) 모두 상대 경로 실파일 확인. CSS만 Vite 내장 상대 경로로 출력하며 JS/HTML base는 유지한다. 중첩 production preview에서 한글 폰트·AVIF 구장·카드·CSS 로딩 성공, HTTP/런타임 오류0 (`built-resources.json`, `built-844.jpg`).

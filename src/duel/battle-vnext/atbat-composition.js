@@ -1,6 +1,6 @@
 import motion from '../../../assets/production-art/landscape-cinema/motion.json';
 import layout from '../../../assets/production-art/atbat-field/layout.json';
-import stadium from '../../../assets/production-art/atbat-field/stadium.webp';
+import stadium from '../../../assets/production-art/atbat-field/stadium.avif';
 
 /* Measured landmarks of the new background, not an actor-only camera trick.
    Foot anchors and contact/release local pixels retain the authored atlas data. */
