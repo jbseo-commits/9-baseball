@@ -7,10 +7,12 @@ import {atbatCardArt} from './atbat-card-art.js';
 import {cinemaMoment} from './cinema-director.js';
 import ResultReadout from './ResultReadout.jsx';
 import CoverageInsert from './CoverageInsert.jsx';
+import BattleSymbol from './BattleSymbol.jsx';
 import './layout.css';
 import './selection.css';
 import './atbat.css';
 import './folded-hand.css';
+import './refined.css';
 
 /* Presentation only. BallparkBattle keeps selection, inspector, commit and next
    timers; App still owns the engine, save and pitch presentation lifecycle. */
@@ -85,18 +87,18 @@ export default function BattleView({model,actors,playback=null,execution=null,ro
     if(item?.selectionRole==='main'||item?.selectionRole==='armed')place(Number(cell.dataset.zone),d.id);
     else{setPlacement(null);onCardTap?.(d.id);setPendingDrop({id:d.id,zone:Number(cell.dataset.zone)});}
   };
-  return <main ref={viewRef} onKeyDown={e=>{suppressClick.current=false;if(e.key==='Escape'&&handOpen&&!menuOpen){e.preventDefault();setHandOpen(false);handleRef.current?.focus();}}} className={'battle-vnext bv-atbat bv-foldable'+(menuOpen?' inspecting':'')} data-hand-open={shown?'true':'false'} data-phase={model.phase} data-support={hasSupport?'true':'false'} style={{'--bv-verdict-delay':playback?'120ms':'0ms',...(field?{'--bv-plate-x':field.home.x+'px','--bv-plate-y':field.home.y+'px','--bv-mound-y':field.mound.y+'px'}:{})}} aria-label="타석">
+  return <main ref={viewRef} onKeyDown={e=>{suppressClick.current=false;if(e.key==='Escape'&&handOpen&&!menuOpen){e.preventDefault();setHandOpen(false);handleRef.current?.focus();}}} className={'battle-vnext bv-atbat bv-foldable bv-refined'+(menuOpen?' inspecting':'')} data-hand-open={shown?'true':'false'} data-phase={model.phase} data-support={hasSupport?'true':'false'} style={{'--bv-verdict-delay':playback?'120ms':'0ms',...(field?{'--bv-plate-x':field.home.x+'px','--bv-plate-y':field.home.y+'px','--bv-mound-y':field.mound.y+'px'}:{})}} aria-label="타석">
     <div className="bv-stage" ref={sceneRef}>
       <BattleScene playback={playback} result={model.result} finale={finale} scene={model.scene} actors={actors} phase={model.phase} framing="atbat" onLayout={onLayout}>
         {model.phase==='result'&&model.result&&<ResultReadout finale={finale} result={spotlight} shotGrade={model.scene.shotGrade} variant="spotlight"/>}
       </BattleScene>
     </div>
     <BattleHud result={model.result} playback={playback} resultKey={model.scene.playToken} hud={model.hud} forecast={model.forecast} sources={model.zones?.sources} phase={model.phase}
-      title={title} onMenu={onMenu} menuOpen={menuOpen}/>
+      title={title} onMenu={onMenu} menuOpen={menuOpen} refined/>
     <div className="bv-decision-area" ref={zoneRef} onPointerDown={onPointerDown} onPointerMove={onPointerMove}
       onPointerUp={onPointerUp} onPointerCancel={onPointerCancel}>
       {main&&model.phase==='deciding'&&<p className="bv-field-choice">{main.name}<span>{main.type==='prepare'?'준비':`${main.coverage?.length||0}존 커버`}</span></p>}
-      <DecisionPanel {...model} execution={execution} showAction={false} showPlan={false} recent={recent} shotGrade={model.scene.shotGrade} onZoneTap={z=>place(z,model.hand.find(c=>c.selectionRole==='armed')?.id||main?.id)} onZoneHover={onZoneHover}
+      <DecisionPanel {...model} quiet execution={execution} showAction={false} showPlan={false} recent={recent} shotGrade={model.scene.shotGrade} onZoneTap={z=>place(z,model.hand.find(c=>c.selectionRole==='armed')?.id||main?.id)} onZoneHover={onZoneHover}
         onTake={onTake} onSwing={onSwing} onNext={onNext}/>
     </div>
     <button ref={handleRef} type="button" className="bv-hand-handle" aria-label={handOpen?'손패 접기':'손패 펼치기'} aria-expanded={handOpen} aria-controls="bv-folding-hand"
@@ -106,7 +108,7 @@ export default function BattleView({model,actors,playback=null,execution=null,ro
       onKeyDown={()=>{handleClick.current=false;}}
       onClick={()=>{if(handleClick.current){handleClick.current=false;return;}setHandOpen(v=>!v);}}
       disabled={model.phase==='flight'||model.phase==='committing'||menuOpen}>
-      <span aria-hidden="true">{handOpen?'›':'‹'}</span><b>손패 {model.hand.filter(c=>c.type!=='basic').length}</b><small>{handOpen?'접기':'펼치기'}</small>{!handOpen&&model.energy&&<em aria-label={`에너지 ${model.energy.current}/${model.energy.cap}`}>⚡{model.energy.current}</em>}
+      <span aria-hidden="true">{handOpen?'›':'‹'}</span><b>손패 {model.hand.filter(c=>c.type!=='basic').length}</b><small>{handOpen?'접기':'펼치기'}</small>{!handOpen&&model.energy&&<em aria-label={`에너지 ${model.energy.current}/${model.energy.cap}`}><BattleSymbol kind="energy"/>{model.energy.current}</em>}
     </button>
     <div className="bv-command-rail">
     <div id="bv-folding-hand" className="bv-hand-area" aria-hidden={!shown} {...(!shown?{inert:''}:{})}
@@ -117,10 +119,10 @@ export default function BattleView({model,actors,playback=null,execution=null,ro
         input={menuOpen?{...model.input,canSelect:true}:model.input} phase={model.phase}
         piles={piles} onCardTap={id=>{setPlacement(null);remember(id);onCardTap?.(id);}} onCardDetail={onCardDetail} onPiles={onPiles} artFor={atbatCardArt} grid="orbit"/>
     </div>
-    <DecisionSummary {...model} execution={execution} shotGrade={model.scene.shotGrade} recent={recent}/>
+    <DecisionSummary {...model} compact execution={execution} shotGrade={model.scene.shotGrade} recent={recent}/>
     <footer className="bv-action-dock" aria-label="이번 공 실행">
       {onClearPlan&&model.input.actionKind!=='none'&&<button type="button" className="bv-plan-clear" disabled={!model.selection?.canClear} aria-label="선택 해제 · 지켜보기로 전환" onClick={()=>{setPlacement(null);onClearPlan();}}>해제</button>}
-      <BattleAction input={model.input} energy={model.energy} phase={model.phase} actionName={model.input.actionKind==='swing'?main?.name:''} onTake={onTake} onSwing={onSwing} onNext={onNext}/>
+      <BattleAction symbolic input={model.input} energy={model.energy} phase={model.phase} actionName={model.input.actionKind==='swing'?main?.name:''} onTake={onTake} onSwing={onSwing} onNext={onNext}/>
     </footer>
     </div>
     <CoverageInsert request={placement} pieces={model.zones?.pieces} rootRef={viewRef} phase={model.phase}/>

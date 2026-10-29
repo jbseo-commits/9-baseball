@@ -4,5 +4,5 @@ const images=import.meta.glob('../../../assets/production-art/atbat-cards/*.webp
    Costs, coverage glyphs and copy remain live view-model data, never painted. */
 export function atbatCardArt(item){
   const url=images[`../../../assets/production-art/atbat-cards/${item.kind}.webp`];
-  return url?{url,position:'50% 50%',size:'contain'}:defaultCardArt(item);
+  return url?{url,position:'50% 50%',size:'cover'}:defaultCardArt(item);
 }

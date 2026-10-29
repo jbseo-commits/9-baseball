@@ -3,6 +3,7 @@ import {nearCoverage} from './motion-timeline.js';
 import ResultSequence from './ResultSequence.jsx';
 import ResultReadout from './ResultReadout.jsx';
 import './decision.css';
+import BattleSymbol,{EnergyText} from './BattleSymbol.jsx';
 
 /* C04 — 오른쪽 결정 영역: 9존 → 선택 요약 → 단일 행동. 결과는 같은 9존에 실제 공으로 강조한다.
    9존은 투구 코스 전용이다(README “규칙 실험 경계”). 값은 view model(C01)의 공개 값만 쓴다. */
@@ -40,7 +41,7 @@ export function planSummary({hand=[],forecast=null,input=null,energy=null,effect
 }
 
 export default function DecisionPanel({zones=null,forecast=null,input=null,hand=[],energy=null,result=null,phase='deciding',effects=[],scene=null,execution=null,
-  shotGrade=null,recent=null,showAction=true,showPlan=true,selection=null,onZoneTap,onZoneHover=null,onTake,onSwing,onNext}){
+  shotGrade=null,recent=null,showAction=true,showPlan=true,quiet=false,selection=null,onZoneTap,onZoneHover=null,onTake,onSwing,onNext}){
   if(!zones||!input)return null;
   const deciding=phase==='deciding';
   const caption=planCaption(zones),near=result?.kind==='whiff'?nearCoverage(result):null;
@@ -61,7 +62,7 @@ export default function DecisionPanel({zones=null,forecast=null,input=null,hand=
           {c.tokens.map(n=><em key={n} className={'bv-token n'+n} aria-hidden="true">{n}</em>)}
           {c.aim&&<i className="bv-aim-ring" aria-hidden="true"/>}
           {c.actual&&<i className="bv-pitch-mark" data-testid="bv-pitch-mark" aria-hidden="true"/>}
-          <span className="bv-cell-face" aria-hidden="true">{c.live?c.face??'':'안 던짐'}</span>
+          <span className="bv-cell-face" aria-hidden="true">{c.live?c.face??'':quiet?'':'안 던짐'}</span>
         </button>;
       })}
     </div>
@@ -77,10 +78,10 @@ export default function DecisionPanel({zones=null,forecast=null,input=null,hand=
 }
 
 /* One causal readout, also usable outside the field's touch/slide surface. */
-export function DecisionSummary({hand=[],forecast,input,energy,effects=[],phase='deciding',result,shotGrade,execution,scene,recent}){
+export function DecisionSummary({hand=[],forecast,input,energy,effects=[],phase='deciding',result,shotGrade,execution,scene,recent,compact=false}){
   const deciding=phase==='deciding',sum=deciding?planSummary({hand,forecast,input,energy,effects}):null;
   return <div className="bv-plan" data-testid="bv-plan" aria-live="polite">
-      {deciding&&sum&&<>
+      {deciding&&sum&&!(compact&&input.actionKind==='watch')&&<>
         <p className="bv-plan-title">{sum.title}{sum.cost>0&&<small> · ⚡{sum.cost}</small>}</p>
         {sum.chance&&<p className="bv-plan-metrics"><strong>{sum.chance}</strong>{sum.damage&&<span>{sum.damage}</span>}</p>}
         {sum.reasons?.length>0&&<p className="bv-plan-reasons">{sum.reasons.join(' · ')}</p>}
@@ -100,7 +101,7 @@ export function DecisionSummary({hand=[],forecast,input,energy,effects=[],phase=
 
 /* The sole action may be mounted by BattleView's persistent dock or inline by
    standalone DecisionPanel. Identical input lock and repeated-click guard. */
-export function BattleAction({input,energy,phase='deciding',actionName='',onTake,onSwing,onNext}){
+export function BattleAction({input,energy,phase='deciding',actionName='',symbolic=false,onTake,onSwing,onNext}){
   const fired=useRef(false);
   useEffect(()=>{fired.current=false;},[input?.actionKind,input?.canExecute,phase]);
   if(!input||(input.actionKind==='none'&&phase==='result'))return null;
@@ -114,9 +115,10 @@ export function BattleAction({input,energy,phase='deciding',actionName='',onTake
       data-action-kind={input.actionKind} aria-label={[actionName,input.ariaLabel||input.actionLabel].filter(Boolean).join(' · ')} aria-busy={input.actionKind==='busy'}
       aria-disabled={!input.canExecute||undefined} disabled={!input.canExecute}
       onKeyDown={e=>{if(e.repeat&&(e.key==='Enter'||e.key===' '))e.preventDefault();}} onClick={run}>
-      {cost>0&&<span className="bv-action-cost" aria-hidden="true">⚡{cost}</span>}
+      {symbolic&&<BattleSymbol kind={input.actionKind==='watch'?'eye':input.actionKind==='prepare'?'cards':'bat'} className="bv-action-symbol"/>}
+      {cost>0&&<span className="bv-action-cost" aria-hidden="true">{symbolic?<BattleSymbol kind="energy"/>:'⚡'}{cost}</span>}
       <b>{actionName&&<span className="bv-action-name">{actionName} </span>}{input.actionLabel}</b>
-      {input.actionKind==='watch'&&energy?.nextTakeHint&&<small aria-hidden="true">{energy.nextTakeHint}</small>}
+      {input.actionKind==='watch'&&energy?.nextTakeHint&&<small aria-hidden="true">{symbolic?<EnergyText>{energy.nextTakeHint}</EnergyText>:energy.nextTakeHint}</small>}
       {(input.actionKind==='swing'||input.actionKind==='prepare')&&<span className="bv-action-arrow" aria-hidden="true">↗</span>}
     </button>
   );

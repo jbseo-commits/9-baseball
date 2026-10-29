@@ -5,7 +5,7 @@ const base=process.env.QA_BASE||'http://127.0.0.1:5227/';
 const out=process.env.QA_OUT||'/tmp/9zone-folded-hand';fs.mkdirSync(out,{recursive:true});
 const sizes=[[667,375],[740,360],[844,390],[1024,768],[1440,900],[1920,1080]];
 const open=async p=>{const h=p.getByRole('button',{name:'손패 펼치기',exact:true});if(await h.count())await h.tap();await p.waitForFunction(()=>document.querySelector('.battle-vnext').dataset.handOpen==='true');await p.waitForTimeout(400);};
-const start=async(p,id)=>{await p.goto(base+'?battleUi=vnext&battleFixture='+id+(process.env.QA_VERSION?'&v='+process.env.QA_VERSION:''));await p.waitForTimeout(550);};
+const start=async(p,id)=>{await p.goto(base+'?battleUi=vnext&battleFixture='+id+(process.env.QA_VERSION?'&v='+process.env.QA_VERSION:''));await p.locator('.bv-actor-batter img').evaluate(e=>e.decode());await p.locator('.bv-actor-pitcher img').evaluate(e=>e.decode());await p.evaluate(()=>document.fonts.ready);await p.waitForTimeout(400);};
 const box=async(p,s)=>p.locator(s).first().boundingBox();
 const same=(a,b)=>['x','y','width','height'].every(k=>Math.abs(a[k]-b[k])<1);
 (async()=>{
@@ -21,6 +21,10 @@ const same=(a,b)=>['x','y','width','height'].every(k=>Math.abs(a[k]-b[k])<1);
   await open(p);assert.ok(same(zone,await box(p,'.bv-zone')),'zone does not move');assert.ok(same(field,await box(p,'.bv-stage')),'camera does not resize');
   const row=await box(p,'.bv-hand-row');assert.ok(row.x>=zone.x+zone.width-1,'expanded cards stay right of zone');
   assert.ok((await box(p,'.bv-energy')).y<row.y,'energy directly above cards');
+  if(await p.locator('.bv-refined').count()){
+    assert.ok(await p.locator('.bv-card-strip').evaluateAll(es=>es.every(e=>{const a=e.querySelector('.bv-card-art'),cost=e.querySelector('.bv-card-cost'),copy=e.querySelector('.bv-card-copy'),range=e.querySelector('.bv-card-range');return cost.offsetLeft>=a.offsetLeft+a.offsetWidth&&range.offsetLeft>=copy.offsetLeft+copy.offsetWidth-1;})),'cost and range do not overlap the illustration/copy');
+    const action=await box(p,'.bv-action');assert.ok(Math.abs(action.width-action.height)<1,'the primary action is circular');
+  }
   await p.screenshot({path:`${out}/expanded-${w}.jpg`,quality:88});
   const strike=p.locator('.bv-card[data-card-kind=strike]').first();await strike.tap();await p.locator('.bv-cell[data-zone="2"]').tap();
   assert.equal(await p.locator('.battle-vnext').getAttribute('data-hand-open'),'false');

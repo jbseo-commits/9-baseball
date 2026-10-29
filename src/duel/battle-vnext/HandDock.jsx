@@ -1,6 +1,7 @@
 import React,{forwardRef,useCallback,useImperativeHandle,useLayoutEffect,useRef,useState} from 'react';
 import BattleCard,{defaultCardArt,selectionTag} from './BattleCard.jsx';
 import './hand.css';
+import BattleSymbol,{EnergyText} from './BattleSymbol.jsx';
 
 /* C03 — 항상 보이는 손패와 그 바로 위 에너지. 여는 단계 없음. 에너지·손패 DOM은 각각 하나.
    카드 탭은 부모의 기존 선택 규칙(pickSwing/pickPrep)으로 간다. 이 컴포넌트는 선택 상태를 갖지 않는다. */
@@ -87,10 +88,10 @@ const HandDock=forwardRef(function HandDock({hand=[],energy=null,input=null,phas
       {energy&&<div className={'bv-energy'+(energy.shortfall>0?' is-short':'')} data-testid="bv-energy" data-energy={energy.current} data-cap={energy.cap}
         role="status" aria-label={`에너지 ${energy.current}/${energy.cap}`+(line?' · '+line:'')}>
         <span className="bv-energy-label" aria-hidden="true">에너지</span>
-        <b className="bv-energy-mark" aria-hidden="true">⚡</b>
+        <b className="bv-energy-mark" aria-hidden="true">{grid==='orbit'?<BattleSymbol kind="energy"/>:'⚡'}</b>
         <strong aria-hidden="true">{energy.current}<small>/{energy.cap}</small></strong>
         <span className="bv-energy-pips" aria-hidden="true">{pips.map((p,i)=><i key={i} className={p}/>)}</span>
-        {line&&<em className="bv-energy-line" aria-hidden="true">{line}</em>}
+        {line&&<em className="bv-energy-line" aria-hidden="true">{grid==='orbit'?<EnergyText>{line}</EnergyText>:line}</em>}
       </div>}
       <span className="bv-hand-count">손패 <b>{cards.length}</b></span>
       {lock&&<span className="bv-hand-lock" role="status">{lock}</span>}
@@ -98,7 +99,7 @@ const HandDock=forwardRef(function HandDock({hand=[],energy=null,input=null,phas
         {basic&&<button type="button" className={'bv-basic-chip'+(basic.selectionRole==='main'?' is-main':'')} data-testid="bv-basic-chip"
           aria-pressed={basic.selectionRole==='main'} disabled={basic.disabled} onClick={()=>onCardTap?.('basic')}
           aria-label={'기본 스윙 · 에너지 0 · 카드 소모 없음'+(basic.selectionRole==='main'?' · 선택됨':'')}>
-          기본 스윙 <b aria-hidden="true">⚡0</b>{basic.selectionRole==='main'&&<i aria-hidden="true">{selectionTag(basic)}</i>}
+          기본 스윙 <b aria-hidden="true">{grid==='orbit'?<BattleSymbol kind="energy"/>:'⚡'}0</b>{basic.selectionRole==='main'&&<i aria-hidden="true">{selectionTag(basic)}</i>}
         </button>}
         {selection?.canStack&&onToggleSupport&&<button type="button" className={'bv-support-toggle'+(selection.supportMode?' is-on':'')} aria-pressed={selection.supportMode} onClick={onToggleSupport}>카드 겹치기</button>}
         {piles&&(onPiles
@@ -110,7 +111,7 @@ const HandDock=forwardRef(function HandDock({hand=[],energy=null,input=null,phas
       <ol ref={rowRef} className="bv-hand-row" data-testid="bv-hand" aria-label={`손패 ${cards.length}장`}
         onScroll={measure} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerEnd} onPointerCancel={onPointerEnd}
         onClickCapture={onClickCapture}>
-        {cards.map((item,i)=><BattleCard key={item.id} item={item} art={artFor?artFor(item):null} dealIndex={i} dealCount={cards.length}
+        {cards.map((item,i)=><BattleCard key={item.id} item={item} strip={grid==='orbit'} art={artFor?artFor(item):null} dealIndex={i} dealCount={cards.length}
           cardRef={el=>{if(el)cardRefs.current.set(item.id,el);else cardRefs.current.delete(item.id);}}
           onTap={onCardTap} onDetail={onCardDetail} detailDisabled={detailDisabled} onKeyDown={e=>onCardKey(e,i)}/>)}
         {!cards.length&&<li className="bv-hand-empty">손패 없음 · 기본 스윙은 언제나 쓸 수 있다</li>}
