@@ -284,37 +284,43 @@ dist/assets/IntegrationPreview-fKybUa97.css                            1.99 kB �
 dist/assets/legacy-scene-geometry-D1lcbs9j.css                         4.08 kB │ gzip:   1.22 kB
 dist/assets/ZoneFirstPreview-D1AMUz-X.css                             18.50 kB │ gzip:   5.14 kB
 dist/assets/index-jBTNudPl.css                                     1,407.36 kB │ gzip: 342.14 kB
-dist/assets/webworkerAll-7l2KmBI-.js                                   0.05 kB │ gzip:   0.06 kB
-dist/assets/BitmapFont-DriobXU1.js                                     0.07 kB │ gzip:   0.07 kB
-dist/assets/WebGLRenderer-MqUPGygu.js                                  0.07 kB │ gzip:   0.08 kB
-dist/assets/CanvasRenderer-CnozRbS8.js                                 0.07 kB │ gzip:   0.08 kB
-dist/assets/WebGPURenderer-C1NWaWTo.js                                 0.07 kB │ gzip:   0.08 kB
-dist/assets/init-mHlTWIo7.js                                           0.15 kB │ gzip:   0.13 kB
-dist/assets/browserAll-BY1lSqGq.js                                     0.30 kB │ gzip:   0.21 kB
+dist/assets/webworkerAll-DKSsfdRY.js                                   0.05 kB │ gzip:   0.06 kB
+dist/assets/BitmapFont-Cnhudj2j.js                                     0.07 kB │ gzip:   0.07 kB
+dist/assets/WebGLRenderer-T5RQBOSs.js                                  0.07 kB │ gzip:   0.08 kB
+dist/assets/CanvasRenderer-BnA5I6Qr.js                                 0.07 kB │ gzip:   0.08 kB
+dist/assets/WebGPURenderer-Df13mj5r.js                                 0.07 kB │ gzip:   0.08 kB
+dist/assets/init-rz7GYehj.js                                           0.15 kB │ gzip:   0.13 kB
+dist/assets/browserAll-CCf_dgpy.js                                     0.30 kB │ gzip:   0.21 kB
 dist/assets/getTextureBatchBindGroup-zqcbQtTi.js                       0.34 kB │ gzip:   0.26 kB
 dist/assets/rolldown-runtime-hePW80VL.js                               0.71 kB │ gzip:   0.42 kB
 dist/assets/Cache-BO4yUZ-l.js                                          1.09 kB │ gzip:   0.55 kB
 dist/assets/legacy-scene-geometry-CfWuouRH.js                          1.43 kB │ gzip:   0.66 kB
-dist/assets/BattleComparison-Djx5ZlUY.js                               4.52 kB │ gzip:   2.11 kB
+dist/assets/BattleComparison-CWcEv_kZ.js                               4.52 kB │ gzip:   2.11 kB
 dist/assets/canvasUtils-CuWxN1gW.js                                    6.05 kB │ gzip:   2.04 kB
 dist/assets/BufferResource-5aakRBSE.js                                11.06 kB │ gzip:   2.85 kB
-dist/assets/IntegrationPreview-Z5t6b4w7.js                            11.18 kB │ gzip:   4.45 kB
-dist/assets/ZoneFirstPreview-D1RjYzUF.js                              19.00 kB │ gzip:   7.33 kB
+dist/assets/IntegrationPreview-BupE1HzD.js                            11.18 kB │ gzip:   4.45 kB
+dist/assets/ZoneFirstPreview-HxuAAzkZ.js                              19.00 kB │ gzip:   7.33 kB
 dist/assets/GCManagedHash-XJvitQd6.js                                 19.77 kB │ gzip:   6.40 kB
 dist/assets/Filter-B6omJnxU.js                                        42.23 kB │ gzip:  12.15 kB
 dist/assets/RenderTargetSystem-BVbZpwD7.js                            59.35 kB │ gzip:  16.78 kB
 dist/assets/GraphicsContext-p36Lb61R.js                               62.25 kB │ gzip:  20.87 kB
 dist/assets/Geometry-LDTUjmJI.js                                      68.23 kB │ gzip:  22.14 kB
 dist/assets/vendor-BGJMiX-T.js                                       139.83 kB │ gzip:  45.33 kB
-dist/assets/lib-D-HpQo6x.js                                          629.18 kB │ gzip: 177.48 kB
-dist/assets/index-BxgB3iNh.js                                        810.34 kB │ gzip: 257.88 kB
+dist/assets/lib-BD5obRCH.js                                          629.18 kB │ gzip: 177.48 kB
+dist/assets/index-CwzR0U1d.js                                        810.43 kB │ gzip: 257.91 kB
 
+✓ built in 3.25s
 [plugin builtin:vite-reporter]
 (!) Some chunks are larger than 500 kB after minification. Consider:
 - Using dynamic import() to code-split the application
 - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
-✓ built in 2.47s
+[PLUGIN_TIMINGS] Your build spent 84% of 3.2s inside plugin hooks (2.7s).
+Not measurable — 2 hooks whose calls overlap, so elapsed time covers work other calls were doing. Profile with `node --cpu-prof`:
+  - vite:asset load (301 calls)
+  - vite:css transform (73 calls)
+See https://rolldown.rs/reference/InputOptions.checks#plugintimings for more details.
+
 
 > 9zone-showdown@1.0.0 check:dist
 > node scripts/check-dist-budget.mjs

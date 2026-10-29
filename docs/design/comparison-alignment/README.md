@@ -11,3 +11,5 @@
 `LegacyCompareHost`는 실제 `.bp-scene` 폭을 측정하고440이하로 제한한다. 넓은 standalone창의 wrapper폭1440을 구장폭으로 쓰지 않는다. Aiframe은 원래portrait폭<=440과 가용높이로 표시하고, B의 가로 표시 방식은 유지한다. 축소된 iframe으로 터치 표적을 줄이지 않는다.
 
 보정은 `.bc-legacy-host` 안에 한정된다. 기존 production fallback/globalCSS, 새BattleView의 카메라/배우, 엔진/카드/저장/선택 규칙은 변경하지 않는다. A의 배경과 actor wrapper에 따로 적용되던 camera transform을 해제해 authoredSprite의 pose만 움직이게 한다. 과거 전체main checkout을 고치는 작업이나 모든roster 모션 인수로 주장하지 않는다.
+
+비교 URL의 v버전도 iframe/크게열기 링크에 전달해 이전 A페이지가 브라우저 캐시로 남지 않게 한다. 저장/엔진과 관계없는 URL전달이며, 실제 공개 검수에서 부모·두 자식의 bundle일치를 확인한다.

@@ -17,8 +17,9 @@ export function comparisonMode(search=''){
   return {page:opt&&!child&&p.get('battleCompare')==='1',child,standalone};
 }
 export function comparisonScenario(id){return COMPARE_SCENARIOS.some(s=>s.id===id)?id:'watch-read0';}
-export function comparisonUrl(path,variant,fixture,{embedded=true}={}){
+export function comparisonUrl(path,variant,fixture,{embedded=true,version=new URLSearchParams(globalThis.location?.search||'').get('v')}={}){
   const p=new URLSearchParams({battleUi:'vnext',battleFixture:comparisonScenario(fixture),battleCompareVariant:variant==='legacy'?'legacy':'vnext'});
+  if(version)p.set('v',String(version));
   if(embedded)p.set('battleCompareChild',variant==='legacy'?'legacy':'vnext');
   return path+'?'+p;
 }

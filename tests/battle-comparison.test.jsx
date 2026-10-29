@@ -17,6 +17,9 @@ it('requires explicit opt-in and prevents recursive comparison URLs while preser
  const url=comparisonUrl('/9-baseball/previews/test/','legacy','prepare');expect(url.startsWith('/9-baseball/previews/test/?')).toBe(true);expect(url).not.toContain('battleCompare=1');expect(url).toContain('battleCompareChild=legacy');expect(comparisonScenario('unknown')).toBe('watch-read0');
  for(const v of ['legacy','vnext'])expect(comparisonMode('?battleUi=vnext&battleFixture=prepare&battleCompareVariant='+v).standalone).toBe(v);
  expect(comparisonMode('?battleUi=vnext&battleCompareVariant=vnext').standalone).toBeNull();
+ window.history.replaceState({},'','/?battleUi=vnext&battleCompare=1&v=aligned-version');
+ expect(new URL(comparisonUrl('/preview/','legacy','watch-read0'),location.origin).searchParams.get('v')).toBe('aligned-version');
+ expect(new URL(comparisonUrl('/preview/','vnext','prepare',{embedded:false}),location.origin).searchParams.get('v')).toBe('aligned-version');
 });
 it('accepts activity only from the same-origin parent with the exact schema',()=>{
  const parent={},win={parent,location:{origin:'https://example.test'}};

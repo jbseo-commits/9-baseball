@@ -11,6 +11,7 @@
 - [smoke.json](smoke.json): 기존default/opt-in 준비·지켜보기·자동다음·Inspector정지·resume·회전선택과동일save확인. [noncombat.json](noncombat.json): 경로/보상/시설9조합. 실제저장·엔진·카드·에너지·로스터승인불변.
 - 독립 reviewer가 준비/접촉/팔로스루 및최종나란히를 확인했고, standalone폭 수정까지 blocker없음을 확인했다.
 - 전체 **209파일/1,388테스트 통과** [tests-full.txt](tests-full.txt). production build/check:dist **59.9MB/60MB 통과** [build.txt](build.txt). unit환경의 예상iframe-loading-disabled메시지는 로그에 보존했다.
+- root의 v버전을 iframe/standalone링크에도전달한다. 이전자식HTML캐시가보정을가리지않도록했고 QA_VERSION으로실제두iframe URL을검증했다.
 - 공개branch배포 후 같은기하·그림검증을실제URL에서 수행하고 PR66에 기록한다. 실제휴대폰Safari/사람의미감인수를 테스트숫자로 대체하지 않는다.
 
 재현: Vite5223 실행 후 `node scripts/qa-comparison-alignment.cjs`. QA_BASE/QA_OUT/QA_SCRIPT를 주면공개배포에서도 같은검증을사용한다. Playwright와 `/usr/bin/chromium`이필요하다.
