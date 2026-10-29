@@ -55,7 +55,11 @@ const same=(a,b)=>['x','y','width','height'].every(k=>Math.abs(a[k]-b[k])<1);
   await open(p);const hand=p.getByTestId('bv-hand');await hand.evaluate(e=>e.scrollTop=100);const scroll=await hand.evaluate(e=>e.scrollTop);
   await p.getByRole('button',{name:'경기 정보 및 메뉴'}).tap();await p.getByTestId('bp-inspect-back').tap();assert.ok(Math.abs(await hand.evaluate(e=>e.scrollTop)-scroll)<2);
   const selected=await p.locator('.bv-card.is-main').getAttribute('data-card-kind');
-  await hand.evaluate(e=>{const c=e.querySelector('.bv-card');c.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,pointerId:91,clientX:600,clientY:120}));c.dispatchEvent(new PointerEvent('pointermove',{bubbles:true,pointerId:91,clientX:600,clientY:70}));c.dispatchEvent(new PointerEvent('pointerup',{bubbles:true,pointerId:91,clientX:600,clientY:70}));c.click();});
+  const swipe=await hand.evaluate(e=>{const r=e.getBoundingClientRect();for(const card of e.querySelectorAll('.bv-card')){const c=card.getBoundingClientRect(),top=Math.max(c.top,r.top),bottom=Math.min(c.bottom,r.bottom);if(bottom-top>30)return{x:c.left+c.width*.55,y:(top+bottom)/2};}return null;});
+  assert.ok(swipe,'visible card available for a real vertical touch swipe');
+  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[swipe]});
+  for(let i=1;i<=6;i++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:swipe.x,y:swipe.y-i*7}]});await p.waitForTimeout(16);}
+  await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await p.waitForTimeout(80);
   assert.equal(await p.locator('.bv-card.is-main').getAttribute('data-card-kind'),selected);
   assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth),w);
   assert.deepEqual(errors,[]);reports.push({w,h,fixedCamera:true,centralZone:true,touchDrag:true,realHp48:true,supportOwnAim:true,saveIsolated:true,scrollRestored:true,errors});console.log('passed',w,h);await p.close();
