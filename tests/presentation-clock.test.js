@@ -3,10 +3,10 @@ import {startPresentationClock} from '../src/duel/presentation-clock.js';
 import {presentationTimeline,presentationFor} from '../src/duel/presentation.js';
 import {buildFixture} from '../src/duel/battle-vnext/fixtures.js';
 import {redRushTimeline,withKnockoutHold} from '../src/duel/pitcher-sd.js';
-function host(timeline){
+function host(timeline,rate=1){
   let time=0,listener;const stages=[],impact=vi.fn(),settle=vi.fn(),complete=vi.fn(),queue=new Map();let id=0;
   const doc={visibilityState:'visible',addEventListener:(_,fn)=>listener=fn,removeEventListener:()=>{listener=null;}};
-  const clock=startPresentationClock(timeline,{now:()=>time,document:doc,setTimer:(fn,ms)=>{queue.set(++id,{fn,at:time+ms});return id;},clearTimer:id=>queue.delete(id),onStage:s=>stages.push(s),onImpact:impact,onSettle:settle,onComplete:complete});
+  const clock=startPresentationClock(timeline,{rate,now:()=>time,document:doc,setTimer:(fn,ms)=>{queue.set(++id,{fn,at:time+ms});return id;},clearTimer:id=>queue.delete(id),onStage:s=>stages.push(s),onImpact:impact,onSettle:settle,onComplete:complete});
   return {clock,stages,impact,settle,complete,queue,doc,advance(to){time=to;for(const [key,item]of [...queue])if(item.at<=time){queue.delete(key);item.fn();}},resume(to){time=to;listener?.();}};
 }
 describe('one cancellable presentation clock',()=>{
@@ -34,4 +34,18 @@ describe('one cancellable presentation clock',()=>{
   it('can complete a zero-duration timeline synchronously once',()=>{
     const h=host({impactAt:0,releaseAt:0,settleAt:0,duration:0});expect(h.complete).toHaveBeenCalledTimes(1);expect(h.impact).toHaveBeenCalledTimes(1);h.clock.cancel();expect(h.queue.size).toBe(0);
   });
+});
+
+describe('presentation rate is virtual time with wall-clock stale tolerance',()=>{
+ const t={impactAt:100,freeze:60,slowmo:70,releaseAt:230,settleAt:500,duration:700};
+ for(const rate of [.25,.5,2])it(`${rate}x schedules one impact and completion at the scaled physical times`,()=>{
+  const h=host(t,rate);h.advance(100/rate-1);expect(h.impact).not.toHaveBeenCalled();h.advance(100/rate);expect(h.impact).toHaveBeenCalledTimes(1);expect(h.impact.mock.calls[0][0].elapsed).toBe(100);
+  h.advance(700/rate-1);expect(h.complete).not.toHaveBeenCalled();h.advance(700/rate);expect(h.complete).toHaveBeenCalledTimes(1);
+ });
+ it('does not replay a 130ms stale impact just because slow virtual time is only 32.5ms late',()=>{
+  const h=host(t,.25);h.advance(530);expect(h.impact.mock.calls[0][0].late).toBe(130);expect(h.impact.mock.calls[0][0].audible).toBe(false);
+ });
+ it('invalid rates retain the one-times clock and cancellation never emits scheduled audio',()=>{
+  const h=host(t,0);expect(h.clock.rate).toBe(1);h.advance(99);expect(h.impact).not.toHaveBeenCalled();h.clock.cancel();h.advance(1000);expect(h.impact).not.toHaveBeenCalled();
+ });
 });

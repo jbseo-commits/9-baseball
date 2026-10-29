@@ -29,7 +29,7 @@ const same=(a,b)=>['x','y','width','height'].every(k=>Math.abs(a[k]-b[k])<1);
   const strike=p.locator('.bv-card[data-card-kind=strike]').first();await strike.tap();
   // Hold the 800 ms decorative lifetime while screenshot/geometry IPC runs.
   // Native touch still dispatches; resume before the real pitch lifecycle.
-  const captureTime=Date.now();await p.clock.install({time:captureTime});await p.clock.pauseAt(captureTime+50);
+  const captureTime=Date.now();await p.clock.install({time:captureTime});await p.clock.pauseAt(captureTime+1000);
   await p.locator('.bv-cell[data-zone="2"]').tap();
   assert.equal(await p.locator('.battle-vnext').getAttribute('data-hand-open'),'false');
   assert.deepEqual(await p.locator('[data-insert-zone]').evaluateAll(es=>es.map(e=>Number(e.dataset.insertZone))),[2,5,8]);

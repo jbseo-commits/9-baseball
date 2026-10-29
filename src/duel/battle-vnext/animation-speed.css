@@ -1,0 +1,7 @@
+.battle-vnext .bv-speed-control{position:absolute;left:calc(clamp(300px,54vw,960px) + 6px);top:8px;width:62px;z-index:5;pointer-events:auto}
+.battle-vnext .bv-speed-control>span{position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden;white-space:nowrap}
+.battle-vnext .bv-speed-control select{width:100%;min-height:44px;padding:0 4px;border:1px solid #a6b7be88;border-radius:5px;background:#102134ed;color:#f0dfb1;font:700 13px/1.2 'Noto Sans KR',system-ui;cursor:pointer;touch-action:manipulation}
+.battle-vnext .bv-speed-control select:disabled{opacity:.5;cursor:default}
+.battle-vnext .bv-speed-control select:focus-visible{outline:2px solid #f4ce80;outline-offset:2px}
+@media(orientation:landscape) and (max-height:500px){.battle-vnext .bv-speed-control{left:calc(min(54vw,calc(100% - var(--bv-rail))) + 4px);top:0;width:56px}.battle-vnext .bv-speed-control select{font-size:12px;padding:0 2px}}
+@media(orientation:portrait){.battle-vnext .bv-speed-control{left:auto;right:8px;top:54px}}

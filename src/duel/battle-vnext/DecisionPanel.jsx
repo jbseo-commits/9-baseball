@@ -42,7 +42,7 @@ export function planSummary({hand=[],forecast=null,input=null,energy=null,effect
 }
 
 export default function DecisionPanel({zones=null,forecast=null,input=null,hand=[],energy=null,result=null,phase='deciding',effects=[],scene=null,execution=null,
-  shotGrade=null,recent=null,showAction=true,showPlan=true,quiet=false,selection=null,sound=false,onZoneTap,onZoneHover=null,onTake,onSwing,onNext}){
+  shotGrade=null,recent=null,showAction=true,showPlan=true,quiet=false,selection=null,sound=false,animationRate=1,onZoneTap,onZoneHover=null,onTake,onSwing,onNext}){
   if(!zones||!input)return null;
   const deciding=phase==='deciding';
   const caption=planCaption(zones),near=result?.kind==='whiff'?nearCoverage(result):null;
@@ -66,7 +66,7 @@ export default function DecisionPanel({zones=null,forecast=null,input=null,hand=
           <span className="bv-cell-face" aria-hidden="true">{c.live?c.face??'':quiet?'':'안 던짐'}</span>
         </button>;
       })}
-      <StackBoard pieces={zones.pieces} links={zones.links} phase={phase} sound={sound}/>
+      <StackBoard pieces={zones.pieces} links={zones.links} phase={phase} sound={sound} animationRate={animationRate}/>
     </div>
     <p className={'bv-band'+(zones.band.actual?' is-actual':'')} data-testid="bv-band">
       {zones.band.actual&&<i className="bv-pitch-mark" data-testid="bv-pitch-mark" aria-hidden="true"/>}

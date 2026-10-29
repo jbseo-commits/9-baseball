@@ -15,14 +15,14 @@ export function stackFootprint(pieces=[]){
 }
 const shape=coverage=>placementGeometry(coverage.map(z=>({z,x:z%3*100,y:Math.floor(z/3)*100,w:100,h:100})),{x:150,y:150,w:100,h:100});
 const pt=z=>({x:z%3*100+50,y:Math.floor(z/3)*100+50});
-export function StackBoard({pieces=[],links=[],phase='deciding',sound=false}){
+export function StackBoard({pieces=[],links=[],phase='deciding',sound=false,animationRate=1}){
   const visible=['deciding','committing'].includes(phase),assembling=phase==='committing'&&pieces.length>1;
   useEffect(()=>{
     if(!assembling||!sound||document.hidden)return;
-    const cancel=playPlacementSound({elapsed:PLACEMENT.lockAt,reduced:!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches});
+    const cancel=playPlacementSound({elapsed:PLACEMENT.lockAt,rate:animationRate,reduced:!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches});
     const hide=()=>{if(document.hidden)cancel();};document.addEventListener('visibilitychange',hide);
     return()=>{cancel();document.removeEventListener('visibilitychange',hide);};
-  },[assembling,sound]);
+  },[assembling,sound,animationRate]);
   if(!visible||!pieces.length)return null;
   const plan=stackFootprint(pieces);
   return <svg className={'bv-stack-board'+(assembling?' is-assembling':'')} data-testid="bv-stack-board" data-card-count={pieces.length} data-overlap-count={plan.overlaps.length} viewBox="0 0 300 300" preserveAspectRatio="none" aria-hidden="true">

@@ -7,6 +7,8 @@ import {atbatCardArt} from './atbat-card-art.js';
 import {cinemaMoment} from './cinema-director.js';
 import ResultReadout from './ResultReadout.jsx';
 import CoverageInsert from './CoverageInsert.jsx';
+import AnimationSpeed from './AnimationSpeed.jsx';
+import useAnimationRate from './use-animation-rate.js';
 import {StackTray} from './StackPlacement.jsx';
 import BattleSymbol from './BattleSymbol.jsx';
 import {referenceSkinVars} from './reference-skins.js';
@@ -19,13 +21,14 @@ import './reference.css';
 
 /* Presentation only. BallparkBattle keeps selection, inspector, commit and next
    timers; App still owns the engine, save and pitch presentation lifecycle. */
-export default function BattleView({model,actors,playback=null,execution=null,rootRef,sceneRef,zoneRef,handRef,title,review=false,
+export default function BattleView({model,actors,playback=null,execution=null,animationRate=1,onAnimationRateChange=null,rootRef,sceneRef,zoneRef,handRef,title,review=false,
   inspector=null,menuOpen=false,recent=null,onMenu,sound=false,onToggleSound=null,onCardTap,onCardDetail,onPiles,onZoneTap,onZoneHover,
   onToggleSupport,onClearPlan,onCardDrop=null,onRemoveSupport=null,onPointerDown,onPointerMove,onPointerUp,onPointerCancel,onTake,onSwing,onNext,piles}){
   const finale=cinemaMoment(model.result,model.scene.fxStage,!!playback);
   const spotlight=model.result&&playback&&!finale?{...model.result,knockedOut:false}:model.result;
   const [field,setField]=useState(null);
   const ownRoot=useRef(null),viewRef=rootRef||ownRoot;
+  useAnimationRate(viewRef,playback?.rate||animationRate);
   const [handOpen,setHandOpen]=useState(false),[placements,setPlacements]=useState([]),[pendingDrop,setPendingDrop]=useState(null),[dragFace,setDragFace]=useState(null),[dropProblem,setDropProblem]=useState('');
   const setPlacement=next=>setPlacements(prev=>next?[...prev.filter(p=>p.id!==next.id),next].slice(-4):[]);
   const finishPlacement=useCallback(seq=>setPlacements(prev=>prev.filter(p=>p.seq!==seq)),[]);
@@ -121,18 +124,19 @@ export default function BattleView({model,actors,playback=null,execution=null,ro
     if(item?.selectionRole==='main'||item?.selectionRole==='armed')place(Number(cell.dataset.zone),d.id);
     else{setPlacement(null);onCardTap?.(d.id);setPendingDrop({id:d.id,zone:Number(cell.dataset.zone)});}
   };
-  return <main ref={viewRef} onKeyDown={e=>{suppressClick.current=false;if(e.key==='Escape'&&handOpen&&!menuOpen){e.preventDefault();setHandOpen(false);handleRef.current?.focus();}}} className={'battle-vnext bv-atbat bv-foldable bv-refined bv-reference'+(menuOpen?' inspecting':'')} data-hand-open={shown?'true':'false'} data-phase={model.phase} data-support={hasSupport?'true':'false'} style={{...referenceSkinVars,'--bv-verdict-delay':playback?'120ms':'0ms',...(field?{'--bv-plate-x':field.home.x+'px','--bv-plate-y':field.home.y+'px','--bv-mound-y':field.mound.y+'px','--ref-scale':field.camera.scale,'--ref-zone-size':field.zoneSize+'px'}:{})}} aria-label="타석">
+  return <main ref={viewRef} onKeyDown={e=>{suppressClick.current=false;if(e.key==='Escape'&&handOpen&&!menuOpen){e.preventDefault();setHandOpen(false);handleRef.current?.focus();}}} className={'battle-vnext bv-atbat bv-foldable bv-refined bv-reference'+(menuOpen?' inspecting':'')} data-animation-rate={animationRate} data-hand-open={shown?'true':'false'} data-phase={model.phase} data-support={hasSupport?'true':'false'} style={{...referenceSkinVars,'--bv-verdict-delay':playback?'120ms':'0ms',...(field?{'--bv-plate-x':field.home.x+'px','--bv-plate-y':field.home.y+'px','--bv-mound-y':field.mound.y+'px','--ref-scale':field.camera.scale,'--ref-zone-size':field.zoneSize+'px'}:{})}} aria-label="타석">
     <div className="bv-stage" ref={sceneRef}>
       <BattleScene playback={playback} result={model.result} finale={finale} scene={model.scene} actors={actors} phase={model.phase} framing="atbat" onLayout={onLayout}>
         {model.phase==='result'&&model.result&&<ResultReadout finale={finale} result={spotlight} shotGrade={model.scene.shotGrade} variant="spotlight"/>}
       </BattleScene>
     </div>
+    <AnimationSpeed rate={animationRate} onChange={onAnimationRateChange} disabled={!!playback||model.phase==='committing'||!!placements.length||!!pendingDrop||menuOpen}/>
     <BattleHud result={model.result} playback={playback} resultKey={model.scene.playToken} hud={model.hud} forecast={model.forecast} sources={model.zones?.sources} phase={model.phase}
       title={model.hud.actLabel||title} sound={sound} onToggleSound={onToggleSound} onMenu={onMenu} menuOpen={menuOpen} refined/>
     <div className="bv-decision-area" ref={zoneRef} onPointerDown={onPointerDown} onPointerMove={onPointerMove}
       onPointerUp={onPointerUp} onPointerCancel={onPointerCancel}>
       {main&&model.phase==='deciding'&&<p className="bv-field-choice">{main.name}<span>{main.type==='prepare'?'준비':`${main.coverage?.length||0}존 커버`}</span></p>}
-      <DecisionPanel {...model} sound={sound} execution={execution} showAction={false} showPlan={false} recent={recent} shotGrade={model.scene.shotGrade} onZoneTap={z=>place(z,model.hand.find(c=>c.selectionRole==='armed')?.id||main?.id)} onZoneHover={onZoneHover}
+      <DecisionPanel {...model} animationRate={animationRate} sound={sound} execution={execution} showAction={false} showPlan={false} recent={recent} shotGrade={model.scene.shotGrade} onZoneTap={z=>place(z,model.hand.find(c=>c.selectionRole==='armed')?.id||main?.id)} onZoneHover={onZoneHover}
         onTake={onTake} onSwing={onSwing} onNext={onNext}/>
     </div>
     <button ref={handleRef} type="button" className="bv-hand-handle" aria-label={handOpen?'손패 접기':'손패 펼치기'} aria-expanded={handOpen} aria-controls="bv-folding-hand"
@@ -165,7 +169,7 @@ export default function BattleView({model,actors,playback=null,execution=null,ro
         :{actionKind:'watch',actionLabel:'지켜보기',ariaLabel:'지켜보기 · 선택한 카드를 쓰지 않고 이번 공을 지켜봅니다',canExecute:model.input.canSelect&&!menuOpen,callback:'onTake'}} energy={model.energy} phase={model.phase} onTake={()=>runAction('take')} onSwing={()=>runAction('swing')}/>}
     </footer>
     </div>
-    {placements.filter(p=>model.zones?.pieces?.some(piece=>piece.id===p.id)).map(request=><CoverageInsert key={request.id+':'+request.seq} request={request} pieces={model.zones?.pieces} rootRef={viewRef} phase={model.phase} sound={sound} menuOpen={menuOpen} onFinish={finishPlacement}/>)}
+    {placements.filter(p=>model.zones?.pieces?.some(piece=>piece.id===p.id)).map(request=><CoverageInsert key={request.id+':'+request.seq} request={request} pieces={model.zones?.pieces} rootRef={viewRef} phase={model.phase} sound={sound} menuOpen={menuOpen} onFinish={finishPlacement} animationRate={animationRate}/>)}
     {dragFace&&<div className="bv-drag-face" aria-hidden="true" style={{left:dragFace.x,top:dragFace.y,backgroundImage:dragFace.art?`linear-gradient(90deg,transparent,#102235ee 55%),url(${dragFace.art})`:undefined}}>{dragFace.name}<span>노릴 코스에 놓으세요</span></div>}
     {menuOpen&&<div className="bv-inspector-area">{inspector}</div>}
     {review&&<p className="bv-review-notice">메모리 검수 · 샘플 배우</p>}

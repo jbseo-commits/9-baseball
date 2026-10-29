@@ -1,27 +1,29 @@
 import {getAudioContext,getMasterNode} from '../audio.js';
+import {animationRate} from '../animation-speed.js';
 import {PLACEMENT} from './placement-motion.js';
 
 /* This bus owns every source it schedules. Mute/reselect/execute can stop even
    future oscillators; the ordinary fire-and-forget judgement cue stays separate. */
-export function playPlacementSound({elapsed=0,reduced=false,pan=0}={}){
+export function playPlacementSound({elapsed=0,reduced=false,pan=0,rate=1}={}){
+  const speed=animationRate(rate);
   let sources=[],bus,panner,stopped=false;
   const cancel=()=>{if(stopped)return;stopped=true;for(const node of sources){try{node.stop();node.disconnect();}catch{}}try{bus?.disconnect();panner?.disconnect();}catch{}};
   try{
-    if(elapsed>PLACEMENT.lockAt+100)return cancel;
+    if((elapsed-PLACEMENT.lockAt)/speed>100)return cancel;
     const ctx=getAudioContext();if(!ctx)return cancel;
     bus=ctx.createGain();bus.gain.value=.64;bus.connect(getMasterNode());
     const output=ctx.createStereoPanner?.();if(output){output.pan.value=Math.max(-.5,Math.min(.5,pan));output.connect(bus);panner=output;}
     const destination=output||bus,base=ctx.currentTime+.006;
     const tone=(start,duration,freq,end,gain,type='sine')=>{
-      if(start<elapsed-24)return;
-      const t=base+Math.max(0,start-elapsed)/1000,osc=ctx.createOscillator(),env=ctx.createGain();
+      if((elapsed-start)/speed>24)return;
+      const t=base+Math.max(0,start-elapsed)/speed/1000,osc=ctx.createOscillator(),env=ctx.createGain();
       osc.type=type;osc.frequency.setValueAtTime(freq,t);osc.frequency.exponentialRampToValueAtTime(end,t+duration);
       env.gain.setValueAtTime(.0001,t);env.gain.exponentialRampToValueAtTime(gain,t+.004);env.gain.exponentialRampToValueAtTime(.0001,t+duration);
       osc.connect(env);env.connect(destination);sources.push(osc);osc.start(t);osc.stop(t+duration+.015);osc.onended=()=>{osc.disconnect();env.disconnect();};
     };
     const air=(start,duration,gain,frequency)=>{
-      if(start<elapsed-24)return;
-      const t=base+Math.max(0,start-elapsed)/1000,src=ctx.createBufferSource(),filter=ctx.createBiquadFilter(),env=ctx.createGain();
+      if((elapsed-start)/speed>24)return;
+      const t=base+Math.max(0,start-elapsed)/speed/1000,src=ctx.createBufferSource(),filter=ctx.createBiquadFilter(),env=ctx.createGain();
       const buffer=ctx.createBuffer(1,Math.ceil(ctx.sampleRate*duration),ctx.sampleRate),data=buffer.getChannelData(0);
       for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*Math.sin(Math.PI*i/data.length);
       src.buffer=buffer;filter.type='bandpass';filter.frequency.value=frequency;filter.Q.value=.8;

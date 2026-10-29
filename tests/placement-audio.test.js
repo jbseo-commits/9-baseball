@@ -26,3 +26,8 @@ it('audio/context failure is contained and never changes the placement flow',()=
  getAudioContext.mockReturnValue(null);expect(()=>playPlacementSound()()).not.toThrow();
  getAudioContext.mockImplementationOnce(()=>{throw Error('unavailable')});expect(()=>playPlacementSound()()).not.toThrow();
 });
+
+it('slow motion scales cue onsets without changing their tone or envelope lengths',()=>{
+ playPlacementSound({rate:.25});const low=sources.find(n=>n.frequency.setValueAtTime.mock.calls.some(c=>c[0]===118));
+ const t=low.start.mock.calls[0][0];expect(t).toBeCloseTo(10.006+PLACEMENT.lockAt/.25/1000);expect(low.stop.mock.calls[0][0]-t).toBeCloseTo(.185);
+});

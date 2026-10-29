@@ -5,6 +5,7 @@ import {presentationFor,presentationTimeline} from '../presentation.js';
 import {captureExecution} from '../presentation-snapshot.js';
 import {startPresentationClock} from '../presentation-clock.js';
 import {withKnockoutHold} from '../pitcher-sd.js';
+import {animationRate,readAnimationRate,rememberAnimationRate} from '../animation-speed.js';
 import {audio,cue} from '../audio.js';
 import {haptic} from '../haptics.js';
 import {installCardDetailGestures} from '../CardDetailSheet.jsx';
@@ -21,17 +22,23 @@ import {appInputs,buildFixture,VNEXT_FIXTURES} from './fixtures.js';
    controller and the production presentation clock; sample art, no production save. */
 export default function IntegrationPreview({fixture='swing-main',variant='vnext',embedded=false}){
   const first=VNEXT_FIXTURES.find(f=>f.id===fixture&&!f.defenseLab)?.id||'swing-main';
+  const [rate,setRate]=useState(()=>embedded||variant==='legacy'?1:readAnimationRate());
+  const changeRate=value=>setRate(rememberAnimationRate(value));
   const [session,setSession]=useState({id:first,key:0}),[sound,setSound]=useState(false);
-  return <PreviewSession variant={variant} embedded={embedded} sound={sound} setSound={setSound} key={session.key} fixture={session.id} onChange={id=>setSession(s=>({id,key:s.key+1}))}/>;
+  return <PreviewSession animationRate={embedded||variant==='legacy'?1:rate} onRateChange={embedded||variant==='legacy'?null:changeRate} variant={variant} embedded={embedded} sound={sound} setSound={setSound} key={session.key} fixture={session.id} onChange={id=>setSession(s=>({id,key:s.key+1}))}/>;
 }
 
-function PreviewSession({fixture,onChange,sound,setSound,variant,embedded}){
+function PreviewSession({fixture,onChange,sound,setSound,variant,embedded,animationRate:rate=1,onRateChange}){
   const clean=new URLSearchParams(window.location.search).get('battlePresentation')==='clean';
   const [active,setActive]=useState(!embedded),activeRef=useRef(!embedded);activeRef.current=active;
   useEffect(()=>{if(!embedded)return;const receive=e=>{if(validComparisonActivity(e,window))setActive(e.data.active);};window.addEventListener('message',receive);window.parent.postMessage({type:'9zone-battle-compare-ready',version:1},window.location.origin);return()=>window.removeEventListener('message',receive);},[embedded]);
   const [initial]=useState(()=>buildFixture(fixture));
   const [s,setS]=useState(initial.s),[selected,setSelected]=useState(initial.selected),[swingStack,setSwingStack]=useState(initial.swingStack);
   const [fxStage,setFxStage]=useState(initial.animate?'windup':initial.fxStage),[playback,setPlayback]=useState(null),[execution,setExecution]=useState(initial.execution);
+  const cueAbort=useRef(new AbortController());
+  const cancelCues=()=>{cueAbort.current.abort();cueAbort.current=new AbortController();};
+  useEffect(()=>{const hide=()=>{if(document.hidden)cancelCues();};document.addEventListener('visibilitychange',hide);return()=>{document.removeEventListener('visibilitychange',hide);cancelCues();};},[]);
+  useEffect(()=>{if(!sound)cancelCues();},[sound]);
   const current=useRef(s),busy=useRef(false),clock=useRef(null),token=useRef(0),soundRef=useRef(sound);current.current=s;soundRef.current=sound;
   useEffect(()=>()=>clock.current?.cancel(),[]);
   useEffect(()=>{
@@ -58,13 +65,15 @@ function PreviewSession({fixture,onChange,sound,setSound,variant,embedded}){
     const shot=presentationFor(next),reduced=!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     const isPitch=next.last?.kind!=='skill';
     const timeline=withKnockoutHold(presentationTimeline(shot,reduced),isPitch&&!reduced&&next.pitcher?.hp===0);
-    const play={timeline,startedAt:performance.now(),token:++token.current,action:isPitch?(executed?.action==='take'?'take':'swing'):'prepare'};
+    cancelCues();
+    const speed=reduced?1:animationRate(rate),emit=kind=>speed===1?cue(kind):cue(kind,{rate:speed,signal:cueAbort.current.signal});
+    const play={timeline,rate:speed,startedAt:performance.now(),token:++token.current,action:isPitch?(executed?.action==='take'?'take':'swing'):'prepare'};
     busy.current=true;clock.current?.cancel();setPlayback(play);
-    if(!embedded&&activeRef.current&&soundRef.current){audio();cue(isPitch?'pitch':shot?.cue||'skill');}
-    clock.current=startPresentationClock(timeline,{startedAt:play.startedAt,
+    if(!embedded&&activeRef.current&&soundRef.current){audio();emit(isPitch?'pitch':shot?.cue||'skill');}
+    clock.current=startPresentationClock(timeline,{startedAt:play.startedAt,rate:speed,
       onStage:setFxStage,
-      onImpact:({audible})=>{if(!audible||embedded||!activeRef.current)return;if(isPitch&&soundRef.current)cue(shot?.cue||'hit');haptic(timeline.haptic);},
-      onSettle:({audible})=>{if(audible&&!embedded&&activeRef.current&&soundRef.current){if(next.phase==='won')cue('champion');else if(next.phase==='reward')cue('game-win');else if(next.phase==='lost')cue('game-loss');else if(next.last?.runs>0)cue('rbi');}},
+      onImpact:({audible})=>{if(!audible||embedded||!activeRef.current)return;if(isPitch&&soundRef.current)emit(shot?.cue||'hit');haptic(timeline.haptic);},
+      onSettle:({audible})=>{if(audible&&!embedded&&activeRef.current&&soundRef.current){if(next.phase==='won')emit('champion');else if(next.phase==='reward')emit('game-win');else if(next.phase==='lost')emit('game-loss');else if(next.last?.runs>0)emit('rbi');}},
       onComplete:()=>{setPlayback(null);busy.current=false;}
     });
   };
@@ -76,7 +85,7 @@ function PreviewSession({fixture,onChange,sound,setSound,variant,embedded}){
   };
   const terminal=!['battle','pitch','between'].includes(s.phase);
   const game=(<BallparkBattle locked={!active} s={s} {...inputs} selected={selected} pitcher={s.pitcher} pitcherArt={variant==='legacy'?(pitcherAtlases[initial.artId]?<BattlePitcherSprite atlas={pitcherAtlases[initial.artId]} stage={fxStage} shot={presentationFor(s)} playToken={s.stats.pitches}/>:<BattleActorSprite who="pitcher" golden stage={fxStage} shot={fxStage?presentationFor(s):null} playToken={s.stats.pitches}/>):null} batterArt={variant==='legacy'?<BattleActorSprite who="batter" golden sheet={BATTER_V15_SHEET} stage={fxStage} shot={fxStage?presentationFor(s):null} playToken={s.stats.pitches}/>:null} label="검수" artId={initial.artId}
-      vnextReview={variant==='legacy'?{...initial,variant:'legacy'}:initial} previewMode playback={playback} execution={execution} fxStage={fxStage||(terminal&&s.battle?.revealed?'settle':null)} shot={fxStage||s.battle?.revealed?presentationFor(s):null} playToken={s.stats.pitches}
+      vnextReview={variant==='legacy'?{...initial,variant:'legacy'}:initial} previewMode animationRate={rate} onAnimationRateChange={onRateChange} playback={playback} execution={execution} fxStage={fxStage||(terminal&&s.battle?.revealed?'settle':null)} shot={fxStage||s.battle?.revealed?presentationFor(s):null} playToken={s.stats.pitches}
       onSelect={setSelected} onStack={setSwingStack} onAim={z=>{if(activeRef.current&&!busy.current&&!fxStage){const next=setAimZone(current.current,z);current.current=next;setS(next);}}}
       onSwing={()=>action('card')} onTake={()=>action('take')}
       sound={embedded?false:sound} onToggleSound={embedded?null:()=>{audio();setSound(v=>!v);}} onNext={!terminal&&active?next:null} nextLabel={s.phase==='pitch'?'다음 공':s.phase==='between'?'다음 타자':''}/>);
