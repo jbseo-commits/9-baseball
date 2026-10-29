@@ -17,7 +17,7 @@ export function hpForecastBand(hud,forecast){
   return {left:pct(lo),width:pct(p.hp)-pct(lo),label:forecast.damageLabel};
 }
 
-export default function BattleHud({hud=null,forecast=null,sources=[],phase='deciding',result=null,playback=null,resultKey=0,title='',onMenu=null,menuOpen=false,refined=false}){
+export default function BattleHud({hud=null,forecast=null,sources=[],phase='deciding',result=null,playback=null,resultKey=0,title='',onMenu=null,menuOpen=false,refined=false,sound=false,onToggleSound=null}){
   if(!hud)return null;
   const p=hud.pitcher,c=hud.count,band=phase==='deciding'?hpForecastBand(hud,forecast):null;
   const hpPct=p&&p.maxHp>0?Math.max(0,Math.min(100,p.hp/p.maxHp*100)):0;
@@ -44,6 +44,7 @@ export default function BattleHud({hud=null,forecast=null,sources=[],phase='deci
       <span className="bv-hud-read" data-testid="bv-read" aria-label={`읽기 ${hud.readLevel}단계 · ${READ_NAME[hud.readLevel]}`+(sources.length?' · '+sources.join(' · '):'')}>
         <em aria-hidden="true">READ</em><b aria-hidden="true">{READ_MARK[hud.readLevel]}</b>
       </span>
+      {onToggleSound&&<button type="button" className="bv-hud-sound" aria-label={sound?'효과음 끄기':'효과음 켜기'} aria-pressed={sound} onClick={onToggleSound}><BattleSymbol kind={sound?'sound':'muted'}/></button>}
       {onMenu&&<button type="button" className="bv-hud-menu" aria-label="경기 정보 및 메뉴" aria-expanded={menuOpen} disabled={phase==='committing'||phase==='flight'} onClick={onMenu}>{refined?<BattleSymbol kind="menu"/>:'•••'}</button>}
     </div>
     <div className="bv-hud-notes">

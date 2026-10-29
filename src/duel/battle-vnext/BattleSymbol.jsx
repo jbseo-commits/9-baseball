@@ -2,6 +2,8 @@ import React from 'react';
 
 /* Hand-authored UI symbols: one stroke weight, no platform emoji variation. */
 const paths={
+  sound:<><path d="M4 9h4l5-4v14l-5-4H4Z"/><path d="M16 8q4 4 0 8m3-11q7 7 0 14"/></>,
+  muted:<><path d="M4 9h4l5-4v14l-5-4H4Z"/><path d="m17 9 5 6m0-6-5 6"/></>,
   energy:<path d="M13 2 5 13h6l-1 9 9-12h-6z"/>,
   eye:<><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></>,
   cards:<><rect x="5" y="5" width="14" height="16" rx="2"/><path d="M2 16V3a1 1 0 0 1 1-1h12M9 10h6m-6 4h6"/></>,

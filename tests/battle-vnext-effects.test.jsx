@@ -36,4 +36,18 @@ describe('landscape ball/contact/near separation',()=>{
   expect(sceneEffectAt({elapsed:245,playback:{...playback,action:'prepare'},phase:'committing'})).toBeNull();
   expect(sceneEffectAt({elapsed:20,playback:{...playback,timeline:{...playback.timeline,duration:60}},phase:'result',result:hit})).toBeNull();
  });
+ it('renders a host-clock bat ribbon on a swing even before the accepted outcome, never on watch',()=>{
+  const swing=sceneEffectAt({elapsed:225,playback,phase:'flight'});
+  expect(swing.trail).toBeGreaterThan(0);render(<SceneEffects effect={swing}/>);
+  expect(document.querySelector('.bv-bat-ribbon')).not.toBeNull();expect(document.querySelector('.bv-contact-burst')).toBeNull();
+  cleanup();const watch=sceneEffectAt({elapsed:225,playback:{...playback,action:'take'},phase:'flight'});render(<SceneEffects effect={watch}/>);
+  expect(document.querySelector('.bv-bat-ribbon')).toBeNull();
+ });
+ it('uses the exact-read cut only at confirmed contact and keeps near misses visually separate',()=>{
+  render(<SceneEffects effect={sceneEffectAt({elapsed:245,playback,result:hit,phase:'result'})}/>);
+  expect(document.querySelector('.bv-exact-cut')).not.toBeNull();
+  cleanup();render(<SceneEffects effect={sceneEffectAt({elapsed:245,playback,result:near,phase:'result'})}/>);
+  expect(document.querySelector('.bv-exact-cut')).toBeNull();
+ });
+
 });

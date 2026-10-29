@@ -19,7 +19,7 @@ import './reference.css';
 /* Presentation only. BallparkBattle keeps selection, inspector, commit and next
    timers; App still owns the engine, save and pitch presentation lifecycle. */
 export default function BattleView({model,actors,playback=null,execution=null,rootRef,sceneRef,zoneRef,handRef,title,review=false,
-  inspector=null,menuOpen=false,recent=null,onMenu,onCardTap,onCardDetail,onPiles,onZoneTap,onZoneHover,
+  inspector=null,menuOpen=false,recent=null,onMenu,sound=false,onToggleSound=null,onCardTap,onCardDetail,onPiles,onZoneTap,onZoneHover,
   onToggleSupport,onClearPlan,onPointerDown,onPointerMove,onPointerUp,onPointerCancel,onTake,onSwing,onNext,piles}){
   const finale=cinemaMoment(model.result,model.scene.fxStage,!!playback);
   const spotlight=model.result&&playback&&!finale?{...model.result,knockedOut:false}:model.result;
@@ -36,15 +36,25 @@ export default function BattleView({model,actors,playback=null,execution=null,ro
   const onLayout=useCallback(s=>setField(prev=>prev&&prev.width===s.width&&prev.height===s.height&&prev.home.x===s.home.x&&prev.home.y===s.home.y?prev:s),[]);
   const main=model.hand.find(c=>c.selectionRole==='main');
   const hasSupport=model.hand.some(c=>c.selectionRole==='support'||c.selectionRole==='armed');
-  const remember=id=>{const el=[...viewRef.current.querySelectorAll('.bv-card-slot')].find(el=>el.dataset.cardId===id)?.querySelector('.bv-card');
-    if(el){const b=el.getBoundingClientRect();source.current={x:b.left+b.width/2,y:b.top+b.height/2};}};
+  const cardSource=id=>{const el=[...viewRef.current.querySelectorAll('.bv-card-slot')].find(el=>el.dataset.cardId===id)?.querySelector('.bv-card');
+    if(!el)return null;const b=el.getBoundingClientRect();
+    const transform=getComputedStyle(el.closest('.bv-card-slot')).transform;
+    const m=transform?.match(/^matrix\(([^)]+)\)/)?.[1].split(',').map(Number);
+    return {x:b.left+b.width/2,y:b.top+b.height/2,w:b.width,h:b.height,angle:m?Math.atan2(m[1],m[0])*180/Math.PI:0,
+      artFraction:(el.querySelector('.bv-card-art')?.offsetWidth||0)/(el.offsetWidth||1)||.4,
+      font:parseFloat(getComputedStyle(el.querySelector('.bv-card-name')).fontSize)||18,small:parseFloat(getComputedStyle(el.querySelector('.bv-card-effect')).fontSize)||12};};
+  const remember=id=>{source.current=cardSource(id);};
   const place=(z,id=main?.id)=>{
+    if(!model.input.canSelect||menuOpen)return;
     const item=model.hand.find(c=>c.id===id);onZoneTap?.(z);
-    if(item&&item.type!=='prepare'&&!item.problem&&!model.energy?.shortfall&&model.input.canSelect){
+    if(item&&item.type!=='prepare'&&!item.problem&&!model.energy?.shortfall&&model.input.canSelect&&!menuOpen){
       const cell=viewRef.current?.querySelector(`.bv-cell[data-zone="${z}"]`),b=cell?.getBoundingClientRect();
-      setPlacement({seq:++sequence.current,id,name:item.name,art:atbatCardArt(item)?.url,source:source.current||{x:b?.left||0,y:b?.top||0}});
-      setHandOpen(false);
-      cell?.focus({preventScroll:true});
+      // Refresh after hand scrolling. A drag carries its release location; a
+      // folded-hand re-aim starts from the visible zone rather than off-screen.
+      const origin=source.current?.drag?source.current:shown?cardSource(id):null;
+      setPlacement({seq:++sequence.current,id,name:item.name,cost:item.cost,summary:item.summary,art:atbatCardArt(item)?.url,
+        source:origin||{x:b?b.left+b.width/2:0,y:b?b.top+b.height/2:0,w:b?.width||76,h:b?.height||76,angle:0}});
+      source.current=null;setHandOpen(false);cell?.focus({preventScroll:true});
     }
   };
   // A drop can select a different card and place it in one gesture. Wait for
@@ -57,6 +67,7 @@ export default function BattleView({model,actors,playback=null,execution=null,ro
       place(pendingDrop.zone,pendingDrop.id);setPendingDrop(null);
     }else setPendingDrop(null);
   },[pendingDrop,model.hand,model.input.canSelect]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(()=>{if(menuOpen){setPlacement(null);setPendingDrop(null);setDragFace(null);drag.current=null;}},[menuOpen]);
   useEffect(()=>{if(model.phase!=='deciding'){setHandOpen(false);setDragFace(null);drag.current=null;}},[model.phase]);
   useEffect(()=>{const resize=()=>{setLandscape(window.innerWidth>=window.innerHeight);drag.current=null;setDragFace(null);};window.addEventListener('resize',resize);return()=>window.removeEventListener('resize',resize);},[]);
   const pointerDown=e=>{
@@ -78,7 +89,7 @@ export default function BattleView({model,actors,playback=null,execution=null,ro
       else if(Math.abs(dy)>14)d.mode='scroll';
       if(d.mode)e.currentTarget.setPointerCapture?.(e.pointerId);
     }
-    if(d.mode==='drag'){e.preventDefault();setDragFace({x:e.clientX,y:e.clientY,name:d.name});}
+    if(d.mode==='drag'){e.preventDefault();setDragFace({x:e.clientX,y:e.clientY,name:d.name,art:atbatCardArt(model.hand.find(c=>c.id===d.id))?.url});}
     else if(d.mode==='scroll'){e.preventDefault();if(d.row)d.row.scrollTop=d.scroll-dy;}
   };
   const pointerUp=e=>{
@@ -87,7 +98,7 @@ export default function BattleView({model,actors,playback=null,execution=null,ro
     if(d.mode==='scroll')return;
     const cell=document.elementFromPoint(e.clientX,e.clientY)?.closest('.bv-cell');
     if(!cell||cell.disabled||!viewRef.current?.contains(cell))return;
-    source.current={x:e.clientX,y:e.clientY};
+    source.current={x:e.clientX,y:e.clientY,w:170,h:72,angle:-6,font:16,small:11,drag:true};
     const item=model.hand.find(c=>c.id===d.id);
     if(item?.selectionRole==='main'||item?.selectionRole==='armed')place(Number(cell.dataset.zone),d.id);
     else{setPlacement(null);onCardTap?.(d.id);setPendingDrop({id:d.id,zone:Number(cell.dataset.zone)});}
@@ -99,7 +110,7 @@ export default function BattleView({model,actors,playback=null,execution=null,ro
       </BattleScene>
     </div>
     <BattleHud result={model.result} playback={playback} resultKey={model.scene.playToken} hud={model.hud} forecast={model.forecast} sources={model.zones?.sources} phase={model.phase}
-      title={model.hud.actLabel||title} onMenu={onMenu} menuOpen={menuOpen} refined/>
+      title={model.hud.actLabel||title} sound={sound} onToggleSound={onToggleSound} onMenu={onMenu} menuOpen={menuOpen} refined/>
     <div className="bv-decision-area" ref={zoneRef} onPointerDown={onPointerDown} onPointerMove={onPointerMove}
       onPointerUp={onPointerUp} onPointerCancel={onPointerCancel}>
       {main&&model.phase==='deciding'&&<p className="bv-field-choice">{main.name}<span>{main.type==='prepare'?'준비':`${main.coverage?.length||0}존 커버`}</span></p>}
@@ -134,8 +145,8 @@ export default function BattleView({model,actors,playback=null,execution=null,ro
         :{actionKind:'watch',actionLabel:'지켜보기',ariaLabel:'지켜보기 · 선택한 카드를 쓰지 않고 이번 공을 지켜봅니다',canExecute:model.input.canSelect&&!menuOpen,callback:'onTake'}} energy={model.energy} phase={model.phase} onTake={()=>runAction('take')} onSwing={()=>runAction('swing')}/>}
     </footer>
     </div>
-    <CoverageInsert request={placement} pieces={model.zones?.pieces} rootRef={viewRef} phase={model.phase}/>
-    {dragFace&&<div className="bv-drag-face" aria-hidden="true" style={{left:dragFace.x,top:dragFace.y}}>{dragFace.name}<span>노릴 코스에 놓으세요</span></div>}
+    <CoverageInsert request={placement} pieces={model.zones?.pieces} rootRef={viewRef} phase={model.phase} sound={sound} menuOpen={menuOpen}/>
+    {dragFace&&<div className="bv-drag-face" aria-hidden="true" style={{left:dragFace.x,top:dragFace.y,backgroundImage:dragFace.art?`linear-gradient(90deg,transparent,#102235ee 55%),url(${dragFace.art})`:undefined}}>{dragFace.name}<span>노릴 코스에 놓으세요</span></div>}
     {menuOpen&&<div className="bv-inspector-area">{inspector}</div>}
     {review&&<p className="bv-review-notice">메모리 검수 · 샘플 배우</p>}
   </main>;

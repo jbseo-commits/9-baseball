@@ -45,28 +45,9 @@
 /* Rotation fallback: use the existing vertical flow with visible hand. */
 @media(orientation:portrait){.bv-foldable .bv-hand-handle{display:none}}
 
-.bv-insert-fx{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden;--insert-color:#ffe29a;--insert-fill:#c38a2444}
 .bv-foldable .bv-hand-handle{touch-action:manipulation;user-select:none;-webkit-user-select:none}
-.bv-insert-fx.r-support{--insert-color:#a9f2e0;--insert-fill:#55bea344}
-.bv-insert-card{position:absolute;width:190px;min-height:76px;padding:25px 12px 12px 84px;border:1px solid var(--insert-color);border-radius:5px;background:#102235 center/cover;box-shadow:0 0 20px var(--insert-fill);color:#fff0ca;font-size:14px;font-weight:800;animation:bv-card-to-shape 320ms ease-in both}
-.bv-insert-block{position:absolute;display:block;border:2px solid var(--insert-color);background:linear-gradient(135deg,#fff4cb99,var(--insert-fill) 35%,#14223655);box-shadow:inset 0 0 15px var(--insert-fill),0 0 18px var(--insert-fill);animation:bv-block-insert 520ms cubic-bezier(.18,.8,.22,1) both;animation-delay:var(--insert-delay);transform-origin:50% 50%}
-.bv-insert-fx.r-support .bv-insert-block{border-style:dashed}
-.bv-insert-block i{position:absolute;inset:5px;border:1px solid var(--insert-color);opacity:.65;clip-path:polygon(0 0,24% 0,24% 2%,2% 2%,2% 24%,0 24%,0 0,100% 100%,76% 100%,76% 98%,98% 98%,98% 76%,100% 76%,100% 100%)}
-.bv-insert-block b{position:absolute;inset:-4px;border:2px solid var(--insert-color);animation:bv-block-ripple 520ms ease-out both;animation-delay:var(--insert-delay)}
-.bv-insert-block em{position:absolute;inset:-9px;background:linear-gradient(90deg,transparent 45%,var(--insert-color) 50%,transparent 55%),linear-gradient(transparent 45%,var(--insert-color) 50%,transparent 55%);animation:bv-block-spark 520ms ease-out both;animation-delay:var(--insert-delay)}
 .bv-drag-face{position:fixed;z-index:20;pointer-events:none;transform:translate(-65%,-50%) rotate(-8deg);padding:12px 18px;border:2px solid #ffe29a;border-radius:5px;background:#12243bf5;color:#fff0ca;box-shadow:0 0 24px #f7c45666;font-weight:800;font-size:16px}
 .bv-drag-face span{display:block;font-size:11px;font-weight:400;color:#b5d9d2;margin-top:5px}
-@keyframes bv-block-insert{
-  0%{opacity:0;transform:translate(var(--insert-x),var(--insert-y)) rotateY(65deg) rotate(-12deg) scale(.24);filter:brightness(2)}
-  18%{opacity:1;transform:translate(calc(var(--insert-x)*.65),calc(var(--insert-y)*.6)) rotateY(30deg) rotate(-6deg) scale(.65)}
-  62%{opacity:1;transform:translate(0,-6px) scale(1.07);filter:brightness(1.8)}
-  76%{transform:translate(0,2px) scale(.98);filter:brightness(1)}
-  86%{opacity:1;transform:none}
-  100%{opacity:0;transform:none;filter:brightness(1)}
-}
-@keyframes bv-block-ripple{0%,58%{opacity:0;transform:scale(.9)}65%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(1.32)}}
-@keyframes bv-block-spark{0%,58%{opacity:0;transform:scale(.4)}65%{opacity:.7;transform:scale(.9)}100%{opacity:0;transform:scale(1.25)}}
-@keyframes bv-card-to-shape{0%{opacity:1;transform:translate(-50%,-50%) rotate(-5deg)}65%{opacity:.85;transform:translate(calc(var(--card-x)*.6 - 50%),calc(var(--card-y)*.6 - 50%)) rotateY(50deg) scale(.65)}100%{opacity:0;transform:translate(calc(var(--card-x) - 50%),calc(var(--card-y) - 50%)) rotateY(85deg) scale(.2)}}
 /* Fast confirm compresses the remaining placement into an 80ms lock. Uses
    authored coverage only and finishes before the existing pitcher release. */
 @media(prefers-reduced-motion:no-preference){
@@ -75,7 +56,4 @@
 @keyframes bv-coverage-lock{from{filter:brightness(2);box-shadow:inset 0 0 14px #ffe29a88}to{filter:brightness(1);box-shadow:inset 0 0 0 1px #eac36d66}}
 @media(prefers-reduced-motion:reduce){
   .bv-foldable .bv-hand-area,.bv-foldable .bv-hand-handle,.bv-foldable .bv-hand-orbit .bv-card-slot{transition:none!important}
-  .bv-insert-block{animation:none;background:transparent;box-shadow:none}
-  .bv-insert-block :is(b,em){display:none}
-  .bv-insert-card{display:none}
 }

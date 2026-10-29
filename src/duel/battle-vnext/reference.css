@@ -127,3 +127,9 @@
   .bv-reference .bv-action-dock{width:min(100%,220px);gap:6px}
   .bv-reference .bv-plan-clear{min-height:44px;flex-basis:34px;min-width:34px}
 }
+.bv-reference .bv-hud-sound{display:grid;place-items:center;flex:0 0 44px;min-width:44px;min-height:44px;padding:9px;background:none;border:0;color:#e6d7b2;pointer-events:auto;cursor:pointer}
+.bv-reference .bv-hud-sound .bv-symbol{width:21px;height:21px}
+.bv-reference .bv-hud-sound:focus-visible{outline:2px solid #f5d487;outline-offset:-3px;border-radius:6px}
+.bv-reference .bv-drag-face{width:170px;height:72px;box-sizing:border-box;padding:13px 10px 8px 70px;background-position:center;background-size:cover;transform:translate(-50%,-50%) rotate(-6deg);font-size:16px;line-height:1.2}
+.bv-reference .bv-drag-face span{font-size:9px;line-height:1.2;margin-top:4px}
+@media(orientation:landscape) and (max-height:500px){.bv-reference .bv-hud-bar{gap:5px}.bv-reference .bv-hud-count{gap:7px}.bv-reference .bv-hud-title{padding:3px 6px}.bv-reference .bv-hud-sound{padding:10px;flex-basis:44px}}

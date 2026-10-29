@@ -50,3 +50,7 @@
 .battle-vnext[data-phase] .bv-result-spotlight.t-knockout span{color:#ffe1a6}
 @keyframes bv-finale-in{from{opacity:0}to{opacity:1}}
 @media(prefers-reduced-motion:reduce){.bv-scene .bv-finale-focus{animation:none}.bv-scene .bv-homer-rays{display:none}}
+/* Light/ball pass shares the scene matrix but stays above result grading. */
+.bv-scene .bv-effect-pass{position:absolute;inset:0;z-index:2;pointer-events:none}
+.bv-scene .bv-effect-world{position:absolute;left:0;top:0;transform-origin:0 0}
+@media(prefers-reduced-motion:reduce){.bv-scene .bv-effect-pass{transform:none!important}}

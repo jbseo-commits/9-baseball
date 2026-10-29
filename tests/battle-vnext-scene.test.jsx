@@ -84,3 +84,17 @@ describe('BattleScene — 정지 원화 Scene',()=>{
     for(const k of ['--bv-home-x','--bv-home-y','--bv-release-x','--bv-contact-y'])expect(st.getPropertyValue(k)).toMatch(/px$/);
   });
 });
+
+it('keeps the light pass on the actor projection and jitter, above result grading, including resize',()=>{
+  const playback={action:'swing',startedAt:performance.now()-270,timeline:{impactAt:240,freeze:60,releaseAt:370,settleAt:720,duration:1040}};
+  const props={actors:SAMPLE_ACTORS,phase:'result',framing:'atbat',playback,result:{kind:'hit',exact:true,actualZone:2,coverage:[2],call:'안타'}};
+  const view=render(<BattleScene {...props} size={{width:844,height:390}}/>);
+  for(const size of [{width:844,height:390},{width:1672,height:941}]){
+    view.rerender(<BattleScene {...props} size={size}/>);
+    const root=view.container.querySelector('.bv-scene'),pass=root.querySelector('.bv-effect-pass');
+    expect(pass.querySelector('.bv-effect-world').style.transform).toBe(root.querySelector('.bv-world').style.transform);
+    expect(pass.style.transform).toBe(root.querySelector('.bv-world-camera').style.transform);
+    expect([...root.children].indexOf(pass)).toBeGreaterThan([...root.children].indexOf(root.querySelector('.bv-scene-shade')));
+    expect(pass.querySelector('.bv-contact-burst')).not.toBeNull();
+  }
+});

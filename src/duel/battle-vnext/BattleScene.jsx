@@ -71,9 +71,15 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
           {readyImage&&<img className="bv-ready-drawing" src={readyImage.url} alt="" draggable="false" decoding="async" style={{position:'absolute',zIndex:1,width:readyImage.width/meta.sourceWidth*100+'%',height:readyImage.height/meta.sourceHeight*100+'%',left:readyImage.x/meta.sourceWidth*100+'%',top:readyImage.y/meta.sourceHeight*100+'%'}}/>}
         </div>;
       })}
-      <SceneEffects effect={effect} finale={finale} composition={composition}/>
     </div></div>
     <div className="bv-scene-shade" aria-hidden="true"/>
+    {/* The light pass uses the exact same projection/jitter as the actors. It
+        sits above result grading so the contact light is not darkened twice. */}
+    <div className="bv-effect-pass" aria-hidden="true" style={{transform:effect?.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:'none'}}>
+      <div className="bv-effect-world" style={{width:SCENE.world.width,height:SCENE.world.height,transform:cameraMatrix(camera),visibility:camera.scale?'visible':'hidden'}}>
+        <SceneEffects effect={effect} finale={finale} composition={composition}/>
+      </div>
+    </div>
     {reviewNotice&&<p className="bv-scene-notice" role="note">그림 포즈 모션 검수{actors.pitcher&&actors.pitcher===SAMPLE_ACTORS.pitcher?' · 샘플 투수':''}</p>}
     {effect?.kind==='exact'&&effect.flash>0&&<div className="bv-contact-focus" style={{opacity:effect.flash*.65}} aria-hidden="true"/>}
     {finale&&<div className={"bv-finale-focus f-"+finale} aria-hidden="true"/>}
