@@ -1,6 +1,7 @@
 import React,{useEffect,useLayoutEffect,useRef,useState} from 'react';
 import {COMPARE_MESSAGE,COMPARE_SCENARIOS,COMPARE_VARIANTS,comparisonScenario,comparisonUrl} from './compare-config.js';
 import './comparison.css';
+import {comparisonFrameSize} from './legacy-scene-geometry.js';
 const NAMES={legacy:'기존 전투 UI',vnext:'가로 개선 UI'};
 const READY='9zone-battle-compare-ready';
 function GameFrame({variant,fixture,revision,active,path,paired}){
@@ -14,10 +15,10 @@ function GameFrame({variant,fixture,revision,active,path,paired}){
   },[]);
   useLayoutEffect(()=>{
     const el=box.current;if(!el)return;
-    const read=()=>{const w=el.clientWidth,h=w<600?el.clientHeight:Math.min(el.clientHeight,Math.floor(w*9/16));if(w>0&&h>0)setSize(s=>s?.w===w&&s?.h===h?s:{w,h});};
+    const read=()=>{const {w,h}=comparisonFrameSize(variant,el.clientWidth,el.clientHeight);if(el.clientWidth>0&&el.clientHeight>0)setSize(s=>s?.w===w&&s?.h===h?s:{w,h});};
     read();const observer=typeof ResizeObserver!=='undefined'?new ResizeObserver(read):null;observer?.observe(el);
     window.addEventListener('resize',read);return()=>{observer?.disconnect();window.removeEventListener('resize',read);};
-  },[]);
+  },[variant]);
   return <section className={'bc-pane'+(active?'':' is-hidden')} role={paired?'region':'tabpanel'} id={'bc-panel-'+variant} aria-labelledby={'bc-title-'+variant} aria-hidden={!active} inert={!active?'':undefined}>
     <header><span className={'bc-badge b-'+variant}>{variant==='legacy'?'A':'B'}</span><h2 id={'bc-title-'+variant}>{NAMES[variant]}</h2><a href={comparisonUrl(path,variant,fixture,{embedded:false})} target="_blank" rel="noopener noreferrer">크게 열기 ↗</a></header>
     <div className="bc-game-space" ref={box}>

@@ -13,6 +13,7 @@ import {BATTER_V15_SHEET} from '../batter-v15.js';
 import {pitcherAtlases} from '../pitcher-visuals.js';
 import {validComparisonActivity} from './compare-config.js';
 import './comparison.css';
+import LegacyCompareHost from './LegacyCompareHost.jsx';
 import {appInputs,buildFixture,VNEXT_FIXTURES} from './fixtures.js';
 
 /* Separate memory route: never mounts Duel or invokes save/bootstrap. Legacy actors
@@ -87,6 +88,6 @@ function PreviewSession({fixture,onChange,sound,setSound,variant,embedded}){
       <button type="button" aria-pressed={sound} onClick={()=>{audio();setSound(v=>!v);}}>소리 {sound?'켜짐':'꺼짐'}</button><a href="?battleUi=vnext">실제 런으로</a><span className="bv-sandbox-art">샘플 투수 · 연출 검수</span><span className="bv-sandbox-seed">저장 안 됨 · seed {s.initialSeed||20261027}</span>
       {terminal&&(!fxStage||fxStage==='settle')&&<strong role="status">{s.phase==='reward'?'투수 강판':s.phase==='won'?'승리':'경기 종료'} · 다시 시작으로 검수 계속</strong>}
     </nav>
-    {variant==='legacy'?<div className="duel-app v14-battle-portrait bc-legacy-host">{game}</div>:game}
+    {variant==='legacy'?<LegacyCompareHost hasAtlas={!!pitcherAtlases[initial.artId]}>{game}</LegacyCompareHost>:game}
   </div>;
 }

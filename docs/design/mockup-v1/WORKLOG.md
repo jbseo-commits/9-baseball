@@ -194,3 +194,7 @@ PR / 프리뷰 / 배포 상태: feat/mockup-battle-v1 로컬 커밋, 10f4c0d 이
 ## 두 전투UI 비교 페이지 — 2026-10-29 KST · Codex
 
 사용자 요청에 따라 별도query 비교 페이지: Desktop나란히/휴대폰가로A·B탭, 같은 엔진fixture/공통초기화/독립조작/저장격리. 기존 productionDOM배우와 wrapper를 재사용하고 새UI와 실제 조작비교. 숨긴iframe은입력·다음공 잠금, 비교오류복구는 실제 저장 삭제 기능 없음. [설계/영향도](../battle-comparison/README.md) · [실제브라우저/회귀](../../qa/battle-comparison/RESULTS.md). 동일PR66/branchpreview이며main기본화면은변경하지 않는다.
+
+## 비교판 A 구도 보정 — 2026-10-29 KST · Codex
+
+사용자 screenshot의 타자 잘림/발·구장 어긋남을 sourcealpha와 paintedlandmark로 재검수. 비교판만 실제원화발등록/배경·배우동일scale/카메라분리이동해제, A원래viewport폭복원. 넓은standalone에서는실제scene폭을측정한다. 같은engine/control/roster유지, B무변경. [설계·영향도](../comparison-alignment/README.md) · [실제그림경계/마운드/접촉/standalone/전체회귀](../../qa/comparison-alignment/RESULTS.md). 독립review의standalone폭문제수정확인. 동일PR66/branch게시.
