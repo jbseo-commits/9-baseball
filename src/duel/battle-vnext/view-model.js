@@ -192,8 +192,8 @@ export function buildBattleViewModel({
   // Only player-authored coverage: never the hidden incoming pitch. Supports
   // retain their own placed aim rather than the main card's preview glyph.
   const pieces=!judged&&selected&&!mainIsSkill?[
-    {id:selected,role:'main',coverage:[...plan.cover]},
-    ...(choice?.supportCoverages||[]).map((x,i)=>({id:stack[i]?.id,role:'support',coverage:[...x.coverage]})),
+    {id:selected,role:'main',order:1,aimZone:b.aimZone,coverage:[...plan.cover]},
+    ...(choice?.supportCoverages||[]).map((x,i)=>({id:stack[i]?.id,role:'support',order:i+2,aimZone:stack[i]?.aimZone,coverage:[...x.coverage]})),
   ]:[];
   const zones={level,aimWord:deciding?ZONE_WORDS[b.aimZone]||'':null,sources:readSources(displayState).map(x=>x.label),cells,pieces,
     band:{face:deciding?bandFace(s,{level,probs}):null,actual:landed&&r.zone===9},
@@ -239,7 +239,7 @@ export function buildBattleViewModel({
     pitchZone:landed?r.zone:null,knockedOut:landed&&(pitcher?.hp??1)===0,motionEnabled:false};
   /* 준비 유지 효과: 선택 중, 그리고 같은 타자의 다음 공을 기다리는 동안 (BallparkBattle prepEffects와 같다) */
   const effects=deciding||(landed&&!fxStage&&!locked&&s.phase==='pitch')?activePreparationFeedback(b,s.phase):[];
-  return {phase,input,selection:{canClear:input.canSelect&&!!selected,canStack:input.canSelect&&canStack&&!!(canAddSupport||stack.length||supportMode||liveArmed),supportMode:!!(supportMode||liveArmed)},energy,hand:ordered,zones,forecast,hud,result,scene,effects};
+  return {phase,input,selection:{canClear:input.canSelect&&!!selected,canStack:input.canSelect&&canStack&&!!(canAddSupport||stack.length||supportMode||liveArmed),canAddSupport:input.canSelect&&canAddSupport,supportMode:!!(supportMode||liveArmed)},energy,hand:ordered,zones,forecast,hud,result,scene,effects};
 }
 
 function countShown(b,r,landed){

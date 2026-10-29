@@ -3,6 +3,7 @@ import {nearCoverage} from './motion-timeline.js';
 import ResultSequence from './ResultSequence.jsx';
 import ResultReadout from './ResultReadout.jsx';
 import './decision.css';
+import {StackBoard} from './StackPlacement.jsx';
 import BattleSymbol,{EnergyText} from './BattleSymbol.jsx';
 
 /* C04 — 오른쪽 결정 영역: 9존 → 선택 요약 → 단일 행동. 결과는 같은 9존에 실제 공으로 강조한다.
@@ -41,7 +42,7 @@ export function planSummary({hand=[],forecast=null,input=null,energy=null,effect
 }
 
 export default function DecisionPanel({zones=null,forecast=null,input=null,hand=[],energy=null,result=null,phase='deciding',effects=[],scene=null,execution=null,
-  shotGrade=null,recent=null,showAction=true,showPlan=true,quiet=false,selection=null,onZoneTap,onZoneHover=null,onTake,onSwing,onNext}){
+  shotGrade=null,recent=null,showAction=true,showPlan=true,quiet=false,selection=null,sound=false,onZoneTap,onZoneHover=null,onTake,onSwing,onNext}){
   if(!zones||!input)return null;
   const deciding=phase==='deciding';
   const caption=planCaption(zones),near=result?.kind==='whiff'?nearCoverage(result):null;
@@ -65,6 +66,7 @@ export default function DecisionPanel({zones=null,forecast=null,input=null,hand=
           <span className="bv-cell-face" aria-hidden="true">{c.live?c.face??'':quiet?'':'안 던짐'}</span>
         </button>;
       })}
+      <StackBoard pieces={zones.pieces} links={zones.links} phase={phase} sound={sound}/>
     </div>
     <p className={'bv-band'+(zones.band.actual?' is-actual':'')} data-testid="bv-band">
       {zones.band.actual&&<i className="bv-pitch-mark" data-testid="bv-pitch-mark" aria-hidden="true"/>}
@@ -102,7 +104,7 @@ export function DecisionSummary({hand=[],forecast,input,energy,effects=[],phase=
 /* The sole action may be mounted by BattleView's persistent dock or inline by
    standalone DecisionPanel. Identical input lock and repeated-click guard. */
 export function BattleAction({input,energy,phase='deciding',actionName='',symbolic=false,testId=null,onTake,onSwing,onNext}){
-  const fired=useRef(false);
+  const fired=useRef(false),press=useRef(null),touchConsumed=useRef(false);
   useEffect(()=>{fired.current=false;},[input?.actionKind,input?.canExecute,phase]);
   if(!input||(input.actionKind==='none'&&phase==='result'))return null;
   const cost=input.actionKind==='swing'||input.actionKind==='prepare'?energy?.selectedCost:null;
@@ -114,7 +116,10 @@ export function BattleAction({input,energy,phase='deciding',actionName='',symbol
     <button type="button" className={'bv-action k-'+input.actionKind} data-testid={testId||(input.actionKind==='next'?'bp-next':'bp-swing')}
       data-action-kind={input.actionKind} aria-label={[actionName,input.ariaLabel||input.actionLabel].filter(Boolean).join(' · ')} aria-busy={input.actionKind==='busy'}
       aria-disabled={!input.canExecute||undefined} disabled={!input.canExecute}
-      onKeyDown={e=>{if(e.repeat&&(e.key==='Enter'||e.key===' '))e.preventDefault();}} onClick={run}>
+      onPointerDown={e=>{touchConsumed.current=false;press.current={id:e.pointerId,x:e.clientX,y:e.clientY};}}
+      onPointerUp={e=>{const p=press.current;press.current=null;if(e.pointerType==='touch'&&p?.id===e.pointerId&&Math.hypot(e.clientX-p.x,e.clientY-p.y)<10){e.preventDefault();touchConsumed.current=true;run();}}}
+      onPointerCancel={()=>{press.current=null;}}
+      onKeyDown={e=>{touchConsumed.current=false;if(e.repeat&&(e.key==='Enter'||e.key===' '))e.preventDefault();}} onClick={()=>{if(touchConsumed.current){touchConsumed.current=false;return;}run();}}>
       {symbolic&&<BattleSymbol kind={input.actionKind==='watch'?'eye':input.actionKind==='prepare'?'cards':'bat'} className="bv-action-symbol"/>}
       {cost>0&&<span className="bv-action-cost" aria-hidden="true">{symbolic?<BattleSymbol kind="energy"/>:'⚡'}{cost}</span>}
       <b>{actionName&&<span className="bv-action-name">{actionName} </span>}{input.actionLabel}</b>

@@ -64,6 +64,8 @@ const TAKE_THEN_NEXT=[...OPEN,{op:'take'},{op:'next'}];
 
 /* ui: 컨테이너의 로컬 조정 상태와 선택. card 이름은 손패 kind로 적고 build에서 id로 바꾼다. */
 export const VNEXT_FIXTURES=Object.freeze([
+  {id:'stack-three-ready',title:'3장 배치 · 정상 스타터 · 실제 지켜보기 후 에너지3',rules:'main-run',seed:3,steps:TAKE_THEN_NEXT,ui:{}},
+  {id:'stack-two-ready',title:'2장 배치 · 정상 스타터 · 기본 에너지2',rules:'main-run',seed:3,steps:OPEN,ui:{}},
   {id:'reference-boss',title:'목업 아트 검수 · 실제 1막 보스 · HP78 설정',rules:'main-run',seed:FIXTURE_SEED,
     steps:[{op:'new'},{op:'grant-reachable',node:'a1-boss'},{op:'enter',node:'a1-boss'},{op:'grant-hp',hp:78},{op:'aim',zone:7}],ui:{select:'strike'}},
   {id:'watch-read0',title:'무선택 · 읽기 0',rules:'main-run',seed:FIXTURE_SEED,steps:OPEN,ui:{}},
@@ -102,9 +104,9 @@ export function buildFixture(idOrFixture){
   const f=typeof idOrFixture==='string'?VNEXT_FIXTURES.find(x=>x.id===idOrFixture):idOrFixture;
   if(!f)throw new Error('fixture: 없음 '+idOrFixture);
   const {s,execution}=runSteps(f.seed,f.steps),ui=f.ui||{};
-  const idOf=card=>card==='basic'?'basic':handId(s,card);
+  const idOf=(card,nth=0)=>card==='basic'?'basic':handId(s,card,nth);
   const selected=ui.select?idOf(ui.select):null;
-  const swingStack=(ui.stack||[]).map(x=>({id:idOf(x.card),aimZone:x.aimZone}));
+  const swingStack=(ui.stack||[]).map(x=>({id:idOf(x.card,x.nth||0),aimZone:x.aimZone}));
   const {hand,choice,swingStack:active}=s.phase==='battle'?appInputs(s,{selected,swingStack}):{hand:appInputs(s).hand,choice:null,swingStack:[]};
   const nextLabel=s.phase==='pitch'?'다음 공':s.phase==='between'?'다음 타자':'';
   return {s,execution,animate:!!ui.animate,hand,selected,swingStack:active,choice,

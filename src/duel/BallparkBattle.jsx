@@ -34,6 +34,7 @@ import {playUse,playSpend} from './card-fx.js';
 import {battleUiMode} from './battle-ui-mode.js';
 import {buildBattleViewModel} from './battle-vnext/view-model.js';
 import BattleView from './battle-vnext/BattleView.jsx';
+import {cardDropIntent} from './battle-vnext/placement-intent.js';
 import {approvedPitcherArt,SAMPLE_ACTORS} from './battle-vnext/BattleScene.jsx';
 
 /* V13 BALLPARK — the battle as one ballpark scene (docs/design/v13/BALLPARK.md).
@@ -119,7 +120,7 @@ export default function BallparkBattle({
   const [armed,setArmed]=useState(()=>vnextReview?.armed||null),[commitBeat,setCommitBeat]=useState(null),commitTimer=useRef(null);
   /* Inspector: manual arena-region swap. {tab, kind, plus, problem, pile} or null.
      The plan (selected/swingStack/armed) is never touched while it is open. */
-  const [inspect,setInspect]=useState(()=>vnextReview?.inspectOpen?{tab:'card',kind:null}:null),inspectOpener=useRef(null),inspectScroll=useRef(0);
+  const [inspect,setInspect]=useState(()=>vnextReview?.inspectOpen?{tab:'card',kind:null}:null),inspectOpener=useRef(null),inspectScroll=useRef(0),restoreInspect=useRef(false);
   const [inspectTab,setInspectTab]=useState('card');
   const openInspect=(tab,opts={})=>{
     /* Entries stay locked while the pitch/commit is in flight; the landed
@@ -137,11 +138,16 @@ export default function BallparkBattle({
     if(!inspectRef.current)return false;
     setInspect(null);
     const handEl=rootRef.current?.querySelector('.bp-hand');
-    if(useVnext)handDockRef.current?.setScroll(inspectScroll.current||0);
+    if(useVnext)restoreInspect.current=true;
     else if(handEl)handEl.scrollLeft=inspectScroll.current||0;
-    if(inspectOpener.current?.focus)inspectOpener.current.focus();
+    if(!useVnext&&inspectOpener.current?.focus)inspectOpener.current.focus();
     return true;
   };
+  useLayoutEffect(()=>{
+    if(!useVnext||inspect||!restoreInspect.current)return;
+    restoreInspect.current=false;handDockRef.current?.setScroll(inspectScroll.current||0);
+    inspectOpener.current?.focus?.({preventScroll:true});
+  },[inspect,useVnext]);
   /* The global card-detail gestures route battle targets here through one
      dispatch point (App.jsx); the registered object always sees live state. */
   const inspectRef=useRef(null);inspectRef.current=inspect;
@@ -367,6 +373,18 @@ export default function BallparkBattle({
     if(useVnext)setRecentResult(null);
     if(armed){onStack([...stack,{id:armed,aimZone:z}]);setArmed(null);return;}
     onAim(z);
+  }
+  function placeCard(id,zone){
+    if(!deciding||locked||inspect||commitBeat)return {ok:false,reason:'투구가 끝난 뒤 놓으세요.'};
+    const intent=cardDropIntent(s,selected,stack,id,zone);if(!intent.ok)return intent;
+    setRecentResult(null);setArmed(null);
+    if(intent.kind==='support'){onStack(intent.stack);setSupportMode(true);}
+    else{onStack(intent.stack);onSelect(intent.id);onAim(intent.zone);setSupportMode(false);}
+    return intent;
+  }
+  function removeSupport(id){
+    if(!deciding||locked||inspect||commitBeat)return;
+    setArmed(null);onStack(stack.filter(c=>c.id!==id));
   }
   function commitSwing(){
     if(!deciding||!selected||choice?.problem||inspect)return;
@@ -604,7 +622,7 @@ export default function BallparkBattle({
       inspector={inspectorView} menuOpen={!!inspect} onMenu={()=>openInspect('menu')}
       onCardTap={id=>{if(!deciding&&!inspect)return;isSkill(byId(id)?.entry)?pickPrep(id):pickSwing(id);}}
       onCardDetail={id=>{const x=byId(id);openInspect('card',{kind:id==='basic'?'basic':x?.entry.kind,plus:x?.entry.plus,problem:x?.preview?.problem});}}
-      onToggleSupport={toggleSupport} onClearPlan={clearPlan} onPiles={()=>openInspect('pile')} piles={{draw:b.draw?.length||0,discard:b.discard?.length||0}}
+      onCardDrop={placeCard} onRemoveSupport={removeSupport} onToggleSupport={toggleSupport} onClearPlan={clearPlan} onPiles={()=>openInspect('pile')} piles={{draw:b.draw?.length||0,discard:b.discard?.length||0}}
       onZoneTap={pickZone} onZoneHover={setHoverZone} onPointerDown={slideStart} onPointerMove={slideMove} onPointerUp={slideEnd} onPointerCancel={slideEnd}
       onTake={onTake} onSwing={commitSwing} onNext={onNext}/>;
   }

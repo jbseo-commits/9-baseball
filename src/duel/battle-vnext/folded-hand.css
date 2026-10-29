@@ -28,7 +28,7 @@
   .bv-foldable .bv-hand-orbit .bv-card-slot:has(.is-main){transform:none}
   /* Cards own touch discrimination: leftward movement drags, vertical movement
      scrolls the existing row. Gaps/trackpad/wheel retain native scrolling. */
-  .bv-foldable .bv-hand-orbit .bv-card:not(.t-prepare):not(.is-support){touch-action:none}
+  .bv-foldable .bv-hand-orbit .bv-card:not(.t-prepare){touch-action:none}
   .bv-foldable .bv-inspector-area{inset:52px 60px 12px 12px}
   .bv-foldable[data-phase=flight] .bv-decision-area{opacity:.5}
 }

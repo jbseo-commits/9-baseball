@@ -6,7 +6,7 @@ import './placement.css';
 
 /* A receipt of the player's actual placement, never a second coverage judge.
    All tiles ride one transform, then seat independently only after arrival. */
-export default function CoverageInsert({request,pieces,rootRef,phase,sound=false,menuOpen=false}){
+export default function CoverageInsert({request,pieces,rootRef,phase,sound=false,menuOpen=false,onFinish=null}){
   const [effect,setEffect]=useState(null);
   const shape=pieces?.find(p=>p.id===request?.id),shapeKey=shape?shape.role+':'+shape.coverage.join(','):'';
   useLayoutEffect(()=>{
@@ -19,11 +19,11 @@ export default function CoverageInsert({request,pieces,rootRef,phase,sound=false
       const b=el.getBoundingClientRect();return [{z,x:b.left-box.left,y:b.top-box.top,w:b.width,h:b.height}];
     });
     const geometry=placementGeometry(cells,source);if(!geometry){setEffect(null);return;}
-    setEffect({...geometry,seq:request.seq,role:piece.role,name:request.name,cost:request.cost,summary:request.summary,art:request.art,source,startedAt:performance.now()});
-    const timer=setTimeout(()=>setEffect(null),PLACEMENT.duration);
-    const clear=()=>setEffect(null);window.addEventListener('resize',clear);document.addEventListener('visibilitychange',clear);
+    setEffect({...geometry,seq:request.seq,role:piece.role,order:piece.order||1,name:request.name,cost:request.cost,summary:request.summary,art:request.art,source,startedAt:performance.now()});
+    const clear=()=>{setEffect(null);onFinish?.(request.seq);};
+    const timer=setTimeout(clear,PLACEMENT.duration);window.addEventListener('resize',clear);document.addEventListener('visibilitychange',clear);
     return ()=>{clearTimeout(timer);window.removeEventListener('resize',clear);document.removeEventListener('visibilitychange',clear);};
-  },[request,shapeKey,phase,rootRef,menuOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+  },[request,shapeKey,phase,rootRef,menuOpen,onFinish]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(()=>{
     if(!effect||!sound||menuOpen||phase!=='deciding'||document.hidden)return;
     const reduced=!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
@@ -34,11 +34,11 @@ export default function CoverageInsert({request,pieces,rootRef,phase,sound=false
     const timer=setTimeout(()=>haptic(8),Math.max(0,PLACEMENT.lockAt-(performance.now()-effect.startedAt)));return()=>clearTimeout(timer);
   },[effect]);
   if(!effect||phase!=='deciding'||menuOpen)return null;
-  const e=effect,b=e.bounds,s=e.source;
+  const e={...effect,order:shape?.order||effect.order},b=e.bounds,s=e.source;
   const vars={'--place-duration':PLACEMENT.duration+'ms','--place-lock':PLACEMENT.lockAt+'ms','--place-stagger':PLACEMENT.stagger+'ms',
     '--from-x':e.from.x+'px','--from-y':e.from.y+'px','--mid-x':e.mid.x+'px','--mid-y':e.mid.y+'px','--start-scale':e.scale,'--start-angle':(s.angle||0)+'deg',
     '--source-art':(s.artFraction||.4)*100+'%','--source-copy-x':((s.w||190)*(s.artFraction||.4)+12)/e.scale+'px','--source-w':(s.w||190)/e.scale+'px','--source-h':(s.h||76)/e.scale+'px','--source-font':(s.font||18)/e.scale+'px','--source-small':(s.small||12)/e.scale+'px'};
-  return <div key={e.seq} className={'bv-insert-fx r-'+e.role} style={vars} aria-hidden="true" data-testid="bv-coverage-insert" data-card-name={e.name}>
+  return <div key={e.seq} className={'bv-insert-fx r-'+e.role+' q-'+e.order} style={vars} aria-hidden="true" data-testid="bv-coverage-insert" data-card-name={e.name} data-card-id={request.id} data-insert-order={e.order} data-insert-seq={e.seq}>
     <div className="bv-insert-receiver" style={{left:b.x,top:b.y,width:b.w,height:b.h}}>
       <svg viewBox={`-40 -40 ${b.w+80} ${b.h+80}`} width={b.w+80} height={b.h+80} className="bv-insert-outline"><path d={e.outline}/></svg>
       {e.cells.map(c=><span key={c.z} className="bv-insert-socket" style={{left:c.x,top:c.y,width:c.w,height:c.h}}/>)}
