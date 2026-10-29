@@ -9,7 +9,7 @@ export function sceneEffectAt({elapsed=0,playback=null,result=null,phase='decidi
   const C=composition?.contact||DEFAULT_CONTACT,R=composition?.release||DEFAULT_RELEASE;
   if(!playback||playback.timeline.duration<=60||playback.action==='prepare')return null;
   const t=playback.timeline,a=t.impactAt,age=elapsed-a,landed=phase==='result'&&!!result;
-  const throwAt=a*.54;
+  const throwAt=playback.pitchReleaseAt??a*.54;
   const trail=playback.action==='swing'?Math.max(0,1-Math.abs(elapsed-(a-8))/120):0;
   if(!landed){
     if(elapsed<throwAt)return null;

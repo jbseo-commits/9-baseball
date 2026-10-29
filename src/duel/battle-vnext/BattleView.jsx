@@ -35,6 +35,12 @@ export default function BattleView({model,actors,playback=null,execution=null,an
   const [landscape,setLandscape]=useState(()=>typeof window==='undefined'||window.innerWidth>=window.innerHeight);
   const shown=handOpen||!landscape;
   const source=useRef(null),drag=useRef(null),sequence=useRef(0),suppressClick=useRef(false),handleRef=useRef(null);
+  // Touch browsers may leave keyboard focus on body. Capture the field's
+  // fold command before App's global Escape resets a plan; dialogs keep it.
+  useEffect(()=>{
+    const fold=e=>{if(e.defaultPrevented||e.key!=='Escape'||!handOpen||menuOpen||document.querySelector('[aria-modal="true"]'))return;e.preventDefault();setHandOpen(false);handleRef.current?.focus();};
+    window.addEventListener('keydown',fold,true);return()=>window.removeEventListener('keydown',fold,true);
+  },[handOpen,menuOpen]);
   const pieceIds=(model.zones?.pieces||[]).map(p=>p.id).join('|');
   useLayoutEffect(()=>{
     const ids=new Set((model.zones?.pieces||[]).map(p=>p.id));
@@ -124,7 +130,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
     if(item?.selectionRole==='main'||item?.selectionRole==='armed')place(Number(cell.dataset.zone),d.id);
     else{setPlacement(null);onCardTap?.(d.id);setPendingDrop({id:d.id,zone:Number(cell.dataset.zone)});}
   };
-  return <main ref={viewRef} onKeyDown={e=>{suppressClick.current=false;if(e.key==='Escape'&&handOpen&&!menuOpen){e.preventDefault();setHandOpen(false);handleRef.current?.focus();}}} className={'battle-vnext bv-atbat bv-foldable bv-refined bv-reference'+(menuOpen?' inspecting':'')} data-animation-rate={animationRate} data-hand-open={shown?'true':'false'} data-phase={model.phase} data-support={hasSupport?'true':'false'} style={{...referenceSkinVars,'--bv-verdict-delay':playback?'120ms':'0ms',...(field?{'--bv-plate-x':field.home.x+'px','--bv-plate-y':field.home.y+'px','--bv-mound-y':field.mound.y+'px','--ref-scale':field.camera.scale,'--ref-zone-size':field.zoneSize+'px'}:{})}} aria-label="타석">
+  return <main ref={viewRef} onKeyDown={()=>{suppressClick.current=false;}} className={'battle-vnext bv-atbat bv-foldable bv-refined bv-reference'+(menuOpen?' inspecting':'')} data-animation-rate={animationRate} data-hand-open={shown?'true':'false'} data-phase={model.phase} data-support={hasSupport?'true':'false'} style={{...referenceSkinVars,'--bv-verdict-delay':playback?'120ms':'0ms',...(field?{'--bv-plate-x':field.home.x+'px','--bv-plate-y':field.home.y+'px','--bv-mound-y':field.mound.y+'px','--ref-scale':field.camera.scale,'--ref-zone-size':field.zoneSize+'px'}:{})}} aria-label="타석">
     <div className="bv-stage" ref={sceneRef}>
       <BattleScene playback={playback} result={model.result} finale={finale} scene={model.scene} actors={actors} phase={model.phase} framing="atbat" onLayout={onLayout}>
         {model.phase==='result'&&model.result&&<ResultReadout finale={finale} result={spotlight} shotGrade={model.scene.shotGrade} variant="spotlight"/>}

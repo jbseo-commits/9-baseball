@@ -103,7 +103,7 @@ const CardGlyph=({zones})=><span className="bp-glyph" aria-hidden="true">{Array.
 export default function BallparkBattle({
   s,hand,selected,swingStack,choice,locked=false,
   pitcher,label,pitcherArt,batterArt,
-  animationRate=1,onAnimationRateChange=null,fxStage=null,shot=null,impactAt=0,playToken=0,playback=null,execution=null,onNext=null,nextLabel='',vfx=null,pitcherAtlas=null,artId=null,batterPoses=null,
+  animationRate=1,onAnimationRateChange=null,rosterPitcher=null,fxStage=null,shot=null,impactAt=0,playToken=0,playback=null,execution=null,onNext=null,nextLabel='',vfx=null,pitcherAtlas=null,artId=null,batterPoses=null,
   batterSheet=batterV14MasterSheet,batterRig=null,
   onSelect,onAim,onStack,onSwing,onTake,onDetail,onPile,onHome,onHelp,onSettings,onToggleSound,sound=false,onJukebox=null,onPractice=null,
   autoLesson=false,autoPlan=null,onExitLesson=null,previewMode=false,coachSignal=0,
@@ -113,7 +113,7 @@ export default function BallparkBattle({
   const vnextRequested=battleUiMode().vnext;
   const approvedArt=approvedPitcherArt(artId);
   // Only a labeled, memory-only review harness may opt into the sample actor.
-  const useVnext=vnextRequested&&!autoLesson&&!defenseLab&&vnextReview?.variant!=='legacy'&&!!(approvedArt||vnextReview);
+  const useVnext=vnextRequested&&!autoLesson&&!defenseLab&&vnextReview?.variant!=='legacy'&&!!(approvedArt||vnextReview||rosterPitcher);
   const previewFx=useRef(new Set());
   const clearPreviewFx=()=>{for(const controller of previewFx.current)controller.abort();previewFx.current.clear();};
   const previewFxOptions=()=>{if(!useVnext)return {};const controller=new AbortController();previewFx.current.add(controller);return {rate:validAnimationRate(animationRate),signal:controller.signal,sound:false};};
@@ -623,7 +623,7 @@ export default function BallparkBattle({
     setRecentResult({key:artId+':'+s.runMap?.currentNodeId,text:model.result.explanation+(model.result.damage>0?` · 투수 HP −${model.result.damage}`:'')});
   },[model?.phase,playToken,artId,s.runMap?.currentNodeId]);
   if(useVnext){
-    return <BattleView execution={execution?.pitch===s.stats?.pitches&&execution?.nodeId===s.runMap?.currentNodeId?execution:null} model={model} actors={{batter:SAMPLE_ACTORS.batter,pitcher:approvedArt||SAMPLE_ACTORS.pitcher}}
+    return <BattleView execution={execution?.pitch===s.stats?.pitches&&execution?.nodeId===s.runMap?.currentNodeId?execution:null} model={model} actors={{batter:SAMPLE_ACTORS.batter,pitcher:rosterPitcher||approvedArt||SAMPLE_ACTORS.pitcher}}
       playback={playback} animationRate={animationRate} onAnimationRateChange={onAnimationRateChange} sound={sound} onToggleSound={onToggleSound} rootRef={rootRef} sceneRef={sceneRef} zoneRef={zoneRef} handRef={handDockRef} recent={recentResult?.key===artId+':'+s.runMap?.currentNodeId?recentResult.text:null} title={label} review={!!vnextReview}
       inspector={inspectorView} menuOpen={!!inspect} onMenu={()=>openInspect('menu')}
       onCardTap={id=>{if(!deciding&&!inspect)return;isSkill(byId(id)?.entry)?pickPrep(id):pickSwing(id);}}
