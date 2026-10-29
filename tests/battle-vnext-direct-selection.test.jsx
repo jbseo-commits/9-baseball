@@ -10,7 +10,7 @@ afterEach(()=>{cleanup();window.history.replaceState({},'','/');});
 const card=kind=>document.querySelector(`.bv-card[data-card-kind=${kind}]`);
 const zone=z=>document.querySelector(`.bv-cell[data-zone="${z}"]`);
 const main=()=>document.querySelector('.bv-card.is-main')?.closest('[data-card-id]').dataset.cardId;
-const add=()=>screen.getByRole('button',{name:'카드 겹치기'});
+const add=()=>{const handle=screen.queryByRole('button',{name:'손패 펼치기',exact:true});if(handle)fireEvent.click(handle);return screen.getByRole('button',{name:'카드 겹치기'});};
 const clear=()=>screen.getByRole('button',{name:'선택 해제 · 지켜보기로 전환'});
 it('shows a course immediately before choosing cards; either selection order yields the same plan',()=>{
  const open=()=>render(<IntegrationPreview fixture="watch-read0"/>);

@@ -189,7 +189,13 @@ export function buildBattleViewModel({
     face:deciding?zoneFace(s,z,{level,known,probs}):null,
     aimed:b.aimZone===z,aim:plan.aim===z,cover:plan.cover.includes(z),support:plan.support.includes(z),
     tokens:plan.tokens.filter(t=>t.z===z).map(t=>t.n),actual:landed&&r.zone===z}));
-  const zones={level,aimWord:deciding?ZONE_WORDS[b.aimZone]||'':null,sources:readSources(displayState).map(x=>x.label),cells,
+  // Only player-authored coverage: never the hidden incoming pitch. Supports
+  // retain their own placed aim rather than the main card's preview glyph.
+  const pieces=!judged&&selected&&!mainIsSkill?[
+    {id:selected,role:'main',coverage:[...plan.cover]},
+    ...(choice?.supportCoverages||[]).map((x,i)=>({id:stack[i]?.id,role:'support',coverage:[...x.coverage]})),
+  ]:[];
+  const zones={level,aimWord:deciding?ZONE_WORDS[b.aimZone]||'':null,sources:readSources(displayState).map(x=>x.label),cells,pieces,
     band:{face:deciding?bandFace(s,{level,probs}):null,actual:landed&&r.zone===9},
     clue:known.length<10,targetingSupport:!!liveArmed,links:judged?r.stackLinks||[]:stack.length?choice?.stackPlan?.links||[]:[]};
 

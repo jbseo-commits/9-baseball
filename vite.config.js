@@ -1,10 +1,11 @@
 import { defineConfig } from "vite";
 import runtimeArt from "./scripts/lib/vite-runtime-art.mjs";
+import variableFonts from "./scripts/lib/vite-variable-fonts.mjs";
 
 export default defineConfig({
   base: process.env.VITE_BASE || (process.env.GITHUB_ACTIONS === "true" ? "/9-baseball/" : "/"),
   // ships the heavy PNGs as sized WebP derivatives (scripts/optimize-runtime-art.py)
-  plugins: [runtimeArt()],
+  plugins: [runtimeArt(),variableFonts()],
   // CSS resources resolve from the stylesheet, including public fonts. Avoid
   // repeating long Pages preview prefixes hundreds of times; JS/HTML keep base.
   experimental: {
