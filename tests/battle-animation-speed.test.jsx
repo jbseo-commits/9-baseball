@@ -6,7 +6,7 @@ import {cue} from '../src/duel/audio.js';
 vi.mock('../src/duel/audio.js',()=>({audio:vi.fn(),cue:vi.fn(),getAudioContext:vi.fn(),getMasterNode:vi.fn()}));
 import IntegrationPreview from '../src/duel/battle-vnext/IntegrationPreview.jsx';
 import {ANIMATION_RATE_KEY,animationRate,readAnimationRate,rememberAnimationRate,presentationElapsed} from '../src/duel/animation-speed.js';
-import {PLACEMENT} from '../src/duel/battle-vnext/placement-motion.js';
+import {WIDE_PLACEMENT as PLACEMENT} from '../src/duel/battle-vnext/placement-motion.js';
 import {STACK_COMMIT_MS} from '../src/duel/BallparkBattle.jsx';
 const speed=()=>screen.getByRole('combobox',{name:'애니메이션 배속'});
 const open=()=>{const b=screen.queryByRole('button',{name:'손패 펼치기',exact:true});if(b)fireEvent.click(b);};

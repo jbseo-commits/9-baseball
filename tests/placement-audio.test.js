@@ -31,3 +31,10 @@ it('slow motion scales cue onsets without changing their tone or envelope length
  playPlacementSound({rate:.25});const low=sources.find(n=>n.frequency.setValueAtTime.mock.calls.some(c=>c[0]===118));
  const t=low.start.mock.calls[0][0];expect(t).toBeCloseTo(10.006+PLACEMENT.lockAt/.25/1000);expect(low.stop.mock.calls[0][0]-t).toBeCloseTo(.185);
 });
+
+it('wide pieces get one formation cue and one low seating body at their shared later lock',async()=>{
+ const{WIDE_PLACEMENT}=await import('../src/duel/battle-vnext/placement-motion.js');
+ const cancel=playPlacementSound({timing:WIDE_PLACEMENT,rate:.5});
+ const bodies=sources.filter(n=>n.frequency.setValueAtTime.mock.calls[0]?.[0]===118);expect(bodies).toHaveLength(1);expect(bodies[0].start.mock.calls[0][0]).toBeCloseTo(10.006+.680/.5);
+ expect(sources.some(n=>n.frequency.setValueAtTime.mock.calls[0]?.[0]===390)).toBe(true);cancel();expect(sources.every(n=>n.stop.mock.calls.length===2)).toBe(true);
+});

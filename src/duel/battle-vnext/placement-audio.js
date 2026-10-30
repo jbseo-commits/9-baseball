@@ -4,12 +4,12 @@ import {PLACEMENT} from './placement-motion.js';
 
 /* This bus owns every source it schedules. Mute/reselect/execute can stop even
    future oscillators; the ordinary fire-and-forget judgement cue stays separate. */
-export function playPlacementSound({elapsed=0,reduced=false,pan=0,rate=1}={}){
+export function playPlacementSound({elapsed=0,reduced=false,pan=0,rate=1,timing=PLACEMENT}={}){
   const speed=animationRate(rate);
   let sources=[],bus,panner,stopped=false;
   const cancel=()=>{if(stopped)return;stopped=true;for(const node of sources){try{node.stop();node.disconnect();}catch{}}try{bus?.disconnect();panner?.disconnect();}catch{}};
   try{
-    if((elapsed-PLACEMENT.lockAt)/speed>100)return cancel;
+    if((elapsed-timing.lockAt)/speed>100)return cancel;
     const ctx=getAudioContext();if(!ctx)return cancel;
     bus=ctx.createGain();bus.gain.value=.64;bus.connect(getMasterNode());
     const output=ctx.createStereoPanner?.();if(output){output.pan.value=Math.max(-.5,Math.min(.5,pan));output.connect(bus);panner=output;}
@@ -34,10 +34,11 @@ export function playPlacementSound({elapsed=0,reduced=false,pan=0,rate=1}={}){
     // Lift: air and a soft material peel. Lock: low body + one hard seating edge
     // and two quiet contacts. Never multiply this mix by the covered-cell count.
     air(0,.17,.042,1500);tone(0,.12,260,560,.018,'triangle');
-    air(PLACEMENT.lockAt,.045,.085,2100);tone(PLACEMENT.lockAt,.17,118,48,.13);
-    tone(PLACEMENT.lockAt+8,.055,1150,540,.036,'triangle');
-    tone(PLACEMENT.lockAt+28,.045,760,460,.022,'triangle');
-    tone(PLACEMENT.lockAt+62,.09,380,190,.025,'triangle');
+    if(timing.formAt)tone(timing.formAt-60,.065,390,620,.026,'triangle');
+    air(timing.lockAt,.045,.085,2100);tone(timing.lockAt,.17,118,48,.13);
+    tone(timing.lockAt+8,.055,1150,540,.036,'triangle');
+    tone(timing.lockAt+28,.045,760,460,.022,'triangle');
+    tone(timing.lockAt+62,.09,380,190,.025,'triangle');
     return cancel;
   }catch{cancel();return ()=>{};} // Audio failure must not affect placement.
 }

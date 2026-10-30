@@ -2,7 +2,7 @@
 import React from 'react';
 import {render,screen,fireEvent,cleanup,act} from '@testing-library/react';
 import {beforeEach,afterEach,it,expect,vi} from 'vitest';
-import {placementGeometry,PLACEMENT} from '../src/duel/battle-vnext/placement-motion.js';
+import {placementGeometry,PLACEMENT,WIDE_PLACEMENT} from '../src/duel/battle-vnext/placement-motion.js';
 import CoverageInsert from '../src/duel/battle-vnext/CoverageInsert.jsx';
 import IntegrationPreview from '../src/duel/battle-vnext/IntegrationPreview.jsx';
 import {playPlacementSound} from '../src/duel/battle-vnext/placement-audio.js';
@@ -33,7 +33,7 @@ it('moves the whole footprint on one carrier; the local cell geometry stays inta
  expect(blocks.every(b=>b.parentElement===carrier)).toBe(true);
  expect(blocks.map(b=>b.style.top)).toEqual(['0px','60px','120px']);
  expect(blocks.every(b=>!b.style.getPropertyValue('--insert-x'))).toBe(true);
- expect(screen.getByTestId('bv-coverage-insert').style.getPropertyValue('--place-lock')).toBe(PLACEMENT.lockAt+'ms');
+ expect(screen.getByTestId('bv-coverage-insert').style.getPropertyValue('--place-lock')).toBe(WIDE_PLACEMENT.lockAt+'ms');
  expect(document.querySelector('.bv-insert-card').textContent).toContain('2밀어치기적중하면 안타');
 });
 it('cancels both sources and the carrier on a pitch, without waiting for its decorative deadline',()=>{

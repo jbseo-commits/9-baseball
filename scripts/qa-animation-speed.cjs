@@ -9,6 +9,7 @@ async function start(p,rate,fixture='watch-read0'){
  await p.locator('.bv-actor-batter img').first().waitFor();await p.locator('.bv-actor img').evaluateAll(es=>Promise.all(es.map(e=>e.decode())));await p.evaluate(()=>document.fonts.ready);
 }
 (async()=>{
+ const{WIDE_PLACEMENT:placement}=await import('../src/duel/battle-vnext/placement-motion.js');
  const {buildFixture}=await import('../src/duel/battle-vnext/fixtures.js'),{setAimZone,playV10Action}=await import('../src/duel/engine.js'),{presentationFor,presentationTimeline}=await import('../src/duel/presentation.js');
  const f=buildFixture('watch-read0'),id=f.hand.find(c=>c.entry.kind==='strike').id,expected=playV10Action(setAimZone(f.s,2),{type:'card',id,supports:[]}),timeline=presentationTimeline(presentationFor(expected));
  const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox']}),errors=[],reports=[],layout=[];
@@ -26,9 +27,9 @@ async function start(p,rate,fixture='watch-read0'){
   await p.waitForSelector('[data-testid=bv-coverage-insert]');assert.ok(await selector(p).isDisabled());
   await p.waitForTimeout(100);const animations=await p.locator('.bv-insert-fx').evaluate(e=>e.getAnimations({subtree:true}).map(a=>({name:a.animationName,rate:a.playbackRate,time:a.currentTime})));assert.ok(animations.length>0);assert.ok(animations.every(a=>a.rate===rate),JSON.stringify(animations));
   await p.screenshot({path:`${out}/placement-${rate}.jpg`,quality:85});await p.waitForFunction(()=>!document.querySelector('[data-testid=bv-coverage-insert]'),null,{timeout:7000});assert.ok(await selector(p).isEnabled());
-  const receipt=await p.evaluate(()=>window.__speedQA.receipts);const duration=receipt.at(-1).at-receipt[0].at;assert.ok(Math.abs(duration-1040/rate)<250,`receipt ${rate}: ${duration}`);
+  const receipt=await p.evaluate(()=>window.__speedQA.receipts);const duration=receipt.at(-1).at-receipt[0].at;assert.ok(Math.abs(duration-placement.duration/rate)<250,`receipt ${rate}: ${duration}`);
   const note=await p.evaluate(()=>window.__speedQA.notes.find(n=>Math.abs(n.freq-118)<.01)); // initial frequency, low seating body
-  assert.ok(note,'actual low seating oscillator was scheduled');assert.ok(Math.abs((note.t-note.audioNow)*1000-(6+460/rate))<120,'seating sound uses same scaled lock beat');
+  assert.ok(note,'actual low seating oscillator was scheduled');assert.ok(Math.abs((note.t-note.audioNow)*1000-(6+placement.lockAt/rate))<120,'seating sound uses same scaled lock beat');
   await p.getByTestId('bp-swing').tap();await p.waitForFunction(()=>!!document.querySelector('.bv-scene')?.dataset.fxStage);assert.ok(await selector(p).isDisabled());
   if(rate===.25){await p.waitForTimeout(timeline.duration+80);assert.ok(await selector(p).isDisabled(),'slow RAF/host keeps playing beyond original wall duration');await p.screenshot({path:`${out}/slow-pitch-025.jpg`,quality:85});}
   await p.waitForFunction(()=>!document.querySelector('.bv-scene')?.dataset.fxStage,null,{timeout:15000});assert.ok(await selector(p).isEnabled());
@@ -36,7 +37,7 @@ async function start(p,rate,fixture='watch-read0'){
   assert.equal(await p.locator('.bv-scene').getAttribute('data-play-token'),String(expected.stats.pitches));assert.equal(await p.getByTestId('bv-energy').getAttribute('data-energy'),String(expected.battle.energy));assert.ok((await p.locator('.bv-hud-opponent').getAttribute('aria-label')).includes(`${expected.pitcher.hp} / ${expected.pitcher.maxHp}`));assert.equal(await p.evaluate(()=>localStorage.getItem('9zone-v10-run')),'speed-sentinel');
   if(rate===.25){assert.ok(q.poses.some(e=>e.at>begin.at+timeline.duration&&e.at<end.at),'actor RAF still changes poses beyond normal duration');}
   const changed=rate===.5?'0.75':'0.5';await selector(p).selectOption(changed);await p.reload();assert.equal(await selector(p).inputValue(),changed);assert.equal(new URL(p.url()).searchParams.get('battleSpeed'),changed);
-  reports.push({rate,receiptMs:duration,expectedReceiptMs:1040/rate,pitchMs:pitchDuration,expectedPitchMs:timeline.duration/rate,transition,animations,lockSoundDelayMs:(note.t-note.audioNow)*1000,actualHp:expected.pitcher.hp,actualEnergy:expected.battle.energy,saveIsolated:true,preferenceReload:true});console.log('passed speed',rate);await p.close();
+  reports.push({rate,receiptMs:duration,expectedReceiptMs:placement.duration/rate,pitchMs:pitchDuration,expectedPitchMs:timeline.duration/rate,transition,animations,lockSoundDelayMs:(note.t-note.audioNow)*1000,actualHp:expected.pitcher.hp,actualEnergy:expected.battle.energy,saveIsolated:true,preferenceReload:true});console.log('passed speed',rate);await p.close();
  }
  const muted=await browser.newPage({viewport:{width:844,height:390},hasTouch:true});muted.on('pageerror',e=>errors.push(e.message));
  await muted.addInitScript(()=>{window.__cueNodes=[];for(const name of ['createOscillator','createBufferSource']){const create=BaseAudioContext.prototype[name];BaseAudioContext.prototype[name]=function(){const n=create.call(this),start=n.start.bind(n),stop=n.stop.bind(n);n.__starts=[];n.__stops=[];n.start=t=>{n.__starts.push(t);return start(t)};n.stop=t=>{n.__stops.push(t??null);return t==null?stop():stop(t)};window.__cueNodes.push(n);return n};}});

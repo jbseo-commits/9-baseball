@@ -47,3 +47,33 @@
  .bv-insert-fx .bv-insert-card,.bv-insert-fx .bv-insert-block>*,.bv-insert-fx .bv-insert-impact,.bv-insert-fx .bv-insert-ground,.bv-insert-fx .bv-insert-socket{display:none}
  .bv-insert-fx .bv-insert-outline{animation:none;opacity:.6;filter:none}
 }
+/* Several cells must read as one object before they travel. The original card
+   is a separate, registered layer: enlarging the piece cannot inflate it. */
+.bv-insert-source{position:absolute;width:var(--source-w);height:var(--source-h);translate:-50% -50%;z-index:3;pointer-events:none}
+.bv-insert-source .bv-insert-card{padding:4px 8px 4px var(--source-copy-x);gap:2px}
+.bv-insert-fx[data-art-side=right] .bv-insert-source .bv-insert-card{padding:4px calc(var(--source-art) + 8px) 4px 8px}
+.bv-insert-fx[data-art-side=right] .bv-insert-source .bv-insert-card>b{padding:2px 6px}
+.bv-insert-fx.is-wide .bv-insert-flight{animation:bv-wide-carry var(--place-lock) linear both,bv-wide-ground 180ms ease-out var(--place-lock) forwards}
+.bv-insert-fx.is-wide .bv-insert-block{background:linear-gradient(145deg,#fff0b3 0%,#d9b768 16%,#b48e4e 72%,#80613b);box-shadow:0 5px 0 var(--insert-shadow),0 8px 10px #07101d77,inset 0 1px 2px #fff8;animation:bv-wide-visible var(--place-duration) linear both}
+.bv-insert-fx.is-wide.r-support .bv-insert-block{background:linear-gradient(145deg,#e9fff7,#9ed7c8 20%,#5e9b8c 72%,#32655d)}
+.bv-insert-fx.is-wide .bv-insert-material{animation:bv-wide-art 260ms linear both;opacity:0}
+.bv-insert-fx.is-wide .bv-insert-bevel{inset:3px;border-color:#fff7d188 #60471666 #60471666 #fff7d188}
+.bv-insert-fx.is-wide .bv-insert-catch{animation:bv-tile-catch 280ms ease-out calc(var(--place-lock) + var(--seat-delay)) both}
+.bv-insert-piece-edge{position:absolute;left:-8px;top:-8px;overflow:visible;pointer-events:none;animation:bv-wide-visible var(--place-duration) linear both;fill:none;stroke-linejoin:miter;stroke-linecap:square}
+.bv-insert-piece-edge path{vector-effect:non-scaling-stroke}
+.bv-insert-piece-edge .edge-shadow{stroke:#162334;stroke-width:6}
+.bv-insert-piece-edge .edge-light{stroke:var(--insert-color);stroke-width:2}
+@keyframes bv-wide-carry{
+  0%,17.647%{transform:translate(var(--from-x),var(--from-y)) rotate(var(--start-angle)) scale(var(--start-scale))}
+  38.235%,58.824%{transform:translate(var(--stage-x),var(--stage-y)) rotate(0deg) scale(var(--read-scale))}
+  85.294%{transform:translate(0,-24px) scale(1)}
+  94.118%{transform:translate(0,-16px) scale(1)}
+  100%{transform:none}
+}
+@keyframes bv-wide-ground{0%{transform:none}22%{transform:translateY(2px)}65%{transform:translateY(-1px)}100%{transform:none}}
+@keyframes bv-wide-visible{0%,9%{opacity:0}19%,80%{opacity:1}100%{opacity:0}}
+@keyframes bv-wide-art{0%,40%{opacity:.8}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){
+ .bv-insert-fx.is-wide .bv-insert-flight,.bv-insert-fx.is-wide .bv-insert-block{animation:none;transform:none;background:transparent;box-shadow:none}
+ .bv-insert-source,.bv-insert-piece-edge{display:none}
+}
