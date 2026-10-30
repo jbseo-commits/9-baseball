@@ -1,0 +1,17 @@
+/* Only the comparison adapter; production fallback and the new View are untouched. */
+.vnext-shell .duel-app.bc-legacy-host.v14-battle-portrait>.bp-battle.bp-readable.bv-legacy-fallback{
+ height:auto;min-height:0;max-height:none;grid-template-rows:44px var(--lc-scene-h) 192px auto 56px;align-content:start}
+.vnext-shell .duel-app.bc-legacy-host.v14-battle-portrait>.bp-battle.bp-readable.bv-legacy-fallback>.bp-stage,
+.vnext-shell .duel-app.bc-legacy-host.v14-battle-portrait>.bp-battle.bp-readable.bv-legacy-fallback .bp-scene{
+ height:var(--lc-scene-h);min-height:var(--lc-scene-h);max-height:var(--lc-scene-h);overflow:hidden}
+.vnext-shell .duel-app.bc-legacy-host.v14-battle-portrait>.bp-battle.bp-readable.bv-legacy-fallback .bp-bg{
+ background-size:var(--lc-bg-w) var(--lc-bg-h)!important;background-position:0 var(--lc-bg-y)!important;transform:none!important;animation:none!important}
+.vnext-shell .duel-app.bc-legacy-host.v14-battle-portrait>.bp-battle.bp-readable.bv-legacy-fallback .bp-batter{
+ left:var(--lc-batter-x);top:var(--lc-batter-y);bottom:auto;right:auto;width:var(--lc-batter-h);height:var(--lc-batter-h);transform:none!important;animation:none!important}
+.vnext-shell .duel-app.bc-legacy-host.v14-battle-portrait>.bp-battle.bp-readable.bv-legacy-fallback .bp-pitcher{
+ left:var(--lc-pitcher-x);top:var(--lc-pitcher-y);bottom:auto;right:auto;width:var(--lc-pitcher-h);height:var(--lc-pitcher-h);transform:none!important;animation:none!important}
+.vnext-shell .duel-app.bc-legacy-host.v14-battle-portrait>.bp-battle.bp-readable.bv-legacy-fallback .bp-zone{
+ left:var(--lc-zone-x);top:var(--lc-zone-y);right:auto;bottom:auto;width:156px;height:156px}
+.bc-legacy-host .bp-batter .batter-sheet-actor::before{left:var(--lc-batter-shadow-x);width:40%;height:3.5%}
+.bc-legacy-host .bp-pitcher .actor-contact-shadow{left:calc(var(--stance-x,.5) * 100%);top:calc(var(--stance-y,.965) * 100%);bottom:auto;right:auto;width:38%;height:6%;translate:-50% -40%;transform:none!important}
+.bc-legacy-host[data-pitcher-source=fallback] .bp-pitcher{--stance-x:.5!important;--stance-y:.965!important}

@@ -1,0 +1,79 @@
+/* Local material/weight, not a screen of confetti. Shared parent motion keeps
+   every authored coverage cell connected until the piece has reached the grid. */
+.bv-insert-fx{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden;--insert-color:#ffdc8e;--insert-shadow:#a5611a;--insert-tint:#bc8a35}
+.bv-insert-fx.r-support{--insert-color:#aff3e1;--insert-shadow:#246d67;--insert-tint:#60b8a1}
+.bv-insert-flight,.bv-insert-receiver{position:absolute;transform-origin:center}
+.bv-insert-flight{z-index:2;animation:bv-piece-carry var(--place-lock) cubic-bezier(.2,.65,.25,1) both;will-change:transform}
+.bv-insert-card{position:absolute;left:50%;top:50%;width:var(--source-w);height:var(--source-h);padding:6% 4% 6% var(--source-copy-x);display:flex;flex-direction:column;justify-content:center;gap:5%;border:9px solid transparent;border-image:var(--ref-selected,var(--ref-card)) 28 fill/9px stretch;border-radius:8px;color:#fff0d3;font:700 var(--source-font)/1.25 'Noto Sans KR',sans-serif;transform-origin:center;animation:bv-card-cleave 190ms ease-in both;box-sizing:border-box;overflow:hidden;box-shadow:0 8px 22px #07101c88}
+.bv-insert-card-art{position:absolute;inset:0 auto 0 0;width:var(--source-art);background:center/cover}
+.bv-insert-card>b{position:absolute;left:3%;top:9%;padding:2% 3%;border-radius:3px;background:#f5d487;color:#10202c;font-size:var(--source-font);line-height:1}
+.bv-insert-card strong{font-size:inherit;white-space:nowrap}.bv-insert-card small{font-size:var(--source-small);line-height:1.4;font-weight:400}
+.bv-insert-card>i{position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,#fff1c677 48%,transparent 58%);animation:bv-card-sheen 190ms ease-out both}
+.bv-insert-block{position:absolute;display:block;border:1px solid var(--insert-color);border-radius:3px;background:linear-gradient(135deg,#fff1bce8 0%,var(--insert-tint) 8%,#252b2ee8 70%);box-shadow:0 5px 0 var(--insert-shadow),0 7px 9px #020b1980,inset 0 1px 2px #fff6;transform-origin:50% 75%;animation:bv-tile-emerge var(--place-duration) linear both,bv-tile-seat 180ms cubic-bezier(.18,.8,.3,1) calc(var(--place-lock) + var(--seat-delay)) both;overflow:visible}
+.bv-insert-fx.r-support .bv-insert-block{border-style:dashed}
+.bv-insert-material{position:absolute;inset:2px;border-radius:2px;background-image:linear-gradient(135deg,#ffe8a722,transparent),var(--tile-art);background-size:100% 100%,300% 300%;background-position:center,var(--tile-art-x) var(--tile-art-y);opacity:.8;animation:bv-tile-material 410ms ease-out both}
+.bv-insert-bevel{position:absolute;inset:4px;border:1px solid #fff2cc66;border-right-color:#694f2644;border-bottom-color:#694f2644;border-radius:1px}
+.bv-insert-catch{position:absolute;inset:-4px;border:2px solid var(--insert-color);border-radius:3px;animation:bv-tile-catch 280ms ease-out calc(var(--place-lock) + var(--seat-delay)) both}
+.bv-insert-seam{position:absolute;inset:0;background:linear-gradient(110deg,transparent 20%,#fff7da99 50%,transparent 70%);animation:bv-tile-seal 240ms ease-out calc(var(--place-lock) + var(--seat-delay)) both;transform-origin:50% 50%;border-radius:3px}
+.bv-insert-outline{position:absolute;left:-40px;top:-40px;overflow:visible;z-index:3;animation:bv-piece-outline 460ms ease-out var(--place-lock) both}
+.bv-insert-outline path{transform:translate(0,0);fill:none;stroke:var(--insert-color);stroke-width:3;stroke-linecap:square;stroke-linejoin:miter;vector-effect:non-scaling-stroke}
+.bv-insert-socket{position:absolute;border:1px solid var(--insert-color);box-shadow:inset 0 0 12px #070d1dcc;animation:bv-piece-socket var(--place-duration) linear both}
+.bv-insert-ground{position:absolute;inset:8% -8% -7%;background:radial-gradient(ellipse at 50% 75%,#050d1c80,transparent 65%);animation:bv-piece-shadow 650ms ease-out both;z-index:-1}
+.bv-insert-impact{position:absolute;left:-35%;top:-18%;width:170%;height:136%;overflow:visible;animation:bv-piece-impact 360ms ease-out var(--place-lock) both}
+.bv-insert-impact ellipse{fill:none;stroke:var(--insert-color);stroke-width:.5;opacity:.7}
+.bv-insert-impact path{fill:none;stroke:var(--insert-color);stroke-width:1;stroke-linecap:round}
+@keyframes bv-piece-carry{
+  0%{transform:translate(var(--from-x),var(--from-y)) rotate(var(--start-angle)) scale(var(--start-scale))}
+  38%{transform:translate(var(--from-x),calc(var(--from-y) - 12px)) rotate(calc(var(--start-angle) - 3deg)) scale(var(--start-scale))}
+  64%{transform:translate(var(--mid-x),var(--mid-y)) rotate(-4deg) scale(.7)}
+  80%{transform:translate(0,-24px) rotate(0deg) scale(1.02)}
+  93%{transform:translate(0,-9px) scale(1.025)}
+  100%{transform:none}
+}
+@keyframes bv-card-cleave{0%,35%{opacity:1;transform:translate(-50%,-50%)}70%{opacity:.85;filter:brightness(1.35);transform:translate(-50%,-50%) scale(.94)}100%{opacity:0;filter:brightness(1.5);transform:translate(-50%,-50%) scale(.72)}}
+@keyframes bv-card-sheen{from{translate:-70% 0}to{translate:70% 0}}
+@keyframes bv-tile-emerge{0%,6%{opacity:0}14%,76%{opacity:1}100%{opacity:0}}
+@keyframes bv-tile-material{0%,35%{opacity:1}80%,100%{opacity:0}}
+@keyframes bv-tile-seat{0%{transform:none;box-shadow:0 5px 0 var(--insert-shadow),0 7px 9px #020b1980}22%{transform:translateY(3px) scale(1.035,.92);box-shadow:0 1px 0 var(--insert-shadow),0 2px 3px #020b1980}58%{transform:translateY(-1px) scale(.99,1.025)}100%{transform:none;box-shadow:0 1px 0 var(--insert-shadow),inset 0 0 14px #ffdb7c22}}
+@keyframes bv-tile-catch{0%{opacity:0;transform:scale(.96)}12%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.12)}}
+@keyframes bv-tile-seal{0%{opacity:.9;clip-path:inset(0 90% 0 0)}80%{opacity:.4;clip-path:inset(0 0 0 90%)}100%{opacity:0;clip-path:inset(0 0 0 100%)}}
+@keyframes bv-piece-outline{0%{opacity:0}9%,22%{opacity:1;filter:drop-shadow(0 0 4px var(--insert-color))}100%{opacity:0;filter:none}}
+@keyframes bv-piece-socket{0%{opacity:0}20%,40%{opacity:.45}52%{opacity:.8}100%{opacity:0}}
+@keyframes bv-piece-shadow{0%{opacity:0;transform:scale(.5)}60%{opacity:.4;transform:scale(1.15)}75%{opacity:.7;transform:scale(.95)}100%{opacity:0;transform:scale(1)}}
+@keyframes bv-piece-impact{0%{opacity:0;transform:scale(.75)}8%{opacity:.95;transform:scale(.85)}100%{opacity:0;transform:scale(1.18)}}
+@media(prefers-reduced-motion:reduce){
+ .bv-insert-fx .bv-insert-flight{animation:none}
+ .bv-insert-fx .bv-insert-block{animation:none;background:transparent;box-shadow:none}
+ .bv-insert-fx .bv-insert-card,.bv-insert-fx .bv-insert-block>*,.bv-insert-fx .bv-insert-impact,.bv-insert-fx .bv-insert-ground,.bv-insert-fx .bv-insert-socket{display:none}
+ .bv-insert-fx .bv-insert-outline{animation:none;opacity:.6;filter:none}
+}
+/* Several cells must read as one object before they travel. The original card
+   is a separate, registered layer: enlarging the piece cannot inflate it. */
+.bv-insert-source{position:absolute;width:var(--source-w);height:var(--source-h);translate:-50% -50%;z-index:3;pointer-events:none}
+.bv-insert-source .bv-insert-card{padding:4px 8px 4px var(--source-copy-x);gap:2px}
+.bv-insert-fx[data-art-side=right] .bv-insert-source .bv-insert-card{padding:4px calc(var(--source-art) + 8px) 4px 8px}
+.bv-insert-fx[data-art-side=right] .bv-insert-source .bv-insert-card>b{padding:2px 6px}
+.bv-insert-fx.is-wide .bv-insert-flight{animation:bv-wide-carry var(--place-lock) linear both,bv-wide-ground 180ms ease-out var(--place-lock) forwards}
+.bv-insert-fx.is-wide .bv-insert-block{background:linear-gradient(145deg,#fff0b3 0%,#d9b768 16%,#b48e4e 72%,#80613b);box-shadow:0 5px 0 var(--insert-shadow),0 8px 10px #07101d77,inset 0 1px 2px #fff8;animation:bv-wide-visible var(--place-duration) linear both}
+.bv-insert-fx.is-wide.r-support .bv-insert-block{background:linear-gradient(145deg,#e9fff7,#9ed7c8 20%,#5e9b8c 72%,#32655d)}
+.bv-insert-fx.is-wide .bv-insert-material{animation:bv-wide-art 260ms linear both;opacity:0}
+.bv-insert-fx.is-wide .bv-insert-bevel{inset:3px;border-color:#fff7d188 #60471666 #60471666 #fff7d188}
+.bv-insert-fx.is-wide .bv-insert-catch{animation:bv-tile-catch 280ms ease-out calc(var(--place-lock) + var(--seat-delay)) both}
+.bv-insert-piece-edge{position:absolute;left:-8px;top:-8px;overflow:visible;pointer-events:none;animation:bv-wide-visible var(--place-duration) linear both;fill:none;stroke-linejoin:miter;stroke-linecap:square}
+.bv-insert-piece-edge path{vector-effect:non-scaling-stroke}
+.bv-insert-piece-edge .edge-shadow{stroke:#162334;stroke-width:6}
+.bv-insert-piece-edge .edge-light{stroke:var(--insert-color);stroke-width:2}
+@keyframes bv-wide-carry{
+  0%,17.647%{transform:translate(var(--from-x),var(--from-y)) rotate(var(--start-angle)) scale(var(--start-scale))}
+  38.235%,58.824%{transform:translate(var(--stage-x),var(--stage-y)) rotate(0deg) scale(var(--read-scale))}
+  85.294%{transform:translate(0,-24px) scale(1)}
+  94.118%{transform:translate(0,-16px) scale(1)}
+  100%{transform:none}
+}
+@keyframes bv-wide-ground{0%{transform:none}22%{transform:translateY(2px)}65%{transform:translateY(-1px)}100%{transform:none}}
+@keyframes bv-wide-visible{0%,9%{opacity:0}19%,80%{opacity:1}100%{opacity:0}}
+@keyframes bv-wide-art{0%,40%{opacity:.8}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){
+ .bv-insert-fx.is-wide .bv-insert-flight,.bv-insert-fx.is-wide .bv-insert-block{animation:none;transform:none;background:transparent;box-shadow:none}
+ .bv-insert-source,.bv-insert-piece-edge{display:none}
+}

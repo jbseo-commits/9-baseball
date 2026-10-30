@@ -1,7 +1,12 @@
 import cardMap from '../../assets/cards-v15/card-map.json';
 import {CARDS} from './cards.js';
 
-const cardFiles = import.meta.glob('../../assets/cards-v15/*.png', { eager: true, query: '?url', import: 'default' });
+// Retain the four unused source masters, but do not ship them. The complete
+// CARDS resolver is regression-checked against the source directory: a future
+// card that needs one fails that check until its exclusion is removed.
+const cardFiles = import.meta.glob(['../../assets/cards-v15/*.png',
+  '!../../assets/cards-v15/family-grind.png','!../../assets/cards-v15/family-power.png',
+  '!../../assets/cards-v15/family-precision.png','!../../assets/cards-v15/family-relay.png'], { eager: true, query: '?url', import: 'default' });
 
 /* V16 cards use their own illustration when present, then a family illustration;
    these V15 files remain the fallback for families without dedicated art. */

@@ -5,6 +5,7 @@
    - 자동 진행(체험 자동전투)·움직임 줄이기 설정에서는 그리지 않는다.
    - 소리는 앱의 효과음 설정(setCardFxSound)을 따른다. */
 import {cue} from './audio.js';
+import {animationRate} from './animation-speed.js';
 
 let soundOn=false;
 export function setCardFxSound(on){soundOn=!!on;}
@@ -32,12 +33,14 @@ function layer(){
   return el;
 }
 /* a skippable piece: visible → takes the tap that skips it; gone → removed (never left catching touches) */
-function piece(rect,style={}){
+function piece(rect,style={},options={}){
   const el=document.createElement('div');
   Object.assign(el.style,{position:'fixed',left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px',
     pointerEvents:'auto',willChange:'transform,opacity',borderRadius:'8px',boxSizing:'border-box',...style});
-  const done=()=>el.remove();
-  setTimeout(done,1200); // never outlive the 0.3–0.8s budget, even if an animation never reports finish
+  let timer;
+  const done=()=>{clearTimeout(timer);options.signal?.removeEventListener('abort',done);for(const a of el.getAnimations?.()||[]){a.finished?.catch?.(()=>{});a.cancel();}el.remove();};
+  options.signal?.addEventListener('abort',done,{once:true});
+  timer=setTimeout(done,1200/animationRate(options.rate)); // scaled safety deadline, even if a browser never reports finish
   el.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();done();},{once:true});
   layer().appendChild(el);
   return {el,done};
@@ -68,37 +71,40 @@ export function playAcquire(fromEl,toEl,tier='common'){
 }
 
 /* 3-2 사용: 준비 카드가 존 그리드로 날아가 꽂히고, 꽂힌 자리가 번쩍인다 */
-export function playUse(fromEl,toEl){
-  if(cardFxSuppressed()||!fromEl?.getBoundingClientRect||!toEl?.getBoundingClientRect)return false;
-  const a=fromEl.getBoundingClientRect(),b=toEl.getBoundingClientRect(),{el,done}=piece(a,{border:'2px solid #64d2ff',boxShadow:'0 0 14px rgba(100,210,255,.8)'});
+export function playUse(fromEl,toEl,options={}){
+  if(options.signal?.aborted||cardFxSuppressed()||!fromEl?.getBoundingClientRect||!toEl?.getBoundingClientRect)return false;
+  const a=fromEl.getBoundingClientRect(),b=toEl.getBoundingClientRect(),{el,done}=piece(a,{border:'2px solid #64d2ff',boxShadow:'0 0 14px rgba(100,210,255,.8)'},options);
+  if(options.rate)el.dataset.animationRate=animationRate(options.rate);
   cloneFace(fromEl,el);
   const ca=center(a),cb=center(b),dx=cb.x-ca.x,dy=cb.y-ca.y;
   el.animate([
     {transform:'translate(0,0) scale(1) rotate(0deg)',opacity:1},
     {transform:`translate(${dx*.6}px,${dy*.6-30}px) scale(.7) rotate(-8deg)`,opacity:1,offset:.55},
     {transform:`translate(${dx}px,${dy}px) scale(.35) rotate(0deg)`,opacity:.9},
-  ],{duration:CARD_FX_MS.use,easing:'cubic-bezier(.45,0,.2,1)'}).onfinish=()=>{done();flash(b);};
-  if(soundOn)cue('cardUse');
+  ],{duration:CARD_FX_MS.use/animationRate(options.rate),easing:'cubic-bezier(.45,0,.2,1)'}).onfinish=()=>{done();flash(b,options);};
+  if(options.sound??soundOn){const rate=animationRate(options.rate);if(rate===1)cue('cardUse');else cue('cardUse',{rate});}
   return true;
 }
-function flash(rect){
-  if(cardFxSuppressed())return;
-  const {el,done}=piece(rect,{background:'radial-gradient(circle,rgba(180,240,255,.85) 0%,rgba(100,210,255,.25) 55%,transparent 75%)',pointerEvents:'none'});
-  el.animate([{opacity:0,transform:'scale(.7)'},{opacity:1,transform:'scale(1.05)',offset:.3},{opacity:0,transform:'scale(1.2)'}],{duration:320,easing:'ease-out'}).onfinish=done;
+function flash(rect,options={}){
+  if(options.signal?.aborted||cardFxSuppressed())return;
+  const {el,done}=piece(rect,{background:'radial-gradient(circle,rgba(180,240,255,.85) 0%,rgba(100,210,255,.25) 55%,transparent 75%)',pointerEvents:'none'},options);
+  if(options.rate)el.dataset.animationRate=animationRate(options.rate);
+  el.animate([{opacity:0,transform:'scale(.7)'},{opacity:1,transform:'scale(1.05)',offset:.3},{opacity:0,transform:'scale(1.2)'}],{duration:320/animationRate(options.rate),easing:'ease-out'}).onfinish=done;
 }
 
 /* 3-3 소모: 에너지 구슬이 깨진다 (꺼진 구슬마다 파편 네 조각) */
-export function playSpend(ledEls){
-  if(cardFxSuppressed()||!ledEls?.length)return false;
+export function playSpend(ledEls,options={}){
+  if(options.signal?.aborted||cardFxSuppressed()||!ledEls?.length)return false;
   for(const led of ledEls){
     const r=led.getBoundingClientRect(),c=center(r);
     [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(([sx,sy],i)=>{
-      const {el,done}=piece({left:c.x-3,top:c.y-3,width:6,height:6},{borderRadius:'1px',background:'#ffd34d',boxShadow:'0 0 6px #ffb800',pointerEvents:'none'});
+      const {el,done}=piece({left:c.x-3,top:c.y-3,width:6,height:6},{borderRadius:'1px',background:'#ffd34d',boxShadow:'0 0 6px #ffb800',pointerEvents:'none'},options);
+      if(options.rate)el.dataset.animationRate=animationRate(options.rate);
       el.animate([{transform:'translate(0,0) rotate(0deg)',opacity:1},{transform:`translate(${sx*14}px,${sy*12+10}px) rotate(${(i%2?1:-1)*120}deg)`,opacity:0}],
-        {duration:420,easing:'cubic-bezier(.2,.6,.3,1)'}).onfinish=done;
+        {duration:420/animationRate(options.rate),easing:'cubic-bezier(.2,.6,.3,1)'}).onfinish=done;
     });
   }
-  if(soundOn)cue('cardSpend');
+  if(options.sound??soundOn){const rate=animationRate(options.rate);if(rate===1)cue('cardSpend');else cue('cardSpend',{rate});}
   return true;
 }
 

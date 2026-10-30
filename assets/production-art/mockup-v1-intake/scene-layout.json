@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "units": "selected source stadium pixels",
+  "world": {"width": 1672, "height": 941},
+  "landmarks": {"home": {"x": 815, "y": 824}, "mound": {"x": 832, "y": 580}},
+  "camera": {"scale": "max(viewportWidth/1672,viewportHeight/941)", "xAlign": 0.5, "portraitYAlign": 0.4, "desktopYAlign": 0.42, "shortLandscapeYAlign": 1, "shortLandscapeMaxHeight": 540},
+  "actors": {
+    "batter": {"file": "batter-catcher.webp", "sourceWidth": 1024, "sourceHeight": 1536, "worldHeight": 670, "anchor": {"x": 470, "y": 1485}, "worldFoot": {"x": 520, "y": 909}, "handedness": "right", "poses": 1},
+    "pitcher": {"file": "pitcher-home.webp", "sourceWidth": 1024, "sourceHeight": 1536, "worldHeight": 310, "anchor": {"x": 595, "y": 1495}, "worldFoot": {"x": 832, "y": 580}, "handedness": "right", "poses": 1}
+  },
+  "shadows": [
+    {"x": 805, "y": 570, "width": 63, "height": 17, "rotation": -4},
+    {"x": 456, "y": 899, "width": 129, "height": 19, "rotation": -4},
+    {"x": 544, "y": 809, "width": 103, "height": 18, "rotation": 7}
+  ],
+  "sampleFlightOnly": {"release": {"x": 790, "y": 361}, "contact": {"x": 760, "y": 653}, "productionEventsVerified": false},
+  "cards": {"file": "cards.webp", "columns": 3, "rows": 2, "cardKindMapping": null},
+  "animationReady": false
+}

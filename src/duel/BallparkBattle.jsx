@@ -31,6 +31,12 @@ import BallparkCoach from './BallparkCoach.jsx';
 import {forecastFor,ForecastChip,HpForecastBand,RiskTint} from './SwingForecast.jsx';
 import {pitcherIntentIcon} from './intent-icon.js';
 import {playUse,playSpend} from './card-fx.js';
+import {animationRate as validAnimationRate} from './animation-speed.js';
+import {battleUiMode} from './battle-ui-mode.js';
+import {buildBattleViewModel} from './battle-vnext/view-model.js';
+import BattleView from './battle-vnext/BattleView.jsx';
+import {cardDropIntent,cardDropPreview} from './battle-vnext/placement-intent.js';
+import {approvedPitcherArt,SAMPLE_ACTORS} from './battle-vnext/BattleScene.jsx';
 
 /* V13 BALLPARK — the battle as one ballpark scene (docs/design/v13/BALLPARK.md).
    Same engine contract as the legacy screen: `selected` + battle.aimZone is the main card,
@@ -97,18 +103,29 @@ const CardGlyph=({zones})=><span className="bp-glyph" aria-hidden="true">{Array.
 export default function BallparkBattle({
   s,hand,selected,swingStack,choice,locked=false,
   pitcher,label,pitcherArt,batterArt,
-  fxStage=null,shot=null,impactAt=0,playToken=0,onNext=null,nextLabel='',vfx=null,pitcherAtlas=null,artId=null,batterPoses=null,
+  animationRate=1,onAnimationRateChange=null,rosterPitcher=null,fxStage=null,shot=null,impactAt=0,playToken=0,playback=null,execution=null,onNext=null,nextLabel='',vfx=null,pitcherAtlas=null,artId=null,batterPoses=null,
   batterSheet=batterV14MasterSheet,batterRig=null,
   onSelect,onAim,onStack,onSwing,onTake,onDetail,onPile,onHome,onHelp,onSettings,onToggleSound,sound=false,onJukebox=null,onPractice=null,
   autoLesson=false,autoPlan=null,onExitLesson=null,previewMode=false,coachSignal=0,
-  defenseLab=null,
+  defenseLab=null,vnextReview=null,
 }){
   const compact=!autoLesson;
+  const vnextRequested=battleUiMode().vnext;
+  const approvedArt=approvedPitcherArt(artId);
+  // Only a labeled, memory-only review harness may opt into the sample actor.
+  const useVnext=vnextRequested&&!autoLesson&&!defenseLab&&vnextReview?.variant!=='legacy'&&!!(approvedArt||vnextReview||rosterPitcher);
+  const previewFx=useRef(new Set());
+  const clearPreviewFx=()=>{for(const controller of previewFx.current)controller.abort();previewFx.current.clear();};
+  const previewFxOptions=()=>{if(!useVnext)return {};const controller=new AbortController();previewFx.current.add(controller);return {rate:validAnimationRate(animationRate),signal:controller.signal,sound:false};};
+  useEffect(()=>()=>clearPreviewFx(),[]);
+  const handDockRef=useRef(null);
+  const [recentResult,setRecentResult]=useState(null);
   const b=s.battle||{},rootRef=useRef(null),sceneRef=useRef(null),pitcherRef=useRef(null),zoneRef=useRef(null),flightRef=useRef(null),stageRef=useRef(null);
-  const [armed,setArmed]=useState(null),[commitBeat,setCommitBeat]=useState(null),commitTimer=useRef(null);
+  const [supportMode,setSupportMode]=useState(()=>!!vnextReview?.armed);
+  const [armed,setArmed]=useState(()=>vnextReview?.armed||null),[commitBeat,setCommitBeat]=useState(null),commitTimer=useRef(null);
   /* Inspector: manual arena-region swap. {tab, kind, plus, problem, pile} or null.
      The plan (selected/swingStack/armed) is never touched while it is open. */
-  const [inspect,setInspect]=useState(null),inspectOpener=useRef(null),inspectScroll=useRef(0);
+  const [inspect,setInspect]=useState(()=>vnextReview?.inspectOpen?{tab:'card',kind:null}:null),inspectOpener=useRef(null),inspectScroll=useRef(0),restoreInspect=useRef(false);
   const [inspectTab,setInspectTab]=useState('card');
   const openInspect=(tab,opts={})=>{
     /* Entries stay locked while the pitch/commit is in flight; the landed
@@ -116,7 +133,7 @@ export default function BallparkBattle({
     if(locked||commitBeat||inFx)return false;
     inspectOpener.current=document.activeElement;
     const handEl=rootRef.current?.querySelector('.bp-hand');
-    inspectScroll.current=handEl?handEl.scrollLeft:0;
+    inspectScroll.current=useVnext?handDockRef.current?.getScroll()||0:handEl?handEl.scrollLeft:0;
     setInspectTab(tab);
     setInspect({tab,pile:opts.pile||null,
       kind:opts.kind||null,plus:!!opts.plus,problem:opts.problem||null});
@@ -126,10 +143,16 @@ export default function BallparkBattle({
     if(!inspectRef.current)return false;
     setInspect(null);
     const handEl=rootRef.current?.querySelector('.bp-hand');
-    if(handEl)handEl.scrollLeft=inspectScroll.current||0;
-    if(inspectOpener.current?.focus)inspectOpener.current.focus();
+    if(useVnext)restoreInspect.current=true;
+    else if(handEl)handEl.scrollLeft=inspectScroll.current||0;
+    if(!useVnext&&inspectOpener.current?.focus)inspectOpener.current.focus();
     return true;
   };
+  useLayoutEffect(()=>{
+    if(!useVnext||inspect||!restoreInspect.current)return;
+    restoreInspect.current=false;handDockRef.current?.setScroll(inspectScroll.current||0);
+    inspectOpener.current?.focus?.({preventScroll:true});
+  },[inspect,useVnext]);
   /* The global card-detail gestures route battle targets here through one
      dispatch point (App.jsx); the registered object always sees live state. */
   const inspectRef=useRef(null);inspectRef.current=inspect;
@@ -138,7 +161,7 @@ export default function BallparkBattle({
   useEffect(()=>{
     const reg={isOpen:()=>!!inspectRef.current,
       open:(d,el)=>{
-        if(!el?.closest?.('.bp-battle'))return false;
+        if(!el?.closest?.('.bp-battle, .battle-vnext'))return false;
         return openInspectRef.current('card',{kind:d.kind,plus:d.plus,problem:d.problem});
       },
       close:()=>closeInspectRef.current()};
@@ -146,6 +169,7 @@ export default function BallparkBattle({
     return ()=>{if(window.__bpInspect===reg)delete window.__bpInspect;};
   },[]);
   const r=b.revealed,inFx=!!fxStage,deciding=s.phase==='battle'&&!inFx&&!locked&&!commitBeat;
+  useEffect(()=>{if(useVnext&&!inFx)clearPreviewFx();},[inFx,useVnext]);
   const judged=!!r&&s.last?.kind!=='skill'&&(inFx||s.phase!=='battle');
   const landed=!inFx||LANDED.has(fxStage);
   const showProgress=s.version===10&&!autoLesson&&!defenseLab;
@@ -203,6 +227,7 @@ export default function BallparkBattle({
   const isBuntKind=k=>!!CARDS[k]?.bunt;
   const canStack=!!(mainEntry&&!mainIsSkill&&!isBuntKind(mainEntry.kind)&&b.growthMode!=='patience');
   const stack=canStack?swingStack.filter(x=>x.id!==selected&&byId(x.id)):[];
+  useEffect(()=>{if(useVnext&&(!deciding||!canStack)){setSupportMode(false);setArmed(null);}},[useVnext,deciding,canStack]);
   /* P1 스윙 예측: 확정 전 hover/터치 슬라이드 존과 고른 준비 카드로 결과를 미리 계산한다 (판정은 바꾸지 않음) */
   const [hoverZone,setHoverZone]=useState(null),[hoverSkill,setHoverSkill]=useState(null);
   const touchSlide=useRef(null),suppressZoneClick=useRef(0),lastSwing=useRef(null);
@@ -223,8 +248,8 @@ export default function BallparkBattle({
   useLayoutEffect(()=>{
     const was=energyWas.current;energyWas.current=energy;
     if(energy>=was)return;
-    const leds=[...(rootRef.current?.querySelectorAll('.bp-energy-leds i')||[])].slice(energy,was);
-    playSpend(leds);
+    const leds=[...(rootRef.current?.querySelectorAll('.bp-energy-leds i, .bv-energy-pips i')||[])].slice(energy,was);
+    playSpend(leds,previewFxOptions());
   },[energy]);
   /* the auto-play lesson suppresses card flourishes, like its banners and sounds */
   useEffect(()=>{if(!autoLesson)return;document.documentElement.dataset.autoSim='1';return()=>{delete document.documentElement.dataset.autoSim;};},[autoLesson]);
@@ -315,6 +340,17 @@ export default function BallparkBattle({
       if(id==='basic'){openInspect('card',{kind:'basic'});return;}
       const e=byId(id)?.entry;if(e)openInspect('card',{kind:e.kind,plus:e.plus,problem:byId(id)?.preview?.problem||null});return;
     }
+    if(useVnext){
+      setRecentResult(null);
+      if(!supportMode){setArmed(null);if(selected!==id){onStack([]);onSelect(id);}return;}
+      if(id===selected){setArmed(null);setSupportMode(false);return;}
+      if(armed===id){setArmed(null);return;}
+      if(stack.some(x=>x.id===id)){setArmed(null);onStack(stack.filter(x=>x.id!==id));return;}
+      const kind=byId(id)?.entry?.kind,nextStack=[...stack,{id,aimZone:b.aimZone}];
+      if(canStack&&id!=='basic'&&kind&&!isBuntKind(kind)&&stack.length<v10StackMax(s)-1
+        &&v10ActionCost(s,selected,nextStack)<=energy)setArmed(id);
+      return; // invalid support never silently replaces the main card
+    }
     setArmed(null);
     if(selected===id){onSelect(null);onStack([]);return;}
     if(stack.some(x=>x.id===id)){onStack(stack.filter(x=>x.id!==id));return;}
@@ -327,19 +363,41 @@ export default function BallparkBattle({
   }
   function pickPrep(id){if(locked)return;
     if(inspect){const e=byId(id)?.entry;if(e)openInspect('card',{kind:e.kind,plus:e.plus,problem:byId(id)?.preview?.problem||null});return;}
-    setArmed(null);onStack([]);onSelect(selected===id?null:id);}
+    if(useVnext)setRecentResult(null);
+    setArmed(null);if(useVnext)setSupportMode(false);onStack([]);onSelect(useVnext?id:selected===id?null:id);}
+  function clearPlan(){
+    if(!deciding||inspect)return;
+    setArmed(null);setSupportMode(false);onStack([]);onSelect(null);
+  }
+  function toggleSupport(){
+    if(!deciding||inspect||!canStack)return;
+    setArmed(null);setSupportMode(v=>!v);
+  }
   function pickZone(z){
     if(locked||commitBeat||inspect)return;
     if(suppressZoneClick.current>Date.now())return;
+    if(useVnext)setRecentResult(null);
     if(armed){onStack([...stack,{id:armed,aimZone:z}]);setArmed(null);return;}
     onAim(z);
+  }
+  function placeCard(id,zone){
+    if(!deciding||locked||inspect||commitBeat)return {ok:false,reason:'투구가 끝난 뒤 놓으세요.'};
+    const intent=cardDropIntent(s,selected,stack,id,zone);if(!intent.ok)return intent;
+    setRecentResult(null);setArmed(null);
+    if(intent.kind==='support'){onStack(intent.stack);setSupportMode(true);}
+    else{onStack(intent.stack);onSelect(intent.id);onAim(intent.zone);setSupportMode(false);}
+    return intent;
+  }
+  function removeSupport(id){
+    if(!deciding||locked||inspect||commitBeat)return;
+    setArmed(null);onStack(stack.filter(c=>c.id!==id));
   }
   function commitSwing(){
     if(!deciding||!selected||choice?.problem||inspect)return;
     // Solo swings stay instant. A 2–4 card STACK gets a brief commitment beat so the player
     // can read the exact trade they authored before Pixi takes over the scene.
     /* P3: a preparation card flies into the zone grid and the grid flashes as its effect lands */
-    if(mainIsSkill){playUse(rootRef.current?.querySelector('.bp-hand .bp-card.prep-card.main'),zoneRef.current);onSwing?.();return;}
+    if(mainIsSkill){playUse(rootRef.current?.querySelector('.bp-hand .bp-card.prep-card.main, .bv-card.t-prepare.is-main'),zoneRef.current,previewFxOptions());onSwing?.();return;}
     if(!stack.length){onSwing?.();return;}
     const links=choice?.stackPlan?.links||[],coverage=choice?.coverage||[];
     const cards=[mainName,...stack.map(x=>CARDS[byId(x.id)?.entry?.kind]?.name||'지원')].filter(Boolean);
@@ -356,7 +414,7 @@ export default function BallparkBattle({
       commitTimer.current=null;
       onSwing?.();
       setCommitBeat(null);
-    },STACK_COMMIT_MS);
+    },STACK_COMMIT_MS/(useVnext?validAnimationRate(animationRate):1));
   }
 
   const mainName=selected==='basic'?'맨손 스윙':mainEntry?CARDS[mainEntry.kind].name:null;
@@ -384,7 +442,7 @@ export default function BallparkBattle({
   const swung=!!r?.coverage?.length,outside=judged&&r.zone===9;
   const outNote=outside?(swung?'볼에 손이 나갔다':'볼을 골라냈다'):'';
   /* the first time a player swings at a ball, say once what a ball is (playtest: "유인구고 뭐고 못 알아보겠음") */
-  const [chaseHint,setChaseHint]=useState(()=>{try{return localStorage.getItem('9zone-hint-chase')!=='done';}catch{return true;}});
+  const [chaseHint,setChaseHint]=useState(()=>{if(vnextReview)return false;try{return localStorage.getItem('9zone-hint-chase')!=='done';}catch{return true;}});
   const [hintAt,setHintAt]=useState(null);
   const chased=!deciding&&outNote==='볼에 손이 나갔다'&&landed;
   const firstChase=chased&&(chaseHint||hintAt===playToken);
@@ -397,7 +455,7 @@ export default function BallparkBattle({
     scene.style.setProperty('--cam-y',Math.round(bat.offsetTop+bat.offsetHeight*.52)+'px');
     for(const el of scene.querySelectorAll('.bp-cam')){el.style.setProperty('--ox',el.offsetLeft+'px');el.style.setProperty('--oy',el.offsetTop+'px');}
   },[cam,playToken]);
-  useLayoutEffect(()=>{if(chased&&chaseHint){setHintAt(playToken);setChaseHint(false);try{localStorage.setItem('9zone-hint-chase','done');}catch{}}},[chased,chaseHint,playToken]);
+  useLayoutEffect(()=>{if(!vnextReview&&chased&&chaseHint){setHintAt(playToken);setChaseHint(false);try{localStorage.setItem('9zone-hint-chase','done');}catch{}}},[chased,chaseHint,playToken]);
   /* First-chase guidance now lives in the plan summary input line, not a coach row. */
   const firstChaseGuide=firstChase?'볼은 참으면 볼넷이 된다. 바깥 띠로 올 것 같으면 지켜본다.':'';
   const good=judged&&(r.kind==='hit'||r.kind==='sacrifice'||call==='볼넷');
@@ -552,7 +610,29 @@ export default function BallparkBattle({
   const takeHint=shownCount.strikes===2?'스트라이크면 삼진'+(defenseLab?' · 보호 제외':''):'다음 공 ⚡+1';
   const selectionDetail=armed?planSummary.input:selectedFace?[selectedFace.summary,mainIsSkill?[selectedFace.drawNote,`준비 ${prepLeft}회`].filter(Boolean).join(' · '):stack.length?`지원 ${stack.length} · ⚡${stackCost}/${energyLimit}`:''].filter(Boolean).join(' · '):takeHint;
   const executeKind=mainIsSkill?'prepare':selected?'swing':'watch';
-  return <main ref={rootRef} className={'bp-battle bp-readable'+(compact?' bp-compact':'')+(showMarks?' bp-asset-led':'')+(defenseLab?' defense-lab-battle':'')+(autoLesson?' auto-lesson':'')+(commitBeat?' committing':'')+(deciding?'':' resolving')+(inFx?' fx-'+fxStage:'')+(inspect?' inspecting':'')+(exactRead?' bp-exact-read':'')} data-battle-step={showProgress?battleStep:undefined} data-read-level={level} aria-label="타석">
+  const inspectorView=inspect?<BattleInspector tab={inspectTab} setTab={setInspectTab} pileKind={inspect.pile}
+      inspectCard={inspect.kind?{kind:inspect.kind,plus:inspect.plus}:null} inspectProblem={inspect.problem}
+      s={s} shown={shownModel} pitcher={pitcher} label={label}
+      read={{level,sources}} lastCombat={lessonCombat} r={r} piles={piles} onClose={()=>closeInspect()}
+      compact={compact} effects={prepEffects} labView={labView} energy={{current:energy,cap:energyCap}} intent={intentIcon}
+      onHome={onHome} onToggleSound={onToggleSound} sound={sound} onConditions={defenseLab?onSettings:null} onPractice={onPractice}/>:null;
+  const model=useVnext?buildBattleViewModel({s,hand,selected,swingStack,choice,locked,fxStage,shot,playToken,nextLabel,hasNext:!!onNext,
+      artId,defenseLab,armed,supportMode,commitBeat,inspectOpen:!!inspect,hoverZone,hoverSkill,lastSwing:lastSwing.current}):null;
+  useEffect(()=>{
+    if(!model?.result)return;
+    setRecentResult({key:artId+':'+s.runMap?.currentNodeId,text:model.result.explanation+(model.result.damage>0?` · 투수 HP −${model.result.damage}`:'')});
+  },[model?.phase,playToken,artId,s.runMap?.currentNodeId]);
+  if(useVnext){
+    return <BattleView execution={execution?.pitch===s.stats?.pitches&&execution?.nodeId===s.runMap?.currentNodeId?execution:null} model={model} actors={{batter:SAMPLE_ACTORS.batter,pitcher:rosterPitcher||approvedArt||SAMPLE_ACTORS.pitcher}}
+      playback={playback} animationRate={animationRate} onAnimationRateChange={onAnimationRateChange} sound={sound} onToggleSound={onToggleSound} rootRef={rootRef} sceneRef={sceneRef} zoneRef={zoneRef} handRef={handDockRef} recent={recentResult?.key===artId+':'+s.runMap?.currentNodeId?recentResult.text:null} title={label} review={!!vnextReview}
+      inspector={inspectorView} menuOpen={!!inspect} onMenu={()=>openInspect('menu')}
+      onCardTap={id=>{if(!deciding&&!inspect)return;isSkill(byId(id)?.entry)?pickPrep(id):pickSwing(id);}}
+      onCardDetail={id=>{const x=byId(id);openInspect('card',{kind:id==='basic'?'basic':x?.entry.kind,plus:x?.entry.plus,problem:x?.preview?.problem});}}
+      onPreviewCardDrop={(id,zone)=>deciding&&!inspect?cardDropPreview(s,selected,stack,id,zone):null} onCardDrop={placeCard} onRemoveSupport={removeSupport} onToggleSupport={toggleSupport} onClearPlan={clearPlan} onPiles={()=>openInspect('pile')} piles={{draw:b.draw?.length||0,discard:b.discard?.length||0}}
+      onZoneTap={pickZone} onZoneHover={setHoverZone} onPointerDown={slideStart} onPointerMove={slideMove} onPointerUp={slideEnd} onPointerCancel={slideEnd}
+      onTake={onTake} onSwing={commitSwing} onNext={onNext}/>;
+  }
+  return <main ref={rootRef} title={vnextRequested?'새 원화 미지원 상대 · 기존 전투 화면':undefined} className={'bp-battle bp-readable'+(vnextRequested?' bv-legacy-fallback':'')+(compact?' bp-compact':'')+(showMarks?' bp-asset-led':'')+(defenseLab?' defense-lab-battle':'')+(autoLesson?' auto-lesson':'')+(commitBeat?' committing':'')+(deciding?'':' resolving')+(inFx?' fx-'+fxStage:'')+(inspect?' inspecting':'')+(exactRead?' bp-exact-read':'')} data-battle-step={showProgress?battleStep:undefined} data-read-level={level} aria-label="타석">
     <div className="bp-bar">
       <b className="bp-hud-inning">{labView?'실험 · '+labView.packName:label}</b>
       <div className="bp-bso-strip" aria-label={`볼 ${shownCount.balls} 스트라이크 ${shownCount.strikes} 아웃 ${shownCount.outs}`}>
@@ -713,12 +793,7 @@ export default function BallparkBattle({
         {[1,2,0].map(i=><i key={i} className={'base-'+(i+1)+(shownBases[i]?' on':'')+(baseNew(i)?' new':'')}/>)}
       </div>
     </section>
-    {inspect&&<BattleInspector tab={inspectTab} setTab={setInspectTab} pileKind={inspect.pile}
-      inspectCard={inspect.kind?{kind:inspect.kind,plus:inspect.plus}:null} inspectProblem={inspect.problem}
-      s={s} shown={shownModel} pitcher={pitcher} label={label}
-      read={{level,sources}} lastCombat={lessonCombat} r={r} piles={piles} onClose={()=>closeInspect()}
-      compact={compact} effects={prepEffects} labView={labView} energy={{current:energy,cap:energyCap}} intent={intentIcon}
-      onHome={onHome} onToggleSound={onToggleSound} sound={sound} onConditions={defenseLab?onSettings:null} onPractice={onPractice}/>}
+    {inspectorView}
     </div>
 
     <div className="bp-hand" aria-label="손패">

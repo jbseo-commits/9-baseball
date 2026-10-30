@@ -1,0 +1,56 @@
+.bv-scene .bv-world-camera{position:absolute;inset:0;pointer-events:none;will-change:transform}
+.bv-scene .bv-world-effects{position:absolute;left:0;top:0;z-index:4;overflow:visible;pointer-events:none}
+.bv-scene .bv-contact-focus{position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(ellipse 150px 110px at var(--bv-contact-x) var(--bv-contact-y),transparent 20%,#08192199 100%)}
+.battle-vnext[data-phase] .bv-result-spotlight{top:23%;animation:bv-verdict-arrive .18s cubic-bezier(.15,.75,.25,1) both;animation-delay:var(--bv-verdict-delay,0ms)}
+.battle-vnext[data-phase] .bv-result-spotlight.t-exact strong{color:#ffdb9c;text-shadow:0 3px 0 #192d2d,0 0 30px #ffba6144}
+.battle-vnext[data-phase] .bv-result-spotlight.t-near strong{color:#ecd4ab;font-size:clamp(26px,4.2vw,52px)}
+.battle-vnext[data-phase] .bv-result-spotlight.t-near span{border-style:dashed;background:#193036e8;color:#cce2df}
+.battle-vnext[data-phase] .bv-zone{position:relative}
+.battle-vnext[data-phase] .bv-near-link{position:absolute;inset:6px;width:calc(100% - 12px);height:calc(100% - 12px);pointer-events:none;z-index:4;overflow:visible}
+.battle-vnext[data-phase] .bv-near-link path{fill:none;stroke:#ffd79a;stroke-width:2;vector-effect:non-scaling-stroke;stroke-dasharray:4 5}
+.battle-vnext[data-phase] .bv-near-link circle{fill:none;stroke:#ffd79a;stroke-width:2;vector-effect:non-scaling-stroke}
+@media(orientation:landscape) and (max-height:600px){
+ .battle-vnext[data-phase] .bv-result-spotlight{top:21%}
+ .battle-vnext[data-phase] .bv-result-spotlight strong{font-size:clamp(25px,4.6vw,38px)}
+ .battle-vnext[data-phase] .bv-result-spotlight.t-near strong{font-size:28px}
+ .battle-vnext[data-phase] .bv-result-spotlight span{font-size:10px;padding:2px 7px}
+}
+@media(prefers-reduced-motion:reduce){
+ .bv-scene .bv-world-camera{transform:none!important}
+ .bv-scene .bv-contact-focus,.bv-scene .bv-contact-burst{display:none}
+ .battle-vnext[data-phase] .bv-result-spotlight{animation:none}
+}
+/* Consequences follow contact; these are CSS confirmations, not engine timers. */
+.battle-vnext[data-phase] .bv-result-sequence{list-style:none;display:flex;flex-wrap:wrap;gap:4px;margin:7px 0 0;padding:0;font-size:10px;line-height:1.35}
+.battle-vnext[data-phase] .bv-result-sequence li{padding:3px 5px;border:1px solid #c2ddcb33;border-radius:2px;color:#cce5d8;animation:bv-consequence .14s ease-out both;animation-delay:var(--beat-delay)}
+.battle-vnext[data-phase] .bv-result-sequence .k-hp{color:#ffdaa1;border-color:#e5b67a55}
+.battle-vnext[data-phase] .bv-result-line em{animation:bv-consequence .14s ease-out .23s both}
+.battle-vnext[data-phase] .bv-hud-hp.is-damaged .bv-hud-hp-fill{transition:width .3s ease-out .21s}
+.battle-vnext[data-phase] .bv-hud-hp-ghost{position:absolute;inset:0 auto 0 0;background:#ef9d60;animation:bv-hp-ghost .5s ease-out .28s both}
+.battle-vnext[data-phase] .bv-hp-number{position:relative}
+.battle-vnext[data-phase] .bv-hp-number.is-damaged .bv-hp-now{animation:bv-consequence .1s .21s both}
+.battle-vnext[data-phase] .bv-hp-was{position:absolute;left:0;animation:bv-old-hp .21s step-end both}
+.battle-vnext[data-phase] .bv-preparation-confirm{display:grid;gap:5px;font-size:11px;color:#cce5d8;animation:bv-consequence .16s both}
+.battle-vnext[data-phase] .bv-preparation-confirm b{color:#aee1d0;font-size:13px}
+@keyframes bv-consequence{from{opacity:0;translate:0 3px}to{opacity:1;translate:0 0}}
+@keyframes bv-hp-ghost{from{width:var(--hp-from)}to{width:var(--hp-to)}}
+@keyframes bv-old-hp{from{opacity:1}to{opacity:0}}
+@media(prefers-reduced-motion:reduce){
+ .battle-vnext[data-phase] .bv-result-sequence li,.battle-vnext[data-phase] .bv-result-line em,.battle-vnext[data-phase] .bv-hp-now,.battle-vnext[data-phase] .bv-preparation-confirm{animation:none}
+ .battle-vnext[data-phase] .bv-hud-hp-ghost,.battle-vnext[data-phase] .bv-hp-was{display:none}
+ .battle-vnext[data-phase] .bv-hud-hp-fill{transition:none!important}
+}
+/* Outcome-specific finish stays in the field; controls never move. */
+.bv-scene .bv-finale-focus{position:absolute;inset:0;z-index:2;pointer-events:none;animation:bv-finale-in .3s ease-out both}
+.bv-scene .f-knockout{background:radial-gradient(ellipse 23% 45% at 50% 46%,transparent 20%,#06172288 100%)}
+.bv-scene .f-homer{background:linear-gradient(180deg,#f8cd6620,transparent 65%)}
+.battle-vnext[data-phase] .bv-result-spotlight.t-homer strong{color:#ffe2a0;letter-spacing:.08em;text-shadow:0 3px #302c21,0 0 35px #f8bf7544}
+.battle-vnext[data-phase] .bv-result-spotlight.t-knockout strong{color:#ffe1a6;letter-spacing:.16em}
+.battle-vnext[data-phase] .bv-result-spotlight.t-knockout span{color:#ffe1a6}
+@keyframes bv-finale-in{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.bv-scene .bv-finale-focus{animation:none}.bv-scene .bv-homer-rays{display:none}}
+/* Light/ball pass shares the scene matrix but stays above result grading. */
+.bv-scene .bv-effect-pass{position:absolute;inset:0;z-index:2;pointer-events:none}
+.bv-scene .bv-effect-world{position:absolute;left:0;top:0;transform-origin:0 0}
+@media(prefers-reduced-motion:reduce){.bv-scene .bv-effect-pass{transform:none!important}}

@@ -19,6 +19,11 @@ import './adaptive-performance.css';
 import {coverageText} from './information.js';
 import {cue} from './audio.js';
 import {presentationFor,presentationTimeline} from './presentation.js';
+import {captureExecution} from './presentation-snapshot.js';
+import {animationRate,readAnimationRate,rememberAnimationRate} from './animation-speed.js';
+import {battleUiMode} from './battle-ui-mode.js';
+import {rosterPitcherActor,rosterTimeline} from './battle-vnext/roster-actor.js';
+import {startPresentationClock} from './presentation-clock.js';
 import {batterMotionV3Timeline} from './batterMotionV3.js';
 import {haptic} from './haptics.js';
 import PixelVFX from './PixelVFX.jsx';
@@ -805,12 +810,19 @@ function RunStory({s,compact=false}){
   </section>;
 }
 
-export default function Duel(){
+export default function Duel({storage:providedStorage,startInRun=false}={}){
+  let storage=providedStorage;
+  if(!storage){try{storage=globalThis.localStorage;}catch{storage={getItem(){throw Error('저장소 접근 불가')},setItem(){throw Error('저장소 접근 불가')}};}}
+  const liveRequested=battleUiMode().vnext;
+  const [rate,setRate]=useState(()=>liveRequested?readAnimationRate():1);
+  const cueAbort=useRef(new AbortController());
+  const cancelCues=()=>{cueAbort.current.abort();cueAbort.current=new AbortController();};
+  useEffect(()=>{const hide=()=>{if(document.hidden)cancelCues();};document.addEventListener('visibilitychange',hide);return()=>{document.removeEventListener('visibilitychange',hide);cancelCues();};},[]);
   const defenseExperiment=typeof window!=='undefined'&&new URLSearchParams(window.location.search).get('experiment')==='defense';
   const [initial]=useState(()=>{
     if(defenseExperiment){
-      try{const save=readDefenseLabState(localStorage),hasLabSave=!!localStorage.getItem(DEFENSE_LAB_SAVE_KEY);return {save,defenseExperiment:true,...(!save&&hasLabSave?{error:'실험 저장이 손상됐습니다. 새 조건으로 다시 시작할 수 있습니다.'}:{})};}
-      catch{let corrupt=false;try{corrupt=!!localStorage.getItem(DEFENSE_LAB_SAVE_KEY)}catch{}return {save:null,defenseExperiment:true,error:corrupt?'실험 저장이 손상됐습니다. 새 조건으로 다시 시작할 수 있습니다.':''};}
+      try{const save=readDefenseLabState(storage),hasLabSave=!!storage.getItem(DEFENSE_LAB_SAVE_KEY);return {save,defenseExperiment:true,...(!save&&hasLabSave?{error:'실험 저장이 손상됐습니다. 새 조건으로 다시 시작할 수 있습니다.'}:{})};}
+      catch{let corrupt=false;try{corrupt=!!storage.getItem(DEFENSE_LAB_SAVE_KEY)}catch{}return {save:null,defenseExperiment:true,error:corrupt?'실험 저장이 손상됐습니다. 새 조건으로 다시 시작할 수 있습니다.':''};}
     }
     // Local art preview enters a real V10 battle without touching the player's save.
     const previewId=import.meta.env.DEV&&typeof window!=='undefined'
@@ -827,13 +839,13 @@ export default function Duel(){
        so the player is told instead of silently losing it. Validation itself is
        untouched — only the surfacing changes. */
     let v10=null,v10Corrupt=false;
-    try{v10=readV10Duel(localStorage)}catch{
-      try{v10Corrupt=!!localStorage.getItem(V10_SAVE_KEY)}catch{v10Corrupt=false}
+    try{v10=readV10Duel(storage)}catch{
+      try{v10Corrupt=!!storage.getItem(V10_SAVE_KEY)}catch{v10Corrupt=false}
     }
     let save=null;
-    try{save=readDuel(localStorage)}catch{return {error:'저장을 읽지 못했습니다. 새 런을 시작할 수 있습니다.',v10}}
+    try{save=readDuel(storage)}catch{return {error:'저장을 읽지 못했습니다. 새 런을 시작할 수 있습니다.',v10}}
     if(v10Corrupt)return {save,v10,error:'저장 기록이 손상되어 이어할 수 없습니다. 새 런을 시작하면 덮어씁니다.'};
-    return {save,v10};
+    return {save:startInRun&&v10?v10:save,v10};
   });
   const [growthChoice,setGrowthChoice]=useState(null),[rewardAction,setRewardAction]=useState(null),[facilityChoice,setFacilityChoice]=useState(null);
   const [build,setBuild]=useState(DECKBUILDER_BUILD),[trialSeed,setTrialSeed]=useState('20260910');
@@ -845,15 +857,20 @@ export default function Duel(){
   });
   const [packSeed,setPackSeed]=useState(null);
   const [eventResult,setEventResult]=useState(null);
-  const [s,setS]=useState(initial.save),[screen,setScreen]=useState(()=>defenseExperiment?(initial.save?'run':'defense-lab'):initial.preview?'run':typeof window!=='undefined'&&new URLSearchParams(window.location.search).get('cinema')==='1'?'cinema':'menu'),[modal,setModal]=useState(null),[selected,setSelected]=useState(null),[swingStack,setSwingStack]=useState([]),[stackEdit,setStackEdit]=useState(null),[decisionMode,setDecisionMode]=useState(null),[tour,setTour]=useState({open:false,step:0}),[tourRect,setTourRect]=useState(null),[fx,setFx]=useState(null),[fxStage,setFxStage]=useState(null),[stackResolve,setStackResolve]=useState(null),[frame,setFrame]=useState(0),[error,setError]=useState(initial.error||''),[sound,setSound]=useState(false);
+  const [s,setS]=useState(initial.save),[screen,setScreen]=useState(()=>defenseExperiment?(initial.save?'run':'defense-lab'):initial.preview||startInRun?'run':typeof window!=='undefined'&&new URLSearchParams(window.location.search).get('cinema')==='1'?'cinema':'menu'),[modal,setModal]=useState(null),[selected,setSelected]=useState(null),[swingStack,setSwingStack]=useState([]),[stackEdit,setStackEdit]=useState(null),[decisionMode,setDecisionMode]=useState(null),[tour,setTour]=useState({open:false,step:0}),[tourRect,setTourRect]=useState(null),[fx,setFx]=useState(null),[fxStage,setFxStage]=useState(null),[stackResolve,setStackResolve]=useState(null),[frame,setFrame]=useState(0),[error,setError]=useState(initial.error||''),[sound,setSound]=useState(false);
   const screenRef=useRef(screen);screenRef.current=screen;
+  useEffect(()=>{if(screen!=='run')cancelCues();},[screen]);
   const current=useRef(s),lock=useRef(false),timers=useRef([]),tourDismissed=useRef(false);
   const [homerVideo,setHomerVideo]=useState(null),homerVideoActive=useRef(false),presentationActive=useRef(false);
   const [cardDetail,setCardDetail]=useState(null),detailOpener=useRef(null);
   const [fxImpactAt,setFxImpactAt]=useState(0);
+  const [fxExecution,setFxExecution]=useState(null);
+  const [fxPlayback,setFxPlayback]=useState(null),presentationClock=useRef(null),presentationToken=useRef(0),soundRef=useRef(sound);soundRef.current=sound;
   // Experimental tutorial: keep the real V10 rules, but teach the loop as
   // PLAN -> WATCH THE BUILD EXECUTE -> REVIEW. It never overwrites the saved main run.
   const [autoLesson,setAutoLesson]=useState(false),[autoPlan,setAutoPlan]=useState(null);
+  const liveFor=state=>liveRequested&&!autoLesson&&!defenseExperiment&&!!rosterPitcherActor(state?.v10?.opponent?.artId,pitcherAtlases[state?.v10?.opponent?.artId]);
+  const livePresentation=liveFor(s);
   /* V13: the main run (v10) always plays on the ballpark screens; the legacy screens remain only for the tutorial runs (v9). */
   const [inspectedPitcher,setInspectedPitcher]=useState(null),portraitOpener=useRef(null);
   const openPitcher=(opponent,e)=>{const target=opponent||pitcherRoster[0];if(!target)return;portraitOpener.current=e?.currentTarget||document.activeElement;setInspectedPitcher(target)};
@@ -866,7 +883,7 @@ export default function Duel(){
   const [orderOpen,setOrderOpen]=useState(false),orderOpener=useRef(null);
   const closeOrder=()=>{setOrderOpen(false);const el=orderOpener.current;orderOpener.current=null;setTimeout(()=>{const t=el?.isConnected?el:document.querySelector('[data-testid=execute-action]');t?.focus();},0);};
   const closeCardDetail=()=>{setCardDetail(null);const el=detailOpener.current;detailOpener.current=null;setTimeout(()=>{if(el?.isConnected)el.focus();},0);};
-  useEffect(()=>{setCardFxSound(sound);},[sound]);
+  useEffect(()=>{setCardFxSound(sound);if(!sound)cancelCues();},[sound]);
   const handleToggleSound=()=>{
     const next=!sound;
     setSound(next);
@@ -929,21 +946,24 @@ export default function Duel(){
   const tourStep=TOUR_STEPS[tour.step];
   const tourCardTop=['prepare','swing','watch','events'].includes(tourStep?.target);
 
-  useEffect(()=>()=>timers.current.forEach(clearTimeout),[]);
+  useEffect(()=>()=>{timers.current.forEach(clearTimeout);presentationClock.current?.cancel();},[]);
   useEffect(()=>installCoverPreview(document),[]);
   // switching swing <-> prepare reorders the hand; keep the chosen card (or the start of the row) in view
   useEffect(()=>{if(!decisionMode||decisionMode==='watch')return;const id=requestAnimationFrame(()=>{const hand=document.querySelector('.card-drawer .duel-hand');if(!hand)return;const sel=hand.querySelector('.duel-card.selected');if(sel)sel.scrollIntoView?.({block:'nearest',inline:'nearest'});else hand.scrollLeft=0;});return()=>cancelAnimationFrame(id);},[decisionMode]);
   useEffect(()=>installCardDetailGestures(window,(d,el)=>{
     /* Battle targets route to the arena inspector through one dispatch point;
        anything outside .bp-battle keeps the global sheet. */
+    // VNext owns its detail lock. A rejected flight/commit gesture must not
+    // fall through to the global sheet and bypass the lock.
+    if(el?.closest?.('.battle-vnext')){window.__bpInspect?.open?.(d,el);return;}
     if(el?.closest?.('.bp-battle')&&window.__bpInspect?.open?.(d,el))return;
     detailOpener.current=el;setCardDetail(cardDetailOf(d.kind,d.plus,d.problem,isV10));
   }),[isV10]);
-  useEffect(()=>{const close=e=>{if(homerVideoActive.current||screenRef.current==='practice')return;if(e.key==='Escape'){
+  useEffect(()=>{const close=e=>{if(e.defaultPrevented||homerVideoActive.current||screenRef.current==='practice')return;if(e.key==='Escape'){
     /* The arena inspector closes first; the plan behind it is never cleared. */
     if(window.__bpInspect?.isOpen?.()){window.__bpInspect.close();return;}
-    setModal(null);setDecisionMode(null);setSelected(null);setSwingStack([]);setStackEdit(null);tourDismissed.current=true;try{localStorage.setItem(TOUR_KEY,'done')}catch{}setTour(t=>t.open?{open:false,step:0}:t);}};window.addEventListener('keydown',close);return()=>window.removeEventListener('keydown',close)},[]);
-  useEffect(()=>{if(!showBattle||isV10||s?.phase!=='battle'||tour.open||tourDismissed.current)return;try{if(localStorage.getItem(TOUR_KEY)==='done')return;}catch{}setTour({open:true,step:0});},[showBattle,s?.phase,tour.open]);
+    setModal(null);setDecisionMode(null);setSelected(null);setSwingStack([]);setStackEdit(null);tourDismissed.current=true;try{storage.setItem(TOUR_KEY,'done')}catch{}setTour(t=>t.open?{open:false,step:0}:t);}};window.addEventListener('keydown',close);return()=>window.removeEventListener('keydown',close)},[]);
+  useEffect(()=>{if(!showBattle||isV10||s?.phase!=='battle'||tour.open||tourDismissed.current)return;try{if(storage.getItem(TOUR_KEY)==='done')return;}catch{}setTour({open:true,step:0});},[showBattle,s?.phase,tour.open]);
   useEffect(()=>{
     if(!tour.open||!tourStep){setTourRect(null);return;}
     const refs={scoreboard:scoreboardRef,arena:arenaRef,prepare:prepareRef,swing:swingRef,watch:watchRef,events:eventsRef};
@@ -960,15 +980,15 @@ export default function Duel(){
   function persist(next){
     current.current=next;setS(next);
     if(defenseExperiment){
-      if(next?.defenseLab?.schema===1){try{saveDefenseLabState(localStorage,next);setError('')}catch{setError('실험 저장에 실패했습니다.');}}
+      if(next?.defenseLab?.schema===1){try{saveDefenseLabState(storage,next);setError('')}catch{setError('실험 저장에 실패했습니다.');}}
       return;
     }
     // The strategy -> auto-battle lesson is a disposable sandbox. Using the real
     // V10 engine here is important, but replacing a player's MAIN RUN save is not.
     if(autoLesson||initial.preview){setError('');return;}
-    try{next.version===10?saveV10Duel(localStorage,next):saveDuel(localStorage,next);setError('')}catch{setError('저장 실패: 이 창을 닫으면 진행을 잃을 수 있습니다.');}
+    try{next.version===10?saveV10Duel(storage,next):saveDuel(storage,next);setError('')}catch{setError('저장 실패: 이 창을 닫으면 진행을 잃을 수 있습니다.');}
   }
-  function rememberTour(){tourDismissed.current=true;try{localStorage.setItem(TOUR_KEY,'done')}catch{}}
+  function rememberTour(){tourDismissed.current=true;try{storage.setItem(TOUR_KEY,'done')}catch{}}
   function closeTour(markSeen=true){if(markSeen)rememberTour();setTourRect(null);setTour({open:false,step:0});}
   function reopenTour(){if(!showBattle||s.phase!=='battle')return;setModal(null);setSelected(null);setDecisionMode(null);setTour({open:true,step:0});}
   // On one column the arena sits far above the decision dock, so a swing played its
@@ -981,28 +1001,34 @@ export default function Duel(){
     if(visible>=r.height*.9)return;
     el.scrollIntoView?.({block:'center',behavior:'auto'});
   }
-  function startPresentation(next){
+  function startPresentation(next,execution=null){
+    const live=liveFor(next);
     const shot=presentationFor(next),reduced=next.version!==10||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    const withVideo=isHomerVideoEligible({version:next.version,grade:shot?.grade,reduced});
+    const withVideo=!live&&isHomerVideoEligible({version:next.version,grade:shot?.grade,reduced});
     presentationActive.current=true;homerVideoActive.current=withVideo;
     setHomerVideo(withVideo?{token:(next.stats?.pitches||0)+'-'+Date.now()}:null);
     const pitchJudgement=!!next.battle?.revealed&&next.last?.kind!=='skill';
     const nextNode=next.runMap?.nodes?.find(n=>n.id===next.runMap.currentNodeId);
+    const liveActor=live&&pitchJudgement?rosterPitcherActor(nextNode?.opponent?.artId,pitcherAtlases[nextNode?.opponent?.artId]):null;
     const baseTimeline=presentationTimeline(shot,reduced);
-    const timeline=withKnockoutHold(pitcherAtlases[nextNode?.opponent?.artId]&&pitchJudgement?redRushTimeline(baseTimeline,reduced):baseTimeline,next.version===10&&pitchJudgement&&!reduced&&next.pitcher?.hp===0);
+    const timeline=withKnockoutHold(liveActor?rosterTimeline(baseTimeline,liveActor,reduced):pitcherAtlases[nextNode?.opponent?.artId]&&pitchJudgement?redRushTimeline(baseTimeline,reduced):baseTimeline,next.version===10&&pitchJudgement&&!reduced&&next.pitcher?.hp===0);
     lock.current=true;revealArena();setFxImpactAt(timeline.impactAt||0);setFx(next.last);setFxStage('windup');setFrame(1);
-    if(sound&&!withVideo)cue(pitchJudgement?'pitch':shot?.cue||next.last.kind);
-    const stakes=stakesFor(next),scheduled=[
-      setTimeout(()=>{setFxStage('impact');setFrame(2);if(sound&&pitchJudgement&&!withVideo)cue(shot?.cue||next.last.kind);haptic(timeline.haptic);},timeline.impactAt)
-    ];
-    if(timeline.slowmo>0)scheduled.push(setTimeout(()=>setFxStage('slowmo'),timeline.impactAt+timeline.freeze));
-    scheduled.push(
-      setTimeout(()=>setFxStage('release'),timeline.releaseAt),
-      setTimeout(()=>{setFxStage('settle');if(sound&&stakes&&!withVideo)cue(stakes);if(stakes==='game-win')haptic([12,22,28]);if(stakes==='champion'||stakes==='rival-champion')haptic([18,18,38,24,58]);},timeline.settleAt),
-      setTimeout(()=>{setFx(null);setFxStage(null);setFrame(0);presentationActive.current=false;lock.current=homerVideoActive.current;timers.current=[]},timeline.duration)
-    );
-    timers.current.push(...scheduled);
+    cancelCues();
+    const speed=live&&!reduced?animationRate(rate):1,emit=kind=>live?cue(kind,{rate:speed,signal:cueAbort.current.signal}):cue(kind);
+    if(sound&&!withVideo)emit(pitchJudgement?'pitch':shot?.cue||next.last.kind);
+    presentationClock.current?.cancel();
+    const playback={rate:speed,...(liveActor?{pitchReleaseAt:liveActor.releaseAt}:{}),startedAt:performance.now(),timeline,token:++presentationToken.current,
+      action:next.last?.kind==='skill'?'prepare':next.battle?.revealed?.action==='take'?'take':'swing'};
+    setFxPlayback(playback);setFxExecution(execution);
+    const stakes=stakesFor(next);
+    presentationClock.current=startPresentationClock(timeline,{startedAt:playback.startedAt,rate:speed,
+      onStage:stage=>{setFxStage(stage);setFrame(stage==='windup'?1:stage?2:0);},
+      onImpact:({audible})=>{if(!audible)return;if(soundRef.current&&pitchJudgement&&!withVideo)emit(shot?.cue||next.last.kind);haptic(timeline.haptic);},
+      onSettle:({audible})=>{if(!audible)return;if(soundRef.current&&stakes&&!withVideo)emit(stakes);if(stakes==='game-win')haptic([12,22,28]);if(stakes==='champion'||stakes==='rival-champion')haptic([18,18,38,24,58]);},
+      onComplete:()=>{setFx(null);setFxPlayback(null);setFrame(0);presentationActive.current=false;lock.current=homerVideoActive.current;}
+    });
   }
+
   function finishHomerVideo(){
     homerVideoActive.current=false;setHomerVideo(null);
     // A very early skip still waits for the original short result presentation.
@@ -1010,10 +1036,11 @@ export default function Duel(){
   }
   function act(fn,animate=false,resolvePlan=null){
     if(lock.current||tour.open)return;
-    const next=fn(current.current);
-    if(next===current.current)return;
+    const before=current.current,next=fn(before);
+    if(next===before)return;
+    const executed=animate?captureExecution(before,next,{selected}):null;
     const reduced=next.version!==10||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    const resolveMs=animate&&!reduced&&resolvePlan?.steps?.length>1?stackResolveDuration(resolvePlan):0;
+    const resolveMs=!liveFor(next)&&animate&&!reduced&&resolvePlan?.steps?.length>1?stackResolveDuration(resolvePlan):0;
     setSelected(null);setSwingStack([]);setStackEdit(null);setGrowthChoice(null);setRewardAction(null);setFacilityChoice(null);setDecisionMode(null);
     if(resolveMs){
       lock.current=true;revealArena();
@@ -1022,24 +1049,24 @@ export default function Duel(){
       const timer=setTimeout(()=>{
         setStackResolve(null);
         persist(next);
-        startPresentation(next);
+        startPresentation(next,executed);
       },resolveMs);
       timers.current=[timer];
       return;
     }
     persist(next);
-    if(animate)startPresentation(next);
+    if(animate)startPresentation(next,executed);
   }
-  function clearActionUi(){setGrowthChoice(null);setRewardAction(null);setFacilityChoice(null);setStackResolve(null);setModal(null);setSelected(null);setSwingStack([]);setStackEdit(null);setDecisionMode(null);setTour({open:false,step:0});setEventResult(null);}
+  function clearActionUi(){cancelCues();setGrowthChoice(null);setRewardAction(null);setFacilityChoice(null);setStackResolve(null);setModal(null);setSelected(null);setSwingStack([]);setStackEdit(null);setDecisionMode(null);setTour({open:false,step:0});setEventResult(null);}
   /* the title reads the live main-run save every time it shows: the mount-time snapshot (initial.v10)
      went stale once a run was played, and 이어하기 restored that old snapshot over newer progress */
-  const titleSave=!defenseExperiment&&['menu','practice'].includes(screen)?(()=>{try{return readV10Duel(localStorage)}catch{return null}})():null;
+  const titleSave=!defenseExperiment&&['menu','practice'].includes(screen)?(()=>{try{return readV10Duel(storage)}catch{return null}})():null;
   /* a finished run stays reachable as its result screen; only a run in progress needs the overwrite confirm */
   const titleRun=titleSave?{act:titleSave.runMap?.nodes?.find(n=>n.id===titleSave.runMap.currentNodeId)?.act||1,deck:titleSave.deck?.length||0,ended:['won','lost'].includes(titleSave.phase)}:null;
   /* no main run: 이어하기 picks up a tutorial run in progress instead */
   const titleTutorial=!titleRun&&s&&s.version!==10&&!autoLesson&&!['won','lost'].includes(s.phase)?{tutorial:true,deck:s.deck?.length||0}:null;
   function freshV10(packId=null,seed=packSeed??mainRunSeed()){if(defenseExperiment){setModal(null);setScreen('defense-lab');return;}setAutoLesson(false);setAutoPlan(null);clearActionUi();let next=createV10Duel(seed);if(packId)next=applyStartPack(next,packId);persist(next);setScreen('run');
-    let seen=false;try{seen=!!localStorage.getItem(WELCOME_SEEN_KEY)}catch{}
+    let seen=false;try{seen=!!storage.getItem(WELCOME_SEEN_KEY)}catch{}
     if(!seen)setGuide({start:0,mode:'intro'});}
   function freshDefenseLab(pack=labPack,scenario=labScenario){
     if(!/^\d{1,10}$/.test(labSeed)||Number(labSeed)>4294967295){setError('시드는 0~4294967295 사이의 정수로 입력해 주세요.');return;}
@@ -1067,7 +1094,7 @@ export default function Duel(){
     current.current=next;setS(next);setError('');setAutoPlan(null);setAutoLesson(true);setScreen('run');
   }
   function exitAutoLesson(){
-    timers.current.forEach(clearTimeout);timers.current=[];lock.current=false;
+    timers.current.forEach(clearTimeout);timers.current=[];presentationClock.current?.cancel();setFxPlayback(null);lock.current=false;
     setFx(null);setFxStage(null);setFrame(0);setStackResolve(null);setAutoPlan(null);setAutoLesson(false);
     const restored=initial.save||null;current.current=restored;setS(restored);setScreen('menu');setModal(null);setSelected(null);setSwingStack([]);setStackEdit(null);
   }
@@ -1139,11 +1166,11 @@ export default function Duel(){
       <p>전투가 끝나 다음 공의 제약은 적용되지 않습니다.{s.defenseLab.lastEvent?.counterDamage?` 마지막 안타에 반격 +${s.defenseLab.lastEvent.counterDamage} HP 적용.`:''}</p>
       <button className="primary" onClick={()=>{setS(null);current.current=null;setScreen('defense-lab')}}>다른 조건으로 실험</button>
     </main>
-:showBattle&&isV10?<BallparkBattle key="screen-bp-battle" s={s} hand={hand} selected={selected} swingStack={swingStack} choice={choice} locked={!!stackResolve||!!homerVideo}
+:showBattle&&isV10?<BallparkBattle key="screen-bp-battle" animationRate={rate} onAnimationRateChange={livePresentation&&!isDefenseLab&&!autoLesson?value=>setRate(rememberAnimationRate(value)):null} rosterPitcher={livePresentation&&!isDefenseLab&&!autoLesson?rosterPitcherActor(v10Node?.opponent?.artId,pitcherAtlas):null} s={s} hand={hand} selected={selected} swingStack={swingStack} choice={choice} locked={!!stackResolve||!!homerVideo}
       label={v10Node?.act+'막'} pitcher={s.pitcher}
       pitcherArt={pitcherAtlas?<PitcherAtlasSprite atlas={pitcherAtlas} stage={fxStage} shot={fxPresentation} playToken={s.stats.pitches}/>:<Sprite who="pitcher" stage={fxStage} shot={fxPresentation} golden variant={pitcherForm} playToken={s.stats.pitches}/>}
       batterArt={<Sprite who="batter" stage={fxStage} shot={fxPresentation} golden playToken={s.stats.pitches} syncRedRush={redRushEncounter} sheet={BATTER_V15_SHEET}/>}
-      fxStage={fxStage} shot={fxPresentation||resultPresentation} impactAt={fxImpactAt} playToken={s.stats.pitches}
+      fxStage={fxStage} shot={fxPresentation||resultPresentation} impactAt={fxImpactAt} playToken={s.stats.pitches} playback={fxPlayback} execution={fxExecution}
       pitcherAtlas={pitcherAtlas} artId={v10Node?.opponent?.artId} batterPoses={BATTER_REBOOT_V3} batterSheet={BATTER_V15_SHEET} batterRig={BATTER_V15_RIG}
       vfx={<PixelVFX stage={fxStage} shot={fxPresentation} token={s.stats.pitches} drawCore={false} quality={perfTier}/>}
       onNext={s.phase==='pitch'?()=>{setAutoPlan(null);act(doNextPitch)}:s.phase==='between'?()=>{setAutoPlan(null);act(doNextBatter)}:null}
@@ -1193,3 +1220,6 @@ export default function Duel(){
     {tour.open&&tourStep&&<><div className="tour-catcher" aria-hidden="true"/>{tourRect&&<div className="tour-spotlight" data-tour-target={tourStep.target} aria-hidden="true" style={{top:tourRect.top,left:tourRect.left,width:tourRect.width,height:tourRect.height}}/>}<section className={'tour-card '+(tourCardTop?'tour-card-top':'tour-card-bottom')} role="dialog" aria-modal="true" aria-label="온보딩 가이드"><button className="tour-close" aria-label="가이드 닫기" onClick={()=>closeTour(true)}>×</button><span className="tour-eyebrow">{tourStep.eyebrow}</span><h2>{tourStep.title}</h2><p>{tourStep.text}</p><div className="tour-tip">{tourStep.tip}</div><div className="tour-dots" aria-hidden="true">{TOUR_STEPS.map((_,i)=><i key={i} className={i===tour.step?'on':''}/>)}</div><div className="tour-actions"><button onClick={()=>setTour(t=>({...t,step:Math.max(0,t.step-1)}))} disabled={tour.step===0}>이전</button><button onClick={()=>closeTour(true)}>건너뛰기</button>{tour.step<TOUR_STEPS.length-1?<button className="primary" onClick={()=>setTour(t=>({...t,step:t.step+1}))}>다음 설명</button>:<button className="primary" onClick={()=>closeTour(true)}>바로 플레이 시작</button>}</div></section></>}
   </div>;
 }
+
+/* Comparison reuses the actual production DOM actors without mounting Duel or reading saves. */
+export {Sprite as BattleActorSprite,PitcherAtlasSprite as BattlePitcherSprite};
