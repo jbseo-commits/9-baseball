@@ -1,0 +1,47 @@
+/* Thumb operates the picture on the right; live information stays to its left.
+   The field, hand header and input semantics keep their existing geometry. */
+@media(orientation:landscape){
+  .bv-reference .bv-hand-orbit .bv-card-strip{grid-template-columns:minmax(0,1fr) clamp(56px,calc(96px * var(--ref-scale)),112px)}
+  .bv-reference .bv-hand-orbit .bv-card-strip .bv-card-copy{grid-column:1;padding:6px 8px;gap:5px}
+  .bv-reference .bv-hand-orbit .bv-card-strip .bv-card-art{grid-column:2;grid-row:1;border-radius:0 5px 5px 0}
+  .bv-reference .bv-hand-orbit .bv-card-strip .bv-card-art::after{background:linear-gradient(90deg,#10223599,transparent 25%,#08132322)}
+  .bv-reference .bv-hand-orbit .bv-card-strip .bv-card-cost{position:static;width:24px;min-width:24px;height:27px;font-size:17px;border-radius:4px}
+  .bv-reference .bv-card-topline{gap:7px}
+  .bv-reference .bv-card-effectline{display:flex;gap:8px;align-items:center;min-width:0}
+  .bv-reference .bv-hand-orbit .bv-card-strip .bv-card-effectline .bv-card-range{flex:0 0 auto;margin:0;padding:0;align-self:center}
+  .bv-reference .bv-hand-orbit .bv-card-strip .bv-card-effectline .bv-glyph{width:28px;height:28px;gap:1px;padding:2px}
+  .bv-reference .bv-card-effectline .bv-card-effect{min-width:0;flex:1}
+  .bv-reference .bv-card-effectline .bv-card-range>.bv-symbol{width:24px;height:24px}
+  .bv-reference .bv-card-grip{position:absolute;right:10px;top:50%;translate:0 -50%;display:flex;gap:3px;pointer-events:none;filter:drop-shadow(0 1px 2px #000)}
+  .bv-reference .bv-card-grip i{height:18px;width:2px;border-radius:2px;background:#f3e4c6b3}
+  .bv-reference .bv-hand-orbit .bv-card-slot:has(.is-main){z-index:3;translate:-10px 0;transform:none}
+  .bv-reference .bv-hand-orbit .bv-card-slot:has(.is-main) .bv-card-strip{background:#142537}
+  .bv-reference .bv-card-slot:has(.is-main) .bv-card-strip::before{border-image-source:var(--ref-selected)}
+}
+/* Source layout follows the actual new hand/drag face before cleaving. */
+.bv-insert-fx[data-art-side=right] .bv-insert-card{padding:6% calc(var(--source-art) + 3%) 6% 5%}
+.bv-insert-fx[data-art-side=right] .bv-insert-card-art{left:auto;right:0}
+.bv-insert-fx[data-art-side=right] .bv-insert-card>b{position:static;align-self:flex-start;padding:1% 3%;font-size:var(--source-small)}
+.bv-reference .bv-drag-face{position:fixed;box-sizing:border-box;pointer-events:none;transform:none;display:flex;flex-wrap:wrap;align-content:center;gap:5px 7px;padding:10px 68px 10px 10px;border:1px solid #efd08e;border-radius:7px;background:#102235f5;box-shadow:0 5px 18px #020b1b66;font:700 15px/1.25 'Noto Sans KR',system-ui;overflow:hidden}
+.bv-reference .bv-drag-face .bv-drag-art{position:absolute;inset:0 0 0 auto;width:60px;margin:0;background:center/cover}
+.bv-reference .bv-drag-face>b{display:grid;place-items:center;min-width:20px;height:23px;background:#efd08e;color:#142333;border-radius:3px}
+.bv-reference .bv-drag-face>strong{flex:1;min-width:0;align-self:center}
+.bv-reference .bv-drag-face>small{flex-basis:100%;font-size:11px;font-weight:500;line-height:1.4;color:#e3e8df}
+.bv-reference .bv-cell.is-drop-cover{box-shadow:inset 0 0 0 2px #d6eddf;background:#66887a99}
+.bv-reference .bv-cell.is-drop-target{outline:2px solid #ecdcab;outline-offset:-4px}
+.bv-reference .bv-cell.is-drop-invalid{outline:2px dashed #dd9b8e;outline-offset:-4px}
+@media(orientation:landscape){
+  /* The outline/board already identifies the selected role; keep its duplicate
+     tag out of the reading column and preserve the original row height. */
+  .bv-reference .bv-hand-orbit .bv-card-strip .bv-card-tag{display:none}
+  .bv-reference[data-hand-open=true] .bv-hand-handle{right:var(--bv-rail);top:96px;min-height:44px;height:44px;width:44px;padding:3px;gap:0;border-radius:8px 0 0 8px}
+  .bv-reference[data-hand-open=true] .bv-hand-handle>span{font-size:20px;line-height:21px}
+  .bv-reference[data-hand-open=true] .bv-hand-handle b{display:none}
+  .bv-reference[data-hand-open=true] .bv-hand-handle small{font-size:10px;line-height:14px}
+}
+@media(orientation:landscape){
+  /* The detail icon keeps its own visible target. Its old invisible extension
+     must not intercept the centre of the new right-hand grip. */
+  .bv-reference .bv-hand-orbit .bv-card-detail::before{display:none}
+  .bv-reference .bv-hand-orbit .bv-card-detail{bottom:4px;right:8px}
+}

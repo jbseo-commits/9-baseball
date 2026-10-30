@@ -34,12 +34,13 @@ export default function BattleCard({item,art=null,onTap,onDetail,detailDisabled=
       disabled={item.disabled} onClick={()=>onTap?.(item.id)} onKeyDown={onKeyDown}
       onContextMenu={e=>{if(!onDetail||detailDisabled)return;e.preventDefault();onDetail(item.id,e.currentTarget);}}>
       <span className="bv-card-art" style={art?{backgroundImage:`url(${art.url})`,backgroundPosition:art.position,backgroundSize:art.size}:undefined} data-art={art?'set':'none'}>
+        {strip&&<span className="bv-card-grip" aria-hidden="true"><i/><i/></span>}
         {!strip&&<b className="bv-card-cost" aria-hidden="true"><small>⚡</small>{item.cost}{supportLimited&&<sup className="bv-support-limit" title="지원 추가 비용 초과 · 겹치기를 끄면 메인으로 교체 가능">＋제한</sup>}</b>}
         {!strip&&<span className="bv-card-range">{item.type==='prepare'?<span className="bv-prep-glyph" aria-hidden="true">◎</span>:<CoverageGlyph zones={item.coverage}/>}</span>}
       </span>
       {strip&&<span className="bv-card-copy">
         <span className="bv-card-topline"><b className="bv-card-cost" aria-hidden="true">{item.cost}</b><strong className="bv-card-name">{item.name}</strong></span>
-        <span className="bv-card-effect">{item.summary}</span>
+        <span className="bv-card-effectline"><span className="bv-card-range" aria-hidden="true">{item.type==='prepare'?<BattleSymbol kind="eye"/>:<CoverageGlyph zones={item.coverage}/>}</span><span className="bv-card-effect">{item.summary}</span></span>
         {(item.condition||item.warning||item.drawNote)&&<span className="bv-card-notes">
           {item.condition&&<span className="bv-card-condition">{item.condition}</span>}
           {item.drawNote&&item.drawNote!==item.condition&&<span className="bv-card-condition">{item.drawNote}</span>}
@@ -48,7 +49,6 @@ export default function BattleCard({item,art=null,onTap,onDetail,detailDisabled=
         {supportLimited&&<span className="bv-card-warning">지원 비용 초과</span>}
         {tag&&<span className="bv-card-tag" aria-hidden="true">{tag}</span>}
       </span>}
-      {strip&&<span className="bv-card-range" aria-hidden="true">{item.type==='prepare'?<BattleSymbol kind="eye"/>:<CoverageGlyph zones={item.coverage}/>}</span>}
       {!strip&&<>
       <strong className="bv-card-name">{item.name}</strong>
       <span className="bv-card-effect">{item.summary}</span>

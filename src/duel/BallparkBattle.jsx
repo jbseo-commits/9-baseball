@@ -35,7 +35,7 @@ import {animationRate as validAnimationRate} from './animation-speed.js';
 import {battleUiMode} from './battle-ui-mode.js';
 import {buildBattleViewModel} from './battle-vnext/view-model.js';
 import BattleView from './battle-vnext/BattleView.jsx';
-import {cardDropIntent} from './battle-vnext/placement-intent.js';
+import {cardDropIntent,cardDropPreview} from './battle-vnext/placement-intent.js';
 import {approvedPitcherArt,SAMPLE_ACTORS} from './battle-vnext/BattleScene.jsx';
 
 /* V13 BALLPARK — the battle as one ballpark scene (docs/design/v13/BALLPARK.md).
@@ -628,7 +628,7 @@ export default function BallparkBattle({
       inspector={inspectorView} menuOpen={!!inspect} onMenu={()=>openInspect('menu')}
       onCardTap={id=>{if(!deciding&&!inspect)return;isSkill(byId(id)?.entry)?pickPrep(id):pickSwing(id);}}
       onCardDetail={id=>{const x=byId(id);openInspect('card',{kind:id==='basic'?'basic':x?.entry.kind,plus:x?.entry.plus,problem:x?.preview?.problem});}}
-      onCardDrop={placeCard} onRemoveSupport={removeSupport} onToggleSupport={toggleSupport} onClearPlan={clearPlan} onPiles={()=>openInspect('pile')} piles={{draw:b.draw?.length||0,discard:b.discard?.length||0}}
+      onPreviewCardDrop={(id,zone)=>deciding&&!inspect?cardDropPreview(s,selected,stack,id,zone):null} onCardDrop={placeCard} onRemoveSupport={removeSupport} onToggleSupport={toggleSupport} onClearPlan={clearPlan} onPiles={()=>openInspect('pile')} piles={{draw:b.draw?.length||0,discard:b.discard?.length||0}}
       onZoneTap={pickZone} onZoneHover={setHoverZone} onPointerDown={slideStart} onPointerMove={slideMove} onPointerUp={slideEnd} onPointerCancel={slideEnd}
       onTake={onTake} onSwing={commitSwing} onNext={onNext}/>;
   }

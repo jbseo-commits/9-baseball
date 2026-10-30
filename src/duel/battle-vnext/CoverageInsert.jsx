@@ -40,7 +40,7 @@ export default function CoverageInsert({request,pieces,rootRef,phase,sound=false
   const vars={'--place-duration':PLACEMENT.duration+'ms','--place-lock':PLACEMENT.lockAt+'ms','--place-stagger':PLACEMENT.stagger+'ms',
     '--from-x':e.from.x+'px','--from-y':e.from.y+'px','--mid-x':e.mid.x+'px','--mid-y':e.mid.y+'px','--start-scale':e.scale,'--start-angle':(s.angle||0)+'deg',
     '--source-art':(s.artFraction||.4)*100+'%','--source-copy-x':((s.w||190)*(s.artFraction||.4)+12)/e.scale+'px','--source-w':(s.w||190)/e.scale+'px','--source-h':(s.h||76)/e.scale+'px','--source-font':(s.font||18)/e.scale+'px','--source-small':(s.small||12)/e.scale+'px'};
-  return <div key={e.seq} className={'bv-insert-fx r-'+e.role+' q-'+e.order} style={vars} aria-hidden="true" data-testid="bv-coverage-insert" data-card-name={e.name} data-card-id={request.id} data-insert-order={e.order} data-insert-seq={e.seq} data-animation-rate={e.rate}>
+  return <div key={e.seq} className={'bv-insert-fx r-'+e.role+' q-'+e.order} style={vars} aria-hidden="true" data-testid="bv-coverage-insert" data-card-name={e.name} data-card-id={request.id} data-insert-order={e.order} data-insert-seq={e.seq} data-animation-rate={e.rate} data-art-side={s.artSide||'left'}>
     <div className="bv-insert-receiver" style={{left:b.x,top:b.y,width:b.w,height:b.h}}>
       <svg viewBox={`-40 -40 ${b.w+80} ${b.h+80}`} width={b.w+80} height={b.h+80} className="bv-insert-outline"><path d={e.outline}/></svg>
       {e.cells.map(c=><span key={c.z} className="bv-insert-socket" style={{left:c.x,top:c.y,width:c.w,height:c.h}}/>)}

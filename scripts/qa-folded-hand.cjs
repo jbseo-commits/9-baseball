@@ -22,7 +22,7 @@ const same=(a,b)=>['x','y','width','height'].every(k=>Math.abs(a[k]-b[k])<1);
   const row=await box(p,'.bv-hand-row');assert.ok(row.x>=zone.x+zone.width-1,'expanded cards stay right of zone');
   assert.ok((await box(p,'.bv-energy')).y<row.y,'energy directly above cards');
   if(await p.locator('.bv-refined').count()){
-    assert.ok(await p.locator('.bv-card-strip').evaluateAll(es=>es.every(e=>{const a=e.querySelector('.bv-card-art'),cost=e.querySelector('.bv-card-cost'),copy=e.querySelector('.bv-card-copy'),range=e.querySelector('.bv-card-range');const reference=!!e.closest('.bv-reference');return (reference?cost.offsetLeft>=4&&cost.offsetLeft+cost.offsetWidth<=a.offsetLeft+a.offsetWidth:cost.offsetLeft>=a.offsetLeft+a.offsetWidth)&&range.offsetLeft>=copy.offsetLeft+copy.offsetWidth-1;})),'live cost badge and separate range occupy their authored slots');
+    assert.ok(await p.locator('.bv-card-strip').evaluateAll(es=>es.every(e=>{const a=e.querySelector('.bv-card-art'),cost=e.querySelector('.bv-card-cost'),copy=e.querySelector('.bv-card-copy'),range=e.querySelector('.bv-card-range');const reference=!!e.closest('.bv-reference');return reference?(copy.contains(range)&&copy.offsetLeft<a.offsetLeft&&cost.offsetLeft<a.offsetLeft):(cost.offsetLeft>=a.offsetLeft+a.offsetWidth&&range.offsetLeft>=copy.offsetLeft+copy.offsetWidth-1);})),'live cost/range stay in the left reading column, with art on the right');
     const action=await box(p,'.bv-action');assert.ok(Math.abs(action.width-action.height)<1,'the primary action is circular');
   }
   await p.screenshot({path:`${out}/expanded-${w}.jpg`,quality:88});

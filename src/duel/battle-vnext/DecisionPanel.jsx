@@ -42,18 +42,18 @@ export function planSummary({hand=[],forecast=null,input=null,energy=null,effect
 }
 
 export default function DecisionPanel({zones=null,forecast=null,input=null,hand=[],energy=null,result=null,phase='deciding',effects=[],scene=null,execution=null,
-  shotGrade=null,recent=null,showAction=true,showPlan=true,quiet=false,selection=null,sound=false,animationRate=1,onZoneTap,onZoneHover=null,onTake,onSwing,onNext}){
+  dragPreview=null,shotGrade=null,recent=null,showAction=true,showPlan=true,quiet=false,selection=null,sound=false,animationRate=1,onZoneTap,onZoneHover=null,onTake,onSwing,onNext}){
   if(!zones||!input)return null;
   const deciding=phase==='deciding';
   const caption=planCaption(zones),near=result?.kind==='whiff'?nearCoverage(result):null;
   const pt=z=>({x:(z%3)*100+50,y:Math.floor(z/3)*100+50});
   return <section className={'bv-decision'+(zones.targetingSupport?' is-targeting':'')} data-testid="bv-decision" data-phase={phase} aria-label="코스와 행동">
     <p className="bv-zone-caption"><span>{deciding&&selection?.supportMode&&!zones.targetingSupport?'겹칠 카드를 고르세요':caption||(deciding?'노릴 코스':'')}</span>{deciding&&zones.clue&&<b>단서 적용</b>}</p>
-    <div className="bv-zone" role="group" aria-label="노릴 코스" data-read-level={zones.level}>
+    <div className="bv-zone" role="group" aria-label="노릴 코스" data-read-level={zones.level} data-drop-role={dragPreview?.role}>
       {near&&<svg className="bv-near-link" viewBox="0 0 300 300" preserveAspectRatio="none" aria-hidden="true" data-testid="bv-near-link"><path d={`M${pt(near.from).x},${pt(near.from).y}L${pt(near.to).x},${pt(near.to).y}`}/><circle cx={pt(near.from).x} cy={pt(near.from).y} r="20"/></svg>}
       {zones.cells.map(c=>{
         const d=faceDensity(c.face);
-        const cls='bv-cell'+(c.live?'':' is-dead')+(c.cover?' is-cover':'')+(c.support?' is-support':'')+(c.aim?' is-aim':'')+(c.actual?' is-actual':'')+(result?.good&&c.actual?' is-good':'');
+        const cls='bv-cell'+(c.live?'':' is-dead')+(c.cover?' is-cover':'')+(c.support?' is-support':'')+(c.aim?' is-aim':'')+(c.actual?' is-actual':'')+(result?.good&&c.actual?' is-good':'')+(deciding&&dragPreview?.coverage?.includes(c.zone)?' is-drop-cover':'')+(deciding&&dragPreview?.zone===c.zone?(dragPreview.ok?' is-drop-target':' is-drop-invalid'):'');
         return <button key={c.zone} type="button" className={cls} data-zone={c.zone} disabled={!input.canSelect}
           style={d!=null?{'--bv-density':d}:undefined}
           aria-pressed={c.aimed} aria-label={[c.word,c.live?c.face:'던지지 않는 코스',c.tokens.length?c.tokens.map(n=>n===1?'메인 노림':n+'번 지원').join(', '):'',c.actual?'실제 공':''].filter(Boolean).join(' · ')}

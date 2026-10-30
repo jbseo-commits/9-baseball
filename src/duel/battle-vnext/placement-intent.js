@@ -19,3 +19,12 @@ export function cardDropIntent(s,selected,stack,id,zone){
   const problem=previewV10Stack(aimed,id,next)?.problem;
   return problem?{ok:false,reason:problem}:{ok:true,kind:'main',id,zone,stack:next};
 }
+
+/* Read-only candidate for the exact same drop intent; no engine action/save. */
+export function cardDropPreview(s,selected,stack,id,zone){
+ const intent=cardDropIntent(s,selected,stack,id,zone);if(!intent.ok)return {...intent,zone,coverage:[]};
+ const main=intent.kind==='main'?id:selected,aimed=intent.kind==='main'?{...s,battle:{...s.battle,aimZone:zone}}:s;
+ const preview=previewV10Stack(aimed,main,intent.stack);
+ const coverage=intent.kind==='main'?preview.primaryCoverage:preview.supportCoverages?.find(c=>c.id===id)?.coverage;
+ return {ok:true,zone,role:intent.kind,coverage:coverage||[]};
+}
