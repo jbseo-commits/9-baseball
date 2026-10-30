@@ -45,6 +45,12 @@ it('renders the real legacy actors and wrapper, retaining memory-only saves',()=
  expect(document.querySelector('.bc-legacy-host .bp-battle')).not.toBeNull();expect(document.querySelector('.battle-vnext')).toBeNull();
  expect(document.querySelector('.bp-batter .batter-sheet-frame')).not.toBeNull();expect(document.querySelector('.bp-pitcher .sprite-stage')).not.toBeNull();expect(localStorage.getItem('9zone-v10-run')).toBe('sentinel');
 });
+it('renders the selected registered rig in vnext fixtures, including the reference boss',()=>{
+ render(<IntegrationPreview fixture="reference-boss"/>);
+ expect(document.querySelector('.bv-actor-pitcher').dataset.rosterArt).toBe('boss-01-emerald-tyrant');
+ expect(document.querySelector('.bv-actor-pitcher img').getAttribute('src')).toContain('boss-01-emerald-tyrant.avif');
+ expect(document.querySelector('.bv-sandbox-art').textContent).toContain('등록 로스터');
+});
 it('starts an embedded frame locked, ignores unrelated messages, and pauses auto-next when hidden',()=>{
  vi.useFakeTimers();const parent={},original=window.parent;Object.defineProperty(window,'parent',{configurable:true,value:parent});parent.postMessage=vi.fn();
  try{

@@ -9,6 +9,7 @@ import {buildBattleViewModel} from '../src/duel/battle-vnext/view-model.js';
 import IntegrationPreview from '../src/duel/battle-vnext/IntegrationPreview.jsx';
 import {presentationFor,presentationTimeline} from '../src/duel/presentation.js';
 import {withKnockoutHold} from '../src/duel/pitcher-sd.js';
+import {rosterPitcherActor,rosterTimeline} from '../src/duel/battle-vnext/roster-actor.js';
 afterEach(()=>{cleanup();vi.useRealTimers();window.history.replaceState({},'','/');});
 it('requires a landed actual result and waits for depletion before the mound reaction',()=>{
  const ko={kind:'hit',call:'안타',knockedOut:true};
@@ -30,14 +31,14 @@ it('reproduces a real home run and real final damage from explicit engine fixtur
 });
 it('holds terminal knockout without auto-next, and replay cancels the previous clock',()=>{
  vi.useFakeTimers({toFake:['setTimeout','clearTimeout','performance']});window.history.replaceState({},'','/?battleUi=vnext');
- const f=buildFixture('cinema-knockout'),t=withKnockoutHold(presentationTimeline(presentationFor(f.s)),true);
+ const f=buildFixture('cinema-knockout'),actor=rosterPitcherActor(f.artId,'atlas'),t=withKnockoutHold(rosterTimeline(presentationTimeline(presentationFor(f.s),false),actor),true);
  render(<IntegrationPreview fixture="cinema-knockout"/>);
  expect(document.querySelector('.bv-finale-focus')).toBeNull();
  act(()=>vi.advanceTimersByTime(t.impactAt+5));
  expect(document.querySelector('.bv-finale-focus')).toBeNull();
  act(()=>vi.advanceTimersByTime(t.settleAt-t.impactAt));
  expect(document.querySelector('.f-knockout')).not.toBeNull();
- expect(document.querySelector('[data-actor=pitcher]')?.dataset.pose).toBe('fatigue');
+ expect(document.querySelector('[data-actor=pitcher]')?.dataset.pose).toBe('frame-119');
  fireEvent.click(screen.getByRole('button',{name:'다시 시작'}));
  expect(document.querySelector('.bv-finale-focus')).toBeNull();
  act(()=>vi.advanceTimersByTime(t.duration+2000));

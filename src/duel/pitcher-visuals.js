@@ -1,10 +1,4 @@
-import redRushAtlas from '../../assets/pitcher-sd-v1/red-rush-pitch-120-atlas.png';
-import redRushPortrait from '../../assets/pitcher-mobs-v1/regular-01-red-rush.png';
-import tideVesperAtlas from '../../assets/pitcher-study-v2/atlases/tide-vesper-pitch-120-atlas.png';
 import tideVesperPortrait from '../../assets/pitcher-study-v2/source/tide-vesper-release.png';
-import skyPhantomAtlas from '../../assets/pitcher-study-v3/atlases/sky-phantom-pitch-120-atlas.png';
-import galeTwisterAtlas from '../../assets/pitcher-study-v4/atlases/gale-twister-pitch-120-atlas.png';
-import vulcanBlazeAtlas from '../../assets/pitcher-study-v5/atlases/vulcan-blaze-pitch-120-atlas.png';
 /* set-pose cutouts (frame 0 of each atlas, trimmed): the new pitchers have no roster portrait yet, so the map
    silhouette and framed views use their own approved battle frame instead of a place glyph */
 import skyPhantomFigure from '../../assets/pitcher-study-v3/sky-phantom-figure.png';
@@ -12,10 +6,6 @@ import galeTwisterFigure from '../../assets/pitcher-study-v4/gale-twister-figure
 import vulcanBlazeFigure from '../../assets/pitcher-study-v5/vulcan-blaze-figure.png';
 /* 2026-10-14 roster: catcher-cam studies. Onyx/Emerald use the retimed, ball-free runtime atlas
    (scripts/build-runtime-pitchers-1014.py); figures are trimmed frame-0 cutouts, portraits the master art. */
-import jadeViperAtlas from '../../assets/pitcher-study-jade-viper/atlases/jade-viper-pitch-120-atlas.png';
-import copperSiroccoAtlas from '../../assets/pitcher-study-copper-sirocco/v2/atlases/copper-sirocco-pitch-120-atlas.png';
-import onyxEclipseAtlas from '../../assets/pitcher-study-onyx-eclipse/runtime/onyx-eclipse-pitch-120-atlas.png';
-import emeraldTempestAtlas from '../../assets/pitcher-study-emerald-tempest/runtime/emerald-tempest-pitch-120-atlas.png';
 import jadeViperFigure from '../../assets/pitcher-study-jade-viper/runtime/jade-viper-figure.png';
 import copperSiroccoFigure from '../../assets/pitcher-study-copper-sirocco/runtime/copper-sirocco-figure.png';
 import onyxEclipseFigure from '../../assets/pitcher-study-onyx-eclipse/runtime/onyx-eclipse-figure.png';
@@ -48,32 +38,13 @@ import redRushReleaseNoBall from '../../assets/production-art/battle-polish-v16/
 import redRushFollowThrough from '../../assets/production-art/battle-polish-v16/red-rush-follow-through.png';
 import impactSlashVfx from '../../assets/production-art/battle-polish-v16/impact-slash.png';
 
-/* PixelLab pitch animations drawn from the pitcher-mobs-v1 designs (assets/pitcher-pixellab-v1): same 120-frame
-   atlas contract, so each one replaces that pitcher's SD atlas as it lands. The replaced SD atlas is excluded
-   below as well, or the eager glob would still ship it (~1.1MB each) unused. */
-const pixellabAtlases=import.meta.glob('../../assets/pitcher-pixellab-v1/atlases/*-pitch-120-atlas.png',{eager:true,query:'?url',import:'default'});
-const rosterAtlases=import.meta.glob([
-  '../../assets/pitcher-sd-v2/atlases/*-pitch-120-atlas.png',
-  '!../../assets/pitcher-sd-v2/atlases/regular-02-teal-mirage-pitch-120-atlas.png',
-  '!../../assets/pitcher-sd-v2/atlases/regular-03-amber-sinker-pitch-120-atlas.png',
-],{eager:true,query:'?url',import:'default'});
+/* The compact, alpha runtime derivatives are the only pitcher atlases in the game import graph. */
+const rigAtlases=import.meta.glob('../../assets/pitcher-rig-v1/atlases/*.avif',{eager:true,query:'?url',import:'default'});
 const rosterPortraits=import.meta.glob('../../assets/pitcher-mobs-v1/*.png',{eager:true,query:'?url',import:'default'});
 const idFrom=(path,suffix)=>path.split('/').pop().replace(suffix,'');
-const byId=atlases=>Object.fromEntries(Object.entries(atlases).map(([path,url])=>[idFrom(path,'-pitch-120-atlas.png'),url]));
+const byId=atlases=>Object.fromEntries(Object.entries(atlases).map(([path,url])=>[idFrom(path,'.avif'),url]));
 
-export const pitcherAtlases={
-  'regular-01-red-rush':redRushAtlas,
-  ...byId(rosterAtlases),
-  ...byId(pixellabAtlases),
-  'tide-vesper':tideVesperAtlas,
-  'sky-phantom':skyPhantomAtlas,
-  'gale-twister':galeTwisterAtlas,
-  'vulcan-blaze':vulcanBlazeAtlas,
-  'jade-viper':jadeViperAtlas,
-  'copper-sirocco':copperSiroccoAtlas,
-  'onyx-eclipse':onyxEclipseAtlas,
-  'emerald-tempest':emeraldTempestAtlas,
-};
+export const pitcherAtlases=byId(rigAtlases);
 
 /* transparent roster cutouts: for silhouettes and anything drawn over a scene (map nodes use brightness(0)) */
 export const pitcherFigures={

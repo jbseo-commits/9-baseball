@@ -35,10 +35,10 @@ it('normal vnext App resume also uses the actual new UI with the real production
  window.history.replaceState({},'','/?battleUi=vnext');saveV10Duel(localStorage,enterV10Node(createV10Duel(3),'a1-entry'));render(<Duel/>);fireEvent.click(screen.getByRole('button',{name:'이어하기',exact:true}));
  expect(document.querySelector('.battle-vnext')).not.toBeNull();expect(document.querySelector('.bp-battle')).toBeNull();fireEvent.click(document.querySelector('.bv-cell[data-zone="8"]'));expect(readV10Duel(localStorage).battle.aimZone).toBe(8);
 });
-it('uses different actual roster release frames and starts the ball at its registered source, never at the sample hand',()=>{
- for(const [id,f]of [['regular-05-violet-sting',79],['regular-02-teal-mirage',76],['onyx-eclipse',76]]){
+it('uses the shared authored roster release frame and starts the ball at its registered source, never at the sample hand',()=>{
+ for(const id of ['regular-05-violet-sting','regular-02-teal-mirage','onyx-eclipse']){
   const actor=rosterPitcherActor(id,'atlas'),base={impactAt:100,freeze:60,slowmo:70,releaseAt:230,settleAt:500,duration:700},timeline=rosterTimeline(base,actor),playback={timeline,pitchReleaseAt:actor.releaseAt,action:'take'};
-  expect(actor.releaseAt).toBe(Math.round(f*1000/60));expect(timeline.impactAt-actor.releaseAt).toBe(300);expect(rosterFrame(playback,actor.releaseAt)).toBe(f);
+  expect(actor.releaseAt).toBe(Math.round(76*1000/60));expect(timeline.impactAt-actor.releaseAt).toBe(300);expect(rosterFrame(playback,actor.releaseAt)).toBe(76);
   const composition={release:actor.release,contact:{x:300,y:600}};expect(sceneEffectAt({elapsed:actor.releaseAt-1,playback,composition})).toBeNull();expect(sceneEffectAt({elapsed:actor.releaseAt,playback,composition}).ball).toEqual(actor.release);
  }
  expect(rosterPitcherActor('unknown','some-art')).toBeNull();expect(Object.keys(registration)).toHaveLength(20);

@@ -53,32 +53,20 @@ describe('PixelLab pitch animations',()=>{
     }
   });
 
-  it('replaces that pitcher\'s SD atlas in the battle, and stops shipping the SD one',()=>{
-    const visuals=fs.readFileSync(new URL('../src/duel/pitcher-visuals.js',import.meta.url),'utf8');
-    for(const id of ids){
-      expect(String(pitcherAtlases[id])).toContain('pitcher-pixellab-v1');
-      expect(visuals).toContain(`'!../../assets/pitcher-sd-v2/atlases/${id}-pitch-120-atlas.png'`);
-    }
-    expect(String(pitcherAtlases['regular-04-ivory-ace'])).toContain('pitcher-sd-v2');
-    expect(String(pitcherAtlases['tide-vesper'])).toContain('pitcher-study-v2');
-    expect(String(pitcherAtlases['sky-phantom'])).toContain('pitcher-study-v3');
-    expect(String(pitcherAtlases['gale-twister'])).toContain('pitcher-study-v4');
-    expect(String(pitcherAtlases['vulcan-blaze'])).toContain('pitcher-study-v5');
-    expect(String(pitcherAtlases['jade-viper'])).toContain('pitcher-study-jade-viper');
-    expect(String(pitcherAtlases['copper-sirocco'])).toContain('pitcher-study-copper-sirocco');
-    expect(String(pitcherAtlases['onyx-eclipse'])).toContain('pitcher-study-onyx-eclipse/runtime');
-    expect(String(pitcherAtlases['emerald-tempest'])).toContain('pitcher-study-emerald-tempest/runtime');
+  it('maps every legacy roster id to the compact rig runtime atlas',()=>{
+    for(const id of ids)expect(String(pitcherAtlases[id])).toContain(`pitcher-rig-v1/atlases/${id}.avif`);
     expect(Object.keys(pitcherAtlases)).toHaveLength(20);
   });
 
-  it('puts her feet on the rubber, the stride dust under her front foot and the ball in her hand',()=>{
+  it('keeps the delivered PixelLab source measurements available for provenance',()=>{
     const stance=json('../src/duel/pitcher-stance.json'),stride=json('../src/duel/pitcher-stride.json'),release=json('../src/duel/pitcher-release.json');
     for(const id of ids){
       const m=json(`../assets/pitcher-pixellab-v1/${id}-manifest.json`);
-      expect(stance[id],id).toEqual(m.stance);
-      expect(stride[id],id).toEqual(m.stride);
-      expect(release[id],id).toEqual(m.release);
+      expect(m.stance).toHaveLength(2);
+      expect(m.stride).toHaveLength(3);
+      expect(m.release).toHaveLength(2);
       expect(m.stride[0]).toBeLessThan(RED_RUSH_RELEASE_FRAME);
     }
+    expect(Object.keys(stance)).toHaveLength(20);expect(Object.keys(stride)).toHaveLength(20);expect(Object.keys(release)).toHaveLength(20);
   });
 });
