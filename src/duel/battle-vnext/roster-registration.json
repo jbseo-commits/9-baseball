@@ -1,322 +1,982 @@
 {
   "regular-01-red-rush": {
     "id": "regular-01-red-rush",
-    "file": "assets/pitcher-sd-v1/red-rush-pitch-120-atlas.png",
-    "releaseFrame": 79,
-    "manifest": "assets/pitcher-sd-v1/manifest.json",
-    "anchor": {
-      "x": 109,
-      "y": 255
-    },
-    "visibleHeight": 232,
-    "release": {
-      "x": 35,
-      "y": 102
-    },
-    "registration": "manual release drawing registration (approximate)"
-  },
-  "boss-01-emerald-tyrant": {
-    "id": "boss-01-emerald-tyrant",
-    "file": "assets/pitcher-sd-v2/atlases/boss-01-emerald-tyrant-pitch-120-atlas.png",
-    "releaseFrame": 79,
-    "manifest": "assets/pitcher-sd-v2/boss-01-emerald-tyrant-manifest.json",
-    "anchor": {
-      "x": 127,
-      "y": 248
-    },
-    "visibleHeight": 208,
-    "release": {
-      "x": 25,
-      "y": 104
-    },
-    "registration": "manual release drawing registration (approximate)"
-  },
-  "boss-02-platinum-halo": {
-    "id": "boss-02-platinum-halo",
-    "file": "assets/pitcher-sd-v2/atlases/boss-02-platinum-halo-pitch-120-atlas.png",
-    "releaseFrame": 79,
-    "manifest": "assets/pitcher-sd-v2/boss-02-platinum-halo-manifest.json",
-    "anchor": {
-      "x": 117,
-      "y": 247
-    },
-    "visibleHeight": 204,
-    "release": {
-      "x": 42,
-      "y": 101
-    },
-    "registration": "manual release drawing registration (approximate)"
-  },
-  "boss-03-black-eclipse": {
-    "id": "boss-03-black-eclipse",
-    "file": "assets/pitcher-sd-v2/atlases/boss-03-black-eclipse-pitch-120-atlas.png",
-    "releaseFrame": 79,
-    "manifest": "assets/pitcher-sd-v2/boss-03-black-eclipse-manifest.json",
+    "file": "assets/pitcher-rig-v1/atlases/regular-01-red-rush.avif",
+    "releaseFrame": 76,
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
     "anchor": {
       "x": 128,
-      "y": 248
+      "y": 218.77580071174378
     },
-    "visibleHeight": 216,
+    "visibleHeight": 219.21708185053382,
     "release": {
-      "x": 40,
-      "y": 83
+      "x": 88.0840594858842,
+      "y": 50.82939008727274
     },
-    "registration": "manual release drawing registration (approximate)"
-  },
-  "elite-01-cobalt-impact": {
-    "id": "elite-01-cobalt-impact",
-    "file": "assets/pitcher-sd-v2/atlases/elite-01-cobalt-impact-pitch-120-atlas.png",
-    "releaseFrame": 79,
-    "manifest": "assets/pitcher-sd-v2/elite-01-cobalt-impact-manifest.json",
-    "anchor": {
-      "x": 128,
-      "y": 246
+    "release3D": {
+      "x": -0.182084079293288,
+      "y": 0.132512802442518,
+      "z": 0.42236674675761143
     },
-    "visibleHeight": 187,
-    "release": {
-      "x": 43,
-      "y": 98
+    "stride": {
+      "frame": 55,
+      "x": 141.15302491103202,
+      "y": 227.01836298932386
     },
-    "registration": "manual release drawing registration (approximate)"
-  },
-  "elite-02-neon-trick": {
-    "id": "elite-02-neon-trick",
-    "file": "assets/pitcher-sd-v2/atlases/elite-02-neon-trick-pitch-120-atlas.png",
-    "releaseFrame": 79,
-    "manifest": "assets/pitcher-sd-v2/elite-02-neon-trick-manifest.json",
-    "anchor": {
-      "x": 128,
-      "y": 248
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "39f993514cb2ac20f1469d4968dac95cb0135c6cc64afec56b84f71170c11b66",
+      "rigSha256": "1c8cdc811caecab50497414ba5b4539ef718206579b891f14f941220f09ddc82",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "31283a780a9e8cbe1a582b6528762e2d3f41555699b4c39d1a9a757f6a55ee64"
     },
-    "visibleHeight": 229,
-    "release": {
-      "x": 31,
-      "y": 101
-    },
-    "registration": "manual release drawing registration (approximate)"
-  },
-  "elite-03-wine-bluff": {
-    "id": "elite-03-wine-bluff",
-    "file": "assets/pitcher-sd-v2/atlases/elite-03-wine-bluff-pitch-120-atlas.png",
-    "releaseFrame": 79,
-    "manifest": "assets/pitcher-sd-v2/elite-03-wine-bluff-manifest.json",
-    "anchor": {
-      "x": 124,
-      "y": 248
-    },
-    "visibleHeight": 229,
-    "release": {
-      "x": 36,
-      "y": 105
-    },
-    "registration": "manual release drawing registration (approximate)"
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
   },
   "regular-02-teal-mirage": {
     "id": "regular-02-teal-mirage",
-    "file": "assets/pitcher-pixellab-v1/atlases/regular-02-teal-mirage-pitch-120-atlas.png",
+    "file": "assets/pitcher-rig-v1/atlases/regular-02-teal-mirage.avif",
     "releaseFrame": 76,
-    "manifest": "assets/pitcher-pixellab-v1/regular-02-teal-mirage-manifest.json",
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
     "anchor": {
-      "x": 158,
-      "y": 248
+      "x": 128,
+      "y": 218.77580071174378
     },
-    "visibleHeight": 212,
+    "visibleHeight": 219.21708185053382,
     "release": {
-      "x": 31,
-      "y": 99
+      "x": 88.0840594858842,
+      "y": 50.82939008727274
     },
-    "registration": "source manifest normalized release"
+    "release3D": {
+      "x": -0.182084079293288,
+      "y": 0.132512802442518,
+      "z": 0.42236674675761143
+    },
+    "stride": {
+      "frame": 55,
+      "x": 141.15302491103202,
+      "y": 227.01836298932386
+    },
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "source_defined",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "634f1906cbc07be8f5f7a3d707af84a746d260a7d306378df0dec7a0355f9d22",
+      "rigSha256": "2abbed3f7afd0add839970c33e95e9f31af01ee80e4b251caf338521d251b117",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "52fafd8eb6701a2c6bbe75b5b6fca08455731081dd97abc8c515e30f97ed9d2c"
+    },
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
   },
   "regular-03-amber-sinker": {
     "id": "regular-03-amber-sinker",
-    "file": "assets/pitcher-pixellab-v1/atlases/regular-03-amber-sinker-pitch-120-atlas.png",
+    "file": "assets/pitcher-rig-v1/atlases/regular-03-amber-sinker.avif",
     "releaseFrame": 76,
-    "manifest": "assets/pitcher-pixellab-v1/regular-03-amber-sinker-manifest.json",
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
     "anchor": {
-      "x": 172,
-      "y": 248
+      "x": 128,
+      "y": 218.05673758865248
     },
-    "visibleHeight": 211,
+    "visibleHeight": 218.43971631205673,
     "release": {
-      "x": 46,
-      "y": 151
+      "x": 68.44409361738829,
+      "y": 66.30464075537418
     },
-    "registration": "source manifest normalized release"
+    "release3D": {
+      "x": -0.27264229869961853,
+      "y": 0.21084658841242218,
+      "z": 0.39351723801476723
+    },
+    "stride": {
+      "frame": 55,
+      "x": 141.1063829787234,
+      "y": 226.27007092198582
+    },
+    "hand": "right",
+    "style": "low-three-quarter",
+    "styleStatus": "source_defined",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "b7b4715b45080217d4810bfb254da1ae5cf940e07852e1d40048284673e7bcda",
+      "rigSha256": "145ebf708d66832857b2a19660dec9304bafc0e06af44bbbaebbae5beb08bb46",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "cbb5db1ff889a66af5af2999a33bab2648bab1f88c0328cf50bfd3eeedfd2564"
+    },
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
   },
   "regular-04-ivory-ace": {
     "id": "regular-04-ivory-ace",
-    "file": "assets/pitcher-sd-v2/atlases/regular-04-ivory-ace-pitch-120-atlas.png",
-    "releaseFrame": 79,
-    "manifest": "assets/pitcher-sd-v2/regular-04-ivory-ace-manifest.json",
+    "file": "assets/pitcher-rig-v1/atlases/regular-04-ivory-ace.avif",
+    "releaseFrame": 76,
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
     "anchor": {
-      "x": 127,
-      "y": 248
+      "x": 128,
+      "y": 218.05673758865248
     },
-    "visibleHeight": 227,
+    "visibleHeight": 218.43971631205673,
     "release": {
-      "x": 36,
-      "y": 66
+      "x": 88.22560537423213,
+      "y": 50.70588161178594
     },
-    "registration": "manual release drawing registration (approximate)"
+    "release3D": {
+      "x": -0.182084079293288,
+      "y": 0.132512802442518,
+      "z": 0.42236674675761143
+    },
+    "stride": {
+      "frame": 55,
+      "x": 141.1063829787234,
+      "y": 226.27007092198582
+    },
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "1c8d100b7e5d2ae8f1292abe0e1792db2393a70c1f796c8a744a912b314bd42a",
+      "rigSha256": "635be771864a7e9d06279e047d4c197cb8328aa5ba0fd918c58f10ee23a87498",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "a58b8a782075acfd030a021595e3716dad79a97ba42f6ff733585351d7a7eb50"
+    },
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
   },
   "regular-05-violet-sting": {
     "id": "regular-05-violet-sting",
-    "file": "assets/pitcher-sd-v2/atlases/regular-05-violet-sting-pitch-120-atlas.png",
-    "releaseFrame": 79,
-    "manifest": "assets/pitcher-sd-v2/regular-05-violet-sting-manifest.json",
+    "file": "assets/pitcher-rig-v1/atlases/regular-05-violet-sting.avif",
+    "releaseFrame": 76,
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
     "anchor": {
-      "x": 194,
-      "y": 248
+      "x": 128,
+      "y": 220.1830065359477
     },
-    "visibleHeight": 207,
+    "visibleHeight": 201.30718954248368,
     "release": {
-      "x": 46,
-      "y": 130
+      "x": 68.97696325272594,
+      "y": 93.53151963530799
     },
-    "registration": "manual release drawing registration (approximate)"
+    "release3D": {
+      "x": -0.2931988513744458,
+      "y": 0.28067224193995643,
+      "z": 0.3757599367493868
+    },
+    "stride": {
+      "frame": 55,
+      "x": 140.07843137254903,
+      "y": 227.7521568627451
+    },
+    "hand": "right",
+    "style": "sidearm",
+    "styleStatus": "source_defined",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "ec9c461e974105a9de009d612442ed4d394f42aec55a8d04967701c9de72a7f9",
+      "rigSha256": "a6d83f0b9ba0fcb166d616cddcb0214743851f157b5aee477c4a3cfc63d33497",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "4d27b2b0eb0e0b2b9eaa76d96495448363ec200ba6bc8106f9aed5703842f370"
+    },
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
   },
   "regular-06-rose-paint": {
     "id": "regular-06-rose-paint",
-    "file": "assets/pitcher-sd-v2/atlases/regular-06-rose-paint-pitch-120-atlas.png",
-    "releaseFrame": 79,
-    "manifest": "assets/pitcher-sd-v2/regular-06-rose-paint-manifest.json",
+    "file": "assets/pitcher-rig-v1/atlases/regular-06-rose-paint.avif",
+    "releaseFrame": 76,
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
     "anchor": {
       "x": 128,
-      "y": 248
+      "y": 219.61702127659575
     },
-    "visibleHeight": 206,
+    "visibleHeight": 218.43971631205673,
     "release": {
-      "x": 37,
-      "y": 104
+      "x": 88.22560537423213,
+      "y": 52.26616529972921
     },
-    "registration": "manual release drawing registration (approximate)"
+    "release3D": {
+      "x": -0.182084079293288,
+      "y": 0.132512802442518,
+      "z": 0.42236674675761143
+    },
+    "stride": {
+      "frame": 55,
+      "x": 141.1063829787234,
+      "y": 227.8303546099291
+    },
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "fad98b218756298dd67010a1a143aef6ed20b0d2a977aa35a9c1c994a41d2fe3",
+      "rigSha256": "b6f3e73b3a47305524733c16da8bdf87e7040c09245a135b1b5765c2ed5f65b1",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "76816f7141fed6cc4e290e308284be769c5c47fe4dab593468577a08e2e4d572"
+    },
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
+  },
+  "elite-01-cobalt-impact": {
+    "id": "elite-01-cobalt-impact",
+    "file": "assets/pitcher-rig-v1/atlases/elite-01-cobalt-impact.avif",
+    "releaseFrame": 76,
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
+    "anchor": {
+      "x": 128,
+      "y": 218.77580071174378
+    },
+    "visibleHeight": 219.21708185053382,
+    "release": {
+      "x": 88.0840594858842,
+      "y": 50.82939008727274
+    },
+    "release3D": {
+      "x": -0.182084079293288,
+      "y": 0.132512802442518,
+      "z": 0.42236674675761143
+    },
+    "stride": {
+      "frame": 55,
+      "x": 141.15302491103202,
+      "y": 227.01836298932386
+    },
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "21d1a5fb907e5c007db2cc2022b2ca4826ed38646ee556eef875f1f49195bd05",
+      "rigSha256": "ba70b8e70b6d2e19a7dda1dfa399d0da79c7fdb0cf7be1eb679f48fb322107ab",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "8b7afdb96fbfd36e25eb6f96e79f85e068d9c21d9aa32876737814316a98dd02"
+    },
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
+  },
+  "elite-02-neon-trick": {
+    "id": "elite-02-neon-trick",
+    "file": "assets/pitcher-rig-v1/atlases/elite-02-neon-trick.avif",
+    "releaseFrame": 76,
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
+    "anchor": {
+      "x": 128,
+      "y": 218.05673758865248
+    },
+    "visibleHeight": 218.43971631205673,
+    "release": {
+      "x": 88.22560537423213,
+      "y": 50.70588161178594
+    },
+    "release3D": {
+      "x": -0.182084079293288,
+      "y": 0.132512802442518,
+      "z": 0.42236674675761143
+    },
+    "stride": {
+      "frame": 55,
+      "x": 141.1063829787234,
+      "y": 226.27007092198582
+    },
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "d692e090d0157cac441f96e4af8934d2446af7fc81daeae0ce068225a210327e",
+      "rigSha256": "2ce848fcf21b7817e1c771e3ebcec0615903bf11af0cda90b0e2c3b75da811aa",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "41061115beb0849cb68b71583f259523d77905367bfe73f5b1d3206b52a7a804"
+    },
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
+  },
+  "elite-03-wine-bluff": {
+    "id": "elite-03-wine-bluff",
+    "file": "assets/pitcher-rig-v1/atlases/elite-03-wine-bluff.avif",
+    "releaseFrame": 76,
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
+    "anchor": {
+      "x": 128,
+      "y": 218.05673758865248
+    },
+    "visibleHeight": 218.43971631205673,
+    "release": {
+      "x": 88.22560537423213,
+      "y": 50.70588161178594
+    },
+    "release3D": {
+      "x": -0.182084079293288,
+      "y": 0.132512802442518,
+      "z": 0.42236674675761143
+    },
+    "stride": {
+      "frame": 55,
+      "x": 141.1063829787234,
+      "y": 226.27007092198582
+    },
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "c54f4435a20ecedddc6bfef83188e54926b0cbea6abe25d09f8eae1bfa98b310",
+      "rigSha256": "1466b58470458d4c57d0dfc0064f27b94bfd8e415cdaf6469d5a8c076f9b3638",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "e9cbf135f5a08bb6b8e5bbbf006dff701f6137ad7239f00bd691ad2662ee3020"
+    },
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
+  },
+  "boss-01-emerald-tyrant": {
+    "id": "boss-01-emerald-tyrant",
+    "file": "assets/pitcher-rig-v1/atlases/boss-01-emerald-tyrant.avif",
+    "releaseFrame": 76,
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
+    "anchor": {
+      "x": 128,
+      "y": 218.05673758865248
+    },
+    "visibleHeight": 218.43971631205673,
+    "release": {
+      "x": 88.22560537423213,
+      "y": 50.70588161178594
+    },
+    "release3D": {
+      "x": -0.182084079293288,
+      "y": 0.132512802442518,
+      "z": 0.42236674675761143
+    },
+    "stride": {
+      "frame": 55,
+      "x": 141.1063829787234,
+      "y": 226.27007092198582
+    },
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "703e88810179962008f932867f42636ba9fca7b69af5ffea9daa402761dbdca5",
+      "rigSha256": "acc6c3dce068702d4a34d8ce744d38a9676b4e7f3460525c96a15a7bea2899c8",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "c70b879d22bea6c5296524c13dc47021fabf8fd287f3bc3c4e33b4d3bd29fbc4"
+    },
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
+  },
+  "boss-02-platinum-halo": {
+    "id": "boss-02-platinum-halo",
+    "file": "assets/pitcher-rig-v1/atlases/boss-02-platinum-halo.avif",
+    "releaseFrame": 76,
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
+    "anchor": {
+      "x": 128,
+      "y": 218.83687943262413
+    },
+    "visibleHeight": 218.43971631205673,
+    "release": {
+      "x": 88.22560537423213,
+      "y": 51.48602345575759
+    },
+    "release3D": {
+      "x": -0.182084079293288,
+      "y": 0.132512802442518,
+      "z": 0.42236674675761143
+    },
+    "stride": {
+      "frame": 55,
+      "x": 141.1063829787234,
+      "y": 227.05021276595747
+    },
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "93763009f3bfab894e5f6c77238beebd8f0a957ffff42b9f8d9ec6b06e893580",
+      "rigSha256": "dd94325ca59eb6782fffc8a9116523fe24e4a91dfd73cf89f89d5052f8fc895b",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "79c37a547d9fa508772d5bbbf74043180075013dbca5a7e711564e0fa1222a7c"
+    },
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
+  },
+  "boss-03-black-eclipse": {
+    "id": "boss-03-black-eclipse",
+    "file": "assets/pitcher-rig-v1/atlases/boss-03-black-eclipse.avif",
+    "releaseFrame": 76,
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
+    "anchor": {
+      "x": 128,
+      "y": 219.5
+    },
+    "visibleHeight": 220,
+    "release": {
+      "x": 87.94150255547665,
+      "y": 50.95378076615586
+    },
+    "release3D": {
+      "x": -0.182084079293288,
+      "y": 0.132512802442518,
+      "z": 0.42236674675761143
+    },
+    "stride": {
+      "frame": 55,
+      "x": 141.2,
+      "y": 227.77200000000002
+    },
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "0aeb426afa790e80bddf8acddfa69a3ce5c8ddec13b37fb3bf3f0568cfbe8544",
+      "rigSha256": "ae9159b4eedc0bb995277472aa18c60f1004b62b57d7bd274ea6a97f015b9570",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "91a4591acec1a8e87a398ebe4fd2bb4d5e3a00d29c44f5ffd909758c0d2311f4"
+    },
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
   },
   "tide-vesper": {
     "id": "tide-vesper",
-    "file": "assets/pitcher-study-v2/atlases/tide-vesper-pitch-120-atlas.png",
+    "file": "assets/pitcher-rig-v1/atlases/tide-vesper.avif",
     "releaseFrame": 76,
-    "manifest": "assets/pitcher-study-v2/tide-vesper-manifest.json",
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
     "anchor": {
-      "x": 136,
-      "y": 248
+      "x": 128,
+      "y": 220.2293906810036
     },
-    "visibleHeight": 227,
+    "visibleHeight": 220.7885304659498,
     "release": {
-      "x": 106,
-      "y": 104
+      "x": 67.80370752725268,
+      "y": 66.84555087102339
     },
-    "registration": "manual release drawing registration (approximate)"
+    "release3D": {
+      "x": -0.27264229869961853,
+      "y": 0.21084658841242218,
+      "z": 0.39351723801476723
+    },
+    "stride": {
+      "frame": 55,
+      "x": 141.247311827957,
+      "y": 228.53103942652334
+    },
+    "hand": "right",
+    "style": "low-three-quarter",
+    "styleStatus": "source_defined",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "9b065d1d1c54ffc2a6a508ef1eee82e0c576ea3dd11d08fb3d100bb50fd1e6f2",
+      "rigSha256": "b3db5068c45d1ec923d30d4fe57781c5bb471c84dd85ea131c0446d2dbb3991e",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "5af08cf08f20d5a79e83c471801e4c6a270b70bdfd13b834bee0a38c425aef2a"
+    },
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
   },
   "sky-phantom": {
     "id": "sky-phantom",
-    "file": "assets/pitcher-study-v3/atlases/sky-phantom-pitch-120-atlas.png",
+    "file": "assets/pitcher-rig-v1/atlases/sky-phantom.avif",
     "releaseFrame": 76,
-    "manifest": "assets/pitcher-study-v3/sky-phantom-manifest.json",
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
     "anchor": {
-      "x": 132,
-      "y": 243
+      "x": 128,
+      "y": 219.55871886120997
     },
-    "visibleHeight": 205,
+    "visibleHeight": 219.21708185053382,
     "release": {
-      "x": 102,
-      "y": 20
+      "x": 98.81321982319534,
+      "y": 46.28906064218498
     },
-    "registration": "manual release drawing registration (approximate)"
+    "release3D": {
+      "x": -0.13314099398834595,
+      "y": 0.11024564152014739,
+      "z": 0.4139674325495737
+    },
+    "stride": {
+      "frame": 55,
+      "x": 141.15302491103202,
+      "y": 227.80128113879005
+    },
+    "hand": "right",
+    "style": "high-overhand",
+    "styleStatus": "source_defined",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "2ff36780c2f1e987f9506f3dd7f14394d421e44230584fe85b6bdf655e80da32",
+      "rigSha256": "99d77b78d43faf22b0f34410a39ba27c8e28e5aac8fe1a03e556d8f35b842973",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "808a1c128734398b40695920c9d484953f8182e82dfcf230efc8635a155bbd50"
+    },
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
   },
   "gale-twister": {
     "id": "gale-twister",
-    "file": "assets/pitcher-study-v4/atlases/gale-twister-pitch-120-atlas.png",
+    "file": "assets/pitcher-rig-v1/atlases/gale-twister.avif",
     "releaseFrame": 76,
-    "manifest": "assets/pitcher-study-v4/gale-twister-manifest.json",
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
     "anchor": {
-      "x": 124,
-      "y": 243
+      "x": 128,
+      "y": 221.0179211469534
     },
-    "visibleHeight": 222,
+    "visibleHeight": 220.7885304659498,
     "release": {
-      "x": 103,
-      "y": 39
+      "x": 87.33319641725387,
+      "y": 50.61225763312382
     },
-    "registration": "manual release drawing registration (approximate)"
+    "release3D": {
+      "x": -0.18418893181146384,
+      "y": 0.1285662039709383,
+      "z": 0.4151205164388354
+    },
+    "stride": {
+      "frame": 55,
+      "x": 141.247311827957,
+      "y": 229.31956989247314
+    },
+    "hand": "right",
+    "style": "high-three-quarter",
+    "styleStatus": "source_defined",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "414be24c620831617126ef24a88cbc4811dfd95e12692400f6a3d2f15e510d03",
+      "rigSha256": "2ee019e4b467bdaa85586614c9d31cafcb9841c989ac252d376cd919abcdb758",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "c3ad2ff83e1d66ed18a5d8b94bd233beaa2e4128b439ac7e2e4f99d7cd0a850b"
+    },
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
   },
   "vulcan-blaze": {
     "id": "vulcan-blaze",
-    "file": "assets/pitcher-study-v5/atlases/vulcan-blaze-pitch-120-atlas.png",
+    "file": "assets/pitcher-rig-v1/atlases/vulcan-blaze.avif",
     "releaseFrame": 76,
-    "manifest": "assets/pitcher-study-v5/vulcan-blaze-manifest.json",
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
     "anchor": {
       "x": 128,
-      "y": 243
+      "y": 218.83687943262413
     },
-    "visibleHeight": 224,
+    "visibleHeight": 218.43971631205673,
     "release": {
-      "x": 75,
-      "y": 41
+      "x": 87.76582198728308,
+      "y": 50.24404212638848
     },
-    "registration": "manual release drawing registration (approximate)"
+    "release3D": {
+      "x": -0.18418893181146384,
+      "y": 0.1285662039709383,
+      "z": 0.4151205164388354
+    },
+    "stride": {
+      "frame": 55,
+      "x": 141.1063829787234,
+      "y": 227.05021276595747
+    },
+    "hand": "right",
+    "style": "high-three-quarter",
+    "styleStatus": "source_defined",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "4ca0095cdb28cbfd094fc4a3e4e91b0076f85ae0862f870ed77b4987a5daa3f5",
+      "rigSha256": "46f22efcadf20d5b4371b23b36e11cd8c241244584953a2b78def50d14154cf1",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "c8c799bfd62757bf8bdf2a2cbf1d3accf5ad089a7e9eb56f72fba29d686cf9ea"
+    },
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
   },
   "jade-viper": {
     "id": "jade-viper",
-    "file": "assets/pitcher-study-jade-viper/atlases/jade-viper-pitch-120-atlas.png",
+    "file": "assets/pitcher-rig-v1/atlases/jade-viper.avif",
     "releaseFrame": 76,
-    "manifest": "assets/pitcher-study-jade-viper/jade-viper-manifest.json",
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
     "anchor": {
-      "x": 134,
-      "y": 218
+      "x": 128,
+      "y": 219.55871886120997
     },
-    "visibleHeight": 205,
+    "visibleHeight": 219.21708185053382,
     "release": {
-      "x": 118,
-      "y": 103
+      "x": 88.0840594858842,
+      "y": 51.612308236738926
     },
-    "registration": "manual release drawing registration (approximate)"
+    "release3D": {
+      "x": -0.182084079293288,
+      "y": 0.132512802442518,
+      "z": 0.42236674675761143
+    },
+    "stride": {
+      "frame": 55,
+      "x": 141.15302491103202,
+      "y": 227.80128113879005
+    },
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "3f894ba1a65c723914f3c0f6e3ddb52840ba58dfab2c79dceef6bbd1da4327af",
+      "rigSha256": "c1decd5189017e219d5e756e47abe99dcebedb173bb9949eeeaab9b9e4e3f002",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "0a1206e976315783a0d37ea8b002362c7e9ad14e9f75fc3d68ed942b082b6129"
+    },
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
   },
   "copper-sirocco": {
     "id": "copper-sirocco",
-    "file": "assets/pitcher-study-copper-sirocco/v2/atlases/copper-sirocco-pitch-120-atlas.png",
+    "file": "assets/pitcher-rig-v1/atlases/copper-sirocco.avif",
     "releaseFrame": 76,
-    "manifest": "assets/pitcher-study-copper-sirocco/v2/copper-sirocco-manifest.json",
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
     "anchor": {
-      "x": 102,
-      "y": 241
+      "x": 128,
+      "y": 218.83687943262413
     },
-    "visibleHeight": 182,
+    "visibleHeight": 218.43971631205673,
     "release": {
-      "x": 134,
-      "y": 116
+      "x": 88.22560537423213,
+      "y": 51.48602345575759
     },
-    "registration": "manual release drawing registration (approximate)"
+    "release3D": {
+      "x": -0.182084079293288,
+      "y": 0.132512802442518,
+      "z": 0.42236674675761143
+    },
+    "stride": {
+      "frame": 55,
+      "x": 141.1063829787234,
+      "y": 227.05021276595747
+    },
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "source_defined",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "88a4e9c9307eae2d85a3778fe19b05d7cbf4f374375cdb9a07ad863dda9dc819",
+      "rigSha256": "548894740748dbc9d174e3a5d4d1060f30f9e2a1df2aebfb48d2f56894969be2",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "0dfdf08dd2e280dcc6967b8cb1612cadc5463bcf91d0d562f51d4d49d2daf17c"
+    },
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
   },
   "onyx-eclipse": {
     "id": "onyx-eclipse",
-    "file": "assets/pitcher-study-onyx-eclipse/runtime/onyx-eclipse-pitch-120-atlas.png",
+    "file": "assets/pitcher-rig-v1/atlases/onyx-eclipse.avif",
     "releaseFrame": 76,
-    "manifest": "scripts/build-runtime-pitchers-1014.py",
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
     "anchor": {
       "x": 128,
-      "y": 243
+      "y": 220.44444444444446
     },
-    "visibleHeight": 196,
+    "visibleHeight": 207.40740740740742,
     "release": {
-      "x": 207,
-      "y": 120
+      "x": 174.6474299153033,
+      "y": 66.64997853931399
     },
-    "registration": "manual release drawing registration (approximate)"
+    "release3D": {
+      "x": 0.22490725137735515,
+      "y": 0.15883070212392222,
+      "z": 0.41525110763951856
+    },
+    "stride": {
+      "frame": 55,
+      "x": 115.55555555555556,
+      "y": 228.242962962963
+    },
+    "hand": "left",
+    "style": "three-quarter",
+    "styleStatus": "source_defined",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "2897b84a37f8bb16cf48beb1ad0fbab6b456f04423045c59c8849ce3f12dea05",
+      "rigSha256": "390597c2f7bfd25386242d63f9f2dade4ac235fd5f2441a67511d74a82a66eb9",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "569087f3b6382f5581c240c7a76f4917ea5b41b71f0b61d4e66475ebdef2e1e1"
+    },
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
   },
   "emerald-tempest": {
     "id": "emerald-tempest",
-    "file": "assets/pitcher-study-emerald-tempest/runtime/emerald-tempest-pitch-120-atlas.png",
+    "file": "assets/pitcher-rig-v1/atlases/emerald-tempest.avif",
     "releaseFrame": 76,
-    "manifest": "scripts/build-runtime-pitchers-1014.py",
+    "manifest": "assets/pitcher-rig-v1/manifest.json",
     "anchor": {
       "x": 128,
-      "y": 243
+      "y": 220.34163701067615
     },
-    "visibleHeight": 198,
+    "visibleHeight": 219.21708185053382,
     "release": {
-      "x": 76,
-      "y": 73
+      "x": 98.81321982319534,
+      "y": 47.07197879165116
     },
-    "registration": "manual release drawing registration (approximate)"
+    "release3D": {
+      "x": -0.13314099398834595,
+      "y": 0.11024564152014739,
+      "z": 0.4139674325495737
+    },
+    "stride": {
+      "frame": 55,
+      "x": 141.15302491103202,
+      "y": 228.58419928825623
+    },
+    "hand": "right",
+    "style": "high-overhand",
+    "styleStatus": "source_defined",
+    "status": "integrated_candidate",
+    "artAcceptance": false,
+    "knownVisualLimitations": [
+      "joint seams",
+      "release grip",
+      "weight transfer"
+    ],
+    "provenance": {
+      "revision": "full-roster-articulated-20261030",
+      "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+      "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+      "atlasSha256": "8b0ffc61f6a96c9980871731de33bf6dc9e63557c87fffb28cda71777ff13555",
+      "rigSha256": "65fe44b75b0f3f5a3909f197b2f2c647335b7a84bb5b494f7540a4954713997b",
+      "engineSha256": {
+        "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+        "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+        "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+      },
+      "runtimeSha256": "eb7b461c58cd6846c0cd70b4760763e362ebfa40ccb45de21fd1d736199653dd"
+    },
+    "registration": "rig manifest projection; release socket frame 76; lead foot frame 55"
   }
 }

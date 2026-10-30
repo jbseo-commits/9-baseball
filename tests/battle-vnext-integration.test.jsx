@@ -10,6 +10,7 @@ import {presentationFor,presentationTimeline} from '../src/duel/presentation.js'
 import {playV10Action} from '../src/duel/engine.js';
 import {LONG_PRESS_MS} from '../src/duel/CardDetailSheet.jsx';
 import {layoutMode,watchLayoutMode,landscapeMedia} from '../src/duel/layout-mode.js';
+import {rosterPitcherActor,rosterTimeline} from '../src/duel/battle-vnext/roster-actor.js';
 const approval=vi.hoisted(()=>({enabled:false}));
 vi.mock('../src/duel/battle-vnext/BattleScene.jsx',async original=>{
   const mod=await original();return {...mod,approvedPitcherArt:id=>approval.enabled&&id?mod.SAMPLE_ACTORS.pitcher:null};
@@ -127,7 +128,8 @@ describe('memory-only sandbox uses engine and preserves production save',()=>{
     act(()=>vi.advanceTimersByTime(presentationTimeline(presentationFor(prepared)).duration));
     fireEvent.click(screen.getByTestId('bp-swing')); // unselected = take
     expect(document.querySelector('.bv-scene').dataset.playToken).toBe('1');
-    act(()=>vi.advanceTimersByTime(presentationTimeline(presentationFor(playV10Action(prepared,{type:'take'}))).duration));act(()=>vi.advanceTimersByTime(AUTO_NEXT_MS));
+    const take=playV10Action(prepared,{type:'take'}),actor=rosterPitcherActor(prepared.v10.opponent.artId,'atlas');
+    act(()=>vi.advanceTimersByTime(rosterTimeline(presentationTimeline(presentationFor(take)),actor).duration));act(()=>vi.advanceTimersByTime(AUTO_NEXT_MS));
     expect(screen.getByTestId('bv-energy').dataset.energy).toBe('3');
     expect(screen.getByTestId('bv-result-recent').textContent).toMatch(/실제|노림|지켜/);
     fireEvent.click(card('place'));

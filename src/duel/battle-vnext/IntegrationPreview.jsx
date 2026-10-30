@@ -12,6 +12,7 @@ import {installCardDetailGestures} from '../CardDetailSheet.jsx';
 import {BattleActorSprite,BattlePitcherSprite} from '../App.jsx';
 import {BATTER_V15_SHEET} from '../batter-v15.js';
 import {pitcherAtlases} from '../pitcher-visuals.js';
+import {rosterPitcherActor,rosterTimeline} from './roster-actor.js';
 import {validComparisonActivity} from './compare-config.js';
 import './comparison.css';
 import LegacyCompareHost from './LegacyCompareHost.jsx';
@@ -33,6 +34,7 @@ function PreviewSession({fixture,onChange,sound,setSound,variant,embedded,animat
   const [active,setActive]=useState(!embedded),activeRef=useRef(!embedded);activeRef.current=active;
   useEffect(()=>{if(!embedded)return;const receive=e=>{if(validComparisonActivity(e,window))setActive(e.data.active);};window.addEventListener('message',receive);window.parent.postMessage({type:'9zone-battle-compare-ready',version:1},window.location.origin);return()=>window.removeEventListener('message',receive);},[embedded]);
   const [initial]=useState(()=>buildFixture(fixture));
+  const actor=variant==='vnext'?rosterPitcherActor(initial.artId,pitcherAtlases[initial.artId]):null;
   const [s,setS]=useState(initial.s),[selected,setSelected]=useState(initial.selected),[swingStack,setSwingStack]=useState(initial.swingStack);
   const [fxStage,setFxStage]=useState(initial.animate?'windup':initial.fxStage),[playback,setPlayback]=useState(null),[execution,setExecution]=useState(initial.execution);
   const cueAbort=useRef(new AbortController());
@@ -64,10 +66,10 @@ function PreviewSession({fixture,onChange,sound,setSound,variant,embedded,animat
   const beginPresentation=(next,executed)=>{
     const shot=presentationFor(next),reduced=!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     const isPitch=next.last?.kind!=='skill';
-    const timeline=withKnockoutHold(presentationTimeline(shot,reduced),isPitch&&!reduced&&next.pitcher?.hp===0);
+    const timeline=withKnockoutHold(rosterTimeline(presentationTimeline(shot,reduced),isPitch?actor:null,reduced),isPitch&&!reduced&&next.pitcher?.hp===0);
     cancelCues();
     const speed=reduced?1:animationRate(rate),emit=kind=>speed===1?cue(kind):cue(kind,{rate:speed,signal:cueAbort.current.signal});
-    const play={timeline,rate:speed,startedAt:performance.now(),token:++token.current,action:isPitch?(executed?.action==='take'?'take':'swing'):'prepare'};
+    const play={timeline,rate:speed,...(isPitch&&actor?{pitchReleaseAt:actor.releaseAt}:{}),startedAt:performance.now(),token:++token.current,action:isPitch?(executed?.action==='take'?'take':'swing'):'prepare'};
     busy.current=true;clock.current?.cancel();setPlayback(play);
     if(!embedded&&activeRef.current&&soundRef.current){audio();emit(isPitch?'pitch':shot?.cue||'skill');}
     clock.current=startPresentationClock(timeline,{startedAt:play.startedAt,rate:speed,
@@ -84,7 +86,7 @@ function PreviewSession({fixture,onChange,sound,setSound,variant,embedded,animat
     commit(state.phase==='pitch'?advanceV10Pitch(state):state.phase==='between'?advanceV10Batter(state):state);
   };
   const terminal=!['battle','pitch','between'].includes(s.phase);
-  const game=(<BallparkBattle locked={!active} s={s} {...inputs} selected={selected} pitcher={s.pitcher} pitcherArt={variant==='legacy'?(pitcherAtlases[initial.artId]?<BattlePitcherSprite atlas={pitcherAtlases[initial.artId]} stage={fxStage} shot={presentationFor(s)} playToken={s.stats.pitches}/>:<BattleActorSprite who="pitcher" golden stage={fxStage} shot={fxStage?presentationFor(s):null} playToken={s.stats.pitches}/>):null} batterArt={variant==='legacy'?<BattleActorSprite who="batter" golden sheet={BATTER_V15_SHEET} stage={fxStage} shot={fxStage?presentationFor(s):null} playToken={s.stats.pitches}/>:null} label="검수" artId={initial.artId}
+  const game=(<BallparkBattle locked={!active} s={s} {...inputs} selected={selected} pitcher={s.pitcher} rosterPitcher={actor} pitcherArt={variant==='legacy'?(pitcherAtlases[initial.artId]?<BattlePitcherSprite atlas={pitcherAtlases[initial.artId]} stage={fxStage} shot={presentationFor(s)} playToken={s.stats.pitches}/>:<BattleActorSprite who="pitcher" golden stage={fxStage} shot={fxStage?presentationFor(s):null} playToken={s.stats.pitches}/>):null} batterArt={variant==='legacy'?<BattleActorSprite who="batter" golden sheet={BATTER_V15_SHEET} stage={fxStage} shot={fxStage?presentationFor(s):null} playToken={s.stats.pitches}/>:null} label="검수" artId={initial.artId}
       vnextReview={variant==='legacy'?{...initial,variant:'legacy'}:initial} previewMode animationRate={rate} onAnimationRateChange={onRateChange} playback={playback} execution={execution} fxStage={fxStage||(terminal&&s.battle?.revealed?'settle':null)} shot={fxStage||s.battle?.revealed?presentationFor(s):null} playToken={s.stats.pitches}
       onSelect={setSelected} onStack={setSwingStack} onAim={z=>{if(activeRef.current&&!busy.current&&!fxStage){const next=setAimZone(current.current,z);current.current=next;setS(next);}}}
       onSwing={()=>action('card')} onTake={()=>action('take')}
@@ -95,7 +97,7 @@ function PreviewSession({fixture,onChange,sound,setSound,variant,embedded,animat
         {VNEXT_FIXTURES.filter(f=>!f.defenseLab).map(f=><option key={f.id} value={f.id}>{f.title}</option>)}
       </select></label>
       <button type="button" onClick={()=>onChange(fixture)}>다시 시작</button>
-      <button type="button" aria-pressed={sound} onClick={()=>{audio();setSound(v=>!v);}}>소리 {sound?'켜짐':'꺼짐'}</button><a href="?battleUi=vnext">실제 런으로</a><span className="bv-sandbox-art">샘플 투수 · 연출 검수</span><span className="bv-sandbox-seed">저장 안 됨 · seed {s.initialSeed||20261027}</span>
+      <button type="button" aria-pressed={sound} onClick={()=>{audio();setSound(v=>!v);}}>소리 {sound?'켜짐':'꺼짐'}</button><a href="?battleUi=vnext">실제 런으로</a><span className="bv-sandbox-art">{variant==='legacy'?'레거시 투수':actor?`${initial.artId} · 등록 로스터`:'투수 대체 배우'}</span><span className="bv-sandbox-seed">저장 안 됨 · seed {s.initialSeed||20261027}</span>
       {terminal&&(!fxStage||fxStage==='settle')&&<strong role="status">{s.phase==='reward'?'투수 강판':s.phase==='won'?'승리':'경기 종료'} · 다시 시작으로 검수 계속</strong>}
     </nav>
     {variant==='legacy'?<LegacyCompareHost hasAtlas={!!pitcherAtlases[initial.artId]}>{game}</LegacyCompareHost>:game}
