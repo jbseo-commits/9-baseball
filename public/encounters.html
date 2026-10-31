@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>투수 패턴 시범 전투 · 9ZONE</title>
+  <style>
+    :root{color-scheme:dark;font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif;background:#101a1d;color:#f3eedf}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(145deg,#17272a,#0d1619 65%)}
+    main{width:min(940px,100%);margin:auto;padding:clamp(24px,6vw,64px) 18px 48px}
+    header{max-width:630px;margin:0 auto 28px;text-align:center}h1{margin:0 0 8px;font-size:clamp(25px,5vw,38px);letter-spacing:-.04em;color:#fff7e7}
+    header p{margin:0;color:#c5c5b5;font-size:14px;line-height:1.6}
+    .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    a{min-height:185px;display:flex;flex-direction:column;justify-content:space-between;padding:19px 17px;border:1px solid #d9d2bd45;border-radius:9px;background:#1b2a2b;color:inherit;text-decoration:none;transition:background .15s,border-color .15s,transform .15s}
+    a:hover,a:focus-visible{background:#263839;border-color:#e5d5a2aa;transform:translateY(-2px);outline:none}
+    .tier{font-size:11px;letter-spacing:.12em;color:#c8b982;text-transform:uppercase}
+    h2{margin:11px 0 6px;font-size:21px;letter-spacing:-.03em}
+    p{margin:0;color:#d0d0c2;font-size:13px;line-height:1.55}
+    .go{align-self:flex-start;margin-top:18px;font-size:12px;font-weight:700;color:#f1d987}
+    footer{margin:22px auto 0;text-align:center;color:#9eaaa5;font-size:12px;line-height:1.6}
+    @media(max-width:650px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}a{min-height:162px;padding:15px 13px}h2{font-size:18px}}
+    @media(max-width:350px){main{padding-inline:12px}.grid{gap:7px}a{padding:13px 11px}}
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>투수 패턴 시범 전투</h1>
+      <p>상대의 공 습관을 읽고 9존과 카드를 골라 보세요.</p>
+    </header>
+    <section class="grid" aria-label="시범 투수 선택">
+      <a href="./?battleUi=vnext&amp;battlePlay=1&amp;encounterPilot=red&amp;seed=3">
+        <span><span class="tier">일반 · 튜토리얼</span><h2>레드 러시</h2><p>처음 두 공은 표시된 한곳. 이후 같은 열의 후보가 넓어집니다.</p></span><span class="go">대결 시작 →</span>
+      </a>
+      <a href="./?battleUi=vnext&amp;battlePlay=1&amp;encounterPilot=teal&amp;seed=3">
+        <span><span class="tier">일반</span><h2>청록 미라주</h2><p>바깥 열 두 공 뒤 가운데 열로 돌아옵니다.</p></span><span class="go">대결 시작 →</span>
+      </a>
+      <a href="./?battleUi=vnext&amp;battlePlay=1&amp;encounterPilot=cobalt&amp;seed=3">
+        <span><span class="tier">엘리트</span><h2>코발트 임팩트</h2><p>초반은 안쪽 세 존, 투스트라이크엔 여섯 존으로 확장.</p></span><span class="go">대결 시작 →</span>
+      </a>
+      <a href="./?battleUi=vnext&amp;battlePlay=1&amp;encounterPilot=tyrant&amp;seed=3">
+        <span><span class="tier">보스 · 1막</span><h2>에메랄드 타이런트</h2><p>낮은 벽 영역은 감쇠. 정확히 깨면 다음 두 공이 빈틈입니다.</p></span><span class="go">대결 시작 →</span>
+      </a>
+    </section>
+    <footer>시범 전투입니다. 진행 저장은 본게임과 분리됩니다.</footer>
+  </main>
+</body>
+</html>

@@ -18,6 +18,20 @@ it('starts the actual normal starter at a reachable opponent and reloads the exi
  const aimed=setAimZone(normal,8);saveV10Duel(st,aimed);expect(startPlayableRun(st,'?seed=999')).toEqual(aimed);
  expect(localStorage.getItem(V10_SAVE_KEY)).toBeNull();expect(sessionStorage.getItem(PLAYABLE_PREFIX+V10_SAVE_KEY)).not.toBeNull();
 });
+it('starts an explicitly selected encounter pilot in its isolated session namespace',()=>{
+ window.history.replaceState({},'','/?battleUi=vnext&battlePlay=1&encounterPilot=tyrant&seed=23');
+ const v=render(<PlayableRun/>),own=playableStorage(sessionStorage,'encounter-tyrant-23'),state=readV10Duel(own);
+ expect(state.v10.encounterPilot).toMatchObject({version:1,id:'tyrant',seed:23});
+ expect(state.v10.opponent).toMatchObject({artId:'boss-01-emerald-tyrant',encounterPilot:{version:1,id:'tyrant'}});
+ expect(screen.queryByText('시범 전투 · 본게임 저장과 분리')).toBeNull();
+ expect(screen.getByTestId('bv-tell').textContent).toContain('낮은 벽');
+ expect(document.querySelector('.bv-cell[data-zone="6"]').getAttribute('aria-label')).toContain('낮은 벽 벽');
+ expect(localStorage.getItem(V10_SAVE_KEY)).toBeNull();
+ const other=playableStorage(sessionStorage,'encounter-red-23');const red=startPlayableRun(other,'?encounterPilot=red&seed=23');
+ expect(red.v10.encounterPilot.id).toBe('red');expect(readV10Duel(own).v10.encounterPilot.id).toBe('tyrant');
+ expect(sessionStorage.getItem(PLAYABLE_PREFIX+'encounter-red-23:'+V10_SAVE_KEY)).not.toBeNull();
+ v.unmount();
+});
 it('supports denied session storage in memory and never falls back to production storage',()=>{
  const st=playableStorage({getItem(){throw Error()},setItem(){throw Error()},removeItem(){throw Error()}});st.setItem('a',7);expect(st.getItem('a')).toBe('7');st.removeItem('a');expect(st.getItem('a')).toBeNull();
 });

@@ -1,0 +1,957 @@
+{
+  "policy": "public interval forecasts only; hidden-pitch perturbation invariance tested; no state/card/HP grants",
+  "reports": [
+    {
+      "id": "red",
+      "seed": 3,
+      "phase": "reward",
+      "hp": 0,
+      "pitches": 4,
+      "outs": 0,
+      "log": [
+        {
+          "i": 0,
+          "action": {
+            "type": "card",
+            "id": "c2",
+            "zone": 5,
+            "publicForecast": {
+              "hitBounds": [
+                0.28,
+                1
+              ],
+              "damage": [
+                18,
+                45
+              ]
+            }
+          },
+          "pitch": 1,
+          "phase": "between",
+          "hp": 42,
+          "outs": 0,
+          "energy": 1,
+          "window": 0,
+          "intent": "표시된 한곳으로 승부",
+          "actual": 5
+        },
+        {
+          "i": 1,
+          "action": {
+            "type": "card",
+            "id": "c1",
+            "zone": 5,
+            "publicForecast": {
+              "hitBounds": [
+                0.28,
+                1
+              ],
+              "damage": [
+                21,
+                53
+              ]
+            }
+          },
+          "pitch": 2,
+          "phase": "between",
+          "hp": 21,
+          "outs": 0,
+          "energy": 1,
+          "window": 0,
+          "intent": "표시된 한곳으로 승부",
+          "actual": 5
+        },
+        {
+          "i": 2,
+          "action": {
+            "type": "card",
+            "id": "c4",
+            "zone": 2,
+            "publicForecast": {
+              "hitBounds": [
+                0.56,
+                1
+              ],
+              "damage": [
+                17,
+                43
+              ]
+            }
+          },
+          "pitch": 3,
+          "phase": "between",
+          "hp": 4,
+          "outs": 0,
+          "energy": 0,
+          "window": 0,
+          "intent": "같은 열 후보 2칸",
+          "actual": 2
+        },
+        {
+          "i": 3,
+          "action": {
+            "type": "card",
+            "id": "c5",
+            "zone": 2,
+            "publicForecast": {
+              "hitBounds": [
+                0.56,
+                1
+              ],
+              "damage": [
+                21,
+                51
+              ]
+            }
+          },
+          "pitch": 4,
+          "phase": "reward",
+          "hp": 0,
+          "outs": 0,
+          "energy": 0,
+          "window": 0,
+          "intent": "같은 열 후보 2칸",
+          "actual": 5
+        }
+      ]
+    },
+    {
+      "id": "teal",
+      "seed": 3,
+      "phase": "reward",
+      "hp": 0,
+      "pitches": 5,
+      "outs": 0,
+      "log": [
+        {
+          "i": 0,
+          "action": {
+            "type": "card",
+            "id": "c4",
+            "zone": 2,
+            "publicForecast": {
+              "hitBounds": [
+                0.8400000000000001,
+                1
+              ],
+              "damage": [
+                12,
+                30
+              ]
+            }
+          },
+          "pitch": 1,
+          "phase": "between",
+          "hp": 48,
+          "outs": 0,
+          "energy": 0,
+          "window": 0,
+          "intent": "바깥쪽 고집",
+          "actual": 2
+        },
+        {
+          "i": 1,
+          "action": {
+            "type": "card",
+            "id": "c2",
+            "zone": 2,
+            "supports": [
+              {
+                "id": "c1",
+                "aimZone": 5
+              }
+            ],
+            "publicForecast": {
+              "hitBounds": [
+                0.56,
+                0.72
+              ],
+              "damage": [
+                12,
+                46
+              ]
+            }
+          },
+          "pitch": 2,
+          "phase": "between",
+          "hp": 36,
+          "outs": 0,
+          "energy": 0,
+          "window": 0,
+          "intent": "바깥쪽 고집",
+          "actual": 5
+        },
+        {
+          "i": 2,
+          "action": {
+            "type": "card",
+            "id": "c5",
+            "zone": 1,
+            "publicForecast": {
+              "hitBounds": [
+                0.8400000000000001,
+                1
+              ],
+              "damage": [
+                17,
+                43
+              ]
+            }
+          },
+          "pitch": 3,
+          "phase": "between",
+          "hp": 19,
+          "outs": 0,
+          "energy": 0,
+          "window": 0,
+          "intent": "가운데로 돌아온다",
+          "actual": 1
+        },
+        {
+          "i": 3,
+          "action": {
+            "type": "card",
+            "id": "c3",
+            "zone": 2,
+            "supports": [
+              {
+                "id": "c0",
+                "aimZone": 5
+              }
+            ],
+            "publicForecast": {
+              "hitBounds": [
+                0.56,
+                0.72
+              ],
+              "damage": [
+                18,
+                61
+              ]
+            }
+          },
+          "pitch": 4,
+          "phase": "pitch",
+          "hp": 18,
+          "outs": 0,
+          "energy": 0,
+          "window": 0,
+          "intent": "바깥쪽 고집",
+          "actual": 8
+        },
+        {
+          "i": 4,
+          "action": {
+            "type": "card",
+            "id": "c8"
+          },
+          "pitch": 4,
+          "phase": "battle",
+          "hp": 18,
+          "outs": 0,
+          "energy": 1,
+          "window": 0,
+          "intent": "바깥쪽 고집",
+          "actual": null
+        },
+        {
+          "i": 5,
+          "action": {
+            "type": "card",
+            "id": "basic",
+            "zone": 5,
+            "publicForecast": {
+              "hitBounds": [
+                0.72,
+                1
+              ],
+              "damage": [
+                21,
+                21
+              ]
+            }
+          },
+          "pitch": 5,
+          "phase": "reward",
+          "hp": 0,
+          "outs": 0,
+          "energy": 1,
+          "window": 0,
+          "intent": "바깥쪽 고집",
+          "actual": 5
+        }
+      ]
+    },
+    {
+      "id": "cobalt",
+      "seed": 3,
+      "phase": "reward",
+      "hp": 0,
+      "pitches": 6,
+      "outs": 0,
+      "log": [
+        {
+          "i": 0,
+          "action": {
+            "type": "card",
+            "id": "c4",
+            "zone": 0,
+            "publicForecast": {
+              "hitBounds": [
+                0.8400000000000001,
+                1
+              ],
+              "damage": [
+                12,
+                12
+              ]
+            }
+          },
+          "pitch": 1,
+          "phase": "between",
+          "hp": 76,
+          "outs": 0,
+          "energy": 0,
+          "window": 0,
+          "intent": "초구부터 승부 · 안쪽 3존",
+          "actual": 0
+        },
+        {
+          "i": 1,
+          "action": {
+            "type": "card",
+            "id": "c2",
+            "zone": 3,
+            "supports": [
+              {
+                "id": "c1",
+                "aimZone": 0
+              }
+            ],
+            "publicForecast": {
+              "hitBounds": [
+                0.56,
+                0.72
+              ],
+              "damage": [
+                12,
+                46
+              ]
+            }
+          },
+          "pitch": 2,
+          "phase": "between",
+          "hp": 58,
+          "outs": 0,
+          "energy": 0,
+          "window": 0,
+          "intent": "초구부터 승부 · 안쪽 3존",
+          "actual": 3
+        },
+        {
+          "i": 2,
+          "action": {
+            "type": "card",
+            "id": "c5",
+            "zone": 0,
+            "publicForecast": {
+              "hitBounds": [
+                0.8400000000000001,
+                1
+              ],
+              "damage": [
+                17,
+                43
+              ]
+            }
+          },
+          "pitch": 3,
+          "phase": "between",
+          "hp": 41,
+          "outs": 0,
+          "energy": 0,
+          "window": 0,
+          "intent": "초구부터 승부 · 안쪽 3존",
+          "actual": 0
+        },
+        {
+          "i": 3,
+          "action": {
+            "type": "card",
+            "id": "c3",
+            "zone": 3,
+            "supports": [
+              {
+                "id": "c0",
+                "aimZone": 0
+              }
+            ],
+            "publicForecast": {
+              "hitBounds": [
+                0.56,
+                0.72
+              ],
+              "damage": [
+                18,
+                61
+              ]
+            }
+          },
+          "pitch": 4,
+          "phase": "pitch",
+          "hp": 39,
+          "outs": 0,
+          "energy": 0,
+          "window": 0,
+          "intent": "초구부터 승부 · 안쪽 3존",
+          "actual": 6
+        },
+        {
+          "i": 4,
+          "action": {
+            "type": "card",
+            "id": "c8"
+          },
+          "pitch": 4,
+          "phase": "battle",
+          "hp": 39,
+          "outs": 0,
+          "energy": 1,
+          "window": 0,
+          "intent": "초구부터 승부 · 안쪽 3존",
+          "actual": null
+        },
+        {
+          "i": 5,
+          "action": {
+            "type": "card",
+            "id": "basic",
+            "zone": 3,
+            "publicForecast": {
+              "hitBounds": [
+                0.72,
+                1
+              ],
+              "damage": [
+                21,
+                21
+              ]
+            }
+          },
+          "pitch": 5,
+          "phase": "between",
+          "hp": 18,
+          "outs": 0,
+          "energy": 1,
+          "window": 0,
+          "intent": "초구부터 승부 · 안쪽 3존",
+          "actual": 3
+        },
+        {
+          "i": 6,
+          "action": {
+            "type": "card",
+            "id": "c4",
+            "zone": 0,
+            "publicForecast": {
+              "hitBounds": [
+                0.9,
+                0.95
+              ],
+              "damage": [
+                22,
+                55
+              ]
+            }
+          },
+          "pitch": 6,
+          "phase": "reward",
+          "hp": 0,
+          "outs": 0,
+          "energy": 0,
+          "window": 0,
+          "intent": "초구부터 승부 · 안쪽 3존",
+          "actual": 0
+        }
+      ]
+    },
+    {
+      "id": "tyrant",
+      "seed": 3,
+      "phase": "lost",
+      "hp": 10,
+      "pitches": 18,
+      "outs": 3,
+      "log": [
+        {
+          "i": 0,
+          "action": {
+            "type": "card",
+            "id": "c2",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                18,
+                45
+              ]
+            }
+          },
+          "pitch": 1,
+          "phase": "pitch",
+          "hp": 109,
+          "outs": 0,
+          "energy": 1,
+          "window": 0,
+          "intent": "낮은 싱커",
+          "actual": 6
+        },
+        {
+          "i": 1,
+          "action": {
+            "type": "card",
+            "id": "c1",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                18,
+                45
+              ]
+            }
+          },
+          "pitch": 2,
+          "phase": "pitch",
+          "hp": 107,
+          "outs": 0,
+          "energy": 1,
+          "window": 0,
+          "intent": "낮은 싱커",
+          "actual": 6
+        },
+        {
+          "i": 2,
+          "action": {
+            "type": "card",
+            "id": "c4",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.28,
+                0.7000000000000001
+              ],
+              "damage": [
+                12,
+                18
+              ]
+            }
+          },
+          "pitch": 3,
+          "phase": "between",
+          "hp": 106,
+          "outs": 1,
+          "energy": 0,
+          "window": 0,
+          "intent": "몸쪽 승부구",
+          "actual": 1
+        },
+        {
+          "i": 3,
+          "action": {
+            "type": "card",
+            "id": "c3",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                18,
+                27
+              ]
+            }
+          },
+          "pitch": 4,
+          "phase": "pitch",
+          "hp": 105,
+          "outs": 1,
+          "energy": 1,
+          "window": 0,
+          "intent": "낮은 싱커",
+          "actual": 8
+        },
+        {
+          "i": 4,
+          "action": {
+            "type": "card",
+            "id": "c0",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                18,
+                27
+              ]
+            }
+          },
+          "pitch": 5,
+          "phase": "pitch",
+          "hp": 103,
+          "outs": 1,
+          "energy": 1,
+          "window": 0,
+          "intent": "낮은 싱커",
+          "actual": 7
+        },
+        {
+          "i": 5,
+          "action": {
+            "type": "card",
+            "id": "c5",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.28,
+                0.7000000000000001
+              ],
+              "damage": [
+                12,
+                18
+              ]
+            }
+          },
+          "pitch": 6,
+          "phase": "pitch",
+          "hp": 101,
+          "outs": 1,
+          "energy": 0,
+          "window": 0,
+          "intent": "몸쪽 승부구",
+          "actual": 1
+        },
+        {
+          "i": 6,
+          "action": {
+            "type": "card",
+            "id": "c2",
+            "zone": 3,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                18,
+                27
+              ]
+            }
+          },
+          "pitch": 7,
+          "phase": "between",
+          "hp": 83,
+          "outs": 1,
+          "energy": 1,
+          "window": 0,
+          "intent": "몸쪽 승부구",
+          "actual": 3
+        },
+        {
+          "i": 7,
+          "action": {
+            "type": "card",
+            "id": "c3",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                21,
+                53
+              ]
+            }
+          },
+          "pitch": 8,
+          "phase": "pitch",
+          "hp": 81,
+          "outs": 1,
+          "energy": 1,
+          "window": 0,
+          "intent": "낮은 싱커",
+          "actual": 6
+        },
+        {
+          "i": 8,
+          "action": {
+            "type": "card",
+            "id": "c5",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.56
+              ],
+              "damage": [
+                14,
+                22
+              ]
+            }
+          },
+          "pitch": 9,
+          "phase": "between",
+          "hp": 67,
+          "outs": 1,
+          "energy": 0,
+          "window": 2,
+          "intent": "낮은 싱커",
+          "actual": 6
+        },
+        {
+          "i": 9,
+          "action": {
+            "type": "card",
+            "id": "c4",
+            "zone": 0,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.56
+              ],
+              "damage": [
+                17,
+                33
+              ]
+            }
+          },
+          "pitch": 10,
+          "phase": "pitch",
+          "hp": 66,
+          "outs": 1,
+          "energy": 0,
+          "window": 1,
+          "intent": "낮은 싱커",
+          "actual": 4
+        },
+        {
+          "i": 10,
+          "action": {
+            "type": "card",
+            "id": "c1",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                30,
+                76
+              ]
+            }
+          },
+          "pitch": 11,
+          "phase": "pitch",
+          "hp": 64,
+          "outs": 1,
+          "energy": 1,
+          "window": 0,
+          "intent": "낮은 싱커",
+          "actual": 8
+        },
+        {
+          "i": 11,
+          "action": {
+            "type": "card",
+            "id": "c0",
+            "zone": 3,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                24,
+                61
+              ]
+            }
+          },
+          "pitch": 12,
+          "phase": "between",
+          "hp": 62,
+          "outs": 2,
+          "energy": 1,
+          "window": 0,
+          "intent": "몸쪽 승부구",
+          "actual": 6
+        },
+        {
+          "i": 12,
+          "action": {
+            "type": "card",
+            "id": "c1",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                20,
+                51
+              ]
+            }
+          },
+          "pitch": 13,
+          "phase": "pitch",
+          "hp": 60,
+          "outs": 2,
+          "energy": 1,
+          "window": 0,
+          "intent": "낮은 싱커",
+          "actual": 6
+        },
+        {
+          "i": 13,
+          "action": {
+            "type": "card",
+            "id": "c4",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.56
+              ],
+              "damage": [
+                14,
+                22
+              ]
+            }
+          },
+          "pitch": 14,
+          "phase": "between",
+          "hp": 46,
+          "outs": 2,
+          "energy": 0,
+          "window": 2,
+          "intent": "낮은 싱커",
+          "actual": 6
+        },
+        {
+          "i": 14,
+          "action": {
+            "type": "card",
+            "id": "c0",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                30,
+                75
+              ]
+            }
+          },
+          "pitch": 15,
+          "phase": "between",
+          "hp": 16,
+          "outs": 2,
+          "energy": 1,
+          "window": 1,
+          "intent": "낮은 싱커",
+          "actual": 7
+        },
+        {
+          "i": 15,
+          "action": {
+            "type": "card",
+            "id": "c2",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.2,
+                0.25
+              ],
+              "damage": [
+                31,
+                49
+              ]
+            }
+          },
+          "pitch": 16,
+          "phase": "pitch",
+          "hp": 14,
+          "outs": 2,
+          "energy": 1,
+          "window": 0,
+          "intent": "낮은 싱커",
+          "actual": 7
+        },
+        {
+          "i": 16,
+          "action": {
+            "type": "card",
+            "id": "c5",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.25,
+                0.35
+              ],
+              "damage": [
+                18,
+                28
+              ]
+            }
+          },
+          "pitch": 17,
+          "phase": "pitch",
+          "hp": 12,
+          "outs": 2,
+          "energy": 0,
+          "window": 0,
+          "intent": "낮은 싱커",
+          "actual": 1
+        },
+        {
+          "i": 17,
+          "action": {
+            "type": "card",
+            "id": "c3",
+            "zone": 3,
+            "publicForecast": {
+              "hitBounds": [
+                0.2,
+                0.25
+              ],
+              "damage": [
+                25,
+                39
+              ]
+            }
+          },
+          "pitch": 18,
+          "phase": "lost",
+          "hp": 10,
+          "outs": 3,
+          "energy": 1,
+          "window": 0,
+          "intent": "몸쪽 승부구",
+          "actual": 0
+        }
+      ]
+    }
+  ]
+}

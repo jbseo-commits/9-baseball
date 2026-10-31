@@ -57,10 +57,11 @@ describe('today forecast review regressions',()=>{
     expect(p.hitBounds).toEqual(q.hitBounds);
     expect([p.dmgMin,p.dmgMax]).toEqual([q.dmgMin,q.dmgMax]);
   });
-  it('coarse partial scouting on trick pitchers stays conservative and honors the landed clue',()=>{
+  it('coarse partial scouting on trick pitchers conditions the centralized final landing distribution',()=>{
     const s=battle();s.v10.opponent.gimmick={id:'trick'};s.battle.scouted=true;s.battle.pending.zone=4;
     expect(v10HitBounds(s,[3,4,5])).toEqual([1,1]);
     expect(v10HitBounds(s,[0,1,2])).toEqual([0,0]);
-    expect(v10HitBounds(s,[4])).toEqual([0,1]);
+    const [low,high]=v10HitBounds(s,[4]);
+    expect(low).toBeGreaterThan(0);expect(high).toBeLessThan(1);expect(low).toBeLessThan(high);
   });
 });
