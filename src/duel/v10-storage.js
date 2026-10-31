@@ -2,6 +2,7 @@ import {validateRunMap} from './run-map.js';
 import {isPitcherHp} from './pitcher-hp.js';
 import {CARDS} from './cards.js';
 import {v10EnergyCap} from './energy.js';
+import {ENCOUNTER_PILOT_VERSION,isEncounterPilotId} from './encounter-pilot-v1.js';
 
 export const V10_SAVE_KEY='9zone-v10-run';
 const PHASES=new Set(['map','battle','pitch','between','reward','lost','won','training','locker','shop','rest','event']);
@@ -28,6 +29,18 @@ export function validateV10State(s){
   /* A save that claims to be mid-battle must carry a battle object. */
   if(['battle','pitch','between'].includes(s.phase)&&(!s.battle||typeof s.battle!=='object'))return false;
   if(!s.v10||typeof s.v10!=='object')return false;
+  const pilot=s.v10.encounterPilot;
+  const tagged=s.runMap.nodes.filter(n=>n.opponent?.encounterPilot!==undefined);
+  if(pilot!==undefined){
+    if(!pilot||pilot.version!==ENCOUNTER_PILOT_VERSION||!isEncounterPilotId(pilot.id)||pilot.seed!==s.initialSeed
+      ||tagged.length!==1||tagged[0].id!=='a1-entry'||tagged[0].opponent.encounterPilot?.version!==ENCOUNTER_PILOT_VERSION
+      ||tagged[0].opponent.encounterPilot?.id!==pilot.id)return false;
+  }else if(tagged.length)return false;
+  const activeTag=s.v10.opponent?.encounterPilot;
+  if(activeTag!==undefined&&(!activeTag||activeTag.version!==ENCOUNTER_PILOT_VERSION
+    ||!isEncounterPilotId(activeTag.id)||activeTag.id!==pilot?.id))return false;
+  if(pilot&&s.v10.nodeId==='a1-entry'&&['battle','pitch','between','reward','lost'].includes(s.phase)
+    &&(!activeTag||activeTag.version!==ENCOUNTER_PILOT_VERSION||activeTag.id!==pilot.id))return false;
   if(s.v10.relicChoices!==undefined&&!Array.isArray(s.v10.relicChoices))return false;
   if(!Array.isArray(s.rewards)||!Array.isArray(s.v10.utilityHistory))return false;
   const validBonus=b=>b===null||b===undefined||(b&&Number.isInteger(b.technique)&&b.technique>=0&&b.technique<=100&&typeof b.source==='string');
@@ -37,6 +50,32 @@ export function validateV10State(s){
   if(s.pitcher!==null&&s.pitcher!==undefined&&!isPitcherHp(s.pitcher))return false;
   if(['battle','pitch','between','reward','lost'].includes(s.phase)&&!isPitcherHp(s.pitcher))return false;
   if(s.phase==='reward'&&s.pitcher?.hp!==0)return false;
+  if(s.battle?.encounter!==undefined){
+    const e=s.battle.encounter;
+    if(!e||e.version!==ENCOUNTER_PILOT_VERSION||!isEncounterPilotId(e.id)
+      ||!Number.isInteger(e.committedPitches)||e.committedPitches<0
+      ||!Number.isInteger(e.pitchesInPA)||e.pitchesInPA<0||e.pitchesInPA>e.committedPitches
+      ||!Number.isInteger(e.guardOpenPitchesRemaining)||e.guardOpenPitchesRemaining<0||e.guardOpenPitchesRemaining>2
+      ||(e.lastMessage!==null&&typeof e.lastMessage!=='string'))return false;
+    if(pilot?.id!==e.id||s.v10.opponent?.encounterPilot?.version!==ENCOUNTER_PILOT_VERSION
+      ||s.v10.opponent?.encounterPilot?.id!==e.id)return false;
+    const cp=e.currentPitch;
+    if(!cp||cp.version!==ENCOUNTER_PILOT_VERSION||cp.id!==e.id||!Number.isInteger(cp.pitchNumber)
+      ||cp.pitchNumber<1||cp.pitchNumber>e.committedPitches+1
+      ||!Array.isArray(cp.guardZones)||cp.guardZones.some(z=>!Number.isInteger(z)||z<0||z>8)
+      ||typeof cp.guardOpen!=='boolean'||!Number.isInteger(cp.guardOpenPitchesRemaining)
+      ||cp.guardOpenPitchesRemaining<0||cp.guardOpenPitchesRemaining>2
+      ||(cp.candidateZones!==undefined&&(!Array.isArray(cp.candidateZones)||cp.candidateZones.some(z=>!Number.isInteger(z)||z<0||z>8))))return false;
+    if(s.phase==='battle'){
+      const p=s.battle.pending?.encounter;
+      if(!p||p.version!==ENCOUNTER_PILOT_VERSION||p.id!==e.id||p.pitchNumber!==e.committedPitches+1
+        ||!Array.isArray(p.guardZones)||p.guardZones.some(z=>!Number.isInteger(z)||z<0||z>8)
+        ||typeof p.guardOpen!=='boolean'||p.guardOpen!== (e.guardOpenPitchesRemaining>0)
+        ||!Number.isInteger(p.guardOpenPitchesRemaining)||p.guardOpenPitchesRemaining!==e.guardOpenPitchesRemaining
+        ||(p.candidateZones!==undefined&&(!Array.isArray(p.candidateZones)||p.candidateZones.some(z=>!Number.isInteger(z)||z<0||z>8)))
+        ||cp.pitchNumber!==p.pitchNumber)return false;
+    }else if(s.battle.pending?.encounter)return false;
+  }else if(s.v10.opponent?.encounterPilot&&['battle','pitch','between','reward','lost'].includes(s.phase))return false;
   const last=s.v10.lastCombat;
   if(last!==null&&last!==undefined){
     if(typeof last.choice!=='string'||!Number.isInteger(last.actualPitch)||last.actualPitch<0||last.actualPitch>9

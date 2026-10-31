@@ -1,13 +1,12 @@
 /* 스윙 예측 프리뷰 (P1, 2026-10-24).
    계산은 게임이, 판단은 유저가: 실행하기 전에 이 스윙이 투수 HP에 무엇을 할지 보여 준다.
    실제 판정(engine resolve → playV10Action)과 같은 함수만 쓴다:
-   - 공 분포: 공개 분포(publicProbabilities)에 속임수 코스 이동(dealPitch와 같은 규칙)을 합친 것
+   - 공 분포: 엔진이 공개한 최종 착지 분포(publicProbabilities). 기존 속임수 이동은 여기서 한 번만 반영된다.
    - 결과 분포: swingOdds / hitProfile (resolve·battingResult와 같은 함수)
    - HP: v10DamageTerms + pitcherDamageFor (playV10Action·applyPitcherOutcome와 같은 함수)
    숨은 난수(pending.zone/roll)는 절대 읽지 않는다. */
 import {CARDS} from './cards.js';
-import {trickNeighbors} from './gimmick.js';
-import {publicProbabilities,knownPitchZones,coverage,coverageAt,swingOdds,hitProfile,v11StackPlan,v10GimmickRules,
+import {publicProbabilities,knownPitchZones,coverage,coverageAt,swingOdds,hitProfile,v11StackPlan,
   v10DamageTerms,v10Shaken,readLevel,playV10Action,V10_RUNNER_PRESSURE,cardProblem,stackSupportProblem} from './engine.js';
 import {pitcherDamageFor} from './pitcher-hp.js';
 import {probabilityBounds} from './information.js';
@@ -15,39 +14,17 @@ import {probabilityBounds} from './information.js';
 const EPS=1e-9;
 const kindOf=(s,id)=>id==='basic'?'basic':s.deck.find(c=>c.id===id)?.kind;
 
-/* 속임수 코스(gimmick trick): dealPitch는 존 안 공을 이 확률로 예고 칸의 이웃으로 민다. */
-export function trickRateFor(s){
-  const b=s?.battle,gr=v10GimmickRules(s);
-  return b?.strikes===0&&b?.balls===0?gr.trickRate:gr.trickLate;
-}
-function trickMix(p,t){
-  if(!t)return [...p];
-  const out=p.map((v,z)=>z<9?v*(1-t):v);
-  for(let z=0;z<9;z++){if(!p[z])continue;const near=trickNeighbors(z);for(const y of near)out[y]+=p[z]*t/near.length;}
-  return out;
-}
 /* 이번 공이 실제로 떨어질 분포 (판정용 진짜 확률). 정찰 단서가 있으면 그 범위로 좁힌다. */
 export function v10PitchDistribution(s){
-  const b=s.battle,mixed=trickMix(b.intent.probabilities,trickRateFor(s));
-  if(!b.scouted||!b.pending)return mixed;
-  const known=knownPitchZones(s),visible=mixed.map((v,z)=>known.includes(z)?v:0),sum=visible.reduce((a,x)=>a+x,0);
-  return sum>0?visible.map(v=>v/sum):publicProbabilities(s);
+  return publicProbabilities(s);
 }
 
-/* 화면에 보이는 적중 확률. 읽기 2단계는 정확한 값, 낮은 단계는 공개 구간(틀린 숫자는 보이지 않는다).
-   공개 칸 구간을 속임수 이동에 그대로 통과시킨다: 이동은 비음수 선형이라 구간이 보존된다. */
+/* 화면에 보이는 적중 확률. 읽기 2단계는 정확한 값, 낮은 단계는 공개 구간(틀린 숫자는 보이지 않는다). */
 export function publicPitchBounds(s){
   const known=knownPitchZones(s);
   if(known.length===1)return Array.from({length:10},(_,z)=>known.includes(z)?[1,1]:[0,0]);
   if(readLevel(s)===2)return v10PitchDistribution(s).map(v=>[v,v]);
-  const t=trickRateFor(s),bounds=probabilityBounds(s);
-  // A scout describes the already-shifted landing, not a new pre-trick pitch.
-  // Partial clues at coarse read cannot reconstruct its conditional weights.
-  if(s.battle.scouted){
-    return t?bounds.map((_,z)=>known.includes(z)?[0,1]:[0,0]):bounds;
-  }
-  const lo=trickMix(bounds.map(x=>x[0]),t),hi=trickMix(bounds.map(x=>x[1]),t);
-  return lo.map((v,z)=>[v,hi[z]]);
+  return probabilityBounds(s);
 }
 export function publicMassBounds(bounds,zones){
   const set=new Set(zones),sum=(inside,index)=>bounds.reduce((a,v,z)=>a+(set.has(z)===inside?v[index]:0),0);
@@ -89,7 +66,7 @@ export function previewSwing(s,{id='basic',supports=[]}={},probabilities=v10Pitc
     if(p<=EPS)return;
     const terms=v10DamageTerms(s,{action,choice:k,r:{...r,label:outcome.label,bases:outcome.bases},outcome,stackCardCount,stackDamageRate,pitchInPA,
       handAfter:handAfterFor(s,id,items,r.kind==='hit'),foulStreak});
-    const {damage}=pitcherDamageFor(outcome,foulStreak,{damageMultiplier:terms.damageMultiplier,damageBonus:terms.damageBonus});
+    const {damage}=pitcherDamageFor(outcome,foulStreak,{damageMultiplier:terms.damageMultiplier,damageBonus:terms.damageBonus,damageEfficiency:terms.damageEfficiency});
     outcomes.push({p,kind:r.kind,bases:outcome.bases||0,zone:outcome.zone,label:outcome.label,damage,terms});
   };
   const base={aimZone:b.aimZone,primaryCoverage:main,supportKinds:items.map(x=>x.kind),stackLinks:plan.links||[]};
@@ -136,6 +113,9 @@ export function previewSwing(s,{id='basic',supports=[]}={},probabilities=v10Pitc
   const precision=hits.find(o=>o.terms.precisionRate>0)?.terms.precisionRate||0;
   if(precision)reasons.push({key:'precision',label:'정확 적중 +'+Math.round(precision*100)+'%'});
   if(runners)reasons.push({key:'runners',label:'+'+Math.round(runners*V10_RUNNER_PRESSURE*100)+'% (주자 '+runners+'명)'});
+  const efficiencies=[...new Set(publicOutcomes.filter(o=>o.kind==='hit').map(o=>o.terms.damageEfficiency).filter(v=>v!==1))];
+  if(efficiencies.includes(.75))reasons.push({key:'encounter-wall',label:'낮은 벽 영역 HP ×0.75'});
+  if(efficiencies.includes(1.25))reasons.push({key:'encounter-gap',label:'낮은 벽 빈틈 HP ×1.25'});
   const shakenHp=shaken?(CARDS[k]?.fx?.shaken||0)*shaken:0;
   return {hitChance,hitBounds:sacrifice?[0,0]:v10HitBounds(publicView,combined),dmgMin,dmgMax,missMin,missMax,expected,
     sacrifice,sacBounds,sacMin,sacMax,

@@ -6,7 +6,7 @@
    - 숨은 값(battle.pending의 실제 코스·난수, previewSwing의 hitChance·expected·outcomes)은 결과에 담지 않는다.
      읽기 0/1에서는 칸별 정확한 %도 담지 않는다. */
 import {CARDS,LINEUP,bandFor,rangeFor,shadeNameFor,cardCost} from '../cards.js';
-import {publicProbabilities,readLevel,readSources,knownPitchZones,v10StackMax,v10PrepMax,v10Energy,v10EnergyCap,v10EnergyBase,
+import {publicProbabilities,publicLandingZones,readLevel,readSources,knownPitchZones,v10StackMax,v10PrepMax,v10Energy,v10EnergyCap,v10EnergyBase,
   v10NextEnergyMax,v10ActionCost,v10TakeDrawPreview,V11_SWING_ENERGY,v10Momentum,v10MomentumRate,v10Shaken,v10MentalCap,
   selectV10Pitcher,selectV10Combat,coverage as cardCoverage} from '../engine.js';
 import {intentLines,ZONE_WORDS,runnerMoves} from '../ballpark-copy.js';
@@ -17,6 +17,7 @@ import {forecastFor} from '../SwingForecast.jsx';
 import {formatHitChance} from '../swing-preview.js';
 import {pitcherIntentIcon} from '../intent-icon.js';
 import {pitcherPhase} from '../pitcher-hp.js';
+import {encounterIntentLine,encounterZoneMark,encounterPilotFor} from '../encounter-pilot-v1.js';
 
 export const VIEW_PHASES=Object.freeze(['deciding','committing','flight','result','transition']);
 /* BallparkBattle LANDED와 같은 집합: 이 연출 단계부터 공이 도착해 결과를 보여도 된다 */
@@ -63,7 +64,7 @@ export function resultCall(r,shot){
 
 /* 칸 표면: 읽기 0 = 명암 낱말, 1 = 5%p 구간, 2 = 정확한 %. 낮은 단계에 틀린/정확한 숫자를 싣지 않는다. */
 export function zoneFace(s,z,{level=readLevel(s),known=knownPitchZones(s),probs=publicProbabilities(s)}={}){
-  const live=s.battle.intent?.repertoire||[0,1,2,3,4,5,6,7,8],inZone=probs.slice(0,9).reduce((a,x)=>a+x,0)||1;
+  const live=publicLandingZones(s),inZone=probs.slice(0,9).reduce((a,x)=>a+x,0)||1;
   if(!live.includes(z))return '안 던짐';
   if(!known.includes(z))return '단서 밖';
   if(known.length===1)return '확정';
@@ -177,7 +178,7 @@ export function buildBattleViewModel({
 
   /* ── 9존 ── */
   const level=readLevel(displayState),known=knownPitchZones(displayState),probs=publicProbabilities(displayState);
-  const live=b.intent?.repertoire||[0,1,2,3,4,5,6,7,8];
+  const live=publicLandingZones(s);
   const plan=judged
     ?{cover:r.primaryCoverage||r.coverage||[],support:(r.supportCoverages||[]).flatMap(x=>x.coverage),aim:r.coverage?.length?r.aimZone:null,
       tokens:[r.coverage?.length?{z:r.aimZone,n:1}:null,...(r.supportZones||[]).map((z,i)=>({z,n:i+2}))].filter(Boolean)}
@@ -188,6 +189,7 @@ export function buildBattleViewModel({
   const cells=ZONE_WORDS.map((word,z)=>({zone:z,word,live:live.includes(z),
     face:deciding?zoneFace(s,z,{level,known,probs}):null,
     aimed:b.aimZone===z,aim:plan.aim===z,cover:plan.cover.includes(z),support:plan.support.includes(z),
+    encounterMark:deciding?encounterZoneMark(s,z):null,
     tokens:plan.tokens.filter(t=>t.z===z).map(t=>t.n),actual:landed&&r.zone===z}));
   // Only player-authored coverage: never the hidden incoming pitch. Supports
   // retain their own placed aim rather than the main card's preview glyph.
@@ -207,11 +209,12 @@ export function buildBattleViewModel({
   /* ── HUD: 공이 닿기 전에는 던지기 전 값 ── */
   const bases=(pre&&Array.isArray(r.basesBefore)?r.basesBefore:(b.bases||[])).map(Boolean);
   const intent=deciding?pitcherIntentIcon(s):null,lines=intentLines(b.intent);
+  const pilotIntent=encounterIntentLine(s,{locked:!deciding});
   const hud={
     actLabel:s.version===10?`${s.v10?.opponent?.act||1}막`:null,
     pitcher:pitcher?{name:pitcher.name,hp:pre?hpBefore:pitcher.hp,maxHp:pitcher.maxHp,phase:pre?displayState.pitcher.phase:pitcher.phase}:null,
     count:shownCount,outsLeft:Math.max(0,3-shownCount.outs),bases,
-    tell:lines.whisper,tellDetail:lines.coach,intent:intent?{kind:intent.kind,label:intent.label,icon:intent.icon,level:intent.level}:null,
+    tell:pilotIntent||lines.whisper,tellDetail:encounterPilotFor(s)?(pilotIntent||lines.coach):lines.coach,intent:intent?{kind:intent.kind,label:intent.label,icon:intent.icon,level:intent.level}:null,
     readLevel:level,
     momentum:pre&&Number.isInteger(combat?.momentumBefore)?combat.momentumBefore:v10Momentum(s),
     shaken:pre&&Number.isInteger(combat?.shakenBefore)?combat.shakenBefore:v10Shaken(s),mentalCap:v10MentalCap(s),
@@ -229,7 +232,7 @@ export function buildBattleViewModel({
       good:r.kind==='hit'||r.kind==='sacrifice'||call==='볼넷',exact:isExactRead(s),assistOnly:!!r.assistOnly,
       aimZone:swung?r.aimZone:null,actualZone:r.zone,outside,outsideNote:outside?(swung?'볼에 손이 나갔다':'볼을 골라냈다'):'',
       coverage:[...(r.coverage||[])],primaryCoverage:[...(r.primaryCoverage||[])],supportCoverages:(r.supportCoverages||[]).map(x=>({...x,coverage:[...(x.coverage||[])]})),
-      explanation:resultExplanation(s),damage:Math.max(0,combat?.damage??pitcher?.lastDamage??0),
+      explanation:[resultExplanation(s),combat?.encounterDamageReason,b.revealed?.encounterMessage||combat?.encounterMessage].filter(Boolean).join(' · '),damage:Math.max(0,combat?.damage??pitcher?.lastDamage??0),
       precisionBonus:combat?.precisionBonus||0,relicBonus:combat?.relicBonus||0,relicEvents:[...(combat?.relicEvents||[])],
       hpBefore,hpAfter:pitcher?.hp??null,knockedOut:(pitcher?.hp??1)===0,moves,
       next:s.phase==='pitch'?'pitch':s.phase==='between'?'batter':null};

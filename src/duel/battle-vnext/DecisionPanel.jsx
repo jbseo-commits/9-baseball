@@ -53,16 +53,17 @@ export default function DecisionPanel({zones=null,forecast=null,input=null,hand=
       {near&&<svg className="bv-near-link" viewBox="0 0 300 300" preserveAspectRatio="none" aria-hidden="true" data-testid="bv-near-link"><path d={`M${pt(near.from).x},${pt(near.from).y}L${pt(near.to).x},${pt(near.to).y}`}/><circle cx={pt(near.from).x} cy={pt(near.from).y} r="20"/></svg>}
       {zones.cells.map(c=>{
         const d=faceDensity(c.face);
-        const cls='bv-cell'+(c.live?'':' is-dead')+(c.cover?' is-cover':'')+(c.support?' is-support':'')+(c.aim?' is-aim':'')+(c.actual?' is-actual':'')+(result?.good&&c.actual?' is-good':'')+(deciding&&dragPreview?.coverage?.includes(c.zone)?' is-drop-cover':'')+(deciding&&dragPreview?.zone===c.zone?(dragPreview.ok?' is-drop-target':' is-drop-invalid'):'');
+        const cls='bv-cell'+(c.live?'':' is-dead')+(c.cover?' is-cover':'')+(c.support?' is-support':'')+(c.aim?' is-aim':'')+(c.actual?' is-actual':'')+(c.encounterMark?' has-encounter-mark '+(c.encounterMark==='빈틈'?'is-weakness':'is-guard'):'')+(result?.good&&c.actual?' is-good':'')+(deciding&&dragPreview?.coverage?.includes(c.zone)?' is-drop-cover':'')+(deciding&&dragPreview?.zone===c.zone?(dragPreview.ok?' is-drop-target':' is-drop-invalid'):'');
         return <button key={c.zone} type="button" className={cls} data-zone={c.zone} disabled={!input.canSelect}
           style={d!=null?{'--bv-density':d}:undefined}
-          aria-pressed={c.aimed} aria-label={[c.word,c.live?c.face:'던지지 않는 코스',c.tokens.length?c.tokens.map(n=>n===1?'메인 노림':n+'번 지원').join(', '):'',c.actual?'실제 공':''].filter(Boolean).join(' · ')}
+          aria-pressed={c.aimed} aria-label={[c.word,c.live?c.face:'던지지 않는 코스',c.encounterMark?'낮은 벽 '+c.encounterMark:'',c.tokens.length?c.tokens.map(n=>n===1?'메인 노림':n+'번 지원').join(', '):'',c.actual?'실제 공':''].filter(Boolean).join(' · ')}
           onClick={()=>onZoneTap?.(c.zone)}
           onPointerEnter={e=>{if(e.pointerType==='mouse')onZoneHover?.(c.zone);}} onPointerLeave={e=>{if(e.pointerType==='mouse')onZoneHover?.(null);}}
           onFocus={()=>onZoneHover?.(c.zone)} onBlur={()=>onZoneHover?.(null)}>
           {c.tokens.map(n=><em key={n} className={'bv-token n'+n} aria-hidden="true">{n}</em>)}
           {c.aim&&<i className="bv-aim-ring" aria-hidden="true"/>}
           {c.actual&&<i className="bv-pitch-mark" data-testid="bv-pitch-mark" aria-hidden="true"/>}
+          {c.encounterMark&&<b className="bv-encounter-mark" aria-hidden="true">{c.encounterMark}</b>}
           <span className="bv-cell-face" aria-hidden="true">{c.live?c.face??'':quiet?'':'안 던짐'}</span>
         </button>;
       })}

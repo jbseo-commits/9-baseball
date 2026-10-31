@@ -1,0 +1,1306 @@
+{
+  "base": "http://127.0.0.1:5252/",
+  "policy": "public interval forecast; native taps only, no state/card/HP grants",
+  "errors": [],
+  "rows": [
+    {
+      "id": "red",
+      "seed": 3,
+      "phase": "reward",
+      "hp": 0,
+      "outs": 0,
+      "pitches": 4,
+      "resumedGap": false,
+      "actions": [
+        {
+          "n": 0,
+          "action": {
+            "type": "card",
+            "id": "c2",
+            "zone": 5,
+            "publicForecast": {
+              "hitBounds": [
+                0.28,
+                1
+              ],
+              "damage": [
+                18,
+                45
+              ]
+            }
+          },
+          "pitch": 1,
+          "hp": 42,
+          "outs": 0,
+          "phase": "between",
+          "window": 0
+        },
+        {
+          "n": 1,
+          "action": {
+            "type": "card",
+            "id": "c1",
+            "zone": 5,
+            "publicForecast": {
+              "hitBounds": [
+                0.28,
+                1
+              ],
+              "damage": [
+                21,
+                53
+              ]
+            }
+          },
+          "pitch": 2,
+          "hp": 21,
+          "outs": 0,
+          "phase": "between",
+          "window": 0
+        },
+        {
+          "n": 2,
+          "action": {
+            "type": "card",
+            "id": "c4",
+            "zone": 2,
+            "publicForecast": {
+              "hitBounds": [
+                0.56,
+                1
+              ],
+              "damage": [
+                17,
+                43
+              ]
+            }
+          },
+          "pitch": 3,
+          "hp": 4,
+          "outs": 0,
+          "phase": "between",
+          "window": 0
+        },
+        {
+          "n": 3,
+          "action": {
+            "type": "card",
+            "id": "c5",
+            "zone": 2,
+            "publicForecast": {
+              "hitBounds": [
+                0.56,
+                1
+              ],
+              "damage": [
+                21,
+                51
+              ]
+            }
+          },
+          "pitch": 4,
+          "hp": 0,
+          "outs": 0,
+          "phase": "reward",
+          "window": 0
+        }
+      ]
+    },
+    {
+      "id": "teal",
+      "seed": 3,
+      "phase": "reward",
+      "hp": 0,
+      "outs": 0,
+      "pitches": 5,
+      "resumedGap": false,
+      "actions": [
+        {
+          "n": 0,
+          "action": {
+            "type": "card",
+            "id": "c4",
+            "zone": 2,
+            "publicForecast": {
+              "hitBounds": [
+                0.8400000000000001,
+                1
+              ],
+              "damage": [
+                12,
+                30
+              ]
+            }
+          },
+          "pitch": 1,
+          "hp": 48,
+          "outs": 0,
+          "phase": "between",
+          "window": 0
+        },
+        {
+          "n": 1,
+          "action": {
+            "type": "card",
+            "id": "c2",
+            "zone": 2,
+            "supports": [
+              {
+                "id": "c1",
+                "aimZone": 5
+              }
+            ],
+            "publicForecast": {
+              "hitBounds": [
+                0.56,
+                0.72
+              ],
+              "damage": [
+                12,
+                46
+              ]
+            }
+          },
+          "pitch": 2,
+          "hp": 36,
+          "outs": 0,
+          "phase": "between",
+          "window": 0
+        },
+        {
+          "n": 2,
+          "action": {
+            "type": "card",
+            "id": "c5",
+            "zone": 1,
+            "publicForecast": {
+              "hitBounds": [
+                0.8400000000000001,
+                1
+              ],
+              "damage": [
+                17,
+                43
+              ]
+            }
+          },
+          "pitch": 3,
+          "hp": 19,
+          "outs": 0,
+          "phase": "between",
+          "window": 0
+        },
+        {
+          "n": 3,
+          "action": {
+            "type": "card",
+            "id": "c3",
+            "zone": 2,
+            "supports": [
+              {
+                "id": "c0",
+                "aimZone": 5
+              }
+            ],
+            "publicForecast": {
+              "hitBounds": [
+                0.56,
+                0.72
+              ],
+              "damage": [
+                18,
+                61
+              ]
+            }
+          },
+          "pitch": 4,
+          "hp": 18,
+          "outs": 0,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 4,
+          "action": {
+            "type": "card",
+            "id": "c8"
+          },
+          "pitch": 4,
+          "hp": 18,
+          "outs": 0,
+          "phase": "battle",
+          "window": 0
+        },
+        {
+          "n": 5,
+          "action": {
+            "type": "card",
+            "id": "basic",
+            "zone": 5,
+            "publicForecast": {
+              "hitBounds": [
+                0.72,
+                1
+              ],
+              "damage": [
+                21,
+                21
+              ]
+            }
+          },
+          "pitch": 5,
+          "hp": 0,
+          "outs": 0,
+          "phase": "reward",
+          "window": 0
+        }
+      ]
+    },
+    {
+      "id": "cobalt",
+      "seed": 3,
+      "phase": "reward",
+      "hp": 0,
+      "outs": 0,
+      "pitches": 6,
+      "resumedGap": false,
+      "actions": [
+        {
+          "n": 0,
+          "action": {
+            "type": "card",
+            "id": "c4",
+            "zone": 0,
+            "publicForecast": {
+              "hitBounds": [
+                0.8400000000000001,
+                1
+              ],
+              "damage": [
+                12,
+                18
+              ]
+            }
+          },
+          "pitch": 1,
+          "hp": 76,
+          "outs": 0,
+          "phase": "between",
+          "window": 0
+        },
+        {
+          "n": 1,
+          "action": {
+            "type": "card",
+            "id": "c2",
+            "zone": 3,
+            "supports": [
+              {
+                "id": "c1",
+                "aimZone": 0
+              }
+            ],
+            "publicForecast": {
+              "hitBounds": [
+                0.56,
+                0.72
+              ],
+              "damage": [
+                12,
+                46
+              ]
+            }
+          },
+          "pitch": 2,
+          "hp": 58,
+          "outs": 0,
+          "phase": "between",
+          "window": 0
+        },
+        {
+          "n": 2,
+          "action": {
+            "type": "card",
+            "id": "c5",
+            "zone": 0,
+            "publicForecast": {
+              "hitBounds": [
+                0.8400000000000001,
+                1
+              ],
+              "damage": [
+                17,
+                43
+              ]
+            }
+          },
+          "pitch": 3,
+          "hp": 41,
+          "outs": 0,
+          "phase": "between",
+          "window": 0
+        },
+        {
+          "n": 3,
+          "action": {
+            "type": "card",
+            "id": "c3",
+            "zone": 3,
+            "supports": [
+              {
+                "id": "c0",
+                "aimZone": 0
+              }
+            ],
+            "publicForecast": {
+              "hitBounds": [
+                0.56,
+                0.72
+              ],
+              "damage": [
+                18,
+                61
+              ]
+            }
+          },
+          "pitch": 4,
+          "hp": 39,
+          "outs": 0,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 4,
+          "action": {
+            "type": "card",
+            "id": "c8"
+          },
+          "pitch": 4,
+          "hp": 39,
+          "outs": 0,
+          "phase": "battle",
+          "window": 0
+        },
+        {
+          "n": 5,
+          "action": {
+            "type": "card",
+            "id": "basic",
+            "zone": 3,
+            "publicForecast": {
+              "hitBounds": [
+                0.72,
+                1
+              ],
+              "damage": [
+                21,
+                21
+              ]
+            }
+          },
+          "pitch": 5,
+          "hp": 18,
+          "outs": 0,
+          "phase": "between",
+          "window": 0
+        },
+        {
+          "n": 6,
+          "action": {
+            "type": "card",
+            "id": "c4",
+            "zone": 0,
+            "publicForecast": {
+              "hitBounds": [
+                0.9,
+                0.95
+              ],
+              "damage": [
+                22,
+                55
+              ]
+            }
+          },
+          "pitch": 6,
+          "hp": 0,
+          "outs": 0,
+          "phase": "reward",
+          "window": 0
+        }
+      ]
+    },
+    {
+      "id": "tyrant",
+      "seed": 3,
+      "phase": "lost",
+      "hp": 10,
+      "outs": 3,
+      "pitches": 18,
+      "resumedGap": true,
+      "actions": [
+        {
+          "n": 0,
+          "action": {
+            "type": "card",
+            "id": "c2",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                18,
+                45
+              ]
+            }
+          },
+          "pitch": 1,
+          "hp": 109,
+          "outs": 0,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 1,
+          "action": {
+            "type": "card",
+            "id": "c1",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                18,
+                45
+              ]
+            }
+          },
+          "pitch": 2,
+          "hp": 107,
+          "outs": 0,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 2,
+          "action": {
+            "type": "card",
+            "id": "c4",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.28,
+                0.7000000000000001
+              ],
+              "damage": [
+                12,
+                18
+              ]
+            }
+          },
+          "pitch": 3,
+          "hp": 106,
+          "outs": 1,
+          "phase": "between",
+          "window": 0
+        },
+        {
+          "n": 3,
+          "action": {
+            "type": "card",
+            "id": "c3",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                18,
+                27
+              ]
+            }
+          },
+          "pitch": 4,
+          "hp": 105,
+          "outs": 1,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 4,
+          "action": {
+            "type": "card",
+            "id": "c0",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                18,
+                27
+              ]
+            }
+          },
+          "pitch": 5,
+          "hp": 103,
+          "outs": 1,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 5,
+          "action": {
+            "type": "card",
+            "id": "c5",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.28,
+                0.7000000000000001
+              ],
+              "damage": [
+                12,
+                18
+              ]
+            }
+          },
+          "pitch": 6,
+          "hp": 101,
+          "outs": 1,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 6,
+          "action": {
+            "type": "card",
+            "id": "c2",
+            "zone": 3,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                18,
+                27
+              ]
+            }
+          },
+          "pitch": 7,
+          "hp": 83,
+          "outs": 1,
+          "phase": "between",
+          "window": 0
+        },
+        {
+          "n": 7,
+          "action": {
+            "type": "card",
+            "id": "c3",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                21,
+                53
+              ]
+            }
+          },
+          "pitch": 8,
+          "hp": 81,
+          "outs": 1,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 8,
+          "action": {
+            "type": "card",
+            "id": "c5",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.56
+              ],
+              "damage": [
+                14,
+                22
+              ]
+            }
+          },
+          "pitch": 9,
+          "hp": 67,
+          "outs": 1,
+          "phase": "between",
+          "window": 2
+        },
+        {
+          "n": 9,
+          "action": {
+            "type": "card",
+            "id": "c4",
+            "zone": 0,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.56
+              ],
+              "damage": [
+                17,
+                33
+              ]
+            }
+          },
+          "pitch": 10,
+          "hp": 66,
+          "outs": 1,
+          "phase": "pitch",
+          "window": 1
+        },
+        {
+          "n": 10,
+          "action": {
+            "type": "card",
+            "id": "c1",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                30,
+                76
+              ]
+            }
+          },
+          "pitch": 11,
+          "hp": 64,
+          "outs": 1,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 11,
+          "action": {
+            "type": "card",
+            "id": "c0",
+            "zone": 3,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                24,
+                61
+              ]
+            }
+          },
+          "pitch": 12,
+          "hp": 62,
+          "outs": 2,
+          "phase": "between",
+          "window": 0
+        },
+        {
+          "n": 12,
+          "action": {
+            "type": "card",
+            "id": "c1",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                20,
+                51
+              ]
+            }
+          },
+          "pitch": 13,
+          "hp": 60,
+          "outs": 2,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 13,
+          "action": {
+            "type": "card",
+            "id": "c4",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.56
+              ],
+              "damage": [
+                14,
+                22
+              ]
+            }
+          },
+          "pitch": 14,
+          "hp": 46,
+          "outs": 2,
+          "phase": "between",
+          "window": 2
+        },
+        {
+          "n": 14,
+          "action": {
+            "type": "card",
+            "id": "c0",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                30,
+                75
+              ]
+            }
+          },
+          "pitch": 15,
+          "hp": 16,
+          "outs": 2,
+          "phase": "between",
+          "window": 1
+        },
+        {
+          "n": 15,
+          "action": {
+            "type": "card",
+            "id": "c2",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.2,
+                0.25
+              ],
+              "damage": [
+                31,
+                49
+              ]
+            }
+          },
+          "pitch": 16,
+          "hp": 14,
+          "outs": 2,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 16,
+          "action": {
+            "type": "card",
+            "id": "c5",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.25,
+                0.35
+              ],
+              "damage": [
+                18,
+                28
+              ]
+            }
+          },
+          "pitch": 17,
+          "hp": 12,
+          "outs": 2,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 17,
+          "action": {
+            "type": "card",
+            "id": "c3",
+            "zone": 3,
+            "publicForecast": {
+              "hitBounds": [
+                0.2,
+                0.25
+              ],
+              "damage": [
+                25,
+                39
+              ]
+            }
+          },
+          "pitch": 18,
+          "hp": 10,
+          "outs": 3,
+          "phase": "lost",
+          "window": 0
+        }
+      ]
+    },
+    {
+      "id": "tyrant",
+      "seed": 7,
+      "phase": "reward",
+      "hp": 0,
+      "outs": 2,
+      "pitches": 19,
+      "resumedGap": true,
+      "actions": [
+        {
+          "n": 0,
+          "action": {
+            "type": "card",
+            "id": "c2",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                18,
+                45
+              ]
+            }
+          },
+          "pitch": 1,
+          "hp": 110,
+          "outs": 0,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 1,
+          "action": {
+            "type": "card",
+            "id": "c0",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                18,
+                45
+              ]
+            }
+          },
+          "pitch": 2,
+          "hp": 92,
+          "outs": 0,
+          "phase": "between",
+          "window": 2
+        },
+        {
+          "n": 2,
+          "action": {
+            "type": "card",
+            "id": "c3",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                26,
+                40
+              ]
+            }
+          },
+          "pitch": 3,
+          "hp": 91,
+          "outs": 0,
+          "phase": "pitch",
+          "window": 1
+        },
+        {
+          "n": 3,
+          "action": {
+            "type": "card",
+            "id": "c1",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                26,
+                40
+              ]
+            }
+          },
+          "pitch": 4,
+          "hp": 90,
+          "outs": 0,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 4,
+          "action": {
+            "type": "card",
+            "id": "c4",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.28,
+                0.7000000000000001
+              ],
+              "damage": [
+                14,
+                22
+              ]
+            }
+          },
+          "pitch": 5,
+          "hp": 89,
+          "outs": 1,
+          "phase": "between",
+          "window": 0
+        },
+        {
+          "n": 5,
+          "action": {
+            "type": "card",
+            "id": "c5",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.56
+              ],
+              "damage": [
+                13,
+                20
+              ]
+            }
+          },
+          "pitch": 6,
+          "hp": 88,
+          "outs": 1,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 6,
+          "action": {
+            "type": "card",
+            "id": "c2",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                19,
+                48
+              ]
+            }
+          },
+          "pitch": 7,
+          "hp": 86,
+          "outs": 1,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 7,
+          "action": {
+            "type": "card",
+            "id": "c4",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.28,
+                0.7000000000000001
+              ],
+              "damage": [
+                13,
+                20
+              ]
+            }
+          },
+          "pitch": 8,
+          "hp": 73,
+          "outs": 1,
+          "phase": "between",
+          "window": 2
+        },
+        {
+          "n": 8,
+          "action": {
+            "type": "card",
+            "id": "c1",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                29,
+                71
+              ]
+            }
+          },
+          "pitch": 9,
+          "hp": 71,
+          "outs": 1,
+          "phase": "pitch",
+          "window": 1
+        },
+        {
+          "n": 9,
+          "action": {
+            "type": "card",
+            "id": "c0",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                29,
+                71
+              ]
+            }
+          },
+          "pitch": 10,
+          "hp": 69,
+          "outs": 1,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 10,
+          "action": {
+            "type": "card",
+            "id": "c5",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.28,
+                0.7000000000000001
+              ],
+              "damage": [
+                16,
+                24
+              ]
+            }
+          },
+          "pitch": 11,
+          "hp": 53,
+          "outs": 1,
+          "phase": "between",
+          "window": 0
+        },
+        {
+          "n": 11,
+          "action": {
+            "type": "card",
+            "id": "c3",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                25,
+                65
+              ]
+            }
+          },
+          "pitch": 12,
+          "hp": 51,
+          "outs": 1,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 12,
+          "action": {
+            "type": "card",
+            "id": "c0",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                25,
+                65
+              ]
+            }
+          },
+          "pitch": 13,
+          "hp": 49,
+          "outs": 1,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 13,
+          "action": {
+            "type": "card",
+            "id": "c3",
+            "zone": 3,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                25,
+                65
+              ]
+            }
+          },
+          "pitch": 14,
+          "hp": 47,
+          "outs": 2,
+          "phase": "between",
+          "window": 0
+        },
+        {
+          "n": 14,
+          "action": {
+            "type": "card",
+            "id": "c5",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.56
+              ],
+              "damage": [
+                16,
+                23
+              ]
+            }
+          },
+          "pitch": 15,
+          "hp": 45,
+          "outs": 2,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 15,
+          "action": {
+            "type": "card",
+            "id": "c1",
+            "zone": 7,
+            "publicForecast": {
+              "hitBounds": [
+                0.14,
+                0.28
+              ],
+              "damage": [
+                22,
+                54
+              ]
+            }
+          },
+          "pitch": 16,
+          "hp": 13,
+          "outs": 2,
+          "phase": "between",
+          "window": 2
+        },
+        {
+          "n": 16,
+          "action": {
+            "type": "card",
+            "id": "c2",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.2,
+                0.25
+              ],
+              "damage": [
+                30,
+                46
+              ]
+            }
+          },
+          "pitch": 17,
+          "hp": 12,
+          "outs": 2,
+          "phase": "pitch",
+          "window": 1
+        },
+        {
+          "n": 17,
+          "action": {
+            "type": "card",
+            "id": "c4",
+            "zone": 0,
+            "publicForecast": {
+              "hitBounds": [
+                0.25,
+                0.35
+              ],
+              "damage": [
+                17,
+                33
+              ]
+            }
+          },
+          "pitch": 18,
+          "hp": 11,
+          "outs": 2,
+          "phase": "pitch",
+          "window": 0
+        },
+        {
+          "n": 18,
+          "action": {
+            "type": "card",
+            "id": "c5",
+            "zone": 6,
+            "publicForecast": {
+              "hitBounds": [
+                0.4,
+                0.55
+              ],
+              "damage": [
+                17,
+                26
+              ]
+            }
+          },
+          "pitch": 19,
+          "hp": 0,
+          "outs": 2,
+          "phase": "reward",
+          "window": 0
+        }
+      ]
+    }
+  ]
+}

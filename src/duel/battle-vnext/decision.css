@@ -26,6 +26,9 @@
 .bv-cell.is-actual{border:2px solid #fff6db;box-shadow:0 0 0 2px #fff6db55,0 0 18px #fff1c088}
 .bv-cell.is-actual.is-good{border-color:#ffd27a;box-shadow:0 0 0 2px #ffd27a77,0 0 22px #ffd27aaa}
 .bv-cell-face{position:relative;z-index:1}
+.bv-encounter-mark{position:absolute;right:4px;bottom:3px;z-index:2;padding:2px 4px;border-radius:2px;background:#071517d9;color:#ffd27a;font:700 9px/1.1 Arial,'Noto Sans KR',sans-serif;text-shadow:none}
+.bv-cell.is-guard{box-shadow:inset 0 0 0 2px #d0a26b66}
+.bv-cell.is-weakness{box-shadow:inset 0 0 0 2px #ffcf57,0 0 10px #ffcf5744}
 .bv-token{position:absolute;top:4px;left:4px;z-index:2;display:grid;place-items:center;width:17px;height:17px;border-radius:50%;
   font:700 10px Arial,sans-serif;font-style:normal;background:var(--bv-orange);color:var(--bv-ink);text-shadow:none}
 .bv-token:not(.n1){background:var(--bv-teal)}

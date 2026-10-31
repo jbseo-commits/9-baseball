@@ -80,14 +80,14 @@ describe('swing preview = real judgement',()=>{
     console.log('[P1 10k sim]\n'+report.join('\n'));
   },120000);
 
-  it('a trick pitcher previews the neighbour shift that dealPitch really applies',()=>{
+  it('a trick pitcher preview uses the centralized final landing distribution once',()=>{
     const s=scenario(2201,PLANS[1],null);
     s.v10.opponent={...(s.v10.opponent||{}),gimmick:{id:'trick'}};
     s.battle.aimZone=4;s.battle.balls=0;s.battle.strikes=0;
     const shifted=E.redealPitch(s);
     const pv=previewSwing(shifted,{id:'c0',supports:[]});
     const plain=E.publicProbabilities(shifted).slice(0,9).reduce((a,v,z)=>a+(z===4?v:0),0);
-    if(E.v10GimmickRules(shifted).trickRate>0)expect(pv.hitChance).not.toBeCloseTo(plain,3);
+    if(E.v10GimmickRules(shifted).trickRate>0)expect(pv.hitChance).toBeCloseTo(plain,9);
     let hits=0;const N=10000;
     for(let i=0;i<N;i++){const d=E.redealPitch(shifted,(i*2246822519+7)>>>0);if(E.playV10Action(d,{type:'card',id:'c0'}).battle.revealed.kind==='hit')hits++;}
     expect(Math.abs(hits/N-pv.hitChance)).toBeLessThan(.02);

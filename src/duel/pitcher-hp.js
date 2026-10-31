@@ -71,8 +71,10 @@ export function pitcherDamageFor(outcome,foulStreak=0,opts={}){
   /* up to ×2: stacking lowers it, 기세 (engine V10_MOMENTUM) raises it past ×1 */
   const damageMultiplier=Number.isFinite(opts.damageMultiplier)?clamp(opts.damageMultiplier,0,2):1;
   const damageBonus=Number.isFinite(opts.damageBonus)?clamp(Math.round(opts.damageBonus),0,99):0;
-  const damage=calc.damage>0?Math.max(1,Math.round(calc.damage*damageMultiplier)+damageBonus):0;
-  return {calc,damageMultiplier,damageBonus,damage};
+  const damageEfficiency=Number.isFinite(opts.damageEfficiency)?clamp(opts.damageEfficiency,0,2):1;
+  const beforeEfficiency=calc.damage>0?Math.max(1,Math.round(calc.damage*damageMultiplier)+damageBonus):0;
+  const damage=beforeEfficiency>0?Math.max(1,Math.round(beforeEfficiency*damageEfficiency)):0;
+  return {calc,damageMultiplier,damageBonus,damageEfficiency,beforeEfficiency,damage};
 }
 
 export function applyPitcherOutcome(pitcher,outcome,opts={}){
@@ -81,11 +83,11 @@ export function applyPitcherOutcome(pitcher,outcome,opts={}){
   if(pitcher.hp<=0)return {pitcher,result:{damage:0,hpAfter:0,locked:true,duplicate:false}};
   if(pitchId!==null&&pitcher.lastPitchId===pitchId)
     return {pitcher,result:{damage:0,hpAfter:pitcher.hp,locked:false,duplicate:true}};
-  const {calc,damageMultiplier,damageBonus,damage}=pitcherDamageFor(outcome,pitcher.foulStreak||0,opts);
+  const {calc,damageMultiplier,damageBonus,damageEfficiency,beforeEfficiency,damage}=pitcherDamageFor(outcome,pitcher.foulStreak||0,opts);
   const hpAfter=Math.max(0,pitcher.hp-damage);
   const next={...pitcher,hp:hpAfter,phase:pitcherPhase(hpAfter,pitcher.maxHp),lastDamage:damage,
     lastPitchId:pitchId,foulStreak:outcome?.kind==='foul'?(pitcher.foulStreak||0)+1:0};
-  return {pitcher:next,result:{...calc,baseDamage:calc.damage,damage,damageMultiplier,damageBonus,hpAfter,locked:hpAfter<=0,duplicate:false}};
+  return {pitcher:next,result:{...calc,baseDamage:calc.damage,damage,damageMultiplier,damageBonus,damageEfficiency,beforeEfficiency,hpAfter,locked:hpAfter<=0,duplicate:false}};
 }
 
 export const pitcherSelector=p=>p?({name:p.name,hp:p.hp,maxHp:p.maxHp,phase:p.phase,lastDamage:p.lastDamage}):null;

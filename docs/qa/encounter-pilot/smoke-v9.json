@@ -1,0 +1,440 @@
+{
+  "scope": "V9.2 neutral starter + opponent branches + deterministic card/facility policy. This is termination/save coverage, NOT human fun or balance proof.",
+  "seeds": 20,
+  "wins": 1,
+  "completionRate": 0.05,
+  "reachedReward": 16,
+  "averagePitches": 34.65,
+  "averageRuns": 5.85,
+  "averageFinalDeck": 10.2,
+  "picks": {
+    "rally": 7,
+    "defend": 3,
+    "laser": 1,
+    "wall": 3,
+    "flow": 5,
+    "bunt": 2,
+    "slug": 3,
+    "commit": 1,
+    "finisher": 2,
+    "lure": 1
+  },
+  "rows": [
+    {
+      "seed": 1,
+      "result": "lost",
+      "victories": 1,
+      "pitches": 30,
+      "runs": 4,
+      "finalDeck": 10,
+      "rewards": 1,
+      "facilities": 1,
+      "chosen": [
+        "rally"
+      ],
+      "opponents": [
+        "giant-road",
+        "sinker-study"
+      ],
+      "facilityRoute": [
+        "training"
+      ]
+    },
+    {
+      "seed": 2,
+      "result": "lost",
+      "victories": 2,
+      "pitches": 36,
+      "runs": 7,
+      "finalDeck": 10,
+      "rewards": 2,
+      "facilities": 2,
+      "chosen": [
+        "defend",
+        "laser"
+      ],
+      "opponents": [
+        "home-opener",
+        "city-rival",
+        "deep-series"
+      ],
+      "facilityRoute": [
+        "scouting",
+        "release"
+      ]
+    },
+    {
+      "seed": 3,
+      "result": "lost",
+      "victories": 3,
+      "pitches": 44,
+      "runs": 11,
+      "finalDeck": 12,
+      "rewards": 3,
+      "facilities": 3,
+      "chosen": [
+        "wall",
+        "flow",
+        "bunt"
+      ],
+      "opponents": [
+        "giant-road",
+        "sinker-study",
+        "wall-rival",
+        "regular-final"
+      ],
+      "facilityRoute": [
+        "training",
+        "equipment",
+        "training"
+      ]
+    },
+    {
+      "seed": 4,
+      "result": "lost",
+      "victories": 1,
+      "pitches": 25,
+      "runs": 4,
+      "finalDeck": 10,
+      "rewards": 1,
+      "facilities": 1,
+      "chosen": [
+        "rally"
+      ],
+      "opponents": [
+        "home-opener",
+        "city-rival"
+      ],
+      "facilityRoute": [
+        "scouting"
+      ]
+    },
+    {
+      "seed": 5,
+      "result": "lost",
+      "victories": 1,
+      "pitches": 19,
+      "runs": 3,
+      "finalDeck": 10,
+      "rewards": 1,
+      "facilities": 1,
+      "chosen": [
+        "rally"
+      ],
+      "opponents": [
+        "giant-road",
+        "sinker-study"
+      ],
+      "facilityRoute": [
+        "training"
+      ]
+    },
+    {
+      "seed": 6,
+      "result": "lost",
+      "victories": 1,
+      "pitches": 20,
+      "runs": 3,
+      "finalDeck": 10,
+      "rewards": 1,
+      "facilities": 1,
+      "chosen": [
+        "slug"
+      ],
+      "opponents": [
+        "home-opener",
+        "city-rival"
+      ],
+      "facilityRoute": [
+        "scouting"
+      ]
+    },
+    {
+      "seed": 7,
+      "result": "lost",
+      "victories": 0,
+      "pitches": 17,
+      "runs": 2,
+      "finalDeck": 9,
+      "rewards": 0,
+      "facilities": 0,
+      "chosen": [],
+      "opponents": [
+        "giant-road"
+      ],
+      "facilityRoute": []
+    },
+    {
+      "seed": 8,
+      "result": "lost",
+      "victories": 1,
+      "pitches": 30,
+      "runs": 7,
+      "finalDeck": 10,
+      "rewards": 1,
+      "facilities": 1,
+      "chosen": [
+        "defend"
+      ],
+      "opponents": [
+        "home-opener",
+        "city-rival"
+      ],
+      "facilityRoute": [
+        "scouting"
+      ]
+    },
+    {
+      "seed": 9,
+      "result": "lost",
+      "victories": 3,
+      "pitches": 64,
+      "runs": 12,
+      "finalDeck": 12,
+      "rewards": 3,
+      "facilities": 3,
+      "chosen": [
+        "rally",
+        "flow",
+        "commit"
+      ],
+      "opponents": [
+        "giant-road",
+        "sinker-study",
+        "wall-rival",
+        "regular-final"
+      ],
+      "facilityRoute": [
+        "training",
+        "equipment",
+        "training"
+      ]
+    },
+    {
+      "seed": 10,
+      "result": "lost",
+      "victories": 1,
+      "pitches": 30,
+      "runs": 4,
+      "finalDeck": 10,
+      "rewards": 1,
+      "facilities": 1,
+      "chosen": [
+        "rally"
+      ],
+      "opponents": [
+        "home-opener",
+        "city-rival"
+      ],
+      "facilityRoute": [
+        "scouting"
+      ]
+    },
+    {
+      "seed": 11,
+      "result": "lost",
+      "victories": 1,
+      "pitches": 23,
+      "runs": 3,
+      "finalDeck": 10,
+      "rewards": 1,
+      "facilities": 1,
+      "chosen": [
+        "wall"
+      ],
+      "opponents": [
+        "giant-road",
+        "sinker-study"
+      ],
+      "facilityRoute": [
+        "training"
+      ]
+    },
+    {
+      "seed": 12,
+      "result": "lost",
+      "victories": 2,
+      "pitches": 43,
+      "runs": 7,
+      "finalDeck": 10,
+      "rewards": 2,
+      "facilities": 2,
+      "chosen": [
+        "slug",
+        "flow"
+      ],
+      "opponents": [
+        "home-opener",
+        "city-rival",
+        "deep-series"
+      ],
+      "facilityRoute": [
+        "scouting",
+        "release"
+      ]
+    },
+    {
+      "seed": 13,
+      "result": "lost",
+      "victories": 2,
+      "pitches": 38,
+      "runs": 10,
+      "finalDeck": 11,
+      "rewards": 2,
+      "facilities": 2,
+      "chosen": [
+        "rally",
+        "finisher"
+      ],
+      "opponents": [
+        "giant-road",
+        "sinker-study",
+        "wall-rival"
+      ],
+      "facilityRoute": [
+        "training",
+        "equipment"
+      ]
+    },
+    {
+      "seed": 14,
+      "result": "lost",
+      "victories": 0,
+      "pitches": 13,
+      "runs": 0,
+      "finalDeck": 9,
+      "rewards": 0,
+      "facilities": 0,
+      "chosen": [],
+      "opponents": [
+        "home-opener"
+      ],
+      "facilityRoute": []
+    },
+    {
+      "seed": 15,
+      "result": "lost",
+      "victories": 0,
+      "pitches": 14,
+      "runs": 2,
+      "finalDeck": 9,
+      "rewards": 0,
+      "facilities": 0,
+      "chosen": [],
+      "opponents": [
+        "giant-road"
+      ],
+      "facilityRoute": []
+    },
+    {
+      "seed": 16,
+      "result": "lost",
+      "victories": 3,
+      "pitches": 75,
+      "runs": 13,
+      "finalDeck": 11,
+      "rewards": 3,
+      "facilities": 3,
+      "chosen": [
+        "rally",
+        "flow",
+        "lure"
+      ],
+      "opponents": [
+        "home-opener",
+        "city-rival",
+        "deep-series",
+        "ace-final"
+      ],
+      "facilityRoute": [
+        "scouting",
+        "release",
+        "equipment"
+      ]
+    },
+    {
+      "seed": 17,
+      "result": "lost",
+      "victories": 0,
+      "pitches": 12,
+      "runs": 0,
+      "finalDeck": 9,
+      "rewards": 0,
+      "facilities": 0,
+      "chosen": [],
+      "opponents": [
+        "giant-road"
+      ],
+      "facilityRoute": []
+    },
+    {
+      "seed": 18,
+      "result": "lost",
+      "victories": 1,
+      "pitches": 28,
+      "runs": 3,
+      "finalDeck": 10,
+      "rewards": 1,
+      "facilities": 1,
+      "chosen": [
+        "slug"
+      ],
+      "opponents": [
+        "home-opener",
+        "city-rival"
+      ],
+      "facilityRoute": [
+        "scouting"
+      ]
+    },
+    {
+      "seed": 19,
+      "result": "lost",
+      "victories": 2,
+      "pitches": 49,
+      "runs": 7,
+      "finalDeck": 11,
+      "rewards": 2,
+      "facilities": 2,
+      "chosen": [
+        "wall",
+        "finisher"
+      ],
+      "opponents": [
+        "giant-road",
+        "sinker-study",
+        "wall-rival"
+      ],
+      "facilityRoute": [
+        "training",
+        "equipment"
+      ]
+    },
+    {
+      "seed": 20,
+      "result": "won",
+      "victories": 4,
+      "pitches": 83,
+      "runs": 15,
+      "finalDeck": 11,
+      "rewards": 3,
+      "facilities": 3,
+      "chosen": [
+        "defend",
+        "flow",
+        "bunt"
+      ],
+      "opponents": [
+        "home-opener",
+        "city-rival",
+        "deep-series",
+        "ace-final"
+      ],
+      "facilityRoute": [
+        "scouting",
+        "release",
+        "equipment"
+      ]
+    }
+  ]
+}
