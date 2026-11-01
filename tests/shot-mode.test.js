@@ -46,6 +46,7 @@ describe('사격 모드 (시범)',()=>{
     expect(second.battle.revealed.kind).toBe('hit');
     expect(first.v10.lastCombat.damageRate/second.v10.lastCombat.damageRate).toBeCloseTo(1.2,6);
     expect(second.battle.shot).toBeUndefined();
+    expect([first.v10.lastCombat.shotRate,second.v10.lastCombat.shotRate]).toEqual([1.2,1]); // the pixel damage number picks SNIPE from this
   });
 
   it('at two strikes a miss goes to the normal judgement (strikeout, or a card foul)',()=>{

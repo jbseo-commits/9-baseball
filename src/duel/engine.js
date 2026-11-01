@@ -1237,7 +1237,7 @@ export function playV10Action(state,action){
       deliverProtection:linkBlocked&&labContinues,lastEvent:labEvent,events:[...(lab.events||[]),labEvent].slice(-12),powerInvested:paEnded?false:lab.powerInvested};
   }
   next.v10={...next.v10,lastCombat:{
-    hpBefore:state.pitcher?.hp,choice,choiceLabel:[v10ChoiceLabel(choice),...supportNames].join(' + '),aimZone:r.aimZone,aimLabel:choice==='take'?'노림 없음':[v10ZoneLabel(r.aimZone),...supportAims].join(' + '),
+    hpBefore:state.pitcher?.hp,choice,shotRate:terms.shotRate,choiceLabel:[v10ChoiceLabel(choice),...supportNames].join(' + '),aimZone:r.aimZone,aimLabel:choice==='take'?'노림 없음':[v10ZoneLabel(r.aimZone),...supportAims].join(' + '),
     actualPitch:r.zone,pitchLabel:v10ZoneLabel(r.zone),pitchName:next.battle?.intent?.name||'',
     verdict:r.label,damage:applied.result.damage,baseDamage:applied.result.baseDamage,damageRate:relicPlan.damageRate,
     baseStackDamageRate:r.stackBaseDamageRate??v10SwingDamageRate(stackCardCount),orderedStackDamageRate:stackDamageRate,

@@ -64,6 +64,9 @@ describe('사격 연출 · pixelfx',()=>{
     const layer=document.getElementById('shot-pixelfx-layer');
     if(played)expect(layer.style.pointerEvents).toBe('none');
     else expect(layer).toBeNull(); // no 2D canvas here: nothing is drawn, nothing is left behind
+    const {playPixelDamage,DAMAGE_PIXEL_LOOKS}=await import('../src/duel/shot-pixelfx.js');
+    expect(playPixelDamage(12,false)).toBe(false); // no pitcher on screen: nothing to anchor to
+    expect(DAMAGE_PIXEL_LOOKS.crit.opts.label).toBe('SNIPE');
   });
 
   it('the setting switches between the pixel effect and the old flash and is remembered',()=>{

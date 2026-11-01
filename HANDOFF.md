@@ -15,6 +15,7 @@
 - 구현: `engine.js` `v10ShotMode/v10ShotMissed/v10ShotRate/v10ShotMiss`, `knownPitchZones`가 빗나간 칸 제외 → 공개 확률·예측·의도 아이콘이 같이 좁혀짐. `swing-preview.js` 구간 조건부 처리. 화면: 칸 총알 구멍(`.bp-shot-hole`), 발 수 배지, `card-fx.playShot`. 저장: `state.v10.shotMode`, `battle.shot`(없으면 생략, 기존 세이브 호환).
 - 시뮬(1막 첫 전투·200시드·단순 정책): 기존 강판 51.5%·투구 11.8 / 사격 60.5%·투구 5.9. 기본 꺼짐, main 미반영(작업 브랜치만).
 - 2026-11-01 사격 연출 pixelfx 교체: `src/vendor/pixelfx`(MIT, 원본 그대로 · NOTICE에 출처·커밋), `src/duel/shot-pixelfx.js` — 빗나감 `impacts/bullet-impact`(픽셀 ×3, 몸쪽 열은 반전), 명중 `impacts/crit-hit`(금빛 팔레트, ×2). 설정 > 실험 > "사격 연출"로 기존 섬광과 전환(기본 픽셀). 시계 고정 캡처 비교: `docs/design/shot-fx-compare-20261101.webp`. JS +약 0.1MB.
+- 2026-11-01 피해 숫자: 사격 모드 명중의 타격 순간(fxStage impact)에 투수 위로 pixelfx `ui/damage-number`(-N), 첫 발 명중(×1.2)은 `ui/crit-number` 'SNIPE -N!'. `lastCombat.shotRate` 추가. 캡처 `docs/design/shot-damage-number-20261101.webp`. (명중 후 결과가 1.1초 뒤 다음으로 넘어가는 건 기존 `AUTO_NEXT_MS` 설계)
 - 남은 판단: 사격 모드를 기본으로 할지, 빗나감 대가(현재 1S) 조정, 1.2 첫 발 배율.
 
 ## 2026-10-24 — 예측 프리뷰 · 의도 아이콘 · 카드 연출 (알파 피드백 "뭘 하는지 모르겠음")
