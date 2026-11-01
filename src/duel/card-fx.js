@@ -132,6 +132,7 @@ export function playShot(zones,hitZone=null,root=document){
     el.animate([{opacity:0,transform:'scale(.3)'},{opacity:1,transform:'scale(1.1)',offset:.25},{opacity:0,transform:`scale(${hit?1.7:1.25})`}],
       {duration:SHOT_FX_MS,easing:'cubic-bezier(.2,.8,.3,1)'}).onfinish=done;
   }
-  if(soundOn)cue(hitZone!=null?'cardRare':'cardSpend');
+  shotSound(hitZone);
   return true;
 }
+export function shotSound(hitZone=null){if(soundOn&&!cardFxSuppressed())cue(hitZone!=null?'cardRare':'cardSpend');}

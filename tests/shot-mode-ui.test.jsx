@@ -51,3 +51,29 @@ describe('사격 모드 화면',()=>{
     expect(screen.queryByTestId('bp-shot-hole')).toBeNull();
   });
 });
+
+describe('사격 연출 · pixelfx',()=>{
+  it('vendors pixelfx with its MIT license and notice, and draws on a layer that never takes touches',async()=>{
+    const fs=await import('node:fs');
+    expect(fs.readFileSync('src/vendor/pixelfx/LICENSE','utf8')).toMatch(/MIT License/);
+    expect(fs.readFileSync('src/vendor/pixelfx/NOTICE.md','utf8')).toMatch(/patch-gg\/pixelfx/);
+    const {SHOT_PIXEL_LOOKS,playPixelShot}=await import('../src/duel/shot-pixelfx.js');
+    for(const look of Object.values(SHOT_PIXEL_LOOKS)){expect(look.max).toBeLessThanOrEqual(.9);expect(Number.isInteger(look.scale)).toBe(true);}
+    document.body.innerHTML='<div class="bp-zone"><button data-zone="4"></button></div>';
+    const played=playPixelShot([4],null);
+    const layer=document.getElementById('shot-pixelfx-layer');
+    if(played)expect(layer.style.pointerEvents).toBe('none');
+    else expect(layer).toBeNull(); // no 2D canvas here: nothing is drawn, nothing is left behind
+  });
+
+  it('the setting switches between the pixel effect and the old flash and is remembered',()=>{
+    localStorage.setItem('ninezone.shotMode.v1','1');
+    render(<Duel/>);
+    fireEvent.click(screen.getAllByRole('button',{name:/설정/})[0]);
+    const t=screen.getByTestId('shot-fx-toggle');
+    expect(t.textContent).toContain('픽셀 이펙트');
+    fireEvent.click(t);
+    expect(screen.getByTestId('shot-fx-toggle').textContent).toContain('기존 섬광');
+    expect(localStorage.getItem('ninezone.shotFx.v1')).toBe('css');
+  });
+});
