@@ -1,0 +1,23 @@
+Initial: 2 energy, legal cost-2 combination, public read II, coverage 0/3/6/7.
+Cost-2 selection replaces a full stack; cross covers 5 at centre, 3 at corner.
+Remove/re-add support and free basic swing work; returning from basic selects a legal main.
+Preparation consumes 1 energy and replaces the used card; cost-2 attack blocks at 1 energy, basic remains usable.
+TAKE grants 3 energy only after advancing to the next pitch.
+Real seeded swing resolves as centre-field single, first-base runner, HP 60 to 50, energy 0.
+Range hit away from aimed cell does not claim an exact read.
+Layout 667x375: no horizontal overflow/card-footer clipping; actions visible; zone/read/basic/take targets >=44px; zone below HUD.
+Result 667x375: no overlap with cards/actions, no right-panel text overflow, TAKE hidden.
+Layout 740x360: no horizontal overflow/card-footer clipping; actions visible; zone/read/basic/take targets >=44px; zone below HUD.
+Result 740x360: no overlap with cards/actions, no right-panel text overflow, TAKE hidden.
+Layout 844x390: no horizontal overflow/card-footer clipping; actions visible; zone/read/basic/take targets >=44px; zone below HUD.
+Result 844x390: no overlap with cards/actions, no right-panel text overflow, TAKE hidden.
+Layout 932x430: no horizontal overflow/card-footer clipping; actions visible; zone/read/basic/take targets >=44px; zone below HUD.
+Result 932x430: no overlap with cards/actions, no right-panel text overflow, TAKE hidden.
+Layout 1440x900: no horizontal overflow/card-footer clipping; actions visible; zone/read/basic/take targets >=44px; zone below HUD.
+Result 1440x900: no overlap with cards/actions, no right-panel text overflow, TAKE hidden.
+Layout 390x844: no horizontal overflow/card-footer clipping; actions visible; zone/read/basic/take targets >=44px; zone below HUD.
+Result 390x844: no overlap with cards/actions, no right-panel text overflow, TAKE hidden.
+Native touch swipe scrolls the small landscape hand without selecting or executing a card; hint is visible.
+Repeated click during flight resolves only one pitch.
+Landscape to portrait to landscape preserves battle state.
+No browser page errors.

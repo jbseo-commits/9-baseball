@@ -1,0 +1,42 @@
+/* Real touch input against Vite or the published Pages preview. The Node-side
+   expected state is independently executed by the same actual engine fixture. */
+const {chromium}=require('playwright'),fs=require('fs'),assert=require('node:assert/strict');
+const base=process.env.QA_BASE||'http://127.0.0.1:5233/',out=process.env.QA_OUT||'/tmp/9zone-multi-placement';fs.mkdirSync(out,{recursive:true});
+const sizes=process.env.QA_SIZES?JSON.parse(process.env.QA_SIZES):[[667,375],[740,360],[844,390],[1024,768],[1440,900],[1920,1080]];
+const board=p=>p.locator('[data-board-card-id]').evaluateAll(es=>es.map(e=>({id:e.dataset.boardCardId,order:+e.dataset.boardOrder,aim:+e.dataset.boardAim})));
+const open=async p=>{const b=p.getByRole('button',{name:'손패 펼치기',exact:true});if(await b.count())await b.tap();await p.waitForTimeout(380);};
+const start=async(p,id)=>{await p.goto(base+'?battleUi=vnext&battleFixture='+id+'&battlePresentation=clean&v='+(process.env.QA_VERSION||'local'));await p.locator('.bv-actor-batter img').first().waitFor();await p.locator('.bv-actor img').evaluateAll(es=>Promise.all(es.map(e=>e.decode())));await p.evaluate(()=>document.fonts.ready);};
+const card=(p,id)=>p.locator(`[data-card-id="${id}"] .bv-card`);
+async function drop(p,cdp,id,zone){
+ await open(p);const el=card(p,id);await el.scrollIntoViewIfNeeded();await p.waitForTimeout(65);const c=await el.boundingBox(),z=await p.locator(`.bv-cell[data-zone="${zone}"]`).boundingBox();
+ const a={x:c.x+c.width*.55,y:c.y+c.height*.5},b={x:z.x+z.width/2,y:z.y+z.height/2};
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[a]});for(let i=1;i<=9;i++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:a.x+(b.x-a.x)*i/9,y:a.y+(b.y-a.y)*i/9}]});await p.waitForTimeout(16);}await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await p.waitForTimeout(80);
+}
+(async()=>{
+ const {buildFixture}=await import('../src/duel/battle-vnext/fixtures.js'),{setAimZone,playV10Action}=await import('../src/duel/engine.js');
+ const expectedFor=(id,n)=>{const f=buildFixture(id),ids=f.hand.filter(c=>c.entry.kind==='place').map(c=>c.id).slice(0,n);return {ids,state:playV10Action(setAimZone(f.s,0),{type:'card',id:ids[0],supports:ids.slice(1).map((id,i)=>({id,aimZone:(i+1)*4}))})};};
+ const expected=expectedFor('stack-three-ready',3),browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox']}),reports=[];
+ for(const [w,h]of sizes){
+  const context=await browser.newContext({viewport:{width:w,height:h},isMobile:w<1100,hasTouch:true,...(w===844?{recordVideo:{dir:out,size:{width:w,height:h}}}:{})});const p=await context.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));const cdp=await context.newCDPSession(p);
+  await start(p,'stack-three-ready');await p.evaluate(()=>localStorage.setItem('9zone-v10-run','multi-sentinel'));
+  assert.equal(await p.getByTestId('bv-energy').getAttribute('data-energy'),'3');
+  const ids=await p.locator('.bv-card[data-card-kind=place]').evaluateAll(es=>es.map(e=>e.closest('[data-card-id]').dataset.cardId));assert.deepEqual(ids,expected.ids);
+  for(let i=0;i<3;i++){await drop(p,cdp,ids[i],i*4);assert.deepEqual(await board(p),ids.slice(0,i+1).map((id,j)=>({id,order:j+1,aim:j*4})));assert.equal(await p.locator('.bv-card.is-main').evaluate(e=>e.closest('[data-card-id]').dataset.cardId),ids[0]);assert.equal(await p.locator('.bv-scene').getAttribute('data-play-token'),'1');if(i===2&&h<=500)assert.ok(await p.locator('.bv-stack-tray-head>span').evaluate(e=>{const a=e.getBoundingClientRect(),h=document.querySelector('.bv-hand-handle').getBoundingClientRect();return a.right<=h.left||a.top>=h.bottom||a.bottom<=h.top;}),'fold handle never covers the stack count/link caption');if(i>0)await p.screenshot({path:`${out}/${i+1}-cards-${w}.jpg`,quality:88});}
+  await p.waitForTimeout(1100);assert.equal(await p.locator('[data-testid=bv-coverage-insert]').count(),0);assert.equal((await board(p)).length,3);assert.equal(await p.getByTestId('bv-energy').getAttribute('data-energy'),'3');
+  await drop(p,cdp,ids[1],2);assert.deepEqual((await board(p)).map(c=>c.aim),[0,2,8]);
+  await p.getByRole('button',{name:'2번 정타 노림 지원 빼기',exact:true}).tap();await p.waitForFunction(()=>document.querySelectorAll('[data-board-card-id]').length===2);assert.deepEqual(await board(p),[{id:ids[0],order:1,aim:0},{id:ids[2],order:2,aim:8}]);assert.equal(await p.locator('.bv-stack-join.is-broken').count(),1);
+  const extra=await p.locator('.bv-card[data-card-kind=strike]').first().evaluate(e=>e.closest('[data-card-id]').dataset.cardId);await drop(p,cdp,extra,1);assert.ok((await p.locator('.bv-drop-problem').textContent()).includes('에너지'));assert.equal((await board(p)).length,2);
+  await drop(p,cdp,ids[2],0);assert.equal(await p.getByTestId('bv-stack-board').getAttribute('data-overlap-count'),'1');assert.equal(await p.locator('.bv-stack-join.is-connected').count(),1);await p.screenshot({path:`${out}/overlap-${w}.jpg`,quality:88});
+  // Rebuild with tap-to-add through the real +card control, then actual engine.
+  await p.getByRole('button',{name:'선택 해제 · 지켜보기로 전환',exact:true}).tap();await p.waitForFunction(()=>!document.querySelector('.bv-card.is-main'));await open(p);await card(p,ids[0]).scrollIntoViewIfNeeded();await card(p,ids[0]).tap();await p.waitForFunction(id=>document.querySelector('.bv-card.is-main')?.closest('[data-card-id]').dataset.cardId===id,ids[0]);await p.locator('.bv-cell[data-zone="0"]').tap();
+  for(let i=1;i<3;i++){await p.getByRole('button',{name:'+ 카드 추가',exact:true}).tap();await p.waitForTimeout(380);await card(p,ids[i]).scrollIntoViewIfNeeded();await card(p,ids[i]).tap();await p.locator(`.bv-cell[data-zone="${i*4}"]`).tap();await p.waitForFunction(n=>document.querySelectorAll('[data-board-card-id]').length===n,i+1);}
+  assert.deepEqual((await board(p)).map(c=>c.aim),[0,4,8]);
+  const t=Date.now();await p.clock.install({time:t});await p.clock.pauseAt(t+1000);await p.getByTestId('bp-swing').tap();await p.clock.runFor(200);assert.equal(await p.locator('.bv-stack-board.is-assembling').count(),1);assert.equal(await p.locator('.bv-scene').getAttribute('data-play-token'),'1');await p.screenshot({path:`${out}/assembly-${w}.jpg`,quality:88});
+  await p.clock.runFor(520);assert.equal(await p.locator('.bv-scene').getAttribute('data-play-token'),String(expected.state.stats.pitches));await p.clock.runFor(1800);await p.clock.resume();
+  assert.equal(await p.locator('.bv-card[data-card-kind=place]').count(),0);assert.equal(await p.getByTestId('bv-energy').getAttribute('data-energy'),String(expected.state.battle.energy));assert.ok((await p.locator('.bv-hud-opponent').getAttribute('aria-label')).includes(`${expected.state.pitcher.hp} / ${expected.state.pitcher.maxHp}`));assert.equal(await p.evaluate(()=>localStorage.getItem('9zone-v10-run')),'multi-sentinel');assert.deepEqual(errors,[]);
+  await p.screenshot({path:`${out}/result-${w}.jpg`,quality:88});const video=p.video();await context.close();if(video)await video.saveAs(`${out}/three-card-touch-${w}.webm`);
+  reports.push({w,h,threeDistinctCards:true,baseUnchanged:true,reaimSupport:true,removeRenumbers:true,overBudgetRejected:true,overlapSeparated:true,tapAdd:true,existingCommit720:true,actualPitch:expected.state.stats.pitches,actualEnergy:expected.state.battle.energy,actualHp:expected.state.pitcher.hp,saveIsolated:true,errors});console.log('passed multi',w,h);
+ }
+ const p=await browser.newPage({viewport:{width:844,height:390},hasTouch:true,reducedMotion:'reduce'});await start(p,'stack-two-ready');const cdp=await p.context().newCDPSession(p),two=expectedFor('stack-two-ready',2);assert.equal(await p.getByTestId('bv-energy').getAttribute('data-energy'),'2');await drop(p,cdp,two.ids[0],0);await drop(p,cdp,two.ids[1],4);assert.equal(await p.getByTestId('bv-stack-tray').getAttribute('data-total-cost'),'2');assert.equal(await p.locator('.bv-insert-flight').last().evaluate(e=>getComputedStyle(e).animationName),'none');await p.setViewportSize({width:390,height:844});await p.waitForTimeout(100);assert.deepEqual((await board(p)).map(c=>c.aim),[0,4]);await p.close();
+ await browser.close();fs.writeFileSync(`${out}/multi-browser.json`,JSON.stringify({base,viewports:reports,actualBaseEnergy2:true,reducedMotion:true,rotation:true},null,2));console.log(sizes.length+' viewports + actual base-energy2, reduced motion and rotation passed');
+})().catch(e=>{console.error(e);process.exit(1)});

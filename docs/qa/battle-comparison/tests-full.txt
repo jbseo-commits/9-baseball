@@ -1,0 +1,78 @@
+
+> 9zone-showdown@1.0.0 test
+> vitest run
+
+
+ RUN  v4.1.11 /workspace/9-baseball-claude-review
+
+DOMException [NotSupportedError]: Failed to load iframe page "http://localhost:3000/?battleUi=vnext&battleFixture=watch-read0&battleCompareVariant=legacy&battleCompareChild=legacy". Iframe page loading is disabled.
+    at HTMLIFrameElement.#loadPage (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/html-iframe-element/HTMLIFrameElement.js:333:27)
+    at HTMLIFrameElement.[connectedToDocument] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/html-iframe-element/HTMLIFrameElement.js:230:23)
+    at HTMLIFrameElement.[connectedToNode] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:806:53)
+    at HTMLDivElement.[connectedToNode] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:798:58)
+    at HTMLElement.[connectedToNode] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:798:58)
+    at HTMLDivElement.[connectedToNode] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:798:58)
+    at HTMLElement.[connectedToNode] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:798:58)
+    at HTMLDivElement.[appendChild] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:421:45)
+    at HTMLDivElement.[appendChild] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/element/Element.js:1102:62)
+    at HTMLDivElement.appendChild (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:314:48)
+DOMException [NotSupportedError]: Failed to load iframe page "http://localhost:3000/?battleUi=vnext&battleFixture=watch-read0&battleCompareVariant=vnext&battleCompareChild=vnext". Iframe page loading is disabled.
+    at HTMLIFrameElement.#loadPage (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/html-iframe-element/HTMLIFrameElement.js:333:27)
+    at HTMLIFrameElement.[connectedToDocument] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/html-iframe-element/HTMLIFrameElement.js:230:23)
+    at HTMLIFrameElement.[connectedToNode] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:806:53)
+    at HTMLDivElement.[connectedToNode] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:798:58)
+    at HTMLElement.[connectedToNode] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:798:58)
+    at HTMLDivElement.[connectedToNode] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:798:58)
+    at HTMLElement.[connectedToNode] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:798:58)
+    at HTMLDivElement.[appendChild] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:421:45)
+    at HTMLDivElement.[appendChild] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/element/Element.js:1102:62)
+    at HTMLDivElement.appendChild (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:314:48)
+DOMException [NotSupportedError]: Failed to load iframe page "http://localhost:3000/?battleUi=vnext&battleFixture=prepare&battleCompareVariant=legacy&battleCompareChild=legacy". Iframe page loading is disabled.
+    at HTMLIFrameElement.#loadPage (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/html-iframe-element/HTMLIFrameElement.js:333:27)
+    at HTMLIFrameElement.[connectedToDocument] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/html-iframe-element/HTMLIFrameElement.js:230:23)
+    at HTMLIFrameElement.[connectedToNode] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:806:53)
+    at HTMLDivElement.[appendChild] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:421:45)
+    at HTMLDivElement.[appendChild] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/element/Element.js:1102:62)
+    at HTMLDivElement.appendChild (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:314:48)
+    at appendChild (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:11059:18)
+    at insertOrAppendPlacementNode (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:23941:7)
+    at commitPlacement (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:23883:9)
+    at commitReconciliationEffects (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:24630:7)
+DOMException [NotSupportedError]: Failed to load iframe page "http://localhost:3000/?battleUi=vnext&battleFixture=prepare&battleCompareVariant=vnext&battleCompareChild=vnext". Iframe page loading is disabled.
+    at HTMLIFrameElement.#loadPage (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/html-iframe-element/HTMLIFrameElement.js:333:27)
+    at HTMLIFrameElement.[connectedToDocument] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/html-iframe-element/HTMLIFrameElement.js:230:23)
+    at HTMLIFrameElement.[connectedToNode] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:806:53)
+    at HTMLDivElement.[appendChild] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:421:45)
+    at HTMLDivElement.[appendChild] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/element/Element.js:1102:62)
+    at HTMLDivElement.appendChild (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:314:48)
+    at appendChild (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:11059:18)
+    at insertOrAppendPlacementNode (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:23941:7)
+    at commitPlacement (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:23883:9)
+    at commitReconciliationEffects (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:24630:7)
+DOMException [NotSupportedError]: Failed to load iframe page "http://localhost:3000/?battleUi=vnext&battleFixture=prepare&battleCompareVariant=legacy&battleCompareChild=legacy". Iframe page loading is disabled.
+    at HTMLIFrameElement.#loadPage (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/html-iframe-element/HTMLIFrameElement.js:333:27)
+    at HTMLIFrameElement.[connectedToDocument] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/html-iframe-element/HTMLIFrameElement.js:230:23)
+    at HTMLIFrameElement.[connectedToNode] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:806:53)
+    at HTMLDivElement.[appendChild] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:421:45)
+    at HTMLDivElement.[appendChild] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/element/Element.js:1102:62)
+    at HTMLDivElement.appendChild (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:314:48)
+    at appendChild (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:11059:18)
+    at insertOrAppendPlacementNode (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:23941:7)
+    at commitPlacement (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:23883:9)
+    at commitReconciliationEffects (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:24630:7)
+DOMException [NotSupportedError]: Failed to load iframe page "http://localhost:3000/?battleUi=vnext&battleFixture=prepare&battleCompareVariant=vnext&battleCompareChild=vnext". Iframe page loading is disabled.
+    at HTMLIFrameElement.#loadPage (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/html-iframe-element/HTMLIFrameElement.js:333:27)
+    at HTMLIFrameElement.[connectedToDocument] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/html-iframe-element/HTMLIFrameElement.js:230:23)
+    at HTMLIFrameElement.[connectedToNode] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:806:53)
+    at HTMLDivElement.[appendChild] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:421:45)
+    at HTMLDivElement.[appendChild] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/element/Element.js:1102:62)
+    at HTMLDivElement.appendChild (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:314:48)
+    at appendChild (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:11059:18)
+    at insertOrAppendPlacementNode (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:23941:7)
+    at commitPlacement (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:23883:9)
+    at commitReconciliationEffects (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:24630:7)
+
+ Test Files  208 passed (208)
+      Tests  1383 passed (1383)
+   Start at  21:39:20
+   Duration  125.58s (transform 11.97s, setup 0ms, import 83.57s, tests 195.27s, environment 47.41s)

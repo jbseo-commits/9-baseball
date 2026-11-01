@@ -1,0 +1,246 @@
+{
+  "base": "http://127.0.0.1:5242/9-baseball/previews/codex-mockup-v1-c05-integration/",
+  "normalSeed": 3,
+  "actions": [
+    {
+      "turn": 0,
+      "action": {
+        "type": "card",
+        "id": "c6"
+      },
+      "pitch": 0,
+      "hp": 60,
+      "energy": 2,
+      "phase": "battle"
+    },
+    {
+      "turn": 1,
+      "action": {
+        "type": "card",
+        "id": "c2",
+        "zone": 6,
+        "supports": [
+          {
+            "id": "c1",
+            "aimZone": 8
+          }
+        ]
+      },
+      "pitch": 1,
+      "hp": 45,
+      "energy": 0,
+      "phase": "between"
+    },
+    {
+      "turn": 2,
+      "action": {
+        "type": "card",
+        "id": "c4",
+        "zone": 2
+      },
+      "pitch": 2,
+      "hp": 44,
+      "energy": 0,
+      "phase": "pitch"
+    },
+    {
+      "turn": 3,
+      "action": {
+        "type": "card",
+        "id": "c3",
+        "zone": 6,
+        "supports": [
+          {
+            "id": "c0",
+            "aimZone": 8
+          }
+        ]
+      },
+      "pitch": 3,
+      "hp": 43,
+      "energy": 0,
+      "phase": "pitch"
+    },
+    {
+      "turn": 4,
+      "action": {
+        "type": "card",
+        "id": "c5",
+        "zone": 0
+      },
+      "pitch": 4,
+      "hp": 42,
+      "energy": 0,
+      "phase": "between"
+    },
+    {
+      "turn": 5,
+      "action": {
+        "type": "card",
+        "id": "c6"
+      },
+      "pitch": 4,
+      "hp": 42,
+      "energy": 2,
+      "phase": "battle"
+    },
+    {
+      "turn": 6,
+      "action": {
+        "type": "card",
+        "id": "c3",
+        "zone": 6
+      },
+      "pitch": 5,
+      "hp": 40,
+      "energy": 1,
+      "phase": "pitch"
+    },
+    {
+      "turn": 7,
+      "action": {
+        "type": "card",
+        "id": "c5",
+        "zone": 2
+      },
+      "pitch": 6,
+      "hp": 38,
+      "energy": 0,
+      "phase": "pitch"
+    },
+    {
+      "turn": 8,
+      "action": {
+        "type": "card",
+        "id": "c4",
+        "zone": 0
+      },
+      "pitch": 7,
+      "hp": 37,
+      "energy": 0,
+      "phase": "between"
+    },
+    {
+      "turn": 9,
+      "action": {
+        "type": "card",
+        "id": "c2",
+        "zone": 6,
+        "supports": [
+          {
+            "id": "c1",
+            "aimZone": 8
+          }
+        ]
+      },
+      "pitch": 8,
+      "hp": 21,
+      "energy": 0,
+      "phase": "between"
+    },
+    {
+      "turn": 10,
+      "action": {
+        "type": "card",
+        "id": "c0",
+        "zone": 6,
+        "supports": [
+          {
+            "id": "c2",
+            "aimZone": 8
+          }
+        ]
+      },
+      "pitch": 9,
+      "hp": 3,
+      "energy": 0,
+      "phase": "between"
+    },
+    {
+      "turn": 11,
+      "action": {
+        "type": "card",
+        "id": "c6"
+      },
+      "pitch": 9,
+      "hp": 3,
+      "energy": 2,
+      "phase": "battle"
+    },
+    {
+      "turn": 12,
+      "action": {
+        "type": "card",
+        "id": "c1",
+        "zone": 6
+      },
+      "pitch": 10,
+      "hp": 1,
+      "energy": 1,
+      "phase": "pitch"
+    },
+    {
+      "turn": 13,
+      "action": {
+        "type": "card",
+        "id": "c3",
+        "zone": 6
+      },
+      "pitch": 11,
+      "hp": 0,
+      "energy": 1,
+      "phase": "reward"
+    }
+  ],
+  "actualThreeCardCommit": true,
+  "escapeKeepsActualPlan": true,
+  "naturalDefeatAndReload": true,
+  "realHalfSpeedMs": 4465.600000023842,
+  "firstMatchWon": true,
+  "pitches": 11,
+  "hp": 0,
+  "rewardToMap": true,
+  "reloadResume": true,
+  "titleResume": true,
+  "nextNode": "a1-r1l1",
+  "productionReadWriteDelete": false,
+  "layouts": [
+    {
+      "w": 667,
+      "h": 375,
+      "art": "regular-02-teal-mirage",
+      "fullHeight": true
+    },
+    {
+      "w": 740,
+      "h": 360,
+      "art": "regular-02-teal-mirage",
+      "fullHeight": true
+    },
+    {
+      "w": 844,
+      "h": 390,
+      "art": "regular-02-teal-mirage",
+      "fullHeight": true
+    },
+    {
+      "w": 1024,
+      "h": 768,
+      "art": "regular-02-teal-mirage",
+      "fullHeight": true
+    },
+    {
+      "w": 1440,
+      "h": 900,
+      "art": "regular-02-teal-mirage",
+      "fullHeight": true
+    },
+    {
+      "w": 1920,
+      "h": 1080,
+      "art": "regular-02-teal-mirage",
+      "fullHeight": true
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,224 @@
+/* Approved at-bat direction. Only the opt-in view: no root/page/legacy locks. */
+.bv-atbat{--bv-amber:#eac36d;--bv-navy:#101f30}
+.bv-atbat :is(.bv-hand-dock,.bv-decision,.bv-action,.bv-hud,.bv-result,.bv-result-line){--bv-orange:var(--bv-amber);--bv-ink:#122235;--bv-teal:#9bc3bc}
+.bv-atbat .bv-field-choice{display:none}
+.bv-atbat .bv-action-name{font-size:.76em;font-weight:600}
+@media(orientation:landscape){
+  .battle-vnext.bv-atbat{--bv-rail:clamp(288px,38vw,600px);--bv-field-top:0px;--bv-zone-size:clamp(150px,18vw,288px);min-height:320px;background:var(--bv-navy)}
+  .bv-atbat .bv-stage{inset:var(--bv-field-top) var(--bv-rail) 0 0}
+  .bv-atbat .bv-scene-shade{background:linear-gradient(#0a192c22,transparent 24%,transparent 90%,#101f3044)}
+  .bv-atbat>.bv-hud{margin-right:var(--bv-rail);gap:6px}
+  .bv-atbat .bv-hud-bar{height:48px;min-height:48px;padding:0 12px;gap:12px;background:#0b182bec;position:relative;justify-content:flex-end}
+  .bv-atbat .bv-hud-opponent{position:absolute;top:56px;left:12px;width:min(330px,calc(100% - 24px));max-width:none;min-width:0;padding:8px 10px;background:#0c1d30e6;border:1px solid #9aafbb33;border-radius:5px;gap:6px 8px}
+  .bv-atbat .bv-hud-name{font-size:14px}
+  .bv-atbat .bv-hud-hp{height:5px}
+  .bv-atbat .bv-hud-hp-fill{background:#eac36d}
+  .bv-atbat .bv-hud-title{display:block;margin-right:auto;font-size:12px}
+  .bv-atbat .bv-hud-count{gap:12px;margin-right:auto}
+  .bv-atbat .bv-hud-count em{font-size:13px}
+  .bv-atbat .bv-hud-count i{width:11px;height:11px;border:1px solid #7086a333;background:#21354a}
+  .bv-atbat .bv-hud-menu{font-size:14px}
+  .bv-atbat .bv-hud-notes{padding:60px 12px 0;gap:4px;max-width:100%}
+  .bv-atbat .bv-hud-notes p{font-size:11px;line-height:1.35;padding:3px 6px;background:#0c1d30db}
+  .bv-atbat .bv-hud-bases{position:absolute;top:8px;right:54px;border:0;padding:0!important;background:none!important}
+  .bv-atbat .bv-hud-bases>span:last-child{display:none}
+  .bv-atbat .bv-hud-read{display:none}
+  .bv-atbat .bv-hud-tell{border:0;color:#f0dfb8}
+  .bv-atbat .bv-hud-tell span{font-size:13px}
+  .bv-atbat .bv-review-notice{top:145px;left:12px;font-size:9px}
+
+  /* One on-field zone; its position follows the same camera's plate anchor. */
+  .bv-atbat .bv-decision-area{position:absolute;inset:auto;width:var(--bv-zone-size);padding:0;background:none;overflow:visible;z-index:3;touch-action:none;
+    left:clamp(8px,calc(var(--bv-plate-x,30vw) + 12px),calc(100% - var(--bv-rail) - var(--bv-zone-size) - 10px));
+    top:clamp(106px,max(calc(var(--bv-mound-y,35vh) - 10px),calc(var(--bv-plate-y,70vh) - var(--bv-zone-size) - 20px)),calc(100% - var(--bv-zone-size) - 43px))}
+  .bv-atbat .bv-field-choice{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 3px;font-size:13px;line-height:18px;font-weight:800;color:var(--bv-amber);text-shadow:0 1px 4px #000,0 0 8px #000}
+  .bv-atbat .bv-field-choice span{font-size:11px;font-weight:500;color:#f4e9d2}
+  .bv-atbat .bv-decision-area:has(.bv-field-choice) .bv-zone-caption{display:none}
+  .bv-atbat .bv-decision{gap:4px}
+  .bv-atbat .bv-zone-caption{font-size:11px;min-height:17px;justify-content:center}
+  .bv-atbat .bv-zone{padding:0;gap:0;height:var(--bv-zone-size);border:1px solid #d7e4ee99;border-radius:0;background:#1022354d}
+  .bv-atbat .bv-cell{aspect-ratio:auto;min-height:44px;height:auto;border:1px solid #aec3d344;border-radius:0;font:600 clamp(11px,1.1vw,17px)/1.2 'Noto Sans KR',sans-serif;background:rgba(12,30,46,var(--bv-density,.45))}
+  .bv-atbat .bv-cell.is-cover{border:1px solid var(--bv-amber);box-shadow:inset 0 0 0 1px #eac36d66;background:#a57b2780}
+  .bv-atbat .bv-cell.is-support{border:2px dashed #a3d5c9}
+  .bv-atbat .bv-cell.is-cover.is-support{box-shadow:inset 0 0 0 2px #a3d5c9}
+  .bv-atbat .bv-cell.is-dead{color:#a2b3bd;font-size:11px;background:#0b192d85}
+  .bv-atbat .bv-cell.is-actual{border:2px solid #fff3c9;box-shadow:0 0 12px #ffe5ab66}
+  .bv-atbat .bv-aim-ring{width:36%;border:2px solid var(--bv-amber);box-shadow:0 0 0 3px #1c293333}
+  .bv-atbat[data-support=false] .bv-token.n1{display:none}
+  .bv-atbat .bv-band{justify-content:center;font-size:11px;min-height:18px;gap:6px;text-shadow:0 1px 3px #000}
+  .bv-atbat[data-phase=flight] .bv-decision-area{opacity:.3;pointer-events:none}
+  .bv-atbat[data-phase=result] .bv-cell{min-height:44px;height:auto}
+
+  /* Cards scroll inside this column; energy, feedback and execute stay visible. */
+  .bv-atbat .bv-command-rail{position:absolute;inset:0 0 0 auto;width:var(--bv-rail);max-height:100%;display:flex;flex-direction:column;padding:8px 12px max(10px,env(safe-area-inset-bottom));gap:6px;z-index:3;background:linear-gradient(100deg,#102034ef,#0c1829fa);border-left:1px solid #9aaeb72e}
+  .bv-atbat .bv-hand-area{position:relative;inset:auto;flex:1 1 0;min-height:0;padding:0}
+  .bv-atbat .bv-hand-dock{height:100%;min-height:0;display:flex;flex-direction:column;gap:4px;--bv-art-h:clamp(110px,17vh,178px)}
+  .bv-atbat .bv-hand-head{flex:none;gap:0 8px;min-height:44px;flex-wrap:wrap;align-content:start;text-shadow:none}
+  .bv-atbat .bv-energy{padding:0 4px;min-height:44px;border:0;background:none;gap:4px;flex:1}
+  .bv-atbat .bv-energy strong{font-size:26px;color:#f3ead9}
+  .bv-atbat .bv-energy strong small{font-size:14px;color:#9faebd}
+  .bv-atbat .bv-energy-label{display:inline;font-size:12px;color:#bec9d2}
+  .bv-atbat .bv-energy-pips{display:flex;margin-left:4px}
+  .bv-atbat .bv-energy-pips i{width:9px;height:13px}
+  .bv-atbat .bv-energy-line{font-size:10px;margin:0}
+  .bv-atbat .bv-hand-count{display:block;background:none;padding:0 2px;font-size:11px}
+  .bv-atbat .bv-hand-tools{width:100%;display:flex;gap:6px;justify-content:space-between;margin:0;padding:0;background:none;border-top:1px solid #91a9bd22}
+  .bv-atbat .bv-basic-chip,.bv-atbat .bv-piles,.bv-atbat .bv-support-toggle{min-height:44px;font-size:11px;padding:0 4px;background:none;border:0;color:#bfcbd4}
+  .bv-atbat .bv-basic-chip b{background:#23384b;color:#e4c78e;font-size:10px}
+  .bv-atbat .bv-basic-chip.is-main{color:var(--bv-amber)}
+  .bv-atbat .bv-basic-chip.is-main b{background:var(--bv-amber);color:#122235;box-shadow:none}
+  .bv-atbat .bv-support-toggle.is-on{border-bottom:2px dashed #9bc3bc;color:#bde5d9;background:#9bc3bc15;border-radius:0}
+  .bv-atbat .bv-hand-lock{position:absolute;right:0;top:36px;z-index:1;padding:2px 4px;background:#0c1829;font-size:10px}
+  .bv-atbat .bv-hand-scroller{flex:1;min-height:0;display:flex}
+  .bv-atbat .bv-hand-row{position:relative;width:100%;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-content:start;align-items:stretch;gap:10px;padding:4px 3px 8px;overflow-x:hidden;overflow-y:auto;touch-action:pan-y;scroll-snap-type:y proximity;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#6d8191 transparent}
+  .bv-atbat .bv-card-slot{min-width:0;scroll-snap-align:start;flex:auto}
+  .bv-atbat .bv-card{border:1px solid #738d9c99;border-radius:5px;background:#f1ecdf;box-shadow:none;transform:none;color:#142337}
+  .bv-atbat .bv-card-art{height:var(--bv-art-h);background-color:#122235}
+  .bv-atbat .bv-card-art::after{display:none}
+  .bv-atbat .bv-card-cost{top:5px;left:5px;width:31px;min-width:31px;height:31px;padding:0;background:#102235ed;color:#f4ecd9;border:1px solid #ebdfbd88;border-radius:50%;font-size:20px;box-shadow:none}
+  .bv-atbat .bv-card-cost small{display:none}
+  .bv-atbat .bv-card.is-plus .bv-card-cost{color:var(--bv-amber)}
+  .bv-atbat .bv-card-range{top:5px;right:5px;padding:3px;background:#102235f2;border:1px solid #c2cdd377;box-shadow:none;border-radius:2px}
+  .bv-atbat .bv-glyph{width:25px;height:25px;gap:1px}
+  .bv-atbat .bv-glyph i{background:#405366}
+  .bv-atbat .bv-glyph i.on{background:var(--bv-amber)}
+  .bv-atbat .bv-prep-glyph{width:25px;height:25px;color:#e9dfc9}
+  .bv-atbat .bv-card-name{font-size:16px;padding:7px 7px 3px;line-height:1.25}
+  .bv-atbat .bv-card-effect{font-size:12px;line-height:1.4;padding:0 7px;min-height:2.8em;color:#314252}
+  .bv-atbat .bv-card-notes{padding:3px 7px 0;font-size:11px}
+  .bv-atbat .bv-card-foot{margin:4px 7px 5px;padding-top:3px;font-size:10px;min-height:17px;border-color:#a3a99d44}
+  .bv-atbat .bv-card-role{color:#687278}
+  .bv-atbat .bv-card-tag{background:none;color:#77531c;font-size:10px;padding:0}
+  .bv-atbat .bv-card.is-main{border-color:var(--bv-amber);box-shadow:0 0 0 2px var(--bv-amber);transform:none}
+  .bv-atbat .bv-card.is-main .bv-card-tag{background:none;color:#77531c}
+  .bv-atbat .bv-card.is-support{outline:2px dashed #a3d5c9;outline-offset:-2px;transform:none;box-shadow:none}
+  .bv-atbat .bv-card.is-support .bv-card-tag{background:none;color:#1f6354}
+  .bv-atbat .bv-card.is-armed{outline:2px dotted #a3d5c9;outline-offset:-2px;animation:none}
+  .bv-atbat .bv-card-detail{width:24px;height:24px;bottom:3px;right:3px;font-size:14px}
+  .bv-atbat .bv-hand-more{inset:auto 8px 7px auto;justify-content:center;min-height:18px;padding:0 6px;background:#0a1c2de8;border-radius:3px;font-size:10px;color:#e6d6ad}
+  .bv-atbat .bv-hand-more.left{top:4px;bottom:auto}
+
+  .bv-atbat .bv-command-rail>.bv-plan{flex:none;min-height:0;max-height:26vh;overflow-y:auto;padding:5px 2px;background:none;border:0;border-radius:0;gap:3px}
+  .bv-atbat .bv-plan-title,.bv-atbat .bv-plan-reasons,.bv-atbat .bv-plan-hint{display:none}
+  .bv-atbat .bv-plan-metrics{font-size:11px;gap:6px}
+  .bv-atbat .bv-plan-metrics strong{font-size:14px;color:#f0deba}
+  .bv-atbat .bv-plan-metrics span{font-size:11px;color:#c0ced6}
+  .bv-atbat .bv-plan-detail{font-size:11px;color:#afbfcc}
+  .bv-atbat .bv-action-dock{flex:none;position:relative;inset:auto;padding:0;display:flex;gap:6px;align-items:stretch;border:0;background:none}
+  .bv-atbat .bv-action{flex:1;min-width:0;min-height:56px;padding:7px 12px;background:var(--bv-amber);border:1px solid #fae3ac99;box-shadow:none;border-radius:5px}
+  .bv-atbat .bv-action b{font-size:20px;line-height:1.25;letter-spacing:-.5px}
+  .bv-atbat .bv-action-name{display:block;font-size:12px}
+  .bv-atbat .bv-action-cost{font-size:16px;border-color:#69502866;padding-right:8px}
+  .bv-atbat .bv-action-arrow{display:none}
+  .bv-atbat .bv-action.k-watch{background:#1a3046;border-color:#71899877;color:#f2ead9}
+  .bv-atbat .bv-action.k-watch b{font-size:18px}
+  .bv-atbat .bv-plan-clear{min-width:44px;max-width:62px;padding:0 6px;min-height:44px;border-color:#7f9aa966;background:#193046;color:#d9e2e6;font-size:11px}
+  .bv-atbat .bv-inspector-area{inset:52px calc(var(--bv-rail) + 10px) 10px 10px;min-height:0}
+  .bv-atbat .bv-result-spotlight{top:32%}
+}
+@media(orientation:landscape) and (max-width:1100px){
+  .battle-vnext.bv-atbat{--bv-rail:clamp(288px,39vw,410px);--bv-zone-size:clamp(150px,18vw,210px)}
+  .bv-atbat .bv-command-rail{padding:4px 8px max(6px,env(safe-area-inset-bottom));gap:2px}
+  .bv-atbat .bv-hand-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .bv-atbat .bv-hud-opponent{width:min(270px,calc(100% - 24px))}
+  .bv-atbat .bv-hud-bases{right:54px}
+  .bv-atbat .bv-hand-dock{--bv-art-h:clamp(72px,16vh,140px)}
+  .bv-atbat .bv-card-name{font-size:14px;padding:5px 6px 2px}
+  .bv-atbat .bv-card-effect{font-size:11.5px;padding:0 6px}
+  .bv-atbat .bv-card-notes{font-size:10.5px}
+}
+@media(orientation:landscape) and (max-height:500px){
+  .battle-vnext.bv-atbat{--bv-zone-size:clamp(135px,calc(44vh - 24px),170px)}
+  .bv-atbat .bv-hand-dock{--bv-art-h:64px}
+  .bv-atbat .bv-hud-opponent{top:52px;padding:5px 8px;gap:3px 6px}
+  .bv-atbat .bv-hud-opponent{width:min(200px,calc(100% - 24px))}
+  .bv-atbat .bv-hud-title{display:none}
+  .bv-atbat .bv-hud-name{font-size:12px}
+  .bv-atbat .bv-hud-notes{padding-top:48px}
+  .bv-atbat .bv-hud-notes p{font-size:10px;padding:2px 4px}
+  .bv-atbat .bv-hud-gimmick{max-width:100%;font-size:10px!important}
+  .bv-atbat .bv-hand-count,.bv-atbat .bv-energy-label{display:none}
+  .bv-atbat .bv-energy strong{font-size:23px}
+  .bv-atbat .bv-energy-line{font-size:10px}
+  .bv-atbat .bv-action{min-height:48px;padding:5px 8px}
+  .bv-atbat .bv-action b{font-size:17px}
+  .bv-atbat .bv-action small{font-size:10px}
+  .bv-atbat .bv-action-name{font-size:11px}
+  .bv-atbat .bv-action-cost{font-size:14px}
+  .bv-atbat .bv-command-rail>.bv-plan{max-height:23vh;padding:2px}
+  .bv-atbat .bv-plan-metrics strong{font-size:12px}
+  .bv-atbat .bv-card-foot{margin-top:1px;padding-top:2px}
+  .bv-atbat .bv-card-range{top:3px;right:3px;padding:2px}
+  .bv-atbat .bv-glyph,.bv-atbat .bv-prep-glyph{width:23px;height:23px}
+}
+/* Rotation safety: existing portrait flow stays usable without a new redesign. */
+@media(orientation:portrait){
+  .bv-atbat .bv-command-rail{display:contents}
+  .bv-atbat .bv-command-rail>.bv-plan{order:4;margin:6px 10px}
+  .bv-atbat .bv-action-dock{order:5}
+}
+/* Final chat reference: a curved, always-visible hand over a full-width field.
+   This is a scrollable ordered hand, never a timing wheel or extra input mode. */
+@media(orientation:landscape){
+  .bv-atbat .bv-stage{right:0}
+  .bv-atbat .bv-hud-bar{width:380px;max-width:100%;border-radius:0 0 5px 0}
+  .bv-atbat .bv-hud-bases{left:282px;right:auto}
+  .bv-atbat .bv-command-rail{padding-right:18px;background:linear-gradient(90deg,transparent,#0c1829cc 22%,#0c1829e8);border-left:0}
+  .bv-atbat .bv-command-rail::before{content:'';position:absolute;right:-142px;top:12%;width:184px;height:74%;border-left:1px solid #bba77788;border-radius:50%;pointer-events:none;z-index:-1}
+  .bv-atbat .bv-hand-orbit .bv-hand-row{grid-template-columns:minmax(0,1fr);gap:20px;padding:6px 16px 10px 22px;scroll-padding-block:6px}
+  .bv-atbat .bv-hand-orbit .bv-card-slot{margin-left:12px;--bv-settle-angle:var(--bv-fan-angle,0deg);--bv-deal-turn:10deg;transform:rotate(var(--bv-settle-angle));transform-origin:100% 50%}
+  .bv-atbat .bv-hand-orbit .bv-card-slot:has(.is-main){--bv-settle-angle:0deg;transform:none;translate:-10px 0}
+  .bv-atbat .bv-hand-orbit .bv-card{display:grid;grid-template-columns:100px minmax(0,1fr);grid-template-rows:repeat(4,min-content);align-content:start;min-height:90px;background:#122439ed;border:1px solid #8298a066;color:#e9e5d8;border-radius:6px;overflow:hidden}
+  .bv-atbat .bv-hand-orbit .bv-card-art{grid-column:1;grid-row:1/5;width:100px;height:auto;min-height:88px;background-color:#0d2135}
+  .bv-atbat .bv-hand-orbit .bv-card-name{grid-column:2;grid-row:1;padding:9px 8px 3px;color:#f1eddf;font-size:17px}
+  .bv-atbat .bv-hand-orbit .bv-card-effect{grid-column:2;grid-row:2;font-size:12px;min-height:0;color:#bdcbd3;padding:0 8px;line-height:1.35}
+  .bv-atbat .bv-hand-orbit .bv-card-notes{grid-column:2;grid-row:3;padding:2px 8px 0;font-size:11px}
+  .bv-atbat .bv-hand-orbit .bv-card-condition{color:#e5c381}
+  .bv-atbat .bv-hand-orbit .bv-card-warning{color:#ffb3a8}
+  .bv-atbat .bv-hand-orbit .bv-card-foot{grid-column:2;grid-row:4;align-self:end;margin:4px 8px 6px;border-color:#839dad22;min-height:16px}
+  .bv-atbat .bv-hand-orbit .bv-card-role{color:#8ea5b2}
+  .bv-atbat .bv-hand-orbit .bv-card.is-main{border-color:var(--bv-amber);box-shadow:0 0 0 1px var(--bv-amber);background:#273044f5}
+  .bv-atbat .bv-hand-orbit .bv-card.is-main .bv-card-name,.bv-atbat .bv-hand-orbit .bv-card.is-main .bv-card-tag{color:var(--bv-amber)}
+  .bv-atbat .bv-hand-orbit .bv-card.is-unavailable .bv-card-effect{color:#9aabb6}
+  .bv-atbat .bv-hand-orbit .bv-card-detail{background:#a2b5c81a;color:#c1d0d9}
+  .bv-atbat .bv-hand-orbit .bv-hand-more{right:20px}
+}
+@media(orientation:landscape) and (max-height:500px){
+  .bv-atbat .bv-hud-bar{width:320px}
+  .bv-atbat .bv-hud-bases{left:230px;right:auto}
+  .bv-atbat .bv-hand-orbit .bv-hand-row{gap:7px;padding-left:14px;padding-right:10px}
+  .bv-atbat .bv-hand-orbit .bv-card-slot{margin-left:5px;--bv-settle-angle:0deg;--bv-deal-turn:0deg;transform:none}
+  .bv-atbat .bv-hand-orbit .bv-card-slot:has(.is-main){translate:-5px 0}
+  .bv-atbat .bv-hand-orbit .bv-card{grid-template-columns:74px minmax(0,1fr);min-height:76px}
+  .bv-atbat .bv-hand-orbit .bv-card-art{width:74px;min-height:74px}
+  .bv-atbat .bv-hand-orbit .bv-card-name{font-size:14px;padding:5px 7px 2px}
+  .bv-atbat .bv-hand-orbit .bv-card-effect{font-size:11px;padding:0 7px}
+  .bv-atbat .bv-hand-orbit .bv-card-notes{font-size:10px;padding:1px 7px 0}
+  .bv-atbat .bv-hand-orbit .bv-card-foot{min-height:12px;margin:2px 7px 3px;font-size:10px}
+  .bv-atbat .bv-hand-orbit .bv-card-role{display:none}
+  .bv-atbat .bv-hand-orbit .bv-card-cost{top:3px;left:3px;width:25px;min-width:25px;height:25px;font-size:16px}
+  .bv-atbat .bv-hand-orbit .bv-card-range{top:3px;right:3px;padding:2px}
+  .bv-atbat .bv-hand-orbit .bv-glyph,.bv-atbat .bv-hand-orbit .bv-prep-glyph{width:20px;height:20px}
+}
+/* Fan once on entry/newly dealt cards. Card taps stay immediate throughout;
+   selection and inspector never remount the hand or restart the deal. */
+@media(orientation:landscape) and (prefers-reduced-motion:no-preference){
+  .bv-atbat .bv-hand-orbit .bv-card-slot{animation:bv-fan-deal 240ms cubic-bezier(.18,.75,.22,1) both;animation-delay:var(--bv-deal-delay,0ms);transition:translate 120ms cubic-bezier(.2,.8,.2,1),transform 120ms ease-out}
+  .bv-atbat .bv-hand-orbit .bv-card.is-main::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 15%,#f5d89322 45%,transparent 75%);animation:bv-card-confirm 220ms ease-out both}
+  .bv-atbat .bv-cell{transition:background-color 120ms,border-color 120ms}
+  .bv-atbat .bv-aim-ring{animation:bv-aim-confirm 150ms ease-out both}
+}
+@keyframes bv-fan-deal{
+  from{opacity:.4;transform:translate(42px,10px) rotate(calc(var(--bv-settle-angle,0deg) + var(--bv-deal-turn,10deg))) scale(.97)}
+  to{opacity:1;transform:rotate(var(--bv-settle-angle,0deg)) scale(1)}
+}
+@keyframes bv-card-confirm{from{opacity:1;translate:-30% 0}to{opacity:0;translate:35% 0}}
+@keyframes bv-aim-confirm{from{opacity:.45;scale:1.16}to{opacity:1;scale:1}}
+@media(hover:hover) and (pointer:fine){
+  .bv-atbat .bv-hand-orbit .bv-card-slot:not(:has(.is-main)):hover{translate:-3px 0}
+}
+@media(prefers-reduced-motion:reduce){
+  .bv-atbat .bv-hand-orbit .bv-card-slot{animation:none;transition:none}
+  .bv-atbat .bv-hand-orbit .bv-card.is-main::after{display:none}
+  .bv-atbat .bv-cell,.bv-atbat .bv-aim-ring{animation:none;transition:none}
+}

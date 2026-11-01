@@ -1,3 +1,4 @@
+import {animationRate} from './animation-speed.js';
 // Synthesized judgement cues. No network assets: impact, air, crowd-like swell and UI tones are layered in Web Audio.
 let context,master;
 const CUES={
@@ -57,55 +58,61 @@ export function getMasterNode(){audio();return master;}
 function panNode(ctx,pan){
   if(!ctx.createStereoPanner)return null;const p=ctx.createStereoPanner();p.pan.value=Math.max(-1,Math.min(1,pan||0));return p;
 }
-function noiseBurst(ctx,at,duration,gainValue,pan=0,lowpass=5200){
+function noiseBurst(ctx,at,duration,gainValue,pan=0,lowpass=5200,own=()=>{}){
   if(!gainValue||!duration)return;
   const frames=Math.max(1,Math.floor(ctx.sampleRate*duration)),buffer=ctx.createBuffer(1,frames,ctx.sampleRate),data=buffer.getChannelData(0);
   for(let i=0;i<frames;i++)data[i]=(Math.random()*2-1)*(1-i/frames);
   const src=ctx.createBufferSource(),filter=ctx.createBiquadFilter(),gain=ctx.createGain(),panner=panNode(ctx,pan);
-  src.buffer=buffer;filter.type='lowpass';filter.frequency.value=lowpass;
+  own(src,filter,gain,panner);src.buffer=buffer;filter.type='lowpass';filter.frequency.value=lowpass;
   gain.gain.setValueAtTime(.0001,at);gain.gain.exponentialRampToValueAtTime(gainValue,at+.004);gain.gain.exponentialRampToValueAtTime(.0001,at+duration);
   src.connect(filter);filter.connect(gain);if(panner){gain.connect(panner);panner.connect(master)}else gain.connect(master);
   src.start(at);src.stop(at+duration+.01);
 }
-function batCrack(ctx,at,gainValue,pan=-.08){
+function batCrack(ctx,at,gainValue,pan=-.08,own=()=>{}){
   if(!gainValue)return;
   const osc=ctx.createOscillator(),gain=ctx.createGain(),filter=ctx.createBiquadFilter(),panner=panNode(ctx,pan);
-  osc.type='square';osc.frequency.setValueAtTime(1680,at);osc.frequency.exponentialRampToValueAtTime(740,at+.026);
+  own(osc,gain,filter,panner);osc.type='square';osc.frequency.setValueAtTime(1680,at);osc.frequency.exponentialRampToValueAtTime(740,at+.026);
   filter.type='highpass';filter.frequency.value=520;
   gain.gain.setValueAtTime(.0001,at);gain.gain.exponentialRampToValueAtTime(gainValue,at+.0025);gain.gain.exponentialRampToValueAtTime(.0001,at+.032);
   osc.connect(filter);filter.connect(gain);if(panner){gain.connect(panner);panner.connect(master)}else gain.connect(master);
   osc.start(at);osc.stop(at+.038);
-  noiseBurst(ctx,at,.018,gainValue*.72,pan,7600);
+  noiseBurst(ctx,at,.018,gainValue*.72,pan,7600,own);
 }
-function echoSend(ctx,node,amount,delayTime=.105){
+function echoSend(ctx,node,amount,delayTime=.105,cleanupMs=650,own=()=>{}){
   if(!amount)return;
   const delay=ctx.createDelay(.35),wet=ctx.createGain();
-  delay.delayTime.value=delayTime;wet.gain.value=amount;
+  own(delay,wet);delay.delayTime.value=delayTime;wet.gain.value=amount;
   node.connect(delay);delay.connect(wet);wet.connect(master);
-  globalThis.setTimeout?.(()=>{try{delay.disconnect();wet.disconnect()}catch{}},650);
+  globalThis.setTimeout?.(()=>{try{delay.disconnect();wet.disconnect()}catch{}},cleanupMs);
 }
-function crowdSwell(ctx,at,gainValue){
+function crowdSwell(ctx,at,gainValue,own=()=>{}){
   const duration=.62,frames=Math.floor(ctx.sampleRate*duration),buffer=ctx.createBuffer(1,frames,ctx.sampleRate),data=buffer.getChannelData(0);
   for(let i=0;i<frames;i++)data[i]=(Math.random()*2-1)*(.35+.65*Math.sin(Math.PI*i/frames));
   const src=ctx.createBufferSource(),filter=ctx.createBiquadFilter(),gain=ctx.createGain();
-  src.buffer=buffer;filter.type='bandpass';filter.frequency.value=620;filter.Q.value=.45;
+  own(src,filter,gain);src.buffer=buffer;filter.type='bandpass';filter.frequency.value=620;filter.Q.value=.45;
   gain.gain.setValueAtTime(.0001,at);gain.gain.exponentialRampToValueAtTime(gainValue,at+.16);gain.gain.exponentialRampToValueAtTime(.0001,at+duration);
   src.connect(filter);filter.connect(gain);gain.connect(master);src.start(at);src.stop(at+duration+.02);
 }
-export function cue(kind){
+export function cue(kind,{rate=1,signal}={}){
+  if(signal?.aborted)return;
+  const speed=animationRate(rate),nodes=[];
+  let timer;
+  const cancel=()=>{clearTimeout(timer);signal?.removeEventListener('abort',cancel);for(const node of nodes){try{node.stop?.();}catch{}try{node.disconnect();}catch{}}nodes.length=0;};
+  const own=signal?(...created)=>nodes.push(...created.filter(Boolean)):()=>{};
   try{
     const ctx=audio();if(!ctx)return;
     const c=CUES[kind]||CUES.skill,base=ctx.currentTime+.008;
-    noiseBurst(ctx,base,c.noiseDur,c.noise,['whiff','nearMiss','chase','fooled'].includes(kind)?.22:['hit','deadCenter','extra','homer','grandSlam'].includes(kind)?-.08:0,['homer','grandSlam'].includes(kind)?3500:5200);
-    if(c.crack)batCrack(ctx,base,c.crack);
-    if(c.swell)crowdSwell(ctx,base+.16,c.swell);
+    if(signal){signal.addEventListener('abort',cancel,{once:true});const end=Math.max(c.noiseDur||0,c.swell? .62+.16/speed:0,...c.notes.map(([,delay,duration])=>delay/speed+duration));timer=setTimeout(cancel,(end+.4)*1000);}
+    noiseBurst(ctx,base,c.noiseDur,c.noise,['whiff','nearMiss','chase','fooled'].includes(kind)?.22:['hit','deadCenter','extra','homer','grandSlam'].includes(kind)?-.08:0,['homer','grandSlam'].includes(kind)?3500:5200,own);
+    if(c.crack)batCrack(ctx,base,c.crack,-.08,own);
+    if(c.swell)crowdSwell(ctx,base+.16/speed,c.swell,own);
     for(const [frequency,delay,duration,endRatio,pan] of c.notes){
-      const osc=ctx.createOscillator(),gain=ctx.createGain(),panner=panNode(ctx,pan),t=base+delay;
-      osc.type=c.type;osc.frequency.setValueAtTime(frequency,t);osc.frequency.exponentialRampToValueAtTime(Math.max(35,frequency*endRatio),t+duration);
+      const osc=ctx.createOscillator(),gain=ctx.createGain(),panner=panNode(ctx,pan),t=base+delay/speed;
+      own(osc,gain,panner);osc.type=c.type;osc.frequency.setValueAtTime(frequency,t);osc.frequency.exponentialRampToValueAtTime(Math.max(35,frequency*endRatio),t+duration);
       gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(c.gain,t+.006);gain.gain.exponentialRampToValueAtTime(.0001,t+duration);
       osc.connect(gain);const output=panner||gain;if(panner){gain.connect(panner);panner.connect(master)}else gain.connect(master);
-      if(c.echo)echoSend(ctx,output,c.echo,['homer','grandSlam'].includes(kind)?.13:.095);
+      if(c.echo)echoSend(ctx,output,c.echo,['homer','grandSlam'].includes(kind)?.13:.095,speed===1?650:Math.max(650,(delay/speed+duration+.35)*1000),own);
       osc.start(t);osc.stop(t+duration+.025);osc.onended=()=>{osc.disconnect();gain.disconnect();panner?.disconnect()};
     }
-  }catch{/* Audio failure must never interrupt combat. */}
+  }catch{cancel();/* Audio failure must never interrupt combat. */}
 }

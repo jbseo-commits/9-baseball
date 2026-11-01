@@ -44,6 +44,27 @@ describe('P3 card flourishes',()=>{
     try{expect(playUse(box(),box())).toBe(false);}finally{window.matchMedia=mm;}
   });
 
+  it('slow preview flights outlive the normal safety deadline and abort without a trailing flash',()=>{
+    vi.useFakeTimers();const signal=new AbortController();
+    playUse(box(),box(),{rate:.25,signal:signal.signal,sound:false});
+    const el=document.getElementById('card-fx-layer').firstChild;
+    expect(el.getAnimations()[0].effect.getTiming().duration).toBe(2080);
+    vi.advanceTimersByTime(1300);expect(layerKids()).toBe(1);
+    signal.abort();expect(layerKids()).toBe(0);
+    vi.advanceTimersByTime(5000);expect(layerKids()).toBe(0);
+    expect(playUse(box(),box(),{rate:.25,signal:signal.signal})).toBe(false);
+    expect(playSpend([box()],{signal:signal.signal})).toBe(false);
+  });
+
+  it('fast preview shards use scaled time and normal callers keep their original duration',()=>{
+    vi.useFakeTimers();playSpend([box()],{rate:2,sound:false});
+    const el=document.getElementById('card-fx-layer').firstChild;
+    expect(el.getAnimations()[0].effect.getTiming().duration).toBe(210);
+    vi.advanceTimersByTime(601);expect(layerKids()).toBe(0);
+    playUse(box(),box());
+    expect(document.getElementById('card-fx-layer').firstChild.getAnimations()[0].effect.getTiming().duration).toBe(520);
+  });
+
   it('a reward pick plays its flight once and applies the pick at once; a second tap cannot double-pick',()=>{
     const onPick=vi.fn();
     render(<BallparkStop kind="reward" options={[{type:'add',kind:'pinpoint'},{type:'add',kind:'needle'}]} deckCount={10} onPick={onPick} onSkip={()=>{}}/>);

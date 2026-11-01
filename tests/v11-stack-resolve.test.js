@@ -27,15 +27,15 @@ describe('V11 ordered Stack Resolve cinematic',()=>{
     const act=app.slice(app.indexOf('function act(fn,animate=false,resolvePlan=null)'),app.indexOf('function freshV10()'));
     expect(act).toContain('setStackResolve(null);');
     expect(act).toContain('persist(next);');
-    expect(act).toContain('startPresentation(next);');
-    expect(act.indexOf('setStackResolve(null);')).toBeLessThan(act.indexOf('startPresentation(next);'));
+    expect(act).toContain('startPresentation(next,executed);');
+    expect(act.indexOf('setStackResolve(null);')).toBeLessThan(act.indexOf('startPresentation(next,executed);'));
   });
 
   it('does not reveal the committed result before the stack route finishes',()=>{
     const act=app.slice(app.indexOf('function act(fn,animate=false,resolvePlan=null)'),app.indexOf('function freshV10()'));
     const resolveBranch=act.slice(act.indexOf('if(resolveMs){'),act.indexOf('return;',act.indexOf('if(resolveMs){'))+7);
     expect(resolveBranch.indexOf('persist(next);')).toBeGreaterThan(resolveBranch.indexOf('setTimeout(()=>{'));
-    expect(resolveBranch.indexOf('persist(next);')).toBeLessThan(resolveBranch.indexOf('startPresentation(next);'));
+    expect(resolveBranch.indexOf('persist(next);')).toBeLessThan(resolveBranch.indexOf('startPresentation(next,executed);'));
   });
 
   it('keeps reduced motion free from the extra resolve delay',()=>{

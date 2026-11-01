@@ -1,0 +1,30 @@
+[
+  {
+    "stage": "windup",
+    "poses": [
+      "coil",
+      "stride"
+    ]
+  },
+  {
+    "stage": "impact",
+    "poses": [
+      "follow",
+      "contact"
+    ]
+  },
+  {
+    "stage": "slowmo",
+    "poses": [
+      "follow",
+      "early-follow"
+    ]
+  },
+  {
+    "stage": "release",
+    "poses": [
+      "follow",
+      "follow"
+    ]
+  }
+]

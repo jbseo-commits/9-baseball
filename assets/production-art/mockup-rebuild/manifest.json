@@ -1,0 +1,163 @@
+{
+  "reference": {
+    "file": "source/reference.png",
+    "sha256": "b17529cfe72147662e5976bea59b4e019c9f59dffd3b23f78ff0e65a67ea7da1",
+    "notExactLatestChatUpload": true
+  },
+  "generator": "image_gen",
+  "date": "2026-10-29",
+  "sources": [
+    {
+      "name": "reference",
+      "file": "source/reference.png",
+      "run": "exec-ba72675e-3fce-4ee1-8570-cb4c7c14c7e3",
+      "sha256": "b17529cfe72147662e5976bea59b4e019c9f59dffd3b23f78ff0e65a67ea7da1"
+    },
+    {
+      "name": "field",
+      "file": "source/field.png",
+      "run": "exec-e414704f-03ee-482d-a662-9570e3838e0d",
+      "sha256": "c1417763ff4fcd066376f49e66cfb314915bcd102a9865a9aac6ce24313e04b6"
+    },
+    {
+      "name": "ready",
+      "file": "source/ready.png",
+      "run": "exec-33f0b278-6521-40e5-b22d-08542baf5eb8",
+      "sha256": "a7ba9b8490716afddde9634ccd84c8a1632f7003a79736c038849c2589788b49"
+    },
+    {
+      "name": "pre",
+      "file": "source/pre.png",
+      "run": "exec-406597f1-73cf-4474-b17a-354222f06648",
+      "sha256": "551ade660d319fd7d13ff126a4afb6ba87a33ffb8631efc12be55492aea8b9bc"
+    },
+    {
+      "name": "post",
+      "file": "source/post.png",
+      "run": "exec-e892d8fb-de5e-42e2-82fc-4ac94c6c029e",
+      "sha256": "ce1ec99169b146f609df6eb339dc47c990943ba432f7d33cf07fa42024ea7a07"
+    },
+    {
+      "name": "return",
+      "file": "source/return.png",
+      "run": "exec-bc4e6303-1cf2-4f74-9ea8-a6523090c14a",
+      "sha256": "6022172d38e3e7f89d3be4eb78f3bdd487a54d4669de4533e4b1e9465514a77a"
+    },
+    {
+      "name": "pitcher",
+      "file": "source/pitcher.png",
+      "run": "exec-7078a173-c341-40d6-a586-9471adfd7fa0",
+      "sha256": "1a351cc79d752cea60769183912adf5b064df65d4bf1f08ff3dd4a7c92f14c51"
+    },
+    {
+      "name": "cards",
+      "file": "source/cards.png",
+      "run": "exec-f15af985-3400-4910-8dc6-0d42d2d7d0e2",
+      "sha256": "5942f70318e69b571bd4082ee79e2be23e29b06ff618a76ebf720af068a398af"
+    },
+    {
+      "name": "skins",
+      "file": "source/skins.png",
+      "run": "exec-6a5fc5ea-b163-40fb-b262-d8a5f36377f3",
+      "sha256": "74b19bff5f31cd95a5a29019822cd86ba94be37c010d4377911d3ed56936e9d5"
+    }
+  ],
+  "processing": "isolate connected sheet figures plus4px AA fringe; crop/register/resize/encode; no limb warp or artificial frames",
+  "runtime": [
+    {
+      "file": "stadium.avif",
+      "bytes": 252275,
+      "sha256": "06cd6f9b30c1c3a3930777df8785ea8c635de8a158c14cf4ee6adae3a4d48fd1"
+    },
+    {
+      "file": "batter-atlas.avif",
+      "bytes": 542325,
+      "sha256": "847a10dbf47db0400cdff1085df0cd476bef294e9114f2d09f08c1a567cbe4ab"
+    },
+    {
+      "file": "pitcher-atlas.avif",
+      "bytes": 97864,
+      "sha256": "638ad4ce437264f6f81066b70ff726863098c5bcfb83eee6cd6d4b1496c046ab"
+    },
+    {
+      "file": "batter-ready.avif",
+      "bytes": 184986,
+      "sha256": "bba40ecd4fdd6036be6411ce1a980d06e684c3bb7fea25e948c4ece912bc83d8"
+    },
+    {
+      "file": "skins/card.webp",
+      "bytes": 7230,
+      "sha256": "18ac01d1513e44384b3836e21e840622e52af7d6cf34fa5d7e2665f093ef19e0"
+    },
+    {
+      "file": "skins/scoreboard.webp",
+      "bytes": 6194,
+      "sha256": "2c564c1783f7c1289c6502602685fd9b51cfbc34743ca1dc3f51cf21d01b264e"
+    },
+    {
+      "file": "skins/swing.webp",
+      "bytes": 13880,
+      "sha256": "08adc022d5a28df0ab6185890db56109b856b11b1508a0323965c258ef1fbf84"
+    },
+    {
+      "file": "skins/opponent.webp",
+      "bytes": 6412,
+      "sha256": "d79cf3b12131ad9aa24d590774fb8e4ca6fe84e20cb52de5c43110a07c767265"
+    },
+    {
+      "file": "skins/selected.webp",
+      "bytes": 7994,
+      "sha256": "6255e4ed1bfd5ef447f65ae9bd1c1b934ca5f3a80279ca7791dd6511387acb8a"
+    },
+    {
+      "file": "skins/watch.webp",
+      "bytes": 12384,
+      "sha256": "712ba2814250c4a6cd3b6abc55d072e79176e909c20772e690f2415c876063d1"
+    },
+    {
+      "file": "cards/rally.webp",
+      "bytes": 20090,
+      "sha256": "9d1b561611ccb33791043e257824067b605c8e431c1f175f970e359acf093de5"
+    },
+    {
+      "file": "cards/wall.webp",
+      "bytes": 18108,
+      "sha256": "ce0bb0b9899e0fb663103efd6036deff202b160b9eac697d4c22a7678c577aed"
+    },
+    {
+      "file": "cards/place.webp",
+      "bytes": 19986,
+      "sha256": "d4dc91ffe55ccbec9055c98237243ba263503bcaa03bc8d5480dc20b69f325a7"
+    },
+    {
+      "file": "cards/laser.webp",
+      "bytes": 17806,
+      "sha256": "0f8e162faab35378df6cfc2bb8a79cd911e15fced69b3f607fc7837260ec23fa"
+    },
+    {
+      "file": "cards/scout.webp",
+      "bytes": 18254,
+      "sha256": "ab338e403e0acc0711f6dd101842654b4f12d95d0582e8e930716db5b91dbbad"
+    },
+    {
+      "file": "cards/slug.webp",
+      "bytes": 16710,
+      "sha256": "ec731193389fa86984e72d2619ec1b36f02a3224eeded6851f344e5879593b17"
+    },
+    {
+      "file": "cards/strike.webp",
+      "bytes": 18212,
+      "sha256": "3051fe1678b84d1fce49793bcd2cae89bd6b1a50e0ffb963d2af6c04798694c4"
+    },
+    {
+      "file": "cards/watch.webp",
+      "bytes": 15792,
+      "sha256": "2dcdaea0bb20a964896a3a2e2b66693e08b304a06e182c65ab7e18ce2ee1db40"
+    },
+    {
+      "file": "cards/defend.webp",
+      "bytes": 18768,
+      "sha256": "6c65095817ff5689a36649a8ad403433f39283f2eed05c40c2c7829f9e6ea57a"
+    }
+  ]
+}

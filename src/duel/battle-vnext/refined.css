@@ -1,0 +1,165 @@
+/* A quiet base lets placement/contact be the visual event. Kept local to the
+   approved landscape composition; no page, camera, input or engine changes. */
+.bv-refined{--bv-amber:#dbc28c;--bv-navy:#101d2b;--bv-type:#f0eade;--bv-secondary:#bec7c9;--bv-rule:#84959b4d}
+.bv-refined .bv-symbol{display:inline-block;width:18px;height:18px;flex:none;vertical-align:-3px}
+.bv-refined .bv-review-notice{display:none}
+@media(orientation:landscape){
+  .bv-refined .bv-hud-bar{width:clamp(380px,39vw,620px);height:60px;min-height:60px;padding:0 20px;gap:20px;background:#0a1523ed;border-radius:0 0 6px 0;border-bottom:1px solid #c9d4d51f}
+  .bv-refined .bv-hud-count{gap:20px}
+  .bv-refined .bv-hud-count>span{gap:5px}
+  .bv-refined .bv-hud-count em{font:500 21px/1 system-ui,sans-serif;margin-right:3px;color:#e7e2d5}
+  .bv-refined .bv-hud-count i{width:13px;height:13px;border-radius:50%;border:1px solid #647a91;background:transparent;box-shadow:none}
+  .bv-refined .bv-hud-count .on{background:#c7d4da;border-color:#c7d4da;box-shadow:none}
+  .bv-refined .bv-hud-count .k-O .on{background:#de8275;border-color:#de8275;box-shadow:none}
+  .bv-refined .bv-hud-title{font-size:13px;letter-spacing:.03em;color:#c9b78f}
+  .bv-refined .bv-hud-menu{display:grid;place-items:center;width:44px;min-height:44px;margin-left:auto;color:#cbd2d4}
+  .bv-refined .bv-hud-opponent{top:76px;left:20px;width:280px;padding:14px 16px 12px;background:#0c1825ed;border:0;border-left:2px solid #b4a27c;border-radius:0 5px 5px 0;gap:10px 12px}
+  .bv-refined .bv-hud-name{font-size:18px;line-height:1.25;font-weight:700;letter-spacing:-.03em}
+  .bv-refined .bv-hud-hp{height:6px;border:0;background:#52616b4d;border-radius:0}
+  .bv-refined .bv-hud-hp-fill{background:#d3bd89;box-shadow:none}
+  .bv-refined .bv-hud-opponent>small{font:500 13px/1.3 system-ui,sans-serif;color:#c5cdcc}
+  .bv-refined .bv-hud-notes{padding:122px 20px 0;gap:8px}
+  .bv-refined .bv-hud-notes p{padding:4px 0;background:none;border:0;border-radius:0;font-size:13px;line-height:1.4;text-shadow:0 1px 4px #000}
+  .bv-refined .bv-hud-tell{gap:6px;color:#eee0c5}
+  .bv-refined .bv-hud-tell .bv-symbol{width:15px;height:15px}
+  .bv-refined .bv-hud-bases{top:18px;left:calc(clamp(380px,39vw,620px) - 112px);right:auto}
+  .bv-refined .bv-hud-diamond{width:27px;height:24px}
+  .bv-refined .bv-hud-read{display:none}
+
+  .bv-refined .bv-field-choice{margin:0 0 6px;gap:10px;font-size:16px;line-height:20px;font-weight:700;color:#eee5d2;text-shadow:0 1px 4px #000}
+  .bv-refined .bv-field-choice span{font-size:11px;font-weight:500;color:#d6caa9}
+  .bv-refined .bv-zone-caption{font-size:12px;line-height:18px;color:#e7e3d9;text-shadow:0 1px 3px #000}
+  .bv-refined .bv-zone{border:1px solid #c0cacc99;background:#0a18204d;box-shadow:0 6px 20px #0002}
+  .bv-refined .bv-cell{font-size:clamp(12px,1.2vw,18px);font-weight:600;border:1px solid #9eafb63b;background:rgba(12,27,40,var(--bv-density,.45));color:#e0e3df;transition:background-color 120ms,border-color 120ms}
+  .bv-refined .bv-cell.is-dead{background:#0e19273b}
+  .bv-refined .bv-cell.is-cover{border-color:#d1b77e;background:#907a4080;box-shadow:inset 0 0 0 1px #d4bb8070}
+  .bv-refined .bv-cell.is-support{border:2px dashed #a0c5bc}
+  .bv-refined .bv-cell.is-actual{border-color:#fff1cc;box-shadow:0 0 12px #ffe5ab66}
+  .bv-refined .bv-aim-ring{border-color:#e3d1a7;box-shadow:none}
+  .bv-refined .bv-band{font-size:12px;line-height:20px;color:#d3d9d5}
+
+  /* Individual cards carry the surface; the field stays visible between them. */
+  .bv-refined .bv-hand-dock{padding:0;background:none;border-radius:0;gap:8px}
+  .bv-refined .bv-hand-head{gap:4px 12px;padding:4px 12px;background:#0c1927e8;border-bottom:1px solid #a0afb333;border-radius:4px 0 0 4px}
+  .bv-refined .bv-energy{padding:0;gap:5px;flex:0 1 auto}
+  .bv-refined .bv-energy strong{font:700 28px/1 system-ui,sans-serif;letter-spacing:-.04em}
+  .bv-refined .bv-energy strong small{font-size:14px;margin-left:3px}
+  .bv-refined .bv-energy-label{font-size:11px;color:#bfc8c7}
+  .bv-refined .bv-energy-mark .bv-symbol{width:21px;height:25px}
+  .bv-refined .bv-energy-pips i{width:7px;height:11px;border-radius:1px}
+  .bv-refined .bv-energy-line{font-size:11px;color:#d7d6c9;display:inline-flex;align-items:center}
+  .bv-refined .bv-energy-line .bv-symbol{width:12px;height:12px}
+  .bv-refined .bv-hand-count{display:none}
+  .bv-refined .bv-hand-tools{gap:12px;border:0;padding:0;align-items:center}
+  .bv-refined :is(.bv-basic-chip,.bv-piles,.bv-support-toggle){font-size:12px;color:#c3cbd0;letter-spacing:-.02em}
+  .bv-refined .bv-basic-chip b{display:inline-flex;align-items:center;gap:1px;background:none;font:600 11px system-ui;padding:0;color:#d7c397}
+  .bv-refined .bv-basic-chip b .bv-symbol{width:12px;height:14px}
+  .bv-refined .bv-basic-chip i{background:none;color:#dbc28c}
+  .bv-refined .bv-hand-orbit .bv-hand-row{gap:12px;padding:8px 14px 12px 16px;scrollbar-color:#bdc7c244 transparent}
+  .bv-refined .bv-hand-orbit .bv-card-slot{margin-left:8px}
+  .bv-refined .bv-hand-orbit .bv-card-strip{display:grid;grid-template-columns:96px minmax(0,1fr) 48px;grid-template-rows:auto;align-items:stretch;min-height:100px;background:#142536;color:#ece9df;border:1px solid #87979d55;border-radius:4px;box-shadow:0 3px 8px #07101a33;overflow:hidden}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-card-art{grid-column:1;grid-row:1;width:auto;height:100%;min-height:98px;background-color:#102339;background-blend-mode:normal}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-card-art::after{display:block;position:absolute;inset:0;background:linear-gradient(90deg,transparent 70%,#10203166)}
+  .bv-refined .bv-card-copy{grid-column:2;grid-row:1;display:flex;flex-direction:column;justify-content:center;gap:5px;padding:12px;min-width:0}
+  .bv-refined .bv-card-topline{display:flex;align-items:center;gap:9px;min-width:0}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-card-cost{position:static;display:grid;place-items:center;width:23px;min-width:23px;height:24px;padding:0;border:1px solid #c9b78d77;border-radius:2px;background:none;box-shadow:none;font:600 17px/1 system-ui;color:#dfc88f}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-card-name{display:block;grid-area:auto;padding:0;font-size:20px;font-weight:700;line-height:1.25;letter-spacing:-.04em;color:#f1eadc;-webkit-line-clamp:unset;overflow:visible;word-break:keep-all}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-card-effect{grid-area:auto;padding:0;font-size:14px;min-height:0;line-height:1.45;color:#becacd;letter-spacing:-.02em}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-card-notes{padding:0;grid-area:auto;font-size:12px;line-height:1.45}
+  .bv-refined .bv-card-copy>.bv-card-warning{font-size:12px;line-height:1.4}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-card-range{position:static;grid-column:3;grid-row:1;align-self:center;justify-self:center;margin:0 2px 16px 0;padding:0;border:0;background:none;border-radius:0;box-shadow:none}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-glyph{width:30px;height:30px;gap:2px}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-glyph i{background:#344959;border-radius:0}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-glyph i.on{background:#d5bd85}
+  .bv-refined .bv-card-range>.bv-symbol{width:28px;height:28px;color:#a4c1c0}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-card-tag{align-self:flex-start;background:none;padding:0;color:#dfc88f;font-size:10px;line-height:1.35;font-weight:500}
+  .bv-refined .bv-hand-orbit .bv-card-strip.is-main{outline:none;border-color:#cbb37a;box-shadow:inset 3px 0 #d1ba83;background:#26313b}
+  .bv-refined .bv-hand-orbit .bv-card-strip.is-main::after{display:none}
+  .bv-refined .bv-hand-orbit .bv-card-strip.is-support{outline:1px dashed #a4c8bd;outline-offset:-3px;border-color:#91aea6;box-shadow:none}
+  .bv-refined .bv-hand-orbit .bv-card-detail{right:7px;bottom:5px;width:28px;height:28px;background:none;color:#8ca1aa;border-radius:0}
+  .bv-refined .bv-card-detail .bv-symbol{width:15px;height:15px}
+  .bv-refined .bv-hand-handle{border-color:#c4b48c88;color:#e1d1ac;background:#101f2ff2;box-shadow:none}
+  .bv-refined .bv-hand-handle em{display:inline-flex;gap:1px;align-items:center;font-style:normal}
+  .bv-refined .bv-hand-handle em .bv-symbol{width:12px;height:15px}
+
+  /* One consequence line and one action. No repeated watch reward box. */
+  .bv-refined .bv-command-rail>.bv-plan{width:min(100%,260px);padding:8px 10px;background:#0c1925e8;border:0;border-radius:3px;box-shadow:none}
+  .bv-refined .bv-command-rail>.bv-plan:empty{display:none}
+  .bv-refined .bv-plan-metrics{gap:3px 10px;flex-wrap:wrap}
+  .bv-refined .bv-plan-metrics strong{font-size:16px;font-weight:600;color:#e8dbb9}
+  .bv-refined .bv-plan-metrics span,.bv-refined .bv-plan-detail{font-size:12px;line-height:1.45;color:#c5cfd1}
+  .bv-refined .bv-action-dock{justify-content:flex-end;align-items:center;gap:12px}
+  .bv-refined .bv-action-dock>.bv-action{flex:0 0 104px;width:104px;height:104px;min-height:104px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:12px 6px;border-radius:50%;background:#12253aee;border:2px solid #cbb783;color:#eee6d4;box-shadow:inset 0 0 0 4px #0b1c2c}
+  .battle-vnext.bv-refined .bv-action-dock:has(.bv-plan-clear)>.bv-action{flex:0 0 104px;width:104px}
+  .bv-refined .bv-action-dock>.bv-action.k-watch{background:#132638ee;color:#dce7e6;border-color:#91aeb7}
+  .bv-refined .bv-action-symbol{width:25px;height:25px}
+  .bv-refined .bv-action-dock>.bv-action b{flex:0;text-align:center;font-size:19px;font-weight:700;line-height:1.2;letter-spacing:-.04em}
+  .bv-refined .bv-action-name{display:none}
+  .bv-refined .bv-action-cost{position:absolute;top:3px;right:-4px;display:inline-flex;align-items:center;gap:1px;font:600 12px system-ui;border:0;border-radius:12px;padding:4px 7px;background:#dec994;color:#172736}
+  .bv-refined .bv-action-cost .bv-symbol{width:12px;height:14px}
+  .bv-refined .bv-action-dock>.bv-action small{margin:0;font-size:10px;line-height:1.3;color:#c4cdca;display:inline-flex;align-items:center;gap:2px}
+  .bv-refined .bv-action small .bv-symbol{width:10px;height:12px}
+  .bv-refined .bv-action:disabled{opacity:.55}
+  .bv-refined .bv-plan-clear{border:0;background:#0b1c2ae8;font-size:12px;color:#b9c7ce;align-self:center;height:44px;min-height:44px}
+  .bv-refined .bv-plan-clear:disabled{visibility:hidden}
+}
+@media(orientation:landscape) and (min-width:1200px) and (min-height:600px){
+  .bv-refined .bv-hand-head{flex-wrap:nowrap}
+  .bv-refined .bv-hand-tools{width:auto;flex:1;margin-left:auto;justify-content:flex-end}
+  .bv-refined .bv-energy-label{display:none}
+}
+@media(orientation:landscape) and (max-width:1100px){
+  .bv-refined .bv-hud-bar{width:320px;padding:0 12px;gap:10px}
+  .bv-refined .bv-hud-count{gap:12px}
+  .bv-refined .bv-hud-count em{font-size:17px}
+  .bv-refined .bv-hud-count i{width:11px;height:11px}
+  .bv-refined .bv-hud-bases{left:220px}
+  .bv-refined .bv-hud-opponent{left:12px;width:220px;padding:10px 12px}
+  .bv-refined .bv-hud-name{font-size:16px}
+  .bv-refined .bv-hud-notes{padding-left:12px}
+  .bv-refined .bv-hand-orbit .bv-card-strip{grid-template-columns:66px minmax(0,1fr) 34px;min-height:84px}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-card-art{min-height:82px}
+  .bv-refined .bv-card-copy{padding:8px;gap:3px}
+  .bv-refined .bv-card-topline{gap:6px}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-card-name{font-size:15px}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-card-cost{width:19px;min-width:19px;height:20px;font-size:14px}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-card-effect{font-size:12px}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-card-notes{font-size:11px}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-glyph{width:24px;height:24px;gap:1px}
+  .bv-refined .bv-hand-orbit .bv-card-detail{right:3px;bottom:3px;width:24px;height:24px}
+}
+@media(orientation:landscape) and (max-height:500px){
+  .bv-refined .bv-hud-bar{height:44px;min-height:44px;width:min(300px,calc(100% - var(--bv-rail)))}
+  .bv-refined .bv-hud-count em{font-size:15px}
+  .bv-refined .bv-hud-count i{width:10px;height:10px}
+  .bv-refined .bv-hud-opponent{top:52px;width:190px;padding:8px 10px;gap:6px 8px}
+  .bv-refined .bv-hud-name{font-size:14px}
+  .bv-refined .bv-hud-opponent>small{font-size:11px}
+  .bv-refined .bv-hud-notes{padding-top:84px;gap:3px}
+  .bv-refined .bv-hud-notes p{font-size:11px;line-height:1.3}
+  .bv-refined .bv-field-choice{font-size:13px;margin-bottom:3px;line-height:18px}
+  .bv-refined .bv-field-choice span{font-size:10px}
+  .bv-refined .bv-hand-head{padding:0 4px 0 26px;gap:0 4px}
+  .bv-refined .bv-energy strong{font-size:24px}
+  .bv-refined .bv-hand-tools{gap:5px}
+  .bv-refined :is(.bv-basic-chip,.bv-piles,.bv-support-toggle){font-size:10px}
+  .bv-refined .bv-hand-orbit .bv-hand-row{gap:8px;padding:3px 4px 8px 8px}
+  .bv-refined .bv-hand-orbit .bv-card-slot{margin-left:4px}
+  .bv-refined .bv-hand-orbit .bv-card-strip{grid-template-columns:50px minmax(0,1fr) 28px;min-height:76px}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-card-art{min-height:74px}
+  .bv-refined .bv-card-copy{padding:6px;gap:3px}
+  .bv-refined .bv-card-topline{gap:4px}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-card-name{font-size:14px}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-card-cost{width:17px;min-width:17px;height:19px;font-size:13px}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-card-effect{font-size:11px}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-card-notes{font-size:10px}
+  .bv-refined .bv-hand-orbit .bv-card-strip .bv-glyph{width:21px;height:21px}
+  .bv-refined .bv-command-rail>.bv-plan{width:min(100%,220px);padding:5px 7px;max-height:19vh}
+  .bv-refined .bv-plan-metrics strong{font-size:13px}
+  .bv-refined .bv-plan-metrics span{font-size:11px}
+  .bv-refined .bv-action-dock>.bv-action{flex-basis:72px;width:72px;height:72px;min-height:72px;padding:8px 4px;gap:2px}
+  .battle-vnext.bv-refined .bv-action-dock:has(.bv-plan-clear)>.bv-action{flex-basis:72px;width:72px}
+  .bv-refined .bv-action-dock>.bv-action b{font-size:14px}
+  .bv-refined .bv-action-symbol{width:20px;height:20px}
+  .bv-refined .bv-action-dock>.bv-action small{font-size:9px}
+}

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>9ZONE 선정 원화 · WebP 비교</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#101f24;color:#f5edda;font:16px/1.5 system-ui,sans-serif}button{font:inherit;min-height:44px;padding:6px 14px;background:#183b40;border:1px solid #8ad1c1;color:inherit;border-radius:5px;cursor:pointer}button[aria-pressed=true]{background:#f87943;color:#12272b}button:focus-visible{outline:3px solid #f5edda;outline-offset:3px}header{position:absolute;inset:0 0 auto;z-index:4;background:#101f24ee;padding:0 max(12px,env(safe-area-inset-right)) 0 max(12px,env(safe-area-inset-left));display:flex;gap:10px;align-items:center;flex-wrap:wrap}header strong{margin-right:auto;font-size:14px;line-height:1.2}header small{display:block;font-weight:400;color:#afc4b9;font-size:12px}#scene{position:relative;height:100svh;min-height:320px;overflow:hidden;isolation:isolate}#world{position:absolute;left:0;top:0;transform-origin:0 0;pointer-events:none}#background{position:absolute;inset:0;width:100%;height:100%}.actor{position:absolute}.shadow{position:absolute;background:#1320249c;filter:blur(5px);border-radius:50%}#pitcher{z-index:2}#batter{z-index:3}section{max-width:960px;padding:24px 16px;margin:auto}h1,h2{font-size:20px}#cards{display:block;width:min(100%,396px);height:auto}#status{font-size:14px;color:#afc4b9}a{color:#8ad1c1}p{max-width:65ch}.error{color:#ffb89b}
+</style>
+<header><strong>9ZONE 원화·배치 검토<small>정지 포즈 · 실제 로스터/전투 연결 전</small></strong><button id="original" aria-pressed="false">원본 PNG</button><button id="webp" aria-pressed="true">배포용 WebP</button></header>
+<main>
+ <div id="scene" aria-label="구장과 우타자·투수 원근 비교"><div id="world"><img id="background" alt="노을 구장"><img id="batter" class="actor" alt="우타석의 우타자 정지 자세"><img id="pitcher" class="actor" alt="마운드의 오른손 투수 정지 자세"></div></div>
+ <section><h1>선정 원화의 화질·투명 경계 비교</h1><p>두 버튼으로 원본과 최적화본을 바꿔 보세요. 같은 해상도·피벗·구장 카메라를 사용합니다. 압축으로 바뀐 윤곽·명암을 확인하는 검토 화면이며 손패·투구·판정 UI는 포함하지 않습니다.</p><p id="status" role="status">원화를 불러오는 중…</p><h2>카드 3×2 샘플 · 그림 한 칸 최대 132px</h2><img id="cards" alt="카드 그림 여섯 칸. 실제 151종 카드 매핑 전"><p><a href="../../design/mockup-v1-intake/HANDOFF.md">Claude Code 인수 문서</a></p></section>
+</main>
+<script type="module">
+const root=new URL('../../../',location.href);
+const intake=new URL('assets/production-art/mockup-v1-intake/',root);
+const sources=new URL('docs/design/mockup-v1/reference/art/',root);
+const [layout,manifest]=await Promise.all(['scene-layout.json','manifest.json'].map(async name=>{
+ const response=await fetch(new URL(name,intake));if(!response.ok)throw new Error(name);return response.json();
+}));
+const scene=document.getElementById('scene'),world=document.getElementById('world');
+Object.assign(world.style,{width:layout.world.width+'px',height:layout.world.height+'px'});
+for(const shadow of layout.shadows){const el=document.createElement('i');el.className='shadow';Object.assign(el.style,{left:shadow.x+'px',top:shadow.y+'px',width:shadow.width+'px',height:shadow.height+'px',transform:`rotate(${shadow.rotation}deg)`});world.append(el);}
+for(const [name,actor] of Object.entries(layout.actors)){
+ const scale=actor.worldHeight/actor.sourceHeight;
+ Object.assign(document.getElementById(name).style,{left:(actor.worldFoot.x-actor.anchor.x*scale)+'px',top:(actor.worldFoot.y-actor.anchor.y*scale)+'px',width:actor.sourceWidth*scale+'px',height:actor.worldHeight+'px'});
+}
+function resize(){
+ const {width,height}=scene.getBoundingClientRect(),scale=Math.max(width/layout.world.width,height/layout.world.height);
+ const align=width<height?layout.camera.portraitYAlign:height<=layout.camera.shortLandscapeMaxHeight?layout.camera.shortLandscapeYAlign:layout.camera.desktopYAlign;
+ const camera={scale,x:(width-layout.world.width*scale)*layout.camera.xAlign,y:(height-layout.world.height*scale)*align};
+ world.style.transform=`matrix(${scale},0,0,${scale},${camera.x},${camera.y})`;
+ window.intakeCamera=camera;
+}
+new ResizeObserver(resize).observe(scene);resize();
+let generation=0;
+async function show(format){
+ const token=++generation;
+ for(const key of ['original','webp'])document.getElementById(key).setAttribute('aria-pressed',String(key===format));
+ const files={background:'stadium-wide',batter:'batter-catcher',pitcher:'pitcher-home',cards:'cards'};
+ try{
+  const images=await Promise.all(Object.entries(files).map(async([id,name])=>{
+   const url=new URL(name+(format==='webp'?'.webp':'.png'),format==='webp'?intake:sources).href;
+   const img=new Image();img.src=url;await img.decode();return [id,url];
+  }));
+  if(token!==generation)return;
+  for(const [id,url] of images)document.getElementById(id).src=url;
+  document.getElementById('status').textContent=`${format==='webp'?'WebP':'원본 PNG'} · ${new Intl.NumberFormat('ko').format(format==='webp'?manifest.runtime_bytes:manifest.source_bytes)} bytes · 해상도 유지 / 알파 일치`;
+  window.intakeFormat=format;
+ }catch(error){if(token===generation){document.getElementById('status').textContent='이미지를 불러오지 못했습니다. HTTP 서버와 파일 경로를 확인하세요.';document.getElementById('status').className='error';throw error;}}
+}
+document.getElementById('original').onclick=()=>show('original');
+document.getElementById('webp').onclick=()=>show('webp');
+await show('webp');
+</script>
+</html>

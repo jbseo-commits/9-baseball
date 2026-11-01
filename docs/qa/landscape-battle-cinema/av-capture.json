@@ -1,0 +1,789 @@
+[
+  {
+    "fixture": "cinema-exact",
+    "frames": 53,
+    "firstFrameMs": 59.25,
+    "lastFrameMs": 3024.849999964237,
+    "audioContext": "running",
+    "durationMs": 3065.699999988079,
+    "events": [
+      {
+        "ms": 26.19999998807907,
+        "data": [
+          "windup",
+          "set",
+          "ready",
+          null
+        ]
+      },
+      {
+        "ms": 58,
+        "data": [
+          "windup",
+          "set",
+          "half-load",
+          null
+        ]
+      },
+      {
+        "ms": 75.30000001192093,
+        "data": [
+          "windup",
+          "coil",
+          "half-load",
+          null
+        ]
+      },
+      {
+        "ms": 91.80000001192093,
+        "data": [
+          "windup",
+          "coil",
+          "load",
+          null
+        ]
+      },
+      {
+        "ms": 124.5,
+        "data": [
+          "windup",
+          "coil",
+          "stride",
+          null
+        ]
+      },
+      {
+        "ms": 141.69999998807907,
+        "data": [
+          "windup",
+          "release",
+          "stride",
+          null
+        ]
+      },
+      {
+        "ms": 159,
+        "data": [
+          "windup",
+          "release",
+          "plant",
+          "flight"
+        ]
+      },
+      {
+        "ms": 178.19999998807907,
+        "data": [
+          "windup",
+          "follow",
+          "hip-drive",
+          "flight"
+        ]
+      },
+      {
+        "ms": 208.80000001192093,
+        "data": [
+          "windup",
+          "follow",
+          "barrel-lag",
+          "flight"
+        ]
+      },
+      {
+        "ms": 242,
+        "data": [
+          "windup",
+          "follow",
+          "downswing",
+          "flight"
+        ]
+      },
+      {
+        "ms": 275.5,
+        "data": [
+          "impact",
+          "follow",
+          "contact",
+          "exact"
+        ]
+      },
+      {
+        "ms": 316.39999997615814,
+        "data": [
+          "slowmo",
+          "follow",
+          "early-follow",
+          "exact"
+        ]
+      },
+      {
+        "ms": 502.19999998807907,
+        "data": [
+          "release",
+          "follow",
+          "early-follow",
+          "exact"
+        ]
+      },
+      {
+        "ms": 575.3999999761581,
+        "data": [
+          "release",
+          "follow",
+          "follow",
+          "exact"
+        ]
+      },
+      {
+        "ms": 925.6999999880791,
+        "data": [
+          "release",
+          "set",
+          "follow",
+          "exact"
+        ]
+      },
+      {
+        "ms": 942.3999999761581,
+        "data": [
+          "settle",
+          "set",
+          "follow",
+          "exact"
+        ]
+      },
+      {
+        "ms": 976.3999999761581,
+        "data": [
+          "settle",
+          "set",
+          "recover",
+          "exact"
+        ]
+      },
+      {
+        "ms": 1058.3999999761581,
+        "data": [
+          "settle",
+          "set",
+          "return-low",
+          "exact"
+        ]
+      },
+      {
+        "ms": 1141,
+        "data": [
+          "settle",
+          "set",
+          "return-high",
+          "exact"
+        ]
+      },
+      {
+        "ms": 1227.800000011921,
+        "data": [
+          "settle",
+          "set",
+          "ready",
+          "exact"
+        ]
+      },
+      {
+        "ms": 1272.300000011921,
+        "data": [
+          null,
+          "set",
+          "ready",
+          null
+        ]
+      }
+    ]
+  },
+  {
+    "fixture": "cinema-near",
+    "frames": 57,
+    "firstFrameMs": 44.60000002384186,
+    "lastFrameMs": 3013.4500000178814,
+    "audioContext": "running",
+    "durationMs": 3053.5,
+    "events": [
+      {
+        "ms": 20.80000001192093,
+        "data": [
+          "windup",
+          "set",
+          "ready",
+          null
+        ]
+      },
+      {
+        "ms": 67.80000001192093,
+        "data": [
+          "windup",
+          "coil",
+          "half-load",
+          null
+        ]
+      },
+      {
+        "ms": 84.69999998807907,
+        "data": [
+          "windup",
+          "coil",
+          "load",
+          null
+        ]
+      },
+      {
+        "ms": 117.30000001192093,
+        "data": [
+          "windup",
+          "coil",
+          "stride",
+          null
+        ]
+      },
+      {
+        "ms": 134.5,
+        "data": [
+          "windup",
+          "release",
+          "stride",
+          null
+        ]
+      },
+      {
+        "ms": 151.19999998807907,
+        "data": [
+          "windup",
+          "release",
+          "plant",
+          null
+        ]
+      },
+      {
+        "ms": 168.80000001192093,
+        "data": [
+          "windup",
+          "follow",
+          "plant",
+          "flight"
+        ]
+      },
+      {
+        "ms": 187.60000002384186,
+        "data": [
+          "windup",
+          "follow",
+          "hip-drive",
+          "flight"
+        ]
+      },
+      {
+        "ms": 218.30000001192093,
+        "data": [
+          "windup",
+          "follow",
+          "barrel-lag",
+          "flight"
+        ]
+      },
+      {
+        "ms": 235.10000002384186,
+        "data": [
+          "windup",
+          "follow",
+          "downswing",
+          "flight"
+        ]
+      },
+      {
+        "ms": 276.80000001192093,
+        "data": [
+          "impact",
+          "follow",
+          "contact",
+          "near"
+        ]
+      },
+      {
+        "ms": 284.19999998807907,
+        "data": [
+          "slowmo",
+          "follow",
+          "early-follow",
+          "near"
+        ]
+      },
+      {
+        "ms": 668.1999999880791,
+        "data": [
+          "release",
+          "follow",
+          "early-follow",
+          "near"
+        ]
+      },
+      {
+        "ms": 734.9000000357628,
+        "data": [
+          "release",
+          "follow",
+          "follow",
+          "near"
+        ]
+      },
+      {
+        "ms": 1095.199999988079,
+        "data": [
+          "settle",
+          "set",
+          "follow",
+          "near"
+        ]
+      },
+      {
+        "ms": 1184.300000011921,
+        "data": [
+          "settle",
+          "set",
+          "recover",
+          "near"
+        ]
+      },
+      {
+        "ms": 1267.800000011921,
+        "data": [
+          "settle",
+          "set",
+          "return-low",
+          "near"
+        ]
+      },
+      {
+        "ms": 1350.699999988079,
+        "data": [
+          "settle",
+          "set",
+          "return-high",
+          "near"
+        ]
+      },
+      {
+        "ms": 1434.1000000238419,
+        "data": [
+          "settle",
+          "set",
+          "ready",
+          "near"
+        ]
+      },
+      {
+        "ms": 1487.5,
+        "data": [
+          null,
+          "set",
+          "ready",
+          null
+        ]
+      }
+    ]
+  },
+  {
+    "fixture": "cinema-homer",
+    "frames": 55,
+    "firstFrameMs": 40.45000001788139,
+    "lastFrameMs": 2989.800000011921,
+    "audioContext": "running",
+    "durationMs": 3029.900000035763,
+    "events": [
+      {
+        "ms": 20.100000023841858,
+        "data": [
+          "windup",
+          "set",
+          "ready",
+          null
+        ]
+      },
+      {
+        "ms": 60.10000002384186,
+        "data": [
+          "windup",
+          "set",
+          "half-load",
+          null
+        ]
+      },
+      {
+        "ms": 78.60000002384186,
+        "data": [
+          "windup",
+          "coil",
+          "half-load",
+          null
+        ]
+      },
+      {
+        "ms": 94.60000002384186,
+        "data": [
+          "windup",
+          "coil",
+          "load",
+          null
+        ]
+      },
+      {
+        "ms": 142.9000000357628,
+        "data": [
+          "windup",
+          "coil",
+          "stride",
+          null
+        ]
+      },
+      {
+        "ms": 160.4000000357628,
+        "data": [
+          "windup",
+          "release",
+          "stride",
+          null
+        ]
+      },
+      {
+        "ms": 177.5,
+        "data": [
+          "windup",
+          "release",
+          "plant",
+          "flight"
+        ]
+      },
+      {
+        "ms": 196.10000002384186,
+        "data": [
+          "windup",
+          "follow",
+          "plant",
+          "flight"
+        ]
+      },
+      {
+        "ms": 210.80000001192093,
+        "data": [
+          "windup",
+          "follow",
+          "hip-drive",
+          "flight"
+        ]
+      },
+      {
+        "ms": 244.30000001192093,
+        "data": [
+          "windup",
+          "follow",
+          "barrel-lag",
+          "flight"
+        ]
+      },
+      {
+        "ms": 277.60000002384186,
+        "data": [
+          "windup",
+          "follow",
+          "downswing",
+          "flight"
+        ]
+      },
+      {
+        "ms": 321,
+        "data": [
+          "impact",
+          "follow",
+          "contact",
+          "homer"
+        ]
+      },
+      {
+        "ms": 389.60000002384186,
+        "data": [
+          "slowmo",
+          "follow",
+          "early-follow",
+          "homer"
+        ]
+      },
+      {
+        "ms": 501.80000001192093,
+        "data": [
+          "release",
+          "follow",
+          "early-follow",
+          "homer"
+        ]
+      },
+      {
+        "ms": 578.4000000357628,
+        "data": [
+          "release",
+          "follow",
+          "follow",
+          "homer"
+        ]
+      },
+      {
+        "ms": 1282.9000000357628,
+        "data": [
+          "settle",
+          "set",
+          "follow",
+          "homer"
+        ]
+      },
+      {
+        "ms": 1509.6000000238419,
+        "data": [
+          "settle",
+          "set",
+          "recover",
+          "homer"
+        ]
+      },
+      {
+        "ms": 1593.199999988079,
+        "data": [
+          "settle",
+          "set",
+          "return-low",
+          "homer"
+        ]
+      },
+      {
+        "ms": 1676.4000000357628,
+        "data": [
+          "settle",
+          "set",
+          "return-high",
+          "homer"
+        ]
+      },
+      {
+        "ms": 1759.699999988079,
+        "data": [
+          "settle",
+          "set",
+          "ready",
+          "homer"
+        ]
+      },
+      {
+        "ms": 1806,
+        "data": [
+          null,
+          "set",
+          "ready",
+          "homer"
+        ]
+      },
+      {
+        "ms": 2912.300000011921,
+        "data": [
+          null,
+          "set",
+          "ready",
+          null
+        ]
+      }
+    ]
+  },
+  {
+    "fixture": "cinema-knockout",
+    "frames": 60,
+    "firstFrameMs": 43.90000003576279,
+    "lastFrameMs": 2989.4500000178814,
+    "audioContext": "running",
+    "durationMs": 3030,
+    "events": [
+      {
+        "ms": 21.30000001192093,
+        "data": [
+          "windup",
+          "set",
+          "ready",
+          null
+        ]
+      },
+      {
+        "ms": 60.40000003576279,
+        "data": [
+          "windup",
+          "set",
+          "half-load",
+          null
+        ]
+      },
+      {
+        "ms": 77.40000003576279,
+        "data": [
+          "windup",
+          "coil",
+          "half-load",
+          null
+        ]
+      },
+      {
+        "ms": 94.10000002384186,
+        "data": [
+          "windup",
+          "coil",
+          "load",
+          null
+        ]
+      },
+      {
+        "ms": 110.60000002384186,
+        "data": [
+          "windup",
+          "coil",
+          "stride",
+          null
+        ]
+      },
+      {
+        "ms": 144.30000001192093,
+        "data": [
+          "windup",
+          "release",
+          "plant",
+          null
+        ]
+      },
+      {
+        "ms": 161.10000002384186,
+        "data": [
+          "windup",
+          "release",
+          "plant",
+          "flight"
+        ]
+      },
+      {
+        "ms": 180.80000001192093,
+        "data": [
+          "windup",
+          "follow",
+          "hip-drive",
+          "flight"
+        ]
+      },
+      {
+        "ms": 211.10000002384186,
+        "data": [
+          "windup",
+          "follow",
+          "barrel-lag",
+          "flight"
+        ]
+      },
+      {
+        "ms": 245.30000001192093,
+        "data": [
+          "windup",
+          "follow",
+          "downswing",
+          "flight"
+        ]
+      },
+      {
+        "ms": 270.2000000476837,
+        "data": [
+          "impact",
+          "follow",
+          "contact",
+          "exact"
+        ]
+      },
+      {
+        "ms": 311.60000002384186,
+        "data": [
+          "slowmo",
+          "follow",
+          "early-follow",
+          "exact"
+        ]
+      },
+      {
+        "ms": 495.2000000476837,
+        "data": [
+          "release",
+          "follow",
+          "early-follow",
+          "exact"
+        ]
+      },
+      {
+        "ms": 562.1000000238419,
+        "data": [
+          "release",
+          "follow",
+          "follow",
+          "exact"
+        ]
+      },
+      {
+        "ms": 924.3000000119209,
+        "data": [
+          "settle",
+          "fatigue",
+          "follow",
+          "exact"
+        ]
+      },
+      {
+        "ms": 1677,
+        "data": [
+          "settle",
+          "fatigue",
+          "recover",
+          "exact"
+        ]
+      },
+      {
+        "ms": 1760.4000000357628,
+        "data": [
+          "settle",
+          "fatigue",
+          "return-low",
+          "exact"
+        ]
+      },
+      {
+        "ms": 1843.5,
+        "data": [
+          "settle",
+          "fatigue",
+          "return-high",
+          "exact"
+        ]
+      },
+      {
+        "ms": 1926.800000011921,
+        "data": [
+          "settle",
+          "fatigue",
+          "ready",
+          "exact"
+        ]
+      },
+      {
+        "ms": 1963.5,
+        "data": [
+          "settle",
+          "fatigue",
+          "ready",
+          "knockout"
+        ]
+      }
+    ]
+  }
+]

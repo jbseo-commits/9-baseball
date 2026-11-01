@@ -1,0 +1,34 @@
+.battle-vnext .bv-stack-board{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;overflow:hidden}
+.battle-vnext .bv-settled-piece{--piece-color:#f4cf7f;--piece-fill:#ebbc4a0d}
+.battle-vnext .bv-settled-piece.q-2{--piece-color:#a9e3d5;--piece-fill:#64bfaa14}
+.battle-vnext .bv-settled-piece.q-3{--piece-color:#8fc6f8;--piece-fill:#659cd41a}
+.battle-vnext .bv-settled-piece.q-4{--piece-color:#d3a8ea;--piece-fill:#b27bda14}
+.battle-vnext .bv-piece-body{fill:var(--piece-fill);stroke:none}
+.battle-vnext .bv-piece-edge{fill:none;stroke:var(--piece-color);stroke-width:1.5;opacity:.65;vector-effect:non-scaling-stroke;stroke-linejoin:miter}
+.battle-vnext .bv-stack-overlap path{fill:none;stroke:#dce6df;stroke-width:1.2;opacity:.65;vector-effect:non-scaling-stroke}
+.battle-vnext .bv-stack-join{fill:none;stroke:#abdfcf;stroke-width:1.5;stroke-dasharray:3 5;opacity:.65;vector-effect:non-scaling-stroke}
+.battle-vnext .bv-stack-join.is-broken{stroke:#acb4bc;stroke-dasharray:1 7;opacity:.5}
+.battle-vnext .bv-stack-board.is-assembling .bv-piece-edge{animation:bv-stack-assemble 440ms ease-out var(--assembly-delay) both}
+.battle-vnext .bv-stack-board.is-assembling .bv-stack-join.is-connected{stroke-dasharray:150;stroke-dashoffset:150;animation:bv-stack-join 360ms ease-out var(--assembly-delay) both}
+.battle-vnext .bv-token.n2{background:#b0e7da;color:#112c2e;border-color:#e1fff4}
+.battle-vnext .bv-token.n3{background:#acd7ff;color:#142337;border-color:#e0f0ff}
+.battle-vnext .bv-token.n4{background:#d6b0ea;color:#2b1739;border-color:#f5ddff}
+.battle-vnext .bv-stack-tray{align-self:flex-end;flex:none;width:min(100%,310px);padding:5px 7px;pointer-events:auto;border-radius:4px;background:linear-gradient(90deg,#102033ee,#102033b8);border-top:1px solid #adbdbe44;color:#e4e8e0}
+.battle-vnext .bv-stack-tray-head{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:10px;line-height:1.4;margin:0 2px 4px}
+.battle-vnext .bv-stack-tray-head b{color:#eddbab;font-size:11px}.battle-vnext .bv-stack-tray-head span{color:#b8cccb;white-space:nowrap}
+.battle-vnext .bv-stack-slots{display:flex;flex-wrap:wrap;gap:4px}
+.battle-vnext .bv-stack-slot{display:flex;align-items:center;gap:5px;min-width:0;min-height:44px;padding:4px 7px;border:1px solid #8a855c80;border-radius:4px;background:#102033eb;color:#f1d69c;font-size:11px;flex:1 1 75px;white-space:nowrap}
+.battle-vnext .bv-stack-slot.q-2{color:#b0e7da;border-color:#6b9f9580}.battle-vnext .bv-stack-slot.q-3{color:#acd7ff;border-color:#6990b580}.battle-vnext .bv-stack-slot.q-4{color:#d6b0ea;border-color:#aa86bb80}
+.battle-vnext .bv-stack-slot i{display:grid;place-items:center;flex:0 0 17px;height:17px;border:1px solid currentColor;border-radius:50%;font:700 10px/1 system-ui}
+.battle-vnext .bv-stack-slot b{overflow:hidden;text-overflow:ellipsis;font-weight:600}.battle-vnext .bv-stack-slot em{font:16px/1 system-ui;margin-left:auto;color:#c8d3d5}
+.battle-vnext .bv-stack-add{min-height:44px;flex:1 1 85px;background:#142c3ae8;border:1px dashed #abc8c0aa;color:#bce4d6;border-radius:4px;font-size:11px;padding:4px 8px}
+.battle-vnext .bv-stack-add:focus-visible,.battle-vnext button.bv-stack-slot:focus-visible{outline:2px solid #ffe29a;outline-offset:2px}
+.battle-vnext .bv-drop-problem{font-size:11px;color:#f2c5a5;background:#132235e8;padding:5px 8px;margin:0;pointer-events:none;align-self:flex-end;max-width:310px}
+.bv-insert-fx.q-3{--insert-color:#aed8ff;--insert-shadow:#375f8b;--insert-tint:#6c9fc6}
+.bv-insert-fx.q-4{--insert-color:#ddbbf0;--insert-shadow:#61417c;--insert-tint:#a280bc}
+@keyframes bv-stack-assemble{0%{opacity:.5;stroke-width:1.5}20%{opacity:1;stroke-width:3;filter:drop-shadow(0 0 4px var(--piece-color))}100%{opacity:.8;stroke-width:1.5;filter:none}}
+@keyframes bv-stack-join{from{stroke-dashoffset:150;opacity:.5}to{stroke-dashoffset:0;opacity:.85}}
+@media(orientation:landscape) and (max-height:500px){.battle-vnext .bv-stack-tray{width:min(100%,260px);padding:3px 5px}.battle-vnext .bv-stack-tray-head{margin-bottom:2px;font-size:9px}.battle-vnext .bv-stack-slot{font-size:10px;gap:3px;flex-basis:62px;padding:3px 5px}.battle-vnext .bv-stack-add{flex-basis:80px;font-size:10px}}
+@media(prefers-reduced-motion:reduce){.battle-vnext .bv-stack-board.is-assembling :is(.bv-piece-edge,.bv-stack-join){animation:none;filter:none;stroke-dashoffset:0}}
+.battle-vnext .bv-stack-tray button{touch-action:manipulation}
+@media(orientation:landscape) and (max-height:500px){.bv-foldable[data-hand-open=false] .bv-stack-tray-head{padding-right:44px}}

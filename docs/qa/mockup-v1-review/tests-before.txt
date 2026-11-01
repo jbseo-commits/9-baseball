@@ -1,0 +1,128 @@
+
+> 9zone-showdown@1.0.0 test
+> vitest run tests/battle-vnext-review.test.jsx
+
+
+ RUN  v4.1.11 /workspace/9-baseball-claude-review
+
+ ❯ tests/battle-vnext-review.test.jsx (8 tests | 8 failed) 99ms
+     × keeps the actual knockout flight and impact visible after entering reward 32ms
+     × preserves actual third-out flight and strikeout result 11ms
+     × only active final reveal overrides terminal routing: reward 17ms
+     × only active final reveal overrides terminal routing: won 6ms
+     × only active final reveal overrides terminal routing: lost 6ms
+     × keeps pitcher phase consistent with the pre-hit HP until impact 8ms
+     × holds reading level and sources when scoring raises shaken until impact 5ms
+     × separates support-cost limits from card problems and keeps own-cost warnings 11ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/battle-vnext-review.test.jsx > C01 independent review: last pitch and reveal boundary > keeps the actual knockout flight and impact visible after entering reward
+AssertionError: expected 'transition' to be 'flight' // Object.is equality
+
+Expected: "flight"
+Received: "transition"
+
+ ❯ tests/battle-vnext-review.test.jsx:34:26
+     32|     expect(after.phase).toBe('reward');
+     33|     const flight=buildBattleViewModel({s:after,fxStage:'windup'});
+     34|     expect(flight.phase).toBe('flight');
+       |                          ^
+     35|     expect(flight.result).toBeNull();
+     36|     expect(flight.scene.pitchZone).toBe(after.battle.revealed.zone);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  tests/battle-vnext-review.test.jsx > C01 independent review: last pitch and reveal boundary > preserves actual third-out flight and strikeout result
+AssertionError: expected 'transition' to be 'flight' // Object.is equality
+
+Expected: "flight"
+Received: "transition"
+
+ ❯ tests/battle-vnext-review.test.jsx:50:68
+     48|     const after=E.playV10Action(before,{type:'take'});
+     49|     expect(after.phase).toBe('lost');
+     50|     expect(buildBattleViewModel({s:after,fxStage:'windup'}).phase).toB…
+       |                                                                    ^
+     51|     const landed=buildBattleViewModel({s:after,fxStage:'impact',shot:{…
+     52|     expect(landed.result).toMatchObject({call:'삼진',actualZone:after.ba…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  tests/battle-vnext-review.test.jsx > C01 independent review: last pitch and reveal boundary > only active final reveal overrides terminal routing: reward
+ FAIL  tests/battle-vnext-review.test.jsx > C01 independent review: last pitch and reveal boundary > only active final reveal overrides terminal routing: won
+ FAIL  tests/battle-vnext-review.test.jsx > C01 independent review: last pitch and reveal boundary > only active final reveal overrides terminal routing: lost
+AssertionError: expected 'transition' to be 'flight' // Object.is equality
+
+Expected: "flight"
+Received: "transition"
+
+ ❯ tests/battle-vnext-review.test.jsx:59:47
+     57|     const {after}=exactHit({hp:1});
+     58|     const s={...after,phase};
+     59|     expect(battlePhase({s,fxStage:'windup'})).toBe('flight');
+       |                                               ^
+     60|     expect(battlePhase({s,fxStage:'impact'})).toBe('result');
+     61|     expect(battlePhase({s})).toBe('transition');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  tests/battle-vnext-review.test.jsx > C01 independent review: last pitch and reveal boundary > keeps pitcher phase consistent with the pre-hit HP until impact
+AssertionError: expected { name: '바이올렛 스팅', hp: 37, …(2) } to match object { hp: 37, phase: 'steady' }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "hp": 37,
+-   "phase": "steady",
++   "phase": "pressured",
+  }
+
+ ❯ tests/battle-vnext-review.test.jsx:68:32
+     66|     expect(after.pitcher.phase).not.toBe(before.pitcher.phase);
+     67|     const flight=buildBattleViewModel({s:after,fxStage:'windup'});
+     68|     expect(flight.hud.pitcher).toMatchObject({hp:before.pitcher.hp,pha…
+       |                                ^
+     69|     expect(buildBattleViewModel({s:after,fxStage:'impact'}).hud.pitche…
+     70|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  tests/battle-vnext-review.test.jsx > C01 independent review: last pitch and reveal boundary > holds reading level and sources when scoring raises shaken until impact
+AssertionError: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ tests/battle-vnext-review.test.jsx:77:34
+     75|     const frozen=JSON.stringify(after);
+     76|     const flight=buildBattleViewModel({s:after,fxStage:'windup'});
+     77|     expect(flight.hud.readLevel).toBe(E.readLevel(before));
+       |                                  ^
+     78|     expect(flight.zones.level).toBe(E.readLevel(before));
+     79|     expect(flight.zones.sources).toEqual(E.readSources(before).map(x=>…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  tests/battle-vnext-review.test.jsx > C03 independent review: support limit is not an unplayable card > separates support-cost limits from card problems and keeps own-cost warnings
+AssertionError: expected '지원 비용 초과' not to contain '지원 비용 초과'
+ ❯ tests/battle-vnext-review.test.jsx:94:32
+     92|     expect(limited.length).toBeGreaterThan(0);
+     93|     for(const card of limited){
+     94|       expect(card.warning).not.toContain('지원 비용 초과');
+       |                                ^
+     95|       expect(appInputs(input.s,{selected:card.id}).choice.problem).toB…
+     96|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed (8)
+   Start at  11:06:25
+   Duration  1.64s (transform 639ms, setup 0ms, import 894ms, tests 99ms, environment 290ms)

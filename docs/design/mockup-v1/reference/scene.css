@@ -1,0 +1,15 @@
+/* One photographed-view coordinate system: home in front, mound farther away. */
+.diamond-world{position:absolute;left:0;top:0;width:1672px;height:941px;transform-origin:0 0;pointer-events:none;z-index:0}
+.diamond-world .field-art{position:absolute;inset:0;width:1672px;height:941px;object-fit:fill;object-position:initial}
+.diamond-world .actor{position:absolute;bottom:auto;right:auto;transform:none;pointer-events:none}
+.diamond-world .actor-batter{z-index:3}.diamond-world .actor-pitcher{z-index:2}
+.diamond-world .actor-sprite{position:absolute;inset:0;background-image:url("art/batter-catcher.png");background-size:100% 100%;background-position:0 0;background-repeat:no-repeat}
+.ground-shadow{position:absolute;background:#1320249c;border-radius:50%;filter:blur(5px);z-index:1;transform:rotate(-4deg)}
+.mound-shadow{left:805px;top:570px;width:63px;height:17px}
+.batter-shadow-back{left:456px;top:899px;width:129px;height:19px}
+.batter-shadow-front{left:544px;top:809px;width:103px;height:18px;transform:rotate(7deg)}
+.field-shade{z-index:1}.pitcher-tell,.base-state{z-index:3}
+.flight-ball{left:var(--release-x);top:var(--release-y)}
+@keyframes pitch{to{left:var(--contact-x);top:var(--contact-y);transform:scale(2)}}
+
+.diamond-world .actor-pitcher .actor-sprite{background-image:url("art/pitcher-home.png");background-size:100% 100%;background-position:0 0}
