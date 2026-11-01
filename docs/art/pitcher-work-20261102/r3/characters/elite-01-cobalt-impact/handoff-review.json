@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "id": "elite-01-cobalt-impact",
+  "inputManifest": "traditional/characters/elite-01-cobalt-impact/sequence.json",
+  "status": "candidate_generated_needs_visual_review",
+  "reason": "Automated geometric and pixel checks passed; visual approval remains required.",
+  "releaseFrame": 76,
+  "derivedFrame": 76,
+  "checks": {
+    "heldFrame": 75,
+    "heldPoseId": "authored-75",
+    "registeredWrist": {
+      "x": 96.34034977012763,
+      "y": 77.13303954033015
+    },
+    "registeredElbow": {
+      "x": 106.13735045915917,
+      "y": 88.19510382365677
+    },
+    "ballSocket": {
+      "x": 89.65120159017718,
+      "y": 73.87749329751855
+    },
+    "ballRadius": 5.88052352794385,
+    "ballMaskRadius": 10,
+    "handLocalDistalHalfPlane": true,
+    "handLocalRadiusPx": 19.43930673600834,
+    "removedHandPixels": 366,
+    "residualWhiteCleanup": {
+      "roiRadiusPx": 17.31983026395219,
+      "removedComponents": []
+    },
+    "guardRadius": 34,
+    "comparison": "final derived RGBA vs preserved original held RGBA",
+    "bodyOutsideHandDifferingChannels": 0,
+    "emptyHandSource": "source/elite-01-cobalt-impact-b.png",
+    "emptyHandManualOverride": false,
+    "socketError": 0,
+    "timelineEntries": 24,
+    "directSourceDrawingCount": 22,
+    "sourceEdgeTouchReviewFrames": [],
+    "explicitlyExcludedFrames": []
+  },
+  "outputManifest": "/workspace/9zone-roster-rebuild-20261031/traditional/characters/elite-01-cobalt-impact/sequence-release-matched.json",
+  "outputDrawing": "poses/076-matched-empty.png"
+}

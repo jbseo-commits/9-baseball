@@ -1,0 +1,305 @@
+{
+  "characters": [
+    {
+      "id": "regular-01-red-rush",
+      "name": "레드 러시",
+      "age": 27,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "parts": "characters/regular-01-red-rush/parts.json",
+      "identity": "reference/regular-01-red-rush.png",
+      "rhythm": {
+        "windup": 1.0,
+        "legLift": 1.0,
+        "follow": 1.0
+      }
+    },
+    {
+      "id": "regular-02-teal-mirage",
+      "name": "청록 미라주",
+      "age": 26,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "source_defined",
+      "parts": "characters/regular-02-teal-mirage/parts.json",
+      "identity": "reference/regular-02-teal-mirage.png",
+      "rhythm": {
+        "windup": 1.025,
+        "legLift": 1.05,
+        "follow": 1.02
+      }
+    },
+    {
+      "id": "regular-03-amber-sinker",
+      "name": "앰버 싱커",
+      "age": 28,
+      "hand": "right",
+      "style": "low-three-quarter",
+      "styleStatus": "source_defined",
+      "parts": "characters/regular-03-amber-sinker/parts.json",
+      "identity": "reference/regular-03-amber-sinker.png",
+      "rhythm": {
+        "windup": 1.05,
+        "legLift": 1.1,
+        "follow": 1.04
+      }
+    },
+    {
+      "id": "regular-04-ivory-ace",
+      "name": "아이보리 에이스",
+      "age": 30,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "parts": "characters/regular-04-ivory-ace/parts.json",
+      "identity": "reference/regular-04-ivory-ace.png",
+      "rhythm": {
+        "windup": 1.075,
+        "legLift": 1.0,
+        "follow": 1.06
+      }
+    },
+    {
+      "id": "regular-05-violet-sting",
+      "name": "바이올렛 스팅",
+      "age": 25,
+      "hand": "right",
+      "style": "sidearm",
+      "styleStatus": "source_defined",
+      "parts": "characters/regular-05-violet-sting/parts.json",
+      "identity": "reference/regular-05-violet-sting.png",
+      "rhythm": {
+        "windup": 1.0,
+        "legLift": 1.05,
+        "follow": 1.08
+      }
+    },
+    {
+      "id": "regular-06-rose-paint",
+      "name": "로즈 페인트",
+      "age": 26,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "parts": "characters/regular-06-rose-paint/parts.json",
+      "identity": "reference/regular-06-rose-paint.png",
+      "rhythm": {
+        "windup": 1.025,
+        "legLift": 1.1,
+        "follow": 1.0
+      }
+    },
+    {
+      "id": "elite-01-cobalt-impact",
+      "name": "코발트 임팩트",
+      "age": 29,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "parts": "characters/elite-01-cobalt-impact/parts.json",
+      "identity": "reference/elite-01-cobalt-impact.png",
+      "rhythm": {
+        "windup": 1.05,
+        "legLift": 1.0,
+        "follow": 1.02
+      }
+    },
+    {
+      "id": "elite-02-neon-trick",
+      "name": "네온 트릭",
+      "age": 27,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "parts": "characters/elite-02-neon-trick/parts.json",
+      "identity": "reference/elite-02-neon-trick.png",
+      "rhythm": {
+        "windup": 1.075,
+        "legLift": 1.05,
+        "follow": 1.04
+      }
+    },
+    {
+      "id": "elite-03-wine-bluff",
+      "name": "와인 블러프",
+      "age": 31,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "parts": "characters/elite-03-wine-bluff/parts.json",
+      "identity": "reference/elite-03-wine-bluff.png",
+      "rhythm": {
+        "windup": 1.0,
+        "legLift": 1.1,
+        "follow": 1.06
+      }
+    },
+    {
+      "id": "boss-01-emerald-tyrant",
+      "name": "에메랄드 타이런트",
+      "age": 32,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "parts": "characters/boss-01-emerald-tyrant/parts.json",
+      "identity": "reference/boss-01-emerald-tyrant.png",
+      "rhythm": {
+        "windup": 1.025,
+        "legLift": 1.0,
+        "follow": 1.08
+      }
+    },
+    {
+      "id": "boss-02-platinum-halo",
+      "name": "플래티넘 헤일로",
+      "age": 30,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "parts": "characters/boss-02-platinum-halo/parts.json",
+      "identity": "reference/boss-02-platinum-halo.png",
+      "rhythm": {
+        "windup": 1.05,
+        "legLift": 1.05,
+        "follow": 1.0
+      }
+    },
+    {
+      "id": "boss-03-black-eclipse",
+      "name": "블랙 이클립스",
+      "age": 33,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "parts": "characters/boss-03-black-eclipse/parts.json",
+      "identity": "reference/boss-03-black-eclipse.png",
+      "rhythm": {
+        "windup": 1.075,
+        "legLift": 1.1,
+        "follow": 1.02
+      }
+    },
+    {
+      "id": "tide-vesper",
+      "name": "타이드 베스퍼",
+      "age": 28,
+      "hand": "right",
+      "style": "low-three-quarter",
+      "styleStatus": "source_defined",
+      "parts": "characters/tide-vesper/parts.json",
+      "identity": "reference/tide-vesper.png",
+      "rhythm": {
+        "windup": 1.0,
+        "legLift": 1.0,
+        "follow": 1.04
+      }
+    },
+    {
+      "id": "sky-phantom",
+      "name": "스카이 팬텀",
+      "age": 26,
+      "hand": "right",
+      "style": "high-overhand",
+      "styleStatus": "source_defined",
+      "parts": "characters/sky-phantom/parts.json",
+      "identity": "reference/sky-phantom.png",
+      "rhythm": {
+        "windup": 1.025,
+        "legLift": 1.05,
+        "follow": 1.06
+      }
+    },
+    {
+      "id": "gale-twister",
+      "name": "게일 트위스터",
+      "age": 27,
+      "hand": "right",
+      "style": "high-three-quarter",
+      "styleStatus": "source_defined",
+      "parts": "characters/gale-twister/parts.json",
+      "identity": "reference/gale-twister.png",
+      "rhythm": {
+        "windup": 1.05,
+        "legLift": 1.1,
+        "follow": 1.08
+      }
+    },
+    {
+      "id": "vulcan-blaze",
+      "name": "볼칸 블레이즈",
+      "age": 28,
+      "hand": "right",
+      "style": "high-three-quarter",
+      "styleStatus": "source_defined",
+      "parts": "characters/vulcan-blaze/parts.json",
+      "identity": "reference/vulcan-blaze.png",
+      "rhythm": {
+        "windup": 1.075,
+        "legLift": 1.0,
+        "follow": 1.0
+      }
+    },
+    {
+      "id": "jade-viper",
+      "name": "제이드 바이퍼",
+      "age": 28,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "parts": "characters/jade-viper/parts.json",
+      "identity": "reference/jade-viper.png",
+      "rhythm": {
+        "windup": 1.0,
+        "legLift": 1.05,
+        "follow": 1.02
+      }
+    },
+    {
+      "id": "copper-sirocco",
+      "name": "코퍼 시로코",
+      "age": 29,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "source_defined",
+      "parts": "characters/copper-sirocco/parts.json",
+      "identity": "reference/copper-sirocco.png",
+      "rhythm": {
+        "windup": 1.025,
+        "legLift": 1.1,
+        "follow": 1.04
+      }
+    },
+    {
+      "id": "onyx-eclipse",
+      "name": "오닉스 이클립스",
+      "age": 26,
+      "hand": "left",
+      "style": "three-quarter",
+      "styleStatus": "source_defined",
+      "parts": "characters/onyx-eclipse/parts.json",
+      "identity": "reference/onyx-eclipse.jpg",
+      "rhythm": {
+        "windup": 1.05,
+        "legLift": 1.0,
+        "follow": 1.06
+      }
+    },
+    {
+      "id": "emerald-tempest",
+      "name": "에메랄드 템페스트",
+      "age": 27,
+      "hand": "right",
+      "style": "high-overhand",
+      "styleStatus": "source_defined",
+      "parts": "characters/emerald-tempest/parts.json",
+      "identity": "reference/emerald-tempest.jpg",
+      "rhythm": {
+        "windup": 1.075,
+        "legLift": 1.05,
+        "follow": 1.08
+      }
+    }
+  ],
+  "source": "existing20 identities;10 documented slots,10 explicitly proposed baseline for rig preview only"
+}

@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "id": "regular-04-ivory-ace",
+  "inputManifest": "traditional/characters/regular-04-ivory-ace/sequence.json",
+  "status": "candidate_generated_needs_visual_review",
+  "reason": "Automated geometric and pixel checks passed; visual approval remains required.",
+  "releaseFrame": 76,
+  "derivedFrame": 76,
+  "checks": {
+    "heldFrame": 75,
+    "heldPoseId": "authored-75",
+    "registeredWrist": {
+      "x": 104.46369781831633,
+      "y": 93.23341017298097
+    },
+    "registeredElbow": {
+      "x": 117.19077066294831,
+      "y": 99.65510323610671
+    },
+    "ballSocket": {
+      "x": 101.20815074018485,
+      "y": 85.89945851769102
+    },
+    "ballRadius": 6.708554836544364,
+    "ballMaskRadius": 10,
+    "handLocalDistalHalfPlane": true,
+    "handLocalRadiusPx": 20.024053443245542,
+    "removedHandPixels": 322,
+    "residualWhiteCleanup": {
+      "roiRadiusPx": 18.732608279789908,
+      "removedComponents": []
+    },
+    "guardRadius": 34,
+    "comparison": "final derived RGBA vs preserved original held RGBA",
+    "bodyOutsideHandDifferingChannels": 0,
+    "emptyHandSource": "source/regular-04-ivory-ace-b.png",
+    "emptyHandManualOverride": false,
+    "socketError": 0,
+    "timelineEntries": 24,
+    "directSourceDrawingCount": 22,
+    "sourceEdgeTouchReviewFrames": [],
+    "explicitlyExcludedFrames": []
+  },
+  "outputManifest": "/workspace/9zone-roster-rebuild-20261031/traditional/characters/regular-04-ivory-ace/sequence-release-matched.json",
+  "outputDrawing": "poses/076-matched-empty.png"
+}

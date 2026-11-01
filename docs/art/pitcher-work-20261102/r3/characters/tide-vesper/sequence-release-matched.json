@@ -1,0 +1,4948 @@
+{
+  "id": "tide-vesper",
+  "handCalibration": {
+    "wrist": {
+      "x": 714,
+      "y": 137
+    },
+    "elbow": {
+      "x": 741,
+      "y": 135
+    },
+    "ball": {
+      "x": 689,
+      "y": 143,
+      "radius": 20
+    },
+    "method": "manual visual hand-isolation axis from review/tide-vesper75-coordinates.png; not video biomechanics"
+  },
+  "name": "타이드 베스퍼",
+  "hand": "right",
+  "style": "low-three-quarter",
+  "canvas": [
+    256,
+    256
+  ],
+  "anchor": {
+    "x": 128,
+    "y": 238
+  },
+  "characterHeightPixels": 180,
+  "frameCount": 120,
+  "fps": 60,
+  "releaseFrame": 76,
+  "ballResetFrame": 110,
+  "outputHeights": [
+    130,
+    400
+  ],
+  "authoredDrawingCount": 24,
+  "sourceDrawingCount": 24,
+  "status": "traditional_release_handoff_candidate_NOT_ART_APPROVED",
+  "previewBackground": "../../../reference/stadium.avif",
+  "foregroundBatter": "../../../reference/batter-ready.avif",
+  "cameraLayout": {
+    "world": {
+      "width": 1672,
+      "height": 941
+    },
+    "landmarks": {
+      "home": {
+        "x": 834,
+        "y": 874
+      },
+      "mound": {
+        "x": 834,
+        "y": 536
+      }
+    },
+    "actors": {
+      "batter": {
+        "worldFoot": {
+          "x": 200,
+          "y": 960
+        },
+        "worldHeight": 1200
+      },
+      "pitcher": {
+        "worldFoot": {
+          "x": 834,
+          "y": 536
+        },
+        "worldHeight": 376.4705882352941
+      }
+    },
+    "camera": {
+      "focalX": 0.5,
+      "zoneWorldSize": 300,
+      "minZoneSize": 138,
+      "bottomReserve": 18,
+      "zoneGap": 12
+    },
+    "scope": "Foreground batter intentionally extends below viewport; all atlas source drawings remain complete. Sample preview only; real roster approval unchanged."
+  },
+  "drawings": [
+    {
+      "frame": 0,
+      "poseId": "authored-0",
+      "authored": true,
+      "src": "poses/000.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 94,
+        "y": 49,
+        "width": 114,
+        "height": 180
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 150.50937546139082,
+        "y": 123.52044884098626
+      },
+      "ballRadius": 2.2456813819577732,
+      "sourceRecord": {
+        "frame": 0,
+        "group": "base-a",
+        "source": "source/tide-vesper-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          179,
+          8,
+          328,
+          521
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 521,
+        "referenceWorldHeight": 180,
+        "foot": [
+          253,
+          526
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 368.439453125,
+            "y": 84.06396484375,
+            "confidence": 0.9737756252288818
+          },
+          "leftEye": {
+            "x": 378.615234375,
+            "y": 73.88818359375,
+            "confidence": 1.0269396305084229
+          },
+          "rightEye": {
+            "x": 356.99169921875,
+            "y": 73.88818359375,
+            "confidence": 0.9961268901824951
+          },
+          "leftEar": {
+            "x": 392.60693359375,
+            "y": 76.43212890625,
+            "confidence": 0.925575852394104
+          },
+          "rightEar": {
+            "x": 341.72802734375,
+            "y": 77.7041015625,
+            "confidence": 0.9844468832015991
+          },
+          "leftShoulder": {
+            "x": 415.50244140625,
+            "y": 127.31103515625,
+            "confidence": 0.8929857015609741
+          },
+          "rightShoulder": {
+            "x": 317.560546875,
+            "y": 124.76708984375,
+            "confidence": 0.8992553353309631
+          },
+          "leftElbow": {
+            "x": 437.1259765625,
+            "y": 202.357421875,
+            "confidence": 0.9046149253845215
+          },
+          "rightElbow": {
+            "x": 295.93701171875,
+            "y": 201.08544921875,
+            "confidence": 0.8899149894714355
+          },
+          "leftWrist": {
+            "x": 392.60693359375,
+            "y": 179.4619140625,
+            "confidence": 0.7248557806015015
+          },
+          "rightWrist": {
+            "x": 337.912109375,
+            "y": 176.91796875,
+            "confidence": 0.704623818397522
+          },
+          "leftHip": {
+            "x": 398.966796875,
+            "y": 249.42041015625,
+            "confidence": 0.777661144733429
+          },
+          "rightHip": {
+            "x": 332.82421875,
+            "y": 249.42041015625,
+            "confidence": 0.7686071991920471
+          },
+          "leftKnee": {
+            "x": 429.494140625,
+            "y": 358.81005859375,
+            "confidence": 0.8915228843688965
+          },
+          "rightKnee": {
+            "x": 303.56884765625,
+            "y": 360.08203125,
+            "confidence": 0.8453803062438965
+          },
+          "leftAnkle": {
+            "x": 470.197265625,
+            "y": 473.28759765625,
+            "confidence": 0.9307692050933838
+          },
+          "rightAnkle": {
+            "x": 264.1376953125,
+            "y": 472.015625,
+            "confidence": 0.8849895000457764
+          }
+        },
+        "ball": {
+          "x": 341.3076923076923,
+          "y": 223.5897435897436,
+          "radius": 6.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.345489443378119,
+        "b": 0,
+        "c": 0,
+        "d": 0.345489443378119,
+        "e": 32.591170825335894,
+        "f": 46.272552783109404
+      },
+      "control": null,
+      "uniformScale": 0.345489443378119,
+      "translation": {
+        "x": 32.591170825335894,
+        "y": 46.272552783109404
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        253,
+        526
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 14350,
+        "mainPixels": 64223
+      }
+    },
+    {
+      "frame": 5,
+      "poseId": "authored-5",
+      "authored": true,
+      "src": "poses/005.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 64,
+        "y": 48,
+        "width": 115,
+        "height": 182
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 117.9115039094797,
+        "y": 122.73210725692176
+      },
+      "ballRadius": 2.313283953028895,
+      "sourceRecord": {
+        "frame": 5,
+        "group": "bridge-a",
+        "source": "traditional/source/tide-vesper-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          169,
+          7,
+          273,
+          506
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 506,
+        "referenceWorldHeight": 178.79610087272073,
+        "foot": [
+          262,
+          512
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 353.6787109375,
+            "y": 94.462890625,
+            "confidence": 0.8778067231178284
+          },
+          "leftEye": {
+            "x": 366.0322265625,
+            "y": 83.3447265625,
+            "confidence": 0.9360208511352539
+          },
+          "rightEye": {
+            "x": 341.3251953125,
+            "y": 80.8740234375,
+            "confidence": 0.8989545106887817
+          },
+          "leftEar": {
+            "x": 378.3857421875,
+            "y": 84.580078125,
+            "confidence": 0.8663152456283569
+          },
+          "rightEar": {
+            "x": 324.0302734375,
+            "y": 79.638671875,
+            "confidence": 0.911536455154419
+          },
+          "leftShoulder": {
+            "x": 398.1513671875,
+            "y": 129.052734375,
+            "confidence": 0.8869174718856812
+          },
+          "rightShoulder": {
+            "x": 293.146484375,
+            "y": 125.3466796875,
+            "confidence": 0.8915051221847534
+          },
+          "leftElbow": {
+            "x": 421.623046875,
+            "y": 206.8798828125,
+            "confidence": 0.934051513671875
+          },
+          "rightElbow": {
+            "x": 267.2041015625,
+            "y": 204.4091796875,
+            "confidence": 0.9098982810974121
+          },
+          "leftWrist": {
+            "x": 375.9150390625,
+            "y": 182.1728515625,
+            "confidence": 0.871757984161377
+          },
+          "rightWrist": {
+            "x": 312.912109375,
+            "y": 179.7021484375,
+            "confidence": 0.7886525392532349
+          },
+          "leftHip": {
+            "x": 370.9736328125,
+            "y": 255.05859375,
+            "confidence": 0.8045127391815186
+          },
+          "rightHip": {
+            "x": 306.7353515625,
+            "y": 247.646484375,
+            "confidence": 0.7905623316764832
+          },
+          "leftKnee": {
+            "x": 391.974609375,
+            "y": 368.7109375,
+            "confidence": 0.822701096534729
+          },
+          "rightKnee": {
+            "x": 320.32421875,
+            "y": 320.5322265625,
+            "confidence": 0.8318072557449341
+          },
+          "leftAnkle": {
+            "x": 411.740234375,
+            "y": 451.4794921875,
+            "confidence": 0.925796389579773
+          },
+          "rightAnkle": {
+            "x": 269.6748046875,
+            "y": 446.5380859375,
+            "confidence": 0.8406031131744385
+          }
+        },
+        "ball": {
+          "x": 303.60869565217394,
+          "y": 217.95652173913044,
+          "radius": 6.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3528737109766513,
+        "b": -0.04623550100760836,
+        "c": 0.04623550100760836,
+        "d": 0.3528737109766513,
+        "e": 0.6986478094320105,
+        "f": 59.85848075301638
+      },
+      "control": {
+        "frame": 5,
+        "joints": {
+          "nose": {
+            "x": 137.3957646053263,
+            "y": 75.48319600227927
+          },
+          "leftEye": {
+            "x": 140.9147635256718,
+            "y": 72.18434538447698
+          },
+          "rightEye": {
+            "x": 133.877187425024,
+            "y": 71.7440487793906
+          },
+          "leftEar": {
+            "x": 145.09294213351728,
+            "y": 72.62379850947698
+          },
+          "rightEar": {
+            "x": 127.9382441368762,
+            "y": 71.96293186180424
+          },
+          "leftShoulder": {
+            "x": 148.8278719559741,
+            "y": 89.99864480866123
+          },
+          "rightShoulder": {
+            "x": 119.80077000359884,
+            "y": 88.89874677603169
+          },
+          "leftElbow": {
+            "x": 157.40648617442417,
+            "y": 115.51096524112285
+          },
+          "rightElbow": {
+            "x": 117.82660486144434,
+            "y": 115.51138698116603
+          },
+          "leftWrist": {
+            "x": 149.2757598818378,
+            "y": 106.49247615762957
+          },
+          "rightWrist": {
+            "x": 135.2044033409309,
+            "y": 106.27317133517275
+          },
+          "leftHip": {
+            "x": 141.78860889515352,
+            "y": 133.10722506297986
+          },
+          "rightHip": {
+            "x": 121.99719214851248,
+            "y": 132.66692845789348
+          },
+          "leftKnee": {
+            "x": 152.34560565619,
+            "y": 170.05587024652112
+          },
+          "rightKnee": {
+            "x": 130.8128242712332,
+            "y": 152.66373260556622
+          },
+          "leftAnkle": {
+            "x": 152.99255488243762,
+            "y": 209.64460810040788
+          },
+          "rightAnkle": {
+            "x": 113.65433061420347,
+            "y": 194.89509357005758
+          }
+        },
+        "hip": {
+          "x": 131.89290052183298,
+          "y": 132.88707676043668
+        },
+        "foot": {
+          "x": 120,
+          "y": 228
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.35588983892752235,
+          "referenceScale": 0.3533519780093295,
+          "appliedScale": 0.35588983892752235,
+          "desiredRotationDegrees": -7.464692306285784,
+          "appliedRotationDegrees": -7.464692306285784,
+          "hipControlError": 0
+        }
+      },
+      "uniformScale": 0.35588983892752235,
+      "translation": {
+        "x": 0.6986478094320105,
+        "y": 59.85848075301638
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        271,
+        512
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 14168,
+        "mainPixels": 64885
+      }
+    },
+    {
+      "frame": 10,
+      "poseId": "authored-10",
+      "authored": true,
+      "src": "poses/010.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 46,
+        "y": 48,
+        "width": 96,
+        "height": 184
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 115.35892514395397,
+        "y": 90.58733205374281
+      },
+      "ballRadius": 1.9001919385796544,
+      "sourceRecord": {
+        "frame": 10,
+        "group": "base-a",
+        "source": "source/tide-vesper-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          600,
+          8,
+          344,
+          522
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 521,
+        "referenceWorldHeight": 180,
+        "foot": [
+          813.5,
+          529
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 798.7626953125,
+            "y": 88.033203125,
+            "confidence": 0.9233788847923279
+          },
+          "leftEye": {
+            "x": 808.9580078125,
+            "y": 79.1123046875,
+            "confidence": 1.013376235961914
+          },
+          "rightEye": {
+            "x": 789.841796875,
+            "y": 76.5634765625,
+            "confidence": 0.9491685628890991
+          },
+          "leftEar": {
+            "x": 819.1533203125,
+            "y": 79.1123046875,
+            "confidence": 0.8823074102401733
+          },
+          "rightEar": {
+            "x": 770.7255859375,
+            "y": 74.0146484375,
+            "confidence": 0.9395250678062439
+          },
+          "leftShoulder": {
+            "x": 817.87890625,
+            "y": 128.814453125,
+            "confidence": 0.77555251121521
+          },
+          "rightShoulder": {
+            "x": 747.7861328125,
+            "y": 124.9912109375,
+            "confidence": 0.8565610647201538
+          },
+          "leftElbow": {
+            "x": 845.916015625,
+            "y": 201.4560546875,
+            "confidence": 0.5074644088745117
+          },
+          "rightElbow": {
+            "x": 757.9814453125,
+            "y": 202.73046875,
+            "confidence": 0.9021949768066406
+          },
+          "leftWrist": {
+            "x": 843.3671875,
+            "y": 172.14453125,
+            "confidence": 0.5262686014175415
+          },
+          "rightWrist": {
+            "x": 816.6044921875,
+            "y": 173.4189453125,
+            "confidence": 0.7437170743942261
+          },
+          "leftHip": {
+            "x": 793.6650390625,
+            "y": 256.255859375,
+            "confidence": 0.6414915323257446
+          },
+          "rightHip": {
+            "x": 745.2373046875,
+            "y": 253.70703125,
+            "confidence": 0.6935913562774658
+          },
+          "leftKnee": {
+            "x": 824.2509765625,
+            "y": 360.7578125,
+            "confidence": 0.8272939920425415
+          },
+          "rightKnee": {
+            "x": 825.525390625,
+            "y": 258.8046875,
+            "confidence": 0.8621860146522522
+          },
+          "leftAnkle": {
+            "x": 787.29296875,
+            "y": 475.455078125,
+            "confidence": 0.7916362285614014
+          },
+          "rightAnkle": {
+            "x": 765.6279296875,
+            "y": 391.34375,
+            "confidence": 0.8241652250289917
+          }
+        },
+        "ball": {
+          "x": 800.0666666666667,
+          "y": 131.26666666666665,
+          "radius": 5.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.345489443378119,
+        "b": 0,
+        "c": 0,
+        "d": 0.345489443378119,
+        "e": -161.0556621880998,
+        "f": 45.236084452975064
+      },
+      "control": null,
+      "uniformScale": 0.345489443378119,
+      "translation": {
+        "x": -161.0556621880998,
+        "y": 45.236084452975064
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        813.5,
+        529
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 11908,
+        "mainPixels": 57975
+      }
+    },
+    {
+      "frame": 15,
+      "poseId": "authored-15",
+      "authored": true,
+      "src": "poses/015.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 69,
+        "y": 40,
+        "width": 93,
+        "height": 189
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 114.36307147915545,
+        "y": 119.30807059311951
+      },
+      "ballRadius": 1.4512337542138083,
+      "sourceRecord": {
+        "frame": 15,
+        "group": "bridge-a",
+        "source": "traditional/source/tide-vesper-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          619,
+          7,
+          267,
+          508
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 506,
+        "referenceWorldHeight": 178.79610087272073,
+        "foot": [
+          806,
+          514
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 812.03125,
+            "y": 93.568359375,
+            "confidence": 0.8605109453201294
+          },
+          "leftEye": {
+            "x": 818.232421875,
+            "y": 82.40625,
+            "confidence": 0.936105489730835
+          },
+          "rightEye": {
+            "x": 802.109375,
+            "y": 81.166015625,
+            "confidence": 0.9000993967056274
+          },
+          "leftEar": {
+            "x": 821.953125,
+            "y": 81.166015625,
+            "confidence": 0.8012638092041016
+          },
+          "rightEar": {
+            "x": 776.064453125,
+            "y": 78.685546875,
+            "confidence": 0.9000653624534607
+          },
+          "leftShoulder": {
+            "x": 821.953125,
+            "y": 125.814453125,
+            "confidence": 0.820502519607544
+          },
+          "rightShoulder": {
+            "x": 743.818359375,
+            "y": 124.57421875,
+            "confidence": 0.864346981048584
+          },
+          "leftElbow": {
+            "x": 851.71875,
+            "y": 205.189453125,
+            "confidence": 0.6067296266555786
+          },
+          "rightElbow": {
+            "x": 748.779296875,
+            "y": 197.748046875,
+            "confidence": 0.9067058563232422
+          },
+          "leftWrist": {
+            "x": 859.16015625,
+            "y": 179.14453125,
+            "confidence": 0.6394060850143433
+          },
+          "rightWrist": {
+            "x": 815.751953125,
+            "y": 170.462890625,
+            "confidence": 0.7768102884292603
+          },
+          "leftHip": {
+            "x": 793.427734375,
+            "y": 261,
+            "confidence": 0.6293303966522217
+          },
+          "rightHip": {
+            "x": 736.376953125,
+            "y": 253.55859375,
+            "confidence": 0.7160441875457764
+          },
+          "leftKnee": {
+            "x": 818.232421875,
+            "y": 356.498046875,
+            "confidence": 0.7929645776748657
+          },
+          "rightKnee": {
+            "x": 818.232421875,
+            "y": 243.63671875,
+            "confidence": 0.9063283205032349
+          },
+          "leftAnkle": {
+            "x": 778.544921875,
+            "y": 466.87890625,
+            "confidence": 0.8020737767219543
+          },
+          "rightAnkle": {
+            "x": 762.421875,
+            "y": 365.1796875,
+            "confidence": 0.8067532777786255
+          }
+        },
+        "ball": {
+          "x": 759.1875,
+          "y": 217.6875,
+          "radius": 4,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3608151038129879,
+        "b": 0.037979256785997666,
+        "c": -0.037979256785997666,
+        "d": 0.3608151038129879,
+        "e": -151.29563568526544,
+        "f": 11.929755670610092
+      },
+      "control": {
+        "frame": 15,
+        "joints": {
+          "nose": {
+            "x": 118.99035433661228,
+            "y": 74.91612434021114
+          },
+          "leftEye": {
+            "x": 122.7404668006238,
+            "y": 71.60715196137237
+          },
+          "rightEye": {
+            "x": 115.90237374040308,
+            "y": 70.94586357365644
+          },
+          "leftEar": {
+            "x": 126.7115710472649,
+            "y": 71.60715196137237
+          },
+          "rightEar": {
+            "x": 109.727256028071,
+            "y": 70.06358340331094
+          },
+          "leftShoulder": {
+            "x": 129.36431591890596,
+            "y": 87.92764815259117
+          },
+          "rightShoulder": {
+            "x": 103.33367697336851,
+            "y": 87.70918681022074
+          },
+          "leftElbow": {
+            "x": 134.87055392274473,
+            "y": 113.73560835532629
+          },
+          "rightElbow": {
+            "x": 103.32692913267755,
+            "y": 113.07178952735126
+          },
+          "leftWrist": {
+            "x": 124.92761066458732,
+            "y": 103.36839461372361
+          },
+          "rightWrist": {
+            "x": 110.35986609285027,
+            "y": 102.483584003119
+          },
+          "leftHip": {
+            "x": 122.5295967790307,
+            "y": 132.9256238003839
+          },
+          "rightHip": {
+            "x": 107.31321602087331,
+            "y": 134.69524502159308
+          },
+          "leftKnee": {
+            "x": 109.91282164707295,
+            "y": 138.60224478166987
+          },
+          "rightKnee": {
+            "x": 122.50850977687139,
+            "y": 153.69716440738964
+          },
+          "leftAnkle": {
+            "x": 107.06438939539348,
+            "y": 179.8517949256238
+          },
+          "rightAnkle": {
+            "x": 117.46534234045109,
+            "y": 195.59788117802304
+          }
+        },
+        "hip": {
+          "x": 114.921406399952,
+          "y": 133.81043441098848
+        },
+        "foot": {
+          "x": 120,
+          "y": 228
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.3628084385534521,
+          "referenceScale": 0.3533519780093295,
+          "appliedScale": 0.3628084385534521,
+          "desiredRotationDegrees": 6.008804854942881,
+          "appliedRotationDegrees": 6.008804854942881,
+          "hipControlError": 4.263256414560601e-14
+        }
+      },
+      "uniformScale": 0.3628084385534521,
+      "translation": {
+        "x": -151.29563568526544,
+        "y": 11.929755670610092
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        806,
+        514
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 13450,
+        "mainPixels": 57520
+      }
+    },
+    {
+      "frame": 20,
+      "poseId": "authored-20",
+      "authored": true,
+      "src": "poses/020.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 61,
+        "y": 47,
+        "width": 89,
+        "height": 181
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 97.6230662325068,
+        "y": 110.75416338703108
+      },
+      "ballRadius": 17.10172744721689,
+      "sourceRecord": {
+        "frame": 20,
+        "group": "base-a",
+        "source": "source/tide-vesper-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1082,
+          8,
+          257,
+          524
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 521,
+        "referenceWorldHeight": 180,
+        "foot": [
+          1251.5,
+          531
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 1260.392578125,
+            "y": 85.78125,
+            "confidence": 0.8942657709121704
+          },
+          "leftEye": {
+            "x": 1271.90625,
+            "y": 75.546875,
+            "confidence": 0.9275097250938416
+          },
+          "rightEye": {
+            "x": 1251.4375,
+            "y": 74.267578125,
+            "confidence": 0.9498499035835266
+          },
+          "leftEar": {
+            "x": 1284.69921875,
+            "y": 75.546875,
+            "confidence": 0.9126863479614258
+          },
+          "rightEar": {
+            "x": 1234.806640625,
+            "y": 71.708984375,
+            "confidence": 0.9158229827880859
+          },
+          "leftShoulder": {
+            "x": 1301.330078125,
+            "y": 120.322265625,
+            "confidence": 0.8695769309997559
+          },
+          "rightShoulder": {
+            "x": 1220.734375,
+            "y": 122.880859375,
+            "confidence": 0.6995219588279724
+          },
+          "leftElbow": {
+            "x": 1305.16796875,
+            "y": 197.080078125,
+            "confidence": 0.9196281433105469
+          },
+          "rightElbow": {
+            "x": 1210.5,
+            "y": 191.962890625,
+            "confidence": 0.4140259325504303
+          },
+          "leftWrist": {
+            "x": 1250.158203125,
+            "y": 166.376953125,
+            "confidence": 0.776483416557312
+          },
+          "rightWrist": {
+            "x": 1192.58984375,
+            "y": 159.98046875,
+            "confidence": 0.5078703761100769
+          },
+          "leftHip": {
+            "x": 1285.978515625,
+            "y": 253.369140625,
+            "confidence": 0.7082834243774414
+          },
+          "rightHip": {
+            "x": 1246.3203125,
+            "y": 266.162109375,
+            "confidence": 0.6302382946014404
+          },
+          "leftKnee": {
+            "x": 1182.35546875,
+            "y": 181.728515625,
+            "confidence": 0.7674083709716797
+          },
+          "rightKnee": {
+            "x": 1253.99609375,
+            "y": 371.064453125,
+            "confidence": 0.7556650638580322
+          },
+          "leftAnkle": {
+            "x": 1202.82421875,
+            "y": 305.8203125,
+            "confidence": 0.7476310729980469
+          },
+          "rightAnkle": {
+            "x": 1284.69921875,
+            "y": 481.083984375,
+            "confidence": 0.8794491291046143
+          }
+        },
+        "ball": {
+          "x": 1186.731208372978,
+          "y": 191.6384395813511,
+          "radius": 49.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.345489443378119,
+        "b": 0,
+        "c": 0,
+        "d": 0.345489443378119,
+        "e": -312.3800383877159,
+        "f": 44.54510556621881
+      },
+      "control": null,
+      "uniformScale": 0.345489443378119,
+      "translation": {
+        "x": -312.3800383877159,
+        "y": 44.54510556621881
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        1251.5,
+        531
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 10596,
+        "mainPixels": 57624
+      }
+    },
+    {
+      "frame": 27,
+      "poseId": "authored-27",
+      "authored": true,
+      "src": "poses/027.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 86,
+        "y": 65,
+        "width": 90,
+        "height": 169
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 160.09969083774075,
+        "y": 134.03290208784267
+      },
+      "ballRadius": 3.6408264792537084,
+      "sourceRecord": {
+        "frame": 27,
+        "group": "bridge-a",
+        "source": "traditional/source/tide-vesper-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1080,
+          7,
+          306,
+          515
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 506,
+        "referenceWorldHeight": 178.79610087272073,
+        "foot": [
+          1191,
+          376
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 1280.7783203125,
+            "y": 92.24658203125,
+            "confidence": 0.8391529321670532
+          },
+          "leftEye": {
+            "x": 1290.8369140625,
+            "y": 79.67333984375,
+            "confidence": 0.8863069415092468
+          },
+          "rightEye": {
+            "x": 1265.6904296875,
+            "y": 79.67333984375,
+            "confidence": 0.8666247129440308
+          },
+          "leftEar": {
+            "x": 1299.63818359375,
+            "y": 82.18798828125,
+            "confidence": 0.823991060256958
+          },
+          "rightEar": {
+            "x": 1244.31591796875,
+            "y": 79.67333984375,
+            "confidence": 0.8697088956832886
+          },
+          "leftShoulder": {
+            "x": 1308.439453125,
+            "y": 128.708984375,
+            "confidence": 0.8332892060279846
+          },
+          "rightShoulder": {
+            "x": 1222.94140625,
+            "y": 127.45166015625,
+            "confidence": 0.8272261619567871
+          },
+          "leftElbow": {
+            "x": 1326.0419921875,
+            "y": 167.68603515625,
+            "confidence": 0.6000798940658569
+          },
+          "rightElbow": {
+            "x": 1235.5146484375,
+            "y": 202.89111328125,
+            "confidence": 0.8728942275047302
+          },
+          "leftWrist": {
+            "x": 1341.1298828125,
+            "y": 187.80322265625,
+            "confidence": 0.524330735206604
+          },
+          "rightWrist": {
+            "x": 1299.63818359375,
+            "y": 212.94970703125,
+            "confidence": 0.843461275100708
+          },
+          "leftHip": {
+            "x": 1265.6904296875,
+            "y": 238.09619140625,
+            "confidence": 0.7530012130737305
+          },
+          "rightHip": {
+            "x": 1202.82421875,
+            "y": 234.32421875,
+            "confidence": 0.7132107615470886
+          },
+          "leftKnee": {
+            "x": 1266.94775390625,
+            "y": 326.10888671875,
+            "confidence": 0.7607758045196533
+          },
+          "rightKnee": {
+            "x": 1188.99365234375,
+            "y": 317.3076171875,
+            "confidence": 0.7051811218261719
+          },
+          "leftAnkle": {
+            "x": 1282.03564453125,
+            "y": 459.38525390625,
+            "confidence": 0.7820113897323608
+          },
+          "rightAnkle": {
+            "x": 1188.99365234375,
+            "y": 332.3955078125,
+            "confidence": 0.7113666534423828
+          }
+        },
+        "ball": {
+          "x": 1334.642857142857,
+          "y": 198.2107142857143,
+          "radius": 11.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3135125396724992,
+        "b": 0.04406131401523965,
+        "c": -0.04406131401523965,
+        "d": 0.3135125396724992,
+        "e": -249.59415633754912,
+        "f": 13.08523963506022
+      },
+      "control": {
+        "frame": 27,
+        "joints": {
+          "nose": {
+            "x": 131.86569360304702,
+            "y": 84.41102972048945
+          },
+          "leftEye": {
+            "x": 135.74106285988483,
+            "y": 80.54704744481766
+          },
+          "rightEye": {
+            "x": 128.01309830854126,
+            "y": 80.53566046365165
+          },
+          "leftEar": {
+            "x": 139.83742389935222,
+            "y": 80.54704744481766
+          },
+          "rightEar": {
+            "x": 121.57692350947696,
+            "y": 79.88407209692899
+          },
+          "leftShoulder": {
+            "x": 143.5487362793906,
+            "y": 95.19871828514877
+          },
+          "rightShoulder": {
+            "x": 117.25957068738003,
+            "y": 95.85030665187142
+          },
+          "leftElbow": {
+            "x": 150.70946047264874,
+            "y": 112.85992607365644
+          },
+          "rightElbow": {
+            "x": 111.71875000000001,
+            "y": 110.71833013435702
+          },
+          "leftWrist": {
+            "x": 146.44693385616603,
+            "y": 110.49059051103647
+          },
+          "rightWrist": {
+            "x": 100.03106818318138,
+            "y": 104.1455115613004
+          },
+          "leftHip": {
+            "x": 141.31604449076295,
+            "y": 140.60957743522073
+          },
+          "rightHip": {
+            "x": 123.56584955314298,
+            "y": 142.40028565858927
+          },
+          "leftKnee": {
+            "x": 123.83491970069579,
+            "y": 144.16400251919387
+          },
+          "rightKnee": {
+            "x": 128.24547707233683,
+            "y": 173.3075047234885
+          },
+          "leftAnkle": {
+            "x": 127.37078822276874,
+            "y": 170.42111586792228
+          },
+          "rightAnkle": {
+            "x": 136.48374707593572,
+            "y": 214.1116973818378
+          }
+        },
+        "hip": {
+          "x": 132.44094702195298,
+          "y": 141.504931546905
+        },
+        "foot": {
+          "x": 130,
+          "y": 233
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.3165936068916268,
+          "referenceScale": 0.3533519780093295,
+          "appliedScale": 0.3165936068916268,
+          "desiredRotationDegrees": 11.435794957748712,
+          "appliedRotationDegrees": 8,
+          "hipControlError": 5.487717131059939
+        }
+      },
+      "uniformScale": 0.3165936068916268,
+      "translation": {
+        "x": -249.59415633754912,
+        "y": 13.08523963506022
+      },
+      "plantedFoot": {
+        "x": 130,
+        "y": 233
+      },
+      "registeredSourceFoot": [
+        1284,
+        521
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 15753,
+        "mainPixels": 60320
+      }
+    },
+    {
+      "frame": 34,
+      "poseId": "authored-34",
+      "authored": true,
+      "src": "poses/034.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 67,
+        "y": 66,
+        "width": 128,
+        "height": 173
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 90.3061304719839,
+        "y": 110.26214647457394
+      },
+      "ballRadius": 4.664107485604607,
+      "sourceRecord": {
+        "frame": 34,
+        "group": "base-a",
+        "source": "source/tide-vesper-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          137,
+          527,
+          370,
+          497
+        ],
+        "sourceEdgeTouch": true,
+        "referenceUprightHeight": 521,
+        "referenceWorldHeight": 180,
+        "foot": [
+          348,
+          1023
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 349.90771484375,
+            "y": 608.0537109375,
+            "confidence": 0.9918792247772217
+          },
+          "leftEye": {
+            "x": 360.828125,
+            "y": 595.919921875,
+            "confidence": 1.079146385192871
+          },
+          "rightEye": {
+            "x": 336.560546875,
+            "y": 597.13330078125,
+            "confidence": 0.9952839612960815
+          },
+          "leftEar": {
+            "x": 371.74853515625,
+            "y": 595.919921875,
+            "confidence": 0.8617585897445679
+          },
+          "rightEar": {
+            "x": 315.93310546875,
+            "y": 595.919921875,
+            "confidence": 0.9218066334724426
+          },
+          "leftShoulder": {
+            "x": 376.60205078125,
+            "y": 635.96142578125,
+            "confidence": 0.8189317584037781
+          },
+          "rightShoulder": {
+            "x": 305.0126953125,
+            "y": 637.1748046875,
+            "confidence": 0.8020472526550293
+          },
+          "leftElbow": {
+            "x": 414.216796875,
+            "y": 661.4423828125,
+            "confidence": 0.8543471693992615
+          },
+          "rightElbow": {
+            "x": 283.171875,
+            "y": 654.162109375,
+            "confidence": 0.8293941617012024
+          },
+          "leftWrist": {
+            "x": 444.55126953125,
+            "y": 678.4296875,
+            "confidence": 0.7794914245605469
+          },
+          "rightWrist": {
+            "x": 233.42333984375,
+            "y": 648.09521484375,
+            "confidence": 0.9249716997146606
+          },
+          "leftHip": {
+            "x": 379.02880859375,
+            "y": 765.79296875,
+            "confidence": 0.7669804096221924
+          },
+          "rightHip": {
+            "x": 315.93310546875,
+            "y": 763.3662109375,
+            "confidence": 0.7485206127166748
+          },
+          "leftKnee": {
+            "x": 381.45556640625,
+            "y": 858.009765625,
+            "confidence": 0.7470380067825317
+          },
+          "rightKnee": {
+            "x": 335.34716796875,
+            "y": 837.38232421875,
+            "confidence": 0.7626733779907227
+          },
+          "leftAnkle": {
+            "x": 381.45556640625,
+            "y": 885.91748046875,
+            "confidence": 0.7530103921890259
+          },
+          "rightAnkle": {
+            "x": 352.33447265625,
+            "y": 963.57373046875,
+            "confidence": 0.7924879789352417
+          }
+        },
+        "ball": {
+          "x": 204.16385542168675,
+          "y": 653.2698795180722,
+          "radius": 13.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.345489443378119,
+        "b": 0,
+        "c": 0,
+        "d": 0.345489443378119,
+        "e": 19.769673704414586,
+        "f": -115.4357005758157
+      },
+      "control": null,
+      "uniformScale": 0.345489443378119,
+      "translation": {
+        "x": 19.769673704414586,
+        "y": -115.4357005758157
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        348,
+        1023
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 12526,
+        "mainPixels": 66290
+      }
+    },
+    {
+      "frame": 42,
+      "poseId": "authored-42",
+      "authored": true,
+      "src": "poses/042.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 62,
+        "y": 64,
+        "width": 127,
+        "height": 175
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 84.8617191616984,
+        "y": 109.79717052603343
+      },
+      "ballRadius": 4.116645048689733,
+      "sourceRecord": {
+        "frame": 42,
+        "group": "bridge-a",
+        "source": "traditional/source/tide-vesper-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          157,
+          524,
+          342,
+          491
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 506,
+        "referenceWorldHeight": 178.79610087272073,
+        "foot": [
+          345,
+          1014
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 357.96826171875,
+            "y": 624.45361328125,
+            "confidence": 0.9514158964157104
+          },
+          "leftEye": {
+            "x": 371.154296875,
+            "y": 613.6650390625,
+            "confidence": 0.9886236190795898
+          },
+          "rightEye": {
+            "x": 347.1796875,
+            "y": 611.267578125,
+            "confidence": 0.9583580493927002
+          },
+          "leftEar": {
+            "x": 386.73779296875,
+            "y": 619.65869140625,
+            "confidence": 0.8740694522857666
+          },
+          "rightEar": {
+            "x": 330.3974609375,
+            "y": 608.8701171875,
+            "confidence": 0.8676003813743591
+          },
+          "leftShoulder": {
+            "x": 384.34033203125,
+            "y": 656.8193359375,
+            "confidence": 0.8115585446357727
+          },
+          "rightShoulder": {
+            "x": 311.2177734375,
+            "y": 644.83203125,
+            "confidence": 0.808411717414856
+          },
+          "leftElbow": {
+            "x": 408.31494140625,
+            "y": 680.7939453125,
+            "confidence": 0.8313008546829224
+          },
+          "rightElbow": {
+            "x": 287.2431640625,
+            "y": 649.626953125,
+            "confidence": 0.7865604758262634
+          },
+          "leftWrist": {
+            "x": 437.08447265625,
+            "y": 691.58251953125,
+            "confidence": 0.7420796155929565
+          },
+          "rightWrist": {
+            "x": 244.0888671875,
+            "y": 638.83837890625,
+            "confidence": 0.888664960861206
+          },
+          "leftHip": {
+            "x": 372.35302734375,
+            "y": 769.5,
+            "confidence": 0.7405740022659302
+          },
+          "rightHip": {
+            "x": 310.01904296875,
+            "y": 763.50634765625,
+            "confidence": 0.6940404772758484
+          },
+          "leftKnee": {
+            "x": 379.54541015625,
+            "y": 840.22509765625,
+            "confidence": 0.625645637512207
+          },
+          "rightKnee": {
+            "x": 335.1923828125,
+            "y": 822.244140625,
+            "confidence": 0.7180824875831604
+          },
+          "leftAnkle": {
+            "x": 378.3466796875,
+            "y": 857.00732421875,
+            "confidence": 0.6496880054473877
+          },
+          "rightAnkle": {
+            "x": 349.5771484375,
+            "y": 945.71337890625,
+            "confidence": 0.8156728744506836
+          }
+        },
+        "ball": {
+          "x": 216.35474860335196,
+          "y": 641.3798882681564,
+          "radius": 11.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.355895456812126,
+        "b": -0.03847499442399347,
+        "c": 0.03847499442399347,
+        "d": 0.355895456812126,
+        "e": -16.815040550743078,
+        "f": -110.14277005315392
+      },
+      "control": {
+        "frame": 42,
+        "joints": {
+          "nose": {
+            "x": 136.81830876619483,
+            "y": 95.97338914047508
+          },
+          "leftEye": {
+            "x": 141.00112651451536,
+            "y": 91.99848923344533
+          },
+          "rightEye": {
+            "x": 132.63380405770152,
+            "y": 91.79057139215455
+          },
+          "leftEar": {
+            "x": 144.5576602987044,
+            "y": 92.20725055482248
+          },
+          "rightEar": {
+            "x": 125.52157996940977,
+            "y": 90.74592130518236
+          },
+          "leftShoulder": {
+            "x": 146.85740875419864,
+            "y": 107.26590053682825
+          },
+          "rightShoulder": {
+            "x": 119.4599103286948,
+            "y": 107.89302798104609
+          },
+          "leftElbow": {
+            "x": 155.23400949196255,
+            "y": 119.80929290127162
+          },
+          "rightElbow": {
+            "x": 100.65620876319578,
+            "y": 114.16767634357008
+          },
+          "leftWrist": {
+            "x": 166.52820784848848,
+            "y": 123.16128276451538
+          },
+          "rightWrist": {
+            "x": 89.55727604666507,
+            "y": 102.05530230326299
+          },
+          "leftHip": {
+            "x": 145.1890051433541,
+            "y": 148.8996558601248
+          },
+          "rightHip": {
+            "x": 123.01644411288387,
+            "y": 150.150536828215
+          },
+          "leftKnee": {
+            "x": 144.77316946077255,
+            "y": 174.0151189119482
+          },
+          "rightKnee": {
+            "x": 124.90879168666025,
+            "y": 179.01105146353171
+          },
+          "leftAnkle": {
+            "x": 145.19069210352689,
+            "y": 203.0523426253599
+          },
+          "rightAnkle": {
+            "x": 122.20670322996641,
+            "y": 205.19393856465933
+          }
+        },
+        "hip": {
+          "x": 134.102724628119,
+          "y": 149.5250963441699
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.3579691346686724,
+          "referenceScale": 0.3533519780093295,
+          "appliedScale": 0.3579691346686724,
+          "desiredRotationDegrees": -6.170144844888393,
+          "appliedRotationDegrees": -6.170144844888393,
+          "hipControlError": 4.0194366942304644e-14
+        }
+      },
+      "uniformScale": 0.3579691346686724,
+      "translation": {
+        "x": -16.815040550743078,
+        "y": -110.14277005315392
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        331,
+        1014
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 15180,
+        "mainPixels": 64002
+      }
+    },
+    {
+      "frame": 50,
+      "poseId": "authored-50",
+      "authored": true,
+      "src": "poses/050.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 57,
+        "y": 64,
+        "width": 117,
+        "height": 175
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 82.9037565122018,
+        "y": 89.62051000822598
+      },
+      "ballRadius": 1.727447216890595,
+      "sourceRecord": {
+        "frame": 50,
+        "group": "base-a",
+        "source": "source/tide-vesper-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          601,
+          529,
+          342,
+          495
+        ],
+        "sourceEdgeTouch": true,
+        "referenceUprightHeight": 521,
+        "referenceWorldHeight": 180,
+        "foot": [
+          845.5,
+          1023
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 825.173828125,
+            "y": 615.77001953125,
+            "confidence": 0.9054161310195923
+          },
+          "leftEye": {
+            "x": 838.46728515625,
+            "y": 604.8935546875,
+            "confidence": 0.9811574816703796
+          },
+          "rightEye": {
+            "x": 814.29736328125,
+            "y": 602.4765625,
+            "confidence": 0.9521351456642151
+          },
+          "leftEar": {
+            "x": 848.13525390625,
+            "y": 606.10205078125,
+            "confidence": 0.8176301717758179
+          },
+          "rightEar": {
+            "x": 793.7529296875,
+            "y": 597.642578125,
+            "confidence": 0.8878403902053833
+          },
+          "leftShoulder": {
+            "x": 856.5947265625,
+            "y": 653.2333984375,
+            "confidence": 0.7495070099830627
+          },
+          "rightShoulder": {
+            "x": 769.5830078125,
+            "y": 655.650390625,
+            "confidence": 0.7341669201850891
+          },
+          "leftElbow": {
+            "x": 867.47119140625,
+            "y": 700.36474609375,
+            "confidence": 0.48620331287384033
+          },
+          "rightElbow": {
+            "x": 682.5712890625,
+            "y": 674.986328125,
+            "confidence": 0.8431885242462158
+          },
+          "leftWrist": {
+            "x": 902.517578125,
+            "y": 702.78173828125,
+            "confidence": 0.4056357145309448
+          },
+          "rightWrist": {
+            "x": 668.0693359375,
+            "y": 610.93603515625,
+            "confidence": 0.8231953382492065
+          },
+          "leftHip": {
+            "x": 844.509765625,
+            "y": 764.4150390625,
+            "confidence": 0.7285842895507812
+          },
+          "rightHip": {
+            "x": 779.2509765625,
+            "y": 774.0830078125,
+            "confidence": 0.6879833340644836
+          },
+          "leftKnee": {
+            "x": 839.67578125,
+            "y": 817.5888671875,
+            "confidence": 0.6934685111045837
+          },
+          "rightKnee": {
+            "x": 770.79150390625,
+            "y": 867.13720703125,
+            "confidence": 0.742324948310852
+          },
+          "leftAnkle": {
+            "x": 842.0927734375,
+            "y": 957.7744140625,
+            "confidence": 0.720701277256012
+          },
+          "rightAnkle": {
+            "x": 738.162109375,
+            "y": 892.515625,
+            "confidence": 0.7224212884902954
+          }
+        },
+        "ball": {
+          "x": 680.2380952380952,
+          "y": 593.5238095238095,
+          "radius": 5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.345489443378119,
+        "b": 0,
+        "c": 0,
+        "d": 0.345489443378119,
+        "e": -152.1113243761996,
+        "f": -115.4357005758157
+      },
+      "control": null,
+      "uniformScale": 0.345489443378119,
+      "translation": {
+        "x": -152.1113243761996,
+        "y": -115.4357005758157
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        845.5,
+        1023
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 11555,
+        "mainPixels": 76203
+      }
+    },
+    {
+      "frame": 57,
+      "poseId": "authored-57",
+      "authored": true,
+      "src": "poses/057.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 67,
+        "y": 66,
+        "width": 101,
+        "height": 173
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 90.22688150258664,
+        "y": 91.25185642912791
+      },
+      "ballRadius": 1.5276510504166056,
+      "sourceRecord": {
+        "frame": 57,
+        "group": "bridge-a",
+        "source": "traditional/source/tide-vesper-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          619,
+          522,
+          304,
+          494
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 506,
+        "referenceWorldHeight": 178.79610087272073,
+        "foot": [
+          847.5,
+          1015
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 822.8603515625,
+            "y": 626.685546875,
+            "confidence": 0.8525981307029724
+          },
+          "leftEye": {
+            "x": 836.126953125,
+            "y": 615.8310546875,
+            "confidence": 0.9110238552093506
+          },
+          "rightEye": {
+            "x": 812.005859375,
+            "y": 612.212890625,
+            "confidence": 0.8784137964248657
+          },
+          "leftEar": {
+            "x": 853.01171875,
+            "y": 617.037109375,
+            "confidence": 0.8446383476257324
+          },
+          "rightEar": {
+            "x": 795.12109375,
+            "y": 603.7705078125,
+            "confidence": 0.8239820003509521
+          },
+          "leftShoulder": {
+            "x": 855.423828125,
+            "y": 656.8369140625,
+            "confidence": 0.7513211369514465
+          },
+          "rightShoulder": {
+            "x": 764.9697265625,
+            "y": 659.2490234375,
+            "confidence": 0.7425982356071472
+          },
+          "leftElbow": {
+            "x": 853.01171875,
+            "y": 701.4609375,
+            "confidence": 0.44423526525497437
+          },
+          "rightElbow": {
+            "x": 663.6611328125,
+            "y": 668.8974609375,
+            "confidence": 0.817980170249939
+          },
+          "leftWrist": {
+            "x": 889.193359375,
+            "y": 709.9033203125,
+            "confidence": 0.4315827488899231
+          },
+          "rightWrist": {
+            "x": 670.8974609375,
+            "y": 609.80078125,
+            "confidence": 0.8212482929229736
+          },
+          "leftHip": {
+            "x": 831.302734375,
+            "y": 761.763671875,
+            "confidence": 0.7343764305114746
+          },
+          "rightHip": {
+            "x": 767.3818359375,
+            "y": 769,
+            "confidence": 0.7087702751159668
+          },
+          "leftKnee": {
+            "x": 842.1572265625,
+            "y": 822.06640625,
+            "confidence": 0.7421458959579468
+          },
+          "rightKnee": {
+            "x": 748.0849609375,
+            "y": 848.599609375,
+            "confidence": 0.782390296459198
+          },
+          "leftAnkle": {
+            "x": 856.6298828125,
+            "y": 948.7021484375,
+            "confidence": 0.7949548959732056
+          },
+          "rightAnkle": {
+            "x": 722.7578125,
+            "y": 870.30859375,
+            "confidence": 0.7679228186607361
+          }
+        },
+        "ball": {
+          "x": 687.15625,
+          "y": 595.03125,
+          "radius": 4.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.33850853794152874,
+        "b": 0.025637664314468397,
+        "c": -0.025637664314468397,
+        "d": 0.33850853794152874,
+        "e": -127.12616457817846,
+        "f": -127.78838330698127
+      },
+      "control": {
+        "frame": 57,
+        "joints": {
+          "nose": {
+            "x": 132.83429927423225,
+            "y": 102.698202825096
+          },
+          "leftEye": {
+            "x": 137.39921350167947,
+            "y": 98.34458035928506
+          },
+          "rightEye": {
+            "x": 128.89313857065738,
+            "y": 97.51459595429465
+          },
+          "leftEar": {
+            "x": 141.54407464611324,
+            "y": 97.93464903730809
+          },
+          "rightEar": {
+            "x": 121.83827112823894,
+            "y": 95.44216538207776
+          },
+          "leftShoulder": {
+            "x": 144.03655830134358,
+            "y": 111.64457436120445
+          },
+          "rightShoulder": {
+            "x": 111.68234914827255,
+            "y": 113.09325140954897
+          },
+          "leftElbow": {
+            "x": 147.3590263615643,
+            "y": 122.26103646833016
+          },
+          "rightElbow": {
+            "x": 79.53437087631957,
+            "y": 111.69012228586854
+          },
+          "leftWrist": {
+            "x": 155.68164437380037,
+            "y": 127.42186937679945
+          },
+          "rightWrist": {
+            "x": 65.06784391494723,
+            "y": 89.9017664347409
+          },
+          "leftHip": {
+            "x": 135.55578777291265,
+            "y": 150.23631875299907
+          },
+          "rightHip": {
+            "x": 112.11505443258159,
+            "y": 153.35002549184262
+          },
+          "leftKnee": {
+            "x": 134.514511606286,
+            "y": 171.17697711732248
+          },
+          "rightKnee": {
+            "x": 106.32287667946255,
+            "y": 183.4483471539108
+          },
+          "leftAnkle": {
+            "x": 139.05665187140116,
+            "y": 217.66622555782152
+          },
+          "rightAnkle": {
+            "x": 96.14924161768234,
+            "y": 192.78187604966413
+          }
+        },
+        "hip": {
+          "x": 123.83542110274712,
+          "y": 151.79317212242086
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.33947801120369014,
+          "referenceScale": 0.3533519780093295,
+          "appliedScale": 0.33947801120369014,
+          "desiredRotationDegrees": 4.331149071004228,
+          "appliedRotationDegrees": 4.331149071004228,
+          "hipControlError": 3.1776437161565096e-14
+        }
+      },
+      "uniformScale": 0.33947801120369014,
+      "translation": {
+        "x": -127.12616457817846,
+        "y": -127.78838330698127
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        866,
+        1015
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 15861,
+        "mainPixels": 72651
+      }
+    },
+    {
+      "frame": 64,
+      "poseId": "authored-64",
+      "authored": true,
+      "src": "poses/064.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 39,
+        "y": 69,
+        "width": 126,
+        "height": 170
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 46.63331563686859,
+        "y": 74.71948380773472
+      },
+      "ballRadius": 4.318618042226487,
+      "sourceRecord": {
+        "frame": 64,
+        "group": "base-a",
+        "source": "source/tide-vesper-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1060,
+          535,
+          363,
+          489
+        ],
+        "sourceEdgeTouch": true,
+        "referenceUprightHeight": 521,
+        "referenceWorldHeight": 180,
+        "foot": [
+          1351,
+          1023
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 1329.8447265625,
+            "y": 646.98291015625,
+            "confidence": 0.9279876947402954
+          },
+          "leftEye": {
+            "x": 1342.97705078125,
+            "y": 632.65673828125,
+            "confidence": 1.0618300437927246
+          },
+          "rightEye": {
+            "x": 1317.90625,
+            "y": 630.26904296875,
+            "confidence": 0.9787464737892151
+          },
+          "leftEar": {
+            "x": 1357.30322265625,
+            "y": 629.0751953125,
+            "confidence": 0.8923339247703552
+          },
+          "rightEar": {
+            "x": 1297.61083984375,
+            "y": 623.10595703125,
+            "confidence": 0.869861364364624
+          },
+          "leftShoulder": {
+            "x": 1363.2724609375,
+            "y": 661.30908203125,
+            "confidence": 0.7537742853164673
+          },
+          "rightShoulder": {
+            "x": 1262.9892578125,
+            "y": 667.2783203125,
+            "confidence": 0.6990231871604919
+          },
+          "leftElbow": {
+            "x": 1371.62939453125,
+            "y": 675.63525390625,
+            "confidence": 0.49640393257141113
+          },
+          "rightElbow": {
+            "x": 1163.89990234375,
+            "y": 639.81982421875,
+            "confidence": 0.8225415349006653
+          },
+          "leftWrist": {
+            "x": 1384.76171875,
+            "y": 703.09375,
+            "confidence": 0.4866902232170105
+          },
+          "rightWrist": {
+            "x": 1094.65673828125,
+            "y": 577.73974609375,
+            "confidence": 0.9684654474258423
+          },
+          "leftHip": {
+            "x": 1326.26318359375,
+            "y": 773.53076171875,
+            "confidence": 0.7335312366485596
+          },
+          "rightHip": {
+            "x": 1255.826171875,
+            "y": 781.8876953125,
+            "confidence": 0.6716562509536743
+          },
+          "leftKnee": {
+            "x": 1325.0693359375,
+            "y": 841.580078125,
+            "confidence": 0.7786823511123657
+          },
+          "rightKnee": {
+            "x": 1230.75537109375,
+            "y": 863.0693359375,
+            "confidence": 0.7424333095550537
+          },
+          "leftAnkle": {
+            "x": 1348.9462890625,
+            "y": 970.515625,
+            "confidence": 0.7804310321807861
+          },
+          "rightAnkle": {
+            "x": 1204.49072265625,
+            "y": 891.7216796875,
+            "confidence": 0.7586033344268799
+          }
+        },
+        "ball": {
+          "x": 1080.7553191489362,
+          "y": 550.3936170212766,
+          "radius": 12.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.345489443378119,
+        "b": 0,
+        "c": 0,
+        "d": 0.345489443378119,
+        "e": -326.75623800383875,
+        "f": -115.4357005758157
+      },
+      "control": null,
+      "uniformScale": 0.345489443378119,
+      "translation": {
+        "x": -326.75623800383875,
+        "y": -115.4357005758157
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        1351,
+        1023
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 13246,
+        "mainPixels": 74675
+      }
+    },
+    {
+      "frame": 68,
+      "poseId": "authored-68",
+      "authored": true,
+      "src": "poses/068.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 64,
+        "y": 50,
+        "width": 106,
+        "height": 189
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 82.64969573730576,
+        "y": 67.18230807309271
+      },
+      "ballRadius": 4.169937723050036,
+      "sourceRecord": {
+        "frame": 68,
+        "group": "bridge-a",
+        "source": "traditional/source/tide-vesper-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1108,
+          523,
+          284,
+          493
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 506,
+        "referenceWorldHeight": 178.79610087272073,
+        "foot": [
+          1338,
+          1015
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 1311.38427734375,
+            "y": 645.52783203125,
+            "confidence": 0.824467122554779
+          },
+          "leftEye": {
+            "x": 1323.42041015625,
+            "y": 633.49169921875,
+            "confidence": 0.873933732509613
+          },
+          "rightEye": {
+            "x": 1298.14453125,
+            "y": 633.49169921875,
+            "confidence": 0.8380884528160095
+          },
+          "leftEar": {
+            "x": 1335.45654296875,
+            "y": 629.880859375,
+            "confidence": 0.7559930682182312
+          },
+          "rightEar": {
+            "x": 1277.68310546875,
+            "y": 629.880859375,
+            "confidence": 0.8123339414596558
+          },
+          "leftShoulder": {
+            "x": 1333.04931640625,
+            "y": 662.37841796875,
+            "confidence": 0.6744506359100342
+          },
+          "rightShoulder": {
+            "x": 1243.98193359375,
+            "y": 668.396484375,
+            "confidence": 0.7066013813018799
+          },
+          "leftElbow": {
+            "x": 1324.6240234375,
+            "y": 679.22900390625,
+            "confidence": 0.31395086646080017
+          },
+          "rightElbow": {
+            "x": 1139.267578125,
+            "y": 658.767578125,
+            "confidence": 0.8178069591522217
+          },
+          "leftWrist": {
+            "x": 1347.49267578125,
+            "y": 691.26513671875,
+            "confidence": 0.36427736282348633
+          },
+          "rightWrist": {
+            "x": 1140.47119140625,
+            "y": 592.56884765625,
+            "confidence": 0.8498212695121765
+          },
+          "leftHip": {
+            "x": 1298.14453125,
+            "y": 769.5,
+            "confidence": 0.6963242888450623
+          },
+          "rightHip": {
+            "x": 1233.1494140625,
+            "y": 771.9072265625,
+            "confidence": 0.6874527931213379
+          },
+          "leftKnee": {
+            "x": 1313.79150390625,
+            "y": 830.88427734375,
+            "confidence": 0.7133895754814148
+          },
+          "rightKnee": {
+            "x": 1200.65185546875,
+            "y": 851.345703125,
+            "confidence": 0.8044115900993347
+          },
+          "leftAnkle": {
+            "x": 1340.27099609375,
+            "y": 953.65283203125,
+            "confidence": 0.8072137236595154
+          },
+          "rightAnkle": {
+            "x": 1163.33984375,
+            "y": 875.41796875,
+            "confidence": 0.827340841293335
+          }
+        },
+        "ball": {
+          "x": 1158.241134751773,
+          "y": 568.7765957446809,
+          "radius": 11,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3789386272187038,
+        "b": 0.010542376945046799,
+        "c": -0.010542376945046799,
+        "d": 0.3789386272187038,
+        "e": -350.2563525839039,
+        "f": -160.55972894833624
+      },
+      "control": {
+        "frame": 68,
+        "joints": {
+          "nose": {
+            "x": 137.28776882306752,
+            "y": 99.50161255216513
+          },
+          "leftEye": {
+            "x": 141.81267596641803,
+            "y": 94.23670868503898
+          },
+          "rightEye": {
+            "x": 131.9965847292503,
+            "y": 94.26298891173006
+          },
+          "leftEar": {
+            "x": 147.37883456839268,
+            "y": 92.61922798340895
+          },
+          "rightEar": {
+            "x": 124.53797091748822,
+            "y": 93.13681065240941
+          },
+          "leftShoulder": {
+            "x": 147.76501610393765,
+            "y": 104.46526168444281
+          },
+          "rightShoulder": {
+            "x": 116.0320195264788,
+            "y": 106.96022636392719
+          },
+          "leftElbow": {
+            "x": 148.72742688248852,
+            "y": 110.63392975611441
+          },
+          "rightElbow": {
+            "x": 97.99297327128045,
+            "y": 101.08672690648085
+          },
+          "leftWrist": {
+            "x": 152.95107929099052,
+            "y": 116.20617447871227
+          },
+          "rightWrist": {
+            "x": 80.67981575441314,
+            "y": 90.92484234590385
+          },
+          "leftHip": {
+            "x": 133.26025024264962,
+            "y": 143.8994802345068
+          },
+          "rightHip": {
+            "x": 109.18200130503693,
+            "y": 145.7656552176031
+          },
+          "leftKnee": {
+            "x": 133.12276298857094,
+            "y": 169.510283073053
+          },
+          "rightKnee": {
+            "x": 102.98096688605101,
+            "y": 173.49132732071192
+          },
+          "leftAnkle": {
+            "x": 142.80136697165997,
+            "y": 217.49692734688537
+          },
+          "rightAnkle": {
+            "x": 95.13617153874397,
+            "y": 184.02113505496425
+          }
+        },
+        "hip": {
+          "x": 121.22112577384328,
+          "y": 144.83256772605495
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.3790852475500032,
+          "referenceScale": 0.3533519780093295,
+          "appliedScale": 0.3790852475500032,
+          "desiredRotationDegrees": 1.5936035384993064,
+          "appliedRotationDegrees": 1.5936035384993064,
+          "hipControlError": 4.0194366942304644e-14
+        }
+      },
+      "uniformScale": 0.3790852475500032,
+      "translation": {
+        "x": -350.2563525839039,
+        "y": -160.55972894833624
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        1322,
+        1015
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 14106,
+        "mainPixels": 68803
+      }
+    },
+    {
+      "frame": 75,
+      "poseId": "authored-75",
+      "authored": true,
+      "src": "poses/075.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 61,
+        "y": 57,
+        "width": 112,
+        "height": 182
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 90.90206528979218,
+        "y": 105.54414624038499
+      },
+      "ballRadius": 7.280302868112573,
+      "sourceRecord": {
+        "frame": 75,
+        "group": "bridge-b",
+        "source": "traditional/source/tide-vesper-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          608,
+          11,
+          305,
+          499
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 471,
+        "referenceWorldHeight": 170.9754431200593,
+        "foot": [
+          816,
+          509
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 815.32177734375,
+            "y": 126.4912109375,
+            "confidence": 0.8624228835105896
+          },
+          "leftEye": {
+            "x": 828.72265625,
+            "y": 114.30859375,
+            "confidence": 0.8978217244148254
+          },
+          "rightEye": {
+            "x": 803.13916015625,
+            "y": 111.8720703125,
+            "confidence": 0.8389836549758911
+          },
+          "leftEar": {
+            "x": 844.56005859375,
+            "y": 111.8720703125,
+            "confidence": 0.7916905283927917
+          },
+          "rightEar": {
+            "x": 784.865234375,
+            "y": 109.435546875,
+            "confidence": 0.7692539691925049
+          },
+          "leftShoulder": {
+            "x": 849.43310546875,
+            "y": 138.673828125,
+            "confidence": 0.7288179993629456
+          },
+          "rightShoulder": {
+            "x": 761.71826171875,
+            "y": 141.1103515625,
+            "confidence": 0.7109642028808594
+          },
+          "leftElbow": {
+            "x": 856.74267578125,
+            "y": 154.51123046875,
+            "confidence": 0.49020370841026306
+          },
+          "rightElbow": {
+            "x": 737.35302734375,
+            "y": 143.546875,
+            "confidence": 0.6686516404151917
+          },
+          "leftWrist": {
+            "x": 871.36181640625,
+            "y": 199.5869140625,
+            "confidence": 0.4778481125831604
+          },
+          "rightWrist": {
+            "x": 706.896484375,
+            "y": 149.63818359375,
+            "confidence": 0.7003064155578613
+          },
+          "leftHip": {
+            "x": 808.01220703125,
+            "y": 237.35302734375,
+            "confidence": 0.7259999513626099
+          },
+          "rightHip": {
+            "x": 743.4443359375,
+            "y": 239.78955078125,
+            "confidence": 0.701485276222229
+          },
+          "leftKnee": {
+            "x": 806.7939453125,
+            "y": 311.6669921875,
+            "confidence": 0.7603087425231934
+          },
+          "rightKnee": {
+            "x": 739.78955078125,
+            "y": 310.44873046875,
+            "confidence": 0.6923785209655762
+          },
+          "leftAnkle": {
+            "x": 828.72265625,
+            "y": 440.802734375,
+            "confidence": 0.7712603807449341
+          },
+          "rightAnkle": {
+            "x": 733.6982421875,
+            "y": 329.94091796875,
+            "confidence": 0.7633528709411621
+          }
+        },
+        "ball": {
+          "x": 689,
+          "y": 143,
+          "radius": 20,
+          "detector": "manual visual hand-isolation axis from review/tide-vesper75-coordinates.png; not video biomechanics"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3639679147236392,
+        "b": -0.005863589373929898,
+        "c": 0.005863589373929898,
+        "d": 0.3639679147236392,
+        "e": -160.7103212352672,
+        "f": 57.53674751354228
+      },
+      "control": {
+        "frame": 75,
+        "joints": {
+          "nose": {
+            "x": 142.30699573863637,
+            "y": 96.33238636363637
+          },
+          "leftEye": {
+            "x": 146.7903053977273,
+            "y": 90.50408380681819
+          },
+          "rightEye": {
+            "x": 136.9270241477273,
+            "y": 90.95241477272728
+          },
+          "leftEar": {
+            "x": 152.6186079545455,
+            "y": 87.81409801136364
+          },
+          "rightEar": {
+            "x": 129.30539772727275,
+            "y": 89.607421875
+          },
+          "leftShoulder": {
+            "x": 154.86026278409093,
+            "y": 99.9190340909091
+          },
+          "rightShoulder": {
+            "x": 121.68377130681819,
+            "y": 103.9540127840909
+          },
+          "leftElbow": {
+            "x": 160.240234375,
+            "y": 105.74733664772728
+          },
+          "rightElbow": {
+            "x": 108.68217329545456,
+            "y": 104.8506747159091
+          },
+          "leftWrist": {
+            "x": 162.93022017045456,
+            "y": 118.30060369318183
+          },
+          "rightWrist": {
+            "x": 94.33558238636365,
+            "y": 95.43572443181819
+          },
+          "leftHip": {
+            "x": 135.58203125,
+            "y": 139.8204900568182
+          },
+          "rightHip": {
+            "x": 110.47549715909093,
+            "y": 139.8204900568182
+          },
+          "leftKnee": {
+            "x": 135.58203125,
+            "y": 165.82368607954547
+          },
+          "rightKnee": {
+            "x": 109.13050426136363,
+            "y": 166.72034801136363
+          },
+          "leftAnkle": {
+            "x": 144.10031960227275,
+            "y": 214.69176136363637
+          },
+          "rightAnkle": {
+            "x": 108.2338423295455,
+            "y": 172.5486505681818
+          }
+        },
+        "hip": {
+          "x": 123.02876420454547,
+          "y": 139.8204900568182
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.3640151434056286,
+          "referenceScale": 0.36300518709142104,
+          "appliedScale": 0.3640151434056286,
+          "desiredRotationDegrees": -0.922965597133964,
+          "appliedRotationDegrees": -0.922965597133964,
+          "hipControlError": 2.842170943040401e-14
+        }
+      },
+      "uniformScale": 0.3640151434056286,
+      "translation": {
+        "x": -160.7103212352672,
+        "y": 57.53674751354228
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        818,
+        509
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 12631,
+        "mainPixels": 62734
+      }
+    },
+    {
+      "frame": 76,
+      "poseId": "derived-empty-76",
+      "authored": false,
+      "src": "poses/076-matched-empty.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 61,
+        "y": 57,
+        "width": 112,
+        "height": 182
+      },
+      "ballMode": "empty",
+      "ballSocket": {
+        "x": 90.90206528979218,
+        "y": 105.54414624038499
+      },
+      "ballRadius": 7.280302868112573,
+      "sourceRecord": {
+        "frame": 75,
+        "group": "bridge-b",
+        "source": "traditional/source/tide-vesper-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          608,
+          11,
+          305,
+          499
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 471,
+        "referenceWorldHeight": 170.9754431200593,
+        "foot": [
+          816,
+          509
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 815.32177734375,
+            "y": 126.4912109375,
+            "confidence": 0.8624228835105896
+          },
+          "leftEye": {
+            "x": 828.72265625,
+            "y": 114.30859375,
+            "confidence": 0.8978217244148254
+          },
+          "rightEye": {
+            "x": 803.13916015625,
+            "y": 111.8720703125,
+            "confidence": 0.8389836549758911
+          },
+          "leftEar": {
+            "x": 844.56005859375,
+            "y": 111.8720703125,
+            "confidence": 0.7916905283927917
+          },
+          "rightEar": {
+            "x": 784.865234375,
+            "y": 109.435546875,
+            "confidence": 0.7692539691925049
+          },
+          "leftShoulder": {
+            "x": 849.43310546875,
+            "y": 138.673828125,
+            "confidence": 0.7288179993629456
+          },
+          "rightShoulder": {
+            "x": 761.71826171875,
+            "y": 141.1103515625,
+            "confidence": 0.7109642028808594
+          },
+          "leftElbow": {
+            "x": 856.74267578125,
+            "y": 154.51123046875,
+            "confidence": 0.49020370841026306
+          },
+          "rightElbow": {
+            "x": 737.35302734375,
+            "y": 143.546875,
+            "confidence": 0.6686516404151917
+          },
+          "leftWrist": {
+            "x": 871.36181640625,
+            "y": 199.5869140625,
+            "confidence": 0.4778481125831604
+          },
+          "rightWrist": {
+            "x": 706.896484375,
+            "y": 149.63818359375,
+            "confidence": 0.7003064155578613
+          },
+          "leftHip": {
+            "x": 808.01220703125,
+            "y": 237.35302734375,
+            "confidence": 0.7259999513626099
+          },
+          "rightHip": {
+            "x": 743.4443359375,
+            "y": 239.78955078125,
+            "confidence": 0.701485276222229
+          },
+          "leftKnee": {
+            "x": 806.7939453125,
+            "y": 311.6669921875,
+            "confidence": 0.7603087425231934
+          },
+          "rightKnee": {
+            "x": 739.78955078125,
+            "y": 310.44873046875,
+            "confidence": 0.6923785209655762
+          },
+          "leftAnkle": {
+            "x": 828.72265625,
+            "y": 440.802734375,
+            "confidence": 0.7712603807449341
+          },
+          "rightAnkle": {
+            "x": 733.6982421875,
+            "y": 329.94091796875,
+            "confidence": 0.7633528709411621
+          }
+        },
+        "ball": {
+          "x": 689,
+          "y": 143,
+          "radius": 20,
+          "detector": "manual visual hand-isolation axis from review/tide-vesper75-coordinates.png; not video biomechanics"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3639679147236392,
+        "b": -0.005863589373929898,
+        "c": 0.005863589373929898,
+        "d": 0.3639679147236392,
+        "e": -160.7103212352672,
+        "f": 57.53674751354228
+      },
+      "control": {
+        "frame": 75,
+        "joints": {
+          "nose": {
+            "x": 142.30699573863637,
+            "y": 96.33238636363637
+          },
+          "leftEye": {
+            "x": 146.7903053977273,
+            "y": 90.50408380681819
+          },
+          "rightEye": {
+            "x": 136.9270241477273,
+            "y": 90.95241477272728
+          },
+          "leftEar": {
+            "x": 152.6186079545455,
+            "y": 87.81409801136364
+          },
+          "rightEar": {
+            "x": 129.30539772727275,
+            "y": 89.607421875
+          },
+          "leftShoulder": {
+            "x": 154.86026278409093,
+            "y": 99.9190340909091
+          },
+          "rightShoulder": {
+            "x": 121.68377130681819,
+            "y": 103.9540127840909
+          },
+          "leftElbow": {
+            "x": 160.240234375,
+            "y": 105.74733664772728
+          },
+          "rightElbow": {
+            "x": 108.68217329545456,
+            "y": 104.8506747159091
+          },
+          "leftWrist": {
+            "x": 162.93022017045456,
+            "y": 118.30060369318183
+          },
+          "rightWrist": {
+            "x": 94.33558238636365,
+            "y": 95.43572443181819
+          },
+          "leftHip": {
+            "x": 135.58203125,
+            "y": 139.8204900568182
+          },
+          "rightHip": {
+            "x": 110.47549715909093,
+            "y": 139.8204900568182
+          },
+          "leftKnee": {
+            "x": 135.58203125,
+            "y": 165.82368607954547
+          },
+          "rightKnee": {
+            "x": 109.13050426136363,
+            "y": 166.72034801136363
+          },
+          "leftAnkle": {
+            "x": 144.10031960227275,
+            "y": 214.69176136363637
+          },
+          "rightAnkle": {
+            "x": 108.2338423295455,
+            "y": 172.5486505681818
+          }
+        },
+        "hip": {
+          "x": 123.02876420454547,
+          "y": 139.8204900568182
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.3640151434056286,
+          "referenceScale": 0.36300518709142104,
+          "appliedScale": 0.3640151434056286,
+          "desiredRotationDegrees": -0.922965597133964,
+          "appliedRotationDegrees": -0.922965597133964,
+          "hipControlError": 2.842170943040401e-14
+        }
+      },
+      "uniformScale": 0.3640151434056286,
+      "translation": {
+        "x": -160.7103212352672,
+        "y": 57.53674751354228
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        818,
+        509
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 12631,
+        "mainPixels": 62734
+      },
+      "drawingId": "tide-vesper-matched-empty-76",
+      "derived": true,
+      "sourcePoseId": "authored-75",
+      "handoff": {
+        "heldFrame": 75,
+        "heldPoseId": "authored-75",
+        "registeredWrist": {
+          "x": 99.96608162163955,
+          "y": 103.21374901769491
+        },
+        "registeredElbow": {
+          "x": 109.78148814042999,
+          "y": 102.32749627515152
+        },
+        "ballSocket": {
+          "x": 90.90206528979218,
+          "y": 105.54414624038499
+        },
+        "ballRadius": 7.280302868112573,
+        "ballMaskRadius": 10,
+        "handLocalDistalHalfPlane": true,
+        "handLocalRadiusPx": 21.358800311980026,
+        "removedHandPixels": 312,
+        "residualWhiteCleanup": {
+          "roiRadiusPx": 20.6391031800926,
+          "removedComponents": []
+        },
+        "guardRadius": 34,
+        "comparison": "final derived RGBA vs preserved original held RGBA",
+        "bodyOutsideHandDifferingChannels": 0,
+        "emptyHandSource": "source/tide-vesper-b.png",
+        "emptyHandManualOverride": false,
+        "socketError": 0
+      }
+    },
+    {
+      "frame": 80,
+      "poseId": "authored-80",
+      "authored": true,
+      "src": "poses/080.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 64,
+        "y": 51,
+        "width": 120,
+        "height": 187
+      },
+      "ballMode": "empty",
+      "ballSocket": {
+        "x": 167.51690450324867,
+        "y": 155.55958672210835
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 80,
+        "group": "bridge-b",
+        "source": "traditional/source/tide-vesper-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1113,
+          14,
+          321,
+          497
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 471,
+        "referenceWorldHeight": 170.9754431200593,
+        "foot": [
+          1316.5,
+          510
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 1331.7421875,
+            "y": 132.66845703125,
+            "confidence": 0.709221601486206
+          },
+          "leftEye": {
+            "x": 1345.08935546875,
+            "y": 119.3212890625,
+            "confidence": 0.7444018721580505
+          },
+          "rightEye": {
+            "x": 1314.7548828125,
+            "y": 120.53466796875,
+            "confidence": 0.7360488176345825
+          },
+          "leftEar": {
+            "x": 1360.86328125,
+            "y": 110.82763671875,
+            "confidence": 0.7217875719070435
+          },
+          "rightEar": {
+            "x": 1298.98095703125,
+            "y": 116.89453125,
+            "confidence": 0.7098568677902222
+          },
+          "leftShoulder": {
+            "x": 1368.1435546875,
+            "y": 138.7353515625,
+            "confidence": 0.7471910715103149
+          },
+          "rightShoulder": {
+            "x": 1281.99365234375,
+            "y": 160.576171875,
+            "confidence": 0.7307342290878296
+          },
+          "leftElbow": {
+            "x": 1365.716796875,
+            "y": 167.8564453125,
+            "confidence": 0.47619232535362244
+          },
+          "rightElbow": {
+            "x": 1329.3154296875,
+            "y": 233.37890625,
+            "confidence": 0.7511481642723083
+          },
+          "leftWrist": {
+            "x": 1376.63720703125,
+            "y": 187.2705078125,
+            "confidence": 0.3770292401313782
+          },
+          "rightWrist": {
+            "x": 1389.984375,
+            "y": 290.40771484375,
+            "confidence": 0.7879121899604797
+          },
+          "leftHip": {
+            "x": 1306.26123046875,
+            "y": 234.59228515625,
+            "confidence": 0.668171226978302
+          },
+          "rightHip": {
+            "x": 1243.16552734375,
+            "y": 230.9521484375,
+            "confidence": 0.6747611165046692
+          },
+          "leftKnee": {
+            "x": 1303.83447265625,
+            "y": 307.39501953125,
+            "confidence": 0.6997818350791931
+          },
+          "rightKnee": {
+            "x": 1226.17822265625,
+            "y": 312.24853515625,
+            "confidence": 0.6563860774040222
+          },
+          "leftAnkle": {
+            "x": 1326.888671875,
+            "y": 444.5068359375,
+            "confidence": 0.732485294342041
+          },
+          "rightAnkle": {
+            "x": 1221.32470703125,
+            "y": 328.0224609375,
+            "confidence": 0.6975916624069214
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3760883415669563,
+        "b": 0.0020238429161960254,
+        "c": -0.0020238429161960254,
+        "d": 0.3760883415669563,
+        "e": -354.6522742979884,
+        "f": 43.52752083730593
+      },
+      "control": {
+        "frame": 80,
+        "joints": {
+          "nose": {
+            "x": 150.0438565340909,
+            "y": 97.56205610795455
+          },
+          "leftEye": {
+            "x": 154.0646306818182,
+            "y": 92.20161576704545
+          },
+          "rightEye": {
+            "x": 144.4628018465909,
+            "y": 93.09295099431819
+          },
+          "leftEar": {
+            "x": 160.09224076704547,
+            "y": 89.2998934659091
+          },
+          "rightEar": {
+            "x": 137.31613991477272,
+            "y": 92.42045454545455
+          },
+          "leftShoulder": {
+            "x": 162.1026278409091,
+            "y": 97.13148082386364
+          },
+          "rightShoulder": {
+            "x": 130.6142578125,
+            "y": 107.37739701704545
+          },
+          "leftElbow": {
+            "x": 165.23739346590907,
+            "y": 101.3799715909091
+          },
+          "rightElbow": {
+            "x": 134.1210049715909,
+            "y": 125.83931107954545
+          },
+          "leftWrist": {
+            "x": 167.91672585227272,
+            "y": 113.21635298295455
+          },
+          "rightWrist": {
+            "x": 137.62242542613632,
+            "y": 133.14089133522728
+          },
+          "leftHip": {
+            "x": 136.673828125,
+            "y": 135.54057173295456
+          },
+          "rightHip": {
+            "x": 111.88911576704544,
+            "y": 131.7599431818182
+          },
+          "leftKnee": {
+            "x": 137.78577769886363,
+            "y": 165.44380326704544
+          },
+          "rightKnee": {
+            "x": 103.43297230113635,
+            "y": 159.6652166193182
+          },
+          "leftAnkle": {
+            "x": 143.8240411931818,
+            "y": 215.0079012784091
+          },
+          "rightAnkle": {
+            "x": 90.30841619318181,
+            "y": 154.35094105113637
+          }
+        },
+        "hip": {
+          "x": 124.28147194602272,
+          "y": 133.65025745738637
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.37609378697704254,
+          "referenceScale": 0.36300518709142104,
+          "appliedScale": 0.37609378697704254,
+          "desiredRotationDegrees": 0.30832260770842995,
+          "appliedRotationDegrees": 0.30832260770842995,
+          "hipControlError": 2.842170943040401e-14
+        }
+      },
+      "uniformScale": 0.37609378697704254,
+      "translation": {
+        "x": -354.6522742979884,
+        "y": 43.52752083730593
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        1318,
+        510
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 13940,
+        "mainPixels": 65299
+      }
+    },
+    {
+      "frame": 84,
+      "poseId": "authored-84",
+      "authored": true,
+      "src": "poses/084.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 60,
+        "y": 56,
+        "width": 134,
+        "height": 182
+      },
+      "ballMode": "empty",
+      "ballSocket": {
+        "x": 180.909268465909,
+        "y": 170.84605823863637
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 84,
+        "group": "base-b",
+        "source": "source/tide-vesper-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1093,
+          12,
+          369,
+          501
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 495,
+        "referenceWorldHeight": 180,
+        "foot": [
+          1313,
+          512
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 1361.89697265625,
+            "y": 129.17724609375,
+            "confidence": 0.6786456108093262
+          },
+          "leftEye": {
+            "x": 1371.68212890625,
+            "y": 115.72265625,
+            "confidence": 0.7299178838729858
+          },
+          "rightEye": {
+            "x": 1345.99609375,
+            "y": 119.39208984375,
+            "confidence": 0.7234435677528381
+          },
+          "leftEar": {
+            "x": 1388.80615234375,
+            "y": 107.16064453125,
+            "confidence": 0.7512677907943726
+          },
+          "rightEar": {
+            "x": 1327.64892578125,
+            "y": 119.39208984375,
+            "confidence": 0.7407153844833374
+          },
+          "leftShoulder": {
+            "x": 1393.69873046875,
+            "y": 116.94580078125,
+            "confidence": 0.7072951793670654
+          },
+          "rightShoulder": {
+            "x": 1311.748046875,
+            "y": 162.2021484375,
+            "confidence": 0.7020896673202515
+          },
+          "leftElbow": {
+            "x": 1396.14501953125,
+            "y": 124.28466796875,
+            "confidence": 0.44071805477142334
+          },
+          "rightElbow": {
+            "x": 1366.78955078125,
+            "y": 261.27685546875,
+            "confidence": 0.7879551649093628
+          },
+          "leftWrist": {
+            "x": 1403.48388671875,
+            "y": 154.86328125,
+            "confidence": 0.4545672833919525
+          },
+          "rightWrist": {
+            "x": 1425.50048828125,
+            "y": 327.32666015625,
+            "confidence": 0.8707625269889832
+          },
+          "leftHip": {
+            "x": 1306.85546875,
+            "y": 218.466796875,
+            "confidence": 0.6368317604064941
+          },
+          "rightHip": {
+            "x": 1239.58251953125,
+            "y": 197.67333984375,
+            "confidence": 0.6584504842758179
+          },
+          "leftKnee": {
+            "x": 1312.97119140625,
+            "y": 311.42578125,
+            "confidence": 0.7040607929229736
+          },
+          "rightKnee": {
+            "x": 1196.7724609375,
+            "y": 277.177734375,
+            "confidence": 0.752108097076416
+          },
+          "leftAnkle": {
+            "x": 1322.75634765625,
+            "y": 449.64111328125,
+            "confidence": 0.7150003910064697
+          },
+          "rightAnkle": {
+            "x": 1127.05322265625,
+            "y": 231.92138671875,
+            "confidence": 0.7990367412567139
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.36363636363636365,
+        "b": 0,
+        "c": 0,
+        "d": 0.36363636363636365,
+        "e": -337.4545454545455,
+        "f": 51.81818181818181
+      },
+      "control": null,
+      "uniformScale": 0.36363636363636365,
+      "translation": {
+        "x": -337.4545454545455,
+        "y": 51.81818181818181
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        1313,
+        512
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 15859,
+        "mainPixels": 70654
+      }
+    },
+    {
+      "frame": 90,
+      "poseId": "authored-90",
+      "authored": true,
+      "src": "poses/090.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 48,
+        "y": 59,
+        "width": 146,
+        "height": 179
+      },
+      "ballMode": "empty",
+      "ballSocket": {
+        "x": 180.5892148588209,
+        "y": 170.44530575070547
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 90,
+        "group": "bridge-b",
+        "source": "traditional/source/tide-vesper-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          78,
+          506,
+          410,
+          507
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 471,
+        "referenceWorldHeight": 170.9754431200593,
+        "foot": [
+          322,
+          1012
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 405.78645833333337,
+            "y": 630.0403645833333,
+            "confidence": 0.7433975338935852
+          },
+          "leftEye": {
+            "x": 411.125,
+            "y": 618.0286458333333,
+            "confidence": 0.8064672946929932
+          },
+          "rightEye": {
+            "x": 391.10546875,
+            "y": 619.36328125,
+            "confidence": 0.7429186701774597
+          },
+          "leftEar": {
+            "x": 420.46744791666663,
+            "y": 612.6901041666667,
+            "confidence": 0.6701979637145996
+          },
+          "rightEar": {
+            "x": 363.078125,
+            "y": 616.6940104166667,
+            "confidence": 0.7700899243354797
+          },
+          "leftShoulder": {
+            "x": 423.13671875,
+            "y": 619.36328125,
+            "confidence": 0.7242475152015686
+          },
+          "rightShoulder": {
+            "x": 349.73177083333337,
+            "y": 663.40625,
+            "confidence": 0.6929538249969482
+          },
+          "leftElbow": {
+            "x": 431.14453125,
+            "y": 650.0598958333333,
+            "confidence": 0.4517373740673065
+          },
+          "rightElbow": {
+            "x": 395.109375,
+            "y": 759.5,
+            "confidence": 0.7730665802955627
+          },
+          "leftWrist": {
+            "x": 428.47526041666663,
+            "y": 659.40234375,
+            "confidence": 0.44792452454566956
+          },
+          "rightWrist": {
+            "x": 444.49088541666663,
+            "y": 826.2317708333333,
+            "confidence": 0.8491137027740479
+          },
+          "leftHip": {
+            "x": 324.37369791666663,
+            "y": 704.7799479166667,
+            "confidence": 0.6418488621711731
+          },
+          "rightHip": {
+            "x": 268.31901041666674,
+            "y": 671.4140625,
+            "confidence": 0.6929720640182495
+          },
+          "leftKnee": {
+            "x": 320.36979166666663,
+            "y": 798.2044270833333,
+            "confidence": 0.699360191822052
+          },
+          "rightKnee": {
+            "x": 182.90234375,
+            "y": 712.7877604166667,
+            "confidence": 0.8254845142364502
+          },
+          "leftAnkle": {
+            "x": 339.0546875,
+            "y": 941.0104166666667,
+            "confidence": 0.7620106935501099
+          },
+          "rightAnkle": {
+            "x": 129.51692708333337,
+            "y": 619.36328125,
+            "confidence": 0.8301481008529663
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.35571889623564906,
+        "b": -0.012228516782671893,
+        "c": 0.012228516782671893,
+        "d": 0.35571889623564906,
+        "e": 12.371818635585745,
+        "f": -118.02548355289116
+      },
+      "control": {
+        "frame": 90,
+        "joints": {
+          "nose": {
+            "x": 165.5380859375,
+            "y": 97.73393110795453
+          },
+          "leftEye": {
+            "x": 167.81909919507575,
+            "y": 93.02911931818181
+          },
+          "rightEye": {
+            "x": 160.13754734848484,
+            "y": 93.94723603219695
+          },
+          "leftEar": {
+            "x": 171.1835049715909,
+            "y": 90.7195490056818
+          },
+          "rightEar": {
+            "x": 151.53181226325756,
+            "y": 93.6962890625
+          },
+          "leftShoulder": {
+            "x": 171.82211766098487,
+            "y": 93.25150923295455
+          },
+          "rightShoulder": {
+            "x": 143.11991003787875,
+            "y": 110.01213304924241
+          },
+          "leftElbow": {
+            "x": 170.00837476325756,
+            "y": 99.10289417613636
+          },
+          "rightElbow": {
+            "x": 161.15775923295453,
+            "y": 145.84295099431816
+          },
+          "leftWrist": {
+            "x": 172.09555516098484,
+            "y": 107.42305871212122
+          },
+          "rightWrist": {
+            "x": 180.1137251420454,
+            "y": 170.6503018465909
+          },
+          "leftHip": {
+            "x": 137.7133049242424,
+            "y": 128.02142518939394
+          },
+          "rightHip": {
+            "x": 114.69113991477269,
+            "y": 118.21806936553031
+          },
+          "leftKnee": {
+            "x": 138.07241358901513,
+            "y": 161.98745265151513
+          },
+          "rightKnee": {
+            "x": 91.85067471590908,
+            "y": 141.4565577651515
+          },
+          "leftAnkle": {
+            "x": 143.8666844223485,
+            "y": 213.46694483901513
+          },
+          "rightAnkle": {
+            "x": 66.8780480587121,
+            "y": 117.66941879734848
+          }
+        },
+        "hip": {
+          "x": 126.20222241950755,
+          "y": 123.11974727746212
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.3559290234889711,
+          "referenceScale": 0.36300518709142104,
+          "appliedScale": 0.3559290234889711,
+          "desiredRotationDegrees": -1.9688765607974756,
+          "appliedRotationDegrees": -1.9688765607974756,
+          "hipControlError": 1.4210854715202004e-14
+        }
+      },
+      "uniformScale": 0.3559290234889711,
+      "translation": {
+        "x": 12.371818635585745,
+        "y": -118.02548355289116
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        324,
+        1012
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 16193,
+        "mainPixels": 75433
+      }
+    },
+    {
+      "frame": 96,
+      "poseId": "authored-96",
+      "authored": true,
+      "src": "poses/096.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 42,
+        "y": 54,
+        "width": 154,
+        "height": 184
+      },
+      "ballMode": "empty",
+      "ballSocket": {
+        "x": 179.3181818181818,
+        "y": 170.45454545454544
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 96,
+        "group": "base-b",
+        "source": "source/tide-vesper-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          69,
+          509,
+          424,
+          506
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 495,
+        "referenceWorldHeight": 180,
+        "foot": [
+          338.5,
+          1014
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 430.0625,
+            "y": 625.359375,
+            "confidence": 0.7389234304428101
+          },
+          "leftEye": {
+            "x": 432.82291666666674,
+            "y": 612.9375,
+            "confidence": 0.7449437379837036
+          },
+          "rightEye": {
+            "x": 416.26041666666674,
+            "y": 614.3177083333333,
+            "confidence": 0.7542114853858948
+          },
+          "leftEar": {
+            "x": 434.203125,
+            "y": 608.796875,
+            "confidence": 0.618924617767334
+          },
+          "rightEar": {
+            "x": 387.27604166666674,
+            "y": 612.9375,
+            "confidence": 0.7651437520980835
+          },
+          "leftShoulder": {
+            "x": 432.82291666666674,
+            "y": 612.9375,
+            "confidence": 0.71452796459198
+          },
+          "rightShoulder": {
+            "x": 356.91145833333326,
+            "y": 659.8645833333333,
+            "confidence": 0.7223862409591675
+          },
+          "leftElbow": {
+            "x": 420.40104166666674,
+            "y": 637.78125,
+            "confidence": 0.43063047528266907
+          },
+          "rightElbow": {
+            "x": 401.078125,
+            "y": 757.859375,
+            "confidence": 0.7819255590438843
+          },
+          "leftWrist": {
+            "x": 424.54166666666674,
+            "y": 652.9635416666667,
+            "confidence": 0.4245609641075134
+          },
+          "rightWrist": {
+            "x": 446.625,
+            "y": 828.25,
+            "confidence": 0.8437084555625916
+          },
+          "leftHip": {
+            "x": 332.06770833333326,
+            "y": 702.6510416666667,
+            "confidence": 0.6520294547080994
+          },
+          "rightHip": {
+            "x": 272.71875,
+            "y": 669.5260416666667,
+            "confidence": 0.7073570489883423
+          },
+          "leftKnee": {
+            "x": 327.92708333333326,
+            "y": 796.5052083333333,
+            "confidence": 0.7385841012001038
+          },
+          "rightKnee": {
+            "x": 189.90625,
+            "y": 717.8333333333333,
+            "confidence": 0.8001941442489624
+          },
+          "leftAnkle": {
+            "x": 350.01041666666674,
+            "y": 941.4270833333333,
+            "confidence": 0.7936149835586548
+          },
+          "rightAnkle": {
+            "x": 122.27604166666669,
+            "y": 632.2604166666667,
+            "confidence": 0.8225396871566772
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.36363636363636365,
+        "b": 0,
+        "c": 0,
+        "d": 0.36363636363636365,
+        "e": 16.909090909090907,
+        "f": -130.72727272727275
+      },
+      "control": null,
+      "uniformScale": 0.36363636363636365,
+      "translation": {
+        "x": 16.909090909090907,
+        "y": -130.72727272727275
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        338.5,
+        1014
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 17627,
+        "mainPixels": 73954
+      }
+    },
+    {
+      "frame": 103,
+      "poseId": "authored-103",
+      "authored": true,
+      "src": "poses/103.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 72,
+        "y": 47,
+        "width": 122,
+        "height": 189
+      },
+      "ballMode": "empty",
+      "ballSocket": {
+        "x": 164.3315568234226,
+        "y": 165.62160581791093
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 103,
+        "group": "bridge-b",
+        "source": "traditional/source/tide-vesper-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          626,
+          510,
+          310,
+          502
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 471,
+        "referenceWorldHeight": 170.9754431200593,
+        "foot": [
+          819,
+          1011
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 859.4375,
+            "y": 626.185546875,
+            "confidence": 0.6459754705429077
+          },
+          "leftEye": {
+            "x": 865.5654296875,
+            "y": 611.478515625,
+            "confidence": 0.705227255821228
+          },
+          "rightEye": {
+            "x": 843.5048828125,
+            "y": 616.380859375,
+            "confidence": 0.6837629079818726
+          },
+          "leftEar": {
+            "x": 875.3701171875,
+            "y": 607.8017578125,
+            "confidence": 0.6982935667037964
+          },
+          "rightEar": {
+            "x": 816.5419921875,
+            "y": 615.1552734375,
+            "confidence": 0.7265441417694092
+          },
+          "leftShoulder": {
+            "x": 880.2724609375,
+            "y": 623.734375,
+            "confidence": 0.7567259073257446
+          },
+          "rightShoulder": {
+            "x": 795.70703125,
+            "y": 653.1484375,
+            "confidence": 0.7399730086326599
+          },
+          "leftElbow": {
+            "x": 880.2724609375,
+            "y": 660.501953125,
+            "confidence": 0.5026841759681702
+          },
+          "rightElbow": {
+            "x": 832.474609375,
+            "y": 741.390625,
+            "confidence": 0.7359143495559692
+          },
+          "leftWrist": {
+            "x": 893.75390625,
+            "y": 688.6904296875,
+            "confidence": 0.45435142517089844
+          },
+          "rightWrist": {
+            "x": 877.8212890625,
+            "y": 811.2490234375,
+            "confidence": 0.8376286029815674
+          },
+          "leftHip": {
+            "x": 816.5419921875,
+            "y": 710.7509765625,
+            "confidence": 0.6473051309585571
+          },
+          "rightHip": {
+            "x": 755.2626953125,
+            "y": 705.8486328125,
+            "confidence": 0.6851093769073486
+          },
+          "leftKnee": {
+            "x": 820.21875,
+            "y": 797.767578125,
+            "confidence": 0.6784374117851257
+          },
+          "rightKnee": {
+            "x": 736.87890625,
+            "y": 810.0234375,
+            "confidence": 0.8067682385444641
+          },
+          "leftAnkle": {
+            "x": 831.2490234375,
+            "y": 942.38671875,
+            "confidence": 0.7638293504714966
+          },
+          "rightAnkle": {
+            "x": 667.0205078125,
+            "y": 796.5419921875,
+            "confidence": 0.7950578927993774
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3631891421885355,
+        "b": 0.0510429051980223,
+        "c": -0.0510429051980223,
+        "d": 0.3631891421885355,
+        "e": -113.07509715071275,
+        "f": -173.82177994406473
+      },
+      "control": {
+        "frame": 103,
+        "joints": {
+          "nose": {
+            "x": 171.37506947875494,
+            "y": 92.24407114624503
+          },
+          "leftEye": {
+            "x": 173.41082273139,
+            "y": 87.89805922677864
+          },
+          "rightEye": {
+            "x": 166.67991394927537,
+            "y": 88.11345623353094
+          },
+          "leftEar": {
+            "x": 175.3649255805336,
+            "y": 86.71688179347824
+          },
+          "rightEar": {
+            "x": 157.47544569334653,
+            "y": 87.36307281373517
+          },
+          "leftShoulder": {
+            "x": 177.0219810194335,
+            "y": 92.84668354743083
+          },
+          "rightShoulder": {
+            "x": 146.71811439805663,
+            "y": 104.31632647809614
+          },
+          "leftElbow": {
+            "x": 177.08960700757578,
+            "y": 107.95854434288538
+          },
+          "rightElbow": {
+            "x": 154.68079144021738,
+            "y": 137.66530539772725
+          },
+          "leftWrist": {
+            "x": 172.65342710391965,
+            "y": 110.32791141716075
+          },
+          "rightWrist": {
+            "x": 171.95363451086956,
+            "y": 154.1341634757905
+          },
+          "leftHip": {
+            "x": 149.127058629776,
+            "y": 127.84570569828725
+          },
+          "rightHip": {
+            "x": 126.75782021986166,
+            "y": 119.33251245471016
+          },
+          "leftKnee": {
+            "x": 151.42329288125822,
+            "y": 162.01970623353094
+          },
+          "rightKnee": {
+            "x": 102.4655385375494,
+            "y": 141.98477385951907
+          },
+          "leftAnkle": {
+            "x": 161.95821496212122,
+            "y": 210.44948637187085
+          },
+          "rightAnkle": {
+            "x": 80.00763751646903,
+            "y": 131.9738245223979
+          }
+        },
+        "hip": {
+          "x": 137.94243942481882,
+          "y": 123.5891090764987
+        },
+        "foot": {
+          "x": 133.91304347826087,
+          "y": 234.95652173913044
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.366758409821368,
+          "referenceScale": 0.36300518709142104,
+          "appliedScale": 0.366758409821368,
+          "desiredRotationDegrees": 8.894979871154817,
+          "appliedRotationDegrees": 8,
+          "hipControlError": 1.740718022145667
+        }
+      },
+      "uniformScale": 0.366758409821368,
+      "translation": {
+        "x": -113.07509715071275,
+        "y": -173.82177994406473
+      },
+      "plantedFoot": {
+        "x": 133.91304347826087,
+        "y": 234.95652173913044
+      },
+      "registeredSourceFoot": [
+        822,
+        1010
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 15701,
+        "mainPixels": 65804
+      }
+    },
+    {
+      "frame": 113,
+      "poseId": "authored-113",
+      "authored": true,
+      "src": "poses/113.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 64,
+        "y": 37,
+        "width": 140,
+        "height": 195
+      },
+      "ballMode": "reset",
+      "ballSocket": {
+        "x": 140.86338246836686,
+        "y": 112.12924692670123
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 113,
+        "group": "bridge-b",
+        "source": "traditional/source/tide-vesper-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1125,
+          511,
+          288,
+          471
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 471,
+        "referenceWorldHeight": 170.9754431200593,
+        "foot": [
+          1215,
+          981
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 1334.54443359375,
+            "y": 615.4111328125,
+            "confidence": 0.8040071725845337
+          },
+          "leftEye": {
+            "x": 1343.74365234375,
+            "y": 602.76220703125,
+            "confidence": 0.8522241115570068
+          },
+          "rightEye": {
+            "x": 1320.74560546875,
+            "y": 602.76220703125,
+            "confidence": 0.8376656770706177
+          },
+          "leftEar": {
+            "x": 1352.94287109375,
+            "y": 598.16259765625,
+            "confidence": 0.7446601986885071
+          },
+          "rightEar": {
+            "x": 1295.44775390625,
+            "y": 598.16259765625,
+            "confidence": 0.8357744216918945
+          },
+          "leftShoulder": {
+            "x": 1370.19140625,
+            "y": 641.85888671875,
+            "confidence": 0.8768210411071777
+          },
+          "rightShoulder": {
+            "x": 1267.85009765625,
+            "y": 638.4091796875,
+            "confidence": 0.8383122682571411
+          },
+          "leftElbow": {
+            "x": 1397.7890625,
+            "y": 720.05224609375,
+            "confidence": 0.9274845123291016
+          },
+          "rightElbow": {
+            "x": 1240.25244140625,
+            "y": 718.90234375,
+            "confidence": 0.8964619636535645
+          },
+          "leftWrist": {
+            "x": 1347.193359375,
+            "y": 706.25341796875,
+            "confidence": 0.8576633930206299
+          },
+          "rightWrist": {
+            "x": 1290.84814453125,
+            "y": 703.95361328125,
+            "confidence": 0.8439480662345886
+          },
+          "leftHip": {
+            "x": 1343.74365234375,
+            "y": 760.298828125,
+            "confidence": 0.8258166909217834
+          },
+          "rightHip": {
+            "x": 1281.64892578125,
+            "y": 755.69921875,
+            "confidence": 0.7971414923667908
+          },
+          "leftKnee": {
+            "x": 1371.34130859375,
+            "y": 862.64013671875,
+            "confidence": 0.8262618780136108
+          },
+          "rightKnee": {
+            "x": 1281.64892578125,
+            "y": 837.34228515625,
+            "confidence": 0.8645915985107422
+          },
+          "leftAnkle": {
+            "x": 1374.791015625,
+            "y": 922.43505859375,
+            "confidence": 0.8842656016349792
+          },
+          "rightAnkle": {
+            "x": 1219.55419921875,
+            "y": 909.7861328125,
+            "confidence": 0.84993976354599
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.41355292267263594,
+        "b": -0.05695140904776096,
+        "c": 0.05695140904776096,
+        "d": 0.41355292267263594,
+        "e": -433.0617906097106,
+        "f": -105.47720657397974
+      },
+      "control": {
+        "frame": 113,
+        "joints": {
+          "nose": {
+            "x": 168.63166224061263,
+            "y": 85.91254940711461
+          },
+          "leftEye": {
+            "x": 172.14165174160078,
+            "y": 81.8108711091897
+          },
+          "rightEye": {
+            "x": 164.3990550889328,
+            "y": 81.61698678359681
+          },
+          "leftEar": {
+            "x": 176.17033874752963,
+            "y": 81.09327136857705
+          },
+          "rightEar": {
+            "x": 157.10216464920947,
+            "y": 80.51161839179841
+          },
+          "leftShoulder": {
+            "x": 180.9116075839921,
+            "y": 93.82895874505927
+          },
+          "rightShoulder": {
+            "x": 146.75102674160075,
+            "y": 97.30610023468377
+          },
+          "leftElbow": {
+            "x": 187.52876420454544,
+            "y": 117.62334794960475
+          },
+          "rightElbow": {
+            "x": 143.14523375741106,
+            "y": 127.39009232954545
+          },
+          "leftWrist": {
+            "x": 174.6042104125494,
+            "y": 115.49062036808301
+          },
+          "rightWrist": {
+            "x": 161.43285264328063,
+            "y": 130.81933207756916
+          },
+          "leftHip": {
+            "x": 165.50716403162053,
+            "y": 132.22214673913044
+          },
+          "rightHip": {
+            "x": 142.01249845602766,
+            "y": 128.75504106966403
+          },
+          "leftKnee": {
+            "x": 173.23470695405138,
+            "y": 166.46073678359684
+          },
+          "rightKnee": {
+            "x": 126.03643774703556,
+            "y": 158.67297894021738
+          },
+          "leftAnkle": {
+            "x": 194.58132102272725,
+            "y": 206.6086956521739
+          },
+          "rightAnkle": {
+            "x": 125.21739130434783,
+            "y": 213.6086956521739
+          }
+        },
+        "hip": {
+          "x": 153.7598312438241,
+          "y": 130.48859390439725
+        },
+        "foot": {
+          "x": 125.21739130434783,
+          "y": 230.6086956521739
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.42923288131675064,
+          "referenceScale": 0.36300518709142104,
+          "appliedScale": 0.41745596515513417,
+          "desiredRotationDegrees": -7.84102589836336,
+          "appliedRotationDegrees": -7.84102589836336,
+          "hipControlError": 2.856454501502382
+        }
+      },
+      "uniformScale": 0.41745596515513417,
+      "translation": {
+        "x": -433.0617906097106,
+        "y": -105.47720657397974
+      },
+      "plantedFoot": {
+        "x": 125.21739130434783,
+        "y": 230.6086956521739
+      },
+      "registeredSourceFoot": [
+        1215,
+        980
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 11996,
+        "mainPixels": 62783
+      }
+    },
+    {
+      "frame": 117,
+      "poseId": "authored-119",
+      "authored": true,
+      "src": "poses/119.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 109,
+        "y": 48,
+        "width": 105,
+        "height": 180
+      },
+      "ballMode": "reset",
+      "ballSocket": {
+        "x": 155.12038352272725,
+        "y": 116.83043323863635
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 119,
+        "group": "base-b",
+        "source": "source/tide-vesper-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1160,
+          514,
+          287,
+          495
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 495,
+        "referenceWorldHeight": 180,
+        "foot": [
+          1190,
+          1008
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 1319.21044921875,
+            "y": 606.8125,
+            "confidence": 0.9418298006057739
+          },
+          "leftEye": {
+            "x": 1331.29541015625,
+            "y": 595.93603515625,
+            "confidence": 1.014981746673584
+          },
+          "rightEye": {
+            "x": 1308.333984375,
+            "y": 594.7275390625,
+            "confidence": 1.0035098791122437
+          },
+          "leftEar": {
+            "x": 1345.79736328125,
+            "y": 594.7275390625,
+            "confidence": 0.8509573936462402
+          },
+          "rightEar": {
+            "x": 1291.4150390625,
+            "y": 591.10205078125,
+            "confidence": 0.949776291847229
+          },
+          "leftShoulder": {
+            "x": 1363.9248046875,
+            "y": 640.650390625,
+            "confidence": 0.8524160385131836
+          },
+          "rightShoulder": {
+            "x": 1263.61962890625,
+            "y": 637.02490234375,
+            "confidence": 0.8601235151290894
+          },
+          "leftElbow": {
+            "x": 1392.9287109375,
+            "y": 720.4111328125,
+            "confidence": 0.934296190738678
+          },
+          "rightElbow": {
+            "x": 1234.61572265625,
+            "y": 714.36865234375,
+            "confidence": 0.9520753622055054
+          },
+          "leftWrist": {
+            "x": 1343.38037109375,
+            "y": 707.11767578125,
+            "confidence": 0.859588623046875
+          },
+          "rightWrist": {
+            "x": 1286.5810546875,
+            "y": 702.28369140625,
+            "confidence": 0.8202620148658752
+          },
+          "leftHip": {
+            "x": 1342.171875,
+            "y": 751.83203125,
+            "confidence": 0.7632261514663696
+          },
+          "rightHip": {
+            "x": 1275.70458984375,
+            "y": 750.62353515625,
+            "confidence": 0.7659870982170105
+          },
+          "leftKnee": {
+            "x": 1372.38427734375,
+            "y": 846.0947265625,
+            "confidence": 0.8651565313339233
+          },
+          "rightKnee": {
+            "x": 1245.4921875,
+            "y": 844.88623046875,
+            "confidence": 0.8607712984085083
+          },
+          "leftAnkle": {
+            "x": 1417.0986328125,
+            "y": 952.4423828125,
+            "confidence": 0.875691294670105
+          },
+          "rightAnkle": {
+            "x": 1197.15234375,
+            "y": 950.025390625,
+            "confidence": 0.8884525895118713
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.36363636363636365,
+        "b": 0,
+        "c": 0,
+        "d": 0.36363636363636365,
+        "e": -312.72727272727275,
+        "f": -138.54545454545456
+      },
+      "control": null,
+      "uniformScale": 0.36363636363636365,
+      "translation": {
+        "x": -312.72727272727275,
+        "y": -138.54545454545456
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        1190,
+        1008
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 13104,
+        "mainPixels": 61951
+      },
+      "originalFrame": 119
+    },
+    {
+      "frame": 119,
+      "poseId": "canonical-ready-reuse",
+      "authored": false,
+      "src": "poses/000.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 94,
+        "y": 49,
+        "width": 114,
+        "height": 180
+      },
+      "ballMode": "reset",
+      "ballSocket": {
+        "x": 150.50937546139082,
+        "y": 123.52044884098626
+      },
+      "ballRadius": 2.2456813819577732,
+      "sourceRecord": {
+        "frame": 0,
+        "group": "base-a",
+        "source": "source/tide-vesper-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          179,
+          8,
+          328,
+          521
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 521,
+        "referenceWorldHeight": 180,
+        "foot": [
+          253,
+          526
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 368.439453125,
+            "y": 84.06396484375,
+            "confidence": 0.9737756252288818
+          },
+          "leftEye": {
+            "x": 378.615234375,
+            "y": 73.88818359375,
+            "confidence": 1.0269396305084229
+          },
+          "rightEye": {
+            "x": 356.99169921875,
+            "y": 73.88818359375,
+            "confidence": 0.9961268901824951
+          },
+          "leftEar": {
+            "x": 392.60693359375,
+            "y": 76.43212890625,
+            "confidence": 0.925575852394104
+          },
+          "rightEar": {
+            "x": 341.72802734375,
+            "y": 77.7041015625,
+            "confidence": 0.9844468832015991
+          },
+          "leftShoulder": {
+            "x": 415.50244140625,
+            "y": 127.31103515625,
+            "confidence": 0.8929857015609741
+          },
+          "rightShoulder": {
+            "x": 317.560546875,
+            "y": 124.76708984375,
+            "confidence": 0.8992553353309631
+          },
+          "leftElbow": {
+            "x": 437.1259765625,
+            "y": 202.357421875,
+            "confidence": 0.9046149253845215
+          },
+          "rightElbow": {
+            "x": 295.93701171875,
+            "y": 201.08544921875,
+            "confidence": 0.8899149894714355
+          },
+          "leftWrist": {
+            "x": 392.60693359375,
+            "y": 179.4619140625,
+            "confidence": 0.7248557806015015
+          },
+          "rightWrist": {
+            "x": 337.912109375,
+            "y": 176.91796875,
+            "confidence": 0.704623818397522
+          },
+          "leftHip": {
+            "x": 398.966796875,
+            "y": 249.42041015625,
+            "confidence": 0.777661144733429
+          },
+          "rightHip": {
+            "x": 332.82421875,
+            "y": 249.42041015625,
+            "confidence": 0.7686071991920471
+          },
+          "leftKnee": {
+            "x": 429.494140625,
+            "y": 358.81005859375,
+            "confidence": 0.8915228843688965
+          },
+          "rightKnee": {
+            "x": 303.56884765625,
+            "y": 360.08203125,
+            "confidence": 0.8453803062438965
+          },
+          "leftAnkle": {
+            "x": 470.197265625,
+            "y": 473.28759765625,
+            "confidence": 0.9307692050933838
+          },
+          "rightAnkle": {
+            "x": 264.1376953125,
+            "y": 472.015625,
+            "confidence": 0.8849895000457764
+          }
+        },
+        "ball": {
+          "x": 341.3076923076923,
+          "y": 223.5897435897436,
+          "radius": 6.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.345489443378119,
+        "b": 0,
+        "c": 0,
+        "d": 0.345489443378119,
+        "e": 32.591170825335894,
+        "f": 46.272552783109404
+      },
+      "control": null,
+      "uniformScale": 0.345489443378119,
+      "translation": {
+        "x": 32.591170825335894,
+        "y": 46.272552783109404
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        253,
+        526
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 14350,
+        "mainPixels": 64223
+      },
+      "drawingId": "tide-vesper-canonical-ready-reuse",
+      "reused": true,
+      "sourcePoseId": "authored-0"
+    }
+  ],
+  "selectedAuthoredBodyDrawingCount": 20,
+  "directlyUsedSourceDrawingCount": 20,
+  "derivedHandVariantCount": 1,
+  "reusedIdleCount": 1,
+  "timelineDrawingEntries": 22,
+  "unusedSourcePoseIds": [
+    "authored-70",
+    "authored-73",
+    "authored-76",
+    "authored-110"
+  ],
+  "reviewFlags": {
+    "sourceEdgeTouchReviewRequired": true,
+    "sourceEdgeTouchFrames": [
+      {
+        "frame": 34,
+        "poseId": "authored-34",
+        "source": "source/tide-vesper-a.png"
+      },
+      {
+        "frame": 50,
+        "poseId": "authored-50",
+        "source": "source/tide-vesper-a.png"
+      },
+      {
+        "frame": 64,
+        "poseId": "authored-64",
+        "source": "source/tide-vesper-a.png"
+      }
+    ],
+    "excludedFrames": [
+      70,
+      73
+    ]
+  },
+  "releaseHandoffProof": {
+    "source": "same-held-body+character-owned-empty-hand",
+    "sourceHeldFrame": 75,
+    "wrist": {
+      "x": 99.96608162163955,
+      "y": 103.21374901769491
+    },
+    "ballSocket": {
+      "x": 90.90206528979218,
+      "y": 105.54414624038499
+    },
+    "socketError": 0,
+    "bodyOutsideHandDifferingChannels": 0,
+    "removedHeldHandPixels": 312,
+    "guardRadius": 34
+  }
+}

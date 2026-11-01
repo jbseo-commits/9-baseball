@@ -1,0 +1,781 @@
+{
+  "revision": "roster-traditional-motion-candidates-r3-20261031",
+  "status": "all20_motion_candidates_reviewed",
+  "approvalScope": {
+    "userQuote": "좋아 전체로 다시",
+    "approved": "User explicitly confirmed all20sourcecandidate direction afterportableboard: 전원 진행해줘 (2026-10-31 KST). Proceed all20motiondevelopment; specificmotion/runtimeapproval remainsfuture.",
+    "notApproved": [
+      "specific final motion acceptance by user",
+      "production runtime integration",
+      "main merge"
+    ],
+    "latestUserQuote": "전원 진행해줘"
+  },
+  "counts": {
+    "characters": 20,
+    "guideSheets": 40,
+    "completePairs": 20,
+    "metadataOrComponentFigureMarkers": 240,
+    "acceptedRosterRigs": 0,
+    "motionCandidates": 20,
+    "mechanicalChecksPass": 20,
+    "userApprovedMotionCandidates": 0,
+    "representativeVisualCheckpointGo": 20,
+    "createdAnimationSourceDrawings": 484,
+    "selectedFullBodyDrawings": 438,
+    "derivedHandImages": 20,
+    "idleReuseEntries": 20,
+    "timelineKeys": 478
+  },
+  "checks": {
+    "sourceAndReviewFileIntegrity": "independent reviewer confirmed allfiles andSHA256",
+    "tealReadyStatic": "independent visual GO at130px and400px after removalofincorrectdiagonalrootclip andalpha-isolation",
+    "motion": "Independent20-candidate representative-frame visual GO; all reported blocking artifacts resolved. User motion/runtime acceptance remains separate.",
+    "gameIntegration": "No new candidate import. Game/GitHub/main unchanged this turn.",
+    "browser": {
+      "schema": 1,
+      "generatedAt": "2026-10-31T08:36:01.154Z",
+      "gallery": "portable.html",
+      "reviewOnly": true,
+      "candidateCount": 20,
+      "chromium": {
+        "loadedSprites": 478,
+        "failedSprites": 0,
+        "pageErrors": 0,
+        "failedRequests": 0,
+        "scrubsChecked": 120,
+        "perCandidate": [
+          75,
+          76,
+          113
+        ],
+        "portraitHeights": [
+          130,
+          400
+        ],
+        "playbackFramesInApprox1050ms": {
+          "1x": 64,
+          "0.25x": 15
+        },
+        "allSelectorsPresent": true,
+        "releaseHandoff75To76": true
+      },
+      "notes": [
+        "Embedded portable gallery; no network assets required.",
+        "Tide Vesper excludes source frames 70 and 73; Amber Sinker excludes frame 64.",
+        "Emerald Tempest hand isolation uses manual cuff/palm control points [593,145] and [628,173] in source coordinates.",
+        "Visual approval remains pending; not applied to game.",
+        "Final refresh after Amber source spill matte: 20-character gallery loaded all 478 images; frames 50/84 at both 130px and 400px inspected.",
+        "Final Amber F084 lower hair strip cleanup verified at 130px and 400px after the 20-candidate gallery refresh."
+      ],
+      "amberPostRepair": {
+        "spritesLoaded": 478,
+        "spritesTotal": 478,
+        "failedSprites": 0,
+        "pageErrors": 0,
+        "failedRequests": 0,
+        "frames": [
+          50,
+          84
+        ],
+        "portraitHeights": [
+          130,
+          400
+        ],
+        "frame50And84VisuallyInspected": true,
+        "sourceSpillMatteRecorded": true,
+        "sourcePose64Excluded": true
+      },
+      "amberFinalSliverCorrection": {
+        "frame": 84,
+        "sourceClearRect": [
+          137,
+          231,
+          20,
+          18
+        ],
+        "characters": 20,
+        "loadedSprites": 478,
+        "failedSprites": 0,
+        "pageErrors": 0,
+        "failedRequests": 0,
+        "verifiedPortraitHeights": [
+          130,
+          400
+        ],
+        "status": "F084 / 119",
+        "visualInspection": true,
+        "priorScrubAndSpeedChecksRemainValid": true
+      }
+    },
+    "mechanical": "Files, timeline, alpha edges and transforms only. Does not certify anatomy, animation feel, video observation or user acceptance.",
+    "knownLimitations": [
+      "Rawsource edge flags retained, includingRed20flatponytailtip.",
+      "No newlyverifiedvideo biomechanics.",
+      "Not all120timelineframes independently observed; browser timing/scrub tests are distinct from art review."
+    ]
+  },
+  "characters": [
+    {
+      "id": "regular-01-red-rush",
+      "name": "레드 러시",
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/regular-01-red-rush-a.png",
+          "sha256": "2dab955f76fee620be22289cc72d5c02581f9e28341cdcd4962ddfeb9255b7bb"
+        },
+        {
+          "source": "source/regular-01-red-rush-b.png",
+          "sha256": "ec00efec3ca16a41cdd41ab8d7f4d60ef8f8329cb2a2efdb6078f9350aa386c6"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/regular-01-red-rush/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 24,
+        "selectedBodyDrawings": 22,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 24
+      },
+      "rawSourceReviewFlags": [
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 20
+        }
+      ]
+    },
+    {
+      "id": "regular-02-teal-mirage",
+      "name": "청록 미라주",
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "source_defined",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/teal_guide_a.png",
+          "sha256": "7324ce1c8d173fedd06fc6bf947aa338f3cb2feafef3fc62ba8724617efdc25b"
+        },
+        {
+          "source": "source/teal_guide_b.png",
+          "sha256": "105ca75460ccb93424d4d8a4c4a4a78eadb97e40662aea690c733fce113576fd"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/regular-02-teal-mirage/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 27,
+        "selectedBodyDrawings": 23,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 25
+      },
+      "rawSourceReviewFlags": []
+    },
+    {
+      "id": "regular-03-amber-sinker",
+      "name": "앰버 싱커",
+      "hand": "right",
+      "style": "low-three-quarter",
+      "styleStatus": "source_defined",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/regular-03-amber-sinker-a.png",
+          "sha256": "e86a044559801bc2562d8a26d8aa6814d4f46e28f384f8cd6820f2ca4cece228"
+        },
+        {
+          "source": "source/regular-03-amber-sinker-b.png",
+          "sha256": "06cc2ff2fd712ecefff80f81aebb906b84d10e13b6521047c37f53895dc93997"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/regular-03-amber-sinker/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 24,
+        "selectedBodyDrawings": 21,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 23
+      },
+      "rawSourceReviewFlags": [
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 0
+        },
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 10
+        },
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 20
+        },
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 34
+        },
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 50
+        },
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 70
+        },
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 84
+        },
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 119
+        }
+      ]
+    },
+    {
+      "id": "regular-04-ivory-ace",
+      "name": "아이보리 에이스",
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/regular-04-ivory-ace-a.png",
+          "sha256": "b8c0a9217aec5731e7eac0e639e70116d797b4581422633893fad0652f6a23b6"
+        },
+        {
+          "source": "source/regular-04-ivory-ace-b.png",
+          "sha256": "b1d56d09509511610d509d4460c6975bee7529381ed2bd01ffb790896271a6dc"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/regular-04-ivory-ace/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 24,
+        "selectedBodyDrawings": 22,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 24
+      },
+      "rawSourceReviewFlags": []
+    },
+    {
+      "id": "regular-05-violet-sting",
+      "name": "바이올렛 스팅",
+      "hand": "right",
+      "style": "sidearm",
+      "styleStatus": "source_defined",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/regular-05-violet-sting-a.png",
+          "sha256": "64f8834dfff7f04e47edd9c2c43ed0a098d24a8ac726e64d887900c5c6092e40"
+        },
+        {
+          "source": "source/regular-05-violet-sting-b.png",
+          "sha256": "d3e50343a4032e77a62947a61424f2f7dadcd368ed73990fafb8555f9b5b5333"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/regular-05-violet-sting/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 24,
+        "selectedBodyDrawings": 22,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 24
+      },
+      "rawSourceReviewFlags": []
+    },
+    {
+      "id": "regular-06-rose-paint",
+      "name": "로즈 페인트",
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/regular-06-rose-paint-a.png",
+          "sha256": "0f5e23654162882afcc0375fdd36252e41954e9e4a5069dbf9443b4de66aefb2"
+        },
+        {
+          "source": "source/regular-06-rose-paint-b.png",
+          "sha256": "0ebd24e435e735e4147eef5900b87fe552d06862ae45c14662ba111333e5c535"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/regular-06-rose-paint/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 24,
+        "selectedBodyDrawings": 22,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 24
+      },
+      "rawSourceReviewFlags": [
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 57
+        },
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 68
+        }
+      ]
+    },
+    {
+      "id": "elite-01-cobalt-impact",
+      "name": "코발트 임팩트",
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/elite-01-cobalt-impact-a.png",
+          "sha256": "55dc608e87d53a33353b176664dee1db583123d0f99d1715071b13dab607976c"
+        },
+        {
+          "source": "source/elite-01-cobalt-impact-b.png",
+          "sha256": "5e2d78917db03f6a8a69ec8a294eae5548413d8078b239c1c3e7f0a7dd11d4ae"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/elite-01-cobalt-impact/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 24,
+        "selectedBodyDrawings": 22,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 24
+      },
+      "rawSourceReviewFlags": []
+    },
+    {
+      "id": "elite-02-neon-trick",
+      "name": "네온 트릭",
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/elite-02-neon-trick-a.png",
+          "sha256": "86d20e9290c8b6ad64b8fe547313c545516adaa1a7e53360870d0f2597eacaf8"
+        },
+        {
+          "source": "source/elite-02-neon-trick-b.png",
+          "sha256": "0b83664bfc6cd0ffc971b1ae029c589d7bbffdbb17aea9b241787fd6c4393d72"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/elite-02-neon-trick/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 24,
+        "selectedBodyDrawings": 22,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 24
+      },
+      "rawSourceReviewFlags": []
+    },
+    {
+      "id": "elite-03-wine-bluff",
+      "name": "와인 블러프",
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/elite-03-wine-bluff-a.png",
+          "sha256": "2214c98b6265db5802e9becea96d7f5fbfac16006961e9d5c7bb00e3e9ee92c4"
+        },
+        {
+          "source": "source/elite-03-wine-bluff-b.png",
+          "sha256": "e24925a13a52d06eb9b9eee6e0172ec1287847ec0e29c306e123fb020a15c749"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/elite-03-wine-bluff/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 24,
+        "selectedBodyDrawings": 22,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 24
+      },
+      "rawSourceReviewFlags": []
+    },
+    {
+      "id": "boss-01-emerald-tyrant",
+      "name": "에메랄드 타이런트",
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/boss-01-emerald-tyrant-a.png",
+          "sha256": "b45574c2e7cf987772f289a678887ea0461c7e56460189f810df82ce90a0867a"
+        },
+        {
+          "source": "source/boss-01-emerald-tyrant-b.png",
+          "sha256": "4f456d3b0a34f7b3e6cb9ed16d98d717066fc9c23675e0198c7f78a903dc589b"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/boss-01-emerald-tyrant/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 24,
+        "selectedBodyDrawings": 22,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 24
+      },
+      "rawSourceReviewFlags": [
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 0
+        },
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 10
+        },
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 20
+        },
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 64
+        },
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 119
+        }
+      ]
+    },
+    {
+      "id": "boss-02-platinum-halo",
+      "name": "플래티넘 헤일로",
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/boss-02-platinum-halo-a.png",
+          "sha256": "09fab30ee083cc252d414fe7ab277dcd97292a285a4176985ff9310264c217c2"
+        },
+        {
+          "source": "source/boss-02-platinum-halo-b.png",
+          "sha256": "4cacdb5be60352513537c4e862fdecfc609dc6fee037c67327bbe1da40f9be3a"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/boss-02-platinum-halo/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 24,
+        "selectedBodyDrawings": 22,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 24
+      },
+      "rawSourceReviewFlags": []
+    },
+    {
+      "id": "boss-03-black-eclipse",
+      "name": "블랙 이클립스",
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/boss-03-black-eclipse-a.png",
+          "sha256": "d217e38d7f5d271715815290a0477f77aef43c02d56fac0f8d46768bd9ea7422"
+        },
+        {
+          "source": "source/boss-03-black-eclipse-b.png",
+          "sha256": "d50ff68c8a7bb41127abb2a7d899b01f8c935d48e6a515ef1b86496114066f38"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/boss-03-black-eclipse/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 24,
+        "selectedBodyDrawings": 22,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 24
+      },
+      "rawSourceReviewFlags": []
+    },
+    {
+      "id": "tide-vesper",
+      "name": "타이드 베스퍼",
+      "hand": "right",
+      "style": "low-three-quarter",
+      "styleStatus": "source_defined",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/tide-vesper-a.png",
+          "sha256": "c53bd978e24d666d25c6d9ba9dc47951a5c4e9a4fb2528466e98ad052f5fe1c5"
+        },
+        {
+          "source": "source/tide-vesper-b.png",
+          "sha256": "044e82c345921ffbe6cc67ee72f37a24002f519d8e70cfa5207044f5194f5ca7"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/tide-vesper/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 24,
+        "selectedBodyDrawings": 20,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 22
+      },
+      "rawSourceReviewFlags": [
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 34
+        },
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 50
+        },
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 64
+        }
+      ]
+    },
+    {
+      "id": "sky-phantom",
+      "name": "스카이 팬텀",
+      "hand": "right",
+      "style": "high-overhand",
+      "styleStatus": "source_defined",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/sky-phantom-a.png",
+          "sha256": "db4531b968852946e066ef70a15c82c123615873d14435af5051a61681f5d7d9"
+        },
+        {
+          "source": "source/sky-phantom-b.png",
+          "sha256": "0ea3173d2a0cfc4e239e606b38854744e1df6a414b4e10ec4a8b565c3bfa33ff"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/sky-phantom/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 24,
+        "selectedBodyDrawings": 22,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 24
+      },
+      "rawSourceReviewFlags": []
+    },
+    {
+      "id": "gale-twister",
+      "name": "게일 트위스터",
+      "hand": "right",
+      "style": "high-three-quarter",
+      "styleStatus": "source_defined",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/gale-twister-a.png",
+          "sha256": "415379611f9f6b03ffd0eb5835696df01657dd315e56c3b647fb110354e37a92"
+        },
+        {
+          "source": "source/gale-twister-b.png",
+          "sha256": "ce1ab17179d611488559301b55bde945f3ea06dbbcbfa7332a8cec4b8b6cf28a"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/gale-twister/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 24,
+        "selectedBodyDrawings": 22,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 24
+      },
+      "rawSourceReviewFlags": []
+    },
+    {
+      "id": "vulcan-blaze",
+      "name": "볼칸 블레이즈",
+      "hand": "right",
+      "style": "high-three-quarter",
+      "styleStatus": "source_defined",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/vulcan-blaze-a.png",
+          "sha256": "f93a8f665c781bdbbe1521c3fc65bf12c9f1e1521a412f3f102c2a530a087104"
+        },
+        {
+          "source": "source/vulcan-blaze-b.png",
+          "sha256": "d27fcbe062bff8c258e75326c5807fc9d1c4e706808413c6529e1174e8cb83ef"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/vulcan-blaze/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 24,
+        "selectedBodyDrawings": 22,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 24
+      },
+      "rawSourceReviewFlags": [
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 0
+        },
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 20
+        },
+        {
+          "kind": "raw_source_edge_touch",
+          "frame": 119
+        }
+      ]
+    },
+    {
+      "id": "jade-viper",
+      "name": "제이드 바이퍼",
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/jade-viper-a.png",
+          "sha256": "fd6b4908a114c076631018a581d8dfd9cad15db6ed03eeb16f789e762b22ea8f"
+        },
+        {
+          "source": "source/jade-viper-b.png",
+          "sha256": "5d16ddfd233e128138d7ae8a89ef6b803b0b15fa4e0594d4f33eb8d26f7b26a0"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/jade-viper/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 24,
+        "selectedBodyDrawings": 22,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 24
+      },
+      "rawSourceReviewFlags": []
+    },
+    {
+      "id": "copper-sirocco",
+      "name": "코퍼 시로코",
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "source_defined",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/copper-sirocco-a.png",
+          "sha256": "00420b2926fe4e0c38cd43865a664b4db0cb557065243490041ef7687d89226e"
+        },
+        {
+          "source": "source/copper-sirocco-b.png",
+          "sha256": "a8e06c0cb8129e3c538c05153aaad3380a6e631a570e6b8b0605f0ab43d8b746"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/copper-sirocco/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 24,
+        "selectedBodyDrawings": 22,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 24
+      },
+      "rawSourceReviewFlags": []
+    },
+    {
+      "id": "onyx-eclipse",
+      "name": "오닉스 이클립스",
+      "hand": "left",
+      "style": "three-quarter",
+      "styleStatus": "source_defined",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/onyx-eclipse-a.png",
+          "sha256": "4d61ed99384d76448a0795fc17b7136aa702eba3047e0754f9e103f621908383"
+        },
+        {
+          "source": "source/onyx-eclipse-b.png",
+          "sha256": "4be44195f747f0c82158306da1d3f8b58ce52cfb89d45bb302ff532d4346db9f"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/onyx-eclipse/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 25,
+        "selectedBodyDrawings": 22,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 24
+      },
+      "rawSourceReviewFlags": []
+    },
+    {
+      "id": "emerald-tempest",
+      "name": "에메랄드 템페스트",
+      "hand": "right",
+      "style": "high-overhand",
+      "styleStatus": "source_defined",
+      "status": "motion_candidate_user_acceptance_pending",
+      "sheets": [
+        {
+          "source": "source/emerald-tempest-a.png",
+          "sha256": "72eba948d940f81860c16b2514cf6601438cab4400bf5318d70b1acb77018742"
+        },
+        {
+          "source": "source/emerald-tempest-b.png",
+          "sha256": "f81d14134d9613e007744ab52d7cd6fa6c274ede2eb90895d55a01a752f7c35e"
+        }
+      ],
+      "referenceMode": "authored_candidate_video_motion_unverified",
+      "motionManifest": "traditional/characters/emerald-tempest/sequence-release-matched.json",
+      "motionCounts": {
+        "sourceDrawings": 24,
+        "selectedBodyDrawings": 22,
+        "derivedHands": 1,
+        "idleReuses": 1,
+        "timelineKeys": 24
+      },
+      "rawSourceReviewFlags": []
+    }
+  ],
+  "knownLimitations": [
+    "40 sheets are generated source candidates, not240acceptedposes or20completeanimatedrigs.",
+    "Sameperson proportions, truefrontaldepth andgrip/release continuity require individual pose andmotion review.",
+    "Separate source drawings cannot be treated as smooth120frameanimation by source-switching or whole-spritewobble.",
+    "OnlyTeal ready static prototype passed130/400visualinspection; subsequentgrip-separation/motion pending.",
+    "No confirmed submarine inroster;10previouslyundocumentedslotsremainproposedbaselines."
+  ]
+}

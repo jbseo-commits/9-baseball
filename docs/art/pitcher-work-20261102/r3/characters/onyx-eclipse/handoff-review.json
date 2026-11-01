@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "id": "onyx-eclipse",
+  "inputManifest": "traditional/characters/onyx-eclipse/sequence.json",
+  "status": "candidate_generated_needs_visual_review",
+  "reason": "Automated geometric and pixel checks passed; visual approval remains required.",
+  "releaseFrame": 76,
+  "derivedFrame": 76,
+  "checks": {
+    "emptyHandMetadata": "manual_wrist_isolation_candidate",
+    "heldFrame": 75,
+    "heldPoseId": "authored-75",
+    "registeredWrist": {
+      "x": 115.72483992528507,
+      "y": 115.72400333815284
+    },
+    "registeredElbow": {
+      "x": 109.2205581008055,
+      "y": 111.04870162247033
+    },
+    "ballSocket": {
+      "x": 121.64887851690045,
+      "y": 116.19379476436578
+    },
+    "ballRadius": 4.779087002916799,
+    "removedHandPixels": 532,
+    "guardRadius": 34,
+    "bodyOutsideHandDifferingChannels": 0,
+    "emptyHandSource": "source/onyx-eclipse-b.png",
+    "emptyHandManualOverride": true,
+    "socketError": 0,
+    "timelineEntries": 24,
+    "directSourceDrawingCount": 22
+  },
+  "outputManifest": "/workspace/9zone-roster-rebuild-20261031/traditional/characters/onyx-eclipse/sequence-release-matched.json",
+  "outputDrawing": "poses/076-matched-empty.png"
+}

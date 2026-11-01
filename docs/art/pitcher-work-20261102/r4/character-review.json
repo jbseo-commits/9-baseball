@@ -1,0 +1,528 @@
+[
+  {
+    "id": "regular-01-red-rush",
+    "name": "레드 러시",
+    "age": 27,
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "parts": "characters/regular-01-red-rush/parts.json",
+    "identity": "reference/regular-01-red-rush.png",
+    "rhythm": {
+      "windup": 1.0,
+      "legLift": 1.0,
+      "follow": 1.0
+    },
+    "before": "before/regular-01-red-rush-identity.webp",
+    "revision": "r4a",
+    "after": "review-assets/regular-01-red-rush-r4a.webp",
+    "original_observation": "교차한 팔과 다리 들기 때문에 기본 자세의 손·지지발을 분리하기 어려웠음",
+    "revision_focus": [
+      "글러브를 왼팔로 명확히 연결하고 오른손의 공 노출",
+      "두 발 준비 자세로 변경, 쇼츠·벨트 연결 정리",
+      "붉은 포니테일·불꽃 모자·호박색 눈 유지"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도."
+  },
+  {
+    "id": "regular-02-teal-mirage",
+    "name": "청록 미라주",
+    "age": 26,
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "source_defined",
+    "parts": "characters/regular-02-teal-mirage/parts.json",
+    "identity": "reference/regular-02-teal-mirage.png",
+    "rhythm": {
+      "windup": 1.025,
+      "legLift": 1.05,
+      "follow": 1.02
+    },
+    "before": "before/regular-02-teal-mirage-identity.webp",
+    "revision": "r4a",
+    "after": "review-assets/regular-02-teal-mirage-r4a.webp",
+    "original_observation": "글러브 주변에서 두 손이 겹쳐 손목과 장비의 방향이 모호했음",
+    "revision_focus": [
+      "오른손 공과 왼손 글러브를 각각 보이게 분리",
+      "베스트 여밈·겨드랑이·어깨 윤곽 정리",
+      "짧은 청록 머리·금색 핀·아이보리 조끼 유지"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도. 상하 여백이 좁아 스프라이트 패킹 전 여백 보완 필요."
+  },
+  {
+    "id": "regular-03-amber-sinker",
+    "name": "앰버 싱커",
+    "age": 28,
+    "hand": "right",
+    "style": "low-three-quarter",
+    "styleStatus": "source_defined",
+    "parts": "characters/regular-03-amber-sinker/parts.json",
+    "identity": "reference/regular-03-amber-sinker.png",
+    "rhythm": {
+      "windup": 1.05,
+      "legLift": 1.1,
+      "follow": 1.04
+    },
+    "before": "before/regular-03-amber-sinker-identity.webp",
+    "revision": "r4a",
+    "after": "review-assets/regular-03-amber-sinker-r4a.webp",
+    "original_observation": "굵은 땋은 머리와 왼팔·글러브가 겹쳐 실루엣이 뭉쳤음",
+    "revision_focus": [
+      "머리 땋임·왼팔·글러브 경계를 분리",
+      "공을 쥔 손가락과 글러브 크기 정리",
+      "갈색 피부·머스터드 바이저·남색 배색 유지"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도."
+  },
+  {
+    "id": "regular-04-ivory-ace",
+    "name": "아이보리 에이스",
+    "age": 30,
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "parts": "characters/regular-04-ivory-ace/parts.json",
+    "identity": "reference/regular-04-ivory-ace.png",
+    "rhythm": {
+      "windup": 1.075,
+      "legLift": 1.0,
+      "follow": 1.06
+    },
+    "before": "before/regular-04-ivory-ace-identity.webp",
+    "revision": "r4a",
+    "after": "review-assets/regular-04-ivory-ace-r4a.webp",
+    "original_observation": "글러브를 모은 양팔의 연결과 지퍼·허리 방향을 정리할 필요가 있었음",
+    "revision_focus": [
+      "양팔을 펼쳐 손목과 공·글러브 확인 가능",
+      "지퍼·벨트·바지 연결과 발 원근 정리",
+      "차분한 얼굴·애쉬 포니테일·긴 남색 바지 유지"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도."
+  },
+  {
+    "id": "regular-05-violet-sting",
+    "name": "바이올렛 스팅",
+    "age": 25,
+    "hand": "right",
+    "style": "sidearm",
+    "styleStatus": "source_defined",
+    "parts": "characters/regular-05-violet-sting/parts.json",
+    "identity": "reference/regular-05-violet-sting.png",
+    "rhythm": {
+      "windup": 1.0,
+      "legLift": 1.05,
+      "follow": 1.08
+    },
+    "before": "before/regular-05-violet-sting-identity.webp",
+    "revision": "r4a",
+    "after": "review-assets/regular-05-violet-sting-r4a.webp",
+    "original_observation": "기울어진 골반과 장비 팔이 겹쳐 낮은 준비 자세의 무게를 읽기 어려웠음",
+    "revision_focus": [
+      "낮고 넓은 준비 자세와 팔 실루엣 정리",
+      "왼팔 압박 소매에서 글러브까지 연결 확인",
+      "보라 언더컷·뒤집은 모자·장난스러운 표정 유지"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도."
+  },
+  {
+    "id": "regular-06-rose-paint",
+    "name": "로즈 페인트",
+    "age": 26,
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "parts": "characters/regular-06-rose-paint/parts.json",
+    "identity": "reference/regular-06-rose-paint.png",
+    "rhythm": {
+      "windup": 1.025,
+      "legLift": 1.1,
+      "follow": 1.0
+    },
+    "before": "before/regular-06-rose-paint-identity.webp",
+    "revision": "r4a",
+    "after": "review-assets/regular-06-rose-paint-r4a.webp",
+    "original_observation": "공의 그립과 글러브 입구·손목을 더 또렷하게 할 필요가 있었음",
+    "revision_focus": [
+      "공의 실밥·손가락 겹침과 왼쪽 글러브 손목 정리",
+      "유니폼 단추 여밈·허리·쇼츠 옆선 정리",
+      "로즈 단발·삼각 핀·민트 배색 유지"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도."
+  },
+  {
+    "id": "elite-01-cobalt-impact",
+    "name": "코발트 임팩트",
+    "age": 29,
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "parts": "characters/elite-01-cobalt-impact/parts.json",
+    "identity": "reference/elite-01-cobalt-impact.png",
+    "rhythm": {
+      "windup": 1.05,
+      "legLift": 1.0,
+      "follow": 1.02
+    },
+    "before": "before/elite-01-cobalt-impact-identity.webp",
+    "revision": "r4a",
+    "after": "review-assets/elite-01-cobalt-impact-r4a.webp",
+    "original_observation": "교차한 양팔이 장비 손과 강한 어깨 실루엣을 가렸음",
+    "revision_focus": [
+      "오른손 공 노출, 왼쪽 글러브와 두 팔 분리",
+      "어깨·상완·팔꿈치와 바지 무릎 명암 정리",
+      "짙은 피부·파란 양갈래 땋은 머리·근육형 체형 유지"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도."
+  },
+  {
+    "id": "elite-02-neon-trick",
+    "name": "네온 트릭",
+    "age": 27,
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "parts": "characters/elite-02-neon-trick/parts.json",
+    "identity": "reference/elite-02-neon-trick.png",
+    "rhythm": {
+      "windup": 1.075,
+      "legLift": 1.05,
+      "follow": 1.04
+    },
+    "before": "before/elite-02-neon-trick-identity.webp",
+    "revision": "r4a",
+    "after": "review-assets/elite-02-neon-trick-r4a.webp",
+    "original_observation": "벌린 팔의 길이와 어깨·소매 접점이 불안정했음",
+    "revision_focus": [
+      "두 팔을 몸 가까이 가져와 어깨·손목 연결 정리",
+      "오른손 그립과 왼손 글러브 웹이 보이게 배치",
+      "주황 올림머리·라임 압박복·능청스러운 표정 유지"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도."
+  },
+  {
+    "id": "elite-03-wine-bluff",
+    "name": "와인 블러프",
+    "age": 31,
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "parts": "characters/elite-03-wine-bluff/parts.json",
+    "identity": "reference/elite-03-wine-bluff.png",
+    "rhythm": {
+      "windup": 1.0,
+      "legLift": 1.1,
+      "follow": 1.06
+    },
+    "before": "before/elite-03-wine-bluff-identity.webp",
+    "revision": "r4a",
+    "after": "review-assets/elite-03-wine-bluff-r4a.webp",
+    "original_observation": "재킷 소매·맨팔·머리카락이 겹쳐 팔의 경로가 모호했음",
+    "revision_focus": [
+      "양 소매와 손목 구간을 구분하고 장비 실루엣 정리",
+      "공 그립·재킷 끝·벨트·쇼츠 테두리 정리",
+      "버건디 재킷·긴 검붉은 머리·성숙한 표정 유지"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도."
+  },
+  {
+    "id": "boss-01-emerald-tyrant",
+    "name": "에메랄드 타이런트",
+    "age": 32,
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "parts": "characters/boss-01-emerald-tyrant/parts.json",
+    "identity": "reference/boss-01-emerald-tyrant.png",
+    "rhythm": {
+      "windup": 1.025,
+      "legLift": 1.0,
+      "follow": 1.08
+    },
+    "before": "before/boss-01-emerald-tyrant-identity.webp",
+    "revision": "r4a",
+    "after": "review-assets/boss-01-emerald-tyrant-r4a.webp",
+    "original_observation": "어깨에 걸친 재킷의 빈 소매가 제3의 팔처럼 보일 소지가 있었음",
+    "revision_focus": [
+      "재킷을 양어깨에 착용한 짧은 소매 구조로 변경",
+      "오른손 공과 왼쪽 글러브를 분리해 강한 상체 강조",
+      "짙은 녹색 포니테일·금색 3줄 표식·긴 흰 바지 유지"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도."
+  },
+  {
+    "id": "boss-02-platinum-halo",
+    "name": "플래티넘 헤일로",
+    "age": 30,
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "parts": "characters/boss-02-platinum-halo/parts.json",
+    "identity": "reference/boss-02-platinum-halo.png",
+    "rhythm": {
+      "windup": 1.05,
+      "legLift": 1.05,
+      "follow": 1.0
+    },
+    "before": "before/boss-02-platinum-halo-identity.webp",
+    "revision": "r4a",
+    "after": "review-assets/boss-02-platinum-halo-r4a.webp",
+    "original_observation": "다리 들기 자세와 겹친 손으로 기준 전신 비례를 확인하기 어려웠음",
+    "revision_focus": [
+      "두 발 기본 자세로 바꾸고 공·글러브 팔 분리",
+      "굵은 은빛 땋은 머리와 팔꿈치 경계 정리",
+      "보라 눈·흰 유니폼·금색 파이핑·남색 속소매 유지"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도."
+  },
+  {
+    "id": "boss-03-black-eclipse",
+    "name": "블랙 이클립스",
+    "age": 33,
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "parts": "characters/boss-03-black-eclipse/parts.json",
+    "identity": "reference/boss-03-black-eclipse.png",
+    "rhythm": {
+      "windup": 1.075,
+      "legLift": 1.1,
+      "follow": 1.02
+    },
+    "before": "before/boss-03-black-eclipse-identity.webp",
+    "revision": "r4a",
+    "after": "review-assets/boss-03-black-eclipse-r4a.webp",
+    "original_observation": "크게 뻗은 팔과 어두운 유니폼이 기준 자세의 연결을 가렸음",
+    "revision_focus": [
+      "큰 투구 동작에서 양팔이 읽히는 준비 자세로 변경",
+      "검은 몸통·팔·글러브의 명암 구분",
+      "검붉은 포니테일·엄한 표정·은색 파이핑 유지"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도."
+  },
+  {
+    "id": "tide-vesper",
+    "name": "타이드 베스퍼",
+    "age": 28,
+    "hand": "right",
+    "style": "low-three-quarter",
+    "styleStatus": "source_defined",
+    "parts": "characters/tide-vesper/parts.json",
+    "identity": "reference/tide-vesper.png",
+    "rhythm": {
+      "windup": 1.0,
+      "legLift": 1.0,
+      "follow": 1.04
+    },
+    "before": "before/tide-vesper-identity.webp",
+    "revision": "r4a",
+    "after": "review-assets/tide-vesper-r4a.webp",
+    "original_observation": "원본 자료가 여러 포즈 시트여서 단일 기준 원화가 필요했음",
+    "revision_focus": [
+      "시트의 아이덴티티를 단일 전신 준비 원화로 정리",
+      "땋은 머리·목·어깨와 두 장비 손을 구분",
+      "남색 긴 저지·금색 문양·청록 머리·긴 흰 바지 유지"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도."
+  },
+  {
+    "id": "sky-phantom",
+    "name": "스카이 팬텀",
+    "age": 26,
+    "hand": "right",
+    "style": "high-overhand",
+    "styleStatus": "source_defined",
+    "parts": "characters/sky-phantom/parts.json",
+    "identity": "reference/sky-phantom.png",
+    "rhythm": {
+      "windup": 1.025,
+      "legLift": 1.05,
+      "follow": 1.06
+    },
+    "before": "before/sky-phantom-identity.webp",
+    "revision": "r4b",
+    "after": "review-assets/sky-phantom-r4b.webp",
+    "original_observation": "작은 스프라이트로는 손·얼굴과 은색 머리의 겹침 확인이 어려웠음",
+    "revision_focus": [
+      "큰 가이드와 대조해 얼굴·손·글러브를 다시 그림",
+      "은색 머리와 하늘색 저지·남색 속소매를 구분",
+      "긴 은발·차가운 눈매·긴 바지와 실용적 복장 유지",
+      "추가 수정: 두꺼운 선과 매끈한 명암을 미세 픽셀 재질로 변경"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도."
+  },
+  {
+    "id": "gale-twister",
+    "name": "게일 트위스터",
+    "age": 27,
+    "hand": "right",
+    "style": "high-three-quarter",
+    "styleStatus": "source_defined",
+    "parts": "characters/gale-twister/parts.json",
+    "identity": "reference/gale-twister.png",
+    "rhythm": {
+      "windup": 1.05,
+      "legLift": 1.1,
+      "follow": 1.08
+    },
+    "before": "before/gale-twister-identity.webp",
+    "revision": "r4c",
+    "after": "review-assets/gale-twister-r4c.webp",
+    "original_observation": "작은 원본의 땋은 머리와 넓은 다리 자세가 과장되어 보였음",
+    "revision_focus": [
+      "머리 묶임과 땋은 머리 연결을 큰 원화로 정리",
+      "오른손 공·왼손 글러브와 팔 윤곽을 구분",
+      "초록 땋은 머리·검정 소매 저지·매서운 표정 유지",
+      "추가 수정: 발 간격을 좁히고 땋은 머리를 어깨 뒤로 내림"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도."
+  },
+  {
+    "id": "vulcan-blaze",
+    "name": "볼칸 블레이즈",
+    "age": 28,
+    "hand": "right",
+    "style": "high-three-quarter",
+    "styleStatus": "source_defined",
+    "parts": "characters/vulcan-blaze/parts.json",
+    "identity": "reference/vulcan-blaze.png",
+    "rhythm": {
+      "windup": 1.075,
+      "legLift": 1.0,
+      "follow": 1.0
+    },
+    "before": "before/vulcan-blaze-identity.webp",
+    "revision": "r4b",
+    "after": "review-assets/vulcan-blaze-r4b.webp",
+    "original_observation": "작은 원본의 얼굴·장갑 손과 저지 디테일을 식별하기 어려웠음",
+    "revision_focus": [
+      "성인 얼굴과 공을 쥔 손·검은 글러브를 큰 원화로 정리",
+      "단추 여밈과 번호 44를 한 곳으로 정돈",
+      "짧은 머리·주황/차콜 배색·실용적인 긴 유니폼 유지",
+      "추가 수정: 두꺼운 선과 매끈한 명암을 미세 픽셀 재질로 변경"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도."
+  },
+  {
+    "id": "jade-viper",
+    "name": "제이드 바이퍼",
+    "age": 28,
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "proposed_baseline",
+    "parts": "characters/jade-viper/parts.json",
+    "identity": "reference/jade-viper.png",
+    "rhythm": {
+      "windup": 1.0,
+      "legLift": 1.05,
+      "follow": 1.02
+    },
+    "before": "before/jade-viper-identity.webp",
+    "revision": "r4b",
+    "after": "review-assets/jade-viper-r4b.webp",
+    "original_observation": "글러브 손목·공의 그립과 강한 피부 광택을 정리할 필요가 있었음",
+    "revision_focus": [
+      "오른손 공과 왼쪽 검정 글러브의 연결 정리",
+      "벨트·단추·쇼츠 옆선과 팔·무릎 명암 정리",
+      "초록 앞머리·금색 뱀 표식·강한 체형 유지",
+      "추가 수정: 긴 피부 반사 띠를 줄이고 픽셀 명암으로 정리"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도."
+  },
+  {
+    "id": "copper-sirocco",
+    "name": "코퍼 시로코",
+    "age": 29,
+    "hand": "right",
+    "style": "overhand",
+    "styleStatus": "source_defined",
+    "parts": "characters/copper-sirocco/parts.json",
+    "identity": "reference/copper-sirocco.png",
+    "rhythm": {
+      "windup": 1.025,
+      "legLift": 1.1,
+      "follow": 1.04
+    },
+    "before": "before/copper-sirocco-identity.webp",
+    "revision": "r4a",
+    "after": "review-assets/copper-sirocco-r4a.webp",
+    "original_observation": "머리 컬과 어깨·유니폼 여밈, 손의 세부 연결을 정리할 필요가 있었음",
+    "revision_focus": [
+      "구릿빛 컬을 묶음 단위로 정리해 어깨 경계 확보",
+      "공의 그립·왼쪽 글러브 손목·셔츠와 벨트 정리",
+      "주근깨·차콜/코퍼 배색·흰 쇼츠 유지"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도. 상하 여백이 좁아 스프라이트 패킹 전 여백 보완 필요."
+  },
+  {
+    "id": "onyx-eclipse",
+    "name": "오닉스 이클립스",
+    "age": 26,
+    "hand": "left",
+    "style": "three-quarter",
+    "styleStatus": "source_defined",
+    "parts": "characters/onyx-eclipse/parts.json",
+    "identity": "reference/onyx-eclipse.jpg",
+    "rhythm": {
+      "windup": 1.05,
+      "legLift": 1.0,
+      "follow": 1.06
+    },
+    "before": "before/onyx-eclipse-identity.webp",
+    "revision": "r4b",
+    "after": "review-assets/onyx-eclipse-r4b.webp",
+    "original_observation": "좌완과 오른손 글러브를 유지하면서 경기장 배경을 분리해야 했음",
+    "revision_focus": [
+      "왼손 공+보라 소매, 오른손 검정 글러브 방향 유지",
+      "은색/보라 포니테일·팔·손목 실루엣 정리",
+      "일식 문양·금색 배색·검은 긴 바지 유지",
+      "추가 수정: 두꺼운 선과 매끈한 명암을 미세 픽셀 재질로 변경"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도."
+  },
+  {
+    "id": "emerald-tempest",
+    "name": "에메랄드 템페스트",
+    "age": 27,
+    "hand": "right",
+    "style": "high-overhand",
+    "styleStatus": "source_defined",
+    "parts": "characters/emerald-tempest/parts.json",
+    "identity": "reference/emerald-tempest.jpg",
+    "rhythm": {
+      "windup": 1.075,
+      "legLift": 1.05,
+      "follow": 1.08
+    },
+    "before": "before/emerald-tempest-identity.webp",
+    "revision": "r4b",
+    "after": "review-assets/emerald-tempest-r4b.webp",
+    "original_observation": "경기장 배경과 줄무늬·장비 손목의 디테일을 정리해야 했음",
+    "revision_focus": [
+      "단일 투명 전신 원화로 분리",
+      "오른손 초록 소매+공, 왼손 아이보리 글러브 유지",
+      "왕관 모자·금발/초록 머리·세로줄 긴 바지 유지",
+      "추가 수정: 두꺼운 선과 매끈한 명암을 미세 픽셀 재질로 변경"
+    ],
+    "status": "concept_candidate",
+    "review_note": "손잡이·장비·얼굴/의상 유지와 실제 알파를 시각 점검. 최종 픽셀 스프라이트·모션·게임 카메라 승인은 별도."
+  }
+]

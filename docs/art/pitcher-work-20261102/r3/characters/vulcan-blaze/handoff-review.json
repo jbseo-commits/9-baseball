@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "id": "vulcan-blaze",
+  "inputManifest": "traditional/characters/vulcan-blaze/sequence.json",
+  "status": "candidate_generated_needs_visual_review",
+  "reason": "Automated geometric and pixel checks passed; visual approval remains required.",
+  "releaseFrame": 76,
+  "derivedFrame": 76,
+  "checks": {
+    "automaticWrist": {
+      "method": "minimum opaque cross-section along elbow-to-CV-wrist axis",
+      "widthPx": 13.5,
+      "forearmMedianWidthPx": 17.5,
+      "t": 0.8700000000000004
+    },
+    "heldFrame": 75,
+    "heldPoseId": "authored-75",
+    "registeredWrist": {
+      "x": 98.47158240648987,
+      "y": 72.53270107260028
+    },
+    "registeredElbow": {
+      "x": 108.56354289561868,
+      "y": 85.26546788309838
+    },
+    "ballSocket": {
+      "x": 90.36492337021174,
+      "y": 63.757650523284944
+    },
+    "ballRadius": 4.111579848859737,
+    "ballMaskRadius": 10,
+    "handLocalDistalHalfPlane": true,
+    "handLocalRadiusPx": 23.946523882431624,
+    "removedHandPixels": 438,
+    "residualWhiteCleanup": {
+      "roiRadiusPx": 20.05810373129136,
+      "removedComponents": []
+    },
+    "guardRadius": 34,
+    "comparison": "final derived RGBA vs preserved original held RGBA",
+    "bodyOutsideHandDifferingChannels": 0,
+    "emptyHandSource": "source/vulcan-blaze-b.png",
+    "emptyHandManualOverride": false,
+    "socketError": 0,
+    "timelineEntries": 24,
+    "directSourceDrawingCount": 22,
+    "sourceEdgeTouchReviewFrames": [
+      {
+        "frame": 0,
+        "poseId": "authored-0",
+        "source": "source/vulcan-blaze-a.png"
+      },
+      {
+        "frame": 20,
+        "poseId": "authored-20",
+        "source": "source/vulcan-blaze-a.png"
+      }
+    ],
+    "explicitlyExcludedFrames": []
+  },
+  "outputManifest": "/workspace/9zone-roster-rebuild-20261031/traditional/characters/vulcan-blaze/sequence-release-matched.json",
+  "outputDrawing": "poses/076-matched-empty.png"
+}

@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "id": "regular-03-amber-sinker",
+  "inputManifest": "traditional/characters/regular-03-amber-sinker/sequence.json",
+  "status": "candidate_generated_needs_visual_review",
+  "reason": "Automated geometric and pixel checks passed; visual approval remains required.",
+  "releaseFrame": 76,
+  "derivedFrame": 76,
+  "checks": {
+    "automaticWrist": {
+      "method": "minimum opaque cross-section along elbow-to-CV-wrist axis",
+      "widthPx": 11,
+      "forearmMedianWidthPx": 17.5,
+      "t": 0.8700000000000004
+    },
+    "heldFrame": 75,
+    "heldPoseId": "authored-75",
+    "registeredWrist": {
+      "x": 68.95176021886326,
+      "y": 84.8302632215732
+    },
+    "registeredElbow": {
+      "x": 84.74553495065771,
+      "y": 89.12091963671764
+    },
+    "ballSocket": {
+      "x": 49.608983579079904,
+      "y": 81.01241215688896
+    },
+    "ballRadius": 6.161960503580548,
+    "ballMaskRadius": 10,
+    "handLocalDistalHalfPlane": true,
+    "handLocalRadiusPx": 31.715957873982667,
+    "removedHandPixels": 453,
+    "residualWhiteCleanup": {
+      "roiRadiusPx": 29.877918377563216,
+      "removedComponents": [
+        {
+          "area": 1,
+          "center": {
+            "x": 50.5,
+            "y": 80.5
+          },
+          "kind": "low-opacity neutral-white residue"
+        },
+        {
+          "area": 1,
+          "center": {
+            "x": 69.5,
+            "y": 93.5
+          },
+          "kind": "low-opacity neutral-white residue"
+        }
+      ]
+    },
+    "guardRadius": 34,
+    "comparison": "final derived RGBA vs preserved original held RGBA",
+    "bodyOutsideHandDifferingChannels": 0,
+    "emptyHandSource": "source/regular-03-amber-sinker-b.png",
+    "emptyHandManualOverride": false,
+    "socketError": 0,
+    "timelineEntries": 23,
+    "directSourceDrawingCount": 21,
+    "sourceEdgeTouchReviewFrames": [
+      {
+        "frame": 0,
+        "poseId": "authored-0",
+        "source": "source/regular-03-amber-sinker-a.png"
+      },
+      {
+        "frame": 10,
+        "poseId": "authored-10",
+        "source": "source/regular-03-amber-sinker-a.png"
+      },
+      {
+        "frame": 20,
+        "poseId": "authored-20",
+        "source": "source/regular-03-amber-sinker-a.png"
+      },
+      {
+        "frame": 34,
+        "poseId": "authored-34",
+        "source": "source/regular-03-amber-sinker-a.png"
+      },
+      {
+        "frame": 50,
+        "poseId": "authored-50",
+        "source": "source/regular-03-amber-sinker-a.png"
+      },
+      {
+        "frame": 70,
+        "poseId": "authored-70",
+        "source": "source/regular-03-amber-sinker-b.png"
+      },
+      {
+        "frame": 84,
+        "poseId": "authored-84",
+        "source": "source/regular-03-amber-sinker-b.png"
+      }
+    ],
+    "explicitlyExcludedFrames": [
+      64
+    ]
+  },
+  "outputManifest": "/workspace/9zone-roster-rebuild-20261031/traditional/characters/regular-03-amber-sinker/sequence-release-matched.json",
+  "outputDrawing": "poses/076-matched-empty.png"
+}

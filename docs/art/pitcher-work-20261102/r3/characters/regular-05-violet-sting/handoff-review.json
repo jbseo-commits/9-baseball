@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "id": "regular-05-violet-sting",
+  "inputManifest": "traditional/characters/regular-05-violet-sting/sequence.json",
+  "status": "candidate_generated_needs_visual_review",
+  "reason": "Automated geometric and pixel checks passed; visual approval remains required.",
+  "releaseFrame": 76,
+  "derivedFrame": 76,
+  "checks": {
+    "automaticWrist": {
+      "method": "minimum opaque cross-section along elbow-to-CV-wrist axis",
+      "widthPx": 9.5,
+      "forearmMedianWidthPx": 15,
+      "t": 0.9100000000000005
+    },
+    "heldFrame": 75,
+    "heldPoseId": "authored-75",
+    "registeredWrist": {
+      "x": 90.2160872786844,
+      "y": 92.74239955727214
+    },
+    "registeredElbow": {
+      "x": 108.23520969936845,
+      "y": 97.28124942939439
+    },
+    "ballSocket": {
+      "x": 77.6277817524333,
+      "y": 91.88813019111468
+    },
+    "ballRadius": 3.016943398876041,
+    "ballMaskRadius": 10,
+    "handLocalDistalHalfPlane": true,
+    "handLocalRadiusPx": 24.61725850461181,
+    "removedHandPixels": 356,
+    "residualWhiteCleanup": {
+      "roiRadiusPx": 19.634201903487856,
+      "removedComponents": []
+    },
+    "guardRadius": 34,
+    "comparison": "final derived RGBA vs preserved original held RGBA",
+    "bodyOutsideHandDifferingChannels": 0,
+    "emptyHandSource": "source/regular-05-violet-sting-b.png",
+    "emptyHandManualOverride": false,
+    "socketError": 0,
+    "timelineEntries": 24,
+    "directSourceDrawingCount": 22,
+    "sourceEdgeTouchReviewFrames": [],
+    "explicitlyExcludedFrames": []
+  },
+  "outputManifest": "/workspace/9zone-roster-rebuild-20261031/traditional/characters/regular-05-violet-sting/sequence-release-matched.json",
+  "outputDrawing": "poses/076-matched-empty.png"
+}

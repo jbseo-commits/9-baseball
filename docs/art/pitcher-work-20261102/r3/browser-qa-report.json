@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-10-31T08:36:01.154Z",
+  "gallery": "portable.html",
+  "reviewOnly": true,
+  "candidateCount": 20,
+  "chromium": {
+    "loadedSprites": 478,
+    "failedSprites": 0,
+    "pageErrors": 0,
+    "failedRequests": 0,
+    "scrubsChecked": 120,
+    "perCandidate": [
+      75,
+      76,
+      113
+    ],
+    "portraitHeights": [
+      130,
+      400
+    ],
+    "playbackFramesInApprox1050ms": {
+      "1x": 64,
+      "0.25x": 15
+    },
+    "allSelectorsPresent": true,
+    "releaseHandoff75To76": true
+  },
+  "notes": [
+    "Embedded portable gallery; no network assets required.",
+    "Tide Vesper excludes source frames 70 and 73; Amber Sinker excludes frame 64.",
+    "Emerald Tempest hand isolation uses manual cuff/palm control points [593,145] and [628,173] in source coordinates.",
+    "Visual approval remains pending; not applied to game.",
+    "Final refresh after Amber source spill matte: 20-character gallery loaded all 478 images; frames 50/84 at both 130px and 400px inspected.",
+    "Final Amber F084 lower hair strip cleanup verified at 130px and 400px after the 20-candidate gallery refresh."
+  ],
+  "amberPostRepair": {
+    "spritesLoaded": 478,
+    "spritesTotal": 478,
+    "failedSprites": 0,
+    "pageErrors": 0,
+    "failedRequests": 0,
+    "frames": [
+      50,
+      84
+    ],
+    "portraitHeights": [
+      130,
+      400
+    ],
+    "frame50And84VisuallyInspected": true,
+    "sourceSpillMatteRecorded": true,
+    "sourcePose64Excluded": true
+  },
+  "amberFinalSliverCorrection": {
+    "frame": 84,
+    "sourceClearRect": [
+      137,
+      231,
+      20,
+      18
+    ],
+    "characters": 20,
+    "loadedSprites": 478,
+    "failedSprites": 0,
+    "pageErrors": 0,
+    "failedRequests": 0,
+    "verifiedPortraitHeights": [
+      130,
+      400
+    ],
+    "status": "F084 / 119",
+    "visualInspection": true,
+    "priorScrubAndSpeedChecksRemainValid": true
+  }
+}

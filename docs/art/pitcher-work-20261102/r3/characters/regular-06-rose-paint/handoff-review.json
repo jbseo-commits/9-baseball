@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "id": "regular-06-rose-paint",
+  "inputManifest": "traditional/characters/regular-06-rose-paint/sequence.json",
+  "status": "candidate_generated_needs_visual_review",
+  "reason": "Automated geometric and pixel checks passed; visual approval remains required.",
+  "releaseFrame": 76,
+  "derivedFrame": 76,
+  "checks": {
+    "automaticWrist": {
+      "method": "minimum opaque cross-section along elbow-to-CV-wrist axis",
+      "widthPx": 13.5,
+      "forearmMedianWidthPx": 17.5,
+      "t": 0.9500000000000005
+    },
+    "heldFrame": 75,
+    "heldPoseId": "authored-75",
+    "registeredWrist": {
+      "x": 93.87007575997528,
+      "y": 64.69402592763802
+    },
+    "registeredElbow": {
+      "x": 108.19721211811824,
+      "y": 74.38328886529644
+    },
+    "ballSocket": {
+      "x": 87.25785585213515,
+      "y": 57.87426390896103
+    },
+    "ballRadius": 4.674480425530617,
+    "ballMaskRadius": 10,
+    "handLocalDistalHalfPlane": true,
+    "handLocalRadiusPx": 21.49897921363273,
+    "removedHandPixels": 396,
+    "residualWhiteCleanup": {
+      "roiRadiusPx": 18.173459639163347,
+      "removedComponents": []
+    },
+    "guardRadius": 34,
+    "comparison": "final derived RGBA vs preserved original held RGBA",
+    "bodyOutsideHandDifferingChannels": 0,
+    "emptyHandSource": "source/regular-06-rose-paint-b.png",
+    "emptyHandManualOverride": false,
+    "socketError": 0,
+    "timelineEntries": 24,
+    "directSourceDrawingCount": 22,
+    "sourceEdgeTouchReviewFrames": [
+      {
+        "frame": 57,
+        "poseId": "authored-57",
+        "source": "traditional/source/regular-06-rose-paint-a.png"
+      },
+      {
+        "frame": 68,
+        "poseId": "authored-68",
+        "source": "traditional/source/regular-06-rose-paint-a.png"
+      }
+    ],
+    "explicitlyExcludedFrames": []
+  },
+  "outputManifest": "/workspace/9zone-roster-rebuild-20261031/traditional/characters/regular-06-rose-paint/sequence-release-matched.json",
+  "outputDrawing": "poses/076-matched-empty.png"
+}

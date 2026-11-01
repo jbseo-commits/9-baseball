@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "id": "copper-sirocco",
+  "inputManifest": "traditional/characters/copper-sirocco/sequence.json",
+  "status": "candidate_generated_needs_visual_review",
+  "reason": "Automated geometric and pixel checks passed; visual approval remains required.",
+  "releaseFrame": 76,
+  "derivedFrame": 76,
+  "checks": {
+    "automaticWrist": {
+      "method": "minimum opaque cross-section along elbow-to-CV-wrist axis",
+      "widthPx": 12,
+      "forearmMedianWidthPx": 31,
+      "t": 0.8900000000000005
+    },
+    "heldFrame": 75,
+    "heldPoseId": "authored-75",
+    "registeredWrist": {
+      "x": 104.52801600791166,
+      "y": 60.46745453356249
+    },
+    "registeredElbow": {
+      "x": 114.49273678058427,
+      "y": 72.864946857363
+    },
+    "ballSocket": {
+      "x": 97.9929366954575,
+      "y": 50.20510074668266
+    },
+    "ballRadius": 1.9170718659810384,
+    "ballMaskRadius": 10,
+    "handLocalDistalHalfPlane": true,
+    "handLocalRadiusPx": 24.166477175713318,
+    "removedHandPixels": 421,
+    "residualWhiteCleanup": {
+      "roiRadiusPx": 18.083549041694354,
+      "removedComponents": [
+        {
+          "area": 1,
+          "center": {
+            "x": 99.5,
+            "y": 49.5
+          },
+          "kind": "low-opacity neutral-white residue"
+        },
+        {
+          "area": 1,
+          "center": {
+            "x": 101.5,
+            "y": 51.5
+          },
+          "kind": "low-opacity neutral-white residue"
+        }
+      ]
+    },
+    "guardRadius": 34,
+    "comparison": "final derived RGBA vs preserved original held RGBA",
+    "bodyOutsideHandDifferingChannels": 0,
+    "emptyHandSource": "source/copper-sirocco-b.png",
+    "emptyHandManualOverride": false,
+    "socketError": 0,
+    "timelineEntries": 24,
+    "directSourceDrawingCount": 22,
+    "sourceEdgeTouchReviewFrames": [],
+    "explicitlyExcludedFrames": []
+  },
+  "outputManifest": "/workspace/9zone-roster-rebuild-20261031/traditional/characters/copper-sirocco/sequence-release-matched.json",
+  "outputDrawing": "poses/076-matched-empty.png"
+}
