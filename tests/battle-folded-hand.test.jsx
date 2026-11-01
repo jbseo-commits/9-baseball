@@ -1,4 +1,5 @@
 // @vitest-environment happy-dom
+// @vitest-environment-options {"happyDOM":{"width":1024,"height":768}}
 import React from 'react';
 import {render,screen,fireEvent,cleanup,act} from '@testing-library/react';
 import {afterEach,beforeEach,it,expect,vi} from 'vitest';

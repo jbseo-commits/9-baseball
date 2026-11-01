@@ -3,8 +3,8 @@ import fs from 'node:fs';
 import {layoutMode,watchLayoutMode,landscapeMedia,PHONE_SIDEWAYS,PORTRAIT_ONLY} from '../src/duel/layout-mode.js';
 
 /* a fake window: which media queries match, and whether it sits inside a frame */
-const win=({landscape=false,sideways=false,framed=false}={})=>{
-  const w={matchMedia:q=>({matches:q===PHONE_SIDEWAYS?sideways:q==='(orientation: landscape)'?landscape:false})};
+const win=({landscape=false,sideways=false,framed=false,search=''}={})=>{
+  const w={location:{search},matchMedia:q=>({matches:q===PHONE_SIDEWAYS?sideways:q==='(orientation: landscape)'?landscape:false})};
   w.self=w;w.top=framed?{}:w;return w;
 };
 
@@ -15,9 +15,10 @@ describe('portrait-only layout (2026-09-28)',()=>{
   });
 
   it('a wide window plays the phone layout in a portrait frame; phones and the frame itself run the game',()=>{
-    expect(layoutMode(win({landscape:true}))).toBe('frame');              // desktop / tablet sideways
+    expect(layoutMode(win({landscape:true}))).toBe('app');                // desktop / tablet sideways: new landscape battle (2026-11-01)
+    expect(layoutMode(win({landscape:true,search:'?battleUi=legacy'}))).toBe('frame'); // legacy chosen: the phone layout in a portrait frame
     expect(layoutMode(win({landscape:false}))).toBe('app');               // phone upright
-    expect(layoutMode(win({landscape:true,sideways:true}))).toBe('app');  // phone sideways: app + rotate hint
+    expect(layoutMode(win({landscape:true,sideways:true}))).toBe('app');  // phone sideways: app (new screen; the rotate hint only with legacy)
     expect(layoutMode(win({landscape:true,framed:true}))).toBe('app');    // inside the frame: no recursion
   });
 
@@ -36,9 +37,9 @@ describe('portrait-only layout (2026-09-28)',()=>{
     expect(main).toContain('layoutMode() === "frame" ? <PortraitFrame />');
   });
 
-  it('the app reloads into the frame when its window turns wide — a landscape layout never shows',()=>{
+  it('the app reloads when its window turns, so the screen for the new orientation takes over',()=>{
     let landscape=false,listener=null,reloads=0;
-    const w={matchMedia:q=>({matches:q==='(orientation: landscape)'?landscape:false,addEventListener:(_,f)=>{listener=f;},removeEventListener(){}}),location:{reload:()=>reloads++}};
+    const w={matchMedia:q=>({matches:q==='(orientation: landscape)'?landscape:false,addEventListener:(_,f)=>{listener=f;},removeEventListener(){}}),location:{search:'',reload:()=>reloads++}};
     w.self=w;w.top=w;
     watchLayoutMode(w);
     expect(listener).toBeTypeOf('function');

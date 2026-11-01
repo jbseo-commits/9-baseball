@@ -6,6 +6,9 @@ export default defineConfig({
   base: process.env.VITE_BASE || (process.env.GITHUB_ACTIONS === "true" ? "/9-baseball/" : "/"),
   // ships the heavy PNGs as sized WebP derivatives (scripts/optimize-runtime-art.py)
   plugins: [runtimeArt(),variableFonts()],
+  // Tests render as a phone held upright (the legacy screen). Landscape now opens the new battle
+  // screen by default (battle-ui-mode.js), so a landscape test sets its own window or matchMedia.
+  test: { environmentOptions: { happyDOM: { width: 390, height: 844 } } },
   // CSS resources resolve from the stylesheet, including public fonts. Avoid
   // repeating long Pages preview prefixes hundreds of times; JS/HTML keep base.
   experimental: {

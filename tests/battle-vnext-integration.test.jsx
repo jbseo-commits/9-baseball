@@ -32,7 +32,10 @@ describe('C05 isolated query and view gate',()=>{
     const on=vi.fn(),reload=vi.fn(),win={location:{search:'?battleUi=vnext',reload},matchMedia:q=>({matches:q==='(orientation: landscape)',addEventListener:on})};
     win.self=win;win.top=win;
     expect(layoutMode(win)).toBe('app');watchLayoutMode(win);expect(on).not.toHaveBeenCalled();
-    win.location.search='';expect(layoutMode(win)).toBe('frame');expect(landscapeMedia().matches).toBe(false);
+    win.location.search='';expect(layoutMode(win)).toBe('app');expect(battleUiMode('',win)).toEqual({vnext:true,fixture:null}); // landscape: new screen by default
+    win.location.search='?battleUi=legacy';expect(layoutMode(win)).toBe('frame');expect(battleUiMode('?battleUi=legacy',win).vnext).toBe(false);
+    expect(battleUiMode('',{matchMedia:()=>({matches:false})}).vnext).toBe(false); // portrait keeps the legacy screen
+    expect(landscapeMedia().matches).toBe(false);
   });
   it('renders exactly one complete legacy view for a real unapproved opponent',()=>{
     open('swing-main',{vnextReview:null});
