@@ -7,6 +7,8 @@ import * as bulletImpact from '../vendor/pixelfx/fx/impacts/bullet-impact.js';
 import * as critHit from '../vendor/pixelfx/fx/impacts/crit-hit.js';
 import * as damageNumber from '../vendor/pixelfx/fx/ui/damage-number.js';
 import * as critNumber from '../vendor/pixelfx/fx/ui/crit-number.js';
+import * as hitSpark from '../vendor/pixelfx/fx/impacts/hit-spark.js';
+import * as cartoonPow from '../vendor/pixelfx/fx/explosions/cartoon-pow.js';
 import {cardFxSuppressed} from './card-fx.js';
 
 /* 9ZONE 팔레트: 빗나감은 흙빛 파편(내야 흙), 명중은 금빛(에너지 구슬·HP 피해와 같은 계열) */
@@ -23,13 +25,13 @@ function layer(){
 }
 
 /* pin = 프레임에서 기준 요소 한가운데에 놓일 점, at = 효과의 원점(없으면 충돌점이 pin에 오도록 height만큼 아래) */
-function playOne(cell,look,flip=false,extra={}){
+function playOne(cell,look,flip=false,extra={},[dx,dy]=[0,0]){
   const r=cell.getBoundingClientRect(),{w,h,scale:S}=look,[px,py]=look.pin||[w/2,h/2],[ax,ay]=look.at||[Math.round(w/2),Math.round(h/2)+look.height];
   const cv=document.createElement('canvas');cv.width=w;cv.height=h;
   const ctx=cv.getContext?.('2d');if(!ctx)return false;
   Object.assign(cv.style,{position:'fixed',width:w*S+'px',height:h*S+'px',imageRendering:'pixelated',pointerEvents:'none',
     /* 화면 밖으로 잘리지 않게 가로만 안쪽으로 당긴다(세로는 기준 요소에 붙어 있어야 읽힌다) */
-    left:Math.round(Math.max(4,Math.min((window.innerWidth||1e4)-w*S-4,r.left+r.width/2-px*S)))+'px',top:Math.round(r.top+r.height/2-py*S)+'px'});
+    left:Math.round(look.free?r.left+r.width/2+dx-px*S:Math.max(4,Math.min((window.innerWidth||1e4)-w*S-4,r.left+r.width/2+dx-px*S)))+'px',top:Math.round(r.top+r.height/2+dy-py*S)+'px'});
   layer().appendChild(cv);
   /* 효과의 원점은 바닥, 충돌점은 height 위. 충돌점이 칸 한가운데 오도록 원점을 내린다. */
   const fx=createFx(look.mod,{...look.opts,...extra,flip,x:ax,y:ay,...(look.height?{height:look.height}:{})});
@@ -63,8 +65,30 @@ export const DAMAGE_PIXEL_LOOKS=Object.freeze({
   normal:{mod:damageNumber,scale:2,w:76,h:68,pin:[30,40],at:[30,52],max:1.05,opts:{seed:2}},
   crit:{mod:critNumber,scale:2,w:152,h:120,pin:[76,60],at:[76,60],max:1.5,opts:{label:'SNIPE',seed:3}},
 });
-export function playPixelDamage(damage,crit=false,root=document){
+/* 강판(HP 0): 피해 숫자 대신 만화식 폭발 'KO!'. 강판 컷인 카드가 뜨면 그 왼쪽 투수 그림 위에서 터진다
+   (카드 머리글 'PITCHER KNOCKED OUT'과 판정 글자를 가리지 않게. 판정 글자 상자 기준 왼쪽, 화면 밖으로 조금 나가도 된다). 카드가 늦게 뜨면 0.3초까지 기다린다. */
+export const KO_PIXEL_LOOK=Object.freeze({mod:cartoonPow,scale:2,free:true,w:184,h:144,pin:[92,72],at:[92,72],max:1.05,opts:{text:'KO!',seed:5}});
+export function playPixelDamage(damage,crit=false,root=document,{ko=false}={}){
   if(cardFxSuppressed()||!(damage>0)||typeof requestAnimationFrame!=='function')return false;
   const anchor=root.querySelector?.('.bp-pitcher');if(!anchor?.getBoundingClientRect)return false;
+  if(ko){
+    let tries=0;
+    const go=()=>{const card=root.querySelector?.('.bp-verdict.knockout');
+      if(card?.getBoundingClientRect){const r=card.getBoundingClientRect();playOne(card,KO_PIXEL_LOOK,false,{},[-r.width*.62,-r.height*.1]);return;}
+      if(++tries<18)requestAnimationFrame(go);else playOne(anchor,KO_PIXEL_LOOK);};
+    go();return true;
+  }
   return playOne(anchor,crit?DAMAGE_PIXEL_LOOKS.crit:DAMAGE_PIXEL_LOOKS.normal,false,{text:'-'+Math.round(damage)+(crit?'!':'')});
 }
+
+/* 빗나간 한 발이 켠 스트라이크 칸: 그 불빛에서 붉은 불꽃이 튄다 */
+export const STRIKE_PIXEL_LOOK=Object.freeze({mod:hitSpark,scale:2,w:56,h:40,height:10,max:.5,
+  opts:{palette:['#3a0a0a','#8c1420','#d42a2e','#ff5a4a','#ff9a86','#ffd8cc','#ffffff'],seed:4}});
+export function playPixelStrike(strikes,root=document){
+  if(cardFxSuppressed()||!(strikes>0)||typeof requestAnimationFrame!=='function')return false;
+  const led=root.querySelectorAll?.('.bp-bso-unit.s .bp-bso-leds i')?.[strikes-1];
+  return led?.getBoundingClientRect?playOne(led,STRIKE_PIXEL_LOOK):false;
+}
+
+/* 전투 화면을 떠나면 남은 조각을 지운다(보상 화면 위에 불꽃 꼬리가 남지 않게) */
+export function clearPixelFx(){document.getElementById('shot-pixelfx-layer')?.replaceChildren();}

@@ -38,7 +38,7 @@ import StackRouteEcho from './StackRouteEcho.jsx';
 import BattleReadout from './BattleReadout.jsx';
 import BallparkBattle from './BallparkBattle.jsx';
 import {setCardFxSound,playShot,shotSound} from './card-fx.js';
-import {playPixelShot,playPixelDamage} from './shot-pixelfx.js';
+import {playPixelShot,playPixelDamage,playPixelStrike,clearPixelFx} from './shot-pixelfx.js';
 import {v10ShotMode} from './engine.js';
 import HomerunVideo,{isHomerVideoEligible} from './HomerunVideo.jsx';
 /* the main-run batter is the V15 target-mockup hero (batter-v15.js); the V14 3x3 sheet stays BallparkBattle's default */
@@ -877,12 +877,13 @@ export default function Duel(){
   const toggleShotFx=()=>setShotFx(v=>{const n=v==='css'?'pixel':'css';try{localStorage.setItem(SHOT_FX_KEY,n)}catch{}return n;});
   const shotFxRef=useRef(shotFx);shotFxRef.current=shotFx;
   const fireShot=(zones,hitZone=null)=>{if(shotFxRef.current==='css'){playShot(zones,hitZone);return;}if(playPixelShot(zones,hitZone))shotSound(hitZone);};
+  useEffect(()=>{if(s?.phase!=='battle'&&s?.phase!=='pitch'&&s?.phase!=='between')clearPixelFx();},[s?.phase]);
   /* 사격 모드 · 픽셀 연출: 명중의 타격 순간(fxStage impact)에 투수 위로 피해 숫자 */
   useEffect(()=>{
     if(fxStage!=='impact'||shotFxRef.current!=='pixel')return;
     const x=current.current,c=x?.v10?.lastCombat;
     if(!v10ShotMode(x)||x.battle?.revealed?.kind!=='hit'||!(c?.damage>0))return;
-    playPixelDamage(c.damage,(c.shotRate||1)>1);
+    playPixelDamage(c.damage,(c.shotRate||1)>1,document,{ko:x.pitcher?.hp<=0});
   },[fxStage]);
   const toggleShotMode=()=>setShotMode(v=>{try{localStorage.setItem(SHOT_MODE_KEY,v?'0':'1')}catch{}return !v;});
   useEffect(()=>{const x=current.current;
@@ -1036,7 +1037,7 @@ export default function Duel(){
     /* 사격 모드: 빗나간 한 발은 공이 진행되지 않는다. 판정 연출 없이 칸이 뚫리는 순간만 보여준다. */
     if(next.last?.kind==='shot'&&next.stats?.pitches===current.current.stats?.pitches){
       setSelected(null);setSwingStack([]);setStackEdit(null);setDecisionMode(null);persist(next);
-      requestAnimationFrame(()=>fireShot(next.last.shot?.zones));return;
+      requestAnimationFrame(()=>{fireShot(next.last.shot?.zones);if(shotFxRef.current==='pixel')playPixelStrike(next.battle?.strikes);});return;
     }
     const shotHit=animate&&v10ShotMode(next)&&next.battle?.revealed?.kind==='hit'?next.battle.revealed:null;
     if(shotHit)requestAnimationFrame(()=>fireShot(shotHit.coverage,shotHit.zone));

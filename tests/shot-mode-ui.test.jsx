@@ -67,6 +67,10 @@ describe('사격 연출 · pixelfx',()=>{
     const {playPixelDamage,DAMAGE_PIXEL_LOOKS}=await import('../src/duel/shot-pixelfx.js');
     expect(playPixelDamage(12,false)).toBe(false); // no pitcher on screen: nothing to anchor to
     expect(DAMAGE_PIXEL_LOOKS.crit.opts.label).toBe('SNIPE');
+    const {playPixelStrike,KO_PIXEL_LOOK,STRIKE_PIXEL_LOOK,clearPixelFx}=await import('../src/duel/shot-pixelfx.js');
+    expect(playPixelStrike(1)).toBe(false); // no count LEDs on screen
+    expect(KO_PIXEL_LOOK.opts.text).toBe('KO!');expect(STRIKE_PIXEL_LOOK.max).toBeLessThanOrEqual(.5);
+    expect(()=>clearPixelFx()).not.toThrow();
   });
 
   it('the setting switches between the pixel effect and the old flash and is remembered',()=>{
