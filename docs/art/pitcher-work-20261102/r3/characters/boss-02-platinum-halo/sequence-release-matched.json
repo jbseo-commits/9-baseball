@@ -1,0 +1,5355 @@
+{
+  "id": "boss-02-platinum-halo",
+  "name": "플래티넘 헤일로",
+  "hand": "right",
+  "style": "overhand",
+  "canvas": [
+    256,
+    256
+  ],
+  "anchor": {
+    "x": 128,
+    "y": 238
+  },
+  "characterHeightPixels": 180,
+  "frameCount": 120,
+  "fps": 60,
+  "releaseFrame": 76,
+  "ballResetFrame": 110,
+  "outputHeights": [
+    130,
+    400
+  ],
+  "authoredDrawingCount": 24,
+  "sourceDrawingCount": 24,
+  "status": "traditional_release_handoff_candidate_NOT_ART_APPROVED",
+  "previewBackground": "../../../reference/stadium.avif",
+  "foregroundBatter": "../../../reference/batter-ready.avif",
+  "cameraLayout": {
+    "world": {
+      "width": 1672,
+      "height": 941
+    },
+    "landmarks": {
+      "home": {
+        "x": 834,
+        "y": 874
+      },
+      "mound": {
+        "x": 834,
+        "y": 536
+      }
+    },
+    "actors": {
+      "batter": {
+        "worldFoot": {
+          "x": 200,
+          "y": 960
+        },
+        "worldHeight": 1200
+      },
+      "pitcher": {
+        "worldFoot": {
+          "x": 834,
+          "y": 536
+        },
+        "worldHeight": 376.4705882352941
+      }
+    },
+    "camera": {
+      "focalX": 0.5,
+      "zoneWorldSize": 300,
+      "minZoneSize": 138,
+      "bottomReserve": 18,
+      "zoneGap": 12
+    },
+    "scope": "Foreground batter intentionally extends below viewport; all atlas source drawings remain complete. Sample preview only; real roster approval unchanged."
+  },
+  "drawings": [
+    {
+      "frame": 0,
+      "poseId": "authored-0",
+      "authored": true,
+      "src": "poses/000.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 112,
+        "y": 49,
+        "width": 101,
+        "height": 180
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 154.8073918269231,
+        "y": 114.890625
+      },
+      "ballRadius": 3.8671875,
+      "sourceRecord": {
+        "frame": 0,
+        "group": "base-a",
+        "source": "source/boss-02-platinum-halo-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          168,
+          9,
+          287,
+          512
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 512,
+        "referenceWorldHeight": 180,
+        "foot": [
+          189.5,
+          518
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 322.75,
+            "y": 66.25,
+            "confidence": 0.7163381576538086
+          },
+          "leftEye": {
+            "x": 326.5,
+            "y": 56.25,
+            "confidence": 0.7826714515686035
+          },
+          "rightEye": {
+            "x": 310.25,
+            "y": 56.25,
+            "confidence": 0.7681225538253784
+          },
+          "leftEar": {
+            "x": 334,
+            "y": 63.75,
+            "confidence": 0.757145881652832
+          },
+          "rightEar": {
+            "x": 285.25,
+            "y": 63.75,
+            "confidence": 0.8142666816711426
+          },
+          "leftShoulder": {
+            "x": 350.25,
+            "y": 117.5,
+            "confidence": 0.8170862197875977
+          },
+          "rightShoulder": {
+            "x": 261.5,
+            "y": 125,
+            "confidence": 0.8127950429916382
+          },
+          "leftElbow": {
+            "x": 370.25,
+            "y": 191.25,
+            "confidence": 0.8507283926010132
+          },
+          "rightElbow": {
+            "x": 239,
+            "y": 197.5,
+            "confidence": 0.8737274408340454
+          },
+          "leftWrist": {
+            "x": 329,
+            "y": 167.5,
+            "confidence": 0.7303956151008606
+          },
+          "rightWrist": {
+            "x": 274,
+            "y": 170,
+            "confidence": 0.7373653650283813
+          },
+          "leftHip": {
+            "x": 341.5,
+            "y": 241.25,
+            "confidence": 0.7428607940673828
+          },
+          "rightHip": {
+            "x": 279,
+            "y": 243.75,
+            "confidence": 0.7494306564331055
+          },
+          "leftKnee": {
+            "x": 364,
+            "y": 346.25,
+            "confidence": 0.8655036687850952
+          },
+          "rightKnee": {
+            "x": 245.25,
+            "y": 348.75,
+            "confidence": 0.8376834392547607
+          },
+          "leftAnkle": {
+            "x": 406.5,
+            "y": 471.25,
+            "confidence": 0.885576605796814
+          },
+          "rightAnkle": {
+            "x": 206.5,
+            "y": 466.25,
+            "confidence": 0.8839629888534546
+          }
+        },
+        "ball": {
+          "x": 288.5076923076923,
+          "y": 196.26666666666665,
+          "radius": 11,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3515625,
+        "b": 0,
+        "c": 0,
+        "d": 0.3515625,
+        "e": 53.37890625,
+        "f": 45.890625
+      },
+      "control": null,
+      "uniformScale": 0.3515625,
+      "translation": {
+        "x": 53.37890625,
+        "y": 45.890625
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        189.5,
+        518
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 14950,
+        "mainPixels": 60881
+      }
+    },
+    {
+      "frame": 5,
+      "poseId": "authored-5",
+      "authored": true,
+      "src": "poses/005.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 104,
+        "y": 46,
+        "width": 99,
+        "height": 183
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 115.25235484088628,
+        "y": 90.95167178256035
+      },
+      "ballRadius": 1.8156464997861468,
+      "sourceRecord": {
+        "frame": 5,
+        "group": "bridge-a",
+        "source": "traditional/source/boss-02-platinum-halo-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          207,
+          9,
+          278,
+          510
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 510,
+        "referenceWorldHeight": 179.7652530670166,
+        "foot": [
+          295,
+          518
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 337.2841796875,
+            "y": 67.271484375,
+            "confidence": 0.7903532981872559
+          },
+          "leftEye": {
+            "x": 341.01953125,
+            "y": 57.310546875,
+            "confidence": 0.8116936087608337
+          },
+          "rightEye": {
+            "x": 326.078125,
+            "y": 58.5556640625,
+            "confidence": 0.8074913024902344
+          },
+          "leftEar": {
+            "x": 339.7744140625,
+            "y": 63.5361328125,
+            "confidence": 0.7623056173324585
+          },
+          "rightEar": {
+            "x": 294.9501953125,
+            "y": 62.291015625,
+            "confidence": 0.8139404654502869
+          },
+          "leftShoulder": {
+            "x": 348.490234375,
+            "y": 110.8505859375,
+            "confidence": 0.7808963060379028
+          },
+          "rightShoulder": {
+            "x": 265.0673828125,
+            "y": 114.5859375,
+            "confidence": 0.7694933414459229
+          },
+          "leftElbow": {
+            "x": 362.1865234375,
+            "y": 184.3125,
+            "confidence": 0.805975615978241
+          },
+          "rightElbow": {
+            "x": 217.7529296875,
+            "y": 184.3125,
+            "confidence": 0.7635750770568848
+          },
+          "leftWrist": {
+            "x": 298.685546875,
+            "y": 160.6552734375,
+            "confidence": 0.6181751489639282
+          },
+          "rightWrist": {
+            "x": 243.900390625,
+            "y": 161.900390625,
+            "confidence": 0.5732512474060059
+          },
+          "leftHip": {
+            "x": 341.01953125,
+            "y": 245.3232421875,
+            "confidence": 0.6698811054229736
+          },
+          "rightHip": {
+            "x": 298.685546875,
+            "y": 250.3037109375,
+            "confidence": 0.6213234663009644
+          },
+          "leftKnee": {
+            "x": 237.6748046875,
+            "y": 234.1171875,
+            "confidence": 0.790636420249939
+          },
+          "rightKnee": {
+            "x": 292.4599609375,
+            "y": 357.3837890625,
+            "confidence": 0.6485401391983032
+          },
+          "leftAnkle": {
+            "x": 296.1953125,
+            "y": 343.6875,
+            "confidence": 0.7428510785102844
+          },
+          "rightAnkle": {
+            "x": 319.8525390625,
+            "y": 468.19921875,
+            "confidence": 0.767958402633667
+          }
+        },
+        "ball": {
+          "x": 231.52777777777777,
+          "y": 146.08333333333334,
+          "radius": 5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.35959535057212394,
+        "b": 0.05053783072450537,
+        "c": -0.05053783072450537,
+        "d": 0.35959535057212394,
+        "e": 39.37877719537297,
+        "f": 26.719872678461684
+      },
+      "control": {
+        "frame": 5,
+        "joints": {
+          "nose": {
+            "x": 149.26886558532715,
+            "y": 68.3617000579834
+          },
+          "leftEye": {
+            "x": 150.1490592956543,
+            "y": 64.83577537536621
+          },
+          "rightEye": {
+            "x": 144.86145973205566,
+            "y": 65.27780342102051
+          },
+          "leftEar": {
+            "x": 151.24640464782715,
+            "y": 67.70123291015625
+          },
+          "rightEar": {
+            "x": 134.94157791137695,
+            "y": 67.9222469329834
+          },
+          "leftShoulder": {
+            "x": 155.2079200744629,
+            "y": 85.54800796508789
+          },
+          "rightShoulder": {
+            "x": 125.0204086303711,
+            "y": 88.85549354553223
+          },
+          "leftElbow": {
+            "x": 161.37571334838867,
+            "y": 111.7727165222168
+          },
+          "rightElbow": {
+            "x": 114.87693786621094,
+            "y": 113.97641944885254
+          },
+          "leftWrist": {
+            "x": 143.7370777130127,
+            "y": 104.06168746948242
+          },
+          "rightWrist": {
+            "x": 125.00753402709961,
+            "y": 104.50114059448242
+          },
+          "leftHip": {
+            "x": 155.65896034240723,
+            "y": 132.05450820922852
+          },
+          "rightHip": {
+            "x": 138.04221153259277,
+            "y": 134.48308753967285
+          },
+          "leftKnee": {
+            "x": 140.3858184814453,
+            "y": 149.40646934509277
+          },
+          "rightKnee": {
+            "x": 131.88858032226562,
+            "y": 171.72631072998047
+          },
+          "leftAnkle": {
+            "x": 159.34925079345703,
+            "y": 191.93342971801758
+          },
+          "rightAnkle": {
+            "x": 127.7292251586914,
+            "y": 210.2827434539795
+          }
+        },
+        "hip": {
+          "x": 146.8505859375,
+          "y": 133.26879787445068
+        },
+        "foot": {
+          "x": 120,
+          "y": 228
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.36312929995722937,
+          "referenceScale": 0.3524808883666992,
+          "appliedScale": 0.36312929995722937,
+          "desiredRotationDegrees": 10.990231860019456,
+          "appliedRotationDegrees": 8,
+          "hipControlError": 5.138138819906091
+        }
+      },
+      "uniformScale": 0.36312929995722937,
+      "translation": {
+        "x": 39.37877719537297,
+        "y": 26.719872678461684
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        297,
+        518
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 10202,
+        "mainPixels": 59452
+      }
+    },
+    {
+      "frame": 10,
+      "poseId": "authored-10",
+      "authored": true,
+      "src": "poses/010.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 88,
+        "y": 47,
+        "width": 86,
+        "height": 182
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 94.89225618131869,
+        "y": 100.87345467032966
+      },
+      "ballRadius": 4.39453125,
+      "sourceRecord": {
+        "frame": 10,
+        "group": "base-a",
+        "source": "source/boss-02-platinum-halo-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          666,
+          7,
+          244,
+          515
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 512,
+        "referenceWorldHeight": 180,
+        "foot": [
+          756,
+          521
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 789.25732421875,
+            "y": 64.58544921875,
+            "confidence": 0.8044332265853882
+          },
+          "leftEye": {
+            "x": 790.5146484375,
+            "y": 54.52685546875,
+            "confidence": 0.8348791599273682
+          },
+          "rightEye": {
+            "x": 776.68408203125,
+            "y": 57.04150390625,
+            "confidence": 0.8590927720069885
+          },
+          "leftEar": {
+            "x": 789.25732421875,
+            "y": 63.328125,
+            "confidence": 0.7367159128189087
+          },
+          "rightEar": {
+            "x": 745.2509765625,
+            "y": 64.58544921875,
+            "confidence": 0.8334530591964722
+          },
+          "leftShoulder": {
+            "x": 795.5439453125,
+            "y": 111.1064453125,
+            "confidence": 0.8159422874450684
+          },
+          "rightShoulder": {
+            "x": 712.560546875,
+            "y": 122.42236328125,
+            "confidence": 0.7867110967636108
+          },
+          "leftElbow": {
+            "x": 810.6318359375,
+            "y": 186.5458984375,
+            "confidence": 0.8605681657791138
+          },
+          "rightElbow": {
+            "x": 677.35546875,
+            "y": 192.83251953125,
+            "confidence": 0.8352980017662048
+          },
+          "leftWrist": {
+            "x": 751.53759765625,
+            "y": 166.4287109375,
+            "confidence": 0.7014577388763428
+          },
+          "rightWrist": {
+            "x": 699.9873046875,
+            "y": 166.4287109375,
+            "confidence": 0.5888767242431641
+          },
+          "leftHip": {
+            "x": 806.85986328125,
+            "y": 251.9267578125,
+            "confidence": 0.7054754495620728
+          },
+          "rightHip": {
+            "x": 769.14013671875,
+            "y": 263.24267578125,
+            "confidence": 0.6049336791038513
+          },
+          "leftKnee": {
+            "x": 697.47265625,
+            "y": 245.64013671875,
+            "confidence": 0.8669030666351318
+          },
+          "rightKnee": {
+            "x": 767.8828125,
+            "y": 370.115234375,
+            "confidence": 0.6760897636413574
+          },
+          "leftAnkle": {
+            "x": 762.853515625,
+            "y": 362.5712890625,
+            "confidence": 0.790711522102356
+          },
+          "rightAnkle": {
+            "x": 782.970703125,
+            "y": 471.95849609375,
+            "confidence": 0.7886303663253784
+          }
+        },
+        "ball": {
+          "x": 684.5824175824176,
+          "y": 159.39560439560438,
+          "radius": 12.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3515625,
+        "b": 0,
+        "c": 0,
+        "d": 0.3515625,
+        "e": -145.78125,
+        "f": 44.8359375
+      },
+      "control": null,
+      "uniformScale": 0.3515625,
+      "translation": {
+        "x": -145.78125,
+        "y": 44.8359375
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        756,
+        521
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 13301,
+        "mainPixels": 57402
+      }
+    },
+    {
+      "frame": 15,
+      "poseId": "authored-15",
+      "authored": true,
+      "src": "poses/015.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 87,
+        "y": 52,
+        "width": 100,
+        "height": 177
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 98.58022431764374,
+        "y": 106.59783523861567
+      },
+      "ballRadius": 1.3842000818682858,
+      "sourceRecord": {
+        "frame": 15,
+        "group": "bridge-a",
+        "source": "traditional/source/boss-02-platinum-halo-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          679,
+          10,
+          286,
+          509
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 510,
+        "referenceWorldHeight": 179.7652530670166,
+        "foot": [
+          756,
+          518
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 797.146484375,
+            "y": 74.37060546875,
+            "confidence": 0.7864829301834106
+          },
+          "leftEye": {
+            "x": 803.35986328125,
+            "y": 63.1865234375,
+            "confidence": 0.8326601982116699
+          },
+          "rightEye": {
+            "x": 783.47705078125,
+            "y": 63.1865234375,
+            "confidence": 0.7996207475662231
+          },
+          "leftEar": {
+            "x": 805.84521484375,
+            "y": 66.91455078125,
+            "confidence": 0.7904745936393738
+          },
+          "rightEar": {
+            "x": 752.41015625,
+            "y": 66.91455078125,
+            "confidence": 0.8471847772598267
+          },
+          "leftShoulder": {
+            "x": 807.087890625,
+            "y": 112.8935546875,
+            "confidence": 0.7861441373825073
+          },
+          "rightShoulder": {
+            "x": 730.0419921875,
+            "y": 126.56298828125,
+            "confidence": 0.7643769383430481
+          },
+          "leftElbow": {
+            "x": 831.94140625,
+            "y": 179.998046875,
+            "confidence": 0.8218271732330322
+          },
+          "rightElbow": {
+            "x": 691.51904296875,
+            "y": 183.72607421875,
+            "confidence": 0.7289036512374878
+          },
+          "leftWrist": {
+            "x": 763.59423828125,
+            "y": 163.84326171875,
+            "confidence": 0.6777434349060059
+          },
+          "rightWrist": {
+            "x": 717.615234375,
+            "y": 162.6005859375,
+            "confidence": 0.5857624411582947
+          },
+          "leftHip": {
+            "x": 812.05859375,
+            "y": 243.37451171875,
+            "confidence": 0.6523120403289795
+          },
+          "rightHip": {
+            "x": 769.8076171875,
+            "y": 254.55859375,
+            "confidence": 0.5845276117324829
+          },
+          "leftKnee": {
+            "x": 705.1884765625,
+            "y": 216.03564453125,
+            "confidence": 0.8111315369606018
+          },
+          "rightKnee": {
+            "x": 758.62353515625,
+            "y": 352.72998046875,
+            "confidence": 0.6685958504676819
+          },
+          "leftAnkle": {
+            "x": 759.8662109375,
+            "y": 319.177734375,
+            "confidence": 0.6685119867324829
+          },
+          "rightAnkle": {
+            "x": 782.234375,
+            "y": 468.298828125,
+            "confidence": 0.7640727162361145
+          }
+        },
+        "ball": {
+          "x": 711.55,
+          "y": 164.8,
+          "radius": 4,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.34571695735956104,
+        "b": -0.015179000603070899,
+        "c": 0.015179000603070899,
+        "d": 0.34571695735956104,
+        "e": -149.916175990938,
+        "f": 60.424298544875114
+      },
+      "control": {
+        "frame": 15,
+        "joints": {
+          "nose": {
+            "x": 129.61844444274902,
+            "y": 68.1390552520752
+          },
+          "leftEye": {
+            "x": 130.72179794311523,
+            "y": 64.38567924499512
+          },
+          "rightEye": {
+            "x": 125.20245552062988,
+            "y": 65.26887702941895
+          },
+          "leftEar": {
+            "x": 130.94195365905762,
+            "y": 66.81511688232422
+          },
+          "rightEar": {
+            "x": 114.3830680847168,
+            "y": 67.4773006439209
+          },
+          "leftShoulder": {
+            "x": 133.81170272827148,
+            "y": 84.25762939453125
+          },
+          "rightShoulder": {
+            "x": 105.54851531982422,
+            "y": 86.90851020812988
+          },
+          "leftElbow": {
+            "x": 138.66971969604492,
+            "y": 109.87122344970703
+          },
+          "rightElbow": {
+            "x": 93.62491607666016,
+            "y": 107.22635078430176
+          },
+          "leftWrist": {
+            "x": 117.47340202331543,
+            "y": 103.02622604370117
+          },
+          "rightWrist": {
+            "x": 98.26492309570312,
+            "y": 102.58505630493164
+          },
+          "leftHip": {
+            "x": 134.0361499786377,
+            "y": 132.17261123657227
+          },
+          "rightHip": {
+            "x": 120.56759834289551,
+            "y": 136.8087558746338
+          },
+          "leftKnee": {
+            "x": 95.83763122558594,
+            "y": 123.34707069396973
+          },
+          "rightKnee": {
+            "x": 121.67009353637695,
+            "y": 173.0211524963379
+          },
+          "leftAnkle": {
+            "x": 114.16849136352539,
+            "y": 164.41576766967773
+          },
+          "rightAnkle": {
+            "x": 127.18986511230469,
+            "y": 212.0994358062744
+          }
+        },
+        "hip": {
+          "x": 127.3018741607666,
+          "y": 134.49068355560303
+        },
+        "foot": {
+          "x": 120,
+          "y": 228
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.34605002046707145,
+          "referenceScale": 0.3524808883666992,
+          "appliedScale": 0.34605002046707145,
+          "desiredRotationDegrees": -2.514005911809132,
+          "appliedRotationDegrees": -2.514005911809132,
+          "hipControlError": 2.842170943040401e-14
+        }
+      },
+      "uniformScale": 0.34605002046707145,
+      "translation": {
+        "x": -149.916175990938,
+        "y": 60.424298544875114
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        758,
+        518
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 9919,
+        "mainPixels": 57884
+      }
+    },
+    {
+      "frame": 20,
+      "poseId": "authored-20",
+      "authored": true,
+      "src": "poses/020.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 83,
+        "y": 48,
+        "width": 96,
+        "height": 181
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 92.88707386363637,
+        "y": 97.94318181818181
+      },
+      "ballRadius": 3.69140625,
+      "sourceRecord": {
+        "frame": 20,
+        "group": "base-a",
+        "source": "source/boss-02-platinum-halo-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1145,
+          8,
+          272,
+          514
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 512,
+        "referenceWorldHeight": 180,
+        "foot": [
+          1249.5,
+          521
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 1270.9609375,
+            "y": 67.9833984375,
+            "confidence": 0.7913970947265625
+          },
+          "leftEye": {
+            "x": 1275.98046875,
+            "y": 56.689453125,
+            "confidence": 0.8298416137695312
+          },
+          "rightEye": {
+            "x": 1258.412109375,
+            "y": 59.19921875,
+            "confidence": 0.8252121806144714
+          },
+          "leftEar": {
+            "x": 1278.490234375,
+            "y": 61.708984375,
+            "confidence": 0.7866811752319336
+          },
+          "rightEar": {
+            "x": 1228.294921875,
+            "y": 64.21875,
+            "confidence": 0.8210952281951904
+          },
+          "leftShoulder": {
+            "x": 1288.529296875,
+            "y": 113.1591796875,
+            "confidence": 0.7509446144104004
+          },
+          "rightShoulder": {
+            "x": 1210.7265625,
+            "y": 116.923828125,
+            "confidence": 0.6799899339675903
+          },
+          "leftElbow": {
+            "x": 1301.078125,
+            "y": 183.4326171875,
+            "confidence": 0.8160096406936646
+          },
+          "rightElbow": {
+            "x": 1178.099609375,
+            "y": 162.099609375,
+            "confidence": 0.46658748388290405
+          },
+          "leftWrist": {
+            "x": 1239.5888671875,
+            "y": 164.609375,
+            "confidence": 0.5523297190666199
+          },
+          "rightWrist": {
+            "x": 1181.8642578125,
+            "y": 162.099609375,
+            "confidence": 0.38347017765045166
+          },
+          "leftHip": {
+            "x": 1278.490234375,
+            "y": 244.921875,
+            "confidence": 0.6327358484268188
+          },
+          "rightHip": {
+            "x": 1239.5888671875,
+            "y": 259.98046875,
+            "confidence": 0.5793070197105408
+          },
+          "leftKnee": {
+            "x": 1170.5703125,
+            "y": 201.0009765625,
+            "confidence": 0.8074932098388672
+          },
+          "rightKnee": {
+            "x": 1247.1181640625,
+            "y": 359.1162109375,
+            "confidence": 0.6710379123687744
+          },
+          "leftAnkle": {
+            "x": 1209.4716796875,
+            "y": 317.705078125,
+            "confidence": 0.7591590285301208
+          },
+          "rightAnkle": {
+            "x": 1263.431640625,
+            "y": 479.5849609375,
+            "confidence": 0.7643489837646484
+          }
+        },
+        "ball": {
+          "x": 1172.378787878788,
+          "y": 151.06060606060606,
+          "radius": 10.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3515625,
+        "b": 0,
+        "c": 0,
+        "d": 0.3515625,
+        "e": -319.27734375,
+        "f": 44.8359375
+      },
+      "control": null,
+      "uniformScale": 0.3515625,
+      "translation": {
+        "x": -319.27734375,
+        "y": 44.8359375
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        1249.5,
+        521
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 12998,
+        "mainPixels": 57861
+      }
+    },
+    {
+      "frame": 27,
+      "poseId": "authored-27",
+      "authored": true,
+      "src": "poses/027.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 98,
+        "y": 59,
+        "width": 100,
+        "height": 175
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 102.65873594178356,
+        "y": 99.68847523448531
+      },
+      "ballRadius": 1.2186137360968863,
+      "sourceRecord": {
+        "frame": 27,
+        "group": "bridge-a",
+        "source": "traditional/source/boss-02-platinum-halo-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1157,
+          10,
+          288,
+          501
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 510,
+        "referenceWorldHeight": 179.7652530670166,
+        "foot": [
+          1259,
+          510
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 1282.65283203125,
+            "y": 77.0283203125,
+            "confidence": 0.7206884622573853
+          },
+          "leftEye": {
+            "x": 1291.21484375,
+            "y": 66.02001953125,
+            "confidence": 0.7637935280799866
+          },
+          "rightEye": {
+            "x": 1267.97509765625,
+            "y": 64.796875,
+            "confidence": 0.7302919030189514
+          },
+          "leftEar": {
+            "x": 1297.33056640625,
+            "y": 68.46630859375,
+            "confidence": 0.7324609160423279
+          },
+          "rightEar": {
+            "x": 1242.2890625,
+            "y": 66.02001953125,
+            "confidence": 0.7479472160339355
+          },
+          "leftShoulder": {
+            "x": 1294.88427734375,
+            "y": 116.1689453125,
+            "confidence": 0.7018005847930908
+          },
+          "rightShoulder": {
+            "x": 1231.28076171875,
+            "y": 112.49951171875,
+            "confidence": 0.6927629709243774
+          },
+          "leftElbow": {
+            "x": 1330.35546875,
+            "y": 171.21044921875,
+            "confidence": 0.7616991996765137
+          },
+          "rightElbow": {
+            "x": 1220.2724609375,
+            "y": 122.28466796875,
+            "confidence": 0.6444622278213501
+          },
+          "leftWrist": {
+            "x": 1272.86767578125,
+            "y": 180.99560546875,
+            "confidence": 0.5657213926315308
+          },
+          "rightWrist": {
+            "x": 1186.0244140625,
+            "y": 121.0615234375,
+            "confidence": 0.758406400680542
+          },
+          "leftHip": {
+            "x": 1291.21484375,
+            "y": 245.822265625,
+            "confidence": 0.6497950553894043
+          },
+          "rightHip": {
+            "x": 1227.611328125,
+            "y": 239.70654296875,
+            "confidence": 0.689757764339447
+          },
+          "leftKnee": {
+            "x": 1280.20654296875,
+            "y": 359.57470703125,
+            "confidence": 0.5438249111175537
+          },
+          "rightKnee": {
+            "x": 1250.85107421875,
+            "y": 309.42578125,
+            "confidence": 0.6659223437309265
+          },
+          "leftAnkle": {
+            "x": 1287.54541015625,
+            "y": 407.27734375,
+            "confidence": 0.5336513519287109
+          },
+          "rightAnkle": {
+            "x": 1252.07421875,
+            "y": 450.08740234375,
+            "confidence": 0.7033572196960449
+          }
+        },
+        "ball": {
+          "x": 1170.4166666666667,
+          "y": 128.08333333333331,
+          "radius": 3.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.34807747581601794,
+        "b": 0.008255142941158984,
+        "c": -0.008255142941158984,
+        "d": 0.34807747581601794,
+        "e": -303.67959681950066,
+        "f": 45.44359498966887
+      },
+      "control": {
+        "frame": 27,
+        "joints": {
+          "nose": {
+            "x": 139.37374114990234,
+            "y": 79.23689651489258
+          },
+          "leftEye": {
+            "x": 140.88178634643555,
+            "y": 75.37451553344727
+          },
+          "rightEye": {
+            "x": 134.66506958007812,
+            "y": 76.23282241821289
+          },
+          "leftEar": {
+            "x": 142.7829360961914,
+            "y": 76.88256072998047
+          },
+          "rightEar": {
+            "x": 124.15681838989258,
+            "y": 78.36657333374023
+          },
+          "leftShoulder": {
+            "x": 146.00759506225586,
+            "y": 94.26928329467773
+          },
+          "rightShoulder": {
+            "x": 115.64584732055664,
+            "y": 94.30533218383789
+          },
+          "leftElbow": {
+            "x": 155.3047752380371,
+            "y": 110.1677017211914
+          },
+          "rightElbow": {
+            "x": 103.65358352661133,
+            "y": 101.62068176269531
+          },
+          "leftWrist": {
+            "x": 152.42172241210938,
+            "y": 113.32455444335938
+          },
+          "rightWrist": {
+            "x": 97.43257522583008,
+            "y": 96.82360458374023
+          },
+          "leftHip": {
+            "x": 141.53152465820312,
+            "y": 138.7046890258789
+          },
+          "rightHip": {
+            "x": 123.84782791137695,
+            "y": 141.97741317749023
+          },
+          "leftKnee": {
+            "x": 121.309814453125,
+            "y": 144.7497444152832
+          },
+          "rightKnee": {
+            "x": 122.45994567871094,
+            "y": 173.37771224975586
+          },
+          "leftAnkle": {
+            "x": 127.93937683105469,
+            "y": 187.58097457885742
+          },
+          "rightAnkle": {
+            "x": 124.07613754272461,
+            "y": 200.18521118164062
+          }
+        },
+        "hip": {
+          "x": 132.68967628479004,
+          "y": 140.34105110168457
+        },
+        "foot": {
+          "x": 130,
+          "y": 233
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.34817535317053894,
+          "referenceScale": 0.3524808883666992,
+          "appliedScale": 0.34817535317053894,
+          "desiredRotationDegrees": 1.3585946608396902,
+          "appliedRotationDegrees": 1.3585946608396902,
+          "hipControlError": 5.684341886080802e-14
+        }
+      },
+      "uniformScale": 0.34817535317053894,
+      "translation": {
+        "x": -303.67959681950066,
+        "y": 45.44359498966887
+      },
+      "plantedFoot": {
+        "x": 130,
+        "y": 233
+      },
+      "registeredSourceFoot": [
+        1258,
+        509
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 9563,
+        "mainPixels": 60528
+      }
+    },
+    {
+      "frame": 34,
+      "poseId": "authored-34",
+      "authored": true,
+      "src": "poses/034.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 88,
+        "y": 68,
+        "width": 118,
+        "height": 171
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 97.4146792763158,
+        "y": 83.96011513157896
+      },
+      "ballRadius": 1.58203125,
+      "sourceRecord": {
+        "frame": 34,
+        "group": "base-a",
+        "source": "source/boss-02-platinum-halo-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          150,
+          533,
+          335,
+          486
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 512,
+        "referenceWorldHeight": 180,
+        "foot": [
+          297.5,
+          1015
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 329.365234375,
+            "y": 593.275390625,
+            "confidence": 0.8052237033843994
+          },
+          "leftEye": {
+            "x": 332.9248046875,
+            "y": 582.5966796875,
+            "confidence": 0.8666020631790161
+          },
+          "rightEye": {
+            "x": 315.126953125,
+            "y": 584.9697265625,
+            "confidence": 0.8398624658584595
+          },
+          "leftEar": {
+            "x": 341.23046875,
+            "y": 586.15625,
+            "confidence": 0.7570331692695618
+          },
+          "rightEar": {
+            "x": 285.4638671875,
+            "y": 592.0888671875,
+            "confidence": 0.8220123052597046
+          },
+          "leftShoulder": {
+            "x": 349.5361328125,
+            "y": 633.6171875,
+            "confidence": 0.6894657611846924
+          },
+          "rightShoulder": {
+            "x": 254.6142578125,
+            "y": 630.0576171875,
+            "confidence": 0.8059022426605225
+          },
+          "leftElbow": {
+            "x": 389.8779296875,
+            "y": 653.7880859375,
+            "confidence": 0.6051285266876221
+          },
+          "rightElbow": {
+            "x": 219.0185546875,
+            "y": 626.498046875,
+            "confidence": 0.8559304475784302
+          },
+          "leftWrist": {
+            "x": 434.9658203125,
+            "y": 690.5703125,
+            "confidence": 0.5691671371459961
+          },
+          "rightWrist": {
+            "x": 179.86328125,
+            "y": 599.2080078125,
+            "confidence": 0.9365266561508179
+          },
+          "leftHip": {
+            "x": 334.111328125,
+            "y": 754.642578125,
+            "confidence": 0.7416607141494751
+          },
+          "rightHip": {
+            "x": 272.412109375,
+            "y": 758.2021484375,
+            "confidence": 0.7542672157287598
+          },
+          "leftKnee": {
+            "x": 326.9921875,
+            "y": 832.953125,
+            "confidence": 0.7427607774734497
+          },
+          "rightKnee": {
+            "x": 256.9873046875,
+            "y": 837.69921875,
+            "confidence": 0.7380010485649109
+          },
+          "leftAnkle": {
+            "x": 325.8056640625,
+            "y": 959.9111328125,
+            "confidence": 0.7974635362625122
+          },
+          "rightAnkle": {
+            "x": 249.8681640625,
+            "y": 869.7353515625,
+            "confidence": 0.7343463897705078
+          }
+        },
+        "ball": {
+          "x": 176.3684210526316,
+          "y": 576.8421052631579,
+          "radius": 4.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3515625,
+        "b": 0,
+        "c": 0,
+        "d": 0.3515625,
+        "e": 35.41015625,
+        "f": -118.8359375
+      },
+      "control": null,
+      "uniformScale": 0.3515625,
+      "translation": {
+        "x": 35.41015625,
+        "y": -118.8359375
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        297.5,
+        1015
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 15349,
+        "mainPixels": 61212
+      }
+    },
+    {
+      "frame": 42,
+      "poseId": "authored-42",
+      "authored": true,
+      "src": "poses/042.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 84,
+        "y": 70,
+        "width": 115,
+        "height": 169
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 89.23134814531336,
+        "y": 81.50031932642474
+      },
+      "ballRadius": 4.213490169872951,
+      "sourceRecord": {
+        "frame": 42,
+        "group": "bridge-a",
+        "source": "traditional/source/boss-02-platinum-halo-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          172,
+          533,
+          317,
+          481
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 510,
+        "referenceWorldHeight": 179.7652530670166,
+        "foot": [
+          302,
+          1013
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 341.06884765625,
+            "y": 599.701171875,
+            "confidence": 0.7490923404693604
+          },
+          "leftEye": {
+            "x": 344.591796875,
+            "y": 589.13232421875,
+            "confidence": 0.8237277865409851
+          },
+          "rightEye": {
+            "x": 326.97705078125,
+            "y": 590.306640625,
+            "confidence": 0.7894691228866577
+          },
+          "leftEar": {
+            "x": 351.6376953125,
+            "y": 592.6552734375,
+            "confidence": 0.7558602094650269
+          },
+          "rightEar": {
+            "x": 299.9677734375,
+            "y": 593.82958984375,
+            "confidence": 0.7859975695610046
+          },
+          "leftShoulder": {
+            "x": 365.7294921875,
+            "y": 634.9306640625,
+            "confidence": 0.7255333662033081
+          },
+          "rightShoulder": {
+            "x": 260.041015625,
+            "y": 627.884765625,
+            "confidence": 0.7955362796783447
+          },
+          "leftElbow": {
+            "x": 403.3076171875,
+            "y": 670.16015625,
+            "confidence": 0.7240605354309082
+          },
+          "rightElbow": {
+            "x": 231.857421875,
+            "y": 613.79296875,
+            "confidence": 0.8371849060058594
+          },
+          "leftWrist": {
+            "x": 437.36279296875,
+            "y": 701.86669921875,
+            "confidence": 0.6850996017456055
+          },
+          "rightWrist": {
+            "x": 204.84814453125,
+            "y": 578.5634765625,
+            "confidence": 0.9141051769256592
+          },
+          "leftHip": {
+            "x": 331.67431640625,
+            "y": 753.53662109375,
+            "confidence": 0.712964653968811
+          },
+          "rightHip": {
+            "x": 268.26123046875,
+            "y": 755.88525390625,
+            "confidence": 0.7662777900695801
+          },
+          "leftKnee": {
+            "x": 324.62841796875,
+            "y": 823.99560546875,
+            "confidence": 0.698913037776947
+          },
+          "rightKnee": {
+            "x": 262.3896484375,
+            "y": 826.34423828125,
+            "confidence": 0.7461440563201904
+          },
+          "leftAnkle": {
+            "x": 325.802734375,
+            "y": 949.6474609375,
+            "confidence": 0.7669370174407959
+          },
+          "rightAnkle": {
+            "x": 258.86669921875,
+            "y": 863.92236328125,
+            "confidence": 0.7326881289482117
+          }
+        },
+        "ball": {
+          "x": 188,
+          "y": 558.265873015873,
+          "radius": 12,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.35046409298849235,
+        "b": -0.021519988015745225,
+        "c": 0.021519988015745225,
+        "d": 0.35046409298849235,
+        "e": 11.330223766575667,
+        "f": -110.10606575955194
+      },
+      "control": {
+        "frame": 42,
+        "joints": {
+          "nose": {
+            "x": 147.09991455078125,
+            "y": 90.13375091552736
+          },
+          "leftEye": {
+            "x": 148.75844955444336,
+            "y": 86.60410690307617
+          },
+          "rightEye": {
+            "x": 142.53143310546875,
+            "y": 86.81467819213869
+          },
+          "leftEar": {
+            "x": 152.07752227783203,
+            "y": 88.88233947753908
+          },
+          "rightEar": {
+            "x": 131.53337478637695,
+            "y": 89.09891891479491
+          },
+          "leftShoulder": {
+            "x": 153.12437057495117,
+            "y": 104.8680191040039
+          },
+          "rightShoulder": {
+            "x": 118.88078689575195,
+            "y": 105.27514266967775
+          },
+          "leftElbow": {
+            "x": 168.8914680480957,
+            "y": 119.15510940551756
+          },
+          "rightElbow": {
+            "x": 98.99038314819336,
+            "y": 102.37721252441406
+          },
+          "leftWrist": {
+            "x": 173.71858596801758,
+            "y": 127.47982788085936
+          },
+          "rightWrist": {
+            "x": 99.3374252319336,
+            "y": 88.49123764038085
+          },
+          "leftHip": {
+            "x": 143.80287170410156,
+            "y": 147.83142852783203
+          },
+          "rightHip": {
+            "x": 121.59618377685547,
+            "y": 148.04400253295898
+          },
+          "leftKnee": {
+            "x": 144.20398712158203,
+            "y": 171.51211547851562
+          },
+          "rightKnee": {
+            "x": 111.44842147827148,
+            "y": 176.4777069091797
+          },
+          "leftAnkle": {
+            "x": 143.99541854858398,
+            "y": 216.75776290893555
+          },
+          "rightAnkle": {
+            "x": 106.27225875854492,
+            "y": 187.89290237426758
+          }
+        },
+        "hip": {
+          "x": 132.69952774047852,
+          "y": 147.9377155303955
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.351124180822746,
+          "referenceScale": 0.3524808883666992,
+          "appliedScale": 0.351124180822746,
+          "desiredRotationDegrees": -3.5137930970215314,
+          "appliedRotationDegrees": -3.5137930970215314,
+          "hipControlError": 5.684341886080802e-14
+        }
+      },
+      "uniformScale": 0.351124180822746,
+      "translation": {
+        "x": 11.330223766575667,
+        "y": -110.10606575955194
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        305,
+        1012
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 10504,
+        "mainPixels": 62985
+      }
+    },
+    {
+      "frame": 50,
+      "poseId": "authored-50",
+      "authored": true,
+      "src": "poses/050.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 78,
+        "y": 70,
+        "width": 128,
+        "height": 169
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 107.27693256578948,
+        "y": 78.33511513157896
+      },
+      "ballRadius": 1.0546875,
+      "sourceRecord": {
+        "frame": 50,
+        "group": "base-a",
+        "source": "source/boss-02-platinum-halo-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          654,
+          539,
+          361,
+          479
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 512,
+        "referenceWorldHeight": 180,
+        "foot": [
+          829.5,
+          1017
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 838.025390625,
+            "y": 597.5299479166667,
+            "confidence": 0.6875042915344238
+          },
+          "leftEye": {
+            "x": 843.9010416666667,
+            "y": 588.12890625,
+            "confidence": 0.7280750274658203
+          },
+          "rightEye": {
+            "x": 826.2740885416667,
+            "y": 586.9537760416667,
+            "confidence": 0.7073311805725098
+          },
+          "leftEar": {
+            "x": 854.4772135416667,
+            "y": 597.5299479166667,
+            "confidence": 0.7019692659378052
+          },
+          "rightEar": {
+            "x": 793.3704427083334,
+            "y": 592.8294270833333,
+            "confidence": 0.7356345653533936
+          },
+          "leftShoulder": {
+            "x": 852.126953125,
+            "y": 641.009765625,
+            "confidence": 0.6551761627197266
+          },
+          "rightShoulder": {
+            "x": 752.2408854166666,
+            "y": 646.8854166666667,
+            "confidence": 0.7337820529937744
+          },
+          "leftElbow": {
+            "x": 901.482421875,
+            "y": 702.1165364583333,
+            "confidence": 0.6173267364501953
+          },
+          "rightElbow": {
+            "x": 674.6822916666666,
+            "y": 633.958984375,
+            "confidence": 0.8416703343391418
+          },
+          "leftWrist": {
+            "x": 883.85546875,
+            "y": 712.6927083333333,
+            "confidence": 0.47492891550064087
+          },
+          "rightWrist": {
+            "x": 715.8118489583334,
+            "y": 582.2532552083333,
+            "confidence": 0.7644401788711548
+          },
+          "leftHip": {
+            "x": 814.5227864583333,
+            "y": 764.3984375,
+            "confidence": 0.664932131767273
+          },
+          "rightHip": {
+            "x": 749.890625,
+            "y": 762.0481770833333,
+            "confidence": 0.7090446949005127
+          },
+          "leftKnee": {
+            "x": 823.923828125,
+            "y": 820.8046875,
+            "confidence": 0.6045942902565002
+          },
+          "rightKnee": {
+            "x": 707.5859375,
+            "y": 844.3072916666667,
+            "confidence": 0.6974600553512573
+          },
+          "leftAnkle": {
+            "x": 823.923828125,
+            "y": 951.244140625,
+            "confidence": 0.7117183208465576
+          },
+          "rightAnkle": {
+            "x": 685.2584635416666,
+            "y": 877.2109375,
+            "confidence": 0.7141940593719482
+          }
+        },
+        "ball": {
+          "x": 736.421052631579,
+          "y": 562.8421052631579,
+          "radius": 3,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3515625,
+        "b": 0,
+        "c": 0,
+        "d": 0.3515625,
+        "e": -151.62109375,
+        "f": -119.5390625
+      },
+      "control": null,
+      "uniformScale": 0.3515625,
+      "translation": {
+        "x": -151.62109375,
+        "y": -119.5390625
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        829.5,
+        1017
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 15838,
+        "mainPixels": 72183
+      }
+    },
+    {
+      "frame": 57,
+      "poseId": "authored-57",
+      "authored": true,
+      "src": "poses/057.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 59,
+        "y": 63,
+        "width": 131,
+        "height": 176
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 70.76202695391129,
+        "y": 72.2518814258608
+      },
+      "ballRadius": 1.092317706773149,
+      "sourceRecord": {
+        "frame": 57,
+        "group": "bridge-a",
+        "source": "traditional/source/boss-02-platinum-halo-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          655,
+          532,
+          349,
+          484
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 510,
+        "referenceWorldHeight": 179.7652530670166,
+        "foot": [
+          856,
+          1015
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 815.3203125,
+            "y": 599.1171875,
+            "confidence": 0.7065653800964355
+          },
+          "leftEye": {
+            "x": 827.13671875,
+            "y": 588.482421875,
+            "confidence": 0.7778193354606628
+          },
+          "rightEye": {
+            "x": 802.322265625,
+            "y": 586.119140625,
+            "confidence": 0.7275790572166443
+          },
+          "leftEar": {
+            "x": 835.408203125,
+            "y": 597.935546875,
+            "confidence": 0.7666863799095154
+          },
+          "rightEar": {
+            "x": 773.962890625,
+            "y": 588.482421875,
+            "confidence": 0.7715545892715454
+          },
+          "leftShoulder": {
+            "x": 837.771484375,
+            "y": 638.111328125,
+            "confidence": 0.686576247215271
+          },
+          "rightShoulder": {
+            "x": 732.60546875,
+            "y": 641.65625,
+            "confidence": 0.7417919039726257
+          },
+          "leftElbow": {
+            "x": 899.216796875,
+            "y": 675.923828125,
+            "confidence": 0.639115571975708
+          },
+          "rightElbow": {
+            "x": 671.16015625,
+            "y": 628.658203125,
+            "confidence": 0.8112972974777222
+          },
+          "leftWrist": {
+            "x": 882.673828125,
+            "y": 697.193359375,
+            "confidence": 0.6027562618255615
+          },
+          "rightWrist": {
+            "x": 675.88671875,
+            "y": 573.12109375,
+            "confidence": 0.8118076324462891
+          },
+          "leftHip": {
+            "x": 814.138671875,
+            "y": 765.728515625,
+            "confidence": 0.6642658710479736
+          },
+          "rightHip": {
+            "x": 746.78515625,
+            "y": 766.91015625,
+            "confidence": 0.7359269857406616
+          },
+          "leftKnee": {
+            "x": 835.408203125,
+            "y": 807.0859375,
+            "confidence": 0.6087161898612976
+          },
+          "rightKnee": {
+            "x": 708.97265625,
+            "y": 846.080078125,
+            "confidence": 0.7448826432228088
+          },
+          "leftAnkle": {
+            "x": 847.224609375,
+            "y": 946.51953125,
+            "confidence": 0.7683200836181641
+          },
+          "rightAnkle": {
+            "x": 694.79296875,
+            "y": 872.076171875,
+            "confidence": 0.7410210967063904
+          }
+        },
+        "ball": {
+          "x": 690.2352941176471,
+          "y": 548.5882352941177,
+          "radius": 3,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3633659146109706,
+        "b": -0.023201727475309106,
+        "c": 0.023201727475309106,
+        "d": 0.3633659146109706,
+        "e": -192.77414672137473,
+        "f": -111.07173324864715
+      },
+      "control": {
+        "frame": 57,
+        "joints": {
+          "nose": {
+            "x": 129.85858917236328,
+            "y": 91.21736335754396
+          },
+          "leftEye": {
+            "x": 131.7239761352539,
+            "y": 87.69158172607422
+          },
+          "rightEye": {
+            "x": 125.7115364074707,
+            "y": 87.27687644958498
+          },
+          "leftEar": {
+            "x": 134.62376594543457,
+            "y": 90.17666625976564
+          },
+          "rightEar": {
+            "x": 114.72420692443848,
+            "y": 88.51784515380858
+          },
+          "leftShoulder": {
+            "x": 134.6269130706787,
+            "y": 107.39401626586914
+          },
+          "rightShoulder": {
+            "x": 99.58510398864746,
+            "y": 105.92917251586915
+          },
+          "leftElbow": {
+            "x": 148.7143039703369,
+            "y": 133.53775787353516
+          },
+          "rightElbow": {
+            "x": 71.17385864257812,
+            "y": 97.20462608337402
+          },
+          "leftWrist": {
+            "x": 145.19953727722168,
+            "y": 128.11197090148926
+          },
+          "rightWrist": {
+            "x": 83.19087028503418,
+            "y": 79.79015159606932
+          },
+          "leftHip": {
+            "x": 119.69122886657715,
+            "y": 149.8973731994629
+          },
+          "rightHip": {
+            "x": 97.50685691833496,
+            "y": 148.65168380737305
+          },
+          "leftKnee": {
+            "x": 127.37979888916016,
+            "y": 169.38694763183594
+          },
+          "rightKnee": {
+            "x": 85.07513999938965,
+            "y": 178.09733200073242
+          },
+          "leftAnkle": {
+            "x": 133.4158420562744,
+            "y": 215.83551216125488
+          },
+          "rightAnkle": {
+            "x": 77.82015800476074,
+            "y": 189.2928009033203
+          }
+        },
+        "hip": {
+          "x": 108.59904289245605,
+          "y": 149.27452850341797
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.3641059022577164,
+          "referenceScale": 0.3524808883666992,
+          "appliedScale": 0.3641059022577164,
+          "desiredRotationDegrees": -3.653503989541919,
+          "appliedRotationDegrees": -3.653503989541919,
+          "hipControlError": 0
+        }
+      },
+      "uniformScale": 0.3641059022577164,
+      "translation": {
+        "x": -192.77414672137473,
+        "y": -111.07173324864715
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        851,
+        1015
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 11829,
+        "mainPixels": 72495
+      }
+    },
+    {
+      "frame": 64,
+      "poseId": "authored-64",
+      "authored": true,
+      "src": "poses/064.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 27,
+        "y": 68,
+        "width": 126,
+        "height": 170
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 74.21946022727275,
+        "y": 72.23508522727272
+      },
+      "ballRadius": 2.109375,
+      "sourceRecord": {
+        "frame": 64,
+        "group": "base-a",
+        "source": "source/boss-02-platinum-halo-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1088,
+          534,
+          358,
+          485
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 512,
+        "referenceWorldHeight": 180,
+        "foot": [
+          1409,
+          1018
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 1342.78125,
+            "y": 602.43994140625,
+            "confidence": 0.8278022408485413
+          },
+          "leftEye": {
+            "x": 1347.517578125,
+            "y": 591.783203125,
+            "confidence": 0.8702441453933716
+          },
+          "rightEye": {
+            "x": 1330.9404296875,
+            "y": 590.59912109375,
+            "confidence": 0.8576596975326538
+          },
+          "leftEar": {
+            "x": 1353.43798828125,
+            "y": 596.51953125,
+            "confidence": 0.7443835735321045
+          },
+          "rightEar": {
+            "x": 1301.33837890625,
+            "y": 591.783203125,
+            "confidence": 0.8404258489608765
+          },
+          "leftShoulder": {
+            "x": 1355.80615234375,
+            "y": 650.9873046875,
+            "confidence": 0.6849015951156616
+          },
+          "rightShoulder": {
+            "x": 1256.34326171875,
+            "y": 636.7783203125,
+            "confidence": 0.7112902998924255
+          },
+          "leftElbow": {
+            "x": 1386.59228515625,
+            "y": 738.609375,
+            "confidence": 0.44091033935546875
+          },
+          "rightElbow": {
+            "x": 1172.2734375,
+            "y": 600.07177734375,
+            "confidence": 0.7066600322723389
+          },
+          "leftWrist": {
+            "x": 1384.22412109375,
+            "y": 697.16650390625,
+            "confidence": 0.41817033290863037
+          },
+          "rightWrist": {
+            "x": 1199.50732421875,
+            "y": 552.70849609375,
+            "confidence": 0.5574992299079895
+          },
+          "leftHip": {
+            "x": 1308.44287109375,
+            "y": 769.3955078125,
+            "confidence": 0.6726727485656738
+          },
+          "rightHip": {
+            "x": 1246.87060546875,
+            "y": 764.6591796875,
+            "confidence": 0.6483616828918457
+          },
+          "leftKnee": {
+            "x": 1342.78125,
+            "y": 823.86328125,
+            "confidence": 0.7331337332725525
+          },
+          "rightKnee": {
+            "x": 1218.45263671875,
+            "y": 849.9130859375,
+            "confidence": 0.6938098669052124
+          },
+          "leftAnkle": {
+            "x": 1377.11962890625,
+            "y": 957.66455078125,
+            "confidence": 0.7842696905136108
+          },
+          "rightAnkle": {
+            "x": 1199.50732421875,
+            "y": 880.69921875,
+            "confidence": 0.7276278734207153
+          }
+        },
+        "ball": {
+          "x": 1221.8909090909092,
+          "y": 546.4909090909091,
+          "radius": 6,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3515625,
+        "b": 0,
+        "c": 0,
+        "d": 0.3515625,
+        "e": -355.3515625,
+        "f": -119.890625
+      },
+      "control": null,
+      "uniformScale": 0.3515625,
+      "translation": {
+        "x": -355.3515625,
+        "y": -119.890625
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        1409,
+        1018
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 16377,
+        "mainPixels": 71224
+      }
+    },
+    {
+      "frame": 68,
+      "poseId": "authored-68",
+      "authored": true,
+      "src": "poses/068.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 65,
+        "y": 52,
+        "width": 131,
+        "height": 187
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 106.50116795957382,
+        "y": 57.50878353426796
+      },
+      "ballRadius": 3.1395191991879825,
+      "sourceRecord": {
+        "frame": 68,
+        "group": "bridge-a",
+        "source": "traditional/source/boss-02-platinum-halo-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1129,
+          532,
+          380,
+          486
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 510,
+        "referenceWorldHeight": 179.7652530670166,
+        "foot": [
+          1393,
+          1017
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 1328.8958333333333,
+            "y": 616.6666666666667,
+            "confidence": 0.7320009469985962
+          },
+          "leftEye": {
+            "x": 1333.84375,
+            "y": 605.5338541666667,
+            "confidence": 0.7914755344390869
+          },
+          "rightEye": {
+            "x": 1315.2890625,
+            "y": 605.5338541666667,
+            "confidence": 0.7619863748550415
+          },
+          "leftEar": {
+            "x": 1342.5026041666665,
+            "y": 608.0078125,
+            "confidence": 0.7528370022773743
+          },
+          "rightEar": {
+            "x": 1284.3645833333333,
+            "y": 606.7708333333333,
+            "confidence": 0.7902547121047974
+          },
+          "leftShoulder": {
+            "x": 1357.3463541666665,
+            "y": 648.828125,
+            "confidence": 0.6970205307006836
+          },
+          "rightShoulder": {
+            "x": 1242.3072916666667,
+            "y": 647.5911458333333,
+            "confidence": 0.7717586755752563
+          },
+          "leftElbow": {
+            "x": 1419.1953125,
+            "y": 671.09375,
+            "confidence": 0.5862399339675903
+          },
+          "rightElbow": {
+            "x": 1149.5338541666667,
+            "y": 612.9557291666667,
+            "confidence": 0.8828188180923462
+          },
+          "leftWrist": {
+            "x": 1457.5416666666665,
+            "y": 715.625,
+            "confidence": 0.5792996883392334
+          },
+          "rightWrist": {
+            "x": 1203.9609375,
+            "y": 557.2916666666667,
+            "confidence": 0.8696500062942505
+          },
+          "leftHip": {
+            "x": 1302.9192708333333,
+            "y": 773.7630208333333,
+            "confidence": 0.6826430559158325
+          },
+          "rightHip": {
+            "x": 1238.5963541666667,
+            "y": 776.2369791666667,
+            "confidence": 0.7202056050300598
+          },
+          "leftKnee": {
+            "x": 1332.6067708333333,
+            "y": 823.2421875,
+            "confidence": 0.6538270711898804
+          },
+          "rightKnee": {
+            "x": 1216.3307291666667,
+            "y": 844.2708333333333,
+            "confidence": 0.7864819169044495
+          },
+          "leftAnkle": {
+            "x": 1367.2421875,
+            "y": 954.3619791666667,
+            "confidence": 0.7966619729995728
+          },
+          "rightAnkle": {
+            "x": 1201.4869791666667,
+            "y": 876.4322916666667,
+            "confidence": 0.8004233837127686
+          }
+        },
+        "ball": {
+          "x": 1234.1780821917807,
+          "y": 545.7123287671233,
+          "radius": 8.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3657606604890547,
+        "b": 0.05140430852642975,
+        "c": -0.05140430852642975,
+        "d": 0.3657606604890547,
+        "e": -316.86065762938506,
+        "f": -205.53338918615887
+      },
+      "control": {
+        "frame": 68,
+        "joints": {
+          "nose": {
+            "x": 145.13105496232996,
+            "y": 89.99339428270065
+          },
+          "leftEye": {
+            "x": 148.33325570340898,
+            "y": 85.43560490420344
+          },
+          "rightEye": {
+            "x": 140.43450597079564,
+            "y": 85.29684529116633
+          },
+          "leftEar": {
+            "x": 151.3433207714088,
+            "y": 86.32153864246821
+          },
+          "rightEar": {
+            "x": 129.3549240641925,
+            "y": 84.44291904585448
+          },
+          "leftShoulder": {
+            "x": 154.26800228641358,
+            "y": 104.94760642847918
+          },
+          "rightShoulder": {
+            "x": 112.83161904082736,
+            "y": 95.34100420524211
+          },
+          "leftElbow": {
+            "x": 169.45708723944972,
+            "y": 127.4589433795292
+          },
+          "rightElbow": {
+            "x": 84.11865520656221,
+            "y": 80.78170233148573
+          },
+          "leftWrist": {
+            "x": 181.09179831356312,
+            "y": 139.47801651516284
+          },
+          "rightWrist": {
+            "x": 84.99385930360145,
+            "y": 60.34102993476683
+          },
+          "leftHip": {
+            "x": 133.16553931746205,
+            "y": 140.3317613297511
+          },
+          "rightHip": {
+            "x": 108.41258927536725,
+            "y": 139.44582759148633
+          },
+          "leftKnee": {
+            "x": 132.2261388037934,
+            "y": 160.94320083245998
+          },
+          "rightKnee": {
+            "x": 105.41325384859296,
+            "y": 174.2536661888824
+          },
+          "leftAnkle": {
+            "x": 140.55180630138173,
+            "y": 213.68330915068148
+          },
+          "rightAnkle": {
+            "x": 106.83294818727876,
+            "y": 181.83215956124312
+          }
+        },
+        "hip": {
+          "x": 120.78906429641465,
+          "y": 139.88879446061873
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.3693551999044685,
+          "referenceScale": 0.3524808883666992,
+          "appliedScale": 0.3693551999044685,
+          "desiredRotationDegrees": 15.532116680193,
+          "appliedRotationDegrees": 8,
+          "hipControlError": 13.133188684766143
+        }
+      },
+      "uniformScale": 0.3693551999044685,
+      "translation": {
+        "x": -316.86065762938506,
+        "y": -205.53338918615887
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        1392,
+        1017
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 12930,
+        "mainPixels": 74039
+      }
+    },
+    {
+      "frame": 70,
+      "poseId": "authored-70",
+      "authored": true,
+      "src": "poses/070.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 88,
+        "y": 35,
+        "width": 135,
+        "height": 204
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 101.60546770302868,
+        "y": 39.45805414098099
+      },
+      "ballRadius": 1.6885553470919323,
+      "sourceRecord": {
+        "frame": 70,
+        "group": "base-b",
+        "source": "source/boss-02-platinum-halo-b.png",
+        "sourceDimensions": [
+          1375,
+          1144
+        ],
+        "bounds": [
+          86,
+          4,
+          398,
+          602
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 533,
+        "referenceWorldHeight": 180,
+        "foot": [
+          239.5,
+          605
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 296.7578125,
+            "y": 163.90625,
+            "confidence": 0.7577338814735413
+          },
+          "leftEye": {
+            "x": 308.515625,
+            "y": 149.208984375,
+            "confidence": 0.8228355050086975
+          },
+          "rightEye": {
+            "x": 282.060546875,
+            "y": 149.208984375,
+            "confidence": 0.8079757690429688
+          },
+          "leftEar": {
+            "x": 318.8037109375,
+            "y": 150.6787109375,
+            "confidence": 0.7532445788383484
+          },
+          "rightEar": {
+            "x": 248.2568359375,
+            "y": 144.7998046875,
+            "confidence": 0.8107585310935974
+          },
+          "leftShoulder": {
+            "x": 330.5615234375,
+            "y": 205.05859375,
+            "confidence": 0.6748446226119995
+          },
+          "rightShoulder": {
+            "x": 198.2861328125,
+            "y": 169.78515625,
+            "confidence": 0.7840629816055298
+          },
+          "leftElbow": {
+            "x": 382.001953125,
+            "y": 259.4384765625,
+            "confidence": 0.6696586608886719
+          },
+          "rightElbow": {
+            "x": 114.51171875,
+            "y": 124.2236328125,
+            "confidence": 0.8584734201431274
+          },
+          "leftWrist": {
+            "x": 434.912109375,
+            "y": 334.39453125,
+            "confidence": 0.6368470788002014
+          },
+          "rightWrist": {
+            "x": 104.2236328125,
+            "y": 58.0859375,
+            "confidence": 0.9783487319946289
+          },
+          "leftHip": {
+            "x": 261.484375,
+            "y": 300.5908203125,
+            "confidence": 0.6599105000495911
+          },
+          "rightHip": {
+            "x": 183.5888671875,
+            "y": 299.12109375,
+            "confidence": 0.7270724177360535
+          },
+          "leftKnee": {
+            "x": 239.4384765625,
+            "y": 363.7890625,
+            "confidence": 0.7197612524032593
+          },
+          "rightKnee": {
+            "x": 185.05859375,
+            "y": 409.3505859375,
+            "confidence": 0.6925688982009888
+          },
+          "leftAnkle": {
+            "x": 258.544921875,
+            "y": 528.3984375,
+            "confidence": 0.7627396583557129
+          },
+          "rightAnkle": {
+            "x": 201.2255859375,
+            "y": 426.9873046875,
+            "confidence": 0.6126976013183594
+          }
+        },
+        "ball": {
+          "x": 125.80952380952381,
+          "y": 17.095238095238095,
+          "radius": 5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.33771106941838647,
+        "b": 0,
+        "c": 0,
+        "d": 0.33771106941838647,
+        "e": 59.11819887429644,
+        "f": 33.68480300187619
+      },
+      "control": null,
+      "uniformScale": 0.33771106941838647,
+      "translation": {
+        "x": 59.11819887429644,
+        "y": 33.68480300187619
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        239.5,
+        605
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 15830,
+        "mainPixels": 92250
+      }
+    },
+    {
+      "frame": 73,
+      "poseId": "authored-73",
+      "authored": true,
+      "src": "poses/073.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 76,
+        "y": 42,
+        "width": 149,
+        "height": 197
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 86.71354342183787,
+        "y": 49.32065710037943
+      },
+      "ballRadius": 6.101629787785676,
+      "sourceRecord": {
+        "frame": 73,
+        "group": "bridge-b",
+        "source": "traditional/source/boss-02-platinum-halo-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          92,
+          30,
+          401,
+          507
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 465,
+        "referenceWorldHeight": 171.4069366766253,
+        "foot": [
+          270,
+          536
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 326.43880208333337,
+            "y": 141.21809895833331,
+            "confidence": 0.7827558517456055
+          },
+          "leftEye": {
+            "x": 335.576171875,
+            "y": 128.16471354166669,
+            "confidence": 0.8311517238616943
+          },
+          "rightEye": {
+            "x": 312.080078125,
+            "y": 126.859375,
+            "confidence": 0.8125777840614319
+          },
+          "leftEar": {
+            "x": 344.71354166666663,
+            "y": 132.08072916666669,
+            "confidence": 0.7390592694282532
+          },
+          "rightEar": {
+            "x": 282.05729166666674,
+            "y": 128.16471354166669,
+            "confidence": 0.7991745471954346
+          },
+          "leftShoulder": {
+            "x": 357.76692708333337,
+            "y": 176.46223958333331,
+            "confidence": 0.6646645069122314
+          },
+          "rightShoulder": {
+            "x": 244.20247395833331,
+            "y": 158.1875,
+            "confidence": 0.7097208499908447
+          },
+          "leftElbow": {
+            "x": 407.36979166666663,
+            "y": 219.53841145833331,
+            "confidence": 0.6307964324951172
+          },
+          "rightElbow": {
+            "x": 191.98893229166669,
+            "y": 129.47005208333331,
+            "confidence": 0.8362641930580139
+          },
+          "leftWrist": {
+            "x": 449.140625,
+            "y": 273.0572916666667,
+            "confidence": 0.5976428985595703
+          },
+          "rightWrist": {
+            "x": 139.775390625,
+            "y": 83.783203125,
+            "confidence": 0.8840451240539551
+          },
+          "leftHip": {
+            "x": 297.72135416666663,
+            "y": 263.91992187500006,
+            "confidence": 0.6462757587432861
+          },
+          "rightHip": {
+            "x": 227.23307291666669,
+            "y": 262.6145833333333,
+            "confidence": 0.7050302028656006
+          },
+          "leftKnee": {
+            "x": 278.14127604166674,
+            "y": 333.1028645833333,
+            "confidence": 0.6626426577568054
+          },
+          "rightKnee": {
+            "x": 220.70638020833331,
+            "y": 335.7135416666667,
+            "confidence": 0.6469837427139282
+          },
+          "leftAnkle": {
+            "x": 285.97330729166674,
+            "y": 471.46875000000006,
+            "confidence": 0.7246772050857544
+          },
+          "rightAnkle": {
+            "x": 227.23307291666669,
+            "y": 367.0416666666667,
+            "confidence": 0.6254432201385498
+          }
+        },
+        "ball": {
+          "x": 117.9974358974359,
+          "y": 49.42051282051282,
+          "radius": 16,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3808056095416485,
+        "b": 0.02040417093606144,
+        "c": -0.02040417093606144,
+        "d": 0.3808056095416485,
+        "e": 42.787842511900756,
+        "f": 28.093408739834956
+      },
+      "control": {
+        "frame": 73,
+        "joints": {
+          "nose": {
+            "x": 164.8227529901501,
+            "y": 91.36100565783303
+          },
+          "leftEye": {
+            "x": 169.392900592167,
+            "y": 86.52949475257975
+          },
+          "rightEye": {
+            "x": 160.2262217108349,
+            "y": 85.35459662288932
+          },
+          "leftEar": {
+            "x": 173.00993785178235,
+            "y": 87.24762546904317
+          },
+          "rightEar": {
+            "x": 148.87876700281424,
+            "y": 82.73024522162291
+          },
+          "leftShoulder": {
+            "x": 175.2302891944184,
+            "y": 104.18429731472797
+          },
+          "rightShoulder": {
+            "x": 132.92158917682926,
+            "y": 91.64875263836774
+          },
+          "leftElbow": {
+            "x": 193.3154754924953,
+            "y": 119.47611177884617
+          },
+          "rightElbow": {
+            "x": 111.96140654315198,
+            "y": 77.37600770989684
+          },
+          "leftWrist": {
+            "x": 210.70891475140712,
+            "y": 142.4719600140713
+          },
+          "rightWrist": {
+            "x": 104.11473601665104,
+            "y": 56.80910676594749
+          },
+          "leftHip": {
+            "x": 150.40737130628517,
+            "y": 134.4142200691839
+          },
+          "rightHip": {
+            "x": 124.33040425656661,
+            "y": 132.9911504749062
+          },
+          "leftKnee": {
+            "x": 144.1000234521576,
+            "y": 155.42469658771108
+          },
+          "rightKnee": {
+            "x": 126.45841272865854,
+            "y": 166.4077267530488
+          },
+          "leftAnkle": {
+            "x": 147.09127286585365,
+            "y": 212.1223946118668
+          },
+          "rightAnkle": {
+            "x": 132.00805435037523,
+            "y": 176.90513235811446
+          }
+        },
+        "hip": {
+          "x": 137.36888778142588,
+          "y": 133.70268527204504
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.38135186173660474,
+          "referenceScale": 0.3686170681217748,
+          "appliedScale": 0.38135186173660474,
+          "desiredRotationDegrees": 3.0670661760994267,
+          "appliedRotationDegrees": 3.0670661760994267,
+          "hipControlError": 2.842170943040401e-14
+        }
+      },
+      "uniformScale": 0.38135186173660474,
+      "translation": {
+        "x": 42.787842511900756,
+        "y": 28.093408739834956
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        284,
+        536
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 14589,
+        "mainPixels": 73508
+      }
+    },
+    {
+      "frame": 75,
+      "poseId": "authored-75",
+      "authored": true,
+      "src": "poses/075.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 90,
+        "y": 59,
+        "width": 139,
+        "height": 180
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 106.98851638388496,
+        "y": 79.2565407481661
+      },
+      "ballRadius": 4.809835235772654,
+      "sourceRecord": {
+        "frame": 75,
+        "group": "bridge-b",
+        "source": "traditional/source/boss-02-platinum-halo-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          626,
+          70,
+          366,
+          467
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 465,
+        "referenceWorldHeight": 171.4069366766253,
+        "foot": [
+          762,
+          536
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 828.0625,
+            "y": 153.3828125,
+            "confidence": 0.7742371559143066
+          },
+          "leftEye": {
+            "x": 837.59375,
+            "y": 139.0859375,
+            "confidence": 0.8422900438308716
+          },
+          "rightEye": {
+            "x": 813.765625,
+            "y": 139.0859375,
+            "confidence": 0.8053573966026306
+          },
+          "leftEar": {
+            "x": 850.69921875,
+            "y": 135.51171875,
+            "confidence": 0.7569204568862915
+          },
+          "rightEar": {
+            "x": 783.98046875,
+            "y": 134.3203125,
+            "confidence": 0.8086901903152466
+          },
+          "leftShoulder": {
+            "x": 857.84765625,
+            "y": 177.2109375,
+            "confidence": 0.7030779719352722
+          },
+          "rightShoulder": {
+            "x": 754.1953125,
+            "y": 170.0625,
+            "confidence": 0.7100236415863037
+          },
+          "leftElbow": {
+            "x": 899.546875,
+            "y": 221.29296875,
+            "confidence": 0.6455663442611694
+          },
+          "rightElbow": {
+            "x": 714.87890625,
+            "y": 177.2109375,
+            "confidence": 0.7912919521331787
+          },
+          "leftWrist": {
+            "x": 930.5234375,
+            "y": 271.33203125,
+            "confidence": 0.6085164546966553
+          },
+          "rightWrist": {
+            "x": 681.51953125,
+            "y": 149.80859375,
+            "confidence": 0.8273618221282959
+          },
+          "leftHip": {
+            "x": 792.3203125,
+            "y": 267.7578125,
+            "confidence": 0.6265326142311096
+          },
+          "rightHip": {
+            "x": 729.17578125,
+            "y": 255.84375,
+            "confidence": 0.6842702031135559
+          },
+          "leftKnee": {
+            "x": 769.68359375,
+            "y": 322.5625,
+            "confidence": 0.6550358533859253
+          },
+          "rightKnee": {
+            "x": 706.5390625,
+            "y": 268.94921875,
+            "confidence": 0.6642144322395325
+          },
+          "leftAnkle": {
+            "x": 775.640625,
+            "y": 473.87109375,
+            "confidence": 0.7479017972946167
+          },
+          "rightAnkle": {
+            "x": 724.41015625,
+            "y": 348.7734375,
+            "confidence": 0.6884012818336487
+          }
+        },
+        "ball": {
+          "x": 669.5193798449612,
+          "y": 126.29457364341084,
+          "radius": 12.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.38460359198257427,
+        "b": 0.011873205291526866,
+        "c": -0.011873205291526866,
+        "d": 0.38460359198257427,
+        "e": -149.01152060635863,
+        "f": 22.73385303344756
+      },
+      "control": {
+        "frame": 75,
+        "joints": {
+          "nose": {
+            "x": 170.30890888836774,
+            "y": 93.68425334193248
+          },
+          "leftEye": {
+            "x": 175.47846065900563,
+            "y": 88.98466082317076
+          },
+          "rightEye": {
+            "x": 166.07927562148217,
+            "y": 86.63486456378989
+          },
+          "leftEar": {
+            "x": 179.238134674015,
+            "y": 89.9245793269231
+          },
+          "rightEar": {
+            "x": 154.80025357645403,
+            "y": 82.87519054878051
+          },
+          "leftShoulder": {
+            "x": 179.7080939258912,
+            "y": 105.4332346388368
+          },
+          "rightShoulder": {
+            "x": 139.7615575164165,
+            "y": 92.27437558630396
+          },
+          "leftElbow": {
+            "x": 198.50646400093808,
+            "y": 117.65217518761729
+          },
+          "rightElbow": {
+            "x": 126.13273921200752,
+            "y": 79.11551653377113
+          },
+          "leftWrist": {
+            "x": 215.4249970684803,
+            "y": 138.33038227016885
+          },
+          "rightWrist": {
+            "x": 113.91379866322703,
+            "y": 60.317146458724224
+          },
+          "leftHip": {
+            "x": 153.3903758208255,
+            "y": 133.63078975140715
+          },
+          "rightHip": {
+            "x": 127.54261696763604,
+            "y": 131.28099349202628
+          },
+          "leftKnee": {
+            "x": 148.22082405018762,
+            "y": 154.30899683395876
+          },
+          "rightKnee": {
+            "x": 131.30229098264542,
+            "y": 160.88842636022514
+          },
+          "leftAnkle": {
+            "x": 147.75086479831145,
+            "y": 212.11398481472796
+          },
+          "rightAnkle": {
+            "x": 136.94180200515947,
+            "y": 175.9271224202627
+          }
+        },
+        "hip": {
+          "x": 140.46649639423077,
+          "y": 132.45589162171672
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.3847868188618124,
+          "referenceScale": 0.3686170681217748,
+          "appliedScale": 0.3847868188618124,
+          "desiredRotationDegrees": 1.7682324821954587,
+          "appliedRotationDegrees": 1.7682324821954587,
+          "hipControlError": 2.842170943040401e-14
+        }
+      },
+      "uniformScale": 0.3847868188618124,
+      "translation": {
+        "x": -149.01152060635863,
+        "y": 22.73385303344756
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        768,
+        536
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 13271,
+        "mainPixels": 67873
+      }
+    },
+    {
+      "frame": 76,
+      "poseId": "derived-empty-76",
+      "authored": false,
+      "src": "poses/076-matched-empty.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 90,
+        "y": 59,
+        "width": 139,
+        "height": 180
+      },
+      "ballMode": "empty",
+      "ballSocket": {
+        "x": 106.98851638388496,
+        "y": 79.2565407481661
+      },
+      "ballRadius": 4.809835235772654,
+      "sourceRecord": {
+        "frame": 75,
+        "group": "bridge-b",
+        "source": "traditional/source/boss-02-platinum-halo-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          626,
+          70,
+          366,
+          467
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 465,
+        "referenceWorldHeight": 171.4069366766253,
+        "foot": [
+          762,
+          536
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 828.0625,
+            "y": 153.3828125,
+            "confidence": 0.7742371559143066
+          },
+          "leftEye": {
+            "x": 837.59375,
+            "y": 139.0859375,
+            "confidence": 0.8422900438308716
+          },
+          "rightEye": {
+            "x": 813.765625,
+            "y": 139.0859375,
+            "confidence": 0.8053573966026306
+          },
+          "leftEar": {
+            "x": 850.69921875,
+            "y": 135.51171875,
+            "confidence": 0.7569204568862915
+          },
+          "rightEar": {
+            "x": 783.98046875,
+            "y": 134.3203125,
+            "confidence": 0.8086901903152466
+          },
+          "leftShoulder": {
+            "x": 857.84765625,
+            "y": 177.2109375,
+            "confidence": 0.7030779719352722
+          },
+          "rightShoulder": {
+            "x": 754.1953125,
+            "y": 170.0625,
+            "confidence": 0.7100236415863037
+          },
+          "leftElbow": {
+            "x": 899.546875,
+            "y": 221.29296875,
+            "confidence": 0.6455663442611694
+          },
+          "rightElbow": {
+            "x": 714.87890625,
+            "y": 177.2109375,
+            "confidence": 0.7912919521331787
+          },
+          "leftWrist": {
+            "x": 930.5234375,
+            "y": 271.33203125,
+            "confidence": 0.6085164546966553
+          },
+          "rightWrist": {
+            "x": 681.51953125,
+            "y": 149.80859375,
+            "confidence": 0.8273618221282959
+          },
+          "leftHip": {
+            "x": 792.3203125,
+            "y": 267.7578125,
+            "confidence": 0.6265326142311096
+          },
+          "rightHip": {
+            "x": 729.17578125,
+            "y": 255.84375,
+            "confidence": 0.6842702031135559
+          },
+          "leftKnee": {
+            "x": 769.68359375,
+            "y": 322.5625,
+            "confidence": 0.6550358533859253
+          },
+          "rightKnee": {
+            "x": 706.5390625,
+            "y": 268.94921875,
+            "confidence": 0.6642144322395325
+          },
+          "leftAnkle": {
+            "x": 775.640625,
+            "y": 473.87109375,
+            "confidence": 0.7479017972946167
+          },
+          "rightAnkle": {
+            "x": 724.41015625,
+            "y": 348.7734375,
+            "confidence": 0.6884012818336487
+          }
+        },
+        "ball": {
+          "x": 669.5193798449612,
+          "y": 126.29457364341084,
+          "radius": 12.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.38460359198257427,
+        "b": 0.011873205291526866,
+        "c": -0.011873205291526866,
+        "d": 0.38460359198257427,
+        "e": -149.01152060635863,
+        "f": 22.73385303344756
+      },
+      "control": {
+        "frame": 75,
+        "joints": {
+          "nose": {
+            "x": 170.30890888836774,
+            "y": 93.68425334193248
+          },
+          "leftEye": {
+            "x": 175.47846065900563,
+            "y": 88.98466082317076
+          },
+          "rightEye": {
+            "x": 166.07927562148217,
+            "y": 86.63486456378989
+          },
+          "leftEar": {
+            "x": 179.238134674015,
+            "y": 89.9245793269231
+          },
+          "rightEar": {
+            "x": 154.80025357645403,
+            "y": 82.87519054878051
+          },
+          "leftShoulder": {
+            "x": 179.7080939258912,
+            "y": 105.4332346388368
+          },
+          "rightShoulder": {
+            "x": 139.7615575164165,
+            "y": 92.27437558630396
+          },
+          "leftElbow": {
+            "x": 198.50646400093808,
+            "y": 117.65217518761729
+          },
+          "rightElbow": {
+            "x": 126.13273921200752,
+            "y": 79.11551653377113
+          },
+          "leftWrist": {
+            "x": 215.4249970684803,
+            "y": 138.33038227016885
+          },
+          "rightWrist": {
+            "x": 113.91379866322703,
+            "y": 60.317146458724224
+          },
+          "leftHip": {
+            "x": 153.3903758208255,
+            "y": 133.63078975140715
+          },
+          "rightHip": {
+            "x": 127.54261696763604,
+            "y": 131.28099349202628
+          },
+          "leftKnee": {
+            "x": 148.22082405018762,
+            "y": 154.30899683395876
+          },
+          "rightKnee": {
+            "x": 131.30229098264542,
+            "y": 160.88842636022514
+          },
+          "leftAnkle": {
+            "x": 147.75086479831145,
+            "y": 212.11398481472796
+          },
+          "rightAnkle": {
+            "x": 136.94180200515947,
+            "y": 175.9271224202627
+          }
+        },
+        "hip": {
+          "x": 140.46649639423077,
+          "y": 132.45589162171672
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.3847868188618124,
+          "referenceScale": 0.3686170681217748,
+          "appliedScale": 0.3847868188618124,
+          "desiredRotationDegrees": 1.7682324821954587,
+          "appliedRotationDegrees": 1.7682324821954587,
+          "hipControlError": 2.842170943040401e-14
+        }
+      },
+      "uniformScale": 0.3847868188618124,
+      "translation": {
+        "x": -149.01152060635863,
+        "y": 22.73385303344756
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        768,
+        536
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 13271,
+        "mainPixels": 67873
+      },
+      "drawingId": "boss-02-platinum-halo-matched-empty-76",
+      "derived": true,
+      "sourcePoseId": "authored-75",
+      "handoff": {
+        "automaticWrist": {
+          "method": "minimum opaque cross-section along elbow-to-CV-wrist axis",
+          "widthPx": 13,
+          "forearmMedianWidthPx": 32.5,
+          "t": 0.9700000000000005
+        },
+        "heldFrame": 75,
+        "heldPoseId": "authored-75",
+        "registeredWrist": {
+          "x": 111.69977438459736,
+          "y": 88.77065128055509
+        },
+        "registeredElbow": {
+          "x": 123.8294127291239,
+          "y": 99.37772014703548
+        },
+        "ballSocket": {
+          "x": 106.98851638388496,
+          "y": 79.2565407481661
+        },
+        "ballRadius": 4.809835235772654,
+        "ballMaskRadius": 10,
+        "handLocalDistalHalfPlane": true,
+        "handLocalRadiusPx": 22.61669681076895,
+        "removedHandPixels": 448,
+        "residualWhiteCleanup": {
+          "roiRadiusPx": 19.426532046541606,
+          "removedComponents": [
+            {
+              "area": 1,
+              "center": {
+                "x": 106.5,
+                "y": 94.5
+              },
+              "kind": "low-opacity neutral-white residue"
+            }
+          ]
+        },
+        "guardRadius": 34,
+        "comparison": "final derived RGBA vs preserved original held RGBA",
+        "bodyOutsideHandDifferingChannels": 0,
+        "emptyHandSource": "source/boss-02-platinum-halo-b.png",
+        "emptyHandManualOverride": false,
+        "socketError": 0
+      }
+    },
+    {
+      "frame": 80,
+      "poseId": "authored-80",
+      "authored": true,
+      "src": "poses/080.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 80,
+        "y": 55,
+        "width": 152,
+        "height": 184
+      },
+      "ballMode": "empty",
+      "ballSocket": {
+        "x": 106.14185604666312,
+        "y": 87.65277673594584
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 80,
+        "group": "bridge-b",
+        "source": "traditional/source/boss-02-platinum-halo-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1104,
+          69,
+          383,
+          462
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 465,
+        "referenceWorldHeight": 171.4069366766253,
+        "foot": [
+          1263,
+          530
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 1314.201171875,
+            "y": 149.14388020833331,
+            "confidence": 0.7445352077484131
+          },
+          "leftEye": {
+            "x": 1324.1751302083335,
+            "y": 135.4296875,
+            "confidence": 0.8173570036888123
+          },
+          "rightEye": {
+            "x": 1300.4869791666667,
+            "y": 135.4296875,
+            "confidence": 0.780485212802887
+          },
+          "leftEar": {
+            "x": 1336.642578125,
+            "y": 134.18294270833331,
+            "confidence": 0.7805125117301941
+          },
+          "rightEar": {
+            "x": 1274.3053385416667,
+            "y": 134.18294270833331,
+            "confidence": 0.7835484743118286
+          },
+          "leftShoulder": {
+            "x": 1347.86328125,
+            "y": 177.81901041666669,
+            "confidence": 0.7223527431488037
+          },
+          "rightShoulder": {
+            "x": 1244.3834635416667,
+            "y": 174.07877604166669,
+            "confidence": 0.716543436050415
+          },
+          "leftElbow": {
+            "x": 1396.486328125,
+            "y": 207.74088541666669,
+            "confidence": 0.7490494847297668
+          },
+          "rightElbow": {
+            "x": 1208.2278645833333,
+            "y": 170.33854166666669,
+            "confidence": 0.7480559349060059
+          },
+          "leftWrist": {
+            "x": 1438.8756510416665,
+            "y": 262.59765625000006,
+            "confidence": 0.7221165299415588
+          },
+          "rightWrist": {
+            "x": 1168.33203125,
+            "y": 155.37760416666669,
+            "confidence": 0.8087905645370483
+          },
+          "leftHip": {
+            "x": 1283.0325520833333,
+            "y": 272.5716145833333,
+            "confidence": 0.6616165637969971
+          },
+          "rightHip": {
+            "x": 1216.955078125,
+            "y": 265.0911458333333,
+            "confidence": 0.7071926593780518
+          },
+          "leftKnee": {
+            "x": 1261.837890625,
+            "y": 328.6751302083333,
+            "confidence": 0.6764508485794067
+          },
+          "rightKnee": {
+            "x": 1200.7473958333333,
+            "y": 282.5455729166667,
+            "confidence": 0.6381633281707764
+          },
+          "leftAnkle": {
+            "x": 1269.318359375,
+            "y": 468.31054687500006,
+            "confidence": 0.7651185989379883
+          },
+          "rightAnkle": {
+            "x": 1209.474609375,
+            "y": 346.1295572916667,
+            "confidence": 0.709656834602356
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3994205402974822,
+        "b": 0.011652427323689764,
+        "c": -0.011652427323689764,
+        "d": 0.3994205402974822,
+        "e": -358.7034288817856,
+        "f": 11.977866045488042
+      },
+      "control": {
+        "frame": 80,
+        "joints": {
+          "nose": {
+            "x": 168.34365472560975,
+            "y": 94.55277101899625
+          },
+          "leftEye": {
+            "x": 172.44054511608817,
+            "y": 89.82679482293622
+          },
+          "rightEye": {
+            "x": 163.8526581554878,
+            "y": 88.21986397748594
+          },
+          "leftEar": {
+            "x": 175.83249662875232,
+            "y": 89.64870500117262
+          },
+          "rightEar": {
+            "x": 151.9486727544559,
+            "y": 85.0439288227017
+          },
+          "leftShoulder": {
+            "x": 174.7713781074109,
+            "y": 104.09953975140714
+          },
+          "rightShoulder": {
+            "x": 136.220703125,
+            "y": 95.57596300422139
+          },
+          "leftElbow": {
+            "x": 185.25064493433393,
+            "y": 121.44186063555348
+          },
+          "rightElbow": {
+            "x": 133.726621130394,
+            "y": 105.6297930347092
+          },
+          "leftWrist": {
+            "x": 195.0060096153846,
+            "y": 126.38055522983115
+          },
+          "rightWrist": {
+            "x": 137.76991967636025,
+            "y": 109.19158946998124
+          },
+          "leftHip": {
+            "x": 149.9476357293621,
+            "y": 135.26360958020638
+          },
+          "rightHip": {
+            "x": 124.92684026149155,
+            "y": 132.57659694535647
+          },
+          "leftKnee": {
+            "x": 146.49879441252344,
+            "y": 157.0515800891182
+          },
+          "rightKnee": {
+            "x": 125.29456276383677,
+            "y": 160.12527849437149
+          },
+          "leftAnkle": {
+            "x": 145.39974935506567,
+            "y": 214.4682333196529
+          },
+          "rightAnkle": {
+            "x": 124.658056549015,
+            "y": 171.96495368198873
+          }
+        },
+        "hip": {
+          "x": 137.4372379954268,
+          "y": 133.92010326278142
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.3995904742033604,
+          "referenceScale": 0.3686170681217748,
+          "appliedScale": 0.3995904742033604,
+          "desiredRotationDegrees": 1.6710347410030115,
+          "appliedRotationDegrees": 1.6710347410030115,
+          "hipControlError": 2.842170943040401e-14
+        }
+      },
+      "uniformScale": 0.3995904742033604,
+      "translation": {
+        "x": -358.7034288817856,
+        "y": 11.977866045488042
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        1264,
+        529
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 28163,
+        "mainPixels": 69109
+      }
+    },
+    {
+      "frame": 84,
+      "poseId": "authored-84",
+      "authored": true,
+      "src": "poses/084.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 86,
+        "y": 61,
+        "width": 99,
+        "height": 178
+      },
+      "ballMode": "empty",
+      "ballSocket": {
+        "x": 161.62604068949344,
+        "y": 158.06603248123827
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 84,
+        "group": "base-b",
+        "source": "source/boss-02-platinum-halo-b.png",
+        "sourceDimensions": [
+          1375,
+          1144
+        ],
+        "bounds": [
+          971,
+          78,
+          292,
+          524
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 533,
+        "referenceWorldHeight": 180,
+        "foot": [
+          1131,
+          601
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 1209.109375,
+            "y": 178.80859375,
+            "confidence": 0.744795560836792
+          },
+          "leftEye": {
+            "x": 1218.064453125,
+            "y": 164.736328125,
+            "confidence": 0.7554961442947388
+          },
+          "rightEye": {
+            "x": 1195.037109375,
+            "y": 162.177734375,
+            "confidence": 0.7814777493476868
+          },
+          "leftEar": {
+            "x": 1227.01953125,
+            "y": 160.8984375,
+            "confidence": 0.682939350605011
+          },
+          "rightEar": {
+            "x": 1157.9375,
+            "y": 154.501953125,
+            "confidence": 0.7546119689941406
+          },
+          "leftShoulder": {
+            "x": 1219.34375,
+            "y": 200.556640625,
+            "confidence": 0.6166220903396606
+          },
+          "rightShoulder": {
+            "x": 1109.32421875,
+            "y": 189.04296875,
+            "confidence": 0.6956812143325806
+          },
+          "leftElbow": {
+            "x": 1225.740234375,
+            "y": 267.080078125,
+            "confidence": 0.3960621953010559
+          },
+          "rightElbow": {
+            "x": 1134.91015625,
+            "y": 287.548828125,
+            "confidence": 0.6802172064781189
+          },
+          "leftWrist": {
+            "x": 1233.416015625,
+            "y": 235.09765625,
+            "confidence": 0.4322906732559204
+          },
+          "rightWrist": {
+            "x": 1195.037109375,
+            "y": 364.306640625,
+            "confidence": 0.722398042678833
+          },
+          "leftHip": {
+            "x": 1150.26171875,
+            "y": 301.62109375,
+            "confidence": 0.597542941570282
+          },
+          "rightHip": {
+            "x": 1078.62109375,
+            "y": 292.666015625,
+            "confidence": 0.6055682897567749
+          },
+          "leftKnee": {
+            "x": 1145.14453125,
+            "y": 369.423828125,
+            "confidence": 0.6205146312713623
+          },
+          "rightKnee": {
+            "x": 1069.666015625,
+            "y": 368.14453125,
+            "confidence": 0.6812676787376404
+          },
+          "leftAnkle": {
+            "x": 1140.02734375,
+            "y": 538.291015625,
+            "confidence": 0.7284883260726929
+          },
+          "rightAnkle": {
+            "x": 1049.197265625,
+            "y": 393.73046875,
+            "confidence": 0.6434377431869507
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.33771106941838647,
+        "b": 0,
+        "c": 0,
+        "d": 0.33771106941838647,
+        "e": -241.9512195121951,
+        "f": 35.03564727954972
+      },
+      "control": null,
+      "uniformScale": 0.33771106941838647,
+      "translation": {
+        "x": -241.9512195121951,
+        "y": 35.03564727954972
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        1131,
+        601
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 12761,
+        "mainPixels": 78811
+      }
+    },
+    {
+      "frame": 90,
+      "poseId": "authored-90",
+      "authored": true,
+      "src": "poses/090.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 53,
+        "y": 78,
+        "width": 165,
+        "height": 161
+      },
+      "ballMode": "empty",
+      "ballSocket": {
+        "x": 168.67459412977178,
+        "y": 172.80442410279267
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 90,
+        "group": "bridge-b",
+        "source": "traditional/source/boss-02-platinum-halo-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          76,
+          571,
+          448,
+          433
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 465,
+        "referenceWorldHeight": 171.4069366766253,
+        "foot": [
+          321,
+          1003
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 394.79166666666674,
+            "y": 644.5833333333333,
+            "confidence": 0.7642787098884583
+          },
+          "leftEye": {
+            "x": 400.625,
+            "y": 631.4583333333333,
+            "confidence": 0.8165228366851807
+          },
+          "rightEye": {
+            "x": 380.20833333333326,
+            "y": 631.4583333333333,
+            "confidence": 0.7717405557632446
+          },
+          "leftEar": {
+            "x": 409.375,
+            "y": 637.2916666666667,
+            "confidence": 0.7162073254585266
+          },
+          "rightEar": {
+            "x": 345.20833333333326,
+            "y": 631.4583333333333,
+            "confidence": 0.7768959999084473
+          },
+          "leftShoulder": {
+            "x": 410.83333333333326,
+            "y": 672.2916666666667,
+            "confidence": 0.7147647142410278
+          },
+          "rightShoulder": {
+            "x": 310.20833333333326,
+            "y": 669.375,
+            "confidence": 0.7334142327308655
+          },
+          "leftElbow": {
+            "x": 441.45833333333326,
+            "y": 723.3333333333333,
+            "confidence": 0.6622738838195801
+          },
+          "rightElbow": {
+            "x": 342.29166666666674,
+            "y": 756.875,
+            "confidence": 0.7402220964431763
+          },
+          "leftWrist": {
+            "x": 477.91666666666674,
+            "y": 778.75,
+            "confidence": 0.6842993497848511
+          },
+          "rightWrist": {
+            "x": 393.33333333333326,
+            "y": 823.9583333333333,
+            "confidence": 0.827782154083252
+          },
+          "leftHip": {
+            "x": 313.125,
+            "y": 740.8333333333333,
+            "confidence": 0.6468056440353394
+          },
+          "rightHip": {
+            "x": 248.95833333333337,
+            "y": 711.6666666666667,
+            "confidence": 0.6547001600265503
+          },
+          "leftKnee": {
+            "x": 323.33333333333326,
+            "y": 810.8333333333333,
+            "confidence": 0.6081681847572327
+          },
+          "rightKnee": {
+            "x": 173.125,
+            "y": 736.4583333333333,
+            "confidence": 0.7862433195114136
+          },
+          "leftAnkle": {
+            "x": 323.33333333333326,
+            "y": 947.9166666666667,
+            "confidence": 0.7853820323944092
+          },
+          "rightAnkle": {
+            "x": 126.45833333333331,
+            "y": 632.9166666666667,
+            "confidence": 0.8531731367111206
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.37242245736589075,
+        "b": 0.016026044946801002,
+        "c": -0.016026044946801002,
+        "d": 0.37242245736589075,
+        "e": 35.39322085014601,
+        "f": -140.35974084338608
+      },
+      "control": {
+        "frame": 90,
+        "joints": {
+          "nose": {
+            "x": 163.84721652204502,
+            "y": 97.78526618198876
+          },
+          "leftEye": {
+            "x": 166.43941281660412,
+            "y": 92.8168899507505
+          },
+          "rightEye": {
+            "x": 158.4468075750469,
+            "y": 92.81688995075048
+          },
+          "leftEar": {
+            "x": 168.81559275328328,
+            "y": 92.38485723499063
+          },
+          "rightEar": {
+            "x": 146.13387517589118,
+            "y": 91.95282451923077
+          },
+          "leftShoulder": {
+            "x": 166.65542917448406,
+            "y": 102.75364241322703
+          },
+          "rightShoulder": {
+            "x": 132.5248446294559,
+            "y": 107.07396957082551
+          },
+          "leftElbow": {
+            "x": 169.67965818480297,
+            "y": 112.9064112335835
+          },
+          "rightElbow": {
+            "x": 142.67761344981238,
+            "y": 139.69243961069418
+          },
+          "leftWrist": {
+            "x": 170.97575633208254,
+            "y": 111.39429672842402
+          },
+          "rightWrist": {
+            "x": 161.9030693011257,
+            "y": 165.6144025562852
+          },
+          "leftHip": {
+            "x": 139.65338443949344,
+            "y": 137.7482923897749
+          },
+          "rightHip": {
+            "x": 117.18768321998122,
+            "y": 131.48381801125706
+          },
+          "leftKnee": {
+            "x": 140.94948258677297,
+            "y": 160.6460263250469
+          },
+          "rightKnee": {
+            "x": 99.69035823170731,
+            "y": 148.5491102837711
+          },
+          "leftAnkle": {
+            "x": 141.1654989446529,
+            "y": 216.37824665806755
+          },
+          "rightAnkle": {
+            "x": 87.16140947467167,
+            "y": 138.1803251055347
+          }
+        },
+        "hip": {
+          "x": 128.42053382973734,
+          "y": 134.61605520051597
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.37276711344629854,
+          "referenceScale": 0.3686170681217748,
+          "appliedScale": 0.37276711344629854,
+          "desiredRotationDegrees": 2.464025936211638,
+          "appliedRotationDegrees": 2.464025936211638,
+          "hipControlError": 0
+        }
+      },
+      "uniformScale": 0.37276711344629854,
+      "translation": {
+        "x": 35.39322085014601,
+        "y": -140.35974084338608
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        324,
+        1002
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 17717,
+        "mainPixels": 77497
+      }
+    },
+    {
+      "frame": 96,
+      "poseId": "authored-96",
+      "authored": true,
+      "src": "poses/096.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 45,
+        "y": 71,
+        "width": 133,
+        "height": 167
+      },
+      "ballMode": "empty",
+      "ballSocket": {
+        "x": 162.18009791275796,
+        "y": 173.16277263133213
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 96,
+        "group": "base-b",
+        "source": "source/boss-02-platinum-halo-b.png",
+        "sourceDimensions": [
+          1375,
+          1144
+        ],
+        "bounds": [
+          56,
+          643,
+          393,
+          496
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 533,
+        "referenceWorldHeight": 180,
+        "foot": [
+          336.5,
+          1138
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 399.619140625,
+            "y": 729.80859375,
+            "confidence": 0.8650690317153931
+          },
+          "leftEye": {
+            "x": 406.015625,
+            "y": 714.45703125,
+            "confidence": 0.8814684748649597
+          },
+          "rightEye": {
+            "x": 381.708984375,
+            "y": 717.015625,
+            "confidence": 0.8648326396942139
+          },
+          "leftEar": {
+            "x": 411.1328125,
+            "y": 715.736328125,
+            "confidence": 0.7592236399650574
+          },
+          "rightEar": {
+            "x": 345.888671875,
+            "y": 719.57421875,
+            "confidence": 0.8813406229019165
+          },
+          "leftShoulder": {
+            "x": 406.015625,
+            "y": 737.484375,
+            "confidence": 0.6773187518119812
+          },
+          "rightShoulder": {
+            "x": 313.90625,
+            "y": 774.583984375,
+            "confidence": 0.7184497714042664
+          },
+          "leftElbow": {
+            "x": 417.529296875,
+            "y": 731.087890625,
+            "confidence": 0.44849488139152527
+          },
+          "rightElbow": {
+            "x": 348.447265625,
+            "y": 869.251953125,
+            "confidence": 0.7810766100883484
+          },
+          "leftWrist": {
+            "x": 417.529296875,
+            "y": 754.115234375,
+            "confidence": 0.5508311986923218
+          },
+          "rightWrist": {
+            "x": 402.177734375,
+            "y": 946.009765625,
+            "confidence": 0.8549833297729492
+          },
+          "leftHip": {
+            "x": 315.185546875,
+            "y": 843.666015625,
+            "confidence": 0.640873372554779
+          },
+          "rightHip": {
+            "x": 253.779296875,
+            "y": 815.521484375,
+            "confidence": 0.5740761160850525
+          },
+          "leftKnee": {
+            "x": 327.978515625,
+            "y": 911.46875,
+            "confidence": 0.672879695892334
+          },
+          "rightKnee": {
+            "x": 159.111328125,
+            "y": 841.107421875,
+            "confidence": 0.694710373878479
+          },
+          "leftAnkle": {
+            "x": 334.375,
+            "y": 1072.66015625,
+            "confidence": 0.7901821136474609
+          },
+          "rightAnkle": {
+            "x": 105.380859375,
+            "y": 754.115234375,
+            "confidence": 0.7955090999603271
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.33771106941838647,
+        "b": 0,
+        "c": 0,
+        "d": 0.33771106941838647,
+        "e": 26.360225140712956,
+        "f": -146.31519699812378
+      },
+      "control": null,
+      "uniformScale": 0.33771106941838647,
+      "translation": {
+        "x": 26.360225140712956,
+        "y": -146.31519699812378
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        336.5,
+        1138
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 14505,
+        "mainPixels": 81837
+      }
+    },
+    {
+      "frame": 103,
+      "poseId": "authored-103",
+      "authored": true,
+      "src": "poses/103.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 98,
+        "y": 83,
+        "width": 129,
+        "height": 153
+      },
+      "ballMode": "empty",
+      "ballSocket": {
+        "x": 160.18525568188608,
+        "y": 164.4655965355726
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 103,
+        "group": "bridge-b",
+        "source": "traditional/source/boss-02-platinum-halo-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          649,
+          563,
+          381,
+          441
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 465,
+        "referenceWorldHeight": 171.4069366766253,
+        "foot": [
+          789.5,
+          1003
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 849.421875,
+            "y": 642.11328125,
+            "confidence": 0.7728264331817627
+          },
+          "leftEye": {
+            "x": 856.86328125,
+            "y": 629.7109375,
+            "confidence": 0.8349695205688477
+          },
+          "rightEye": {
+            "x": 837.01953125,
+            "y": 628.470703125,
+            "confidence": 0.8346560597419739
+          },
+          "leftEar": {
+            "x": 864.3046875,
+            "y": 628.470703125,
+            "confidence": 0.6983650326728821
+          },
+          "rightEar": {
+            "x": 807.25390625,
+            "y": 624.75,
+            "confidence": 0.8294381499290466
+          },
+          "leftShoulder": {
+            "x": 869.265625,
+            "y": 654.515625,
+            "confidence": 0.6965757608413696
+          },
+          "rightShoulder": {
+            "x": 768.806640625,
+            "y": 663.197265625,
+            "confidence": 0.7946147322654724
+          },
+          "leftElbow": {
+            "x": 910.193359375,
+            "y": 701.64453125,
+            "confidence": 0.7012757062911987
+          },
+          "rightElbow": {
+            "x": 796.091796875,
+            "y": 737.611328125,
+            "confidence": 0.739108681678772
+          },
+          "leftWrist": {
+            "x": 958.5625,
+            "y": 746.29296875,
+            "confidence": 0.731719970703125
+          },
+          "rightWrist": {
+            "x": 840.740234375,
+            "y": 794.662109375,
+            "confidence": 0.7895500659942627
+          },
+          "leftHip": {
+            "x": 782.44921875,
+            "y": 727.689453125,
+            "confidence": 0.6991724967956543
+          },
+          "rightHip": {
+            "x": 722.91796875,
+            "y": 712.806640625,
+            "confidence": 0.7324811220169067
+          },
+          "leftKnee": {
+            "x": 787.41015625,
+            "y": 818.2265625,
+            "confidence": 0.684924840927124
+          },
+          "rightKnee": {
+            "x": 725.3984375,
+            "y": 792.181640625,
+            "confidence": 0.785011887550354
+          },
+          "leftAnkle": {
+            "x": 791.130859375,
+            "y": 944.73046875,
+            "confidence": 0.8245349526405334
+          },
+          "rightAnkle": {
+            "x": 694.392578125,
+            "y": 804.583984375,
+            "confidence": 0.7623687982559204
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.35085905952280977,
+        "b": 0.04931002508823173,
+        "c": -0.04931002508823173,
+        "d": 0.35085905952280977,
+        "e": -95.61126370396471,
+        "f": -155.80572584786918
+      },
+      "control": {
+        "frame": 103,
+        "joints": {
+          "nose": {
+            "x": 163.15013698481727,
+            "y": 91.5760836107656
+          },
+          "leftEye": {
+            "x": 165.45533909398196,
+            "y": 86.8995768096399
+          },
+          "rightEye": {
+            "x": 157.60504798133005,
+            "y": 87.50066580547967
+          },
+          "leftEar": {
+            "x": 167.32625010196588,
+            "y": 88.40384073690761
+          },
+          "rightEar": {
+            "x": 146.11363016457295,
+            "y": 88.7704878176238
+          },
+          "leftShoulder": {
+            "x": 167.461538142895,
+            "y": 99.39794774502408
+          },
+          "rightShoulder": {
+            "x": 134.9888594285321,
+            "y": 107.97999158144017
+          },
+          "leftElbow": {
+            "x": 173.5101037056958,
+            "y": 105.65252824455504
+          },
+          "rightElbow": {
+            "x": 139.0911627745432,
+            "y": 138.3788272264255
+          },
+          "leftWrist": {
+            "x": 167.75899976547842,
+            "y": 107.85241072885228
+          },
+          "rightWrist": {
+            "x": 157.06389581761357,
+            "y": 153.0678320200975
+          },
+          "leftHip": {
+            "x": 144.38417294819112,
+            "y": 137.31656158867978
+          },
+          "rightHip": {
+            "x": 122.86946707521004,
+            "y": 130.70458263444206
+          },
+          "leftKnee": {
+            "x": 150.3320431991292,
+            "y": 163.81140163604292
+          },
+          "rightKnee": {
+            "x": 98.08798876718126,
+            "y": 147.41520085370954
+          },
+          "leftAnkle": {
+            "x": 155.7134171832939,
+            "y": 213.85094927068891
+          },
+          "rightAnkle": {
+            "x": 81.45272175671954,
+            "y": 138.88162268537403
+          }
+        },
+        "hip": {
+          "x": 133.62682001170057,
+          "y": 134.01057211156092
+        },
+        "foot": {
+          "x": 133.91304347826087,
+          "y": 234.95652173913044
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.35430715237408433,
+          "referenceScale": 0.3686170681217748,
+          "appliedScale": 0.35430715237408433,
+          "desiredRotationDegrees": 8.378971185074649,
+          "appliedRotationDegrees": 8,
+          "hipControlError": 0.6676877516571079
+        }
+      },
+      "uniformScale": 0.35430715237408433,
+      "translation": {
+        "x": -95.61126370396471,
+        "y": -155.80572584786918
+      },
+      "plantedFoot": {
+        "x": 133.91304347826087,
+        "y": 234.95652173913044
+      },
+      "registeredSourceFoot": [
+        795,
+        1002
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 15443,
+        "mainPixels": 70185
+      }
+    },
+    {
+      "frame": 113,
+      "poseId": "authored-113",
+      "authored": true,
+      "src": "poses/113.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 110,
+        "y": 53,
+        "width": 111,
+        "height": 178
+      },
+      "ballMode": "reset",
+      "ballSocket": {
+        "x": 130.9185078426575,
+        "y": 109.01899173251402
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 113,
+        "group": "bridge-b",
+        "source": "traditional/source/boss-02-platinum-halo-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1157,
+          540,
+          291,
+          465
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 465,
+        "referenceWorldHeight": 171.4069366766253,
+        "foot": [
+          1201,
+          1004
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 1283.20068359375,
+            "y": 610.15869140625,
+            "confidence": 0.801683247089386
+          },
+          "leftEye": {
+            "x": 1292.28271484375,
+            "y": 601.07666015625,
+            "confidence": 0.888489842414856
+          },
+          "rightEye": {
+            "x": 1270.712890625,
+            "y": 596.53564453125,
+            "confidence": 0.834130048751831
+          },
+          "leftEar": {
+            "x": 1300.2294921875,
+            "y": 607.88818359375,
+            "confidence": 0.7288340330123901
+          },
+          "rightEar": {
+            "x": 1243.466796875,
+            "y": 594.26513671875,
+            "confidence": 0.8325536251068115
+          },
+          "leftShoulder": {
+            "x": 1300.2294921875,
+            "y": 647.6220703125,
+            "confidence": 0.811907172203064
+          },
+          "rightShoulder": {
+            "x": 1204.8681640625,
+            "y": 647.6220703125,
+            "confidence": 0.9039450883865356
+          },
+          "leftElbow": {
+            "x": 1330.88134765625,
+            "y": 718.0078125,
+            "confidence": 0.8366974592208862
+          },
+          "rightElbow": {
+            "x": 1167.40478515625,
+            "y": 718.0078125,
+            "confidence": 0.9142966270446777
+          },
+          "leftWrist": {
+            "x": 1274.11865234375,
+            "y": 693.0322265625,
+            "confidence": 0.787830114364624
+          },
+          "rightWrist": {
+            "x": 1211.6796875,
+            "y": 686.220703125,
+            "confidence": 0.8241430521011353
+          },
+          "leftHip": {
+            "x": 1294.55322265625,
+            "y": 750.93017578125,
+            "confidence": 0.7387802600860596
+          },
+          "rightHip": {
+            "x": 1228.70849609375,
+            "y": 750.93017578125,
+            "confidence": 0.7846538424491882
+          },
+          "leftKnee": {
+            "x": 1310.44677734375,
+            "y": 840.615234375,
+            "confidence": 0.7429177761077881
+          },
+          "rightKnee": {
+            "x": 1227.5732421875,
+            "y": 820.1806640625,
+            "confidence": 0.7784684896469116
+          },
+          "leftAnkle": {
+            "x": 1350.1806640625,
+            "y": 874.6728515625,
+            "confidence": 0.7676537036895752
+          },
+          "rightAnkle": {
+            "x": 1208.27392578125,
+            "y": 951.8701171875,
+            "confidence": 0.8613144159317017
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.38403577038740344,
+        "b": 0.007474623770819163,
+        "c": -0.007474623770819163,
+        "d": 0.38403577038740344,
+        "e": -329.2805928295669,
+        "f": -163.57115444268723
+      },
+      "control": {
+        "frame": 113,
+        "joints": {
+          "nose": {
+            "x": 165.7702862756444,
+            "y": 79.32871210054861
+          },
+          "leftEye": {
+            "x": 168.28268628533115,
+            "y": 75.37775642512648
+          },
+          "rightEye": {
+            "x": 160.9442958680867,
+            "y": 75.60316479856638
+          },
+          "leftEar": {
+            "x": 170.35756892895014,
+            "y": 78.41377922597687
+          },
+          "rightEar": {
+            "x": 150.31787551492778,
+            "y": 77.45263906874544
+          },
+          "leftShoulder": {
+            "x": 173.15488397554856,
+            "y": 94.62153029152054
+          },
+          "rightShoulder": {
+            "x": 138.73031500453746,
+            "y": 97.56513852705157
+          },
+          "leftElbow": {
+            "x": 182.28955113972384,
+            "y": 112.89717376009463
+          },
+          "rightElbow": {
+            "x": 132.02893266554162,
+            "y": 125.71885228454606
+          },
+          "leftWrist": {
+            "x": 168.32258442776734,
+            "y": 107.1303328167061
+          },
+          "rightWrist": {
+            "x": 149.75503568169302,
+            "y": 124.36077400404807
+          },
+          "leftHip": {
+            "x": 160.9303153869096,
+            "y": 135.48285618601642
+          },
+          "rightHip": {
+            "x": 138.30541591891668,
+            "y": 133.00336407817727
+          },
+          "leftKnee": {
+            "x": 169.2032471997614,
+            "y": 167.1164192506526
+          },
+          "rightKnee": {
+            "x": 123.7938556940309,
+            "y": 161.24250216040255
+          },
+          "leftAnkle": {
+            "x": 185.27011022514068,
+            "y": 206.6086956521739
+          },
+          "rightAnkle": {
+            "x": 125.21739130434783,
+            "y": 213.6086956521739
+          }
+        },
+        "hip": {
+          "x": 149.61786565291314,
+          "y": 134.24311013209683
+        },
+        "foot": {
+          "x": 125.21739130434783,
+          "y": 230.6086956521739
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.3841085041203354,
+          "referenceScale": 0.3686170681217748,
+          "appliedScale": 0.3841085041203354,
+          "desiredRotationDegrees": 1.115027198373841,
+          "appliedRotationDegrees": 1.115027198373841,
+          "hipControlError": 8.987733679556355e-14
+        }
+      },
+      "uniformScale": 0.3841085041203354,
+      "translation": {
+        "x": -329.2805928295669,
+        "y": -163.57115444268723
+      },
+      "plantedFoot": {
+        "x": 125.21739130434783,
+        "y": 230.6086956521739
+      },
+      "registeredSourceFoot": [
+        1203,
+        1003
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 16845,
+        "mainPixels": 63368
+      }
+    },
+    {
+      "frame": 117,
+      "poseId": "authored-119",
+      "authored": true,
+      "src": "poses/119.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 112,
+        "y": 48,
+        "width": 121,
+        "height": 181
+      },
+      "ballMode": "reset",
+      "ballSocket": {
+        "x": 145.36971960014068,
+        "y": 107.13653919441839
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 119,
+        "group": "base-b",
+        "source": "source/boss-02-platinum-halo-b.png",
+        "sourceDimensions": [
+          1375,
+          1144
+        ],
+        "bounds": [
+          991,
+          605,
+          357,
+          533
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 533,
+        "referenceWorldHeight": 180,
+        "foot": [
+          1015,
+          1137
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 1155.18603515625,
+            "y": 675.00830078125,
+            "confidence": 0.7720020413398743
+          },
+          "leftEye": {
+            "x": 1162.99365234375,
+            "y": 664.59814453125,
+            "confidence": 0.8496730923652649
+          },
+          "rightEye": {
+            "x": 1142.17333984375,
+            "y": 664.59814453125,
+            "confidence": 0.8253872394561768
+          },
+          "leftEar": {
+            "x": 1169.5,
+            "y": 676.3095703125,
+            "confidence": 0.7357199788093567
+          },
+          "rightEar": {
+            "x": 1112.244140625,
+            "y": 671.1044921875,
+            "confidence": 0.7727546691894531
+          },
+          "leftShoulder": {
+            "x": 1182.5126953125,
+            "y": 733.5654296875,
+            "confidence": 0.7974182367324829
+          },
+          "rightShoulder": {
+            "x": 1077.10986328125,
+            "y": 732.26416015625,
+            "confidence": 0.8211871385574341
+          },
+          "leftElbow": {
+            "x": 1215.04443359375,
+            "y": 809.0390625,
+            "confidence": 0.8440337181091309
+          },
+          "rightElbow": {
+            "x": 1038.07177734375,
+            "y": 811.6416015625,
+            "confidence": 0.8603354692459106
+          },
+          "leftWrist": {
+            "x": 1159.08984375,
+            "y": 777.80859375,
+            "confidence": 0.7932838201522827
+          },
+          "rightWrist": {
+            "x": 1090.12255859375,
+            "y": 779.10986328125,
+            "confidence": 0.7736694812774658
+          },
+          "leftHip": {
+            "x": 1165.59619140625,
+            "y": 859.78857421875,
+            "confidence": 0.7200770974159241
+          },
+          "rightHip": {
+            "x": 1096.62890625,
+            "y": 859.78857421875,
+            "confidence": 0.7497656345367432
+          },
+          "leftKnee": {
+            "x": 1194.22412109375,
+            "y": 962.5888671875,
+            "confidence": 0.757957398891449
+          },
+          "rightKnee": {
+            "x": 1071.90478515625,
+            "y": 963.89013671875,
+            "confidence": 0.8281909227371216
+          },
+          "leftAnkle": {
+            "x": 1231.9609375,
+            "y": 1081.00439453125,
+            "confidence": 0.8402341604232788
+          },
+          "rightAnkle": {
+            "x": 1032.86669921875,
+            "y": 1079.703125,
+            "confidence": 0.8580653071403503
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.33771106941838647,
+        "b": 0,
+        "c": 0,
+        "d": 0.33771106941838647,
+        "e": -222.7767354596623,
+        "f": -155.9774859287054
+      },
+      "control": null,
+      "uniformScale": 0.33771106941838647,
+      "translation": {
+        "x": -222.7767354596623,
+        "y": -155.9774859287054
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        1015,
+        1137
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 18224,
+        "mainPixels": 78433
+      },
+      "originalFrame": 119
+    },
+    {
+      "frame": 119,
+      "poseId": "canonical-ready-reuse",
+      "authored": false,
+      "src": "poses/000.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 112,
+        "y": 49,
+        "width": 101,
+        "height": 180
+      },
+      "ballMode": "reset",
+      "ballSocket": {
+        "x": 154.8073918269231,
+        "y": 114.890625
+      },
+      "ballRadius": 3.8671875,
+      "sourceRecord": {
+        "frame": 0,
+        "group": "base-a",
+        "source": "source/boss-02-platinum-halo-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          168,
+          9,
+          287,
+          512
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 512,
+        "referenceWorldHeight": 180,
+        "foot": [
+          189.5,
+          518
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 322.75,
+            "y": 66.25,
+            "confidence": 0.7163381576538086
+          },
+          "leftEye": {
+            "x": 326.5,
+            "y": 56.25,
+            "confidence": 0.7826714515686035
+          },
+          "rightEye": {
+            "x": 310.25,
+            "y": 56.25,
+            "confidence": 0.7681225538253784
+          },
+          "leftEar": {
+            "x": 334,
+            "y": 63.75,
+            "confidence": 0.757145881652832
+          },
+          "rightEar": {
+            "x": 285.25,
+            "y": 63.75,
+            "confidence": 0.8142666816711426
+          },
+          "leftShoulder": {
+            "x": 350.25,
+            "y": 117.5,
+            "confidence": 0.8170862197875977
+          },
+          "rightShoulder": {
+            "x": 261.5,
+            "y": 125,
+            "confidence": 0.8127950429916382
+          },
+          "leftElbow": {
+            "x": 370.25,
+            "y": 191.25,
+            "confidence": 0.8507283926010132
+          },
+          "rightElbow": {
+            "x": 239,
+            "y": 197.5,
+            "confidence": 0.8737274408340454
+          },
+          "leftWrist": {
+            "x": 329,
+            "y": 167.5,
+            "confidence": 0.7303956151008606
+          },
+          "rightWrist": {
+            "x": 274,
+            "y": 170,
+            "confidence": 0.7373653650283813
+          },
+          "leftHip": {
+            "x": 341.5,
+            "y": 241.25,
+            "confidence": 0.7428607940673828
+          },
+          "rightHip": {
+            "x": 279,
+            "y": 243.75,
+            "confidence": 0.7494306564331055
+          },
+          "leftKnee": {
+            "x": 364,
+            "y": 346.25,
+            "confidence": 0.8655036687850952
+          },
+          "rightKnee": {
+            "x": 245.25,
+            "y": 348.75,
+            "confidence": 0.8376834392547607
+          },
+          "leftAnkle": {
+            "x": 406.5,
+            "y": 471.25,
+            "confidence": 0.885576605796814
+          },
+          "rightAnkle": {
+            "x": 206.5,
+            "y": 466.25,
+            "confidence": 0.8839629888534546
+          }
+        },
+        "ball": {
+          "x": 288.5076923076923,
+          "y": 196.26666666666665,
+          "radius": 11,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3515625,
+        "b": 0,
+        "c": 0,
+        "d": 0.3515625,
+        "e": 53.37890625,
+        "f": 45.890625
+      },
+      "control": null,
+      "uniformScale": 0.3515625,
+      "translation": {
+        "x": 53.37890625,
+        "y": 45.890625
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        189.5,
+        518
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 14950,
+        "mainPixels": 60881
+      },
+      "drawingId": "boss-02-platinum-halo-canonical-ready-reuse",
+      "reused": true,
+      "sourcePoseId": "authored-0"
+    }
+  ],
+  "selectedAuthoredBodyDrawingCount": 22,
+  "directlyUsedSourceDrawingCount": 22,
+  "derivedHandVariantCount": 1,
+  "reusedIdleCount": 1,
+  "timelineDrawingEntries": 24,
+  "unusedSourcePoseIds": [
+    "authored-76",
+    "authored-110"
+  ],
+  "reviewFlags": {
+    "sourceEdgeTouchReviewRequired": false,
+    "sourceEdgeTouchFrames": [],
+    "excludedFrames": []
+  },
+  "releaseHandoffProof": {
+    "source": "same-held-body+character-owned-empty-hand",
+    "sourceHeldFrame": 75,
+    "wrist": {
+      "x": 111.69977438459736,
+      "y": 88.77065128055509
+    },
+    "ballSocket": {
+      "x": 106.98851638388496,
+      "y": 79.2565407481661
+    },
+    "socketError": 0,
+    "bodyOutsideHandDifferingChannels": 0,
+    "removedHeldHandPixels": 448,
+    "guardRadius": 34
+  }
+}

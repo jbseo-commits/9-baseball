@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "id": "emerald-tempest",
+  "inputManifest": "traditional/characters/emerald-tempest/sequence.json",
+  "status": "candidate_generated_needs_visual_review",
+  "reason": "Automated geometric and pixel checks passed; visual approval remains required.",
+  "releaseFrame": 76,
+  "derivedFrame": 76,
+  "checks": {
+    "heldFrame": 75,
+    "heldPoseId": "authored-75",
+    "registeredWrist": {
+      "x": 105.6164135436473,
+      "y": 73.90051028706873
+    },
+    "registeredElbow": {
+      "x": 116.09542308949477,
+      "y": 85.00494825714705
+    },
+    "ballSocket": {
+      "x": 94.90036302799138,
+      "y": 64.48270645652963
+    },
+    "ballRadius": 7.153480567203224,
+    "ballMaskRadius": 10,
+    "handLocalDistalHalfPlane": true,
+    "handLocalRadiusPx": 26.266350887476676,
+    "removedHandPixels": 487,
+    "residualWhiteCleanup": {
+      "roiRadiusPx": 25.4198314546799,
+      "removedComponents": []
+    },
+    "guardRadius": 34,
+    "comparison": "final derived RGBA vs preserved original held RGBA",
+    "bodyOutsideHandDifferingChannels": 0,
+    "emptyHandSource": "source/emerald-tempest-b.png",
+    "emptyHandManualOverride": false,
+    "socketError": 0,
+    "timelineEntries": 24,
+    "directSourceDrawingCount": 22,
+    "sourceEdgeTouchReviewFrames": [],
+    "explicitlyExcludedFrames": []
+  },
+  "outputManifest": "/workspace/9zone-roster-rebuild-20261031/traditional/characters/emerald-tempest/sequence-release-matched.json",
+  "outputDrawing": "poses/076-matched-empty.png"
+}

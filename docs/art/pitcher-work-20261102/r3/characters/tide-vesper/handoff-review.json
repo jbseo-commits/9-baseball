@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "id": "tide-vesper",
+  "inputManifest": "traditional/characters/tide-vesper/sequence.json",
+  "status": "candidate_generated_needs_visual_review",
+  "reason": "Automated geometric and pixel checks passed; visual approval remains required.",
+  "releaseFrame": 76,
+  "derivedFrame": 76,
+  "checks": {
+    "heldFrame": 75,
+    "heldPoseId": "authored-75",
+    "registeredWrist": {
+      "x": 99.96608162163955,
+      "y": 103.21374901769491
+    },
+    "registeredElbow": {
+      "x": 109.78148814042999,
+      "y": 102.32749627515152
+    },
+    "ballSocket": {
+      "x": 90.90206528979218,
+      "y": 105.54414624038499
+    },
+    "ballRadius": 7.280302868112573,
+    "ballMaskRadius": 10,
+    "handLocalDistalHalfPlane": true,
+    "handLocalRadiusPx": 21.358800311980026,
+    "removedHandPixels": 312,
+    "residualWhiteCleanup": {
+      "roiRadiusPx": 20.6391031800926,
+      "removedComponents": []
+    },
+    "guardRadius": 34,
+    "comparison": "final derived RGBA vs preserved original held RGBA",
+    "bodyOutsideHandDifferingChannels": 0,
+    "emptyHandSource": "source/tide-vesper-b.png",
+    "emptyHandManualOverride": false,
+    "socketError": 0,
+    "timelineEntries": 22,
+    "directSourceDrawingCount": 20,
+    "sourceEdgeTouchReviewFrames": [
+      {
+        "frame": 34,
+        "poseId": "authored-34",
+        "source": "source/tide-vesper-a.png"
+      },
+      {
+        "frame": 50,
+        "poseId": "authored-50",
+        "source": "source/tide-vesper-a.png"
+      },
+      {
+        "frame": 64,
+        "poseId": "authored-64",
+        "source": "source/tide-vesper-a.png"
+      }
+    ],
+    "explicitlyExcludedFrames": [
+      70,
+      73
+    ]
+  },
+  "outputManifest": "/workspace/9zone-roster-rebuild-20261031/traditional/characters/tide-vesper/sequence-release-matched.json",
+  "outputDrawing": "poses/076-matched-empty.png"
+}

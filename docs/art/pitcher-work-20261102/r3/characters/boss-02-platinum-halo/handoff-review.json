@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "id": "boss-02-platinum-halo",
+  "inputManifest": "traditional/characters/boss-02-platinum-halo/sequence.json",
+  "status": "candidate_generated_needs_visual_review",
+  "reason": "Automated geometric and pixel checks passed; visual approval remains required.",
+  "releaseFrame": 76,
+  "derivedFrame": 76,
+  "checks": {
+    "automaticWrist": {
+      "method": "minimum opaque cross-section along elbow-to-CV-wrist axis",
+      "widthPx": 13,
+      "forearmMedianWidthPx": 32.5,
+      "t": 0.9700000000000005
+    },
+    "heldFrame": 75,
+    "heldPoseId": "authored-75",
+    "registeredWrist": {
+      "x": 111.69977438459736,
+      "y": 88.77065128055509
+    },
+    "registeredElbow": {
+      "x": 123.8294127291239,
+      "y": 99.37772014703548
+    },
+    "ballSocket": {
+      "x": 106.98851638388496,
+      "y": 79.2565407481661
+    },
+    "ballRadius": 4.809835235772654,
+    "ballMaskRadius": 10,
+    "handLocalDistalHalfPlane": true,
+    "handLocalRadiusPx": 22.61669681076895,
+    "removedHandPixels": 448,
+    "residualWhiteCleanup": {
+      "roiRadiusPx": 19.426532046541606,
+      "removedComponents": [
+        {
+          "area": 1,
+          "center": {
+            "x": 106.5,
+            "y": 94.5
+          },
+          "kind": "low-opacity neutral-white residue"
+        }
+      ]
+    },
+    "guardRadius": 34,
+    "comparison": "final derived RGBA vs preserved original held RGBA",
+    "bodyOutsideHandDifferingChannels": 0,
+    "emptyHandSource": "source/boss-02-platinum-halo-b.png",
+    "emptyHandManualOverride": false,
+    "socketError": 0,
+    "timelineEntries": 24,
+    "directSourceDrawingCount": 22,
+    "sourceEdgeTouchReviewFrames": [],
+    "explicitlyExcludedFrames": []
+  },
+  "outputManifest": "/workspace/9zone-roster-rebuild-20261031/traditional/characters/boss-02-platinum-halo/sequence-release-matched.json",
+  "outputDrawing": "poses/076-matched-empty.png"
+}

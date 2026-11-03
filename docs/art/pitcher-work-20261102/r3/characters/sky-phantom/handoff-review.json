@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "id": "sky-phantom",
+  "inputManifest": "traditional/characters/sky-phantom/sequence.json",
+  "status": "candidate_generated_needs_visual_review",
+  "reason": "Automated geometric and pixel checks passed; visual approval remains required.",
+  "releaseFrame": 76,
+  "derivedFrame": 76,
+  "checks": {
+    "automaticWrist": {
+      "method": "minimum opaque cross-section along elbow-to-CV-wrist axis",
+      "widthPx": 12,
+      "forearmMedianWidthPx": 39.5,
+      "t": 0.9300000000000005
+    },
+    "heldFrame": 75,
+    "heldPoseId": "authored-75",
+    "registeredWrist": {
+      "x": 84.10338171622642,
+      "y": 78.45900950448423
+    },
+    "registeredElbow": {
+      "x": 100.14773831309586,
+      "y": 90.71674517721429
+    },
+    "ballSocket": {
+      "x": 75.70313664689235,
+      "y": 68.04149465760557
+    },
+    "ballRadius": 1.5214285607003522,
+    "ballMaskRadius": 10,
+    "handLocalDistalHalfPlane": true,
+    "handLocalRadiusPx": 25.382403850198543,
+    "removedHandPixels": 434,
+    "residualWhiteCleanup": {
+      "roiRadiusPx": 18.903832410898893,
+      "removedComponents": [
+        {
+          "area": 1,
+          "center": {
+            "x": 78.5,
+            "y": 65.5
+          },
+          "kind": "low-opacity neutral-white residue"
+        },
+        {
+          "area": 1,
+          "center": {
+            "x": 78.5,
+            "y": 76.5
+          },
+          "kind": "low-opacity neutral-white residue"
+        }
+      ]
+    },
+    "guardRadius": 34,
+    "comparison": "final derived RGBA vs preserved original held RGBA",
+    "bodyOutsideHandDifferingChannels": 0,
+    "emptyHandSource": "source/sky-phantom-b.png",
+    "emptyHandManualOverride": false,
+    "socketError": 0,
+    "timelineEntries": 24,
+    "directSourceDrawingCount": 22,
+    "sourceEdgeTouchReviewFrames": [],
+    "explicitlyExcludedFrames": []
+  },
+  "outputManifest": "/workspace/9zone-roster-rebuild-20261031/traditional/characters/sky-phantom/sequence-release-matched.json",
+  "outputDrawing": "poses/076-matched-empty.png"
+}
