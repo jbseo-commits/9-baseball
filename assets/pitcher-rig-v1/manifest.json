@@ -1,0 +1,1256 @@
+{
+  "revision": "full-roster-articulated-20261030",
+  "integrationAuthorization": "User: 게임에 적용해줘 (2026-10-31 KST)",
+  "representation": "120 frames baked from24 independent cutout parts per character; not a runtime skinned mesh",
+  "projection": "x=anchor.x+x3D*scale; y=anchor.y+(y3D+0.24*z3D-1)*scale",
+  "sourceKit": "9ZONE-20-pitcher-rig-source-kit.zip (delivered separately; masters are not runtime imports)",
+  "encoder": {
+    "sharp": "0.35.5",
+    "format": "AVIF",
+    "quality": 70,
+    "chromaSubsampling": "4:4:4",
+    "alpha": true
+  },
+  "characters": [
+    {
+      "id": "regular-01-red-rush",
+      "name": "레드 러시",
+      "adultAge": 27,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "rhythm": {
+        "windup": 1,
+        "legLift": 1,
+        "follow": 1
+      },
+      "file": "assets/pitcher-rig-v1/atlases/regular-01-red-rush.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 218.77580071174378
+      },
+      "renderedScale": 219.21708185053382,
+      "release": {
+        "x": 88.0840594858842,
+        "y": 50.82939008727274
+      },
+      "release3D": {
+        "x": -0.182084079293288,
+        "y": 0.132512802442518,
+        "z": 0.42236674675761143
+      },
+      "stride": {
+        "frame": 55,
+        "x": 141.15302491103202,
+        "y": 227.01836298932386
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "39f993514cb2ac20f1469d4968dac95cb0135c6cc64afec56b84f71170c11b66",
+        "rigSha256": "1c8cdc811caecab50497414ba5b4539ef718206579b891f14f941220f09ddc82",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "31283a780a9e8cbe1a582b6528762e2d3f41555699b4c39d1a9a757f6a55ee64",
+      "runtimeBytes": 588471,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    },
+    {
+      "id": "regular-02-teal-mirage",
+      "name": "청록 미라주",
+      "adultAge": 26,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "source_defined",
+      "rhythm": {
+        "windup": 1.025,
+        "legLift": 1.05,
+        "follow": 1.02
+      },
+      "file": "assets/pitcher-rig-v1/atlases/regular-02-teal-mirage.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 218.77580071174378
+      },
+      "renderedScale": 219.21708185053382,
+      "release": {
+        "x": 88.0840594858842,
+        "y": 50.82939008727274
+      },
+      "release3D": {
+        "x": -0.182084079293288,
+        "y": 0.132512802442518,
+        "z": 0.42236674675761143
+      },
+      "stride": {
+        "frame": 55,
+        "x": 141.15302491103202,
+        "y": 227.01836298932386
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "634f1906cbc07be8f5f7a3d707af84a746d260a7d306378df0dec7a0355f9d22",
+        "rigSha256": "2abbed3f7afd0add839970c33e95e9f31af01ee80e4b251caf338521d251b117",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "52fafd8eb6701a2c6bbe75b5b6fca08455731081dd97abc8c515e30f97ed9d2c",
+      "runtimeBytes": 574323,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    },
+    {
+      "id": "regular-03-amber-sinker",
+      "name": "앰버 싱커",
+      "adultAge": 28,
+      "hand": "right",
+      "style": "low-three-quarter",
+      "styleStatus": "source_defined",
+      "rhythm": {
+        "windup": 1.05,
+        "legLift": 1.1,
+        "follow": 1.04
+      },
+      "file": "assets/pitcher-rig-v1/atlases/regular-03-amber-sinker.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 218.05673758865248
+      },
+      "renderedScale": 218.43971631205673,
+      "release": {
+        "x": 68.44409361738829,
+        "y": 66.30464075537418
+      },
+      "release3D": {
+        "x": -0.27264229869961853,
+        "y": 0.21084658841242218,
+        "z": 0.39351723801476723
+      },
+      "stride": {
+        "frame": 55,
+        "x": 141.1063829787234,
+        "y": 226.27007092198582
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "b7b4715b45080217d4810bfb254da1ae5cf940e07852e1d40048284673e7bcda",
+        "rigSha256": "145ebf708d66832857b2a19660dec9304bafc0e06af44bbbaebbae5beb08bb46",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "cbb5db1ff889a66af5af2999a33bab2648bab1f88c0328cf50bfd3eeedfd2564",
+      "runtimeBytes": 597676,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    },
+    {
+      "id": "regular-04-ivory-ace",
+      "name": "아이보리 에이스",
+      "adultAge": 30,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "rhythm": {
+        "windup": 1.075,
+        "legLift": 1,
+        "follow": 1.06
+      },
+      "file": "assets/pitcher-rig-v1/atlases/regular-04-ivory-ace.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 218.05673758865248
+      },
+      "renderedScale": 218.43971631205673,
+      "release": {
+        "x": 88.22560537423213,
+        "y": 50.70588161178594
+      },
+      "release3D": {
+        "x": -0.182084079293288,
+        "y": 0.132512802442518,
+        "z": 0.42236674675761143
+      },
+      "stride": {
+        "frame": 55,
+        "x": 141.1063829787234,
+        "y": 226.27007092198582
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "1c8d100b7e5d2ae8f1292abe0e1792db2393a70c1f796c8a744a912b314bd42a",
+        "rigSha256": "635be771864a7e9d06279e047d4c197cb8328aa5ba0fd918c58f10ee23a87498",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "a58b8a782075acfd030a021595e3716dad79a97ba42f6ff733585351d7a7eb50",
+      "runtimeBytes": 547716,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    },
+    {
+      "id": "regular-05-violet-sting",
+      "name": "바이올렛 스팅",
+      "adultAge": 25,
+      "hand": "right",
+      "style": "sidearm",
+      "styleStatus": "source_defined",
+      "rhythm": {
+        "windup": 1,
+        "legLift": 1.05,
+        "follow": 1.08
+      },
+      "file": "assets/pitcher-rig-v1/atlases/regular-05-violet-sting.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 220.1830065359477
+      },
+      "renderedScale": 201.30718954248368,
+      "release": {
+        "x": 68.97696325272594,
+        "y": 93.53151963530799
+      },
+      "release3D": {
+        "x": -0.2931988513744458,
+        "y": 0.28067224193995643,
+        "z": 0.3757599367493868
+      },
+      "stride": {
+        "frame": 55,
+        "x": 140.07843137254903,
+        "y": 227.7521568627451
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "ec9c461e974105a9de009d612442ed4d394f42aec55a8d04967701c9de72a7f9",
+        "rigSha256": "a6d83f0b9ba0fcb166d616cddcb0214743851f157b5aee477c4a3cfc63d33497",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "4d27b2b0eb0e0b2b9eaa76d96495448363ec200ba6bc8106f9aed5703842f370",
+      "runtimeBytes": 489981,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    },
+    {
+      "id": "regular-06-rose-paint",
+      "name": "로즈 페인트",
+      "adultAge": 26,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "rhythm": {
+        "windup": 1.025,
+        "legLift": 1.1,
+        "follow": 1
+      },
+      "file": "assets/pitcher-rig-v1/atlases/regular-06-rose-paint.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 219.61702127659575
+      },
+      "renderedScale": 218.43971631205673,
+      "release": {
+        "x": 88.22560537423213,
+        "y": 52.26616529972921
+      },
+      "release3D": {
+        "x": -0.182084079293288,
+        "y": 0.132512802442518,
+        "z": 0.42236674675761143
+      },
+      "stride": {
+        "frame": 55,
+        "x": 141.1063829787234,
+        "y": 227.8303546099291
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "fad98b218756298dd67010a1a143aef6ed20b0d2a977aa35a9c1c994a41d2fe3",
+        "rigSha256": "b6f3e73b3a47305524733c16da8bdf87e7040c09245a135b1b5765c2ed5f65b1",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "76816f7141fed6cc4e290e308284be769c5c47fe4dab593468577a08e2e4d572",
+      "runtimeBytes": 583884,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    },
+    {
+      "id": "elite-01-cobalt-impact",
+      "name": "코발트 임팩트",
+      "adultAge": 29,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "rhythm": {
+        "windup": 1.05,
+        "legLift": 1,
+        "follow": 1.02
+      },
+      "file": "assets/pitcher-rig-v1/atlases/elite-01-cobalt-impact.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 218.77580071174378
+      },
+      "renderedScale": 219.21708185053382,
+      "release": {
+        "x": 88.0840594858842,
+        "y": 50.82939008727274
+      },
+      "release3D": {
+        "x": -0.182084079293288,
+        "y": 0.132512802442518,
+        "z": 0.42236674675761143
+      },
+      "stride": {
+        "frame": 55,
+        "x": 141.15302491103202,
+        "y": 227.01836298932386
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "21d1a5fb907e5c007db2cc2022b2ca4826ed38646ee556eef875f1f49195bd05",
+        "rigSha256": "ba70b8e70b6d2e19a7dda1dfa399d0da79c7fdb0cf7be1eb679f48fb322107ab",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "8b7afdb96fbfd36e25eb6f96e79f85e068d9c21d9aa32876737814316a98dd02",
+      "runtimeBytes": 616901,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    },
+    {
+      "id": "elite-02-neon-trick",
+      "name": "네온 트릭",
+      "adultAge": 27,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "rhythm": {
+        "windup": 1.075,
+        "legLift": 1.05,
+        "follow": 1.04
+      },
+      "file": "assets/pitcher-rig-v1/atlases/elite-02-neon-trick.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 218.05673758865248
+      },
+      "renderedScale": 218.43971631205673,
+      "release": {
+        "x": 88.22560537423213,
+        "y": 50.70588161178594
+      },
+      "release3D": {
+        "x": -0.182084079293288,
+        "y": 0.132512802442518,
+        "z": 0.42236674675761143
+      },
+      "stride": {
+        "frame": 55,
+        "x": 141.1063829787234,
+        "y": 226.27007092198582
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "d692e090d0157cac441f96e4af8934d2446af7fc81daeae0ce068225a210327e",
+        "rigSha256": "2ce848fcf21b7817e1c771e3ebcec0615903bf11af0cda90b0e2c3b75da811aa",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "41061115beb0849cb68b71583f259523d77905367bfe73f5b1d3206b52a7a804",
+      "runtimeBytes": 574285,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    },
+    {
+      "id": "elite-03-wine-bluff",
+      "name": "와인 블러프",
+      "adultAge": 31,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "rhythm": {
+        "windup": 1,
+        "legLift": 1.1,
+        "follow": 1.06
+      },
+      "file": "assets/pitcher-rig-v1/atlases/elite-03-wine-bluff.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 218.05673758865248
+      },
+      "renderedScale": 218.43971631205673,
+      "release": {
+        "x": 88.22560537423213,
+        "y": 50.70588161178594
+      },
+      "release3D": {
+        "x": -0.182084079293288,
+        "y": 0.132512802442518,
+        "z": 0.42236674675761143
+      },
+      "stride": {
+        "frame": 55,
+        "x": 141.1063829787234,
+        "y": 226.27007092198582
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "c54f4435a20ecedddc6bfef83188e54926b0cbea6abe25d09f8eae1bfa98b310",
+        "rigSha256": "1466b58470458d4c57d0dfc0064f27b94bfd8e415cdaf6469d5a8c076f9b3638",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "e9cbf135f5a08bb6b8e5bbbf006dff701f6137ad7239f00bd691ad2662ee3020",
+      "runtimeBytes": 569943,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    },
+    {
+      "id": "boss-01-emerald-tyrant",
+      "name": "에메랄드 타이런트",
+      "adultAge": 32,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "rhythm": {
+        "windup": 1.025,
+        "legLift": 1,
+        "follow": 1.08
+      },
+      "file": "assets/pitcher-rig-v1/atlases/boss-01-emerald-tyrant.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 218.05673758865248
+      },
+      "renderedScale": 218.43971631205673,
+      "release": {
+        "x": 88.22560537423213,
+        "y": 50.70588161178594
+      },
+      "release3D": {
+        "x": -0.182084079293288,
+        "y": 0.132512802442518,
+        "z": 0.42236674675761143
+      },
+      "stride": {
+        "frame": 55,
+        "x": 141.1063829787234,
+        "y": 226.27007092198582
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "703e88810179962008f932867f42636ba9fca7b69af5ffea9daa402761dbdca5",
+        "rigSha256": "acc6c3dce068702d4a34d8ce744d38a9676b4e7f3460525c96a15a7bea2899c8",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "c70b879d22bea6c5296524c13dc47021fabf8fd287f3bc3c4e33b4d3bd29fbc4",
+      "runtimeBytes": 593655,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    },
+    {
+      "id": "boss-02-platinum-halo",
+      "name": "플래티넘 헤일로",
+      "adultAge": 30,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "rhythm": {
+        "windup": 1.05,
+        "legLift": 1.05,
+        "follow": 1
+      },
+      "file": "assets/pitcher-rig-v1/atlases/boss-02-platinum-halo.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 218.83687943262413
+      },
+      "renderedScale": 218.43971631205673,
+      "release": {
+        "x": 88.22560537423213,
+        "y": 51.48602345575759
+      },
+      "release3D": {
+        "x": -0.182084079293288,
+        "y": 0.132512802442518,
+        "z": 0.42236674675761143
+      },
+      "stride": {
+        "frame": 55,
+        "x": 141.1063829787234,
+        "y": 227.05021276595747
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "93763009f3bfab894e5f6c77238beebd8f0a957ffff42b9f8d9ec6b06e893580",
+        "rigSha256": "dd94325ca59eb6782fffc8a9116523fe24e4a91dfd73cf89f89d5052f8fc895b",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "79c37a547d9fa508772d5bbbf74043180075013dbca5a7e711564e0fa1222a7c",
+      "runtimeBytes": 536648,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    },
+    {
+      "id": "boss-03-black-eclipse",
+      "name": "블랙 이클립스",
+      "adultAge": 33,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "rhythm": {
+        "windup": 1.075,
+        "legLift": 1.1,
+        "follow": 1.02
+      },
+      "file": "assets/pitcher-rig-v1/atlases/boss-03-black-eclipse.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 219.5
+      },
+      "renderedScale": 220,
+      "release": {
+        "x": 87.94150255547665,
+        "y": 50.95378076615586
+      },
+      "release3D": {
+        "x": -0.182084079293288,
+        "y": 0.132512802442518,
+        "z": 0.42236674675761143
+      },
+      "stride": {
+        "frame": 55,
+        "x": 141.2,
+        "y": 227.77200000000002
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "0aeb426afa790e80bddf8acddfa69a3ce5c8ddec13b37fb3bf3f0568cfbe8544",
+        "rigSha256": "ae9159b4eedc0bb995277472aa18c60f1004b62b57d7bd274ea6a97f015b9570",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "91a4591acec1a8e87a398ebe4fd2bb4d5e3a00d29c44f5ffd909758c0d2311f4",
+      "runtimeBytes": 508548,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    },
+    {
+      "id": "tide-vesper",
+      "name": "타이드 베스퍼",
+      "adultAge": 28,
+      "hand": "right",
+      "style": "low-three-quarter",
+      "styleStatus": "source_defined",
+      "rhythm": {
+        "windup": 1,
+        "legLift": 1,
+        "follow": 1.04
+      },
+      "file": "assets/pitcher-rig-v1/atlases/tide-vesper.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 220.2293906810036
+      },
+      "renderedScale": 220.7885304659498,
+      "release": {
+        "x": 67.80370752725268,
+        "y": 66.84555087102339
+      },
+      "release3D": {
+        "x": -0.27264229869961853,
+        "y": 0.21084658841242218,
+        "z": 0.39351723801476723
+      },
+      "stride": {
+        "frame": 55,
+        "x": 141.247311827957,
+        "y": 228.53103942652334
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "9b065d1d1c54ffc2a6a508ef1eee82e0c576ea3dd11d08fb3d100bb50fd1e6f2",
+        "rigSha256": "b3db5068c45d1ec923d30d4fe57781c5bb471c84dd85ea131c0446d2dbb3991e",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "5af08cf08f20d5a79e83c471801e4c6a270b70bdfd13b834bee0a38c425aef2a",
+      "runtimeBytes": 617973,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    },
+    {
+      "id": "sky-phantom",
+      "name": "스카이 팬텀",
+      "adultAge": 26,
+      "hand": "right",
+      "style": "high-overhand",
+      "styleStatus": "source_defined",
+      "rhythm": {
+        "windup": 1.025,
+        "legLift": 1.05,
+        "follow": 1.06
+      },
+      "file": "assets/pitcher-rig-v1/atlases/sky-phantom.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 219.55871886120997
+      },
+      "renderedScale": 219.21708185053382,
+      "release": {
+        "x": 98.81321982319534,
+        "y": 46.28906064218498
+      },
+      "release3D": {
+        "x": -0.13314099398834595,
+        "y": 0.11024564152014739,
+        "z": 0.4139674325495737
+      },
+      "stride": {
+        "frame": 55,
+        "x": 141.15302491103202,
+        "y": 227.80128113879005
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "2ff36780c2f1e987f9506f3dd7f14394d421e44230584fe85b6bdf655e80da32",
+        "rigSha256": "99d77b78d43faf22b0f34410a39ba27c8e28e5aac8fe1a03e556d8f35b842973",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "808a1c128734398b40695920c9d484953f8182e82dfcf230efc8635a155bbd50",
+      "runtimeBytes": 522913,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    },
+    {
+      "id": "gale-twister",
+      "name": "게일 트위스터",
+      "adultAge": 27,
+      "hand": "right",
+      "style": "high-three-quarter",
+      "styleStatus": "source_defined",
+      "rhythm": {
+        "windup": 1.05,
+        "legLift": 1.1,
+        "follow": 1.08
+      },
+      "file": "assets/pitcher-rig-v1/atlases/gale-twister.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 221.0179211469534
+      },
+      "renderedScale": 220.7885304659498,
+      "release": {
+        "x": 87.33319641725387,
+        "y": 50.61225763312382
+      },
+      "release3D": {
+        "x": -0.18418893181146384,
+        "y": 0.1285662039709383,
+        "z": 0.4151205164388354
+      },
+      "stride": {
+        "frame": 55,
+        "x": 141.247311827957,
+        "y": 229.31956989247314
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "414be24c620831617126ef24a88cbc4811dfd95e12692400f6a3d2f15e510d03",
+        "rigSha256": "2ee019e4b467bdaa85586614c9d31cafcb9841c989ac252d376cd919abcdb758",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "c3ad2ff83e1d66ed18a5d8b94bd233beaa2e4128b439ac7e2e4f99d7cd0a850b",
+      "runtimeBytes": 507318,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    },
+    {
+      "id": "vulcan-blaze",
+      "name": "볼칸 블레이즈",
+      "adultAge": 28,
+      "hand": "right",
+      "style": "high-three-quarter",
+      "styleStatus": "source_defined",
+      "rhythm": {
+        "windup": 1.075,
+        "legLift": 1,
+        "follow": 1
+      },
+      "file": "assets/pitcher-rig-v1/atlases/vulcan-blaze.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 218.83687943262413
+      },
+      "renderedScale": 218.43971631205673,
+      "release": {
+        "x": 87.76582198728308,
+        "y": 50.24404212638848
+      },
+      "release3D": {
+        "x": -0.18418893181146384,
+        "y": 0.1285662039709383,
+        "z": 0.4151205164388354
+      },
+      "stride": {
+        "frame": 55,
+        "x": 141.1063829787234,
+        "y": 227.05021276595747
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "4ca0095cdb28cbfd094fc4a3e4e91b0076f85ae0862f870ed77b4987a5daa3f5",
+        "rigSha256": "46f22efcadf20d5b4371b23b36e11cd8c241244584953a2b78def50d14154cf1",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "c8c799bfd62757bf8bdf2a2cbf1d3accf5ad089a7e9eb56f72fba29d686cf9ea",
+      "runtimeBytes": 549227,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    },
+    {
+      "id": "jade-viper",
+      "name": "제이드 바이퍼",
+      "adultAge": 28,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "proposed_baseline",
+      "rhythm": {
+        "windup": 1,
+        "legLift": 1.05,
+        "follow": 1.02
+      },
+      "file": "assets/pitcher-rig-v1/atlases/jade-viper.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 219.55871886120997
+      },
+      "renderedScale": 219.21708185053382,
+      "release": {
+        "x": 88.0840594858842,
+        "y": 51.612308236738926
+      },
+      "release3D": {
+        "x": -0.182084079293288,
+        "y": 0.132512802442518,
+        "z": 0.42236674675761143
+      },
+      "stride": {
+        "frame": 55,
+        "x": 141.15302491103202,
+        "y": 227.80128113879005
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "3f894ba1a65c723914f3c0f6e3ddb52840ba58dfab2c79dceef6bbd1da4327af",
+        "rigSha256": "c1decd5189017e219d5e756e47abe99dcebedb173bb9949eeeaab9b9e4e3f002",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "0a1206e976315783a0d37ea8b002362c7e9ad14e9f75fc3d68ed942b082b6129",
+      "runtimeBytes": 544938,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    },
+    {
+      "id": "copper-sirocco",
+      "name": "코퍼 시로코",
+      "adultAge": 29,
+      "hand": "right",
+      "style": "overhand",
+      "styleStatus": "source_defined",
+      "rhythm": {
+        "windup": 1.025,
+        "legLift": 1.1,
+        "follow": 1.04
+      },
+      "file": "assets/pitcher-rig-v1/atlases/copper-sirocco.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 218.83687943262413
+      },
+      "renderedScale": 218.43971631205673,
+      "release": {
+        "x": 88.22560537423213,
+        "y": 51.48602345575759
+      },
+      "release3D": {
+        "x": -0.182084079293288,
+        "y": 0.132512802442518,
+        "z": 0.42236674675761143
+      },
+      "stride": {
+        "frame": 55,
+        "x": 141.1063829787234,
+        "y": 227.05021276595747
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "88a4e9c9307eae2d85a3778fe19b05d7cbf4f374375cdb9a07ad863dda9dc819",
+        "rigSha256": "548894740748dbc9d174e3a5d4d1060f30f9e2a1df2aebfb48d2f56894969be2",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "0dfdf08dd2e280dcc6967b8cb1612cadc5463bcf91d0d562f51d4d49d2daf17c",
+      "runtimeBytes": 656049,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    },
+    {
+      "id": "onyx-eclipse",
+      "name": "오닉스 이클립스",
+      "adultAge": 26,
+      "hand": "left",
+      "style": "three-quarter",
+      "styleStatus": "source_defined",
+      "rhythm": {
+        "windup": 1.05,
+        "legLift": 1,
+        "follow": 1.06
+      },
+      "file": "assets/pitcher-rig-v1/atlases/onyx-eclipse.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 220.44444444444446
+      },
+      "renderedScale": 207.40740740740742,
+      "release": {
+        "x": 174.6474299153033,
+        "y": 66.64997853931399
+      },
+      "release3D": {
+        "x": 0.22490725137735515,
+        "y": 0.15883070212392222,
+        "z": 0.41525110763951856
+      },
+      "stride": {
+        "frame": 55,
+        "x": 115.55555555555556,
+        "y": 228.242962962963
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "2897b84a37f8bb16cf48beb1ad0fbab6b456f04423045c59c8849ce3f12dea05",
+        "rigSha256": "390597c2f7bfd25386242d63f9f2dade4ac235fd5f2441a67511d74a82a66eb9",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "569087f3b6382f5581c240c7a76f4917ea5b41b71f0b61d4e66475ebdef2e1e1",
+      "runtimeBytes": 476286,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    },
+    {
+      "id": "emerald-tempest",
+      "name": "에메랄드 템페스트",
+      "adultAge": 27,
+      "hand": "right",
+      "style": "high-overhand",
+      "styleStatus": "source_defined",
+      "rhythm": {
+        "windup": 1.075,
+        "legLift": 1.05,
+        "follow": 1.08
+      },
+      "file": "assets/pitcher-rig-v1/atlases/emerald-tempest.avif",
+      "frames": 120,
+      "fps": 60,
+      "columns": 10,
+      "rows": 12,
+      "cell": [
+        256,
+        256
+      ],
+      "releaseFrame": 76,
+      "anchor": {
+        "x": 128,
+        "y": 220.34163701067615
+      },
+      "renderedScale": 219.21708185053382,
+      "release": {
+        "x": 98.81321982319534,
+        "y": 47.07197879165116
+      },
+      "release3D": {
+        "x": -0.13314099398834595,
+        "y": 0.11024564152014739,
+        "z": 0.4139674325495737
+      },
+      "stride": {
+        "frame": 55,
+        "x": 141.15302491103202,
+        "y": 228.58419928825623
+      },
+      "ball": "Held in cells0..75 only; cells76..119 have no projectile. Game owns flight after release.",
+      "source": {
+        "kit": "9ZONE-20-pitcher-rig-source-kit.zip",
+        "atlasSha256": "8b0ffc61f6a96c9980871731de33bf6dc9e63557c87fffb28cda71777ff13555",
+        "rigSha256": "65fe44b75b0f3f5a3909f197b2f2c647335b7a84bb5b494f7540a4954713997b",
+        "engineSha256": {
+          "rig.mjs": "d52cc92bddf899864b453a51f0ac595b9d18ddeb0c4966606e617a01c396f696",
+          "motion.mjs": "0484dd016c6de972f17e9c0f9e27f7eaca40d8ad041c16d3d7202df8464fbf85",
+          "calibration.mjs": "17dcbdacbb5e9e89747d0ae159910710541d7a3189eba4f3bba4882b45b6505f"
+        }
+      },
+      "runtimeSha256": "eb7b461c58cd6846c0cd70b4760763e362ebfa40ccb45de21fd1d736199653dd",
+      "runtimeBytes": 620378,
+      "status": "integrated_candidate",
+      "artAcceptance": false,
+      "knownVisualLimitations": [
+        "joint seams",
+        "release grip",
+        "weight transfer"
+      ]
+    }
+  ]
+}

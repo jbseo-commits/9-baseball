@@ -10,8 +10,6 @@ import {createDefenseLabState,readDefenseLabState,saveDefenseLabState,DEFENSE_LA
 import {deckProfile,diagnose,applyRewardToDeck,rewardProblem,profileDelta,relationsFor,growthConflict} from './deck.js';
 import './duel.css';
 import './pitcher-sd.css';
-import redRushAtlas from '../../assets/pitcher-sd-v1/red-rush-pitch-120-atlas.png';
-import redRushPortrait from '../../assets/pitcher-mobs-v1/regular-01-red-rush.png';
 import {pitcherAtlases,pitcherPortraits,pitcherFigures} from './pitcher-visuals.js';
 import {RED_RUSH_ASSET_ID,hasPitchVisual,redRushFrameAt,redRushTimeline,redRushBatterShot,withKnockoutHold} from './pitcher-sd.js';
 import './v11-stack-core.css';

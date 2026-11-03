@@ -45,6 +45,11 @@ it('reduced motion keeps the existing short result path even with a slow selecti
  vi.spyOn(window,'matchMedia').mockReturnValue({matches:true});render(<IntegrationPreview fixture="swing-main"/>);fireEvent.change(speed(),{target:{value:'0.25'}});fireEvent.click(screen.getByTestId('bp-swing'));
  act(()=>vi.advanceTimersByTime(60));expect(speed().disabled).toBe(false);expect(document.querySelector('.bv-bat-ribbon')).toBeNull();
 });
+it('keeps preparation skills on their short action clock instead of the pitcher release timeline',()=>{
+ render(<IntegrationPreview fixture="prepare"/>);expect(speed().disabled).toBe(false);
+ fireEvent.click(screen.getByTestId('bp-swing'));expect(speed().disabled).toBe(true);
+ act(()=>vi.advanceTimersByTime(900));expect(speed().disabled).toBe(false);
+});
 it('embedded and legacy comparisons stay on normal time and expose no preference controls',()=>{
  const v=render(<IntegrationPreview fixture="watch-read0" embedded/>);expect(screen.queryByRole('combobox',{name:'애니메이션 배속'})).toBeNull();v.unmount();
  render(<IntegrationPreview fixture="watch-read0" variant="legacy"/>);expect(screen.queryByRole('combobox',{name:'애니메이션 배속'})).toBeNull();
