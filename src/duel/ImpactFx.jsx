@@ -1,9 +1,11 @@
 import React,{useEffect,useRef} from 'react';
 import {IMPACT_PX,createImpactState,drawImpactFx,impactDuration,impactProfile} from './impact-fx.js';
+import {createContactPixelFx,contactHitstop} from './contact-pixelfx.js';
 
 /* 접점(공이 들어온 존 칸)에서 터지는 타격 연출 캔버스. 장식이라 입력을 받지 않는다.
    stage가 'impact'가 되는 순간 시작하고, 히트스톱(짧은 정지)을 scene에 건다. */
-const STOP_MS=g=>({'grand-slam':110,homer:95,extra:75,'dead-center':65,solid:50,lucky:40,jammed:36,'battle-foul':40,foul:34,'near-miss-k':55,'chase-k':55,strikeout:60,'called-k':60}[g]||0);
+/* 히트스톱 길이는 contact-pixelfx.js의 contactHitstop(등급)이 정한다(홈런은 impact-frame 컷이 끝날 때까지). */
+const STOP_MS=contactHitstop;
 
 export function contactPoint(scene,zone){
   const sr=scene.getBoundingClientRect(),zr=scene.querySelector('.bp-zone')?.getBoundingClientRect();
@@ -28,14 +30,18 @@ export default function ImpactFx({sceneRef,stage,grade,zone,token}){
     const W=Math.max(8,Math.ceil(pt.sw/px)),H=Math.max(8,Math.ceil(pt.sh/px));
     canvas.width=W;canvas.height=H;
     const st=createImpactState({W,H,px:Math.round(pt.x/px),py:Math.round(pt.y/px),grade,seed:(Number(token)||1)*7919+W});
+    let pfx=null;try{pfx=createContactPixelFx({W,H,px:Math.round(pt.x/px),py:Math.round(pt.y/px),grade,seed:(Number(token)||1)*131+W});}catch{pfx=null;}
     const dur=impactDuration(grade),stop=STOP_MS(grade);
     if(stop){scene.classList.add('bp-hitstop');setTimeout(()=>scene.classList.remove('bp-hitstop'),stop);}
     const r=run.current;r.alive=true;r.scene=scene;
     const t0=performance.now();
     const loop=now=>{
       if(!r.alive)return;const t=(now-t0)/1000;
-      if(t>=dur){ctx.clearRect(0,0,W,H);return;}
-      drawImpactFx(ctx,st,t);r.raf=requestAnimationFrame(loop);
+      const pfxLive=pfx&&!pfx.done();
+      if(t>=dur&&!pfxLive){ctx.clearRect(0,0,W,H);return;}
+      if(t<dur)drawImpactFx(ctx,st,t);else ctx.clearRect(0,0,W,H);
+      if(pfxLive){try{pfx.draw(ctx,t);}catch{pfx=null;}}
+      r.raf=requestAnimationFrame(loop);
     };
     r.raf=requestAnimationFrame(loop);
   },[stage,token,grade,zone,sceneRef]);
