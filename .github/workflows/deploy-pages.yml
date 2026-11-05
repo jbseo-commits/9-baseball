@@ -64,11 +64,16 @@ jobs:
           PREVIEW_BASE="/9-baseball/previews/${SAFE_BRANCH}/"
           echo "safe_branch=${SAFE_BRANCH}" >> "$GITHUB_OUTPUT"
           cd preview
-          pnpm install --frozen-lockfile
-          VITE_BASE="${PREVIEW_BASE}" pnpm run build
-          test -f dist/index.html
           mkdir -p "../production/dist/previews/${SAFE_BRANCH}"
-          cp -a dist/. "../production/dist/previews/${SAFE_BRANCH}/"
+          if [ -f preview-artifacts/ballpark-motion-v5/index.html ]; then
+            node scripts/check-ballpark-preview.mjs
+            cp preview-artifacts/ballpark-motion-v5/index.html "../production/dist/previews/${SAFE_BRANCH}/index.html"
+          else
+            pnpm install --frozen-lockfile
+            VITE_BASE="${PREVIEW_BASE}" pnpm run build
+            test -f dist/index.html
+            cp -a dist/. "../production/dist/previews/${SAFE_BRANCH}/"
+          fi
 
       - name: Write preview index
         if: github.ref_name != 'main'
