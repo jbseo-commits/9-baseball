@@ -1,0 +1,38 @@
+{
+  "version": 6,
+  "subject": "Existing male batter, rebuilt for catcher-side umpire view",
+  "reference": {
+    "url": "https://www.mlb.com/yankees/video/best-of-ump-cam-from-game-2",
+    "title": "Best of Ump Cam from Game 2",
+    "publisher": "MLB / New York Yankees",
+    "published": "2024-10-27",
+    "viewedOn": "2026-10-17",
+    "playbackVerified": true,
+    "observations": [
+      {
+        "approxTimeSeconds": 15,
+        "observation": "Original 46-second clip paused in its umpire-camera segment. Batter loaded on camera-left, lead knee raised; catcher occupies lower-right. Torso can turn enough to reveal chest, and head is at upper frame edge."
+      },
+      {
+        "approxTimeSeconds": 16,
+        "observation": "Same segment after the swing. Broad jersey back and rear helmet dominate, face hidden; rear foot near camera and lead foot deeper toward mound, home plate to batter's right."
+      }
+    ],
+    "interpretation": "Fixed game camera uses a rear/right-shoulder three-quarter batter. Face mostly hidden by helmet and orientation; body visibility varies during swing. This is visual reference, not biomechanical motion capture."
+  },
+  "changes": [
+    "Eleven newly drawn same-camera body poses plus a complete separate wooden bat; card images preserved.",
+    "Native rear/lead foot, grip and bat landmarks registered by observed source pixels.",
+    "Strict rear-view-only idle, take, swing, bunt, finish, regrip and reset.",
+    "Uniform field/actor camera fitting prevents squash at small heights."
+  ],
+  "preserved": {
+    "pitcherMotion": "v5 landing/fielding/setup",
+    "engineSHA256": "0e5f908063c769fb492a390f417296446c8d36a40a960b702dceec8df4860b32"
+  },
+  "limits": [
+    "Eleven painted body keys with local mesh interpolation, not frame-by-frame 60fps art.",
+    "Source registration and camera observations are manual approximations.",
+    "Commercial art polish and perceived naturalness require player review; test counts do not prove them."
+  ]
+}

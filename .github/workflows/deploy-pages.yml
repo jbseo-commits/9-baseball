@@ -48,6 +48,24 @@ jobs:
           VITE_BASE=/9-baseball/ pnpm run build
           test -f dist/index.html
 
+      - name: Check out the reviewed v5 preview
+        if: github.ref_name != 'main'
+        uses: actions/checkout@v6
+        with:
+          ref: f1e548ad580d59952ff690599f2bec43817e214f
+          path: preserved-v5
+          sparse-checkout: |
+            preview-artifacts/ballpark-motion-v5
+            scripts
+
+      - name: Preserve the reviewed v5 preview
+        if: github.ref_name != 'main'
+        working-directory: preserved-v5
+        run: |
+          node scripts/check-ballpark-preview.mjs
+          mkdir -p ../production/dist/previews/codex-ballpark-motion-v5-preview
+          cp preview-artifacts/ballpark-motion-v5/index.html ../production/dist/previews/codex-ballpark-motion-v5-preview/index.html
+
       - name: Check out preview branch
         if: github.ref_name != 'main'
         uses: actions/checkout@v6
@@ -64,11 +82,16 @@ jobs:
           PREVIEW_BASE="/9-baseball/previews/${SAFE_BRANCH}/"
           echo "safe_branch=${SAFE_BRANCH}" >> "$GITHUB_OUTPUT"
           cd preview
-          pnpm install --frozen-lockfile
-          VITE_BASE="${PREVIEW_BASE}" pnpm run build
-          test -f dist/index.html
           mkdir -p "../production/dist/previews/${SAFE_BRANCH}"
-          cp -a dist/. "../production/dist/previews/${SAFE_BRANCH}/"
+          if [ -f preview-artifacts/ballpark-motion-v6/index.html ]; then
+            node scripts/check-ballpark-preview.mjs
+            cp preview-artifacts/ballpark-motion-v6/index.html "../production/dist/previews/${SAFE_BRANCH}/index.html"
+          else
+            pnpm install --frozen-lockfile
+            VITE_BASE="${PREVIEW_BASE}" pnpm run build
+            test -f dist/index.html
+            cp -a dist/. "../production/dist/previews/${SAFE_BRANCH}/"
+          fi
 
       - name: Write preview index
         if: github.ref_name != 'main'
@@ -76,7 +99,7 @@ jobs:
         run: |
           SAFE_BRANCH='${{ steps.preview.outputs.safe_branch }}'
           cat > production/dist/previews/index.html <<EOF
-          <!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>9 Baseball Preview</title><body style="font-family:system-ui;background:#071018;color:#fff;padding:24px"><h1>9 Baseball branch preview</h1><p>Branch: <code>${{ github.ref_name }}</code></p><p><a style="color:#7dd3fc" href="./${SAFE_BRANCH}/">Play this branch</a></p><p><a style="color:#94a3b8" href="/9-baseball/">Production main</a></p></body>
+          <!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>9 Baseball Preview</title><body style="font-family:system-ui;background:#071018;color:#fff;padding:24px"><h1>9 Baseball branch preview</h1><p>Branch: <code>${{ github.ref_name }}</code></p><p><a style="color:#7dd3fc" href="./${SAFE_BRANCH}/">Play this branch</a></p><p><a style="color:#7dd3fc" href="./codex-ballpark-motion-v5-preview/">Previous reviewed v5</a></p><p><a style="color:#94a3b8" href="/9-baseball/">Production main</a></p></body>
           EOF
 
       - name: Configure GitHub Pages
