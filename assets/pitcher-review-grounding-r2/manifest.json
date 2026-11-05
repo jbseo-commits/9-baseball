@@ -6383,7 +6383,7 @@
       "assertions_changed": false,
       "timeout_note": "Existing mass-seed event check exceeded local5s under shared CPU; final full run uses15s. No game test edited."
     },
-    "new_grounding_tests": 6,
+    "new_grounding_tests": 7,
     "gallery_controls_checks": 23,
     "actor_projection_checks": 480,
     "boot_dom_checks": 120,
@@ -6393,5 +6393,13 @@
     "rebuild_guard_negative_cases": 2,
     "build": "passed, actual branch Pages base path",
     "post_publish": "Workflow deployment and actual live HTTP verification are tracked in the feature-branch PR."
+  },
+  "publication": {
+    "artifact": "assets/pitcher-review-grounding-r2/gallery.html",
+    "app_public_payload": false,
+    "branch": "codex/pitcher-grounding-low-slot-r2",
+    "app_budget_mb": 60,
+    "copy_after_app_budget_check": true,
+    "exact_byte_copy_verified": true
   }
 }

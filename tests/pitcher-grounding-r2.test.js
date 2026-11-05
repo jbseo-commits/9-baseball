@@ -81,4 +81,9 @@ describe('R2 pitcher source and grounding regression contracts',()=>{
   expect(manifest.production_atlas_generated).toBe(false);expect(manifest.production_imported).toBe(false);
   expect(manifest.game_runtime_changed).toBe(false);expect(manifest.motion_approved).toBe(false);
  });
+ it('keeps the independently published review document outside the production game public payload',()=>{
+  expect(fs.existsSync(new URL('../public/art-review/pitcher-grounding-r2/index.html',import.meta.url))).toBe(false);
+  const published=read('reports/live-publication.json');
+  expect(sha(fs.readFileSync(path.join(root,'gallery.html')))).toBe(published.sha256);
+ });
 });

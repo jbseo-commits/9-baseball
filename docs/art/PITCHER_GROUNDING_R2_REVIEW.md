@@ -14,7 +14,7 @@
 | 스크롤·오버플로 | 영향 있음 | 별도 페이지의 가로 넘침과 aspect-ratio를 검사한다. 게임 전역 CSS는 수정하지 않는다. |
 | 사용자 플로우 | 영향 없음 | 타이틀/경로/전투/보상/시설 흐름을 변경하지 않는다. |
 | 테스트·회귀 | 영향 있음 | 단순 anchor==mound 검사를 대체해 실제 축발 접점과 투수판 영역 교차를 검사한다. 공·먼지·FX 기준점도 검증한다. |
-| 빌드·배포 | 영향 있음 | 검수 페이지는 `public/art-review/pitcher-grounding-r2/`로 한정한다. Vite build와 기존 codex 브랜치 Pages 프리뷰를 확인한다. |
+| 빌드·배포 | 영향 있음 | 검수 문서는 앱 밖 `assets/pitcher-review-grounding-r2/gallery.html`에 둔다. Pages의 해당 브랜치 전용 단계에서 앱60MB 검사 후 별도로 복사·바이트 확인한다. main과 다른 브랜치는 이 단계를 건너뛴다. |
 
 ## 수정 기준
 
@@ -31,14 +31,14 @@ Amber·Violet·Tide는 기존 low-three-quarter/sidearm 분류와 승인된 얼�
 - [실제 DOM의 축발 검사](../../assets/pitcher-review-grounding-r2/reports/browser-boot-rubber-qa.json): 20명×준비3단계×2구도=120건. 같은 배경 투수판 영역에서 이전92건 이탈, 수정0건 이탈(허용0.6px). 이 수치는 접지 검증이며 해부학이나 상업성을 인증하지 않는다.
 - [브라우저 제어 검사](../../assets/pitcher-review-grounding-r2/reports/gallery-qa.json) 23항목과 배우 배치480건 통과. 소스 원본54시트와 승인 원화20명 SHA 보존. 선택된40시트/240PNG와 이전 비교 이미지를 구분해 제공한다.
 - 실제 잘린 Amber G2의 앞 신발은 G3 전신 재작화로 해결했고 미채택으로 표시했다. 새5명은 모든12포즈에 공통480/512+16px 패킹을 적용했다. 이는 신규 동작 생성이나 누락 픽셀 복원이 아니다.
-- [비교 프리뷰](https://jbseo-commits.github.io/9-baseball/previews/codex-pitcher-grounding-low-slot-r2/art-review/pitcher-grounding-r2/)는 `public/art-review/pitcher-grounding-r2/`의 독립 HTML이다. 본편 src·CSS·저장·밸런스·로스터·아틀라스 매핑을 변경하지 않는다.
+- [비교 프리뷰](https://jbseo-commits.github.io/9-baseball/previews/codex-pitcher-grounding-low-slot-r2/art-review/pitcher-grounding-r2/)는 앱 번들 밖 `assets/pitcher-review-grounding-r2/gallery.html`의 독립 문서를 해당 브랜치에서만 별도 게시한다. 본편 src·CSS·저장·밸런스·로스터·아틀라스 매핑을 변경하지 않는다.
 
 ## 실행한 검증
 
 | 검사 | 결과 |
 |---|---|
 | `pnpm exec vitest run --maxWorkers=2 --testTimeout=15000` | 227개 파일/1528개 테스트 통과 |
-| 신규 접지 회귀 테스트 별도 실행 | 6개 통과, Amber G3 선택·G2 제외·실제 접점·타이밍·원본 SHA 검증 |
+| 신규 접지 회귀 테스트 별도 실행 | 7개 통과, Amber G3 선택·G2 제외·실제 접점·타이밍·원본 SHA 검증 |
 | 네이티브 소스→240포즈 재빌드 | 수동 접점과 픽셀 바인딩 유지, 480개 투영 검사 통과 |
 | 접점 누락/픽셀 바인딩 변조 부정 사례 | 둘 다 차단, 출력 PNG0개 |
 | Vite Pages 브랜치 경로 build | 통과 |
@@ -47,3 +47,5 @@ Amber·Violet·Tide는 기존 low-three-quarter/sidearm 분류와 승인된 얼�
 기존 대량 시드 이벤트 테스트가 공유 CPU의 기본5초를 넘겨 로컬 전체 실행은15초 제한을 사용했다. 단언문·게임 로직은 수정하지 않았다. 본편 전체 수동 플레이의 완료로 확대해서 보고하지 않는다. 게시 후 실제 URL과 Pages 실행 결과는 PR에서 확인한다.
 
 제한된 새 영상 검색에서 사용할 수 있는 클립을 찾지 못했다. 새 영상을 관찰한 타임스탬프나 측정한 관절 궤적을 만들지 않았으며, 결과는 `reference_unverified` 한계를 가진 12드로잉 모션 후보다.
+
+CI에서 검수 HTML22.6MB가 게임dist에 포함돼82.5/60MB를 초과한 것을 확인했다. 기준을 늘리거나 제외하지 않고, 문서를 게임public에서 제거해 별도 브랜치 게시 단계로 분리했다. 앱용량 검사는 원래60MB를 유지하고, 독립 문서가 게임번들에 재유입되지 않는 회귀를 추가했다.

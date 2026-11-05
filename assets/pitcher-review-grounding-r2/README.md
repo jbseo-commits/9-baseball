@@ -52,3 +52,7 @@ node qa-boot-dom.cjs
 전체227개 테스트 파일/1528개 테스트가 `pnpm exec vitest run --maxWorkers=2 --testTimeout=15000`으로 통과했습니다. 기존 대량 시드 이벤트 검사가 공유 CPU에서 기본5초를 초과해 로컬 실행 제한을15초로 늘렸으며 테스트 단언문은 변경하지 않았습니다. 새 접지 회귀6개도 별도 통과했습니다. Vite 브랜치 경로 빌드가 통과했습니다.
 
 확정 접점20명이나 원본 픽셀 SHA 바인딩이 없거나 바뀌면 프로세서는 결과 이미지를 쓰기 전에 중단합니다. 임의 중앙값으로 돌아가지 않습니다. 누락 접점/변조된 바인딩 두 부정 사례에서 출력 PNG0개인 것도 확인했습니다.
+
+## 게시 문서와 게임 용량 분리
+
+`gallery.html`은 게임 public/dist에 넣지 않는 별도 아트 검수 문서입니다. Pages 워크플로의 `Publish pitcher grounding review document`가 정확히 `codex/pitcher-grounding-low-slot-r2` 브랜치일 때만 이를 비교 URL로 복사합니다. 복사 전 앱60MB 용량 검사를 통과하고, 복사 후 `cmp`로 원본과 같음을 확인합니다. main·다른 브랜치와60MB 기준은 변경하지 않았습니다. 별도 문서 분리 회귀를 포함한 새 검사는7개입니다.
