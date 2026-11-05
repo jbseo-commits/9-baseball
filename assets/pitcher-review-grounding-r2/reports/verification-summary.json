@@ -1,0 +1,19 @@
+{
+  "regression_tests": {
+    "command": "pnpm exec vitest run --maxWorkers=2 --testTimeout=15000",
+    "files_passed": 227,
+    "tests_passed": 1528,
+    "assertions_changed": false,
+    "timeout_note": "Existing mass-seed event check exceeded local5s under shared CPU; final full run uses15s. No game test edited."
+  },
+  "new_grounding_tests": 6,
+  "gallery_controls_checks": 23,
+  "actor_projection_checks": 480,
+  "boot_dom_checks": 120,
+  "boot_dom_outside_after": 0,
+  "boot_dom_outside_before": 92,
+  "source_bindings_rebuild": "20 characters /240drawings passed; reviewed binding required",
+  "rebuild_guard_negative_cases": 2,
+  "build": "passed, actual branch Pages base path",
+  "post_publish": "Workflow deployment and actual live HTTP verification are tracked in the feature-branch PR."
+}

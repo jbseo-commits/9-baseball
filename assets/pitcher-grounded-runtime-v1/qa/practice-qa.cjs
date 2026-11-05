@@ -1,0 +1,12 @@
+const fs=require('node:fs');
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+(async()=>{const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox']});const errors=[];
+try{const page=await browser.newPage({viewport:{width:844,height:390}});page.on('pageerror',e=>errors.push(String(e)));
+await page.goto('http://127.0.0.1:5188/');await page.getByRole('button',{name:'설정',exact:true}).click();await page.getByRole('dialog',{name:'설정'}).getByRole('button',{name:'첫 타격 연습',exact:true}).click();
+await page.waitForSelector('.zf-pitcher');const sprite=await page.locator('.zf-pitcher').evaluate(el=>({size:el.style.backgroundSize,position:el.style.backgroundPosition,url:getComputedStyle(el).backgroundImage}));
+if(sprite.size!=='300% 400%'||!sprite.url.includes('pitcher-grounded-runtime-v1'))throw Error(JSON.stringify(sprite));
+await page.screenshot({path:__dirname+'/first-practice-landscape.png'});
+await page.locator('.zf-zone').nth(5).click();const buttons=await page.locator('button').allTextContents();
+const execute=page.getByRole('button',{name:/타격|쳐보기|휘두르|실행/}).last();if(await execute.count())await execute.click();
+const report={status:errors.length?'failed':'passed',actualTitleSettingsPracticeRoute:true,compactAtlas:sprite,errors,buttons};fs.writeFileSync(__dirname+'/practice-report.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
+}finally{await browser.close()}})().catch(e=>{console.error(e);process.exitCode=1});

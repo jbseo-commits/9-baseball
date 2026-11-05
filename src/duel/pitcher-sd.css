@@ -1,4 +1,4 @@
-/* 10x12 atlas: one network request, a 256x256 transparent pixel cell per tick. */
+/* Metadata-sized atlas: one request, 12 transparent 256px drawings addressed by 120 timeline ticks. */
 .sprite-stage.red-rush-actor .red-rush-frame{
   position:absolute;
   inset:0;

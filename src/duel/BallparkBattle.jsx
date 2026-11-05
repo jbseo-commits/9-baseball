@@ -548,6 +548,7 @@ export default function BallparkBattle({
 
   /* 엘리트·보스 시각 효과: CSS가 data 속성만 읽는다(.bp-scene[data-gimmick]). 단계는 투수 HP 단계. */
   const gm=s.v10?.opponent?.gimmick,gtier=gm?(s.v10?.opponent?.rewardTier===3?'boss':'elite'):null;
+  const encounter=b.intent?.encounter;
   /* Collapsed gimmick keeps the currently-applying public numbers (gimmick.js),
      never a new rule. Counts come from the frozen view (shownCount): trick
      follows engine.js `strikes===0&&balls===0 ? trickRate : trickLate`, and
@@ -701,8 +702,8 @@ export default function BallparkBattle({
           {forecast&&<HpForecastBand forecast={forecast} hp={pitcher?.hp} maxHp={pitcher?.maxHp}/>}
           <span className="bp-ticks" aria-hidden="true">{Array.from({length:12},(_,i)=><i key={i} className={tickClass(i)}/>)}</span>
         </div>
-        {gm&&<div className="bp-gimmick" data-testid="bp-gimmick"><i className="bp-gtier">{gtier==='boss'?'BOSS':'ELITE'}</i> <b>{gm.label}</b>
-          <span className="bp-gimmick-current">{gimmickShort(gm.id,shownGimmickPhase)||gm.summary}</span>
+        {(encounter||gm)&&<div className="bp-gimmick" data-testid="bp-gimmick">{gm&&<i className="bp-gtier">{gtier==='boss'?'BOSS':'ELITE'}</i>} <b>{encounter?.label||gm.label}</b>
+          <span className="bp-gimmick-current">{encounter&&(encounter.current||encounter.counter)}{encounter&&gm?' · ':''}{gm&&(gimmickShort(gm.id,shownGimmickPhase)||gm.summary)}</span>
         </div>}
         {damage>0&&<b className="bp-damage" key={'d'+playToken}>-{damage}</b>}
         <small aria-hidden="true">{!compact&&'HP '}{pre?hpWas:pitcher?.hp} / {pitcher?.maxHp}</small>

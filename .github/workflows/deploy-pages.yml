@@ -70,6 +70,22 @@ jobs:
           mkdir -p "../production/dist/previews/${SAFE_BRANCH}"
           cp -a dist/. "../production/dist/previews/${SAFE_BRANCH}/"
 
+      # This opt-in review document is a separate publication artifact, not a game asset.
+      # Keep the application dist budget unchanged and do not publish it from main/other branches.
+      - name: Publish pitcher grounding review document
+        if: github.ref_name == 'codex/pitcher-grounding-low-slot-r2'
+        working-directory: preview
+        shell: bash
+        env:
+          REVIEW_BRANCH_DIR: ${{ steps.preview.outputs.safe_branch }}
+        run: |
+          node scripts/check-dist-budget.mjs
+          test -s assets/pitcher-review-grounding-r2/gallery.html
+          REVIEW_DEST="../production/dist/previews/${REVIEW_BRANCH_DIR}/art-review/pitcher-grounding-r2"
+          mkdir -p "${REVIEW_DEST}"
+          cp assets/pitcher-review-grounding-r2/gallery.html "${REVIEW_DEST}/index.html"
+          cmp assets/pitcher-review-grounding-r2/gallery.html "${REVIEW_DEST}/index.html"
+
       - name: Write preview index
         if: github.ref_name != 'main'
         shell: bash

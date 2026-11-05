@@ -1,0 +1,148 @@
+{
+  "purpose": "External sprite/effect preview only. Does not alter game mechanics, probabilities, HP, release timing, or runtime mappings.",
+  "source": "PixelFX catalog entries; effect-only sheets rendered with --no-actor. No PatchPixel font assets included.",
+  "license": {
+    "file": "LICENSE-pixelfx-MIT.txt",
+    "notice": "NOTICE-pixelfx.txt",
+    "noticeBytes": 620
+  },
+  "placementContract": {
+    "actor": false,
+    "bodyOcclusion": "Keep effects behind and outside the pitcher silhouette; no full-screen explosion.",
+    "release": "Release flash follows existing registered releaseFrame and authored release point; do not change event timing.",
+    "landingDust": "Anchor at mound/feet after landing; keep effect low and narrow.",
+    "palette": "Palette ramps are preview variants only; may be selected to match character colors."
+  },
+  "effects": [
+    {
+      "slot": "pressure",
+      "id": "lightning/zap-hit",
+      "role": "pressure charge cue",
+      "palette": [
+        "#07172f",
+        "#123e78",
+        "#287fd0",
+        "#75c8f0",
+        "#ddf8ff",
+        "#ffffff"
+      ],
+      "sheet": "effects/lightning/zap-hit/zap-hit.png",
+      "metadata": "effects/lightning/zap-hit/zap-hit.json",
+      "actorIncluded": false
+    },
+    {
+      "slot": "trick",
+      "id": "scifi/emp-blast",
+      "role": "compact deceptive-pitch signal distortion cue",
+      "palette": [
+        "#160a2d",
+        "#51278a",
+        "#a42bd0",
+        "#ef48df",
+        "#7af8ff",
+        "#ffffff"
+      ],
+      "sheet": "effects/scifi/emp-blast/emp-blast.png",
+      "metadata": "effects/scifi/emp-blast/emp-blast.json",
+      "actorIncluded": false
+    },
+    {
+      "slot": "bluff",
+      "id": "water/rain-splash",
+      "role": "mirage / ball lure cue",
+      "palette": [
+        "#1d1028",
+        "#54264d",
+        "#9c477f",
+        "#d982bd",
+        "#f3cce9",
+        "#ffffff"
+      ],
+      "sheet": "effects/water/rain-splash/rain-splash.png",
+      "metadata": "effects/water/rain-splash/rain-splash.json",
+      "actorIncluded": false
+    },
+    {
+      "slot": "tyrant",
+      "id": "nature/earth-spike",
+      "role": "low-wall ground force cue",
+      "palette": [
+        "#081e16",
+        "#145437",
+        "#248b55",
+        "#55bf68",
+        "#b8f2a1",
+        "#ffffff"
+      ],
+      "sheet": "effects/nature/earth-spike/earth-spike.png",
+      "metadata": "effects/nature/earth-spike/earth-spike.json",
+      "actorIncluded": false
+    },
+    {
+      "slot": "halo",
+      "id": "holy/sunburst",
+      "role": "small defensive corona cue",
+      "palette": [
+        "#171b30",
+        "#48577d",
+        "#899dca",
+        "#c5d7f8",
+        "#eff5ff",
+        "#ffffff"
+      ],
+      "sheet": "effects/holy/sunburst/sunburst.png",
+      "metadata": "effects/holy/sunburst/sunburst.json",
+      "actorIncluded": false
+    },
+    {
+      "slot": "eclipse",
+      "id": "shadow/eclipse",
+      "role": "eclipse corona cue",
+      "palette": [
+        "#090710",
+        "#29203c",
+        "#60427a",
+        "#d48e50",
+        "#fff0bd",
+        "#ffffff"
+      ],
+      "sheet": "effects/shadow/eclipse/eclipse.png",
+      "metadata": "effects/shadow/eclipse/eclipse.json",
+      "actorIncluded": false
+    },
+    {
+      "slot": "landing-dust",
+      "id": "impacts/heavy-landing",
+      "role": "shared landing dust; use feet anchor",
+      "palette": [
+        "#211a17",
+        "#514238",
+        "#89735e",
+        "#c5aa83",
+        "#e8d5ae",
+        "#ffffff"
+      ],
+      "sheet": "effects/impacts/heavy-landing/heavy-landing.png",
+      "metadata": "effects/impacts/heavy-landing/heavy-landing.json",
+      "actorIncluded": false
+    },
+    {
+      "slot": "release-flash",
+      "id": "impacts/impact-frame",
+      "role": "shared brief release flash; use ball release anchor",
+      "palette": [
+        "#231b20",
+        "#644c50",
+        "#b58c8c",
+        "#f0d4c6",
+        "#fff5df",
+        "#ffffff"
+      ],
+      "sheet": "effects/impacts/impact-frame/impact-frame.png",
+      "metadata": "effects/impacts/impact-frame/impact-frame.json",
+      "actorIncluded": false,
+      "previewStartOffsetMs": 160,
+      "previewTimingNote": "Skip the four full-white atlas frames before the compact release flash; follows the registered release timestamp."
+    }
+  ]
+}

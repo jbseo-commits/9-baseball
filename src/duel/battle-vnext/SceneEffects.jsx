@@ -4,16 +4,20 @@ import {MOTION_CONTACT as DEFAULT_CONTACT} from './motion-timeline.js';
 
 /* Painted actors and world remain on the shared camera; these few local shapes
    explain contact, direction and release without adding a UI panel. */
-export default function SceneEffects({effect=null,finale=null,composition=null}){
+export default function SceneEffects({effect=null,finale=null,composition=null,landing=null}){
   const id=useId().replaceAll(':',''),hot=id+'-hot',trail=id+'-trail';
-  if(!effect&&!finale)return null;
+  if(!effect&&!finale&&!landing)return null;
   const C=composition?.contact||DEFAULT_CONTACT,mound=composition?.mound||{x:832,y:580};
-  const e=effect||{kind:finale,hidden:true,flash:0,radius:0},warm=['exact','contact','homer','foul'].includes(e.kind),r=e.radius;
+  const e=effect||{kind:finale||'landing',hidden:true,flash:0,radius:0},warm=['exact','contact','homer','foul'].includes(e.kind),r=e.radius;
   return <svg className={'bv-world-effects e-'+e.kind} viewBox="0 0 1672 941" width="1672" height="941" aria-hidden="true" data-testid="bv-scene-effects" data-effect={e.kind}>
     <defs>
       <radialGradient id={hot}><stop offset="0" stopColor="#fffbe6" stopOpacity=".95"/><stop offset=".17" stopColor="#ffe2a0" stopOpacity=".7"/><stop offset=".55" stopColor="#e79544" stopOpacity=".18"/><stop offset="1" stopColor="#e79544" stopOpacity="0"/></radialGradient>
       <linearGradient id={trail} x1="0" y1="0" x2="1" y2="1"><stop stopColor="#d8f5ff" stopOpacity="0"/><stop offset=".68" stopColor="#e6f6ed" stopOpacity=".42"/><stop offset="1" stopColor="#fff5d5" stopOpacity=".85"/></linearGradient>
     </defs>
+    {landing&&<g data-testid="bv-pitcher-landing" transform={`translate(${landing.point.x} ${landing.point.y})`} opacity={(1-landing.progress)*.55}>
+      <ellipse rx={8+landing.progress*29} ry={2+landing.progress*5} fill="#d7ad77"/>
+      {[-1,1].map(side=><path key={side} d={`M${side*(4+landing.progress*12)} -1q${side*12} ${-8-landing.progress*5} ${side*(13+landing.progress*15)} ${-3-landing.progress*6}`} fill="none" stroke="#efcea0" strokeWidth={2*(1-landing.progress)} strokeLinecap="round"/>)}
+    </g>}
     {e.trail>0&&<g className="bv-bat-ribbon" opacity={e.trail}>
       <path d={`M${C.x-210},${C.y-105}Q${C.x-190},${C.y+85} ${C.x+34},${C.y+18}Q${C.x-128},${C.y+50} ${C.x-210},${C.y-105}`} fill={`url(#${trail})`}/>
       <path d={`M${C.x-210},${C.y-105}Q${C.x-190},${C.y+85} ${C.x+34},${C.y+18}`} fill="none" stroke="#fff2cb" strokeWidth="2.5" opacity=".6"/>

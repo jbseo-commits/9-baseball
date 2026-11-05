@@ -1,4 +1,5 @@
 import {describe,it,expect} from 'vitest';
+import roster from '../assets/pitcher-mobs-v1/roster.json';
 import {CARDS,cardPower,rewardChoices,DECKBUILDER_BUILD} from '../src/duel/cards.js';
 import {createRunMap,getRunNode,validateRunMap} from '../src/duel/run-map.js';
 import {createV10Duel,enterV10Node,playV10Action,v10RewardOptions,claimV10Reward} from '../src/duel/engine.js';
@@ -58,12 +59,12 @@ describe('V10 three-act deckbuilding arc',()=>{
   it('2막과 3막은 투수 질문 자체가 달라지고 각 막 보스 정체성이 고정된다',()=>{
     for(let seed=0;seed<48;seed++){
       const map=createRunMap(seed);expect(validateRunMap(map)).toBe(true);
-      const act1=new Set(map.nodes.filter(n=>n.act===1&&n.opponent).map(n=>n.opponent.archetypeKey));
-      const act2=new Set(map.nodes.filter(n=>n.act===2&&n.opponent).map(n=>n.opponent.archetypeKey));
-      const act3=new Set(map.nodes.filter(n=>n.act===3&&n.opponent).map(n=>n.opponent.archetypeKey));
-      expect([...act1].every(k=>['outside','sinker'].includes(k))).toBe(true);
-      expect([...act2].every(k=>['outside','sinker','high'].includes(k))).toBe(true);
-      expect([...act3].every(k=>['sinker','high','closer'].includes(k))).toBe(true);
+      // Current runs keep authored identities in every act; escalation widens their own repertoire.
+      for(const node of map.nodes.filter(n=>n.opponent)){
+        const identity=roster.find(p=>p.id===node.opponent.artId);
+        expect(node.opponent.archetypeKey).toBe(identity.archetype);
+        expect(node.opponent.encounter.id).toBe(identity.id);
+      }
       expect(getRunNode(map,'a1-boss').opponent.archetypeKey).toBe('sinker');
       expect(getRunNode(map,'a2-boss').opponent.archetypeKey).toBe('high');
       expect(getRunNode(map,'a3-boss').opponent.archetypeKey).toBe('closer');

@@ -83,7 +83,9 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
         <strong className="bp-mname">{fight?o?.name:TAG[d.type]||d.name}</strong>
         <em className="bp-mline">{fight?HABIT[o?.archetypeKey]||o?.archetype:PLACE[d.type]||d.reward}</em>
         {fight&&o&&<span className="bp-mhp" aria-label={'HP '+o.maxHp}>{Array.from({length:12},(_,i)=><i key={i} className={i<hpTicks(o.maxHp,actMax)?'':'lost'}/>)}<b>HP {o.maxHp}</b></span>}
-        {fight&&o?.gimmick&&<span className="bp-mgm" data-testid="bp-map-gimmick"><b>{o.gimmick.label}</b> {o.gimmick.summary}{o.gimmick.phases&&<><br/>{o.gimmick.phases.pressured}<br/>{o.gimmick.phases.critical}</>}</span>}
+        {fight&&o?.encounter&&<span className="bp-mgm" data-testid="bp-map-encounter"><b>{o.encounter.label}</b><br/>{o.encounter.counter}</span>}
+        {fight&&o?.encounter&&<details className="bp-mgm" data-testid="bp-map-encounter-rule"><summary>고유 규칙 자세히</summary>{o.encounter.summary}</details>}
+        {fight&&o?.gimmick&&(o.encounter?<details className="bp-mgm"><summary>추가 승부 규칙</summary><span data-testid="bp-map-gimmick"><b>{o.gimmick.label}</b> {o.gimmick.summary}{o.gimmick.phases&&<><br/>{o.gimmick.phases.pressured}<br/>{o.gimmick.phases.critical}</>}</span></details>:<span className="bp-mgm" data-testid="bp-map-gimmick"><b>{o.gimmick.label}</b> {o.gimmick.summary}{o.gimmick.phases&&<><br/>{o.gimmick.phases.pressured}<br/>{o.gimmick.phases.critical}</>}</span>)}
         {fight&&<span className="bp-mrw">{d.type==='boss'&&d.act===3?'이기면 런 완주':REWARD[d.type]}</span>}
         {d.type!=='boss'&&!done.has(d.id)&&<span className="bp-mahead" data-testid="bp-map-ahead">{aheadCount.length?<><b>이 길 너머</b>{aheadCount.map(([t,label,n])=><i key={t} className={'t-'+t}>{label} {n}</i>)}</>:<b>이 길 너머 · 곧장 막 보스</b>}</span>}
       </div>

@@ -32,6 +32,11 @@ export function resultSequence(result,execution){
     if(result.precisionBonus>0)steps.push({kind:'precision',text:`정확 적중 +${result.precisionBonus} HP`});
     else if(result.relicBonus>0&&result.relicEvents?.length)steps.push({kind:'relic',text:result.relicEvents[0]});
   }
+  const encounter=result.encounterEvents?.[0];
+  if(encounter){
+    if(steps.length>=2)steps[steps.length-1]={...steps.at(-1),text:steps.at(-1).text+' · '+encounter};
+    else steps.push({kind:'encounter',text:encounter});
+  }
   const loss=actualHpLoss(result);
   if(loss>0)steps.push({kind:'hp',text:`${hit?'투수 HP':'압박'} −${loss}`});
   return steps.slice(0,3);

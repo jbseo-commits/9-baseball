@@ -9,6 +9,8 @@ const PHASES=new Set(['map','battle','pitch','between','reward','lost','won','tr
 export function validateV10State(s){
   if(!s||s.version!==10||!Number.isInteger(s.initialSeed)||!PHASES.has(s.phase)||!validateRunMap(s.runMap))return false;
   if(s.battle?.energy!==undefined&&(!Number.isInteger(s.battle.energy)||s.battle.energy<0||s.battle.energy>4))return false;
+  // Optional for old saves. New encounters must not resume a corrupt or negative cycle index.
+  if(s.battle?.pitchCount!==undefined&&(!Number.isSafeInteger(s.battle.pitchCount)||s.battle.pitchCount<0))return false;
   const energyCap=s.battle?.energyCap===undefined?v10EnergyCap(s):s.battle.energyCap;
   const takeEnergyBonus=s.battle?.takeEnergyBonus===undefined?0:s.battle.takeEnergyBonus;
   if(!Number.isInteger(energyCap)||![2,3,4].includes(energyCap)||!Number.isInteger(takeEnergyBonus)||![0,1].includes(takeEnergyBonus))return false;

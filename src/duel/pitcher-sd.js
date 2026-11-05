@@ -1,3 +1,4 @@
+import registration from './battle-vnext/roster-registration.json';
 export const RED_RUSH_ASSET_ID='regular-01-red-rush';
 export const RED_RUSH_FRAME_COUNT=120;
 export const RED_RUSH_FPS=60;
@@ -17,18 +18,24 @@ export function redRushFrameAt(elapsedMs){
 export const RED_RUSH_RELEASE_FRAME=76;
 export const PITCH_FLIGHT_MS=300;
 export const RED_RUSH_RELEASE_MS=Math.round(RED_RUSH_RELEASE_FRAME*1000/60);
-export function redRushTimeline(base,reduced=false){
+export const pitcherReleaseFrame=artId=>registration[artId]?.releaseFrame??RED_RUSH_RELEASE_FRAME;
+export const pitcherAtlasLayout=artId=>({columns:registration[artId]?.columns||10,rows:registration[artId]?.rows||12});
+export const pitcherDrawingAt=(artId,tick)=>registration[artId]?.drawingAtTick?.[tick]??tick;
+export function withPitcherTiming(shot,artId){
+  return shot&&registration[artId]?{...shot,motion:{...shot.motion,pitcherReleaseFrame:pitcherReleaseFrame(artId)}}:shot;
+}
+export function redRushTimeline(base,reduced=false,releaseFrame=base?.pitcherReleaseFrame??RED_RUSH_RELEASE_FRAME){
   if(!base||reduced)return base;
-  const impactAt=RED_RUSH_RELEASE_MS+PITCH_FLIGHT_MS;
+  const impactAt=Math.round(releaseFrame*1000/60)+PITCH_FLIGHT_MS;
   const releaseAt=impactAt+(base.freeze||0)+(base.slowmo||0);
   // the batter's follow-through needs 500ms after contact (batterMotionV3Timeline); settle waits for it
   const settleAt=Math.max(1830,releaseAt+80,impactAt+500);
   return {...base,impactAt,releaseAt,settleAt,duration:Math.max(RED_RUSH_DURATION_MS,base.duration,settleAt+170)};
 }
 
-export function redRushBatterShot(shot,reduced=false){
+export function redRushBatterShot(shot,reduced=false,releaseFrame=shot?.motion?.pitcherReleaseFrame??RED_RUSH_RELEASE_FRAME){
   if(!hasPitchVisual(shot)||reduced)return shot;
-  return {...shot,motion:{...redRushTimeline(shot.motion),syncToPitcher:true}};
+  return {...shot,motion:{...redRushTimeline(shot.motion,reduced,releaseFrame),syncToPitcher:true}};
 }
 /* BP-11: the pitch that knocks her out holds the scene a beat longer, so the collapse lands before
    the reward screen takes over. Only the tail (settle) grows; impact/release timing is unchanged. */

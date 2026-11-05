@@ -13,7 +13,7 @@ import './pitcher-sd.css';
 import redRushAtlas from '../../assets/pitcher-sd-v1/red-rush-pitch-120-atlas.png';
 import redRushPortrait from '../../assets/pitcher-mobs-v1/regular-01-red-rush.png';
 import {pitcherAtlases,pitcherPortraits,pitcherFigures} from './pitcher-visuals.js';
-import {RED_RUSH_ASSET_ID,hasPitchVisual,redRushFrameAt,redRushTimeline,redRushBatterShot,withKnockoutHold} from './pitcher-sd.js';
+import {RED_RUSH_ASSET_ID,hasPitchVisual,redRushFrameAt,redRushTimeline,redRushBatterShot,withKnockoutHold,pitcherReleaseFrame,withPitcherTiming,pitcherAtlasLayout,pitcherDrawingAt} from './pitcher-sd.js';
 import './v11-stack-core.css';
 import './adaptive-performance.css';
 import {coverageText} from './information.js';
@@ -386,8 +386,9 @@ function Sprite({who,stage=null,shot=null,golden=false,variant=null,playToken=0,
 function PitcherAtlasSprite({atlas,stage=null,shot=null,playToken=0}){
   const reduced=typeof window!=='undefined'&&!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
   const frame=useRedRushFrame(!!stage&&hasPitchVisual(shot)&&!reduced,playToken);
-  const pose=actorPose('pitcher',stage,shot),col=frame%10,row=Math.floor(frame/10);
-  const atlasStyle={backgroundImage:'url('+atlas+')',backgroundSize:'1000% 1200%',backgroundPosition:(col*100/9)+'% '+(row*100/11)+'%'};
+  const artId=Object.keys(pitcherAtlases).find(id=>pitcherAtlases[id]===atlas),{columns,rows}=pitcherAtlasLayout(artId);
+  const drawing=pitcherDrawingAt(artId,frame),pose=actorPose('pitcher',stage,shot),col=drawing%columns,row=Math.floor(drawing/columns);
+  const atlasStyle={backgroundImage:'url('+atlas+')',backgroundSize:(columns*100)+'% '+(rows*100)+'%',backgroundPosition:(col*100/(columns-1))+'% '+(row*100/(rows-1))+'%'};
   return <span className={'sprite-stage sprite-pitcher pose-'+pose+' golden-actor red-rush-actor'}>
     <i className="actor-contact-shadow" aria-hidden="true"/>
     <span aria-hidden="true" className="sprite-echo echo-back red-rush-frame" style={atlasStyle}/>
@@ -918,7 +919,7 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
   };
   const scoreboardRef=useRef(null),arenaRef=useRef(null),drawerRef=useRef(null),prepareRef=useRef(null),swingRef=useRef(null),watchRef=useRef(null),eventsRef=useRef(null);
   const showPreview=id=>{const p=previewCard(s,id);return {...p,coverageLabel:p.coverage?coverageText(s,id):undefined};};
-  const b=s?.battle,isV10=s?.version===10,isDefenseLab=defenseExperiment&&s?.defenseLab?.schema===1,showBattle=screen==='run'&&b&&(['battle','pitch','between'].includes(s.phase)||fx),fxPresentation=fx?presentationFor(s):null,fxStakes=fx?stakesFor(s):null,resultPresentation=b?.revealed?presentationFor(s):null,byId=id=>s.deck.find(c=>c.id===id);
+  const b=s?.battle,isV10=s?.version===10,isDefenseLab=defenseExperiment&&s?.defenseLab?.schema===1,showBattle=screen==='run'&&b&&(['battle','pitch','between'].includes(s.phase)||fx),fxPresentation=fx?withPitcherTiming(presentationFor(s),s.v10?.opponent?.artId):null,fxStakes=fx?stakesFor(s):null,resultPresentation=b?.revealed?presentationFor(s):null,byId=id=>s.deck.find(c=>c.id===id);
   useActorAssetPreload(!!s&&!isV10);
   const perfTier=useAdaptivePerformance(!!(showBattle&&isV10&&fxStage));
   const pile=modal&&['draw','discard','deck'].includes(modal)?(modal==='deck'?s.deck:b[modal].map(byId).filter(Boolean)):null;
@@ -1033,7 +1034,7 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
     const nextNode=next.runMap?.nodes?.find(n=>n.id===next.runMap.currentNodeId);
     const liveActor=live&&pitchJudgement?rosterPitcherActor(nextNode?.opponent?.artId,pitcherAtlases[nextNode?.opponent?.artId]):null;
     const baseTimeline=presentationTimeline(shot,reduced);
-    const timeline=withKnockoutHold(liveActor?rosterTimeline(baseTimeline,liveActor,reduced):pitcherAtlases[nextNode?.opponent?.artId]&&pitchJudgement?redRushTimeline(baseTimeline,reduced):baseTimeline,next.version===10&&pitchJudgement&&!reduced&&next.pitcher?.hp===0);
+    const timeline=withKnockoutHold(liveActor?rosterTimeline(baseTimeline,liveActor,reduced):pitcherAtlases[nextNode?.opponent?.artId]&&pitchJudgement?redRushTimeline(baseTimeline,reduced,pitcherReleaseFrame(nextNode?.opponent?.artId)):baseTimeline,next.version===10&&pitchJudgement&&!reduced&&next.pitcher?.hp===0);
     lock.current=true;revealArena();setFxImpactAt(timeline.impactAt||0);setFx(next.last);setFxStage('windup');setFrame(1);
     cancelCues();
     const speed=live&&!reduced?animationRate(rate):1,emit=kind=>live?cue(kind,{rate:speed,signal:cueAbort.current.signal}):cue(kind);

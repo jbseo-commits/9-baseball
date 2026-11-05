@@ -1,4 +1,6 @@
-/* battle-vnext 검토용 fixture (C01). 테스트·컴포넌트 검수 전용이며 본편 런타임은 import하지 않는다.
+/* Historical layout/cinema fixtures pin the pre-encounter rules with encounters:false;
+   actual PlayableRun and new encounter integration tests use the default current rules.
+   battle-vnext 검토용 fixture (C01). 테스트·컴포넌트 검수 전용이며 본편 런타임은 import하지 않는다.
    모든 상태는 본편 엔진(createV10Duel·enterV10Node·setAimZone·playV10Action·advanceV10Pitch)으로 만든다.
    seed와 steps가 곧 재현 기록이다. 엔진 밖에서 손댄 단계는 op 이름에 grant를 붙여 구별한다.
    storage를 받지 않으므로 생산 세이브(9zone-v10-run)를 읽거나 쓰지 않는다. */
@@ -36,7 +38,7 @@ export function handId(s,kind,nth=0){
 function runSteps(seed,steps){
   let s=null,execution=null;
   for(const st of steps){
-    if(st.op==='new')s=createV10Duel(seed);
+    if(st.op==='new')s=createV10Duel(seed,{encounters:st.encounters===true});
     else if(st.op==='defense-lab')s=createDefenseLabState(seed,st.pack||'link',st.scenario||'normal');
     else if(st.op==='start-pack')s=applyStartPack(s,st.pack);
     /* Explicit diagnostic HP setup; the actual attack/KO is still engine-resolved. */

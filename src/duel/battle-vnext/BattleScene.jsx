@@ -33,6 +33,8 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
   const composition=framing==='atbat'?(roster?{...ATBAT_COMPOSITION,pitcher:roster.meta,release:roster.release}:ATBAT_COMPOSITION):null;
   const reduced=playback?.timeline?.duration<=60;
   const effect=sceneEffectAt({elapsed,playback,result,phase,composition});
+  const landing=roster?.landing&&playback&&!reduced&&playback.action!=='prepare'&&elapsed>=roster.landingAt&&elapsed<roster.landingAt+230
+    ?{point:roster.landing,progress:(elapsed-roster.landingAt)/230}:null;
   const pose=motionAt({elapsed,timeline:playback?.timeline,action:playback?.action,landed:phase==='result',knockedOut:!!result?.knockedOut,reduced,readyCoil:framing==='atbat'&&(phase==='deciding'||phase==='flight')});
   const [measured,setMeasured]=useState(null);
   const onLayoutRef=useRef(onLayout);onLayoutRef.current=onLayout;
@@ -65,7 +67,7 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
       <img className="bv-stadium" src={composition?.stadium||stadiumUrl} alt="" width={SCENE.world.width} height={SCENE.world.height} draggable="false" decoding="async"/>
       {(composition?.shadows||SCENE.shadows).map((s,i)=><i key={i} className="bv-ground-shadow" style={{left:s.x,top:s.y,width:s.width,height:s.height,transform:`rotate(${s.rotation}deg)`}}/>)}
       {ACTORS.map(name=>{
-        const live=name==='pitcher'?roster:null,url=live?.url||actors[name]||null,isAtlas=!!live||url===SAMPLE_ACTORS[name],meta=live?live.meta:isAtlas?(composition?.[name]||PILOT_MOTION[name]):SCENE[name],b=actorBox(meta),frame=live?rosterFrame(playback,elapsed):pose[name];
+        const live=name==='pitcher'?roster:null,url=live?.url||actors[name]||null,isAtlas=!!live||url===SAMPLE_ACTORS[name],meta=live?live.meta:isAtlas?(composition?.[name]||PILOT_MOTION[name]):SCENE[name],b=actorBox(meta),frame=live?rosterFrame(playback,elapsed,live):pose[name];
         const readyImage=isAtlas&&frame===0&&meta.readyImage;
         return <div key={name} className={'bv-actor bv-actor-'+name} data-actor={name} data-actor-missing={url?undefined:'true'}
           data-pose={live?'frame-'+frame:isAtlas?meta.frames[frame].name:undefined} data-roster-art={live?.artId} style={{left:b.x,top:b.y,width:b.width,height:b.height}}>
@@ -79,7 +81,7 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
         sits above result grading so the contact light is not darkened twice. */}
     <div className="bv-effect-pass" aria-hidden="true" style={{transform:effect?.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:'none'}}>
       <div className="bv-effect-world" style={{width:SCENE.world.width,height:SCENE.world.height,transform:cameraMatrix(camera),visibility:camera.scale?'visible':'hidden'}}>
-        <SceneEffects effect={effect} finale={finale} composition={composition}/>
+        <SceneEffects effect={effect} finale={finale} composition={composition} landing={landing}/>
       </div>
     </div>
     {reviewNotice&&<p className="bv-scene-notice" role="note">그림 포즈 모션 검수{actors.pitcher&&actors.pitcher===SAMPLE_ACTORS.pitcher?' · 샘플 투수':''}</p>}

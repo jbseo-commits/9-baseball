@@ -20,7 +20,8 @@ const panel=(vm,props={})=>render(<DecisionPanel zones={vm.zones} forecast={vm.f
 
 /* 결과 상태: seed 20261027 · a1-entry에서 본편 엔진 행동으로 만든다. 첫 공은 바깥쪽 높게(2)로 온다.
    엔진 밖 조정은 tweak으로만 적는다(희생타용 번트·주자, 강판용 HP 1). */
-const open=()=>E.enterV10Node(E.createV10Duel(FIXTURE_SEED),FIXTURE_NODE);
+// Historical eight-verdict fixtures keep their original seeded pitch rules.
+const open=()=>E.enterV10Node(E.createV10Duel(FIXTURE_SEED,{encounters:false}),FIXTURE_NODE);
 const step=(s,op)=>op==='take'?E.playV10Action(s,{type:'take'}):op==='next'?E.advanceV10Pitch(s):E.advanceV10Batter(s);
 const swing=(s,aim,kind,supports=[])=>{s=E.setAimZone(s,aim);return E.playV10Action(s,{type:'card',id:handId(s,kind),
   ...(supports.length?{supports:supports.map(x=>({id:handId(s,x.kind),aimZone:x.aimZone}))}:{})});};

@@ -5,7 +5,7 @@ import {render,screen,fireEvent,cleanup,act} from '@testing-library/react';
 import {beforeEach,afterEach,it,expect,vi} from 'vitest';
 import PlayableRun,{startPlayableRun} from '../src/duel/battle-vnext/PlayableRun.jsx';
 import Duel from '../src/duel/App.jsx';
-import {playableStorage,PLAYABLE_PREFIX} from '../src/duel/battle-vnext/playable-storage.js';
+import {playableStorage,PLAYABLE_PREFIX,ENCOUNTER_PLAYABLE_PREFIX} from '../src/duel/battle-vnext/playable-storage.js';
 import {createDefenseLabState,saveDefenseLabState,createV10Duel,enterV10Node,readV10Duel,V10_SAVE_KEY,saveV10Duel,setAimZone,playV10Action} from '../src/duel/engine.js';
 import {rosterPitcherActor,rosterTimeline,rosterFrame} from '../src/duel/battle-vnext/roster-actor.js';
 import {sceneEffectAt} from '../src/duel/battle-vnext/scene-effects.js';
@@ -14,6 +14,17 @@ import {presentationFor,presentationTimeline} from '../src/duel/presentation.js'
 const saved=()=>readV10Duel(playableStorage(sessionStorage));
 beforeEach(()=>{vi.useFakeTimers();localStorage.clear();sessionStorage.clear();window.history.replaceState({},'','/?battleUi=vnext&battlePlay=1&seed=3');});
 afterEach(()=>{cleanup();vi.restoreAllMocks();vi.useRealTimers();window.history.replaceState({},'','/');});
+it('opens the new encounter preview in its own namespace and preserves the previous preview save',()=>{
+ const old=enterV10Node(createV10Duel(3,{encounters:false}),'a1-entry');saveV10Duel(playableStorage(sessionStorage),old);
+ const bytes=sessionStorage.getItem(PLAYABLE_PREFIX+V10_SAVE_KEY);
+ localStorage.setItem(V10_SAVE_KEY,'production-sentinel');
+ window.history.replaceState({},'','/?battleUi=vnext&battlePlay=1&seed=3&previewRun=encounters-v1');
+ render(<PlayableRun/>);
+ expect(screen.getByTestId('bv-encounter').textContent).toContain('청록 왕복');
+ expect(sessionStorage.getItem(PLAYABLE_PREFIX+V10_SAVE_KEY)).toBe(bytes);
+ expect(readV10Duel(playableStorage(sessionStorage,ENCOUNTER_PLAYABLE_PREFIX)).v10.opponent.encounter.version).toBe(1);
+ expect(localStorage.getItem(V10_SAVE_KEY)).toBe('production-sentinel');
+});
 it('starts the actual normal starter at a reachable opponent and reloads the existing preview run without resets',()=>{
  const st=playableStorage(sessionStorage),normal=enterV10Node(createV10Duel(3),'a1-entry');expect(startPlayableRun(st,'?seed=3')).toEqual(normal);
  const aimed=setAimZone(normal,8);saveV10Duel(st,aimed);expect(startPlayableRun(st,'?seed=999')).toEqual(aimed);

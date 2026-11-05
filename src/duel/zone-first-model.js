@@ -12,11 +12,11 @@ export const FIRST_LESSONS=[
 // An explicitly labelled, repeatable practice setup. Configure before the engine
 // deals: never replace a pending pitch, random roll, or resolved outcome.
 export function createLessonBattle(seed=20261023){
-  const run=createV10Duel(seed,{tutorial:true});
+  const run=createV10Duel(seed,{tutorial:true,encounters:false});
   run.deck=[{id:'lesson-setup',kind:'setup'}];run.nextId=1;
   const node=run.runMap.nodes.find(n=>run.runMap.reachableIds.includes(n.id)&&n.opponent);
   node.opponent={...node.opponent,name:'레드 러시',style:'rookie',archetype:'outside',
-    artId:'regular-01-red-rush',archetypeKey:'outside',openingZones:[5],threat:'코스 하나를 반복하는 연습 상대',zoneOpen:1,zoneMax:1,gimmick:null};
+    artId:'regular-01-red-rush',archetypeKey:'outside',openingZones:[5],threat:'코스 하나를 반복하는 연습 상대',zoneOpen:1,zoneMax:1,gimmick:null,encounter:null};
   return enterV10Node(run,node.id);
 }
 

@@ -17,7 +17,8 @@ const kindOf=(s,id)=>id==='basic'?'basic':s.deck.find(c=>c.id===id)?.kind;
 
 /* 속임수 코스(gimmick trick): dealPitch는 존 안 공을 이 확률로 예고 칸의 이웃으로 민다. */
 export function trickRateFor(s){
-  const b=s?.battle,gr=v10GimmickRules(s);
+  const b=s?.battle;if(b?.intent?.encounter?.appliedDistribution)return 0;
+  const gr=v10GimmickRules(s);
   return b?.strikes===0&&b?.balls===0?gr.trickRate:gr.trickLate;
 }
 function trickMix(p,t){
@@ -100,7 +101,7 @@ export function previewSwing(s,{id='basic',supports=[]}={},probabilities=v10Pitc
     const {damage}=pitcherDamageFor(outcome,foulStreak,{damageMultiplier:terms.damageMultiplier,damageBonus:terms.damageBonus});
     outcomes.push({p,kind:r.kind,bases:outcome.bases||0,zone:outcome.zone,label:outcome.label,damage,terms});
   };
-  const base={aimZone:b.aimZone,primaryCoverage:main,supportKinds:items.map(x=>x.kind),stackLinks:plan.links||[]};
+  const base={aimZone:b.aimZone,primaryCoverage:main,coverage:combined,supportKinds:items.map(x=>x.kind),stackLinks:plan.links||[]};
   distribution.forEach((p,z)=>{
     if(p<=EPS)return;
     const o=swingOdds(s,id,z);

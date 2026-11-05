@@ -119,7 +119,9 @@ describe('V10 engine loop and save isolation',()=>{
     s.battle.pending={...s.battle.pending,zone:s.battle.aimZone,roll:0,powerRoll:.99};
     s=playV10Action(s,{type:'card',id:'basic'});
     expect(s.phase).toBe('reward');expect(s.pitcher.hp).toBe(0);
-    expect(selectV10Combat(s)).toMatchObject({choice:'basic',damage:12,hpAfter:0});
+    // Violet's real middle-lane exact signature adds +4 after the baseline single.
+    expect(s.v10.opponent.artId).toBe('regular-05-violet-sting');
+    expect(selectV10Combat(s)).toMatchObject({choice:'basic',damage:16,hpAfter:0,encounter:{bonus:4}});
     expect(v10RewardOptions(s).length).toBeGreaterThan(0);
 
     const reward=v10RewardOptions(s)[0],firstNode=s.runMap.currentNodeId;
