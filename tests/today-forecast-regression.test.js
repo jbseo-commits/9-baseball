@@ -58,7 +58,8 @@ describe('today forecast review regressions',()=>{
     expect([p.dmgMin,p.dmgMax]).toEqual([q.dmgMin,q.dmgMax]);
   });
   it('coarse partial scouting on trick pitchers stays conservative and honors the landed clue',()=>{
-    const s=battle();s.v10.opponent.gimmick={id:'trick'};s.battle.scouted=true;s.battle.pending.zone=4;
+    // This regression covers the old save path, before movement became part of final public odds.
+    const s=battle();s.v10.opponent={...s.v10.opponent,gimmick:{id:'trick'},encounter:null};s.battle.intent=E.baseIntent(s);s.battle.scouted=true;s.battle.pending.zone=4;
     expect(v10HitBounds(s,[3,4,5])).toEqual([1,1]);
     expect(v10HitBounds(s,[0,1,2])).toEqual([0,0]);
     expect(v10HitBounds(s,[4])).toEqual([0,1]);

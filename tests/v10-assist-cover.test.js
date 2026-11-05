@@ -62,11 +62,12 @@ describe('V10 스윙 스택',()=>{
     expect(s.battle.discard).toEqual(expect.arrayContaining(['c4','c0','c1']));
     expect(s.stats.cards-cards).toBe(3);
     expect(s.stats.pitches-pitches).toBe(1);
-    expect(hp-s.pitcher.hp).toBe(9);
+    expect(hp-s.pitcher.hp).toBe(7);
     const combat=selectV10Combat(s);
-    expect(combat.damage).toBe(9);
+    expect(combat.damage).toBe(7);
+    expect(combat.encounter.rate).toBe(.8); // Violet weakens support-only contact.
     expect(combat.baseDamage).toBe(12);
-    expect(combat.damageRate).toBeCloseTo(.72);
+    expect(combat.damageRate).toBeCloseTo(.72*.8);
     expect(combat.connectCount).toBe(1);
     expect(combat.cardCount).toBe(3);
     expect(combat.choiceLabel).toBe('라인드라이브 + 정타 노림 + 정타 노림');

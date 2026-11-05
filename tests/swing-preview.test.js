@@ -82,7 +82,7 @@ describe('swing preview = real judgement',()=>{
 
   it('a trick pitcher previews the neighbour shift that dealPitch really applies',()=>{
     const s=scenario(2201,PLANS[1],null);
-    s.v10.opponent={...(s.v10.opponent||{}),gimmick:{id:'trick'}};
+    s.v10.opponent={...(s.v10.opponent||{}),encounter:null,gimmick:{id:'trick'}};
     s.battle.aimZone=4;s.battle.balls=0;s.battle.strikes=0;
     const shifted=E.redealPitch(s);
     const pv=previewSwing(shifted,{id:'c0',supports:[]});

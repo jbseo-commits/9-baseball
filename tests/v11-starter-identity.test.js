@@ -52,7 +52,8 @@ describe('V11 starter identity — 정타 노림 vs 밀어치기',()=>{
     expect(s.battle.revealed.assistOnly).toBe(false);
     expect(combat.precisionRate).toBe(.5);
     expect(combat.precisionBonus).toBe(Math.round(combat.baseDamage*combat.damageRate*.5));
-    expect(combat.damage).toBe(combat.baseDamage+combat.precisionBonus);
+    // The precision multiplier applies to the base; pitcher signature flat HP is separate.
+    expect(combat.damage).toBe(combat.baseDamage+combat.precisionBonus+(combat.encounter?.bonus||0));
     expect(hp-s.pitcher.hp).toBe(combat.damage);
     expect(s.last.events.some(e=>e.includes('정타 노림 · 정확 적중'))).toBe(true);
   });

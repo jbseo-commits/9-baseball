@@ -8,6 +8,8 @@ import {CARDS} from '../src/duel/cards.js';
 function fight(seed,gimmick,{phase='steady',type='battle'}={}){
   const s0=createV10Duel(seed);
   const node=s0.runMap.nodes.find(n=>n.type===type);
+  // This suite isolates the preserved six-rule legacy save path.
+  delete node.opponent.encounter;
   if(gimmick)node.opponent.gimmick={id:gimmick,label:'t',summary:'t',phases:null};else delete node.opponent.gimmick;
   s0.runMap.reachableIds=[node.id];
   const s=enterV10Node(s0,node.id);

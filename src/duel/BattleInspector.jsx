@@ -30,6 +30,7 @@ function CardBody({inspectCard,problem}){
 function PitcherBody({s,pitcher,shown,gm,gtier,intent}){
   const opp=s.v10?.opponent;
   const tendency=shown.tendency;
+  const encounter=s.battle?.intent?.encounter;
   return <div>
     <strong>{pitcher?.name||'투수'}</strong>
     {intent&&<p>의도: {intent.icon} {intent.label} · {intent.note}</p>}
@@ -38,13 +39,14 @@ function PitcherBody({s,pitcher,shown,gm,gtier,intent}){
     {shown.tendencyDetail&&<p className="bp-inspect-tendency-detail">{shown.tendencyDetail}</p>}
     <p className="bp-inspect-state">현재 상태: 흔들림 {shown.shaken}/{shown.mentalCap}{shown.shaken?' · 볼 증가 · 읽기 +1':' · 정상'} · 기세 {shown.momentum} · 피해 ×{shown.momentumRate.toFixed(1)}</p>
     <p>HP {shown.hp} / {shown.maxHp}</p>
+    {encounter&&<div data-testid="bp-inspect-encounter"><strong>{encounter.label}</strong><p>{encounter.summary}</p><p>{encounter.current}</p><p>공략: {encounter.counter}</p></div>}
     {gm?<div>
       <p><i className="bp-gtier">{gtier==='boss'?'BOSS':'ELITE'}</i> <b>{gm.label}</b></p>
       <p>{gm.summary}</p>
       {gm.phases?.pressured&&<p>압박 국면: {gm.phases.pressured}{shown.phase==='pressured'?' · 현재':''}</p>}
       {gm.phases?.critical&&<p>위기 국면: {gm.phases.critical}{shown.phase==='critical'?' · 현재':''}</p>}
       {shown.phase==='steady'&&<p>현재 국면: 정상</p>}
-    </div>:<p>이 투수의 특수 규칙은 없습니다.</p>}
+    </div>:!encounter&&<p>이 투수의 특수 규칙은 없습니다.</p>}
   </div>;
 }
 
@@ -66,6 +68,7 @@ function PitchBody({lastCombat,r}){
     <strong>{lastCombat.verdict||'판정'}</strong>
     <p>내 선택: {planText(lastCombat)}</p>
     <p>실제 공: {lastCombat.pitchLabel||'코스'} · 투수 HP -{lastCombat.damage||0}</p>
+    {(lastCombat.encounter?.events||[]).map((event,i)=><p key={i}>{event}</p>)}
     {lesson&&<p className="bp-inspect-advice">다음엔: {lesson.title} — {lesson.text}</p>}
   </div>;
 }

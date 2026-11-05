@@ -36,7 +36,7 @@
 .zf-field{flex:1;min-height:260px;position:relative;isolation:isolate;overflow:hidden;background:#142d36}
 .zf-scenery{position:absolute;inset:0;z-index:-2;background-image:linear-gradient(180deg,#09151c80 0%,#09151c05 38%,#09151c40 80%,#09151cdd 100%),var(--zf-stadium);background-size:100% 100%,100% auto;background-position:center,center 72%;background-repeat:no-repeat;filter:saturate(.68) brightness(.8)}
 .zf-field:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#09151c33,transparent 35%,#09151c11)}
-.zf-pitcher{position:absolute;width:128px;height:128px;right:23%;bottom:270px;background-size:1000% 1200%;background-repeat:no-repeat;image-rendering:pixelated;filter:drop-shadow(0 6px 3px #0009);pointer-events:none}
+.zf-pitcher{position:absolute;width:128px;height:128px;right:23%;bottom:270px;background-size:300% 400%;background-repeat:no-repeat;image-rendering:pixelated;filter:drop-shadow(0 6px 3px #0009);pointer-events:none}
 .zf-batter{position:absolute;width:200px;height:202px;bottom:8px;left:-34px;background-size:300% 300%;background-position:0 0;background-repeat:no-repeat;image-rendering:pixelated;filter:brightness(.9) drop-shadow(0 6px 4px #0009);pointer-events:none;z-index:-1}
 .zf-batter-hit{background-position:50% 50%;animation:zf-swing .24s ease-out}
 .zf-focus{position:absolute;bottom:10px;left:50%;width:208px;transform:translateX(-38%);text-align:center}
