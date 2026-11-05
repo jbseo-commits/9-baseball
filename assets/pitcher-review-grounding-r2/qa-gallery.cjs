@@ -1,0 +1,77 @@
+const fs=require('node:fs');
+const http=require('node:http');
+const {chromium}=require('/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const path=require('node:path');
+const root=__dirname,out=root+'/reports/gallery-qa.json';
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function anchorMeasure(page,selector,slot,kind){await page.waitForFunction(({s,slot})=>{const e=document.querySelector(s);return e&&!e.classList.contains('hidden')&&e.dataset.slot===slot&&e.complete&&e.naturalWidth>0},{s:selector,slot});return page.evaluate(({selector,slot,kind})=>{const node=document.querySelector(selector),screen=document.querySelector('#screen'),rect=node.getBoundingClientRect(),sr=screen.getBoundingClientRect(),snap=window.__galleryReview.snapshot(),capture=snap.capture,character=snap.character,effect=window.__galleryReview.effect(slot).meta.meta.pixelfx,k=sr.width/capture.viewport.width,after=document.querySelector('#comparison').value==='after',scale=(capture.actorHeightReference*342/640)/(after?character.scale_basis_height:(character.prior_scale_basis_height||character.scale_basis_height||512))*k,size=effect.frameSize,pivot=effect.pivot,localX=rect.left-sr.left+pivot[0]*rect.width/size[0],localY=rect.top-sr.top+pivot[1]*rect.height/size[1],m=after?(capture.rubberScreen?.contact||capture.moundScreen):capture.moundScreen;let expectedX=m.x*k,expectedY=m.y*k;if(kind==='landing'){const lp=character.landing_point;if(after&&lp){expectedX+=(lp[0]-character.anchor[0])*scale;expectedY+=(lp[1]-character.anchor[1])*scale}else expectedY=(m.y+3)*k}if(kind==='release'){const a=after?character.anchor:character.prior_anchor,r=after?character.release_point:character.prior_release_point;expectedX+=(r[0]-a[0])*scale;expectedY+=(r[1]-a[1])*scale}return {slot,kind,actual:{x:localX,y:localY},expected:{x:expectedX,y:expectedY},error:{x:localX-expectedX,y:localY-expectedY},distance:Math.hypot(localX-expectedX,localY-expectedY),imageLoaded:node.complete&&node.naturalWidth>0,rect:{x:rect.x,y:rect.y,width:rect.width,height:rect.height}}},{selector,slot,kind})}
+(async()=>{
+  const server=http.createServer((req,res)=>{if(req.url==='/gallery.html'){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});fs.createReadStream(root+'/gallery.html').pipe(res)}else{res.writeHead(404);res.end()}});
+  await new Promise(r=>server.listen(0,'127.0.0.1',r));
+  const url=`http://127.0.0.1:${server.address().port}/gallery.html`;
+  const browser=await chromium.launch({headless:true,executablePath:'/usr/bin/chromium',args:['--no-sandbox']});
+  try{
+    const fxmap=JSON.parse(fs.readFileSync(root+'/skills/effects-map.json','utf8'));const effectPlayback=fxmap.effects.map(e=>{const m=JSON.parse(fs.readFileSync(path.join(root,e.metadata),'utf8')).meta.pixelfx;return {slot:e.slot,fps:m.fps,loop:m.loop,frames:m.frames,pivot:m.pivot,previewStartOffsetMs:e.previewStartOffsetMs||0,nonLoopContract:m.loop?'wrap':'hold last frame until cue ends'};});const report={status:'running',layouts:[],checks:{},pageErrors:[],effectPlayback};
+    for(const [layout,width,height] of [['desktop',1440,810],['phone',844,390]]){
+      const page=await browser.newPage({viewport:{width,height},reducedMotion:'reduce'});
+      page.on('pageerror',e=>report.pageErrors.push(String(e)));
+      await page.goto(url);
+      await page.waitForFunction(()=>document.querySelectorAll('#character option').length>0&&window.__galleryReview);
+      await page.waitForFunction(()=>document.querySelectorAll('#poses img').length===12);
+      const afterDefault=await page.locator('#comparison').inputValue(); await page.selectOption('#comparison','before'); const beforeMode=await page.evaluate(()=>({mode:document.querySelector('#comparison').value,src:document.querySelector('#pitcher').src,anchor:window.__galleryReview.snapshot().character.prior_anchor})); await page.selectOption('#comparison','after'); await page.check('#groundGuide'); const guideVisible=await page.locator('#groundSvg').evaluate(e=>!e.classList.contains('hidden')); await page.uncheck('#groundGuide');
+      const count=await page.locator('#character option').count();
+      const initial=await page.evaluate(()=>({characters:document.querySelectorAll('#character option').length,poses:document.querySelectorAll('#poses img').length,screen:document.querySelector('#screen').getBoundingClientRect().toJSON(),actor:document.querySelector('#pitcher').getBoundingClientRect().toJSON(),skill:document.querySelector('#skillName').textContent,phase:document.querySelector('#phase').value,frame:document.querySelector('#poseLabel').textContent}));
+      await page.selectOption('#layout',layout); await page.selectOption('#character',String(count-1));
+      await page.selectOption('#phase','critical'); await page.selectOption('#hp','.2');
+      await page.click('#stepNext'); await page.click('#stepNext');
+      await page.waitForFunction(()=>!document.querySelector('#fx').classList.contains('hidden'));
+      const skillEffectVisible=await page.locator('#fx').evaluate(e=>!e.classList.contains('hidden'));
+      const gimmickSlot=await page.evaluate(()=>window.__galleryReview.snapshot().character.skill.gimmick.id);
+      const gimmickAnchor=await anchorMeasure(page,'#fx',gimmickSlot,'gimmick');
+      const phaseText=await page.locator('#phaseSummary').textContent();
+      const switched=await page.evaluate(()=>({poses:document.querySelectorAll('#poses img').length,skill:document.querySelector('#skillName').textContent,phase:document.querySelector('#phase').value,hp:document.querySelector('#hp').value,frame:document.querySelector('#poseLabel').textContent,screen:document.querySelector('#screen').getBoundingClientRect().toJSON(),actor:document.querySelector('#pitcher').getBoundingClientRect().toJSON()}));
+      await page.check('#zoneToggle'); const zoneVisible=await page.locator('#zoneBounds').evaluate(e=>!e.classList.contains('hidden'));
+      await page.click('#poses .pose:nth-child(5)');
+      await page.waitForFunction(()=>!document.querySelector('#dust').classList.contains('hidden'));
+      const landingDust=await page.locator('#dust').evaluate(e=>!e.classList.contains('hidden'));
+      const landingAnchor=await anchorMeasure(page,'#dust','landing-dust','landing');
+      await page.waitForTimeout(180);
+      const pausedLanding=await page.locator('#dust').evaluate(e=>!e.classList.contains('hidden'));
+      await page.click('#poses .pose:nth-child(7)');
+      await page.waitForFunction(()=>!document.querySelector('#fx').classList.contains('hidden'));
+      const releaseState=await page.evaluate(()=>({ball:!document.querySelector('#ball').classList.contains('hidden'),fx:!document.querySelector('#fx').classList.contains('hidden'),t:window.__galleryReview.time(),release:+document.querySelector('#release').textContent.match(/(\d+)ms/)[1]}));
+      const releaseBall=releaseState.ball;
+      const releaseAnchor=await anchorMeasure(page,'#fx','release-flash','release');
+      await page.evaluate(()=>window.__galleryReview.setTime(window.__galleryReview.time()+200));
+      const ballAt200=await page.locator('#ball').evaluate(e=>!e.classList.contains('hidden'));
+      await page.evaluate(()=>window.__galleryReview.setTime(window.__galleryReview.time()+101));
+      const ballAfter300=await page.locator('#ball').evaluate(e=>e.classList.contains('hidden'));
+      await page.evaluate(()=>window.__galleryReview.setTime(500));
+      await page.click('#play'); await page.waitForTimeout(120);
+      await page.selectOption('#speed','.25');
+      const before=await page.evaluate(()=>window.__galleryReview.time()); await page.waitForTimeout(50);
+      const after=await page.evaluate(()=>window.__galleryReview.time());
+      const speedContinuity={before,after,speed:await page.evaluate(()=>window.__galleryReview.speed()),delta:after-before};
+      await page.click('#play'); const speedPaused=!(await page.evaluate(()=>window.__galleryReview.playing()));
+      const beforeStep=await page.evaluate(()=>window.__galleryReview.time()); await page.click('#stepNext');
+      const stepStopped=!(await page.evaluate(()=>window.__galleryReview.playing()));
+      const stepped=await page.evaluate(()=>window.__galleryReview.time()); await page.waitForTimeout(100);
+      const stepTimeStable=Math.abs((await page.evaluate(()=>window.__galleryReview.time()))-stepped)<1;
+      await page.selectOption('#speed','1');
+      await page.evaluate(()=>window.__galleryReview.setTime(window.__galleryReview.duration()-40)); await page.click('#play'); await page.waitForTimeout(160);
+      const loopTime=await page.evaluate(()=>window.__galleryReview.time()); const looped=loopTime<250;
+      await page.check('#reduce'); const reduceAt=await page.evaluate(()=>window.__galleryReview.time()); await page.waitForTimeout(140); const reduceLater=await page.evaluate(()=>window.__galleryReview.time());
+      const reducedMotion=await page.locator('#reduce').isChecked(),reducedMotionStops=Math.abs(reduceLater-reduceAt)<1;
+      await page.uncheck('#effects'); const effectsOff=await page.locator('#fx').evaluate(e=>e.classList.contains('hidden'));
+      await page.check('#reduce');
+      await page.uncheck('#zoneToggle');
+      const overflow=await page.evaluate(()=>({scrollWidth:document.documentElement.scrollWidth,innerWidth,scrollHeight:document.documentElement.scrollHeight,innerHeight}));
+      await page.screenshot({path:`${root}/references/gallery-${layout}.png`,animations:'disabled'});
+      report.layouts.push({layout,initial,afterDefault,beforeMode,guideVisible,switched,phaseText,skillEffectVisible,gimmickAnchor,landingDust,landingAnchor,pausedLanding,releaseState,releaseAnchor,ballAt200,ballAfter300,zoneVisible,effectsOff,reducedMotion,reducedMotionStops,speedPaused,stepStopped,stepTimeStable,steppedFrom:beforeStep,steppedTo:stepped,loopTime,looped,speedContinuity,overflow});
+      await page.close();
+    }
+    report.checks={candidateCharacters:report.layouts.every(x=>x.initial.characters===20),comparisonModes:report.layouts.every(x=>x.afterDefault==='after'&&x.beforeMode.mode==='before'&&x.beforeMode.src!==''),groundingGuide:report.layouts.every(x=>x.guideVisible),twelveAuthoredPosePreviews:report.layouts.every(x=>x.initial.poses===12&&x.switched.poses===12),characterSelectionUpdatesMetadata:report.layouts.every(x=>x.switched.skill.length>0),hpPhaseSelector:report.layouts.every(x=>x.switched.phase==='critical'&&x.switched.hp==='.2'),criticalInheritsPressuredRule:report.layouts.every(x=>x.phaseText.includes('압박 단계 공개 효과')&&x.phaseText.includes('위기 단계에도 유지')),effectsToggle:report.layouts.every(x=>x.effectsOff),skillFxTiming:report.layouts.every(x=>x.skillEffectVisible),gimmickFxPivotAlignment:report.layouts.every(x=>x.gimmickAnchor.imageLoaded&&x.gimmickAnchor.distance<.15),landingFxPivotAlignment:report.layouts.every(x=>x.landingAnchor.imageLoaded&&x.landingAnchor.distance<.15),releaseFxPivotAlignment:report.layouts.every(x=>x.releaseAnchor.imageLoaded&&x.releaseAnchor.distance<.15),landingFxTiming:report.layouts.every(x=>x.landingDust&&x.pausedLanding),effectMetadataTiming:report.effectPlayback.length===8&&report.effectPlayback.every(x=>x.fps===30&&x.pivot.length===2&&typeof x.loop==='boolean'),releaseFxAndBallTiming:report.layouts.every(x=>x.releaseState.fx&&x.releaseState.ball&&x.ballAt200&&x.ballAfter300),reducedMotion:report.layouts.every(x=>x.reducedMotion&&x.reducedMotionStops),zoneBounds:report.layouts.every(x=>x.zoneVisible),speedContinuity:report.layouts.every(x=>x.speedContinuity.speed===.25&&x.speedContinuity.delta>=0&&x.speedContinuity.delta<80),stepPauses:report.layouts.every(x=>x.speedPaused&&x.stepStopped&&x.stepTimeStable),durationLoops:report.layouts.every(x=>x.looped),desktopAndPhone:report.layouts.length===2,landscapeNoHorizontalOverflow:report.layouts.every(x=>x.overflow.scrollWidth<=x.overflow.innerWidth+1),pageErrors:report.pageErrors};
+    report.status=Object.values(report.checks).every(v=>Array.isArray(v)?v.length===0:v===true)?'passed':'failed';
+    fs.writeFileSync(out,JSON.stringify(report,null,2)+'\n'); console.log(JSON.stringify(report,null,2)); if(report.status!=='passed')process.exitCode=1;
+  }finally{await browser.close();server.close()}
+})().catch(e=>{console.error(e);process.exitCode=1});
