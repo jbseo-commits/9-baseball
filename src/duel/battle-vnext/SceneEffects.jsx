@@ -32,6 +32,7 @@ export default function SceneEffects({effect=null,finale=null,composition=null,l
       <path d={`M${e.previous.x},${e.previous.y}L${e.ball.x},${e.ball.y}`} fill="none" stroke={warm?'#ffd386':'#c5eff1'} strokeWidth={warm?5:3} strokeLinecap="round" opacity=".7"/>
       {!spriteBall&&<image href={ballUrl} x={e.ball.x-r} y={e.ball.y-r} width={r*2} height={r*2}/>}
     </g>}
+    {pixelContact&&e.flash>0&&<ellipse className="bv-contact-light" cx={C.x} cy={C.y} rx={e.kind==='exact'?112:80} ry={e.kind==='exact'?70:46} fill={`url(#${hot})`} opacity={e.flash*.65}/>}
     {!pixelContact&&e.flash>0&&<g className="bv-contact-burst" opacity={e.flash}>
       <ellipse cx={C.x} cy={C.y} rx={e.kind==='exact'?115:72} ry={e.kind==='exact'?83:48} fill={`url(#${hot})`}/>
       {e.kind==='exact'&&<g className="bv-exact-cut" transform={`translate(${C.x} ${C.y}) rotate(-24)`}>

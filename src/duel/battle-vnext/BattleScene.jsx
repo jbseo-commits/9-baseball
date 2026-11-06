@@ -2,7 +2,7 @@ import React,{useLayoutEffect,useRef,useState} from 'react';
 import {SCENE,worldCamera,atbatCamera,actorBox,cameraMatrix,sceneSnapshot} from './scene-geometry.js';
 import coverage from '../../../assets/production-art/mockup-v1-intake/actor-coverage.json';
 import stadiumUrl from '../../../assets/production-art/mockup-v1-intake/stadium-wide.webp';
-import {PILOT_ACTORS,PILOT_MOTION,motionAt,MOTION_CONTACT,MOTION_RELEASE} from './motion-timeline.js';
+import {PILOT_ACTORS,PILOT_MOTION,motionAt,MOTION_CONTACT,MOTION_RELEASE,pitchFocusAt} from './motion-timeline.js';
 import SceneEffects from './SceneEffects.jsx';
 import ContactPixelFx,{FxSprite,contactAtlasPlan} from './ContactPixelFx.jsx';
 import {sceneEffectAt} from './scene-effects.js';
@@ -27,12 +27,14 @@ export function approvedPitcherArt(artId){
 
 const ACTORS=['pitcher','batter'];
 
-export default function BattleScene({scene=null,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,framing='cover',playback=null,result=null,finale=null}){
+export default function BattleScene({scene=null,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,framing='cover',playback=null,result=null,finale=null,onFocusChange=null}){
   const rootRef=useRef(null);
   const elapsed=useSceneClock(playback);
   const roster=actors.pitcher?.kind==='roster-atlas'?actors.pitcher:null;
   const composition=framing==='atbat'?(roster?{...ATBAT_COMPOSITION,pitcher:roster.meta,release:roster.release}:ATBAT_COMPOSITION):null;
   const reduced=playback?.timeline?.duration<=60;
+  const focus=pitchFocusAt({elapsed,playback,phase,reduced});
+  useLayoutEffect(()=>{onFocusChange?.(focus);},[focus,onFocusChange]);
   const effect=sceneEffectAt({elapsed,playback,result,phase,composition});
   const landingAt=playback?.timeline?.delivery?.landingAt??roster?.landingAt;
   const landingAge=elapsed-landingAt;

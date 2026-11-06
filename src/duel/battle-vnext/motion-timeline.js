@@ -43,3 +43,10 @@ export function nearCoverage(result){
   const closest=coverage.slice().sort((a,b)=>distance(a)-distance(b)||a-b)[0];
   return closest!=null&&distance(closest)===1?{from:closest,to:z,distance:1}:null;
 }
+
+// Only passive scenery-covering HUD is dimmed while inputs are locked. Values,
+// BSO and controls remain owned by the VM; this boolean has no completion timer.
+export function pitchFocusAt({elapsed=0,playback=null,phase='deciding',reduced=false}={}){
+  if(!playback||reduced||playback.timeline.duration<=60||playback.action==='prepare'||elapsed>=playback.timeline.duration)return false;
+  return phase==='flight'||(phase==='result'&&elapsed>=playback.timeline.impactAt&&elapsed<playback.timeline.impactAt+(playback.timeline.freeze||0));
+}

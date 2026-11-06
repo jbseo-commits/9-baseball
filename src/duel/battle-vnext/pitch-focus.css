@@ -1,0 +1,9 @@
+/* Live delivery focus, scoped to the existing at-bat view. No geometry or input
+   changes: the shared field clock restores passive information at hold end.
+   Opacity retains the same accessible public text and fixed layout boxes. */
+.battle-vnext.bv-atbat[data-cinematic-focus=true] .bv-hud-opponent,
+.battle-vnext.bv-atbat[data-cinematic-focus=true] .bv-hud-notes{opacity:0;pointer-events:none}
+@media(prefers-reduced-motion:reduce){
+ .battle-vnext.bv-atbat[data-cinematic-focus=true] .bv-hud-opponent,
+ .battle-vnext.bv-atbat[data-cinematic-focus=true] .bv-hud-notes{opacity:1}
+}

@@ -11,3 +11,4 @@
 | 2026-10-23 | Asset-led main battle, first visual candidate | Codex /root/battle_visual_blind_judge | 2.72 → 3.03 | IMPROVED | R3 빛·환경 통합 |
 | 2026-10-23 | Asset-led main battle, visible-word refinement | Codex /root/asset_final_blind_judge | 2.69 → 3.00 | IMPROVED | R3 빛·환경 통합 |
 | 2026-11-06 | 제공된 5개 정지 이미지의 A/B 독립 시각 비교 | g020_blind_r1 | 3.09 → 3.10 | NOT_IMPROVED | R2 UI 그림화 |
+| 2026-11-06 | G020 R2 pitch/contact focus | g020_blind_r2 | 3.02 → 3.14 | NOT_IMPROVED | R2 UI 그림화 |
