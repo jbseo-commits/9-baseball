@@ -38,3 +38,28 @@ it('wide pieces get one formation cue and one low seating body at their shared l
  const bodies=sources.filter(n=>n.frequency.setValueAtTime.mock.calls[0]?.[0]===118);expect(bodies).toHaveLength(1);expect(bodies[0].start.mock.calls[0][0]).toBeCloseTo(10.006+.680/.5);
  expect(sources.some(n=>n.frequency.setValueAtTime.mock.calls[0]?.[0]===390)).toBe(true);cancel();expect(sources.every(n=>n.stop.mock.calls.length===2)).toBe(true);
 });
+
+it('normalizes the sum of squared voice gain targets across simultaneous receipts and returns budget on cancel',()=>{
+ const stop1=playPlacementSound(),bus1=nodes[0];const next=nodes.length,stop2=playPlacementSound(),bus2=nodes[next];
+ expect(bus1.gain.value).toBeCloseTo(.64/Math.sqrt(2));expect(bus2.gain.value).toBeCloseTo(.64/Math.sqrt(2));
+ const third=nodes.length,stop3=playPlacementSound(),bus3=nodes[third];
+ expect([bus1,bus2,bus3].reduce((s,b)=>s+b.gain.value**2,0)).toBeCloseTo(.64**2);
+ stop2();expect(bus1.gain.value).toBeCloseTo(.64/Math.sqrt(2));expect(bus3.gain.value).toBeCloseTo(.64/Math.sqrt(2));stop1();expect(bus3.gain.value).toBeCloseTo(.64);stop3();
+});
+it('moves the stereo image from the actual source toward the registered target on the shared lock beat',()=>{
+ playPlacementSound({pan:.4,targetPan:-.2,rate:.5});const pan=nodes.find(n=>n.pan.setValueAtTime.mock.calls.length);
+ expect(pan).toBeDefined();expect(pan.pan.setValueAtTime).toHaveBeenCalledWith(.4,10.006);expect(pan.pan.linearRampToValueAtTime).toHaveBeenCalledWith(-.2,10.006+PLACEMENT.lockAt/.5/1000);
+});
+
+it('releases the overlap budget when sources naturally finish, without waiting for a UI timer',()=>{
+ playPlacementSound();const old=sources.slice(),next=nodes.length;const stop=playPlacementSound(),bus=nodes[next];
+ for(const s of old)s.onended();expect(bus.gain.value).toBeCloseTo(.64);stop();
+});
+
+it('automates native AudioParams smoothly and renormalizes after natural endings',()=>{
+ const ctx=getAudioContext();ctx.createGain=()=>{const n=node();n.gain.setTargetAtTime=vi.fn();n.gain.cancelScheduledValues=vi.fn();return n;};
+ playPlacementSound();const bus1=nodes[0],old=sources.slice(),next=nodes.length;const stop=playPlacementSound(),bus2=nodes[next];
+ expect(bus1.gain.cancelScheduledValues).toHaveBeenLastCalledWith(10);expect(bus1.gain.setTargetAtTime).toHaveBeenLastCalledWith(.64/Math.sqrt(2),10,.012);
+ expect(bus2.gain.setTargetAtTime).toHaveBeenLastCalledWith(.64/Math.sqrt(2),10,.012);for(const s of old)s.onended();
+ expect(bus2.gain.setTargetAtTime).toHaveBeenLastCalledWith(.64,10,.012);stop();
+});

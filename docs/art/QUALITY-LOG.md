@@ -13,3 +13,4 @@
 | 2026-11-06 | 제공된 5개 정지 이미지의 A/B 독립 시각 비교 | g020_blind_r1 | 3.09 → 3.10 | NOT_IMPROVED | R2 UI 그림화 |
 | 2026-11-06 | G020 R2 pitch/contact focus | g020_blind_r2 | 3.02 → 3.14 | NOT_IMPROVED | R2 UI 그림화 |
 | 2026-11-06 | G020 R3 pitch delivery/contact broadcast strip | g020_blind_r3 | 3.10 → 3.17 | NOT_IMPROVED | R2 UI 그림화 |
+| 2026-11-06 | G021 card placement feedback candidate | juice100_blind_r1 | 3.27 → 3.38 | NOT_IMPROVED | R2 UI 그림화 |

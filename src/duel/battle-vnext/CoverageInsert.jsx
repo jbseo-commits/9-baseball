@@ -1,9 +1,10 @@
 import React,{useLayoutEffect,useEffect,useState} from 'react';
-import {placementTimeline,placementGeometry} from './placement-motion.js';
+import {placementTimeline,placementGeometry,placementPan} from './placement-motion.js';
 import {playPlacementSound} from './placement-audio.js';
 import {animationRate as validRate} from '../animation-speed.js';
 import {haptic} from '../haptics.js';
 import './placement.css';
+import './placement-feedback.css';
 
 /* A receipt of the player's actual placement, never a second coverage judge.
    All covered cells ride and seat as one object; only surface light staggers. */
@@ -22,7 +23,7 @@ export default function CoverageInsert({request,pieces,rootRef,phase,sound=false
     const view={left:Math.max(8,8-box.left),top:Math.max(52,8-box.top),right:Math.min(box.width-8,window.innerWidth-box.left-8),bottom:Math.min(box.height-8,window.innerHeight-box.top-8)};
     const geometry=placementGeometry(cells,source,view);if(!geometry){setEffect(null);return;}
     const rate=validRate(animationRate),timing=placementTimeline(cells.length);
-    setEffect({...geometry,rate,timing,seq:request.seq,role:piece.role,order:piece.order||1,name:request.name,cost:request.cost,summary:request.summary,art:request.art,source,startedAt:performance.now()});
+    setEffect({...geometry,rate,timing,seq:request.seq,role:piece.role,order:piece.order||1,name:request.name,cost:request.cost,summary:request.summary,art:request.art,source,rootLeft:box.left,viewportWidth:window.innerWidth,startedAt:performance.now()});
     const clear=()=>{setEffect(null);onFinish?.(request.seq);};
     const timer=setTimeout(clear,timing.duration/rate);window.addEventListener('resize',clear);document.addEventListener('visibilitychange',clear);
     return ()=>{clearTimeout(timer);window.removeEventListener('resize',clear);document.removeEventListener('visibilitychange',clear);};
@@ -30,7 +31,7 @@ export default function CoverageInsert({request,pieces,rootRef,phase,sound=false
   useEffect(()=>{
     if(!effect||!sound||menuOpen||phase!=='deciding'||document.hidden)return;
     const reduced=!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    return playPlacementSound({elapsed:(performance.now()-effect.startedAt)*effect.rate,rate:effect.rate,timing:effect.timing,reduced,pan:Math.max(-.4,Math.min(.4,effect.from.x/1200))});
+    return playPlacementSound({elapsed:(performance.now()-effect.startedAt)*effect.rate,rate:effect.rate,timing:effect.timing,reduced,pan:placementPan(effect.source.x,effect.rootLeft,effect.viewportWidth),targetPan:placementPan(effect.center.x,effect.rootLeft,effect.viewportWidth)});
   },[effect,sound,menuOpen,phase]);
   useEffect(()=>{
     if(!effect||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)return;
@@ -43,8 +44,11 @@ export default function CoverageInsert({request,pieces,rootRef,phase,sound=false
     '--source-art':(s.artFraction||.4)*100+'%','--source-copy-x':((s.w||190)*(s.artFraction||.4)+12)/e.scale+'px','--source-w':(s.w||190)/e.scale+'px','--source-h':(s.h||76)/e.scale+'px','--source-font':(s.font||18)/e.scale+'px','--source-small':(s.small||12)/e.scale+'px'};
   const card=<span className="bv-insert-card"><span className="bv-insert-card-art" style={{backgroundImage:e.art?`url(${e.art})`:undefined}}/>
     <b>{e.cost}</b><strong>{e.name}</strong><small>{e.summary}</small><i/></span>;
-  return <div key={e.seq} className={'bv-insert-fx'+(wide?' is-wide':'')+' r-'+e.role+' q-'+e.order} style={vars} aria-hidden="true" data-testid="bv-coverage-insert" data-card-name={e.name} data-card-id={request.id} data-insert-order={e.order} data-insert-seq={e.seq} data-animation-rate={e.rate} data-art-side={s.artSide||'left'} data-cell-count={e.cells.length} data-lock-at={t.lockAt}>
+  return <div key={e.seq} className={'bv-insert-fx is-readable'+(wide?' is-wide':'')+' r-'+e.role+' q-'+e.order} style={vars} aria-hidden="true" data-testid="bv-coverage-insert" data-card-name={e.name} data-card-id={request.id} data-insert-order={e.order} data-insert-seq={e.seq} data-animation-rate={e.rate} data-art-side={s.artSide||'left'} data-cell-count={e.cells.length} data-lock-at={t.lockAt}>
     <div className="bv-insert-receiver" style={{left:b.x,top:b.y,width:b.w,height:b.h}}>
+      <svg className="bv-insert-target" viewBox={`-8 -8 ${b.w+16} ${b.h+16}`} width={b.w+16} height={b.h+16} data-testid="bv-insert-target" data-target-zones={e.cells.map(c=>c.z).join(',')}>
+        <path className="bv-target-ghost" d={e.contour.path}/><path className="bv-target-lock" d={e.contour.path}/><path className="bv-target-trace" d={e.contour.path} pathLength="1"/>
+      </svg>
       <svg viewBox={`-40 -40 ${b.w+80} ${b.h+80}`} width={b.w+80} height={b.h+80} className="bv-insert-outline"><path d={e.outline}/></svg>
       {e.cells.map(c=><span key={c.z} className="bv-insert-socket" style={{left:c.x,top:c.y,width:c.w,height:c.h}}/>)}
       <i className="bv-insert-ground"/>
@@ -55,6 +59,7 @@ export default function CoverageInsert({request,pieces,rootRef,phase,sound=false
     {wide&&<div className="bv-insert-source" style={{left:s.x,top:s.y,rotate:(s.angle||0)+'deg','--source-w':s.w+'px','--source-h':s.h+'px','--source-font':(s.font||18)+'px','--source-small':(s.small||12)+'px','--source-copy-x':((s.w||190)*(s.artFraction||.4)+12)+'px'}}>{card}</div>}
     <div className="bv-insert-flight" data-testid="bv-insert-flight" style={{left:b.x,top:b.y,width:b.w,height:b.h}}>
       {!wide&&card}
+      {wide&&<svg className="bv-insert-solid" viewBox={`0 0 ${b.w} ${b.h}`} width={b.w} height={b.h} data-testid="bv-insert-solid"><path d={e.contour.path} fillRule="evenodd"/></svg>}
       {e.cells.map(c=><span key={c.z} className="bv-insert-block" data-insert-zone={c.z} style={{left:c.x,top:c.y,width:c.w,height:c.h,'--seat-delay':c.rank*t.stagger+'ms','--tile-art':e.art?`url(${e.art})`:'none','--tile-art-x':(c.z%3)*50+'%','--tile-art-y':Math.floor(c.z/3)*50+'%'}}><i className="bv-insert-material"/><i className="bv-insert-bevel"/><b className="bv-insert-catch"/><em className="bv-insert-seam"/></span>)}
       {wide&&<svg className="bv-insert-piece-edge" viewBox={`-8 -8 ${b.w+16} ${b.h+16}`} width={b.w+16} height={b.h+16}><path className="edge-shadow" d={e.outline}/><path className="edge-light" d={e.outline}/></svg>}
     </div>

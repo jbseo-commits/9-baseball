@@ -30,5 +30,36 @@ export function placementGeometry(cells,source,view=null){
     if(z%3===0||!byZone.has(z-1))outline+=`M${x},${y+h}v${-h}`;
   }
   const ordered=cells.slice().sort((a,b)=>Math.hypot(a.x+a.w/2-center.x,a.y+a.h/2-center.y)-Math.hypot(b.x+b.w/2-center.x,b.y+b.h/2-center.y)||a.z-b.z);
-  return {bounds,center,from,mid,scale,readScale,stage,outline,cells:cells.map(c=>({...c,x:c.x-left,y:c.y-top,rank:ordered.findIndex(o=>o.z===c.z)}))};
+  const contour=footprintContours(cells.map(c=>({...c,x:c.x-left,y:c.y-top})));
+  return {bounds,center,from,mid,scale,readScale,stage,outline,contour,cells:cells.map(c=>({...c,x:c.x-left,y:c.y-top,rank:ordered.findIndex(o=>o.z===c.z)}))};
+}
+
+/* Trace real coverage topology, including disconnected islands and holes.
+   Grid vertices identify neighbours; their positions retain measured DOM edges.
+   A right turn at a diagonal corner keeps the two bodies separate. */
+export function footprintContours(cells=[]){
+  const unique=[...new Map(cells.filter(c=>Number.isInteger(c.z)&&c.z>=0&&c.z<9).map(c=>[c.z,c])).values()];
+  const zones=new Set(unique.map(c=>c.z)),edges=[],vertices=new Map();
+  const vertex=(x,y,px,py)=>{const key=x+','+y;if(!vertices.has(key))vertices.set(key,{x:px,y:py});return key;};
+  const add=(c,side)=>{const x=c.z%3,y=Math.floor(c.z/3),v=[vertex(x,y,c.x,c.y),vertex(x+1,y,c.x+c.w,c.y),vertex(x+1,y+1,c.x+c.w,c.y+c.h),vertex(x,y+1,c.x,c.y+c.h)];edges.push({from:v[side],to:v[(side+1)%4],direction:side});};
+  for(const c of unique){if(!zones.has(c.z-3))add(c,0);if(c.z%3===2||!zones.has(c.z+1))add(c,1);if(!zones.has(c.z+3))add(c,2);if(c.z%3===0||!zones.has(c.z-1))add(c,3);}
+  const unused=new Set(edges),loops=[];
+  while(unused.size){
+    let e=unused.values().next().value;const start=e.from,points=[vertices.get(start)];
+    while(e&&unused.has(e)){
+      unused.delete(e);points.push(vertices.get(e.to));if(e.to===start)break;
+      const turn=d=>[1,0,3,2].indexOf((d-e.direction+4)%4);
+      e=[...unused].filter(n=>n.from===e.to).sort((a,b)=>turn(a.direction)-turn(b.direction))[0];
+    }
+    if(points.length>2)loops.push(points);
+  }
+  const clean=n=>Math.round(n*10000)/10000;
+  const path=loops.map(l=>'M'+l.map(p=>clean(p.x)+','+clean(p.y)).join('L')+'Z').join('');
+  const perimeter=loops.reduce((sum,l)=>sum+l.slice(1).reduce((s,p,i)=>s+Math.hypot(p.x-l[i].x,p.y-l[i].y),0),0);
+  return {path,loops,perimeter};
+}
+
+/* Both ends use the same screen-centred coordinate system. */
+export function placementPan(localX,rootLeft,viewportWidth){
+  return Math.max(-.4,Math.min(.4,(localX+rootLeft-viewportWidth/2)/Math.max(1,viewportWidth/2)*.4));
 }

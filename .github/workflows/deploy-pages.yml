@@ -86,6 +86,20 @@ jobs:
           cp assets/pitcher-review-grounding-r2/gallery.html "${REVIEW_DEST}/index.html"
           cmp assets/pitcher-review-grounding-r2/gallery.html "${REVIEW_DEST}/index.html"
 
+      # Research is a separate review artifact; it is excluded from the game budget.
+      - name: Publish game juice research catalogue
+        if: github.ref_name == 'codex/juice100-application-20261106'
+        working-directory: preview
+        shell: bash
+        env:
+          REVIEW_BRANCH_DIR: ${{ steps.preview.outputs.safe_branch }}
+        run: |
+          node scripts/check-dist-budget.mjs
+          REVIEW_DEST="../production/dist/previews/${REVIEW_BRANCH_DIR}/research/game-juice-100"
+          mkdir -p "${REVIEW_DEST}"
+          cp docs/research/game-juice-100/index.html docs/research/game-juice-100/references.json docs/research/game-juice-100/video-evidence.json "${REVIEW_DEST}/"
+          test -s "${REVIEW_DEST}/index.html"
+
       - name: Write preview index
         if: github.ref_name != 'main'
         shell: bash
