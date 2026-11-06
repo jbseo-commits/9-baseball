@@ -1,0 +1,23 @@
+/* Phone landscape under a browser address bar (about 230-340px tall, 2026-11-04).
+   The hand header wrapped into two 44px rows and the action buttons kept 72px, so the
+   card list collapsed to zero height. Here the header stays on one row and the action
+   buttons shrink, keeping every target at least 40px. Loaded after the other at-bat sheets. */
+@media(orientation:landscape) and (max-height:340px){
+  .battle-vnext.bv-atbat .bv-hand-head{flex-wrap:nowrap;min-height:40px;gap:0 4px;padding-top:0;padding-bottom:0}
+  .battle-vnext.bv-atbat .bv-energy{padding:0 4px;gap:2px;min-height:40px}
+  .battle-vnext.bv-atbat .bv-energy strong{font-size:20px}
+  .battle-vnext.bv-atbat .bv-energy-line,.battle-vnext.bv-atbat .bv-energy-pips{display:none}
+  .battle-vnext.bv-atbat .bv-hand-tools{gap:3px;margin-left:auto;flex-wrap:nowrap}
+  .battle-vnext.bv-atbat .bv-hand-tools>:is(button,span){min-height:40px;padding:0 4px;white-space:nowrap;font-size:9.5px}
+  .battle-vnext.bv-atbat.bv-foldable .bv-hand-head{padding-left:22px}
+  /* draw/discard pile detail is secondary; it returns once the screen is taller (fullscreen) */
+  .battle-vnext.bv-atbat .bv-hand-tools>.bv-piles{display:none}
+  .battle-vnext.bv-atbat .bv-command-rail{gap:2px;padding-top:2px}
+  .battle-vnext.bv-atbat .bv-stack-tray{padding-top:2px;padding-bottom:2px}
+  .battle-vnext.bv-atbat .bv-command-rail>.bv-plan{max-height:none;padding:1px 6px}
+  .battle-vnext.bv-atbat .bv-action-dock>.bv-action{flex-basis:58px;width:58px;height:58px;min-height:58px;padding:4px 3px}
+  .battle-vnext.bv-atbat .bv-action-dock:has(.bv-plan-clear)>.bv-action{flex-basis:58px;width:58px}
+  .battle-vnext.bv-atbat .bv-action-dock>.bv-action small{display:none}
+  .battle-vnext.bv-atbat .bv-hud-opponent{top:46px}
+  .battle-vnext.bv-atbat .bv-hud-bar{height:40px;min-height:40px}
+}

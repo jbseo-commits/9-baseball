@@ -48,9 +48,11 @@ import MemoryPreviewBoundary from './duel/battle-vnext/MemoryPreviewBoundary.jsx
 import {battleUiMode} from './duel/battle-ui-mode.js';
 import './duel/battle-vnext/legacy-fallback.css';
 import './duel/battle-vnext/layout.css';
+import './duel/orientation-lock.css';
+import {installOrientationLock} from './duel/orientation-lock.js';
 
 const battleUi=battleUiMode(),compare=comparisonMode(window.location.search);
-if(battleUi.vnext)document.documentElement.dataset.battleUi='vnext';
+if(battleUi.vnext){document.documentElement.dataset.battleUi='vnext';installOrientationLock();}
 watchLayoutMode();
 const params=new URLSearchParams(window.location.search);
 const PlayableRun=React.lazy(()=>import('./duel/battle-vnext/PlayableRun.jsx'));

@@ -1,0 +1,9 @@
+/* 2026-11-04 작가 결정: 휴대폰은 가로 전용. 터치 기기를 세로로 들면 회전 안내가 화면을 덮는다.
+   새 전투 화면(html[data-battle-ui=vnext])은 밑에서 그대로 살아 있어 다시 눕히면 바로 이어진다.
+   안내는 세로일 때만 존재하므로 가로에서는 터치를 막지 않는다. */
+@media (orientation:portrait) and (pointer:coarse){
+  html[data-battle-ui=vnext] body::before{content:"↻\A 휴대폰을 가로로 돌려 주세요\A 9ZONE은 가로 화면 전용입니다";white-space:pre;text-align:center;
+    position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;
+    background:#05070f;color:#f4ecd8;font:700 clamp(16px,5vw,20px)/1.7 'Noto Sans KR',sans-serif;letter-spacing:.02em;
+    touch-action:none;overscroll-behavior:none}
+}

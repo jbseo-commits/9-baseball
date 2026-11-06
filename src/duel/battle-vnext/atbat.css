@@ -4,7 +4,7 @@
 .bv-atbat .bv-field-choice{display:none}
 .bv-atbat .bv-action-name{font-size:.76em;font-weight:600}
 @media(orientation:landscape){
-  .battle-vnext.bv-atbat{--bv-rail:clamp(288px,38vw,600px);--bv-field-top:0px;--bv-zone-size:clamp(150px,18vw,288px);min-height:320px;background:var(--bv-navy)}
+  .battle-vnext.bv-atbat{--bv-rail:clamp(288px,38vw,600px);--bv-field-top:0px;--bv-zone-size:clamp(150px,18vw,288px);min-height:0;background:var(--bv-navy)}
   .bv-atbat .bv-stage{inset:var(--bv-field-top) var(--bv-rail) 0 0}
   .bv-atbat .bv-scene-shade{background:linear-gradient(#0a192c22,transparent 24%,transparent 90%,#101f3044)}
   .bv-atbat>.bv-hud{margin-right:var(--bv-rail);gap:6px}

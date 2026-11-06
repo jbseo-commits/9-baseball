@@ -20,6 +20,7 @@ import './folded-hand.css';
 import './refined.css';
 import './reference.css';
 import './thumb-hand.css';
+import './short-landscape.css';
 
 /* Presentation only. BallparkBattle keeps selection, inspector, commit and next
    timers; App still owns the engine, save and pitch presentation lifecycle. */

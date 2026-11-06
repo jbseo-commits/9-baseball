@@ -4,6 +4,7 @@ import coverage from '../../../assets/production-art/mockup-v1-intake/actor-cove
 import stadiumUrl from '../../../assets/production-art/mockup-v1-intake/stadium-wide.webp';
 import {PILOT_ACTORS,PILOT_MOTION,motionAt,MOTION_CONTACT,MOTION_RELEASE} from './motion-timeline.js';
 import SceneEffects from './SceneEffects.jsx';
+import ContactPixelFx from './ContactPixelFx.jsx';
 import {sceneEffectAt} from './scene-effects.js';
 import './motion.css';
 import {rosterFrame} from './roster-actor.js';
@@ -84,6 +85,7 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
         <SceneEffects effect={effect} finale={finale} composition={composition} landing={landing}/>
       </div>
     </div>
+    <ContactPixelFx sceneRef={rootRef} active={!!effect&&['contact','exact','homer','foul'].includes(effect.kind)&&effect.age>=0} grade={scene?.shotGrade} token={scene?.playToken} contact={snap?contact:null}/>
     {reviewNotice&&<p className="bv-scene-notice" role="note">그림 포즈 모션 검수{actors.pitcher&&actors.pitcher===SAMPLE_ACTORS.pitcher?' · 샘플 투수':''}</p>}
     {effect?.kind==='exact'&&effect.flash>0&&<div className="bv-contact-focus" style={{opacity:effect.flash*.65}} aria-hidden="true"/>}
     {finale&&<div className={"bv-finale-focus f-"+finale} aria-hidden="true"/>}
