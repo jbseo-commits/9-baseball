@@ -1,5 +1,5 @@
 import {describe,it,expect} from 'vitest';
-import {motionAt,PILOT_MOTION,MOTION_CONTACT,MOTION_RELEASE} from '../src/duel/battle-vnext/motion-timeline.js';
+import {motionAt,PILOT_MOTION,MOTION_CONTACT,MOTION_RELEASE,pitchFocusAt} from '../src/duel/battle-vnext/motion-timeline.js';
 const timeline={impactAt:240,freeze:60,slowmo:70,releaseAt:370,settleAt:720,duration:1040};
 describe('registered authored landscape motion',()=>{
   it('uses distinct authored drawings from preparation through return, not rotated stills',()=>{
@@ -33,4 +33,20 @@ describe('registered authored landscape motion',()=>{
     expect(PILOT_MOTION.pitcher.frames[1].release).toEqual(PILOT_MOTION.pitcher.event);
     expect(MOTION_RELEASE.y).toBeLessThan(MOTION_CONTACT.y);
   });
+});
+
+
+describe('passive HUD follows the actual locked pitch beat',()=>{
+ const timeline={impactAt:1200,freeze:95,duration:2100};
+ it('clears the actor only for flight and contact hold, then restores HP information',()=>{
+  const playback={timeline,action:'swing'};
+  expect(pitchFocusAt({playback,elapsed:700,phase:'flight'})).toBe(true);
+  expect(pitchFocusAt({playback,elapsed:1200,phase:'result'})).toBe(true);
+  expect(pitchFocusAt({playback,elapsed:1294,phase:'result'})).toBe(true);
+  expect(pitchFocusAt({playback,elapsed:1295,phase:'result'})).toBe(false);
+  expect(pitchFocusAt({playback,elapsed:700,phase:'deciding'})).toBe(false);
+  expect(pitchFocusAt({playback:null,phase:'flight'})).toBe(false);
+  expect(pitchFocusAt({playback,elapsed:700,phase:'flight',reduced:true})).toBe(false);
+  expect(pitchFocusAt({playback:{timeline,action:'prepare'},elapsed:700,phase:'flight'})).toBe(false);
+ });
 });

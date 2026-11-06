@@ -29,7 +29,7 @@ export default function BattleHud({hud=null,forecast=null,sources=[],phase='deci
     <div className="bv-hud-bar">
       {title&&<span className="bv-hud-title">{title}</span>}
       {p&&<div className="bv-hud-opponent" aria-label={`${p.name} 투수 HP ${p.hp} / ${p.maxHp}`+(band?` · ${band.label} 예상`:'')}>
-        <b className="bv-hud-name">{p.name}</b>
+        <b className="bv-hud-name">{p.name}<span className="bv-pitch-state">{phase==='flight'?'투구 중':phase==='result'?'결과':''}</span></b>
         <span key={resultKey} className={'bv-hud-hp'+(changing?' is-damaged':'')} aria-hidden="true" style={{'--hp-from':beforePct+'%','--hp-to':hpPct+'%'}}>
           {changing&&<i className="bv-hud-hp-ghost" style={{width:beforePct+'%'}}/>}
           <i className="bv-hud-hp-fill" style={{width:hpPct+'%'}}/>

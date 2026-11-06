@@ -15,6 +15,17 @@ describe('landscape ball/contact/near separation',()=>{
   expect(frame(hit)).toEqual(frame(near));expect(frame(hit)).toEqual(frame({...hit,call:'홈런',knockedOut:true}));
   expect(frame(hit).kind).toBe('flight');expect(frame(hit).flash).toBe(0);
  });
+ it('keeps the approaching ball visible through the fixed contact tick and gives it depth acceleration',()=>{
+  const motion={action:'swing',pitchReleaseAt:100,timeline:{impactAt:400,freeze:80,releaseAt:500,settleAt:900,duration:1200}};
+  const half=sceneEffectAt({elapsed:250,playback:motion,phase:'flight',composition:{release:{x:0,y:0},contact:{x:100,y:120}}});
+  expect(half.ball.y).toBeLessThan(60);
+  const nearPlate=sceneEffectAt({elapsed:325,playback:motion,phase:'flight',composition:{release:{x:0,y:0},contact:{x:100,y:120}}});
+  expect(nearPlate.ball.y).toBeGreaterThan(half.ball.y);expect(nearPlate.radius).toBeGreaterThan(half.radius);
+  const contact=sceneEffectAt({elapsed:400,playback:motion,phase:'flight',composition:{release:{x:0,y:0},contact:{x:100,y:120}}});
+  expect(contact.ball).toEqual({x:100,y:120});expect(contact.opacity).toBe(1);
+  const held=sceneEffectAt({elapsed:440,playback:motion,phase:'result',result:hit,composition:{release:{x:0,y:0},contact:{x:100,y:120},mound:{x:832,y:580}}});
+  expect(held.ball).toEqual({x:100,y:120});expect(held.age).toBe(40);expect(held.progress).toBe(0);expect(held.radius).toBe(12);expect(held.spinAge).toBe(contact.spinAge);
+ });
  it('pins exact contact to the authored barrel, then sends the ball into the field',()=>{
   const f=sceneEffectAt({elapsed:245,playback,result:hit,phase:'result'});
   expect(f.kind).toBe('exact');expect(f.ball).toEqual(MOTION_CONTACT);expect(f.flash).toBeGreaterThan(0);

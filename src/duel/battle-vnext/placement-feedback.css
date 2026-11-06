@@ -1,0 +1,27 @@
+/* One silhouette, one receiver, one lock. Geometry and input remain unchanged.
+   Surface clears shortly after seating so probability labels stay readable. */
+.bv-insert-fx.is-readable .bv-insert-target{position:absolute;left:-8px;top:-8px;overflow:visible;fill:none;stroke-linejoin:miter;pointer-events:none}
+.bv-insert-target path{vector-effect:non-scaling-stroke}
+.bv-insert-target .bv-target-ghost{stroke:var(--insert-color);stroke-width:1.5;stroke-dasharray:4 5;animation:bv-target-wait var(--place-lock) linear both}
+.bv-insert-target .bv-target-lock{stroke:#fff3cd;stroke-width:2;animation:bv-target-seat 210ms ease-out var(--place-lock) both}
+.bv-insert-target .bv-target-trace{stroke:var(--insert-color);stroke-width:2;stroke-dasharray:.15 .85;animation:bv-target-trace 310ms ease-out var(--place-lock) both}
+.bv-insert-fx.is-readable .bv-insert-outline,.bv-insert-fx.is-readable .bv-insert-impact,.bv-insert-fx.is-readable .bv-insert-socket,.bv-insert-fx.is-readable .bv-insert-catch,.bv-insert-fx.is-readable .bv-insert-seam{display:none}
+.bv-insert-fx.is-readable .bv-insert-piece-edge{animation:bv-solid-finish 150ms ease-out var(--place-lock) both}
+.bv-insert-fx.is-readable .bv-insert-piece-edge .edge-shadow{stroke:#122334;stroke-width:4}
+.bv-insert-fx.is-readable .bv-insert-piece-edge .edge-light{stroke:#ffedb5;stroke-width:1.5}
+.bv-insert-fx.is-readable .bv-insert-solid{position:absolute;inset:0;overflow:visible;fill:var(--insert-color);filter:drop-shadow(0 5px 0 var(--insert-shadow)) drop-shadow(0 7px 5px #06111a66);animation:bv-solid-emerge 260ms ease-out both,bv-solid-finish 150ms ease-out var(--place-lock) forwards}
+.bv-insert-fx.is-readable.is-wide .bv-insert-block{background:none;box-shadow:none;border:0;border-radius:0;animation:bv-wide-visible var(--place-duration) linear both,bv-solid-finish 150ms ease-out var(--place-lock) forwards}
+.bv-insert-fx.is-readable.is-wide .bv-insert-material{display:none}
+.bv-insert-fx.is-readable.is-wide .bv-insert-bevel{inset:0;border:1px solid #684e2c55;border-right-color:#fff0bd66;border-bottom-color:#fff0bd66;border-radius:0}
+.bv-insert-fx.is-readable:not(.is-wide) .bv-insert-block{animation:bv-tile-emerge var(--place-duration) linear both,bv-tile-seat 180ms cubic-bezier(.18,.8,.3,1) var(--place-lock) both,bv-solid-finish 150ms ease-out var(--place-lock) forwards}
+.bv-insert-fx.is-readable:not(.is-wide) .bv-insert-material{animation:bv-tile-material 410ms ease-out both}
+@keyframes bv-target-wait{0%{opacity:0}18%,85%{opacity:.7}100%{opacity:.25}}
+@keyframes bv-target-seat{0%{opacity:0;stroke-width:1}12%,35%{opacity:1;stroke-width:3}100%{opacity:0;stroke-width:1}}
+@keyframes bv-target-trace{0%{opacity:0;stroke-dashoffset:1}12%{opacity:.95}80%{opacity:.7}100%{opacity:0;stroke-dashoffset:0}}
+@keyframes bv-solid-emerge{0%,30%{opacity:0}100%{opacity:.95}}
+@keyframes bv-solid-finish{0%{opacity:1}45%{opacity:.35}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){
+ .bv-insert-fx.is-readable :is(.bv-insert-solid,.bv-target-lock,.bv-target-trace){display:none}
+ .bv-insert-fx.is-readable .bv-target-ghost{animation:none;opacity:.65;stroke-dasharray:none}
+ .bv-insert-fx.is-readable .bv-insert-block{animation:none;background:none;box-shadow:none;border:0}
+}

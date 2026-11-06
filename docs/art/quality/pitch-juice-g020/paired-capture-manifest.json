@@ -1,0 +1,325 @@
+{
+  "baselineImages": "R1 before images copied byte-identically from capture/accepted/before; reference manifest preserved at manifest-r1-reference.json",
+  "baselineBuild": "main 381b9fd",
+  "candidateBuild": "R3 final at http://127.0.0.1:5200/",
+  "publicAction": {
+    "type": "card",
+    "id": "c4",
+    "zone": 4,
+    "supports": [
+      {
+        "id": "c3",
+        "aimZone": 8
+      }
+    ]
+  },
+  "expectedEngineState": {
+    "phase": "between",
+    "pitches": 2,
+    "pitcherHp": 32
+  },
+  "reducedMotion": false,
+  "battleRate": 0.5,
+  "acceptedPairs": [
+    {
+      "filename": "battle-approach-844x390.png",
+      "viewport": "844x390",
+      "label": "approach-flight-near-contact",
+      "beforeOffsetFromImpactGameMs": -57.25,
+      "r3OffsetFromImpactGameMs": -57.95000000111759,
+      "pairAgeDifferenceMs": 0.7000000011175871,
+      "acceptedPairToleranceMs": 25,
+      "r3TimingDeltaFromTargetGameMs": 2.049999998882413,
+      "beforeImage": "/workspace/9zone-juice-20261106/capture-r3/accepted/before/battle-approach-844x390.png",
+      "r3Image": "/workspace/9zone-juice-20261106/capture-r3/accepted/after/battle-approach-844x390.png",
+      "r3Ball": "flight",
+      "r3Pose": "frame-8"
+    },
+    {
+      "filename": "battle-impact-plus-50-844x390.png",
+      "viewport": "844x390",
+      "label": "impact-plus-50ms",
+      "beforeOffsetFromImpactGameMs": 59.549999999813735,
+      "r3OffsetFromImpactGameMs": 55.09999999962747,
+      "pairAgeDifferenceMs": 4.4500000001862645,
+      "acceptedPairToleranceMs": 25,
+      "r3TimingDeltaFromTargetGameMs": 5.099999999627471,
+      "beforeImage": "/workspace/9zone-juice-20261106/capture-r3/accepted/before/battle-impact-plus-50-844x390.png",
+      "r3Image": "/workspace/9zone-juice-20261106/capture-r3/accepted/after/battle-impact-plus-50-844x390.png",
+      "r3Ball": "contact",
+      "r3Pose": "frame-8"
+    },
+    {
+      "filename": "battle-impact-plus-120-844x390.png",
+      "viewport": "844x390",
+      "label": "impact-plus-120ms",
+      "beforeOffsetFromImpactGameMs": 124.44999999925494,
+      "r3OffsetFromImpactGameMs": 142.89999999850988,
+      "pairAgeDifferenceMs": 18.449999999254942,
+      "acceptedPairToleranceMs": 25,
+      "r3TimingDeltaFromTargetGameMs": 22.899999998509884,
+      "beforeImage": "/workspace/9zone-juice-20261106/capture-r3/accepted/before/battle-impact-plus-120-844x390.png",
+      "r3Image": "/workspace/9zone-juice-20261106/capture-r3/accepted/after/battle-impact-plus-120-844x390.png",
+      "r3Ball": "contact",
+      "r3Pose": "frame-9"
+    },
+    {
+      "filename": "battle-approach-1440x900.png",
+      "viewport": "1440x900",
+      "label": "approach-flight-near-contact",
+      "beforeOffsetFromImpactGameMs": -56.10000000055879,
+      "r3OffsetFromImpactGameMs": -55.55000000074506,
+      "pairAgeDifferenceMs": 0.5499999998137355,
+      "acceptedPairToleranceMs": 25,
+      "r3TimingDeltaFromTargetGameMs": 4.449999999254942,
+      "beforeImage": "/workspace/9zone-juice-20261106/capture-r3/accepted/before/battle-approach-1440x900.png",
+      "r3Image": "/workspace/9zone-juice-20261106/capture-r3/accepted/after/battle-approach-1440x900.png",
+      "r3Ball": "flight",
+      "r3Pose": "frame-8"
+    },
+    {
+      "filename": "battle-common-time-1000-844x390.png",
+      "viewport": "844x390",
+      "label": "common-time-state",
+      "comparison": "same scaled game-clock elapsed; pitch delivery phase intentionally differs",
+      "beforeObservedElapsedGameMs": 1003.4500000001863,
+      "r3ObservedElapsedGameMs": 1004.3499999996275,
+      "pairAgeDifferenceMs": 0.8999999994412065,
+      "acceptedPairToleranceMs": 25,
+      "r3Image": "/workspace/9zone-juice-20261106/capture-r3/accepted/after/battle-common-time-1000-844x390.png",
+      "beforeImage": "/workspace/9zone-juice-20261106/capture-r3/accepted/before/battle-common-time-1000-844x390.png",
+      "r3Ball": "flight",
+      "r3Pose": "frame-6"
+    }
+  ],
+  "hudMeasurements": {
+    "844x390": {
+      "approach-flight-near-contact": {
+        "actualOpponentText": "\uccad\ub85d \ubbf8\ub77c\uc8fc\n\ud22c\uad6c \uc911\n48 / 60\n\nPATTERN\n\uccad\ub85d \uc655\ubcf5\n0\ubcfc 0\uc2a4\ud2b8\ub77c\uc774\ud06c \u00b7 \ubc14\uae65 \uc544\ub798 \uc120\ud638 \u00b7 \uc548\uc815",
+        "opponentRect": {
+          "x": 12,
+          "y": 52,
+          "width": 420,
+          "height": 26
+        },
+        "opponentComputedFont": "500 16px \"Noto Sans KR\", system-ui, sans-serif",
+        "opponentClippedContentMetrics": {
+          "clientWidth": 420,
+          "scrollWidth": 420,
+          "clientHeight": 26,
+          "scrollHeight": 28,
+          "overflowStyle": "visible"
+        },
+        "nameText": "\uccad\ub85d \ubbf8\ub77c\uc8fc\n\ud22c\uad6c \uc911",
+        "nameRect": {
+          "x": 20,
+          "y": 56.25,
+          "width": 100.140625,
+          "height": 17.5
+        },
+        "nameComputedFont": "700 14px / 17.5px \"Noto Sans KR\", system-ui, sans-serif",
+        "hpText": null,
+        "hpRect": null,
+        "hpComputedFont": null,
+        "patternText": "PATTERN\n\uccad\ub85d \uc655\ubcf5\n0\ubcfc 0\uc2a4\ud2b8\ub77c\uc774\ud06c \u00b7 \ubc14\uae65 \uc544\ub798 \uc120\ud638 \u00b7 \uc548\uc815",
+        "patternVisuallyClipped": false,
+        "viewportBounds": {
+          "insideViewport": true,
+          "viewport": {
+            "width": 844,
+            "height": 390
+          }
+        },
+        "focusMarker": "true",
+        "phase": "flight",
+        "ball": "flight",
+        "eventOffsetFromImpactMs": -57.95000000111759
+      },
+      "impact-plus-50ms": {
+        "actualOpponentText": "\uccad\ub85d \ubbf8\ub77c\uc8fc\n\uacb0\uacfc\n48\n32 / 60\n\nPATTERN\n\uccad\ub85d \uc655\ubcf5\n0\ubcfc 0\uc2a4\ud2b8\ub77c\uc774\ud06c \u00b7 \ubc14\uae65 \uc544\ub798 \uc120\ud638 \u00b7 \uc548\uc815",
+        "opponentRect": {
+          "x": 12,
+          "y": 52,
+          "width": 420,
+          "height": 26
+        },
+        "opponentComputedFont": "500 16px \"Noto Sans KR\", system-ui, sans-serif",
+        "opponentClippedContentMetrics": {
+          "clientWidth": 420,
+          "scrollWidth": 420,
+          "clientHeight": 26,
+          "scrollHeight": 28,
+          "overflowStyle": "visible"
+        },
+        "nameText": "\uccad\ub85d \ubbf8\ub77c\uc8fc\n\uacb0\uacfc",
+        "nameRect": {
+          "x": 20,
+          "y": 56.25,
+          "width": 89.25,
+          "height": 17.5
+        },
+        "nameComputedFont": "700 14px / 17.5px \"Noto Sans KR\", system-ui, sans-serif",
+        "hpText": "48\n32 / 60",
+        "hpRect": {
+          "x": 383.640625,
+          "y": 57.203125,
+          "width": 40.359375,
+          "height": 15.59375
+        },
+        "hpComputedFont": "600 12px / 15.6px system-ui, sans-serif",
+        "patternText": "PATTERN\n\uccad\ub85d \uc655\ubcf5\n0\ubcfc 0\uc2a4\ud2b8\ub77c\uc774\ud06c \u00b7 \ubc14\uae65 \uc544\ub798 \uc120\ud638 \u00b7 \uc548\uc815",
+        "patternVisuallyClipped": false,
+        "viewportBounds": {
+          "insideViewport": true,
+          "viewport": {
+            "width": 844,
+            "height": 390
+          }
+        },
+        "focusMarker": "true",
+        "phase": "result",
+        "ball": "contact",
+        "eventOffsetFromImpactMs": 55.09999999962747
+      },
+      "impact-plus-120ms": {
+        "actualOpponentText": "\uccad\ub85d \ubbf8\ub77c\uc8fc\n48\n32 / 60\n\nPATTERN\n\uccad\ub85d \uc655\ubcf5\n0\ubcfc 0\uc2a4\ud2b8\ub77c\uc774\ud06c \u00b7 \ubc14\uae65 \uc544\ub798 \uc120\ud638 \u00b7 \uc548\uc815",
+        "opponentRect": {
+          "x": 15.140625,
+          "y": 52,
+          "width": 190,
+          "height": 112.71875
+        },
+        "opponentComputedFont": "500 16px \"Noto Sans KR\", system-ui, sans-serif",
+        "opponentClippedContentMetrics": {
+          "clientWidth": 190,
+          "scrollWidth": 190,
+          "clientHeight": 113,
+          "scrollHeight": 113,
+          "overflowStyle": "visible"
+        },
+        "nameText": "\uccad\ub85d \ubbf8\ub77c\uc8fc",
+        "nameRect": {
+          "x": 25.140625,
+          "y": 61,
+          "width": 170,
+          "height": 17.5
+        },
+        "nameComputedFont": "700 14px / 17.5px \"Noto Sans KR\", system-ui, sans-serif",
+        "hpText": "48\n32 / 60",
+        "hpRect": {
+          "x": 158.140625,
+          "y": 83.5,
+          "width": 37,
+          "height": 14.296875
+        },
+        "hpComputedFont": "600 11px / 14.3px system-ui, sans-serif",
+        "patternText": "PATTERN\n\uccad\ub85d \uc655\ubcf5\n0\ubcfc 0\uc2a4\ud2b8\ub77c\uc774\ud06c \u00b7 \ubc14\uae65 \uc544\ub798 \uc120\ud638 \u00b7 \uc548\uc815",
+        "patternVisuallyClipped": false,
+        "viewportBounds": {
+          "insideViewport": true,
+          "viewport": {
+            "width": 844,
+            "height": 390
+          }
+        },
+        "focusMarker": null,
+        "phase": "result",
+        "ball": "contact",
+        "eventOffsetFromImpactMs": 142.89999999850988
+      }
+    },
+    "1440x900": {
+      "approach-flight-near-contact": {
+        "actualOpponentText": "\uccad\ub85d \ubbf8\ub77c\uc8fc\n\ud22c\uad6c \uc911\n48 / 60\n\nPATTERN\n\uccad\ub85d \uc655\ubcf5\n0\ubcfc 0\uc2a4\ud2b8\ub77c\uc774\ud06c \u00b7 \ubc14\uae65 \uc544\ub798 \uc120\ud638 \u00b7 \uc548\uc815",
+        "opponentRect": {
+          "x": 12,
+          "y": 52,
+          "width": 420,
+          "height": 32.765625
+        },
+        "opponentComputedFont": "500 16px \"Noto Sans KR\", system-ui, sans-serif",
+        "opponentClippedContentMetrics": {
+          "clientWidth": 420,
+          "scrollWidth": 420,
+          "clientHeight": 33,
+          "scrollHeight": 33,
+          "overflowStyle": "visible"
+        },
+        "nameText": "\uccad\ub85d \ubbf8\ub77c\uc8fc\n\ud22c\uad6c \uc911",
+        "nameRect": {
+          "x": 20,
+          "y": 59.625,
+          "width": 100.140625,
+          "height": 17.5
+        },
+        "nameComputedFont": "700 14px / 17.5px \"Noto Sans KR\", system-ui, sans-serif",
+        "hpText": null,
+        "hpRect": null,
+        "hpComputedFont": null,
+        "patternText": "PATTERN\n\uccad\ub85d \uc655\ubcf5\n0\ubcfc 0\uc2a4\ud2b8\ub77c\uc774\ud06c \u00b7 \ubc14\uae65 \uc544\ub798 \uc120\ud638 \u00b7 \uc548\uc815",
+        "patternVisuallyClipped": false,
+        "viewportBounds": {
+          "insideViewport": true,
+          "viewport": {
+            "width": 1440,
+            "height": 900
+          }
+        },
+        "focusMarker": "true",
+        "phase": "flight",
+        "ball": "flight",
+        "eventOffsetFromImpactMs": -55.55000000074506
+      },
+      "postHoldObserved": {
+        "label": "impact-plus-120ms",
+        "requestedOffsetFromImpactMs": 120,
+        "observedOffsetFromImpactMs": 407.65000000037253,
+        "focusMarker": null,
+        "phase": "result",
+        "opponentText": "\uccad\ub85d \ubbf8\ub77c\uc8fc\n48\n32 / 60\n\nPATTERN\n\uccad\ub85d \uc655\ubcf5\n0\ubcfc 0\uc2a4\ud2b8\ub77c\uc774\ud06c \u00b7 \ubc14\uae65 \uc544\ub798 \uc120\ud638 \u00b7 \uc548\uc815",
+        "opponentRect": {
+          "x": 28.6875,
+          "y": 87.984375,
+          "width": 382.5625,
+          "height": 178.640625
+        },
+        "nameText": "\uccad\ub85d \ubbf8\ub77c\uc8fc",
+        "nameRect": {
+          "x": 47.8125,
+          "y": 107.109375,
+          "width": 344.3125,
+          "height": 31.0625
+        },
+        "nameComputedFont": "700 24.8672px / 31.084px \"Noto Sans KR\", system-ui, sans-serif",
+        "hpText": "48\n32 / 60",
+        "hpRect": {
+          "x": 327.859375,
+          "y": 149.640625,
+          "width": 64.265625,
+          "height": 24.859375
+        },
+        "hpComputedFont": "600 19.1286px / 24.8672px system-ui, sans-serif",
+        "viewportInside": true
+      }
+    }
+  },
+  "excluded": [
+    {
+      "viewport": "1440x900",
+      "label": "impact-plus-50ms",
+      "reason": "screenshot timing drift at desktop; not included in matched image pairs",
+      "observedOffsetFromImpactGameMs": 146.34999999962747
+    },
+    {
+      "viewport": "1440x900",
+      "label": "impact-plus-120ms",
+      "reason": "screenshot timing drift at desktop; not included in matched image pairs",
+      "observedOffsetFromImpactGameMs": 407.65000000037253
+    }
+  ],
+  "hudBehaviorSummary": {
+    "focusFrames": "Compact HUD preserves pitcher name and HP readout while adding the Korean delivery cue. Mobile flight and +50 samples have focus marker true; +120 has marker absent and the full normal HUD dimensions restored.",
+    "overflow": "The compact HUD bounding rectangle stays within the viewport at 844\u00d7390 and 1440\u00d7900. Pattern details are intentionally visually clipped during focus while their DOM/accessibility text remains present; this is recorded separately from viewport overflow.",
+    "desktopContactCaveat": "1440\u00d7900 screenshot commands drift at later frames. Only its accurately timed approach frame is in the accepted pair set. The raw +120 sample is retained solely for post-hold HUD restoration measurements and is not an accepted comparison image."
+  }
+}

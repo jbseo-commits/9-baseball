@@ -1,0 +1,420 @@
+{
+  "fullTests": {
+    "files": 236,
+    "tests": 1592,
+    "exitCode": 0
+  },
+  "productionBuild": {
+    "exitCode": 0,
+    "distMB": 58.8,
+    "budgetMB": 60
+  },
+  "zoneSmoke": {
+    "seeds": 10,
+    "byteIdenticalToPriorBaseline": true
+  },
+  "scope": "Final75 pitcher drawings and1batter bridge. Earlier69 stage full-flow checks are retained separately from final75stage all20pitch replay. No commercial-quality PASS is inferred.",
+  "normal-flow": {
+    "actions": [
+      {
+        "i": 0,
+        "action": {
+          "type": "card",
+          "id": "c6"
+        },
+        "phase": "battle",
+        "hp": 60,
+        "pitches": 0
+      },
+      {
+        "i": 1,
+        "action": {
+          "type": "card",
+          "id": "c1",
+          "zone": 2
+        },
+        "phase": "between",
+        "hp": 48,
+        "pitches": 1
+      },
+      {
+        "i": 2,
+        "action": {
+          "type": "card",
+          "id": "c4",
+          "zone": 4,
+          "supports": [
+            {
+              "id": "c3",
+              "aimZone": 8
+            }
+          ]
+        },
+        "phase": "between",
+        "hp": 32,
+        "pitches": 2
+      },
+      {
+        "i": 3,
+        "action": {
+          "type": "card",
+          "id": "c0",
+          "zone": 2
+        },
+        "phase": "pitch",
+        "hp": 30,
+        "pitches": 3
+      },
+      {
+        "i": 4,
+        "action": {
+          "type": "card",
+          "id": "c2",
+          "zone": 8
+        },
+        "phase": "between",
+        "hp": 9,
+        "pitches": 4
+      },
+      {
+        "i": 5,
+        "action": {
+          "type": "card",
+          "id": "c6"
+        },
+        "phase": "battle",
+        "hp": 9,
+        "pitches": 4
+      },
+      {
+        "i": 6,
+        "action": {
+          "type": "take"
+        },
+        "phase": "pitch",
+        "hp": 9,
+        "pitches": 5
+      },
+      {
+        "i": 7,
+        "action": {
+          "type": "card",
+          "id": "c2",
+          "zone": 8,
+          "supports": [
+            {
+              "id": "c3",
+              "aimZone": 5
+            }
+          ]
+        },
+        "phase": "pitch",
+        "hp": 7,
+        "pitches": 6
+      },
+      {
+        "i": 8,
+        "action": {
+          "type": "card",
+          "id": "c4",
+          "zone": 1
+        },
+        "phase": "reward",
+        "hp": 0,
+        "pitches": 7
+      }
+    ],
+    "errors": [],
+    "httpErrors": [],
+    "failedRequests": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "firstMatch": "reward",
+    "hp": 0,
+    "pitches": 7,
+    "resume": true,
+    "utilityId": "a1-r1l2",
+    "nextPhase": "event"
+  },
+  "protected-flow": {
+    "url": "http://127.0.0.1:5206/?battleUi=vnext&battlePlay=1&seed=3&battleSpeed=0.5",
+    "actions": [
+      {
+        "i": 0,
+        "a": {
+          "type": "card",
+          "id": "c6"
+        },
+        "phase": "battle",
+        "hp": 60,
+        "pitches": 0
+      },
+      {
+        "i": 1,
+        "a": {
+          "type": "card",
+          "id": "c4",
+          "zone": 2
+        },
+        "phase": "between",
+        "hp": 48,
+        "pitches": 1
+      },
+      {
+        "i": 2,
+        "a": {
+          "type": "card",
+          "id": "c2",
+          "zone": 5,
+          "supports": [
+            {
+              "id": "c1",
+              "aimZone": 8
+            }
+          ]
+        },
+        "phase": "between",
+        "hp": 26,
+        "pitches": 2
+      },
+      {
+        "i": 3,
+        "a": {
+          "type": "card",
+          "id": "c5",
+          "zone": 2
+        },
+        "phase": "pitch",
+        "hp": 24,
+        "pitches": 3
+      },
+      {
+        "i": 4,
+        "a": {
+          "type": "card",
+          "id": "c3",
+          "zone": 5,
+          "supports": [
+            {
+              "id": "c0",
+              "aimZone": 8
+            }
+          ]
+        },
+        "phase": "between",
+        "hp": 4,
+        "pitches": 4
+      },
+      {
+        "i": 5,
+        "a": {
+          "type": "card",
+          "id": "c6"
+        },
+        "phase": "battle",
+        "hp": 4,
+        "pitches": 4
+      },
+      {
+        "i": 6,
+        "a": {
+          "type": "card",
+          "id": "c5",
+          "zone": 2
+        },
+        "phase": "pitch",
+        "hp": 3,
+        "pitches": 5
+      },
+      {
+        "i": 7,
+        "a": {
+          "type": "card",
+          "id": "c0",
+          "zone": 8
+        },
+        "phase": "reward",
+        "hp": 0,
+        "pitches": 6
+      }
+    ],
+    "errors": [],
+    "http": [],
+    "failed": [],
+    "console": [
+      {
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "location": {
+          "url": "http://127.0.0.1:5206/favicon.ico",
+          "line": 0,
+          "column": 0,
+          "lineNumber": 0,
+          "columnNumber": 0
+        }
+      },
+      {
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "location": {
+          "url": "http://127.0.0.1:5206/favicon.ico",
+          "line": 0,
+          "column": 0,
+          "lineNumber": 0,
+          "columnNumber": 0
+        }
+      }
+    ],
+    "isolated": true,
+    "finalTransient": {
+      "hitstop": false,
+      "fx": 0
+    },
+    "pass": true
+  },
+  "facility-flow": {
+    "errors": [],
+    "requests": [],
+    "failedRequests": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "training": true,
+    "upgraded": [
+      "c0"
+    ],
+    "reloadResume": true,
+    "portrait": {
+      "width": 390,
+      "height": 844,
+      "continueCount": 0,
+      "text": "9ZONE\nHOMEBOUND\n\u266a OFF\n\ud83c\udfa7 BGM 1\n\ub3c4\uac10\n\ub371\n?\n1\ub9c9\n\ub371 9\n\ub2e4\uc74c \ub9c8\uc6b4\ub4dc.\n\uccad\ub85d \ubbf8\ub77c\uc8fc\n\ud0c0\uc774\ub4dc \ubca0\uc2a4\ud37c\n\uc774\ubca4\ud2b8\n\ud0c0\uaca9 \ud6c8\ub828\n\uc7a5\ube44 \uc0c1\uc810\n\uc570\ubc84 \uc2f1\ucee4\n\ud734\uc2dd\uc77c\n\ucf54\ud37c \uc2dc\ub85c\ucf54\n\uac8c\uc77c \ud2b8\uc704\uc2a4\ud130\n\uc544\uc774\ubcf4\ub9ac \uc5d0\uc774\uc2a4\n\ub77c\ucee4\ub8f8\n\ud0c0\uaca9 \ud6c8\ub828\n\uc774\ubca4\ud2b8\n\ub85c\uc988 \ud398\uc778\ud2b8\n\ud734\uc2dd\uc77c\n\ud734\uc2dd\uc77c\n\ubc14\uc774\uc62c\ub81b \uc2a4\ud305\n\ud734\uc2dd\uc77c\n\uc5d0\uba54\ub784\ub4dc \ud0c0\uc774\ub7f0\ud2b8\n\n2\ub9c9 \u00b7 \ud22c\uc218 HP 88~140\n3\ub9c9 \u00b7 \ud22c\uc218 HP 112~164\n\n\ud734\uc2dd\uc77c\n\ud734\uc2dd\uc77c\n\ud558\ub8e8 \uc270\ub2e4. \ub2e4\uc74c \uacbd\uae30 \ud0c0\uaca9 +8.\n\uc774 \uae38 \ub108\uba38\n\uc774\ubca4\ud2b8 1\n\ud734\uc2dd 2\n\ub77c\ucee4\ub8f8 1\n\ub4e4\ub978\ub2e4"
+    },
+    "rotateResume": true,
+    "nextPhase": "rest",
+    "reloadNextResume": true,
+    "portraitGuardText": true
+  },
+  "reduced-flow": {
+    "actions": [
+      {
+        "i": 0,
+        "action": {
+          "type": "card",
+          "id": "c6"
+        },
+        "phase": "battle",
+        "hp": 60,
+        "pitches": 0
+      },
+      {
+        "i": 1,
+        "action": {
+          "type": "card",
+          "id": "c1",
+          "zone": 2
+        },
+        "phase": "between",
+        "hp": 48,
+        "pitches": 1
+      },
+      {
+        "i": 2,
+        "action": {
+          "type": "card",
+          "id": "c4",
+          "zone": 4,
+          "supports": [
+            {
+              "id": "c3",
+              "aimZone": 8
+            }
+          ]
+        },
+        "phase": "between",
+        "hp": 32,
+        "pitches": 2
+      },
+      {
+        "i": 3,
+        "action": {
+          "type": "card",
+          "id": "c0",
+          "zone": 2
+        },
+        "phase": "pitch",
+        "hp": 30,
+        "pitches": 3
+      },
+      {
+        "i": 4,
+        "action": {
+          "type": "card",
+          "id": "c2",
+          "zone": 8
+        },
+        "phase": "between",
+        "hp": 9,
+        "pitches": 4
+      },
+      {
+        "i": 5,
+        "action": {
+          "type": "card",
+          "id": "c6"
+        },
+        "phase": "battle",
+        "hp": 9,
+        "pitches": 4
+      },
+      {
+        "i": 6,
+        "action": {
+          "type": "take"
+        },
+        "phase": "pitch",
+        "hp": 9,
+        "pitches": 5
+      },
+      {
+        "i": 7,
+        "action": {
+          "type": "card",
+          "id": "c2",
+          "zone": 8,
+          "supports": [
+            {
+              "id": "c3",
+              "aimZone": 5
+            }
+          ]
+        },
+        "phase": "pitch",
+        "hp": 7,
+        "pitches": 6
+      },
+      {
+        "i": 8,
+        "action": {
+          "type": "card",
+          "id": "c4",
+          "zone": 1
+        },
+        "phase": "reward",
+        "hp": 0,
+        "pitches": 7
+      }
+    ],
+    "errors": [],
+    "httpErrors": [],
+    "failedRequests": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "firstMatch": "reward",
+    "hp": 0,
+    "pitches": 7,
+    "resume": true,
+    "utilityId": "a1-r1l2",
+    "nextPhase": "event"
+  }
+}

@@ -4,7 +4,7 @@ import {MOTION_CONTACT as DEFAULT_CONTACT} from './motion-timeline.js';
 
 /* Painted actors and world remain on the shared camera; these few local shapes
    explain contact, direction and release without adding a UI panel. */
-export default function SceneEffects({effect=null,finale=null,composition=null,landing=null}){
+export default function SceneEffects({effect=null,finale=null,composition=null,landing=null,pixelContact=false,spriteBall=false}){
   const id=useId().replaceAll(':',''),hot=id+'-hot',trail=id+'-trail';
   if(!effect&&!finale&&!landing)return null;
   const C=composition?.contact||DEFAULT_CONTACT,mound=composition?.mound||{x:832,y:580};
@@ -30,9 +30,10 @@ export default function SceneEffects({effect=null,finale=null,composition=null,l
     {!e.hidden&&<g opacity={e.opacity??1}>
       <path d={`M${e.previous.x},${e.previous.y}L${e.ball.x},${e.ball.y}`} fill="none" stroke={warm?'#ffbd6e':'#a8d9ec'} strokeWidth={warm?15:8} strokeLinecap="round" opacity=".16"/>
       <path d={`M${e.previous.x},${e.previous.y}L${e.ball.x},${e.ball.y}`} fill="none" stroke={warm?'#ffd386':'#c5eff1'} strokeWidth={warm?5:3} strokeLinecap="round" opacity=".7"/>
-      <image href={ballUrl} x={e.ball.x-r} y={e.ball.y-r} width={r*2} height={r*2}/>
+      {!spriteBall&&<image href={ballUrl} x={e.ball.x-r} y={e.ball.y-r} width={r*2} height={r*2}/>}
     </g>}
-    {e.flash>0&&<g className="bv-contact-burst" opacity={e.flash}>
+    {pixelContact&&e.flash>0&&<ellipse className="bv-contact-light" cx={C.x} cy={C.y} rx={e.kind==='exact'?112:80} ry={e.kind==='exact'?70:46} fill={`url(#${hot})`} opacity={e.flash*.65}/>}
+    {!pixelContact&&e.flash>0&&<g className="bv-contact-burst" opacity={e.flash}>
       <ellipse cx={C.x} cy={C.y} rx={e.kind==='exact'?115:72} ry={e.kind==='exact'?83:48} fill={`url(#${hot})`}/>
       {e.kind==='exact'&&<g className="bv-exact-cut" transform={`translate(${C.x} ${C.y}) rotate(-24)`}>
         <path d="M-150 0L-16 -3L0 -40L7 -5L155 0L11 4L0 46L-6 5Z" fill="#fff6d7" opacity={Math.max(0,1-e.age/110)}/>

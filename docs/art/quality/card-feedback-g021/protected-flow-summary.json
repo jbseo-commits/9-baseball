@@ -1,0 +1,136 @@
+{
+  "url": "http://127.0.0.1:5205/?battleUi=vnext&battlePlay=1&seed=3&battleSpeed=1",
+  "pass": true,
+  "actions": [
+    {
+      "i": 0,
+      "a": {
+        "type": "card",
+        "id": "c6"
+      },
+      "phase": "battle",
+      "hp": 60,
+      "pitches": 0
+    },
+    {
+      "i": 1,
+      "a": {
+        "type": "card",
+        "id": "c4",
+        "zone": 2
+      },
+      "phase": "between",
+      "hp": 48,
+      "pitches": 1
+    },
+    {
+      "i": 2,
+      "a": {
+        "type": "card",
+        "id": "c2",
+        "zone": 5,
+        "supports": [
+          {
+            "id": "c1",
+            "aimZone": 8
+          }
+        ]
+      },
+      "phase": "between",
+      "hp": 26,
+      "pitches": 2
+    },
+    {
+      "i": 3,
+      "a": {
+        "type": "card",
+        "id": "c5",
+        "zone": 2
+      },
+      "phase": "pitch",
+      "hp": 24,
+      "pitches": 3
+    },
+    {
+      "i": 4,
+      "a": {
+        "type": "card",
+        "id": "c3",
+        "zone": 5,
+        "supports": [
+          {
+            "id": "c0",
+            "aimZone": 8
+          }
+        ]
+      },
+      "phase": "between",
+      "hp": 4,
+      "pitches": 4
+    },
+    {
+      "i": 5,
+      "a": {
+        "type": "card",
+        "id": "c6"
+      },
+      "phase": "battle",
+      "hp": 4,
+      "pitches": 4
+    },
+    {
+      "i": 6,
+      "a": {
+        "type": "card",
+        "id": "c5",
+        "zone": 2
+      },
+      "phase": "pitch",
+      "hp": 3,
+      "pitches": 5
+    },
+    {
+      "i": 7,
+      "a": {
+        "type": "card",
+        "id": "c0",
+        "zone": 8
+      },
+      "phase": "reward",
+      "hp": 0,
+      "pitches": 6
+    }
+  ],
+  "errors": [],
+  "http": [],
+  "failed": [],
+  "console": [
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": {
+        "url": "http://127.0.0.1:5205/favicon.ico",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": {
+        "url": "http://127.0.0.1:5205/favicon.ico",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    }
+  ],
+  "isolated": true,
+  "finalTransient": {
+    "hitstop": false,
+    "fx": 0
+  },
+  "pitches": 6,
+  "publicFinalPhase": "reward"
+}

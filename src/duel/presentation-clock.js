@@ -1,10 +1,10 @@
 import {animationRate} from './animation-speed.js';
 /* One presentation clock for App and the isolated review host. Never advances
    the engine. Monotonic reconciliation drops stale AV cues after backgrounding. */
-export function startPresentationClock(timeline,{onStage=()=>{},onImpact=()=>{},onSettle=()=>{},onComplete=()=>{},
+export function startPresentationClock(timeline,{onStage=()=>{},onImpact=()=>{},onPitchRelease=()=>{},onSettle=()=>{},onComplete=()=>{},
   now=()=>performance.now(),setTimer=setTimeout,clearTimer=clearTimeout,document:doc=globalThis.document,startedAt=now(),lateCueMs=120,rate=1}={}){
   const speed=animationRate(rate);
-  const events=[{at:timeline.impactAt,stage:'impact',cue:onImpact},
+  const events=[...(Number.isFinite(timeline.pitchReleaseAt)&&timeline.pitchReleaseAt>=0&&timeline.pitchReleaseAt<timeline.impactAt?[{at:timeline.pitchReleaseAt,cue:onPitchRelease}]:[]),{at:timeline.impactAt,stage:'impact',cue:onImpact},
     ...(timeline.slowmo>0?[{at:timeline.impactAt+(timeline.freeze||0),stage:'slowmo'}]:[]),
     {at:timeline.releaseAt,stage:'release'},{at:timeline.settleAt,stage:'settle',cue:onSettle},
     {at:timeline.duration,stage:null,end:true}].sort((a,b)=>a.at-b.at);
@@ -16,7 +16,7 @@ export function startPresentationClock(timeline,{onStage=()=>{},onImpact=()=>{},
     const elapsed=Math.max(0,(now()-startedAt)*speed);
     let changed=false,ended=false;
     while(index<events.length&&elapsed>=events[index].at){
-      const e=events[index++];stage=e.stage;changed=true;
+      const e=events[index++];if('stage' in e){stage=e.stage;changed=true;}
       e.cue?.({elapsed,late:(elapsed-e.at)/speed,audible:doc?.visibilityState!=='hidden'&&(elapsed-e.at)/speed<=lateCueMs});
       if(cancelled)return;
       if(e.end){ended=true;break;}

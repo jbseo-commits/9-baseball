@@ -11,6 +11,7 @@ import runtime from '../assets/pitcher-grounded-runtime-v1/manifest.json';
 import {rosterPitcherActor,rosterFrame,rosterTimeline} from '../src/duel/battle-vnext/roster-actor.js';
 import {actorBox,atbatCamera,toScreen} from '../src/duel/battle-vnext/scene-geometry.js';
 import {pitcherReleaseFrame,pitcherDrawingAt,redRushTimeline,withPitcherTiming} from '../src/duel/pitcher-sd.js';
+import {motionAt} from '../src/duel/battle-vnext/motion-timeline.js';
 import BattleScene from '../src/duel/battle-vnext/BattleScene.jsx';
 import {BattlePitcherSprite} from '../src/duel/App.jsx';
 import ZoneFirstPreview from '../src/duel/ZoneFirstPreview.jsx';
@@ -23,7 +24,7 @@ describe('approved grounded pitcher drawings in actual runtime renderers',()=>{
  it('ships the selected 20 compact atlases and retains the complete source export with verified hashes',()=>{
   expect(Object.keys(pitcherAtlases)).toHaveLength(20);expect(runtime.characters).toHaveLength(20);
   for(const c of runtime.characters){
-   expect(String(pitcherAtlases[c.id])).toContain('pitcher-grounded-runtime-v1/runtime/');
+   expect(String(pitcherAtlases[c.id])).toContain('pitcher-inbetweens-v1/runtime/');
    expect(sha(read(c.runtimeFile))).toBe(c.runtimeSHA256);expect(sha(read(c.file))).toBe(c.atlasSHA256);
    expect(webpSize(c.runtimeFile)).toEqual([768,1024]);expect(webpSize(c.file)).toEqual([2560,3072]);
    expect(c.sourceDrawings).toBe(12);expect(c.timelineTicks).toBe(120);expect(c.fps).toBe(60);
@@ -35,18 +36,50 @@ describe('approved grounded pitcher drawings in actual runtime renderers',()=>{
   const playback={timeline:{duration:2000},action:'swing'};
   for(const c of runtime.characters){
    const r=reg[c.id],actor=rosterPitcherActor(c.id,pitcherAtlases[c.id]);
-   expect(new Set(c.drawingAtTick).size).toBe(12);
+   expect(new Set(r.drawingAtTick).size).toBe(r.authoredDrawings);
    for(let tick=0;tick<120;tick++){
-    expect(pitcherDrawingAt(c.id,tick)).toBe(c.drawingAtTick[tick]);
-    expect(rosterFrame(playback,(tick+.01)*1000/60,actor)).toBe(c.drawingAtTick[tick]);
+    expect(pitcherDrawingAt(c.id,tick)).toBe(r.drawingAtTick[tick]);
+    expect(rosterFrame(playback,(tick+.01)*1000/60,actor)).toBe(r.drawingAtTick[tick]);
    }
-   expect(pitcherDrawingAt(c.id,r.releaseFrame-1)).toBe(5);expect(pitcherDrawingAt(c.id,r.releaseFrame)).toBe(6);
+   expect(pitcherDrawingAt(c.id,r.releaseFrame-1)).toBeLessThan(r.releaseDrawing);expect(pitcherDrawingAt(c.id,r.releaseFrame)).toBe(r.releaseDrawing);
    expect(actor.releaseAt).toBe(Math.round(r.releaseFrame*1000/60));
    const t=rosterTimeline({duration:2000,freeze:25,slowmo:100},actor);
    expect(t.impactAt-actor.releaseAt).toBe(300);
    const legacy=redRushTimeline(withPitcherTiming({motion:{duration:2000}},c.id).motion);
    expect(legacy.impactAt).toBe(t.impactAt);expect(pitcherReleaseFrame(c.id)).toBe(r.releaseFrame);
    expect(rosterFrame({...playback,action:'prepare'},1400,actor)).toBe(0);
+  }
+ });
+ it('retimes only expressive delivery playback, shortening the coil hold without moving the source release contract',()=>{
+  const id='regular-02-teal-mirage',actor=rosterPitcherActor(id,pitcherAtlases[id]),base={duration:2000,impactAt:1400,releaseAt:1450,settleAt:1800,freeze:0,slowmo:0};
+  const legacy=rosterTimeline(base,actor),delivery=rosterTimeline(base,actor,false,{delivery:true});
+  expect(legacy.impactAt).toBe(actor.releaseAt+300);
+  expect(legacy.delivery).toBeUndefined();
+  expect(delivery.pitchReleaseAt).toBeLessThan(actor.releaseAt);
+  expect(delivery.impactAt).toBe(delivery.pitchReleaseAt+300);
+  expect(rosterFrame({timeline:delivery,action:'swing'},delivery.pitchReleaseAt,actor)).toBe(reg[id].releaseDrawing);
+  const coilTicks=delivery.delivery.drawingAtTick.filter(frame=>frame>=reg[id].keyDrawings[2]&&frame<reg[id].keyDrawings[3]).length;
+  expect(coilTicks).toBeGreaterThanOrEqual(8);
+  expect(coilTicks).toBeLessThanOrEqual(11);
+  const held=rosterTimeline(base,actor,false,{delivery:true,contactHold:95});
+  expect(rosterFrame({timeline:held,action:'swing'},held.impactAt+79,actor)).toBe(rosterFrame({timeline:held,action:'swing'},held.impactAt,actor));
+ });
+ it('keeps every registered delivery hand, landing, batter anticipation and recovery on one host timeline',()=>{
+  for(const id of Object.keys(reg)){
+   const actor=rosterPitcherActor(id,pitcherAtlases[id]);
+   const t=rosterTimeline({duration:1800,freeze:60,slowmo:70},actor,false,{delivery:true,contactHold:95});
+   const play={timeline:t,action:'swing'};
+   expect(t.freeze).toBe(95);
+   expect(t.delivery.drawingAtTick).toHaveLength(120);
+   expect(new Set(t.delivery.drawingAtTick).size).toBe(reg[id].authoredDrawings);
+   expect(rosterFrame(play,t.pitchReleaseAt-1,actor)).toBeLessThan(reg[id].releaseDrawing);
+   expect(rosterFrame(play,t.pitchReleaseAt,actor)).toBe(reg[id].releaseDrawing);
+   expect(rosterFrame(play,t.delivery.landingAt,actor)).toBe(reg[id].landingDrawing);
+   expect(motionAt({elapsed:t.pitchReleaseAt-1,timeline:t,action:'swing'}).batter).toBe(0);
+   expect(motionAt({elapsed:t.impactAt-1,timeline:t,action:'swing'}).batter).toBe(7);
+   const atContact=rosterFrame(play,t.impactAt,actor);
+   for(const dt of [1,30,80,94])expect(rosterFrame(play,t.impactAt+dt,actor)).toBe(atContact);
+   expect(rosterFrame(play,t.duration-1,actor)).toBe(reg[id].keyDrawings[11]);
   }
  });
  it('scales the reviewed anatomical pivot, hand and landing together, including left-handed Onyx',()=>{
@@ -69,15 +102,15 @@ describe('approved grounded pitcher drawings in actual runtime renderers',()=>{
   const id='regular-05-violet-sting',actor=rosterPitcherActor(id,pitcherAtlases[id]);
   const {container,unmount}=render(<BattleScene actors={{pitcher:actor}} size={{width:844,height:390}} framing="atbat"/>);
   const im=container.querySelector('.bv-actor-pitcher .bv-motion-crop img');
-  expect(im.getAttribute('width')).toBe('768');expect(im.getAttribute('height')).toBe('1024');
-  expect(im.style.width).toBe('300%');expect(im.style.height).toBe('400%');
+  expect(im.getAttribute('width')).toBe('1280');expect(im.getAttribute('height')).toBe('1024');
+  expect(im.style.width).toBe('500%');expect(im.style.height).toBe('400%');
   unmount();
   const legacy=render(<BattlePitcherSprite atlas={pitcherAtlases[id]}/>);
-  expect(legacy.container.querySelector('.duel-sprite').style.backgroundSize).toBe('300% 400%');
+  expect(legacy.container.querySelector('.duel-sprite').style.backgroundSize).toBe('500% 400%');
  });
  it('also slices the compact roster correctly on the actual first-swing practice screen',()=>{
   const view=render(<ZoneFirstPreview lesson={0}/>);
-  expect(view.container.querySelector('.zf-pitcher').style.backgroundSize).toBe('300% 400%');
+  expect(view.container.querySelector('.zf-pitcher').style.backgroundSize).toBe('500% 400%');
   expect(view.container.querySelector('.zf-pitcher').style.backgroundPosition).toBe('0% 0%');
  });
 });

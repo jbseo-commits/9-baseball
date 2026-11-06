@@ -1,0 +1,2158 @@
+{
+  "errors": [],
+  "requests": [],
+  "failedRequests": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (File not found)"
+  ],
+  "training": true,
+  "upgraded": [
+    "c0"
+  ],
+  "reloadResume": true,
+  "portrait": {
+    "width": 390,
+    "height": 844,
+    "continueCount": 0,
+    "text": "9ZONE\nHOMEBOUND\n♪ OFF\n🎧 BGM 1\n도감\n덱\n?\n1막\n덱 9\n다음 마운드.\n청록 미라주\n타이드 베스퍼\n이벤트\n타격 훈련\n장비 상점\n앰버 싱커\n휴식일\n코퍼 시로코\n게일 트위스터\n아이보리 에이스\n라커룸\n타격 훈련\n이벤트\n로즈 페인트\n휴식일\n휴식일\n바이올렛 스팅\n휴식일\n에메랄드 타이런트\n\n2막 · 투수 HP 88~140\n3막 · 투수 HP 112~164\n\n휴식일\n휴식일\n하루 쉰다. 다음 경기 타격 +8.\n이 길 너머\n이벤트 1\n휴식 2\n라커룸 1\n들른다"
+  },
+  "rotateResume": true,
+  "nextState": {
+    "version": 10,
+    "seed": 2338234626,
+    "pitchSeed": 1244224293,
+    "initialSeed": 3,
+    "build": "starter",
+    "phase": "rest",
+    "stage": 0,
+    "growth": {
+      "patience": 0,
+      "relay": 0,
+      "fortune": 0
+    },
+    "growthHistory": [],
+    "fortune": 0,
+    "relics": [],
+    "growthStats": {
+      "waitStrikes": 0,
+      "patienceSwings": 0,
+      "relayCreated": 0,
+      "relayHits": 0,
+      "fortuneEarned": 0,
+      "fortuneUses": 0
+    },
+    "deck": [
+      {
+        "id": "c0",
+        "kind": "slug",
+        "plus": true
+      },
+      {
+        "id": "c1",
+        "kind": "slug"
+      },
+      {
+        "id": "c2",
+        "kind": "soloShot"
+      },
+      {
+        "id": "c3",
+        "kind": "place"
+      },
+      {
+        "id": "c4",
+        "kind": "gapHunter"
+      },
+      {
+        "id": "c5",
+        "kind": "loadPower"
+      },
+      {
+        "id": "c6",
+        "kind": "setup"
+      },
+      {
+        "id": "c7",
+        "kind": "watch"
+      },
+      {
+        "id": "c8",
+        "kind": "scout"
+      }
+    ],
+    "nextId": 9,
+    "rewards": [
+      {
+        "nodeId": "a1-entry",
+        "type": "skip"
+      }
+    ],
+    "facilities": [],
+    "route": null,
+    "routeHistory": [],
+    "victories": 0,
+    "runOuts": 0,
+    "battle": null,
+    "last": null,
+    "stats": {
+      "cards": 10,
+      "pitches": 7,
+      "runs": 2,
+      "outs": 0,
+      "appearances": 4,
+      "hits": 4,
+      "walks": 0,
+      "fouls": 1,
+      "whiffs": 1,
+      "totalBases": 5
+    },
+    "runMap": {
+      "seed": 3,
+      "nodes": [
+        {
+          "id": "a1-entry",
+          "act": 1,
+          "row": 0,
+          "lane": 1,
+          "type": "battle",
+          "name": "정규 승부",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 2329441331,
+          "opponent": {
+            "name": "청록 미라주",
+            "archetype": "바깥쪽 제구형",
+            "archetypeKey": "outside",
+            "style": "rookie",
+            "maxHp": 60,
+            "statBonus": 0,
+            "zoneOpen": 4,
+            "zoneMax": 6,
+            "openingZones": [
+              2,
+              4,
+              5,
+              8
+            ],
+            "threat": "바깥 코스 비중이 높아 좁은 노림을 흔듭니다.",
+            "rewardTier": 1,
+            "act": 1,
+            "actName": "개막",
+            "escalation": {
+              "name": "개막",
+              "hp": -12,
+              "stat": 0,
+              "zone": 0,
+              "note": "바깥·낮은 공 중심. 볼은 드물다. 읽은 대로 치며 덱의 첫 방향을 정하는 막."
+            },
+            "risk": "보통",
+            "reward": "막별 기본 3장 드래프트",
+            "artId": "regular-02-teal-mirage",
+            "encounter": {
+              "version": 1,
+              "id": "regular-02-teal-mirage",
+              "label": "청록 왕복",
+              "summary": "바깥쪽 위아래를 번갈아 노립니다. 직전과 다른 노림의 안타 +4 HP, 반복 노림은 기본 피해 ×0.8.",
+              "counter": "노림을 바꾸고 바깥 높낮이를 읽으세요."
+            }
+          },
+          "risk": "보통",
+          "reward": "막별 기본 3장 드래프트",
+          "preview": "청록 미라주 · 바깥쪽 제구형 · HP 60"
+        },
+        {
+          "id": "a1-r1l1",
+          "act": 1,
+          "row": 1,
+          "lane": 1,
+          "type": "battle",
+          "name": "정규 승부",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 4098833255,
+          "opponent": {
+            "name": "타이드 베스퍼",
+            "archetype": "바깥쪽 제구형",
+            "archetypeKey": "outside",
+            "style": "rookie",
+            "maxHp": 60,
+            "statBonus": 0,
+            "zoneOpen": 4,
+            "zoneMax": 6,
+            "openingZones": [
+              2,
+              4,
+              5,
+              8
+            ],
+            "threat": "바깥 코스 비중이 높아 좁은 노림을 흔듭니다.",
+            "rewardTier": 1,
+            "act": 1,
+            "actName": "개막",
+            "escalation": {
+              "name": "개막",
+              "hp": -12,
+              "stat": 0,
+              "zone": 0,
+              "note": "바깥·낮은 공 중심. 볼은 드물다. 읽은 대로 치며 덱의 첫 방향을 정하는 막."
+            },
+            "risk": "보통",
+            "reward": "막별 기본 3장 드래프트",
+            "artId": "tide-vesper",
+            "encounter": {
+              "version": 1,
+              "id": "tide-vesper",
+              "label": "밀물과 썰물",
+              "summary": "낮은 공과 높은 공을 번갈아 노립니다. 지켜본 다음 안타 +5 HP.",
+              "counter": "높낮이 교대를 읽고 기다린 뒤 승부하세요."
+            }
+          },
+          "risk": "보통",
+          "reward": "막별 기본 3장 드래프트",
+          "preview": "타이드 베스퍼 · 바깥쪽 제구형 · HP 60"
+        },
+        {
+          "id": "a1-r1l2",
+          "act": 1,
+          "row": 1,
+          "lane": 2,
+          "type": "event",
+          "name": "낯선 만남",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 3122500983,
+          "utility": {
+            "effect": "낯선 만남",
+            "detail": "들어가 봐야 안다. 길 위의 사건은 매번 다르다.",
+            "risk": "불명",
+            "reward": "불명"
+          },
+          "risk": "불명",
+          "reward": "불명",
+          "preview": "낯선 만남 · 들어가 봐야 안다. 길 위의 사건은 매번 다르다."
+        },
+        {
+          "id": "a1-r1l3",
+          "act": 1,
+          "row": 1,
+          "lane": 3,
+          "type": "training",
+          "name": "타격 훈련",
+          "route": "development",
+          "routeLabel": "육성 루트",
+          "seed": 2723908521,
+          "utility": {
+            "effect": "카드 강화",
+            "detail": "핵심 카드 하나를 강화해 다음 경기부터 역할을 선명하게 만듭니다.",
+            "risk": "낮음",
+            "reward": "덱 강화"
+          },
+          "risk": "낮음",
+          "reward": "덱 강화",
+          "preview": "카드 강화 · 핵심 카드 하나를 강화해 다음 경기부터 역할을 선명하게 만듭니다."
+        },
+        {
+          "id": "a1-r2l0",
+          "act": 1,
+          "row": 2,
+          "lane": 0,
+          "type": "shop",
+          "name": "장비 상점",
+          "route": "craft",
+          "routeLabel": "정비 루트",
+          "seed": 3784656467,
+          "utility": {
+            "effect": "전력 보강",
+            "detail": "카드와 런 전체를 바꾸는 유물 중 하나를 골라 전력을 보강합니다.",
+            "risk": "낮음",
+            "reward": "카드 / 유물"
+          },
+          "risk": "낮음",
+          "reward": "카드 / 유물",
+          "preview": "전력 보강 · 카드와 런 전체를 바꾸는 유물 중 하나를 골라 전력을 보강합니다."
+        },
+        {
+          "id": "a1-r2l2",
+          "act": 1,
+          "row": 2,
+          "lane": 2,
+          "type": "battle",
+          "name": "정규 승부",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 4261855109,
+          "opponent": {
+            "name": "앰버 싱커",
+            "archetype": "낮은 싱커형",
+            "archetypeKey": "sinker",
+            "style": "sinker",
+            "maxHp": 60,
+            "statBonus": 0,
+            "zoneOpen": 5,
+            "zoneMax": 7,
+            "openingZones": [
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "threat": "낮은 3분할을 오래 압박하고 병살 위험을 만듭니다.",
+            "rewardTier": 1,
+            "act": 1,
+            "actName": "개막",
+            "escalation": {
+              "name": "개막",
+              "hp": -12,
+              "stat": 0,
+              "zone": 0,
+              "note": "바깥·낮은 공 중심. 볼은 드물다. 읽은 대로 치며 덱의 첫 방향을 정하는 막."
+            },
+            "risk": "보통",
+            "reward": "막별 기본 3장 드래프트",
+            "artId": "regular-03-amber-sinker",
+            "encounter": {
+              "version": 1,
+              "id": "regular-03-amber-sinker",
+              "label": "낮은 갑옷",
+              "summary": "낮은 코스를 넓게 노립니다. 좁은 낮은 정타 +4 HP, 낮은 3존 이상 겹침 기본 피해 ×0.8.",
+              "counter": "낮은 곳은 좁게 노리세요."
+            }
+          },
+          "risk": "보통",
+          "reward": "막별 기본 3장 드래프트",
+          "preview": "앰버 싱커 · 낮은 싱커형 · HP 60"
+        },
+        {
+          "id": "a1-r2l3",
+          "act": 1,
+          "row": 2,
+          "lane": 3,
+          "type": "rest",
+          "name": "휴식일",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 2870290762,
+          "utility": {
+            "effect": "컨디션 회복",
+            "detail": "다음 전투에서 타선의 타격 기술 +8. 강행군을 끊고 다음 투수를 안정적으로 공략합니다.",
+            "risk": "최저",
+            "reward": "다음 전투 타격 +8"
+          },
+          "risk": "최저",
+          "reward": "다음 전투 타격 +8",
+          "preview": "컨디션 회복 · 다음 전투에서 타선의 타격 기술 +8. 강행군을 끊고 다음 투수를 안정적으로 공략합니다."
+        },
+        {
+          "id": "a1-r3l0",
+          "act": 1,
+          "row": 3,
+          "lane": 0,
+          "type": "elite",
+          "name": "강적 승부",
+          "route": "gauntlet",
+          "routeLabel": "강행군",
+          "seed": 1657636219,
+          "opponent": {
+            "name": "코퍼 시로코",
+            "archetype": "낮은 싱커형",
+            "archetypeKey": "sinker",
+            "style": "sinker",
+            "maxHp": 88,
+            "statBonus": 10,
+            "zoneOpen": 5,
+            "zoneMax": 7,
+            "openingZones": [
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "threat": "낮은 3분할을 오래 압박하고 병살 위험을 만듭니다.",
+            "rewardTier": 2,
+            "act": 1,
+            "actName": "개막",
+            "escalation": {
+              "name": "개막",
+              "hp": -12,
+              "stat": 0,
+              "zone": 0,
+              "note": "바깥·낮은 공 중심. 볼은 드물다. 읽은 대로 치며 덱의 첫 방향을 정하는 막."
+            },
+            "risk": "높음",
+            "reward": "시그니처 카드 포함 4장 드래프트",
+            "artId": "copper-sirocco",
+            "encounter": {
+              "version": 1,
+              "id": "copper-sirocco",
+              "label": "모래 폭풍",
+              "summary": "두 볼 전 준비는 타석당 1회, 두 볼 뒤 준비 횟수는 기본값입니다. 두 볼 뒤 안타 +6 HP.",
+              "counter": "볼카운트를 활용하세요."
+            },
+            "gimmick": {
+              "id": "bluff",
+              "label": "볼 유인",
+              "summary": "존 밖 볼이 평소보다 35%p 늘어난다. 치지 않고 기다리는 선택이 값지다.",
+              "phases": {
+                "pressured": "독기: 존 밖 볼이 45%p로 늘고, 준비는 타석당 1회로 줄어든다."
+              }
+            }
+          },
+          "risk": "높음",
+          "reward": "시그니처 카드 포함 4장 드래프트",
+          "preview": "코퍼 시로코 · 낮은 싱커형 · HP 88"
+        },
+        {
+          "id": "a1-r3l1",
+          "act": 1,
+          "row": 3,
+          "lane": 1,
+          "type": "elite",
+          "name": "강적 승부",
+          "route": "gauntlet",
+          "routeLabel": "강행군",
+          "seed": 1987075313,
+          "opponent": {
+            "name": "게일 트위스터",
+            "archetype": "바깥쪽 제구형",
+            "archetypeKey": "outside",
+            "style": "rookie",
+            "maxHp": 88,
+            "statBonus": 10,
+            "zoneOpen": 4,
+            "zoneMax": 6,
+            "openingZones": [
+              2,
+              4,
+              5,
+              8
+            ],
+            "threat": "바깥 코스 비중이 높아 좁은 노림을 흔듭니다.",
+            "rewardTier": 2,
+            "act": 1,
+            "actName": "개막",
+            "escalation": {
+              "name": "개막",
+              "hp": -12,
+              "stat": 0,
+              "zone": 0,
+              "note": "바깥·낮은 공 중심. 볼은 드물다. 읽은 대로 치며 덱의 첫 방향을 정하는 막."
+            },
+            "risk": "높음",
+            "reward": "시그니처 카드 포함 4장 드래프트",
+            "artId": "gale-twister",
+            "encounter": {
+              "version": 1,
+              "id": "gale-twister",
+              "label": "시계 회전",
+              "summary": "코스를 시계 방향 순서로 노립니다. 카드 두 장 연결 안타 +6 HP.",
+              "counter": "회전 순서와 카드 연결을 활용하세요."
+            },
+            "gimmick": {
+              "id": "trick",
+              "label": "속임수 코스",
+              "summary": "첫 공은 60% 확률로, 이후 공도 25% 확률로 예고된 코스 옆 칸으로 밀려 들어온다.",
+              "phases": {
+                "pressured": "흔들기: 한 번에 겹칠 수 있는 카드가 3장으로 줄어든다."
+              }
+            }
+          },
+          "risk": "높음",
+          "reward": "시그니처 카드 포함 4장 드래프트",
+          "preview": "게일 트위스터 · 바깥쪽 제구형 · HP 88"
+        },
+        {
+          "id": "a1-r3l2",
+          "act": 1,
+          "row": 3,
+          "lane": 2,
+          "type": "battle",
+          "name": "정규 승부",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 2421336544,
+          "opponent": {
+            "name": "아이보리 에이스",
+            "archetype": "바깥쪽 제구형",
+            "archetypeKey": "outside",
+            "style": "rookie",
+            "maxHp": 60,
+            "statBonus": 0,
+            "zoneOpen": 4,
+            "zoneMax": 6,
+            "openingZones": [
+              2,
+              4,
+              5,
+              8
+            ],
+            "threat": "바깥 코스 비중이 높아 좁은 노림을 흔듭니다.",
+            "rewardTier": 1,
+            "act": 1,
+            "actName": "개막",
+            "escalation": {
+              "name": "개막",
+              "hp": -12,
+              "stat": 0,
+              "zone": 0,
+              "note": "바깥·낮은 공 중심. 볼은 드물다. 읽은 대로 치며 덱의 첫 방향을 정하는 막."
+            },
+            "risk": "보통",
+            "reward": "막별 기본 3장 드래프트",
+            "artId": "regular-04-ivory-ace",
+            "encounter": {
+              "version": 1,
+              "id": "regular-04-ivory-ace",
+              "label": "세 구의 서명",
+              "summary": "몸쪽·중앙·바깥을 차례로 노립니다. 세 번째 공의 안타 +5 HP.",
+              "counter": "세 번째 공을 준비하세요."
+            }
+          },
+          "risk": "보통",
+          "reward": "막별 기본 3장 드래프트",
+          "preview": "아이보리 에이스 · 바깥쪽 제구형 · HP 60"
+        },
+        {
+          "id": "a1-r3l3",
+          "act": 1,
+          "row": 3,
+          "lane": 3,
+          "type": "locker",
+          "name": "라커룸",
+          "route": "craft",
+          "routeLabel": "정비 루트",
+          "seed": 3623719833,
+          "utility": {
+            "effect": "덱 정리",
+            "detail": "약한 카드를 덜 뽑도록 덱을 정리하는 구간입니다.",
+            "risk": "낮음",
+            "reward": "덱 압축"
+          },
+          "risk": "낮음",
+          "reward": "덱 압축",
+          "preview": "덱 정리 · 약한 카드를 덜 뽑도록 덱을 정리하는 구간입니다."
+        },
+        {
+          "id": "a1-r4l0",
+          "act": 1,
+          "row": 4,
+          "lane": 0,
+          "type": "training",
+          "name": "타격 훈련",
+          "route": "development",
+          "routeLabel": "육성 루트",
+          "seed": 2004061594,
+          "utility": {
+            "effect": "카드 강화",
+            "detail": "핵심 카드 하나를 강화해 다음 경기부터 역할을 선명하게 만듭니다.",
+            "risk": "낮음",
+            "reward": "덱 강화"
+          },
+          "risk": "낮음",
+          "reward": "덱 강화",
+          "preview": "카드 강화 · 핵심 카드 하나를 강화해 다음 경기부터 역할을 선명하게 만듭니다."
+        },
+        {
+          "id": "a1-r4l1",
+          "act": 1,
+          "row": 4,
+          "lane": 1,
+          "type": "event",
+          "name": "낯선 만남",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 2989768975,
+          "utility": {
+            "effect": "낯선 만남",
+            "detail": "들어가 봐야 안다. 길 위의 사건은 매번 다르다.",
+            "risk": "불명",
+            "reward": "불명"
+          },
+          "risk": "불명",
+          "reward": "불명",
+          "preview": "낯선 만남 · 들어가 봐야 안다. 길 위의 사건은 매번 다르다."
+        },
+        {
+          "id": "a1-r4l3",
+          "act": 1,
+          "row": 4,
+          "lane": 3,
+          "type": "battle",
+          "name": "정규 승부",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 4257766806,
+          "opponent": {
+            "name": "로즈 페인트",
+            "archetype": "바깥쪽 제구형",
+            "archetypeKey": "outside",
+            "style": "rookie",
+            "maxHp": 60,
+            "statBonus": 0,
+            "zoneOpen": 4,
+            "zoneMax": 6,
+            "openingZones": [
+              2,
+              4,
+              5,
+              8
+            ],
+            "threat": "바깥 코스 비중이 높아 좁은 노림을 흔듭니다.",
+            "rewardTier": 1,
+            "act": 1,
+            "actName": "개막",
+            "escalation": {
+              "name": "개막",
+              "hp": -12,
+              "stat": 0,
+              "zone": 0,
+              "note": "바깥·낮은 공 중심. 볼은 드물다. 읽은 대로 치며 덱의 첫 방향을 정하는 막."
+            },
+            "risk": "보통",
+            "reward": "막별 기본 3장 드래프트",
+            "artId": "regular-06-rose-paint",
+            "encounter": {
+              "version": 1,
+              "id": "regular-06-rose-paint",
+              "label": "모서리 순환",
+              "summary": "존 모서리를 차례로 노립니다. 모서리 정타 +4 HP.",
+              "counter": "모서리 코스를 읽으세요."
+            }
+          },
+          "risk": "보통",
+          "reward": "막별 기본 3장 드래프트",
+          "preview": "로즈 페인트 · 바깥쪽 제구형 · HP 60"
+        },
+        {
+          "id": "a1-r5l0",
+          "act": 1,
+          "row": 5,
+          "lane": 0,
+          "type": "rest",
+          "name": "휴식일",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 1076166085,
+          "utility": {
+            "effect": "컨디션 회복",
+            "detail": "다음 전투에서 타선의 타격 기술 +8. 강행군을 끊고 다음 투수를 안정적으로 공략합니다.",
+            "risk": "최저",
+            "reward": "다음 전투 타격 +8"
+          },
+          "risk": "최저",
+          "reward": "다음 전투 타격 +8",
+          "preview": "컨디션 회복 · 다음 전투에서 타선의 타격 기술 +8. 강행군을 끊고 다음 투수를 안정적으로 공략합니다."
+        },
+        {
+          "id": "a1-r5l1",
+          "act": 1,
+          "row": 5,
+          "lane": 1,
+          "type": "rest",
+          "name": "휴식일",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 2514451359,
+          "utility": {
+            "effect": "컨디션 회복",
+            "detail": "다음 전투에서 타선의 타격 기술 +8. 강행군을 끊고 다음 투수를 안정적으로 공략합니다.",
+            "risk": "최저",
+            "reward": "다음 전투 타격 +8"
+          },
+          "risk": "최저",
+          "reward": "다음 전투 타격 +8",
+          "preview": "컨디션 회복 · 다음 전투에서 타선의 타격 기술 +8. 강행군을 끊고 다음 투수를 안정적으로 공략합니다."
+        },
+        {
+          "id": "a1-r5l2",
+          "act": 1,
+          "row": 5,
+          "lane": 2,
+          "type": "battle",
+          "name": "정규 승부",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 3829868391,
+          "opponent": {
+            "name": "바이올렛 스팅",
+            "archetype": "낮은 싱커형",
+            "archetypeKey": "sinker",
+            "style": "sinker",
+            "maxHp": 60,
+            "statBonus": 0,
+            "zoneOpen": 5,
+            "zoneMax": 7,
+            "openingZones": [
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "threat": "낮은 3분할을 오래 압박하고 병살 위험을 만듭니다.",
+            "rewardTier": 1,
+            "act": 1,
+            "actName": "개막",
+            "escalation": {
+              "name": "개막",
+              "hp": -12,
+              "stat": 0,
+              "zone": 0,
+              "note": "바깥·낮은 공 중심. 볼은 드물다. 읽은 대로 치며 덱의 첫 방향을 정하는 막."
+            },
+            "risk": "보통",
+            "reward": "막별 기본 3장 드래프트",
+            "artId": "regular-05-violet-sting",
+            "encounter": {
+              "version": 1,
+              "id": "regular-05-violet-sting",
+              "label": "중단 횡단",
+              "summary": "중단 열을 가로질러 노립니다. 본 카드 정타 +4 HP, 지원만 적중하면 기본 피해 ×0.8.",
+              "counter": "중단 정타를 본 카드로 노리세요."
+            }
+          },
+          "risk": "보통",
+          "reward": "막별 기본 3장 드래프트",
+          "preview": "바이올렛 스팅 · 낮은 싱커형 · HP 60"
+        },
+        {
+          "id": "a1-r5l3",
+          "act": 1,
+          "row": 5,
+          "lane": 3,
+          "type": "rest",
+          "name": "휴식일",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 958079370,
+          "utility": {
+            "effect": "컨디션 회복",
+            "detail": "다음 전투에서 타선의 타격 기술 +8. 강행군을 끊고 다음 투수를 안정적으로 공략합니다.",
+            "risk": "최저",
+            "reward": "다음 전투 타격 +8"
+          },
+          "risk": "최저",
+          "reward": "다음 전투 타격 +8",
+          "preview": "컨디션 회복 · 다음 전투에서 타선의 타격 기술 +8. 강행군을 끊고 다음 투수를 안정적으로 공략합니다."
+        },
+        {
+          "id": "a1-boss",
+          "act": 1,
+          "row": 6,
+          "lane": 1,
+          "type": "boss",
+          "name": "막 보스",
+          "route": "playoff",
+          "routeLabel": "플레이오프",
+          "seed": 2108244427,
+          "opponent": {
+            "name": "에메랄드 타이런트",
+            "archetype": "낮은 싱커형",
+            "archetypeKey": "sinker",
+            "style": "sinker",
+            "maxHp": 112,
+            "statBonus": 12,
+            "zoneOpen": 5,
+            "zoneMax": 7,
+            "openingZones": [
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "threat": "낮은 3분할을 오래 압박하고 병살 위험을 만듭니다.",
+            "rewardTier": 3,
+            "act": 1,
+            "actName": "개막",
+            "escalation": {
+              "name": "개막",
+              "hp": -12,
+              "stat": 0,
+              "zone": 0,
+              "note": "바깥·낮은 공 중심. 볼은 드물다. 읽은 대로 치며 덱의 첫 방향을 정하는 막."
+            },
+            "risk": "최종",
+            "reward": "막 돌파 · 시그니처 4장 드래프트",
+            "artId": "boss-01-emerald-tyrant",
+            "encounter": {
+              "version": 1,
+              "id": "boss-01-emerald-tyrant",
+              "label": "낮은 성벽",
+              "summary": "낮은 코스 3존 이상 겹침 기본 피해 ×0.7, 좁은 낮은 정타 +8 HP.",
+              "counter": "낮은 코스를 좁게 공략하세요."
+            },
+            "gimmick": {
+              "id": "tyrant",
+              "label": "낮은 벽",
+              "summary": "낮은 3코스 비중 +10%p.",
+              "phases": {
+                "pressured": "지배: 준비는 타석당 1회로 줄어든다.",
+                "critical": "낮은 3코스 비중이 +20%p로 커진다."
+              }
+            }
+          },
+          "risk": "최종",
+          "reward": "막 돌파 · 시그니처 4장 드래프트",
+          "preview": "에메랄드 타이런트 · 낮은 싱커형 · HP 112"
+        },
+        {
+          "id": "a2-entry",
+          "act": 2,
+          "row": 0,
+          "lane": 1,
+          "type": "battle",
+          "name": "정규 승부",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 432932120,
+          "opponent": {
+            "name": "스카이 팬텀",
+            "archetype": "높은 공 수비형",
+            "archetypeKey": "high",
+            "style": "deep",
+            "maxHp": 88,
+            "statBonus": 4,
+            "zoneOpen": 6,
+            "zoneMax": 9,
+            "openingZones": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "threat": "높은 공과 깊은 수비로 장타 기대값을 낮춥니다.",
+            "rewardTier": 1,
+            "act": 2,
+            "actName": "중반",
+            "escalation": {
+              "name": "중반",
+              "hp": 16,
+              "stat": 4,
+              "zone": 1,
+              "note": "싱커와 높은 공이 섞이고 코스가 하나 더 열린다. 1막에서 고른 카드끼리 연계를 만들 시점."
+            },
+            "risk": "보통",
+            "reward": "막별 기본 3장 드래프트",
+            "artId": "sky-phantom",
+            "encounter": {
+              "version": 1,
+              "id": "sky-phantom",
+              "label": "하늘 그물",
+              "summary": "높은 공을 선호하고 깊은 수비를 합니다. 홈런 +8 HP.",
+              "counter": "높은 공을 공략해 큰 타구를 노리세요."
+            }
+          },
+          "risk": "보통",
+          "reward": "막별 기본 3장 드래프트",
+          "preview": "스카이 팬텀 · 높은 공 수비형 · HP 88"
+        },
+        {
+          "id": "a2-r1l1",
+          "act": 2,
+          "row": 1,
+          "lane": 1,
+          "type": "training",
+          "name": "타격 훈련",
+          "route": "development",
+          "routeLabel": "육성 루트",
+          "seed": 3282414375,
+          "utility": {
+            "effect": "카드 강화",
+            "detail": "핵심 카드 하나를 강화해 다음 경기부터 역할을 선명하게 만듭니다.",
+            "risk": "낮음",
+            "reward": "덱 강화"
+          },
+          "risk": "낮음",
+          "reward": "덱 강화",
+          "preview": "카드 강화 · 핵심 카드 하나를 강화해 다음 경기부터 역할을 선명하게 만듭니다."
+        },
+        {
+          "id": "a2-r1l2",
+          "act": 2,
+          "row": 1,
+          "lane": 2,
+          "type": "battle",
+          "name": "정규 승부",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 2531365248,
+          "opponent": {
+            "name": "청록 미라주 2",
+            "archetype": "바깥쪽 제구형",
+            "archetypeKey": "outside",
+            "style": "rookie",
+            "maxHp": 88,
+            "statBonus": 4,
+            "zoneOpen": 5,
+            "zoneMax": 7,
+            "openingZones": [
+              1,
+              2,
+              4,
+              5,
+              8
+            ],
+            "threat": "바깥 코스 비중이 높아 좁은 노림을 흔듭니다.",
+            "rewardTier": 1,
+            "act": 2,
+            "actName": "중반",
+            "escalation": {
+              "name": "중반",
+              "hp": 16,
+              "stat": 4,
+              "zone": 1,
+              "note": "싱커와 높은 공이 섞이고 코스가 하나 더 열린다. 1막에서 고른 카드끼리 연계를 만들 시점."
+            },
+            "risk": "보통",
+            "reward": "막별 기본 3장 드래프트",
+            "artId": "regular-02-teal-mirage",
+            "encounter": {
+              "version": 1,
+              "id": "regular-02-teal-mirage",
+              "label": "청록 왕복",
+              "summary": "바깥쪽 위아래를 번갈아 노립니다. 직전과 다른 노림의 안타 +4 HP, 반복 노림은 기본 피해 ×0.8.",
+              "counter": "노림을 바꾸고 바깥 높낮이를 읽으세요."
+            }
+          },
+          "risk": "보통",
+          "reward": "막별 기본 3장 드래프트",
+          "preview": "청록 미라주 2 · 바깥쪽 제구형 · HP 88"
+        },
+        {
+          "id": "a2-r1l3",
+          "act": 2,
+          "row": 1,
+          "lane": 3,
+          "type": "battle",
+          "name": "정규 승부",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 3378416250,
+          "opponent": {
+            "name": "타이드 베스퍼 2",
+            "archetype": "바깥쪽 제구형",
+            "archetypeKey": "outside",
+            "style": "rookie",
+            "maxHp": 88,
+            "statBonus": 4,
+            "zoneOpen": 5,
+            "zoneMax": 7,
+            "openingZones": [
+              1,
+              2,
+              4,
+              5,
+              8
+            ],
+            "threat": "바깥 코스 비중이 높아 좁은 노림을 흔듭니다.",
+            "rewardTier": 1,
+            "act": 2,
+            "actName": "중반",
+            "escalation": {
+              "name": "중반",
+              "hp": 16,
+              "stat": 4,
+              "zone": 1,
+              "note": "싱커와 높은 공이 섞이고 코스가 하나 더 열린다. 1막에서 고른 카드끼리 연계를 만들 시점."
+            },
+            "risk": "보통",
+            "reward": "막별 기본 3장 드래프트",
+            "artId": "tide-vesper",
+            "encounter": {
+              "version": 1,
+              "id": "tide-vesper",
+              "label": "밀물과 썰물",
+              "summary": "낮은 공과 높은 공을 번갈아 노립니다. 지켜본 다음 안타 +5 HP.",
+              "counter": "높낮이 교대를 읽고 기다린 뒤 승부하세요."
+            }
+          },
+          "risk": "보통",
+          "reward": "막별 기본 3장 드래프트",
+          "preview": "타이드 베스퍼 2 · 바깥쪽 제구형 · HP 88"
+        },
+        {
+          "id": "a2-r2l0",
+          "act": 2,
+          "row": 2,
+          "lane": 0,
+          "type": "locker",
+          "name": "라커룸",
+          "route": "craft",
+          "routeLabel": "정비 루트",
+          "seed": 3111147565,
+          "utility": {
+            "effect": "덱 정리",
+            "detail": "약한 카드를 덜 뽑도록 덱을 정리하는 구간입니다.",
+            "risk": "낮음",
+            "reward": "덱 압축"
+          },
+          "risk": "낮음",
+          "reward": "덱 압축",
+          "preview": "덱 정리 · 약한 카드를 덜 뽑도록 덱을 정리하는 구간입니다."
+        },
+        {
+          "id": "a2-r2l1",
+          "act": 2,
+          "row": 2,
+          "lane": 1,
+          "type": "battle",
+          "name": "정규 승부",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 1252376839,
+          "opponent": {
+            "name": "앰버 싱커 2",
+            "archetype": "낮은 싱커형",
+            "archetypeKey": "sinker",
+            "style": "sinker",
+            "maxHp": 88,
+            "statBonus": 4,
+            "zoneOpen": 6,
+            "zoneMax": 8,
+            "openingZones": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "threat": "낮은 3분할을 오래 압박하고 병살 위험을 만듭니다.",
+            "rewardTier": 1,
+            "act": 2,
+            "actName": "중반",
+            "escalation": {
+              "name": "중반",
+              "hp": 16,
+              "stat": 4,
+              "zone": 1,
+              "note": "싱커와 높은 공이 섞이고 코스가 하나 더 열린다. 1막에서 고른 카드끼리 연계를 만들 시점."
+            },
+            "risk": "보통",
+            "reward": "막별 기본 3장 드래프트",
+            "artId": "regular-03-amber-sinker",
+            "encounter": {
+              "version": 1,
+              "id": "regular-03-amber-sinker",
+              "label": "낮은 갑옷",
+              "summary": "낮은 코스를 넓게 노립니다. 좁은 낮은 정타 +4 HP, 낮은 3존 이상 겹침 기본 피해 ×0.8.",
+              "counter": "낮은 곳은 좁게 노리세요."
+            }
+          },
+          "risk": "보통",
+          "reward": "막별 기본 3장 드래프트",
+          "preview": "앰버 싱커 2 · 낮은 싱커형 · HP 88"
+        },
+        {
+          "id": "a2-r2l3",
+          "act": 2,
+          "row": 2,
+          "lane": 3,
+          "type": "elite",
+          "name": "강적 승부",
+          "route": "ace",
+          "routeLabel": "에이스 사냥",
+          "seed": 781212955,
+          "opponent": {
+            "name": "제이드 바이퍼",
+            "archetype": "바깥쪽 제구형",
+            "archetypeKey": "outside",
+            "style": "rookie",
+            "maxHp": 116,
+            "statBonus": 14,
+            "zoneOpen": 5,
+            "zoneMax": 7,
+            "openingZones": [
+              1,
+              2,
+              4,
+              5,
+              8
+            ],
+            "threat": "바깥 코스 비중이 높아 좁은 노림을 흔듭니다.",
+            "rewardTier": 2,
+            "act": 2,
+            "actName": "중반",
+            "escalation": {
+              "name": "중반",
+              "hp": 16,
+              "stat": 4,
+              "zone": 1,
+              "note": "싱커와 높은 공이 섞이고 코스가 하나 더 열린다. 1막에서 고른 카드끼리 연계를 만들 시점."
+            },
+            "risk": "높음",
+            "reward": "시그니처 카드 포함 4장 드래프트",
+            "artId": "jade-viper",
+            "encounter": {
+              "version": 1,
+              "id": "jade-viper",
+              "label": "허물 방패",
+              "summary": "직전 안타 뒤 다음 공 기본 피해 ×0.75. 연속 본 카드 정타로 깨면 +8 HP가 별도 추가됩니다.",
+              "counter": "연속 정타로 방패를 돌파하세요."
+            },
+            "gimmick": {
+              "id": "trick",
+              "label": "속임수 코스",
+              "summary": "첫 공은 60% 확률로, 이후 공도 25% 확률로 예고된 코스 옆 칸으로 밀려 들어온다.",
+              "phases": {
+                "pressured": "흔들기: 한 번에 겹칠 수 있는 카드가 3장으로 줄어든다."
+              }
+            }
+          },
+          "risk": "높음",
+          "reward": "시그니처 카드 포함 4장 드래프트",
+          "preview": "제이드 바이퍼 · 바깥쪽 제구형 · HP 116"
+        },
+        {
+          "id": "a2-r3l0",
+          "act": 2,
+          "row": 3,
+          "lane": 0,
+          "type": "battle",
+          "name": "정규 승부",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 3113167241,
+          "opponent": {
+            "name": "아이보리 에이스 2",
+            "archetype": "바깥쪽 제구형",
+            "archetypeKey": "outside",
+            "style": "rookie",
+            "maxHp": 88,
+            "statBonus": 4,
+            "zoneOpen": 5,
+            "zoneMax": 7,
+            "openingZones": [
+              1,
+              2,
+              4,
+              5,
+              8
+            ],
+            "threat": "바깥 코스 비중이 높아 좁은 노림을 흔듭니다.",
+            "rewardTier": 1,
+            "act": 2,
+            "actName": "중반",
+            "escalation": {
+              "name": "중반",
+              "hp": 16,
+              "stat": 4,
+              "zone": 1,
+              "note": "싱커와 높은 공이 섞이고 코스가 하나 더 열린다. 1막에서 고른 카드끼리 연계를 만들 시점."
+            },
+            "risk": "보통",
+            "reward": "막별 기본 3장 드래프트",
+            "artId": "regular-04-ivory-ace",
+            "encounter": {
+              "version": 1,
+              "id": "regular-04-ivory-ace",
+              "label": "세 구의 서명",
+              "summary": "몸쪽·중앙·바깥을 차례로 노립니다. 세 번째 공의 안타 +5 HP.",
+              "counter": "세 번째 공을 준비하세요."
+            }
+          },
+          "risk": "보통",
+          "reward": "막별 기본 3장 드래프트",
+          "preview": "아이보리 에이스 2 · 바깥쪽 제구형 · HP 88"
+        },
+        {
+          "id": "a2-r3l1",
+          "act": 2,
+          "row": 3,
+          "lane": 1,
+          "type": "elite",
+          "name": "강적 승부",
+          "route": "ace",
+          "routeLabel": "에이스 사냥",
+          "seed": 3612797460,
+          "opponent": {
+            "name": "와인 블러프",
+            "archetype": "반대 코스 승부형",
+            "archetypeKey": "closer",
+            "style": "closer",
+            "maxHp": 116,
+            "statBonus": 14,
+            "zoneOpen": 8,
+            "zoneMax": 9,
+            "openingZones": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              7,
+              8
+            ],
+            "threat": "이전 노림 반대편을 찌르며 2스트라이크에 존을 넓힙니다.",
+            "rewardTier": 2,
+            "act": 2,
+            "actName": "중반",
+            "escalation": {
+              "name": "중반",
+              "hp": 16,
+              "stat": 4,
+              "zone": 1,
+              "note": "싱커와 높은 공이 섞이고 코스가 하나 더 열린다. 1막에서 고른 카드끼리 연계를 만들 시점."
+            },
+            "risk": "높음",
+            "reward": "시그니처 카드 포함 4장 드래프트",
+            "artId": "elite-03-wine-bluff",
+            "encounter": {
+              "version": 1,
+              "id": "elite-03-wine-bluff",
+              "label": "볼 유인",
+              "summary": "존 밖 볼을 유인합니다. 실제 볼을 지켜보면 +3 HP.",
+              "counter": "존 밖 공은 참으세요."
+            },
+            "gimmick": {
+              "id": "bluff",
+              "label": "볼 유인",
+              "summary": "존 밖 볼이 평소보다 35%p 늘어난다. 치지 않고 기다리는 선택이 값지다.",
+              "phases": {
+                "pressured": "독기: 존 밖 볼이 45%p로 늘고, 준비는 타석당 1회로 줄어든다."
+              }
+            }
+          },
+          "risk": "높음",
+          "reward": "시그니처 카드 포함 4장 드래프트",
+          "preview": "와인 블러프 · 반대 코스 승부형 · HP 116"
+        },
+        {
+          "id": "a2-r3l2",
+          "act": 2,
+          "row": 3,
+          "lane": 2,
+          "type": "battle",
+          "name": "정규 승부",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 3766002937,
+          "opponent": {
+            "name": "로즈 페인트 2",
+            "archetype": "바깥쪽 제구형",
+            "archetypeKey": "outside",
+            "style": "rookie",
+            "maxHp": 88,
+            "statBonus": 4,
+            "zoneOpen": 5,
+            "zoneMax": 7,
+            "openingZones": [
+              1,
+              2,
+              4,
+              5,
+              8
+            ],
+            "threat": "바깥 코스 비중이 높아 좁은 노림을 흔듭니다.",
+            "rewardTier": 1,
+            "act": 2,
+            "actName": "중반",
+            "escalation": {
+              "name": "중반",
+              "hp": 16,
+              "stat": 4,
+              "zone": 1,
+              "note": "싱커와 높은 공이 섞이고 코스가 하나 더 열린다. 1막에서 고른 카드끼리 연계를 만들 시점."
+            },
+            "risk": "보통",
+            "reward": "막별 기본 3장 드래프트",
+            "artId": "regular-06-rose-paint",
+            "encounter": {
+              "version": 1,
+              "id": "regular-06-rose-paint",
+              "label": "모서리 순환",
+              "summary": "존 모서리를 차례로 노립니다. 모서리 정타 +4 HP.",
+              "counter": "모서리 코스를 읽으세요."
+            }
+          },
+          "risk": "보통",
+          "reward": "막별 기본 3장 드래프트",
+          "preview": "로즈 페인트 2 · 바깥쪽 제구형 · HP 88"
+        },
+        {
+          "id": "a2-r4l0",
+          "act": 2,
+          "row": 4,
+          "lane": 0,
+          "type": "rest",
+          "name": "휴식일",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 3890574966,
+          "utility": {
+            "effect": "컨디션 회복",
+            "detail": "다음 전투에서 타선의 타격 기술 +8. 강행군을 끊고 다음 투수를 안정적으로 공략합니다.",
+            "risk": "최저",
+            "reward": "다음 전투 타격 +8"
+          },
+          "risk": "최저",
+          "reward": "다음 전투 타격 +8",
+          "preview": "컨디션 회복 · 다음 전투에서 타선의 타격 기술 +8. 강행군을 끊고 다음 투수를 안정적으로 공략합니다."
+        },
+        {
+          "id": "a2-r4l2",
+          "act": 2,
+          "row": 4,
+          "lane": 2,
+          "type": "battle",
+          "name": "정규 승부",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 1493670106,
+          "opponent": {
+            "name": "바이올렛 스팅 2",
+            "archetype": "낮은 싱커형",
+            "archetypeKey": "sinker",
+            "style": "sinker",
+            "maxHp": 88,
+            "statBonus": 4,
+            "zoneOpen": 6,
+            "zoneMax": 8,
+            "openingZones": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "threat": "낮은 3분할을 오래 압박하고 병살 위험을 만듭니다.",
+            "rewardTier": 1,
+            "act": 2,
+            "actName": "중반",
+            "escalation": {
+              "name": "중반",
+              "hp": 16,
+              "stat": 4,
+              "zone": 1,
+              "note": "싱커와 높은 공이 섞이고 코스가 하나 더 열린다. 1막에서 고른 카드끼리 연계를 만들 시점."
+            },
+            "risk": "보통",
+            "reward": "막별 기본 3장 드래프트",
+            "artId": "regular-05-violet-sting",
+            "encounter": {
+              "version": 1,
+              "id": "regular-05-violet-sting",
+              "label": "중단 횡단",
+              "summary": "중단 열을 가로질러 노립니다. 본 카드 정타 +4 HP, 지원만 적중하면 기본 피해 ×0.8.",
+              "counter": "중단 정타를 본 카드로 노리세요."
+            }
+          },
+          "risk": "보통",
+          "reward": "막별 기본 3장 드래프트",
+          "preview": "바이올렛 스팅 2 · 낮은 싱커형 · HP 88"
+        },
+        {
+          "id": "a2-r4l3",
+          "act": 2,
+          "row": 4,
+          "lane": 3,
+          "type": "shop",
+          "name": "장비 상점",
+          "route": "scout",
+          "routeLabel": "분석 루트",
+          "seed": 1189364745,
+          "utility": {
+            "effect": "전력 보강",
+            "detail": "카드와 런 전체를 바꾸는 유물 중 하나를 골라 전력을 보강합니다.",
+            "risk": "낮음",
+            "reward": "카드 / 유물"
+          },
+          "risk": "낮음",
+          "reward": "카드 / 유물",
+          "preview": "전력 보강 · 카드와 런 전체를 바꾸는 유물 중 하나를 골라 전력을 보강합니다."
+        },
+        {
+          "id": "a2-boss",
+          "act": 2,
+          "row": 5,
+          "lane": 1,
+          "type": "boss",
+          "name": "막 보스",
+          "route": "playoff",
+          "routeLabel": "플레이오프",
+          "seed": 1814507348,
+          "opponent": {
+            "name": "에메랄드 템페스트",
+            "archetype": "높은 공 수비형",
+            "archetypeKey": "high",
+            "style": "deep",
+            "maxHp": 140,
+            "statBonus": 16,
+            "zoneOpen": 6,
+            "zoneMax": 9,
+            "openingZones": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "threat": "높은 공과 깊은 수비로 장타 기대값을 낮춥니다.",
+            "rewardTier": 3,
+            "act": 2,
+            "actName": "중반",
+            "escalation": {
+              "name": "중반",
+              "hp": 16,
+              "stat": 4,
+              "zone": 1,
+              "note": "싱커와 높은 공이 섞이고 코스가 하나 더 열린다. 1막에서 고른 카드끼리 연계를 만들 시점."
+            },
+            "risk": "최종",
+            "reward": "막 돌파 · 시그니처 4장 드래프트",
+            "artId": "emerald-tempest",
+            "encounter": {
+              "version": 1,
+              "id": "emerald-tempest",
+              "label": "세 높이의 폭풍",
+              "summary": "높음·중간·낮음 순서로 노립니다. 세 번째 공의 연결 적중 +10 HP.",
+              "counter": "세 번째 공에 카드를 연결하세요."
+            },
+            "gimmick": {
+              "id": "halo",
+              "label": "후퇴 수비",
+              "summary": "높은 공과 깊은 수비로 홈런 외 장타를 단타로 누른다.",
+              "phases": {
+                "pressured": "후광: 한 번에 겹칠 수 있는 카드가 3장으로 줄어든다.",
+                "critical": "존 밖 볼이 +10%p 늘어난다."
+              }
+            }
+          },
+          "risk": "최종",
+          "reward": "막 돌파 · 시그니처 4장 드래프트",
+          "preview": "에메랄드 템페스트 · 높은 공 수비형 · HP 140"
+        },
+        {
+          "id": "a3-entry",
+          "act": 3,
+          "row": 0,
+          "lane": 1,
+          "type": "battle",
+          "name": "정규 승부",
+          "route": "playoff",
+          "routeLabel": "플레이오프",
+          "seed": 252711767,
+          "opponent": {
+            "name": "스카이 팬텀 2",
+            "archetype": "높은 공 수비형",
+            "archetypeKey": "high",
+            "style": "deep",
+            "maxHp": 112,
+            "statBonus": 11,
+            "zoneOpen": 7,
+            "zoneMax": 9,
+            "openingZones": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              7
+            ],
+            "threat": "높은 공과 깊은 수비로 장타 기대값을 낮춥니다.",
+            "rewardTier": 1,
+            "act": 3,
+            "actName": "결승",
+            "escalation": {
+              "name": "결승",
+              "hp": 36,
+              "stat": 9,
+              "zone": 2,
+              "note": "높은 공·반대 코스 승부가 본격화되고 코스 둘이 더 열린다. 압축과 시그니처 카드가 없으면 한 타석이 비싸다."
+            },
+            "risk": "중상",
+            "reward": "막별 기본 3장 드래프트",
+            "artId": "sky-phantom",
+            "encounter": {
+              "version": 1,
+              "id": "sky-phantom",
+              "label": "하늘 그물",
+              "summary": "높은 공을 선호하고 깊은 수비를 합니다. 홈런 +8 HP.",
+              "counter": "높은 공을 공략해 큰 타구를 노리세요."
+            }
+          },
+          "risk": "중상",
+          "reward": "막별 기본 3장 드래프트",
+          "preview": "스카이 팬텀 2 · 높은 공 수비형 · HP 112"
+        },
+        {
+          "id": "a3-r1l1",
+          "act": 3,
+          "row": 1,
+          "lane": 1,
+          "type": "locker",
+          "name": "라커룸",
+          "route": "craft",
+          "routeLabel": "정비 루트",
+          "seed": 650321746,
+          "utility": {
+            "effect": "덱 정리",
+            "detail": "약한 카드를 덜 뽑도록 덱을 정리하는 구간입니다.",
+            "risk": "낮음",
+            "reward": "덱 압축"
+          },
+          "risk": "낮음",
+          "reward": "덱 압축",
+          "preview": "덱 정리 · 약한 카드를 덜 뽑도록 덱을 정리하는 구간입니다."
+        },
+        {
+          "id": "a3-r1l2",
+          "act": 3,
+          "row": 1,
+          "lane": 2,
+          "type": "battle",
+          "name": "정규 승부",
+          "route": "playoff",
+          "routeLabel": "플레이오프",
+          "seed": 2673370848,
+          "opponent": {
+            "name": "청록 미라주 3",
+            "archetype": "바깥쪽 제구형",
+            "archetypeKey": "outside",
+            "style": "rookie",
+            "maxHp": 112,
+            "statBonus": 11,
+            "zoneOpen": 6,
+            "zoneMax": 8,
+            "openingZones": [
+              1,
+              2,
+              4,
+              5,
+              7,
+              8
+            ],
+            "threat": "바깥 코스 비중이 높아 좁은 노림을 흔듭니다.",
+            "rewardTier": 1,
+            "act": 3,
+            "actName": "결승",
+            "escalation": {
+              "name": "결승",
+              "hp": 36,
+              "stat": 9,
+              "zone": 2,
+              "note": "높은 공·반대 코스 승부가 본격화되고 코스 둘이 더 열린다. 압축과 시그니처 카드가 없으면 한 타석이 비싸다."
+            },
+            "risk": "중상",
+            "reward": "막별 기본 3장 드래프트",
+            "artId": "regular-02-teal-mirage",
+            "encounter": {
+              "version": 1,
+              "id": "regular-02-teal-mirage",
+              "label": "청록 왕복",
+              "summary": "바깥쪽 위아래를 번갈아 노립니다. 직전과 다른 노림의 안타 +4 HP, 반복 노림은 기본 피해 ×0.8.",
+              "counter": "노림을 바꾸고 바깥 높낮이를 읽으세요."
+            }
+          },
+          "risk": "중상",
+          "reward": "막별 기본 3장 드래프트",
+          "preview": "청록 미라주 3 · 바깥쪽 제구형 · HP 112"
+        },
+        {
+          "id": "a3-r2l0",
+          "act": 3,
+          "row": 2,
+          "lane": 0,
+          "type": "battle",
+          "name": "정규 승부",
+          "route": "playoff",
+          "routeLabel": "플레이오프",
+          "seed": 2623210704,
+          "opponent": {
+            "name": "타이드 베스퍼 3",
+            "archetype": "바깥쪽 제구형",
+            "archetypeKey": "outside",
+            "style": "rookie",
+            "maxHp": 112,
+            "statBonus": 11,
+            "zoneOpen": 6,
+            "zoneMax": 8,
+            "openingZones": [
+              1,
+              2,
+              4,
+              5,
+              7,
+              8
+            ],
+            "threat": "바깥 코스 비중이 높아 좁은 노림을 흔듭니다.",
+            "rewardTier": 1,
+            "act": 3,
+            "actName": "결승",
+            "escalation": {
+              "name": "결승",
+              "hp": 36,
+              "stat": 9,
+              "zone": 2,
+              "note": "높은 공·반대 코스 승부가 본격화되고 코스 둘이 더 열린다. 압축과 시그니처 카드가 없으면 한 타석이 비싸다."
+            },
+            "risk": "중상",
+            "reward": "막별 기본 3장 드래프트",
+            "artId": "tide-vesper",
+            "encounter": {
+              "version": 1,
+              "id": "tide-vesper",
+              "label": "밀물과 썰물",
+              "summary": "낮은 공과 높은 공을 번갈아 노립니다. 지켜본 다음 안타 +5 HP.",
+              "counter": "높낮이 교대를 읽고 기다린 뒤 승부하세요."
+            }
+          },
+          "risk": "중상",
+          "reward": "막별 기본 3장 드래프트",
+          "preview": "타이드 베스퍼 3 · 바깥쪽 제구형 · HP 112"
+        },
+        {
+          "id": "a3-r2l2",
+          "act": 3,
+          "row": 2,
+          "lane": 2,
+          "type": "elite",
+          "name": "강적 승부",
+          "route": "playoff",
+          "routeLabel": "플레이오프",
+          "seed": 3537969747,
+          "opponent": {
+            "name": "코발트 임팩트",
+            "archetype": "높은 공 수비형",
+            "archetypeKey": "high",
+            "style": "deep",
+            "maxHp": 132,
+            "statBonus": 17,
+            "zoneOpen": 7,
+            "zoneMax": 9,
+            "openingZones": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              7
+            ],
+            "threat": "높은 공과 깊은 수비로 장타 기대값을 낮춥니다.",
+            "rewardTier": 2,
+            "act": 3,
+            "actName": "결승",
+            "escalation": {
+              "name": "결승",
+              "hp": 36,
+              "stat": 9,
+              "zone": 2,
+              "note": "높은 공·반대 코스 승부가 본격화되고 코스 둘이 더 열린다. 압축과 시그니처 카드가 없으면 한 타석이 비싸다."
+            },
+            "risk": "높음",
+            "reward": "시그니처 카드 포함 4장 드래프트",
+            "artId": "elite-01-cobalt-impact",
+            "encounter": {
+              "version": 1,
+              "id": "elite-01-cobalt-impact",
+              "label": "압축 압박",
+              "summary": "투스트라이크에 압박이 강해집니다. 투스트라이크 정타 +6 HP, 초구 기본 피해 ×0.85.",
+              "counter": "투스트라이크 전에 흐름을 끊으세요."
+            },
+            "gimmick": {
+              "id": "pressure",
+              "label": "압박 투구",
+              "summary": "1스트라이크부터 코스가 1개, 2스트라이크면 3개 더 열리고, 존 밖 공이 크게 줄어 기다리기가 어려워진다.",
+              "phases": {
+                "pressured": "압박: 준비는 타석당 1회로 줄어든다."
+              }
+            }
+          },
+          "risk": "높음",
+          "reward": "시그니처 카드 포함 4장 드래프트",
+          "preview": "코발트 임팩트 · 높은 공 수비형 · HP 132"
+        },
+        {
+          "id": "a3-r2l3",
+          "act": 3,
+          "row": 2,
+          "lane": 3,
+          "type": "locker",
+          "name": "라커룸",
+          "route": "craft",
+          "routeLabel": "정비 루트",
+          "seed": 1097481354,
+          "utility": {
+            "effect": "덱 정리",
+            "detail": "약한 카드를 덜 뽑도록 덱을 정리하는 구간입니다.",
+            "risk": "낮음",
+            "reward": "덱 압축"
+          },
+          "risk": "낮음",
+          "reward": "덱 압축",
+          "preview": "덱 정리 · 약한 카드를 덜 뽑도록 덱을 정리하는 구간입니다."
+        },
+        {
+          "id": "a3-r3l0",
+          "act": 3,
+          "row": 3,
+          "lane": 0,
+          "type": "rest",
+          "name": "휴식일",
+          "route": "steady",
+          "routeLabel": "안정 루트",
+          "seed": 1734947094,
+          "utility": {
+            "effect": "컨디션 회복",
+            "detail": "다음 전투에서 타선의 타격 기술 +8. 강행군을 끊고 다음 투수를 안정적으로 공략합니다.",
+            "risk": "최저",
+            "reward": "다음 전투 타격 +8"
+          },
+          "risk": "최저",
+          "reward": "다음 전투 타격 +8",
+          "preview": "컨디션 회복 · 다음 전투에서 타선의 타격 기술 +8. 강행군을 끊고 다음 투수를 안정적으로 공략합니다."
+        },
+        {
+          "id": "a3-r3l1",
+          "act": 3,
+          "row": 3,
+          "lane": 1,
+          "type": "shop",
+          "name": "장비 상점",
+          "route": "scout",
+          "routeLabel": "분석 루트",
+          "seed": 3014956698,
+          "utility": {
+            "effect": "전력 보강",
+            "detail": "카드와 런 전체를 바꾸는 유물 중 하나를 골라 전력을 보강합니다.",
+            "risk": "낮음",
+            "reward": "카드 / 유물"
+          },
+          "risk": "낮음",
+          "reward": "카드 / 유물",
+          "preview": "전력 보강 · 카드와 런 전체를 바꾸는 유물 중 하나를 골라 전력을 보강합니다."
+        },
+        {
+          "id": "a3-r3l3",
+          "act": 3,
+          "row": 3,
+          "lane": 3,
+          "type": "battle",
+          "name": "정규 승부",
+          "route": "playoff",
+          "routeLabel": "플레이오프",
+          "seed": 394378945,
+          "opponent": {
+            "name": "앰버 싱커 3",
+            "archetype": "낮은 싱커형",
+            "archetypeKey": "sinker",
+            "style": "sinker",
+            "maxHp": 112,
+            "statBonus": 11,
+            "zoneOpen": 7,
+            "zoneMax": 9,
+            "openingZones": [
+              1,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "threat": "낮은 3분할을 오래 압박하고 병살 위험을 만듭니다.",
+            "rewardTier": 1,
+            "act": 3,
+            "actName": "결승",
+            "escalation": {
+              "name": "결승",
+              "hp": 36,
+              "stat": 9,
+              "zone": 2,
+              "note": "높은 공·반대 코스 승부가 본격화되고 코스 둘이 더 열린다. 압축과 시그니처 카드가 없으면 한 타석이 비싸다."
+            },
+            "risk": "중상",
+            "reward": "막별 기본 3장 드래프트",
+            "artId": "regular-03-amber-sinker",
+            "encounter": {
+              "version": 1,
+              "id": "regular-03-amber-sinker",
+              "label": "낮은 갑옷",
+              "summary": "낮은 코스를 넓게 노립니다. 좁은 낮은 정타 +4 HP, 낮은 3존 이상 겹침 기본 피해 ×0.8.",
+              "counter": "낮은 곳은 좁게 노리세요."
+            }
+          },
+          "risk": "중상",
+          "reward": "막별 기본 3장 드래프트",
+          "preview": "앰버 싱커 3 · 낮은 싱커형 · HP 112"
+        },
+        {
+          "id": "a3-boss",
+          "act": 3,
+          "row": 4,
+          "lane": 1,
+          "type": "boss",
+          "name": "막 보스",
+          "route": "ace",
+          "routeLabel": "에이스 사냥",
+          "seed": 3373730989,
+          "opponent": {
+            "name": "오닉스 이클립스",
+            "archetype": "반대 코스 승부형",
+            "archetypeKey": "closer",
+            "style": "closer",
+            "maxHp": 164,
+            "statBonus": 23,
+            "zoneOpen": 9,
+            "zoneMax": 9,
+            "openingZones": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "threat": "이전 노림 반대편을 찌르며 2스트라이크에 존을 넓힙니다.",
+            "rewardTier": 3,
+            "act": 3,
+            "actName": "결승",
+            "escalation": {
+              "name": "결승",
+              "hp": 36,
+              "stat": 9,
+              "zone": 2,
+              "note": "높은 공·반대 코스 승부가 본격화되고 코스 둘이 더 열린다. 압축과 시그니처 카드가 없으면 한 타석이 비싸다."
+            },
+            "risk": "최종",
+            "reward": "최종 결승 · 런 완주",
+            "artId": "onyx-eclipse",
+            "encounter": {
+              "version": 1,
+              "id": "onyx-eclipse",
+              "label": "오닉스 사각",
+              "summary": "최근 두 번 쓰지 않은 열을 노립니다. 세 번째 공은 스택 최대 2장, 정타 +10 HP.",
+              "counter": "안 쓴 열과 세 번째 공에 대비하세요."
+            },
+            "gimmick": {
+              "id": "eclipse",
+              "label": "반대 열 승부",
+              "summary": "직전에 노린 열의 반대 열을 찌른다.",
+              "phases": {
+                "pressured": "일식: 반대 열 쏠림이 더 강해진다.",
+                "critical": "준비는 타석당 1회로 줄어든다."
+              }
+            }
+          },
+          "risk": "최종",
+          "reward": "최종 결승 · 런 완주",
+          "preview": "오닉스 이클립스 · 반대 코스 승부형 · HP 164"
+        }
+      ],
+      "edges": [
+        {
+          "from": "a1-entry",
+          "to": "a1-r1l1"
+        },
+        {
+          "from": "a1-entry",
+          "to": "a1-r1l2"
+        },
+        {
+          "from": "a1-entry",
+          "to": "a1-r1l3"
+        },
+        {
+          "from": "a1-r1l1",
+          "to": "a1-r2l0"
+        },
+        {
+          "from": "a1-r1l2",
+          "to": "a1-r2l2"
+        },
+        {
+          "from": "a1-r1l2",
+          "to": "a1-r2l3"
+        },
+        {
+          "from": "a1-r1l3",
+          "to": "a1-r2l3"
+        },
+        {
+          "from": "a1-r2l0",
+          "to": "a1-r3l0"
+        },
+        {
+          "from": "a1-r2l2",
+          "to": "a1-r3l2"
+        },
+        {
+          "from": "a1-r2l2",
+          "to": "a1-r3l3"
+        },
+        {
+          "from": "a1-r2l3",
+          "to": "a1-r3l3"
+        },
+        {
+          "from": "a1-r2l3",
+          "to": "a1-r3l2"
+        },
+        {
+          "from": "a1-r2l0",
+          "to": "a1-r3l1"
+        },
+        {
+          "from": "a1-r3l0",
+          "to": "a1-r4l0"
+        },
+        {
+          "from": "a1-r3l1",
+          "to": "a1-r4l1"
+        },
+        {
+          "from": "a1-r3l1",
+          "to": "a1-r4l0"
+        },
+        {
+          "from": "a1-r3l2",
+          "to": "a1-r4l3"
+        },
+        {
+          "from": "a1-r3l2",
+          "to": "a1-r4l1"
+        },
+        {
+          "from": "a1-r3l3",
+          "to": "a1-r4l3"
+        },
+        {
+          "from": "a1-r4l0",
+          "to": "a1-r5l0"
+        },
+        {
+          "from": "a1-r4l0",
+          "to": "a1-r5l1"
+        },
+        {
+          "from": "a1-r4l1",
+          "to": "a1-r5l1"
+        },
+        {
+          "from": "a1-r4l3",
+          "to": "a1-r5l3"
+        },
+        {
+          "from": "a1-r4l3",
+          "to": "a1-r5l2"
+        },
+        {
+          "from": "a1-r5l0",
+          "to": "a1-boss"
+        },
+        {
+          "from": "a1-r5l1",
+          "to": "a1-boss"
+        },
+        {
+          "from": "a1-r5l2",
+          "to": "a1-boss"
+        },
+        {
+          "from": "a1-r5l3",
+          "to": "a1-boss"
+        },
+        {
+          "from": "a1-boss",
+          "to": "a2-entry"
+        },
+        {
+          "from": "a2-entry",
+          "to": "a2-r1l1"
+        },
+        {
+          "from": "a2-entry",
+          "to": "a2-r1l2"
+        },
+        {
+          "from": "a2-entry",
+          "to": "a2-r1l3"
+        },
+        {
+          "from": "a2-r1l1",
+          "to": "a2-r2l1"
+        },
+        {
+          "from": "a2-r1l1",
+          "to": "a2-r2l0"
+        },
+        {
+          "from": "a2-r1l2",
+          "to": "a2-r2l1"
+        },
+        {
+          "from": "a2-r1l2",
+          "to": "a2-r2l3"
+        },
+        {
+          "from": "a2-r1l3",
+          "to": "a2-r2l3"
+        },
+        {
+          "from": "a2-r1l3",
+          "to": "a2-r2l1"
+        },
+        {
+          "from": "a2-r2l0",
+          "to": "a2-r3l0"
+        },
+        {
+          "from": "a2-r2l1",
+          "to": "a2-r3l1"
+        },
+        {
+          "from": "a2-r2l3",
+          "to": "a2-r3l2"
+        },
+        {
+          "from": "a2-r3l0",
+          "to": "a2-r4l0"
+        },
+        {
+          "from": "a2-r3l0",
+          "to": "a2-r4l2"
+        },
+        {
+          "from": "a2-r3l1",
+          "to": "a2-r4l2"
+        },
+        {
+          "from": "a2-r3l2",
+          "to": "a2-r4l2"
+        },
+        {
+          "from": "a2-r3l2",
+          "to": "a2-r4l3"
+        },
+        {
+          "from": "a2-r4l0",
+          "to": "a2-boss"
+        },
+        {
+          "from": "a2-r4l2",
+          "to": "a2-boss"
+        },
+        {
+          "from": "a2-r4l3",
+          "to": "a2-boss"
+        },
+        {
+          "from": "a2-boss",
+          "to": "a3-entry"
+        },
+        {
+          "from": "a3-entry",
+          "to": "a3-r1l1"
+        },
+        {
+          "from": "a3-entry",
+          "to": "a3-r1l2"
+        },
+        {
+          "from": "a3-r1l1",
+          "to": "a3-r2l0"
+        },
+        {
+          "from": "a3-r1l1",
+          "to": "a3-r2l2"
+        },
+        {
+          "from": "a3-r1l2",
+          "to": "a3-r2l2"
+        },
+        {
+          "from": "a3-r1l2",
+          "to": "a3-r2l3"
+        },
+        {
+          "from": "a3-r2l0",
+          "to": "a3-r3l0"
+        },
+        {
+          "from": "a3-r2l2",
+          "to": "a3-r3l3"
+        },
+        {
+          "from": "a3-r2l2",
+          "to": "a3-r3l1"
+        },
+        {
+          "from": "a3-r2l3",
+          "to": "a3-r3l3"
+        },
+        {
+          "from": "a3-r2l3",
+          "to": "a3-r3l1"
+        },
+        {
+          "from": "a3-r3l0",
+          "to": "a3-boss"
+        },
+        {
+          "from": "a3-r3l1",
+          "to": "a3-boss"
+        },
+        {
+          "from": "a3-r3l3",
+          "to": "a3-boss"
+        }
+      ],
+      "currentNodeId": "a1-r2l3",
+      "completedNodeIds": [
+        "a1-entry",
+        "a1-r1l3"
+      ],
+      "reachableIds": []
+    },
+    "pitcher": null,
+    "v10": {
+      "nodeId": "a1-r2l3",
+      "opponent": null,
+      "lastCombat": null,
+      "rewardChoices": [],
+      "runComplete": false,
+      "nextBattleBonus": null,
+      "activeBattleBonus": null,
+      "utilityHistory": [
+        {
+          "nodeId": "a1-r1l3",
+          "kind": "training",
+          "action": {
+            "type": "upgrade",
+            "id": "c0",
+            "kind": "slug",
+            "name": "당겨 넘기기"
+          }
+        }
+      ],
+      "startPack": {
+        "pack": "power",
+        "ids": [
+          "c0",
+          "c1",
+          "c2",
+          "c4",
+          "c5",
+          "c6",
+          "c7"
+        ]
+      },
+      "relicChoices": []
+    }
+  },
+  "nextPhase": "rest",
+  "reloadNextResume": true,
+  "portraitGuardText": true
+}
