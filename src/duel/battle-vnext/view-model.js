@@ -136,14 +136,15 @@ export function buildBattleViewModel({
   const canAddSupport=canStack&&stack.length<v10StackMax(s)-1&&hand.some(x=>x.id!==selected&&!stack.some(y=>y.id===x.id)&&!isSkillKind(x.entry?.kind)&&!isBuntKind(x.entry?.kind)&&v10ActionCost(s,selected,[...stack,{id:x.id,aimZone:b.aimZone}])<=energyLimit);
   const takeDraw=v10TakeDrawPreview(s);
   const drawHint=takeDraw.count===1?'카드+1':takeDraw.reason==='full'?'6장 한도':'추가 0';
+  const nextEnergyAction=landed&&hasNext&&['pitch','between'].includes(s.phase);
   const energy=s.version===10?{
     current:energyNow,cap:v10EnergyCap(s),base:v10EnergyBase(s),
     selectedCost,armedCost,
     remainingIfExecuted:Math.max(0,energyNow-selectedCost),
     shortfall:Math.max(0,selectedCost-energyNow),
     nextTakeHint:shownCount.strikes===2?'스트라이크면 삼진'+(defenseLab?' · 보호 제외':''):`다음 공 ⚡+1`,
-    upcoming:s.phase!=='battle'&&b.takeEnergyBonus===1?`${s.phase==='between'?'다음 타자':'다음 공'} ${v10NextEnergyMax(s)} · ${drawHint}`:'',
-    refill:s.phase!=='battle'&&b.takeEnergyBonus!==1?`다음 공에 ${v10EnergyBase(s)} 충전`:'',
+    upcoming:nextEnergyAction&&b.takeEnergyBonus===1?`${s.phase==='between'?'다음 타자':'다음 공'} ${v10NextEnergyMax(s)} · ${drawHint}`:'',
+    refill:nextEnergyAction&&b.takeEnergyBonus!==1?`다음 ${s.phase==='between'?'타자':'공'}에 ${v10EnergyBase(s)} 충전`:'',
   }:null;
 
   /* ── 단일 행동 ── */
