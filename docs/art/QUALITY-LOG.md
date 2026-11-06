@@ -10,3 +10,4 @@
 
 | 2026-10-23 | Asset-led main battle, first visual candidate | Codex /root/battle_visual_blind_judge | 2.72 → 3.03 | IMPROVED | R3 빛·환경 통합 |
 | 2026-10-23 | Asset-led main battle, visible-word refinement | Codex /root/asset_final_blind_judge | 2.69 → 3.00 | IMPROVED | R3 빛·환경 통합 |
+| 2026-11-06 | G015 | sealed_image_only | 2.56 → 3.22 | IMPROVED | R2 UI 그림화 |
