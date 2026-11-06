@@ -54,3 +54,6 @@
 .bv-scene .bv-effect-pass{position:absolute;inset:0;z-index:2;pointer-events:none}
 .bv-scene .bv-effect-world{position:absolute;left:0;top:0;transform-origin:0 0}
 @media(prefers-reduced-motion:reduce){.bv-scene .bv-effect-pass{transform:none!important}}
+/* contact pixelfx (ContactPixelFx.jsx): pixel-art layer over the light pass, never takes input */
+.bv-scene .bv-contact-pixelfx{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;image-rendering:pixelated}
+.bv-scene.bv-hitstop,.bv-scene.bv-hitstop *{animation-play-state:paused!important}
