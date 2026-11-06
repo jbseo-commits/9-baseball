@@ -22,7 +22,13 @@ export default function PitcherPortraitDialog({opponent,src,onClose}){
   return <div className="pitcher-portrait-backdrop" onClick={e=>{if(e.target===e.currentTarget)onClose()}}>
     <section className="pitcher-portrait-dialog pitcher-dex-dialog" role="dialog" aria-modal="true" aria-label={`${opponent.name||name} 투수 큰 그림`} onKeyDown={e=>{
       if(e.key==='Escape'){e.stopPropagation();onClose()}
-      if(e.key==='Tab'){e.preventDefault();closeRef.current?.focus()}
+      if(e.key==='Tab'){
+        const controls=[...e.currentTarget.querySelectorAll('button:not(:disabled)')]
+          .filter(el=>el.tabIndex>=0&&!el.hidden&&!el.closest('[hidden],[inert],[aria-hidden="true"]'));
+        const first=controls[0],last=controls.at(-1),active=document.activeElement;
+        if(e.shiftKey&&(active===first||!e.currentTarget.contains(active))){e.preventDefault();last?.focus()}
+        else if(!e.shiftKey&&(active===last||!e.currentTarget.contains(active))){e.preventDefault();first?.focus()}
+      }
     }}>
       <header>
         <div>
