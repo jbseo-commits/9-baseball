@@ -9,6 +9,7 @@ import {createPreviewBattle,publicZoneFaces,publicCoverText,resultFeedback,entry
 import stadium from '../../assets/duel/stadium-portrait.png';
 import batterSheet from '../../assets/ui-kit/batter/batter-v14-master-sheet.png';
 import {pitcherAtlases} from './pitcher-visuals.js';
+import {pitcherAtlasLayout,pitcherDrawingAt} from './pitcher-sd.js';
 import './zone-first-preview.css';
 
 export const PREVIEW_IMPACT_MS=1450;
@@ -62,6 +63,7 @@ function BattlePreview({initialState,lesson=null,sound,onToggleSound,onSkip,onLe
   const [notice,setNotice]=useState(''),[info,setInfo]=useState(false);
   const pending=useRef(null),timer=useRef(null),busy=useRef(false),dialog=useRef(null),audio=useRef(null),root=useRef(null),restoreFocus=useRef(null);
   const flying=step==='flight',result=step==='result',readHit=result&&isExactRead(game),frame=usePitchFrame(flying||result,readHit);
+  const pitcherId=game.v10.opponent.artId,{columns:pitcherColumns,rows:pitcherRows}=pitcherAtlasLayout(pitcherId),drawing=pitcherDrawingAt(pitcherId,frame);
   const needsPreparation=learning&&lesson===2&&game.battle.preparations===0;
   const hand=game.battle.hand.map(id=>game.deck.find(c=>c.id===id)).filter(Boolean);
   const pack=START_PACKS.find(p=>p.id===game.v10?.startPack?.pack)||START_PACKS[0];
@@ -174,7 +176,7 @@ function BattlePreview({initialState,lesson=null,sound,onToggleSound,onSkip,onLe
       </div>
       <div className={'zf-field'+(result?' zf-result zf-'+feedback.tone:'')+(flying?' zf-flying':'')+(readHit?' zf-read-hit':'')}>
         <div className="zf-scenery" aria-hidden="true"/>
-        <div className="zf-pitcher" aria-hidden="true" style={{backgroundImage:`url("${pitcherAtlases[game.v10.opponent.artId]}")`,backgroundPosition:`${frame%10/9*100}% ${Math.floor(frame/10)/11*100}%`}}/>
+        <div className="zf-pitcher" aria-hidden="true" style={{backgroundImage:`url("${pitcherAtlases[pitcherId]}")`,backgroundSize:`${pitcherColumns*100}% ${pitcherRows*100}%`,backgroundPosition:`${drawing%pitcherColumns/(pitcherColumns-1)*100}% ${Math.floor(drawing/pitcherColumns)/(pitcherRows-1)*100}%`}}/>
         <div className={'zf-batter'+(result&&revealed?.kind==='hit'?' zf-batter-hit':'')} aria-hidden="true" style={{backgroundImage:`url("${batterSheet}")`}}/>
         <div className="zf-focus">
           <div className="zf-prompt" role="status"><ol className="zf-steps" aria-label="이번 공 진행">{[['plan','코스 노리기'],['flight','공 날아옴'],['result','결과']].map(([id,label],i)=><li key={id} aria-current={step===id?'step':undefined}><b>{i+1}</b> {label}</li>)}</ol><h1>{title}</h1></div>

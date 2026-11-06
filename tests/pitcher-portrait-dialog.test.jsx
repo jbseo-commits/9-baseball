@@ -1,12 +1,16 @@
 // @vitest-environment happy-dom
 import React,{useState} from 'react';
 import {render,screen,fireEvent,cleanup,waitFor} from '@testing-library/react';
-import {afterEach,describe,it,expect,vi} from 'vitest';
+import {afterEach,beforeEach,describe,it,expect,vi} from 'vitest';
 import RunMap from '../src/duel/RunMap.jsx';
 import PitcherPortraitDialog from '../src/duel/PitcherPortraitDialog.jsx';
-import {createV10Duel,selectV10Map} from '../src/duel/engine.js';
+import Duel from '../src/duel/App.jsx';
+import {createV10Duel,enterV10Node,saveV10Duel,readV10Duel,selectV10Map} from '../src/duel/engine.js';
+import pitcherRoster from '../assets/pitcher-mobs-v1/roster.json';
+import {pitcherPortraits} from '../src/duel/pitcher-visuals.js';
 
-afterEach(()=>cleanup());
+beforeEach(()=>localStorage.clear());
+afterEach(()=>{cleanup();localStorage.clear();});
 
 function InspectionHarness(){
   const map=selectV10Map(createV10Duel(17));
@@ -20,6 +24,29 @@ function InspectionHarness(){
 }
 
 describe('pitcher portrait inspection',()=>{
+  it('opens the title Dex from its id-only roster entry without changing storage',()=>{
+    render(<Duel/>);
+    fireEvent.click(screen.getByRole('button',{name:'도감',exact:true}));
+    const dialog=screen.getByRole('dialog',{name:/투수 큰 그림/});
+    expect(dialog.querySelector('.pitcher-portrait-frame img').getAttribute('src')).toBe(pitcherPortraits[pitcherRoster[0].id]);
+    fireEvent.click(screen.getByRole('button',{name:'큰 그림 닫기'}));
+    expect(screen.queryByRole('dialog',{name:/투수 큰 그림/})).toBeNull();
+    expect(localStorage.length).toBe(0);
+  });
+
+  it('opens the header Dex on a saved battle without changing the save',()=>{
+    let state=createV10Duel(17);
+    const node=state.runMap.nodes.find(n=>state.runMap.reachableIds.includes(n.id)&&n.opponent?.artId);
+    state=enterV10Node(state,node.id);saveV10Duel(localStorage,state);
+    const before=readV10Duel(localStorage);
+    render(<Duel startInRun/>);
+    fireEvent.click(screen.getByRole('button',{name:'투수 도감'}));
+    const dialog=screen.getByRole('dialog',{name:/투수 큰 그림/});
+    expect(dialog.querySelector('.pitcher-portrait-frame img').getAttribute('src')).toBe(pitcherPortraits[pitcherRoster[0].id]);
+    fireEvent.click(screen.getByRole('button',{name:'큰 그림 닫기'}));
+    expect(readV10Duel(localStorage)).toEqual(before);
+  });
+
   it('opens the selected pitcher at full size without selecting a route',()=>{
     const onSelect=vi.fn();
     const map=selectV10Map(createV10Duel(17));
@@ -52,5 +79,49 @@ describe('pitcher portrait inspection',()=>{
     fireEvent.click(opener);
     fireEvent.click(document.querySelector('.pitcher-portrait-backdrop'));
     expect(screen.queryByRole('dialog',{name:/투수 큰 그림/})).toBeNull();
+  });
+
+  it('traps only at the active controls’ Tab boundaries and lets roster selection use its native button behavior',()=>{
+    render(<InspectionHarness/>);
+    fireEvent.click(screen.getByRole('button',{name:/투수 큰 그림 보기/}));
+    const dialog=screen.getByRole('dialog',{name:/투수 큰 그림/});
+    const controls=[...dialog.querySelectorAll('button:not([disabled])')];
+    const close=screen.getByRole('button',{name:'큰 그림 닫기'});
+    const roster=controls.filter(button=>button!==close);
+    expect(roster.length).toBeGreaterThan(1);
+
+    close.focus();
+    const forwardFromClose=new KeyboardEvent('keydown',{key:'Tab',bubbles:true,cancelable:true});
+    close.dispatchEvent(forwardFromClose);
+    expect(forwardFromClose.defaultPrevented).toBe(false);
+
+    const middle=roster[Math.floor(roster.length/2)];
+    middle.focus();
+    const middleForward=new KeyboardEvent('keydown',{key:'Tab',bubbles:true,cancelable:true});
+    middle.dispatchEvent(middleForward);
+    expect(middleForward.defaultPrevented).toBe(false);
+    const middleBackward=new KeyboardEvent('keydown',{key:'Tab',shiftKey:true,bubbles:true,cancelable:true});
+    middle.dispatchEvent(middleBackward);
+    expect(middleBackward.defaultPrevented).toBe(false);
+
+    const last=roster.at(-1);
+    last.focus();
+    const forwardAtEnd=new KeyboardEvent('keydown',{key:'Tab',bubbles:true,cancelable:true});
+    last.dispatchEvent(forwardAtEnd);
+    expect(forwardAtEnd.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(close);
+
+    close.focus();
+    const backwardAtStart=new KeyboardEvent('keydown',{key:'Tab',shiftKey:true,bubbles:true,cancelable:true});
+    close.dispatchEvent(backwardAtStart);
+    expect(backwardAtStart.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(last);
+
+    const selected=roster[1];
+    selected.focus();
+    fireEvent.click(selected);
+    expect(selected.getAttribute('aria-pressed')).toBe('true');
+    expect(selected.querySelector('.dex-card-name').textContent).toContain(dialog.querySelector('.pitcher-portrait-frame img').alt.replace(' 투수 전신 원화',''));
+    expect(document.activeElement).toBe(selected);
   });
 });

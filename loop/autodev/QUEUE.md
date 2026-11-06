@@ -19,3 +19,13 @@
 | G-010 | P2 | FIXED | zone-report의 starter 행이 항상 0이다 | R3 베이스라인 측정 중 발견. 덱빌더는 chooseRoute 선행 필요인데 리포트가 몰라 전투에 진입 못함. exit 0이라 CI도 통과. `scripts/zone-report.js`에 chooseRoute 추가로 수정(`c4c0e96`) | game-20261011-a R4 / — |
 
 선택 전에 각 항목에 현재 SHA·재현 파일·관련 PR·소유 실행을 붙인다. G-000도 새로운 HEAD에서는 같은 검사를 다시 확인한다. 기술 검증 실패를 정상으로 바꾸거나 이 목록 자체를 구현 승인으로 쓰지 않는다. 근거가 있는 추가 병목은 새 고유 ID를 만들고 [템플릿](TEMPLATES.md)으로 등록한다. 빈 큐는 정상 종료 조건이다.
+
+## 2026-11-06 실행 C의 독립 후속 항목
+
+| ID | 우선순위 | 상태 | 재현한 병목 / 결과 | 소유 / 다음 행동 |
+| --- | --- | --- | --- | --- |
+| G-017 | P1 | PREVIEW_VERIFIED | 덱 모달 뒤 보상 버튼이 Tab/Enter로 실행되어 저장이 바뀜. 입력 격리 복구 및 실제10경로 검증 | game-20261106-c R1 / [PR79](https://github.com/jbseo-commits/9-baseball/pull/79), main 미반영 |
+| G-018 | P2 | PREVIEW_VERIFIED | 타이틀/header 도감의 id/artId 연결 오류. 기존 artId 우선권 유지하며 연결 복구, 배포5크기 확인 | game-20261106-c R2 / [PR80](https://github.com/jbseo-commits/9-baseball/pull/80), main 미반영 |
+| G-019 | P2 | VALIDATED_LOCAL | 도감의 모든 Tab이 닫기에 갇힘. 활성 버튼 양끝에서만 순환하도록 수정, native20명 탐색 검증 | game-20261106-c R3 / [이슈](issues/G-019.md), 전체1556/독립검수 PASS 후 게시 예정 |
+
+PR별로 main0eedc99에서 독립 수정했다. Pages는 후속 브랜치 배포 시 이전 preview 경로를 교체할 수 있으므로 PREVIEW_VERIFIED는 해당 SHA에서 실제 검증했다는 상태이며 링크의 영구 동시 공개를 뜻하지 않는다.

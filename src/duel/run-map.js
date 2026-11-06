@@ -1,6 +1,7 @@
 import {ZONE_ORDER} from './cards.js';
 import {gimmickFor} from './gimmick.js';
 import pitcherRoster from '../../assets/pitcher-mobs-v1/roster.json' with {type:'json'};
+import {encounterFor} from './pitcher-encounters.js';
 
 const RED_RUSH_ID='regular-01-red-rush';
 const TYPES=new Set(['battle','elite','training','locker','shop','rest','boss','event']);
@@ -200,7 +201,7 @@ function nameOpponents(seed,nodes){
 
 /* tutorial: 레드 러시는 튜토리얼(전략 → 자동전투 체험)의 첫 전투에서 규칙을 설명하는 투수로만 나온다.
    본 런은 레드 러시 없이 같은 등급 투수를 시드마다 섞어 쓴다. */
-export function createRunMap(seed=0,{tutorial=false}={}){
+export function createRunMap(seed=0,{tutorial=false,encounters=true}={}){
   const nodes=[],edges=[];
   for(let act=1;act<=3;act++){
     const built=buildAct(seed,act);nodes.push(...built.nodes);edges.push(...built.edges);
@@ -227,6 +228,13 @@ export function createRunMap(seed=0,{tutorial=false}={}){
     repeats.set(pitcher.id,seen+1);
     node.opponent.name=pitcher.name+(seen?' '+(seen+1):'');
     node.opponent.artId=pitcher.id;
+    const identity=ARCHETYPE_BY_KEY[pitcher.archetype];
+    if(encounters&&identity){node.opponent.archetypeKey=identity.key;node.opponent.archetype=identity.label;node.opponent.threat=identity.threat;node.opponent.style=identity.style;
+      const step=actEscalation(node.act);node.opponent.zoneOpen=Math.min(9,identity.zoneOpen+step.zone);node.opponent.zoneMax=Math.min(9,identity.zoneMax+step.zone);}
+    if(encounters){
+      node.opponent.openingZones=(ZONE_ORDER[node.opponent.style]||[]).slice(0,node.opponent.zoneOpen).sort((a,b)=>a-b);
+      node.opponent.encounter=encounterFor(pitcher.id);
+    }
     const gimmick=gimmickFor(pitcher.id);if(gimmick)node.opponent.gimmick=gimmick;
   }
   for(const node of nodes)if(node.opponent)node.preview=`${node.opponent.name} · ${node.opponent.archetype} · HP ${node.opponent.maxHp}`;

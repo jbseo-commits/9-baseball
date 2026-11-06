@@ -2,6 +2,7 @@ import {CARDS,SAVE_KEY,STAGES,LINEUP,BUILDS,ZONES,GROWTHS,growthCost,rewardChoic
   ZONE_ORDER,WIDEN_EVERY,PUTAWAY_REACH,READ_THRESHOLDS,observeScore,RELICS,RELIC_OFFERS,DECKBUILDER_BUILD,FACILITY_ROUTES,ROUTE_CHOICES,routeChoice,canUpgrade} from './cards.js';
 import {applyRewardToDeck,rewardProblem} from './deck.js';
 import {gimmickRules,addShare,trickNeighbors} from './gimmick.js';
+import {encounterDistribution,encounterPlan,encounterLimits,encounterStatus} from './pitcher-encounters.js';
 const clone=s=>JSON.parse(JSON.stringify(s));
 const card=(s,id)=>s.deck.find(c=>c.id===id);
 import {v10EnergyBase,v10Energy,v10EnergyCap} from './energy.js';
@@ -35,9 +36,9 @@ export function v10TakeDrawPreview(state){
 const v10Opponent=s=>s?.version===10?s.v10?.opponent:null;
 /* 엘리트·보스 기믹: 상대 기믹 id와 지금 HP 단계에서 나온 보정. 기믹이 없으면 전부 중립. */
 export const v10GimmickRules=s=>gimmickRules(v10Opponent(s)?.gimmick?.id,s?.pitcher?.phase);
-export const v10StackMax=s=>Math.min(V10_SWING_STACK_MAX,v10GimmickRules(s).stackMax,
+export const v10StackMax=s=>Math.min(V10_SWING_STACK_MAX,v10GimmickRules(s).stackMax,encounterLimits(s).stackMax,
   s?.defenseLab?.schema===1&&s.defenseLab.activeConstraint?.key==='stack'?2:V10_SWING_STACK_MAX);
-export const v10PrepMax=s=>v10GimmickRules(s).prepMax;
+export const v10PrepMax=s=>Math.min(v10GimmickRules(s).prepMax,encounterLimits(s).prepMax);
 /* V10 주자·멘탈 (2026-09-26)
    - 주자 압박: 안타 직전 루상 주자 1명당 기본 피해 +10%.
    - 멘탈: 실점 1점당 흔들림 +1. 흔들림 단계마다 볼 비중 +35%, 1단계 이상이면 읽기 +1.
@@ -124,17 +125,25 @@ export function baseIntent(s){
   // Zones outside the repertoire are not thrown at all. This is what makes the first pitcher readable.
   const live=repertoire(s),width=repertoireWidth(s);
   for(let z=0;z<9;z++)if(!live.includes(z))weights[z]=0;
+  const trickRate=v10Opponent(s)?.gimmick?.id==='trick'?(b.strikes===0&&b.balls===0?gr.trickRate:gr.trickLate):0;
+  const encounter=encounterDistribution(s,weights,live,trickRate);
+  if(encounter)weights=encounter.probabilities;
   detail+=` 지금은 ${live.length}존만 씁니다`+(b.strikes===2&&live.length>width?` (2스트라이크로 ${live.length-width}존 확장)`:'')
     +(width<cfg.zoneMax?` · ${WIDEN_EVERY}타석마다 넓어집니다.`:' · 더 넓어지지 않습니다.');
   const total=weights.reduce((a,x)=>a+x,0);
+  const encounterInfo=encounter?{label:encounter.encounter.label,summary:encounter.encounter.summary,counter:encounter.encounter.counter,
+    current:encounterStatus(s,encounter.targets)?.current,active:true,appliedDistribution:true}:null;
+  if(encounterInfo){const target=weights.slice(0,9).reduce((best,p,z)=>p>weights[best]?z:best,0);name=`${encounterInfo.label} · ${ZONES[target]} 선호`;detail=encounterInfo.current;}
   return {kind:style==='sinker'?'sinker':style==='deep'?'deep':b.strikes===2?'putaway':'fastball',name,detail,
-    repertoire:live,width,maxWidth:cfg.zoneMax,probabilities:weights.map(x=>x/total)};
+    repertoire:live,width,maxWidth:cfg.zoneMax,probabilities:encounter?weights:weights.map(x=>x/total),
+    ...(encounter?{encounter:encounterInfo}:{})};
 }
 function dealPitch(s){
   const b=s.battle;b.intent=baseIntent(s);let r=unit(s,'pitchSeed'),zone=9;
   for(let i=0;i<10;i++){r-=b.intent.probabilities[i];if(r<0){zone=i;break;}}
   /* 속임수 코스: 첫 공은 높은 확률로, 이후 공도 공개된 확률로 예고 코스 옆 칸으로 밀린다. */
-  const gr0=v10GimmickRules(s),trick=b.strikes===0&&b.balls===0?gr0.trickRate:gr0.trickLate;
+  const gr0=v10GimmickRules(s),hasEncounter=!!b.intent.encounter?.appliedDistribution,
+    trick=hasEncounter?0:b.strikes===0&&b.balls===0?gr0.trickRate:gr0.trickLate;
   if(trick&&zone<9&&unit(s,'pitchSeed')<trick){
     const near=trickNeighbors(zone);zone=near[Math.floor(unit(s,'pitchSeed')*near.length)%near.length];
   }
@@ -159,7 +168,7 @@ export function chooseRoute(state,routeId){
 export function startBattle(state){
   if(state.phase!=='map'||state.build===DECKBUILDER_BUILD&&!routeChoice(state.stage,state.route))return state;const s=clone(state);s.phase='battle';
   const defenseCrisis=s.defenseLab?.schema===1&&s.defenseLab.scenario==='crisis';
-  s.battle={turn:1,batterIndex:0,preparations:0,runSignal:false,results:[],history:[],outs:Math.min(2,Math.max(0,defenseCrisis?2:s.runOuts|0)),runs:0,strikes:defenseCrisis?2:0,balls:0,...(s.version===10?{energy:v10EnergyBase(s),energyCap:v10EnergyBase(s),takeEnergyBonus:0}:{}),
+  s.battle={turn:1,batterIndex:0,preparations:0,runSignal:false,results:[],history:[],...(v10Opponent(s)?.encounter?.version===1?{pitchCount:0}:{}),outs:Math.min(2,Math.max(0,defenseCrisis?2:s.runOuts|0)),runs:0,strikes:defenseCrisis?2:0,balls:0,...(s.version===10?{energy:v10EnergyBase(s),energyCap:v10EnergyBase(s),takeEnergyBonus:0}:{}),
     aim:0,aimZone:s.build==='pull'?3:s.build==='away'?5:4,expanded:false,patient:false,scouted:false,
     expandedPlus:false,scoutPlus:false,runSignalPlus:false,scoutBall:false,
     bonusPower:0,bonusDmg:0,bonusPressure:0,bonusBall:0,bonusWalk:0,bonusFoul:0,
@@ -519,7 +528,7 @@ function resolve(state,id,supports=[]){
   if(protectionSpent)s.defenseLab={...s.defenseLab,protectionUsed:true,transferredProtection:false};
   if(id&&id!=='basic'){b.hand.splice(b.hand.indexOf(id),1);b.discard.push(id);s.stats.cards++;}
   for(const support of supportItems){b.hand.splice(b.hand.indexOf(support.id),1);b.discard.push(support.id);s.stats.cards++;}
-  s.stats.pitches++;s.phase='pitch';
+  s.stats.pitches++;if(Number.isInteger(b.pitchCount)||v10Opponent(s)?.encounter?.version===1)b.pitchCount=(Number.isInteger(b.pitchCount)?b.pitchCount:b.history.length)+1;s.phase='pitch';
   const countBefore={balls:b.balls,strikes:b.strikes};
   let existingRunnerSteps=0;
   if(result.kind==='hit'){
@@ -580,7 +589,9 @@ function resolve(state,id,supports=[]){
   if(lab)b.revealed.defenseLabBefore={activeConstraint:lab.activeConstraint,threat:defenseLabThreat(state),
     protectionUsed:lab.protectionUsed,transferredProtection:lab.transferredProtection,counterReady:lab.counterReady,
     counterEarned:lab.counterEarned===true||(lab.counterEarned===undefined&&(lab.counterReady||lab.protectionUsed)),powerInvested:lab.powerInvested};
-  b.history.push({zone:pending.zone,label:result.label,aimZone:id?b.aimZone:null,turn:b.turn,...countBefore});
+  b.history.push({zone:pending.zone,label:result.label,kind:result.kind,action:id?'card':'take',
+    aimZone:id?b.aimZone:null,exact:!!(id&&!result.assistOnly&&mainCoverage.includes(pending.zone)&&b.aimZone===pending.zone),
+    connected:(stackPlan?.links||[]).length>0&&(stackPlan.links||[]).every(link=>link.connected),turn:b.turn,...countBefore});
   b.history=b.history.slice(-18);b.pending=null;if(b.shot)delete b.shot;b.scouted=false;b.scoutPlus=false;b.scoutBall=false;
   // Upgraded 코스 조정 survives the swing and lasts the rest of the plate appearance.
   if(id&&!b.expandedPlus)b.expanded=false;
@@ -912,10 +923,10 @@ export function applyStartPack(state,packId){
   return s;
 }
 
-export function createV10Duel(seed=Date.now()>>>0,{tutorial=false}={}){
+export function createV10Duel(seed=Date.now()>>>0,{tutorial=false,encounters=true}={}){
   const s=createDuel(seed,DECKBUILDER_BUILD);
   s.version=10;s.phase='map';s.stage=0;s.route=null;s.routeHistory=[];s.victories=0;s.battle=null;s.last=null;
-  s.runMap=createRunMap(seed,{tutorial});s.pitcher=null;s.rewards=[];s.facilities=[];
+  s.runMap=createRunMap(seed,{tutorial,encounters});s.pitcher=null;s.rewards=[];s.facilities=[];
   s.v10={nodeId:null,opponent:null,lastCombat:null,rewardChoices:[],runComplete:false,
     nextBattleBonus:null,activeBattleBonus:null,utilityHistory:[]};
   return s;
@@ -1012,7 +1023,7 @@ export function createDefenseLabState(seedOrOptions=20261022,packArg='link',scen
   const opts=seedOrOptions&&typeof seedOrOptions==='object'?seedOrOptions:null;
   const seed=opts?.seed??seedOrOptions,pack=opts?.pack??packArg,scenario=opts?.scenario??scenarioArg;
   if(!DEFENSE_LAB_PACKS.has(pack)||!DEFENSE_LAB_SCENARIOS.has(scenario))throw new Error('실험 조건이 올바르지 않습니다.');
-  let state=createV10Duel(seed>>>0,{tutorial:true});
+  let state=createV10Duel(seed>>>0,{tutorial:true,encounters:false});
   state=applyStartPack(state,pack);
   const defendId='defense-lab-defend';
   state.deck.push({id:defendId,kind:'defend'});state.nextId=(state.nextId||0)+1;
@@ -1141,19 +1152,21 @@ export function v10DamageTerms(state,{action,choice,r,outcome,stackCardCount=1,s
   const momentumBefore=v10Momentum(state),momentumRate=v10MomentumRate(momentumBefore);
   const shotRate=action.type==='card'&&v10ShotMode(state)?v10ShotRate(state):1;
   const relicPlan={...relicPlan0,damageRate:relicPlan0.damageRate*momentumRate*shotRate};
+  const encounter=encounterPlan(state,{action,choice,r,outcome,stackCardCount});
+  const damageMultiplier=relicPlan.damageRate*encounter.rate;
   const precisionRate=action.type==='card'&&r.kind==='hit'&&!r.assistOnly&&Array.isArray(r.primaryCoverage)&&r.primaryCoverage.includes(r.zone)
     ?(CARDS[choice]?.pressure||0)+(state.battle?.bonusPressure||0):0;
   const lab=state.defenseLab?.schema===1?state.defenseLab:null;
   const fxPlan=v10CardFxPlan(state,{battle:{hand:new Array(Math.max(0,handAfter|0))}},action.type==='card'?choice:null,r,pitchInPA);
   const labCounter=!!(lab?.pack==='hold'&&lab.counterReady&&r.kind==='hit');
   const pressureBase=precisionRate?damageForOutcome(outcome,foulStreak).damage:0;
-  const precisionBonus=precisionRate?Math.max(0,Math.round(pressureBase*relicPlan.damageRate*precisionRate)):0;
+  const precisionBonus=precisionRate?Math.max(0,Math.round(pressureBase*damageMultiplier*precisionRate)):0;
   // 주자 압박: 공 던지기 전 루상 주자 수 기준. 안타일 때만.
   const runnersBefore=(state.battle?.bases||[]).filter(Boolean).length;
   const runnerRate=r.kind==='hit'?runnersBefore*V10_RUNNER_PRESSURE:0;
-  const runnerBonus=runnerRate?Math.max(0,Math.round(damageForOutcome(outcome,0).damage*relicPlan.damageRate*runnerRate)):0;
-  return {relicPlan0,relicPlan,momentumBefore,momentumRate,shotRate,precisionRate,precisionBonus,runnersBefore,runnerRate,runnerBonus,fxPlan,labCounter,
-    damageMultiplier:relicPlan.damageRate,damageBonus:relicPlan.damageBonus+precisionBonus+runnerBonus+fxPlan.bonus+(labCounter?8:0)};
+  const runnerBonus=runnerRate?Math.max(0,Math.round(damageForOutcome(outcome,0).damage*damageMultiplier*runnerRate)):0;
+  return {relicPlan0,relicPlan,momentumBefore,momentumRate,shotRate,precisionRate,precisionBonus,runnersBefore,runnerRate,runnerBonus,fxPlan,labCounter,encounterPlan:encounter,
+    damageMultiplier,damageBonus:relicPlan.damageBonus+precisionBonus+runnerBonus+fxPlan.bonus+(labCounter?8:0)+encounter.bonus};
 }
 export function playV10Action(state,action){
   if(!(state?.version===10||state?.version===11)||state.phase!=='battle'||!state.pitcher||state.pitcher.hp<=0||!action)return state;
@@ -1239,17 +1252,18 @@ export function playV10Action(state,action){
   next.v10={...next.v10,lastCombat:{
     hpBefore:state.pitcher?.hp,choice,shotRate:terms.shotRate,choiceLabel:[v10ChoiceLabel(choice),...supportNames].join(' + '),aimZone:r.aimZone,aimLabel:choice==='take'?'노림 없음':[v10ZoneLabel(r.aimZone),...supportAims].join(' + '),
     actualPitch:r.zone,pitchLabel:v10ZoneLabel(r.zone),pitchName:next.battle?.intent?.name||'',
-    verdict:r.label,damage:applied.result.damage,baseDamage:applied.result.baseDamage,damageRate:relicPlan.damageRate,
+    verdict:r.label,damage:applied.result.damage,baseDamage:applied.result.baseDamage,damageRate:terms.damageMultiplier,
     baseStackDamageRate:r.stackBaseDamageRate??v10SwingDamageRate(stackCardCount),orderedStackDamageRate:stackDamageRate,
     connectCount:r.stackConnectCount||0,connectBonus:r.stackConnectBonus||0,stackLinks:r.stackLinks||[],stackSteps:r.stackSteps||[],
-    relicBonus:relicPlan.damageBonus,precisionRate,precisionBonus,cardFxBonus:fxPlan.bonus,totalDamageBonus:relicPlan.damageBonus+precisionBonus+runnerBonus+fxPlan.bonus+(labCounter?8:0),
+    relicBonus:relicPlan.damageBonus,precisionRate,precisionBonus,cardFxBonus:fxPlan.bonus,totalDamageBonus:terms.damageBonus,
     runnersBefore,runnerRate,runnerBonus,runsScored,shakenBefore,shakenAfter,
     momentumBefore,momentumAfter,momentumRate,stackRate:relicPlan0.damageRate,
-    relicEvents:relicPlan.events,cardCount:stackCardCount,hpAfter:applied.result.hpAfter,takeEnergyBonus:r.takeEnergyBonus||0,
+    relicEvents:relicPlan.events,encounterPlan:terms.encounterPlan,encounter:terms.encounterPlan,encounterEvents:terms.encounterPlan.events,cardCount:stackCardCount,hpAfter:applied.result.hpAfter,takeEnergyBonus:r.takeEnergyBonus||0,
     takeDrawBonus:r.takeDrawBonus||0,...(r.takeDrawReason?{takeDrawReason:r.takeDrawReason}:{}),
     ...(labEvent?{defenseLab:labEvent}:{}),
   }};
   const pressureEvents=[
+    ...terms.encounterPlan.events,
     ...fxPlan.events,
     ...(labCounter?['버티기 반격 · 다음 안타 피해 +8 HP']:[]),
     ...(labEvent?.protected?['보호 파울 · '+(labEvent.savedStrikeout?'삼진을 파울로 전환':'커트 보호 발동')+(labEvent.blocked?' · 예고 봉쇄':'')]:[]),

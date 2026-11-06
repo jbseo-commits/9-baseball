@@ -1,0 +1,12 @@
+const fs=require('node:fs');const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+(async()=>{const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox']});const errors=[],requests=[];
+try{const p=await browser.newPage({viewport:{width:844,height:390},reducedMotion:'reduce'});p.on('pageerror',e=>errors.push(String(e)));p.on('response',r=>{if(r.status()>=400)requests.push({url:r.url(),status:r.status()})});
+const url='http://127.0.0.1:5191/9-baseball/?battleUi=vnext&battlePlay=1&previewRun=encounters-v1&seed=3';
+await p.goto(url);await p.waitForSelector('[data-testid="bv-encounter"]');const initial=await p.locator('[data-testid="bv-encounter"]').innerText();
+if(!initial.includes('청록 왕복'))throw Error(initial);
+await p.waitForFunction(()=>document.querySelector('.bv-actor-pitcher img')?.complete);const image=await p.locator('.bv-actor-pitcher img').evaluate(i=>({width:i.naturalWidth,height:i.naturalHeight,url:i.src}));if(image.width!==768||image.height!==1024)throw Error(JSON.stringify(image));
+const open=p.getByRole('button',{name:'손패 펼치기',exact:true});if(await open.count())await open.click();await p.locator('.bv-card[data-card-kind="place"]').first().click();await p.locator('.bv-cell[data-zone="2"]').click();await p.getByTestId('bp-swing').click();await p.waitForSelector('.battle-vnext[data-phase="result"]');
+const state=await p.evaluate(()=>{const k=Object.keys(sessionStorage).find(k=>k.startsWith('9zone-playable-encounters-v1:'));return JSON.parse(sessionStorage.getItem(k))});if(state.stats.pitches!==1||!state.v10.lastCombat.encounter)throw Error('actual card did not resolve');
+await p.screenshot({path:__dirname+'/built-card-result-phone.png'});await p.reload();await p.waitForSelector('.battle-vnext');const resumed=await p.evaluate(()=>{const k=Object.keys(sessionStorage).find(k=>k.startsWith('9zone-playable-encounters-v1:'));return JSON.parse(sessionStorage.getItem(k))});if(resumed.stats.pitches!==1)throw Error('resume reset');
+const report={status:errors.length||requests.length?'failed':'passed',url,initial,image,pitches:state.stats.pitches,actualCard:state.v10.lastCombat.choiceLabel,encounter:state.v10.lastCombat.encounter,resumedPitches:resumed.stats.pitches,errors,failedRequests:requests};fs.writeFileSync(__dirname+'/built-report.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));if(report.status!=='passed')process.exitCode=1;
+}finally{await browser.close()}})().catch(e=>{console.error(e);process.exitCode=1});

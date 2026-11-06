@@ -217,6 +217,10 @@ export function buildBattleViewModel({
     shaken:pre&&Number.isInteger(combat?.shakenBefore)?combat.shakenBefore:v10Shaken(s),mentalCap:v10MentalCap(s),
     tier:s.v10?.opponent?.rewardTier||1,
     gimmick:s.v10?.opponent?.gimmick?{id:s.v10.opponent.gimmick.id,label:s.v10.opponent.gimmick.label,summary:s.v10.opponent.gimmick.summary||''}:null,
+    // Authored when this pitch was dealt: never derive the next trigger from
+    // the already-judged history/HP while the current ball is still in flight.
+    encounter:b.intent?.encounter?{label:b.intent.encounter.label,summary:b.intent.encounter.summary,
+      current:b.intent.encounter.current||'',counter:b.intent.encounter.counter}:null,
   };
   hud.momentumRate=v10MomentumRate(hud.momentum);
 
@@ -231,6 +235,7 @@ export function buildBattleViewModel({
       coverage:[...(r.coverage||[])],primaryCoverage:[...(r.primaryCoverage||[])],supportCoverages:(r.supportCoverages||[]).map(x=>({...x,coverage:[...(x.coverage||[])]})),
       explanation:resultExplanation(s),damage:Math.max(0,combat?.damage??pitcher?.lastDamage??0),
       precisionBonus:combat?.precisionBonus||0,relicBonus:combat?.relicBonus||0,relicEvents:[...(combat?.relicEvents||[])],
+      encounterEvents:[...(combat?.encounter?.events||[])],
       hpBefore,hpAfter:pitcher?.hp??null,knockedOut:(pitcher?.hp??1)===0,moves,
       next:s.phase==='pitch'?'pitch':s.phase==='between'?'batter':null};
   }

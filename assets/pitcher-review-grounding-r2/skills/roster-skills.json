@@ -1,0 +1,329 @@
+{
+  "source": {
+    "gimmickModule": "src/duel/gimmick.js",
+    "roster": "assets/pitcher-mobs-v1/roster.json",
+    "registration": "src/duel/battle-vnext/roster-registration.json",
+    "gimmickEntryCount": 12,
+    "rosterCount": 20,
+    "note": "Exact current public gimmick mapping snapshot. No new skill or gimmick is inferred for unmapped roster IDs."
+  },
+  "gimmickIds": [
+    "pressure",
+    "trick",
+    "bluff",
+    "tyrant",
+    "halo",
+    "eclipse"
+  ],
+  "entries": [
+    {
+      "artId": "regular-01-red-rush",
+      "name": "레드 러시",
+      "tier": "battle",
+      "releaseFrame": 79,
+      "gimmick": null,
+      "hasCharacterSpecificSkill": false
+    },
+    {
+      "artId": "regular-02-teal-mirage",
+      "name": "청록 미라주",
+      "tier": "battle",
+      "releaseFrame": 76,
+      "gimmick": null,
+      "hasCharacterSpecificSkill": false
+    },
+    {
+      "artId": "regular-03-amber-sinker",
+      "name": "앰버 싱커",
+      "tier": "battle",
+      "releaseFrame": 76,
+      "gimmick": null,
+      "hasCharacterSpecificSkill": false
+    },
+    {
+      "artId": "regular-04-ivory-ace",
+      "name": "아이보리 에이스",
+      "tier": "battle",
+      "releaseFrame": 79,
+      "gimmick": null,
+      "hasCharacterSpecificSkill": false
+    },
+    {
+      "artId": "regular-05-violet-sting",
+      "name": "바이올렛 스팅",
+      "tier": "battle",
+      "releaseFrame": 79,
+      "gimmick": null,
+      "hasCharacterSpecificSkill": false
+    },
+    {
+      "artId": "regular-06-rose-paint",
+      "name": "로즈 페인트",
+      "tier": "battle",
+      "releaseFrame": 79,
+      "gimmick": null,
+      "hasCharacterSpecificSkill": false
+    },
+    {
+      "artId": "sky-phantom",
+      "name": "스카이 팬텀",
+      "tier": "battle",
+      "releaseFrame": 76,
+      "gimmick": null,
+      "hasCharacterSpecificSkill": false
+    },
+    {
+      "artId": "gale-twister",
+      "name": "게일 트위스터",
+      "tier": "elite",
+      "releaseFrame": 76,
+      "gimmick": {
+        "id": "trick",
+        "label": "속임수 코스",
+        "summary": "첫 공은 60% 확률로, 이후 공도 25% 확률로 예고된 코스 옆 칸으로 밀려 들어온다.",
+        "phases": {
+          "pressured": "흔들기: 한 번에 겹칠 수 있는 카드가 3장으로 줄어든다."
+        },
+        "phaseRules": {
+          "steady": "First pitch: 60% adjacent-zone shift; later pitches: 25%.",
+          "pressured": "Maximum swing stack becomes 3.",
+          "critical": "No additional critical-phase rule."
+        }
+      },
+      "hasCharacterSpecificSkill": true
+    },
+    {
+      "artId": "vulcan-blaze",
+      "name": "볼칸 블레이즈",
+      "tier": "elite",
+      "releaseFrame": 76,
+      "gimmick": {
+        "id": "pressure",
+        "label": "압박 투구",
+        "summary": "1스트라이크부터 코스가 1개, 2스트라이크면 3개 더 열리고, 존 밖 공이 크게 줄어 기다리기가 어려워진다.",
+        "phases": {
+          "pressured": "압박: 준비는 타석당 1회로 줄어든다."
+        },
+        "phaseRules": {
+          "steady": "1 strike: +1 zone; 2 strikes: +3 additional zones; out-of-zone pitch weight ×0.35.",
+          "pressured": "Prep limit becomes 1 per at-bat.",
+          "critical": "No additional critical-phase rule."
+        }
+      },
+      "hasCharacterSpecificSkill": true
+    },
+    {
+      "artId": "tide-vesper",
+      "name": "타이드 베스퍼",
+      "tier": "battle",
+      "releaseFrame": 76,
+      "gimmick": null,
+      "hasCharacterSpecificSkill": false
+    },
+    {
+      "artId": "elite-01-cobalt-impact",
+      "name": "코발트 임팩트",
+      "tier": "elite",
+      "releaseFrame": 79,
+      "gimmick": {
+        "id": "pressure",
+        "label": "압박 투구",
+        "summary": "1스트라이크부터 코스가 1개, 2스트라이크면 3개 더 열리고, 존 밖 공이 크게 줄어 기다리기가 어려워진다.",
+        "phases": {
+          "pressured": "압박: 준비는 타석당 1회로 줄어든다."
+        },
+        "phaseRules": {
+          "steady": "1 strike: +1 zone; 2 strikes: +3 additional zones; out-of-zone pitch weight ×0.35.",
+          "pressured": "Prep limit becomes 1 per at-bat.",
+          "critical": "No additional critical-phase rule."
+        }
+      },
+      "hasCharacterSpecificSkill": true
+    },
+    {
+      "artId": "elite-02-neon-trick",
+      "name": "네온 트릭",
+      "tier": "elite",
+      "releaseFrame": 79,
+      "gimmick": {
+        "id": "trick",
+        "label": "속임수 코스",
+        "summary": "첫 공은 60% 확률로, 이후 공도 25% 확률로 예고된 코스 옆 칸으로 밀려 들어온다.",
+        "phases": {
+          "pressured": "흔들기: 한 번에 겹칠 수 있는 카드가 3장으로 줄어든다."
+        },
+        "phaseRules": {
+          "steady": "First pitch: 60% adjacent-zone shift; later pitches: 25%.",
+          "pressured": "Maximum swing stack becomes 3.",
+          "critical": "No additional critical-phase rule."
+        }
+      },
+      "hasCharacterSpecificSkill": true
+    },
+    {
+      "artId": "elite-03-wine-bluff",
+      "name": "와인 블러프",
+      "tier": "elite",
+      "releaseFrame": 79,
+      "gimmick": {
+        "id": "bluff",
+        "label": "볼 유인",
+        "summary": "존 밖 볼이 평소보다 35%p 늘어난다. 치지 않고 기다리는 선택이 값지다.",
+        "phases": {
+          "pressured": "독기: 존 밖 볼이 45%p로 늘고, 준비는 타석당 1회로 줄어든다."
+        },
+        "phaseRules": {
+          "steady": "Out-of-zone ball share increases by 35 percentage points.",
+          "pressured": "Ball share increases by 45 percentage points; prep limit becomes 1 per at-bat.",
+          "critical": "No additional critical-phase rule."
+        }
+      },
+      "hasCharacterSpecificSkill": true
+    },
+    {
+      "artId": "jade-viper",
+      "name": "제이드 바이퍼",
+      "tier": "elite",
+      "releaseFrame": 76,
+      "gimmick": {
+        "id": "trick",
+        "label": "속임수 코스",
+        "summary": "첫 공은 60% 확률로, 이후 공도 25% 확률로 예고된 코스 옆 칸으로 밀려 들어온다.",
+        "phases": {
+          "pressured": "흔들기: 한 번에 겹칠 수 있는 카드가 3장으로 줄어든다."
+        },
+        "phaseRules": {
+          "steady": "First pitch: 60% adjacent-zone shift; later pitches: 25%.",
+          "pressured": "Maximum swing stack becomes 3.",
+          "critical": "No additional critical-phase rule."
+        }
+      },
+      "hasCharacterSpecificSkill": true
+    },
+    {
+      "artId": "copper-sirocco",
+      "name": "코퍼 시로코",
+      "tier": "elite",
+      "releaseFrame": 76,
+      "gimmick": {
+        "id": "bluff",
+        "label": "볼 유인",
+        "summary": "존 밖 볼이 평소보다 35%p 늘어난다. 치지 않고 기다리는 선택이 값지다.",
+        "phases": {
+          "pressured": "독기: 존 밖 볼이 45%p로 늘고, 준비는 타석당 1회로 줄어든다."
+        },
+        "phaseRules": {
+          "steady": "Out-of-zone ball share increases by 35 percentage points.",
+          "pressured": "Ball share increases by 45 percentage points; prep limit becomes 1 per at-bat.",
+          "critical": "No additional critical-phase rule."
+        }
+      },
+      "hasCharacterSpecificSkill": true
+    },
+    {
+      "artId": "boss-01-emerald-tyrant",
+      "name": "에메랄드 타이런트",
+      "tier": "boss",
+      "releaseFrame": 79,
+      "gimmick": {
+        "id": "tyrant",
+        "label": "낮은 벽",
+        "summary": "낮은 3코스 비중 +10%p.",
+        "phases": {
+          "pressured": "지배: 준비는 타석당 1회로 줄어든다.",
+          "critical": "낮은 3코스 비중이 +20%p로 커진다."
+        },
+        "phaseRules": {
+          "steady": "Lower-three-zone share increases by 10 percentage points.",
+          "pressured": "Prep limit becomes 1 per at-bat.",
+          "critical": "Lower-three-zone share increases by 20 percentage points."
+        }
+      },
+      "hasCharacterSpecificSkill": true
+    },
+    {
+      "artId": "boss-02-platinum-halo",
+      "name": "플래티넘 헤일로",
+      "tier": "boss",
+      "releaseFrame": 79,
+      "gimmick": {
+        "id": "halo",
+        "label": "후퇴 수비",
+        "summary": "높은 공과 깊은 수비로 홈런 외 장타를 단타로 누른다.",
+        "phases": {
+          "pressured": "후광: 한 번에 겹칠 수 있는 카드가 3장으로 줄어든다.",
+          "critical": "존 밖 볼이 +10%p 늘어난다."
+        },
+        "phaseRules": {
+          "steady": "Deep-style defense suppresses non-home-run extra-base hits to singles.",
+          "pressured": "Maximum swing stack becomes 3.",
+          "critical": "Out-of-zone ball share increases by 10 percentage points."
+        }
+      },
+      "hasCharacterSpecificSkill": true
+    },
+    {
+      "artId": "boss-03-black-eclipse",
+      "name": "블랙 이클립스",
+      "tier": "boss",
+      "releaseFrame": 79,
+      "gimmick": {
+        "id": "eclipse",
+        "label": "반대 열 승부",
+        "summary": "직전에 노린 열의 반대 열을 찌른다.",
+        "phases": {
+          "pressured": "일식: 반대 열 쏠림이 더 강해진다.",
+          "critical": "준비는 타석당 1회로 줄어든다."
+        },
+        "phaseRules": {
+          "steady": "Pitch selection favors the column opposite the previous aim.",
+          "pressured": "Opposite-column bias strengthens by +6 weight.",
+          "critical": "Prep limit becomes 1 per at-bat."
+        }
+      },
+      "hasCharacterSpecificSkill": true
+    },
+    {
+      "artId": "emerald-tempest",
+      "name": "에메랄드 템페스트",
+      "tier": "boss",
+      "releaseFrame": 76,
+      "gimmick": {
+        "id": "halo",
+        "label": "후퇴 수비",
+        "summary": "높은 공과 깊은 수비로 홈런 외 장타를 단타로 누른다.",
+        "phases": {
+          "pressured": "후광: 한 번에 겹칠 수 있는 카드가 3장으로 줄어든다.",
+          "critical": "존 밖 볼이 +10%p 늘어난다."
+        },
+        "phaseRules": {
+          "steady": "Deep-style defense suppresses non-home-run extra-base hits to singles.",
+          "pressured": "Maximum swing stack becomes 3.",
+          "critical": "Out-of-zone ball share increases by 10 percentage points."
+        }
+      },
+      "hasCharacterSpecificSkill": true
+    },
+    {
+      "artId": "onyx-eclipse",
+      "name": "오닉스 이클립스",
+      "tier": "boss",
+      "releaseFrame": 76,
+      "gimmick": {
+        "id": "eclipse",
+        "label": "반대 열 승부",
+        "summary": "직전에 노린 열의 반대 열을 찌른다.",
+        "phases": {
+          "pressured": "일식: 반대 열 쏠림이 더 강해진다.",
+          "critical": "준비는 타석당 1회로 줄어든다."
+        },
+        "phaseRules": {
+          "steady": "Pitch selection favors the column opposite the previous aim.",
+          "pressured": "Opposite-column bias strengthens by +6 weight.",
+          "critical": "Prep limit becomes 1 per at-bat."
+        }
+      },
+      "hasCharacterSpecificSkill": true
+    }
+  ]
+}

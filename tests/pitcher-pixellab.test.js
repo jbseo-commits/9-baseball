@@ -53,32 +53,25 @@ describe('PixelLab pitch animations',()=>{
     }
   });
 
-  it('replaces that pitcher\'s SD atlas in the battle, and stops shipping the SD one',()=>{
+  it('preserves PixelLab sources while the approved grounded roster replaces all live atlases',()=>{
     const visuals=fs.readFileSync(new URL('../src/duel/pitcher-visuals.js',import.meta.url),'utf8');
     for(const id of ids){
-      expect(String(pitcherAtlases[id])).toContain('pitcher-pixellab-v1');
-      expect(visuals).toContain(`'!../../assets/pitcher-sd-v2/atlases/${id}-pitch-120-atlas.png'`);
+      expect(fs.existsSync(new URL(`atlases/${id}-pitch-120-atlas.png`,root))).toBe(true);
+      expect(String(pitcherAtlases[id])).toContain('pitcher-grounded-runtime-v1/runtime');
     }
-    expect(String(pitcherAtlases['regular-04-ivory-ace'])).toContain('pitcher-sd-v2');
-    expect(String(pitcherAtlases['tide-vesper'])).toContain('pitcher-study-v2');
-    expect(String(pitcherAtlases['sky-phantom'])).toContain('pitcher-study-v3');
-    expect(String(pitcherAtlases['gale-twister'])).toContain('pitcher-study-v4');
-    expect(String(pitcherAtlases['vulcan-blaze'])).toContain('pitcher-study-v5');
-    expect(String(pitcherAtlases['jade-viper'])).toContain('pitcher-study-jade-viper');
-    expect(String(pitcherAtlases['copper-sirocco'])).toContain('pitcher-study-copper-sirocco');
-    expect(String(pitcherAtlases['onyx-eclipse'])).toContain('pitcher-study-onyx-eclipse/runtime');
-    expect(String(pitcherAtlases['emerald-tempest'])).toContain('pitcher-study-emerald-tempest/runtime');
+    expect(visuals).not.toMatch(/import\.meta\.glob\(['"]\.\.\/\.\.\/assets\/pitcher-(?:pixellab|sd)-/);
     expect(Object.keys(pitcherAtlases)).toHaveLength(20);
   });
 
-  it('puts her feet on the rubber, the stride dust under her front foot and the ball in her hand',()=>{
+  it('uses the reviewed pivot, front-foot landing and hand points for the new runtime revision',()=>{
     const stance=json('../src/duel/pitcher-stance.json'),stride=json('../src/duel/pitcher-stride.json'),release=json('../src/duel/pitcher-release.json');
+    const reviewed=json('../assets/pitcher-review-grounding-r2/manifest.json');
     for(const id of ids){
-      const m=json(`../assets/pitcher-pixellab-v1/${id}-manifest.json`);
-      expect(stance[id],id).toEqual(m.stance);
-      expect(stride[id],id).toEqual(m.stride);
-      expect(release[id],id).toEqual(m.release);
-      expect(m.stride[0]).toBeLessThan(RED_RUSH_RELEASE_FRAME);
+      const m=reviewed.characters.find(c=>c.slug===id);
+      expect(stance[id],id).toEqual([m.anchor.x/512,m.anchor.y/512]);
+      expect(stride[id],id).toEqual([Math.round(m.phase_ms[4]*60/1000),m.landing_point.x/512,m.landing_point.y/512]);
+      expect(release[id],id).toEqual([m.release_point.x/512,m.release_point.y/512]);
+      expect(stride[id][0]).toBeLessThan(Math.round(m.release_ms*60/1000));
     }
   });
 });

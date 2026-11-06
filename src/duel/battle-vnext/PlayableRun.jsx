@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import Duel from '../App.jsx';
 import {createV10Duel,enterV10Node,readV10Duel,saveV10Duel} from '../engine.js';
-import {playableStorage} from './playable-storage.js';
+import {playableStorage,PLAYABLE_PREFIX,ENCOUNTER_PLAYABLE_PREFIX} from './playable-storage.js';
 import MemoryPreviewBoundary from './MemoryPreviewBoundary.jsx';
 
 export function startPlayableRun(storage,search=''){
@@ -13,6 +13,6 @@ export function startPlayableRun(storage,search=''){
  const run=node?enterV10Node(initial,node.id):initial;saveV10Duel(storage,run);return run;
 }
 export default function PlayableRun(){
- const [storage]=useState(()=>{let backing;try{backing=window.sessionStorage;}catch{}const own=playableStorage(backing);startPlayableRun(own,window.location.search);return own;});
+ const [storage]=useState(()=>{let backing;try{backing=window.sessionStorage;}catch{}const params=new URLSearchParams(window.location.search),prefix=params.get('previewRun')==='encounters-v1'?ENCOUNTER_PLAYABLE_PREFIX:PLAYABLE_PREFIX,own=playableStorage(backing,prefix);startPlayableRun(own,window.location.search);return own;});
  return <MemoryPreviewBoundary><div className="vnext-shell bv-playable-run"><Duel storage={storage} startInRun/></div></MemoryPreviewBoundary>;
 }

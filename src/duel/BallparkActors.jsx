@@ -1,7 +1,7 @@
 import React,{useEffect,useRef} from 'react';
 import {batterMotionV3Timeline,BATTER_MOTION_V3_HIT_GRADES} from './batterMotionV3.js';
 import {batterRigIdle,batterRigLoad} from './batter-v15.js';
-import {redRushBatterShot,redRushFrameAt,hasPitchVisual,RED_RUSH_RELEASE_MS,RED_RUSH_RELEASE_FRAME as RELEASE_FRAME} from './pitcher-sd.js';
+import {redRushBatterShot,redRushFrameAt,hasPitchVisual,pitcherReleaseFrame,pitcherAtlasLayout,pitcherDrawingAt} from './pitcher-sd.js';
 import {ballExitProfile,drawBallExitTrail,drawBallTrailDots} from './ballExitVfx.js';
 import RELEASE from './pitcher-release.json';
 import STRIDE from './pitcher-stride.json';
@@ -9,7 +9,7 @@ import STANCE from './pitcher-stance.json';
 import impactSlashVfx from '../../assets/production-art/battle-polish-v16/impact-slash.png';
 
 /* V13 C2 — the batter and the pitcher drawn by PixiJS (WebGL) over the CSS stadium.
-   The art is the repository's: the pitcher's 120-frame atlas and the batter's ten authored key poses.
+   The art is the repository's: the pitcher's 12-drawing atlas on 120 ticks and the batter's ten authored key poses.
    Pixi does not add frames; it makes the ones we have read as motion:
    - both actors sit on the same layout boxes as the DOM actors (.bp-pitcher / .bp-batter), so every
      portrait/landscape layout is kept, and share one ground shadow and one idle breath;
@@ -83,8 +83,9 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
       let pitchFrames=null;
       if(pitcherAtlas){
         const atlas=await PIXI.Assets.load(pitcherAtlas);atlas.source.scaleMode='nearest';
-        const fw=atlas.width/10,fh=atlas.height/12;
-        pitchFrames=Array.from({length:120},(_,k)=>new PIXI.Texture({source:atlas.source,frame:new PIXI.Rectangle((k%10)*fw,Math.floor(k/10)*fh,fw,fh)}));
+        const {columns,rows}=pitcherAtlasLayout(artId),fw=atlas.width/columns,fh=atlas.height/rows;
+        const drawings=Array.from({length:columns*rows},(_,k)=>new PIXI.Texture({source:atlas.source,frame:new PIXI.Rectangle((k%columns)*fw,Math.floor(k/columns)*fh,fw,fh)}));
+        pitchFrames=Array.from({length:120},(_,tick)=>drawings[pitcherDrawingAt(artId,tick)]);
       }
       if(!alive){app.destroy(true);return;}
 
@@ -147,7 +148,7 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
       let token=null,start=0,timeline=[{pose:'ready',at:0}],swing=false,hit=false,impactAt=0,stopUntil=0,stopAt=0,vclock=0,lastNow=0,debt=0,rate=1,koFrame=null,dusted={},prevPose='ready',prevPoses=[];
       const begin=now=>{
         const {shot:sh}=live.current;
-        const eff=sh&&pitchFrames?redRushBatterShot(sh,reduced):sh;
+        const eff=sh&&pitchFrames?redRushBatterShot(sh,reduced,pitcherReleaseFrame(live.current.artId)):sh;
         timeline=sh&&!reduced?batterMotionV3Timeline(eff):[{pose:'ready',at:0}];
         swing=timeline.some(k=>k.pose==='swing-mid');
         hit=swing&&BATTER_MOTION_V3_HIT_GRADES.has(sh?.grade);
@@ -190,15 +191,15 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
           let shadowW=p.w*.26;
           const st=STRIDE[aid0]||[51,.05,.95];
           if(active&&!dusted.plant&&fi>=st[0]){dusted.plant=1;if(!reduced)spawnDust(px-tw/2+st[1]*tw,py-th+st[2]*th,7,p.h*1.4);}
-          const w0=RELEASE_FRAME-WHIP_FROM,w1=RELEASE_FRAME+WHIP_TO,whipOn=active&&!reduced&&fi>=w0&&fi<=w1;
+          const rf=pitcherReleaseFrame(aid0),w0=rf-WHIP_FROM,w1=rf+WHIP_TO,whipOn=active&&!reduced&&fi>=w0&&fi<=w1;
           pGhosts.forEach((g,i)=>{if(whipOn&&fi-(i+1)*2>=0){g.texture=pitchFrames[fi-(i+1)*2];g.scale.copyFrom(pitcher.scale);g.position.copyFrom(pitcher.position);g.alpha=i?.14:.26;g.tint=0xffd9a0;}else g.alpha=0;});
           if(whipOn){
-            const rp=RELEASE[aid0]||[.05,.35],k=Math.min(1,(fi-w0)/WHIP_FROM),fade=fi>RELEASE_FRAME?1-(fi-RELEASE_FRAME)/(WHIP_TO+1):1;
+            const rp=RELEASE[aid0]||[.05,.35],k=Math.min(1,(fi-w0)/WHIP_FROM),fade=fi>rf?1-(fi-rf)/(WHIP_TO+1):1;
             const ax=px-tw/2+.62*tw,ay=py-th+.12*th,cx=px-tw/2+.3*tw,cy=py-th-.06*th,hx=px-tw/2+rp[0]*tw,hy=py-th+rp[1]*th;
             const q=u=>[(1-u)*(1-u)*ax+2*(1-u)*u*cx+u*u*hx,(1-u)*(1-u)*ay+2*(1-u)*u*cy+u*u*hy];
             const from=Math.max(0,k-.55),N=10,wd=Math.max(2,p.h*.035);
             for(let i=0;i<N;i++){const u0=from+(k-from)*i/N,u1=from+(k-from)*(i+1)/N,[x0,y0]=q(u0),[x1,y1]=q(u1);whip.moveTo(x0,y0).lineTo(x1,y1).stroke({width:wd*(.35+.65*(i+1)/N),color:i>N-3?0xffffff:0xffe08a,alpha:.55*fade*(i+1)/N,cap:'round'});}
-            if(fi>=RELEASE_FRAME&&fi<=RELEASE_FRAME+1){const r=p.h*.06;whip.circle(hx,hy,r).fill({color:0xffffff,alpha:.5});whip.circle(hx,hy,r*2).fill({color:0xffc861,alpha:.18});}
+            if(fi>=rf&&fi<=rf+1){const r=p.h*.06;whip.circle(hx,hy,r).fill({color:0xffffff,alpha:.5});whip.circle(hx,hy,r*2).fill({color:0xffc861,alpha:.18});}
           }
           if(active&&ko&&!reduced){
             const since=t-impactAt-HIT_STOP_MS-KO_DELAY_MS;
@@ -249,13 +250,14 @@ export default function BallparkActors({sceneRef,pitcherAtlas,artId=null,batterP
         const host=hostRef.current;if(host){host.dataset.pose=prevPose;host.dataset.frame=pitcher?String(active?redRushFrameAt(t):0):'';host.dataset.stop=stopAt&&now<stopUntil?'1':'0';host.dataset.impact=active&&hit&&stopAt&&(now-stopAt<180)?'1':'0';host.dataset.rate=String(rate);host.dataset.whip=whip.visible&&pGhosts.some(g=>g.alpha>0)?'1':'0';host.dataset.ko=pitcher&&pitcher.rotation>0?'1':'0';}
         ball.clear();
         const {pitchZone:pz,artId:aid}=live.current;
-        if(active&&pitcher&&p&&pz!=null&&boxes.zone&&!reduced&&t>=RED_RUSH_RELEASE_MS){
+        const registeredReleaseMs=Math.round(pitcherReleaseFrame(aid)*1000/60);
+        if(active&&pitcher&&p&&pz!=null&&boxes.zone&&!reduced&&t>=registeredReleaseMs){
           const rp=RELEASE[aid]||[.05,.35],tw=pitcher.texture.width*pitcher.scale.x,th=pitcher.texture.height*pitcher.scale.y;
           const hx=pitcher.position.x-tw/2+rp[0]*tw,hy=pitcher.position.y-th+rp[1]*th;
           const z=boxes.zone,bb=b||{x:z.x-z.w,y:z.y,w:z.h,h:z.h},bh=bb.h,bxc=bb.x+bb.w/2,byb=bb.y+bb.h;
           const row=pz<9?Math.floor(pz/3):2.4,col=pz<9?pz%3:2.6;
           const tx=bxc+bh*(.39-(col-1)*.03),ty=byb-bh*(.53-row*.07);
-          const unit=bh/100,span=Math.max(1,impactAt-RED_RUSH_RELEASE_MS),k=(t-RED_RUSH_RELEASE_MS)/span;
+          const unit=bh/100,span=Math.max(1,impactAt-registeredReleaseMs),k=(t-registeredReleaseMs)/span;
           let bx,by,r,a=1;
           if(k<=1){const e=Math.pow(k,1.1);bx=hx+(tx-hx)*e;by=hy+(ty-hy)*e-Math.sin(Math.PI*k)*unit*3;r=unit*(1.3+.4*e);}
           else{

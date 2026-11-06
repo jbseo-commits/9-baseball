@@ -6,7 +6,7 @@ import Duel from '../src/duel/App.jsx';
 import {createDuel,startBattle,chooseRoute,playCard,advanceBatter,readDuel,saveDuel,createV10Duel,enterV10Node,saveV10Duel,readV10Duel} from '../src/duel/engine.js';
 import {planAction} from '../src/duel/policy.js';
 import {presentationFor,presentationTimeline} from '../src/duel/presentation.js';
-import {redRushTimeline} from '../src/duel/pitcher-sd.js';
+import {redRushTimeline,pitcherReleaseFrame} from '../src/duel/pitcher-sd.js';
 import {batterMotionV3Timeline} from '../src/duel/batterMotionV3.js';
 
 /* the tutorials moved into the title's 설정 sheet (2026-09-28 title screen) */
@@ -109,7 +109,7 @@ describe('9-zone strategic UI',()=>{
     expect(arena.className).toContain('fx-stage-windup');
     expect([...arena.classList].some(c=>c.startsWith('fx-')&&!c.startsWith('fx-stage-'))).toBe(true);
     expect(arena.querySelector('.pixel-vfx-canvas')).toBeTruthy();
-    const timeline=redRushTimeline(presentationTimeline(presentationFor(readV10Duel(localStorage))));
+    const timeline=redRushTimeline(presentationTimeline(presentationFor(readV10Duel(localStorage))),false,pitcherReleaseFrame(readV10Duel(localStorage).v10.opponent.artId));
     act(()=>vi.advanceTimersByTime(timeline.impactAt+1));
     expect(arena.className).toContain('fx-stage-impact');
     expect(arena.querySelector('.bp-flash')).toBeTruthy();
@@ -160,7 +160,7 @@ describe('9-zone strategic UI',()=>{
     expect(document.querySelector('.sprite-batter.batter-sheet-actor.pose-ready .batter-sheet-frame')).toBeTruthy();
     expect(document.querySelector('.sprite-pitcher.red-rush-actor.pose-legkick .red-rush-frame.duel-sprite')).toBeTruthy();
     const shot=presentationFor(readV10Duel(localStorage));
-    const timeline=redRushTimeline(presentationTimeline(shot));
+    const timeline=redRushTimeline(presentationTimeline(shot),false,pitcherReleaseFrame(readV10Duel(localStorage).v10.opponent.artId));
     const motion=batterMotionV3Timeline(shot);
     expect(motion.map(x=>x.pose)).toContain('swing-mid');
     expect(motion.map(x=>x.pose)).toContain('follow-through-late');
@@ -225,7 +225,7 @@ describe('9-zone strategic UI',()=>{
     fireEvent.click(screen.getByTestId('bp-swing'));
     const arena=screen.getByRole('region',{name:'승부 구장'});
     expect(arena.className).toContain('fx-stage-windup');
-    const timeline=redRushTimeline(presentationTimeline(presentationFor(readV10Duel(localStorage))));
+    const timeline=redRushTimeline(presentationTimeline(presentationFor(readV10Duel(localStorage))),false,pitcherReleaseFrame(readV10Duel(localStorage).v10.opponent.artId));
     act(()=>vi.advanceTimersByTime(timeline.impactAt+1));expect(arena.className).toContain('fx-stage-impact');
     act(()=>vi.advanceTimersByTime(timeline.freeze+1));expect(arena.className).toContain('fx-stage-slowmo');
     expect(document.querySelector('.bp-slowmo')?.textContent).toBe('ONE ZONE');

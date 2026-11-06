@@ -1,4 +1,4 @@
-import React,{useEffect,useRef,useState} from 'react';
+import React,{useEffect,useLayoutEffect,useRef,useState} from 'react';
 import {flushSync} from 'react-dom';
 import {CARDS,cardCost,TYPE_NAMES,STAGES,GLOSSARY,LINEUP,BUILDS,ZONES,GROWTHS,growthCost,rewardChoices,AXES,AXIS_NAMES,ROLES,REWARD_ACTIONS,AFFINITY_CARDS,upgradeText,canUpgrade,DECK_MIN,DECK_MAX,
   READ_LEVELS,RELICS,RELIC_OFFERS,bandFor,rangeFor,shadeFor,shadeNameFor,observeScore,cardText,ZONE_ORDER,DECKBUILDER_BUILD,FACILITIES,FACILITY_ROUTES,ROUTE_CHOICES,routeChoice} from './cards.js';
@@ -13,7 +13,7 @@ import './pitcher-sd.css';
 import redRushAtlas from '../../assets/pitcher-sd-v1/red-rush-pitch-120-atlas.png';
 import redRushPortrait from '../../assets/pitcher-mobs-v1/regular-01-red-rush.png';
 import {pitcherAtlases,pitcherPortraits,pitcherFigures} from './pitcher-visuals.js';
-import {RED_RUSH_ASSET_ID,hasPitchVisual,redRushFrameAt,redRushTimeline,redRushBatterShot,withKnockoutHold} from './pitcher-sd.js';
+import {RED_RUSH_ASSET_ID,hasPitchVisual,redRushFrameAt,redRushTimeline,redRushBatterShot,withKnockoutHold,pitcherReleaseFrame,withPitcherTiming,pitcherAtlasLayout,pitcherDrawingAt} from './pitcher-sd.js';
 import './v11-stack-core.css';
 import './adaptive-performance.css';
 import {coverageText} from './information.js';
@@ -386,8 +386,9 @@ function Sprite({who,stage=null,shot=null,golden=false,variant=null,playToken=0,
 function PitcherAtlasSprite({atlas,stage=null,shot=null,playToken=0}){
   const reduced=typeof window!=='undefined'&&!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
   const frame=useRedRushFrame(!!stage&&hasPitchVisual(shot)&&!reduced,playToken);
-  const pose=actorPose('pitcher',stage,shot),col=frame%10,row=Math.floor(frame/10);
-  const atlasStyle={backgroundImage:'url('+atlas+')',backgroundSize:'1000% 1200%',backgroundPosition:(col*100/9)+'% '+(row*100/11)+'%'};
+  const artId=Object.keys(pitcherAtlases).find(id=>pitcherAtlases[id]===atlas),{columns,rows}=pitcherAtlasLayout(artId);
+  const drawing=pitcherDrawingAt(artId,frame),pose=actorPose('pitcher',stage,shot),col=drawing%columns,row=Math.floor(drawing/columns);
+  const atlasStyle={backgroundImage:'url('+atlas+')',backgroundSize:(columns*100)+'% '+(rows*100)+'%',backgroundPosition:(col*100/(columns-1))+'% '+(row*100/(rows-1))+'%'};
   return <span className={'sprite-stage sprite-pitcher pose-'+pose+' golden-actor red-rush-actor'}>
     <i className="actor-contact-shadow" aria-hidden="true"/>
     <span aria-hidden="true" className="sprite-echo echo-back red-rush-frame" style={atlasStyle}/>
@@ -813,6 +814,24 @@ function RunStory({s,compact=false}){
 }
 
 const SHOT_MODE_KEY='ninezone.shotMode.v1',SHOT_FX_KEY='ninezone.shotFx.v1';
+const MODAL_FOCUSABLE='button:not([type="hidden"]),a[href],input:not([type="hidden"]),select,textarea,[tabindex],[contenteditable="true"]';
+function modalFocusables(root){
+  if(!root)return [];
+  return [...root.querySelectorAll(MODAL_FOCUSABLE)].filter(el=>{
+    if(el.disabled||el.tabIndex<0||el.closest('[hidden],[inert],[aria-hidden="true"]'))return false;
+    for(let node=el;node&&node!==root.parentElement;node=node.parentElement){
+      const style=node.ownerDocument?.defaultView?.getComputedStyle?.(node);
+      if(style&&(style.display==='none'||style.visibility==='hidden'||style.visibility==='collapse'))return false;
+      if(node===root)break;
+    }
+    return true;
+  });
+}
+function higherModalIsMounted(){
+  if(typeof document==='undefined')return false;
+  return !!document.querySelector('.card-detail-backdrop,.pitcher-portrait-backdrop,.bp-homer-video,.wg-backdrop,.tour-card');
+}
+
 export default function Duel({storage:providedStorage,startInRun=false}={}){
   let storage=providedStorage;
   if(!storage){try{storage=globalThis.localStorage;}catch{storage={getItem(){throw Error('저장소 접근 불가')},setItem(){throw Error('저장소 접근 불가')}};}}
@@ -862,6 +881,17 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
   const [eventResult,setEventResult]=useState(null);
   const [s,setS]=useState(initial.save),[screen,setScreen]=useState(()=>defenseExperiment?(initial.save?'run':'defense-lab'):initial.preview||startInRun?'run':typeof window!=='undefined'&&new URLSearchParams(window.location.search).get('cinema')==='1'?'cinema':'menu'),[modal,setModal]=useState(null),[selected,setSelected]=useState(null),[swingStack,setSwingStack]=useState([]),[stackEdit,setStackEdit]=useState(null),[decisionMode,setDecisionMode]=useState(null),[tour,setTour]=useState({open:false,step:0}),[tourRect,setTourRect]=useState(null),[fx,setFx]=useState(null),[fxStage,setFxStage]=useState(null),[stackResolve,setStackResolve]=useState(null),[frame,setFrame]=useState(0),[error,setError]=useState(initial.error||''),[sound,setSound]=useState(false);
   const screenRef=useRef(screen);screenRef.current=screen;
+  const genericModalRef=useRef(null),genericModalOpener=useRef(null);
+  useLayoutEffect(()=>{
+    if(modal){
+      if(!genericModalOpener.current)genericModalOpener.current=document.activeElement;
+      const dialog=genericModalRef.current;
+      if(!higherModalIsMounted())modalFocusables(dialog)[0]?.focus();
+      return;
+    }
+    const opener=genericModalOpener.current;genericModalOpener.current=null;
+    if(opener?.isConnected)opener.focus?.();
+  },[modal]);
   useEffect(()=>{if(screen!=='run')cancelCues();},[screen]);
   const current=useRef(s),lock=useRef(false),timers=useRef([]),tourDismissed=useRef(false);
   const [homerVideo,setHomerVideo]=useState(null),homerVideoActive=useRef(false),presentationActive=useRef(false);
@@ -918,7 +948,7 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
   };
   const scoreboardRef=useRef(null),arenaRef=useRef(null),drawerRef=useRef(null),prepareRef=useRef(null),swingRef=useRef(null),watchRef=useRef(null),eventsRef=useRef(null);
   const showPreview=id=>{const p=previewCard(s,id);return {...p,coverageLabel:p.coverage?coverageText(s,id):undefined};};
-  const b=s?.battle,isV10=s?.version===10,isDefenseLab=defenseExperiment&&s?.defenseLab?.schema===1,showBattle=screen==='run'&&b&&(['battle','pitch','between'].includes(s.phase)||fx),fxPresentation=fx?presentationFor(s):null,fxStakes=fx?stakesFor(s):null,resultPresentation=b?.revealed?presentationFor(s):null,byId=id=>s.deck.find(c=>c.id===id);
+  const b=s?.battle,isV10=s?.version===10,isDefenseLab=defenseExperiment&&s?.defenseLab?.schema===1,showBattle=screen==='run'&&b&&(['battle','pitch','between'].includes(s.phase)||fx),fxPresentation=fx?withPitcherTiming(presentationFor(s),s.v10?.opponent?.artId):null,fxStakes=fx?stakesFor(s):null,resultPresentation=b?.revealed?presentationFor(s):null,byId=id=>s.deck.find(c=>c.id===id);
   useActorAssetPreload(!!s&&!isV10);
   const perfTier=useAdaptivePerformance(!!(showBattle&&isV10&&fxStage));
   const pile=modal&&['draw','discard','deck'].includes(modal)?(modal==='deck'?s.deck:b[modal].map(byId).filter(Boolean)):null;
@@ -981,10 +1011,31 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
     if(el?.closest?.('.bp-battle')&&window.__bpInspect?.open?.(d,el))return;
     detailOpener.current=el;setCardDetail(cardDetailOf(d.kind,d.plus,d.problem,isV10));
   }),[isV10]);
-  useEffect(()=>{const close=e=>{if(e.defaultPrevented||homerVideoActive.current||screenRef.current==='practice')return;if(e.key==='Escape'){
-    /* The arena inspector closes first; the plan behind it is never cleared. */
-    if(window.__bpInspect?.isOpen?.()){window.__bpInspect.close();return;}
-    setModal(null);setDecisionMode(null);setSelected(null);setSwingStack([]);setStackEdit(null);tourDismissed.current=true;try{storage.setItem(TOUR_KEY,'done')}catch{}setTour(t=>t.open?{open:false,step:0}:t);}};window.addEventListener('keydown',close);return()=>window.removeEventListener('keydown',close)},[]);
+  useEffect(()=>{const close=e=>{
+    if(e.defaultPrevented||homerVideoActive.current||screenRef.current==='practice')return;
+    const dialog=genericModalRef.current;
+    if(dialog){
+      if(higherModalIsMounted())return;
+      if(e.key==='Escape'){e.preventDefault();e.stopPropagation();setModal(null);return;}
+      if(e.key==='Tab'){
+        const items=modalFocusables(dialog),first=items[0],last=items.at(-1),active=document.activeElement;
+        if(!first){e.preventDefault();dialog.focus?.();return;}
+        if(!dialog.contains(active)){e.preventDefault();(e.shiftKey?last:first).focus();return;}
+        if(e.shiftKey&&active===first){e.preventDefault();last.focus();}
+        else if(!e.shiftKey&&active===last){e.preventDefault();first.focus();}
+        return;
+      }
+      if((e.key==='Enter'||e.key===' '||e.key==='Spacebar')&&!dialog.contains(document.activeElement)){
+        const first=modalFocusables(dialog)[0];if(first){e.preventDefault();e.stopPropagation();first.focus();}
+      }
+      return;
+    }
+    if(e.key==='Escape'){
+      /* The arena inspector closes first; the plan behind it is never cleared. */
+      if(window.__bpInspect?.isOpen?.()){window.__bpInspect.close();return;}
+      setDecisionMode(null);setSelected(null);setSwingStack([]);setStackEdit(null);tourDismissed.current=true;try{storage.setItem(TOUR_KEY,'done')}catch{}setTour(t=>t.open?{open:false,step:0}:t);
+    }
+  };window.addEventListener('keydown',close);return()=>window.removeEventListener('keydown',close)},[]);
   useEffect(()=>{if(!showBattle||isV10||s?.phase!=='battle'||tour.open||tourDismissed.current)return;try{if(storage.getItem(TOUR_KEY)==='done')return;}catch{}setTour({open:true,step:0});},[showBattle,s?.phase,tour.open]);
   useEffect(()=>{
     if(!tour.open||!tourStep){setTourRect(null);return;}
@@ -1033,7 +1084,7 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
     const nextNode=next.runMap?.nodes?.find(n=>n.id===next.runMap.currentNodeId);
     const liveActor=live&&pitchJudgement?rosterPitcherActor(nextNode?.opponent?.artId,pitcherAtlases[nextNode?.opponent?.artId]):null;
     const baseTimeline=presentationTimeline(shot,reduced);
-    const timeline=withKnockoutHold(liveActor?rosterTimeline(baseTimeline,liveActor,reduced):pitcherAtlases[nextNode?.opponent?.artId]&&pitchJudgement?redRushTimeline(baseTimeline,reduced):baseTimeline,next.version===10&&pitchJudgement&&!reduced&&next.pitcher?.hp===0);
+    const timeline=withKnockoutHold(liveActor?rosterTimeline(baseTimeline,liveActor,reduced):pitcherAtlases[nextNode?.opponent?.artId]&&pitchJudgement?redRushTimeline(baseTimeline,reduced,pitcherReleaseFrame(nextNode?.opponent?.artId)):baseTimeline,next.version===10&&pitchJudgement&&!reduced&&next.pitcher?.hp===0);
     lock.current=true;revealArena();setFxImpactAt(timeline.impactAt||0);setFx(next.last);setFxStage('windup');setFrame(1);
     cancelCues();
     const speed=live&&!reduced?animationRate(rate):1,emit=kind=>live?cue(kind,{rate:speed,signal:cueAbort.current.signal}):cue(kind);
@@ -1244,8 +1295,8 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
     {guide&&<WelcomeGuide start={guide.start} mode={guide.mode} onClose={()=>setGuide(null)} onCards={guide.mode==='intro'?undefined:()=>{setGuide(null);setModal('help')}}/>}
     {packSeed!=null&&<StartPackPick seed={packSeed} onPick={id=>{const seed=packSeed;setPackSeed(null);freshV10(id,seed);}} onClose={()=>setPackSeed(null)}/>}
     {orderOpen&&decisionMode==='swing'&&choice?.stackPlan&&<OrderSheet plan={choice.stackPlan} plusOf={id=>!!byId(id)?.plus} onMove={moveStackOrder} onRecall={id=>{setSwingStack(xs=>xs.filter(x=>x.id!==id));if(stackEdit===id)setStackEdit(null);}} onClose={closeOrder}/>}
-    {modal&&<div className="duel-backdrop" onClick={()=>setModal(null)}><section className="duel-modal" role="dialog" aria-modal="true" aria-label={modal==='help'?'플레이 방법':modal==='lineup'?'타순':modal==='jukebox'?'BGM 주크박스':modal==='settings'?'설정':modal==='new10'?'새로운 게임':'카드 정보'} onClick={e=>e.stopPropagation()}><button className="modal-close" aria-label="닫기" onClick={()=>setModal(null)}>×</button>{modal==='settings'?<div className="title-settings"><h2>설정</h2><section className="ts-set-group" aria-label="사운드"><h3>사운드</h3><div className="ts-set-row"><button aria-label={'소리 '+(sound?'켜짐':'꺼짐')} aria-pressed={sound} onClick={handleToggleSound}>효과음 {sound?'켜짐':'꺼짐'}</button><button aria-label="BGM 음악 주크박스" onClick={()=>setModal('jukebox')}>BGM 주크박스 · {getCurrentTrackIndex()+1}번</button></div></section>{!defenseExperiment&&<section className="ts-set-group" aria-label="실험"><h3>실험</h3><div className="ts-set-row"><button data-testid="shot-mode-toggle" aria-pressed={shotMode} onClick={toggleShotMode}>사격 모드(시범) {shotMode?'켜짐':'꺼짐'}</button><button data-testid="shot-fx-toggle" aria-pressed={shotFx==='pixel'} disabled={!shotMode} onClick={toggleShotFx}>사격 연출 · {shotFx==='pixel'?'픽셀 이펙트':'기존 섬광'}</button></div><p className="ts-set-note">카드 한 장이 한 발입니다. 빗나가면 1스트라이크, 같은 공을 다시 노립니다. 2스트라이크에서 빗나가면 삼진입니다.</p></section>}<section className="ts-set-group" aria-label="도움말"><h3>도움말</h3><div className="ts-set-row">{!defenseExperiment&&<button onClick={openFirstPractice}>첫 타격 연습</button>}<button onClick={()=>{setModal(null);setGuide({start:0})}}>게임 방법</button><button onClick={()=>setModal('help')}>카드 도감 · 상세 규칙</button></div></section>{showBattle&&<section className="ts-set-group" aria-label="전투"><h3>전투</h3><div className="ts-set-row"><button onClick={()=>{if(!lock.current){setModal(null);if(autoLesson)exitAutoLesson();else setScreen('menu');}}}>타이틀로 돌아가기</button></div></section>}<section className="title-tutorial" aria-label="튜토리얼"><span className="title-tutorial-label">튜토리얼 · 규칙 익히기</span><p>규칙만 빠르게 익히거나, 실제 MAIN RUN 전투로 ‘설계 → 자동 실행 → 복기’ 흐름을 먼저 체험할 수 있습니다.</p><div className="build-picker v9-build-picker" aria-label="런 방식">{Object.entries(BUILDS).map(([key,d])=><button key={key} aria-pressed={build===key} onClick={()=>setBuild(key)}><span className="build-mode">{key===DECKBUILDER_BUILD?'튜토리얼 · 덱 만들기':'튜토리얼 · 완성형 체험'}</span><strong>{d.name}</strong><small>{d.description}</small></button>)}</div><label className="trial-seed">비교용 시드 <input aria-label="비교용 시드" type="number" min="0" max="4294967295" value={trialSeed} onChange={e=>setTrialSeed(e.target.value)}/><span>같은 시드 = 같은 첫 투구 · 이후 카운트에 따라 변화</span></label><div className="title-actions"><button className="auto-tutorial-entry" onClick={()=>freshAutoLesson()}>전략 → 자동전투 체험</button><button onClick={()=>s&&!['won','lost'].includes(s.phase)?setModal('new'):fresh()}>기존 튜토리얼</button>{typeof window!=='undefined'&&window.location.pathname.includes('/preview/')&&<button className="cinema-entry" onClick={()=>setScreen('cinema')}>✦ 연출 검수실</button>}</div></section></div>:modal==='new10'?<div className="title-confirm"><h2>새 런을 시작할까요?</h2><p>진행 중인 런{titleRun?` (${titleRun.act}막 · 덱 ${titleRun.deck}장)`:''}은 지워지고 1막부터 다시 시작합니다.</p><div className="ts-set-row"><button className="primary" onClick={()=>{setModal(null);openPackPick()}}>처음부터 시작</button><button onClick={()=>setModal(null)}>취소</button></div></div>:modal==='jukebox'?<BgmJukebox sound={sound} onToggleSound={handleToggleSound} onClose={()=>setModal(null)}/>:modal==='new'?<><h2>진행 중인 런을 새로 시작할까요?</h2><p>현재 V9 개발 저장만 교체합니다. 배포된 V8 및 이전 v5/v6/v7 저장은 유지됩니다.</p><button className="primary" onClick={fresh}>새 런으로 교체</button></>:modal==='lineup'?<><span className="eyebrow">BATTING ORDER</span><h2>오늘의 9명 타순</h2><div className="lineup-modal">{LINEUP.map((p,i)=><div key={p.id} className={b&&i===b.batterIndex?'at-bat':b?.bases.includes(p.id)?'on-base':''}><span>{i+1}</span><strong>#{p.number} {p.name}</strong><small>{b&&i===b.batterIndex?'현재 타자':b?.bases.includes(p.id)?'출루':'대기'}</small></div>)}</div></>:modal==='help'?<><span className="eyebrow">READ → BET → REVEAL → IMPACT</span><h2>주자와 아웃을 보고, 손패의 조합을 비교하세요.</h2><div className="combo-example">① 전광판과 투수 의도를 읽기<br/>② 준비하기 / 스윙하기 / 한 구 지켜보기 중 하나 선택<br/>③ 스윙 카드를 9존에 놓기 → 커버 확인 → 스윙<br/>④ 실제 공 확인 → 다음 공 또는 다음 타자 입장</div>{(()=>{const f=helpFacts();return <><p>준비 카드는 한 타석 최대 2회입니다. {isV10&&<>카드 비용은 실행할 때 에너지에서 빠집니다. 기본은 다음 실제 공마다 {v10EnergyBase(s)}을 충전하고, 볼·삼진 전 스트라이크를 지켜보면 다음 실제 공에 +1(최대 {v10NextEnergyMax(s)})을 예약합니다. 삼진이나 투수 강판에는 보상이 없습니다. 볼넷은 다음 타자에게 전달되며, 기본 보충 뒤 손패에 자리와 뽑을 카드가 있으면 한 장을 더 뽑습니다(최대 6장). 준비·선택·결과 화면은 예약을 소비하지 않습니다. </>}MAIN RUN은 공격 카드를 9존에 직접 놓습니다. 첫 카드는 타격 효과를 내고 추가 카드는 커버가 됩니다. 피해 효율은 {f.stack}이며 배치한 카드는 모두 소비됩니다. {f.continuesAtBat.join('·')}이면 같은 타자가 계속, {f.endsAtBat.join('·')}이면 타석 종료.</p><h3>조작</h3><dl className="help-controls">{f.controls.map(([k,v])=><div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl></>;})()}<button className="primary" disabled={!showBattle||s?.phase!=='battle'} onClick={reopenTour}>웰컴 가이드 다시 보기</button>{showBattle&&isV10&&s?.phase==='battle'&&<button className="primary" onClick={()=>{setModal(null);setBattleCoach(n=>n+1);}}>전투 가이드 보기</button>}{(!showBattle||s?.phase!=='battle')&&<p>승부 중 다음 공을 선택하는 화면에서 가이드를 열 수 있습니다.</p>}<h3>성장 · 같은 카드를 다르게 쓴다</h3>{Object.entries(GROWTHS).map(([key,g])=><p key={key}><b>{g.name}</b> — {g.ranks[0]}</p>)}{GLOSSARY.map(([term,text])=><p key={term}><b>{term}</b> — {text}</p>)}<h3>카드 도감 · {helpFacts().cardCount}종</h3><p className="collection-hint">카드를 누르면 원문 규칙 · 강화 · 겹치기 규칙이 열립니다.</p><div className="collection">{Object.keys(CARDS).map(kind=><Card key={kind} kind={kind} onClick={e=>{detailOpener.current=e.currentTarget;setCardDetail(cardDetailOf(kind,false,null,isV10));}}/>)}</div></>:pile?<><h2>{modal==='deck'?<>행동 카드 덱 <small className="deck-modal-sub">({pile.length}장)</small></>:{deck:'행동 카드 덱 · 선수와 별개',draw:'뽑을 카드 · 순서 비공개',discard:'버린 카드'}[modal]}</h2><div className="collection">{[...pile].sort((a,b)=>a.kind.localeCompare(b.kind)).map(c=><Card key={c.id} kind={c.kind} plus={c.plus} onClick={e=>{detailOpener.current=e.currentTarget;setCardDetail(cardDetailOf(c.kind,!!c.plus,null,isV10));}}/>)}</div>{!pile.length&&<p>비어 있습니다.</p>}</>:null}</section></div>}
-    {inspectedPitcher&&<PitcherPortraitDialog opponent={inspectedPitcher} src={pitcherPortraits[inspectedPitcher.artId]} onClose={closePitcher}/>}
+    {modal&&<div className="duel-backdrop" onClick={()=>setModal(null)}><section ref={genericModalRef} className="duel-modal" role="dialog" aria-modal="true" aria-label={modal==='help'?'플레이 방법':modal==='lineup'?'타순':modal==='jukebox'?'BGM 주크박스':modal==='settings'?'설정':modal==='new10'?'새로운 게임':'카드 정보'} onClick={e=>e.stopPropagation()}><button className="modal-close" aria-label="닫기" onClick={()=>setModal(null)}>×</button>{modal==='settings'?<div className="title-settings"><h2>설정</h2><section className="ts-set-group" aria-label="사운드"><h3>사운드</h3><div className="ts-set-row"><button aria-label={'소리 '+(sound?'켜짐':'꺼짐')} aria-pressed={sound} onClick={handleToggleSound}>효과음 {sound?'켜짐':'꺼짐'}</button><button aria-label="BGM 음악 주크박스" onClick={()=>setModal('jukebox')}>BGM 주크박스 · {getCurrentTrackIndex()+1}번</button></div></section>{!defenseExperiment&&<section className="ts-set-group" aria-label="실험"><h3>실험</h3><div className="ts-set-row"><button data-testid="shot-mode-toggle" aria-pressed={shotMode} onClick={toggleShotMode}>사격 모드(시범) {shotMode?'켜짐':'꺼짐'}</button><button data-testid="shot-fx-toggle" aria-pressed={shotFx==='pixel'} disabled={!shotMode} onClick={toggleShotFx}>사격 연출 · {shotFx==='pixel'?'픽셀 이펙트':'기존 섬광'}</button></div><p className="ts-set-note">카드 한 장이 한 발입니다. 빗나가면 1스트라이크, 같은 공을 다시 노립니다. 2스트라이크에서 빗나가면 삼진입니다.</p></section>}<section className="ts-set-group" aria-label="도움말"><h3>도움말</h3><div className="ts-set-row">{!defenseExperiment&&<button onClick={openFirstPractice}>첫 타격 연습</button>}<button onClick={()=>{setModal(null);setGuide({start:0})}}>게임 방법</button><button onClick={()=>setModal('help')}>카드 도감 · 상세 규칙</button></div></section>{showBattle&&<section className="ts-set-group" aria-label="전투"><h3>전투</h3><div className="ts-set-row"><button onClick={()=>{if(!lock.current){setModal(null);if(autoLesson)exitAutoLesson();else setScreen('menu');}}}>타이틀로 돌아가기</button></div></section>}<section className="title-tutorial" aria-label="튜토리얼"><span className="title-tutorial-label">튜토리얼 · 규칙 익히기</span><p>규칙만 빠르게 익히거나, 실제 MAIN RUN 전투로 ‘설계 → 자동 실행 → 복기’ 흐름을 먼저 체험할 수 있습니다.</p><div className="build-picker v9-build-picker" aria-label="런 방식">{Object.entries(BUILDS).map(([key,d])=><button key={key} aria-pressed={build===key} onClick={()=>setBuild(key)}><span className="build-mode">{key===DECKBUILDER_BUILD?'튜토리얼 · 덱 만들기':'튜토리얼 · 완성형 체험'}</span><strong>{d.name}</strong><small>{d.description}</small></button>)}</div><label className="trial-seed">비교용 시드 <input aria-label="비교용 시드" type="number" min="0" max="4294967295" value={trialSeed} onChange={e=>setTrialSeed(e.target.value)}/><span>같은 시드 = 같은 첫 투구 · 이후 카운트에 따라 변화</span></label><div className="title-actions"><button className="auto-tutorial-entry" onClick={()=>freshAutoLesson()}>전략 → 자동전투 체험</button><button onClick={()=>s&&!['won','lost'].includes(s.phase)?setModal('new'):fresh()}>기존 튜토리얼</button>{typeof window!=='undefined'&&window.location.pathname.includes('/preview/')&&<button className="cinema-entry" onClick={()=>setScreen('cinema')}>✦ 연출 검수실</button>}</div></section></div>:modal==='new10'?<div className="title-confirm"><h2>새 런을 시작할까요?</h2><p>진행 중인 런{titleRun?` (${titleRun.act}막 · 덱 ${titleRun.deck}장)`:''}은 지워지고 1막부터 다시 시작합니다.</p><div className="ts-set-row"><button className="primary" onClick={()=>{setModal(null);openPackPick()}}>처음부터 시작</button><button onClick={()=>setModal(null)}>취소</button></div></div>:modal==='jukebox'?<BgmJukebox sound={sound} onToggleSound={handleToggleSound} onClose={()=>setModal(null)}/>:modal==='new'?<><h2>진행 중인 런을 새로 시작할까요?</h2><p>현재 V9 개발 저장만 교체합니다. 배포된 V8 및 이전 v5/v6/v7 저장은 유지됩니다.</p><button className="primary" onClick={fresh}>새 런으로 교체</button></>:modal==='lineup'?<><span className="eyebrow">BATTING ORDER</span><h2>오늘의 9명 타순</h2><div className="lineup-modal">{LINEUP.map((p,i)=><div key={p.id} className={b&&i===b.batterIndex?'at-bat':b?.bases.includes(p.id)?'on-base':''}><span>{i+1}</span><strong>#{p.number} {p.name}</strong><small>{b&&i===b.batterIndex?'현재 타자':b?.bases.includes(p.id)?'출루':'대기'}</small></div>)}</div></>:modal==='help'?<><span className="eyebrow">READ → BET → REVEAL → IMPACT</span><h2>주자와 아웃을 보고, 손패의 조합을 비교하세요.</h2><div className="combo-example">① 전광판과 투수 의도를 읽기<br/>② 준비하기 / 스윙하기 / 한 구 지켜보기 중 하나 선택<br/>③ 스윙 카드를 9존에 놓기 → 커버 확인 → 스윙<br/>④ 실제 공 확인 → 다음 공 또는 다음 타자 입장</div>{(()=>{const f=helpFacts();return <><p>준비 카드는 한 타석 최대 2회입니다. {isV10&&<>카드 비용은 실행할 때 에너지에서 빠집니다. 기본은 다음 실제 공마다 {v10EnergyBase(s)}을 충전하고, 볼·삼진 전 스트라이크를 지켜보면 다음 실제 공에 +1(최대 {v10NextEnergyMax(s)})을 예약합니다. 삼진이나 투수 강판에는 보상이 없습니다. 볼넷은 다음 타자에게 전달되며, 기본 보충 뒤 손패에 자리와 뽑을 카드가 있으면 한 장을 더 뽑습니다(최대 6장). 준비·선택·결과 화면은 예약을 소비하지 않습니다. </>}MAIN RUN은 공격 카드를 9존에 직접 놓습니다. 첫 카드는 타격 효과를 내고 추가 카드는 커버가 됩니다. 피해 효율은 {f.stack}이며 배치한 카드는 모두 소비됩니다. {f.continuesAtBat.join('·')}이면 같은 타자가 계속, {f.endsAtBat.join('·')}이면 타석 종료.</p><h3>조작</h3><dl className="help-controls">{f.controls.map(([k,v])=><div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl></>;})()}<button className="primary" disabled={!showBattle||s?.phase!=='battle'} onClick={reopenTour}>웰컴 가이드 다시 보기</button>{showBattle&&isV10&&s?.phase==='battle'&&<button className="primary" onClick={()=>{setModal(null);setBattleCoach(n=>n+1);}}>전투 가이드 보기</button>}{(!showBattle||s?.phase!=='battle')&&<p>승부 중 다음 공을 선택하는 화면에서 가이드를 열 수 있습니다.</p>}<h3>성장 · 같은 카드를 다르게 쓴다</h3>{Object.entries(GROWTHS).map(([key,g])=><p key={key}><b>{g.name}</b> — {g.ranks[0]}</p>)}{GLOSSARY.map(([term,text])=><p key={term}><b>{term}</b> — {text}</p>)}<h3>카드 도감 · {helpFacts().cardCount}종</h3><p className="collection-hint">카드를 누르면 원문 규칙 · 강화 · 겹치기 규칙이 열립니다.</p><div className="collection">{Object.keys(CARDS).map(kind=><Card key={kind} kind={kind} onClick={e=>{detailOpener.current=e.currentTarget;setCardDetail(cardDetailOf(kind,false,null,isV10));}}/>)}</div></>:pile?<><h2>{modal==='deck'?<>행동 카드 덱 <small className="deck-modal-sub">({pile.length}장)</small></>:{deck:'행동 카드 덱 · 선수와 별개',draw:'뽑을 카드 · 순서 비공개',discard:'버린 카드'}[modal]}</h2><div className="collection">{[...pile].sort((a,b)=>a.kind.localeCompare(b.kind)).map(c=><Card key={c.id} kind={c.kind} plus={c.plus} onClick={e=>{detailOpener.current=e.currentTarget;setCardDetail(cardDetailOf(c.kind,!!c.plus,null,isV10));}}/>)}</div>{!pile.length&&<p>비어 있습니다.</p>}</>:null}</section></div>}
+    {inspectedPitcher&&<PitcherPortraitDialog opponent={inspectedPitcher} src={pitcherPortraits[inspectedPitcher.artId||inspectedPitcher.id]} onClose={closePitcher}/>}
     {tour.open&&tourStep&&<><div className="tour-catcher" aria-hidden="true"/>{tourRect&&<div className="tour-spotlight" data-tour-target={tourStep.target} aria-hidden="true" style={{top:tourRect.top,left:tourRect.left,width:tourRect.width,height:tourRect.height}}/>}<section className={'tour-card '+(tourCardTop?'tour-card-top':'tour-card-bottom')} role="dialog" aria-modal="true" aria-label="온보딩 가이드"><button className="tour-close" aria-label="가이드 닫기" onClick={()=>closeTour(true)}>×</button><span className="tour-eyebrow">{tourStep.eyebrow}</span><h2>{tourStep.title}</h2><p>{tourStep.text}</p><div className="tour-tip">{tourStep.tip}</div><div className="tour-dots" aria-hidden="true">{TOUR_STEPS.map((_,i)=><i key={i} className={i===tour.step?'on':''}/>)}</div><div className="tour-actions"><button onClick={()=>setTour(t=>({...t,step:Math.max(0,t.step-1)}))} disabled={tour.step===0}>이전</button><button onClick={()=>closeTour(true)}>건너뛰기</button>{tour.step<TOUR_STEPS.length-1?<button className="primary" onClick={()=>setTour(t=>({...t,step:t.step+1}))}>다음 설명</button>:<button className="primary" onClick={()=>closeTour(true)}>바로 플레이 시작</button>}</div></section></>}
   </div>;
 }

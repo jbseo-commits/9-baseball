@@ -1,14 +1,19 @@
 import {ATBAT_COMPOSITION} from './atbat-composition.js';
 import registration from './roster-registration.json';
 import {redRushFrameAt,PITCH_FLIGHT_MS} from '../pitcher-sd.js';
-/* Existing production 10x12 atlases, never a shared sample wearing another name. */
+/* Reviewed character-specific drawings, held on the existing 120-tick timeline. */
 export function rosterPitcherActor(artId,url){
  const registered=registration[artId];if(!url||!registered)return null;
- const meta={sourceWidth:256,sourceHeight:256,columns:10,rows:12,worldFoot:ATBAT_COMPOSITION.pitcher.worldFoot,worldHeight:300*256/registered.visibleHeight,anchor:registered.anchor};
+ const meta={sourceWidth:256,sourceHeight:256,columns:registered.columns||10,rows:registered.rows||12,drawingAtTick:registered.drawingAtTick,worldFoot:registered.worldFoot||ATBAT_COMPOSITION.pitcher.worldFoot,worldHeight:(registered.visibleWorldHeight||300)*256/registered.visibleHeight,anchor:registered.anchor};
  const k=meta.worldHeight/meta.sourceHeight;
- return {kind:'roster-atlas',artId,url,meta,release:{x:meta.worldFoot.x+(registered.release.x-meta.anchor.x)*k,y:meta.worldFoot.y+(registered.release.y-meta.anchor.y)*k},releaseAt:Math.round(registered.releaseFrame*1000/60)};
+ const world=p=>({x:meta.worldFoot.x+(p.x-meta.anchor.x)*k,y:meta.worldFoot.y+(p.y-meta.anchor.y)*k});
+ return {kind:'roster-atlas',artId,url,meta,release:world(registered.release),releaseAt:Math.round(registered.releaseFrame*1000/60),
+   landing:registered.landing?world(registered.landing):null,landingAt:registered.landingFrame==null?null:Math.round(registered.landingFrame*1000/60)};
 }
-export function rosterFrame(playback,elapsed){return !playback||playback.timeline.duration<=60||playback.action==='prepare'?0:redRushFrameAt(elapsed);}
+export function rosterFrame(playback,elapsed,actor=null){
+ const tick=!playback||playback.timeline.duration<=60||playback.action==='prepare'?0:redRushFrameAt(elapsed);
+ return actor?.meta.drawingAtTick?.[tick]??tick;
+}
 
 export function rosterTimeline(base,actor,reduced=false){
  if(!actor||reduced)return base;
