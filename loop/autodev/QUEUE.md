@@ -19,3 +19,5 @@
 | G-010 | P2 | FIXED | zone-report의 starter 행이 항상 0이다 | R3 베이스라인 측정 중 발견. 덱빌더는 chooseRoute 선행 필요인데 리포트가 몰라 전투에 진입 못함. exit 0이라 CI도 통과. `scripts/zone-report.js`에 chooseRoute 추가로 수정(`c4c0e96`) | game-20261011-a R4 / — |
 
 선택 전에 각 항목에 현재 SHA·재현 파일·관련 PR·소유 실행을 붙인다. G-000도 새로운 HEAD에서는 같은 검사를 다시 확인한다. 기술 검증 실패를 정상으로 바꾸거나 이 목록 자체를 구현 승인으로 쓰지 않는다. 근거가 있는 추가 병목은 새 고유 ID를 만들고 [템플릿](TEMPLATES.md)으로 등록한다. 빈 큐는 정상 종료 조건이다.
+
+| G-015 | P1 | VALIDATED_LOCAL | 가로 첫 연습의 실행 버튼 화면 밖 배치 | [이슈·9축·검증](issues/G-015.md). 5뷰포트·1555검사·실제 경기/시설 통과, 시각 IMPROVED/BAR 미달 | game-20261106-b R2 / 독립 main 기반 |
