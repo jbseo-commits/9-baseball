@@ -4,11 +4,16 @@ import {describe,it,expect,afterEach} from 'vitest';
 import {render,screen,cleanup} from '@testing-library/react';
 import {captureExecution,resultSequence} from '../src/duel/presentation-snapshot.js';
 import {buildFixture} from '../src/duel/battle-vnext/fixtures.js';
-import {playV10Action,setAimZone} from '../src/duel/engine.js';
+import {createV10Duel,enterV10Node,playV10Action,setAimZone,applyStartPack,coverage as cardCoverage,v10PrepMax} from '../src/duel/engine.js';
 import {buildBattleViewModel} from '../src/duel/battle-vnext/view-model.js';
 import {presentationFor} from '../src/duel/presentation.js';
+import {cardFaceOf} from '../src/duel/card-face.js';
+import {preparationDrawPreview} from '../src/duel/preparation-feedback.js';
+import {CARDS} from '../src/duel/cards.js';
+import {appInputs} from '../src/duel/battle-vnext/fixtures.js';
 import ResultSequence from '../src/duel/battle-vnext/ResultSequence.jsx';
 import BattleHud from '../src/duel/battle-vnext/BattleHud.jsx';
+import HandDock from '../src/duel/battle-vnext/HandDock.jsx';
 afterEach(cleanup);
 describe('accepted action snapshot and truthful consequence sequence',()=>{
  it('captures the consumed main card before the UI clears the selection',()=>{
@@ -46,5 +51,130 @@ describe('accepted action snapshot and truthful consequence sequence',()=>{
   render(<ResultSequence result={{kind:'hit',damage:12,precisionBonus:4,primaryCoverage:[2],actualZone:2}} execution={{cards:[{name:'정타 노림',role:'main'}]}}/>);
   expect(screen.getByTestId('bv-result-sequence').textContent).toContain('정확 적중 +4 HP');
   expect(screen.getByTestId('bv-result-sequence').textContent).toContain('투수 HP −12');
+ });
+});
+
+describe('G-016 pre-impact hand disclosure snapshot',()=>{
+ const actualSwing=(seed)=>{
+   let before=enterV10Node(applyStartPack(createV10Duel(seed),'link'),'a1-entry');
+   const entry=before.deck.find(c=>c.kind==='tableSetter'&&before.battle.hand.includes(c.id));
+   expect(entry,`seed ${seed} tableSetter`).toBeTruthy();
+   before=setAimZone(before,4);
+   const beforeCapture=structuredClone(before);
+   const after=playV10Action(before,{type:'card',id:entry.id});
+   const execution=captureExecution(before,after,{selected:entry.id});
+   expect(before).toEqual(beforeCapture);
+   const flight=buildBattleViewModel({s:after,...appInputs(after),execution,fxStage:'windup',locked:true});
+   const impact=buildBattleViewModel({s:after,...appInputs(after),execution,fxStage:'impact',locked:true});
+   return {before,after,entry,execution,flight,impact};
+ };
+
+ it.each([[1,'whiff',4],[4,'hit',5]])('freezes seed %i %s hand, face, coverage, prep warning and piles until impact',(_seed,kind,postCount)=>{
+   const seed=_seed,{before,after,execution,flight,impact}=actualSwing(seed);
+   expect(after.battle.revealed.kind).toBe(kind);
+   expect(after.battle.hand).toHaveLength(postCount);
+   expect(flight.phase).toBe('flight');
+   expect(flight.handKnown).toBe(true);
+   expect(Object.keys(execution.handSnapshot).sort()).toEqual(['basicCoverage','cards','piles','prepLeft']);
+   expect(Object.keys(execution.handSnapshot.cards[0]).sort()).toEqual(['coverage','face','id','kind','plus','warning']);
+   expect(execution.handSnapshot).not.toHaveProperty('drawOrder');
+   expect(flight.handCount).toBe(before.battle.hand.length);
+   expect(flight.piles).toEqual({draw:before.battle.draw.length,discard:before.battle.discard.length});
+   const actualHand=flight.hand.filter(c=>c.type!=='basic');
+   expect(actualHand.map(c=>c.id).sort()).toEqual([...before.battle.hand].sort());
+   for(const shown of actualHand){
+     const entry=before.deck.find(c=>c.id===shown.id);
+     const face=cardFaceOf(entry,{strikes:before.battle.strikes,drawPreview:preparationDrawPreview(before,shown.id)});
+     expect(shown).toMatchObject({kind:entry.kind,plus:!!entry.plus,summary:face.summary,condition:face.condition,drawNote:face.drawNote||''});
+     expect(shown.coverage).toEqual(CARDS[entry.kind].type==='skill'?null:cardCoverage(before,shown.id));
+   }
+   expect(flight.prepLeft).toBe(Math.max(0,v10PrepMax(before)-before.battle.preparations));
+   expect(impact.phase).toBe('result');
+   expect(impact.handKnown).toBe(true);
+   expect(impact.handCount).toBe(after.battle.hand.length);
+   expect(impact.hand.filter(c=>c.type!=='basic').map(c=>c.id).sort()).toEqual([...after.battle.hand].sort());
+   expect(impact.piles).toEqual({draw:after.battle.draw.length,discard:after.battle.discard.length});
+ });
+
+ it('never falls through to post-action cards for a missing or stale flight snapshot',()=>{
+   const {after,execution}=actualSwing(4);
+   for(const stale of [null,{...execution,pitch:execution.pitch-1},{...execution,nodeId:'old-node'}]){
+     const vm=buildBattleViewModel({s:after,...appInputs(after),execution:stale,fxStage:'windup',locked:true});
+     expect(vm.phase).toBe('flight');
+     expect(vm.handKnown).toBe(false);expect(vm.handCount).toBeNull();
+     expect(vm.piles).toEqual({draw:'—',discard:'—'});
+     expect(vm.hand.filter(c=>c.type!=='basic')).toEqual([]);
+     expect(vm.hand[0].id).toBe('basic');
+   }
+ });
+
+ it('freezes a public watch face across a whiff draw',()=>{
+   let before=enterV10Node(applyStartPack(createV10Duel(5),'link'),'a1-entry');
+   const main=before.deck.find(c=>c.kind==='tableSetter'&&before.battle.hand.includes(c.id));
+   const watch=before.deck.find(c=>c.kind==='watch'&&before.battle.hand.includes(c.id));
+   expect(main).toBeTruthy();expect(watch).toBeTruthy();
+   before=setAimZone(before,4);
+   const after=playV10Action(before,{type:'card',id:main.id});
+   expect(after.battle.revealed.kind).toBe('whiff');
+   expect(cardFaceOf(watch,{strikes:before.battle.strikes,drawPreview:preparationDrawPreview(before,watch.id)}).summary).toBe('뽑기 1장');
+   expect(cardFaceOf(watch,{strikes:after.battle.strikes,drawPreview:preparationDrawPreview(after,watch.id)}).summary).toBe('뽑기 2장');
+   const execution=captureExecution(before,after,{selected:main.id});
+   const flight=buildBattleViewModel({s:after,...appInputs(after),execution,fxStage:'windup',locked:true});
+   const impact=buildBattleViewModel({s:after,...appInputs(after),execution,fxStage:'impact',locked:true});
+   expect(flight.hand.find(c=>c.id===watch.id).summary).toBe('뽑기 1장');
+   expect(impact.hand.find(c=>c.id===watch.id).summary).toBe('뽑기 2장');
+ });
+
+ it('keeps exhausted preparation warnings and applied preparation effects current',()=>{
+   let before=enterV10Node(applyStartPack(createV10Duel(1),'link'),'a1-entry');
+   const prep=before.deck.find(c=>c.kind==='scout'&&before.battle.hand.includes(c.id));
+   expect(prep).toBeTruthy();
+   before=setAimZone(before,4);
+   before={...before,battle:{...before.battle,preparations:v10PrepMax(before)}};
+   const exhaustedMain=before.deck.find(c=>c.kind==='tableSetter'&&before.battle.hand.includes(c.id));
+   const exhaustedAction=playV10Action(before,{type:'card',id:exhaustedMain.id});
+   const exhaustedTrace=captureExecution(before,exhaustedAction,{selected:exhaustedMain.id});
+   const exhaustedFlight=buildBattleViewModel({s:exhaustedAction,...appInputs(exhaustedAction),execution:exhaustedTrace,fxStage:'windup',locked:true});
+   expect(exhaustedFlight.hand.find(c=>c.id===prep.id).warning).toBe('준비 횟수 소진');
+
+   const normal=enterV10Node(applyStartPack(createV10Duel(1),'link'),'a1-entry');
+   const scout=normal.deck.find(c=>c.kind==='scout'&&normal.battle.hand.includes(c.id));
+   const after=playV10Action(normal,{type:'card',id:scout.id});
+   expect(after.stats.pitches).toBe(normal.stats.pitches);
+   expect(after.battle.preparations).toBe(normal.battle.preparations+1);
+   const vm=buildBattleViewModel({s:after,...appInputs(after)});
+   expect(vm.phase).toBe('deciding');
+   expect(vm.prepLeft).toBe(v10PrepMax(after)-after.battle.preparations);
+   expect(vm.effects).toContain('이번 공 간파: 높이·볼');
+ });
+
+ it('holds a real drawPlay card until impact while retaining the engine draw',()=>{
+   let before=enterV10Node(applyStartPack(createV10Duel(1),'link'),'a1-entry');
+   const id='qa-draw-play',entry={id,kind:'tempoSwing'};
+   const displaced=before.battle.hand.at(-1);
+   before={...before,deck:[...before.deck,entry],battle:{...before.battle,
+     hand:[...before.battle.hand.slice(0,-1),id],draw:[...before.battle.draw,displaced]}};
+   before=setAimZone(before,4);
+   const after=playV10Action(before,{type:'card',id});
+   expect(after.stats.pitches).toBe(before.stats.pitches+1);
+   expect(after.battle.revealed.kind).toBe('whiff');
+   expect(after.battle.hand).not.toContain(id);
+   expect(after.battle.hand.length).toBe(before.battle.hand.length);
+   const execution=captureExecution(before,after,{selected:id});
+   const flight=buildBattleViewModel({s:after,...appInputs(after),execution,fxStage:'windup',locked:true});
+   const impact=buildBattleViewModel({s:after,...appInputs(after),execution,fxStage:'impact',locked:true});
+   expect(flight.hand.map(c=>c.id)).toContain(id);
+   expect(flight.piles).toEqual({draw:before.battle.draw.length,discard:before.battle.discard.length});
+   expect(impact.hand.map(c=>c.id)).not.toContain(id);
+   expect(impact.handCount).toBe(after.battle.hand.length);
+   expect(impact.piles).toEqual({draw:after.battle.draw.length,discard:after.battle.discard.length});
+   expect(after.battle.draw.length).toBe(before.battle.draw.length-1);
+ });
+
+ it('does not claim an unknown flight hand is empty',()=>{
+   render(<HandDock hand={[{id:'basic',type:'basic'}]} handKnown={false} handCount={null} piles={{draw:'—',discard:'—'}} phase="flight"/>);
+   expect(screen.getByTestId('bv-hand').getAttribute('aria-label')).toBe('손패 수량을 확인할 수 없음');
+   expect(screen.queryByText(/손패 없음/)).toBeNull();
+   expect(screen.getByText('손패').parentElement.textContent).toContain('—');
  });
 });

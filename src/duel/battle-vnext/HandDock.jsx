@@ -34,11 +34,12 @@ function lockText(input,phase){
   return '';
 }
 
-const HandDock=forwardRef(function HandDock({hand=[],energy=null,input=null,phase='deciding',piles=null,selection=null,onToggleSupport=null,
+const HandDock=forwardRef(function HandDock({hand=[],energy=null,input=null,phase='deciding',piles=null,handCount=null,handKnown=true,selection=null,onToggleSupport=null,
   onCardTap,onCardDetail=null,onPiles=null,artFor=defaultCardArt,grid=false},ref){
   const rowRef=useRef(null),cardRefs=useRef(new Map()),drag=useRef(null),suppress=useRef(false);
   const [hidden,setHidden]=useState({left:0,right:0});
   const basic=hand.find(x=>x.type==='basic'),cards=hand.filter(x=>x.type!=='basic');
+  const handCountText=handKnown?(handCount??cards.length):'—';
 
   /* 부모가 정보창을 닫은 뒤 선택·스크롤·포커스를 되돌릴 수 있게 한다 */
   useImperativeHandle(ref,()=>({
@@ -93,7 +94,7 @@ const HandDock=forwardRef(function HandDock({hand=[],energy=null,input=null,phas
         <span className="bv-energy-pips" aria-hidden="true">{pips.map((p,i)=><i key={i} className={p}/>)}</span>
         {line&&<em className="bv-energy-line" aria-hidden="true">{grid==='orbit'?<EnergyText>{line}</EnergyText>:line}</em>}
       </div>}
-      <span className="bv-hand-count">손패 <b>{cards.length}</b></span>
+      <span className="bv-hand-count">손패 <b>{handCountText}</b></span>
       {lock&&<span className="bv-hand-lock" role="status">{lock}</span>}
       <span className="bv-hand-tools">
         {basic&&<button type="button" className={'bv-basic-chip'+(basic.selectionRole==='main'?' is-main':'')} data-testid="bv-basic-chip"
@@ -108,13 +109,13 @@ const HandDock=forwardRef(function HandDock({hand=[],energy=null,input=null,phas
       </span>
     </header>
     <div className="bv-hand-scroller">
-      <ol ref={rowRef} className="bv-hand-row" data-testid="bv-hand" aria-label={`손패 ${cards.length}장`}
+      <ol ref={rowRef} className="bv-hand-row" data-testid="bv-hand" aria-label={handKnown?`손패 ${handCountText}장`:'손패 수량을 확인할 수 없음'}
         onScroll={measure} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerEnd} onPointerCancel={onPointerEnd}
         onClickCapture={onClickCapture}>
         {cards.map((item,i)=><BattleCard key={item.id} item={item} strip={grid==='orbit'} art={artFor?artFor(item):null} dealIndex={i} dealCount={cards.length}
           cardRef={el=>{if(el)cardRefs.current.set(item.id,el);else cardRefs.current.delete(item.id);}}
           onTap={onCardTap} onDetail={onCardDetail} detailDisabled={detailDisabled} onKeyDown={e=>onCardKey(e,i)}/>)}
-        {!cards.length&&<li className="bv-hand-empty">손패 없음 · 기본 스윙은 언제나 쓸 수 있다</li>}
+        {handKnown&&!cards.length&&<li className="bv-hand-empty">손패 없음 · 기본 스윙은 언제나 쓸 수 있다</li>}
       </ol>
       {hidden.left>0&&<span className="bv-hand-more left" aria-hidden="true">{grid?'↑':'‹'} {hidden.left}</span>}
       {hidden.right>0&&<span className="bv-hand-more right" data-testid="bv-hand-more" aria-hidden="true">{hidden.right} {grid?'↓':'›'}</span>}

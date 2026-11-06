@@ -618,14 +618,16 @@ export default function BallparkBattle({
       read={{level,sources}} lastCombat={lessonCombat} r={r} piles={piles} onClose={()=>closeInspect()}
       compact={compact} effects={prepEffects} labView={labView} energy={{current:energy,cap:energyCap}} intent={intentIcon}
       onHome={onHome} onToggleSound={onToggleSound} sound={sound} onConditions={defenseLab?onSettings:null} onPractice={onPractice}/>:null;
+  const matchingExecution=execution?.pitch===s.stats?.pitches&&execution?.nodeId===s.runMap?.currentNodeId?execution:null;
+  const currentPiles={draw:b.draw?.length??0,discard:b.discard?.length??0};
   const model=useVnext?buildBattleViewModel({s,hand,selected,swingStack,choice,locked,fxStage,shot,playToken,nextLabel,hasNext:!!onNext,
-      artId,defenseLab,armed,supportMode,commitBeat,inspectOpen:!!inspect,hoverZone,hoverSkill,lastSwing:lastSwing.current}):null;
+      artId,defenseLab,armed,supportMode,commitBeat,inspectOpen:!!inspect,hoverZone,hoverSkill,lastSwing:lastSwing.current,execution:matchingExecution,piles:currentPiles}):null;
   useEffect(()=>{
     if(!model?.result)return;
     setRecentResult({key:artId+':'+s.runMap?.currentNodeId,text:model.result.explanation+(model.result.damage>0?` · 투수 HP −${model.result.damage}`:'')});
   },[model?.phase,playToken,artId,s.runMap?.currentNodeId]);
   if(useVnext){
-    return <BattleView execution={execution?.pitch===s.stats?.pitches&&execution?.nodeId===s.runMap?.currentNodeId?execution:null} model={model} actors={{batter:SAMPLE_ACTORS.batter,pitcher:rosterPitcher||approvedArt||SAMPLE_ACTORS.pitcher}}
+    return <BattleView execution={matchingExecution} model={model} actors={{batter:SAMPLE_ACTORS.batter,pitcher:rosterPitcher||approvedArt||SAMPLE_ACTORS.pitcher}}
       playback={playback} animationRate={animationRate} onAnimationRateChange={onAnimationRateChange} sound={sound} onToggleSound={onToggleSound} rootRef={rootRef} sceneRef={sceneRef} zoneRef={zoneRef} handRef={handDockRef} recent={recentResult?.key===artId+':'+s.runMap?.currentNodeId?recentResult.text:null} title={label} review={!!vnextReview}
       inspector={inspectorView} menuOpen={!!inspect} onMenu={()=>openInspect('menu')}
       onCardTap={id=>{if(!deciding&&!inspect)return;isSkill(byId(id)?.entry)?pickPrep(id):pickSwing(id);}}

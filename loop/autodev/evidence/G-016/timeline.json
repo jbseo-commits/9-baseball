@@ -1,0 +1,724 @@
+[
+  {
+    "seed": 1,
+    "viewport": [
+      844,
+      390
+    ],
+    "policy": "actual new run, link starter pack, first tableSetter, fixed zone 4; pending did not choose actions",
+    "before": {
+      "count": "손패 5",
+      "piles": "더미 4 · 버림 0",
+      "ids": [
+        "c2",
+        "c3",
+        "c4",
+        "c0",
+        "c8"
+      ]
+    },
+    "flight": {
+      "phase": "flight",
+      "count": "손패 5",
+      "piles": "더미 4 · 버림 0",
+      "ids": [
+        "c2",
+        "c3",
+        "c4",
+        "c0",
+        "c8"
+      ],
+      "allCardsDisabled": true,
+      "area": {
+        "ariaHidden": "true",
+        "inert": true,
+        "visibility": "visible",
+        "visible": true
+      }
+    },
+    "impact": {
+      "phase": "result",
+      "count": "손패 4",
+      "piles": "더미 4 · 버림 1",
+      "ids": [
+        "c2",
+        "c3",
+        "c4",
+        "c8"
+      ],
+      "outcome": "whiff",
+      "engineExact": true
+    },
+    "next": {
+      "phase": "battle",
+      "hand": [
+        "c2",
+        "c8",
+        "c3",
+        "c4",
+        "c1"
+      ],
+      "pitches": 1,
+      "newIds": [],
+      "autoAdvanced": false,
+      "playableNewId": null
+    },
+    "checks": [
+      {
+        "name": "flight-retains-all-before-hand-identities-and-copy",
+        "pass": true
+      },
+      {
+        "name": "flight-retains-before-hand-count-and-piles",
+        "pass": true
+      },
+      {
+        "name": "flight-retains-before-effect-and-condition-lines",
+        "pass": true
+      },
+      {
+        "name": "flight-disables-hand-while-animation-runs",
+        "pass": true
+      },
+      {
+        "name": "actual-immediate-save-matches-engine",
+        "pass": true
+      },
+      {
+        "name": "impact-ui-count-and-piles-match-live-engine",
+        "pass": true,
+        "note": null
+      },
+      {
+        "name": "impact-live-save-matches-engine",
+        "pass": true,
+        "note": null
+      },
+      {
+        "name": "replacement-card-detail-and-selection-on-next-pitch",
+        "pass": null,
+        "note": "No replacement card expected for miss"
+      }
+    ],
+    "errors": [],
+    "strictVerification": {
+      "flightAllBeforeHandIds": true,
+      "impactDomIdsMatchSavedHand": true,
+      "allFlightCardsDisabled": true,
+      "impactPhaseWasObserved": true,
+      "impactStorageMatchesEngine": true,
+      "engineNextTransitionMatchesObserved": true,
+      "forcedPortraitHandReallyVisible": null,
+      "drawnCardDetailSelectable": null
+    },
+    "nextStateComparisonScope": "phase, ordered hand IDs, pitch count; complete immediate action state checked separately"
+  },
+  {
+    "seed": 4,
+    "viewport": [
+      844,
+      390
+    ],
+    "policy": "actual new run, link starter pack, first tableSetter, fixed zone 4; pending did not choose actions",
+    "before": {
+      "count": "손패 5",
+      "piles": "더미 4 · 버림 0",
+      "ids": [
+        "c2",
+        "c3",
+        "c4",
+        "c0",
+        "c5"
+      ]
+    },
+    "flight": {
+      "phase": "flight",
+      "count": "손패 5",
+      "piles": "더미 4 · 버림 0",
+      "ids": [
+        "c2",
+        "c3",
+        "c4",
+        "c0",
+        "c5"
+      ],
+      "allCardsDisabled": true,
+      "area": {
+        "ariaHidden": "true",
+        "inert": true,
+        "visibility": "visible",
+        "visible": true
+      }
+    },
+    "impact": {
+      "phase": "result",
+      "count": "손패 5",
+      "piles": "더미 3 · 버림 1",
+      "ids": [
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c8"
+      ],
+      "outcome": "hit",
+      "engineExact": true
+    },
+    "next": {
+      "phase": "battle",
+      "hand": [
+        "c2",
+        "c5",
+        "c3",
+        "c4",
+        "c8"
+      ],
+      "pitches": 1,
+      "newIds": [
+        "c8"
+      ],
+      "autoAdvanced": false,
+      "playableNewId": "c8",
+      "cardName": "릴리스 간파",
+      "detailText": "릴리스 간파준비 카드 · 관찰 · 타석 준비\n\n준비 1회 · 이번 공의 높음/중간/낮음 또는 볼 여부를 확인. 카드 1장 뽑기.\n\n행 정보 · 카드 +1\n\n강화하면 · 행 + 열 정보\n\nMAIN RUN 에너지 비용 · ⚡ 1\n\n정답 존이 아닌, 관찰 가능한 단서.",
+      "detailMatch": true,
+      "selected": {
+        "pressed": "true",
+        "selection": "main",
+        "disabled": false
+      }
+    },
+    "checks": [
+      {
+        "name": "flight-retains-all-before-hand-identities-and-copy",
+        "pass": true
+      },
+      {
+        "name": "flight-retains-before-hand-count-and-piles",
+        "pass": true
+      },
+      {
+        "name": "flight-retains-before-effect-and-condition-lines",
+        "pass": true
+      },
+      {
+        "name": "flight-disables-hand-while-animation-runs",
+        "pass": true
+      },
+      {
+        "name": "actual-immediate-save-matches-engine",
+        "pass": true
+      },
+      {
+        "name": "impact-ui-count-and-piles-match-live-engine",
+        "pass": true,
+        "note": null
+      },
+      {
+        "name": "impact-live-save-matches-engine",
+        "pass": true,
+        "note": null
+      },
+      {
+        "name": "replacement-card-detail-and-selection-on-next-pitch",
+        "pass": true
+      }
+    ],
+    "errors": [],
+    "strictVerification": {
+      "flightAllBeforeHandIds": true,
+      "impactDomIdsMatchSavedHand": true,
+      "allFlightCardsDisabled": true,
+      "impactPhaseWasObserved": true,
+      "impactStorageMatchesEngine": true,
+      "engineNextTransitionMatchesObserved": true,
+      "forcedPortraitHandReallyVisible": null,
+      "drawnCardDetailSelectable": true
+    },
+    "nextStateComparisonScope": "phase, ordered hand IDs, pitch count; complete immediate action state checked separately"
+  },
+  {
+    "seed": 1,
+    "viewport": [
+      1366,
+      768
+    ],
+    "policy": "actual new run, link starter pack, first tableSetter, fixed zone 4; pending did not choose actions",
+    "before": {
+      "count": "손패 5",
+      "piles": "더미 4 · 버림 0",
+      "ids": [
+        "c2",
+        "c3",
+        "c4",
+        "c0",
+        "c8"
+      ]
+    },
+    "flight": {
+      "phase": "flight",
+      "count": "손패 5",
+      "piles": "더미 4 · 버림 0",
+      "ids": [
+        "c2",
+        "c3",
+        "c4",
+        "c0",
+        "c8"
+      ],
+      "allCardsDisabled": true,
+      "area": {
+        "ariaHidden": "true",
+        "inert": true,
+        "visibility": "visible",
+        "visible": true
+      }
+    },
+    "impact": {
+      "phase": "result",
+      "count": "손패 4",
+      "piles": "더미 4 · 버림 1",
+      "ids": [
+        "c2",
+        "c3",
+        "c4",
+        "c8"
+      ],
+      "outcome": "whiff",
+      "engineExact": true
+    },
+    "next": {
+      "phase": "battle",
+      "hand": [
+        "c2",
+        "c8",
+        "c3",
+        "c4",
+        "c1"
+      ],
+      "pitches": 1,
+      "newIds": [],
+      "autoAdvanced": false,
+      "playableNewId": null
+    },
+    "checks": [
+      {
+        "name": "flight-retains-all-before-hand-identities-and-copy",
+        "pass": true
+      },
+      {
+        "name": "flight-retains-before-hand-count-and-piles",
+        "pass": true
+      },
+      {
+        "name": "flight-retains-before-effect-and-condition-lines",
+        "pass": true
+      },
+      {
+        "name": "flight-disables-hand-while-animation-runs",
+        "pass": true
+      },
+      {
+        "name": "actual-immediate-save-matches-engine",
+        "pass": true
+      },
+      {
+        "name": "impact-ui-count-and-piles-match-live-engine",
+        "pass": true,
+        "note": null
+      },
+      {
+        "name": "impact-live-save-matches-engine",
+        "pass": true,
+        "note": null
+      },
+      {
+        "name": "replacement-card-detail-and-selection-on-next-pitch",
+        "pass": null,
+        "note": "No replacement card expected for miss"
+      }
+    ],
+    "errors": [],
+    "strictVerification": {
+      "flightAllBeforeHandIds": true,
+      "impactDomIdsMatchSavedHand": true,
+      "allFlightCardsDisabled": true,
+      "impactPhaseWasObserved": true,
+      "impactStorageMatchesEngine": true,
+      "engineNextTransitionMatchesObserved": true,
+      "forcedPortraitHandReallyVisible": null,
+      "drawnCardDetailSelectable": null
+    },
+    "nextStateComparisonScope": "phase, ordered hand IDs, pitch count; complete immediate action state checked separately"
+  },
+  {
+    "seed": 4,
+    "viewport": [
+      1366,
+      768
+    ],
+    "policy": "actual new run, link starter pack, first tableSetter, fixed zone 4; pending did not choose actions",
+    "before": {
+      "count": "손패 5",
+      "piles": "더미 4 · 버림 0",
+      "ids": [
+        "c2",
+        "c3",
+        "c4",
+        "c0",
+        "c5"
+      ]
+    },
+    "flight": {
+      "phase": "flight",
+      "count": "손패 5",
+      "piles": "더미 4 · 버림 0",
+      "ids": [
+        "c2",
+        "c3",
+        "c4",
+        "c0",
+        "c5"
+      ],
+      "allCardsDisabled": true,
+      "area": {
+        "ariaHidden": "true",
+        "inert": true,
+        "visibility": "visible",
+        "visible": true
+      }
+    },
+    "impact": {
+      "phase": "result",
+      "count": "손패 5",
+      "piles": "더미 3 · 버림 1",
+      "ids": [
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c8"
+      ],
+      "outcome": "hit",
+      "engineExact": true
+    },
+    "next": {
+      "phase": "battle",
+      "hand": [
+        "c2",
+        "c5",
+        "c3",
+        "c4",
+        "c8"
+      ],
+      "pitches": 1,
+      "newIds": [
+        "c8"
+      ],
+      "autoAdvanced": false,
+      "playableNewId": "c8",
+      "cardName": "릴리스 간파",
+      "detailText": "릴리스 간파준비 카드 · 관찰 · 타석 준비\n\n준비 1회 · 이번 공의 높음/중간/낮음 또는 볼 여부를 확인. 카드 1장 뽑기.\n\n행 정보 · 카드 +1\n\n강화하면 · 행 + 열 정보\n\nMAIN RUN 에너지 비용 · ⚡ 1\n\n정답 존이 아닌, 관찰 가능한 단서.",
+      "detailMatch": true,
+      "selected": {
+        "pressed": "true",
+        "selection": "main",
+        "disabled": false
+      }
+    },
+    "checks": [
+      {
+        "name": "flight-retains-all-before-hand-identities-and-copy",
+        "pass": true
+      },
+      {
+        "name": "flight-retains-before-hand-count-and-piles",
+        "pass": true
+      },
+      {
+        "name": "flight-retains-before-effect-and-condition-lines",
+        "pass": true
+      },
+      {
+        "name": "flight-disables-hand-while-animation-runs",
+        "pass": true
+      },
+      {
+        "name": "actual-immediate-save-matches-engine",
+        "pass": true
+      },
+      {
+        "name": "impact-ui-count-and-piles-match-live-engine",
+        "pass": true,
+        "note": null
+      },
+      {
+        "name": "impact-live-save-matches-engine",
+        "pass": true,
+        "note": null
+      },
+      {
+        "name": "replacement-card-detail-and-selection-on-next-pitch",
+        "pass": true
+      }
+    ],
+    "errors": [],
+    "strictVerification": {
+      "flightAllBeforeHandIds": true,
+      "impactDomIdsMatchSavedHand": true,
+      "allFlightCardsDisabled": true,
+      "impactPhaseWasObserved": true,
+      "impactStorageMatchesEngine": true,
+      "engineNextTransitionMatchesObserved": true,
+      "forcedPortraitHandReallyVisible": null,
+      "drawnCardDetailSelectable": true
+    },
+    "nextStateComparisonScope": "phase, ordered hand IDs, pitch count; complete immediate action state checked separately"
+  },
+  {
+    "seed": 1,
+    "viewport": [
+      390,
+      844
+    ],
+    "policy": "actual new run, link starter pack, first tableSetter, fixed zone 4; pending did not choose actions",
+    "before": {
+      "count": "손패 5",
+      "piles": "더미 4 · 버림 0",
+      "ids": [
+        "c2",
+        "c3",
+        "c4",
+        "c0",
+        "c8"
+      ]
+    },
+    "flight": {
+      "phase": "flight",
+      "count": "손패 5",
+      "piles": "더미 4 · 버림 0",
+      "ids": [
+        "c2",
+        "c3",
+        "c4",
+        "c0",
+        "c8"
+      ],
+      "allCardsDisabled": true,
+      "area": {
+        "ariaHidden": "false",
+        "inert": false,
+        "visibility": "visible",
+        "visible": true
+      }
+    },
+    "impact": {
+      "phase": "result",
+      "count": "손패 4",
+      "piles": "더미 4 · 버림 1",
+      "ids": [
+        "c2",
+        "c3",
+        "c4",
+        "c8"
+      ],
+      "outcome": "whiff",
+      "engineExact": true
+    },
+    "next": {
+      "phase": "battle",
+      "hand": [
+        "c2",
+        "c8",
+        "c3",
+        "c4",
+        "c1"
+      ],
+      "pitches": 1,
+      "newIds": [],
+      "autoAdvanced": false,
+      "playableNewId": null
+    },
+    "checks": [
+      {
+        "name": "flight-retains-all-before-hand-identities-and-copy",
+        "pass": true
+      },
+      {
+        "name": "flight-retains-before-hand-count-and-piles",
+        "pass": true
+      },
+      {
+        "name": "flight-retains-before-effect-and-condition-lines",
+        "pass": true
+      },
+      {
+        "name": "flight-disables-hand-while-animation-runs",
+        "pass": true
+      },
+      {
+        "name": "forced-portrait-shows-frozen-hand-values-during-flight",
+        "pass": true
+      },
+      {
+        "name": "actual-immediate-save-matches-engine",
+        "pass": true
+      },
+      {
+        "name": "impact-ui-count-and-piles-match-live-engine",
+        "pass": true,
+        "note": null
+      },
+      {
+        "name": "impact-live-save-matches-engine",
+        "pass": true,
+        "note": null
+      },
+      {
+        "name": "replacement-card-detail-and-selection-on-next-pitch",
+        "pass": null,
+        "note": "No replacement card expected for miss"
+      }
+    ],
+    "errors": [],
+    "strictVerification": {
+      "flightAllBeforeHandIds": true,
+      "impactDomIdsMatchSavedHand": true,
+      "allFlightCardsDisabled": true,
+      "impactPhaseWasObserved": true,
+      "impactStorageMatchesEngine": true,
+      "engineNextTransitionMatchesObserved": true,
+      "forcedPortraitHandReallyVisible": true,
+      "drawnCardDetailSelectable": null
+    },
+    "nextStateComparisonScope": "phase, ordered hand IDs, pitch count; complete immediate action state checked separately"
+  },
+  {
+    "seed": 4,
+    "viewport": [
+      390,
+      844
+    ],
+    "policy": "actual new run, link starter pack, first tableSetter, fixed zone 4; pending did not choose actions",
+    "before": {
+      "count": "손패 5",
+      "piles": "더미 4 · 버림 0",
+      "ids": [
+        "c2",
+        "c3",
+        "c4",
+        "c0",
+        "c5"
+      ]
+    },
+    "flight": {
+      "phase": "flight",
+      "count": "손패 5",
+      "piles": "더미 4 · 버림 0",
+      "ids": [
+        "c2",
+        "c3",
+        "c4",
+        "c0",
+        "c5"
+      ],
+      "allCardsDisabled": true,
+      "area": {
+        "ariaHidden": "false",
+        "inert": false,
+        "visibility": "visible",
+        "visible": true
+      }
+    },
+    "impact": {
+      "phase": "result",
+      "count": "손패 5",
+      "piles": "더미 3 · 버림 1",
+      "ids": [
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c8"
+      ],
+      "outcome": "hit",
+      "engineExact": true
+    },
+    "next": {
+      "phase": "battle",
+      "hand": [
+        "c2",
+        "c5",
+        "c3",
+        "c4",
+        "c8"
+      ],
+      "pitches": 1,
+      "newIds": [
+        "c8"
+      ],
+      "autoAdvanced": false,
+      "playableNewId": "c8",
+      "cardName": "릴리스 간파",
+      "detailText": "릴리스 간파준비 카드 · 관찰 · 타석 준비\n\n준비 1회 · 이번 공의 높음/중간/낮음 또는 볼 여부를 확인. 카드 1장 뽑기.\n\n행 정보 · 카드 +1\n\n강화하면 · 행 + 열 정보\n\nMAIN RUN 에너지 비용 · ⚡ 1\n\n정답 존이 아닌, 관찰 가능한 단서.",
+      "detailMatch": true,
+      "selected": {
+        "pressed": "true",
+        "selection": "main",
+        "disabled": false
+      }
+    },
+    "checks": [
+      {
+        "name": "flight-retains-all-before-hand-identities-and-copy",
+        "pass": true
+      },
+      {
+        "name": "flight-retains-before-hand-count-and-piles",
+        "pass": true
+      },
+      {
+        "name": "flight-retains-before-effect-and-condition-lines",
+        "pass": true
+      },
+      {
+        "name": "flight-disables-hand-while-animation-runs",
+        "pass": true
+      },
+      {
+        "name": "forced-portrait-shows-frozen-hand-values-during-flight",
+        "pass": true
+      },
+      {
+        "name": "actual-immediate-save-matches-engine",
+        "pass": true
+      },
+      {
+        "name": "impact-ui-count-and-piles-match-live-engine",
+        "pass": true,
+        "note": null
+      },
+      {
+        "name": "impact-live-save-matches-engine",
+        "pass": true,
+        "note": null
+      },
+      {
+        "name": "replacement-card-detail-and-selection-on-next-pitch",
+        "pass": true
+      }
+    ],
+    "errors": [],
+    "strictVerification": {
+      "flightAllBeforeHandIds": true,
+      "impactDomIdsMatchSavedHand": true,
+      "allFlightCardsDisabled": true,
+      "impactPhaseWasObserved": true,
+      "impactStorageMatchesEngine": true,
+      "engineNextTransitionMatchesObserved": true,
+      "forcedPortraitHandReallyVisible": true,
+      "drawnCardDetailSelectable": true
+    },
+    "nextStateComparisonScope": "phase, ordered hand IDs, pitch count; complete immediate action state checked separately"
+  }
+]
