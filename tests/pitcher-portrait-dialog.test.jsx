@@ -80,4 +80,48 @@ describe('pitcher portrait inspection',()=>{
     fireEvent.click(document.querySelector('.pitcher-portrait-backdrop'));
     expect(screen.queryByRole('dialog',{name:/투수 큰 그림/})).toBeNull();
   });
+
+  it('traps only at the active controls’ Tab boundaries and lets roster selection use its native button behavior',()=>{
+    render(<InspectionHarness/>);
+    fireEvent.click(screen.getByRole('button',{name:/투수 큰 그림 보기/}));
+    const dialog=screen.getByRole('dialog',{name:/투수 큰 그림/});
+    const controls=[...dialog.querySelectorAll('button:not([disabled])')];
+    const close=screen.getByRole('button',{name:'큰 그림 닫기'});
+    const roster=controls.filter(button=>button!==close);
+    expect(roster.length).toBeGreaterThan(1);
+
+    close.focus();
+    const forwardFromClose=new KeyboardEvent('keydown',{key:'Tab',bubbles:true,cancelable:true});
+    close.dispatchEvent(forwardFromClose);
+    expect(forwardFromClose.defaultPrevented).toBe(false);
+
+    const middle=roster[Math.floor(roster.length/2)];
+    middle.focus();
+    const middleForward=new KeyboardEvent('keydown',{key:'Tab',bubbles:true,cancelable:true});
+    middle.dispatchEvent(middleForward);
+    expect(middleForward.defaultPrevented).toBe(false);
+    const middleBackward=new KeyboardEvent('keydown',{key:'Tab',shiftKey:true,bubbles:true,cancelable:true});
+    middle.dispatchEvent(middleBackward);
+    expect(middleBackward.defaultPrevented).toBe(false);
+
+    const last=roster.at(-1);
+    last.focus();
+    const forwardAtEnd=new KeyboardEvent('keydown',{key:'Tab',bubbles:true,cancelable:true});
+    last.dispatchEvent(forwardAtEnd);
+    expect(forwardAtEnd.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(close);
+
+    close.focus();
+    const backwardAtStart=new KeyboardEvent('keydown',{key:'Tab',shiftKey:true,bubbles:true,cancelable:true});
+    close.dispatchEvent(backwardAtStart);
+    expect(backwardAtStart.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(last);
+
+    const selected=roster[1];
+    selected.focus();
+    fireEvent.click(selected);
+    expect(selected.getAttribute('aria-pressed')).toBe('true');
+    expect(selected.querySelector('.dex-card-name').textContent).toContain(dialog.querySelector('.pitcher-portrait-frame img').alt.replace(' 투수 전신 원화',''));
+    expect(document.activeElement).toBe(selected);
+  });
 });
