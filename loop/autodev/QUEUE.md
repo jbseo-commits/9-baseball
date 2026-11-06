@@ -18,4 +18,6 @@
 | G-009 | P1 | VALIDATED_LOCAL | 강화 문구가 실제 plus 효과를 속이는 카드 11종 | 기존 카드 검수 스윕에서 계약 테스트로 재현·수정(수치 무변경, 문구만). 상세는 [이슈 파일](issues/G-009.md). 로컬 커밋 `0f18e3a`, 원격 미게시 | game-20261011-a R2 / — |
 | G-010 | P2 | FIXED | zone-report의 starter 행이 항상 0이다 | R3 베이스라인 측정 중 발견. 덱빌더는 chooseRoute 선행 필요인데 리포트가 몰라 전투에 진입 못함. exit 0이라 CI도 통과. `scripts/zone-report.js`에 chooseRoute 추가로 수정(`c4c0e96`) | game-20261011-a R4 / — |
 
+| G-018 | P1 | VALIDATED_LOCAL | 타이틀·상단 투수 도감 버튼 무반응 | main0eedc99에서 실제재현. raw roster id/artId 조회 연결 복구. [이슈/9축](issues/G-018.md). 기존 상대초상 및 저장 보존 검증 | game-20261106-c R2 / 독립main기준 |
+
 선택 전에 각 항목에 현재 SHA·재현 파일·관련 PR·소유 실행을 붙인다. G-000도 새로운 HEAD에서는 같은 검사를 다시 확인한다. 기술 검증 실패를 정상으로 바꾸거나 이 목록 자체를 구현 승인으로 쓰지 않는다. 근거가 있는 추가 병목은 새 고유 ID를 만들고 [템플릿](TEMPLATES.md)으로 등록한다. 빈 큐는 정상 종료 조건이다.
