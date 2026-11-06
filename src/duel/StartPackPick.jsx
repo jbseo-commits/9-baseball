@@ -22,6 +22,8 @@ export default function StartPackPick({seed,onPick,onClose}){
   const [chosen,setChosen]=useState(null);
   const confirmRef=useRef(null);
   const pack=offers.find(p=>p.id===chosen);
+  const deckCounts=new Map();
+  if(pack)for(const k of [...START_PACK_COMMON,...pack.kinds])deckCounts.set(k,(deckCounts.get(k)||0)+1);
   useEffect(()=>{const esc=e=>{if(e.key==='Escape')onClose?.()};window.addEventListener('keydown',esc);return()=>window.removeEventListener('keydown',esc)},[onClose]);
   useEffect(()=>{if(chosen)confirmRef.current?.scrollIntoView?.({block:'nearest'})},[chosen]);
   return <div className="sp-root" role="dialog" aria-modal="true" aria-label="시작 팩 선택">
@@ -51,7 +53,7 @@ export default function StartPackPick({seed,onPick,onClose}){
               </span>;})}
           </span>
           <span className="sp-info">
-            <span className="sp-tag">{on?'전체 9장 구성':'대표 3종'} · {look.tag}</span>
+            <span className="sp-tag">{on?'선택됨':'대표 3종'} · {look.tag}</span>
             <strong>{p.name}</strong>
             <em>{p.desc}</em>
             <span className="sp-cards" aria-label={on?'전체 9장 구성':'대표 카드 3종'}>{(on?[...counts]:p.featured.map(k=>[k,1])).map(([k,n])=><span key={k} className={(CARDS[k]?.type==='skill'?'skill ':'')+(on&&START_PACK_COMMON.includes(k)?'common':'')}>
@@ -60,6 +62,12 @@ export default function StartPackPick({seed,onPick,onClose}){
           <span className="sp-check" aria-hidden="true"/>
         </button>;})}
     </div>
+    {pack&&<section className="sp-deck-preview" aria-label={`${pack.name} 전체 9장 구성`}>
+      <strong>선택 덱 <span>공통 2장 + 방향 7장</span></strong>
+      <div className="sp-deck-cards">{[...deckCounts].map(([k,n])=><span key={k} className={(CARDS[k]?.type==='skill'?'skill ':'')+(START_PACK_COMMON.includes(k)?'common':'')}>
+        {CARDS[k]?.name||k}{n>1?` ×${n}`:''}<small>{START_PACK_COMMON.includes(k)?'공통':CARDS[k]?.role}</small>
+      </span>)}</div>
+    </section>}
     <footer className="sp-foot">
       <button ref={confirmRef} type="button" className="sp-go" data-testid="start-pack-go" disabled={!pack} onClick={()=>pack&&onPick?.(pack.id)}>
         <span>{pack?pack.name+'로 출발':'팩을 고르세요'}</span>
