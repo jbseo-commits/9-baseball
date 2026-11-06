@@ -1,0 +1,557 @@
+{
+  "method": "image_gen whole-character redraw, manually selected chronologically; original keys immutable. One whole-batch scale+translation, no per-pose warp, no optical-flow frames.",
+  "characters": {
+    "regular-01-red-rush": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-01-red-rush.webp",
+      "generatedPNG": "exec-03c70061-61a5-49d5-bde1-3659fbc5ae8e.png",
+      "generatedPNG_SHA256": "d5545a5c108d54570913cd06cbcceed67bf07f850885cec110aa1fffc706ccf3",
+      "selected": [
+        {
+          "afterKey": 1,
+          "sourceCell": 4,
+          "notes": "Front knee is rising below the full high-coil key2; hands remain gathered."
+        },
+        {
+          "afterKey": 2,
+          "sourceCell": 7,
+          "notes": "Knee descends while the ball hand separates; follows high coil toward original key3."
+        },
+        {
+          "afterKey": 3,
+          "sourceCell": 8,
+          "notes": "Front leg opens farther and lowers toward plant while the throwing arm is still below the original planted cocking pose."
+        },
+        {
+          "afterKey": 6,
+          "sourceCell": 14,
+          "notes": "Empty throwing arm travels lower and farther across the follow-through arc than key6, before the fully crossed-down arm in key7."
+        },
+        {
+          "afterKey": 5,
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-01-red-rush-whip.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 5,
+          "generatedPNG": "exec-4be6a199-3458-4ca0-8a52-c5ba0a2da2ad.png",
+          "generatedPNG_SHA256": "b7396be9daa3e723359be722dbf3d455cf73aea3191ed8813a08bed33e8fa417",
+          "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
+        }
+      ]
+    },
+    "regular-03-amber-sinker": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker.webp",
+      "generatedPNG": "exec-e0688b16-54ef-4138-9475-a0e6c366b882.png",
+      "generatedPNG_SHA256": "5f1eb88fbad4dbce04dbf1110ddda7e6761e3836c7eb76dcc69332ac3d60b9b9",
+      "selected": [
+        {
+          "afterKey": 1,
+          "sourceCell": 4,
+          "notes": "Knee is between low gather and high coil; identity, braid and equipment are retained."
+        },
+        {
+          "afterKey": 2,
+          "sourceCell": 7,
+          "notes": "Knee drops and stride begins to extend, with ball below shoulder and glove ownership preserved."
+        },
+        {
+          "afterKey": 6,
+          "sourceCell": 13,
+          "notes": "Empty arm is lower than release but still extends ahead of the body before the crossed-down key7; retains low slot."
+        },
+        {
+          "afterKey": 9,
+          "sourceCell": 19,
+          "notes": "Torso rises and empty throwing hand descends toward the relaxed upright key10; no new gather action."
+        },
+        {
+          "afterKey": 5,
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-whip.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 5,
+          "generatedPNG": "exec-1ff2b4ca-f3f6-4e99-bfc2-2060183c674f.png",
+          "generatedPNG_SHA256": "3f0b06c276ff7ae6af60feadefc5dc471af766c01f9278cfd9423e46b212fa19",
+          "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
+        }
+      ]
+    },
+    "regular-05-violet-sting": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting.webp",
+      "generatedPNG": "exec-0069959d-ee9b-4a35-ae1c-fe82895d80cd.png",
+      "generatedPNG_SHA256": "23fddcdb65b906df2303999a6e49018e6b3457527655a057a24fab7c399f0b62",
+      "selected": [
+        {
+          "afterKey": 1,
+          "sourceCell": 4,
+          "notes": "Partial knee lift before original full coil; gathered hands remain attached correctly."
+        },
+        {
+          "afterKey": 2,
+          "sourceCell": 7,
+          "notes": "Knee lowers and sidearm ball hand separates toward stride, with no overhead arm conversion."
+        },
+        {
+          "afterKey": 6,
+          "sourceCell": 13,
+          "notes": "Empty arm drops slightly and sweeps inward from sidearm release toward crossed-down follow-through."
+        },
+        {
+          "afterKey": 7,
+          "sourceCell": 15,
+          "notes": "Arm and torso move farther down toward key8 follow-through; maintains same hands and sidearm action."
+        },
+        {
+          "afterKey": 5,
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-whip.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 5,
+          "generatedPNG": "exec-57c2e8c7-85f7-46aa-bf5c-3557fcae8061.png",
+          "generatedPNG_SHA256": "49c45dfb0a7e3f328cdc2cdee69270cc77f5cebac6f00a0aacc44bf4eee5ff89",
+          "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
+        }
+      ]
+    },
+    "onyx-eclipse": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/onyx-eclipse.webp",
+      "generatedPNG": "exec-6f104328-43db-4726-b6b4-9864b8881b7c.png",
+      "generatedPNG_SHA256": "1037eebfc82af2c61d55ae14d61c14effc79203c5b5fc8a9b07e56cd75d35141",
+      "selected": [
+        {
+          "afterKey": 1,
+          "sourceCell": 4,
+          "notes": "Front knee lifts partially; anatomical LEFT throwing hand remains screen-right and glove screen-left."
+        },
+        {
+          "afterKey": 2,
+          "sourceCell": 7,
+          "notes": "Knee lowers while left ball hand separates behind reaching glove; no mirroring."
+        },
+        {
+          "afterKey": 6,
+          "sourceCell": 13,
+          "notes": "Empty left throwing hand moves inward/down toward the original cross-body follow-through."
+        },
+        {
+          "afterKey": 5,
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/onyx-eclipse-whip.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 5,
+          "generatedPNG": "exec-155e0e97-0ffd-42ca-9847-b55c181d5fae.png",
+          "generatedPNG_SHA256": "a344db6a3b3456dc99f4d9b6ed8410c270f54874eb46a148f60b8c37f57f3e6f",
+          "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
+        }
+      ]
+    },
+    "regular-06-rose-paint": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-06-rose-paint.webp",
+      "generatedPNG": "exec-dbb58a6d-9ca0-4408-aa54-5d1ada064a1e.png",
+      "generatedPNG_SHA256": "a116b72363639823d47f58fd72e799a245b0d76a0e9f18fb5eb1c071ce02318e",
+      "selected": [
+        {
+          "afterKey": 1,
+          "sourceCell": 4,
+          "notes": "Knee lift lies below original key2 high coil."
+        },
+        {
+          "afterKey": 2,
+          "sourceCell": 6,
+          "notes": "Knee begins to drop and ball separates while the stride leg remains bent, before the fully opened original key3."
+        },
+        {
+          "afterKey": 5,
+          "sourceCell": 11,
+          "notes": "Ball hand advances from cocked arm toward forward release; exact original key6 supplies the ball departure."
+        },
+        {
+          "afterKey": 6,
+          "sourceCell": 13,
+          "notes": "Empty arm travels forward/down before crossing the torso in key7."
+        },
+        {
+          "afterKey": 7,
+          "sourceCell": 15,
+          "notes": "Torso folds and throwing hand reaches lower toward original key8 follow-through."
+        }
+      ]
+    },
+    "regular-02-teal-mirage": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-02-teal-mirage.webp",
+      "generatedPNG": "exec-6bd98677-e929-46ce-84d6-624bf2007c6d.png",
+      "generatedPNG_SHA256": "701c0d32aee870edf1094ee458959cc1deec1901468e63477d3ffe8b95001ccb",
+      "selected": [
+        {
+          "afterKey": 1,
+          "sourceCell": 4,
+          "notes": "Knee lift is below original full coil, hands still gathered."
+        },
+        {
+          "afterKey": 2,
+          "sourceCell": 7,
+          "notes": "Front knee lowers and ball hand separates before the fully opened stride in key3."
+        },
+        {
+          "afterKey": 5,
+          "sourceCell": 11,
+          "notes": "Ball hand advances toward camera from the cocked position, still holding the ball before the exact original empty-hand release."
+        },
+        {
+          "afterKey": 7,
+          "sourceCell": 15,
+          "notes": "Torso folds farther over the front leg and the empty arm extends down into the original key8 follow-through."
+        }
+      ]
+    },
+    "regular-04-ivory-ace": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-04-ivory-ace.webp",
+      "generatedPNG": "exec-d37b0570-ec7c-4f3a-95b1-e5744e5d8e4f.png",
+      "generatedPNG_SHA256": "aa4ea5c1cb2b198d81abaedd45b3cc42e5472ba2c4dd2b8cd4e714142f72bfdc",
+      "selected": [
+        {
+          "afterKey": 1,
+          "sourceCell": 4,
+          "notes": "Knee rise is below key2 full lift and above key1 gather."
+        },
+        {
+          "afterKey": 2,
+          "sourceCell": 7,
+          "notes": "Knee descends while ball hand separates, before the opened stride key3."
+        },
+        {
+          "afterKey": 5,
+          "sourceCell": 11,
+          "notes": "Ball hand advances from overhand cock toward release, retaining ball until exact original key6."
+        },
+        {
+          "afterKey": 6,
+          "sourceCell": 13,
+          "notes": "Empty hand drops forward from high release before crossing down in key7; clear arm-path intermediate."
+        },
+        {
+          "afterKey": 7,
+          "sourceCell": 15,
+          "notes": "Empty arm extends down and torso folds farther toward key8, while rear foot stays airborne."
+        }
+      ]
+    },
+    "vulcan-blaze": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/vulcan-blaze.webp",
+      "generatedPNG": "exec-acf2754e-b793-420d-ae2b-86d6c8caadc9.png",
+      "generatedPNG_SHA256": "1f8620a021c4a7b85ad0bbc547ea431b9f4b179169919b3aa7f31f995171fbb3",
+      "selected": [
+        {
+          "afterKey": 1,
+          "sourceCell": 4,
+          "notes": "Knee rises below original full high-coil key2; same body scale under a single batch transform."
+        },
+        {
+          "afterKey": 2,
+          "sourceCell": 7,
+          "notes": "Knee lowers while ball separates, with stride still bent before original fully extended key3."
+        },
+        {
+          "afterKey": 5,
+          "sourceCell": 11,
+          "notes": "Ball-bearing forearm advances toward camera from the cocked arm, before the exact original empty-hand release key6."
+        }
+      ]
+    },
+    "sky-phantom": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/sky-phantom.webp",
+      "generatedPNG": "exec-37961c42-16c2-4d00-93b7-cca99d8a9a90.png",
+      "generatedPNG_SHA256": "a246ce7b7f7aa68a044ea9ca378ac4fb6c72aeb3f26f2f0f631408418e5fd00a",
+      "selected": [
+        {
+          "afterKey": 1,
+          "sourceCell": 4,
+          "notes": "Knee is slightly below the original full-coil key2 and calf remains lower; a late lift intermediate."
+        },
+        {
+          "afterKey": 2,
+          "sourceCell": 7,
+          "notes": "Front knee drops while the ball hand separates; boot has not reached the original fully opened stride."
+        },
+        {
+          "afterKey": 6,
+          "sourceCell": 13,
+          "notes": "Empty hand and forearm descend forward from high release, before crossing down in key7."
+        },
+        {
+          "afterKey": 9,
+          "sourceCell": 19,
+          "notes": "Torso rises between bent recovery and upright key10 without re-lifting the rear boot."
+        },
+        {
+          "afterKey": 5,
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/sky-phantom-whip.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 5,
+          "generatedPNG": "exec-141bd62d-4e2a-4302-a7f8-36e5946edfd1.png",
+          "generatedPNG_SHA256": "8b9f779f86308bd8c9d093e4cb2f52b75edc9ad78e820daaacf85ea34f662456",
+          "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
+        }
+      ]
+    },
+    "tide-vesper": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper.webp",
+      "generatedPNG": "exec-9cd8acd2-d779-4af2-85fc-d94cd34f5ec1.png",
+      "generatedPNG_SHA256": "98c13a9d2693eee561242cc274668b6ff86be9653ba951e6c8527e692521d356",
+      "selected": [
+        {
+          "afterKey": 1,
+          "sourceCell": 4,
+          "notes": "Knee rise is below original high coil, with the same leg travelling across the body."
+        },
+        {
+          "afterKey": 2,
+          "sourceCell": 7,
+          "notes": "Front knee lowers before the opened stride; ball remains in the anatomical throwing hand."
+        },
+        {
+          "afterKey": 6,
+          "sourceCell": 13,
+          "notes": "Empty hand moves inward/down from forward release toward crossed-down key7, maintaining low delivery."
+        },
+        {
+          "afterKey": 5,
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-whip.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 5,
+          "generatedPNG": "exec-ee4a1aa9-ac97-486b-b715-f206814ffa61.png",
+          "generatedPNG_SHA256": "f2256b45b082e7d0edefdd12ab30a528e03b9bd525757f33cb0ea33ef3652134",
+          "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
+        }
+      ]
+    },
+    "gale-twister": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/gale-twister.webp",
+      "generatedPNG": "exec-94d0a8d0-fabb-417d-a4bb-b832b3f683ef.png",
+      "generatedPNG_SHA256": "7001c7e3a2b3898b4d4bbf70ed8234dfc72586cdb2c3237e27ea9390d0038fe2",
+      "selected": [
+        {
+          "afterKey": 1,
+          "sourceCell": 4,
+          "notes": "Front knee lifts before crossing into the full high coil of key2."
+        },
+        {
+          "afterKey": 2,
+          "sourceCell": 7,
+          "notes": "Knee descends and ball separates before the fully opened stride of original key3."
+        },
+        {
+          "afterKey": 5,
+          "sourceCell": 11,
+          "notes": "Ball hand advances from high cock toward camera before the exact original empty-hand release."
+        },
+        {
+          "afterKey": 6,
+          "sourceCell": 13,
+          "notes": "Empty arm has swept down and inward partway before the farther cross-body hand in key7."
+        },
+        {
+          "afterKey": 9,
+          "sourceCell": 19,
+          "notes": "Torso straightens toward key10 with rear foot down and throwing arm relaxed."
+        }
+      ]
+    },
+    "elite-01-cobalt-impact": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/elite-01-cobalt-impact.webp",
+      "generatedPNG": "exec-f7ee85ed-bbf3-42f8-82f1-09e88fd113ba.png",
+      "generatedPNG_SHA256": "5b5cb91b973717a00c0654271167054361defc01ab556893221bb6941781f7cf",
+      "selected": [
+        {
+          "afterKey": 1,
+          "sourceCell": 4,
+          "notes": "Partial knee coil before full lift; same blue braid and glove. Clothing/ball are unchanged."
+        },
+        {
+          "afterKey": 5,
+          "sourceCell": 11,
+          "notes": "Ball remains held while elbow and wrist advance toward release; original empty-hand release is retained."
+        }
+      ]
+    },
+    "jade-viper": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/jade-viper.webp",
+      "generatedPNG": "exec-9b6257fb-f21e-4628-ac11-6c8905902b6f.png",
+      "generatedPNG_SHA256": "ba780ba19b54567407fe40e62d17715fe14676003277251452b3d3511a5b6aac",
+      "selected": [
+        {
+          "afterKey": 1,
+          "sourceCell": 4,
+          "notes": "Partial lift below high coil; same green glove and right throwing hand."
+        },
+        {
+          "afterKey": 2,
+          "sourceCell": 7,
+          "notes": "Lowering knee and separating ball hand bridge coil to stride."
+        },
+        {
+          "afterKey": 6,
+          "sourceCell": 13,
+          "notes": "Empty arm descends ahead of the torso before the original farther cross-body follow-through."
+        }
+      ]
+    },
+    "elite-02-neon-trick": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/elite-02-neon-trick.webp",
+      "generatedPNG": "exec-de676351-79e0-4418-97d0-567f7757ee13.png",
+      "generatedPNG_SHA256": "65911a2ad14b0793ecadb6ef9a820fa1ca5f2b7677b2f29171eec01e31b4f313",
+      "selected": [
+        {
+          "afterKey": 1,
+          "sourceCell": 4,
+          "notes": "Front knee rises between gathered stance and full coil; same neon sleeve/glove ownership."
+        },
+        {
+          "afterKey": 2,
+          "sourceCell": 7,
+          "notes": "Front knee lowers while the ball hand separates into stride; no new overhead slot."
+        },
+        {
+          "afterKey": 5,
+          "sourceCell": 11,
+          "notes": "Ball-bearing arm extends from the cocked shoulder toward the front before release."
+        }
+      ]
+    },
+    "boss-01-emerald-tyrant": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/boss-01-emerald-tyrant.webp",
+      "generatedPNG": "exec-90d4e359-d3aa-44b7-ab2c-242049affe4b.png",
+      "generatedPNG_SHA256": "13e0bf73b55c4b222cdecc9d8766cff3dfa9bbc6c16aeef111c201ba1ad7de30",
+      "selected": [
+        {
+          "afterKey": 1,
+          "sourceCell": 4,
+          "notes": "Knee rises below full coil; shoulder armor and green hair remain consistent."
+        },
+        {
+          "afterKey": 2,
+          "sourceCell": 7,
+          "notes": "Knee drops while right ball hand separates; front foot not at the original plant yet."
+        },
+        {
+          "afterKey": 5,
+          "sourceCell": 11,
+          "notes": "Forearm advances, still holding baseball until the exact original empty-hand release."
+        }
+      ]
+    },
+    "boss-02-platinum-halo": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/boss-02-platinum-halo.webp",
+      "generatedPNG": "exec-32fcdba9-2c1f-403c-830a-2044c2dc78f5.png",
+      "generatedPNG_SHA256": "1f704c65e9cbdb7eaf125ab8cc98779cc542c5ddd0c6f2b7862f7d1ba4b287ea",
+      "selected": [
+        {
+          "afterKey": 1,
+          "sourceCell": 4,
+          "notes": "Front thigh rises between gather and the high coil, braid follows the same side."
+        },
+        {
+          "afterKey": 2,
+          "sourceCell": 7,
+          "notes": "Knee descends and ball hand opens toward the stride; no handedness swap."
+        },
+        {
+          "afterKey": 5,
+          "sourceCell": 11,
+          "notes": "Ball-bearing wrist moves forward from high cock toward original high release."
+        }
+      ]
+    },
+    "boss-03-black-eclipse": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/boss-03-black-eclipse.webp",
+      "generatedPNG": "exec-eab11f87-c001-4913-8542-2b4cbf926091.png",
+      "generatedPNG_SHA256": "f030cc7fd6ccac9a7a74429d2f2d72c7a1f4ab4acb2da6036658f32af5ed56d7",
+      "selected": [
+        {
+          "afterKey": 2,
+          "sourceCell": 7,
+          "notes": "Front thigh lowers from high coil while the right ball hand separates; intact long uniform silhouette."
+        },
+        {
+          "afterKey": 5,
+          "sourceCell": 11,
+          "notes": "Ball-bearing wrist advances toward catcher before original open-hand release."
+        }
+      ]
+    },
+    "emerald-tempest": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/emerald-tempest.webp",
+      "generatedPNG": "exec-a0b71fce-c399-4f1a-b2ea-a5155acab9a2.png",
+      "generatedPNG_SHA256": "526699f0f497eae3e0ad58eb53cbf8332b7bba4d56daddf83160878e35c6eaae",
+      "selected": [
+        {
+          "afterKey": 1,
+          "sourceCell": 4,
+          "notes": "Front knee rises below maximum coil while gathered hands remain together."
+        },
+        {
+          "afterKey": 2,
+          "sourceCell": 7,
+          "notes": "Knee starts lowering and throwing hand splits into stride without changing ownership."
+        },
+        {
+          "afterKey": 5,
+          "sourceCell": 11,
+          "notes": "High-slot ball arm begins forward extension before the original open release hand."
+        }
+      ]
+    },
+    "copper-sirocco": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/copper-sirocco.webp",
+      "generatedPNG": "exec-96cae045-9594-4a09-bb75-66e90a5eac96.png",
+      "generatedPNG_SHA256": "8c6a6ce9636d7ca3ba81d175840dbfb96c3c931012b0206b4c2973c979639ce3",
+      "selected": [
+        {
+          "afterKey": 1,
+          "sourceCell": 4,
+          "notes": "Hands remain overhead while knee is below the full original lift."
+        },
+        {
+          "afterKey": 2,
+          "sourceCell": 7,
+          "notes": "Gather opens and raised knee lowers before the original extended stride."
+        },
+        {
+          "afterKey": 5,
+          "sourceCell": 11,
+          "notes": "Ball hand travels forward from cocked elbow; ball still held before original release."
+        }
+      ]
+    },
+    "elite-03-wine-bluff": {
+      "sourceSheet": "assets/pitcher-inbetweens-v1/sources/elite-03-wine-bluff.webp",
+      "generatedPNG": "exec-bc082cf4-82a4-44d7-a689-67146dd8481e.png",
+      "generatedPNG_SHA256": "c3d84b9b3ba5428361086731e780e5b028b405d01b1ca4465dca963fda20a8f6",
+      "selected": [
+        {
+          "afterKey": 1,
+          "sourceCell": 4,
+          "notes": "Front knee rises below the original maximum; wine cap/jacket identity retained."
+        },
+        {
+          "afterKey": 2,
+          "sourceCell": 7,
+          "notes": "Knee lowers, ball separates and rear sole remains supporting the body before stride."
+        },
+        {
+          "afterKey": 5,
+          "sourceCell": 11,
+          "notes": "Wrist/ball extend toward the catcher before the immutable empty release hand."
+        }
+      ]
+    }
+  },
+  "rootReview": "Root inspected all root-b four-row triptychs. Earlier generic B11-per-character mapping rejected; only these explicit source-to-candidate-to-key selections adopted."
+}

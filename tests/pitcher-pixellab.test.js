@@ -53,11 +53,11 @@ describe('PixelLab pitch animations',()=>{
     }
   });
 
-  it('preserves PixelLab sources while the approved grounded roster replaces all live atlases',()=>{
+  it('preserves PixelLab sources while the grounded roster with authored bridges replaces live atlases',()=>{
     const visuals=fs.readFileSync(new URL('../src/duel/pitcher-visuals.js',import.meta.url),'utf8');
     for(const id of ids){
       expect(fs.existsSync(new URL(`atlases/${id}-pitch-120-atlas.png`,root))).toBe(true);
-      expect(String(pitcherAtlases[id])).toContain('pitcher-grounded-runtime-v1/runtime');
+      expect(String(pitcherAtlases[id])).toContain('pitcher-inbetweens-v1/runtime');
     }
     expect(visuals).not.toMatch(/import\.meta\.glob\(['"]\.\.\/\.\.\/assets\/pitcher-(?:pixellab|sd)-/);
     expect(Object.keys(pitcherAtlases)).toHaveLength(20);

@@ -38,14 +38,14 @@ import redRushReleaseNoBall from '../../assets/production-art/battle-polish-v16/
 import redRushFollowThrough from '../../assets/production-art/battle-polish-v16/red-rush-follow-through.png';
 import impactSlashVfx from '../../assets/production-art/battle-polish-v16/impact-slash.png';
 
-/* Approved 2026-11-06: 20 grounded front-camera deliveries. The archived SD/PixelLab
-   sources stay in git, but importing them as well would ship obsolete atlases. */
-const groundedAtlases=import.meta.glob('../../assets/pitcher-grounded-runtime-v1/runtime/*-pitch-12-drawings.webp',
+/* Curated authored bridges with all original grounded keys retained exactly.
+   Import compact drawings only; the 120-tick authoring exports stay in git. */
+const groundedAtlases=import.meta.glob('../../assets/pitcher-inbetweens-v1/runtime/*-pitch-drawings.webp',
   {eager:true,query:'?url',import:'default'});
 const rosterPortraits=import.meta.glob('../../assets/pitcher-mobs-v1/*.png',{eager:true,query:'?url',import:'default'});
 const idFrom=(path,suffix)=>path.split('/').pop().replace(suffix,'');
 export const pitcherAtlases=Object.fromEntries(Object.entries(groundedAtlases)
-  .map(([path,url])=>[idFrom(path,'-pitch-12-drawings.webp'),url]));
+  .map(([path,url])=>[idFrom(path,'-pitch-drawings.webp'),url]));
 
 /* transparent roster cutouts: for silhouettes and anything drawn over a scene (map nodes use brightness(0)) */
 export const pitcherFigures={

@@ -1,9 +1,10 @@
 import motion from '../../../assets/production-art/mockup-rebuild/motion.json';
 import batterAtlas from '../../../assets/production-art/mockup-rebuild/batter-atlas.avif';
 import pitcherAtlas from '../../../assets/production-art/mockup-rebuild/pitcher-atlas.avif';
+import batterTween from '../../../assets/production-art/batter-inbetweens-v1/swing-bridge.webp';
 
 export const PILOT_MOTION=motion;
-export const PILOT_ACTORS=Object.freeze({batter:batterAtlas,pitcher:pitcherAtlas});
+export const PILOT_ACTORS=Object.freeze({batter:batterAtlas,pitcher:pitcherAtlas,batterTween});
 export function actorEvent(actor){
   const m=motion[actor],k=m.worldHeight/m.sourceHeight;
   return {x:m.worldFoot.x+(m.event.x-m.anchor.x)*k,y:m.worldFoot.y+(m.event.y-m.anchor.y)*k};
@@ -14,7 +15,18 @@ const clamp=n=>Math.max(0,Math.min(1,n));
 
 /* Pose choice reads the one host clock. It never advances or judges a pitch.
    The 14 cells are authored drawings; no limb warp / image rotation. */
-export function motionAt({elapsed=0,timeline=null,action='take',landed=false,knockedOut=false,reduced=false,readyCoil=false}={}){
+export function motionAt(options={}){
+ const pose=keyMotionAt(options);
+ if(!options.authoredBatterTweens)return pose;
+ const {timeline,elapsed=0,action,reduced}=options;
+ const start=timeline?.delivery?.pitchReleaseAt??0;
+ const approach=timeline?clamp((elapsed-start)/Math.max(1,timeline.impactAt-start))*8:0;
+ // Only the latter half of key6's interval. Contact remains the exact original
+ // key8, and preparing/taking/reduced motion never plays a swing drawing.
+ const bridge=!!timeline&&!reduced&&action==='swing'&&pose.batter===6&&approach>=6.45&&approach<7;
+ return {...pose,batterTween:bridge?0:null};
+}
+function keyMotionAt({elapsed=0,timeline=null,action='take',landed=false,knockedOut=false,reduced=false,readyCoil=false}={}){
   if(!timeline||reduced)return {batter:0,pitcher:knockedOut?3:readyCoil?4:0};
   const t=Math.max(0,elapsed),a=timeline.impactAt,release=timeline.releaseAt,end=timeline.duration;
   if(t>=end)return {batter:0,pitcher:knockedOut?3:0};
