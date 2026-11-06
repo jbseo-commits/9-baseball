@@ -75,7 +75,7 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
       {(composition?.shadows||SCENE.shadows).map((s,i)=><i key={i} className="bv-ground-shadow" style={{left:s.x,top:s.y,width:s.width,height:s.height,transform:`rotate(${s.rotation}deg)`}}/>)}
       {ACTORS.map(name=>{
         const live=name==='pitcher'?roster:null,tween=name==='batter'&&batterTweens&&pose.batterTween!=null,url=live?.url||(tween?SAMPLE_ACTORS.batterTween:actors[name])||null,isAtlas=!!live||url===SAMPLE_ACTORS[name]||tween;
-        const originalMeta=live?live.meta:isAtlas?(composition?.[name]||PILOT_MOTION[name]):SCENE[name],meta=tween?{...originalMeta,columns:1,rows:1}:originalMeta,b=actorBox(meta),frame=tween?0:live?rosterFrame(playback,elapsed,live):pose[name];
+        const originalMeta=live?live.meta:isAtlas?(composition?.[name]||PILOT_MOTION[name]):SCENE[name],meta=tween?{...originalMeta,columns:1,rows:1}:originalMeta,b=actorBox(meta),frame=tween?0:live?rosterFrame(playback,elapsed,live,{knockedOut:!!result?.knockedOut}):pose[name];
         const readyImage=isAtlas&&!tween&&frame===0&&meta.readyImage;
         return <div key={name} className={'bv-actor bv-actor-'+name} data-actor={name} data-actor-missing={url?undefined:'true'}
           data-pose={tween?'swing-bridge':live?'frame-'+frame:isAtlas?meta.frames[frame].name:undefined} data-roster-art={live?.artId} style={{left:b.x,top:b.y,width:b.width,height:b.height}}>

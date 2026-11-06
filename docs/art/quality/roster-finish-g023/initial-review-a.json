@@ -1,0 +1,869 @@
+{
+  "assessment": "Changes required. Runtime loading and original-key hashes do not establish motion/art quality.",
+  "reviewer": "review-a",
+  "characters": [
+    {
+      "slug": "regular-01-red-rush",
+      "status": "changes_requested",
+      "actuallyViewed": {
+        "reviewJPG": "assets/pitcher-inbetweens-v1/review/regular-01-red-rush.jpg",
+        "fullRGBA": "assets/pitcher-inbetweens-v1/runtime/regular-01-red-rush-pitch-drawings.webp",
+        "allDrawingIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "releaseNeighborRGBAComposites": true
+      },
+      "provenance": {
+        "manifest": "assets/pitcher-inbetweens-v1/manifest.json",
+        "method": "image_gen whole-character redraw, manually selected chronologically; original keys immutable. One whole-batch scale+translation, no per-pose warp, no optical-flow frames.",
+        "newDrawings": [
+          {
+            "index": 2,
+            "afterKey": 1,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-01-red-rush.webp",
+            "sourceCell": 4
+          },
+          {
+            "index": 4,
+            "afterKey": 2,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-01-red-rush.webp",
+            "sourceCell": 7
+          },
+          {
+            "index": 6,
+            "afterKey": 3,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-01-red-rush.webp",
+            "sourceCell": 8
+          },
+          {
+            "index": 9,
+            "afterKey": 5,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-01-red-rush-whip.webp",
+            "sourceCell": 1
+          },
+          {
+            "index": 11,
+            "afterKey": 6,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-01-red-rush.webp",
+            "sourceCell": 14
+          }
+        ]
+      },
+      "issues": [
+        {
+          "severity": "high",
+          "drawingIndices": [
+            6
+          ],
+          "afterKey": 3,
+          "observation": "The added stride frame folds the free foot underneath and relocates the support shoe horizontally before the planted key4; it reads as a support-leg switch instead of a continuous opening stride. Neighbor comparison d5/d6/d7 is saved.",
+          "remedy": "Delete d6 or replace with a newly authored stride pose retaining the rear contact while the front foot extends toward key4."
+        },
+        {
+          "severity": "medium",
+          "drawingIndices": [
+            2,
+            4,
+            6,
+            11
+          ],
+          "afterKey": null,
+          "observation": "New drawings have softer face/hair and larger, rounder torso/thigh rendering than adjacent crisp keys; d11 also enlarges the head and upper body immediately after release.",
+          "remedy": "Replace these drawings with pixel-density/proportion-matched art; do not solve with per-frame scale or warp."
+        }
+      ],
+      "ballAndElbowReview": "No unequivocal detached/multiple ball or disconnected elbow defect established in viewed frames; this does not certify animation playback.",
+      "limits": "Independent static frame/neighbor review only; not a real-game playback or commercial-completion signoff."
+    },
+    {
+      "slug": "regular-02-teal-mirage",
+      "status": "changes_requested",
+      "actuallyViewed": {
+        "reviewJPG": "assets/pitcher-inbetweens-v1/review/regular-02-teal-mirage.jpg",
+        "fullRGBA": "assets/pitcher-inbetweens-v1/runtime/regular-02-teal-mirage-pitch-drawings.webp",
+        "allDrawingIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "releaseNeighborRGBAComposites": true
+      },
+      "provenance": {
+        "manifest": "assets/pitcher-inbetweens-v1/manifest.json",
+        "method": "image_gen whole-character redraw, manually selected chronologically; original keys immutable. One whole-batch scale+translation, no per-pose warp, no optical-flow frames.",
+        "newDrawings": [
+          {
+            "index": 2,
+            "afterKey": 1,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-02-teal-mirage.webp",
+            "sourceCell": 4
+          },
+          {
+            "index": 4,
+            "afterKey": 2,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-02-teal-mirage.webp",
+            "sourceCell": 7
+          },
+          {
+            "index": 8,
+            "afterKey": 5,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-02-teal-mirage.webp",
+            "sourceCell": 11
+          },
+          {
+            "index": 11,
+            "afterKey": 7,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-02-teal-mirage.webp",
+            "sourceCell": 15
+          }
+        ]
+      },
+      "issues": [
+        {
+          "severity": "medium",
+          "drawingIndices": [
+            2,
+            4,
+            8,
+            11
+          ],
+          "afterKey": null,
+          "observation": "All four additions visibly change render density and facial shape; d8 lengthens/narrows the midriff and d11 enlarges the torso relative to both follow-through neighbors.",
+          "remedy": "Replace affected inbetweens using the original key proportions, face and pixel treatment."
+        },
+        {
+          "severity": "medium",
+          "drawingIndices": [
+            15,
+            0
+          ],
+          "afterKey": 11,
+          "observation": "Original final stance is substantially wider than set, so key11 to key0 resets the feet while the hands are already gathered.",
+          "remedy": "Author a closing recovery pose with intentional foot repositioning before set; keep originals if preservation is required."
+        }
+      ],
+      "ballAndElbowReview": "No unequivocal detached/multiple ball or disconnected elbow defect established in viewed frames; this does not certify animation playback.",
+      "limits": "Independent static frame/neighbor review only; not a real-game playback or commercial-completion signoff."
+    },
+    {
+      "slug": "regular-03-amber-sinker",
+      "status": "changes_requested",
+      "actuallyViewed": {
+        "reviewJPG": "assets/pitcher-inbetweens-v1/review/regular-03-amber-sinker.jpg",
+        "fullRGBA": "assets/pitcher-inbetweens-v1/runtime/regular-03-amber-sinker-pitch-drawings.webp",
+        "allDrawingIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "releaseNeighborRGBAComposites": true
+      },
+      "provenance": {
+        "manifest": "assets/pitcher-inbetweens-v1/manifest.json",
+        "method": "image_gen whole-character redraw, manually selected chronologically; original keys immutable. One whole-batch scale+translation, no per-pose warp, no optical-flow frames.",
+        "newDrawings": [
+          {
+            "index": 2,
+            "afterKey": 1,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker.webp",
+            "sourceCell": 4
+          },
+          {
+            "index": 4,
+            "afterKey": 2,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker.webp",
+            "sourceCell": 7
+          },
+          {
+            "index": 8,
+            "afterKey": 5,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-whip.webp",
+            "sourceCell": 1
+          },
+          {
+            "index": 10,
+            "afterKey": 6,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker.webp",
+            "sourceCell": 13
+          },
+          {
+            "index": 14,
+            "afterKey": 9,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker.webp",
+            "sourceCell": 19
+          }
+        ]
+      },
+      "issues": [
+        {
+          "severity": "high",
+          "drawingIndices": [
+            10
+          ],
+          "afterKey": 6,
+          "observation": "The new post-release pose moves the planted front shoe farther right than key6 then returns left at key7. Torso also rises/opens for this single drawing. d9/d10/d11 comparison is saved.",
+          "remedy": "Delete d10 or redraw a descending arm/torso follow-through with the same front contact."
+        },
+        {
+          "severity": "high",
+          "drawingIndices": [
+            16,
+            0
+          ],
+          "afterKey": 11,
+          "observation": "Original key11 still has the throwing hand hanging at the side; key0 instantly gathers it at the glove. Last two keys barely recover the arm.",
+          "remedy": "Add newly authored recovery after key11, raising the empty throwing hand toward the glove, then settling into key0."
+        },
+        {
+          "severity": "medium",
+          "drawingIndices": [
+            2,
+            4,
+            14
+          ],
+          "afterKey": null,
+          "observation": "New lift/stride/recovery art has softer shading, less crisp face and altered torso volume.",
+          "remedy": "Replace with proportion and pixel-treatment matched art."
+        }
+      ],
+      "ballAndElbowReview": "No unequivocal detached/multiple ball or disconnected elbow defect established in viewed frames; this does not certify animation playback.",
+      "limits": "Independent static frame/neighbor review only; not a real-game playback or commercial-completion signoff."
+    },
+    {
+      "slug": "regular-04-ivory-ace",
+      "status": "changes_requested",
+      "actuallyViewed": {
+        "reviewJPG": "assets/pitcher-inbetweens-v1/review/regular-04-ivory-ace.jpg",
+        "fullRGBA": "assets/pitcher-inbetweens-v1/runtime/regular-04-ivory-ace-pitch-drawings.webp",
+        "allDrawingIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "releaseNeighborRGBAComposites": true
+      },
+      "provenance": {
+        "manifest": "assets/pitcher-inbetweens-v1/manifest.json",
+        "method": "image_gen whole-character redraw, manually selected chronologically; original keys immutable. One whole-batch scale+translation, no per-pose warp, no optical-flow frames.",
+        "newDrawings": [
+          {
+            "index": 2,
+            "afterKey": 1,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-04-ivory-ace.webp",
+            "sourceCell": 4
+          },
+          {
+            "index": 4,
+            "afterKey": 2,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-04-ivory-ace.webp",
+            "sourceCell": 7
+          },
+          {
+            "index": 8,
+            "afterKey": 5,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-04-ivory-ace.webp",
+            "sourceCell": 11
+          },
+          {
+            "index": 10,
+            "afterKey": 6,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-04-ivory-ace.webp",
+            "sourceCell": 13
+          },
+          {
+            "index": 12,
+            "afterKey": 7,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-04-ivory-ace.webp",
+            "sourceCell": 15
+          }
+        ]
+      },
+      "issues": [
+        {
+          "severity": "medium",
+          "drawingIndices": [
+            2,
+            4,
+            8,
+            10,
+            12
+          ],
+          "afterKey": null,
+          "observation": "Every inserted drawing noticeably softens face/hair/jersey rendering; d10/d12 enlarge the upper torso and head compared with adjacent release/follow-through originals.",
+          "remedy": "Redraw matched to the original key body dimensions and pixel clusters; retain the continuous arm path."
+        }
+      ],
+      "ballAndElbowReview": "No unequivocal detached/multiple ball or disconnected elbow defect established in viewed frames; this does not certify animation playback.",
+      "limits": "Independent static frame/neighbor review only; not a real-game playback or commercial-completion signoff."
+    },
+    {
+      "slug": "regular-05-violet-sting",
+      "status": "changes_requested",
+      "actuallyViewed": {
+        "reviewJPG": "assets/pitcher-inbetweens-v1/review/regular-05-violet-sting.jpg",
+        "fullRGBA": "assets/pitcher-inbetweens-v1/runtime/regular-05-violet-sting-pitch-drawings.webp",
+        "allDrawingIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "releaseNeighborRGBAComposites": true
+      },
+      "provenance": {
+        "manifest": "assets/pitcher-inbetweens-v1/manifest.json",
+        "method": "image_gen whole-character redraw, manually selected chronologically; original keys immutable. One whole-batch scale+translation, no per-pose warp, no optical-flow frames.",
+        "newDrawings": [
+          {
+            "index": 2,
+            "afterKey": 1,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting.webp",
+            "sourceCell": 4
+          },
+          {
+            "index": 4,
+            "afterKey": 2,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting.webp",
+            "sourceCell": 7
+          },
+          {
+            "index": 8,
+            "afterKey": 5,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-whip.webp",
+            "sourceCell": 1
+          },
+          {
+            "index": 10,
+            "afterKey": 6,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting.webp",
+            "sourceCell": 13
+          },
+          {
+            "index": 12,
+            "afterKey": 7,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting.webp",
+            "sourceCell": 15
+          }
+        ]
+      },
+      "issues": [
+        {
+          "severity": "high",
+          "drawingIndices": [
+            12
+          ],
+          "afterKey": 7,
+          "observation": "New d12 enlarges the torso/head, shifts the planted shoe right, then returns it in d13; the single frame creates a visible follow-through body/foot pop. d11/d12/d13 comparison is saved.",
+          "remedy": "Delete d12 or replace with a newly drawn continuation locked to the established front contact."
+        },
+        {
+          "severity": "high",
+          "drawingIndices": [
+            16,
+            0
+          ],
+          "afterKey": 11,
+          "observation": "Final key11 leaves the throwing arm down at the side, immediately followed by both hands at the glove in key0.",
+          "remedy": "Add authored raising-and-gathering recovery after key11."
+        },
+        {
+          "severity": "medium",
+          "drawingIndices": [
+            2,
+            4,
+            10
+          ],
+          "afterKey": null,
+          "observation": "Inserted lift/stride/release-follow-through drawings use soft shaded edges and different face/torso rendering from originals.",
+          "remedy": "Replace with original-style pixel art and stable proportions."
+        }
+      ],
+      "ballAndElbowReview": "No unequivocal detached/multiple ball or disconnected elbow defect established in viewed frames; this does not certify animation playback.",
+      "limits": "Independent static frame/neighbor review only; not a real-game playback or commercial-completion signoff."
+    },
+    {
+      "slug": "regular-06-rose-paint",
+      "status": "changes_requested",
+      "actuallyViewed": {
+        "reviewJPG": "assets/pitcher-inbetweens-v1/review/regular-06-rose-paint.jpg",
+        "fullRGBA": "assets/pitcher-inbetweens-v1/runtime/regular-06-rose-paint-pitch-drawings.webp",
+        "allDrawingIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "releaseNeighborRGBAComposites": true
+      },
+      "provenance": {
+        "manifest": "assets/pitcher-inbetweens-v1/manifest.json",
+        "method": "image_gen whole-character redraw, manually selected chronologically; original keys immutable. One whole-batch scale+translation, no per-pose warp, no optical-flow frames.",
+        "newDrawings": [
+          {
+            "index": 2,
+            "afterKey": 1,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-06-rose-paint.webp",
+            "sourceCell": 4
+          },
+          {
+            "index": 4,
+            "afterKey": 2,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-06-rose-paint.webp",
+            "sourceCell": 6
+          },
+          {
+            "index": 8,
+            "afterKey": 5,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-06-rose-paint.webp",
+            "sourceCell": 11
+          },
+          {
+            "index": 10,
+            "afterKey": 6,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-06-rose-paint.webp",
+            "sourceCell": 13
+          },
+          {
+            "index": 12,
+            "afterKey": 7,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-06-rose-paint.webp",
+            "sourceCell": 15
+          }
+        ]
+      },
+      "issues": [
+        {
+          "severity": "medium",
+          "drawingIndices": [
+            12
+          ],
+          "afterKey": 7,
+          "observation": "The added follow-through frame becomes rounder/larger through chest, hip and head than its neighboring originals. It creates a conspicuous body/rendering pop even though the descending arm ordering remains plausible.",
+          "remedy": "Replace d12 with a newly drawn continuation matching the torso/head dimensions, pixel treatment and established front contact."
+        },
+        {
+          "severity": "medium",
+          "drawingIndices": [
+            2,
+            4,
+            8,
+            10
+          ],
+          "afterKey": null,
+          "observation": "Inserted frames soften face/cap/uniform rendering; d8 visibly changes shoulder/chest proportions during the most exposed release interval.",
+          "remedy": "Replace with pixel-treatment/proportion-matched inbetweens."
+        }
+      ],
+      "ballAndElbowReview": "No unequivocal detached/multiple ball or disconnected elbow defect established in viewed frames; this does not certify animation playback.",
+      "limits": "Independent static frame/neighbor review only; not a real-game playback or commercial-completion signoff."
+    },
+    {
+      "slug": "sky-phantom",
+      "status": "changes_requested",
+      "actuallyViewed": {
+        "reviewJPG": "assets/pitcher-inbetweens-v1/review/sky-phantom.jpg",
+        "fullRGBA": "assets/pitcher-inbetweens-v1/runtime/sky-phantom-pitch-drawings.webp",
+        "allDrawingIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "releaseNeighborRGBAComposites": true
+      },
+      "provenance": {
+        "manifest": "assets/pitcher-inbetweens-v1/manifest.json",
+        "method": "image_gen whole-character redraw, manually selected chronologically; original keys immutable. One whole-batch scale+translation, no per-pose warp, no optical-flow frames.",
+        "newDrawings": [
+          {
+            "index": 2,
+            "afterKey": 1,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/sky-phantom.webp",
+            "sourceCell": 4
+          },
+          {
+            "index": 4,
+            "afterKey": 2,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/sky-phantom.webp",
+            "sourceCell": 7
+          },
+          {
+            "index": 8,
+            "afterKey": 5,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/sky-phantom-whip.webp",
+            "sourceCell": 1
+          },
+          {
+            "index": 10,
+            "afterKey": 6,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/sky-phantom.webp",
+            "sourceCell": 13
+          },
+          {
+            "index": 14,
+            "afterKey": 9,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/sky-phantom.webp",
+            "sourceCell": 19
+          }
+        ]
+      },
+      "issues": [
+        {
+          "severity": "medium",
+          "drawingIndices": [
+            2,
+            4,
+            10,
+            14
+          ],
+          "afterKey": null,
+          "observation": "Added frames soften the face/hair/lettering and change torso width versus originals. d10 is particularly soft at the extended-arm silhouette; d14 changes shirt lettering and shoulder shape during recovery.",
+          "remedy": "Replace these drawings while retaining the readable arm and leg ordering."
+        }
+      ],
+      "ballAndElbowReview": "No unequivocal detached/multiple ball or disconnected elbow defect established in viewed frames; this does not certify animation playback.",
+      "limits": "Independent static frame/neighbor review only; not a real-game playback or commercial-completion signoff."
+    },
+    {
+      "slug": "gale-twister",
+      "status": "changes_requested",
+      "actuallyViewed": {
+        "reviewJPG": "assets/pitcher-inbetweens-v1/review/gale-twister.jpg",
+        "fullRGBA": "assets/pitcher-inbetweens-v1/runtime/gale-twister-pitch-drawings.webp",
+        "allDrawingIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "releaseNeighborRGBAComposites": true
+      },
+      "provenance": {
+        "manifest": "assets/pitcher-inbetweens-v1/manifest.json",
+        "method": "image_gen whole-character redraw, manually selected chronologically; original keys immutable. One whole-batch scale+translation, no per-pose warp, no optical-flow frames.",
+        "newDrawings": [
+          {
+            "index": 2,
+            "afterKey": 1,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/gale-twister.webp",
+            "sourceCell": 4
+          },
+          {
+            "index": 4,
+            "afterKey": 2,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/gale-twister.webp",
+            "sourceCell": 7
+          },
+          {
+            "index": 8,
+            "afterKey": 5,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/gale-twister.webp",
+            "sourceCell": 11
+          },
+          {
+            "index": 10,
+            "afterKey": 6,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/gale-twister.webp",
+            "sourceCell": 13
+          },
+          {
+            "index": 14,
+            "afterKey": 9,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/gale-twister.webp",
+            "sourceCell": 19
+          }
+        ]
+      },
+      "issues": [
+        {
+          "severity": "high",
+          "drawingIndices": [
+            10
+          ],
+          "afterKey": 6,
+          "observation": "The new after-release drawing already drops the forearm almost to the following key7 position while the body shifts left and becomes noticeably rounder/softer; the planted foot changes position between it and key7. d9/d10/d11 comparison is saved.",
+          "remedy": "Delete d10 or redraw an earlier descending forearm stage with fixed planted contact and matching torso."
+        },
+        {
+          "severity": "medium",
+          "drawingIndices": [
+            2,
+            4,
+            8,
+            14
+          ],
+          "afterKey": null,
+          "observation": "New drawings consistently use blurry facial/hair/clothing treatment against crisp originals; d8 changes chest/waist contour sharply at pre-release.",
+          "remedy": "Replace affected frames with matched pixel density and anatomy."
+        }
+      ],
+      "ballAndElbowReview": "No unequivocal detached/multiple ball or disconnected elbow defect established in viewed frames; this does not certify animation playback.",
+      "limits": "Independent static frame/neighbor review only; not a real-game playback or commercial-completion signoff."
+    },
+    {
+      "slug": "vulcan-blaze",
+      "status": "changes_requested",
+      "actuallyViewed": {
+        "reviewJPG": "assets/pitcher-inbetweens-v1/review/vulcan-blaze.jpg",
+        "fullRGBA": "assets/pitcher-inbetweens-v1/runtime/vulcan-blaze-pitch-drawings.webp",
+        "allDrawingIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "releaseNeighborRGBAComposites": true
+      },
+      "provenance": {
+        "manifest": "assets/pitcher-inbetweens-v1/manifest.json",
+        "method": "image_gen whole-character redraw, manually selected chronologically; original keys immutable. One whole-batch scale+translation, no per-pose warp, no optical-flow frames.",
+        "newDrawings": [
+          {
+            "index": 2,
+            "afterKey": 1,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/vulcan-blaze.webp",
+            "sourceCell": 4
+          },
+          {
+            "index": 4,
+            "afterKey": 2,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/vulcan-blaze.webp",
+            "sourceCell": 7
+          },
+          {
+            "index": 8,
+            "afterKey": 5,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/vulcan-blaze.webp",
+            "sourceCell": 11
+          }
+        ]
+      },
+      "issues": [
+        {
+          "severity": "high",
+          "drawingIndices": [
+            8
+          ],
+          "afterKey": 5,
+          "observation": "New pre-release drawing changes the entire rendering style to clean smooth cartoon shading, narrower waist/chest and larger simplified facial features between two textured pixel keys. Ball/throwing-hand ordering itself remains readable.",
+          "remedy": "Replace d8 with a newly authored whip matched to the existing key5/key6 style and proportions."
+        },
+        {
+          "severity": "medium",
+          "drawingIndices": [
+            2,
+            4
+          ],
+          "afterKey": null,
+          "observation": "Other two new drawings have the same simplified smooth style, softened face and altered thigh volume.",
+          "remedy": "Replace with matched art."
+        }
+      ],
+      "ballAndElbowReview": "No unequivocal detached/multiple ball or disconnected elbow defect established in viewed frames; this does not certify animation playback.",
+      "limits": "Independent static frame/neighbor review only; not a real-game playback or commercial-completion signoff."
+    },
+    {
+      "slug": "tide-vesper",
+      "status": "changes_requested",
+      "actuallyViewed": {
+        "reviewJPG": "assets/pitcher-inbetweens-v1/review/tide-vesper.jpg",
+        "fullRGBA": "assets/pitcher-inbetweens-v1/runtime/tide-vesper-pitch-drawings.webp",
+        "allDrawingIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "releaseNeighborRGBAComposites": true
+      },
+      "provenance": {
+        "manifest": "assets/pitcher-inbetweens-v1/manifest.json",
+        "method": "image_gen whole-character redraw, manually selected chronologically; original keys immutable. One whole-batch scale+translation, no per-pose warp, no optical-flow frames.",
+        "newDrawings": [
+          {
+            "index": 2,
+            "afterKey": 1,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper.webp",
+            "sourceCell": 4
+          },
+          {
+            "index": 4,
+            "afterKey": 2,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper.webp",
+            "sourceCell": 7
+          },
+          {
+            "index": 8,
+            "afterKey": 5,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-whip.webp",
+            "sourceCell": 1
+          },
+          {
+            "index": 10,
+            "afterKey": 6,
+            "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper.webp",
+            "sourceCell": 13
+          }
+        ]
+      },
+      "issues": [
+        {
+          "severity": "high",
+          "drawingIndices": [
+            15,
+            0
+          ],
+          "afterKey": 11,
+          "observation": "Final original key11 retains the throwing arm down beside the body; next key0 gathers the ball hand at glove height with no arm-raising recovery.",
+          "remedy": "Add newly authored recovery drawings after key11 with empty hand rising to glove and settled stance."
+        },
+        {
+          "severity": "medium",
+          "drawingIndices": [
+            2,
+            4,
+            10
+          ],
+          "afterKey": null,
+          "observation": "Added lift/stride/follow-through drawings visibly soften face/hair and enlarge the upper body; d10 changes braid mass and torso proportions relative to its original neighbors.",
+          "remedy": "Replace these additions with matching pixel art and proportions. The inserted d8 pre-release is more consistent than the other new frames."
+        }
+      ],
+      "ballAndElbowReview": "No unequivocal detached/multiple ball or disconnected elbow defect established in viewed frames; this does not certify animation playback.",
+      "limits": "Independent static frame/neighbor review only; not a real-game playback or commercial-completion signoff."
+    }
+  ],
+  "alphaNote": "Raw RGBA preview shows colorful hidden RGB; a proper black alpha composite confirms this is not a visible halo defect. No halo issue asserted."
+}

@@ -15,6 +15,18 @@ describe('authored in-between delivery sampling',()=>{
  });
  const keyDrawings=[0,1,3,5,7,8,10,12,13,14,15,16];
  const actor={releaseFrame:76,releaseAt:1267,landingAt:833,meta:{drawingAtTick:Array(120).fill(0),keyDrawings,releaseDrawing:10,landingDrawing:7}};
+ it('finishes the authored hand-gather recovery on the exact original ready drawing without replaying the pitch backwards',()=>{
+  const returning={...actor,meta:{...actor.meta,recoveryDrawings:[16,17,0]}};
+  const timeline=rosterTimeline({duration:2000,freeze:0,slowmo:0},returning,false,{delivery:true,contactHold:95});
+  const frames=timeline.delivery.drawingAtTick;
+  const tail=frames.slice(frames.indexOf(16));
+  expect([...new Set(tail)]).toEqual([16,17,0]);
+  for(const drawing of [16,17,0])expect(tail.filter(d=>d===drawing).length).toBeGreaterThanOrEqual(4);
+  expect(rosterFrame({timeline,action:'swing'},timeline.duration-1,returning)).toBe(0);
+  expect(rosterFrame({timeline,action:'swing'},timeline.duration-1,returning,{knockedOut:true})).toBe(16);
+  expect(tail.some(d=>d>0&&d<16)).toBe(false);
+  expect(frames[Math.round(timeline.pitchReleaseAt*60/1000)]).toBe(10);
+ });
  it('actually shows every new drawing without releasing the ball before its event',()=>{
   const timeline=rosterTimeline({duration:2000,freeze:0,slowmo:0},actor,false,{delivery:true});
   const frames=timeline.delivery.drawingAtTick,releaseTick=Math.round(timeline.pitchReleaseAt*60/1000);

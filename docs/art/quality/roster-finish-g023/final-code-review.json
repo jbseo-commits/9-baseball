@@ -1,0 +1,41 @@
+{
+  "reviewer": "review-a",
+  "branch": "codex/roster-motion-finish-20261107",
+  "scope": "Read-only final diff/metadata review; earlier visual recovery review retained separately.",
+  "blockingFindings": [],
+  "minorFindings": [
+    {
+      "path": "assets/pitcher-inbetweens-v1/README.md",
+      "finding": "Opening paragraph says 14–18 unique drawings; actual final manifest range is 15–18.",
+      "remedy": "Update range before publication."
+    }
+  ],
+  "publicationNote": "Current untracked node_modules should be excluded from staged publication files.",
+  "reviewedFiles": [
+    "scripts/build-pitcher-inbetweens.py",
+    "src/duel/battle-vnext/roster-actor.js",
+    "src/duel/battle-vnext/BattleScene.jsx",
+    "src/duel/battle-vnext/roster-registration.json",
+    "assets/pitcher-inbetweens-v1/selection.json",
+    "assets/pitcher-inbetweens-v1/manifest.json",
+    "assets/pitcher-inbetweens-v1/README.md",
+    "tests/interstitial-runtime.test.js",
+    "tests/authored-inbetweens-assets.test.jsx",
+    "tests/grounded-pitcher-runtime.test.jsx",
+    "scripts/qa-roster-motion.cjs",
+    "docs/art/quality/roster-finish-g023/README.md",
+    "docs/art/quality/roster-finish-g023/validation-summary.json",
+    "loop/autodev/issues/G-023.md"
+  ],
+  "verifiedByInspection": [
+    "KO override only substitutes ordered gather/ready tail members after release, holding original key11",
+    "Normal ordered recovery still ends ready0 without descending-index interpolation",
+    "Source timing reallocation only touches original upright/gather tail",
+    "New batch registrations and three integer drawing-anchor offsets are explicitly represented, with pre/post pixel SHA provenance",
+    "Final current manifest has 85 additions, 13 replacements, 10 new recoveries, and drawing-count range15–18",
+    "Documentation preserves historical HELD and rejects equating FPS, pose count or technical checks with commercial quality"
+  ],
+  "testsExecutedByReviewer": false,
+  "testEvidence": "Root reports full suite/build/smoke/browser coverage; not independently rerun here.",
+  "commercialPass": false
+}

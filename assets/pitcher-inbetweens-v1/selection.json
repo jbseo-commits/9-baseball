@@ -1,5 +1,5 @@
 {
-  "method": "image_gen whole-character redraw, manually selected chronologically; original keys immutable. One whole-batch scale+translation, no per-pose warp, no optical-flow frames.",
+  "method": "image_gen authored poses with immutable original keys; measured batch registration. G023 records three additional integer whole-drawing sole offsets, no limb warp/optical-flow or procedural pose generation. Every live/source timeline returns to exact original ready0.",
   "characters": {
     "regular-01-red-rush": {
       "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-01-red-rush.webp",
@@ -18,8 +18,23 @@
         },
         {
           "afterKey": 3,
-          "sourceCell": 8,
-          "notes": "Front leg opens farther and lowers toward plant while the throwing arm is still below the original planted cocking pose."
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-01-red-rush-finish-3.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 3,
+          "registrationAlignment": "bounds-center",
+          "batchRegistration": {
+            "scale": 0.34497816593886466,
+            "translation": [
+              -3.886462882096083,
+              3.790393013100413
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-27ffa92b-6bba-42d6-9879-c11ebb79c190.png",
+          "generatedPNG_SHA256": "7cf8cfecd81538b617bdb6e497d949800d03c55163f05b0c3bea6cce6370f5d6",
+          "notes": "G023 replacement of visually rejected G022 middle. Stride opens: rear/support foot stays in place while the free front foot moves downward and forward toward plant. Never switch support legs."
         },
         {
           "afterKey": 6,
@@ -56,8 +71,27 @@
         },
         {
           "afterKey": 6,
-          "sourceCell": 13,
-          "notes": "Empty arm is lower than release but still extends ahead of the body before the crossed-down key7; retains low slot."
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-finish-6.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 6,
+          "registrationAlignment": "bounds-center",
+          "batchRegistration": {
+            "scale": 0.33181818181818185,
+            "translation": [
+              -14.03636363636366,
+              13.71363636363634
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-b1f25e3c-61db-4f2a-87a1-7eab85c1ef2f.png",
+          "generatedPNG_SHA256": "28de1d1916970099d75d9391885a1ed3d69ba944713248c865b4c1afba49c700",
+          "notes": "G023 replacement of visually rejected G022 middle. Empty throwing forearm lowers halfway from release to follow-through, without moving the planted front cleat or widening stance. Keep torso leaning progressively forward. Documented whole-drawing sole registration only, not a newly invented pose or limb warp. Source common transform and pre/post hashes retained.",
+          "drawingAnchorOffset": [
+            16,
+            0
+          ]
         },
         {
           "afterKey": 9,
@@ -74,6 +108,26 @@
           "generatedPNG": "exec-1ff2b4ca-f3f6-4e99-bfc2-2060183c674f.png",
           "generatedPNG_SHA256": "3f0b06c276ff7ae6af60feadefc5dc471af766c01f9278cfd9423e46b212fa19",
           "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
+        },
+        {
+          "afterKey": 11,
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-return.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 11,
+          "registrationAlignment": "bounds-center",
+          "batchRegistration": {
+            "scale": 0.33284457478005863,
+            "translation": [
+              2.177419354838719,
+              6.343108504398828
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-91e6829c-d645-4813-b551-44a8089d3e16.png",
+          "generatedPNG_SHA256": "5643f3c81db3f982e6eef7ded6d1d8a1c2fc41696855975c1d3008e0876760c9",
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
         }
       ]
     },
@@ -99,8 +153,23 @@
         },
         {
           "afterKey": 7,
-          "sourceCell": 15,
-          "notes": "Arm and torso move farther down toward key8 follow-through; maintains same hands and sidearm action."
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-finish-7.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 7,
+          "registrationAlignment": "semantic-right-sole",
+          "batchRegistration": {
+            "scale": 0.3353115727002967,
+            "translation": [
+              2.09495548961425,
+              6.617210682492612
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-350e513d-0415-468e-89ae-f2b773f97521.png",
+          "generatedPNG_SHA256": "4b5ac6b0386e27600e5f0839b1b7bfd8558d64b2cacec3aa876f9ad0f2de525c",
+          "notes": "G023 replacement of visually rejected G022 middle. Sidearm follow-through bends torso further and lowers empty throwing hand halfway, planted front cleat stays fixed, same body size, no rightward foot slide."
         },
         {
           "afterKey": 5,
@@ -112,6 +181,26 @@
           "generatedPNG": "exec-57c2e8c7-85f7-46aa-bf5c-3557fcae8061.png",
           "generatedPNG_SHA256": "49c45dfb0a7e3f328cdc2cdee69270cc77f5cebac6f00a0aacc44bf4eee5ff89",
           "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
+        },
+        {
+          "afterKey": 11,
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-return.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 11,
+          "registrationAlignment": "bounds-center",
+          "batchRegistration": {
+            "scale": 0.34545454545454546,
+            "translation": [
+              -0.3545454545454447,
+              0.9454545454545382
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-305cb395-7393-4fd1-9339-999f1d048ef0.png",
+          "generatedPNG_SHA256": "29f59a22f900bdf8f22d6357bbe93f6fec808480c6202c3b095c78d7bae93e31",
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
         }
       ]
     },
@@ -132,8 +221,23 @@
         },
         {
           "afterKey": 6,
-          "sourceCell": 13,
-          "notes": "Empty left throwing hand moves inward/down toward the original cross-body follow-through."
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/onyx-eclipse-finish-6.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 6,
+          "registrationAlignment": "semantic-left-sole",
+          "batchRegistration": {
+            "scale": 0.3445635528330781,
+            "translation": [
+              -6.507656967840731,
+              13.831546707503833
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-c210b22e-e9ae-46e7-9268-cb0999fb4931.png",
+          "generatedPNG_SHA256": "da8d2bf350ac0580d8640feae8d0a156529971f2221b22079f47098a083467af",
+          "notes": "G023 replacement of visually rejected G022 middle. LEFT hand purple sleeve screen-right sweeps down/across halfway, glove screen-left. Keep front cleat screen-left planted exactly; never spread feet outward."
         },
         {
           "afterKey": 5,
@@ -145,6 +249,26 @@
           "generatedPNG": "exec-155e0e97-0ffd-42ca-9847-b55c181d5fae.png",
           "generatedPNG_SHA256": "a344db6a3b3456dc99f4d9b6ed8410c270f54874eb46a148f60b8c37f57f3e6f",
           "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
+        },
+        {
+          "afterKey": 11,
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/onyx-eclipse-return.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 11,
+          "registrationAlignment": "bounds-center",
+          "batchRegistration": {
+            "scale": 0.34984984984984985,
+            "translation": [
+              -12.713963963963977,
+              2.3528528528528625
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-c8b02857-e010-4f4e-b761-ef124bd135fb.png",
+          "generatedPNG_SHA256": "d862029522d5b2226bf04d556b0b429e888dd7c58f5d5076c588b4fb492560c6",
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
         }
       ]
     },
@@ -256,8 +380,23 @@
         },
         {
           "afterKey": 5,
-          "sourceCell": 11,
-          "notes": "Ball-bearing forearm advances toward camera from the cocked arm, before the exact original empty-hand release key6."
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/vulcan-blaze-finish-5.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 5,
+          "registrationAlignment": "bounds-center",
+          "batchRegistration": {
+            "scale": 0.33525179856115106,
+            "translation": [
+              10.30071942446044,
+              10.630215827338134
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-fba43bfa-6467-4bdd-881c-e6fba1d39b88.png",
+          "generatedPNG_SHA256": "d99efbe0bed9e3db1fe30a97f90d0fc0efcfd5bbf398e0c9b629f34910d13af5",
+          "notes": "G023 replacement of visually rejected G022 middle. Elbow leads forward from cock to release, throwing hand STILL HOLDS ball halfway toward catcher. Preserve high-three-quarter form and exact head/body/stance, no proportion or rendering-style pop."
         }
       ]
     },
@@ -296,6 +435,26 @@
           "generatedPNG": "exec-141bd62d-4e2a-4302-a7f8-36e5946edfd1.png",
           "generatedPNG_SHA256": "8b9f779f86308bd8c9d093e4cb2f52b75edc9ad78e820daaacf85ea34f662456",
           "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
+        },
+        {
+          "afterKey": 11,
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/sky-phantom-return.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 11,
+          "registrationAlignment": "bounds-center",
+          "batchRegistration": {
+            "scale": 0.35,
+            "translation": [
+              -0.549999999999983,
+              0.35000000000002274
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-59627d55-24a3-492b-a399-0ee56c91b9ac.png",
+          "generatedPNG_SHA256": "36925b76d7b145c73f644c34ad409ae48278d07ae6bb0c078c87969dcc9ec607",
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
         }
       ]
     },
@@ -329,6 +488,26 @@
           "generatedPNG": "exec-ee4a1aa9-ac97-486b-b715-f206814ffa61.png",
           "generatedPNG_SHA256": "f2256b45b082e7d0edefdd12ab30a528e03b9bd525757f33cb0ea33ef3652134",
           "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
+        },
+        {
+          "afterKey": 11,
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-return.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 11,
+          "registrationAlignment": "bounds-center",
+          "batchRegistration": {
+            "scale": 0.33925925925925926,
+            "translation": [
+              3.86666666666666,
+              1.857777777777784
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-97b9403a-4370-456d-8fae-9f32ab31fc97.png",
+          "generatedPNG_SHA256": "1cfe5e07e023892ff436238c2b535791ef57ffe19e8d2aa9399218fe97ccfa59",
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
         }
       ]
     },
@@ -354,8 +533,27 @@
         },
         {
           "afterKey": 6,
-          "sourceCell": 13,
-          "notes": "Empty arm has swept down and inward partway before the farther cross-body hand in key7."
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/gale-twister-finish-6.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 6,
+          "registrationAlignment": "bounds-center",
+          "batchRegistration": {
+            "scale": 0.3424657534246575,
+            "translation": [
+              -11.773972602739718,
+              5.671232876712338
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-d14ed65b-13ed-4f86-9aab-ac374467aefc.png",
+          "generatedPNG_SHA256": "3187c6c512ebabcfca6a6e47a290089aa73e2bffd433417116284c7cabd45c31",
+          "notes": "G023 replacement of visually rejected G022 middle. Empty hand descends only halfway toward down-cross follow-through, fixed front cleat, no leap to already finished down-arm endpoint. Documented whole-drawing sole registration only, not a newly invented pose or limb warp. Source common transform and pre/post hashes retained.",
+          "drawingAnchorOffset": [
+            31,
+            0
+          ]
         },
         {
           "afterKey": 9,
@@ -371,13 +569,48 @@
       "selected": [
         {
           "afterKey": 1,
-          "sourceCell": 4,
-          "notes": "Partial knee coil before full lift; same blue braid and glove. Clothing/ball are unchanged."
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/elite-01-cobalt-impact-finish-1.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 1,
+          "registrationAlignment": "bounds-center",
+          "batchRegistration": {
+            "scale": 0.34104046242774566,
+            "translation": [
+              4.234104046242777,
+              1.8843930635838149
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-144b46f3-3569-49cc-99a4-8858788774fe.png",
+          "generatedPNG_SHA256": "5e427dac401194694d4b0524910210dc24d6f8bb510b23c6c1d9d1125211f0d0",
+          "notes": "G023 replacement of visually rejected G022 middle. Front knee lifts halfway while both hands stay gathered. Head, torso, shoulders and thigh proportions match endpoints exactly, no muscle inflation or oversized head."
         },
         {
           "afterKey": 5,
           "sourceCell": 11,
           "notes": "Ball remains held while elbow and wrist advance toward release; original empty-hand release is retained."
+        },
+        {
+          "afterKey": 11,
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/elite-01-cobalt-impact-return.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 11,
+          "registrationAlignment": "bounds-center",
+          "batchRegistration": {
+            "scale": 0.3448773448773449,
+            "translation": [
+              -6.898268398268414,
+              0.4819624819624835
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-34826310-a4a0-4e8f-baf4-8778a6494486.png",
+          "generatedPNG_SHA256": "89d5d347101458db350ccc62b27d8368530273ae0e84042e6671acc3ab868479",
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
         }
       ]
     },
@@ -393,13 +626,47 @@
         },
         {
           "afterKey": 2,
-          "sourceCell": 7,
-          "notes": "Lowering knee and separating ball hand bridge coil to stride."
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/jade-viper-finish-2.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 2,
+          "registrationAlignment": "bounds-center",
+          "batchRegistration": {
+            "scale": 0.34008683068017365,
+            "translation": [
+              -6.293777134587543,
+              2.8986975397974106
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-5e813813-9650-4d65-af90-1b7ea29c494d.png",
+          "generatedPNG_SHA256": "739bc865ad89b0717615a4494ad77da17ef37c094dec05a4576664908c8eb140",
+          "notes": "G023 replacement of visually rejected G022 middle. Front knee lowers gradually and ball hand separates toward chest/lower ribs, NEVER raising ball toward head before the lower hand endpoint. Documented whole-drawing sole registration only, not a newly invented pose or limb warp. Source common transform and pre/post hashes retained.",
+          "drawingAnchorOffset": [
+            22,
+            2
+          ]
         },
         {
           "afterKey": 6,
-          "sourceCell": 13,
-          "notes": "Empty arm descends ahead of the torso before the original farther cross-body follow-through."
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/jade-viper-finish-6.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 6,
+          "registrationAlignment": "semantic-right-sole",
+          "batchRegistration": {
+            "scale": 0.3333333333333333,
+            "translation": [
+              5.5,
+              12.333333333333343
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-0cb57ca0-8987-4607-84be-bfc333583588.png",
+          "generatedPNG_SHA256": "19cb9f4c7923f5e5fe7c76f1f3692718c90afda73a2f84f29a4154542c0f3bd8",
+          "notes": "G023 replacement of visually rejected G022 middle. Empty hand sweeps down halfway, body leans MORE forward progressively, not standing upright before bending again. Planted front cleat remains exact."
         }
       ]
     },
@@ -432,8 +699,23 @@
       "selected": [
         {
           "afterKey": 1,
-          "sourceCell": 4,
-          "notes": "Knee rises below full coil; shoulder armor and green hair remain consistent."
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/boss-01-emerald-tyrant-finish-1.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 1,
+          "registrationAlignment": "bounds-center",
+          "batchRegistration": {
+            "scale": 0.34236804564907275,
+            "translation": [
+              -8.88944365192583,
+              1.9186875891583384
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-a6178548-dc40-4962-b0ee-9316c8eec752.png",
+          "generatedPNG_SHA256": "40349631f17b66658ed115fb5cc1f12304c2cda0f5d3ac9d3c40b12ab732e7b8",
+          "notes": "G023 replacement of visually rejected G022 middle. Front knee lifts halfway, supporting leg stays extended so head/cap height remains between endpoint heights, NEVER squat or shrink torso during knee rise."
         },
         {
           "afterKey": 2,
@@ -444,6 +726,26 @@
           "afterKey": 5,
           "sourceCell": 11,
           "notes": "Forearm advances, still holding baseball until the exact original empty-hand release."
+        },
+        {
+          "afterKey": 11,
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/boss-01-emerald-tyrant-return.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 11,
+          "registrationAlignment": "bounds-center",
+          "batchRegistration": {
+            "scale": 0.3477633477633478,
+            "translation": [
+              -5.694083694083702,
+              1.1746031746031633
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-db9c011e-85bd-4510-8b1d-a362ec66d131.png",
+          "generatedPNG_SHA256": "6325fd335ae4c6495f11c0be11894fa2f31feeabceefb8a3f13bdb8ef3298559",
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
         }
       ]
     },
@@ -466,6 +768,26 @@
           "afterKey": 5,
           "sourceCell": 11,
           "notes": "Ball-bearing wrist moves forward from high cock toward original high release."
+        },
+        {
+          "afterKey": 11,
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/boss-02-platinum-halo-return.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 11,
+          "registrationAlignment": "bounds-center",
+          "batchRegistration": {
+            "scale": 0.3392070484581498,
+            "translation": [
+              -2.2378854625550844,
+              1.5198237885462333
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-853b5cac-13e1-48c0-90d1-3889acdfdb73.png",
+          "generatedPNG_SHA256": "7743eede9c0f9ca2a99cb8b2065b98ee0dbdba08ec411269416f52adc5150942",
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
         }
       ]
     },
@@ -483,6 +805,26 @@
           "afterKey": 5,
           "sourceCell": 11,
           "notes": "Ball-bearing wrist advances toward catcher before original open-hand release."
+        },
+        {
+          "afterKey": 11,
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/boss-03-black-eclipse-return.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 11,
+          "registrationAlignment": "bounds-center",
+          "batchRegistration": {
+            "scale": 0.35259259259259257,
+            "translation": [
+              -11.372592592592582,
+              1.9481481481481637
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-f553888a-bfac-4bcd-8889-a4c29345fdfc.png",
+          "generatedPNG_SHA256": "376c9367e42ec632dd4d5f6fb86de0a20eed3de909802b80070f88e3e0198237",
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
         }
       ]
     },
@@ -493,13 +835,43 @@
       "selected": [
         {
           "afterKey": 1,
-          "sourceCell": 4,
-          "notes": "Front knee rises below maximum coil while gathered hands remain together."
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/emerald-tempest-finish-1.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 1,
+          "registrationAlignment": "semantic-left-sole",
+          "batchRegistration": {
+            "scale": 0.3473053892215569,
+            "translation": [
+              0.43413173652693615,
+              2.01197604790417
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-1b3142a5-ee43-44cb-a0b9-82043640e103.png",
+          "generatedPNG_SHA256": "3a691b726cf1b0a858d46dc734fc63d0fa4151a2aa8d65e422d5c37cfad62ddf",
+          "notes": "G023 replacement of visually rejected G022 middle. Front knee rises on screen RIGHT while support foot remains screen LEFT, never swap leg roles. Partial knee height halfway to high coil, same torso proportions."
         },
         {
           "afterKey": 2,
-          "sourceCell": 7,
-          "notes": "Knee starts lowering and throwing hand splits into stride without changing ownership."
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/emerald-tempest-finish-2.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 2,
+          "registrationAlignment": "bounds-center",
+          "batchRegistration": {
+            "scale": 0.3407079646017699,
+            "translation": [
+              -5.150442477876084,
+              1.8451327433628535
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-2d84e14a-3f11-49f7-b9cb-8619cef0e85c.png",
+          "generatedPNG_SHA256": "0bb548b0e190cf0d792bf70d18d27bc244747b5a5d8f286f318b4d1380b4418a",
+          "notes": "G023 replacement of visually rejected G022 middle. Raised front knee on screen-right lowers and extends toward stride. Ball hand separates but stays between chest and lower ribs, NOT at head height. Keep supporting boot screen-left planted."
         },
         {
           "afterKey": 5,
@@ -527,6 +899,26 @@
           "afterKey": 5,
           "sourceCell": 11,
           "notes": "Ball hand travels forward from cocked elbow; ball still held before original release."
+        },
+        {
+          "afterKey": 11,
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/copper-sirocco-return.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 11,
+          "registrationAlignment": "bounds-center",
+          "batchRegistration": {
+            "scale": 0.3289665211062591,
+            "translation": [
+              -0.7903930131004415,
+              5.446870451237231
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-6b4ba8e5-c251-4b4c-ad74-f553cf6a288e.png",
+          "generatedPNG_SHA256": "78756753879111a9b63b090263d047388ef5a65d1b73209b8f26b62ea7fccdcb",
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
         }
       ]
     },
@@ -542,8 +934,23 @@
         },
         {
           "afterKey": 2,
-          "sourceCell": 7,
-          "notes": "Knee lowers, ball separates and rear sole remains supporting the body before stride."
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/elite-03-wine-bluff-finish-2.webp",
+          "sourceColumns": 3,
+          "sourceRows": 1,
+          "referenceOriginalKey": 2,
+          "registrationAlignment": "bounds-center",
+          "batchRegistration": {
+            "scale": 0.33523537803138376,
+            "translation": [
+              0.44008559201139974,
+              2.971469329529242
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-4da2811c-382b-4d20-8088-62ed1dd48a2c.png",
+          "generatedPNG_SHA256": "8cc293bc166eae4c52c211f0627e76d120e3e54ee70d704e161a6f029eb60575",
+          "notes": "G023 replacement of visually rejected G022 middle. Lifted front knee lowers gradually into stride. Hands separate: ball hand stays between chest and lower ribs, not lifted to ear/head before next key lowers it. No high-arm-then-low-arm reversal."
         },
         {
           "afterKey": 5,
@@ -553,5 +960,6 @@
       ]
     }
   },
-  "rootReview": "Root inspected all root-b four-row triptychs. Earlier generic B11-per-character mapping rejected; only these explicit source-to-candidate-to-key selections adopted."
+  "rootReview": "Root inspected all root-b four-row triptychs. Earlier generic B11-per-character mapping rejected; only these explicit source-to-candidate-to-key selections adopted.",
+  "returnToReady": true
 }

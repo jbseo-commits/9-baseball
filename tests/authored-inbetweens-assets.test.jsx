@@ -14,7 +14,7 @@ const sha=file=>crypto.createHash('sha256').update(fs.readFileSync(file)).digest
 afterEach(()=>{cleanup();vi.restoreAllMocks();});
 
 it('connects all20 compact sheets, retains every original key and preserves registration/events',()=>{
- expect(pack.characters).toHaveLength(20);expect(pack.totalNewPitcherDrawings).toBe(75);
+ expect(pack.characters).toHaveLength(20);expect(pack.totalNewPitcherDrawings).toBe(85);
  for(const c of pack.characters){
   const r=reg[c.id],old=original[c.id],actor=rosterPitcherActor(c.id,pitcherAtlases[c.id]);
   expect(String(actor.url)).toContain(c.runtimeFile);
@@ -25,6 +25,11 @@ it('connects all20 compact sheets, retains every original key and preserves regi
   const t=rosterTimeline({duration:2000,freeze:0,slowmo:0},actor,false,{delivery:true});
   expect(new Set(r.drawingAtTick)).toEqual(new Set(c.drawings.map((_,i)=>i)));
   expect(new Set(t.delivery.drawingAtTick)).toEqual(new Set(c.drawings.map((_,i)=>i)));
+  expect(r.drawingAtTick.at(-1)).toBe(0);expect(t.delivery.drawingAtTick.at(-1)).toBe(0);
+  expect(r.recoveryDrawings[0]).toBe(r.keyDrawings[11]);expect(r.recoveryDrawings.at(-1)).toBe(0);
+  const sourceRecovery=r.drawingAtTick.slice(r.drawingAtTick.lastIndexOf(r.keyDrawings[10])+1);
+  for(const frame of r.recoveryDrawings)expect(sourceRecovery.filter(d=>d===frame).length).toBeGreaterThanOrEqual(3);
+  expect(rosterFrame({timeline:t,action:'swing'},t.duration-1,actor,{knockedOut:true})).toBe(r.keyDrawings[11]);
   expect(rosterFrame({timeline:t,action:'swing'},t.pitchReleaseAt,actor)).toBe(r.keyDrawings[6]);
   expect(Math.max(...t.delivery.drawingAtTick.slice(0,Math.round(t.pitchReleaseAt*60/1000)))).toBeLessThan(r.releaseDrawing);
   const view=render(<BattleScene actors={{pitcher:actor}} size={{width:844,height:390}} framing="atbat"/>);
