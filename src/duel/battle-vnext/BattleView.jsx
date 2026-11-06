@@ -163,7 +163,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
       onKeyDown={()=>{handleClick.current=false;}}
       onClick={()=>{if(handleClick.current){handleClick.current=false;return;}if(handOpen)cancelDrag();setHandOpen(v=>!v);}}
       disabled={model.phase==='flight'||model.phase==='committing'||menuOpen}>
-      <span aria-hidden="true">{handOpen?'›':'‹'}</span><b>손패 {model.hand.filter(c=>c.type!=='basic').length}</b><small>{handOpen?'접기':'펼치기'}</small>{!handOpen&&model.energy&&<em aria-label={`에너지 ${model.energy.current}/${model.energy.cap}`}><BattleSymbol kind="energy"/>{model.energy.current}</em>}
+      <span aria-hidden="true">{handOpen?'›':'‹'}</span><b>손패 {model.handCount??'—'}</b><small>{handOpen?'접기':'펼치기'}</small>{!handOpen&&model.energy&&<em aria-label={`에너지 ${model.energy.current}/${model.energy.cap}`}><BattleSymbol kind="energy"/>{model.energy.current}</em>}
     </button>
     <div className="bv-command-rail">
     <svg className="bv-reference-orbit" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true"><path d="M110 -30 Q-45 500 110 1030"/>{Array.from({length:21},(_,i)=><path key={i} d={`M${65-Math.sin(i/20*Math.PI)*49} ${i*50}h${i%5===0?18:8}`}/>)}</svg>
@@ -173,7 +173,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
       onClickCapture={e=>{if(suppressClick.current){e.preventDefault();e.stopPropagation();suppressClick.current=false;}}}>
       <HandDock selection={model.selection} onToggleSupport={onToggleSupport} ref={handRef} hand={menuOpen?model.hand.map(c=>({...c,disabled:false})):model.hand} energy={model.energy}
         input={menuOpen?{...model.input,canSelect:true}:model.input} phase={model.phase}
-        piles={piles} onCardTap={id=>{if(!model.selection?.supportMode)setPlacement(null);setDropProblem('');remember(id);onCardTap?.(id);}} onCardDetail={onCardDetail} onPiles={onPiles} artFor={atbatCardArt} grid="orbit"/>
+        piles={model.piles??piles} handCount={model.handCount} handKnown={model.handKnown} onCardTap={id=>{if(!model.selection?.supportMode)setPlacement(null);setDropProblem('');remember(id);onCardTap?.(id);}} onCardDetail={onCardDetail} onPiles={onPiles} artFor={atbatCardArt} grid="orbit"/>
     </div>
     <StackTray pieces={model.zones?.pieces} links={model.zones?.links} hand={model.hand} energy={model.energy} phase={model.phase} canAdd={model.selection?.canAddSupport} canSelect={model.input.canSelect&&!menuOpen} onAdd={()=>{if(!model.selection?.supportMode)onToggleSupport?.();setHandOpen(true);}} onRemove={onRemoveSupport}/>
     {dropProblem&&<p className="bv-drop-problem" role="status">{dropProblem}</p>}
