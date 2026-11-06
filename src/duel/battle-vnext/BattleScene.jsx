@@ -4,7 +4,7 @@ import coverage from '../../../assets/production-art/mockup-v1-intake/actor-cove
 import stadiumUrl from '../../../assets/production-art/mockup-v1-intake/stadium-wide.webp';
 import {PILOT_ACTORS,PILOT_MOTION,motionAt,MOTION_CONTACT,MOTION_RELEASE} from './motion-timeline.js';
 import SceneEffects from './SceneEffects.jsx';
-import ContactPixelFx from './ContactPixelFx.jsx';
+import ContactPixelFx,{FxSprite,contactAtlasPlan} from './ContactPixelFx.jsx';
 import {sceneEffectAt} from './scene-effects.js';
 import './motion.css';
 import {rosterFrame} from './roster-actor.js';
@@ -34,8 +34,10 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
   const composition=framing==='atbat'?(roster?{...ATBAT_COMPOSITION,pitcher:roster.meta,release:roster.release}:ATBAT_COMPOSITION):null;
   const reduced=playback?.timeline?.duration<=60;
   const effect=sceneEffectAt({elapsed,playback,result,phase,composition});
-  const landing=roster?.landing&&playback&&!reduced&&playback.action!=='prepare'&&elapsed>=roster.landingAt&&elapsed<roster.landingAt+230
-    ?{point:roster.landing,progress:(elapsed-roster.landingAt)/230}:null;
+  const landingAt=playback?.timeline?.delivery?.landingAt??roster?.landingAt;
+  const landingAge=elapsed-landingAt;
+  const landing=roster?.landing&&playback&&!reduced&&playback.action!=='prepare'&&elapsed>=landingAt&&elapsed<landingAt+230
+    ?{point:roster.landing,progress:(elapsed-landingAt)/230}:null;
   const pose=motionAt({elapsed,timeline:playback?.timeline,action:playback?.action,landed:phase==='result',knockedOut:!!result?.knockedOut,reduced,readyCoil:framing==='atbat'&&(phase==='deciding'||phase==='flight')});
   const [measured,setMeasured]=useState(null);
   const onLayoutRef=useRef(onLayout);onLayoutRef.current=onLayout;
@@ -80,12 +82,15 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
     <div className="bv-scene-shade" aria-hidden="true"/>
     {/* The light pass uses the exact same projection/jitter as the actors. It
         sits above result grading so the contact light is not darkened twice. */}
+    {effect?.kind==='flight'&&!reduced&&<div className="bv-ball-wake" aria-hidden="true" style={{position:'absolute',inset:0,zIndex:2,pointerEvents:'none'}}><FxSprite kind="wake" age={effect.age} point={at(effect.ball)} scale={camera.scale} size={.35+effect.radius/30} angle={Math.atan2(effect.ball.y-effect.previous.y,effect.ball.x-effect.previous.x)*180/Math.PI} opacity={.6}/></div>}
     <div className="bv-effect-pass" aria-hidden="true" style={{transform:effect?.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:'none'}}>
       <div className="bv-effect-world" style={{width:SCENE.world.width,height:SCENE.world.height,transform:cameraMatrix(camera),visibility:camera.scale?'visible':'hidden'}}>
-        <SceneEffects effect={effect} finale={finale} composition={composition} landing={landing}/>
+        <SceneEffects effect={effect} finale={finale} composition={composition} landing={landing} spriteBall={!reduced} pixelContact={!!effect&&phase==='result'&&contactAtlasPlan(scene?.shotGrade).length>0}/>
       </div>
     </div>
-    <ContactPixelFx sceneRef={rootRef} active={!!effect&&['contact','exact','homer','foul'].includes(effect.kind)&&effect.age>=0} grade={scene?.shotGrade} token={scene?.playToken} contact={snap?contact:null}/>
+    {effect&&!effect.hidden&&!reduced&&<div className="bv-ball-sprite" aria-hidden="true" style={{position:'absolute',inset:0,zIndex:2,pointerEvents:'none',transform:effect.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:undefined}}><FxSprite kind="ball" age={effect.spinAge??effect.age} point={at(effect.ball)} scale={camera.scale} size={effect.radius/10}/></div>}
+    {roster?.landing&&playback&&!reduced&&playback.action!=='prepare'&&landingAge>=0&&landingAge<850&&<div className="bv-plant-pixelfx" aria-hidden="true" style={{position:'absolute',inset:0,zIndex:2,pointerEvents:'none',transform:effect?.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:undefined}}><FxSprite kind="plant" age={landingAge} point={at(roster.landing)} scale={camera.scale} size={1.1} opacity={.65*Math.min(1,(850-landingAge)/200)}/></div>}
+    <ContactPixelFx sceneRef={rootRef} active={!!effect&&['contact','exact','homer','foul'].includes(effect.kind)&&effect.age>=0} grade={scene?.shotGrade} token={scene?.playToken} contact={snap?contact:null} age={effect?.age??0} freeze={playback?.timeline?.freeze||0} scale={camera.scale} cameraOffset={{x:(effect?.camera||0)*camera.scale,y:-(effect?.camera||0)*.25*camera.scale}}/>
     {reviewNotice&&<p className="bv-scene-notice" role="note">그림 포즈 모션 검수{actors.pitcher&&actors.pitcher===SAMPLE_ACTORS.pitcher?' · 샘플 투수':''}</p>}
     {effect?.kind==='exact'&&effect.flash>0&&<div className="bv-contact-focus" style={{opacity:effect.flash*.65}} aria-hidden="true"/>}
     {finale&&<div className={"bv-finale-focus f-"+finale} aria-hidden="true"/>}

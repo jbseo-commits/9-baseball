@@ -26,6 +26,7 @@ import {rosterPitcherActor,rosterTimeline} from './battle-vnext/roster-actor.js'
 import {startPresentationClock} from './presentation-clock.js';
 import {batterMotionV3Timeline} from './batterMotionV3.js';
 import {haptic} from './haptics.js';
+import {contactHitstop} from './contact-pixelfx.js';
 import PixelVFX from './PixelVFX.jsx';
 import PitcherHpHud from './PitcherHpHud.jsx';
 import CombatResultSummary from './CombatResultSummary.jsx';
@@ -1084,18 +1085,19 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
     const nextNode=next.runMap?.nodes?.find(n=>n.id===next.runMap.currentNodeId);
     const liveActor=live&&pitchJudgement?rosterPitcherActor(nextNode?.opponent?.artId,pitcherAtlases[nextNode?.opponent?.artId]):null;
     const baseTimeline=presentationTimeline(shot,reduced);
-    const timeline=withKnockoutHold(liveActor?rosterTimeline(baseTimeline,liveActor,reduced):pitcherAtlases[nextNode?.opponent?.artId]&&pitchJudgement?redRushTimeline(baseTimeline,reduced,pitcherReleaseFrame(nextNode?.opponent?.artId)):baseTimeline,next.version===10&&pitchJudgement&&!reduced&&next.pitcher?.hp===0);
+    const timeline=withKnockoutHold(liveActor?rosterTimeline(baseTimeline,liveActor,reduced,{delivery:true,contactHold:contactHitstop(shot?.grade)}):pitcherAtlases[nextNode?.opponent?.artId]&&pitchJudgement?redRushTimeline(baseTimeline,reduced,pitcherReleaseFrame(nextNode?.opponent?.artId)):baseTimeline,next.version===10&&pitchJudgement&&!reduced&&next.pitcher?.hp===0);
     lock.current=true;revealArena();setFxImpactAt(timeline.impactAt||0);setFx(next.last);setFxStage('windup');setFrame(1);
     cancelCues();
     const speed=live&&!reduced?animationRate(rate):1,emit=kind=>live?cue(kind,{rate:speed,signal:cueAbort.current.signal}):cue(kind);
-    if(sound&&!withVideo)emit(pitchJudgement?'pitch':shot?.cue||next.last.kind);
+    if(sound&&!withVideo&&!(pitchJudgement&&Number.isFinite(timeline.pitchReleaseAt)))emit(pitchJudgement?'pitch':shot?.cue||next.last.kind);
     presentationClock.current?.cancel();
-    const playback={rate:speed,...(liveActor?{pitchReleaseAt:liveActor.releaseAt}:{}),startedAt:performance.now(),timeline,token:++presentationToken.current,
+    const playback={rate:speed,...(liveActor?{pitchReleaseAt:timeline.pitchReleaseAt??liveActor.releaseAt}:{}),startedAt:performance.now(),timeline,token:++presentationToken.current,
       action:next.last?.kind==='skill'?'prepare':next.battle?.revealed?.action==='take'?'take':'swing'};
     setFxPlayback(playback);setFxExecution(execution);
     const stakes=stakesFor(next);
     presentationClock.current=startPresentationClock(timeline,{startedAt:playback.startedAt,rate:speed,
       onStage:stage=>{setFxStage(stage);setFrame(stage==='windup'?1:stage?2:0);},
+      onPitchRelease:({audible})=>{if(audible&&soundRef.current&&pitchJudgement&&!withVideo)emit('pitch');},
       onImpact:({audible})=>{if(!audible)return;if(soundRef.current&&pitchJudgement&&!withVideo)emit(shot?.cue||next.last.kind);haptic(timeline.haptic);},
       onSettle:({audible})=>{if(!audible)return;if(soundRef.current&&stakes&&!withVideo)emit(stakes);if(stakes==='game-win')haptic([12,22,28]);if(stakes==='champion'||stakes==='rival-champion')haptic([18,18,38,24,58]);},
       onComplete:()=>{setFx(null);setFxPlayback(null);setFrame(0);presentationActive.current=false;lock.current=homerVideoActive.current;}

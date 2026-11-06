@@ -11,6 +11,7 @@ import runtime from '../assets/pitcher-grounded-runtime-v1/manifest.json';
 import {rosterPitcherActor,rosterFrame,rosterTimeline} from '../src/duel/battle-vnext/roster-actor.js';
 import {actorBox,atbatCamera,toScreen} from '../src/duel/battle-vnext/scene-geometry.js';
 import {pitcherReleaseFrame,pitcherDrawingAt,redRushTimeline,withPitcherTiming} from '../src/duel/pitcher-sd.js';
+import {motionAt} from '../src/duel/battle-vnext/motion-timeline.js';
 import BattleScene from '../src/duel/battle-vnext/BattleScene.jsx';
 import {BattlePitcherSprite} from '../src/duel/App.jsx';
 import ZoneFirstPreview from '../src/duel/ZoneFirstPreview.jsx';
@@ -47,6 +48,38 @@ describe('approved grounded pitcher drawings in actual runtime renderers',()=>{
    const legacy=redRushTimeline(withPitcherTiming({motion:{duration:2000}},c.id).motion);
    expect(legacy.impactAt).toBe(t.impactAt);expect(pitcherReleaseFrame(c.id)).toBe(r.releaseFrame);
    expect(rosterFrame({...playback,action:'prepare'},1400,actor)).toBe(0);
+  }
+ });
+ it('retimes only expressive delivery playback, shortening the coil hold without moving the source release contract',()=>{
+  const id='regular-02-teal-mirage',actor=rosterPitcherActor(id,pitcherAtlases[id]),base={duration:2000,impactAt:1400,releaseAt:1450,settleAt:1800,freeze:0,slowmo:0};
+  const legacy=rosterTimeline(base,actor),delivery=rosterTimeline(base,actor,false,{delivery:true});
+  expect(legacy.impactAt).toBe(actor.releaseAt+300);
+  expect(legacy.delivery).toBeUndefined();
+  expect(delivery.pitchReleaseAt).toBeLessThan(actor.releaseAt);
+  expect(delivery.impactAt).toBe(delivery.pitchReleaseAt+300);
+  expect(rosterFrame({timeline:delivery,action:'swing'},delivery.pitchReleaseAt,actor)).toBe(6);
+  const coilTicks=delivery.delivery.drawingAtTick.filter(frame=>frame===2).length;
+  expect(coilTicks).toBeGreaterThanOrEqual(8);
+  expect(coilTicks).toBeLessThanOrEqual(11);
+  const held=rosterTimeline(base,actor,false,{delivery:true,contactHold:95});
+  expect(rosterFrame({timeline:held,action:'swing'},held.impactAt+79,actor)).toBe(rosterFrame({timeline:held,action:'swing'},held.impactAt,actor));
+ });
+ it('keeps every registered delivery hand, landing, batter anticipation and recovery on one host timeline',()=>{
+  for(const id of Object.keys(reg)){
+   const actor=rosterPitcherActor(id,pitcherAtlases[id]);
+   const t=rosterTimeline({duration:1800,freeze:60,slowmo:70},actor,false,{delivery:true,contactHold:95});
+   const play={timeline:t,action:'swing'};
+   expect(t.freeze).toBe(95);
+   expect(t.delivery.drawingAtTick).toHaveLength(120);
+   expect(new Set(t.delivery.drawingAtTick).size).toBe(12);
+   expect(rosterFrame(play,t.pitchReleaseAt-1,actor)).toBe(5);
+   expect(rosterFrame(play,t.pitchReleaseAt,actor)).toBe(6);
+   expect(rosterFrame(play,t.delivery.landingAt,actor)).toBe(4);
+   expect(motionAt({elapsed:t.pitchReleaseAt-1,timeline:t,action:'swing'}).batter).toBe(0);
+   expect(motionAt({elapsed:t.impactAt-1,timeline:t,action:'swing'}).batter).toBe(7);
+   const atContact=rosterFrame(play,t.impactAt,actor);
+   for(const dt of [1,30,80,94])expect(rosterFrame(play,t.impactAt+dt,actor)).toBe(atContact);
+   expect(rosterFrame(play,t.duration-1,actor)).toBe(11);
   }
  });
  it('scales the reviewed anatomical pivot, hand and landing together, including left-handed Onyx',()=>{

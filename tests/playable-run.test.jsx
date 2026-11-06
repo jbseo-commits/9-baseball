@@ -8,6 +8,7 @@ import Duel from '../src/duel/App.jsx';
 import {playableStorage,PLAYABLE_PREFIX,ENCOUNTER_PLAYABLE_PREFIX} from '../src/duel/battle-vnext/playable-storage.js';
 import {createDefenseLabState,saveDefenseLabState,createV10Duel,enterV10Node,readV10Duel,V10_SAVE_KEY,saveV10Duel,setAimZone,playV10Action} from '../src/duel/engine.js';
 import {rosterPitcherActor,rosterTimeline,rosterFrame} from '../src/duel/battle-vnext/roster-actor.js';
+import {contactHitstop} from '../src/duel/contact-pixelfx.js';
 import {sceneEffectAt} from '../src/duel/battle-vnext/scene-effects.js';
 import registration from '../src/duel/battle-vnext/roster-registration.json';
 import {presentationFor,presentationTimeline} from '../src/duel/presentation.js';
@@ -37,7 +38,7 @@ it('runs the real App with separate state, actual roster, speed clock, next pitc
  localStorage.setItem(V10_SAVE_KEY,'main-sentinel');const v=render(<PlayableRun/>);
  expect(document.querySelector('[data-roster-art]').dataset.rosterArt).toBe('regular-02-teal-mirage');expect(document.querySelector('.bv-review-notice')).toBeNull();
  const rate=screen.getByRole('combobox',{name:'애니메이션 배속'});fireEvent.change(rate,{target:{value:'0.5'}});
- const expected=playV10Action(saved(),{type:'take'}),t=rosterTimeline(presentationTimeline(presentationFor(expected)),rosterPitcherActor('regular-02-teal-mirage','actual'));
+ const expected=playV10Action(saved(),{type:'take'}),shot=presentationFor(expected),t=rosterTimeline(presentationTimeline(shot),rosterPitcherActor('regular-02-teal-mirage','actual'),false,{delivery:true,contactHold:contactHitstop(shot?.grade)});
  fireEvent.click(screen.getByTestId('bp-swing'));expect(saved()).toEqual(expected);expect(rate.disabled).toBe(true);
  act(()=>vi.advanceTimersByTime(t.duration/.5-1));expect(document.querySelector('.bv-scene').dataset.fxStage).toBeTruthy();
  act(()=>vi.advanceTimersByTime(1));expect(rate.disabled).toBe(false);act(()=>vi.advanceTimersByTime(1100));expect(saved().phase).toBe('battle');expect(saved().stats.pitches).toBe(1);

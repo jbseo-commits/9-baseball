@@ -22,7 +22,10 @@ export function motionAt({elapsed=0,timeline=null,action='take',landed=false,kno
   const p=clamp(t/Math.max(1,a));
   const pitcher=knockedOut&&landed&&t>=timeline.settleAt?3:p<.18?(readyCoil?4:0):p<.45?4:p<.60?1:t<timeline.settleAt?2:0;
   if(action!=='swing')return {batter:0,pitcher};
-  if(!landed||t<a)return {batter:Math.min(7,Math.floor(p*8)),pitcher};
+  if(!landed||t<a){
+    const start=timeline.delivery?.pitchReleaseAt??0,approach=clamp((t-start)/Math.max(1,a-start));
+    return {batter:Math.min(7,Math.floor(approach*8)),pitcher};
+  }
   if(t<a+(timeline.freeze||0))return {batter:8,pitcher};
   if(t<release+70)return {batter:9,pitcher};
   const returnAt=Math.max(release+90,end-300);

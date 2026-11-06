@@ -13,22 +13,22 @@ export function sceneEffectAt({elapsed=0,playback=null,result=null,phase='decidi
   const trail=playback.action==='swing'?Math.max(0,1-Math.abs(elapsed-(a-8))/120):0;
   if(!landed){
     if(elapsed<throwAt)return null;
-    const p=clamp((elapsed-throwAt)/Math.max(1,a-throwAt));
+    const linear=clamp((elapsed-throwAt)/Math.max(1,a-throwAt)),p=linear*linear;
     const contact=playback.action==='take'?{x:C.x+40,y:C.y+10}:C;
-    return {kind:'flight',trail,ball:lerp(R,contact,Math.min(.995,p)),previous:lerp(R,contact,Math.max(0,p-.16)),radius:3+4*p,age:0,flash:0,camera:0,opacity:p>.6?(1-p)/.4:1};
+    return {kind:'flight',trail,spinAge:elapsed-throwAt,ball:lerp(R,contact,p),previous:lerp(R,contact,Math.max(0,p-.16)),radius:3+9*p,age:elapsed-throwAt,flash:0,camera:0,opacity:1};
   }
   const near=result.kind==='whiff'?nearCoverage(result):null;
   const contact=['hit','foul','sacrifice','out'].includes(result.kind)&&playback.action==='swing';
   const power=result.kind==='hit'&&/홈런/.test(result.call||result.label||'');
   if(contact){
-    const p=clamp((age-(t.freeze||0))/Math.max(250,(power?t.settleAt-a:560)));
+    const effectAge=Math.max(0,age-(t.freeze||0)),p=clamp(effectAge/Math.max(250,(power?t.settleAt-a:560)));
     const ground=/땅볼/.test(result.label||result.call||'');
     const fieldPoint=p=>composition?{x:p.x+composition.mound.x-832,y:p.y+composition.mound.y-580}:p;
     const end=fieldPoint(power?{x:1180,y:90}:result.kind==='foul'?{x:350,y:610}:ground?{x:865,y:580}:{x:865,y:360});
     const control=fieldPoint(power?{x:1040,y:-110}:ground?{x:900,y:640}:{x:810,y:350});
     const ball=quadratic(C,control,end,p),previous=quadratic(C,control,end,Math.max(0,p-.1));
     return {trail,kind:power?'homer':result.kind==='foul'?'foul':result.exact?'exact':'contact',ball,previous,
-      radius:Math.max(1.7,7*(1-p)),age,flash:age>=0&&age<180?(1-age/180):0,
+      radius:Math.max(1.7,12*(1-p)),age,spinAge:a-throwAt+effectAge,flash:age>=0&&age<180?(1-age/180):0,
       camera:result.exact&&age>=0&&age<150?Math.sin(age*.1)*(1-age/150)*5:0,power,progress:p};
   }
   const z=result.actualZone;
@@ -38,5 +38,5 @@ export function sceneEffectAt({elapsed=0,playback=null,result=null,phase='decidi
     :{x:z===9?95:40+(z%3-1)*20,y:z===9?75:15+(Math.floor(z/3)-1)*18};
   const from={x:C.x+delta.x,y:C.y+delta.y},p=clamp(age/310),end={x:from.x+delta.x*.9+50,y:from.y+330};
   return {trail,kind:near?'near':'pass',ball:lerp(from,end,p),previous:lerp(from,end,Math.max(0,p-.1)),radius:7+7*p,
-    age,flash:0,camera:0,near,hidden:p>=1};
+    age,spinAge:a-throwAt+Math.max(0,age),flash:0,camera:0,near,hidden:p>=1};
 }
