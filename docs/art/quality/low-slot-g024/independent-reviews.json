@@ -1,0 +1,28 @@
+{
+  "visual": {
+    "reviewer": "/root/low_slot_review",
+    "scope": "3 updated source contact sheets and time-ordered films extracted from actual844x390 half-speed gameplay",
+    "initialBlocker": "Wide new lead foot snapped into narrow retained follow-through.",
+    "resolution": "Six authored recovery-step drawings visibly transfer support to rear foot, lift/retract lead foot, then land. Per-actor holds provide readable screen time.",
+    "remainingBlockers": [],
+    "observed": "Three distinct slots; no remaining planted-foot teleport, chest push or obvious body-scale jump.",
+    "limitations": [
+      "Discrete held-pose cadence",
+      "Slight rendering differences between old and new drawings",
+      "This independent visual review covers844x390 half-speed, not other devices/speeds."
+    ]
+  },
+  "code": {
+    "reviewer": "/root/low_slot_code_review",
+    "initialGap": "Helper handoff test bypassed mounted scene.",
+    "resolution": "Mounted BattleScene release-1/release tests check chosen atlas cell and projected ball hand point for all3.",
+    "remainingFindings": [],
+    "checks": [
+      "Focused18/18 tests passed",
+      "Other17 runtime files and full registration entries identical to priorHEAD",
+      "Revised source cells reconstruct exact decoded hashes without clipping",
+      "Post-release weights affect only3, each sum54; step>=3 live ticks",
+      "Release/plant/impact/120tick and ready-tail contracts preserved"
+    ]
+  }
+}

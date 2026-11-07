@@ -1,0 +1,34 @@
+{
+  "status": "local_validation_passed_publication_pending",
+  "tests": {
+    "files": 237,
+    "tests": 1596,
+    "result": "passed",
+    "source": "tests-recovered.log after environment recovery"
+  },
+  "build": "production PASS;59.3/60MB",
+  "zoneSmoke": "10seed byte-equivalent JSON toG023 baseline",
+  "playback": [
+    {
+      "viewport": "844x390",
+      "speed": 0.5,
+      "pitchers": 3,
+      "allDrawingsSeen": true
+    },
+    {
+      "viewport": "667x375",
+      "speed": 1,
+      "pitchers": 3,
+      "allDrawingsSeen": true
+    },
+    {
+      "viewport": "1440x900",
+      "speed": 1,
+      "pitchers": 3,
+      "allDrawingsSeen": true
+    }
+  ],
+  "flow": "7pitches→KO→reward→map reload/resume→event; training upgrade→resume→rotate→rest→resume passed",
+  "knownConsoleNote": "Full local match had only existing favicon404 console entry; page errors, HTTP listeners and failedRequests empty. No new product error observed.",
+  "environmentIncident": "Final tests initially interrupted by unavailable environment; recovered session reran complete suite. Earlier CSS1e-6 test precision failed only6e-7 serialization difference; actual mounted check uses1e-4px tolerance and passes. Earlier parallel1x sample missed a held bridge under CPU load; final sequential1x small+PC reruns observed every drawing."
+}

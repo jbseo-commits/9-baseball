@@ -6,6 +6,7 @@ import {describe,it,expect,afterEach} from 'vitest';
 import {render,cleanup} from '@testing-library/react';
 import {pitcherAtlases} from '../src/duel/pitcher-visuals.js';
 import reg from '../src/duel/battle-vnext/roster-registration.json';
+import selection from '../assets/pitcher-inbetweens-v1/selection.json';
 import source from '../assets/pitcher-review-grounding-r2/manifest.json';
 import runtime from '../assets/pitcher-grounded-runtime-v1/manifest.json';
 import {rosterPitcherActor,rosterFrame,rosterTimeline} from '../src/duel/battle-vnext/roster-actor.js';
@@ -86,7 +87,7 @@ describe('approved grounded pitcher drawings in actual runtime renderers',()=>{
   for(const c of source.characters){
    const actor=rosterPitcherActor(c.slug,pitcherAtlases[c.slug]),r=reg[c.slug],box=actorBox(actor.meta);
    expect(r.anchor).toEqual({x:c.anchor.x/2,y:c.anchor.y/2});
-   expect(r.release).toEqual({x:c.release_point.x/2,y:c.release_point.y/2});
+   expect(r.release).toEqual(selection.characters[c.slug].registrationOverrides?.release??{x:c.release_point.x/2,y:c.release_point.y/2});
    expect(box.x+r.anchor.x*box.scale).toBeCloseTo(r.worldFoot.x,8);
    expect(box.y+r.anchor.y*box.scale).toBeCloseTo(r.worldFoot.y,8);
    expect(actor.landing.x).toBeCloseTo(box.x+r.landing.x*box.scale,8);

@@ -1,5 +1,5 @@
 {
-  "method": "image_gen authored poses with immutable original keys; measured batch registration. G023 records three additional integer whole-drawing sole offsets, no limb warp/optical-flow or procedural pose generation. Every live/source timeline returns to exact original ready0.",
+  "method": "image_gen whole-character source key revisions for Amber/Violet/Tide (G024) plus curated authored inbetweens; recorded common batch scale/translation only, no procedural limb motion. Other17 original keys/events preserved; G024 source release/landing coordinates updated to corrected hands/soles, event times unchanged.",
   "characters": {
     "regular-01-red-rush": {
       "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-01-red-rush.webp",
@@ -70,44 +70,9 @@
           "notes": "Knee drops and stride begins to extend, with ball below shoulder and glove ownership preserved."
         },
         {
-          "afterKey": 6,
-          "sourceCell": 1,
-          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-finish-6.webp",
-          "sourceColumns": 3,
-          "sourceRows": 1,
-          "referenceOriginalKey": 6,
-          "registrationAlignment": "bounds-center",
-          "batchRegistration": {
-            "scale": 0.33181818181818185,
-            "translation": [
-              -14.03636363636366,
-              13.71363636363634
-            ]
-          },
-          "resampling": "nearest",
-          "generatedPNG": "exec-b1f25e3c-61db-4f2a-87a1-7eab85c1ef2f.png",
-          "generatedPNG_SHA256": "28de1d1916970099d75d9391885a1ed3d69ba944713248c865b4c1afba49c700",
-          "notes": "G023 replacement of visually rejected G022 middle. Empty throwing forearm lowers halfway from release to follow-through, without moving the planted front cleat or widening stance. Keep torso leaning progressively forward. Documented whole-drawing sole registration only, not a newly invented pose or limb warp. Source common transform and pre/post hashes retained.",
-          "drawingAnchorOffset": [
-            16,
-            0
-          ]
-        },
-        {
           "afterKey": 9,
           "sourceCell": 19,
           "notes": "Torso rises and empty throwing hand descends toward the relaxed upright key10; no new gather action."
-        },
-        {
-          "afterKey": 5,
-          "sourceCell": 1,
-          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-whip.webp",
-          "sourceColumns": 3,
-          "sourceRows": 1,
-          "referenceOriginalKey": 5,
-          "generatedPNG": "exec-1ff2b4ca-f3f6-4e99-bfc2-2060183c674f.png",
-          "generatedPNG_SHA256": "3f0b06c276ff7ae6af60feadefc5dc471af766c01f9278cfd9423e46b212fa19",
-          "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
         },
         {
           "afterKey": 11,
@@ -128,8 +93,182 @@
           "generatedPNG": "exec-91e6829c-d645-4813-b551-44a8089d3e16.png",
           "generatedPNG_SHA256": "5643f3c81db3f982e6eef7ded6d1d8a1c2fc41696855975c1d3008e0876760c9",
           "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
+        },
+        {
+          "afterKey": 8,
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-step-g024.webp",
+          "sourceColumns": 2,
+          "sourceRows": 2,
+          "referenceOriginalKey": 8,
+          "batchRegistration": {
+            "scale": 0.35,
+            "translation": [
+              44,
+              43
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-e5c5b323-319b-4074-bf04-f9cf0026ffb6.png",
+          "generatedPNG_SHA256": "5557113bee85a6f018641c16b0e3b0d8c0ab92a4a690f0a2c11b041b2d192f14",
+          "notes": "G024 authored recovery step rear support steps under hips; free lead heel begins lifting. Whole-character source; common batch fit, no limb warp or per-frame translation."
+        },
+        {
+          "afterKey": 8,
+          "sourceCell": 2,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-step-g024.webp",
+          "sourceColumns": 2,
+          "sourceRows": 2,
+          "referenceOriginalKey": 8,
+          "batchRegistration": {
+            "scale": 0.35,
+            "translation": [
+              44,
+              43
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-e5c5b323-319b-4074-bf04-f9cf0026ffb6.png",
+          "generatedPNG_SHA256": "5557113bee85a6f018641c16b0e3b0d8c0ab92a4a690f0a2c11b041b2d192f14",
+          "notes": "G024 authored recovery step free lead cleat visibly airborne and retracting before original narrow landing. Whole-character source; common batch fit, no limb warp or per-frame translation."
         }
-      ]
+      ],
+      "keyReplacements": [
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-low-slot-g024.webp",
+          "sourceColumns": 3,
+          "sourceRows": 2,
+          "batchRegistration": {
+            "scale": 0.37,
+            "translation": [
+              70,
+              59
+            ]
+          },
+          "referenceOriginalKey": 0,
+          "resampling": "nearest",
+          "generatedPNG": "exec-3d07e1c3-f8df-46b0-bbe7-a09e722e24d1.png",
+          "generatedPNG_SHA256": "c99076162a2f29945cfc1f2b0b79a8dbca79f6abba39d43291305677d5d47130",
+          "originalIndex": 3,
+          "sourceCell": 0,
+          "notes": "G024 replaces chest-push source key with connected submarine plant/rotation/release/follow; whole-body authored drawing, no limb warp."
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-low-slot-g024.webp",
+          "sourceColumns": 3,
+          "sourceRows": 2,
+          "batchRegistration": {
+            "scale": 0.37,
+            "translation": [
+              70,
+              59
+            ]
+          },
+          "referenceOriginalKey": 0,
+          "resampling": "nearest",
+          "generatedPNG": "exec-3d07e1c3-f8df-46b0-bbe7-a09e722e24d1.png",
+          "generatedPNG_SHA256": "c99076162a2f29945cfc1f2b0b79a8dbca79f6abba39d43291305677d5d47130",
+          "originalIndex": 4,
+          "sourceCell": 1,
+          "notes": "G024 replaces chest-push source key with connected submarine plant/rotation/release/follow; whole-body authored drawing, no limb warp."
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-low-slot-g024.webp",
+          "sourceColumns": 3,
+          "sourceRows": 2,
+          "batchRegistration": {
+            "scale": 0.37,
+            "translation": [
+              70,
+              59
+            ]
+          },
+          "referenceOriginalKey": 0,
+          "resampling": "nearest",
+          "generatedPNG": "exec-3d07e1c3-f8df-46b0-bbe7-a09e722e24d1.png",
+          "generatedPNG_SHA256": "c99076162a2f29945cfc1f2b0b79a8dbca79f6abba39d43291305677d5d47130",
+          "originalIndex": 5,
+          "sourceCell": 2,
+          "notes": "G024 replaces chest-push source key with connected submarine plant/rotation/release/follow; whole-body authored drawing, no limb warp."
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-low-slot-g024.webp",
+          "sourceColumns": 3,
+          "sourceRows": 2,
+          "batchRegistration": {
+            "scale": 0.37,
+            "translation": [
+              70,
+              59
+            ]
+          },
+          "referenceOriginalKey": 0,
+          "resampling": "nearest",
+          "generatedPNG": "exec-3d07e1c3-f8df-46b0-bbe7-a09e722e24d1.png",
+          "generatedPNG_SHA256": "c99076162a2f29945cfc1f2b0b79a8dbca79f6abba39d43291305677d5d47130",
+          "originalIndex": 6,
+          "sourceCell": 3,
+          "notes": "G024 replaces chest-push source key with connected submarine plant/rotation/release/follow; whole-body authored drawing, no limb warp."
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-low-slot-g024.webp",
+          "sourceColumns": 3,
+          "sourceRows": 2,
+          "batchRegistration": {
+            "scale": 0.37,
+            "translation": [
+              70,
+              59
+            ]
+          },
+          "referenceOriginalKey": 0,
+          "resampling": "nearest",
+          "generatedPNG": "exec-3d07e1c3-f8df-46b0-bbe7-a09e722e24d1.png",
+          "generatedPNG_SHA256": "c99076162a2f29945cfc1f2b0b79a8dbca79f6abba39d43291305677d5d47130",
+          "originalIndex": 7,
+          "sourceCell": 4,
+          "notes": "G024 replaces chest-push source key with connected submarine plant/rotation/release/follow; whole-body authored drawing, no limb warp."
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-low-slot-g024.webp",
+          "sourceColumns": 3,
+          "sourceRows": 2,
+          "batchRegistration": {
+            "scale": 0.37,
+            "translation": [
+              70,
+              59
+            ]
+          },
+          "referenceOriginalKey": 0,
+          "resampling": "nearest",
+          "generatedPNG": "exec-3d07e1c3-f8df-46b0-bbe7-a09e722e24d1.png",
+          "generatedPNG_SHA256": "c99076162a2f29945cfc1f2b0b79a8dbca79f6abba39d43291305677d5d47130",
+          "originalIndex": 8,
+          "sourceCell": 5,
+          "notes": "G024 replaces chest-push source key with connected submarine plant/rotation/release/follow; whole-body authored drawing, no limb warp."
+        }
+      ],
+      "registrationOverrides": {
+        "release": {
+          "x": 160,
+          "y": 195
+        },
+        "landing": {
+          "x": 226,
+          "y": 243
+        },
+        "armSlot": "submarine",
+        "poseRevision": "G024-low-slot",
+        "postReleaseWeights": [
+          4,
+          4,
+          14,
+          6,
+          8,
+          18
+        ]
+      }
     },
     "regular-05-violet-sting": {
       "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting.webp",
@@ -147,40 +286,23 @@
           "notes": "Knee lowers and sidearm ball hand separates toward stride, with no overhead arm conversion."
         },
         {
-          "afterKey": 6,
-          "sourceCell": 13,
-          "notes": "Empty arm drops slightly and sweeps inward from sidearm release toward crossed-down follow-through."
-        },
-        {
-          "afterKey": 7,
-          "sourceCell": 1,
-          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-finish-7.webp",
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-low-slot-g024.webp",
           "sourceColumns": 3,
-          "sourceRows": 1,
-          "referenceOriginalKey": 7,
-          "registrationAlignment": "semantic-right-sole",
+          "sourceRows": 2,
           "batchRegistration": {
-            "scale": 0.3353115727002967,
+            "scale": 0.46,
             "translation": [
-              2.09495548961425,
-              6.617210682492612
+              42,
+              16
             ]
           },
+          "referenceOriginalKey": 0,
           "resampling": "nearest",
-          "generatedPNG": "exec-350e513d-0415-468e-89ae-f2b773f97521.png",
-          "generatedPNG_SHA256": "4b5ac6b0386e27600e5f0839b1b7bfd8558d64b2cacec3aa876f9ad0f2de525c",
-          "notes": "G023 replacement of visually rejected G022 middle. Sidearm follow-through bends torso further and lowers empty throwing hand halfway, planted front cleat stays fixed, same body size, no rightward foot slide."
-        },
-        {
+          "generatedPNG": "exec-e7dcf7e1-668f-4197-a52d-aacee48b2fb5.png",
+          "generatedPNG_SHA256": "3cb962d2a0e35756a67f358d69f61416f6f61701b5e2a1b68b5e1ccd5e54d46e",
           "afterKey": 5,
-          "sourceCell": 1,
-          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-whip.webp",
-          "sourceColumns": 3,
-          "sourceRows": 1,
-          "referenceOriginalKey": 5,
-          "generatedPNG": "exec-57c2e8c7-85f7-46aa-bf5c-3557fcae8061.png",
-          "generatedPNG_SHA256": "49c45dfb0a7e3f328cdc2cdee69270cc77f5cebac6f00a0aacc44bf4eee5ff89",
-          "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
+          "sourceCell": 3,
+          "notes": "G024 authored lateral forearm whip, ball held until the following release key."
         },
         {
           "afterKey": 11,
@@ -201,8 +323,163 @@
           "generatedPNG": "exec-305cb395-7393-4fd1-9339-999f1d048ef0.png",
           "generatedPNG_SHA256": "29f59a22f900bdf8f22d6357bbe93f6fec808480c6202c3b095c78d7bae93e31",
           "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
+        },
+        {
+          "afterKey": 7,
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-step-g024.webp",
+          "sourceColumns": 2,
+          "sourceRows": 2,
+          "referenceOriginalKey": 7,
+          "batchRegistration": {
+            "scale": 0.36,
+            "translation": [
+              44,
+              28
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-9683aa47-567d-443e-ac50-2f3a8f56b34e.png",
+          "generatedPNG_SHA256": "89883967b50d852aa1db01ad6c178e8cc33e81bacf1f2cbd4a58927d1e95c893",
+          "notes": "G024 authored recovery step rear support steps under hips; free lead heel begins lifting. Whole-character source; common batch fit, no limb warp or per-frame translation."
+        },
+        {
+          "afterKey": 7,
+          "sourceCell": 2,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-step-g024.webp",
+          "sourceColumns": 2,
+          "sourceRows": 2,
+          "referenceOriginalKey": 7,
+          "batchRegistration": {
+            "scale": 0.36,
+            "translation": [
+              44,
+              28
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-9683aa47-567d-443e-ac50-2f3a8f56b34e.png",
+          "generatedPNG_SHA256": "89883967b50d852aa1db01ad6c178e8cc33e81bacf1f2cbd4a58927d1e95c893",
+          "notes": "G024 authored recovery step free lead cleat visibly airborne and retracting before original narrow landing. Whole-character source; common batch fit, no limb warp or per-frame translation."
         }
-      ]
+      ],
+      "keyReplacements": [
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-low-slot-g024.webp",
+          "sourceColumns": 3,
+          "sourceRows": 2,
+          "batchRegistration": {
+            "scale": 0.46,
+            "translation": [
+              42,
+              16
+            ]
+          },
+          "referenceOriginalKey": 0,
+          "resampling": "nearest",
+          "generatedPNG": "exec-e7dcf7e1-668f-4197-a52d-aacee48b2fb5.png",
+          "generatedPNG_SHA256": "3cb962d2a0e35756a67f358d69f61416f6f61701b5e2a1b68b5e1ccd5e54d46e",
+          "originalIndex": 3,
+          "sourceCell": 0,
+          "notes": "G024 replaces chest-push source key with connected sidearm plant/rotation/release/follow; whole-body authored drawing, no limb warp."
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-low-slot-g024.webp",
+          "sourceColumns": 3,
+          "sourceRows": 2,
+          "batchRegistration": {
+            "scale": 0.46,
+            "translation": [
+              42,
+              16
+            ]
+          },
+          "referenceOriginalKey": 0,
+          "resampling": "nearest",
+          "generatedPNG": "exec-e7dcf7e1-668f-4197-a52d-aacee48b2fb5.png",
+          "generatedPNG_SHA256": "3cb962d2a0e35756a67f358d69f61416f6f61701b5e2a1b68b5e1ccd5e54d46e",
+          "originalIndex": 4,
+          "sourceCell": 1,
+          "notes": "G024 replaces chest-push source key with connected sidearm plant/rotation/release/follow; whole-body authored drawing, no limb warp."
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-low-slot-g024.webp",
+          "sourceColumns": 3,
+          "sourceRows": 2,
+          "batchRegistration": {
+            "scale": 0.46,
+            "translation": [
+              42,
+              16
+            ]
+          },
+          "referenceOriginalKey": 0,
+          "resampling": "nearest",
+          "generatedPNG": "exec-e7dcf7e1-668f-4197-a52d-aacee48b2fb5.png",
+          "generatedPNG_SHA256": "3cb962d2a0e35756a67f358d69f61416f6f61701b5e2a1b68b5e1ccd5e54d46e",
+          "originalIndex": 5,
+          "sourceCell": 2,
+          "notes": "G024 replaces chest-push source key with connected sidearm plant/rotation/release/follow; whole-body authored drawing, no limb warp."
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-low-slot-g024.webp",
+          "sourceColumns": 3,
+          "sourceRows": 2,
+          "batchRegistration": {
+            "scale": 0.46,
+            "translation": [
+              42,
+              16
+            ]
+          },
+          "referenceOriginalKey": 0,
+          "resampling": "nearest",
+          "generatedPNG": "exec-e7dcf7e1-668f-4197-a52d-aacee48b2fb5.png",
+          "generatedPNG_SHA256": "3cb962d2a0e35756a67f358d69f61416f6f61701b5e2a1b68b5e1ccd5e54d46e",
+          "originalIndex": 6,
+          "sourceCell": 4,
+          "notes": "G024 replaces chest-push source key with connected sidearm plant/rotation/release/follow; whole-body authored drawing, no limb warp."
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-low-slot-g024.webp",
+          "sourceColumns": 3,
+          "sourceRows": 2,
+          "batchRegistration": {
+            "scale": 0.46,
+            "translation": [
+              42,
+              16
+            ]
+          },
+          "referenceOriginalKey": 0,
+          "resampling": "nearest",
+          "generatedPNG": "exec-e7dcf7e1-668f-4197-a52d-aacee48b2fb5.png",
+          "generatedPNG_SHA256": "3cb962d2a0e35756a67f358d69f61416f6f61701b5e2a1b68b5e1ccd5e54d46e",
+          "originalIndex": 7,
+          "sourceCell": 5,
+          "notes": "G024 replaces chest-push source key with connected sidearm plant/rotation/release/follow; whole-body authored drawing, no limb warp."
+        }
+      ],
+      "registrationOverrides": {
+        "release": {
+          "x": 129,
+          "y": 91
+        },
+        "landing": {
+          "x": 235,
+          "y": 244
+        },
+        "armSlot": "sidearm",
+        "poseRevision": "G024-low-slot",
+        "postReleaseWeights": [
+          4,
+          12,
+          6,
+          6,
+          8,
+          18
+        ]
+      }
     },
     "onyx-eclipse": {
       "sourceSheet": "assets/pitcher-inbetweens-v1/sources/onyx-eclipse.webp",
@@ -474,20 +751,23 @@
           "notes": "Front knee lowers before the opened stride; ball remains in the anatomical throwing hand."
         },
         {
-          "afterKey": 6,
-          "sourceCell": 13,
-          "notes": "Empty hand moves inward/down from forward release toward crossed-down key7, maintaining low delivery."
-        },
-        {
-          "afterKey": 5,
-          "sourceCell": 1,
-          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-whip.webp",
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-low-slot-g024.webp",
           "sourceColumns": 3,
-          "sourceRows": 1,
-          "referenceOriginalKey": 5,
-          "generatedPNG": "exec-ee4a1aa9-ac97-486b-b715-f206814ffa61.png",
-          "generatedPNG_SHA256": "f2256b45b082e7d0edefdd12ab30a528e03b9bd525757f33cb0ea33ef3652134",
-          "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
+          "sourceRows": 2,
+          "batchRegistration": {
+            "scale": 0.46,
+            "translation": [
+              35,
+              16
+            ]
+          },
+          "referenceOriginalKey": 0,
+          "resampling": "nearest",
+          "generatedPNG": "exec-82953fc3-4939-43f0-a892-9838fd9dbb0f.png",
+          "generatedPNG_SHA256": "5593bf5edd685ddb72f0d6912f8158b7406a61ac208af1eb26a66791805af285",
+          "afterKey": 5,
+          "sourceCell": 3,
+          "notes": "G024 authored lateral forearm whip, ball held until the following release key."
         },
         {
           "afterKey": 11,
@@ -508,8 +788,163 @@
           "generatedPNG": "exec-97b9403a-4370-456d-8fae-9f32ab31fc97.png",
           "generatedPNG_SHA256": "1cfe5e07e023892ff436238c2b535791ef57ffe19e8d2aa9399218fe97ccfa59",
           "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
+        },
+        {
+          "afterKey": 7,
+          "sourceCell": 1,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-step-g024.webp",
+          "sourceColumns": 2,
+          "sourceRows": 2,
+          "referenceOriginalKey": 7,
+          "batchRegistration": {
+            "scale": 0.38,
+            "translation": [
+              38,
+              15
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-b52238d7-a916-4bda-944c-e707b504b193.png",
+          "generatedPNG_SHA256": "10a20d511daab5174b29645634fcd5a2222c6098f8131d888bdb9ee949b89f48",
+          "notes": "G024 authored recovery step rear support steps under hips; free lead heel begins lifting. Whole-character source; common batch fit, no limb warp or per-frame translation."
+        },
+        {
+          "afterKey": 7,
+          "sourceCell": 2,
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-step-g024.webp",
+          "sourceColumns": 2,
+          "sourceRows": 2,
+          "referenceOriginalKey": 7,
+          "batchRegistration": {
+            "scale": 0.38,
+            "translation": [
+              38,
+              15
+            ]
+          },
+          "resampling": "nearest",
+          "generatedPNG": "exec-b52238d7-a916-4bda-944c-e707b504b193.png",
+          "generatedPNG_SHA256": "10a20d511daab5174b29645634fcd5a2222c6098f8131d888bdb9ee949b89f48",
+          "notes": "G024 authored recovery step free lead cleat visibly airborne and retracting before original narrow landing. Whole-character source; common batch fit, no limb warp or per-frame translation."
         }
-      ]
+      ],
+      "keyReplacements": [
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-low-slot-g024.webp",
+          "sourceColumns": 3,
+          "sourceRows": 2,
+          "batchRegistration": {
+            "scale": 0.46,
+            "translation": [
+              35,
+              16
+            ]
+          },
+          "referenceOriginalKey": 0,
+          "resampling": "nearest",
+          "generatedPNG": "exec-82953fc3-4939-43f0-a892-9838fd9dbb0f.png",
+          "generatedPNG_SHA256": "5593bf5edd685ddb72f0d6912f8158b7406a61ac208af1eb26a66791805af285",
+          "originalIndex": 3,
+          "sourceCell": 0,
+          "notes": "G024 replaces chest-push source key with connected low-three-quarter plant/rotation/release/follow; whole-body authored drawing, no limb warp."
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-low-slot-g024.webp",
+          "sourceColumns": 3,
+          "sourceRows": 2,
+          "batchRegistration": {
+            "scale": 0.46,
+            "translation": [
+              35,
+              16
+            ]
+          },
+          "referenceOriginalKey": 0,
+          "resampling": "nearest",
+          "generatedPNG": "exec-82953fc3-4939-43f0-a892-9838fd9dbb0f.png",
+          "generatedPNG_SHA256": "5593bf5edd685ddb72f0d6912f8158b7406a61ac208af1eb26a66791805af285",
+          "originalIndex": 4,
+          "sourceCell": 1,
+          "notes": "G024 replaces chest-push source key with connected low-three-quarter plant/rotation/release/follow; whole-body authored drawing, no limb warp."
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-low-slot-g024.webp",
+          "sourceColumns": 3,
+          "sourceRows": 2,
+          "batchRegistration": {
+            "scale": 0.46,
+            "translation": [
+              35,
+              16
+            ]
+          },
+          "referenceOriginalKey": 0,
+          "resampling": "nearest",
+          "generatedPNG": "exec-82953fc3-4939-43f0-a892-9838fd9dbb0f.png",
+          "generatedPNG_SHA256": "5593bf5edd685ddb72f0d6912f8158b7406a61ac208af1eb26a66791805af285",
+          "originalIndex": 5,
+          "sourceCell": 2,
+          "notes": "G024 replaces chest-push source key with connected low-three-quarter plant/rotation/release/follow; whole-body authored drawing, no limb warp."
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-low-slot-g024.webp",
+          "sourceColumns": 3,
+          "sourceRows": 2,
+          "batchRegistration": {
+            "scale": 0.46,
+            "translation": [
+              35,
+              16
+            ]
+          },
+          "referenceOriginalKey": 0,
+          "resampling": "nearest",
+          "generatedPNG": "exec-82953fc3-4939-43f0-a892-9838fd9dbb0f.png",
+          "generatedPNG_SHA256": "5593bf5edd685ddb72f0d6912f8158b7406a61ac208af1eb26a66791805af285",
+          "originalIndex": 6,
+          "sourceCell": 4,
+          "notes": "G024 replaces chest-push source key with connected low-three-quarter plant/rotation/release/follow; whole-body authored drawing, no limb warp."
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-low-slot-g024.webp",
+          "sourceColumns": 3,
+          "sourceRows": 2,
+          "batchRegistration": {
+            "scale": 0.46,
+            "translation": [
+              35,
+              16
+            ]
+          },
+          "referenceOriginalKey": 0,
+          "resampling": "nearest",
+          "generatedPNG": "exec-82953fc3-4939-43f0-a892-9838fd9dbb0f.png",
+          "generatedPNG_SHA256": "5593bf5edd685ddb72f0d6912f8158b7406a61ac208af1eb26a66791805af285",
+          "originalIndex": 7,
+          "sourceCell": 5,
+          "notes": "G024 replaces chest-push source key with connected low-three-quarter plant/rotation/release/follow; whole-body authored drawing, no limb warp."
+        }
+      ],
+      "registrationOverrides": {
+        "release": {
+          "x": 159,
+          "y": 130
+        },
+        "landing": {
+          "x": 226,
+          "y": 244
+        },
+        "armSlot": "low-three-quarter",
+        "poseRevision": "G024-low-slot",
+        "postReleaseWeights": [
+          4,
+          12,
+          6,
+          6,
+          8,
+          18
+        ]
+      }
     },
     "gale-twister": {
       "sourceSheet": "assets/pitcher-inbetweens-v1/sources/gale-twister.webp",

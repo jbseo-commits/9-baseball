@@ -4,7 +4,7 @@ import {redRushFrameAt,PITCH_FLIGHT_MS} from '../pitcher-sd.js';
 /* Reviewed character-specific drawings, held on the existing 120-tick timeline. */
 export function rosterPitcherActor(artId,url){
  const registered=registration[artId];if(!url||!registered)return null;
- const meta={sourceWidth:256,sourceHeight:256,columns:registered.columns||10,rows:registered.rows||12,drawingAtTick:registered.drawingAtTick,keyDrawings:registered.keyDrawings,recoveryDrawings:registered.recoveryDrawings,releaseDrawing:registered.releaseDrawing,landingDrawing:registered.landingDrawing,worldFoot:registered.worldFoot||ATBAT_COMPOSITION.pitcher.worldFoot,worldHeight:(registered.visibleWorldHeight||300)*256/registered.visibleHeight,anchor:registered.anchor};
+ const meta={sourceWidth:256,sourceHeight:256,columns:registered.columns||10,rows:registered.rows||12,drawingAtTick:registered.drawingAtTick,keyDrawings:registered.keyDrawings,recoveryDrawings:registered.recoveryDrawings,postReleaseWeights:registered.postReleaseWeights,releaseDrawing:registered.releaseDrawing,landingDrawing:registered.landingDrawing,worldFoot:registered.worldFoot||ATBAT_COMPOSITION.pitcher.worldFoot,worldHeight:(registered.visibleWorldHeight||300)*256/registered.visibleHeight,anchor:registered.anchor};
  const k=meta.worldHeight/meta.sourceHeight;
  const world=p=>({x:meta.worldFoot.x+(p.x-meta.anchor.x)*k,y:meta.worldFoot.y+(p.y-meta.anchor.y)*k});
  return {kind:'roster-atlas',artId,url,meta,release:world(registered.release),releaseFrame:registered.releaseFrame,releaseAt:Math.round(registered.releaseFrame*1000/60),
@@ -41,7 +41,10 @@ function deliveryFrames(actor,releaseTick){
  const result=[];before.forEach((frame,i)=>result.push(...expand(frame,lengths[i])));
  result.push(releaseFrame);
  // The whip is quick; recovery takes the spare time, rather than holding the release arm.
- const sourceRuns=[4,4,8,10,10,18],remaining=120-result.length,total=sourceRuns.reduce((a,b)=>a+b,0);
+ // A drawn recovery step needs screen time before its narrower landing.
+ // Reallocate only this actor's post-release holds; departure/plant, flight,
+ // contact freeze, total120 ticks and input deadlines stay fixed.
+ const sourceRuns=actor.meta.postReleaseWeights??[4,4,8,10,10,18],remaining=120-result.length,total=sourceRuns.reduce((a,b)=>a+b,0);
  const post=sourceRuns.map(n=>Math.max(1,Math.round(n*remaining/total)));
  while(post.reduce((a,b)=>a+b,0)>remaining)post[post.indexOf(Math.max(...post))]--;
  while(post.reduce((a,b)=>a+b,0)<remaining)post[post.indexOf(Math.min(...post))]++;

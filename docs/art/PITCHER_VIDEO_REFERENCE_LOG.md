@@ -150,3 +150,10 @@
 4. **`youtube:ls1lqM-rIH4`** — `https://www.youtube.com/watch?v=ls1lqM-rIH4` (MIC'D UP / UMP CAM — Martín Maldonado Catcher/Umpire View)
    - **시점**: 포수캠·심판캠 정면 시점
    - **타임스탬프 구간**: `00:01:49~00:03:04` (높은 릴리스 슬롯에서 떨어지는 2스트라이크 결정구 파워 커브볼의 포수 미트 프레이밍 및 낙차 궤적)
+
+
+## G024 low-slot correction — 2026-11-07 KST
+
+Actual new clip: https://www.mlb.com/video/adam-cimber-strikes-out-the-side-in-the-6th-inning (`mlb:adam-cimber-strikes-out-the-side-in-the-6th-inning`, asset `6b822355-4fe08be4-9b222ca3-csvm-diamondx64-asset`). Downloaded and sampled in this session. This is a **center-field REAR** camera, not catcher/front. At0.00s already folding (no initial set);0.25s deep hinge/low arm;0.50–0.75s low sweep/follow-through, exact release unresolved. Supports silhouette only. New sidearm/catcher-front footage remains **reference_unverified**. No existing historical URL adopted as a new clip.
+
+Unadopted: Tyler Rogers `tyler-rogers-in-play-out-s-to-christian-walker` video endpoint returned HTML/error (not watched). `best-of-ump-cam-from-2025-all-star-game` actual frames inspected but showed conventional Skenes overhand, not a low-slot reference. Full observations in [G024 reference record](quality/low-slot-g024/reference-observations.json). Reference footage is not shipped.

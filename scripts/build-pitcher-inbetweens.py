@@ -3,7 +3,8 @@
 
 One scale per source batch; documented whole-drawing sole registration can
 correct a generated canvas offset without reshaping limbs. All12 original key
-pixels and release/landing events are immutable. Runtime sheets contain each drawing once; the
+pixels are immutable except explicit G024 key revisions. Event times stay
+fixed. Runtime sheets contain each drawing once; the
 separate 10x12 export retains the existing 120-tick/60fps authoring contract.
 """
 from pathlib import Path
@@ -47,29 +48,34 @@ def compile_all():
   selected=sorted(chosen['selected'],key=lambda x:(x['afterKey'],x['sourceCell']))
   assert selected,slug+' has no accepted drawing'
   assert all(0<=s['afterKey']<=11 and 0<=s['sourceCell']<24 for s in selected)
+  replacements={s['originalIndex']:s for s in chosen.get('keyReplacements',[])}
   frames=[];key_indices=[];provenance=[]
+  def authored(s):
+   batch_file=s.get('sourceSheet',chosen['sourceSheet']);batch=source if batch_file==chosen['sourceSheet'] else Image.open(ROOT/batch_file).convert('RGBA');bc=s.get('sourceColumns',6);br=s.get('sourceRows',4)
+   if batch_file not in batches:
+    alignment=s.get('registrationAlignment','foot');explicit=s.get('batchRegistration')
+    if explicit:bs=explicit['scale'];bx,by=explicit['translation']
+    else:bs,bx,by=registration(batch,s['referenceOriginalKey'],bc,br,alignment)
+    batches[batch_file]={'scale':bs,'translation':[bx,by],'referenceOriginalKey':s['referenceOriginalKey'],'alignment':alignment}
+   fit=batches[batch_file];bs=fit['scale'];bx,by=fit['translation'];raw=cell(batch,s['sourceCell'],bc,br)
+   sampling=Image.Resampling.NEAREST if s.get('resampling')=='nearest' else Image.Resampling.BICUBIC
+   normalized=raw.transform((256,256),Image.Transform.AFFINE,(1/bs,0,-bx/bs,0,1/bs,-by/bs),sampling)
+   before_registration_sha=sha(normalized.tobytes());offset=s.get('drawingAnchorOffset',[0,0])
+   if offset!=[0,0]:
+    registered=Image.new('RGBA',(256,256));registered.paste(normalized,tuple(offset));normalized=registered
+   return normalized,{'sourceSheet':batch_file,'sourceCell':s['sourceCell'],'pixelSHA256':sha(normalized.tobytes()),'beforeAnchorRegistrationPixelSHA256':before_registration_sha,'drawingAnchorOffset':offset,'notes':s['notes']}
   for ordinal,key in enumerate(keys):
-   key_indices.append(len(frames));frames.append(key);provenance.append({'kind':'original-key','originalIndex':ordinal,'pixelSHA256':sha(key.tobytes())})
+   key_indices.append(len(frames))
+   if ordinal in replacements:
+    normalized,proof=authored(replacements[ordinal]);frames.append(normalized);provenance.append({**proof,'kind':'authored-key-replacement','originalIndex':ordinal,'previousPixelSHA256':sha(key.tobytes())})
+   else:frames.append(key);provenance.append({'kind':'original-key','originalIndex':ordinal,'pixelSHA256':sha(key.tobytes())})
    for s in [x for x in selected if x['afterKey']==ordinal]:
-    batch_file=s.get('sourceSheet',chosen['sourceSheet']);batch=source if batch_file==chosen['sourceSheet'] else Image.open(ROOT/batch_file).convert('RGBA');bc=s.get('sourceColumns',6);br=s.get('sourceRows',4)
-    if batch_file not in batches:
-     alignment=s.get('registrationAlignment','foot');explicit=s.get('batchRegistration')
-     if explicit:bs=explicit['scale'];bx,by=explicit['translation']
-     else:bs,bx,by=registration(batch,s['referenceOriginalKey'],bc,br,alignment)
-     batches[batch_file]={'scale':bs,'translation':[bx,by],'referenceOriginalKey':s['referenceOriginalKey'],'alignment':alignment}
-    fit=batches[batch_file];bs=fit['scale'];bx,by=fit['translation'];raw=cell(batch,s['sourceCell'],bc,br)
-    # Shared registration is a canvas operation, never limb/pose invention.
-    sampling=Image.Resampling.NEAREST if s.get('resampling')=='nearest' else Image.Resampling.BICUBIC
-    normalized=raw.transform((256,256),Image.Transform.AFFINE,(1/bs,0,-bx/bs,0,1/bs,-by/bs),sampling)
-    before_registration_sha=sha(normalized.tobytes());offset=s.get('drawingAnchorOffset',[0,0])
-    if offset!=[0,0]:
-     registered=Image.new('RGBA',(256,256));registered.paste(normalized,tuple(offset));normalized=registered
-    frames.append(normalized);provenance.append({'kind':'authored-inbetween','sourceSheet':batch_file,'sourceCell':s['sourceCell'],'afterKey':ordinal,'pixelSHA256':sha(normalized.tobytes()),'beforeAnchorRegistrationPixelSHA256':before_registration_sha,'drawingAnchorOffset':offset,'notes':s['notes']})
+    normalized,proof=authored(s);frames.append(normalized);provenance.append({**proof,'kind':'authored-inbetween','afterKey':ordinal})
   cols=5;rows=math.ceil(len(frames)/cols);compact=Image.new('RGBA',(256*cols,256*rows))
   for i,im in enumerate(frames):compact.paste(im,(i%cols*256,i//cols*256))
   runtime=OUT/'runtime'/f'{slug}-pitch-drawings.webp';compact.save(runtime,lossless=True,exact=True,method=6)
   decoded=Image.open(runtime).convert('RGBA')
-  for i,key in enumerate(keys):assert sha(cell(decoded,key_indices[i],cols,rows).tobytes())==sha(key.tobytes()),slug+' original changed'
+  for i,key in enumerate(keys):assert sha(cell(decoded,key_indices[i],cols,rows).tobytes())==provenance[key_indices[i]]['pixelSHA256'],slug+' key packing changed'
   recovery=[key_indices[11],*range(key_indices[11]+1,len(frames)),0] if selection.get('returnToReady') else None
   source_lengths=[old['drawingAtTick'].count(i) for i in range(12)]
   if recovery:
@@ -91,10 +97,10 @@ def compile_all():
   review=Image.new('RGB',(cols*256,rows*276),'#22313a');draw=ImageDraw.Draw(review)
   for i,im in enumerate(frames):review.paste(im,(i%cols*256,i//cols*276),im);draw.text((i%cols*256+4,i//cols*276+256),f'{i} '+('KEY '+str(key_indices.index(i)) if i in key_indices else 'INBETWEEN'),fill='white')
   review.save(OUT/'review'/f'{slug}.jpg',quality=90)
-  live[slug]={**old,'file':str(runtime.relative_to(ROOT)),'sourceAtlas':str(atlas.relative_to(ROOT)),'columns':cols,'rows':rows,'keyDrawings':key_indices,'recoveryDrawings':recovery,'releaseDrawing':key_indices[6],'landingDrawing':key_indices[4],'drawingAtTick':timing,'authoredDrawings':len(frames),'newInbetweenDrawings':len(selected),'interpolationManifest':'assets/pitcher-inbetweens-v1/manifest.json'}
-  records.append({'id':slug,'runtimeFile':str(runtime.relative_to(ROOT)),'runtimeSHA256':sha(runtime.read_bytes()),'file':str(atlas.relative_to(ROOT)),'atlasSHA256':sha(atlas.read_bytes()),'sourceSheet':chosen['sourceSheet'],'sourceSheetSHA256':sha((ROOT/chosen['sourceSheet']).read_bytes()),'originalRuntimeFile':old['file'],'originalRuntimeSHA256':sha((ROOT/old['file']).read_bytes()),'columns':cols,'rows':rows,'keyDrawings':key_indices,'sourceDrawings':len(frames),'preservedOriginalDrawings':12,'newInbetweenDrawings':len(selected),'timelineTicks':120,'fps':60,'drawingAtTick':timing,'normalization':{'scale':scale,'translation':[dx,dy]},'batchRegistrations':batches,'drawings':provenance,'runtimeBytes':runtime.stat().st_size})
+  live[slug]={**old,**chosen.get('registrationOverrides',{}),'file':str(runtime.relative_to(ROOT)),'sourceAtlas':str(atlas.relative_to(ROOT)),'columns':cols,'rows':rows,'keyDrawings':key_indices,'recoveryDrawings':recovery,'releaseDrawing':key_indices[6],'landingDrawing':key_indices[4],'drawingAtTick':timing,'authoredDrawings':len(frames),'newInbetweenDrawings':len(selected),'interpolationManifest':'assets/pitcher-inbetweens-v1/manifest.json'}
+  records.append({'id':slug,'runtimeFile':str(runtime.relative_to(ROOT)),'runtimeSHA256':sha(runtime.read_bytes()),'file':str(atlas.relative_to(ROOT)),'atlasSHA256':sha(atlas.read_bytes()),'sourceSheet':chosen['sourceSheet'],'sourceSheetSHA256':sha((ROOT/chosen['sourceSheet']).read_bytes()),'originalRuntimeFile':old['file'],'originalRuntimeSHA256':sha((ROOT/old['file']).read_bytes()),'columns':cols,'rows':rows,'keyDrawings':key_indices,'sourceDrawings':len(frames),'preservedOriginalDrawings':12-len(replacements),'replacedOriginalDrawings':len(replacements),'newInbetweenDrawings':len(selected),'timelineTicks':120,'fps':60,'drawingAtTick':timing,'normalization':{'scale':scale,'translation':[dx,dy]},'batchRegistrations':batches,'drawings':provenance,'runtimeBytes':runtime.stat().st_size})
   print(slug,len(frames),runtime.stat().st_size,flush=True)
- manifest={'version':2,'clientDate':'2026-11-07 KST','authorizationQuote':'모든 투수 확인하고 완성한다음 깃허브 올려줘','previousRelease':{'commit':'e4225dd','newDrawings':75},'authoredReplacements':13,'newRecoveryDrawings':10,'method':selection['method'],'characters':records,'totalNewPitcherDrawings':sum(x['newInbetweenDrawings'] for x in records),'totalRuntimeBytes':sum(x['runtimeBytes'] for x in records),'qualityLimit':'Curated additional drawings, not 120 newly authored drawings per character or proof of commercial animation quality. Rejected candidates and earlier HELD histories remain unchanged.'}
+ manifest={'version':3,'clientDate':'2026-11-07 KST','authorizationQuote':'모든 투수 확인하고 완성한다음 깃허브 올려줘','previousRelease':{'commit':'3de6257','newDrawings':85},'previousInbetweenReplacements':13,'previousRecoveryDrawings':10,'lowSlotRecoveryDrawings':6,'method':selection['method'],'characters':records,'totalRevisedKeys':sum(x['replacedOriginalDrawings'] for x in records),'totalNewPitcherDrawings':sum(x['newInbetweenDrawings'] for x in records),'totalRuntimeBytes':sum(x['runtimeBytes'] for x in records),'qualityLimit':'Curated additional drawings, not 120 newly authored drawings per character or proof of commercial animation quality. Rejected candidates and earlier HELD histories remain unchanged.'}
  (OUT/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
  (ROOT/'src/duel/battle-vnext/roster-registration.json').write_text(json.dumps(live,indent=2)+'\n')
 if __name__=='__main__':compile_all()
