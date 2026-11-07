@@ -69,8 +69,9 @@ describe('PixelLab pitch animations',()=>{
     for(const id of ids){
       const m=reviewed.characters.find(c=>c.slug===id);
       expect(stance[id],id).toEqual([m.anchor.x/512,m.anchor.y/512]);
-      expect(stride[id],id).toEqual([Math.round(m.phase_ms[4]*60/1000),m.landing_point.x/512,m.landing_point.y/512]);
-      expect(release[id],id).toEqual([m.release_point.x/512,m.release_point.y/512]);
+      const revision=json('../assets/pitcher-inbetweens-v1/selection.json').characters[id].registrationOverrides;
+      expect(stride[id],id).toEqual([Math.round(m.phase_ms[4]*60/1000),...(revision?[revision.landing.x/256,revision.landing.y/256]:[m.landing_point.x/512,m.landing_point.y/512])]);
+      expect(release[id],id).toEqual(revision?[revision.release.x/256,revision.release.y/256]:[m.release_point.x/512,m.release_point.y/512]);
       expect(stride[id][0]).toBeLessThan(Math.round(m.release_ms*60/1000));
     }
   });

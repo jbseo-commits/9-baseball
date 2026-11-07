@@ -7,21 +7,50 @@ import {render,cleanup} from '@testing-library/react';
 import pack from '../assets/pitcher-inbetweens-v1/manifest.json';
 import original from '../assets/pitcher-inbetweens-v1/base-registration.json';
 import reg from '../src/duel/battle-vnext/roster-registration.json';
+import selection from '../assets/pitcher-inbetweens-v1/selection.json';
 import {pitcherAtlases} from '../src/duel/pitcher-visuals.js';
 import {rosterPitcherActor,rosterTimeline,rosterFrame} from '../src/duel/battle-vnext/roster-actor.js';
 import BattleScene,{SAMPLE_ACTORS} from '../src/duel/battle-vnext/BattleScene.jsx';
+import {atbatCamera,toScreen} from '../src/duel/battle-vnext/scene-geometry.js';
+import {FX_ATLASES} from '../src/duel/battle-vnext/ContactPixelFx.jsx';
 const sha=file=>crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 afterEach(()=>{cleanup();vi.restoreAllMocks();});
 
-it('connects all20 compact sheets, retains every original key and preserves registration/events',()=>{
- expect(pack.characters).toHaveLength(20);expect(pack.totalNewPitcherDrawings).toBe(85);
+it('renders each low-slot release cell and first ball at the same projected hand point',()=>{
+ const clock=vi.spyOn(performance,'now');
+ for(const id of ['regular-03-amber-sinker','regular-05-violet-sting','tide-vesper']){
+  const actor=rosterPitcherActor(id,pitcherAtlases[id]),r=reg[id];
+  const timeline=rosterTimeline({duration:2000,freeze:0},actor,false,{delivery:true});
+  const props={size:{width:844,height:390},framing:'atbat',phase:'flight',actors:{pitcher:actor},playback:{action:'swing',startedAt:0,rate:1,timeline,pitchReleaseAt:timeline.pitchReleaseAt}};
+  clock.mockReturnValue(timeline.pitchReleaseAt-1);
+  const view=render(<BattleScene {...props}/>);
+  expect(view.container.querySelector('.bv-ball-sprite')).toBeNull();
+  clock.mockReturnValue(timeline.pitchReleaseAt);view.rerender(<BattleScene {...props}/>);
+  const pitcher=view.container.querySelector('.bv-actor-pitcher');
+  expect(pitcher.dataset.pose).toBe('frame-'+r.releaseDrawing);
+  const ball=view.container.querySelector('.bv-ball-sprite .fx-ball');expect(ball).not.toBeNull();
+  const expected=toScreen(atbatCamera(844,390),actor.release),scale=parseFloat(ball.style.width)/FX_ATLASES.ball.frameSize[0];
+  // CSS serializes fractional pixels; sub-0.0001px rounding is immaterial.
+  expect(parseFloat(ball.style.left)+FX_ATLASES.ball.contactPivot[0]*scale).toBeCloseTo(expected.x,4);
+  expect(parseFloat(ball.style.top)+FX_ATLASES.ball.contactPivot[1]*scale).toBeCloseTo(expected.y,4);
+  const crop=pitcher.querySelector('.bv-motion-crop img');
+  expect(crop.style.left).toBe(-(r.releaseDrawing%r.columns)*100+'%');
+  expect(crop.style.top).toBe(-Math.floor(r.releaseDrawing/r.columns)*100+'%');view.unmount();
+ }
+});
+
+it('connects all20 sheets, retains original keys except explicit low-slot revisions, and preserves event times',()=>{
+ expect(pack.characters).toHaveLength(20);expect(pack.totalNewPitcherDrawings).toBe(86);expect(pack.totalRevisedKeys).toBe(16);
  for(const c of pack.characters){
   const r=reg[c.id],old=original[c.id],actor=rosterPitcherActor(c.id,pitcherAtlases[c.id]);
   expect(String(actor.url)).toContain(c.runtimeFile);
   expect(sha(c.runtimeFile)).toBe(c.runtimeSHA256);expect(sha(c.originalRuntimeFile)).toBe(c.originalRuntimeSHA256);
-  expect(c.drawings.filter(d=>d.kind==='original-key').map(d=>d.originalIndex)).toEqual(Array.from({length:12},(_,i)=>i));
+  const revision=selection.characters[c.id],replaced=revision.keyReplacements||[];
+  expect(c.drawings.filter(d=>['original-key','authored-key-replacement'].includes(d.kind)).map(d=>d.originalIndex)).toEqual(Array.from({length:12},(_,i)=>i));
+  expect(c.drawings.filter(d=>d.kind==='authored-key-replacement').map(d=>d.originalIndex)).toEqual(replaced.map(d=>d.originalIndex));
+  expect(c.preservedOriginalDrawings).toBe(12-replaced.length);
   expect(c.drawings.filter(d=>d.kind==='authored-inbetween')).toHaveLength(c.newInbetweenDrawings);
-  for(const k of ['anchor','worldFoot','release','releaseFrame','landing','landingFrame','visibleHeight','throwingHand'])expect(r[k]).toEqual(old[k]);
+  for(const k of ['anchor','worldFoot','release','releaseFrame','landing','landingFrame','visibleHeight','throwingHand'])expect(r[k]).toEqual(revision.registrationOverrides?.[k]??old[k]);
   const t=rosterTimeline({duration:2000,freeze:0,slowmo:0},actor,false,{delivery:true});
   expect(new Set(r.drawingAtTick)).toEqual(new Set(c.drawings.map((_,i)=>i)));
   expect(new Set(t.delivery.drawingAtTick)).toEqual(new Set(c.drawings.map((_,i)=>i)));

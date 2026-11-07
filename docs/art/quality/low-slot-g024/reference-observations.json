@@ -1,0 +1,36 @@
+{
+  "status": "partial_reference_verified",
+  "newReference": {
+    "url": "https://www.mlb.com/video/adam-cimber-strikes-out-the-side-in-the-6th-inning",
+    "normalizedClipId": "mlb:adam-cimber-strikes-out-the-side-in-the-6th-inning",
+    "assetId": "6b822355-4fe08be4-9b222ca3-csvm-diamondx64-asset",
+    "observed": true,
+    "camera": "Elevated center-field camera BEHIND pitcher toward plate; not catcher/front pitcher view",
+    "observations": [
+      {
+        "time": "0.00s",
+        "note": "Clip starts during forward fold, initial set not visible"
+      },
+      {
+        "time": "0.25s",
+        "note": "Deep trunk hinge, low throwing-arm silhouette behind hip"
+      },
+      {
+        "time": "0.50–0.75s",
+        "note": "Low arm sweep into follow-through; precise release/hand anatomy unresolved at this distance"
+      }
+    ]
+  },
+  "unadopted": [
+    {
+      "url": "https://www.mlb.com/video/tyler-rogers-in-play-out-s-to-christian-walker",
+      "status": "video endpoint returned HTML/error, not observed"
+    },
+    {
+      "url": "https://www.mlb.com/video/best-of-ump-cam-from-2025-all-star-game",
+      "status": "actual video observed, conventional Skenes overhand, not suitable low-slot reference"
+    }
+  ],
+  "limitation": "No useful new catcher/front-facing sidearm/submarine footage verified. Do not claim camera-specific video-based biomechanics validation. Actual game camera inspected separately.",
+  "cachePaths": "Temporary clips/contact sheets in /workspace/9zone-low-slot-20261107/references; external footage not published."
+}

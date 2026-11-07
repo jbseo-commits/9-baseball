@@ -1,14 +1,12 @@
 {
-  "version": 2,
+  "version": 3,
   "clientDate": "2026-11-07 KST",
   "authorizationQuote": "\ubaa8\ub4e0 \ud22c\uc218 \ud655\uc778\ud558\uace0 \uc644\uc131\ud55c\ub2e4\uc74c \uae43\ud5c8\ube0c \uc62c\ub824\uc918",
   "previousRelease": {
-    "commit": "e4225dd",
-    "newDrawings": 75
+    "commit": "3de6257",
+    "newDrawings": 85
   },
-  "authoredReplacements": 13,
-  "newRecoveryDrawings": 10,
-  "method": "image_gen authored poses with immutable original keys; measured batch registration. G023 records three additional integer whole-drawing sole offsets, no limb warp/optical-flow or procedural pose generation. Every live/source timeline returns to exact original ready0.",
+  "method": "image_gen whole-character source key revisions for Amber/Violet/Tide (G024) plus curated authored inbetweens; recorded common batch scale/translation only, no procedural limb motion. Other17 original keys/events preserved; G024 source release/landing coordinates updated to corrected hands/soles, event times unchanged.",
   "characters": [
     {
       "id": "regular-01-red-rush",
@@ -38,6 +36,7 @@
       ],
       "sourceDrawings": 17,
       "preservedOriginalDrawings": 12,
+      "replacedOriginalDrawings": 0,
       "newInbetweenDrawings": 5,
       "timelineTicks": 120,
       "fps": 60,
@@ -210,17 +209,17 @@
           "pixelSHA256": "17c4d3a5bc67b41d774f073227a7e5ee19ef4182fe31eaa8af0e519e2eb5ba14"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-01-red-rush.webp",
           "sourceCell": 4,
-          "afterKey": 1,
           "pixelSHA256": "ad11b0c67ee19409a6c8d0bb57d241500bdcd550961057e887537eb29e6bdec9",
           "beforeAnchorRegistrationPixelSHA256": "ad11b0c67ee19409a6c8d0bb57d241500bdcd550961057e887537eb29e6bdec9",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Front knee is rising below the full high-coil key2; hands remain gathered."
+          "notes": "Front knee is rising below the full high-coil key2; hands remain gathered.",
+          "kind": "authored-inbetween",
+          "afterKey": 1
         },
         {
           "kind": "original-key",
@@ -228,17 +227,17 @@
           "pixelSHA256": "916ec2f0957efec54d057946cc7fe5fbedd1b9f6bc5ca5de7c7f05e1e130e062"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-01-red-rush.webp",
           "sourceCell": 7,
-          "afterKey": 2,
           "pixelSHA256": "6b7ff7be6108da16c911b857472ad6ba66c670d02b4319a9be01c5b7806cfe10",
           "beforeAnchorRegistrationPixelSHA256": "6b7ff7be6108da16c911b857472ad6ba66c670d02b4319a9be01c5b7806cfe10",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Knee descends while the ball hand separates; follows high coil toward original key3."
+          "notes": "Knee descends while the ball hand separates; follows high coil toward original key3.",
+          "kind": "authored-inbetween",
+          "afterKey": 2
         },
         {
           "kind": "original-key",
@@ -246,17 +245,17 @@
           "pixelSHA256": "1591db18dcca07f61e6d71397e2e1373bdc93937f4de246d03c12a2a7b702020"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-01-red-rush-finish-3.webp",
           "sourceCell": 1,
-          "afterKey": 3,
           "pixelSHA256": "697c32f384719d449a8df0692595101923c11939514a549b6ed4ca39263950d7",
           "beforeAnchorRegistrationPixelSHA256": "697c32f384719d449a8df0692595101923c11939514a549b6ed4ca39263950d7",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 replacement of visually rejected G022 middle. Stride opens: rear/support foot stays in place while the free front foot moves downward and forward toward plant. Never switch support legs."
+          "notes": "G023 replacement of visually rejected G022 middle. Stride opens: rear/support foot stays in place while the free front foot moves downward and forward toward plant. Never switch support legs.",
+          "kind": "authored-inbetween",
+          "afterKey": 3
         },
         {
           "kind": "original-key",
@@ -269,17 +268,17 @@
           "pixelSHA256": "9965ff9ea1911307cf6a0c41dee895fb54d1bc14ba5de4fc7306387ffa4186ef"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-01-red-rush-whip.webp",
           "sourceCell": 1,
-          "afterKey": 5,
           "pixelSHA256": "fe5ac0c13548252b0a57cdffcdd7aac643abe8573ce53dbc9439a35ec650918c",
           "beforeAnchorRegistrationPixelSHA256": "fe5ac0c13548252b0a57cdffcdd7aac643abe8573ce53dbc9439a35ec650918c",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
+          "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting.",
+          "kind": "authored-inbetween",
+          "afterKey": 5
         },
         {
           "kind": "original-key",
@@ -287,17 +286,17 @@
           "pixelSHA256": "2a1de3383d50e578868d4a6088cff12ed6f369ba4c828e71a218a7e286133ee5"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-01-red-rush.webp",
           "sourceCell": 14,
-          "afterKey": 6,
           "pixelSHA256": "e56431c4b877f7d52a1491227b019a19796d650b0bc9cf96689b5b020d12f8e8",
           "beforeAnchorRegistrationPixelSHA256": "e56431c4b877f7d52a1491227b019a19796d650b0bc9cf96689b5b020d12f8e8",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Empty throwing arm travels lower and farther across the follow-through arc than key6, before the fully crossed-down arm in key7."
+          "notes": "Empty throwing arm travels lower and farther across the follow-through arc than key6, before the fully crossed-down arm in key7.",
+          "kind": "authored-inbetween",
+          "afterKey": 6
         },
         {
           "kind": "original-key",
@@ -355,6 +354,7 @@
       ],
       "sourceDrawings": 16,
       "preservedOriginalDrawings": 12,
+      "replacedOriginalDrawings": 0,
       "newInbetweenDrawings": 4,
       "timelineTicks": 120,
       "fps": 60,
@@ -509,17 +509,17 @@
           "pixelSHA256": "b4f115b0a7b009b11ad7c57dcd1af3a426354ac1323440130679831c051f2b05"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-02-teal-mirage.webp",
           "sourceCell": 4,
-          "afterKey": 1,
           "pixelSHA256": "21a0666b9d450eb1f581854df1915900e1f105aea67253f1404798022d65ab10",
           "beforeAnchorRegistrationPixelSHA256": "21a0666b9d450eb1f581854df1915900e1f105aea67253f1404798022d65ab10",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Knee lift is below original full coil, hands still gathered."
+          "notes": "Knee lift is below original full coil, hands still gathered.",
+          "kind": "authored-inbetween",
+          "afterKey": 1
         },
         {
           "kind": "original-key",
@@ -527,17 +527,17 @@
           "pixelSHA256": "91e39592fd73034fc6e2a9c0c86431353a794856d3e9339e383c821a1a5f7a5d"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-02-teal-mirage.webp",
           "sourceCell": 7,
-          "afterKey": 2,
           "pixelSHA256": "e50507c54816f7bd99ec1bf00725851f626a80d0a851de57ade662c56c2e293b",
           "beforeAnchorRegistrationPixelSHA256": "e50507c54816f7bd99ec1bf00725851f626a80d0a851de57ade662c56c2e293b",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Front knee lowers and ball hand separates before the fully opened stride in key3."
+          "notes": "Front knee lowers and ball hand separates before the fully opened stride in key3.",
+          "kind": "authored-inbetween",
+          "afterKey": 2
         },
         {
           "kind": "original-key",
@@ -555,17 +555,17 @@
           "pixelSHA256": "ced9c2995ac5a61104c1ba63dcbdcb90296112afd01f797a40b78a99642f24f1"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-02-teal-mirage.webp",
           "sourceCell": 11,
-          "afterKey": 5,
           "pixelSHA256": "1423755a609ba4dae65bf8f133b6375101c690b9b6cbc88ba50e7d3fddc90df1",
           "beforeAnchorRegistrationPixelSHA256": "1423755a609ba4dae65bf8f133b6375101c690b9b6cbc88ba50e7d3fddc90df1",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Ball hand advances toward camera from the cocked position, still holding the ball before the exact original empty-hand release."
+          "notes": "Ball hand advances toward camera from the cocked position, still holding the ball before the exact original empty-hand release.",
+          "kind": "authored-inbetween",
+          "afterKey": 5
         },
         {
           "kind": "original-key",
@@ -578,17 +578,17 @@
           "pixelSHA256": "1dea1f8820a723e35f95de2f2efb20a0849be66c0e20a7fcbd71491ba8078aa9"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-02-teal-mirage.webp",
           "sourceCell": 15,
-          "afterKey": 7,
           "pixelSHA256": "f7285185a8503f5274b9a5e1fb067d1e03233a91e679d9155e47efc24ee3bddf",
           "beforeAnchorRegistrationPixelSHA256": "f7285185a8503f5274b9a5e1fb067d1e03233a91e679d9155e47efc24ee3bddf",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Torso folds farther over the front leg and the empty arm extends down into the original key8 follow-through."
+          "notes": "Torso folds farther over the front leg and the empty arm extends down into the original key8 follow-through.",
+          "kind": "authored-inbetween",
+          "afterKey": 7
         },
         {
           "kind": "original-key",
@@ -616,9 +616,9 @@
     {
       "id": "regular-03-amber-sinker",
       "runtimeFile": "assets/pitcher-inbetweens-v1/runtime/regular-03-amber-sinker-pitch-drawings.webp",
-      "runtimeSHA256": "1c0477b6e5273361035c16dcc036a9645703de7b9d09dd45103b7a5b21350289",
+      "runtimeSHA256": "a001a055327feb557de5cff3eace8255e2cb40fa1f0c90c130f331139a270cee",
       "file": "assets/pitcher-inbetweens-v1/atlases/regular-03-amber-sinker-pitch-120-atlas.webp",
-      "atlasSHA256": "d9e5e40adb7c0e97317204d6a362850fc758a87cc28fc49488a377e2c6525bd2",
+      "atlasSHA256": "a84a8b1cbf6499fafd1aeb722a2d29b7fb24b5019221967c2d6589b4f1f94068",
       "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker.webp",
       "sourceSheetSHA256": "6a99df7fd0cc742cacbfc842f2f0a44ba582692cc848fca09363719db2580ddb",
       "originalRuntimeFile": "assets/pitcher-grounded-runtime-v1/runtime/regular-03-amber-sinker-pitch-12-drawings.webp",
@@ -632,15 +632,16 @@
         5,
         6,
         7,
+        8,
         9,
-        11,
-        12,
+        10,
         13,
         15,
         16
       ],
       "sourceDrawings": 18,
-      "preservedOriginalDrawings": 12,
+      "preservedOriginalDrawings": 6,
+      "replacedOriginalDrawings": 6,
       "newInbetweenDrawings": 6,
       "timelineTicks": 120,
       "fps": 60,
@@ -719,25 +720,25 @@
         6,
         7,
         7,
+        7,
+        7,
+        8,
+        8,
         8,
         8,
         9,
         9,
+        9,
+        9,
+        9,
+        9,
+        9,
         10,
         10,
+        10,
         11,
         11,
         11,
-        11,
-        11,
-        11,
-        11,
-        12,
-        12,
-        12,
-        12,
-        12,
-        12,
         12,
         12,
         12,
@@ -782,23 +783,23 @@
           ],
           "referenceOriginalKey": 0
         },
-        "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-whip.webp": {
-          "scale": 0.3277439024390244,
+        "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-low-slot-g024.webp": {
+          "scale": 0.37,
           "translation": [
-            -8.691310975609753,
-            18.806402439024367
+            70,
+            59
           ],
-          "referenceOriginalKey": 5,
+          "referenceOriginalKey": 0,
           "alignment": "foot"
         },
-        "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-finish-6.webp": {
-          "scale": 0.33181818181818185,
+        "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-step-g024.webp": {
+          "scale": 0.35,
           "translation": [
-            -14.03636363636366,
-            13.71363636363634
+            44,
+            43
           ],
-          "referenceOriginalKey": 6,
-          "alignment": "bounds-center"
+          "referenceOriginalKey": 8,
+          "alignment": "foot"
         },
         "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-return.webp": {
           "scale": 0.33284457478005863,
@@ -822,17 +823,17 @@
           "pixelSHA256": "362180c1eedfc97b794bd8a3427e4ac1563db2fefb97f6e69568b8171f2ff1c5"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker.webp",
           "sourceCell": 4,
-          "afterKey": 1,
           "pixelSHA256": "a144b7ed4fcce40831442ba5aee8446457670d6b4dc1d38f63ef65612ba8e565",
           "beforeAnchorRegistrationPixelSHA256": "a144b7ed4fcce40831442ba5aee8446457670d6b4dc1d38f63ef65612ba8e565",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Knee is between low gather and high coil; identity, braid and equipment are retained."
+          "notes": "Knee is between low gather and high coil; identity, braid and equipment are retained.",
+          "kind": "authored-inbetween",
+          "afterKey": 1
         },
         {
           "kind": "original-key",
@@ -840,73 +841,127 @@
           "pixelSHA256": "87457df0f6910ce4131bfcd156fa784c5dd8fefee49793f442a2514ec6e8ccb4"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker.webp",
           "sourceCell": 7,
-          "afterKey": 2,
           "pixelSHA256": "e163b6fc53e7a1358c890b1e2f57449bdb181c58cbe81bf87d08ef85a5171e48",
           "beforeAnchorRegistrationPixelSHA256": "e163b6fc53e7a1358c890b1e2f57449bdb181c58cbe81bf87d08ef85a5171e48",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Knee drops and stride begins to extend, with ball below shoulder and glove ownership preserved."
-        },
-        {
-          "kind": "original-key",
-          "originalIndex": 3,
-          "pixelSHA256": "8660b0d2cc88178bf062d4651642c55559e1a32b90ce43be901b705702b6fa23"
-        },
-        {
-          "kind": "original-key",
-          "originalIndex": 4,
-          "pixelSHA256": "af4e6b1afeaa142a58fd50d1550a983aa54fa000ada800261df5bd055886814f"
-        },
-        {
-          "kind": "original-key",
-          "originalIndex": 5,
-          "pixelSHA256": "de97a9ad6d3634bdded08804249992998acf55793e6b9d6d3339eb669dbb0971"
-        },
-        {
+          "notes": "Knee drops and stride begins to extend, with ball below shoulder and glove ownership preserved.",
           "kind": "authored-inbetween",
-          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-whip.webp",
-          "sourceCell": 1,
-          "afterKey": 5,
-          "pixelSHA256": "f472f6c281c99238732c078c73aa641d7cac5cc122cb89876b6228bf8102652a",
-          "beforeAnchorRegistrationPixelSHA256": "f472f6c281c99238732c078c73aa641d7cac5cc122cb89876b6228bf8102652a",
+          "afterKey": 2
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-low-slot-g024.webp",
+          "sourceCell": 0,
+          "pixelSHA256": "1b9e47b3c2f1f7e717aa0c2bc5c5ff9da7af995bad4c8e2113078fbd7ed59b7a",
+          "beforeAnchorRegistrationPixelSHA256": "1b9e47b3c2f1f7e717aa0c2bc5c5ff9da7af995bad4c8e2113078fbd7ed59b7a",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
+          "notes": "G024 replaces chest-push source key with connected submarine plant/rotation/release/follow; whole-body authored drawing, no limb warp.",
+          "kind": "authored-key-replacement",
+          "originalIndex": 3,
+          "previousPixelSHA256": "8660b0d2cc88178bf062d4651642c55559e1a32b90ce43be901b705702b6fa23"
         },
         {
-          "kind": "original-key",
-          "originalIndex": 6,
-          "pixelSHA256": "38c505eca088940d90d6d2c3121d917b5617a5cea56169e1654fb2f1c86d1b25"
-        },
-        {
-          "kind": "authored-inbetween",
-          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-finish-6.webp",
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-low-slot-g024.webp",
           "sourceCell": 1,
-          "afterKey": 6,
-          "pixelSHA256": "65ee9db40fc8997fa95a2be1262f5cb8e2d60879bf7eebfd086710331fbba9f5",
-          "beforeAnchorRegistrationPixelSHA256": "a2bece39576fdf34d72f255526858bf1cd9f35771f6975f13c6cb156035d64f7",
+          "pixelSHA256": "acae5829b7c729051986fc86007c342557b3c011b3847bdb8043c39239a9defc",
+          "beforeAnchorRegistrationPixelSHA256": "acae5829b7c729051986fc86007c342557b3c011b3847bdb8043c39239a9defc",
           "drawingAnchorOffset": [
-            16,
+            0,
             0
           ],
-          "notes": "G023 replacement of visually rejected G022 middle. Empty throwing forearm lowers halfway from release to follow-through, without moving the planted front cleat or widening stance. Keep torso leaning progressively forward. Documented whole-drawing sole registration only, not a newly invented pose or limb warp. Source common transform and pre/post hashes retained."
+          "notes": "G024 replaces chest-push source key with connected submarine plant/rotation/release/follow; whole-body authored drawing, no limb warp.",
+          "kind": "authored-key-replacement",
+          "originalIndex": 4,
+          "previousPixelSHA256": "af4e6b1afeaa142a58fd50d1550a983aa54fa000ada800261df5bd055886814f"
         },
         {
-          "kind": "original-key",
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-low-slot-g024.webp",
+          "sourceCell": 2,
+          "pixelSHA256": "dda3a824427e768a336d043238ebeec8efaeb7f7d29697777e7f906c37e7dcf8",
+          "beforeAnchorRegistrationPixelSHA256": "dda3a824427e768a336d043238ebeec8efaeb7f7d29697777e7f906c37e7dcf8",
+          "drawingAnchorOffset": [
+            0,
+            0
+          ],
+          "notes": "G024 replaces chest-push source key with connected submarine plant/rotation/release/follow; whole-body authored drawing, no limb warp.",
+          "kind": "authored-key-replacement",
+          "originalIndex": 5,
+          "previousPixelSHA256": "de97a9ad6d3634bdded08804249992998acf55793e6b9d6d3339eb669dbb0971"
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-low-slot-g024.webp",
+          "sourceCell": 3,
+          "pixelSHA256": "59256401c6c50cdb8f3ea78a4b196e9ccafff0b37bdd2ba86767c52271d7b974",
+          "beforeAnchorRegistrationPixelSHA256": "59256401c6c50cdb8f3ea78a4b196e9ccafff0b37bdd2ba86767c52271d7b974",
+          "drawingAnchorOffset": [
+            0,
+            0
+          ],
+          "notes": "G024 replaces chest-push source key with connected submarine plant/rotation/release/follow; whole-body authored drawing, no limb warp.",
+          "kind": "authored-key-replacement",
+          "originalIndex": 6,
+          "previousPixelSHA256": "38c505eca088940d90d6d2c3121d917b5617a5cea56169e1654fb2f1c86d1b25"
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-low-slot-g024.webp",
+          "sourceCell": 4,
+          "pixelSHA256": "06454088c05e152022b3e0b237aa9507846453291f103b3dd7609cf1eab27213",
+          "beforeAnchorRegistrationPixelSHA256": "06454088c05e152022b3e0b237aa9507846453291f103b3dd7609cf1eab27213",
+          "drawingAnchorOffset": [
+            0,
+            0
+          ],
+          "notes": "G024 replaces chest-push source key with connected submarine plant/rotation/release/follow; whole-body authored drawing, no limb warp.",
+          "kind": "authored-key-replacement",
           "originalIndex": 7,
-          "pixelSHA256": "bcd00d2b6931f4726bc8929efb0d36c7df7f3a10ddfbf53718d061473fc91c07"
+          "previousPixelSHA256": "bcd00d2b6931f4726bc8929efb0d36c7df7f3a10ddfbf53718d061473fc91c07"
         },
         {
-          "kind": "original-key",
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-low-slot-g024.webp",
+          "sourceCell": 5,
+          "pixelSHA256": "00a1f7097b7ecd4ac9c92c4161c7588e82a66f60ce17d1e2fea58fe93780236e",
+          "beforeAnchorRegistrationPixelSHA256": "00a1f7097b7ecd4ac9c92c4161c7588e82a66f60ce17d1e2fea58fe93780236e",
+          "drawingAnchorOffset": [
+            0,
+            0
+          ],
+          "notes": "G024 replaces chest-push source key with connected submarine plant/rotation/release/follow; whole-body authored drawing, no limb warp.",
+          "kind": "authored-key-replacement",
           "originalIndex": 8,
-          "pixelSHA256": "95be222d07cebb181fae2c19af60928ba8244c0fda35c2564c4f0c1480d62815"
+          "previousPixelSHA256": "95be222d07cebb181fae2c19af60928ba8244c0fda35c2564c4f0c1480d62815"
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-step-g024.webp",
+          "sourceCell": 1,
+          "pixelSHA256": "6c59f530fc78e1291de11bd953933bd508031066a25d7eb43d8068fdec28a03b",
+          "beforeAnchorRegistrationPixelSHA256": "6c59f530fc78e1291de11bd953933bd508031066a25d7eb43d8068fdec28a03b",
+          "drawingAnchorOffset": [
+            0,
+            0
+          ],
+          "notes": "G024 authored recovery step rear support steps under hips; free lead heel begins lifting. Whole-character source; common batch fit, no limb warp or per-frame translation.",
+          "kind": "authored-inbetween",
+          "afterKey": 8
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-step-g024.webp",
+          "sourceCell": 2,
+          "pixelSHA256": "2c0998dff92af59067c8c44a149eefcb8519ca7550422591df3c062db8d98a2b",
+          "beforeAnchorRegistrationPixelSHA256": "2c0998dff92af59067c8c44a149eefcb8519ca7550422591df3c062db8d98a2b",
+          "drawingAnchorOffset": [
+            0,
+            0
+          ],
+          "notes": "G024 authored recovery step free lead cleat visibly airborne and retracting before original narrow landing. Whole-character source; common batch fit, no limb warp or per-frame translation.",
+          "kind": "authored-inbetween",
+          "afterKey": 8
         },
         {
           "kind": "original-key",
@@ -914,17 +969,17 @@
           "pixelSHA256": "09524ff3e8bd56295b03a55d51476f920107bb4b1e22b875a16ede6d39db709d"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker.webp",
           "sourceCell": 19,
-          "afterKey": 9,
           "pixelSHA256": "7211674216230b741b0d0b7e56dda7ed982707d36a2b2fa21435dddb21732932",
           "beforeAnchorRegistrationPixelSHA256": "7211674216230b741b0d0b7e56dda7ed982707d36a2b2fa21435dddb21732932",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Torso rises and empty throwing hand descends toward the relaxed upright key10; no new gather action."
+          "notes": "Torso rises and empty throwing hand descends toward the relaxed upright key10; no new gather action.",
+          "kind": "authored-inbetween",
+          "afterKey": 9
         },
         {
           "kind": "original-key",
@@ -937,20 +992,20 @@
           "pixelSHA256": "dd095ec0ac46919d15a22a701c13c734ac85b68999d12c0ec653423a18c3be94"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-03-amber-sinker-return.webp",
           "sourceCell": 1,
-          "afterKey": 11,
           "pixelSHA256": "06a3037bc009bafc1e124e4ebe049027a2fea80dfa5b97720fbe659c61317c62",
           "beforeAnchorRegistrationPixelSHA256": "06a3037bc009bafc1e124e4ebe049027a2fea80dfa5b97720fbe659c61317c62",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted.",
+          "kind": "authored-inbetween",
+          "afterKey": 11
         }
       ],
-      "runtimeBytes": 697596
+      "runtimeBytes": 744190
     },
     {
       "id": "regular-04-ivory-ace",
@@ -980,6 +1035,7 @@
       ],
       "sourceDrawings": 17,
       "preservedOriginalDrawings": 12,
+      "replacedOriginalDrawings": 0,
       "newInbetweenDrawings": 5,
       "timelineTicks": 120,
       "fps": 60,
@@ -1134,17 +1190,17 @@
           "pixelSHA256": "1486f214ae57a2304eb222a418d9b2ccc9cd514b7f573c7362da1b4a37894fd4"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-04-ivory-ace.webp",
           "sourceCell": 4,
-          "afterKey": 1,
           "pixelSHA256": "916446b9025f367296cbdd7ea15b0073a9b58a27b470fc6f8cd0c9e957b48420",
           "beforeAnchorRegistrationPixelSHA256": "916446b9025f367296cbdd7ea15b0073a9b58a27b470fc6f8cd0c9e957b48420",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Knee rise is below key2 full lift and above key1 gather."
+          "notes": "Knee rise is below key2 full lift and above key1 gather.",
+          "kind": "authored-inbetween",
+          "afterKey": 1
         },
         {
           "kind": "original-key",
@@ -1152,17 +1208,17 @@
           "pixelSHA256": "a8ec6a08e6f1d97ee68e36d5438f80525248fa187bd5508e75be04ba390ff9b1"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-04-ivory-ace.webp",
           "sourceCell": 7,
-          "afterKey": 2,
           "pixelSHA256": "58175f30260fca024621320a94762f4ed118b7e65eb859121ad20133f69c4a5a",
           "beforeAnchorRegistrationPixelSHA256": "58175f30260fca024621320a94762f4ed118b7e65eb859121ad20133f69c4a5a",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Knee descends while ball hand separates, before the opened stride key3."
+          "notes": "Knee descends while ball hand separates, before the opened stride key3.",
+          "kind": "authored-inbetween",
+          "afterKey": 2
         },
         {
           "kind": "original-key",
@@ -1180,17 +1236,17 @@
           "pixelSHA256": "51a2b5d2ba15dcea354c31c0de7351f0cf10666b3be205c28f2be016fae68f11"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-04-ivory-ace.webp",
           "sourceCell": 11,
-          "afterKey": 5,
           "pixelSHA256": "057c78caf38bfd2a9ec28a2bc86cd699a9f1659588b05dbc2c67fe0826e6445e",
           "beforeAnchorRegistrationPixelSHA256": "057c78caf38bfd2a9ec28a2bc86cd699a9f1659588b05dbc2c67fe0826e6445e",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Ball hand advances from overhand cock toward release, retaining ball until exact original key6."
+          "notes": "Ball hand advances from overhand cock toward release, retaining ball until exact original key6.",
+          "kind": "authored-inbetween",
+          "afterKey": 5
         },
         {
           "kind": "original-key",
@@ -1198,17 +1254,17 @@
           "pixelSHA256": "d9db570008dc8c1a66748ba3f4de1c9c0cb1306812202733c6f6ebc93c358ac3"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-04-ivory-ace.webp",
           "sourceCell": 13,
-          "afterKey": 6,
           "pixelSHA256": "8b7227ad2a49fd756aad14143bfa2e64044b34ad693397d72842ff636ed9695b",
           "beforeAnchorRegistrationPixelSHA256": "8b7227ad2a49fd756aad14143bfa2e64044b34ad693397d72842ff636ed9695b",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Empty hand drops forward from high release before crossing down in key7; clear arm-path intermediate."
+          "notes": "Empty hand drops forward from high release before crossing down in key7; clear arm-path intermediate.",
+          "kind": "authored-inbetween",
+          "afterKey": 6
         },
         {
           "kind": "original-key",
@@ -1216,17 +1272,17 @@
           "pixelSHA256": "ba2a9eb04d359af775b321b1647c4585406bd2c1311a04a888a42988d89e73a0"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-04-ivory-ace.webp",
           "sourceCell": 15,
-          "afterKey": 7,
           "pixelSHA256": "fc4f0f1fb6c44bdebf32fea28fca8202466901c3d5fc420f5b2697b05183a2e3",
           "beforeAnchorRegistrationPixelSHA256": "fc4f0f1fb6c44bdebf32fea28fca8202466901c3d5fc420f5b2697b05183a2e3",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Empty arm extends down and torso folds farther toward key8, while rear foot stays airborne."
+          "notes": "Empty arm extends down and torso folds farther toward key8, while rear foot stays airborne.",
+          "kind": "authored-inbetween",
+          "afterKey": 7
         },
         {
           "kind": "original-key",
@@ -1254,9 +1310,9 @@
     {
       "id": "regular-05-violet-sting",
       "runtimeFile": "assets/pitcher-inbetweens-v1/runtime/regular-05-violet-sting-pitch-drawings.webp",
-      "runtimeSHA256": "ff32033a020244f0c1ca6eadd35b6f137271f58340f5e9dabedbf1e2b967b712",
+      "runtimeSHA256": "3ea5bd17067c681abb22a78a0559f199070f8e2caf110d068b086e281fe2b228",
       "file": "assets/pitcher-inbetweens-v1/atlases/regular-05-violet-sting-pitch-120-atlas.webp",
-      "atlasSHA256": "2567e956e9aeb516d2fdb1cbdd4d8cde87018ccf282201eea0f4f6f6cf974faa",
+      "atlasSHA256": "42db625af3425e10f88fed4a6ee58cd67284c6622e19dc1187b8a046e1ff58ca",
       "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting.webp",
       "sourceSheetSHA256": "9a3949a47d2ec9bb46adec13ea0670c793e91e2e9fc353568650818ac5f15828",
       "originalRuntimeFile": "assets/pitcher-grounded-runtime-v1/runtime/regular-05-violet-sting-pitch-12-drawings.webp",
@@ -1271,14 +1327,15 @@
         6,
         7,
         9,
-        11,
+        10,
         13,
         14,
         15,
         16
       ],
       "sourceDrawings": 18,
-      "preservedOriginalDrawings": 12,
+      "preservedOriginalDrawings": 7,
+      "replacedOriginalDrawings": 5,
       "newInbetweenDrawings": 6,
       "timelineTicks": 120,
       "fps": 60,
@@ -1364,13 +1421,13 @@
         8,
         9,
         9,
+        9,
+        9,
         10,
         10,
+        10,
         11,
         11,
-        11,
-        11,
-        12,
         12,
         12,
         13,
@@ -1420,23 +1477,23 @@
           ],
           "referenceOriginalKey": 0
         },
-        "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-whip.webp": {
-          "scale": 0.3294289897510981,
+        "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-low-slot-g024.webp": {
+          "scale": 0.46,
           "translation": [
-            -12.291361639824288,
-            9.093704245973669
+            42,
+            16
           ],
-          "referenceOriginalKey": 5,
+          "referenceOriginalKey": 0,
           "alignment": "foot"
         },
-        "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-finish-7.webp": {
-          "scale": 0.3353115727002967,
+        "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-step-g024.webp": {
+          "scale": 0.36,
           "translation": [
-            2.09495548961425,
-            6.617210682492612
+            44,
+            28
           ],
           "referenceOriginalKey": 7,
-          "alignment": "semantic-right-sole"
+          "alignment": "foot"
         },
         "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-return.webp": {
           "scale": 0.34545454545454546,
@@ -1460,17 +1517,17 @@
           "pixelSHA256": "6f39b74b1ff4c2117be9fa067e644f79e9665d65cb68ef6df70afbd3c25a2cd6"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting.webp",
           "sourceCell": 4,
-          "afterKey": 1,
           "pixelSHA256": "ef28977609dbc73b7fa2735607e0ca4ecb5d93aaa5631ac058133d75cae3145f",
           "beforeAnchorRegistrationPixelSHA256": "ef28977609dbc73b7fa2735607e0ca4ecb5d93aaa5631ac058133d75cae3145f",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Partial knee lift before original full coil; gathered hands remain attached correctly."
+          "notes": "Partial knee lift before original full coil; gathered hands remain attached correctly.",
+          "kind": "authored-inbetween",
+          "afterKey": 1
         },
         {
           "kind": "original-key",
@@ -1478,81 +1535,126 @@
           "pixelSHA256": "1d5dc8610b70191ede830de952a792829a33597ddecd9710e2b9f6503ad0233c"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting.webp",
           "sourceCell": 7,
-          "afterKey": 2,
           "pixelSHA256": "c3bf2598fb07b687223ae1247b6e50a82a95c7f504cc5f0dec8d84e8b15e29dc",
           "beforeAnchorRegistrationPixelSHA256": "c3bf2598fb07b687223ae1247b6e50a82a95c7f504cc5f0dec8d84e8b15e29dc",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Knee lowers and sidearm ball hand separates toward stride, with no overhead arm conversion."
+          "notes": "Knee lowers and sidearm ball hand separates toward stride, with no overhead arm conversion.",
+          "kind": "authored-inbetween",
+          "afterKey": 2
         },
         {
-          "kind": "original-key",
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-low-slot-g024.webp",
+          "sourceCell": 0,
+          "pixelSHA256": "032b208d06b5b895bb8a490a6ee9b2807545003ed9167632d70ae8801c8f9773",
+          "beforeAnchorRegistrationPixelSHA256": "032b208d06b5b895bb8a490a6ee9b2807545003ed9167632d70ae8801c8f9773",
+          "drawingAnchorOffset": [
+            0,
+            0
+          ],
+          "notes": "G024 replaces chest-push source key with connected sidearm plant/rotation/release/follow; whole-body authored drawing, no limb warp.",
+          "kind": "authored-key-replacement",
           "originalIndex": 3,
-          "pixelSHA256": "c33737ba1e0c84f5e1d1f63681c0c63617a273cdd464f400a6074a16a89f0d96"
+          "previousPixelSHA256": "c33737ba1e0c84f5e1d1f63681c0c63617a273cdd464f400a6074a16a89f0d96"
         },
         {
-          "kind": "original-key",
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-low-slot-g024.webp",
+          "sourceCell": 1,
+          "pixelSHA256": "533d434fc0381c3753501618b0fb85d22a6bd79b8285e84de72aa65d2cf6c562",
+          "beforeAnchorRegistrationPixelSHA256": "533d434fc0381c3753501618b0fb85d22a6bd79b8285e84de72aa65d2cf6c562",
+          "drawingAnchorOffset": [
+            0,
+            0
+          ],
+          "notes": "G024 replaces chest-push source key with connected sidearm plant/rotation/release/follow; whole-body authored drawing, no limb warp.",
+          "kind": "authored-key-replacement",
           "originalIndex": 4,
-          "pixelSHA256": "cf133d16a0da045d6be5e17910fd58f17c95ca5cb346f85b398567d929697c77"
+          "previousPixelSHA256": "cf133d16a0da045d6be5e17910fd58f17c95ca5cb346f85b398567d929697c77"
         },
         {
-          "kind": "original-key",
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-low-slot-g024.webp",
+          "sourceCell": 2,
+          "pixelSHA256": "1526628148ce2837ccfdee6241993bd36897d8cdfda475b6c68c91479b9673c6",
+          "beforeAnchorRegistrationPixelSHA256": "1526628148ce2837ccfdee6241993bd36897d8cdfda475b6c68c91479b9673c6",
+          "drawingAnchorOffset": [
+            0,
+            0
+          ],
+          "notes": "G024 replaces chest-push source key with connected sidearm plant/rotation/release/follow; whole-body authored drawing, no limb warp.",
+          "kind": "authored-key-replacement",
           "originalIndex": 5,
-          "pixelSHA256": "b37cad7bb49ea374c7c05ca5990338b209611991013555b55116812ae431af96"
+          "previousPixelSHA256": "b37cad7bb49ea374c7c05ca5990338b209611991013555b55116812ae431af96"
         },
         {
-          "kind": "authored-inbetween",
-          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-whip.webp",
-          "sourceCell": 1,
-          "afterKey": 5,
-          "pixelSHA256": "119becb5edfb25693d9dd8f1ad2a646f09937f3720b1c9dd5120b8e444cf05e7",
-          "beforeAnchorRegistrationPixelSHA256": "119becb5edfb25693d9dd8f1ad2a646f09937f3720b1c9dd5120b8e444cf05e7",
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-low-slot-g024.webp",
+          "sourceCell": 3,
+          "pixelSHA256": "8d419348eabaa65d1555dbb76cf438414e35e07f6e7b7584d1a884fe79316f02",
+          "beforeAnchorRegistrationPixelSHA256": "8d419348eabaa65d1555dbb76cf438414e35e07f6e7b7584d1a884fe79316f02",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
+          "notes": "G024 authored lateral forearm whip, ball held until the following release key.",
+          "kind": "authored-inbetween",
+          "afterKey": 5
         },
         {
-          "kind": "original-key",
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-low-slot-g024.webp",
+          "sourceCell": 4,
+          "pixelSHA256": "6b83ea2fad5f4df1c4441740d6cf00544d61fc01128b544ddf535ea7d97cecf0",
+          "beforeAnchorRegistrationPixelSHA256": "6b83ea2fad5f4df1c4441740d6cf00544d61fc01128b544ddf535ea7d97cecf0",
+          "drawingAnchorOffset": [
+            0,
+            0
+          ],
+          "notes": "G024 replaces chest-push source key with connected sidearm plant/rotation/release/follow; whole-body authored drawing, no limb warp.",
+          "kind": "authored-key-replacement",
           "originalIndex": 6,
-          "pixelSHA256": "654fd827eb5e45f05d82e7b2b3c4527fde9e9948989869f3e70ca0649d4e7ff1"
+          "previousPixelSHA256": "654fd827eb5e45f05d82e7b2b3c4527fde9e9948989869f3e70ca0649d4e7ff1"
         },
         {
-          "kind": "authored-inbetween",
-          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting.webp",
-          "sourceCell": 13,
-          "afterKey": 6,
-          "pixelSHA256": "9bec9a7f0f42e15aa892c79ea4b5c189cce3054f47b1a83df5431e7a3667ed83",
-          "beforeAnchorRegistrationPixelSHA256": "9bec9a7f0f42e15aa892c79ea4b5c189cce3054f47b1a83df5431e7a3667ed83",
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-low-slot-g024.webp",
+          "sourceCell": 5,
+          "pixelSHA256": "9b4f0ef4e1d1c08a651a120947d64f7279ae337d1d082877e6603ed9a8e327ea",
+          "beforeAnchorRegistrationPixelSHA256": "9b4f0ef4e1d1c08a651a120947d64f7279ae337d1d082877e6603ed9a8e327ea",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Empty arm drops slightly and sweeps inward from sidearm release toward crossed-down follow-through."
-        },
-        {
-          "kind": "original-key",
+          "notes": "G024 replaces chest-push source key with connected sidearm plant/rotation/release/follow; whole-body authored drawing, no limb warp.",
+          "kind": "authored-key-replacement",
           "originalIndex": 7,
-          "pixelSHA256": "4d4d99e1d21fbfafedbeffdc9c75c5f73f1d15e2e3b87022d8f7f3877b520ed1"
+          "previousPixelSHA256": "4d4d99e1d21fbfafedbeffdc9c75c5f73f1d15e2e3b87022d8f7f3877b520ed1"
         },
         {
-          "kind": "authored-inbetween",
-          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-finish-7.webp",
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-step-g024.webp",
           "sourceCell": 1,
-          "afterKey": 7,
-          "pixelSHA256": "a92a3b15316a5b1dddb54cd1f90a35b285af8afa75ac02f47b913b6e6d202dcb",
-          "beforeAnchorRegistrationPixelSHA256": "a92a3b15316a5b1dddb54cd1f90a35b285af8afa75ac02f47b913b6e6d202dcb",
+          "pixelSHA256": "a541d5b2abf257ab9056375076c11637a2edfcedb3230e1871ab37725bc8faaf",
+          "beforeAnchorRegistrationPixelSHA256": "a541d5b2abf257ab9056375076c11637a2edfcedb3230e1871ab37725bc8faaf",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 replacement of visually rejected G022 middle. Sidearm follow-through bends torso further and lowers empty throwing hand halfway, planted front cleat stays fixed, same body size, no rightward foot slide."
+          "notes": "G024 authored recovery step rear support steps under hips; free lead heel begins lifting. Whole-character source; common batch fit, no limb warp or per-frame translation.",
+          "kind": "authored-inbetween",
+          "afterKey": 7
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-step-g024.webp",
+          "sourceCell": 2,
+          "pixelSHA256": "5ba6c9533a7ff12137b4d1b931335980625053cc1d9ae1e23f7873dece4bd699",
+          "beforeAnchorRegistrationPixelSHA256": "5ba6c9533a7ff12137b4d1b931335980625053cc1d9ae1e23f7873dece4bd699",
+          "drawingAnchorOffset": [
+            0,
+            0
+          ],
+          "notes": "G024 authored recovery step free lead cleat visibly airborne and retracting before original narrow landing. Whole-character source; common batch fit, no limb warp or per-frame translation.",
+          "kind": "authored-inbetween",
+          "afterKey": 7
         },
         {
           "kind": "original-key",
@@ -1575,20 +1677,20 @@
           "pixelSHA256": "6055cac128e37d722fada246c3545a9c919bbd0ff452268609753ea879f8fe03"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-05-violet-sting-return.webp",
           "sourceCell": 1,
-          "afterKey": 11,
           "pixelSHA256": "75d1d8805eda0bf70a18254d59b3d2cf02e79cf68a50650ab64936edccbac660",
           "beforeAnchorRegistrationPixelSHA256": "75d1d8805eda0bf70a18254d59b3d2cf02e79cf68a50650ab64936edccbac660",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted.",
+          "kind": "authored-inbetween",
+          "afterKey": 11
         }
       ],
-      "runtimeBytes": 629006
+      "runtimeBytes": 730298
     },
     {
       "id": "regular-06-rose-paint",
@@ -1618,6 +1720,7 @@
       ],
       "sourceDrawings": 17,
       "preservedOriginalDrawings": 12,
+      "replacedOriginalDrawings": 0,
       "newInbetweenDrawings": 5,
       "timelineTicks": 120,
       "fps": 60,
@@ -1772,17 +1875,17 @@
           "pixelSHA256": "294bc2dfdf373d13a489259ea7a65282a9908cc78a30fdf84696cdc25fe54086"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-06-rose-paint.webp",
           "sourceCell": 4,
-          "afterKey": 1,
           "pixelSHA256": "16d0d48787a76a7142f9a731e673af6e9914d6217d79a74a8b1871cc9e8139f6",
           "beforeAnchorRegistrationPixelSHA256": "16d0d48787a76a7142f9a731e673af6e9914d6217d79a74a8b1871cc9e8139f6",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Knee lift lies below original key2 high coil."
+          "notes": "Knee lift lies below original key2 high coil.",
+          "kind": "authored-inbetween",
+          "afterKey": 1
         },
         {
           "kind": "original-key",
@@ -1790,17 +1893,17 @@
           "pixelSHA256": "ba4f5c0165b67c6e2cad55a4a6e646a9f4ea2c2deea2256ce5fe0e1e0d0799d3"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-06-rose-paint.webp",
           "sourceCell": 6,
-          "afterKey": 2,
           "pixelSHA256": "4c60ab952a15ccceff0ea6c610fd7798c7eddc999b8df40adab2b69937b76270",
           "beforeAnchorRegistrationPixelSHA256": "4c60ab952a15ccceff0ea6c610fd7798c7eddc999b8df40adab2b69937b76270",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Knee begins to drop and ball separates while the stride leg remains bent, before the fully opened original key3."
+          "notes": "Knee begins to drop and ball separates while the stride leg remains bent, before the fully opened original key3.",
+          "kind": "authored-inbetween",
+          "afterKey": 2
         },
         {
           "kind": "original-key",
@@ -1818,17 +1921,17 @@
           "pixelSHA256": "490f84ca0140d666cb94c2d1b08f64cc9af4c4fca8ff04acdf8310b7a446990d"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-06-rose-paint.webp",
           "sourceCell": 11,
-          "afterKey": 5,
           "pixelSHA256": "2a08a7ba6f2a25405e02c5a05188cc919cb686c8e289781537610c739eeedecb",
           "beforeAnchorRegistrationPixelSHA256": "2a08a7ba6f2a25405e02c5a05188cc919cb686c8e289781537610c739eeedecb",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Ball hand advances from cocked arm toward forward release; exact original key6 supplies the ball departure."
+          "notes": "Ball hand advances from cocked arm toward forward release; exact original key6 supplies the ball departure.",
+          "kind": "authored-inbetween",
+          "afterKey": 5
         },
         {
           "kind": "original-key",
@@ -1836,17 +1939,17 @@
           "pixelSHA256": "5ebeea410d92ccdff62a7a0114d5cceabcbfdbfae133c71cafe4cb73f64368ff"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-06-rose-paint.webp",
           "sourceCell": 13,
-          "afterKey": 6,
           "pixelSHA256": "935f7ff1b09c89566a41bbbcca670133c3755798e9e32b25cdf25904dcfdee20",
           "beforeAnchorRegistrationPixelSHA256": "935f7ff1b09c89566a41bbbcca670133c3755798e9e32b25cdf25904dcfdee20",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Empty arm travels forward/down before crossing the torso in key7."
+          "notes": "Empty arm travels forward/down before crossing the torso in key7.",
+          "kind": "authored-inbetween",
+          "afterKey": 6
         },
         {
           "kind": "original-key",
@@ -1854,17 +1957,17 @@
           "pixelSHA256": "1396e5337229df8d045da94c25ec4eec5e89fd232a942248c6c95d527ad58240"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/regular-06-rose-paint.webp",
           "sourceCell": 15,
-          "afterKey": 7,
           "pixelSHA256": "52513d0980e2d5efabe950b3e58add3c13e1e801a8d18bdc75f129a42b360c94",
           "beforeAnchorRegistrationPixelSHA256": "52513d0980e2d5efabe950b3e58add3c13e1e801a8d18bdc75f129a42b360c94",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Torso folds and throwing hand reaches lower toward original key8 follow-through."
+          "notes": "Torso folds and throwing hand reaches lower toward original key8 follow-through.",
+          "kind": "authored-inbetween",
+          "afterKey": 7
         },
         {
           "kind": "original-key",
@@ -1917,6 +2020,7 @@
       ],
       "sourceDrawings": 18,
       "preservedOriginalDrawings": 12,
+      "replacedOriginalDrawings": 0,
       "newInbetweenDrawings": 6,
       "timelineTicks": 120,
       "fps": 60,
@@ -2089,17 +2193,17 @@
           "pixelSHA256": "b5bc19a06fcde9951d2763649086e776427783762007575671c544d0d20dc1bf"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/sky-phantom.webp",
           "sourceCell": 4,
-          "afterKey": 1,
           "pixelSHA256": "ad773f3278d252a128140f411904d3448786a1e7ab288cbff7f9990b7b951d0c",
           "beforeAnchorRegistrationPixelSHA256": "ad773f3278d252a128140f411904d3448786a1e7ab288cbff7f9990b7b951d0c",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Knee is slightly below the original full-coil key2 and calf remains lower; a late lift intermediate."
+          "notes": "Knee is slightly below the original full-coil key2 and calf remains lower; a late lift intermediate.",
+          "kind": "authored-inbetween",
+          "afterKey": 1
         },
         {
           "kind": "original-key",
@@ -2107,17 +2211,17 @@
           "pixelSHA256": "5a161be44245a1ccb3ad881f19b678fd6a580243436e761045a93e1d19e8b876"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/sky-phantom.webp",
           "sourceCell": 7,
-          "afterKey": 2,
           "pixelSHA256": "3c2f75c3177b86e6d6bdbc5669e154ff9dd248926f6945838b5f9a6a65b97fae",
           "beforeAnchorRegistrationPixelSHA256": "3c2f75c3177b86e6d6bdbc5669e154ff9dd248926f6945838b5f9a6a65b97fae",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Front knee drops while the ball hand separates; boot has not reached the original fully opened stride."
+          "notes": "Front knee drops while the ball hand separates; boot has not reached the original fully opened stride.",
+          "kind": "authored-inbetween",
+          "afterKey": 2
         },
         {
           "kind": "original-key",
@@ -2135,17 +2239,17 @@
           "pixelSHA256": "21c04ad81509abe701545f854864f13caa1c1a2dbde8a1770f820dee5ebed097"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/sky-phantom-whip.webp",
           "sourceCell": 1,
-          "afterKey": 5,
           "pixelSHA256": "662b6db76720eb7d7dec2361a6db9007b295cfeedcb922cb6f04afb101d3afac",
           "beforeAnchorRegistrationPixelSHA256": "662b6db76720eb7d7dec2361a6db9007b295cfeedcb922cb6f04afb101d3afac",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
+          "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting.",
+          "kind": "authored-inbetween",
+          "afterKey": 5
         },
         {
           "kind": "original-key",
@@ -2153,17 +2257,17 @@
           "pixelSHA256": "4fa584d985497f6593f87fdbc5d1ab164fd85584251647276ddabf23a82dc090"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/sky-phantom.webp",
           "sourceCell": 13,
-          "afterKey": 6,
           "pixelSHA256": "3f55c0f27588274adb8419c2b5724fff60f66d71b17659b461e591255da44568",
           "beforeAnchorRegistrationPixelSHA256": "3f55c0f27588274adb8419c2b5724fff60f66d71b17659b461e591255da44568",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Empty hand and forearm descend forward from high release, before crossing down in key7."
+          "notes": "Empty hand and forearm descend forward from high release, before crossing down in key7.",
+          "kind": "authored-inbetween",
+          "afterKey": 6
         },
         {
           "kind": "original-key",
@@ -2181,17 +2285,17 @@
           "pixelSHA256": "ace3c81fd22175aecae71b4beab60d27f8ed896ba6019783aa7b1bbe26191359"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/sky-phantom.webp",
           "sourceCell": 19,
-          "afterKey": 9,
           "pixelSHA256": "ea448e2a1b82507feafbe892b59160ac778a5d176948b56499270c447582b8a4",
           "beforeAnchorRegistrationPixelSHA256": "ea448e2a1b82507feafbe892b59160ac778a5d176948b56499270c447582b8a4",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Torso rises between bent recovery and upright key10 without re-lifting the rear boot."
+          "notes": "Torso rises between bent recovery and upright key10 without re-lifting the rear boot.",
+          "kind": "authored-inbetween",
+          "afterKey": 9
         },
         {
           "kind": "original-key",
@@ -2204,17 +2308,17 @@
           "pixelSHA256": "c3eb0bdc2c204a555da749d04d0a4fddca29f60b2b5e4096f669e41e7e00149f"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/sky-phantom-return.webp",
           "sourceCell": 1,
-          "afterKey": 11,
           "pixelSHA256": "52b31c340f062bfde188eab1f1ed2c571fe624473673ed92e3872b5c0f029933",
           "beforeAnchorRegistrationPixelSHA256": "52b31c340f062bfde188eab1f1ed2c571fe624473673ed92e3872b5c0f029933",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted.",
+          "kind": "authored-inbetween",
+          "afterKey": 11
         }
       ],
       "runtimeBytes": 527800
@@ -2247,6 +2351,7 @@
       ],
       "sourceDrawings": 17,
       "preservedOriginalDrawings": 12,
+      "replacedOriginalDrawings": 0,
       "newInbetweenDrawings": 5,
       "timelineTicks": 120,
       "fps": 60,
@@ -2410,17 +2515,17 @@
           "pixelSHA256": "029a17653a5c89ba406d8ca0c10266b6e7e135d964dd9e8f659778f30fc6536f"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/gale-twister.webp",
           "sourceCell": 4,
-          "afterKey": 1,
           "pixelSHA256": "d8a537d822ac8232b45235135c484270ae7d02480f986f219ec62af26fc36b40",
           "beforeAnchorRegistrationPixelSHA256": "d8a537d822ac8232b45235135c484270ae7d02480f986f219ec62af26fc36b40",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Front knee lifts before crossing into the full high coil of key2."
+          "notes": "Front knee lifts before crossing into the full high coil of key2.",
+          "kind": "authored-inbetween",
+          "afterKey": 1
         },
         {
           "kind": "original-key",
@@ -2428,17 +2533,17 @@
           "pixelSHA256": "95da1a24608f2e4b1b640cfc40064080347fbddfdf33ac6d4c5160b34c2f769f"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/gale-twister.webp",
           "sourceCell": 7,
-          "afterKey": 2,
           "pixelSHA256": "8a17a2004b10543c98f60e0be08e27985fb6f821978d17935f1cd3c155322c5e",
           "beforeAnchorRegistrationPixelSHA256": "8a17a2004b10543c98f60e0be08e27985fb6f821978d17935f1cd3c155322c5e",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Knee descends and ball separates before the fully opened stride of original key3."
+          "notes": "Knee descends and ball separates before the fully opened stride of original key3.",
+          "kind": "authored-inbetween",
+          "afterKey": 2
         },
         {
           "kind": "original-key",
@@ -2456,17 +2561,17 @@
           "pixelSHA256": "d5c451f62526129684ff27db64835ce3e2d4d5df9c6022df24ce3c4b5ab0b2f3"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/gale-twister.webp",
           "sourceCell": 11,
-          "afterKey": 5,
           "pixelSHA256": "0edd4be7fee6911ab6183968f1f5f98bb3849bcb4ffca80bd6399060224a7691",
           "beforeAnchorRegistrationPixelSHA256": "0edd4be7fee6911ab6183968f1f5f98bb3849bcb4ffca80bd6399060224a7691",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Ball hand advances from high cock toward camera before the exact original empty-hand release."
+          "notes": "Ball hand advances from high cock toward camera before the exact original empty-hand release.",
+          "kind": "authored-inbetween",
+          "afterKey": 5
         },
         {
           "kind": "original-key",
@@ -2474,17 +2579,17 @@
           "pixelSHA256": "f19e6fc628971aa75457a5654fa69531349f6ecc770608cd0100d883f02ab9e7"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/gale-twister-finish-6.webp",
           "sourceCell": 1,
-          "afterKey": 6,
           "pixelSHA256": "139f1ab4e6e348d296e931d396dba60cfa8affbf1e6cf8cb58a6f8a1996344a8",
           "beforeAnchorRegistrationPixelSHA256": "4bf6886110cbff797702855ae1735ef22c8f7651b009017037d1be45eac7364f",
           "drawingAnchorOffset": [
             31,
             0
           ],
-          "notes": "G023 replacement of visually rejected G022 middle. Empty hand descends only halfway toward down-cross follow-through, fixed front cleat, no leap to already finished down-arm endpoint. Documented whole-drawing sole registration only, not a newly invented pose or limb warp. Source common transform and pre/post hashes retained."
+          "notes": "G023 replacement of visually rejected G022 middle. Empty hand descends only halfway toward down-cross follow-through, fixed front cleat, no leap to already finished down-arm endpoint. Documented whole-drawing sole registration only, not a newly invented pose or limb warp. Source common transform and pre/post hashes retained.",
+          "kind": "authored-inbetween",
+          "afterKey": 6
         },
         {
           "kind": "original-key",
@@ -2502,17 +2607,17 @@
           "pixelSHA256": "57538a0faa22a349e753fa667a350c4bc769a150d0674b760a15e367700ae7e2"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/gale-twister.webp",
           "sourceCell": 19,
-          "afterKey": 9,
           "pixelSHA256": "997636c06128308d6548b80b6014ec5fad6ca7ae8bbcb260b42386b1c740800c",
           "beforeAnchorRegistrationPixelSHA256": "997636c06128308d6548b80b6014ec5fad6ca7ae8bbcb260b42386b1c740800c",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Torso straightens toward key10 with rear foot down and throwing arm relaxed."
+          "notes": "Torso straightens toward key10 with rear foot down and throwing arm relaxed.",
+          "kind": "authored-inbetween",
+          "afterKey": 9
         },
         {
           "kind": "original-key",
@@ -2555,6 +2660,7 @@
       ],
       "sourceDrawings": 15,
       "preservedOriginalDrawings": 12,
+      "replacedOriginalDrawings": 0,
       "newInbetweenDrawings": 3,
       "timelineTicks": 120,
       "fps": 60,
@@ -2718,17 +2824,17 @@
           "pixelSHA256": "6086fcdbc569d1f3281fe4380e34f9c82b49ec41a9f3668967f8187b80580f56"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/vulcan-blaze.webp",
           "sourceCell": 4,
-          "afterKey": 1,
           "pixelSHA256": "87db059a46dfb063748b6b2518b00a58d859cf7538c0e3a49932032fd9246b3d",
           "beforeAnchorRegistrationPixelSHA256": "87db059a46dfb063748b6b2518b00a58d859cf7538c0e3a49932032fd9246b3d",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Knee rises below original full high-coil key2; same body scale under a single batch transform."
+          "notes": "Knee rises below original full high-coil key2; same body scale under a single batch transform.",
+          "kind": "authored-inbetween",
+          "afterKey": 1
         },
         {
           "kind": "original-key",
@@ -2736,17 +2842,17 @@
           "pixelSHA256": "687d675e40da3a5577b6867ed80c2cdfd6e2d4c0845f09a00ce7493757f9984d"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/vulcan-blaze.webp",
           "sourceCell": 7,
-          "afterKey": 2,
           "pixelSHA256": "6f76b57681e9dcc907584adac5ac2381499c89c5ac01532ec79de91a815ad2f9",
           "beforeAnchorRegistrationPixelSHA256": "6f76b57681e9dcc907584adac5ac2381499c89c5ac01532ec79de91a815ad2f9",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Knee lowers while ball separates, with stride still bent before original fully extended key3."
+          "notes": "Knee lowers while ball separates, with stride still bent before original fully extended key3.",
+          "kind": "authored-inbetween",
+          "afterKey": 2
         },
         {
           "kind": "original-key",
@@ -2764,17 +2870,17 @@
           "pixelSHA256": "c58c6c217addb4253a6c8cce37123ebc198dc50d649d82868c21fc0ead793aed"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/vulcan-blaze-finish-5.webp",
           "sourceCell": 1,
-          "afterKey": 5,
           "pixelSHA256": "643ca018c0ae369d4d1a8a62359ec90fad1fe1486688645ca1c7b98be88b5a40",
           "beforeAnchorRegistrationPixelSHA256": "643ca018c0ae369d4d1a8a62359ec90fad1fe1486688645ca1c7b98be88b5a40",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 replacement of visually rejected G022 middle. Elbow leads forward from cock to release, throwing hand STILL HOLDS ball halfway toward catcher. Preserve high-three-quarter form and exact head/body/stance, no proportion or rendering-style pop."
+          "notes": "G023 replacement of visually rejected G022 middle. Elbow leads forward from cock to release, throwing hand STILL HOLDS ball halfway toward catcher. Preserve high-three-quarter form and exact head/body/stance, no proportion or rendering-style pop.",
+          "kind": "authored-inbetween",
+          "afterKey": 5
         },
         {
           "kind": "original-key",
@@ -2812,9 +2918,9 @@
     {
       "id": "tide-vesper",
       "runtimeFile": "assets/pitcher-inbetweens-v1/runtime/tide-vesper-pitch-drawings.webp",
-      "runtimeSHA256": "aae9a6007243fede12b62d603b8e070f5df3915f55a29d6f46dfc8abbd102b38",
+      "runtimeSHA256": "2b2ea094a38d3c6e6d036debca24215dbb25545d122e4a84219dc9e3a57d428f",
       "file": "assets/pitcher-inbetweens-v1/atlases/tide-vesper-pitch-120-atlas.webp",
-      "atlasSHA256": "31271e75896fc4395f184ab2966de2b9c026f249aebfcac36e8ef4c4d964fbf4",
+      "atlasSHA256": "1c936ef72e6fc661521135e59972065c2f57a906ff3c0ac613e496ef8a08d8bd",
       "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper.webp",
       "sourceSheetSHA256": "aa9c8b50ed296ace7bd82bbd5f81e511059a7ea5b2913f7c3087058301c3314b",
       "originalRuntimeFile": "assets/pitcher-grounded-runtime-v1/runtime/tide-vesper-pitch-12-drawings.webp",
@@ -2829,15 +2935,16 @@
         6,
         7,
         9,
-        11,
-        12,
+        10,
         13,
         14,
-        15
+        15,
+        16
       ],
-      "sourceDrawings": 17,
-      "preservedOriginalDrawings": 12,
-      "newInbetweenDrawings": 5,
+      "sourceDrawings": 18,
+      "preservedOriginalDrawings": 7,
+      "replacedOriginalDrawings": 5,
+      "newInbetweenDrawings": 6,
       "timelineTicks": 120,
       "fps": 60,
       "drawingAtTick": [
@@ -2919,24 +3026,15 @@
         8,
         9,
         9,
+        9,
+        9,
         10,
         10,
-        11,
-        11,
-        11,
-        11,
-        11,
+        10,
         11,
         11,
         12,
         12,
-        12,
-        12,
-        12,
-        12,
-        12,
-        12,
-        12,
         13,
         13,
         13,
@@ -2946,6 +3044,9 @@
         13,
         13,
         13,
+        14,
+        14,
+        14,
         14,
         14,
         14,
@@ -2955,9 +3056,15 @@
         15,
         15,
         15,
+        15,
+        15,
+        15,
         16,
         16,
         16,
+        17,
+        17,
+        17,
         0,
         0,
         0
@@ -2978,13 +3085,22 @@
           ],
           "referenceOriginalKey": 0
         },
-        "assets/pitcher-inbetweens-v1/sources/tide-vesper-whip.webp": {
-          "scale": 0.32230215827338127,
+        "assets/pitcher-inbetweens-v1/sources/tide-vesper-low-slot-g024.webp": {
+          "scale": 0.46,
           "translation": [
-            16.943884892086345,
-            12.454676258992833
+            35,
+            16
           ],
-          "referenceOriginalKey": 5,
+          "referenceOriginalKey": 0,
+          "alignment": "foot"
+        },
+        "assets/pitcher-inbetweens-v1/sources/tide-vesper-step-g024.webp": {
+          "scale": 0.38,
+          "translation": [
+            38,
+            15
+          ],
+          "referenceOriginalKey": 7,
           "alignment": "foot"
         },
         "assets/pitcher-inbetweens-v1/sources/tide-vesper-return.webp": {
@@ -3009,17 +3125,17 @@
           "pixelSHA256": "404f777e21f1c0554a7cef963897410a2815f0cd1786ffc6bc856fc79586948e"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper.webp",
           "sourceCell": 4,
-          "afterKey": 1,
           "pixelSHA256": "ab5a72267dd3177bc1fe29e0bcd6f22fa34e0e686458e8320c7f600383c9a79a",
           "beforeAnchorRegistrationPixelSHA256": "ab5a72267dd3177bc1fe29e0bcd6f22fa34e0e686458e8320c7f600383c9a79a",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Knee rise is below original high coil, with the same leg travelling across the body."
+          "notes": "Knee rise is below original high coil, with the same leg travelling across the body.",
+          "kind": "authored-inbetween",
+          "afterKey": 1
         },
         {
           "kind": "original-key",
@@ -3027,68 +3143,126 @@
           "pixelSHA256": "40b446763c2f609c3b524f52de77a1a71e9cee578a1357b9e36b0d9e3c82efb9"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper.webp",
           "sourceCell": 7,
-          "afterKey": 2,
           "pixelSHA256": "347e23c06fd4bd96f8e8576a62c3f496f1a1f0daff5a973f75903a527b3c0f9c",
           "beforeAnchorRegistrationPixelSHA256": "347e23c06fd4bd96f8e8576a62c3f496f1a1f0daff5a973f75903a527b3c0f9c",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Front knee lowers before the opened stride; ball remains in the anatomical throwing hand."
+          "notes": "Front knee lowers before the opened stride; ball remains in the anatomical throwing hand.",
+          "kind": "authored-inbetween",
+          "afterKey": 2
         },
         {
-          "kind": "original-key",
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-low-slot-g024.webp",
+          "sourceCell": 0,
+          "pixelSHA256": "6bb50de6d96a55d2cb5d812d3c48fe4c023f5e63518d6e3373e54e0845af7152",
+          "beforeAnchorRegistrationPixelSHA256": "6bb50de6d96a55d2cb5d812d3c48fe4c023f5e63518d6e3373e54e0845af7152",
+          "drawingAnchorOffset": [
+            0,
+            0
+          ],
+          "notes": "G024 replaces chest-push source key with connected low-three-quarter plant/rotation/release/follow; whole-body authored drawing, no limb warp.",
+          "kind": "authored-key-replacement",
           "originalIndex": 3,
-          "pixelSHA256": "35da1b77c5de2ec58edf7d92fddbe52e2edf7d5391afc90f9a0af8453af21b44"
+          "previousPixelSHA256": "35da1b77c5de2ec58edf7d92fddbe52e2edf7d5391afc90f9a0af8453af21b44"
         },
         {
-          "kind": "original-key",
-          "originalIndex": 4,
-          "pixelSHA256": "c826162ff72f2ca31fb60bbb59be0bd69504ed1a13fec3c68100df8bebbe75e5"
-        },
-        {
-          "kind": "original-key",
-          "originalIndex": 5,
-          "pixelSHA256": "7169a62cc01e90672cb37431032b63af2344ddc28ae63f751b34c36b4b1986cc"
-        },
-        {
-          "kind": "authored-inbetween",
-          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-whip.webp",
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-low-slot-g024.webp",
           "sourceCell": 1,
-          "afterKey": 5,
-          "pixelSHA256": "c9d13a1964305d2c04017d0f5f766922d5a4bfaf260b60be5b3a16271d481f78",
-          "beforeAnchorRegistrationPixelSHA256": "c9d13a1964305d2c04017d0f5f766922d5a4bfaf260b60be5b3a16271d481f78",
+          "pixelSHA256": "d687a8f0dfaba163fa3f247c1fc88c18436509db8e725b1153bef893d0b5f351",
+          "beforeAnchorRegistrationPixelSHA256": "d687a8f0dfaba163fa3f247c1fc88c18436509db8e725b1153bef893d0b5f351",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
+          "notes": "G024 replaces chest-push source key with connected low-three-quarter plant/rotation/release/follow; whole-body authored drawing, no limb warp.",
+          "kind": "authored-key-replacement",
+          "originalIndex": 4,
+          "previousPixelSHA256": "c826162ff72f2ca31fb60bbb59be0bd69504ed1a13fec3c68100df8bebbe75e5"
         },
         {
-          "kind": "original-key",
-          "originalIndex": 6,
-          "pixelSHA256": "6782d7cf8756301f5e915296ed28b7361b73f6a32386ad917fa46e2caf3ea661"
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-low-slot-g024.webp",
+          "sourceCell": 2,
+          "pixelSHA256": "54c0988f1f53cd77d05e3a8fa2d1b95e70554454952490aab15687578a3eb292",
+          "beforeAnchorRegistrationPixelSHA256": "54c0988f1f53cd77d05e3a8fa2d1b95e70554454952490aab15687578a3eb292",
+          "drawingAnchorOffset": [
+            0,
+            0
+          ],
+          "notes": "G024 replaces chest-push source key with connected low-three-quarter plant/rotation/release/follow; whole-body authored drawing, no limb warp.",
+          "kind": "authored-key-replacement",
+          "originalIndex": 5,
+          "previousPixelSHA256": "7169a62cc01e90672cb37431032b63af2344ddc28ae63f751b34c36b4b1986cc"
         },
         {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-low-slot-g024.webp",
+          "sourceCell": 3,
+          "pixelSHA256": "5c2abb1e8e0d3beaafaa7db8e555ec78172e87e421968d38c8b7aacad8107b48",
+          "beforeAnchorRegistrationPixelSHA256": "5c2abb1e8e0d3beaafaa7db8e555ec78172e87e421968d38c8b7aacad8107b48",
+          "drawingAnchorOffset": [
+            0,
+            0
+          ],
+          "notes": "G024 authored lateral forearm whip, ball held until the following release key.",
           "kind": "authored-inbetween",
-          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper.webp",
-          "sourceCell": 13,
-          "afterKey": 6,
-          "pixelSHA256": "257c1fbcdb1e20973f5ae149c2656b45de526b602c85572d8e1e4424a9687fbb",
-          "beforeAnchorRegistrationPixelSHA256": "257c1fbcdb1e20973f5ae149c2656b45de526b602c85572d8e1e4424a9687fbb",
+          "afterKey": 5
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-low-slot-g024.webp",
+          "sourceCell": 4,
+          "pixelSHA256": "9f1f6308b5124b7ee8aab737653dd0d17f6966adb65d66b88fe216e0f7efb133",
+          "beforeAnchorRegistrationPixelSHA256": "9f1f6308b5124b7ee8aab737653dd0d17f6966adb65d66b88fe216e0f7efb133",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Empty hand moves inward/down from forward release toward crossed-down key7, maintaining low delivery."
+          "notes": "G024 replaces chest-push source key with connected low-three-quarter plant/rotation/release/follow; whole-body authored drawing, no limb warp.",
+          "kind": "authored-key-replacement",
+          "originalIndex": 6,
+          "previousPixelSHA256": "6782d7cf8756301f5e915296ed28b7361b73f6a32386ad917fa46e2caf3ea661"
         },
         {
-          "kind": "original-key",
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-low-slot-g024.webp",
+          "sourceCell": 5,
+          "pixelSHA256": "364f19167167009b2346d96a315b05a8eae80124cb5df8f3053c69d17638489f",
+          "beforeAnchorRegistrationPixelSHA256": "364f19167167009b2346d96a315b05a8eae80124cb5df8f3053c69d17638489f",
+          "drawingAnchorOffset": [
+            0,
+            0
+          ],
+          "notes": "G024 replaces chest-push source key with connected low-three-quarter plant/rotation/release/follow; whole-body authored drawing, no limb warp.",
+          "kind": "authored-key-replacement",
           "originalIndex": 7,
-          "pixelSHA256": "82d6b0a9dd0f8b76373616a522321d0794a4678898d75ca41964a3e3ee88a9aa"
+          "previousPixelSHA256": "82d6b0a9dd0f8b76373616a522321d0794a4678898d75ca41964a3e3ee88a9aa"
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-step-g024.webp",
+          "sourceCell": 1,
+          "pixelSHA256": "20155c0405fbe1e5ef07c2ee7fca408a1c5380cbd672af28e6411d3bf54ed004",
+          "beforeAnchorRegistrationPixelSHA256": "20155c0405fbe1e5ef07c2ee7fca408a1c5380cbd672af28e6411d3bf54ed004",
+          "drawingAnchorOffset": [
+            0,
+            0
+          ],
+          "notes": "G024 authored recovery step rear support steps under hips; free lead heel begins lifting. Whole-character source; common batch fit, no limb warp or per-frame translation.",
+          "kind": "authored-inbetween",
+          "afterKey": 7
+        },
+        {
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-step-g024.webp",
+          "sourceCell": 2,
+          "pixelSHA256": "bb17b785708b81d443373a385a9b6b87b886e7a540f71cd9bc4987704648c7f0",
+          "beforeAnchorRegistrationPixelSHA256": "bb17b785708b81d443373a385a9b6b87b886e7a540f71cd9bc4987704648c7f0",
+          "drawingAnchorOffset": [
+            0,
+            0
+          ],
+          "notes": "G024 authored recovery step free lead cleat visibly airborne and retracting before original narrow landing. Whole-character source; common batch fit, no limb warp or per-frame translation.",
+          "kind": "authored-inbetween",
+          "afterKey": 7
         },
         {
           "kind": "original-key",
@@ -3111,20 +3285,20 @@
           "pixelSHA256": "40162077f1fb3e33cb6c39df6ae5ba9c4189d56d9d4982fcdad30073868a0451"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-return.webp",
           "sourceCell": 1,
-          "afterKey": 11,
           "pixelSHA256": "03675ad30078a97d485d69f513b4616ee5f20a6ba949fb75956800d6f7b4b0f3",
           "beforeAnchorRegistrationPixelSHA256": "03675ad30078a97d485d69f513b4616ee5f20a6ba949fb75956800d6f7b4b0f3",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted.",
+          "kind": "authored-inbetween",
+          "afterKey": 11
         }
       ],
-      "runtimeBytes": 616168
+      "runtimeBytes": 776572
     },
     {
       "id": "elite-01-cobalt-impact",
@@ -3154,6 +3328,7 @@
       ],
       "sourceDrawings": 15,
       "preservedOriginalDrawings": 12,
+      "replacedOriginalDrawings": 0,
       "newInbetweenDrawings": 3,
       "timelineTicks": 120,
       "fps": 60,
@@ -3326,17 +3501,17 @@
           "pixelSHA256": "a2ce0620e8100ada55bf75c50f099b299eda88ead7486782f2e75a663f8f3154"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/elite-01-cobalt-impact-finish-1.webp",
           "sourceCell": 1,
-          "afterKey": 1,
           "pixelSHA256": "50c0659cbfbac6b0e9ba70b58c3221616b45a9686efcde933bd31af37c35505b",
           "beforeAnchorRegistrationPixelSHA256": "50c0659cbfbac6b0e9ba70b58c3221616b45a9686efcde933bd31af37c35505b",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 replacement of visually rejected G022 middle. Front knee lifts halfway while both hands stay gathered. Head, torso, shoulders and thigh proportions match endpoints exactly, no muscle inflation or oversized head."
+          "notes": "G023 replacement of visually rejected G022 middle. Front knee lifts halfway while both hands stay gathered. Head, torso, shoulders and thigh proportions match endpoints exactly, no muscle inflation or oversized head.",
+          "kind": "authored-inbetween",
+          "afterKey": 1
         },
         {
           "kind": "original-key",
@@ -3359,17 +3534,17 @@
           "pixelSHA256": "a969a4531b5f72c6faefe9a6347beb1fdc45443771b48a2359501e59adea30fe"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/elite-01-cobalt-impact.webp",
           "sourceCell": 11,
-          "afterKey": 5,
           "pixelSHA256": "ca78b5946ad2e0a25dde56909807d7d13944ab02c55b791c1250f3072b1385cb",
           "beforeAnchorRegistrationPixelSHA256": "ca78b5946ad2e0a25dde56909807d7d13944ab02c55b791c1250f3072b1385cb",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Ball remains held while elbow and wrist advance toward release; original empty-hand release is retained."
+          "notes": "Ball remains held while elbow and wrist advance toward release; original empty-hand release is retained.",
+          "kind": "authored-inbetween",
+          "afterKey": 5
         },
         {
           "kind": "original-key",
@@ -3402,17 +3577,17 @@
           "pixelSHA256": "ba13cd82ac7cc7fbb4230eec0e57f600acdffe91cd4494d85f2bc4ce0d7b34a1"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/elite-01-cobalt-impact-return.webp",
           "sourceCell": 1,
-          "afterKey": 11,
           "pixelSHA256": "07a68daf11a10427053979d1a9ebe594f2927d4d4c60bec0006144be5a7a77e0",
           "beforeAnchorRegistrationPixelSHA256": "07a68daf11a10427053979d1a9ebe594f2927d4d4c60bec0006144be5a7a77e0",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted.",
+          "kind": "authored-inbetween",
+          "afterKey": 11
         }
       ],
       "runtimeBytes": 526384
@@ -3445,6 +3620,7 @@
       ],
       "sourceDrawings": 15,
       "preservedOriginalDrawings": 12,
+      "replacedOriginalDrawings": 0,
       "newInbetweenDrawings": 3,
       "timelineTicks": 120,
       "fps": 60,
@@ -3599,17 +3775,17 @@
           "pixelSHA256": "7af7dcfddb3638b563bcd8e7b541898c88a56f39926fc16198514b6b328f144a"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/elite-02-neon-trick.webp",
           "sourceCell": 4,
-          "afterKey": 1,
           "pixelSHA256": "d5148272a0694f633c32c440c1ee693c07780fa7b1610696c9b166d8b7b1acd0",
           "beforeAnchorRegistrationPixelSHA256": "d5148272a0694f633c32c440c1ee693c07780fa7b1610696c9b166d8b7b1acd0",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Front knee rises between gathered stance and full coil; same neon sleeve/glove ownership."
+          "notes": "Front knee rises between gathered stance and full coil; same neon sleeve/glove ownership.",
+          "kind": "authored-inbetween",
+          "afterKey": 1
         },
         {
           "kind": "original-key",
@@ -3617,17 +3793,17 @@
           "pixelSHA256": "ce7a92275f71bcbf95b4a090c8f8ef6661714ea2913bb2dc287a37e4e20183d7"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/elite-02-neon-trick.webp",
           "sourceCell": 7,
-          "afterKey": 2,
           "pixelSHA256": "ebf2cf8336113237fb11ac12847e7fcc8f13d376b0eb93713d77b0fe789bac87",
           "beforeAnchorRegistrationPixelSHA256": "ebf2cf8336113237fb11ac12847e7fcc8f13d376b0eb93713d77b0fe789bac87",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Front knee lowers while the ball hand separates into stride; no new overhead slot."
+          "notes": "Front knee lowers while the ball hand separates into stride; no new overhead slot.",
+          "kind": "authored-inbetween",
+          "afterKey": 2
         },
         {
           "kind": "original-key",
@@ -3645,17 +3821,17 @@
           "pixelSHA256": "aa9979dae73f1d49d46234af995c1bac7ad3b76221bd436eab5e0d13912c5774"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/elite-02-neon-trick.webp",
           "sourceCell": 11,
-          "afterKey": 5,
           "pixelSHA256": "d274ced1852c1326fcbf4d53c3128580beb61984ff98edb7d9919d7eea29381c",
           "beforeAnchorRegistrationPixelSHA256": "d274ced1852c1326fcbf4d53c3128580beb61984ff98edb7d9919d7eea29381c",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Ball-bearing arm extends from the cocked shoulder toward the front before release."
+          "notes": "Ball-bearing arm extends from the cocked shoulder toward the front before release.",
+          "kind": "authored-inbetween",
+          "afterKey": 5
         },
         {
           "kind": "original-key",
@@ -3718,6 +3894,7 @@
       ],
       "sourceDrawings": 15,
       "preservedOriginalDrawings": 12,
+      "replacedOriginalDrawings": 0,
       "newInbetweenDrawings": 3,
       "timelineTicks": 120,
       "fps": 60,
@@ -3881,17 +4058,17 @@
           "pixelSHA256": "784e39dc8eb1977c283455bf522219aee921e9a82eccd13bde488318711ce030"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/elite-03-wine-bluff.webp",
           "sourceCell": 4,
-          "afterKey": 1,
           "pixelSHA256": "36396460d30e610e6ba574934a960308637c83cd42ca512215622bace9268ef3",
           "beforeAnchorRegistrationPixelSHA256": "36396460d30e610e6ba574934a960308637c83cd42ca512215622bace9268ef3",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Front knee rises below the original maximum; wine cap/jacket identity retained."
+          "notes": "Front knee rises below the original maximum; wine cap/jacket identity retained.",
+          "kind": "authored-inbetween",
+          "afterKey": 1
         },
         {
           "kind": "original-key",
@@ -3899,17 +4076,17 @@
           "pixelSHA256": "8d33bf118bcea84bb57cc5c5b56eb63eadab7d1f9f25338c5aa93f2eeaffc862"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/elite-03-wine-bluff-finish-2.webp",
           "sourceCell": 1,
-          "afterKey": 2,
           "pixelSHA256": "04eab56030c9c2b424b4dec6ed9f2997e6bb7e31d9a8afc81fffffd8dd197cf6",
           "beforeAnchorRegistrationPixelSHA256": "04eab56030c9c2b424b4dec6ed9f2997e6bb7e31d9a8afc81fffffd8dd197cf6",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 replacement of visually rejected G022 middle. Lifted front knee lowers gradually into stride. Hands separate: ball hand stays between chest and lower ribs, not lifted to ear/head before next key lowers it. No high-arm-then-low-arm reversal."
+          "notes": "G023 replacement of visually rejected G022 middle. Lifted front knee lowers gradually into stride. Hands separate: ball hand stays between chest and lower ribs, not lifted to ear/head before next key lowers it. No high-arm-then-low-arm reversal.",
+          "kind": "authored-inbetween",
+          "afterKey": 2
         },
         {
           "kind": "original-key",
@@ -3927,17 +4104,17 @@
           "pixelSHA256": "d22f8f8abae0f10f1c7813ab187476f9c2b1927af386ae0159fa5c301782b1d9"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/elite-03-wine-bluff.webp",
           "sourceCell": 11,
-          "afterKey": 5,
           "pixelSHA256": "41b6499b8a0fb4a029da55d406fd5dd071a7f0e7fe59d26f2e3d8a1faa9f3c18",
           "beforeAnchorRegistrationPixelSHA256": "41b6499b8a0fb4a029da55d406fd5dd071a7f0e7fe59d26f2e3d8a1faa9f3c18",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Wrist/ball extend toward the catcher before the immutable empty release hand."
+          "notes": "Wrist/ball extend toward the catcher before the immutable empty release hand.",
+          "kind": "authored-inbetween",
+          "afterKey": 5
         },
         {
           "kind": "original-key",
@@ -4000,6 +4177,7 @@
       ],
       "sourceDrawings": 15,
       "preservedOriginalDrawings": 12,
+      "replacedOriginalDrawings": 0,
       "newInbetweenDrawings": 3,
       "timelineTicks": 120,
       "fps": 60,
@@ -4172,17 +4350,17 @@
           "pixelSHA256": "7770ae104589c38a118e9439081b1aa8744a6e844d371020f350444def5ee1ab"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/jade-viper.webp",
           "sourceCell": 4,
-          "afterKey": 1,
           "pixelSHA256": "96bf68814f9218796631e729516a525ef841f64736a27bcb906beaa0d4488d99",
           "beforeAnchorRegistrationPixelSHA256": "96bf68814f9218796631e729516a525ef841f64736a27bcb906beaa0d4488d99",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Partial lift below high coil; same green glove and right throwing hand."
+          "notes": "Partial lift below high coil; same green glove and right throwing hand.",
+          "kind": "authored-inbetween",
+          "afterKey": 1
         },
         {
           "kind": "original-key",
@@ -4190,17 +4368,17 @@
           "pixelSHA256": "b3f849e104d249993ca3da0d20ff02c2c45600cb8f89a79de164811222818690"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/jade-viper-finish-2.webp",
           "sourceCell": 1,
-          "afterKey": 2,
           "pixelSHA256": "3c995c799dd8ccf0066f999b14d16f4552a25ac7c471c8796f597b30457ae1fb",
           "beforeAnchorRegistrationPixelSHA256": "d246b832d5442f1e0e60cba4705d84d156f00d8e97dbf51359cb9ea5ba61af2b",
           "drawingAnchorOffset": [
             22,
             2
           ],
-          "notes": "G023 replacement of visually rejected G022 middle. Front knee lowers gradually and ball hand separates toward chest/lower ribs, NEVER raising ball toward head before the lower hand endpoint. Documented whole-drawing sole registration only, not a newly invented pose or limb warp. Source common transform and pre/post hashes retained."
+          "notes": "G023 replacement of visually rejected G022 middle. Front knee lowers gradually and ball hand separates toward chest/lower ribs, NEVER raising ball toward head before the lower hand endpoint. Documented whole-drawing sole registration only, not a newly invented pose or limb warp. Source common transform and pre/post hashes retained.",
+          "kind": "authored-inbetween",
+          "afterKey": 2
         },
         {
           "kind": "original-key",
@@ -4223,17 +4401,17 @@
           "pixelSHA256": "25fc42f7b245aba6b41e0eb53cff36e740d98b2855b22c3e7edadc2eed4abeba"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/jade-viper-finish-6.webp",
           "sourceCell": 1,
-          "afterKey": 6,
           "pixelSHA256": "ad8d61ea3af11888498486a22a5938ae33740bb635726263e54a980a7350f101",
           "beforeAnchorRegistrationPixelSHA256": "ad8d61ea3af11888498486a22a5938ae33740bb635726263e54a980a7350f101",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 replacement of visually rejected G022 middle. Empty hand sweeps down halfway, body leans MORE forward progressively, not standing upright before bending again. Planted front cleat remains exact."
+          "notes": "G023 replacement of visually rejected G022 middle. Empty hand sweeps down halfway, body leans MORE forward progressively, not standing upright before bending again. Planted front cleat remains exact.",
+          "kind": "authored-inbetween",
+          "afterKey": 6
         },
         {
           "kind": "original-key",
@@ -4291,6 +4469,7 @@
       ],
       "sourceDrawings": 16,
       "preservedOriginalDrawings": 12,
+      "replacedOriginalDrawings": 0,
       "newInbetweenDrawings": 4,
       "timelineTicks": 120,
       "fps": 60,
@@ -4454,17 +4633,17 @@
           "pixelSHA256": "d7a3e3369bdb2ec1298565cfbec5d1ed5b1a9337cc95d12ae9a8f122e50b9697"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/copper-sirocco.webp",
           "sourceCell": 4,
-          "afterKey": 1,
           "pixelSHA256": "1a4a7b59c3edc2976b41fede6d1890982dfff2bfee297e16fe2840c70eac78ac",
           "beforeAnchorRegistrationPixelSHA256": "1a4a7b59c3edc2976b41fede6d1890982dfff2bfee297e16fe2840c70eac78ac",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Hands remain overhead while knee is below the full original lift."
+          "notes": "Hands remain overhead while knee is below the full original lift.",
+          "kind": "authored-inbetween",
+          "afterKey": 1
         },
         {
           "kind": "original-key",
@@ -4472,17 +4651,17 @@
           "pixelSHA256": "c7900a0c4b93f10c1289bafe0ebfef92c7eb49747184252f06e48c0f4da8389a"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/copper-sirocco.webp",
           "sourceCell": 7,
-          "afterKey": 2,
           "pixelSHA256": "47b93d132164ad9d4ccba1697f2bb87f07dda72da851eed1f88a7aa9f077c0c3",
           "beforeAnchorRegistrationPixelSHA256": "47b93d132164ad9d4ccba1697f2bb87f07dda72da851eed1f88a7aa9f077c0c3",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Gather opens and raised knee lowers before the original extended stride."
+          "notes": "Gather opens and raised knee lowers before the original extended stride.",
+          "kind": "authored-inbetween",
+          "afterKey": 2
         },
         {
           "kind": "original-key",
@@ -4500,17 +4679,17 @@
           "pixelSHA256": "b56be2209bb9b525aeebd74911f42f14ed99a6907201b4d0f78756638d780f1f"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/copper-sirocco.webp",
           "sourceCell": 11,
-          "afterKey": 5,
           "pixelSHA256": "f3be41f273c36f503db5b36dc5e5eafcd90de6489161773f34c2e84ea0cc92b4",
           "beforeAnchorRegistrationPixelSHA256": "f3be41f273c36f503db5b36dc5e5eafcd90de6489161773f34c2e84ea0cc92b4",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Ball hand travels forward from cocked elbow; ball still held before original release."
+          "notes": "Ball hand travels forward from cocked elbow; ball still held before original release.",
+          "kind": "authored-inbetween",
+          "afterKey": 5
         },
         {
           "kind": "original-key",
@@ -4543,17 +4722,17 @@
           "pixelSHA256": "376ec81572f9b85da457f5b04a2b8a55d202cc38071e7501f4ceb37697c229d1"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/copper-sirocco-return.webp",
           "sourceCell": 1,
-          "afterKey": 11,
           "pixelSHA256": "e437803ba9d64aaad2ebc0a38ef4a6fb2d5f501362931a133fcf5db7fb82c2e8",
           "beforeAnchorRegistrationPixelSHA256": "e437803ba9d64aaad2ebc0a38ef4a6fb2d5f501362931a133fcf5db7fb82c2e8",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted.",
+          "kind": "authored-inbetween",
+          "afterKey": 11
         }
       ],
       "runtimeBytes": 582380
@@ -4586,6 +4765,7 @@
       ],
       "sourceDrawings": 16,
       "preservedOriginalDrawings": 12,
+      "replacedOriginalDrawings": 0,
       "newInbetweenDrawings": 4,
       "timelineTicks": 120,
       "fps": 60,
@@ -4758,17 +4938,17 @@
           "pixelSHA256": "6eb510d50bd322bd28968de6d16206f3728f8dc8bb83a88550d378bccdbff20f"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/boss-01-emerald-tyrant-finish-1.webp",
           "sourceCell": 1,
-          "afterKey": 1,
           "pixelSHA256": "6bffd53aae3923f311a7709d70ec25a8dfd88b0cb9474db0c590f8bb3a2661fe",
           "beforeAnchorRegistrationPixelSHA256": "6bffd53aae3923f311a7709d70ec25a8dfd88b0cb9474db0c590f8bb3a2661fe",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 replacement of visually rejected G022 middle. Front knee lifts halfway, supporting leg stays extended so head/cap height remains between endpoint heights, NEVER squat or shrink torso during knee rise."
+          "notes": "G023 replacement of visually rejected G022 middle. Front knee lifts halfway, supporting leg stays extended so head/cap height remains between endpoint heights, NEVER squat or shrink torso during knee rise.",
+          "kind": "authored-inbetween",
+          "afterKey": 1
         },
         {
           "kind": "original-key",
@@ -4776,17 +4956,17 @@
           "pixelSHA256": "d96f0fedffb54b16a9d35d2b0e9765449b20736cbcfbece3cb8ee57f012faae5"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/boss-01-emerald-tyrant.webp",
           "sourceCell": 7,
-          "afterKey": 2,
           "pixelSHA256": "dcd2416a8aefbc75cd9144c415e1db99eee742def1891f59b2f396d858dde520",
           "beforeAnchorRegistrationPixelSHA256": "dcd2416a8aefbc75cd9144c415e1db99eee742def1891f59b2f396d858dde520",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Knee drops while right ball hand separates; front foot not at the original plant yet."
+          "notes": "Knee drops while right ball hand separates; front foot not at the original plant yet.",
+          "kind": "authored-inbetween",
+          "afterKey": 2
         },
         {
           "kind": "original-key",
@@ -4804,17 +4984,17 @@
           "pixelSHA256": "93dedca6d969cfa13a845c43b4fd21e74534e9ed5a3dd926ed43f549ef55269e"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/boss-01-emerald-tyrant.webp",
           "sourceCell": 11,
-          "afterKey": 5,
           "pixelSHA256": "eb9b81aec3a1c489c1416137daec349f309103a0ca4334c6ace6f455d013dc00",
           "beforeAnchorRegistrationPixelSHA256": "eb9b81aec3a1c489c1416137daec349f309103a0ca4334c6ace6f455d013dc00",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Forearm advances, still holding baseball until the exact original empty-hand release."
+          "notes": "Forearm advances, still holding baseball until the exact original empty-hand release.",
+          "kind": "authored-inbetween",
+          "afterKey": 5
         },
         {
           "kind": "original-key",
@@ -4847,17 +5027,17 @@
           "pixelSHA256": "3a6c002f01f522a0b341801ee8435ebfcca1982233e28d9a6acd75358ac630ce"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/boss-01-emerald-tyrant-return.webp",
           "sourceCell": 1,
-          "afterKey": 11,
           "pixelSHA256": "26a3856b7b6258b8314a756803182aa9e136d9a33f0b368ec15cf7182040e300",
           "beforeAnchorRegistrationPixelSHA256": "26a3856b7b6258b8314a756803182aa9e136d9a33f0b368ec15cf7182040e300",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted.",
+          "kind": "authored-inbetween",
+          "afterKey": 11
         }
       ],
       "runtimeBytes": 569640
@@ -4890,6 +5070,7 @@
       ],
       "sourceDrawings": 16,
       "preservedOriginalDrawings": 12,
+      "replacedOriginalDrawings": 0,
       "newInbetweenDrawings": 4,
       "timelineTicks": 120,
       "fps": 60,
@@ -5053,17 +5234,17 @@
           "pixelSHA256": "847b7cb964365348d34e894da0c3c0f0aba8be100ae617c33eb7a482c2dbb806"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/boss-02-platinum-halo.webp",
           "sourceCell": 4,
-          "afterKey": 1,
           "pixelSHA256": "1dc7047d995f5a6050a0b4c1b7e226953a26fb6a7ad9f0c0394666a19b78cb07",
           "beforeAnchorRegistrationPixelSHA256": "1dc7047d995f5a6050a0b4c1b7e226953a26fb6a7ad9f0c0394666a19b78cb07",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Front thigh rises between gather and the high coil, braid follows the same side."
+          "notes": "Front thigh rises between gather and the high coil, braid follows the same side.",
+          "kind": "authored-inbetween",
+          "afterKey": 1
         },
         {
           "kind": "original-key",
@@ -5071,17 +5252,17 @@
           "pixelSHA256": "3a5fe006f0f8ac7b669c5905eead33cbe984e0452d7fa9cae83e0e49fc7e4481"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/boss-02-platinum-halo.webp",
           "sourceCell": 7,
-          "afterKey": 2,
           "pixelSHA256": "d8eafc2d9c15c0d8b727f1de828ea8229480ffc1ad5dca5d18cc244762edd491",
           "beforeAnchorRegistrationPixelSHA256": "d8eafc2d9c15c0d8b727f1de828ea8229480ffc1ad5dca5d18cc244762edd491",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Knee descends and ball hand opens toward the stride; no handedness swap."
+          "notes": "Knee descends and ball hand opens toward the stride; no handedness swap.",
+          "kind": "authored-inbetween",
+          "afterKey": 2
         },
         {
           "kind": "original-key",
@@ -5099,17 +5280,17 @@
           "pixelSHA256": "3ed5fd99e328c0a63d0c320eaa7433be0fe4d2d2abddaa222b27ffb14cfc605e"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/boss-02-platinum-halo.webp",
           "sourceCell": 11,
-          "afterKey": 5,
           "pixelSHA256": "4d6c4f3713d119495fcc69dd9af016ff967be2aea4d657c18fc3e91a38fbdc6e",
           "beforeAnchorRegistrationPixelSHA256": "4d6c4f3713d119495fcc69dd9af016ff967be2aea4d657c18fc3e91a38fbdc6e",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Ball-bearing wrist moves forward from high cock toward original high release."
+          "notes": "Ball-bearing wrist moves forward from high cock toward original high release.",
+          "kind": "authored-inbetween",
+          "afterKey": 5
         },
         {
           "kind": "original-key",
@@ -5142,17 +5323,17 @@
           "pixelSHA256": "29e0e89f8edec8a65f34ca0bfd242cb888b0931b9084547b22b4555ed77c00eb"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/boss-02-platinum-halo-return.webp",
           "sourceCell": 1,
-          "afterKey": 11,
           "pixelSHA256": "a8b44669f262d51f80983426e997d5ce96b801dfc16c7de6fd3599bb4769bafb",
           "beforeAnchorRegistrationPixelSHA256": "a8b44669f262d51f80983426e997d5ce96b801dfc16c7de6fd3599bb4769bafb",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted.",
+          "kind": "authored-inbetween",
+          "afterKey": 11
         }
       ],
       "runtimeBytes": 529598
@@ -5185,6 +5366,7 @@
       ],
       "sourceDrawings": 15,
       "preservedOriginalDrawings": 12,
+      "replacedOriginalDrawings": 0,
       "newInbetweenDrawings": 3,
       "timelineTicks": 120,
       "fps": 60,
@@ -5353,17 +5535,17 @@
           "pixelSHA256": "b34ec2fcf4377f9a0167524cb1b9130f65c5c18e08670c30ed589fd110ef237c"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/boss-03-black-eclipse.webp",
           "sourceCell": 7,
-          "afterKey": 2,
           "pixelSHA256": "32d53aeeaabf279f1f38a47375cb13c2b8b711e7f160260bd4c9ce85cac62d8e",
           "beforeAnchorRegistrationPixelSHA256": "32d53aeeaabf279f1f38a47375cb13c2b8b711e7f160260bd4c9ce85cac62d8e",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Front thigh lowers from high coil while the right ball hand separates; intact long uniform silhouette."
+          "notes": "Front thigh lowers from high coil while the right ball hand separates; intact long uniform silhouette.",
+          "kind": "authored-inbetween",
+          "afterKey": 2
         },
         {
           "kind": "original-key",
@@ -5381,17 +5563,17 @@
           "pixelSHA256": "d32eee7d8be884aaf741fb1907b674508adf45836584f891b9a2f565d24eaced"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/boss-03-black-eclipse.webp",
           "sourceCell": 11,
-          "afterKey": 5,
           "pixelSHA256": "7f985b3afb8b3d6aa5150158f4f4c422abdb847e169110a945e605e3178c370b",
           "beforeAnchorRegistrationPixelSHA256": "7f985b3afb8b3d6aa5150158f4f4c422abdb847e169110a945e605e3178c370b",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Ball-bearing wrist advances toward catcher before original open-hand release."
+          "notes": "Ball-bearing wrist advances toward catcher before original open-hand release.",
+          "kind": "authored-inbetween",
+          "afterKey": 5
         },
         {
           "kind": "original-key",
@@ -5424,17 +5606,17 @@
           "pixelSHA256": "0b771580894dd709c8abe098da0277837d9ced9c5a034d9a1e90ac05a7b84d8d"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/boss-03-black-eclipse-return.webp",
           "sourceCell": 1,
-          "afterKey": 11,
           "pixelSHA256": "56ee07b5bc505be629e6c03ca914f6a337b5096b69cfa48f2ff6b8301c9f7616",
           "beforeAnchorRegistrationPixelSHA256": "56ee07b5bc505be629e6c03ca914f6a337b5096b69cfa48f2ff6b8301c9f7616",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted.",
+          "kind": "authored-inbetween",
+          "afterKey": 11
         }
       ],
       "runtimeBytes": 441856
@@ -5467,6 +5649,7 @@
       ],
       "sourceDrawings": 15,
       "preservedOriginalDrawings": 12,
+      "replacedOriginalDrawings": 0,
       "newInbetweenDrawings": 3,
       "timelineTicks": 120,
       "fps": 60,
@@ -5639,17 +5822,17 @@
           "pixelSHA256": "e908f289ea84eeb95da33e270f413f41fa80a8217d62d52603e90e5ea6a2816c"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/emerald-tempest-finish-1.webp",
           "sourceCell": 1,
-          "afterKey": 1,
           "pixelSHA256": "fc7c93492424706f1eb5ab1e33c34769df2960a07155af234965f2f514bcbd24",
           "beforeAnchorRegistrationPixelSHA256": "fc7c93492424706f1eb5ab1e33c34769df2960a07155af234965f2f514bcbd24",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 replacement of visually rejected G022 middle. Front knee rises on screen RIGHT while support foot remains screen LEFT, never swap leg roles. Partial knee height halfway to high coil, same torso proportions."
+          "notes": "G023 replacement of visually rejected G022 middle. Front knee rises on screen RIGHT while support foot remains screen LEFT, never swap leg roles. Partial knee height halfway to high coil, same torso proportions.",
+          "kind": "authored-inbetween",
+          "afterKey": 1
         },
         {
           "kind": "original-key",
@@ -5657,17 +5840,17 @@
           "pixelSHA256": "42f8e333db10ccd084fa68e83c16583c9c20c85ea2779d4f9a563f76f0c0a6c7"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/emerald-tempest-finish-2.webp",
           "sourceCell": 1,
-          "afterKey": 2,
           "pixelSHA256": "19415f785660931d547bde4c67801f127669fea560d9f86df38e624b7c62217c",
           "beforeAnchorRegistrationPixelSHA256": "19415f785660931d547bde4c67801f127669fea560d9f86df38e624b7c62217c",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 replacement of visually rejected G022 middle. Raised front knee on screen-right lowers and extends toward stride. Ball hand separates but stays between chest and lower ribs, NOT at head height. Keep supporting boot screen-left planted."
+          "notes": "G023 replacement of visually rejected G022 middle. Raised front knee on screen-right lowers and extends toward stride. Ball hand separates but stays between chest and lower ribs, NOT at head height. Keep supporting boot screen-left planted.",
+          "kind": "authored-inbetween",
+          "afterKey": 2
         },
         {
           "kind": "original-key",
@@ -5685,17 +5868,17 @@
           "pixelSHA256": "b7e4ebb61968cbb7ad6eaa8089bd29c4d00788ea8433d3fbe57bb65dd5487948"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/emerald-tempest.webp",
           "sourceCell": 11,
-          "afterKey": 5,
           "pixelSHA256": "40f31d49a034080f0c7c4631db06f11f8912dab939f85d259d531ff93dab43af",
           "beforeAnchorRegistrationPixelSHA256": "40f31d49a034080f0c7c4631db06f11f8912dab939f85d259d531ff93dab43af",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "High-slot ball arm begins forward extension before the original open release hand."
+          "notes": "High-slot ball arm begins forward extension before the original open release hand.",
+          "kind": "authored-inbetween",
+          "afterKey": 5
         },
         {
           "kind": "original-key",
@@ -5758,6 +5941,7 @@
       ],
       "sourceDrawings": 17,
       "preservedOriginalDrawings": 12,
+      "replacedOriginalDrawings": 0,
       "newInbetweenDrawings": 5,
       "timelineTicks": 120,
       "fps": 60,
@@ -5939,17 +6123,17 @@
           "pixelSHA256": "ebecbc4470cce8c3ff70b6d2964732d594a7d78c5456405bce44f3cb449c00f8"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/onyx-eclipse.webp",
           "sourceCell": 4,
-          "afterKey": 1,
           "pixelSHA256": "a56f5adc5393e24c92c045c1a6b3ec058f79cf0c391fc060fadf46b326998028",
           "beforeAnchorRegistrationPixelSHA256": "a56f5adc5393e24c92c045c1a6b3ec058f79cf0c391fc060fadf46b326998028",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Front knee lifts partially; anatomical LEFT throwing hand remains screen-right and glove screen-left."
+          "notes": "Front knee lifts partially; anatomical LEFT throwing hand remains screen-right and glove screen-left.",
+          "kind": "authored-inbetween",
+          "afterKey": 1
         },
         {
           "kind": "original-key",
@@ -5957,17 +6141,17 @@
           "pixelSHA256": "2362cecb4aa02cd5b5b498d08fc4bce191964f13b2ff2d8078ed57aedfad6170"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/onyx-eclipse.webp",
           "sourceCell": 7,
-          "afterKey": 2,
           "pixelSHA256": "e3f46ddfc08ffb3d5f039eb027c38c777cdd8692c04d93f265171fe0be109733",
           "beforeAnchorRegistrationPixelSHA256": "e3f46ddfc08ffb3d5f039eb027c38c777cdd8692c04d93f265171fe0be109733",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "Knee lowers while left ball hand separates behind reaching glove; no mirroring."
+          "notes": "Knee lowers while left ball hand separates behind reaching glove; no mirroring.",
+          "kind": "authored-inbetween",
+          "afterKey": 2
         },
         {
           "kind": "original-key",
@@ -5985,17 +6169,17 @@
           "pixelSHA256": "74cf664c1b497bc72dd29dda90902da03e44d5e466e97f9df1c4ceee4a608c45"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/onyx-eclipse-whip.webp",
           "sourceCell": 1,
-          "afterKey": 5,
           "pixelSHA256": "cd1907246db794fb95dca881d64d9fc1e488c8423442d4cc20ae474116411a21",
           "beforeAnchorRegistrationPixelSHA256": "cd1907246db794fb95dca881d64d9fc1e488c8423442d4cc20ae474116411a21",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting."
+          "notes": "New image_gen forearm-whip drawing: ball still held in correct throwing hand, elbow/wrist advance toward catcher between original cock and exact empty release. Original endpoint redraws not adopted. Whole batch registered to original key5, no per-pose fitting.",
+          "kind": "authored-inbetween",
+          "afterKey": 5
         },
         {
           "kind": "original-key",
@@ -6003,17 +6187,17 @@
           "pixelSHA256": "ad22f5450adc15f37ef84e177181d13859ae44fec9b15e2e6a4b43060134e053"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/onyx-eclipse-finish-6.webp",
           "sourceCell": 1,
-          "afterKey": 6,
           "pixelSHA256": "fe38b6d96070daa55b9da84badbbedf2431f8518e2284efa3fc86fb86a906c73",
           "beforeAnchorRegistrationPixelSHA256": "fe38b6d96070daa55b9da84badbbedf2431f8518e2284efa3fc86fb86a906c73",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 replacement of visually rejected G022 middle. LEFT hand purple sleeve screen-right sweeps down/across halfway, glove screen-left. Keep front cleat screen-left planted exactly; never spread feet outward."
+          "notes": "G023 replacement of visually rejected G022 middle. LEFT hand purple sleeve screen-right sweeps down/across halfway, glove screen-left. Keep front cleat screen-left planted exactly; never spread feet outward.",
+          "kind": "authored-inbetween",
+          "afterKey": 6
         },
         {
           "kind": "original-key",
@@ -6041,23 +6225,27 @@
           "pixelSHA256": "4355c7153dd4fee393f151b554735c0dd5028246dfcbe15e96106f8002a6443a"
         },
         {
-          "kind": "authored-inbetween",
           "sourceSheet": "assets/pitcher-inbetweens-v1/sources/onyx-eclipse-return.webp",
           "sourceCell": 1,
-          "afterKey": 11,
           "pixelSHA256": "fb2a60c18863f5c2fda3bdf704fb268036c5169edc44b19ec012846b9b7365de",
           "beforeAnchorRegistrationPixelSHA256": "fb2a60c18863f5c2fda3bdf704fb268036c5169edc44b19ec012846b9b7365de",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted."
+          "notes": "G023 authored empty-hand gather and weight return between original key11 and exact ready0. Common reference bounds, no sole switching. Original endpoint redraws not adopted.",
+          "kind": "authored-inbetween",
+          "afterKey": 11
         }
       ],
       "runtimeBytes": 536634
     }
   ],
-  "totalNewPitcherDrawings": 85,
-  "totalRuntimeBytes": 10846710,
-  "qualityLimit": "Curated additional drawings, not 120 newly authored drawings per character or proof of commercial animation quality. Rejected candidates and earlier HELD histories remain unchanged."
+  "totalRevisedKeys": 16,
+  "totalNewPitcherDrawings": 86,
+  "totalRuntimeBytes": 11155000,
+  "qualityLimit": "Curated additional drawings, not 120 newly authored drawings per character or proof of commercial animation quality. Rejected candidates and earlier HELD histories remain unchanged.",
+  "previousInbetweenReplacements": 13,
+  "previousRecoveryDrawings": 10,
+  "lowSlotRecoveryDrawings": 6
 }
