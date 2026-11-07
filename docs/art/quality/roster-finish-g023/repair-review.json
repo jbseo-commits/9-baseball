@@ -1,0 +1,1300 @@
+{
+  "review": "independent-art-review-b repair candidate round1 and foot-registration round2",
+  "checkoutMutated": false,
+  "scope": "All 13 original-key→normalized generated middle→next original-key triptychs actually viewed under BOTH registration variants. Source strip0/2 redraws are not original replacements.",
+  "status": "All13 replacement middles accepted under explicitly selected registrations after actual frame inspection; no commercial-quality pass. Final runtime playback is still required.",
+  "counts": {
+    "accept": 13,
+    "reject": 0,
+    "skip": 0
+  },
+  "definitionOfAccept": "The named reported defect is visibly resolved with listed limitations. Actual-speed playback remains necessary. Accepted Jade6/Onyx6 retain small source/bridge foot settling, explicitly recorded.",
+  "endpointDuplication": "No whole-pose obvious endpoint duplicate found in these13. Violet7 arm reaches near-final position, but body/head progression makes the middle distinct.",
+  "measurementLimit": "Alpha connected component boxes y215..255 support manual fixed-cell visual inspection. They do not substitute for motion/anatomy judgment. All x/y in unchanged256px cells; source and endpoint originals retained.",
+  "candidates": [
+    {
+      "slug": "regular-01-red-rush",
+      "afterKey": 3,
+      "source": "/workspace/generated_images/exec-585ecd99-e5e7-4229-af77-8435f58339a9.png",
+      "decision": "accept",
+      "selectedRegistration": "round2-bounds-center",
+      "observation": "Stride hand/ball path is plausible and only one ball is present, but rear/support cleat still jumps left and back. Foot semantic registration is virtually identical to bounds registration.",
+      "measuredOrVisualEvidence": "source support sole x81–109, new x62–89, next x81–99; ~19px transient drift.",
+      "action": "Adopt this round2 middle with its recorded common source-sheet transform and zero per-drawing offset. Preserve all older rejected candidates and original-key bytes. Verify final runtime playback.",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/repair-triptychs/regular-01-red-rush-3.jpg",
+        "/workspace/9zone-roster-finish-20261107/repair-foot-triptychs/regular-01-red-rush-3.jpg",
+        "/workspace/9zone-roster-finish-20261107/anchor-checks/regular-01-red-rush-3.jpg",
+        "regenerated-round2 /workspace/9zone-roster-finish-20261107/repair-triptychs/regular-01-red-rush-3.jpg"
+      ],
+      "registrationHistory": [
+        {
+          "version": "bounds-center",
+          "transform": {
+            "scale": 0.353204172876304,
+            "translation": [
+              -20.52459016393442,
+              2.935916542473933
+            ]
+          },
+          "disposition": "rejected-middle"
+        },
+        {
+          "version": "semantic-foot",
+          "footSide": "left",
+          "transform": {
+            "scale": 0.353204172876304,
+            "translation": [
+              -20.525335320417284,
+              2.935916542473933
+            ]
+          },
+          "disposition": "not-selected"
+        },
+        {
+          "version": "G023 same-pose sole whole-sprite offset",
+          "offset": [
+            18,
+            -8
+          ],
+          "side": "left",
+          "beforeSole": [
+            73.0,
+            245
+          ],
+          "targetSole": [
+            91.25,
+            237.5
+          ],
+          "disposition": "reject-body-hop",
+          "contract": "Independently authored pose already exists. Shared source scale retained. Whole sprite translated only; no bone/anatomy warp, no claim of procedurally creating new limb motion. Earlier rejected variants retained."
+        },
+        {
+          "version": "authored-regeneration-round2",
+          "source": "/workspace/generated_images/exec-27ffa92b-6bba-42d6-9879-c11ebb79c190.png",
+          "sourceSHA256": "7cf8cfecd81538b617bdb6e497d949800d03c55163f05b0c3bea6cce6370f5d6",
+          "selectedMiddlePixelSHA256": "697c32f384719d449a8df0692595101923c11939514a549b6ed4ca39263950d7",
+          "registration": "bounds-center/bottom shared source-sheet transform",
+          "transform": {
+            "scale": 0.34497816593886466,
+            "translation": [
+              -3.886462882096083,
+              3.790393013100413
+            ]
+          },
+          "wholeSpriteAdditionalOffset": [
+            0,
+            0
+          ],
+          "decision": "accept",
+          "observation": "Viewed regenerated source key3→new→key4. Rear/support cleat remains on source endpoint path. Free front foot is between the earlier raised foot and final plant, without prior overshoot. Cap/shoulder/waist no longer make the +18/-8 registration hop. Throwing hand carries a single ball and moves toward later cocking stage; glove remains opposite side.",
+          "evidence": "/workspace/9zone-roster-finish-20261107/repair-triptychs/regular-01-red-rush-3.jpg",
+          "commercialQualityPass": false,
+          "actualEndpoints": "Original immutable source keys, not generated strip0/2 redraws"
+        }
+      ],
+      "bottomAlphaComponentBboxesSourceMiddleEnd": [
+        [
+          [
+            81,
+            215,
+            109,
+            247
+          ],
+          [
+            109,
+            215,
+            128,
+            221
+          ]
+        ],
+        [
+          [
+            62,
+            215,
+            89,
+            245
+          ],
+          [
+            134,
+            215,
+            156,
+            224
+          ]
+        ],
+        [
+          [
+            81,
+            215,
+            99,
+            228
+          ],
+          [
+            139,
+            215,
+            167,
+            252
+          ]
+        ]
+      ],
+      "confidence": "high",
+      "commercialQualityPass": false,
+      "observationAfterAnchor": "(+18,-8) fixes the lateral support-foot drift but raises cap, shoulders and waist roughly8px above both original neighbors, introducing a visible body hop. Automatic midpoint-Y alignment hides a body trajectory problem. Original sole y245 was already between original247→228; midpoint timing is not mandatory.",
+      "selectedSource": "/workspace/generated_images/exec-27ffa92b-6bba-42d6-9879-c11ebb79c190.png",
+      "selectedTransform": {
+        "scale": 0.34497816593886466,
+        "translation": [
+          -3.886462882096083,
+          3.790393013100413
+        ]
+      },
+      "selectedOffset": [
+        0,
+        0
+      ],
+      "currentObservation": "Viewed regenerated source key3→new→key4. Rear/support cleat remains on source endpoint path. Free front foot is between the earlier raised foot and final plant, without prior overshoot. Cap/shoulder/waist no longer make the +18/-8 registration hop. Throwing hand carries a single ball and moves toward later cocking stage; glove remains opposite side.",
+      "currentSourceSHA256": "7cf8cfecd81538b617bdb6e497d949800d03c55163f05b0c3bea6cce6370f5d6",
+      "currentMiddlePixelSHA256": "697c32f384719d449a8df0692595101923c11939514a549b6ed4ca39263950d7"
+    },
+    {
+      "slug": "regular-03-amber-sinker",
+      "afterKey": 6,
+      "source": "/workspace/generated_images/exec-b1f25e3c-61db-4f2a-87a1-7eab85c1ef2f.png",
+      "decision": "accept",
+      "selectedRegistration": "G023-drawing-sole-offset",
+      "observation": "Empty arm is now a meaningful down-sweep between endpoints, with consistent glove ownership and body proportion. The planted front cleat still shifts left and back after the new same-foot batch registration.",
+      "measuredOrVisualEvidence": "source front sole x140–175, new x127–163, next x142–175; ~13–15px transient drift.",
+      "action": "Adopt only the explicitly recorded shared-scale whole-sprite offset variant; keep raw source0/2 unadopted and preserve original-key pixels. Playback remains required.",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/repair-triptychs/regular-03-amber-sinker-6.jpg",
+        "/workspace/9zone-roster-finish-20261107/repair-foot-triptychs/regular-03-amber-sinker-6.jpg",
+        "/workspace/9zone-roster-finish-20261107/anchor-checks/regular-03-amber-sinker-6.jpg"
+      ],
+      "registrationHistory": [
+        {
+          "version": "bounds-center",
+          "transform": {
+            "scale": 0.33181818181818185,
+            "translation": [
+              -14.03636363636366,
+              13.71363636363634
+            ]
+          },
+          "disposition": "rejected-middle"
+        },
+        {
+          "version": "semantic-foot",
+          "footSide": "right",
+          "transform": {
+            "scale": 0.33181818181818185,
+            "translation": [
+              -10.554545454545462,
+              13.71363636363634
+            ]
+          },
+          "disposition": "not-selected"
+        },
+        {
+          "version": "G023 same-pose sole whole-sprite offset",
+          "offset": [
+            16,
+            0
+          ],
+          "side": "right",
+          "beforeSole": [
+            144.5,
+            242
+          ],
+          "targetSole": [
+            160.25,
+            242.5
+          ],
+          "disposition": "selected",
+          "contract": "Independently authored pose already exists. Shared source scale retained. Whole sprite translated only; no bone/anatomy warp, no claim of procedurally creating new limb motion. Earlier rejected variants retained."
+        }
+      ],
+      "bottomAlphaComponentBboxesSourceMiddleEnd": [
+        [
+          [
+            68,
+            215,
+            87,
+            220
+          ],
+          [
+            140,
+            215,
+            175,
+            243
+          ]
+        ],
+        [
+          [
+            58,
+            215,
+            70,
+            217
+          ],
+          [
+            127,
+            215,
+            163,
+            242
+          ]
+        ],
+        [
+          [
+            74,
+            215,
+            92,
+            222
+          ],
+          [
+            142,
+            215,
+            175,
+            242
+          ]
+        ]
+      ],
+      "confidence": "high",
+      "commercialQualityPass": false,
+      "selectedOffset": [
+        16,
+        0
+      ],
+      "observationAfterAnchor": "Actual four-panel original / old middle / translated middle / original viewed. Head, waist, planted foot all improve together; no remaining obvious whole-body lateral overshoot or newly broken opposite-foot/arm anatomy. Prior rejection applies to old registration, not to this accepted registration."
+    },
+    {
+      "slug": "regular-05-violet-sting",
+      "afterKey": 7,
+      "source": "/workspace/generated_images/exec-350e513d-0415-468e-89ae-f2b773f97521.png",
+      "decision": "accept",
+      "selectedRegistration": "semantic-foot",
+      "observation": "Body bend/head height progress toward key8; planted foot lies on the source→end path, no rightward slide. Arm reaches near-final hand height before the body finishes but the whole pose is clearly distinct.",
+      "measuredOrVisualEvidence": "source front sole x140–170, new x125–157, next x123–153. New is near end, inside the endpoint progression.",
+      "action": "Use semantic-foot variant; confirm the near-final arm timing in playback.",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/repair-triptychs/regular-05-violet-sting-7.jpg",
+        "/workspace/9zone-roster-finish-20261107/repair-foot-triptychs/regular-05-violet-sting-7.jpg"
+      ],
+      "registrationHistory": [
+        {
+          "version": "bounds-center",
+          "transform": {
+            "scale": 0.3353115727002967,
+            "translation": [
+              0.03412462908013936,
+              6.617210682492612
+            ]
+          },
+          "disposition": "superseded-for-registration"
+        },
+        {
+          "version": "semantic-foot",
+          "footSide": "right",
+          "transform": {
+            "scale": 0.3353115727002967,
+            "translation": [
+              2.09495548961425,
+              6.617210682492612
+            ]
+          },
+          "disposition": "selected"
+        }
+      ],
+      "bottomAlphaComponentBboxesSourceMiddleEnd": [
+        [
+          [
+            79,
+            215,
+            93,
+            220
+          ],
+          [
+            140,
+            215,
+            170,
+            241
+          ]
+        ],
+        [
+          [
+            125,
+            215,
+            157,
+            240
+          ]
+        ],
+        [
+          [
+            123,
+            215,
+            153,
+            240
+          ]
+        ]
+      ],
+      "confidence": "high",
+      "commercialQualityPass": false
+    },
+    {
+      "slug": "gale-twister",
+      "afterKey": 6,
+      "source": "/workspace/generated_images/exec-d14ed65b-13ed-4f86-9aab-ac374467aefc.png",
+      "decision": "accept",
+      "selectedRegistration": "G023-drawing-sole-offset",
+      "observation": "The new arm is more intermediate than the earlier completed-follow-through candidate, but the entire body and front plant shift strongly left and return. Same-foot batch registration did not repair the middle itself.",
+      "measuredOrVisualEvidence": "source front sole x135–162, new x101–130, next x135–164; ~34px transient drift.",
+      "action": "Adopt only the explicitly recorded shared-scale whole-sprite offset variant; keep raw source0/2 unadopted and preserve original-key pixels. Playback remains required.",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/repair-triptychs/gale-twister-6.jpg",
+        "/workspace/9zone-roster-finish-20261107/repair-foot-triptychs/gale-twister-6.jpg",
+        "/workspace/9zone-roster-finish-20261107/anchor-checks/gale-twister-6.jpg"
+      ],
+      "registrationHistory": [
+        {
+          "version": "bounds-center",
+          "transform": {
+            "scale": 0.3424657534246575,
+            "translation": [
+              -11.773972602739718,
+              5.671232876712338
+            ]
+          },
+          "disposition": "rejected-middle"
+        },
+        {
+          "version": "semantic-foot",
+          "footSide": "right",
+          "transform": {
+            "scale": 0.3424657534246575,
+            "translation": [
+              -13.828767123287662,
+              5.671232876712338
+            ]
+          },
+          "disposition": "not-selected"
+        },
+        {
+          "version": "G023 same-pose sole whole-sprite offset",
+          "offset": [
+            31,
+            0
+          ],
+          "side": "right",
+          "beforeSole": [
+            118.0,
+            244
+          ],
+          "targetSole": [
+            149.25,
+            244.5
+          ],
+          "disposition": "selected",
+          "contract": "Independently authored pose already exists. Shared source scale retained. Whole sprite translated only; no bone/anatomy warp, no claim of procedurally creating new limb motion. Earlier rejected variants retained."
+        }
+      ],
+      "bottomAlphaComponentBboxesSourceMiddleEnd": [
+        [
+          [
+            87,
+            215,
+            102,
+            221
+          ],
+          [
+            135,
+            215,
+            162,
+            243
+          ]
+        ],
+        [
+          [
+            52,
+            215,
+            61,
+            216
+          ],
+          [
+            101,
+            215,
+            130,
+            244
+          ]
+        ],
+        [
+          [
+            84,
+            215,
+            98,
+            219
+          ],
+          [
+            135,
+            215,
+            164,
+            246
+          ]
+        ]
+      ],
+      "confidence": "high",
+      "commercialQualityPass": false,
+      "selectedOffset": [
+        31,
+        0
+      ],
+      "observationAfterAnchor": "Actual four-panel original / old middle / translated middle / original viewed. Head, waist, planted foot all improve together; no remaining obvious whole-body lateral overshoot or newly broken opposite-foot/arm anatomy. Prior rejection applies to old registration, not to this accepted registration."
+    },
+    {
+      "slug": "onyx-eclipse",
+      "afterKey": 6,
+      "source": "/workspace/generated_images/exec-c210b22e-e9ae-46e7-9268-cb0999fb4931.png",
+      "decision": "accept",
+      "selectedRegistration": "semantic-foot",
+      "observation": "The prior wide split-stance defect is resolved. Purple-sleeved anatomical LEFT hand remains the throwing hand, travels down/across without ball; glove stays screen-left. Rear foot is meaningfully between endpoint heights.",
+      "measuredOrVisualEvidence": "source front sole x82–110, new x69–99, next x72–102; new is ~3px beyond the end anchor, much smaller than previous outward split.",
+      "action": "Use semantic-foot variant. Keep a small residual front-foot settling shift in playback QA notes.",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/repair-triptychs/onyx-eclipse-6.jpg",
+        "/workspace/9zone-roster-finish-20261107/repair-foot-triptychs/onyx-eclipse-6.jpg"
+      ],
+      "registrationHistory": [
+        {
+          "version": "bounds-center",
+          "transform": {
+            "scale": 0.3445635528330781,
+            "translation": [
+              -5.602603369065861,
+              13.831546707503833
+            ]
+          },
+          "disposition": "superseded-for-registration"
+        },
+        {
+          "version": "semantic-foot",
+          "footSide": "left",
+          "transform": {
+            "scale": 0.3445635528330781,
+            "translation": [
+              -6.507656967840731,
+              13.831546707503833
+            ]
+          },
+          "disposition": "selected"
+        }
+      ],
+      "bottomAlphaComponentBboxesSourceMiddleEnd": [
+        [
+          [
+            82,
+            215,
+            110,
+            244
+          ]
+        ],
+        [
+          [
+            69,
+            215,
+            99,
+            244
+          ],
+          [
+            156,
+            215,
+            174,
+            223
+          ]
+        ],
+        [
+          [
+            72,
+            215,
+            102,
+            244
+          ],
+          [
+            168,
+            215,
+            191,
+            234
+          ]
+        ]
+      ],
+      "confidence": "high",
+      "commercialQualityPass": false
+    },
+    {
+      "slug": "jade-viper",
+      "afterKey": 2,
+      "source": "/workspace/generated_images/exec-5e813813-9650-4d65-af90-1b7ea29c494d.png",
+      "decision": "accept",
+      "selectedRegistration": "G023-drawing-sole-offset",
+      "observation": "The head-high throwing-hand reversal is removed: new ball separates near lower ribs/chest. New body/head and support foot shift left well beyond the endpoint path, then return.",
+      "measuredOrVisualEvidence": "source support sole x102–124, new x72–95, next x88–108; new ~15px beyond the following anchor, ~30px from initial.",
+      "action": "Adopt only the explicitly recorded shared-scale whole-sprite offset variant; keep raw source0/2 unadopted and preserve original-key pixels. Playback remains required.",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/repair-triptychs/jade-viper-2.jpg",
+        "/workspace/9zone-roster-finish-20261107/repair-foot-triptychs/jade-viper-2.jpg",
+        "/workspace/9zone-roster-finish-20261107/anchor-checks/jade-viper-2.jpg"
+      ],
+      "registrationHistory": [
+        {
+          "version": "bounds-center",
+          "transform": {
+            "scale": 0.34008683068017365,
+            "translation": [
+              -6.293777134587543,
+              2.8986975397974106
+            ]
+          },
+          "disposition": "rejected-middle"
+        },
+        {
+          "version": "semantic-foot",
+          "footSide": "left",
+          "transform": {
+            "scale": 0.34008683068017365,
+            "translation": [
+              -6.329956584659911,
+              2.8986975397974106
+            ]
+          },
+          "disposition": "not-selected"
+        },
+        {
+          "version": "G023 same-pose sole whole-sprite offset",
+          "offset": [
+            22,
+            2
+          ],
+          "side": "left",
+          "beforeSole": [
+            82.5,
+            243
+          ],
+          "targetSole": [
+            104.5,
+            244.5
+          ],
+          "disposition": "selected",
+          "contract": "Independently authored pose already exists. Shared source scale retained. Whole sprite translated only; no bone/anatomy warp, no claim of procedurally creating new limb motion. Earlier rejected variants retained."
+        }
+      ],
+      "bottomAlphaComponentBboxesSourceMiddleEnd": [
+        [
+          [
+            102,
+            215,
+            124,
+            243
+          ]
+        ],
+        [
+          [
+            72,
+            215,
+            95,
+            243
+          ]
+        ],
+        [
+          [
+            88,
+            215,
+            108,
+            246
+          ],
+          [
+            144,
+            215,
+            166,
+            249
+          ]
+        ]
+      ],
+      "confidence": "high",
+      "commercialQualityPass": false,
+      "selectedOffset": [
+        22,
+        2
+      ],
+      "observationAfterAnchor": "Actual four-panel original / old middle / translated middle / original viewed. Head, waist, planted foot all improve together; no remaining obvious whole-body lateral overshoot or newly broken opposite-foot/arm anatomy. Prior rejection applies to old registration, not to this accepted registration."
+    },
+    {
+      "slug": "jade-viper",
+      "afterKey": 6,
+      "source": "/workspace/generated_images/exec-0cb57ca0-8987-4607-84be-bfc333583588.png",
+      "decision": "accept",
+      "selectedRegistration": "semantic-foot",
+      "observation": "The objectionable upright rise before bending is resolved: torso progressively turns/bends and empty arm is at an intermediate height. One glove and one continuous throwing-arm chain are visible.",
+      "measuredOrVisualEvidence": "source front sole x144–178, new x122–156, next x128–163; new overshoots following anchor by ~6–7px.",
+      "action": "Use semantic-foot variant only with explicit residual foot-settling limitation; inspect final playback for that remaining small correction.",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/repair-triptychs/jade-viper-6.jpg",
+        "/workspace/9zone-roster-finish-20261107/repair-foot-triptychs/jade-viper-6.jpg"
+      ],
+      "registrationHistory": [
+        {
+          "version": "bounds-center",
+          "transform": {
+            "scale": 0.3333333333333333,
+            "translation": [
+              5.333333333333343,
+              12.333333333333343
+            ]
+          },
+          "disposition": "superseded-for-registration"
+        },
+        {
+          "version": "semantic-foot",
+          "footSide": "right",
+          "transform": {
+            "scale": 0.3333333333333333,
+            "translation": [
+              5.5,
+              12.333333333333343
+            ]
+          },
+          "disposition": "selected"
+        }
+      ],
+      "bottomAlphaComponentBboxesSourceMiddleEnd": [
+        [
+          [
+            93,
+            215,
+            98,
+            215
+          ],
+          [
+            144,
+            215,
+            178,
+            246
+          ]
+        ],
+        [
+          [
+            122,
+            215,
+            156,
+            245
+          ]
+        ],
+        [
+          [
+            128,
+            215,
+            163,
+            252
+          ]
+        ]
+      ],
+      "confidence": "high",
+      "commercialQualityPass": false
+    },
+    {
+      "slug": "elite-03-wine-bluff",
+      "afterKey": 2,
+      "source": "/workspace/generated_images/exec-34a6ab1d-5df5-47b4-810f-c4c988ceda89.png",
+      "decision": "accept",
+      "selectedRegistration": "round2-bounds-center",
+      "observation": "Ball stays low during separation and head-high→low→high arm reversal is resolved. However new head/torso shift markedly screen-left of both original neighbors; support foot also overshoots next anchor.",
+      "measuredOrVisualEvidence": "source support sole x105–132, new x75–104, next x86–110. Cap/face also move left by roughly20px and return.",
+      "action": "Adopt this round2 middle with its recorded common source-sheet transform and zero per-drawing offset. Preserve all older rejected candidates and original-key bytes. Verify final runtime playback.",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/repair-triptychs/elite-03-wine-bluff-2.jpg",
+        "/workspace/9zone-roster-finish-20261107/repair-foot-triptychs/elite-03-wine-bluff-2.jpg",
+        "regenerated-round2 /workspace/9zone-roster-finish-20261107/repair-triptychs/elite-03-wine-bluff-2.jpg"
+      ],
+      "registrationHistory": [
+        {
+          "version": "bounds-center",
+          "transform": {
+            "scale": 0.336676217765043,
+            "translation": [
+              -18.795845272206293,
+              2.276504297994279
+            ]
+          },
+          "disposition": "rejected-middle"
+        },
+        {
+          "version": "semantic-foot",
+          "footSide": "left",
+          "transform": {
+            "scale": 0.336676217765043,
+            "translation": [
+              -19.155444126074485,
+              2.276504297994279
+            ]
+          },
+          "disposition": "not-selected"
+        },
+        {
+          "version": "authored-regeneration-round2",
+          "source": "/workspace/generated_images/exec-4da2811c-382b-4d20-8088-62ed1dd48a2c.png",
+          "sourceSHA256": "8cc293bc166eae4c52c211f0627e76d120e3e54ee70d704e161a6f029eb60575",
+          "selectedMiddlePixelSHA256": "04eab56030c9c2b424b4dec6ed9f2997e6bb7e31d9a8afc81fffffd8dd197cf6",
+          "registration": "bounds-center/bottom shared source-sheet transform",
+          "transform": {
+            "scale": 0.33523537803138376,
+            "translation": [
+              0.44008559201139974,
+              2.971469329529242
+            ]
+          },
+          "wholeSpriteAdditionalOffset": [
+            0,
+            0
+          ],
+          "decision": "accept",
+          "observation": "Viewed regenerated key2→new→key3. Head/torso remain centered between original neighbors, removing the old leftward snap. Knee lowers toward stride. Ball separates near chest/lower ribs instead of rising to cap height then dropping; neighboring hand heights differ only slightly. Whole body is distinct from endpoint despite hand already near next-key location.",
+          "evidence": "/workspace/9zone-roster-finish-20261107/repair-triptychs/elite-03-wine-bluff-2.jpg",
+          "commercialQualityPass": false,
+          "actualEndpoints": "Original immutable source keys, not generated strip0/2 redraws"
+        }
+      ],
+      "bottomAlphaComponentBboxesSourceMiddleEnd": [
+        [
+          [
+            105,
+            215,
+            132,
+            243
+          ]
+        ],
+        [
+          [
+            75,
+            215,
+            104,
+            242
+          ]
+        ],
+        [
+          [
+            86,
+            215,
+            110,
+            241
+          ],
+          [
+            131,
+            215,
+            153,
+            227
+          ]
+        ]
+      ],
+      "confidence": "high",
+      "commercialQualityPass": false,
+      "selectedSource": "/workspace/generated_images/exec-4da2811c-382b-4d20-8088-62ed1dd48a2c.png",
+      "selectedTransform": {
+        "scale": 0.33523537803138376,
+        "translation": [
+          0.44008559201139974,
+          2.971469329529242
+        ]
+      },
+      "selectedOffset": [
+        0,
+        0
+      ],
+      "currentObservation": "Viewed regenerated key2→new→key3. Head/torso remain centered between original neighbors, removing the old leftward snap. Knee lowers toward stride. Ball separates near chest/lower ribs instead of rising to cap height then dropping; neighboring hand heights differ only slightly. Whole body is distinct from endpoint despite hand already near next-key location.",
+      "currentSourceSHA256": "8cc293bc166eae4c52c211f0627e76d120e3e54ee70d704e161a6f029eb60575",
+      "currentMiddlePixelSHA256": "04eab56030c9c2b424b4dec6ed9f2997e6bb7e31d9a8afc81fffffd8dd197cf6"
+    },
+    {
+      "slug": "emerald-tempest",
+      "afterKey": 2,
+      "source": "/workspace/generated_images/exec-0acc1d0f-5b13-4d65-9631-28d1e6d7d879.png",
+      "decision": "accept",
+      "selectedRegistration": "round2-bounds-center",
+      "observation": "The former raised-to-cap ball-hand reversal is removed and leg ownership is consistent. The middle support foot and torso still shift screen-left beyond both endpoint motion paths.",
+      "measuredOrVisualEvidence": "source support sole x101–126, new x69–92, next x82–103; ~12px overshoot beyond next anchor, head shifts left too.",
+      "action": "Adopt this round2 middle with its recorded common source-sheet transform and zero per-drawing offset. Preserve all older rejected candidates and original-key bytes. Verify final runtime playback.",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/repair-triptychs/emerald-tempest-2.jpg",
+        "/workspace/9zone-roster-finish-20261107/repair-foot-triptychs/emerald-tempest-2.jpg",
+        "regenerated-round2 /workspace/9zone-roster-finish-20261107/repair-triptychs/emerald-tempest-2.jpg"
+      ],
+      "registrationHistory": [
+        {
+          "version": "bounds-center",
+          "transform": {
+            "scale": 0.3422222222222222,
+            "translation": [
+              -10.348888888888894,
+              3.5244444444444696
+            ]
+          },
+          "disposition": "rejected-middle"
+        },
+        {
+          "version": "semantic-foot",
+          "footSide": "left",
+          "transform": {
+            "scale": 0.3422222222222222,
+            "translation": [
+              -10.62222222222222,
+              3.5244444444444696
+            ]
+          },
+          "disposition": "not-selected"
+        },
+        {
+          "version": "authored-regeneration-round2",
+          "source": "/workspace/generated_images/exec-2d84e14a-3f11-49f7-b9cb-8619cef0e85c.png",
+          "sourceSHA256": "0bb548b0e190cf0d792bf70d18d27bc244747b5a5d8f286f318b4d1380b4418a",
+          "selectedMiddlePixelSHA256": "19415f785660931d547bde4c67801f127669fea560d9f86df38e624b7c62217c",
+          "registration": "bounds-center/bottom shared source-sheet transform",
+          "transform": {
+            "scale": 0.3407079646017699,
+            "translation": [
+              -5.150442477876084,
+              1.8451327433628535
+            ]
+          },
+          "wholeSpriteAdditionalOffset": [
+            0,
+            0
+          ],
+          "decision": "accept",
+          "observation": "Viewed regenerated key2→new→key3. Support boot stays screen-left near initial source anchor. Screen-right front knee/boot lower progressively toward next key. Ball separates near chest, with no cap-high→low reversal. Head, waist, opposite foot and uniform proportions show no old lateral registration pop.",
+          "evidence": "/workspace/9zone-roster-finish-20261107/repair-triptychs/emerald-tempest-2.jpg",
+          "commercialQualityPass": false,
+          "actualEndpoints": "Original immutable source keys, not generated strip0/2 redraws"
+        }
+      ],
+      "bottomAlphaComponentBboxesSourceMiddleEnd": [
+        [
+          [
+            101,
+            215,
+            126,
+            240
+          ]
+        ],
+        [
+          [
+            69,
+            215,
+            92,
+            238
+          ]
+        ],
+        [
+          [
+            82,
+            215,
+            103,
+            239
+          ],
+          [
+            149,
+            215,
+            170,
+            221
+          ]
+        ]
+      ],
+      "confidence": "high",
+      "commercialQualityPass": false,
+      "selectedSource": "/workspace/generated_images/exec-2d84e14a-3f11-49f7-b9cb-8619cef0e85c.png",
+      "selectedTransform": {
+        "scale": 0.3407079646017699,
+        "translation": [
+          -5.150442477876084,
+          1.8451327433628535
+        ]
+      },
+      "selectedOffset": [
+        0,
+        0
+      ],
+      "currentObservation": "Viewed regenerated key2→new→key3. Support boot stays screen-left near initial source anchor. Screen-right front knee/boot lower progressively toward next key. Ball separates near chest, with no cap-high→low reversal. Head, waist, opposite foot and uniform proportions show no old lateral registration pop.",
+      "currentSourceSHA256": "0bb548b0e190cf0d792bf70d18d27bc244747b5a5d8f286f318b4d1380b4418a",
+      "currentMiddlePixelSHA256": "19415f785660931d547bde4c67801f127669fea560d9f86df38e624b7c62217c"
+    },
+    {
+      "slug": "elite-01-cobalt-impact",
+      "afterKey": 1,
+      "source": "/workspace/generated_images/exec-e118cc34-50f6-498c-873b-e2030d1b077b.png",
+      "decision": "accept",
+      "selectedRegistration": "round2-bounds-center",
+      "observation": "The inflated thigh/head rendering is reduced, but middle lifts the screen-left leg and plants the screen-right leg while both original neighbors lift on screen-right and support on screen-left. The middle changes leg roles.",
+      "measuredOrVisualEvidence": "source support sole x84–114, new x120–148, next x96–126; middle support far right and raised knee points opposite side.",
+      "action": "Adopt this round2 middle with its recorded common source-sheet transform and zero per-drawing offset. Preserve all older rejected candidates and original-key bytes. Verify final runtime playback.",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/repair-triptychs/elite-01-cobalt-impact-1.jpg",
+        "/workspace/9zone-roster-finish-20261107/repair-foot-triptychs/elite-01-cobalt-impact-1.jpg",
+        "regenerated-round2 /workspace/9zone-roster-finish-20261107/repair-triptychs/elite-01-cobalt-impact-1.jpg"
+      ],
+      "registrationHistory": [
+        {
+          "version": "bounds-center",
+          "transform": {
+            "scale": 0.34502923976608185,
+            "translation": [
+              -13.672514619883032,
+              0.4444444444444571
+            ]
+          },
+          "disposition": "rejected-middle"
+        },
+        {
+          "version": "semantic-foot",
+          "footSide": "left",
+          "transform": {
+            "scale": 0.34502923976608185,
+            "translation": [
+              -11.32163742690058,
+              2.859649122807042
+            ]
+          },
+          "disposition": "not-selected"
+        },
+        {
+          "version": "authored-regeneration-round2",
+          "source": "/workspace/generated_images/exec-144b46f3-3569-49cc-99a4-8858788774fe.png",
+          "sourceSHA256": "5e427dac401194694d4b0524910210dc24d6f8bb510b23c6c1d9d1125211f0d0",
+          "selectedMiddlePixelSHA256": "50c0659cbfbac6b0e9ba70b58c3221616b45a9686efcde933bd31af37c35505b",
+          "registration": "bounds-center/bottom shared source-sheet transform",
+          "transform": {
+            "scale": 0.34104046242774566,
+            "translation": [
+              4.234104046242777,
+              1.8843930635838149
+            ]
+          },
+          "wholeSpriteAdditionalOffset": [
+            0,
+            0
+          ],
+          "decision": "accept",
+          "observation": "Viewed regenerated key1→new→key2. New lifts screen-right knee and supports screen-left, correcting former leg-role switch. Knee/boot heights are partial between source keys. Head, shoulders and thigh volume remain close to endpoint proportions; hands stay gathered. No obvious duplicate of either endpoint.",
+          "evidence": "/workspace/9zone-roster-finish-20261107/repair-triptychs/elite-01-cobalt-impact-1.jpg",
+          "commercialQualityPass": false,
+          "actualEndpoints": "Original immutable source keys, not generated strip0/2 redraws"
+        }
+      ],
+      "bottomAlphaComponentBboxesSourceMiddleEnd": [
+        [
+          [
+            84,
+            215,
+            114,
+            243
+          ],
+          [
+            152,
+            215,
+            171,
+            236
+          ]
+        ],
+        [
+          [
+            120,
+            215,
+            148,
+            245
+          ]
+        ],
+        [
+          [
+            96,
+            215,
+            126,
+            246
+          ]
+        ]
+      ],
+      "confidence": "high",
+      "commercialQualityPass": false,
+      "selectedSource": "/workspace/generated_images/exec-144b46f3-3569-49cc-99a4-8858788774fe.png",
+      "selectedTransform": {
+        "scale": 0.34104046242774566,
+        "translation": [
+          4.234104046242777,
+          1.8843930635838149
+        ]
+      },
+      "selectedOffset": [
+        0,
+        0
+      ],
+      "currentObservation": "Viewed regenerated key1→new→key2. New lifts screen-right knee and supports screen-left, correcting former leg-role switch. Knee/boot heights are partial between source keys. Head, shoulders and thigh volume remain close to endpoint proportions; hands stay gathered. No obvious duplicate of either endpoint.",
+      "currentSourceSHA256": "5e427dac401194694d4b0524910210dc24d6f8bb510b23c6c1d9d1125211f0d0",
+      "currentMiddlePixelSHA256": "50c0659cbfbac6b0e9ba70b58c3221616b45a9686efcde933bd31af37c35505b"
+    },
+    {
+      "slug": "emerald-tempest",
+      "afterKey": 1,
+      "source": "/workspace/generated_images/exec-1b3142a5-ee43-44cb-a0b9-82043640e103.png",
+      "decision": "accept",
+      "selectedRegistration": "semantic-foot",
+      "observation": "The prior reversed/crossed support/raised-leg silhouette is corrected. Raised knee stays screen-right and rises partially; support boot remains screen-left. Head, torso and glove scale are consistent.",
+      "measuredOrVisualEvidence": "source support sole x90–112, new x92–116, next x101–126. The new planted boot lies on the endpoint path.",
+      "action": "Use semantic-foot variant and verify leg identity through the adjacent afterKey2 repair.",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/repair-triptychs/emerald-tempest-1.jpg",
+        "/workspace/9zone-roster-finish-20261107/repair-foot-triptychs/emerald-tempest-1.jpg"
+      ],
+      "registrationHistory": [
+        {
+          "version": "bounds-center",
+          "transform": {
+            "scale": 0.3473053892215569,
+            "translation": [
+              1.6137724550898156,
+              2.01197604790417
+            ]
+          },
+          "disposition": "superseded-for-registration"
+        },
+        {
+          "version": "semantic-foot",
+          "footSide": "left",
+          "transform": {
+            "scale": 0.3473053892215569,
+            "translation": [
+              0.43413173652693615,
+              2.01197604790417
+            ]
+          },
+          "disposition": "selected"
+        }
+      ],
+      "bottomAlphaComponentBboxesSourceMiddleEnd": [
+        [
+          [
+            90,
+            215,
+            112,
+            242
+          ],
+          [
+            150,
+            215,
+            180,
+            240
+          ]
+        ],
+        [
+          [
+            92,
+            215,
+            116,
+            241
+          ]
+        ],
+        [
+          [
+            101,
+            215,
+            126,
+            240
+          ]
+        ]
+      ],
+      "confidence": "high",
+      "commercialQualityPass": false
+    },
+    {
+      "slug": "boss-01-emerald-tyrant",
+      "afterKey": 1,
+      "source": "/workspace/generated_images/exec-a6178548-dc40-4962-b0ee-9316c8eec752.png",
+      "decision": "accept",
+      "selectedRegistration": "bounds-center",
+      "observation": "The squat/head-drop reversal is removed in the bounds variant: support leg remains extended and partial knee lift bridges source keys. Semantic-foot version uses screen-right foot although source key1 screen-right shoe is raised, shifting middle up and causing bounds to touch y0.",
+      "measuredOrVisualEvidence": "semantic-foot frameBounds y0..240 versus bounds-center y5..245; semantic middle front sole y239 versus source y245 / end y246.",
+      "action": "Use original bounds-center transform for this batch, not current semantic-right-foot variant. Source0/2 redraws remain unadopted.",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/repair-triptychs/boss-01-emerald-tyrant-1.jpg",
+        "/workspace/9zone-roster-finish-20261107/repair-foot-triptychs/boss-01-emerald-tyrant-1.jpg"
+      ],
+      "registrationHistory": [
+        {
+          "version": "bounds-center",
+          "transform": {
+            "scale": 0.34236804564907275,
+            "translation": [
+              -8.88944365192583,
+              1.9186875891583384
+            ]
+          },
+          "disposition": "selected"
+        },
+        {
+          "version": "semantic-foot",
+          "footSide": "right",
+          "transform": {
+            "scale": 0.34236804564907275,
+            "translation": [
+              -4.377318116975744,
+              -3.0813124108416616
+            ]
+          },
+          "disposition": "reject"
+        }
+      ],
+      "bottomAlphaComponentBboxesSourceMiddleEnd": [
+        [
+          [
+            95,
+            215,
+            125,
+            245
+          ],
+          [
+            154,
+            215,
+            174,
+            240
+          ]
+        ],
+        [
+          [
+            110,
+            215,
+            139,
+            239
+          ]
+        ],
+        [
+          [
+            101,
+            215,
+            133,
+            246
+          ]
+        ]
+      ],
+      "confidence": "high",
+      "commercialQualityPass": false
+    },
+    {
+      "slug": "vulcan-blaze",
+      "afterKey": 5,
+      "source": "/workspace/generated_images/exec-fba43bfa-6467-4bdd-881c-e6fba1d39b88.png",
+      "decision": "accept",
+      "selectedRegistration": "bounds-center",
+      "observation": "A ball-bearing, single-elbow forward extension is visible between cock and empty release. Face/body remain in the endpoint range; original bounds variant matches planted front boot substantially better. No hand/glove swap.",
+      "measuredOrVisualEvidence": "bounds new front sole x138–171 versus source138–167/end139–170; semantic-foot shifts it left to131–164.",
+      "action": "Use original bounds-center transform for this batch; final playback must retain ball in hand until release.",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/repair-triptychs/vulcan-blaze-5.jpg",
+        "/workspace/9zone-roster-finish-20261107/repair-foot-triptychs/vulcan-blaze-5.jpg"
+      ],
+      "registrationHistory": [
+        {
+          "version": "bounds-center",
+          "transform": {
+            "scale": 0.33525179856115106,
+            "translation": [
+              10.30071942446044,
+              10.630215827338134
+            ]
+          },
+          "disposition": "selected"
+        },
+        {
+          "version": "semantic-foot",
+          "footSide": "right",
+          "transform": {
+            "scale": 0.33525179856115106,
+            "translation": [
+              3.648201438848929,
+              10.630215827338134
+            ]
+          },
+          "disposition": "not-selected"
+        }
+      ],
+      "bottomAlphaComponentBboxesSourceMiddleEnd": [
+        [
+          [
+            78,
+            215,
+            104,
+            235
+          ],
+          [
+            138,
+            215,
+            167,
+            250
+          ]
+        ],
+        [
+          [
+            62,
+            215,
+            78,
+            225
+          ],
+          [
+            131,
+            215,
+            164,
+            249
+          ]
+        ],
+        [
+          [
+            88,
+            215,
+            105,
+            223
+          ],
+          [
+            139,
+            215,
+            170,
+            248
+          ]
+        ]
+      ],
+      "confidence": "high",
+      "commercialQualityPass": false
+    }
+  ],
+  "registrationCriticalReview": "Whole-sprite translation can validly correct canvas registration for an independently drawn pose when scale and limb pixels remain intact and head/hips/other foot improve together. Foot alignment alone is insufficient. Red x/y midpoint example rejected because fixing the sole introduced an upward body hop. Record actual semantic foot, offset, base transform, raw hashes, before/after evidence; do not call anchor registration newly authored motion.",
+  "finalSelectionSummary": {
+    "semantic-foot": [
+      "regular-05-violet-sting:7",
+      "onyx-eclipse:6",
+      "jade-viper:6",
+      "emerald-tempest:1"
+    ],
+    "bounds-center": [
+      "boss-01-emerald-tyrant:1",
+      "vulcan-blaze:5"
+    ],
+    "bounds-plus-explicit-middle-offset": {
+      "gale-twister:6": [
+        31,
+        0
+      ],
+      "regular-03-amber-sinker:6": [
+        16,
+        0
+      ],
+      "jade-viper:2": [
+        22,
+        2
+      ]
+    },
+    "regenerated-round2-bounds-zero-offset": [
+      "regular-01-red-rush:3",
+      "elite-01-cobalt-impact:1",
+      "elite-03-wine-bluff:2",
+      "emerald-tempest:2"
+    ]
+  }
+}

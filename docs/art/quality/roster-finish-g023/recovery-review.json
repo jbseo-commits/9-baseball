@@ -1,0 +1,294 @@
+{
+  "assessment": "Final bounds-center/bottom registration rechecked visually for all 10 selected recoveries: 10 acceptable as candidates against original keys; 3 near-endpoint duplicates remain omitted. No commercial animation PASS.",
+  "reviewer": "review-a",
+  "commercialPass": false,
+  "registrationPolicy": "One scale and translation for the entire generated three-pose batch. Never individual limb fitting.",
+  "characters": [
+    {
+      "slug": "regular-03-amber-sinker",
+      "decision": "accept_candidate",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/recovery-triptychs/regular-03-amber-sinker-11.jpg",
+        "/workspace/generated_images/exec-91e6829c-d645-4813-b551-44a8089d3e16.png",
+        "/workspace/9zone-roster-finish-20261107/review-a/regular-03-amber-sinker-recovery-corrected-check.jpg"
+      ],
+      "note": "Current middle clips off the left side due to wrong-foot registration. Raw middle and corrected whole-batch check show an intact pose: empty right hand rises from side to belt/lower glove, between endpoints. Yellow/navy palette and braid/body proportions match adequately; shoes remain grounded.",
+      "sourcePath": "/workspace/generated_images/exec-91e6829c-d645-4813-b551-44a8089d3e16.png",
+      "scope": "Static original-key11 / registered-new-middle / original-key0 quality comparison, not runtime playback or commercial PASS.",
+      "registrationFix": {
+        "slug": "regular-03-amber-sinker",
+        "scale": 0.33284457478005863,
+        "translation": [
+          2.177419354838719,
+          7.010263929618787
+        ],
+        "path": "/workspace/9zone-roster-finish-20261107/review-a/regular-03-amber-sinker-recovery-corrected-check.jpg"
+      },
+      "registrationCause": "foot() selects different left/right shoe in original versus generated reference because their lowest soles differ. Horizontal bbox-center whole-batch translation avoids the cross-foot anchor switch; no limb warp is needed.",
+      "finalRegistrationRechecked": true,
+      "finalNormalization": {
+        "scale": 0.33284457478005863,
+        "translation": [
+          2.177419354838719,
+          6.343108504398828
+        ]
+      },
+      "finalTriptychSHA256": "9f93d36d3acfefb5b597831815ed0576877d2bc7cf43cbd6b00f1f56204413bc",
+      "finalRegistrationNote": "Actually viewed the regenerated bounds-center/bottom whole-batch triptych. No clipping; no new substantive foot/palette/body defect against original endpoints. Empty hand remains a valid intermediate height.",
+      "previousRegistrationIssueResolved": true
+    },
+    {
+      "slug": "regular-04-ivory-ace",
+      "decision": "skip_near_endpoint_duplicate",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/recovery-triptychs/regular-04-ivory-ace-11.jpg"
+      ],
+      "note": "Middle barely changes the already raised right hand relative to key11, with substantially the same arm silhouette. No substantive new recovery step is needed; use exact original set at the end. No visible opaque background or palette failure.",
+      "sourcePath": "/workspace/generated_images/exec-8d04b76d-9179-4e49-8c0c-4915500ebaf9.png",
+      "scope": "Static original-key11 / registered-new-middle / original-key0 quality comparison, not runtime playback or commercial PASS."
+    },
+    {
+      "slug": "regular-05-violet-sting",
+      "decision": "accept_candidate",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/recovery-triptychs/regular-05-violet-sting-11.jpg"
+      ],
+      "note": "Empty right hand rises from thigh to belt/lower-glove height, then the original set gathers it above. Front and rear shoes remain stable; purple palette, cap and body silhouette remain consistent. No visible background residue.",
+      "sourcePath": "/workspace/generated_images/exec-305cb395-7393-4fd1-9339-999f1d048ef0.png",
+      "scope": "Static original-key11 / registered-new-middle / original-key0 quality comparison, not runtime playback or commercial PASS.",
+      "finalRegistrationRechecked": true,
+      "finalNormalization": {
+        "scale": 0.34545454545454546,
+        "translation": [
+          -0.3545454545454447,
+          0.9454545454545382
+        ]
+      },
+      "finalTriptychSHA256": "8f4808f8665818b8c9f6c6ea57d8c58033bf37b554c80a312a96074211337232",
+      "finalRegistrationNote": "Actually viewed the regenerated bounds-center/bottom whole-batch triptych. No clipping; no new substantive foot/palette/body defect against original endpoints. Empty hand remains a valid intermediate height."
+    },
+    {
+      "slug": "sky-phantom",
+      "decision": "accept_candidate",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/recovery-triptychs/sky-phantom-11.jpg"
+      ],
+      "note": "Right hand moves from belt to lower glove, visibly between key11 and set. White hair/blue shirt and pants remain consistent, lettering remains similar, feet stay grounded. No opaque background.",
+      "sourcePath": "/workspace/generated_images/exec-59627d55-24a3-492b-a399-0ee56c91b9ac.png",
+      "scope": "Static original-key11 / registered-new-middle / original-key0 quality comparison, not runtime playback or commercial PASS.",
+      "finalRegistrationRechecked": true,
+      "finalNormalization": {
+        "scale": 0.35,
+        "translation": [
+          -0.549999999999983,
+          0.35000000000002274
+        ]
+      },
+      "finalTriptychSHA256": "1ad2dc7405cf3f4d5bab2c28c0a40b780e1eaeb78cb6f6edbdc495d04f4490aa",
+      "finalRegistrationNote": "Actually viewed the regenerated bounds-center/bottom whole-batch triptych. No clipping; no new substantive foot/palette/body defect against original endpoints. Empty hand remains a valid intermediate height."
+    },
+    {
+      "slug": "gale-twister",
+      "decision": "skip_near_endpoint_duplicate",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/recovery-triptychs/gale-twister-11.jpg"
+      ],
+      "note": "Middle retains effectively the key11 gathered-hand silhouette with only a very small finger/hand-height change. It adds little readable recovery; exact original set is sufficient. Palette, foot contact and body are otherwise consistent.",
+      "sourcePath": "/workspace/generated_images/exec-70c7c4b0-e565-4fd9-8d38-034d948a507c.png",
+      "scope": "Static original-key11 / registered-new-middle / original-key0 quality comparison, not runtime playback or commercial PASS."
+    },
+    {
+      "slug": "elite-01-cobalt-impact",
+      "decision": "accept_candidate",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/recovery-triptychs/elite-01-cobalt-impact-11.jpg"
+      ],
+      "note": "Right forearm and open hand rise toward the left glove, at a readable intermediate height. Blue hair/white pants and skin palette match; both foot contacts are stable; no background or body-size pop established.",
+      "sourcePath": "/workspace/generated_images/exec-34826310-a4a0-4e8f-baf4-8778a6494486.png",
+      "scope": "Static original-key11 / registered-new-middle / original-key0 quality comparison, not runtime playback or commercial PASS.",
+      "finalRegistrationRechecked": true,
+      "finalNormalization": {
+        "scale": 0.3448773448773449,
+        "translation": [
+          -6.898268398268414,
+          0.4819624819624835
+        ]
+      },
+      "finalTriptychSHA256": "68c612021c371d8bedce4c1140e3abe898e7ea0174776fa73b882060a867a803",
+      "finalRegistrationNote": "Actually viewed the regenerated bounds-center/bottom whole-batch triptych. No clipping; no new substantive foot/palette/body defect against original endpoints. Empty hand remains a valid intermediate height."
+    },
+    {
+      "slug": "vulcan-blaze",
+      "decision": "skip_near_endpoint_duplicate",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/recovery-triptychs/vulcan-blaze-11.jpg"
+      ],
+      "note": "Middle is very close to the key11 bent-elbow/fist pose; it gives little additional motion before the original hand-gathered set. Do not add a new drawing solely to increase count. No background or palette failure observed.",
+      "sourcePath": "/workspace/generated_images/exec-83f7107f-509e-4d3d-81be-ae819a7035ef.png",
+      "scope": "Static original-key11 / registered-new-middle / original-key0 quality comparison, not runtime playback or commercial PASS."
+    },
+    {
+      "slug": "copper-sirocco",
+      "decision": "accept_candidate",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/recovery-triptychs/copper-sirocco-11.jpg"
+      ],
+      "note": "Right hand rises from side to belt in front of the abdomen before gathering at glove. Foot contact is maintained; curl mass, purple/gold jersey, shorts and skin palette remain consistent. Slight stance closure is compatible with the original set.",
+      "sourcePath": "/workspace/generated_images/exec-6b4ba8e5-c251-4b4c-ad74-f553cf6a288e.png",
+      "scope": "Static original-key11 / registered-new-middle / original-key0 quality comparison, not runtime playback or commercial PASS.",
+      "finalRegistrationRechecked": true,
+      "finalNormalization": {
+        "scale": 0.3289665211062591,
+        "translation": [
+          -0.7903930131004415,
+          5.446870451237231
+        ]
+      },
+      "finalTriptychSHA256": "016e9c7d9705fc4f33c47cbfab2673a4e4a18f70a8d38b87b59f32bf3bb92da6",
+      "finalRegistrationNote": "Actually viewed the regenerated bounds-center/bottom whole-batch triptych. No clipping; no new substantive foot/palette/body defect against original endpoints. Empty hand remains a valid intermediate height."
+    },
+    {
+      "slug": "tide-vesper",
+      "decision": "accept_candidate",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/recovery-triptychs/tide-vesper-11.jpg"
+      ],
+      "note": "Right hand rises from thigh to waist, clearly between endpoints. Both feet remain at established stance contacts; navy/gold palette, braid volume and body proportions stay consistent. No opaque background.",
+      "sourcePath": "/workspace/generated_images/exec-97b9403a-4370-456d-8fae-9f32ab31fc97.png",
+      "scope": "Static original-key11 / registered-new-middle / original-key0 quality comparison, not runtime playback or commercial PASS.",
+      "finalRegistrationRechecked": true,
+      "finalNormalization": {
+        "scale": 0.33925925925925926,
+        "translation": [
+          3.86666666666666,
+          1.857777777777784
+        ]
+      },
+      "finalTriptychSHA256": "7ab0d2f9e1f31bc8ce8b7ad685ecfb7153c716b0d03f49becb361897ee8f63ab",
+      "finalRegistrationNote": "Actually viewed the regenerated bounds-center/bottom whole-batch triptych. No clipping; no new substantive foot/palette/body defect against original endpoints. Empty hand remains a valid intermediate height."
+    },
+    {
+      "slug": "boss-01-emerald-tyrant",
+      "decision": "accept_candidate",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/recovery-triptychs/boss-01-emerald-tyrant-11.jpg",
+        "/workspace/generated_images/exec-db9c011e-85bd-4510-8b1d-a362ec66d131.png",
+        "/workspace/9zone-roster-finish-20261107/review-a/boss-01-emerald-tyrant-recovery-corrected-check.jpg"
+      ],
+      "note": "Current middle is translated into the left edge by wrong-foot registration. Raw and corrected whole-batch check show valid empty-hand lift to abdomen/lower glove, between side-hanging key11 and gathered set. Cape, body proportions, green/gold palette and shoe contacts remain consistent.",
+      "sourcePath": "/workspace/generated_images/exec-db9c011e-85bd-4510-8b1d-a362ec66d131.png",
+      "scope": "Static original-key11 / registered-new-middle / original-key0 quality comparison, not runtime playback or commercial PASS.",
+      "registrationFix": {
+        "slug": "boss-01-emerald-tyrant",
+        "scale": 0.3477633477633478,
+        "translation": [
+          -5.694083694083702,
+          1.82683982683983
+        ],
+        "path": "/workspace/9zone-roster-finish-20261107/review-a/boss-01-emerald-tyrant-recovery-corrected-check.jpg"
+      },
+      "registrationCause": "foot() selects different left/right shoe in original versus generated reference because their lowest soles differ. Horizontal bbox-center whole-batch translation avoids the cross-foot anchor switch; no limb warp is needed.",
+      "finalRegistrationRechecked": true,
+      "finalNormalization": {
+        "scale": 0.3477633477633478,
+        "translation": [
+          -5.694083694083702,
+          1.1746031746031633
+        ]
+      },
+      "finalTriptychSHA256": "79ec47fe7ade7e26d20f08b8f3ce1325edfad5c4daeb47b363cf0fc9a454242c",
+      "finalRegistrationNote": "Actually viewed the regenerated bounds-center/bottom whole-batch triptych. No clipping; no new substantive foot/palette/body defect against original endpoints. Empty hand remains a valid intermediate height.",
+      "previousRegistrationIssueResolved": true
+    },
+    {
+      "slug": "boss-02-platinum-halo",
+      "decision": "accept_candidate",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/recovery-triptychs/boss-02-platinum-halo-11.jpg"
+      ],
+      "note": "Right hand lifts from hanging beside thigh to lower abdomen before gathered set. White/gold/navy palette and silver braid remain stable; feet are grounded. No conspicuous body-size or background defect.",
+      "sourcePath": "/workspace/generated_images/exec-853b5cac-13e1-48c0-90d1-3889acdfdb73.png",
+      "scope": "Static original-key11 / registered-new-middle / original-key0 quality comparison, not runtime playback or commercial PASS.",
+      "finalRegistrationRechecked": true,
+      "finalNormalization": {
+        "scale": 0.3392070484581498,
+        "translation": [
+          -2.2378854625550844,
+          1.5198237885462333
+        ]
+      },
+      "finalTriptychSHA256": "2fe4ff3350b28ec80dc1a1e8cc9a0f154ac17a770a7fe579c4646e9fb7dbab8b",
+      "finalRegistrationNote": "Actually viewed the regenerated bounds-center/bottom whole-batch triptych. No clipping; no new substantive foot/palette/body defect against original endpoints. Empty hand remains a valid intermediate height."
+    },
+    {
+      "slug": "boss-03-black-eclipse",
+      "decision": "accept_candidate",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/recovery-triptychs/boss-03-black-eclipse-11.jpg",
+        "/workspace/generated_images/exec-f553888a-bfac-4bcd-8889-a4c29345fdfc.png",
+        "/workspace/9zone-roster-finish-20261107/review-a/boss-03-black-eclipse-recovery-corrected-check.jpg"
+      ],
+      "note": "Current middle has left shoe/side clipped from wrong-foot registration. Raw and corrected whole-batch check show right hand raised from lower glove to chest, between endpoints. Burgundy/black palette, ponytail, torso and shoes are stable enough against originals.",
+      "sourcePath": "/workspace/generated_images/exec-f553888a-bfac-4bcd-8889-a4c29345fdfc.png",
+      "scope": "Static original-key11 / registered-new-middle / original-key0 quality comparison, not runtime playback or commercial PASS.",
+      "registrationFix": {
+        "slug": "boss-03-black-eclipse",
+        "scale": 0.35259259259259257,
+        "translation": [
+          -11.372592592592582,
+          2.5955555555555634
+        ],
+        "path": "/workspace/9zone-roster-finish-20261107/review-a/boss-03-black-eclipse-recovery-corrected-check.jpg"
+      },
+      "registrationCause": "foot() selects different left/right shoe in original versus generated reference because their lowest soles differ. Horizontal bbox-center whole-batch translation avoids the cross-foot anchor switch; no limb warp is needed.",
+      "finalRegistrationRechecked": true,
+      "finalNormalization": {
+        "scale": 0.35259259259259257,
+        "translation": [
+          -11.372592592592582,
+          1.9481481481481637
+        ]
+      },
+      "finalTriptychSHA256": "60276bfd0c08812a7c6fa55d70c3e0500c085588b9af1731d1a928cbb220e3d9",
+      "finalRegistrationNote": "Actually viewed the regenerated bounds-center/bottom whole-batch triptych. No clipping; no new substantive foot/palette/body defect against original endpoints. Empty hand remains a valid intermediate height.",
+      "previousRegistrationIssueResolved": true
+    },
+    {
+      "slug": "onyx-eclipse",
+      "decision": "accept_candidate",
+      "actuallyViewed": [
+        "/workspace/9zone-roster-finish-20261107/recovery-triptychs/onyx-eclipse-11.jpg"
+      ],
+      "note": "Right hand rises from side to abdomen, then original set gathers it at chest. Black/gold/purple palette and hair mass remain consistent, feet retain the established stance. No opaque background or clear body-size pop.",
+      "sourcePath": "/workspace/generated_images/exec-c8b02857-e010-4f4e-b761-ef124bd135fb.png",
+      "scope": "Static original-key11 / registered-new-middle / original-key0 quality comparison, not runtime playback or commercial PASS.",
+      "finalRegistrationRechecked": true,
+      "finalNormalization": {
+        "scale": 0.34984984984984985,
+        "translation": [
+          -12.713963963963977,
+          2.3528528528528625
+        ]
+      },
+      "finalTriptychSHA256": "e3fe43d2a7f5ce5543acc0da30549acd1583234798b76d4487d3944e2cb1875b",
+      "finalRegistrationNote": "Actually viewed the regenerated bounds-center/bottom whole-batch triptych. No clipping; no new substantive foot/palette/body defect against original endpoints. Empty hand remains a valid intermediate height."
+    }
+  ],
+  "codeReview": {
+    "files": [
+      "scripts/build-pitcher-inbetweens.py",
+      "src/duel/battle-vnext/roster-actor.js",
+      "tests/interstitial-runtime.test.js"
+    ],
+    "majorFindings": [],
+    "reviewedContract": [
+      "recoveryDrawings explicitly enumerates original key11, optional authored middle, ready0",
+      "live recovery samples this ordered sequence instead of interpolating descending numeric indices",
+      "source 120-tick final key run uses the ordered sequence; live recovery divides its existing final phase independently",
+      "release and landing index contracts and original pixel hashes remain checked",
+      "new registration applies one scale/translation per source batch with nearest-neighbor option"
+    ],
+    "testsExecutedByReviewer": false,
+    "limit": "Static code review; root runs runtime/build/regression checks."
+  }
+}

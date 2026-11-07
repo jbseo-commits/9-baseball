@@ -79,7 +79,7 @@ describe('approved grounded pitcher drawings in actual runtime renderers',()=>{
    expect(motionAt({elapsed:t.impactAt-1,timeline:t,action:'swing'}).batter).toBe(7);
    const atContact=rosterFrame(play,t.impactAt,actor);
    for(const dt of [1,30,80,94])expect(rosterFrame(play,t.impactAt+dt,actor)).toBe(atContact);
-   expect(rosterFrame(play,t.duration-1,actor)).toBe(reg[id].keyDrawings[11]);
+   expect(rosterFrame(play,t.duration-1,actor)).toBe(0);
   }
  });
  it('scales the reviewed anatomical pivot, hand and landing together, including left-handed Onyx',()=>{
