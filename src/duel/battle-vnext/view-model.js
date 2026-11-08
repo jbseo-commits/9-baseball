@@ -103,14 +103,23 @@ export function publicForecast(f){
 export function buildBattleViewModel({
   s,hand=[],selected=null,swingStack=[],choice=null,
   armed=null,supportMode=false,commitBeat=null,inspectOpen=false,hoverZone=null,hoverSkill=null,lastSwing=null,
-  locked=false,fxStage=null,shot=null,playToken=0,nextLabel='',hasNext=false,artId=null,defenseLab=null,
+  locked=false,fxStage=null,shot=null,playToken=0,nextLabel='',hasNext=false,artId=null,defenseLab=null,execution=null,piles=null,
 }={}){
   const b=s?.battle;
   const phase=battlePhase({s,fxStage,commitBeat:!!commitBeat,locked});
   if(!b)return {phase,input:emptyInput(),energy:null,hand:[],zones:null,forecast:null,hud:null,result:null,scene:null,effects:[]};
   const deciding=phase==='deciding',judged=phase==='flight'||phase==='result',landed=phase==='result';
-  const r=judged?b.revealed:null;
-  const pitcher=selectV10Pitcher(s),combat=selectV10Combat(s),pre=phase==='flight';
+  const r=judged?b.revealed:null,pre=phase==='flight';
+  const executionMatches=execution?.pitch===s.stats?.pitches&&execution?.nodeId===s.runMap?.currentNodeId;
+  const handSnapshot=pre&&executionMatches?execution?.handSnapshot:null;
+  const handKnown=!pre||!!handSnapshot;
+  const displayHand=pre
+    ?(handSnapshot?.cards||[]).map(x=>({id:x.id,entry:{kind:x.kind,plus:x.plus},preview:{coverage:x.coverage},presentation:x}))
+    :hand;
+  const displayPiles=pre
+    ?(handSnapshot?.piles||{draw:'—',discard:'—'})
+    :(piles||{draw:b.draw?.length??'—',discard:b.discard?.length??'—'});
+  const pitcher=selectV10Pitcher(s),combat=selectV10Combat(s);
   const hpBefore=judged?Math.min(pitcher?.maxHp||0,Number.isInteger(combat?.hpBefore)?combat.hpBefore:(pitcher?.hp||0)+(pitcher?.lastDamage||0)):pitcher?.hp;
   // Derived public fields must use the same snapshot as visible HP and count.
   // Clone only presentation inputs; never mutate state or consult pending rolls.
@@ -141,14 +150,15 @@ export function buildBattleViewModel({
     :`에너지 ${Math.max(0,stackCost+Math.min(...supportCandidates.map(x=>cardCost(x.entry)))-energyLimit)} 부족`;
   const takeDraw=v10TakeDrawPreview(s);
   const drawHint=takeDraw.count===1?'카드+1':takeDraw.reason==='full'?'6장 한도':'추가 0';
+  const nextEnergyAction=landed&&hasNext&&['pitch','between'].includes(s.phase);
   const energy=s.version===10?{
     current:energyNow,cap:v10EnergyCap(s),base:v10EnergyBase(s),
     selectedCost,armedCost,
     remainingIfExecuted:Math.max(0,energyNow-selectedCost),
     shortfall:Math.max(0,selectedCost-energyNow),
     nextTakeHint:shownCount.strikes===2?'스트라이크면 삼진'+(defenseLab?' · 보호 제외':''):`다음 공 ⚡+1`,
-    upcoming:s.phase!=='battle'&&b.takeEnergyBonus===1?`${s.phase==='between'?'다음 타자':'다음 공'} ${v10NextEnergyMax(s)} · ${drawHint}`:'',
-    refill:s.phase!=='battle'&&b.takeEnergyBonus!==1?`다음 공에 ${v10EnergyBase(s)} 충전`:'',
+    upcoming:nextEnergyAction&&b.takeEnergyBonus===1?`${s.phase==='between'?'다음 타자':'다음 공'} ${v10NextEnergyMax(s)} · ${drawHint}`:'',
+    refill:nextEnergyAction&&b.takeEnergyBonus!==1?`다음 ${s.phase==='between'?'타자':'공'}에 ${v10EnergyBase(s)} 충전`:'',
   }:null;
 
   /* ── 단일 행동 ── */
@@ -158,23 +168,23 @@ export function buildBattleViewModel({
   if(phase==='committing'&&fxStage&&s.last?.kind==='skill'){input.actionLabel='준비 중…';input.ariaLabel='준비 효과 적용 중';}
 
   /* ── 손패: 기본 스윙 칩 → 스윙 카드 → 준비 카드 (기존 순서) ── */
-  const prepLeft=Math.max(0,v10PrepMax(s)-(b.preparations||0));
+  const prepLeft=pre?(handSnapshot?handSnapshot.prepLeft:null):Math.max(0,v10PrepMax(s)-(b.preparations||0));
   const roleOf=id=>selected===id?'main':stack.some(x=>x.id===id)?'support':liveArmed===id?'armed':null;
   const orderOf=id=>selected===id?1:stack.findIndex(x=>x.id===id)>=0?stack.findIndex(x=>x.id===id)+2:null;
   const handView=[{id:'basic',kind:'basic',plus:false,name:'맨손 스윙',type:'basic',cost:0,artKey:'basic',
-    coverage:b.aimZone!=null?[b.aimZone]:[],role:'단타',summary:'카드 소모 없음',condition:'',drawNote:'',warning:'',problem:null,
+    coverage:pre?(handSnapshot?.basicCoverage||[]):b.aimZone!=null?[b.aimZone]:[],role:'단타',summary:'카드 소모 없음',condition:'',drawNote:'',warning:'',problem:null,
     selectionRole:roleOf('basic'),order:orderOf('basic'),disabled:!input.canSelect,unavailable:false}];
-  for(const x of hand){
+  for(const x of displayHand){
     const def=CARDS[x.entry?.kind];if(!def)continue;
     const kind=x.entry.kind,isPrep=def.type==='skill',cost=cardCost(x.entry);
     const problem=deciding?x.preview?.problem||null:null;
-    const face=cardFaceOf(x.entry,{strikes:shownCount.strikes,drawPreview:preparationDrawPreview(s,x.id)});
+    const face=pre&&x.presentation?x.presentation.face:cardFaceOf(x.entry,{strikes:shownCount.strikes,drawPreview:preparationDrawPreview(s,x.id)});
     const supportCandidate=(supportMode||!!liveArmed)&&canStack&&!mainIsSkill&&selected!==x.id&&!stack.some(y=>y.id===x.id)&&!isBuntKind(kind)&&!isPrep;
     const overBudget=deciding&&supportCandidate&&stackCost+cost>energyLimit;
     const exhausted=isPrep&&!prepLeft;
-    const warning=shortCardProblem(problem)||(exhausted?'준비 횟수 소진':'');
+    const warning=pre&&x.presentation?x.presentation.warning:shortCardProblem(problem)||(exhausted?'준비 횟수 소진':'');
     handView.push({id:x.id,kind,plus:!!x.entry.plus,name:def.name+(x.entry.plus?'+':''),type:isPrep?'prepare':'swing',cost,artKey:kind,
-      coverage:isPrep?null:[...(x.preview?.coverage||cardCoverage(s,x.id))],role:def.role||(isPrep?'준비':'정확'),
+      coverage:isPrep?null:[...(pre&&x.presentation?(x.presentation.coverage||[]):x.preview?.coverage||cardCoverage(s,x.id))],role:def.role||(isPrep?'준비':'정확'),
       summary:face.summary,condition:face.condition,drawNote:face.drawNote||'',warning,problem,overBudget,
       selectionRole:roleOf(x.id),order:orderOf(x.id),disabled:!input.canSelect,unavailable:!!problem||exhausted});
   }
@@ -249,7 +259,7 @@ export function buildBattleViewModel({
     pitchZone:landed?r.zone:null,knockedOut:landed&&(pitcher?.hp??1)===0,motionEnabled:false};
   /* 준비 유지 효과: 선택 중, 그리고 같은 타자의 다음 공을 기다리는 동안 (BallparkBattle prepEffects와 같다) */
   const effects=deciding||(landed&&!fxStage&&!locked&&s.phase==='pitch')?activePreparationFeedback(b,s.phase):[];
-  return {phase,input,selection:{canClear:input.canSelect&&!!selected,canStack:input.canSelect&&canStack,canAddSupport:input.canSelect&&canAddSupport,supportBlockReason,supportMode:!!(supportMode||liveArmed)},energy,hand:ordered,zones,forecast,hud,result,scene,effects};
+  return {phase,input,selection:{canClear:input.canSelect&&!!selected,canStack:input.canSelect&&canStack,canAddSupport:input.canSelect&&canAddSupport,supportBlockReason,supportMode:!!(supportMode||liveArmed)},energy,hand:ordered,handKnown,handCount:handKnown?ordered.filter(x=>x.type!=='basic').length:null,prepLeft,piles:displayPiles,zones,forecast,hud,result,scene,effects};
 }
 
 function countShown(b,r,landed){

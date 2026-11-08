@@ -1,4 +1,22 @@
 import {CARDS} from './cards.js';
+import {coverage,v10PrepMax} from './engine.js';
+import {cardFaceOf} from './card-face.js';
+import {preparationDrawPreview} from './preparation-feedback.js';
+
+function capturePublicHand(state){
+  const b=state?.battle;if(!b)return null;
+  const prepLeft=Math.max(0,v10PrepMax(state)-(b.preparations||0));
+  const cards=(b.hand||[]).flatMap(id=>{
+    const entry=state.deck?.find(x=>x.id===id),def=CARDS[entry?.kind];
+    if(!entry||!def)return [];
+    const face=cardFaceOf(entry,{strikes:b.strikes,drawPreview:preparationDrawPreview(state,id)});
+    return [{id,kind:entry.kind,plus:!!entry.plus,face:{summary:face.summary,condition:face.condition,
+      axis:face.axis,drawNote:face.drawNote||''},coverage:def.type==='skill'?null:coverage(state,id),
+      warning:def.type==='skill'&&!prepLeft?'준비 횟수 소진':''}];
+  });
+  if(cards.length!==(b.hand||[]).length)return null;
+  return {cards,prepLeft,basicCoverage:b.aimZone==null?[]:[b.aimZone],piles:{draw:b.draw?.length??null,discard:b.discard?.length??null}};
+}
 
 /* Called only after the engine accepts an action, with the still-intact BEFORE
    hand. UI selection is cleared after this. No saved data or engine mutation. */
@@ -12,6 +30,7 @@ export function captureExecution(before,next,{selected=null}={}){
     return [{id,kind:entry.kind,name:(CARDS[entry.kind]?.name||'카드')+(entry.plus?'+':''),role:id===selected?'main':'support'}];
   });
   return {pitch:next.stats?.pitches||0,nodeId:next.runMap?.currentNodeId,action,cards,
+    handSnapshot:action==='prepare'?null:capturePublicHand(before),
     preparation:prep?{name:cards[0]?.name||'준비',detail:next.last.events?.[0]||next.last.text||'준비 효과 적용'}:null};
 }
 

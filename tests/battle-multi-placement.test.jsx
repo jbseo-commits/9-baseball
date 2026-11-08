@@ -64,15 +64,17 @@ it('add card opens the real hand in support mode; tap placement works for the se
  fireEvent.click(screen.getByRole('button',{name:'+ 카드 추가'}));tap(cards[2]);fireEvent.click(zone(8));
  expect(main()).toBe(id);expect(board().map(p=>p.aim)).toEqual([0,4,8]);expect(screen.getByTestId('bv-stack-tray').dataset.totalCost).toBe('3');
 });
-it('assembles inside the existing commit beat, then consumes all three cards once using the actual engine result',()=>{
+it('consumes three cards once at commit while keeping the locked hand visible until impact',()=>{
  const f=buildFixture('stack-three-ready'),ids=f.hand.filter(c=>c.entry.kind==='place').map(c=>c.id);
  const aimed=setAimZone(f.s,0),expected=playV10Action(aimed,{type:'card',id:ids[0],supports:[{id:ids[1],aimZone:4},{id:ids[2],aimZone:8}]});
  render(<IntegrationPreview fixture="stack-three-ready"/>);attacks().forEach((c,i)=>drop(c,i*4));fireEvent.click(screen.getByTestId('bp-swing'));fireEvent.click(screen.getByTestId('bp-swing'));
  expect(document.querySelector('.battle-vnext').dataset.phase).toBe('committing');expect(document.querySelector('.bv-stack-board.is-assembling')).not.toBeNull();expect(screen.queryByTestId('bv-coverage-insert')).toBeNull();
  act(()=>vi.advanceTimersByTime(STACK_COMMIT_MS-1));expect(document.querySelector('.bv-scene').dataset.playToken).toBe('1');
- act(()=>vi.advanceTimersByTime(1));expect(document.querySelector('.bv-scene').dataset.playToken).toBe(String(expected.stats.pitches));expect(attacks()).toHaveLength(0);
+ act(()=>vi.advanceTimersByTime(1));expect(document.querySelector('.bv-scene').dataset.playToken).toBe(String(expected.stats.pitches));
+ expect(document.querySelector('.battle-vnext').dataset.phase).toBe('flight');expect(attacks()).toHaveLength(3);expect(attacks().every(card=>card.disabled)).toBe(true);
  expect(screen.getByTestId('bv-energy').dataset.energy).toBe(String(expected.battle.energy));
- act(()=>vi.advanceTimersByTime(2200));expect(document.querySelector('.bv-hud-opponent').getAttribute('aria-label')).toContain(`${expected.pitcher.hp} / ${expected.pitcher.maxHp}`);
+ act(()=>vi.advanceTimersByTime(2200));expect(document.querySelector('.battle-vnext').dataset.phase).toBe('result');expect(attacks()).toHaveLength(0);
+ expect(document.querySelector('.bv-hud-opponent').getAttribute('aria-label')).toContain(`${expected.pitcher.hp} / ${expected.pitcher.maxHp}`);
 });
 it('watch cancels a three-card plan without spending it and duplicate mixed clicks cannot throw twice',()=>{
  render(<IntegrationPreview fixture="stack-three-ready"/>);attacks().forEach((c,i)=>drop(c,i*4));fireEvent.click(screen.getByTestId('bp-other-action'));fireEvent.click(screen.getByTestId('bp-swing'));
