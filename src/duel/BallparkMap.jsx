@@ -2,11 +2,11 @@ import React,{useEffect,useLayoutEffect,useMemo,useRef,useState} from 'react';
 import {hpTicks} from './ballpark-copy.js';
 import stadium from '../../assets/duel/stadium.png';
 import mapIslandCity from '../../assets/production-art/mockup-world-v15/map-island-city.png';
-import mapNodeBattle from '../../assets/production-art/mockup-world-v15/map-node-battle.png';
-import mapNodeSelectedStadium from '../../assets/production-art/mockup-world-v15/map-node-selected-stadium.png';
-import mapNodeElite from '../../assets/production-art/mockup-world-v15/map-node-elite.png';
 import {landscapeMedia} from './layout-mode.js';
+import {battleUiMode} from './battle-ui-mode.js';
+import {JourneyBurst,useMenuFeedback} from './JourneyJuice.jsx';
 import './ballpark.css';
+import './map-journey.css';
 
 /* V13 BALLPARK BP-3 — the run map (docs/design/v13/BALLPARK.md).
    One act at a time. Pitchers are black silhouettes, the places you can go now glow, a tap shows
@@ -31,13 +31,17 @@ const GLYPH={
 const Glyph=({type})=><span className="bp-mglyph" aria-hidden="true">{(GLYPH[type]||GLYPH.rest).join('').split('').map((c,i)=><i key={i} className={c==='#'?'on':''}/>)}</span>;
 
 function useLandscape(){
-  const [on,setOn]=useState(()=>landscapeMedia().matches);
-  useEffect(()=>{const m=landscapeMedia();if(!m)return;const f=()=>setOn(m.matches);m.addEventListener?.('change',f);return()=>m.removeEventListener?.('change',f);},[]);
+  // The old portrait sidecars stay disabled. Only this map follows the current
+  // landscape game's viewport; changing layout-mode globally breaks other stops.
+  const media=()=>battleUiMode().vnext&&window.matchMedia?window.matchMedia('(orientation: landscape)'):landscapeMedia();
+  const [on,setOn]=useState(()=>media().matches);
+  useEffect(()=>{const m=media();const f=()=>setOn(m.matches);f();m.addEventListener?.('change',f);return()=>m.removeEventListener?.('change',f);},[]);
   return on;
 }
 
-export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reachableIds=[],completedIds=[],deckCount=0,relicCount=0,runOuts=0,portraits={},figures={},onEnter,onInspect}){
+export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reachableIds=[],completedIds=[],deckCount=0,relicCount=0,runOuts=0,portraits={},figures={},onEnter,onInspect,sound=false}){
   const wide=useLandscape();
+  const feedback=useMenuFeedback(sound),entering=useRef(false);
   const reach=useMemo(()=>new Set(reachableIds),[reachableIds]),done=useMemo(()=>new Set(completedIds),[completedIds]);
   const byId=useMemo(()=>new Map(nodes.map(n=>[n.id,n])),[nodes]);
   const act=byId.get(reachableIds[0])?.act??byId.get(currentNodeId)?.act??nodes[0]?.act??1;
@@ -54,6 +58,14 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
     const ro=new ResizeObserver(set);ro.observe(el);return ()=>ro.disconnect();
   },[]);
   const chosen=byId.get(pick)||byId.get(reachableIds[0])||here[0];
+  const choose=id=>{if(chosen?.id!==id){setPick(id);feedback('lock');}};
+  const enter=id=>{
+    if(entering.current||!reach.has(id))return;
+    entering.current=true;
+    try{if(onEnter?.(id)===false)entering.current=false;}
+    catch(error){entering.current=false;throw error;}
+  };
+  useEffect(()=>{entering.current=false;},[currentNodeId,reachableIds.join()]);
   /* route preview: every place and line the chosen node can still lead to inside this act */
   const ahead=useMemo(()=>{
     const out=new Set(),lines=new Set();if(!chosen)return {out,lines};
@@ -78,7 +90,7 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
     const fight=FIGHTS.has(d.type),o=d.opponent,art=o&&portraits[o.artId],can=reach.has(d.id);
     return <>
       <div className="bp-mpor">{art?<button type="button" className="bp-mpor-btn" aria-label={o.name+' 초상 크게 보기'} onClick={e=>onInspect?.(o,e)}><img alt="" src={art}/></button>:<Glyph type={d.type}/>}</div>
-      <div className="bp-minfo">
+      <div key={'info-'+d.id} className="bp-minfo">
         <span className="bp-mtag">{TAG[d.type]||d.name}</span>
         <strong className="bp-mname">{fight?o?.name:TAG[d.type]||d.name}</strong>
         <em className="bp-mline">{fight?HABIT[o?.archetypeKey]||o?.archetype:PLACE[d.type]||d.reward}</em>
@@ -89,30 +101,33 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
         {fight&&<span className="bp-mrw">{d.type==='boss'&&d.act===3?'이기면 런 완주':REWARD[d.type]}</span>}
         {d.type!=='boss'&&!done.has(d.id)&&<span className="bp-mahead" data-testid="bp-map-ahead">{aheadCount.length?<><b>이 길 너머</b>{aheadCount.map(([t,label,n])=><i key={t} className={'t-'+t}>{label} {n}</i>)}</>:<b>이 길 너머 · 곧장 막 보스</b>}</span>}
       </div>
-      <button type="button" className="bp-mgo" data-testid="bp-map-go" disabled={!can} onClick={()=>onEnter?.(d.id)}>{!can?(done.has(d.id)?'지나온 곳':'아직 길이 없다'):fight?'이 구장으로 간다':'들른다'}</button>
+      <button type="button" className="bp-mgo" data-testid="bp-map-go" disabled={!can} onClick={()=>enter(d.id)}>{!can?(done.has(d.id)?'지나온 곳':'아직 길이 없다'):fight?'이 구장으로 간다':'들른다'}</button>
     </>;
   };
 
-  return <main ref={mapRef} className={'bp-map'+(wide?' wide':'')} aria-label="원정 지도">
+  return <main ref={mapRef} className={'bp-map journey-map'+(wide?' wide':'')} aria-label="원정 지도">
     <div className="bp-bar"><span>{act}막</span><span>덱 <b>{deckCount}</b>{relicCount?<> · 유물 <b>{relicCount}</b></>:null}{runOuts?<> · 아웃 <b data-testid="bp-map-outs">{runOuts}/2</b></>:null}</span></div>
     <div className="bp-mbody">
       <div className="bp-mleft">
         <header className="bp-mhead" style={{'--bp-sky':`url(${stadium})`}}>
           <h1>{first?'어느 마운드부터 무너뜨릴까.':'다음 마운드.'}</h1>
         </header>
+        <div className="bp-route-scroll" role={wide?'region':undefined} tabIndex={wide?0:undefined} aria-label={wide?'경로 지도 · 좌우로 스크롤':undefined}>
         <div ref={routeRef} className={'bp-route'+(chosen?' previewing':'')} style={{'--bp-map-bg':`url(${mapIslandCity})`,'--bp-rows':rows}}>
-          <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <svg key={chosen?.id} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
             {edges.filter(e=>byId.get(e.from)?.act===act&&byId.get(e.to)?.act===act).map(e=>{const a=pos(byId.get(e.from)),c=pos(byId.get(e.to));
               const live=(done.has(e.from)||e.from===currentNodeId)&&reach.has(e.to),on=ahead.lines.has(e.from+'>'+e.to);
-              return <line key={e.from+e.to} className={(live?'live':'')+(on?' ahead':'')} x1={a.x} y1={a.y} x2={c.x} y2={c.y}/>;})}
+              return <line key={e.from+e.to} style={{'--route-delay':Math.max(0,(byId.get(e.from)?.row||0)-(chosen?.row||0))*65+'ms'}} className={(live?'live':'')+(on?' ahead':'')} x1={a.x} y1={a.y} x2={c.x} y2={c.y}/>;})}
           </svg>
           {here.map(n=>{const p=pos(n),o=n.opponent,art=o&&(figures[o.artId]||portraits[o.artId]);
             return <button key={n.id} type="button" className={'bp-node '+n.type+(reach.has(n.id)?' reach':'')+(done.has(n.id)?' done':'')+(chosen?.id===n.id?' sel':'')+(ahead.out.has(n.id)?' ahead':'')}
               style={{left:p.x+'%',top:p.y+'%'}} aria-label={(TAG[n.type]||n.name)+(o?' '+o.name:'')+(reach.has(n.id)?' · 갈 수 있음':'')} aria-pressed={chosen?.id===n.id}
-              data-node={n.id} data-gm={o?.gimmick?.id} onClick={()=>setPick(n.id)}>
-              {FIGHTS.has(n.type)&&art?<img className="bp-fig" alt="" src={art}/>:<Glyph type={n.type}/>}
+              data-node={n.id} data-gm={o?.gimmick?.id} onClick={()=>choose(n.id)}>
+              {FIGHTS.has(n.type)&&art?<img className={'bp-fig'+(wide&&(reach.has(n.id)||chosen?.id===n.id)&&portraits[o.artId]?' bp-node-portrait':'')} alt="" src={wide&&(reach.has(n.id)||chosen?.id===n.id)&&portraits[o.artId]||art}/>:<Glyph type={n.type}/>}
+              {pick===n.id&&<JourneyBurst key={pick}/>}
               <em>{o?o.name:TAG[n.type]||n.name}</em>
             </button>;})}
+        </div>
         </div>
         {!!later.length&&<p className="bp-acts">{later.map(l=><span key={l.k}>{l.k}막 · 투수 HP {l.lo}~{l.hi}</span>)}</p>}
       </div>

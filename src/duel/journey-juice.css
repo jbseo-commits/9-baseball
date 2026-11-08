@@ -1,0 +1,25 @@
+/* Menu/journey presentation only. No body, combat layout or game clocks. */
+.journey-burst{position:absolute;display:block;width:96px;aspect-ratio:var(--j-ratio,1);pointer-events:none;background-repeat:no-repeat;background-size:calc(var(--j-frames) * 100%) 100%;image-rendering:pixelated;animation:journey-atlas var(--j-time) steps(var(--j-steps)) both}
+@keyframes journey-atlas{from{background-position:0% 0}to{background-position:100% 0}}
+.title-screen .ts-item .journey-burst{width:94px;left:-27px;top:50%;margin-top:-47px}
+.title-screen .ts-item:focus-visible b{color:#ffe3a0}
+.sp-pack .journey-burst{width:110px;right:-35px;top:-37px;z-index:5}
+.sp-pack.on .sp-check{animation:journey-check .38s cubic-bezier(.18,.9,.28,1.4) both}
+@keyframes journey-check{0%{transform:scale(.5)}55%{transform:scale(1.2)}100%{transform:scale(1)}}
+.journey-arrival{position:fixed;inset:0;z-index:58;display:grid;align-items:center;pointer-events:none;overflow:hidden}
+.journey-arrival-scene{position:relative;height:clamp(110px,34dvh,260px);background:#0b101e center 55%/cover;border-block:1px solid #dba34b;box-shadow:0 14px 40px #0008;animation:journey-arrive .76s cubic-bezier(.16,.8,.24,1) both;overflow:hidden}
+.journey-arrival-scene::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#090e1ee8 10%,#090e1e77 65%,#090e1e20)}
+.journey-arrival-copy{position:absolute;left:8%;top:50%;z-index:2;transform:translateY(-50%);display:grid;gap:8px;color:#fff3d4;text-shadow:0 2px 4px #000}
+.journey-arrival-copy small{font:700 12px/1.2 "Noto Sans KR",sans-serif;color:#ffc861;letter-spacing:.12em}
+.journey-arrival-copy strong{font:400 clamp(25px,5dvh,48px)/1.15 "Black Han Sans",sans-serif}
+.journey-arrival-actor{position:absolute;height:220%;right:8%;top:0;max-width:none;filter:drop-shadow(-10px 0 20px #0a1020)}
+.journey-arrival-cards{position:absolute;height:110%;width:160px;right:12%;top:4%;perspective:600px}
+.journey-arrival-cards img{position:absolute;height:100%;width:62%;object-fit:cover;border:1px solid #f3d392;border-radius:4px;box-shadow:0 6px 14px #000a;transform-origin:50% 100%;animation:journey-deck .5s cubic-bezier(.15,.8,.3,1) var(--card-delay) both}
+@keyframes journey-deck{from{opacity:0;transform:translate(130px,30px) rotate(28deg) scale(.8)}to{opacity:1;transform:translateX(var(--card-x)) rotate(var(--card-turn))}}
+.journey-arrival .journey-burst{width:180px;left:calc(4% - 90px);top:50%;margin-top:-84px}
+@keyframes journey-arrive{0%{opacity:0;transform:translateX(8%);clip-path:inset(0 0 0 100%)}20%{opacity:1;transform:none;clip-path:inset(0)}75%{opacity:1;transform:none}100%{opacity:0;transform:translateX(-3%)}}
+@media(prefers-reduced-motion:reduce){
+ .journey-burst{display:none}
+ .journey-arrival-scene,.journey-arrival-cards img,.sp-pack.on .sp-check{animation:none}
+ .journey-arrival-cards img{transform:translateX(var(--card-x)) rotate(var(--card-turn))}
+}
