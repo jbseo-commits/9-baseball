@@ -65,6 +65,29 @@ describe('V10 start-pack pick',()=>{
     expect(document.querySelector('.sp-rule').textContent).toContain('방향 7장');
   });
 
+  it('keeps the chosen full deck available in a dedicated preview and updates it when selection changes',()=>{
+    render(<Duel/>);newGame();
+    expect(document.querySelector('.sp-deck-preview')).toBeNull();
+    const [first,second]=packs();
+    fireEvent.click(first);
+    let preview=document.querySelector('.sp-deck-preview');
+    expect(preview.getAttribute('aria-label')).toBe(`${START_PACKS.find(p=>p.id===first.dataset.pack).name} 전체 9장 구성`);
+    const expectedCards=packButton=>{
+      const p=START_PACKS.find(x=>x.id===packButton.dataset.pack),counts=new Map();
+      for(const kind of [...START_PACK_COMMON,...p.kinds])counts.set(kind,(counts.get(kind)||0)+1);
+      return [...counts].map(([kind,count])=>`${CARDS[kind]?.name||kind}${count>1?` ×${count}`:''}`);
+    };
+    const cardLabels=()=>[...preview.querySelectorAll('.sp-deck-cards>span')].map(x=>[...x.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim());
+    expect(cardLabels()).toEqual(expectedCards(first));
+    expect(preview.textContent).toContain('공통 2장 + 방향 7장');
+    fireEvent.click(second);
+    preview=document.querySelector('.sp-deck-preview');
+    expect(preview.getAttribute('aria-label')).toBe(`${START_PACKS.find(p=>p.id===second.dataset.pack).name} 전체 9장 구성`);
+    expect(cardLabels()).toEqual(expectedCards(second));
+    expect(second.getAttribute('aria-checked')).toBe('true');
+    expect(first.getAttribute('aria-checked')).toBe('false');
+  });
+
   it('overwriting a run goes through pack pick, cancelling keeps the old run',()=>{
     let s=createV10Duel(3);s=enterV10Node(s,'a1-entry');saveV10Duel(localStorage,s);
     render(<Duel/>);newGame();

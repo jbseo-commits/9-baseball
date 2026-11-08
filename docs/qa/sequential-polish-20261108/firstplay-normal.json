@@ -1,0 +1,124 @@
+{
+  "actions": [
+    {
+      "i": 0,
+      "action": {
+        "type": "card",
+        "id": "c6"
+      },
+      "phase": "battle",
+      "hp": 60,
+      "pitches": 0
+    },
+    {
+      "i": 1,
+      "action": {
+        "type": "card",
+        "id": "c1",
+        "zone": 2
+      },
+      "phase": "between",
+      "hp": 48,
+      "pitches": 1
+    },
+    {
+      "i": 2,
+      "action": {
+        "type": "card",
+        "id": "c4",
+        "zone": 4,
+        "supports": [
+          {
+            "id": "c3",
+            "aimZone": 8
+          }
+        ]
+      },
+      "phase": "between",
+      "hp": 32,
+      "pitches": 2
+    },
+    {
+      "i": 3,
+      "action": {
+        "type": "card",
+        "id": "c0",
+        "zone": 2
+      },
+      "phase": "pitch",
+      "hp": 30,
+      "pitches": 3
+    },
+    {
+      "i": 4,
+      "action": {
+        "type": "card",
+        "id": "c2",
+        "zone": 8
+      },
+      "phase": "between",
+      "hp": 9,
+      "pitches": 4
+    },
+    {
+      "i": 5,
+      "action": {
+        "type": "card",
+        "id": "c6"
+      },
+      "phase": "battle",
+      "hp": 9,
+      "pitches": 4
+    },
+    {
+      "i": 6,
+      "action": {
+        "type": "take"
+      },
+      "phase": "pitch",
+      "hp": 9,
+      "pitches": 5
+    },
+    {
+      "i": 7,
+      "action": {
+        "type": "card",
+        "id": "c2",
+        "zone": 8,
+        "supports": [
+          {
+            "id": "c3",
+            "aimZone": 5
+          }
+        ]
+      },
+      "phase": "pitch",
+      "hp": 7,
+      "pitches": 6
+    },
+    {
+      "i": 8,
+      "action": {
+        "type": "card",
+        "id": "c4",
+        "zone": 1
+      },
+      "phase": "reward",
+      "hp": 0,
+      "pitches": 7
+    }
+  ],
+  "errors": [],
+  "httpErrors": [],
+  "failedRequests": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "firstMatch": "reward",
+  "hp": 0,
+  "pitches": 7,
+  "koHold": true,
+  "resume": true,
+  "utilityId": "a1-r1l2",
+  "nextPhase": "event"
+}
