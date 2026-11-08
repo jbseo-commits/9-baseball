@@ -1,0 +1,18 @@
+{
+  "reviewer": "/root/multicard_review",
+  "readOnly": true,
+  "initialFindings": [
+    "vNext tap replaces main and clears stack; insufficient energy hides both stacking entry points",
+    "BASIC no-op after automatic support mode",
+    "Bunt/patience drop could retain forbidden support mode because canStack staysfalse"
+  ],
+  "resolutions": [
+    "After explicit main placement next card arms support; zone-first first main supported with coursePicked ref",
+    "BASIC always explicit replacement; main drop only enables eligible modes",
+    "Visible stack tray and disabled add with separate energy/max/no-candidate reason",
+    "Retargeted handle compatibility click captured at view boundary; fresh pointer/keyboard resets latch"
+  ],
+  "finalFindings": [],
+  "independentlyRun": "new9 tests PASS before final two compatibility-click cases added; root final whole suite1607PASS includes all11",
+  "notes": "No changes to engine costs, base energy, save or damage. Common callback/drag/round contracts inspected; reviewer made no edits."
+}

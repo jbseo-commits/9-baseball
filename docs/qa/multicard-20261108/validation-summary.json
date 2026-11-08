@@ -1,0 +1,17 @@
+{
+  "status": "local_pass_publication_pending",
+  "baseline": "b25c361",
+  "tests": {
+    "files": 238,
+    "tests": 1607,
+    "result": "PASS",
+    "note": "Includes all runtime input changes; final small-height tray padding subsequently verified by before/after hit-test and production play."
+  },
+  "build": "PASS 59.3/60MB",
+  "smoke": "10seed identical tobaseline",
+  "productionPlay": "6 actual normal PlayableRun cases:2/3cards ×844x390/667x375 at2x and1440x900 at1x; all engineEqual; no page/HTTP errors",
+  "normalFlow": "7pitches→KO→reward→resume→event at2x PASS",
+  "compatibilityClick": "Deterministic retarget regression failed before fix, passed after; fast real card taps pass with no opening-transition wait",
+  "knownConsole": "Existing favicon404 console only in fullmatch; no pageerror/HTTPlistener/failedRequest failure",
+  "artAndBalance": "No actor/card images, engine, probabilities, costs, baseenergy, damage/save changes"
+}

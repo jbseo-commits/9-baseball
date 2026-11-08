@@ -133,7 +133,12 @@ export function buildBattleViewModel({
   const stackCost=selected&&!mainIsSkill?(selected==='basic'?0:cardCost(mainEntry))+stack.reduce((n,x)=>n+cardCost(byId(x.id)?.entry),0):0;
   const selectedCost=deciding&&selected?(choice?.cost??v10ActionCost(s,selected,stack)):0;
   const armedCost=liveArmed?cardCost(byId(liveArmed)?.entry):0;
-  const canAddSupport=canStack&&stack.length<v10StackMax(s)-1&&hand.some(x=>x.id!==selected&&!stack.some(y=>y.id===x.id)&&!isSkillKind(x.entry?.kind)&&!isBuntKind(x.entry?.kind)&&v10ActionCost(s,selected,[...stack,{id:x.id,aimZone:b.aimZone}])<=energyLimit);
+  const supportCandidates=hand.filter(x=>x.id!==selected&&!stack.some(y=>y.id===x.id)&&!isSkillKind(x.entry?.kind)&&!isBuntKind(x.entry?.kind));
+  const stackMax=v10StackMax(s);
+  const canAddSupport=canStack&&stack.length<stackMax-1&&supportCandidates.some(x=>v10ActionCost(s,selected,[...stack,{id:x.id,aimZone:b.aimZone}])<=energyLimit);
+  const supportBlockReason=!canStack||canAddSupport?'':stack.length>=stackMax-1?`이번 공 최대 ${stackMax}장`
+    :!supportCandidates.length?'추가 타격 카드 없음'
+    :`에너지 ${Math.max(0,stackCost+Math.min(...supportCandidates.map(x=>cardCost(x.entry)))-energyLimit)} 부족`;
   const takeDraw=v10TakeDrawPreview(s);
   const drawHint=takeDraw.count===1?'카드+1':takeDraw.reason==='full'?'6장 한도':'추가 0';
   const energy=s.version===10?{
@@ -244,7 +249,7 @@ export function buildBattleViewModel({
     pitchZone:landed?r.zone:null,knockedOut:landed&&(pitcher?.hp??1)===0,motionEnabled:false};
   /* 준비 유지 효과: 선택 중, 그리고 같은 타자의 다음 공을 기다리는 동안 (BallparkBattle prepEffects와 같다) */
   const effects=deciding||(landed&&!fxStage&&!locked&&s.phase==='pitch')?activePreparationFeedback(b,s.phase):[];
-  return {phase,input,selection:{canClear:input.canSelect&&!!selected,canStack:input.canSelect&&canStack&&!!(canAddSupport||stack.length||supportMode||liveArmed),canAddSupport:input.canSelect&&canAddSupport,supportMode:!!(supportMode||liveArmed)},energy,hand:ordered,zones,forecast,hud,result,scene,effects};
+  return {phase,input,selection:{canClear:input.canSelect&&!!selected,canStack:input.canSelect&&canStack,canAddSupport:input.canSelect&&canAddSupport,supportBlockReason,supportMode:!!(supportMode||liveArmed)},energy,hand:ordered,zones,forecast,hud,result,scene,effects};
 }
 
 function countShown(b,r,landed){

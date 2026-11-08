@@ -50,7 +50,7 @@ it('tap card then course inserts exactly the chosen engine coverage and folds wi
 it('rapid replacement and clear cancel the old insertion; selecting the old card again cannot replay its old drop',()=>{
   vi.useFakeTimers();render(<IntegrationPreview fixture="watch-read0"/>);unfold();fireEvent.click(card('strike'));fireEvent.click(zone(2));
   expect(screen.queryByTestId('bv-coverage-insert')).not.toBeNull();
-  unfold();fireEvent.click(card('place'));expect(screen.queryByTestId('bv-coverage-insert')).toBeNull();
+  unfold();fireEvent.click(screen.getByRole('button',{name:'메인 교체',exact:true}));fireEvent.click(card('place'));expect(screen.queryByTestId('bv-coverage-insert')).toBeNull();
   fireEvent.click(card('strike'));expect(screen.queryByTestId('bv-coverage-insert')).toBeNull();
   fireEvent.click(zone(8));expect(screen.queryByTestId('bv-coverage-insert')).not.toBeNull();
   fireEvent.click(screen.getByRole('button',{name:'선택 해제 · 지켜보기로 전환'}));
