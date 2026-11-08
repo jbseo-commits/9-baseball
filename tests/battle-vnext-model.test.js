@@ -282,6 +282,77 @@ describe('단일 행동 버튼 → 기존 콜백',()=>{
   });
 });
 
+describe('에너지 다음 행동 안내는 판정 도착 뒤에만 공개된다',()=>{
+  function thirdTake(seed,target,runOuts=0){
+    let s=E.createV10Duel(seed);s.runOuts=runOuts;s=E.enterV10Node(s,'a1-entry');
+    for(let i=0;i<40;i++){
+      if(s.phase==='battle'&&s.battle.strikes===2){
+        const landed=E.playV10Action(s,{type:'take'}),r=landed.battle?.revealed;
+        if(target==='ball'&&r?.kind==='ball')return {before:s,landed};
+        if(target==='strikeout'&&['between','lost'].includes(landed.phase)&&/삼진/.test(r?.label||''))return {before:s,landed};
+        return null;
+      }
+      if(s.phase==='battle')s=E.playV10Action(s,{type:'take'});
+      if(s.phase==='pitch')s=E.advanceV10Pitch(s);
+      else if(s.phase==='between')s=E.advanceV10Batter(s);
+      else return null;
+    }
+    return null;
+  }
+  function actualWalk(){
+    let s=E.enterV10Node(E.createV10Duel(28),'a1-entry');
+    for(let i=0;i<60;i++){
+      if(s.phase==='battle'){
+        s=E.playV10Action(s,{type:'take'});
+        if(s.phase==='between'&&s.battle.revealed?.label==='볼넷')return s;
+      }
+      if(s.phase==='pitch')s=E.advanceV10Pitch(s);
+      else if(s.phase==='between')s=E.advanceV10Batter(s);
+      else break;
+    }
+    throw new Error('seed 28 did not produce a walk in the recorded take sequence');
+  }
+
+  it('실제 2S 세 번째 볼과 삼진 모두 비행 중에는 충전 안내를 숨긴다',()=>{
+    const ball=thirdTake(5,'ball'),strikeout=thirdTake(1,'strikeout');
+    expect(ball).not.toBeNull();expect(strikeout).not.toBeNull();
+    expect(ball.before.battle.strikes).toBe(2);expect(ball.landed.battle.revealed.kind).toBe('ball');
+    expect(strikeout.before.battle.strikes).toBe(2);expect(strikeout.landed.phase).toBe('between');
+    for(const {landed} of [ball,strikeout]){
+      const vm=buildBattleViewModel({s:landed,fxStage:'windup',hasNext:true,nextLabel:landed.phase==='between'?'다음 타자':'다음 공'});
+      expect(vm.phase).toBe('flight');expect(vm.energy.upcoming).toBe('');expect(vm.energy.refill).toBe('');
+    }
+    const nextBatter=buildBattleViewModel({s:strikeout.landed,hasNext:true,nextLabel:'다음 타자'});
+    expect(nextBatter.energy.refill).toMatch(/^다음 타자에 \d+ 충전$/);
+  });
+
+  it('walk transfer is named after the next batter; terminals and preparation have no next-action promise',()=>{
+    const walkState=actualWalk();
+    expect(walkState.battle.revealed.label).toBe('볼넷');expect(walkState.phase).toBe('between');
+    const walkVm=buildBattleViewModel({s:walkState,nextLabel:'다음 타자',hasNext:true});
+    expect(walkVm.energy.upcoming).toMatch(/^다음 타자 /);
+    const draw=E.v10TakeDrawPreview(walkState);
+    expect(walkVm.energy.upcoming).toContain(draw.count===1?'카드+1':draw.reason==='full'?'6장 한도':'추가 0');
+    const ordinary=buildBattleViewModel(vmOf('result-swing').input);
+    expect(ordinary.energy.refill).toMatch(/^다음 공에 \d+ 충전$/);
+    const ordinaryInput=vmOf('result-swing').input;
+    const impact=buildBattleViewModel({...ordinaryInput,fxStage:'impact',locked:true,hasNext:true});
+    expect(impact.phase).toBe('result');expect(impact.energy.refill).toMatch(/^다음 공에 \d+ 충전$/);
+    const terminal=thirdTake(1,'strikeout',2);
+    expect(terminal.landed.phase).toBe('lost');
+    const terminalVm=buildBattleViewModel({s:terminal.landed,fxStage:'windup',hasNext:false});
+    expect(terminalVm.energy.upcoming).toBe('');expect(terminalVm.energy.refill).toBe('');
+    const knockout=buildBattleViewModel({...buildFixture('cinema-knockout'),hasNext:false});
+    expect(knockout.energy.upcoming).toBe('');expect(knockout.energy.refill).toBe('');
+    const prepare=buildFixture('prepare');
+    const skill=E.playV10Action(prepare.s,{type:'card',id:prepare.selected});
+    const prep=buildBattleViewModel({s:skill,hand:prepare.hand,fxStage:'impact',locked:true,hasNext:true,nextLabel:'다음 공'});
+    expect(prep.energy.upcoming).toBe('');expect(prep.energy.refill).toBe('');
+    const noNext=buildBattleViewModel({...ordinaryInput,hasNext:false});
+    expect(noNext.energy.upcoming).toBe('');expect(noNext.energy.refill).toBe('');
+  });
+});
+
 describe('결과 표시',()=>{
   it('노림 → 실제 → 판정과 실제 HP를 기존 설명 함수로 만든다',()=>{
     for(const id of ['result-swing','result-hit','result-take']){
