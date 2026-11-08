@@ -1,0 +1,646 @@
+{
+  "kind": "synthetic signature assignment onto shared opening state",
+  "seeds": 20,
+  "rows": [
+    {
+      "id": "regular-01-red-rush",
+      "changed": 20,
+      "cases": 20,
+      "examples": [
+        {
+          "seed": 1,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 4
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        },
+        {
+          "seed": 2,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 4
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "regular-02-teal-mirage",
+      "changed": 20,
+      "cases": 20,
+      "examples": [
+        {
+          "seed": 1,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 2
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        },
+        {
+          "seed": 2,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 2
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "regular-03-amber-sinker",
+      "changed": 6,
+      "cases": 20,
+      "examples": [
+        {
+          "seed": 9,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 1
+          },
+          "off": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          }
+        },
+        {
+          "seed": 11,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 1
+          },
+          "off": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "regular-04-ivory-ace",
+      "changed": 14,
+      "cases": 20,
+      "examples": [
+        {
+          "seed": 1,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        },
+        {
+          "seed": 2,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "regular-05-violet-sting",
+      "changed": 6,
+      "cases": 20,
+      "examples": [
+        {
+          "seed": 9,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 3
+          },
+          "off": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          }
+        },
+        {
+          "seed": 11,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 3
+          },
+          "off": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "regular-06-rose-paint",
+      "changed": 14,
+      "cases": 20,
+      "examples": [
+        {
+          "seed": 1,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        },
+        {
+          "seed": 2,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "tide-vesper",
+      "changed": 6,
+      "cases": 20,
+      "examples": [
+        {
+          "seed": 9,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 1
+          },
+          "off": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          }
+        },
+        {
+          "seed": 11,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 1
+          },
+          "off": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "sky-phantom",
+      "changed": 14,
+      "cases": 20,
+      "examples": [
+        {
+          "seed": 1,
+          "on": {
+            "type": "card",
+            "id": "c4",
+            "zone": 0
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        },
+        {
+          "seed": 2,
+          "on": {
+            "type": "card",
+            "id": "c4",
+            "zone": 0
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "elite-01-cobalt-impact",
+      "changed": 6,
+      "cases": 20,
+      "examples": [
+        {
+          "seed": 9,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 1
+          },
+          "off": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          }
+        },
+        {
+          "seed": 11,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 1
+          },
+          "off": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "elite-02-neon-trick",
+      "changed": 14,
+      "cases": 20,
+      "examples": [
+        {
+          "seed": 1,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        },
+        {
+          "seed": 2,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "elite-03-wine-bluff",
+      "changed": 6,
+      "cases": 20,
+      "examples": [
+        {
+          "seed": 9,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 1
+          },
+          "off": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          }
+        },
+        {
+          "seed": 11,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 1
+          },
+          "off": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "gale-twister",
+      "changed": 14,
+      "cases": 20,
+      "examples": [
+        {
+          "seed": 1,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        },
+        {
+          "seed": 2,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "vulcan-blaze",
+      "changed": 14,
+      "cases": 20,
+      "examples": [
+        {
+          "seed": 1,
+          "on": {
+            "type": "card",
+            "id": "c4",
+            "zone": 0
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        },
+        {
+          "seed": 2,
+          "on": {
+            "type": "card",
+            "id": "c4",
+            "zone": 0
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "jade-viper",
+      "changed": 6,
+      "cases": 20,
+      "examples": [
+        {
+          "seed": 9,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 1
+          },
+          "off": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          }
+        },
+        {
+          "seed": 11,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 1
+          },
+          "off": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "copper-sirocco",
+      "changed": 20,
+      "cases": 20,
+      "examples": [
+        {
+          "seed": 1,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 4
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        },
+        {
+          "seed": 2,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 4
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "boss-01-emerald-tyrant",
+      "changed": 6,
+      "cases": 20,
+      "examples": [
+        {
+          "seed": 9,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 1
+          },
+          "off": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          }
+        },
+        {
+          "seed": 11,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 1
+          },
+          "off": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "boss-02-platinum-halo",
+      "changed": 14,
+      "cases": 20,
+      "examples": [
+        {
+          "seed": 1,
+          "on": {
+            "type": "card",
+            "id": "c4",
+            "zone": 0
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        },
+        {
+          "seed": 2,
+          "on": {
+            "type": "card",
+            "id": "c4",
+            "zone": 0
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "boss-03-black-eclipse",
+      "changed": 0,
+      "cases": 20,
+      "examples": []
+    },
+    {
+      "id": "emerald-tempest",
+      "changed": 14,
+      "cases": 20,
+      "examples": [
+        {
+          "seed": 1,
+          "on": {
+            "type": "card",
+            "id": "c4",
+            "zone": 0
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        },
+        {
+          "seed": 2,
+          "on": {
+            "type": "card",
+            "id": "c4",
+            "zone": 0
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "onyx-eclipse",
+      "changed": 14,
+      "cases": 20,
+      "examples": [
+        {
+          "seed": 1,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        },
+        {
+          "seed": 2,
+          "on": {
+            "type": "card",
+            "id": "c2",
+            "zone": 0
+          },
+          "off": {
+            "type": "card",
+            "id": "c4",
+            "zone": 1
+          }
+        }
+      ]
+    }
+  ],
+  "changed": 228,
+  "cases": 400,
+  "hiddenPendingChanges": 0,
+  "hiddenPerturbation": "pending.zone +1 modulo10 only; other hidden rolls untouched",
+  "policy": "one card/basic × nine zones; midpoint(UI chance interval) × midpoint(UI conditional HP interval); first on tie; no supports or preparation policy",
+  "limits": "Sensitivity only. Not actual roster encounter win rates, balance, learnability, replay variety or human fun.",
+  "pass": true
+}

@@ -26,7 +26,7 @@ import './pitch-focus.css';
 /* Presentation only. BallparkBattle keeps selection, inspector, commit and next
    timers; App still owns the engine, save and pitch presentation lifecycle. */
 export default function BattleView({model,actors,playback=null,execution=null,animationRate=1,onAnimationRateChange=null,rootRef,sceneRef,zoneRef,handRef,title,review=false,
-  inspector=null,menuOpen=false,recent=null,onMenu,sound=false,onToggleSound=null,onCardTap,onCardDetail,onPiles,onZoneTap,onZoneHover,
+  inspector=null,menuOpen=false,recent=null,onMenu,onPitcherInfo=null,sound=false,onToggleSound=null,onCardTap,onCardDetail,onPiles,onZoneTap,onZoneHover,
   onToggleSupport,onClearPlan,onCardDrop=null,onPreviewCardDrop=null,onRemoveSupport=null,onPointerDown,onPointerMove,onPointerUp,onPointerCancel,onTake,onSwing,onNext,piles}){
   const finale=cinemaMoment(model.result,model.scene.fxStage,!!playback);
   const spotlight=model.result&&playback&&!finale?{...model.result,knockedOut:false}:model.result;
@@ -157,7 +157,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
     </div>
     <AnimationSpeed rate={animationRate} onChange={onAnimationRateChange} disabled={!!playback||model.phase==='committing'||!!placements.length||!!pendingDrop||menuOpen}/>
     <BattleHud result={model.result} playback={playback} resultKey={model.scene.playToken} hud={model.hud} forecast={model.forecast} sources={model.zones?.sources} phase={model.phase}
-      title={model.hud.actLabel||title} sound={sound} onToggleSound={onToggleSound} onMenu={onMenu} menuOpen={menuOpen} refined/>
+      title={model.hud.actLabel||title} sound={sound} onToggleSound={onToggleSound} onMenu={onMenu} onPitcherInfo={onPitcherInfo} menuOpen={menuOpen} refined/>
     <div className="bv-decision-area" ref={zoneRef} onPointerDown={onPointerDown} onPointerMove={onPointerMove}
       onPointerUp={onPointerUp} onPointerCancel={onPointerCancel}>
       {main&&model.phase==='deciding'&&<p className="bv-field-choice">{main.name}<span>{main.type==='prepare'?'준비':`${main.coverage?.length||0}존 커버`}</span></p>}

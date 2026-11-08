@@ -84,6 +84,19 @@ describe('C05 existing controller on new view',()=>{
     expect(document.querySelector('.bv-stage').hasAttribute('inert')).toBe(false);
     expect(screen.getByTestId('bp-swing').disabled).toBe(false);
   });
+  it('opens pitcher information directly from the existing HUD and restores the selected plan and focus',()=>{
+    const v=open('support-stacked'),row=screen.getByTestId('bv-hand');row.scrollLeft=68;
+    const main=document.querySelector('.bv-card[data-selection=main]')?.closest('.bv-card-slot')?.dataset.cardId;expect(main).toBeTruthy();
+    const pitcher=screen.getByRole('button',{name:/투수 HP.*투수 정보 열기/});
+    pitcher.focus();fireEvent.keyDown(pitcher,{key:'Enter'});
+    expect(screen.getByRole('tab',{name:'투수',exact:true}).getAttribute('aria-selected')).toBe('true');
+    expect(screen.getByTestId('bp-swing').disabled).toBe(true);
+    row.scrollLeft=0;fireEvent.click(screen.getByTestId('bp-inspect-back'));
+    expect(row.scrollLeft).toBe(68);expect(document.activeElement).toBe(pitcher);
+    expect(v.onSelect).not.toHaveBeenCalled();expect(v.onStack).not.toHaveBeenCalled();
+    expect(document.querySelector('.bv-card[data-selection=main]')?.closest('.bv-card-slot')?.dataset.cardId).toBe(main);
+    fireEvent.click(pitcher);expect(screen.getByRole('tab',{name:'투수',exact:true}).getAttribute('aria-selected')).toBe('true');
+  });
   it('pauses auto-next for inspector, resumes after close, and manual next executes once',()=>{
     vi.useFakeTimers();const v=open('result-take');
     fireEvent.click(screen.getByRole('button',{name:'경기 정보 및 메뉴'}));
