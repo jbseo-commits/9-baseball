@@ -1,0 +1,52 @@
+{
+  "base": "http://127.0.0.1:5310/",
+  "cases": [
+    {
+      "flightFrames": 36,
+      "resultFrames": 20,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "rate": 2,
+      "count": 2,
+      "ids": [
+        "c2",
+        "c1"
+      ],
+      "coverage": [
+        0,
+        4
+      ],
+      "energyAfter": 0,
+      "hpAfter": 58,
+      "engineEqual": true
+    },
+    {
+      "flightFrames": 34,
+      "resultFrames": 24,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "rate": 2,
+      "count": 3,
+      "ids": [
+        "c2",
+        "c1",
+        "c3"
+      ],
+      "coverage": [
+        0,
+        4,
+        8
+      ],
+      "energyAfter": 0,
+      "hpAfter": 59,
+      "engineEqual": true
+    }
+  ],
+  "errors": [],
+  "httpErrors": [],
+  "pass": true
+}

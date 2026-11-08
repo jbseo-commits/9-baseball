@@ -15,3 +15,4 @@
 | 2026-11-06 | G020 R3 pitch delivery/contact broadcast strip | g020_blind_r3 | 3.10 → 3.17 | NOT_IMPROVED | R2 UI 그림화 |
 | 2026-11-06 | G021 card placement feedback candidate | juice100_blind_r1 | 3.27 → 3.38 | NOT_IMPROVED | R2 UI 그림화 |
 | 2026-11-08 | 2026-11-08 landscape first-practice and starter comparisons (BAR_NOT_MET) | firstplay_blind_judge / gpt-6.1-sol high | 2.88 → 3.19 | IMPROVED | R2 UI 그림화 |
+| 2026-11-08 | HELD 2026-11-08 result-fit correctness candidate, NOT_IMPROVED | fast_result_blind_judge gpt-6.1-sol/high | 2.50 → 2.69 | NOT_IMPROVED | R2 UI 그림화 |

@@ -1,0 +1,17 @@
+diff --git a/src/duel/battle-vnext/reference.css b/src/duel/battle-vnext/reference.css
+index df842eb..b5edccb 100644
+--- a/src/duel/battle-vnext/reference.css
++++ b/src/duel/battle-vnext/reference.css
+@@ -133,3 +133,12 @@
+ .bv-reference .bv-drag-face{width:170px;height:72px;box-sizing:border-box;padding:13px 10px 8px 70px;background-position:center;background-size:cover;transform:translate(-50%,-50%) rotate(-6deg);font-size:16px;line-height:1.2}
+ .bv-reference .bv-drag-face span{font-size:9px;line-height:1.2;margin-top:4px}
+ @media(orientation:landscape) and (max-height:500px){.bv-reference .bv-hud-bar{gap:5px}.bv-reference .bv-hud-count{gap:7px}.bv-reference .bv-hud-title{padding:3px 6px}.bv-reference .bv-hud-sound{padding:10px;flex-basis:44px}}
++
++/* Result copy survives fast playback: keep the causal HP line and activation
++   receipt in view above the persistent next button. Only this locked result
++   state gets the extra room; planning and the moving hand retain their size. */
++@media(orientation:landscape){
++  .battle-vnext.bv-reference[data-phase="result"] .bv-command-rail>.bv-plan{
++    max-height:min(48vh,calc(100dvh - 132px));
++  }
++}
