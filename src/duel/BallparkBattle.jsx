@@ -122,6 +122,7 @@ export default function BallparkBattle({
   const [recentResult,setRecentResult]=useState(null);
   const b=s.battle||{},rootRef=useRef(null),sceneRef=useRef(null),pitcherRef=useRef(null),zoneRef=useRef(null),flightRef=useRef(null),stageRef=useRef(null);
   const [supportMode,setSupportMode]=useState(()=>!!vnextReview?.armed);
+  const coursePicked=useRef(false);
   const [armed,setArmed]=useState(()=>vnextReview?.armed||null),[commitBeat,setCommitBeat]=useState(null),commitTimer=useRef(null);
   /* Inspector: manual arena-region swap. {tab, kind, plus, problem, pile} or null.
      The plan (selected/swingStack/armed) is never touched while it is open. */
@@ -227,7 +228,7 @@ export default function BallparkBattle({
   const isBuntKind=k=>!!CARDS[k]?.bunt;
   const canStack=!!(mainEntry&&!mainIsSkill&&!isBuntKind(mainEntry.kind)&&b.growthMode!=='patience');
   const stack=canStack?swingStack.filter(x=>x.id!==selected&&byId(x.id)):[];
-  useEffect(()=>{if(useVnext&&(!deciding||!canStack)){setSupportMode(false);setArmed(null);}},[useVnext,deciding,canStack]);
+  useEffect(()=>{if(useVnext&&(!deciding||!canStack)){setSupportMode(false);setArmed(null);}if(!deciding)coursePicked.current=false;},[useVnext,deciding,canStack]);
   /* P1 스윙 예측: 확정 전 hover/터치 슬라이드 존과 고른 준비 카드로 결과를 미리 계산한다 (판정은 바꾸지 않음) */
   const [hoverZone,setHoverZone]=useState(null),[hoverSkill,setHoverSkill]=useState(null);
   const touchSlide=useRef(null),suppressZoneClick=useRef(0),lastSwing=useRef(null);
@@ -343,7 +344,14 @@ export default function BallparkBattle({
     }
     if(useVnext){
       setRecentResult(null);
-      if(!supportMode){setArmed(null);if(selected!==id){onStack([]);onSelect(id);}return;}
+      // The free swing is always an explicit replacement, never a support.
+      if(id==='basic'){setArmed(null);setSupportMode(false);onStack([]);onSelect(id);return;}
+      if(!supportMode){setArmed(null);if(selected!==id){
+        onStack([]);onSelect(id);
+        // A course picked before the first attack is already a placed plan.
+        const kind=byId(id)?.entry?.kind;
+        setSupportMode(!!(coursePicked.current&&!canStack&&CARDS[kind]?.type==='attack'&&!isBuntKind(kind)&&b.growthMode!=='patience'));
+      }return;}
       if(id===selected){setArmed(null);setSupportMode(false);return;}
       if(armed===id){setArmed(null);return;}
       if(stack.some(x=>x.id===id)){setArmed(null);onStack(stack.filter(x=>x.id!==id));return;}
@@ -377,16 +385,19 @@ export default function BallparkBattle({
   function pickZone(z){
     if(locked||commitBeat||inspect)return;
     if(suppressZoneClick.current>Date.now())return;
-    if(useVnext)setRecentResult(null);
+    if(useVnext){setRecentResult(null);coursePicked.current=true;}
     if(armed){onStack([...stack,{id:armed,aimZone:z}]);setArmed(null);return;}
+    // Comparing cards stays a main swap until the player places one. After
+    // placement, the next card→zone tap adds coverage through the same stack.
+    if(useVnext&&canStack)setSupportMode(true);
     onAim(z);
   }
   function placeCard(id,zone){
     if(!deciding||locked||inspect||commitBeat)return {ok:false,reason:'투구가 끝난 뒤 놓으세요.'};
     const intent=cardDropIntent(s,selected,stack,id,zone);if(!intent.ok)return intent;
-    setRecentResult(null);setArmed(null);
+    setRecentResult(null);setArmed(null);coursePicked.current=true;
     if(intent.kind==='support'){onStack(intent.stack);setSupportMode(true);}
-    else{onStack(intent.stack);onSelect(intent.id);onAim(intent.zone);setSupportMode(false);}
+    else{onStack(intent.stack);onSelect(intent.id);onAim(intent.zone);setSupportMode(!isBuntKind(byId(intent.id)?.entry?.kind)&&b.growthMode!=='patience');}
     return intent;
   }
   function removeSupport(id){

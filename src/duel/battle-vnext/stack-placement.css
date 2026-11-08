@@ -31,4 +31,11 @@
 @media(orientation:landscape) and (max-height:500px){.battle-vnext .bv-stack-tray{width:min(100%,260px);padding:3px 5px}.battle-vnext .bv-stack-tray-head{margin-bottom:2px;font-size:9px}.battle-vnext .bv-stack-slot{font-size:10px;gap:3px;flex-basis:62px;padding:3px 5px}.battle-vnext .bv-stack-add{flex-basis:80px;font-size:10px}}
 @media(prefers-reduced-motion:reduce){.battle-vnext .bv-stack-board.is-assembling :is(.bv-piece-edge,.bv-stack-join){animation:none;filter:none;stroke-dashoffset:0}}
 .battle-vnext .bv-stack-tray button{touch-action:manipulation}
-@media(orientation:landscape) and (max-height:500px){.bv-foldable[data-hand-open=false] .bv-stack-tray-head{padding-right:44px}}
+@media(orientation:landscape) and (max-height:500px){
+  /* Keep every support's remove target outside the folded hand handle. */
+  .bv-foldable[data-hand-open=false] .bv-stack-tray{padding-right:48px}
+  .bv-foldable[data-hand-open=false] .bv-stack-tray-head{padding-right:0}
+}
+
+.battle-vnext .bv-stack-limit{margin:3px 2px 0;color:#c4cbc5;font-size:10px;line-height:1.3}
+.battle-vnext .bv-stack-add:disabled{opacity:.55;cursor:default}

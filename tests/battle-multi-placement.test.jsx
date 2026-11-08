@@ -81,7 +81,7 @@ it('watch cancels a three-card plan without spending it and duplicate mixed clic
 it('clear and main replacement remove settled supports; overlap alone cannot turn a broken ordered link into CONNECT',()=>{
  expect(stackFootprint([{order:1,coverage:[0,3,6]},{order:2,coverage:[6,7,8]}]).overlaps.map(c=>c.zone)).toEqual([6]);
  render(<IntegrationPreview fixture="stack-three-ready"/>);attacks().forEach((c,i)=>drop(c,i*4));
- open();fireEvent.click(screen.getByRole('button',{name:'카드 겹치기'}));tap(document.querySelector('.bv-card[data-card-kind=strike]'));
+ open();fireEvent.click(screen.getByRole('button',{name:'메인 교체'}));tap(document.querySelector('.bv-card[data-card-kind=strike]'));
  expect(board()).toHaveLength(1);expect(screen.getByTestId('bv-stack-tray').dataset.cardCount).toBe('1');
  fireEvent.click(screen.getByRole('button',{name:'선택 해제 · 지켜보기로 전환'}));expect(screen.queryByTestId('bv-stack-board')).toBeNull();
 });

@@ -10,7 +10,7 @@ afterEach(()=>{cleanup();window.history.replaceState({},'','/');});
 const card=kind=>document.querySelector(`.bv-card[data-card-kind=${kind}]`);
 const zone=z=>document.querySelector(`.bv-cell[data-zone="${z}"]`);
 const main=()=>document.querySelector('.bv-card.is-main')?.closest('[data-card-id]').dataset.cardId;
-const add=()=>{const handle=screen.queryByRole('button',{name:'손패 펼치기',exact:true});if(handle)fireEvent.click(handle);return screen.getByRole('button',{name:'카드 겹치기'});};
+const add=()=>{const handle=screen.queryByRole('button',{name:'손패 펼치기',exact:true});if(handle)fireEvent.click(handle);return screen.getByRole('button',{name:/^(카드 겹치기|메인 교체)$/});};
 const clear=()=>screen.getByRole('button',{name:'선택 해제 · 지켜보기로 전환'});
 it('shows a course immediately before choosing cards; either selection order yields the same plan',()=>{
  const open=()=>render(<IntegrationPreview fixture="watch-read0"/>);
@@ -18,11 +18,13 @@ it('shows a course immediately before choosing cards; either selection order yie
  fireEvent.click(card('place'));const a={id:main(),plan:screen.getByTestId('bv-plan').textContent};expect(zone(8).querySelector('.bv-token').textContent).toBe('1');
  cleanup();open();fireEvent.click(card('place'));fireEvent.click(zone(8));expect({id:main(),plan:screen.getByTestId('bv-plan').textContent}).toEqual(a);
 });
-it('normal card taps replace the main instead of arming a support; retapping is stable',()=>{
+it('before zone placement card taps compare the main; unavailable stacking remains discoverable',()=>{
  render(<IntegrationPreview fixture="watch-read0"/>);fireEvent.click(card('place'));fireEvent.click(card('strike'));const id=main();
  expect(card('strike').classList.contains('is-main')).toBe(true);expect(document.querySelector('.is-armed')).toBeNull();expect(document.querySelector('.bv-card.is-support')).toBeNull();
  fireEvent.click(card('strike'));expect(main()).toBe(id);expect(screen.getByTestId('bp-swing').dataset.actionKind).toBe('swing');
- expect(screen.queryByRole('button',{name:'카드 겹치기'})).toBeNull(); // no affordable support at energy2
+ expect(screen.getByRole('button',{name:'카드 겹치기'}).getAttribute('aria-pressed')).toBe('false');
+ expect(screen.getByRole('button',{name:'+ 카드 추가',exact:true}).disabled).toBe(true);
+ expect(screen.getByTestId('bv-stack-tray').textContent).toContain('에너지 1 부족');
 });
 it('explicitly clears the plan to watch without executing a pitch or changing the aim',()=>{
  render(<IntegrationPreview fixture="swing-main"/>);fireEvent.click(zone(7));fireEvent.click(clear());
@@ -34,7 +36,7 @@ it('keeps the chosen course while comparing preparation and swing cards',()=>{
  expect(zone(6).classList.contains('is-aim')).toBe(true);expect(zone(6).querySelector('.bv-token')).toBeNull();expect(main()).toBeTruthy();
  fireEvent.click(card('place'));expect(zone(6).classList.contains('is-aim')).toBe(true);expect(zone(6).querySelector('.bv-token').textContent).toBe('1');
 });
-it('adds/removes supports only in explicit mode, and leaving it cancels only the candidate',()=>{
+it('keeps explicit mode switching and support removal without clearing existing placed cards',()=>{
  render(<IntegrationPreview fixture="support-armed"/>);const id=main();fireEvent.click(add());fireEvent.click(add());fireEvent.click(card('place'));
  // Retapping main exits the mode and preserves it.
  expect(main()).toBe(id);expect(add().getAttribute('aria-pressed')).toBe('false');

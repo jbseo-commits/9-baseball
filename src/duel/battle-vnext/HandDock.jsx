@@ -101,7 +101,7 @@ const HandDock=forwardRef(function HandDock({hand=[],energy=null,input=null,phas
           aria-label={'기본 스윙 · 에너지 0 · 카드 소모 없음'+(basic.selectionRole==='main'?' · 선택됨':'')}>
           기본 스윙 <b aria-hidden="true">{grid==='orbit'?<BattleSymbol kind="energy"/>:'⚡'}0</b>{basic.selectionRole==='main'&&<i aria-hidden="true">{selectionTag(basic)}</i>}
         </button>}
-        {selection?.canStack&&onToggleSupport&&<button type="button" className={'bv-support-toggle'+(selection.supportMode?' is-on':'')} aria-pressed={selection.supportMode} onClick={onToggleSupport}>카드 겹치기</button>}
+        {selection?.canStack&&onToggleSupport&&<button type="button" className={'bv-support-toggle'+(selection.supportMode?' is-on':'')} aria-pressed={selection.supportMode} onClick={onToggleSupport}>{selection.supportMode?'메인 교체':'카드 겹치기'}</button>}
         {piles&&(onPiles
           ?<button type="button" className="bv-piles" onClick={onPiles} disabled={detailDisabled}>더미 {piles.draw} · 버림 {piles.discard}</button>
           :<span className="bv-piles">더미 {piles.draw} · 버림 {piles.discard}</span>)}
