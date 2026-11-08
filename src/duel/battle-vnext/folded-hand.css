@@ -57,3 +57,9 @@
 @media(prefers-reduced-motion:reduce){
   .bv-foldable .bv-hand-area,.bv-foldable .bv-hand-handle,.bv-foldable .bv-hand-orbit .bv-card-slot{transition:none!important}
 }
+
+/* Existing opponent plate is a direct public-info target. No new permanent
+   copy or panel; the normal unfocused composition stays pixel-identical. */
+.battle-vnext .bv-hud-opponent[data-pitcher-info]{pointer-events:auto;cursor:pointer}
+.battle-vnext .bv-hud-opponent[data-pitcher-info][aria-disabled=true]{pointer-events:none;cursor:default}
+.battle-vnext .bv-hud-opponent[data-pitcher-info]:focus-visible{outline:2px solid #e5c582;outline-offset:2px}

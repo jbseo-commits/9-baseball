@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 import React from 'react';
-import {describe,it,expect,afterEach} from 'vitest';
-import {render,screen,cleanup} from '@testing-library/react';
+import {describe,it,expect,afterEach,vi} from 'vitest';
+import {render,screen,cleanup,fireEvent} from '@testing-library/react';
 import {createV10Duel,enterV10Node,playV10Action,setAimZone} from '../src/duel/engine.js';
 import {PITCHER_ENCOUNTERS} from '../src/duel/pitcher-encounters.js';
 import {buildBattleViewModel} from '../src/duel/battle-vnext/view-model.js';
@@ -39,5 +39,22 @@ describe('public pitcher encounter UI in the actual battle model',()=>{
    encounterEvents:['방패 돌파 · 추가 피해 +8 HP']},{cards:[{id:'x',role:'main',name:'정타 노림'}]});
   expect(steps).toHaveLength(3);expect(steps.some(s=>s.text.includes('방패 돌파'))).toBe(true);
   expect(steps.at(-1)).toEqual({kind:'hp',text:'투수 HP −18'});
+ });
+});
+
+describe('direct public pitcher information entry',()=>{
+ it('supports touch click and Space only during planning without changing visible HUD text',()=>{
+  const s=fight('regular-02-teal-mirage'),vm=buildBattleViewModel({s}),open=vi.fn();
+  const view=render(<BattleHud hud={vm.hud} refined onPitcherInfo={open}/>);
+  const button=screen.getByRole('button',{name:/투수 HP.*투수 정보 열기/});
+  expect(button.getAttribute('aria-label')).toContain(vm.hud.encounter.label);expect(button.getAttribute('aria-label')).toContain(vm.hud.encounter.current);
+  const text=button.textContent;fireEvent.keyDown(button,{key:' '});fireEvent.click(button);expect(open).toHaveBeenCalledTimes(2);
+  for(const phase of ['flight','committing','result']){
+   view.rerender(<BattleHud hud={vm.hud} refined phase={phase} onPitcherInfo={open}/>);
+   fireEvent.click(button);fireEvent.keyDown(button,{key:'Enter'});expect(open).toHaveBeenCalledTimes(2);
+  }
+  view.rerender(<BattleHud hud={vm.hud} refined menuOpen onPitcherInfo={open}/>);
+  fireEvent.click(button);expect(open).toHaveBeenCalledTimes(2);
+  expect(text).toContain(vm.hud.encounter.label);
  });
 });

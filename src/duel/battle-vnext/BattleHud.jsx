@@ -17,7 +17,7 @@ export function hpForecastBand(hud,forecast){
   return {left:pct(lo),width:pct(p.hp)-pct(lo),label:forecast.damageLabel};
 }
 
-export default function BattleHud({hud=null,forecast=null,sources=[],phase='deciding',result=null,playback=null,resultKey=0,title='',onMenu=null,menuOpen=false,refined=false,sound=false,onToggleSound=null}){
+export default function BattleHud({hud=null,forecast=null,sources=[],phase='deciding',result=null,playback=null,resultKey=0,title='',onMenu=null,menuOpen=false,refined=false,sound=false,onToggleSound=null,onPitcherInfo=null}){
   if(!hud)return null;
   const p=hud.pitcher,c=hud.count,band=phase==='deciding'?hpForecastBand(hud,forecast):null;
   const hpPct=p&&p.maxHp>0?Math.max(0,Math.min(100,p.hp/p.maxHp*100)):0;
@@ -25,10 +25,15 @@ export default function BattleHud({hud=null,forecast=null,sources=[],phase='deci
   const beforePct=changing?Math.min(100,result.hpBefore/p.maxHp*100):hpPct;
   const runners=[0,1,2].filter(i=>hud.bases[i]).map(i=>i+1+'루');
   const twoStrike=phase==='deciding'&&c.strikes===2;
+  const publicPattern=hud.encounter?[hud.encounter.label,hud.encounter.current||hud.encounter.counter].filter(Boolean).join(' · '):hud.gimmick?[hud.gimmick.label,hud.gimmick.summary].filter(Boolean).join(' · '):'';
+  const infoReady=!!onPitcherInfo&&phase==='deciding'&&!menuOpen;
+  const openPitcherInfo=e=>{if(!infoReady)return;e.currentTarget.focus({preventScroll:true});onPitcherInfo();};
   return <header className="bv-hud" data-testid="bv-hud" data-phase={phase}>
     <div className="bv-hud-bar">
       {title&&<span className="bv-hud-title">{title}</span>}
-      {p&&<div className="bv-hud-opponent" aria-label={`${p.name} 투수 HP ${p.hp} / ${p.maxHp}`+(band?` · ${band.label} 예상`:'')}>
+      {p&&<div className="bv-hud-opponent" role={onPitcherInfo?'button':undefined} tabIndex={onPitcherInfo?(infoReady?0:-1):undefined} data-pitcher-info={onPitcherInfo?'true':undefined}
+        aria-disabled={onPitcherInfo&&!infoReady?true:undefined} title={infoReady?'투수 이름·패턴을 눌러 고유 규칙과 공략 확인':undefined}
+        onClick={openPitcherInfo} onKeyDown={e=>{if(infoReady&&['Enter',' '].includes(e.key)){e.preventDefault();openPitcherInfo(e);}}} aria-label={`${p.name} 투수 HP ${p.hp} / ${p.maxHp}`+(band?` · ${band.label} 예상`:'')+(onPitcherInfo?[publicPattern,'투수 정보 열기'].filter(Boolean).map(x=>' · '+x).join(''):'')}>
         <b className="bv-hud-name">{p.name}<span className="bv-pitch-state">{phase==='flight'?'투구 중':phase==='result'?'결과':''}</span></b>
         <span key={resultKey} className={'bv-hud-hp'+(changing?' is-damaged':'')} aria-hidden="true" style={{'--hp-from':beforePct+'%','--hp-to':hpPct+'%'}}>
           {changing&&<i className="bv-hud-hp-ghost" style={{width:beforePct+'%'}}/>}

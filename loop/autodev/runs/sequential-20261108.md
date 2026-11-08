@@ -13,10 +13,10 @@
 | 회차 | 목표 | 상태 | 검증 게이트 |
 | --- | --- | --- | --- |
 |1a|#77·#76 투구중 정보공개 경계|PR87 main2d45f88 병합·배포·공개PASS|기본연습·시작덱·접촉전손패/에너지/타자 비공개, PR86탭스택 유지|
-|1b|#78·#75 가로 연습·시작덱 첫진입|PR88 main8f443ef병합·공개연습확인중|667×375·844×390 실제 기본 진입, 텍스트/버튼·스크롤 검수|
+|1b|#78·#75 가로 연습·시작덱 첫진입|PR88 main8f443ef병합·공개4viewportPASS|667×375·844×390 실제 기본 진입, 텍스트/버튼·스크롤 검수|
 |2|2배속 카드삽입·투구·결과 읽힘과 입력/취소 검수 후 실제결함수정|전원사건·음향PASS/작은결과잘림CSS HELD|동일행동 타임라인/실제영상/중복입력·무음·reduced 비교|
-|3|동작연속성의 가장 큰 키포즈 결손 보강|대기|image_gen 전체포즈 작화, 원형/손잡이/발/공 이벤트, blind+실플검수. 120tick과고유그림 구분|
-|4|20명 기믹과 판단 차이를 분석하고 학습/공략 피드백 개선|대기|공개정보만 쓰는 동일seed정책비교, 기믹정보경계·규칙불변. 사람재미 검증은 별도|
+|3|동작연속성의 가장 큰 키포즈 결손 보강|작화2+접지후보 DRAFT/HELD(기능PASS·시각2회NOT)|image_gen 전체포즈 작화, 원형/손잡이/발/공 이벤트, blind+실플검수. 120tick과고유그림 구분|
+|4|20명 기믹과 판단 차이를 분석하고 학습/공략 피드백 개선|로컬검증·독립PASS,게시준비|공개정보만 쓰는 동일seed정책비교, 기믹정보경계·규칙불변. 사람재미 검증은 별도|
 |5|카드아트/용량의 실제 병목 해결|대기|실제 import/사용파일, byte/시각동일성, dist<60MB, 누락카드아트는 채택분만 완료 표시|
 
 ## 현재 검수 역할
@@ -67,3 +67,33 @@
 9. 빌드영향있음:CSS/QA소량,full/smoke/build/budget·독립검수.
 
 2:제품CSS후보는NOT_IMPROVED로HELD·되돌림.게시범위는검수도구+검증기록만.新20report:roster-events-validated/report.json(actualtoken/loading/chronology).音響fast-audio-final PASS.
+
+## 3 구현 전 9축 영향도
+
+1. UI/작화영향있음: 기존타자9→10(배트앞→어깨뒤)큰회전간극에전체신체작화연결2포즈후보,원본키포즈보존.
+2. 입력영향없음: render-only motionAt/Scene만, 잠금/완료시점변경없음.
+3. 규칙영향없음: engine·접촉key8/히트스톱/공좌표/판정불변.
+4. 저장영향없음:자산·렌더반환값만확장,세이브없음.
+5. 뷰포트영향있음:축소200px·844390/667375/1440900공통카메라/발등록·배트margin검수.
+6. 스크롤영향없음:CSS/overflow변경없음.
+7. 플로우영향있음:성공·실패swing후두연결→원키10→recovery0,watch/prep/reduced에서는재생금지.
+8. 테스트영향있음:새포즈시점/이벤트원본/전체drawinggate·blind·실제0.5/1/2×다시검수.
+9. 빌드영향있음:lossless원본보존·runtimeWebP2장추가,기존60MiB미만이어야채택.원형/손잡이·축발/화풍/발팝실패시HELD.
+
+3수정2:첫barestrip판정동작3축만개선으로NOT_IMPROVED보존. 준비자세앞발그림자(원형x478y846)가스윙후에도고정되어실제sole9→world697936과어긋나는것을원화/메타로확인. 각작화sole수치로배우동일transform아래접지그림자등록,들린load2는원화바닥높이687에흐린shadow. 새착지먼지추가는하지않음. 실제장면비교+같은strip을함께freshblind재검수한다.
+
+3누적수정2/3로HELD. 두sealed판정·source·preview·실제trace보존. root외독립codePASS,main미적용.
+
+## 4 구현 전 9축 영향도
+
+1. UI영향확인:기존HUD투수이름/패턴영역을정보창직접진입hotspot으로연결,새상시문구/패널/레이아웃없음. unfocused전후픽셀동일확인.
+2. 입력영향있음:tap/Enter/Space,flight/commit/menu잠금·focus/손패scroll복귀,플랜보존.
+3. 규칙영향없음:기존counter/summary만읽고engine/확률/패턴/밸런스불변.
+4. 저장영향없음:inspect는transient,진입/닫기전후state동일.
+5. 뷰포트영향있음:667375/844390/844300touchhit및상세스크롤·회전복귀확인.
+6. 스크롤영향있음:기존inspector영역의내용스크롤·닫기,전역CSS없음.
+7. 플로우영향있음:planning→publicpattern→닫기→원플랜타격·KO/reward/resume.
+8. 테스트영향있음:진입/잠금/키보드/플랜·focus보존실패먼저,20명공개정보benchmark. 기존choose의exacthit/expectedBases는UI공개값과다름을발견해최종근거에서제외한다.
+9. 배포영향있음:소량JS/CSS,full/smoke/build/budget·독립검수·main공개동작확인.
+
+3후보PR90 DRAFT/HELD,main에없음.4최종독립PASS/238files1620/세가로직접입력·공개패턴ARIA·기본0px·공개bound400policy228변화/pending.zone교란0변화.실제사람재미/52확장완료아님.
