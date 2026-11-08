@@ -1,0 +1,41 @@
+/* The landscape map owns its scroll area. Legacy portrait stops are untouched. */
+.journey-map.wide{height:calc(100dvh - var(--bp-top));min-height:0;overflow:hidden}
+.journey-map.wide .bp-mbody{grid-template-columns:minmax(0,1fr) clamp(220px,29vw,350px);overflow:hidden}
+.journey-map.wide .bp-mleft{display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-height:0;min-width:0}
+.journey-map.wide .bp-mhead{padding:12px 18px;background-position:50% 55%;border-bottom:1px solid #d6ac5a55}
+.journey-map.wide .bp-mhead h1{margin:0;padding:0;background:none;font-size:clamp(18px,2.4vw,30px);text-shadow:0 2px 4px #000}
+.journey-map.wide .bp-route-scroll{min-width:0;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#d6ad65 #101626}
+.journey-map.wide .bp-route-scroll:focus-visible{outline:2px solid #f4ce82;outline-offset:-3px}
+.journey-map.wide .bp-route{min-width:680px;min-height:280px;height:100%;background:linear-gradient(180deg,#111c3377,#080e1cd9),var(--bp-map-bg) center/cover no-repeat}
+.journey-map.wide .bp-msheet{min-height:0;grid-template-rows:minmax(70px,1fr) minmax(0,auto) auto;gap:10px;padding:0 14px max(10px,env(safe-area-inset-bottom));overflow:hidden;background:#0b101d}
+.journey-map.wide .bp-mpor{min-height:70px;margin:0 -14px;border-bottom:1px solid #cca05a66;background:linear-gradient(0deg,#0b101d,transparent 65%),url('../../assets/duel/stadium.png') center/cover}
+.journey-map.wide .bp-mpor-btn img{width:auto;height:160%;top:0;filter:drop-shadow(0 0 14px #e2aa5544)}
+.journey-map.wide .bp-minfo{gap:5px;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#887147 #121a2b;padding-right:4px;animation:journey-detail .28s ease both}
+.journey-map.wide .bp-mtag{padding:0;border:0;background:none;color:#d7b77c}
+.journey-map.wide .bp-mname{font-size:clamp(19px,2.1vw,28px)}
+.journey-map.wide .bp-mahead{font-size:11px;gap:4px}
+.journey-map.wide .bp-mhp b{font:700 12px/1.2 var(--bp-ko)}
+.journey-map.wide .bp-node{font:700 12px/1.3 var(--bp-ko)!important}
+.journey-map.wide .bp-node:not(.reach):not(.done){color:#c5cede}
+.journey-map.wide .bp-mgo{min-height:44px;position:relative;z-index:3}
+.journey-map.wide .bp-node .journey-burst{width:100px;left:50%;top:50%;transform:translate(-50%,-63%);z-index:4}
+.journey-map.wide .bp-node .bp-node-portrait{height:42px;width:42px;object-fit:cover;object-position:50% 12%;border:1px solid #e7c67e;border-radius:50%;filter:none;box-shadow:0 3px 7px #000b}
+.journey-map.wide .bp-node.sel .bp-node-portrait{filter:none;border-color:#fff0be}
+.journey-map.wide .bp-node.sel{animation:none;box-shadow:0 0 18px #e9b75488;background:#141b2ce8;outline-color:#ffe2a0}
+.journey-map.wide .bp-node.sel em{color:#fff0ca;text-shadow:0 2px 3px #000}
+.journey-map.wide .bp-node em{max-width:96px;overflow:hidden;text-overflow:ellipsis;padding:3px 5px;background:#08101bf2;border-radius:2px;text-shadow:0 1px 2px #000}
+.journey-map.wide .bp-route line.ahead{stroke:#f4ce82;stroke-dasharray:none;stroke-width:2.5;animation:journey-route .32s cubic-bezier(.16,.7,.3,1) var(--route-delay,0ms) both;opacity:.85}
+.journey-map.wide .bp-route line.live{stroke-width:2.5;stroke:#ffe7ab;opacity:1}
+@keyframes journey-route{from{opacity:.08;stroke-width:4}to{opacity:.85;stroke-width:2.5}}
+@keyframes journey-detail{from{opacity:.6;transform:translateX(8px)}to{opacity:1;transform:none}}
+@media(orientation:landscape) and (max-height:500px){
+ .journey-map.wide .bp-mhead{padding:8px 12px}
+ .journey-map.wide .bp-msheet{gap:7px;grid-template-rows:74px minmax(0,1fr) auto}
+ .journey-map.wide .bp-mpor-btn img{height:230%;top:-5%}
+ .journey-map.wide .bp-mgm{font-size:12px;line-height:1.4}
+ .journey-map.wide .bp-minfo{gap:3px}
+ .journey-map.wide .bp-mline{font-size:12px}
+ .journey-map.wide .bp-mrw{font-size:11px}
+ .journey-map.wide .bp-node.boss .bp-fig:not(.bp-node-portrait){height:40px}
+}
+@media(prefers-reduced-motion:reduce){.journey-map.wide .bp-route line.ahead,.journey-map.wide .bp-minfo{animation:none}}

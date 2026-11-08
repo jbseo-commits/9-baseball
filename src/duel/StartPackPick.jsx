@@ -5,6 +5,7 @@ import {cardArtFor,cardArtFocusFor} from './card-art.js';
 import plate from '../../assets/production-art/phone-assets-v18/A06-title-stadium-plate.png';
 import coach from '../../assets/production-art/phone-assets-v18/A05-title-coach.png';
 import './start-pack.css';
+import {JourneyBurst,useMenuFeedback} from './JourneyJuice.jsx';
 
 /* Start-pack pick: before the first battle, seven direction cards join the common two.
    Packs are tastes, not locked builds — later rewards can shift or mix freely.
@@ -17,10 +18,11 @@ const PACK_LOOK={
   hold:{tone:'hold',tag:'생존'},
 };
 
-export default function StartPackPick({seed,onPick,onClose}){
+export default function StartPackPick({seed,onPick,onClose,sound=false}){
   const offers=startPackOffers(seed);
   const [chosen,setChosen]=useState(null);
-  const confirmRef=useRef(null);
+  const confirmRef=useRef(null),committed=useRef(false);
+  const feedback=useMenuFeedback(sound);
   const pack=offers.find(p=>p.id===chosen);
   const deckCounts=new Map();
   if(pack)for(const k of [...START_PACK_COMMON,...pack.kinds])deckCounts.set(k,(deckCounts.get(k)||0)+1);
@@ -44,7 +46,7 @@ export default function StartPackPick({seed,onPick,onClose}){
         for(const k of complete)counts.set(k,(counts.get(k)||0)+1);
         return <button key={p.id} type="button" role="radio" aria-checked={on} aria-label={p.name}
           className={'start-pack sp-pack t-'+look.tone+(on?' on':'')} data-testid="start-pack" data-pack={p.id}
-          style={{'--i':i}} onClick={()=>setChosen(p.id)}>
+          style={{'--i':i}} onClick={()=>{if(chosen!==p.id){setChosen(p.id);feedback('expand')}}}>
           <span className="sp-fan" aria-hidden="true">
             {p.featured.map((k,j)=>{const art=cardArtFor(k),focus=cardArtFocusFor(k);
               return <span key={k+j} className={'sp-mini c'+j}>
@@ -59,7 +61,7 @@ export default function StartPackPick({seed,onPick,onClose}){
             <span className="sp-cards" aria-label={on?'전체 9장 구성':'대표 카드 3종'}>{(on?[...counts]:p.featured.map(k=>[k,1])).map(([k,n])=><span key={k} className={(CARDS[k]?.type==='skill'?'skill ':'')+(on&&START_PACK_COMMON.includes(k)?'common':'')}>
               {CARDS[k]?.name||k}{on&&n>1?` ×${n}`:''}<small>{on&&START_PACK_COMMON.includes(k)?'공통':CARDS[k]?.role}</small></span>)}</span>
           </span>
-          <span className="sp-check" aria-hidden="true"/>
+          <span className="sp-check" aria-hidden="true"/>{on&&<JourneyBurst key={p.id}/>}
         </button>;})}
     </div>
     {pack&&<section className="sp-deck-preview" aria-label={`${pack.name} 전체 9장 구성`}>
@@ -69,7 +71,7 @@ export default function StartPackPick({seed,onPick,onClose}){
       </span>)}</div>
     </section>}
     <footer className="sp-foot">
-      <button ref={confirmRef} type="button" className="sp-go" data-testid="start-pack-go" disabled={!pack} onClick={()=>pack&&onPick?.(pack.id)}>
+      <button ref={confirmRef} type="button" className="sp-go" data-testid="start-pack-go" disabled={!pack} onClick={()=>{if(pack&&!committed.current){committed.current=true;feedback('cardGet');onPick?.(pack.id)}}}>
         <span>{pack?pack.name+'로 출발':'팩을 고르세요'}</span>
         {pack&&<small>공통 2장 + 방향 7장 · 총 9장 덱</small>}
       </button>

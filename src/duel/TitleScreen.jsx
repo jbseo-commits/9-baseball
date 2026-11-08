@@ -1,4 +1,5 @@
-import React,{useRef} from 'react';
+import React,{useRef,useState} from 'react';
+import {JourneyBurst,useMenuFeedback} from './JourneyJuice.jsx';
 import plate from '../../assets/production-art/phone-assets-v18/A06-title-stadium-plate.png';
 import batter9 from '../../assets/production-art/phone-assets-v18/A04-title-batter-9.png';
 import coach from '../../assets/production-art/phone-assets-v18/A05-title-coach.png';
@@ -25,8 +26,10 @@ export const TITLE_CAST=[
   {id:'regular-01-red-rush',slot:'hero'},
 ];
 
-export default function TitleScreen({run=null,onNew,onContinue,onDeck,onDex,onSettings,onPractice}){
+export default function TitleScreen({run=null,onNew,onContinue,onDeck,onDex,onSettings,onPractice,sound=false,onFeedback}){
   const listRef=useRef(null);
+  const localFeedback=useMenuFeedback(sound),feedback=onFeedback||localFeedback;
+  const [receipt,setReceipt]=useState(null),[focused,setFocused]=useState(null);
   const items=[
     {key:'new',label:'새로운 게임',sub:'투수를 끌어내리는 3막 원정',on:onNew},
     {key:'continue',label:'이어하기',sub:run?(run.ended?'지난 런 결과 보기':run.tutorial?`튜토리얼 · 덱 ${run.deck}장`:`${run.act}막 · 덱 ${run.deck}장`):'진행 중인 런 없음',on:onContinue,off:!run},
@@ -42,7 +45,7 @@ export default function TitleScreen({run=null,onNew,onContinue,onDeck,onDex,onSe
     const bs=[...listRef.current.querySelectorAll('button:not(:disabled)')];
     const i=bs.indexOf(document.activeElement);
     const n=e.key==='ArrowDown'?(i+1)%bs.length:(i<=0?bs.length-1:i-1);
-    bs[n]?.focus();e.preventDefault();
+    bs[n]?.focus();feedback('draw');e.preventDefault();
   };
   return <main className="title-screen" aria-label="타이틀" style={{'--ts-art':`url(${plate})`}}>
     <i className="ts-art" aria-hidden="true"/>
@@ -60,8 +63,10 @@ export default function TitleScreen({run=null,onNew,onContinue,onDeck,onDex,onSe
     </header>
     <nav className="ts-menu" aria-label="메인 메뉴" ref={listRef} onKeyDown={onKeyDown}>
       <ul>{items.map((it,i)=><li key={it.key} style={{'--i':i}}>
-        <button type="button" className={'ts-item'+(it.key===lead?' lead':'')} data-item={it.key} aria-label={it.label} aria-describedby={'ts-sub-'+it.key} disabled={!!it.off} onClick={it.on}>
-          <b>{it.label}</b><small id={'ts-sub-'+it.key}>{it.sub}</small>
+        <button type="button" className={'ts-item'+(it.key===(focused||lead)?' lead':'')} data-item={it.key} aria-label={it.label} aria-describedby={'ts-sub-'+it.key} disabled={!!it.off}
+          onFocus={()=>{setFocused(it.key);setReceipt({key:it.key,token:Date.now()});}}
+          onClick={e=>{feedback('lock');setReceipt({key:it.key,token:Date.now()});it.on?.(e)}}>
+          {receipt?.key===it.key&&<JourneyBurst key={receipt.token}/>}<b>{it.label}</b><small id={'ts-sub-'+it.key}>{it.sub}</small>
         </button>
       </li>)}</ul>
     </nav>
