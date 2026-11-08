@@ -2,9 +2,11 @@ import motion from '../../../assets/production-art/mockup-rebuild/motion.json';
 import batterAtlas from '../../../assets/production-art/mockup-rebuild/batter-atlas.avif';
 import pitcherAtlas from '../../../assets/production-art/mockup-rebuild/pitcher-atlas.avif';
 import batterTween from '../../../assets/production-art/batter-inbetweens-v1/swing-bridge.webp';
+import batterFollow1 from '../../../assets/production-art/batter-follow-v2/follow-1.webp';
+import batterFollow2 from '../../../assets/production-art/batter-follow-v2/follow-2.webp';
 
 export const PILOT_MOTION=motion;
-export const PILOT_ACTORS=Object.freeze({batter:batterAtlas,pitcher:pitcherAtlas,batterTween});
+export const PILOT_ACTORS=Object.freeze({batter:batterAtlas,pitcher:pitcherAtlas,batterTween,batterFollow:[batterFollow1,batterFollow2]});
 export function actorEvent(actor){
   const m=motion[actor],k=m.worldHeight/m.sourceHeight;
   return {x:m.worldFoot.x+(m.event.x-m.anchor.x)*k,y:m.worldFoot.y+(m.event.y-m.anchor.y)*k};
@@ -24,7 +26,17 @@ export function motionAt(options={}){
  // Only the latter half of key6's interval. Contact remains the exact original
  // key8, and preparing/taking/reduced motion never plays a swing drawing.
  const bridge=!!timeline&&!reduced&&action==='swing'&&pose.batter===6&&approach>=6.45&&approach<7;
- return {...pose,batterTween:bridge?0:null};
+ // Keep the original early-follow key readable, then use the end of its
+ // hold (and at most half of the next hold) for a connected overhead bat arc.
+ // Contact, host events, total duration and the return-to-ready remain exact.
+ const followEnd=(timeline?.releaseAt||0)+70;
+ const returnAt=timeline?Math.max(timeline.releaseAt+90,timeline.duration-300):0;
+ const spare=timeline?Math.max(0,followEnd-timeline.impactAt-(timeline.freeze||0)-50):0;
+ const extension=Math.min(60,Math.max(0,(returnAt-followEnd)/2));
+ const followMs=Math.min(120,spare+extension),followStart=followEnd-Math.min(spare,followMs);
+ const follow=!!timeline&&!reduced&&action==='swing'&&options.landed&&[9,10].includes(pose.batter)
+   &&followMs>=40&&elapsed>=followStart&&elapsed<followStart+followMs;
+ return {...pose,batterTween:bridge?0:null,batterFollow:follow?Math.min(1,Math.floor((elapsed-followStart)/followMs*2)):null};
 }
 function keyMotionAt({elapsed=0,timeline=null,action='take',landed=false,knockedOut=false,reduced=false,readyCoil=false}={}){
   if(!timeline||reduced)return {batter:0,pitcher:knockedOut?3:readyCoil?4:0};

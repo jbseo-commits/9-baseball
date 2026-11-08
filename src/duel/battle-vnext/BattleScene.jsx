@@ -10,6 +10,7 @@ import './motion.css';
 import {rosterFrame} from './roster-actor.js';
 import useSceneClock from './use-scene-clock.js';
 import './scene.css';
+import {batterGroundShadows} from './batter-grounding.js';
 import {ATBAT_COMPOSITION} from './atbat-composition.js';
 
 /* Registered authored poses and VFX share one camera and host clock.
@@ -42,6 +43,8 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
     ?{point:roster.landing,progress:(elapsed-landingAt)/230}:null;
   const batterTweens=actors.batter===SAMPLE_ACTORS.batter;
   const pose=motionAt({elapsed,timeline:playback?.timeline,action:playback?.action,landed:phase==='result',knockedOut:!!result?.knockedOut,reduced,readyCoil:framing==='atbat'&&(phase==='deciding'||phase==='flight'),authoredBatterTweens:batterTweens});
+  const grounding=batterTweens&&composition?batterGroundShadows(composition.batter,pose.batterFollow!=null?'follow-'+(pose.batterFollow+1):pose.batter):null;
+  const groundShadows=grounding?[composition.shadows[0],...grounding]:(composition?.shadows||SCENE.shadows);
   const [measured,setMeasured]=useState(null);
   const onLayoutRef=useRef(onLayout);onLayoutRef.current=onLayout;
   useLayoutEffect(()=>{
@@ -68,17 +71,17 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
   return <section ref={rootRef} className={'bv-scene'+(className?' '+className:'')} aria-label="승부 구장" style={vars}
     data-phase={phase} data-fx-stage={scene?.fxStage||undefined} data-play-token={scene?.playToken??undefined}
     data-shot={scene?.shotGrade||undefined} data-motion={authored?'authored':'static'} data-camera-align={camera.yAlign}>
-    {batterTweens&&<img hidden src={SAMPLE_ACTORS.batterTween} alt="" aria-hidden="true"/>}
+    {batterTweens&&<>{[SAMPLE_ACTORS.batterTween,...SAMPLE_ACTORS.batterFollow].map(url=><img key={url} hidden src={url} alt="" aria-hidden="true"/>)}</>}
     <div className="bv-world-camera" style={{transform:effect?.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:'none'}}>
     <div className="bv-world" aria-hidden="true" style={{width:SCENE.world.width,height:SCENE.world.height,transform:cameraMatrix(camera),visibility:camera.scale?'visible':'hidden'}}>
       <img className="bv-stadium" src={composition?.stadium||stadiumUrl} alt="" width={SCENE.world.width} height={SCENE.world.height} draggable="false" decoding="async"/>
-      {(composition?.shadows||SCENE.shadows).map((s,i)=><i key={i} className="bv-ground-shadow" style={{left:s.x,top:s.y,width:s.width,height:s.height,transform:`rotate(${s.rotation}deg)`}}/>)}
+      {groundShadows.map((s,i)=><i key={i} className="bv-ground-shadow" style={{left:s.x,top:s.y,width:s.width,height:s.height,opacity:s.opacity,transform:`rotate(${s.rotation}deg)`}}/>)}
       {ACTORS.map(name=>{
-        const live=name==='pitcher'?roster:null,tween=name==='batter'&&batterTweens&&pose.batterTween!=null,url=live?.url||(tween?SAMPLE_ACTORS.batterTween:actors[name])||null,isAtlas=!!live||url===SAMPLE_ACTORS[name]||tween;
+        const live=name==='pitcher'?roster:null,follow=name==='batter'&&batterTweens&&pose.batterFollow!=null,tween=name==='batter'&&batterTweens&&(pose.batterTween!=null||follow),url=live?.url||(follow?SAMPLE_ACTORS.batterFollow[pose.batterFollow]:tween?SAMPLE_ACTORS.batterTween:actors[name])||null,isAtlas=!!live||url===SAMPLE_ACTORS[name]||tween;
         const originalMeta=live?live.meta:isAtlas?(composition?.[name]||PILOT_MOTION[name]):SCENE[name],meta=tween?{...originalMeta,columns:1,rows:1}:originalMeta,b=actorBox(meta),frame=tween?0:live?rosterFrame(playback,elapsed,live,{knockedOut:!!result?.knockedOut}):pose[name];
         const readyImage=isAtlas&&!tween&&frame===0&&meta.readyImage;
         return <div key={name} className={'bv-actor bv-actor-'+name} data-actor={name} data-actor-missing={url?undefined:'true'}
-          data-pose={tween?'swing-bridge':live?'frame-'+frame:isAtlas?meta.frames[frame].name:undefined} data-roster-art={live?.artId} style={{left:b.x,top:b.y,width:b.width,height:b.height}}>
+          data-pose={follow?'follow-bridge-'+(pose.batterFollow+1):tween?'swing-bridge':live?'frame-'+frame:isAtlas?meta.frames[frame].name:undefined} data-roster-art={live?.artId} style={{left:b.x,top:b.y,width:b.width,height:b.height}}>
           {url&&(isAtlas?<div className="bv-motion-crop"><img src={url} alt="" width={meta.sourceWidth*meta.columns} height={meta.sourceHeight*meta.rows} draggable="false" decoding="async" style={{width:meta.columns*100+'%',height:meta.rows*100+'%',left:-(frame%meta.columns)*100+'%',top:-Math.floor(frame/meta.columns)*100+'%'}}/></div>:<img src={url} alt="" width={meta.sourceWidth} height={meta.sourceHeight} draggable="false" decoding="async"/>)}
           {readyImage&&<img className="bv-ready-drawing" src={readyImage.url} alt="" draggable="false" decoding="async" style={{position:'absolute',zIndex:1,width:readyImage.width/meta.sourceWidth*100+'%',height:readyImage.height/meta.sourceHeight*100+'%',left:readyImage.x/meta.sourceWidth*100+'%',top:readyImage.y/meta.sourceHeight*100+'%'}}/>}
         </div>;
