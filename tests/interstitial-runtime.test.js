@@ -1,5 +1,6 @@
 import {describe,it,expect} from 'vitest';
 import {rosterFrame,rosterTimeline} from '../src/duel/battle-vnext/roster-actor.js';
+import {batterGroundShadows} from '../src/duel/battle-vnext/batter-grounding.js';
 import {motionAt} from '../src/duel/battle-vnext/motion-timeline.js';
 
 describe('authored in-between delivery sampling',()=>{
@@ -12,6 +13,18 @@ describe('authored in-between delivery sampling',()=>{
   for(const elapsed of [1200,1230,1294])expect(at(elapsed)).toMatchObject({batter:8,batterTween:null});
   for(const action of ['take','prepare'])expect(at(1150,{action}).batterTween).toBeNull();
   expect(at(1150,{reduced:true}).batterTween).toBeNull();
+ });
+ it('continues the bat arc through two authored follow drawings without changing contact, watch or recovery',()=>{
+  const timeline={impactAt:1200,releaseAt:1400,freeze:95,duration:2100,delivery:{pitchReleaseAt:900}};
+  const at=(elapsed,extra={})=>motionAt({elapsed,timeline,action:'swing',landed:elapsed>=1200,authoredBatterTweens:true,...extra});
+  expect(at(1294)).toMatchObject({batter:8,batterFollow:null});
+  expect(at(1349)).toMatchObject({batter:9,batterFollow:null});
+  expect(at(1360).batterFollow).toBe(0);expect(at(1430).batterFollow).toBe(1);
+  expect(at(1470)).toMatchObject({batter:10,batterFollow:null});
+  expect(at(2100)).toMatchObject({batter:0,batterFollow:null});
+  for(const action of ['take','prepare'])expect(at(1360,{action}).batterFollow).toBeNull();
+  expect(at(1360,{reduced:true}).batterFollow).toBeNull();
+  const before=structuredClone(timeline);for(let t=0;t<=2100;t+=5)at(t);expect(timeline).toEqual(before);
  });
  const keyDrawings=[0,1,3,5,7,8,10,12,13,14,15,16];
  const actor={releaseFrame:76,releaseAt:1267,landingAt:833,meta:{drawingAtTick:Array(120).fill(0),keyDrawings,releaseDrawing:10,landingDrawing:7}};
@@ -42,5 +55,22 @@ describe('authored in-between delivery sampling',()=>{
   for(const dt of [1,30,70,94])expect(at(timeline.impactAt+dt)).toBe(at(timeline.impactAt));
   expect(at(timeline.duration-1)).toBe(16);
   expect(rosterTimeline(timeline,actor,true,{delivery:true})).toBe(timeline);
+ });
+});
+
+describe('batter sole grounding',()=>{
+ const meta={sourceHeight:768,worldHeight:1200,worldFoot:{x:200,y:960},anchor:{x:210,y:700}};
+ it('keeps rear contact at the actor anchor and moves the lead shadow with the authored stride',()=>{
+  const ready=batterGroundShadows(meta,0),contact=batterGroundShadows(meta,8);
+  for(const key of [0,8,9,10,'follow-1','follow-2']){
+   const [back,front]=batterGroundShadows(meta,key);
+   expect(Math.abs(back.x+back.width/2-meta.worldFoot.x)).toBeLessThan(9);
+   expect(front.x+front.width/2).toBeGreaterThan(back.x+back.width/2);
+  }
+  expect(contact[1].y-ready[1].y).toBeGreaterThan(70);
+ });
+ it('leaves the lifted load-foot shadow on the ground and softer than planted contact',()=>{
+  const load=batterGroundShadows(meta,2)[1],planted=batterGroundShadows(meta,1)[1];
+  expect(load.y).toBe(planted.y);expect(load.opacity).toBeLessThan(planted.opacity);
  });
 });
