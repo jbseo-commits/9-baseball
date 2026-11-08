@@ -16,8 +16,8 @@
 |1b|#78·#75 가로 연습·시작덱 첫진입|PR88 main8f443ef병합·공개4viewportPASS|667×375·844×390 실제 기본 진입, 텍스트/버튼·스크롤 검수|
 |2|2배속 카드삽입·투구·결과 읽힘과 입력/취소 검수 후 실제결함수정|전원사건·음향PASS/작은결과잘림CSS HELD|동일행동 타임라인/실제영상/중복입력·무음·reduced 비교|
 |3|동작연속성의 가장 큰 키포즈 결손 보강|작화2+접지후보 DRAFT/HELD(기능PASS·시각2회NOT)|image_gen 전체포즈 작화, 원형/손잡이/발/공 이벤트, blind+실플검수. 120tick과고유그림 구분|
-|4|20명 기믹과 판단 차이를 분석하고 학습/공략 피드백 개선|로컬검증·독립PASS,게시준비|공개정보만 쓰는 동일seed정책비교, 기믹정보경계·규칙불변. 사람재미 검증은 별도|
-|5|카드아트/용량의 실제 병목 해결|대기|실제 import/사용파일, byte/시각동일성, dist<60MB, 누락카드아트는 채택분만 완료 표시|
+|4|20명 기믹과 판단 차이를 분석하고 학습/공략 피드백 개선|PR91 main ee6437e병합·공개4casePASS|공개정보만 쓰는 동일seed정책비교, 기믹정보경계·규칙불변. 사람재미 검증은 별도|
+|5|카드아트/용량의 실제 병목 해결|로컬·독립검수완료/게시준비|실제 import/사용파일, byte/시각동일성, dist<60MB, 누락카드아트는 채택분만 완료 표시|
 
 ## 현재 검수 역할
 
@@ -97,3 +97,23 @@
 9. 배포영향있음:소량JS/CSS,full/smoke/build/budget·독립검수·main공개동작확인.
 
 3후보PR90 DRAFT/HELD,main에없음.4최종독립PASS/238files1620/세가로직접입력·공개패턴ARIA·기본0px·공개bound400policy228변화/pending.zone교란0변화.실제사람재미/52확장완료아님.
+
+## 5 구현 전 9축 영향도
+
+1. UI영향확인:실제게임그림/구도불변,옛?showcase=cinematic-v2검수화면만DEV에남김.productionquery는정상게임으로진입.새카드아트는별도검수없이는대량추가하지않음.
+2. 입력영향확인:normalmenu/battle/preview/compare및DEVshowcase 재생·상대선택검수.
+3. 규칙영향없음:engine/cards패턴/판정/HP불변.
+4. 저장영향확인:entry routing만좁게변경,기존save/resume·미지원옛QAquery가런을덮지않는지검사.
+5. 뷰포트영향확인:가로667375/844390/PC·회전가드·작은높이실제flow.
+6. 스크롤영향없음:CSS/overflow변경없음,경로/시설검수.
+7. 플로우영향있음:main/구형QAquery→title→팩→map→battle→reward→facility→resume.다른QAroute는보존.
+8. 테스트영향있음:build가6개legacyatlas재유입시실패하는gate먼저추가·baseline실패고정,모든현재20compact/151cardresolver·공유imageSHA동일/실제decode.
+9. 빌드영향있음:DEVonlylazyimport로사용하지않는검수용6atlas6.55MiB제거예상,60MiB예산유지.폰트/원화/캐릭터/카드화질재압축없음.기존PNG→WebP최적화이미있음.카드135중70own/65missing실제대조·낡은C138다음번호정정.
+
+## 6/6 회차 체크포인트
+
+1a PR87 main2d45f88/공개PASS,1b PR88 main8f443ef/공개PASS,2 PR89 main373d770/검수도구·기록병합/제품CSS후보HELD,3 PR90 DRAFT/HELD(작화2+접지기능PASS시각2회NOT),4 PR91 mainee6437e/공개4casePASS,5 runtime예산실측59.3→52.7MiB/전부그림동일·20투수유지·전체1620PASS/최종PR게시준비.
+
+6/6회차사용.이번실행은최종PR의CI/main/공개검증을끝낸후새이슈를추가하지않고종료한다.시작19:19KST,기한21:19KST유지.최종mainSHA/원격·배포후결과는최종PRbody및외부publication.json에기록한다(상태문서만바꿔추가배포반복하지않음).
+
+남음:result요약HP잘림은HELD패치로보존되어main미해결;타자follow2그림/sole후보PR90시각게이트부족으로미병합;65전용카드미제작(C163우선);52확장/사람반복재미·밸런스검증미완료.다음한행동:C163원화단일제작또는HELD통합아트의새검증근거를얻어품질패스재개.
