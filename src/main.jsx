@@ -1,7 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import Duel from "./duel/App.jsx";
-import CinematicV2Showcase from "./duel/CinematicV2Showcase.jsx";
 import {HomerunVideoPreview} from "./duel/HomerunVideo.jsx";
 import {HomeRunCut} from "./duel/phone-art-v18.jsx";
 import HomerV3 from "./duel/HomerV3.jsx";
@@ -58,9 +57,12 @@ const params=new URLSearchParams(window.location.search);
 const PlayableRun=React.lazy(()=>import('./duel/battle-vnext/PlayableRun.jsx'));
 const BattleComparison=React.lazy(()=>import('./duel/battle-vnext/BattleComparison.jsx'));
 const BattleIntegrationPreview=React.lazy(()=>import('./duel/battle-vnext/IntegrationPreview.jsx'));
+// Historical full-atlas lab stays available locally; production ships only
+// the reviewed compact roster used by the game. Keep the source masters.
+const CinematicV2Showcase=import.meta.env.DEV?React.lazy(()=>import('./duel/CinematicV2Showcase.jsx')):null;
 const ZoneFirstPreview=React.lazy(()=>import("./duel/ZoneFirstPreview.jsx"));
 const zoneFirstPreview=params.get("showcase")==="zone-first";
-const showcase=params.get("showcase")==="cinematic-v2";
+const showcase=import.meta.env.DEV&&params.get("showcase")==="cinematic-v2";
 const homerQa=params.get("qa")==="homer";
 const homerV3Qa=params.get("qa")==="homer-v3";
 const homerPreview=params.get("showcase")==="homer-video";
@@ -89,7 +91,7 @@ function HomerQa(){
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     {battleUi.vnext&&params.get('battlePlay')==='1'?<MemoryPreviewBoundary><React.Suspense fallback={<p role="status">경기 준비 중…</p>}><PlayableRun/></React.Suspense></MemoryPreviewBoundary>:compare.page?<MemoryPreviewBoundary><React.Suspense fallback={<p role="status">비교 화면 준비 중…</p>}><BattleComparison/></React.Suspense></MemoryPreviewBoundary>:compare.child||compare.standalone?<MemoryPreviewBoundary><React.Suspense fallback={<p role="status">비교 화면 준비 중…</p>}><BattleIntegrationPreview fixture={battleUi.fixture} variant={compare.child||compare.standalone||'vnext'} embedded={!!compare.child}/></React.Suspense></MemoryPreviewBoundary>:battleUi.fixture ? <ErrorBoundary><React.Suspense fallback={<p role="status">검수 화면 준비 중…</p>}><BattleIntegrationPreview fixture={battleUi.fixture}/></React.Suspense></ErrorBoundary> : zoneFirstPreview ? <ErrorBoundary><React.Suspense fallback={<p role="status">전투 프리뷰 준비 중…</p>}><ZoneFirstPreview /></React.Suspense></ErrorBoundary> : homerPreview ? <ErrorBoundary><HomerunVideoPreview /></ErrorBoundary> : homerV3Qa ? <ErrorBoundary><HomerV3 /></ErrorBoundary> : homerQa ? <ErrorBoundary><HomerQa /></ErrorBoundary> : showcase ? (
-      <ErrorBoundary><CinematicV2Showcase /></ErrorBoundary>
+      <ErrorBoundary><React.Suspense fallback={<p role="status">연출 검수 화면 준비 중…</p>}><CinematicV2Showcase /></React.Suspense></ErrorBoundary>
     ) : layoutMode() === "frame" ? <PortraitFrame /> : (
       <ErrorBoundary>
         {battleUi.vnext?<div className="vnext-shell"><Duel /></div>:<Duel />}
