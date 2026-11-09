@@ -2918,9 +2918,9 @@
     {
       "id": "tide-vesper",
       "runtimeFile": "assets/pitcher-inbetweens-v1/runtime/tide-vesper-pitch-drawings.webp",
-      "runtimeSHA256": "2b2ea094a38d3c6e6d036debca24215dbb25545d122e4a84219dc9e3a57d428f",
+      "runtimeSHA256": "ed887a676c1e16f40373967bca68a7cbdff2d22c1fa543ece15f98fef562fc86",
       "file": "assets/pitcher-inbetweens-v1/atlases/tide-vesper-pitch-120-atlas.webp",
-      "atlasSHA256": "1c936ef72e6fc661521135e59972065c2f57a906ff3c0ac613e496ef8a08d8bd",
+      "atlasSHA256": "90aeaece98d234140fc75bf4dbbb06e3a1a192be4d3d76914a65b75e62dc7117",
       "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper.webp",
       "sourceSheetSHA256": "aa9c8b50ed296ace7bd82bbd5f81e511059a7ea5b2913f7c3087058301c3314b",
       "originalRuntimeFile": "assets/pitcher-grounded-runtime-v1/runtime/tide-vesper-pitch-12-drawings.webp",
@@ -3094,6 +3094,15 @@
           "referenceOriginalKey": 0,
           "alignment": "foot"
         },
+        "assets/pitcher-inbetweens-v1/sources/tide-vesper-release-bridge-r4.webp": {
+          "scale": 0.20810313075506445,
+          "translation": [
+            -2.6086556169429116,
+            -2.6832412523020253
+          ],
+          "referenceOriginalKey": 5,
+          "alignment": "bounds-center"
+        },
         "assets/pitcher-inbetweens-v1/sources/tide-vesper-step-g024.webp": {
           "scale": 0.38,
           "translation": [
@@ -3198,15 +3207,15 @@
           "previousPixelSHA256": "7169a62cc01e90672cb37431032b63af2344ddc28ae63f751b34c36b4b1986cc"
         },
         {
-          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-low-slot-g024.webp",
-          "sourceCell": 3,
-          "pixelSHA256": "5c2abb1e8e0d3beaafaa7db8e555ec78172e87e421968d38c8b7aacad8107b48",
-          "beforeAnchorRegistrationPixelSHA256": "5c2abb1e8e0d3beaafaa7db8e555ec78172e87e421968d38c8b7aacad8107b48",
+          "sourceSheet": "assets/pitcher-inbetweens-v1/sources/tide-vesper-release-bridge-r4.webp",
+          "sourceCell": 0,
+          "pixelSHA256": "0e8bead23980ab6d85bca9bd47cbd1efe50acb43f34f2ba6a2256b3ecf6bb8cd",
+          "beforeAnchorRegistrationPixelSHA256": "0e8bead23980ab6d85bca9bd47cbd1efe50acb43f34f2ba6a2256b3ecf6bb8cd",
           "drawingAnchorOffset": [
             0,
             0
           ],
-          "notes": "G024 authored lateral forearm whip, ball held until the following release key.",
+          "notes": "R4 authored right-arm depth bridge: held ball travels from lateral KEY5 toward front release KEY6, left glove remains tucked. One whole-drawing uniform registration, no limb warps. Only replaces duplicate bridge; other discontinuities remain documented.",
           "kind": "authored-inbetween",
           "afterKey": 5
         },
@@ -3298,7 +3307,7 @@
           "afterKey": 11
         }
       ],
-      "runtimeBytes": 776572
+      "runtimeBytes": 755476
     },
     {
       "id": "elite-01-cobalt-impact",
@@ -6243,7 +6252,7 @@
   ],
   "totalRevisedKeys": 16,
   "totalNewPitcherDrawings": 86,
-  "totalRuntimeBytes": 11155000,
+  "totalRuntimeBytes": 11133904,
   "qualityLimit": "Curated additional drawings, not 120 newly authored drawings per character or proof of commercial animation quality. Rejected candidates and earlier HELD histories remain unchanged.",
   "previousInbetweenReplacements": 13,
   "previousRecoveryDrawings": 10,
