@@ -21,3 +21,4 @@
 | 2026-11-09 | Landscape field focus anchoring | independent focus_anchor_blind_judge | 2.56 → 3.13 | IMPROVED | R2 UI 그림화 |
 | 2026-11-09 | Bound landscape inspector body and keep controls visible | independent inspector_blind_judge | 2.19 → 2.66 | IMPROVED | R4 캐릭터 존재감 |
 | 2026-11-09 | Bound landscape inspector body, preserve controls and reset reading position per tab | independent inspector_final_blind | 2.25 → 2.63 | IMPROVED | R4 캐릭터 존재감 |
+| 2026-11-09 | Readable mixed shop rows and contained equipment art | repair_shop_blind | 1.56 → 2.88 | IMPROVED | R4 캐릭터 존재감 |
