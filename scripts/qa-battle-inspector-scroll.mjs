@@ -29,7 +29,7 @@ try{
     await page.locator('.battle-vnext[data-phase="deciding"]').waitFor();
     // Preserve a real card/zone plan while inspecting, rather than only an
     // empty selection. Arrow/gesture card behavior is covered separately.
-    await page.getByRole('button',{name:'손패 펼치기',exact:true}).click();
+    if(await page.getByRole('button',{name:'손패 펼치기',exact:true}).count())await page.getByRole('button',{name:'손패 펼치기',exact:true}).click();
     await page.locator('.bv-card:not(.t-prepare)').first().click();
     await page.locator('.bv-cell[data-zone="4"]').click();
     const beforeSave=await page.evaluate(()=>localStorage.getItem('9zone-v10-run'));

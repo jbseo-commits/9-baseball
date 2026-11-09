@@ -64,7 +64,7 @@ it('muted placements create no sound and reduced motion uses only the short lock
  expect(playPlacementSound.mock.calls[0][0].reduced).toBe(true);
 });
 it('re-measures a scrolled card at the moment of the tap placement, and closing the inspector never replays it',()=>{
- render(<IntegrationPreview fixture="watch-read0"/>);fireEvent.click(screen.getByRole('button',{name:'손패 펼치기',exact:true}));
+ render(<IntegrationPreview fixture="watch-read0"/>);const opener=screen.queryByRole('button',{name:'손패 펼치기',exact:true});if(opener)fireEvent.click(opener);
  const card=document.querySelector('.bv-card[data-card-kind=strike]');card.getBoundingClientRect=()=>rect(600,120,200,80);fireEvent.click(card);
  card.getBoundingClientRect=()=>rect(580,210,200,80);fireEvent.click(document.querySelector('.bv-cell[data-zone="2"]'));
  expect(screen.getByTestId('bv-coverage-insert').style.getPropertyValue('--from-y')).toBe('250px');
@@ -72,7 +72,7 @@ it('re-measures a scrolled card at the moment of the tap placement, and closing 
  fireEvent.click(screen.getByTestId('bp-inspect-back'));expect(screen.queryByTestId('bv-coverage-insert')).toBeNull();
 });
 it('fast real execution consumes exactly one pitch and cancels placement before its animation is done',()=>{
- render(<IntegrationPreview fixture="watch-read0"/>);fireEvent.click(screen.getByRole('button',{name:'손패 펼치기',exact:true}));
+ render(<IntegrationPreview fixture="watch-read0"/>);const opener=screen.queryByRole('button',{name:'손패 펼치기',exact:true});if(opener)fireEvent.click(opener);
  fireEvent.click(document.querySelector('.bv-card[data-card-kind=strike]'));fireEvent.click(document.querySelector('.bv-cell[data-zone="2"]'));
  fireEvent.click(screen.getByTestId('bp-swing'));act(()=>vi.advanceTimersByTime(90));
  expect(document.querySelector('.bv-scene').dataset.playToken).toBe('1');expect(screen.queryByTestId('bv-coverage-insert')).toBeNull();
