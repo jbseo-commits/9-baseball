@@ -22,3 +22,5 @@
 | 2026-11-09 | Bound landscape inspector body and keep controls visible | independent inspector_blind_judge | 2.19 → 2.66 | IMPROVED | R4 캐릭터 존재감 |
 | 2026-11-09 | Bound landscape inspector body, preserve controls and reset reading position per tab | independent inspector_final_blind | 2.25 → 2.63 | IMPROVED | R4 캐릭터 존재감 |
 | 2026-11-09 | Readable mixed shop rows and contained equipment art | repair_shop_blind | 1.56 → 2.88 | IMPROVED | R4 캐릭터 존재감 |
+| 2026-11-09 | HELD rest layout candidate1 before environment correction | repair_rest_blind | 3.06 → 2.56 | NOT_IMPROVED | R4 캐릭터 존재감 |
+| 2026-11-09 | Rest final: one out or card upgrade, preserved stadium environment | repair_rest_final_blind | 2.88 → 3.44 | IMPROVED | R4 캐릭터 존재감 |

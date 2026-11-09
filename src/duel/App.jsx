@@ -113,7 +113,7 @@ const v10ZoneName=zone=>zone===9?'존 밖':ZONES[zone]||'코스 미확인';
 const v10ChoiceName=kind=>kind==='take'?'한 구 지켜보기':kind==='basic'?'기본 스윙':CARDS[kind]?.name||kind;
 const V10_UTILITY_PHASES=['training','locker','shop','rest'];
 const V10_UTILITY_TITLES={training:'타격 훈련',locker:'라커룸',shop:'장비 상점',rest:'휴식일'};
-const V10_UTILITY_NOTES={upgrade:'이 카드를 강화한다',remove:'이 카드를 덱에서 뺀다',add:'이 카드를 덱에 넣는다',rest:'다음 전투에서 타격 기술 +8'};
+const V10_UTILITY_NOTES={upgrade:'이 카드를 강화한다',remove:'이 카드를 덱에서 뺀다',add:'이 카드를 덱에 넣는다',recover:'이어지는 아웃 1 회복'};
 /* 조건에 걸려 고를 게 하나도 없는 칸이 있다. 빈 화면 대신 이유를 적는다. */
 const PITCHER_FORM_KEYS=new Set(['outside','sinker','high','closer']);
 const pitcherFormKey=key=>PITCHER_FORM_KEYS.has(key)?key:'outside';
@@ -1280,7 +1280,7 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
     :isV10&&s.phase==='event'?<BallparkEvent key="screen-bp-event" offer={eventOffer} onDeck={()=>setModal('deck')}
       onPick={id=>{const r=resolveEventChoice(current.current,id);if(!r.event)return;setEventResult({title:eventOffer?.title||'사건',outcome:r.outcome});act(()=>r.state);}}/>
     :isV10&&V10_UTILITY_PHASES.includes(s.phase)?<BallparkStop key={'screen-bp-'+s.phase} kind={s.phase}
-      options={v10UtilityOptions(s)} deck={s.deck} deckCount={s.deck.length} onDeck={()=>setModal('deck')}
+      options={v10UtilityOptions(s)} runOuts={s.runOuts||0} deck={s.deck} deckCount={s.deck.length} onDeck={()=>setModal('deck')}
       onPick={o=>act(x=>completeV10UtilityNode(x,o))} onSkip={()=>act(x=>completeV10UtilityNode(x,{type:'skip'}))}/>
     :s.phase==='facility'?<main key="screen-facility" className="facility-screen stadium"><FacilityScreen s={s} choice={facilityChoice} target={selected}
       onChoice={setFacilityChoice} onTarget={setSelected} onConfirm={action=>act(x=>chooseFacility(x,action))}/></main>

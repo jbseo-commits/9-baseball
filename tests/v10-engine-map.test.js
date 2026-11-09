@@ -162,14 +162,14 @@ describe('V10 engine loop and save isolation',()=>{
     const rest=x.runMap.nodes.find(n=>n.type==='rest'&&x.runMap.edges.some(e=>e.from===n.id&&['battle','elite','boss'].includes(getRunNode(x.runMap,e.to)?.type)));
     expect(rest).toBeTruthy();
     x.phase='rest';x.runMap.currentNodeId=rest.id;x.runMap.reachableIds=[];x.v10.nodeId=rest.id;
-    x=completeV10UtilityNode(x,{type:'rest'});
-    expect(x.v10.nextBattleBonus).toMatchObject({technique:8,source:'rest'});
+    x.runOuts=2;
+    x=completeV10UtilityNode(x,{type:'recover'});
+    expect(x.runOuts).toBe(1);
+    expect(x.v10.nextBattleBonus).toBeFalsy();
     const combatId=x.runMap.reachableIds.find(id=>['battle','elite','boss'].includes(getRunNode(x.runMap,id)?.type));
     expect(combatId).toBeTruthy();
-    x=enterV10Node(x,combatId);expect(x.v10.activeBattleBonus.technique).toBe(8);
-    const boosted=matchup(x,'basic').hitter.technique;
-    const plain={...x,v10:{...x.v10,activeBattleBonus:null}};
-    expect(boosted-matchup(plain,'basic').hitter.technique).toBe(8);
+    x=enterV10Node(x,combatId);expect(x.battle.outs).toBe(1);
+    expect(x.v10.activeBattleBonus).toBeFalsy();
   });
 
   it('round-trips V10 under a new key without touching V9 save data',()=>{
