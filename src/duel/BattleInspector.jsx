@@ -96,7 +96,7 @@ export default function BattleInspector({tab,setTab,pileKind,inspectCard,inspect
     <div className="bp-inspect-tabs" role="tablist" aria-label="검사 항목">
       {tabs.map(([key,name])=><button key={key} type="button" role="tab" aria-selected={tab===key} className={tab===key?'on':''} onClick={()=>setTab(key)}>{name}</button>)}
     </div>
-    <div className="bp-inspect-body">
+    <div key={tab} className="bp-inspect-body">
       {tab==='card'&&<CardBody inspectCard={inspectCard} problem={inspectProblem}/>}
       {tab==='pitcher'&&<PitcherBody s={s} pitcher={pitcher} shown={shown} gm={gm} gtier={gtier} intent={intent}/>}
       {tab==='read'&&<ReadBody read={read}/>}

@@ -34,5 +34,5 @@ PR별로 main0eedc99에서 독립 수정했다. Pages는 후속 브랜치 배포
 
 | ID | 우선순위 | 상태 | 근거 / 다음 행동 |
 | --- | --- | --- | --- |
-| G-020 | P1 | VALIDATED_LOCAL | a61507b 가로 손패 펼침 중 카드focus가 타석 root293px/잔류18px 이동. root clip 격리,5크기 browser239files1631tests/실제경기/독립review/블라인드 IMPROVED 통과. run read-loop-20261109 R1, 게시SHA는 PR 기록. |
-| G-021 | P1 | REPRODUCED |667×320/844×390 정보창 body가 flex부재로 화면 밖에 자라 내부스크롤 불가. 이전 hidden과 현재clip 동일 실패, 독립UX 근거. R1과 분리해 내부 스크롤 수정 우선. |
+| G-020 | P1 | RELEASE_VERIFIED | PR94 mainb466c82/Pages42565875219 공개 실제새런+포커스/터치/키보드/접기/이어하기 통과. rootclip격리,5크기browser/full1631/실제경기/독립review/블라인드 IMPROVED. run read-loop-20261109 R1. |
+| G-021 | P1 | VALIDATED_LOCAL | baseline667×320/844×300·390에서 정보창body11건넘침. boundedflex/bodytabkey복원,5크기6tab production/3크기독립UX/full1631/블라인드 IMPROVED 통과. 게시·정확SHA는 PR 기록. run read-loop-20261109 R2. |
