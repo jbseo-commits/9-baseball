@@ -3,7 +3,7 @@ import {flushSync} from 'react-dom';
 import {CARDS,cardCost,TYPE_NAMES,STAGES,GLOSSARY,LINEUP,BUILDS,ZONES,GROWTHS,growthCost,rewardChoices,AXES,AXIS_NAMES,ROLES,REWARD_ACTIONS,AFFINITY_CARDS,upgradeText,canUpgrade,DECK_MIN,DECK_MAX,
   READ_LEVELS,RELICS,RELIC_OFFERS,bandFor,rangeFor,shadeFor,shadeNameFor,observeScore,cardText,ZONE_ORDER,DECKBUILDER_BUILD,FACILITIES,FACILITY_ROUTES,ROUTE_CHOICES,routeChoice} from './cards.js';
 import {createDuel,startBattle,chooseRoute,battleTarget,playCard,endTurn,chooseReward,chooseFacility,facilityProblem,previewCard,readDuel,saveDuel,advanceBatter,currentBatter,advancePitch,setAimZone,coverage,publicProbabilities,pitchClue,matchup,setGrowthMode,growthProblem,readLevel,knownPitchZones} from './engine.js';
-import {createV10Duel,enterV10Node,playV10Action,advanceV10Pitch,advanceV10Batter,claimV10Reward,
+import {createV10Duel,enterV10Node,playV10Action,advanceV10Pitch,advanceV10Batter,claimV10Reward,captureHandTransition,
   v10UtilityOptions,completeV10UtilityNode,v10RewardOptions,selectV10Pitcher,selectV10Combat,selectV10Map,v10NodeProblem,v10Energy,v10EnergyBase,v10NextEnergyMax,
   saveV10Duel,readV10Duel,V10_SAVE_KEY,applyStartPack,START_PACKS,previewV10Stack,v10StackMax,V10_SWING_DAMAGE_RATES,V11_STACK_CONNECT_BONUS} from './engine.js';
 import {createDefenseLabState,readDefenseLabState,saveDefenseLabState,DEFENSE_LAB_SAVE_KEY,playDefenseLabAction,advanceDefenseLabPitch,advanceDefenseLabBatter,defenseLabThreat} from './engine.js';
@@ -903,6 +903,7 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
   const [cardDetail,setCardDetail]=useState(null),detailOpener=useRef(null);
   const [fxImpactAt,setFxImpactAt]=useState(0);
   const [fxExecution,setFxExecution]=useState(null);
+  const [handReceipts,setHandReceipts]=useState([]),handReceiptSeq=useRef(0);
   const [fxPlayback,setFxPlayback]=useState(null),presentationClock=useRef(null),presentationToken=useRef(0),soundRef=useRef(sound);soundRef.current=sound;
   // Experimental tutorial: keep the real V10 rules, but teach the loop as
   // PLAN -> WATCH THE BUILD EXECUTE -> REVIEW. It never overwrites the saved main run.
@@ -1115,8 +1116,15 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
   }
   function act(fn,animate=false,resolvePlan=null){
     if(lock.current||tour.open)return;
-    const before=current.current,next=fn(before);
+    const before=current.current,{state:next,events:handEvents}=captureHandTransition(before,fn);
     if(next===before)return;
+    if(next.version===10&&handEvents.length){
+      const zones=Object.fromEntries([[selected,before.battle?.aimZone],...swingStack.map(x=>[x.id,x.aimZone])].filter(([id])=>id));
+      const receipt={seq:++handReceiptSeq.current,nodeId:next.runMap?.currentNodeId,events:handEvents,zones,
+        beforePiles:{hand:before.battle?.hand.length||0,draw:before.battle?.draw.length||0,discard:before.battle?.discard.length||0},
+        cards:Object.fromEntries(next.deck.map(c=>[c.id,{...c,name:CARDS[c.kind]?.name}]))};
+      setHandReceipts(prev=>[...prev,receipt].slice(-12));
+    }
     /* 사격 모드: 빗나간 한 발은 공이 진행되지 않는다. 판정 연출 없이 칸이 뚫리는 순간만 보여준다. */
     if(next.last?.kind==='shot'&&next.stats?.pitches===before.stats?.pitches){
       setSelected(null);setSwingStack([]);setStackEdit(null);setDecisionMode(null);persist(next);
@@ -1143,7 +1151,7 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
     persist(next);
     if(animate)startPresentation(next,executed);
   }
-  function clearActionUi(){cancelCues();setGrowthChoice(null);setRewardAction(null);setFacilityChoice(null);setStackResolve(null);setModal(null);setSelected(null);setSwingStack([]);setStackEdit(null);setDecisionMode(null);setTour({open:false,step:0});setEventResult(null);}
+  function clearActionUi(){cancelCues();setHandReceipts([]);setGrowthChoice(null);setRewardAction(null);setFacilityChoice(null);setStackResolve(null);setModal(null);setSelected(null);setSwingStack([]);setStackEdit(null);setDecisionMode(null);setTour({open:false,step:0});setEventResult(null);}
   /* the title reads the live main-run save every time it shows: the mount-time snapshot (initial.v10)
      went stale once a run was played, and 이어하기 restored that old snapshot over newer progress */
   const titleSave=!defenseExperiment&&['menu','practice'].includes(screen)?(()=>{try{return readV10Duel(storage)}catch{return null}})():null;
@@ -1256,7 +1264,7 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
       label={v10Node?.act+'막'} pitcher={s.pitcher}
       pitcherArt={pitcherAtlas?<PitcherAtlasSprite atlas={pitcherAtlas} stage={fxStage} shot={fxPresentation} playToken={s.stats.pitches}/>:<Sprite who="pitcher" stage={fxStage} shot={fxPresentation} golden variant={pitcherForm} playToken={s.stats.pitches}/>}
       batterArt={<Sprite who="batter" stage={fxStage} shot={fxPresentation} golden playToken={s.stats.pitches} syncRedRush={redRushEncounter} sheet={BATTER_V15_SHEET}/>}
-      fxStage={fxStage} shot={fxPresentation||resultPresentation} impactAt={fxImpactAt} playToken={s.stats.pitches} playback={fxPlayback} execution={fxExecution}
+      fxStage={fxStage} shot={fxPresentation||resultPresentation} impactAt={fxImpactAt} playToken={s.stats.pitches} playback={fxPlayback} execution={fxExecution} handReceipts={handReceipts}
       pitcherAtlas={pitcherAtlas} artId={v10Node?.opponent?.artId} batterPoses={BATTER_REBOOT_V3} batterSheet={BATTER_V15_SHEET} batterRig={BATTER_V15_RIG}
       vfx={<PixelVFX stage={fxStage} shot={fxPresentation} token={s.stats.pitches} drawCore={false} quality={perfTier}/>}
       onNext={s.phase==='pitch'?()=>{setAutoPlan(null);act(doNextPitch)}:s.phase==='between'?()=>{setAutoPlan(null);act(doNextBatter)}:null}

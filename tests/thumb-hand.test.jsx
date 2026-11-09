@@ -27,7 +27,7 @@ it('previews only the dragged support coverage, validates cost, and never mutate
  const strike=f.hand.find(c=>c.entry.kind==='strike').id;expect(cardDropPreview(s,ids[0],[{id:ids[1],aimZone:4},{id:ids[2],aimZone:8}],strike,2)).toMatchObject({ok:false,coverage:[]});expect(JSON.stringify(s)).toBe(before);
 });
 function drag(unfold=true){
- render(<IntegrationPreview fixture="watch-read0"/>);if(unfold)fireEvent.click(screen.getByRole('button',{name:'손패 펼치기',exact:true}));
+ render(<IntegrationPreview fixture="watch-read0"/>);const opener=screen.queryByRole('button',{name:'손패 펼치기',exact:true});if(unfold&&opener)fireEvent.click(opener);
  const area=document.querySelector('.bv-hand-area'),card=document.querySelector('.bv-card[data-card-kind=strike]'),zone=document.querySelector('.bv-cell[data-zone="2"]');vi.spyOn(document,'elementFromPoint').mockReturnValue(zone);
  fireEvent.pointerDown(card,{pointerId:8,pointerType:'touch',clientX:700,clientY:140});fireEvent.pointerMove(area,{pointerId:8,pointerType:'touch',clientX:440,clientY:260});return{area,zone};
 }

@@ -3,7 +3,19 @@ import {CARDS,SAVE_KEY,STAGES,LINEUP,BUILDS,ZONES,GROWTHS,growthCost,rewardChoic
 import {applyRewardToDeck,rewardProblem} from './deck.js';
 import {gimmickRules,addShare,trickNeighbors} from './gimmick.js';
 import {encounterDistribution,encounterPlan,encounterLimits,encounterStatus} from './pitcher-encounters.js';
-const clone=s=>JSON.parse(JSON.stringify(s));
+// Synchronous, non-persistent presentation receipts. Ordinary engine calls
+// retain their exact state/RNG path; no trace is written into game/save data.
+const handContexts=new WeakMap();
+const clone=s=>{const next=JSON.parse(JSON.stringify(s)),ctx=handContexts.get(s);if(ctx){handContexts.set(next,ctx);ctx.states.add(next);}return next;};
+const handEvent=(s,event)=>{const ctx=handContexts.get(s);if(ctx)ctx.events.push({...event,hand:s.battle.hand.length,draw:s.battle.draw.length,discard:s.battle.discard.length});};
+export function captureHandTransition(state,transition){
+  if(handContexts.has(state))throw new Error('Hand transitions cannot be nested');
+  const ctx={states:new Set([state]),events:[]};handContexts.set(state,ctx);
+  try{const next=transition(state);if(next?.then)throw new Error('Hand transitions must be synchronous');
+    return {state:next,events:Object.freeze((next===state?[]:ctx.events).map(e=>Object.freeze({...e,...(e.ids?{ids:Object.freeze([...e.ids])}:{})})))};
+  }finally{for(const s of ctx.states)handContexts.delete(s);}
+}
+function discardHandCard(s,id){const b=s.battle;b.hand.splice(b.hand.indexOf(id),1);b.discard.push(id);handEvent(s,{type:'discard',id});}
 const card=(s,id)=>s.deck.find(c=>c.id===id);
 import {v10EnergyBase,v10Energy,v10EnergyCap} from './energy.js';
 export {V10_ENERGY_BASE,V10_ENERGY_MAX,v10EnergyBase,v10NextEnergyMax,v10Energy,v10EnergyCap} from './energy.js';
@@ -20,7 +32,7 @@ const playerName=id=>LINEUP.find(p=>p.id===id)?.name||'선수';
 function shuffle(s,a){for(let i=a.length-1;i>0;i--){const j=Math.floor(unit(s,'seed')*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 /* 손패: 보통 최대 5장. 지켜보기 추가 드로우만 6장까지 허용해 기존 카드 보존을 유지한다. */
 export const HAND_OPEN=5,HAND_REFILL=4,HAND_MAX=5,V10_TAKE_HAND_MAX=HAND_MAX+1;
-function draw(s,n,maxHand=HAND_MAX){const b=s.battle;let drawn=0;while(n-->0&&b.hand.length<maxHand){if(!b.draw.length)b.draw=shuffle(s,b.discard.splice(0));if(!b.draw.length)break;b.hand.push(b.draw.pop());drawn++;}return drawn;}
+function draw(s,n,maxHand=HAND_MAX){const b=s.battle;let drawn=0;while(n-->0&&b.hand.length<maxHand){if(!b.draw.length){const count=b.discard.length;b.draw=shuffle(s,b.discard.splice(0));if(count)handEvent(s,{type:'shuffle',count});}if(!b.draw.length)break;const id=b.draw.pop();b.hand.push(id);handEvent(s,{type:'draw',id});drawn++;}return drawn;}
 export function v10TakeDrawPreview(state){
   const b=state?.battle;
   if(state?.version!==10||!['pitch','between'].includes(state.phase)||b?.takeEnergyBonus!==1)return {count:0,reason:null};
@@ -182,6 +194,7 @@ export function startBattle(state){
   // live deck, so no two seeds start alike and earned cards can appear from the first fight.
   // Dealing only from deck ids keeps the old crash (a hand id missing from the deck)
   // impossible by construction; loads additionally drop stale ids (v10NormalizeHand).
+  const openingTrace=handContexts.get(s),openingAt=openingTrace?.events.length;
   draw(s,HAND_OPEN);
   // First battle role-pair guarantee applies only to the new seven-card pack
   // record. Old three-ID records retain their original taste swap and RNG path.
@@ -206,6 +219,7 @@ export function startBattle(state){
     }
   }
   if(s.defenseLab?.schema===1)ensureDefenseCardHand(s);
+  if(openingTrace){openingTrace.events.splice(openingAt);handEvent(s,{type:'deal',ids:[...s.battle.hand]});}
   dealPitch(s);s.last={kind:'start',text:'1번 강한결 입장 · 경향을 읽고 노릴 존과 스윙을 고르세요.',events:[],runs:0,outs:0};return s;
 }
 export function setAimZone(state,zone){
@@ -526,8 +540,8 @@ function resolve(state,id,supports=[]){
   }
   const protectionSpent=lab?.pack==='hold'?holdProtectionFoul:defenseEligible;
   if(protectionSpent)s.defenseLab={...s.defenseLab,protectionUsed:true,transferredProtection:false};
-  if(id&&id!=='basic'){b.hand.splice(b.hand.indexOf(id),1);b.discard.push(id);s.stats.cards++;}
-  for(const support of supportItems){b.hand.splice(b.hand.indexOf(support.id),1);b.discard.push(support.id);s.stats.cards++;}
+  if(id&&id!=='basic'){discardHandCard(s,id);s.stats.cards++;}
+  for(const support of supportItems){discardHandCard(s,support.id);s.stats.cards++;}
   s.stats.pitches++;if(Number.isInteger(b.pitchCount)||v10Opponent(s)?.encounter?.version===1)b.pitchCount=(Number.isInteger(b.pitchCount)?b.pitchCount:b.history.length)+1;s.phase='pitch';
   const countBefore={balls:b.balls,strikes:b.strikes};
   let existingRunnerSteps=0;
@@ -627,7 +641,7 @@ export function playCard(state,id,opts={}){
   }
   if(state.version===10&&supports.length)return state;
   const s=clone(state),entry=card(s,id),k=entry.kind,plus=!!entry.plus,b=s.battle,before={runs:b.runs,outs:b.outs},events=[];
-  b.hand.splice(b.hand.indexOf(id),1);b.discard.push(id);s.stats.cards++;b.preparations++;
+  discardHandCard(s,id);s.stats.cards++;b.preparations++;
   if(s.version===10)b.energy=Math.max(0,v10Energy(s)-v10ActionCost(s,id));
   applySkillFx(s,(plus&&CARDS[k].plusFx)||CARDS[k].fx||{},events);
   return finalize(s,before,'skill',CARDS[k].name+(plus?'+':'')+' · 준비 '+b.preparations+'/'+v10PrepMax(s),events);
@@ -1307,7 +1321,7 @@ export function playV10Action(state,action){
 function v10ShotMiss(state,id,supports,shotZones){
   const s=clone(state),b=s.battle,n=(b.shot?.n|0)+1,ids=[id,...supports.map(x=>x.id)].filter(x=>x&&x!=='basic');
   b.energy=Math.max(0,v10Energy(s)-v10ActionCost(s,id,supports));
-  for(const x of ids){b.hand.splice(b.hand.indexOf(x),1);b.discard.push(x);s.stats.cards++;}
+  for(const x of ids){discardHandCard(s,x);s.stats.cards++;}
   const afx=id!=='basic'?CARDS[card(state,id)?.kind]?.fx:null;
   if(afx?.drawPlay)draw(s,afx.drawPlay);
   b.strikes++;s.stats.whiffs++;

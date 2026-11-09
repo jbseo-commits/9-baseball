@@ -55,6 +55,7 @@ try{
     await page.getByTestId('bp-next').waitFor();
     await touch(page.getByTestId('bp-next'));
     await page.locator('.battle-vnext[data-phase="deciding"]').waitFor();
+    if(await page.getByRole('button',{name:'손패 접기',exact:true}).count())await touch(page.getByRole('button',{name:'손패 접기',exact:true}));
     await touch(page.getByRole('button',{name:'손패 펼치기',exact:true}));
     const first=page.locator('.bv-card:not(.t-prepare)').first();
     // Keyboard/assistive focus can enter the hand before its unfolding

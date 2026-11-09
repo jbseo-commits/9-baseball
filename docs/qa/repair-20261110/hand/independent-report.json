@@ -1,0 +1,48 @@
+{
+  "revision": "R3 revision3",
+  "base": "http://127.0.0.1:5350/",
+  "normal": [
+    {
+      "size": [
+        568,
+        320
+      ],
+      "open": "true",
+      "allZonesReachable": true,
+      "maxHidden": 5,
+      "handFlowCardGet": 5
+    },
+    {
+      "size": [
+        667,
+        375
+      ],
+      "open": "true",
+      "allZonesReachable": true,
+      "maxHidden": 5,
+      "handFlowCardGet": 5
+    },
+    {
+      "size": [
+        844,
+        390
+      ],
+      "open": "true",
+      "allZonesReachable": true,
+      "maxHidden": 5,
+      "handFlowCardGet": 5
+    }
+  ],
+  "flowPass": true,
+  "stackPass": true,
+  "counterPass": true,
+  "errors": [],
+  "limits": [
+    "Dev Chromium emulation only",
+    "No physical Safari",
+    "No sound listening",
+    "No mid-pointer rotation case",
+    "No full-run balancing"
+  ],
+  "pass": true
+}

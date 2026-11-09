@@ -9,6 +9,7 @@ import ResultReadout from './ResultReadout.jsx';
 import CoverageInsert from './CoverageInsert.jsx';
 import AnimationSpeed from './AnimationSpeed.jsx';
 import useAnimationRate from './use-animation-rate.js';
+import HandFlow,{useHandFlow} from './HandFlow.jsx';
 import {StackTray} from './StackPlacement.jsx';
 import {dragPreviewBox} from './drag-preview.js';
 import BattleSymbol from './BattleSymbol.jsx';
@@ -26,7 +27,7 @@ import './pitch-focus.css';
 /* Presentation only. BallparkBattle keeps selection, inspector, commit and next
    timers; App still owns the engine, save and pitch presentation lifecycle. */
 export default function BattleView({model,actors,playback=null,execution=null,animationRate=1,onAnimationRateChange=null,rootRef,sceneRef,zoneRef,handRef,title,review=false,
-  inspector=null,menuOpen=false,recent=null,onMenu,onPitcherInfo=null,sound=false,onToggleSound=null,onCardTap,onCardDetail,onPiles,onZoneTap,onZoneHover,
+  inspector=null,menuOpen=false,recent=null,handReceipts=[],onMenu,onPitcherInfo=null,sound=false,onToggleSound=null,onCardTap,onCardDetail,onPiles,onZoneTap,onZoneHover,
   onToggleSupport,onClearPlan,onCardDrop=null,onPreviewCardDrop=null,onRemoveSupport=null,onPointerDown,onPointerMove,onPointerUp,onPointerCancel,onTake,onSwing,onNext,piles}){
   const finale=cinemaMoment(model.result,model.scene.fxStage,!!playback);
   const spotlight=model.result&&playback&&!finale?{...model.result,knockedOut:false}:model.result;
@@ -34,18 +35,20 @@ export default function BattleView({model,actors,playback=null,execution=null,an
   const [pitchFocus,setPitchFocus]=useState(false);
   const ownRoot=useRef(null),viewRef=rootRef||ownRoot;
   useAnimationRate(viewRef,playback?.rate||animationRate);
-  const [handOpen,setHandOpen]=useState(false),[placements,setPlacements]=useState([]),[pendingDrop,setPendingDrop]=useState(null),[dragFace,setDragFace]=useState(null),[dropProblem,setDropProblem]=useState('');
+  const [handOpen,setHandOpen]=useState(()=>model.phase==='deciding'),[placements,setPlacements]=useState([]),[pendingDrop,setPendingDrop]=useState(null),[dragFace,setDragFace]=useState(null),[dropProblem,setDropProblem]=useState('');
   const [dragPreview,setDragPreview]=useState(null),dragFaceRef=useRef(null);
   const setPlacement=next=>setPlacements(prev=>next?[...prev.filter(p=>p.id!==next.id),next].slice(-4):[]);
   const finishPlacement=useCallback(seq=>setPlacements(prev=>prev.filter(p=>p.seq!==seq)),[]);
   const [landscape,setLandscape]=useState(()=>typeof window==='undefined'||window.innerWidth>=window.innerHeight);
   const shown=handOpen||!landscape;
+  const flow=useHandFlow({receipts:handReceipts,phase:model.phase,shown,menuOpen,rootRef:viewRef,rate:animationRate,sound});
+  const handCount=flow.counts?.hand??model.handCount;
   const source=useRef(null),drag=useRef(null),sequence=useRef(0),suppressClick=useRef(false),handleRef=useRef(null);
   const cancelDrag=useCallback(()=>{drag.current=null;source.current=null;setDragFace(null);setDragPreview(null);},[]);
   // Touch browsers may leave keyboard focus on body. Capture the field's
   // fold command before App's global Escape resets a plan; dialogs keep it.
   useEffect(()=>{
-    const fold=e=>{if(e.defaultPrevented||e.key!=='Escape'||menuOpen||document.querySelector('[aria-modal="true"]'))return;if(drag.current){e.preventDefault();cancelDrag();}if(!handOpen)return;e.preventDefault();cancelDrag();setHandOpen(false);handleRef.current?.focus();};
+    const fold=e=>{if(e.defaultPrevented||e.key!=='Escape'||menuOpen||document.querySelector('[aria-modal="true"]'))return;if(drag.current){e.preventDefault();cancelDrag();}if(!handOpen)return;e.preventDefault();cancelDrag();flow.clear();setHandOpen(false);handleRef.current?.focus();};
     window.addEventListener('keydown',fold,true);return()=>window.removeEventListener('keydown',fold,true);
   },[handOpen,menuOpen,cancelDrag]);
   const pieceIds=(model.zones?.pieces||[]).map(p=>p.id).join('|');
@@ -58,7 +61,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
   const clearPlan=()=>{cancelDrag();setPlacement(null);setDropProblem('');onClearPlan?.();};
   const executionLatch=useRef(false);
   useEffect(()=>{if(model.input.canSelect)executionLatch.current=false;},[model.phase,model.scene.playToken,model.input.canSelect,model.input.actionKind]);
-  const runAction=kind=>{const callback=kind==='take'?onTake:onSwing;if(executionLatch.current||!callback||!model.input.canSelect||menuOpen)return;executionLatch.current=true;callback();};
+  const runAction=kind=>{const callback=kind==='take'?onTake:onSwing;if(executionLatch.current||!callback||!model.input.canSelect||menuOpen)return;if(flow.counts)flow.clear();executionLatch.current=true;callback();};
   const onLayout=useCallback(s=>setField(prev=>prev&&prev.width===s.width&&prev.height===s.height&&prev.home.x===s.home.x&&prev.home.y===s.home.y?prev:s),[]);
   const main=model.hand.find(c=>c.selectionRole==='main');
   const hasSupport=model.hand.some(c=>c.selectionRole==='support'||c.selectionRole==='armed');
@@ -81,7 +84,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
       const origin=source.current?.drag?source.current:shown?cardSource(id):null;
       setPlacement({seq:++sequence.current,id,name:item.name,cost:item.cost,summary:item.summary,art:atbatCardArt(item)?.url,
         source:origin||{x:b?b.left+b.width/2:0,y:b?b.top+b.height/2:0,w:b?.width||76,h:b?.height||76,angle:0}});
-      source.current=null;setHandOpen(false);cell?.focus({preventScroll:true});
+      source.current=null;cell?.focus({preventScroll:true});
     }
   };
   // A drop can select a different card and place it in one gesture. Wait for
@@ -92,13 +95,17 @@ export default function BattleView({model,actors,playback=null,execution=null,an
     if(!model.input.canSelect||!item){setPendingDrop(null);return;}
     if(pendingDrop.direct){
       const piece=model.zones?.pieces?.find(p=>p.id===pendingDrop.id);
-      if(piece?.aimZone===pendingDrop.zone){setPlacement(pendingDrop.receipt);source.current=null;setDropProblem('');setHandOpen(false);setPendingDrop(null);viewRef.current?.querySelector(`.bv-cell[data-zone="${pendingDrop.zone}"]`)?.focus({preventScroll:true});}
+      if(piece?.aimZone===pendingDrop.zone){setPlacement(pendingDrop.receipt);source.current=null;setDropProblem('');setPendingDrop(null);viewRef.current?.querySelector(`.bv-cell[data-zone="${pendingDrop.zone}"]`)?.focus({preventScroll:true});}
     }else if(item.selectionRole==='main'||item.selectionRole==='armed'){
       place(pendingDrop.zone,pendingDrop.id);setPendingDrop(null);
     }else setPendingDrop(null);
   },[pendingDrop,model.hand,model.input.canSelect]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(()=>{if(menuOpen){setPlacement(null);setPendingDrop(null);setDragFace(null);setDragPreview(null);drag.current=null;}},[menuOpen]);
-  useEffect(()=>{if(model.phase!=='deciding'){setPlacement(null);setPendingDrop(null);setDropProblem('');setHandOpen(false);setDragFace(null);setDragPreview(null);drag.current=null;}},[model.phase]);
+  const previousPhase=useRef(model.phase);
+  useLayoutEffect(()=>{if(model.phase!=='deciding'){setPlacement(null);setPendingDrop(null);setDropProblem('');setHandOpen(false);setDragFace(null);setDragPreview(null);drag.current=null;}
+    else if(previousPhase.current!=='deciding')setHandOpen(true);
+    previousPhase.current=model.phase;
+  },[model.phase]);
   useEffect(()=>{const resize=()=>{setLandscape(window.innerWidth>=window.innerHeight);drag.current=null;setDragFace(null);setDragPreview(null);};window.addEventListener('resize',resize);return()=>window.removeEventListener('resize',resize);},[]);
   const pointerDown=e=>{
     suppressClick.current=false;
@@ -147,7 +154,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
   // Opening moves the handle away from the finger. Its compatibility click
   // may hit a newly exposed card/zone/action; consume it at the view boundary.
   // A fresh pointer or keyboard gesture always remains immediately usable.
-  return <main ref={viewRef} onPointerDownCapture={()=>{handleClick.current=false;}}
+  return <main ref={viewRef} onPointerDownCapture={e=>{handleClick.current=false;if(flow.counts&&e.target.closest('.bv-card,.bv-cell,.bv-basic-chip'))flow.clear();}}
     onClickCapture={e=>{if(handleClick.current){handleClick.current=false;e.preventDefault();e.stopPropagation();}}}
     onKeyDown={()=>{suppressClick.current=false;handleClick.current=false;}} className={'battle-vnext bv-atbat bv-foldable bv-refined bv-reference'+(menuOpen?' inspecting':'')} data-cinematic-focus={pitchFocus&&!menuOpen?'true':undefined} data-animation-rate={animationRate} data-hand-open={shown?'true':'false'} data-phase={model.phase} data-support={hasSupport?'true':'false'} style={{...referenceSkinVars,'--bv-verdict-delay':playback?'120ms':'0ms',...(field?{'--bv-plate-x':field.home.x+'px','--bv-plate-y':field.home.y+'px','--bv-mound-y':field.mound.y+'px','--ref-scale':field.camera.scale,'--ref-zone-size':field.zoneSize+'px'}:{})}} aria-label="타석">
     <div className="bv-stage" ref={sceneRef}>
@@ -166,12 +173,12 @@ export default function BattleView({model,actors,playback=null,execution=null,an
     </div>
     <button ref={handleRef} type="button" className="bv-hand-handle" aria-label={handOpen?'손패 접기':'손패 펼치기'} aria-expanded={handOpen} aria-controls="bv-folding-hand"
       onPointerDown={e=>{handleClick.current=false;handlePress.current={id:e.pointerId,x:e.clientX,y:e.clientY};}}
-      onPointerUp={e=>{const p=handlePress.current;handlePress.current=null;if(!e.currentTarget.disabled&&e.pointerType==='touch'&&p?.id===e.pointerId&&Math.hypot(e.clientX-p.x,e.clientY-p.y)<10){e.preventDefault();handleClick.current=true;if(handOpen)cancelDrag();setHandOpen(v=>!v);}}}
+      onPointerUp={e=>{const p=handlePress.current;handlePress.current=null;if(!e.currentTarget.disabled&&e.pointerType==='touch'&&p?.id===e.pointerId&&Math.hypot(e.clientX-p.x,e.clientY-p.y)<10){e.preventDefault();handleClick.current=true;if(handOpen){cancelDrag();flow.clear();}setHandOpen(v=>!v);}}}
       onPointerCancel={()=>{handlePress.current=null;}}
       onKeyDown={()=>{handleClick.current=false;}}
-      onClick={()=>{if(handleClick.current){handleClick.current=false;return;}if(handOpen)cancelDrag();setHandOpen(v=>!v);}}
+      onClick={()=>{if(handleClick.current){handleClick.current=false;return;}if(handOpen){cancelDrag();flow.clear();}setHandOpen(v=>!v);}}
       disabled={model.phase==='flight'||model.phase==='committing'||menuOpen}>
-      <span aria-hidden="true">{handOpen?'›':'‹'}</span><b>손패 {model.handCount??'—'}</b><small>{handOpen?'접기':'펼치기'}</small>{!handOpen&&model.energy&&<em aria-label={`에너지 ${model.energy.current}/${model.energy.cap}`}><BattleSymbol kind="energy"/>{model.energy.current}</em>}
+      <span aria-hidden="true">{handOpen?'›':'‹'}</span><b>손패 {handCount??'—'}</b><small>{handOpen?'접기':'펼치기'}</small>{!handOpen&&model.energy&&<em aria-label={`에너지 ${model.energy.current}/${model.energy.cap}`}><BattleSymbol kind="energy"/>{model.energy.current}</em>}
     </button>
     <div className="bv-command-rail">
     <svg className="bv-reference-orbit" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true"><path d="M110 -30 Q-45 500 110 1030"/>{Array.from({length:21},(_,i)=><path key={i} d={`M${65-Math.sin(i/20*Math.PI)*49} ${i*50}h${i%5===0?18:8}`}/>)}</svg>
@@ -181,7 +188,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
       onClickCapture={e=>{if(suppressClick.current){e.preventDefault();e.stopPropagation();suppressClick.current=false;}}}>
       <HandDock selection={model.selection} onToggleSupport={onToggleSupport} ref={handRef} hand={menuOpen?model.hand.map(c=>({...c,disabled:false})):model.hand} energy={model.energy}
         input={menuOpen?{...model.input,canSelect:true}:model.input} phase={model.phase}
-        piles={model.piles??piles} handCount={model.handCount} handKnown={model.handKnown} onCardTap={id=>{if(!model.selection?.supportMode)setPlacement(null);setDropProblem('');remember(id);onCardTap?.(id);}} onCardDetail={onCardDetail} onPiles={onPiles} artFor={atbatCardArt} grid="orbit"/>
+        piles={flow.counts?{draw:flow.counts.draw,discard:flow.counts.discard}:model.piles??piles} handCount={handCount} handKnown={model.handKnown} onCardTap={id=>{if(!model.selection?.supportMode)setPlacement(null);setDropProblem('');remember(id);onCardTap?.(id);}} onCardDetail={onCardDetail} onPiles={onPiles} artFor={atbatCardArt} grid="orbit"/>
     </div>
     <StackTray pieces={model.zones?.pieces} links={model.zones?.links} hand={model.hand} energy={model.energy} phase={model.phase} canStack={model.selection?.canStack} canAdd={model.selection?.canAddSupport} blockedReason={model.selection?.supportBlockReason} canSelect={model.input.canSelect&&!menuOpen} onAdd={()=>{if(!model.selection?.supportMode)onToggleSupport?.();setHandOpen(true);}} onRemove={onRemoveSupport}/>
     {dropProblem&&<p className="bv-drop-problem" role="status">{dropProblem}</p>}
@@ -197,6 +204,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
     {placements.filter(p=>model.zones?.pieces?.some(piece=>piece.id===p.id)).map(request=><CoverageInsert key={request.id+':'+request.seq} request={request} pieces={model.zones?.pieces} rootRef={viewRef} phase={model.phase} sound={sound} menuOpen={menuOpen} onFinish={finishPlacement} animationRate={animationRate}/>)}
     {dragFace&&<div ref={dragFaceRef} className="bv-drag-face" aria-hidden="true" style={{left:dragFace.x,top:dragFace.y,width:dragFace.w,height:dragFace.h}}><span className="bv-drag-art" style={{backgroundImage:dragFace.art?`url(${dragFace.art})`:undefined}}/><b>{dragFace.cost}</b><strong>{dragFace.name}</strong><small>{dragFace.summary}</small></div>}
     {menuOpen&&<div className="bv-inspector-area">{inspector}</div>}
+    <HandFlow flow={flow}/>
     {review&&<p className="bv-review-notice">메모리 검수 · 샘플 배우</p>}
   </main>;
 }

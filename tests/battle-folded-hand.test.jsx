@@ -11,22 +11,24 @@ beforeEach(()=>window.history.replaceState({},'','/?battleUi=vnext'));
 afterEach(()=>{cleanup();vi.restoreAllMocks();vi.useRealTimers();window.history.replaceState({},'','/');});
 const card=kind=>document.querySelector(`.bv-card[data-card-kind=${kind}]`);
 const zone=z=>document.querySelector(`.bv-cell[data-zone="${z}"]`);
-const unfold=()=>fireEvent.click(screen.getByRole('button',{name:'손패 펼치기',exact:true}));
+const unfold=()=>{const handle=screen.queryByRole('button',{name:'손패 펼치기',exact:true});if(handle)fireEvent.click(handle);};
 const root=()=>document.querySelector('.battle-vnext');
 
 it('touch release opens immediately without a browser click; a late compatibility click never toggles twice',()=>{
-  render(<IntegrationPreview fixture="watch-read0"/>);const handle=screen.getByRole('button',{name:'손패 펼치기',exact:true});
+  render(<IntegrationPreview fixture="watch-read0"/>);fireEvent.click(screen.getByRole('button',{name:'손패 접기',exact:true}));const handle=screen.getByRole('button',{name:'손패 펼치기',exact:true});
   fireEvent.pointerDown(handle,{pointerId:9,pointerType:'touch',clientX:800,clientY:200});
   fireEvent.pointerUp(handle,{pointerId:9,pointerType:'touch',clientX:800,clientY:200});
   expect(root().dataset.handOpen).toBe('true');fireEvent.click(handle);expect(root().dataset.handOpen).toBe('true');
   fireEvent.keyDown(handle,{key:'Enter'});fireEvent.click(handle);expect(root().dataset.handOpen).toBe('false');
 });
 
-it('starts folded with inert hidden cards, while course and execution stay accessible; Escape returns focus',()=>{
+it('starts open for selection; manual fold is inert and Escape restores handle focus',()=>{
   render(<IntegrationPreview fixture="watch-read0"/>);
   const panel=document.getElementById('bv-folding-hand');
-  expect(panel.hasAttribute('inert')).toBe(true);expect(panel.getAttribute('aria-hidden')).toBe('true');
-  expect(screen.queryByRole('button',{name:/릴리스 간파 ·/})).toBeNull();
+  expect(panel.hasAttribute('inert')).toBe(false);expect(panel.getAttribute('aria-hidden')).toBe('false');
+  expect(screen.getByRole('button',{name:/릴리스 간파 ·/})).not.toBeNull();
+  fireEvent.click(screen.getByRole('button',{name:'손패 접기',exact:true}));
+  expect(panel.hasAttribute('inert')).toBe(true);
   expect(screen.getByTestId('bp-swing').disabled).toBe(false);expect(zone(4).disabled).toBe(false);
   const before=document.querySelector('.bv-stage');unfold();expect(document.querySelector('.bv-stage')).toBe(before);
   expect(panel.hasAttribute('inert')).toBe(false);
@@ -35,9 +37,9 @@ it('starts folded with inert hidden cards, while course and execution stay acces
   expect(panel.hasAttribute('inert')).toBe(true);
 });
 
-it('tap card then course inserts exactly the chosen engine coverage and folds without consuming the card or pitching',()=>{
+it('tap card then course inserts exact engine coverage and keeps the hand open without consuming or pitching',()=>{
   vi.useFakeTimers();render(<IntegrationPreview fixture="watch-read0"/>);unfold();fireEvent.click(card('strike'));fireEvent.click(zone(2));
-  expect(root().dataset.handOpen).toBe('false');
+  expect(root().dataset.handOpen).toBe('true');
   expect([...document.querySelectorAll('[data-insert-zone]')].map(e=>Number(e.dataset.insertZone))).toEqual([2,5,8]);
   expect(screen.getByTestId('bv-coverage-insert').parentElement).toBe(root());
   expect(card('strike').classList.contains('is-main')).toBe(true);

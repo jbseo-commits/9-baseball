@@ -86,7 +86,7 @@ it('distinguishes a real two-card constraint and an empty candidate hand from en
  expect(empty.selection.canStack).toBe(true);expect(empty.selection.canAddSupport).toBe(false);expect(empty.selection.supportBlockReason).toBe('추가 타격 카드 없음');
 });
 it('an opening touch compatibility click retargeted onto a card cannot select or cancel it',()=>{
- render(<IntegrationPreview fixture="stack-two-ready"/>);const handle=screen.getByRole('button',{name:'손패 펼치기',exact:true});
+ render(<IntegrationPreview fixture="stack-two-ready"/>);fireEvent.click(screen.getByRole('button',{name:'손패 접기',exact:true}));const handle=screen.getByRole('button',{name:'손패 펼치기',exact:true});
  fireEvent.pointerDown(handle,{pointerId:21,pointerType:'touch',clientX:820,clientY:180});
  fireEvent.pointerUp(handle,{pointerId:21,pointerType:'touch',clientX:820,clientY:180});
  // The moving handle can expose this card beneath the old touch coordinate.
@@ -95,7 +95,7 @@ it('an opening touch compatibility click retargeted onto a card cannot select or
  expect(board()).toHaveLength(1);expect(board()[0].id).toBe(id(first));
 });
 it('a fresh keyboard gesture remains usable when the handle emitted no compatibility click',()=>{
- render(<IntegrationPreview fixture="stack-two-ready"/>);const handle=screen.getByRole('button',{name:'손패 펼치기',exact:true});
+ render(<IntegrationPreview fixture="stack-two-ready"/>);fireEvent.click(screen.getByRole('button',{name:'손패 접기',exact:true}));const handle=screen.getByRole('button',{name:'손패 펼치기',exact:true});
  fireEvent.pointerDown(handle,{pointerId:23,pointerType:'touch',clientX:820,clientY:180});fireEvent.pointerUp(handle,{pointerId:23,pointerType:'touch',clientX:820,clientY:180});
  const first=cards()[0];fireEvent.keyDown(first,{key:'Enter'});fireEvent.click(first);
  expect(board()).toHaveLength(1);expect(board()[0].id).toBe(id(first));
