@@ -19,3 +19,5 @@
 | 2026-11-09 KST | 메뉴→경로 원인별 피드백 R1 | /root/menu_route_blind_judge | 2.79 → 3.05 | IMPROVED | R2 UI 그림화 |
 | 2026-11-09 KST | 가로 경로·글자·선 강조 R2 | journey_final_blind_judge: 독립 정적 이미지 블라인드 시각 판정 | 2.89 → 3.22 | IMPROVED | R2 UI 그림화 |
 | 2026-11-09 | Landscape field focus anchoring | independent focus_anchor_blind_judge | 2.56 → 3.13 | IMPROVED | R2 UI 그림화 |
+| 2026-11-09 | Bound landscape inspector body and keep controls visible | independent inspector_blind_judge | 2.19 → 2.66 | IMPROVED | R4 캐릭터 존재감 |
+| 2026-11-09 | Bound landscape inspector body, preserve controls and reset reading position per tab | independent inspector_final_blind | 2.25 → 2.63 | IMPROVED | R4 캐릭터 존재감 |

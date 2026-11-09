@@ -8,6 +8,17 @@
    Keep the <600px visible-flow fallback and all nested hand/dialog scrolling. */
 @media(orientation:landscape) and (min-width:600px){
   .battle-vnext.bv-atbat{overflow:clip}
+  /* The legacy inspector's flex contract is scoped to .bp-battle, which this
+     view does not mount. Bound the body instead of clipping long information. */
+  .battle-vnext.bv-atbat .bv-inspector-area>.bp-inspect{display:flex;flex-direction:column;overflow:hidden}
+  .battle-vnext.bv-atbat .bv-inspector-area .bp-inspect-head{display:flex;align-items:center;gap:8px;flex-shrink:0;min-height:44px;padding:4px 10px}
+  .battle-vnext.bv-atbat .bv-inspector-area .bp-inspect-head strong{font-size:14px;white-space:nowrap}
+  .battle-vnext.bv-atbat .bv-inspector-area .bp-inspect-kept{font-size:11px;color:#b4c4cf}
+  .battle-vnext.bv-atbat .bv-inspector-area .bp-inspect-back{margin-left:auto;min-height:44px;min-width:64px;font-size:13px}
+  .battle-vnext.bv-atbat .bv-inspector-area .bp-inspect-tabs{display:flex;flex-shrink:0;gap:4px;padding:0 10px}
+  .battle-vnext.bv-atbat .bv-inspector-area .bp-inspect-tabs button{flex:1 1 0;min-width:0;min-height:44px;font-size:12px}
+  .battle-vnext.bv-atbat .bv-inspector-area .bp-inspect-body{flex:1 1 auto;min-height:0;min-width:0;overflow-y:auto;overscroll-behavior:contain;padding:8px 12px;font-size:13px;line-height:1.5}
+  .battle-vnext.bv-atbat .bv-inspector-area .bp-inspect-status{flex-shrink:0;padding:2px 12px 6px;font-size:10px;color:#b4c4cf}
 }
 @media(orientation:landscape){
   .battle-vnext.bv-atbat{--bv-rail:clamp(288px,38vw,600px);--bv-field-top:0px;--bv-zone-size:clamp(150px,18vw,288px);min-height:0;background:var(--bv-navy)}
