@@ -20,7 +20,7 @@ const STOPS={
   shop:{go:'들인다',opts:[{type:'add',kind:'twoStrikeApproach'},{type:'add',kind:'discipline'},{type:'add',kind:'crossLane'},{type:'relic',relic:'twoStack'},{type:'relic',relic:'firstPitch'}]},
   locker:{go:'뺀다',opts:[{type:'remove',id:1,kind:'slug'},{type:'remove',id:2,kind:'watch'}]},
   training:{go:'단련한다',opts:[{type:'upgrade',id:1,kind:'strike'},{type:'upgrade',id:2,kind:'setup'}]},
-  rest:{go:'쉰다',opts:[{type:'rest',technique:8}]},
+  rest:{go:'고른다',opts:[{type:'recover'}]},
 };
 
 describe('M02 — the go button always carries a visible label',()=>{
@@ -34,16 +34,18 @@ describe('M02 — the go button always carries a visible label',()=>{
       expect(guide.trim().length).toBeGreaterThan(0);
       expect(guide).toMatch(/고르세요$/);
       expect(b.getAttribute('aria-label')).toBe(verb+' · '+guide);
-      fireEvent.click(offers()[0]);
+      const pick=kind==='rest'?screen.getByTestId('bp-rest-recover'):offers()[0];
+      fireEvent.click(pick);
       expect(b.disabled).toBe(false);
       const name=b.querySelector('.bp-go-sub').textContent;
       const o=opts[0];
-      const expected=o.type==='relic'?V10_RELICS[o.relic].name:o.type==='rest'?'컨디션 회복':CARDS[o.kind].name+(o.type==='upgrade'?'+':'');
+      const expected=o.type==='relic'?V10_RELICS[o.relic].name:o.type==='recover'?'아웃 1 회복':CARDS[o.kind].name+(o.type==='upgrade'?'+':'');
       expect(name).toBe(expected);
-      expect(b.getAttribute('aria-label')).toBe(verb+' · '+expected);
-      expect(b.querySelector('.bp-go-verb').textContent).toBe(verb);
+      const selectedVerb=kind==='rest'?'회복한다':verb;
+      expect(b.getAttribute('aria-label')).toBe(selectedVerb+' · '+expected);
+      expect(b.querySelector('.bp-go-verb').textContent).toBe(selectedVerb);
       // unpick -> back to the guide, never blank
-      fireEvent.click(offers()[0]);
+      fireEvent.click(pick);
       expect(b.disabled).toBe(true);
       expect(b.querySelector('.bp-go-sub').textContent).toBe(guide);
     });
@@ -95,9 +97,9 @@ describe('M01 — shop offers are readable dark tiles and cards',()=>{
   });
   it('rest renders as a readable tile too',()=>{
     render(<BallparkStop kind="rest" options={STOPS.rest.opts}/>);
-    const t=document.querySelector('.bp-offer.rest');
-    expect(t.classList.contains('bp-tile')).toBe(true);
-    expect(t.querySelector('.bp-offer-name').textContent).toBe('컨디션 회복');
+    const t=screen.getByTestId('bp-rest-recover');
+    expect(t.classList.contains('bp-rest-choice')).toBe(true);
+    expect(t.querySelector('strong').textContent).toBe('아웃 1 회복');
   });
 });
 

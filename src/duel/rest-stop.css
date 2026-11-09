@@ -1,0 +1,26 @@
+/* Rest is a mutually exclusive choice. Only its list scrolls; fixed actions
+   remain reachable while choosing a specific upgrade card. */
+main.bp-stop.bp-choice.stop-rest>.bp-offers{grid-auto-rows:max-content;min-height:0}
+.stop-rest .bp-rest-choice{grid-column:span 3;display:grid;align-content:start;justify-items:start;gap:9px;min-height:176px;padding:12px;border:6px solid transparent;border-image:url('../../assets/ui-kit/A6-card-frame-common.png') 32 stretch;background:linear-gradient(#142a37ed,#091621f5);color:#eef4ee;text-align:left}
+.stop-rest .bp-rest-choice strong{font-size:19px;line-height:1.3}
+.stop-rest .bp-rest-choice>span:last-child{font-size:13px;line-height:1.5;color:#c3d2d8}
+.stop-rest .bp-rest-choice:disabled{opacity:.55;filter:none}
+.stop-rest .bp-rest-choice.on{border-image-source:url('../../assets/ui-kit/A6-card-frame-selected.png');box-shadow:inset 0 0 0 1px #efcd80}
+.stop-rest .bp-rest-choice:focus-visible,.stop-rest .bp-rest-back:focus-visible{outline:2px solid #ffe0a0;outline-offset:-4px}
+.stop-rest .bp-rest-count{display:flex;align-items:center;gap:14px;font:700 36px/1.25 system-ui;color:#9dd8b8}
+.stop-rest .bp-rest-count i{font-size:22px;font-style:normal;color:#b4cad0}
+.stop-rest .bp-rest-count img{width:34px;height:34px;object-fit:contain;image-rendering:pixelated}
+.stop-rest .bp-rest-card{display:grid;place-items:center;width:60px;height:52px;border:1px solid #e7c675;border-radius:4px;background-size:cover;background-position:center;font:700 32px/1 system-ui;color:#ffe29d;text-shadow:0 2px 3px #000}
+.stop-rest .bp-rest-back{grid-column:1/-1;justify-self:start;min-height:44px;padding:6px 12px;border:1px solid #677b8e;border-radius:5px;background:#142737;color:#edf1e5}
+@media(orientation:landscape){
+  main.bp-stop.bp-choice.stop-rest{grid-template-columns:clamp(132px,24vw,300px) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;grid-template-areas:"bar bar" "hero offers" "actions actions";min-height:0;background:linear-gradient(#08142018,#07121ed9),var(--bp-sky) center/cover no-repeat}
+  main.bp-stop.bp-choice.stop-rest>.bp-bar{grid-area:bar}
+  main.bp-stop.bp-choice.stop-rest>.bp-shead{grid-area:hero;min-height:0;height:auto;padding:16px 14px;background:none}
+  main.bp-stop.bp-choice.stop-rest>.bp-shead::after{display:none}
+  main.bp-stop.bp-choice.stop-rest .bp-stitle{min-width:0;max-width:none;width:100%}
+  main.bp-stop.bp-choice.stop-rest .bp-stitle h1{font-size:clamp(21px,2.5vw,34px)}
+  main.bp-stop.bp-choice.stop-rest .bp-stitle p{font-size:13px;line-height:1.5;white-space:normal}
+  main.bp-stop.bp-choice.stop-rest>.bp-offers{grid-area:offers;padding:12px;background:transparent}
+  main.bp-stop.bp-choice.stop-rest>.bp-verbs{grid-area:actions;padding:6px 12px 10px}
+  main.bp-stop.bp-choice.stop-rest>.bp-verbs>.bp-verb{min-height:48px}
+}

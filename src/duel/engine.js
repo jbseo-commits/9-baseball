@@ -1081,21 +1081,24 @@ export function v10UtilityOptions(state){
     const cards=state.deck.length>=DECK_MAX?[]:v10ShopPool(state).map(kind=>({type:'add',kind,name:CARDS[kind].name}));
     return [...cards,...relics];
   }
-  if(state.phase==='rest')return [{type:'rest',technique:8,name:'컨디션 회복'}];
+  if(state.phase==='rest')return [
+    ...((state.runOuts|0)>0?[{type:'recover',name:'아웃 1 회복'}]:[]),
+    ...state.deck.filter(canUpgrade).map(c=>({type:'upgrade',id:c.id,kind:c.kind,name:CARDS[c.kind].name})),
+  ];
   return [];
 }
 
 function v10UtilityProblem(state,action){
   if(!action||action.type==='skip')return null;
   const options=v10UtilityOptions(state);
-  if(state.phase==='training')return options.some(o=>o.type==='upgrade'&&o.id===action.id)?null:'강화할 수 없는 카드입니다.';
-  if(state.phase==='locker')return options.some(o=>o.type==='remove'&&o.id===action.id)?null:'정리할 수 없는 카드입니다.';
+  if(state.phase==='training')return action.type==='upgrade'&&options.some(o=>o.id===action.id)?null:'강화할 수 없는 카드입니다.';
+  if(state.phase==='locker')return action.type==='remove'&&options.some(o=>o.id===action.id)?null:'정리할 수 없는 카드입니다.';
   if(state.phase==='shop'){
     if(action.type==='add')return options.some(o=>o.type==='add'&&o.kind===action.kind)?null:'이번 상점의 카드가 아닙니다.';
     if(action.type==='relic')return options.some(o=>o.type==='relic'&&o.relic===action.relic)?null:'이번 상점의 유물이 아닙니다.';
     return '카드 또는 유물 하나를 선택하세요.';
   }
-  if(state.phase==='rest')return action.type==='rest'?null:'휴식 효과를 선택할 수 없습니다.';
+  if(state.phase==='rest')return options.some(o=>o.type===action.type&&(o.type==='recover'||o.id===action.id))?null:'회복 또는 강화할 카드 하나를 선택하세요.';
   return '알 수 없는 경로 행동입니다.';
 }
 
@@ -1108,7 +1111,7 @@ export function completeV10UtilityNode(state,action={type:'skip'}){
     const moved=applyRewardToDeck(s.deck,{type:'add',kind:action.kind},s.nextId);s.deck=moved.deck;s.nextId=moved.nextId;
   }else if(action.type==='relic'){
     if(!s.relics.includes(action.relic))s.relics.push(action.relic);
-  }else if(action.type==='rest')s.v10.nextBattleBonus={technique:8,source:'rest'};
+  }else if(action.type==='recover')s.runOuts=Math.max(0,(s.runOuts|0)-1);
   s.v10.utilityHistory=[...(s.v10.utilityHistory||[]),{nodeId,kind,action:clone(action)}];
   s.runMap=completeRunNode(s.runMap);
   s.phase='map';s.v10={...s.v10,nodeId:null,opponent:null,activeBattleBonus:null};s.last=null;return s;

@@ -23,8 +23,10 @@ import cardCalm from '../../assets/production-art/mockup-world-v15/card-calm.png
 import deckGroundHit from '../../assets/production-art/mockup-world-v15/deck-ground-hit.png';
 import deckPullGold from '../../assets/production-art/mockup-world-v15/deck-pull-gold.png';
 import deckComboBlue from '../../assets/production-art/mockup-world-v15/deck-combo-blue.png';
+import restIcon from '../../assets/ui-kit/A11-icons-rest.png';
 import './ballpark.css';
 import './stop-readability.css';
+import './rest-stop.css';
 
 /* V13 BALLPARK BP-4 — reward and facility stops (docs/design/v13/BALLPARK.md).
    One scene header, one line, the offers as cards, one button. Engine calls stay in the parent:
@@ -55,12 +57,12 @@ const COPY={
   locker:{title:()=>'라커룸',line:'손에 안 붙는 배트는 두고 간다.',go:'뺀다',pick:'뺄 카드를 고르세요',skip:'그냥 간다'},
   training:{title:()=>'타격 훈련',line:'한 장을 단련한다.',go:'단련한다',pick:'단련할 카드를 고르세요',skip:'그냥 간다'},
   shop:{title:()=>'장비 상점',line:'하나만 들일 수 있다.',go:'들인다',pick:'하나를 고르세요',skip:'그냥 간다'},
-  rest:{title:()=>'휴식일',line:'하루 쉬면 다음 경기 타격 +8.',go:'쉰다',pick:'휴식을 고르세요',skip:'그냥 간다'},
+  rest:{title:()=>'휴식일',line:'회복 또는 강화.',go:'고른다',pick:'휴식을 고르세요',skip:'그냥 간다'},
 };
 /* what the go button names once an offer is picked */
-const offerName=(o,plus)=>!o?'':o.type==='relic'?(V10_ALL_RELICS[o.relic]?.name||''):o.type==='rest'?'컨디션 회복':
+const offerName=(o,plus)=>!o?'':o.type==='relic'?(V10_ALL_RELICS[o.relic]?.name||''):o.type==='recover'?'아웃 1 회복':
   (CARDS[o.kind]?.name||'')+((o.type==='upgrade'||plus)?'+':'');
-const EMPTY={locker:'덱이 가장 얇다. 뺄 카드가 없다.',training:'더 단련할 카드가 없다.',shop:'덱이 가득 찼다.',rest:'쉴 것이 없다.',
+const EMPTY={locker:'덱이 가장 얇다. 뺄 카드가 없다.',training:'더 단련할 카드가 없다.',shop:'덱이 가득 찼다.',rest:'회복할 아웃과 강화할 카드가 없다.',
   reward:`덱이 가득 찼다 (${DECK_MAX}장). 라커룸에서 카드를 빼면 다시 받을 수 있다.`};
 
 const Glyph=({zones})=><span className="bp-glyph" aria-hidden="true">{Array.from({length:9},(_,z)=><i key={z} className={zones?.includes(z)?'on':''}/>)}</span>;
@@ -99,13 +101,15 @@ function Offer({o,on,count,onClick,plus=false,reveal=null}){
 }
 
 export default function BallparkStop({kind,opponent=null,portrait=null,options=[],relics=[],relicTier='elite',runOuts=0,canRecover=false,onRecover,deck=[],deckCount=0,onPick,onSkip,onDeck,onInspect}){
-  const [sel,setSel]=useState(null),[selR,setSelR]=useState(null);
+  const [sel,setSel]=useState(null),[selR,setSelR]=useState(null),[restMode,setRestMode]=useState(null);
   /* 강적·보스 보상: 전용 유물을 반드시 하나 고른다. 카드는 고르거나 넘길 수 있다. */
   const needRelic=kind==='reward'&&relics.length>0;
   const c=COPY[kind]||COPY.rest,o=options[sel];
   /* the locker lists every copy, not one tile per kind: removal targets one id,
      and a base copy and its + copy must stay distinguishable and separately pickable */
-  const shown=options;
+  const shown=kind==='rest'?(restMode==='upgrade'?options.filter(o=>o.type==='upgrade'):[]):options;
+  const recoverIndex=options.findIndex(o=>o.type==='recover'),upgrades=options.filter(o=>o.type==='upgrade');
+  const goVerb=kind==='rest'?(restMode==='recover'?'회복한다':restMode==='upgrade'?'강화한다':c.go):c.go;
   /* the knocked-out pitcher gets the last word: her line lands big, next to her portrait */
   const voice=kind==='reward'?pitcherLine(opponent?.artId,'knockout',deckCount):'';
   const after=o?(o.type==='add'?deckCount+1:o.type==='remove'?deckCount-1:deckCount):deckCount;
@@ -121,7 +125,7 @@ export default function BallparkStop({kind,opponent=null,portrait=null,options=[
     const deckBtn=root.querySelector('.bp-bar .bp-piles button');
     const card=root.querySelector('.bp-offers .bp-offer.on');
     if(card&&o?.type==='remove')playBurn(card);
-    else if(card&&o&&o.type!=='skip')playAcquire(card,deckBtn,o.type==='relic'?'rare':CARDS[o.kind]?.rarity||'common');
+    else if(card&&o&&!['skip','recover'].includes(o.type))playAcquire(card,deckBtn,o.type==='relic'?'rare':CARDS[o.kind]?.rarity||'common');
     const relic=needRelic&&root.querySelector('.bp-relic-offers .bp-offer.on');
     if(relic)playAcquire(relic,deckBtn,relicTier==='boss'?'signature':'rare');
   };
@@ -132,17 +136,27 @@ export default function BallparkStop({kind,opponent=null,portrait=null,options=[
       <div className={'bp-stitle'+(voice?' has-voice':'')}>{voice&&<q className="bp-kovoice" data-testid="bp-kovoice">{voice}</q>}<h1>{c.title(opponent)}</h1><p>{options.length?c.line:EMPTY[kind]||''}</p></div>
     </header>
     <div className={'bp-offers'+(kind==='reward'?' reveal':'')} data-cards={cards} data-many={cards>3?'':undefined} style={{'--n':Math.max(1,Math.min(cards,3))}}>
+      {kind==='rest'&&(restMode==='upgrade'
+        ?<button type="button" className="bp-rest-back" data-testid="bp-rest-back" onClick={()=>{setRestMode(null);setSel(null);}}>← 휴식 선택으로</button>
+        :<>
+          <button type="button" className={'bp-rest-choice bp-rest-recover'+(restMode==='recover'?' on':'')} data-testid="bp-rest-recover" disabled={recoverIndex<0} aria-pressed={restMode==='recover'} onClick={()=>{setRestMode(restMode==='recover'?null:'recover');setSel(restMode==='recover'?null:recoverIndex);}}>
+            <span className="bp-rest-count" aria-hidden="true"><img src={restIcon} alt=""/>{runOuts}<i>→</i>{Math.max(0,runOuts-1)}</span><strong>아웃 1 회복</strong><span>{recoverIndex<0?'회복할 아웃이 없습니다':'다음 상대에게 이어지는 아웃을 줄입니다'}</span>
+          </button>
+          <button type="button" className="bp-rest-choice bp-rest-upgrade" data-testid="bp-rest-upgrade" disabled={!upgrades.length} onClick={()=>{setRestMode('upgrade');setSel(null);}}>
+            <span className="bp-rest-card" aria-hidden="true" style={{backgroundImage:`url(${cardArtFor(upgrades[0]?.kind)||rewardPrecisionBlue})`}}>＋</span><strong>카드 1장 강화</strong><span>{upgrades.length?'강화할 카드를 직접 고릅니다':'이미 모든 카드를 강화했습니다'}</span>
+          </button>
+        </>)}
       {shown.map(x=>{const i=options.indexOf(x);const plus=kind==='locker'?deck.some(d=>d.id===x.id&&d.plus):false;return <Offer key={i} o={x} on={sel===i} plus={plus} reveal={kind==='reward'?shown.indexOf(x):null} onClick={()=>setSel(sel===i?null:i)}/>;})}
     </div>
     {needRelic&&<section className="bp-relics" aria-label="전용 유물" data-testid="bp-relics"><h2 className="bp-relics-h"><i className={'bp-relic-tier '+relicTier}>{relicTier==='boss'?'보스 유물':'엘리트 유물'}</i> 하나를 고른다</h2>
       <div className="bp-relic-offers">{relics.map((k,i)=><Offer key={k} o={{type:'relic',relic:k}} on={selR===i} onClick={()=>setSelR(selR===i?null:i)}/>)}</div>
-      {kind==='reward'&&runOuts>0&&<p className="bp-outs-note" data-testid="bp-outs-note">이어지는 아웃 {runOuts}/2{canRecover?' · 보스 보상 대신 0으로 회복할 수 있다.':' · 보스를 잡아야 회복할 수 있다.'}</p>}
+      {kind==='reward'&&runOuts>0&&<p className="bp-outs-note" data-testid="bp-outs-note">이어지는 아웃 {runOuts}/2{canRecover?' · 보스 보상 대신 0으로 회복할 수 있다.':' · 휴식일에 아웃 1을 회복할 수 있다.'}</p>}
       <p className="bp-relic-desc" data-testid="bp-relic-desc">{selR!=null?V10_ALL_RELICS[relics[selR]]?.text:'유물을 눌러 효과를 확인한다.'}</p></section>}
     <div className="bp-verbs stop">
       {/* the verb is always on the button; the second line guides (nothing picked) or names the pick */}
       {(!!options.length||needRelic)&&<button type="button" className={'bp-verb go'+(goOk?' picked':'')} data-testid="bp-stop-go" disabled={!goOk} onClick={()=>{if(!goOk)return;playPick();needRelic?onPick?.(o||{type:'skip'},relics[selR]):onPick?.(o);}}
-        aria-label={c.go+' · '+goSub}>
-        <span className="bp-go-verb">{c.go}</span><span className="bp-go-sub" data-testid="bp-stop-go-sub">{goSub}</span></button>}
+        aria-label={goVerb+' · '+goSub}>
+        <span className="bp-go-verb">{goVerb}</span><span className="bp-go-sub" data-testid="bp-stop-go-sub">{goSub}</span></button>}
       {needRelic&&canRecover&&<button type="button" className="bp-verb wait bp-recover" data-testid="bp-recover" onClick={()=>onRecover?.()}
         aria-label={'아웃 회복 · 보상 포기 · 아웃 '+runOuts+' → 0'}><span className="bp-go-verb">아웃 회복</span><span className="bp-go-sub">보상 포기 · 아웃 {runOuts}→0</span></button>}
       {!needRelic&&<button type="button" className={'bp-verb '+(options.length?'wait':'go')} data-testid="bp-stop-skip" onClick={onSkip}>{options.length?c.skip:'지도로'}</button>}
