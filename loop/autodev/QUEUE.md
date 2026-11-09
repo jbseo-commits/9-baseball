@@ -29,3 +29,10 @@
 | G-019 | P2 | VALIDATED_LOCAL | 도감의 모든 Tab이 닫기에 갇힘. 활성 버튼 양끝에서만 순환하도록 수정, native20명 탐색 검증 | game-20261106-c R3 / [이슈](issues/G-019.md), 전체1556/독립검수 PASS 후 게시 예정 |
 
 PR별로 main0eedc99에서 독립 수정했다. Pages는 후속 브랜치 배포 시 이전 preview 경로를 교체할 수 있으므로 PREVIEW_VERIFIED는 해당 SHA에서 실제 검증했다는 상태이며 링크의 영구 동시 공개를 뜻하지 않는다.
+
+## 2026-11-09 read-loop audit
+
+| ID | 우선순위 | 상태 | 근거 / 다음 행동 |
+| --- | --- | --- | --- |
+| G-020 | P1 | VALIDATED_LOCAL | a61507b 가로 손패 펼침 중 카드focus가 타석 root293px/잔류18px 이동. root clip 격리,5크기 browser239files1631tests/실제경기/독립review/블라인드 IMPROVED 통과. run read-loop-20261109 R1, 게시SHA는 PR 기록. |
+| G-021 | P1 | REPRODUCED |667×320/844×390 정보창 body가 flex부재로 화면 밖에 자라 내부스크롤 불가. 이전 hidden과 현재clip 동일 실패, 독립UX 근거. R1과 분리해 내부 스크롤 수정 우선. |

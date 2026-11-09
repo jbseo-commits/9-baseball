@@ -3,6 +3,12 @@
 .bv-atbat :is(.bv-hand-dock,.bv-decision,.bv-action,.bv-hud,.bv-result,.bv-result-line){--bv-orange:var(--bv-amber);--bv-ink:#122235;--bv-teal:#9bc3bc}
 .bv-atbat .bv-field-choice{display:none}
 .bv-atbat .bv-action-name{font-size:.76em;font-weight:600}
+/* Folded/rotated cards extend outside the field. hidden makes the field a
+   focus-scroll container; clip keeps the same crop without moving the camera.
+   Keep the <600px visible-flow fallback and all nested hand/dialog scrolling. */
+@media(orientation:landscape) and (min-width:600px){
+  .battle-vnext.bv-atbat{overflow:clip}
+}
 @media(orientation:landscape){
   .battle-vnext.bv-atbat{--bv-rail:clamp(288px,38vw,600px);--bv-field-top:0px;--bv-zone-size:clamp(150px,18vw,288px);min-height:0;background:var(--bv-navy)}
   .bv-atbat .bv-stage{inset:var(--bv-field-top) var(--bv-rail) 0 0}

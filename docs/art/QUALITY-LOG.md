@@ -18,3 +18,4 @@
 | 2026-11-08 | HELD 2026-11-08 result-fit correctness candidate, NOT_IMPROVED | fast_result_blind_judge gpt-6.1-sol/high | 2.50 → 2.69 | NOT_IMPROVED | R2 UI 그림화 |
 | 2026-11-09 KST | 메뉴→경로 원인별 피드백 R1 | /root/menu_route_blind_judge | 2.79 → 3.05 | IMPROVED | R2 UI 그림화 |
 | 2026-11-09 KST | 가로 경로·글자·선 강조 R2 | journey_final_blind_judge: 독립 정적 이미지 블라인드 시각 판정 | 2.89 → 3.22 | IMPROVED | R2 UI 그림화 |
+| 2026-11-09 | Landscape field focus anchoring | independent focus_anchor_blind_judge | 2.56 → 3.13 | IMPROVED | R2 UI 그림화 |
