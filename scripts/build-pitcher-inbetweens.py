@@ -9,7 +9,7 @@ separate 10x12 export retains the existing 120-tick/60fps authoring contract.
 """
 from pathlib import Path
 from PIL import Image, ImageDraw
-import hashlib, json, math
+import argparse, hashlib, json, math
 
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'assets/pitcher-inbetweens-v1'
@@ -28,11 +28,16 @@ def foot(im):
  g=next((g for g in groups if len(g)>2),xs)
  return (g[(len(g)-1)//2]+g[len(g)//2])/2,y
 
-def compile_all():
+def compile_all(only_slug=None):
  base=json.loads((OUT/'base-registration.json').read_text());selection=json.loads((OUT/'selection.json').read_text())
+ if only_slug is not None:
+  if only_slug not in base:raise ValueError('unknown pitcher: '+only_slug)
+  saved_manifest=json.loads((OUT/'manifest.json').read_text());saved_live=json.loads((ROOT/'src/duel/battle-vnext/roster-registration.json').read_text())
+  if sum(r['id']==only_slug for r in saved_manifest['characters'])!=1 or only_slug not in saved_live:raise ValueError('missing or duplicate existing pitcher: '+only_slug)
  records=[];live={}
  for name in ['runtime','atlases','review']:(OUT/name).mkdir(exist_ok=True)
  for slug,old in base.items():
+  if only_slug and slug!=only_slug:continue
   chosen=selection['characters'][slug];source=Image.open(ROOT/chosen['sourceSheet']).convert('RGBA')
   original=Image.open(ROOT/old['file']).convert('RGBA');keys=[cell(original,i,3,4) for i in range(12)]
   def registration(sheet,reference_key,cols,rows,alignment='foot'):
@@ -101,6 +106,16 @@ def compile_all():
   records.append({'id':slug,'runtimeFile':str(runtime.relative_to(ROOT)),'runtimeSHA256':sha(runtime.read_bytes()),'file':str(atlas.relative_to(ROOT)),'atlasSHA256':sha(atlas.read_bytes()),'sourceSheet':chosen['sourceSheet'],'sourceSheetSHA256':sha((ROOT/chosen['sourceSheet']).read_bytes()),'originalRuntimeFile':old['file'],'originalRuntimeSHA256':sha((ROOT/old['file']).read_bytes()),'columns':cols,'rows':rows,'keyDrawings':key_indices,'sourceDrawings':len(frames),'preservedOriginalDrawings':12-len(replacements),'replacedOriginalDrawings':len(replacements),'newInbetweenDrawings':len(selected),'timelineTicks':120,'fps':60,'drawingAtTick':timing,'normalization':{'scale':scale,'translation':[dx,dy]},'batchRegistrations':batches,'drawings':provenance,'runtimeBytes':runtime.stat().st_size})
   print(slug,len(frames),runtime.stat().st_size,flush=True)
  manifest={'version':3,'clientDate':'2026-11-07 KST','authorizationQuote':'모든 투수 확인하고 완성한다음 깃허브 올려줘','previousRelease':{'commit':'3de6257','newDrawings':85},'previousInbetweenReplacements':13,'previousRecoveryDrawings':10,'lowSlotRecoveryDrawings':6,'method':selection['method'],'characters':records,'totalRevisedKeys':sum(x['replacedOriginalDrawings'] for x in records),'totalNewPitcherDrawings':sum(x['newInbetweenDrawings'] for x in records),'totalRuntimeBytes':sum(x['runtimeBytes'] for x in records),'qualityLimit':'Curated additional drawings, not 120 newly authored drawings per character or proof of commercial animation quality. Rejected candidates and earlier HELD histories remain unchanged.'}
+ if only_slug:
+  # Selective corrections preserve every unrelated record and file. Existing
+  # publication metadata describes the roster, not just this one-pose repair.
+  previous=json.loads((OUT/'manifest.json').read_text())
+  previous['characters']=[records[0] if r['id']==only_slug else r for r in previous['characters']]
+  for field,source in [('totalRevisedKeys','replacedOriginalDrawings'),('totalNewPitcherDrawings','newInbetweenDrawings'),('totalRuntimeBytes','runtimeBytes')]:previous[field]=sum(r[source] for r in previous['characters'])
+  manifest=previous
+  previous_live=json.loads((ROOT/'src/duel/battle-vnext/roster-registration.json').read_text());previous_live[only_slug]=live[only_slug];live=previous_live
  (OUT/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
  (ROOT/'src/duel/battle-vnext/roster-registration.json').write_text(json.dumps(live,indent=2)+'\n')
-if __name__=='__main__':compile_all()
+if __name__=='__main__':
+ parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--slug',help='rebuild only one existing pitcher; preserve the rest of the roster')
+ compile_all(parser.parse_args().slug)

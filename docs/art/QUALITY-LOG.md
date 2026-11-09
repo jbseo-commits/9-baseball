@@ -24,3 +24,4 @@
 | 2026-11-09 | Readable mixed shop rows and contained equipment art | repair_shop_blind | 1.56 → 2.88 | IMPROVED | R4 캐릭터 존재감 |
 | 2026-11-09 | HELD rest layout candidate1 before environment correction | repair_rest_blind | 3.06 → 2.56 | NOT_IMPROVED | R4 캐릭터 존재감 |
 | 2026-11-09 | Rest final: one out or card upgrade, preserved stadium environment | repair_rest_final_blind | 2.88 → 3.44 | IMPROVED | R4 캐릭터 존재감 |
+| 2026-11-09 | PR96 R4 Tide single depth bridge — HELD | repair_tide_blind fresh sealed | 3.38 → 3.38 | NOT_IMPROVED | R2 UI 그림화 |
