@@ -223,3 +223,27 @@ main.bp-stop.bp-choice .bp-verb.go.picked{animation:bp-go-ready .55s ease-out bo
   main.bp-stop.bp-choice .bp-offer.reward-card,main.bp-stop.bp-choice .bp-offer.bp-tile{transition:none}
   main.bp-stop.bp-choice .bp-verb.go.picked{animation:none}
 }
+
+/* Mixed shop offers need intrinsic rows: min-height:0 on the shared card
+   allowed implicit tracks to collapse to the remaining viewport height. */
+main.bp-stop.bp-choice.stop-shop>.bp-offers{grid-auto-rows:max-content;align-content:start;min-height:0}
+main.bp-stop.bp-choice.stop-shop .bp-offer.relic.has-art>.bp-mark{display:none}
+main.bp-stop.bp-choice.stop-shop .bp-offer.relic>.bp-relic-ico{grid-column:1;grid-row:1/3;justify-self:center;align-self:center}
+main.bp-stop.bp-choice.stop-shop .bp-offer.relic>.bp-offer-name{grid-column:2;grid-row:1;padding-right:70px;text-align:left}
+main.bp-stop.bp-choice.stop-shop .bp-offer.relic>.bp-offer-desc{grid-column:2;grid-row:2;text-align:left}
+main.bp-stop.bp-choice.stop-shop .bp-offer.relic>.bp-tile-kind{grid-column:2;grid-row:1;justify-self:end;align-self:start}
+@media(orientation:landscape){
+  main.bp-stop.bp-choice.stop-shop{grid-template-columns:clamp(132px,24vw,300px) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;grid-template-areas:"bar bar" "hero offers" "actions actions";min-height:0}
+  main.bp-stop.bp-choice.stop-shop>.bp-bar{grid-area:bar}
+  main.bp-stop.bp-choice.stop-shop>.bp-shead{grid-area:hero;min-height:0;height:auto;padding:18px 14px;background-position:42% center}
+  main.bp-stop.bp-choice.stop-shop .bp-stitle{min-width:0}
+  main.bp-stop.bp-choice.stop-shop .bp-stitle h1{font-size:clamp(21px,2.5vw,34px)}
+  main.bp-stop.bp-choice.stop-shop .bp-stitle p{font-size:13px;line-height:1.5;white-space:normal}
+  main.bp-stop.bp-choice.stop-shop>.bp-offers{grid-area:offers;padding:12px 12px 16px}
+  main.bp-stop.bp-choice.stop-shop .bp-offer.reward-card{--art-h:clamp(44px,13dvh,110px)}
+  main.bp-stop.bp-choice.stop-shop>.bp-verbs{grid-area:actions;min-width:0;padding:6px 12px 10px}
+  main.bp-stop.bp-choice.stop-shop>.bp-verbs>.bp-verb{min-height:48px}
+}
+@media(orientation:landscape) and (max-width:700px){
+  main.bp-stop.bp-choice.stop-shop>.bp-offers[data-cards="3"]>.reward-card{grid-column:span 3}
+}
