@@ -247,3 +247,24 @@ main.bp-stop.bp-choice.stop-shop .bp-offer.relic>.bp-tile-kind{grid-column:2;gri
 @media(orientation:landscape) and (max-width:700px){
   main.bp-stop.bp-choice.stop-shop>.bp-offers[data-cards="3"]>.reward-card{grid-column:span 3}
 }
+
+/* Locker / training list the whole deck in the shared 6-track grid. Their implicit rows
+   had no intrinsic size, so on a short landscape viewport nine or more cards were squeezed
+   into the leftover height (14px strips). Rows keep their content height and only the list
+   scrolls; in landscape the title moves beside the list, as the shop and rest stops do. */
+main.bp-stop.bp-choice.stop-locker>.bp-offers,main.bp-stop.bp-choice.stop-training>.bp-offers{grid-auto-rows:max-content;align-content:start;min-height:0}
+@media(orientation:landscape){
+  main.bp-stop.bp-choice.stop-locker,main.bp-stop.bp-choice.stop-training{grid-template-columns:clamp(132px,24vw,300px) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;grid-template-areas:"bar bar" "hero offers" "actions actions";min-height:0}
+  main.bp-stop.bp-choice.stop-locker>.bp-bar,main.bp-stop.bp-choice.stop-training>.bp-bar{grid-area:bar}
+  main.bp-stop.bp-choice.stop-locker>.bp-shead,main.bp-stop.bp-choice.stop-training>.bp-shead{grid-area:hero;min-height:0;height:auto;padding:18px 14px;background-position:42% center}
+  main.bp-stop.bp-choice.stop-locker .bp-stitle,main.bp-stop.bp-choice.stop-training .bp-stitle{min-width:0}
+  main.bp-stop.bp-choice.stop-locker .bp-stitle h1,main.bp-stop.bp-choice.stop-training .bp-stitle h1{font-size:clamp(21px,2.5vw,34px)}
+  main.bp-stop.bp-choice.stop-locker .bp-stitle p,main.bp-stop.bp-choice.stop-training .bp-stitle p{font-size:13px;line-height:1.5;white-space:normal}
+  main.bp-stop.bp-choice.stop-locker>.bp-offers,main.bp-stop.bp-choice.stop-training>.bp-offers{grid-area:offers;padding:12px 12px 16px}
+  main.bp-stop.bp-choice.stop-locker .bp-offer.reward-card,main.bp-stop.bp-choice.stop-training .bp-offer.reward-card{--art-h:clamp(44px,13dvh,110px)}
+  main.bp-stop.bp-choice.stop-locker>.bp-verbs,main.bp-stop.bp-choice.stop-training>.bp-verbs{grid-area:actions;min-width:0;padding:6px 12px 10px}
+  main.bp-stop.bp-choice.stop-locker>.bp-verbs>.bp-verb,main.bp-stop.bp-choice.stop-training>.bp-verbs>.bp-verb{min-height:48px}
+}
+@media(orientation:landscape) and (max-width:700px){
+  main.bp-stop.bp-choice.stop-locker>.bp-offers>.reward-card,main.bp-stop.bp-choice.stop-training>.bp-offers>.reward-card{grid-column:span 3}
+}
