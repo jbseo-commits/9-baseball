@@ -3,6 +3,16 @@
 _Status as of 2026-10-06. Measured against `origin/main` at `efff947` and the
 `release/commercial-hardening` branch._
 
+**Orientation update, 2026-11-10:** the orientation discussion below was
+superseded by the user's landscape decisions of November 1 and 4. Main
+`844b0ca` already uses vnext directly in landscape; touch devices show a
+landscape-rotation notice in portrait. PR #104 (`db473cf`) adds current
+landscape QA. `PORTRAIT_ONLY` describes the retained explicit legacy fallback,
+not the primary product. O4 is decided; orientation/device regression checks
+remain engineering work. Other October blocker rows below are historical
+findings, not a fresh audit or a claim that rights, balance or release gates
+have passed.
+
 This file is the gate list for a commercial release. Items marked **BLOCKER**
 must be closed before a store submission or paid distribution. Items marked
 **OWNER** cannot be closed by engineering alone — they need a rights decision
@@ -44,27 +54,24 @@ and each is a question a store reviewer or a publisher will ask.
 | O1 | Who is the rights holder, and are the terms in `LICENSE` correct? | the file was added as proprietary all-rights-reserved because that grants nothing; the name and any commercial terms still need confirming |
 | O2 | What do the generative-image service terms allow for a paid game? | all artwork is generated output; the service terms were never recorded in the repo |
 | O3 | What do the PixelLab terms allow, and at which tier? | the Act 1 branch pitchers are PixelLab output; the README only notes results are also saved to a PixelLab gallery. A paid tool's output terms need checking against the intended distribution |
-| O4 | Is the intended orientation portrait or landscape? | see below |
+| O4 | **Decided: landscape-first; touch landscape-only** | User decisions 2026-11-01/04. Keep legacy fallback; validate routing/rotation as engineering regression. |
 | O5 | Is the reference material risk accepted? | development notes state legal non-infringement "is not guaranteed". Pitching footage and instructional material informed motion study. `assets/pitcher-sd-v2/README.md` records that reference SD proportions and pixel density were studied. A deliberate, documented acceptance is needed, or the affected assets need replacement |
 
 ## Orientation decision (O4)
 
-The rules file and most of the documentation describe a mobile-landscape-first
-game. The shipped build is portrait-only: phones in landscape get a "rotate to
-portrait" overlay, and desktop renders the game inside a 9:16 frame.
+The current primary battle is landscape vnext. `battle-ui-mode.js` chooses it
+for landscape or coarse-pointer devices; `orientation-lock.css` displays a
+landscape-rotation notice over the preserved game in touch portrait;
+`orientation-lock.js` handles fullscreen/orientation-lock requests. Explicit
+`battleUi=legacy` retains the old portrait-frame path. Keep these distinct:
+removing the legacy compatibility flag alone would change a separate contract.
 
-The shipped code and the written intent disagree. Both cannot be kept:
-
-- If **portrait** is intended, roughly 1,000 lines of landscape CSS and the JS
-  sidecars that gate on `landscapeMedia()` are unreachable and should be removed,
-  and the documentation should stop describing landscape as the play format.
-- If **landscape** is intended, `PORTRAIT_ONLY` and `portrait-lock.css` need to be
-  reverted, and the landscape QA that was captured before the flip has to be redone.
-
-My read: portrait is a defensible primary orientation for a vertical card
-battler, and it is what the product actually does. That makes the code right and
-the documentation wrong — but it is a product call, so it is filed as O4 rather
-than decided here.
+Current QA covers five explicit landscape sizes and two explicit legacy
+portrait sizes, with real action/result/reward checks. It uses mouse input and
+forced queries. Default touch routing, physical-device readability/performance
+and same-save rotation still require their own evidence. O4 no longer requires
+another user orientation decision, and the old suggestion to revert landscape
+is withdrawn.
 
 ## Quality records
 
