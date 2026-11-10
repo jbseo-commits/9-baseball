@@ -1,0 +1,457 @@
+{
+  "status": "UNAPPROVED_AUTHORING_HYPOTHESIS_NOT_RUNTIME",
+  "source": {
+    "atlas": "assets/production-art/mockup-rebuild/batter-atlas.png",
+    "sha256": "4cd326e7fc0ab323cd0fd775e15924789208050e1bfacda34403a2d06342681a",
+    "frame": 8,
+    "cellSize": [
+      768,
+      768
+    ],
+    "cellPixelSha256": "3f0c7f7132ee25035ca2b93ead49c6b1bdb4ac3d84ea02de063a6aff64b6df55",
+    "cellPngSha256": "31755b9d29416bb935697419bd2130adcd4fafe3e99321303a7c6740a52b7b4d",
+    "sourcePixelsUnmodified": true,
+    "motionSha256": "90d04cc55742e3c6dbb42365b69e543f1b80cb74d7716b37aa0946f9e4926ee4",
+    "layoutSha256": "a44fd755d5767bacbcd45d383bfe049520ee58ad085ff78874b3f275521d0d80"
+  },
+  "registration": {
+    "scale": 1.5625,
+    "originWorld": [
+      -128.125,
+      -133.75
+    ],
+    "footWorld": {
+      "x": 200,
+      "y": 960
+    },
+    "anchorAtlas": [
+      210,
+      700
+    ]
+  },
+  "productionAvifSensitivity": {
+    "file": "assets/production-art/mockup-rebuild/batter-atlas.avif",
+    "sha256": "847a10dbf47db0400cdff1085df0cd476bef294e9114f2d09f08c1a567cbe4ab",
+    "cellPixelSha256": "f2d9a0a99fc27f841ed93607644e32f3ca9d6bd61a306f867b29fda487825092",
+    "sourcePngPixelIdentity": false,
+    "barrelByAlphaThreshold": {
+      "16": {
+        "pixelCount": 3257,
+        "maskSymmetricDifferencePixels": 0,
+        "distancesWorldPx": [
+          0.0,
+          0.0,
+          28.3241,
+          99.5308,
+          94.5312,
+          103.2396,
+          206.8083,
+          202.3438,
+          206.5557,
+          199.459
+        ],
+        "sameOverlapClassificationAsSourcePng": true
+      },
+      "128": {
+        "pixelCount": 3099,
+        "maskSymmetricDifferencePixels": 2,
+        "distancesWorldPx": [
+          0.0,
+          0.0,
+          29.5111,
+          100.9788,
+          95.6274,
+          104.0625,
+          208.1903,
+          202.8582,
+          207.2061,
+          200.8089
+        ],
+        "sameOverlapClassificationAsSourcePng": true
+      },
+      "240": {
+        "pixelCount": 2898,
+        "maskSymmetricDifferencePixels": 4,
+        "distancesWorldPx": [
+          0.0,
+          0.0,
+          30.8111,
+          102.3934,
+          96.1133,
+          105.3014,
+          209.4404,
+          203.9155,
+          208.4038,
+          202.3953
+        ],
+        "sameOverlapClassificationAsSourcePng": true
+      }
+    }
+  },
+  "manualLandmarks": {
+    "shoulderTop": {
+      "atlasY": 306,
+      "uncertaintyPx": 10
+    },
+    "pantsWaistTop": {
+      "atlasY": 440,
+      "uncertaintyPx": 8
+    },
+    "leadKneeLower": {
+      "atlasY": 580,
+      "uncertaintyPx": 12
+    }
+  },
+  "plane": {
+    "boundsWorld": {
+      "xMin": 729,
+      "xMax": 939,
+      "yMin": 449.0625,
+      "yMax": 772.5
+    },
+    "widthProposal": 210,
+    "centerXProposal": 834,
+    "heightBasis": "midpoint of manual shoulder/waist to manual lower lead knee",
+    "uncertainty": "Upper ±9 atlas px / lower ±12; width/center are design proposals, not measured plate width."
+  },
+  "mapping": {
+    "inside": "world=(xMin+u*width,yMin+v*height); u=(column+.5)/3, v=(row+.5)/3",
+    "ui": "Use normalized central UI cell identity; never inverse-project its responsive rectangle as the physical plane.",
+    "outside": "zone9 proposal u=1.5,v=.5, not an engine-recorded side or current offset sentinel"
+  },
+  "ballProposal": {
+    "radiusAtPlaneWorldPx": 8,
+    "isApproved": false,
+    "depth": "release z=1 → plane z=0 → past plane z<0; schematic only, not a measured 3D camera",
+    "layerOrder": "proposed: stadium → pitcher/approach ball → batter; contact/outgoing ball resolves at plane; input UI stays above scene",
+    "continuity": "one incoming ball; no second contact ball or target-dependent pre-LOCK cue"
+  },
+  "mask": {
+    "manualAtlasRois": {
+      "workingBat": [
+        470,
+        376,
+        650,
+        419
+      ],
+      "barrel": [
+        530,
+        376,
+        650,
+        419
+      ]
+    },
+    "boundaryUncertaintyAtlasPx": 3,
+    "alphaThresholds": [
+      16,
+      128,
+      240
+    ],
+    "semanticLimit": "workingBat excludes grip/knob and may include uncertain hand-edge pixels; barrel excludes tapered wood/handle. This is manual semantic isolation of existing alpha, not a certified collider.",
+    "pixelCounts": {
+      "workingBat": {
+        "16": 4295,
+        "128": 4050,
+        "240": 3751
+      },
+      "barrel": {
+        "16": 3257,
+        "128": 3101,
+        "240": 2898
+      }
+    },
+    "metric": "minimum Euclidean distance to union of occupied pixel squares, not bat centerline",
+    "rasterizationUncertaintyWorldPx": 1.1049
+  },
+  "registeredCControl": {
+    "world": [
+      827.399320083682,
+      488.55648535564853
+    ],
+    "distanceWorldPx": {
+      "workingBat": {
+        "16": 0.0,
+        "128": 0.0,
+        "240": 0.0
+      },
+      "barrel": {
+        "16": 0.0,
+        "128": 0.0,
+        "240": 0.0
+      }
+    },
+    "diskOverlapsBarrelAt128": true,
+    "barrelMarginWorldPxAt128": 8.0
+  },
+  "targets": [
+    {
+      "zone": 0,
+      "normalized": [
+        0.16666666666666666,
+        0.16666666666666666
+      ],
+      "world": [
+        764.0,
+        502.96875
+      ],
+      "kind": "inside",
+      "distanceWorldPx": {
+        "workingBat": {
+          "16": 0.0,
+          "128": 0.0,
+          "240": 0.0
+        },
+        "barrel": {
+          "16": 0.0,
+          "128": 0.0,
+          "240": 0.0
+        }
+      },
+      "diskOverlapsBarrelAt128": true,
+      "barrelMarginWorldPxAt128": 8.0
+    },
+    {
+      "zone": 1,
+      "normalized": [
+        0.5,
+        0.16666666666666666
+      ],
+      "world": [
+        834.0,
+        502.96875
+      ],
+      "kind": "inside",
+      "distanceWorldPx": {
+        "workingBat": {
+          "16": 0.0,
+          "128": 0.0,
+          "240": 0.0
+        },
+        "barrel": {
+          "16": 0.0,
+          "128": 0.0,
+          "240": 0.0
+        }
+      },
+      "diskOverlapsBarrelAt128": true,
+      "barrelMarginWorldPxAt128": 8.0
+    },
+    {
+      "zone": 2,
+      "normalized": [
+        0.8333333333333334,
+        0.16666666666666666
+      ],
+      "world": [
+        904.0,
+        502.96875
+      ],
+      "kind": "inside",
+      "distanceWorldPx": {
+        "workingBat": {
+          "16": 28.3241,
+          "128": 29.5111,
+          "240": 30.8111
+        },
+        "barrel": {
+          "16": 28.3241,
+          "128": 29.5111,
+          "240": 30.8111
+        }
+      },
+      "diskOverlapsBarrelAt128": false,
+      "barrelMarginWorldPxAt128": -21.5111
+    },
+    {
+      "zone": 3,
+      "normalized": [
+        0.16666666666666666,
+        0.5
+      ],
+      "world": [
+        764.0,
+        610.78125
+      ],
+      "kind": "inside",
+      "distanceWorldPx": {
+        "workingBat": {
+          "16": 99.5308,
+          "128": 100.9788,
+          "240": 102.3934
+        },
+        "barrel": {
+          "16": 99.5308,
+          "128": 100.9788,
+          "240": 102.3934
+        }
+      },
+      "diskOverlapsBarrelAt128": false,
+      "barrelMarginWorldPxAt128": -92.9788
+    },
+    {
+      "zone": 4,
+      "normalized": [
+        0.5,
+        0.5
+      ],
+      "world": [
+        834.0,
+        610.78125
+      ],
+      "kind": "inside",
+      "distanceWorldPx": {
+        "workingBat": {
+          "16": 94.5312,
+          "128": 95.6274,
+          "240": 96.1133
+        },
+        "barrel": {
+          "16": 94.5312,
+          "128": 95.6274,
+          "240": 96.1133
+        }
+      },
+      "diskOverlapsBarrelAt128": false,
+      "barrelMarginWorldPxAt128": -87.6274
+    },
+    {
+      "zone": 5,
+      "normalized": [
+        0.8333333333333334,
+        0.5
+      ],
+      "world": [
+        904.0,
+        610.78125
+      ],
+      "kind": "inside",
+      "distanceWorldPx": {
+        "workingBat": {
+          "16": 103.2396,
+          "128": 104.0625,
+          "240": 105.3014
+        },
+        "barrel": {
+          "16": 103.2396,
+          "128": 104.0625,
+          "240": 105.3014
+        }
+      },
+      "diskOverlapsBarrelAt128": false,
+      "barrelMarginWorldPxAt128": -96.0625
+    },
+    {
+      "zone": 6,
+      "normalized": [
+        0.16666666666666666,
+        0.8333333333333334
+      ],
+      "world": [
+        764.0,
+        718.59375
+      ],
+      "kind": "inside",
+      "distanceWorldPx": {
+        "workingBat": {
+          "16": 206.8083,
+          "128": 208.1903,
+          "240": 209.4404
+        },
+        "barrel": {
+          "16": 206.8083,
+          "128": 208.1903,
+          "240": 209.4404
+        }
+      },
+      "diskOverlapsBarrelAt128": false,
+      "barrelMarginWorldPxAt128": -200.1903
+    },
+    {
+      "zone": 7,
+      "normalized": [
+        0.5,
+        0.8333333333333334
+      ],
+      "world": [
+        834.0,
+        718.59375
+      ],
+      "kind": "inside",
+      "distanceWorldPx": {
+        "workingBat": {
+          "16": 202.3438,
+          "128": 202.8582,
+          "240": 203.9155
+        },
+        "barrel": {
+          "16": 202.3438,
+          "128": 202.8582,
+          "240": 203.9155
+        }
+      },
+      "diskOverlapsBarrelAt128": false,
+      "barrelMarginWorldPxAt128": -194.8582
+    },
+    {
+      "zone": 8,
+      "normalized": [
+        0.8333333333333334,
+        0.8333333333333334
+      ],
+      "world": [
+        904.0,
+        718.59375
+      ],
+      "kind": "inside",
+      "distanceWorldPx": {
+        "workingBat": {
+          "16": 206.5557,
+          "128": 207.2061,
+          "240": 208.4038
+        },
+        "barrel": {
+          "16": 206.5557,
+          "128": 207.2061,
+          "240": 208.4038
+        }
+      },
+      "diskOverlapsBarrelAt128": false,
+      "barrelMarginWorldPxAt128": -199.2061
+    },
+    {
+      "zone": 9,
+      "normalized": [
+        1.5,
+        0.5
+      ],
+      "world": [
+        1044.0,
+        610.78125
+      ],
+      "kind": "outside-proposal",
+      "distanceWorldPx": {
+        "workingBat": {
+          "16": 199.459,
+          "128": 200.8089,
+          "240": 202.3953
+        },
+        "barrel": {
+          "16": 199.459,
+          "128": 200.8089,
+          "240": 202.3953
+        }
+      },
+      "diskOverlapsBarrelAt128": false,
+      "barrelMarginWorldPxAt128": -192.8089
+    }
+  ],
+  "limits": [
+    "No plane/pose approved or connected to production.",
+    "2/9 is a nominal hypothesis measurement; landmark/ROI uncertainties are declared, not propagated into overlap bands. It does not imply seven new drawings.",
+    "PNG source masks are not pixel-identical to runtime AVIF; separate alpha sensitivity is reported.",
+    "No continuous swing, swept volume, contact timing or human fun proof.",
+    "Separate drawings7/9 are transitions, not alternative impact poses.",
+    "Do not turn a 2D overlap into hit chance/damage or move/stretch the actor to fit.",
+    "Only after target and reach review, author missing whole-body poses and adjacent transitions."
+  ]
+}
