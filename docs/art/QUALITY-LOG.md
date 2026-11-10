@@ -27,3 +27,6 @@
 | 2026-11-10 | PR96 R5 public motif and conditional rule cues | repair_encounter_blind fresh sealed | 3.38 → 3.69 | IMPROVED | R1 화풍 통일 |
 | 2026-11-10 | R6 small landscape anchoring | repair_small_blind fresh sealed | 2.56 → 3.06 | IMPROVED | R4 캐릭터 존재감 |
 | 2026-11-10 | PR108 event choice intrinsic rows and landscape story/list | independent gpt-6-luna/high event_blind | 2.60 → 2.98 | IMPROVED | R4 캐릭터 존재감 |
+| 2026-11-10 | M06 result-phone candidate1 | gpt-6-luna/high fresh blind | 3.86 → 3.92 | NOT_IMPROVED | R8 마감 |
+| 2026-11-10 | M07 shared modal close candidate1 | gpt-6-luna/high fresh blind | 2.27 → 2.13 | NOT_IMPROVED | R4 캐릭터 존재감 |
+| 2026-11-10 | M07 shared modal close candidate2 | gpt-6-luna/high fresh blind | 3.23 → 3.35 | NOT_IMPROVED | R1 화풍 통일 |
