@@ -1,0 +1,165 @@
+{
+  "candidate": "http://127.0.0.1:5364/",
+  "fixture": "engine-generated seed 3 → node a1-entry; normal localStorage, no battlePlay wrapper",
+  "cases": [
+    {
+      "size": [
+        568,
+        320
+      ],
+      "action": "watch/take",
+      "oldStateKeptAfterFailure": true,
+      "disabledActions": true,
+      "retryFailureSameNext": true,
+      "reloadOldAfterFailure": true,
+      "successRetryExactEngineState": true,
+      "reloadCommittedAfterSuccess": true,
+      "writeAttempts": 3,
+      "errorBanner": {
+        "x": 0,
+        "y": 0,
+        "width": 568,
+        "height": 44,
+        "right": 568,
+        "bottom": 44
+      },
+      "retryButton": {
+        "x": 446.65625,
+        "y": 4,
+        "width": 89.453125,
+        "height": 36,
+        "right": 536.109375,
+        "bottom": 40
+      },
+      "errorScroll": {
+        "before": {
+          "y": 0,
+          "h": 320,
+          "v": 320
+        },
+        "after": {
+          "y": 0,
+          "h": 320,
+          "v": 320
+        }
+      }
+    },
+    {
+      "size": [
+        667,
+        375
+      ],
+      "action": "watch/take",
+      "oldStateKeptAfterFailure": true,
+      "disabledActions": true,
+      "retryFailureSameNext": false,
+      "reloadOldAfterFailure": true,
+      "successRetryExactEngineState": true,
+      "reloadCommittedAfterSuccess": true,
+      "writeAttempts": 3,
+      "errorBanner": {
+        "x": 0,
+        "y": 0,
+        "width": 667,
+        "height": 44,
+        "right": 667,
+        "bottom": 44
+      },
+      "retryButton": {
+        "x": 496.15625,
+        "y": 4,
+        "width": 89.453125,
+        "height": 36,
+        "right": 585.609375,
+        "bottom": 40
+      },
+      "errorScroll": {
+        "before": {
+          "y": 0,
+          "h": 375,
+          "v": 375
+        },
+        "after": {
+          "y": 0,
+          "h": 375,
+          "v": 375
+        }
+      }
+    },
+    {
+      "size": [
+        844,
+        390
+      ],
+      "action": "watch/take",
+      "oldStateKeptAfterFailure": true,
+      "disabledActions": true,
+      "retryFailureSameNext": false,
+      "reloadOldAfterFailure": true,
+      "successRetryExactEngineState": true,
+      "reloadCommittedAfterSuccess": true,
+      "writeAttempts": 3,
+      "errorBanner": {
+        "x": 0,
+        "y": 0,
+        "width": 844,
+        "height": 44,
+        "right": 844,
+        "bottom": 44
+      },
+      "retryButton": {
+        "x": 584.65625,
+        "y": 4,
+        "width": 89.453125,
+        "height": 36,
+        "right": 674.109375,
+        "bottom": 40
+      },
+      "errorScroll": {
+        "before": {
+          "y": 0,
+          "h": 390,
+          "v": 390
+        },
+        "after": {
+          "y": 0,
+          "h": 390,
+          "v": 390
+        }
+      }
+    },
+    {
+      "size": [
+        568,
+        320
+      ],
+      "action": "basic swing zone 5",
+      "oldStateKeptAfterFailure": true,
+      "successRetryExactEngineState": true,
+      "errorBanner": null
+    },
+    {
+      "size": [
+        667,
+        375
+      ],
+      "action": "main+one support card",
+      "main": "c2",
+      "support": "c1",
+      "oldStateKeptAfterFailure": true,
+      "successRetryExactEngineState": true
+    },
+    {
+      "size": [
+        844,
+        390
+      ],
+      "action": "terminal strikeout take",
+      "phase": "lost",
+      "oldStateKeptAfterFailure": true,
+      "terminalHiddenUntilSave": true,
+      "successRetryExactEngineState": true,
+      "reloadCommittedTerminal": true
+    }
+  ]
+}
