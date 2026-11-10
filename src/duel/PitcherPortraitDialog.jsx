@@ -1,6 +1,7 @@
 import React,{useEffect,useRef,useState} from 'react';
 import pitcherRoster from '../../assets/pitcher-mobs-v1/roster.json' with {type:'json'};
 import {pitcherPortraits} from './pitcher-visuals.js';
+import {pitcherArchetypeLabel} from './run-map.js';
 import './pitcher-portrait.css';
 
 export default function PitcherPortraitDialog({opponent,src,onClose}){
@@ -18,6 +19,7 @@ export default function PitcherPortraitDialog({opponent,src,onClose}){
   const activePitcher=pitcherRoster.find(p=>p.id===selectedId)||opponent;
   const activeArt=selectedId===initialId?src:(pitcherPortraits[selectedId]||src);
   const name=activePitcher.name||opponent.name||'상대 투수';
+  const archetype=pitcherArchetypeLabel(activePitcher.archetypeKey||activePitcher.archetype);
 
   return <div className="pitcher-portrait-backdrop" onClick={e=>{if(e.target===e.currentTarget)onClose()}}>
     <section className="pitcher-portrait-dialog pitcher-dex-dialog" role="dialog" aria-modal="true" aria-label={`${opponent.name||name} 투수 큰 그림`} onKeyDown={e=>{
@@ -33,7 +35,7 @@ export default function PitcherPortraitDialog({opponent,src,onClose}){
       <header>
         <div>
           <span>9ZONE / PITCHER DEX · 투수 도감</span>
-          <h2>{name} <small>{activePitcher.archetype ? `· ${activePitcher.archetype}` : ''}</small></h2>
+          <h2>{name} <small>{archetype ? `· ${archetype}` : ''}</small></h2>
         </div>
         <button ref={closeRef} type="button" aria-label="큰 그림 닫기" onClick={onClose}>닫기 ×</button>
       </header>

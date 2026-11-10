@@ -399,7 +399,7 @@ export const EVENT_DEFS=[
      {id:'shut',label:'문 닫는다',desc:'이어지는 아웃 -1',ops:[{op:'outsDown'}]},
      {id:'leave',label:'떠난다',desc:'아무 일도 없었다',ops:[]},
    ]},
-  {id:'clubhouse-card',acts:[1,2,3],title:'클럽하우시 카드',text:'선배들이 볼 던지는 카드를 펼친다.',
+  {id:'clubhouse-card',acts:[1,2,3],title:'클럽하우스 카드',text:'선배들이 볼 던지는 카드를 펼친다.',
    choices:[
      {id:'play',label:'참가한다',desc:'같은 카드를 한 장 더 넣는다',ops:[{op:'duplicateRandom'}]},
      {id:'fold',label:'접어 둔다',desc:'이어지는 아웃 -1',ops:[{op:'outsDown'}]},
@@ -505,10 +505,10 @@ export const EVENT_DEFS=[
      {id:'rush',label:'서두른다',desc:'무작위 1장 교환과 이어지는 아웃 +1',ops:[{op:'transformRandom'},{op:'outsUp'}]},
      {id:'leave',label:'떠난다',desc:'아무 일도 없었다',ops:[]},
    ]},
-  {id:'clubhouse-song',acts:[1,2,3],title:'클럽하우시 노래',text:'스피커에서 노래가 나온다.',
+  {id:'clubhouse-song',acts:[1,2,3],title:'클럽하우스 노래',text:'스피커에서 노래가 나온다.',
    choices:[
      {id:'sing',label:'따라 부른다',desc:'같은 카드를 한 장 더 넣는다',ops:[{op:'duplicateRandom'}]},
-     {id:'hum',label:'있어 만든다',desc:'이어지는 아웃 -1',ops:[{op:'outsDown'}]},
+     {id:'hum',label:'콧노래를 흥얼거린다',desc:'이어지는 아웃 -1',ops:[{op:'outsDown'}]},
      {id:'leave',label:'떠난다',desc:'아무 일도 없었다',ops:[]},
    ]},
   {id:'old-scorebook',acts:[1,2],title:'옛 기록장',text:'먼지 쌓인 기록장에 손이 닿는다.',
@@ -568,7 +568,7 @@ export const EVENT_DEFS=[
      {id:'wipe',label:'주머니에 묻는다',desc:'이어지는 아웃 -1',ops:[{op:'outsDown'}]},
      {id:'leave',label:'떠난다',desc:'아무 일도 없었다',ops:[]},
    ]},
-  {id:'clubhouse-tidy',acts:[1,2,3],title:'클럽하우시 정리',text:'버려야 할 장비가 한적이다. 치우는 사람이 너를 본다.',
+  {id:'clubhouse-tidy',acts:[1,2,3],title:'클럽하우스 정리',text:'버려야 할 장비가 한가득이다. 치우는 사람이 너를 본다.',
    choices:[
      {id:'tidy',label:'쓰레기통을 비운다',desc:'무작위 카드 1장을 잃고 유물 1개를 얻는다',ops:[{op:'sacrificeRandom'},{op:'gainRelic'}]},
      {id:'later',label:'내일 한다',desc:'다음 전투 타격 +8',ops:[{op:'bonus8'}]},
