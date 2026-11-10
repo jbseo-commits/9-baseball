@@ -1,4 +1,5 @@
-import React,{useEffect,useLayoutEffect,useRef,useState} from 'react';
+import React,{useEffect,useLayoutEffect,useRef,useState,useSyncExternalStore} from 'react';
+import {landscapeNoticeActive,subscribeLandscapeNotice} from './orientation-lock.js';
 import {CARDS,LINEUP,bandFor,rangeFor,shadeNameFor,cardCost} from './cards.js';
 import {publicProbabilities,readLevel,readSources,knownPitchZones,v10StackMax,v10PrepMax,v10Energy,v10EnergyCap,v10EnergyBase,v10NextEnergyMax,v10ActionCost,v10TakeDrawPreview,V11_SWING_ENERGY,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM,defenseLabThreat,v10ShotMissed,v10ShotMode,v10ShotRate} from './engine.js';
 import {probabilityBounds} from './information.js';
@@ -98,6 +99,7 @@ const CARD_ART_POS={
 /* the glyph already draws the coverage; the face keeps only what it adds (정확 적중 HP +50% …) */
 const effect=def=>(def.gives||[]).filter(g=>!/커버$/.test(g)).slice(0,1).join('');
 const isSkill=entry=>CARDS[entry?.kind]?.type==='skill';
+const noNotice=()=>false,noNoticeSubscription=()=>()=>{};
 const CardGlyph=({zones})=><span className="bp-glyph" aria-hidden="true">{Array.from({length:9},(_,z)=><i key={z} className={zones?.includes(z)?'on':''}/>)}</span>;
 
 export default function BallparkBattle({
@@ -111,6 +113,7 @@ export default function BallparkBattle({
 }){
   const compact=!autoLesson;
   const vnextRequested=battleUiMode().vnext;
+  const rotationNotice=useSyncExternalStore(vnextRequested?subscribeLandscapeNotice:noNoticeSubscription,vnextRequested?landscapeNoticeActive:noNotice,noNotice);
   const approvedArt=approvedPitcherArt(artId);
   // Only a labeled, memory-only review harness may opt into the sample actor.
   const useVnext=vnextRequested&&!autoLesson&&!defenseLab&&vnextReview?.variant!=='legacy'&&!!(approvedArt||vnextReview||rosterPitcher);
@@ -493,16 +496,20 @@ export default function BallparkBattle({
     :(call||shot?.title||'결과를 확인한다');
   /* No result step: once the pitch has landed, the in-scene call stays up for a beat and the
      at-bat moves on by itself. The next button only skips the wait. The beat pauses while the
-     info panel or optional result hand is open, or the screen is locked (home-run movie), and keeps retrying until the
+     info panel or optional result hand is open, a rotation notice covers the game, or the
+     screen is locked (home-run movie), and keeps retrying until the
      state actually advances so a momentarily locked act() can never strand the player. */
-  const autoNext=!!onNext&&!autoLesson&&!inspect&&!(useVnext&&handOpen)&&!inFx&&!locked&&!commitBeat&&(s.phase==='pitch'||s.phase==='between');
+  const autoNext=!!onNext&&!autoLesson&&!inspect&&!(useVnext&&handOpen)&&!rotationNotice&&!inFx&&!locked&&!commitBeat&&(s.phase==='pitch'||s.phase==='between');
   const onNextRef=useRef(onNext);onNextRef.current=onNext;
   useEffect(()=>{
     if(!autoNext)return;
     let retry=null;
-    const first=setTimeout(()=>{onNextRef.current?.();retry=setInterval(()=>onNextRef.current?.(),AUTO_NEXT_RETRY_MS);},AUTO_NEXT_MS);
+    // A media event may follow the viewport change; never advance behind the
+    // visible notice even if this callback beats React's subscription update.
+    const attempt=()=>{if(!(vnextRequested&&landscapeNoticeActive()))onNextRef.current?.();};
+    const first=setTimeout(()=>{attempt();retry=setInterval(attempt,AUTO_NEXT_RETRY_MS);},AUTO_NEXT_MS);
     return ()=>{clearTimeout(first);clearInterval(retry);};
-  },[autoNext,s]);
+  },[autoNext,s,vnextRequested]);
 
   const cardButton=x=>{
     const def=CARDS[x.entry.kind]||{},problem=deciding?x.preview?.problem:null,inStack=stack.findIndex(y=>y.id===x.id);

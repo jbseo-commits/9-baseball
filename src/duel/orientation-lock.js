@@ -20,3 +20,23 @@ export function installOrientationLock(win=typeof window!=='undefined'?window:nu
   doc.addEventListener('pointerup',onTap,{passive:true});
   return ()=>doc.removeEventListener('pointerup',onTap);
 }
+
+// Keep automatic progression in sync with the existing vnext CSS notice.
+// This observes the viewport only; it never requests fullscreen or locks it.
+export const LANDSCAPE_NOTICE_MEDIA='(orientation: portrait) and (pointer: coarse)';
+export function landscapeNoticeActive(win=typeof window!=='undefined'?window:null){
+  return !!win?.matchMedia?.(LANDSCAPE_NOTICE_MEDIA)?.matches;
+}
+export function subscribeLandscapeNotice(notify,win=typeof window!=='undefined'?window:null){
+  const media=win?.matchMedia?.(LANDSCAPE_NOTICE_MEDIA);
+  if(!media)return ()=>{};
+  const changed=()=>notify();
+  if(media.addEventListener)media.addEventListener('change',changed);
+  else media.addListener?.(changed);
+  win.addEventListener?.('resize',changed);
+  return ()=>{
+    if(media.removeEventListener)media.removeEventListener('change',changed);
+    else media.removeListener?.(changed);
+    win.removeEventListener?.('resize',changed);
+  };
+}
