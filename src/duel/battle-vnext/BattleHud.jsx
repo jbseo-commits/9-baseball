@@ -53,7 +53,7 @@ export default function BattleHud({hud=null,forecast=null,sources=[],phase='deci
         <em aria-hidden="true">READ</em><b aria-hidden="true">{READ_MARK[hud.readLevel]}</b>
       </span>
       {onToggleSound&&<button type="button" className="bv-hud-sound" aria-label={sound?'효과음 끄기':'효과음 켜기'} aria-pressed={sound} onClick={onToggleSound}><BattleSymbol kind={sound?'sound':'muted'}/></button>}
-      {onMenu&&<button type="button" className="bv-hud-menu" aria-label="경기 정보 및 메뉴" aria-expanded={menuOpen} disabled={phase==='committing'||phase==='flight'} onClick={onMenu}>{refined?<BattleSymbol kind="menu"/>:'•••'}</button>}
+      {onMenu&&<button type="button" className="bv-hud-menu" aria-label="경기 정보 및 메뉴" aria-expanded={menuOpen} disabled={phase==='committing'||phase==='flight'||phase==='transition'} onClick={onMenu}>{refined?<BattleSymbol kind="menu"/>:'•••'}</button>}
     </div>
     <div className="bv-hud-notes">
       {hud.tell&&<p className="bv-hud-tell" data-testid="bv-tell" title={hud.tellDetail||undefined}><span aria-hidden="true">{refined?<BattleSymbol kind="aim"/>:'↘'}</span>{hud.tell}</p>}

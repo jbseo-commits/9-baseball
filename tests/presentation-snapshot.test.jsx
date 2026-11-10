@@ -16,6 +16,31 @@ import BattleHud from '../src/duel/battle-vnext/BattleHud.jsx';
 import HandDock from '../src/duel/battle-vnext/HandDock.jsx';
 afterEach(cleanup);
 describe('accepted action snapshot and truthful consequence sequence',()=>{
+ it('retains an immutable three-card plan with distinct aims and exact cost without result data',()=>{
+  let before=enterV10Node(createV10Duel(3),'a1-entry');
+  const ids=before.battle.hand.slice(0,3);
+  for(const id of ids)before.deck.find(c=>c.id===id).kind='place';
+  before.battle.energyCap=3;before.battle.energy=3;before=setAimZone(before,4);
+  const supports=[{id:ids[1],aimZone:0},{id:ids[2],aimZone:8}];
+  const next=playV10Action(before,{type:'card',id:ids[0],supports});
+  expect(next.stats.pitches).toBe(before.stats.pitches+1);
+  const plan=captureExecution(before,next,{selected:ids[0]}).committedPlan;
+  expect(plan).toEqual({action:'swing',cost:3,coverage:[0,4,8],cards:[4,0,8].map((z,i)=>({
+    id:ids[i],kind:'place',role:i?'support':'main',order:i+1,aimZone:z,coverage:[z],cost:1}))});
+  next.battle.revealed.supportCoverages[0].coverage.push(7);
+  expect(plan.cards[1].coverage).toEqual([0]);
+  expect(Object.isFrozen(plan)).toBe(true);expect(Object.isFrozen(plan.cards)).toBe(true);
+  expect(Object.isFrozen(plan.cards[1].coverage)).toBe(true);
+  expect(JSON.stringify(plan)).not.toMatch(/actualZone|powerRoll|pitchSeed|damage|verdict|pending/);
+ });
+ it('does not invent card consumption for take or free basic swing',()=>{
+  const before=enterV10Node(createV10Duel(3),'a1-entry');
+  const taken=playV10Action(before,{type:'take'});
+  expect(captureExecution(before,taken).committedPlan).toEqual({action:'take',cards:[],cost:0,coverage:[]});
+  const swung=playV10Action(before,{type:'card',id:'basic'});
+  expect(captureExecution(before,swung,{selected:'basic'}).committedPlan).toMatchObject({cost:0,
+    cards:[{id:'basic',cost:0,coverage:[before.battle.aimZone]}]});
+ });
  it('captures the consumed main card before the UI clears the selection',()=>{
   const f=buildFixture('swing-main'),before=setAimZone(f.s,2),after=playV10Action(before,{type:'card',id:f.selected});
   expect(after.battle.hand).not.toContain(f.selected);
