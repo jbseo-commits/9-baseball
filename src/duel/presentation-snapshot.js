@@ -2,6 +2,7 @@ import {CARDS} from './cards.js';
 import {coverage,v10PrepMax} from './engine.js';
 import {cardFaceOf} from './card-face.js';
 import {preparationDrawPreview} from './preparation-feedback.js';
+import {publicEncounterCue} from './encounter-cues.js';
 
 function capturePublicHand(state){
   const b=state?.battle;if(!b)return null;
@@ -30,6 +31,7 @@ export function captureExecution(before,next,{selected=null}={}){
     return [{id,kind:entry.kind,name:(CARDS[entry.kind]?.name||'카드')+(entry.plus?'+':''),role:id===selected?'main':'support'}];
   });
   return {pitch:next.stats?.pitches||0,nodeId:next.runMap?.currentNodeId,action,cards,
+    encounterCue:publicEncounterCue(before),
     handSnapshot:action==='prepare'?null:capturePublicHand(before),
     preparation:prep?{name:cards[0]?.name||'준비',detail:next.last.events?.[0]||next.last.text||'준비 효과 적용'}:null};
 }
@@ -51,7 +53,7 @@ export function resultSequence(result,execution){
     if(result.precisionBonus>0)steps.push({kind:'precision',text:`정확 적중 +${result.precisionBonus} HP`});
     else if(result.relicBonus>0&&result.relicEvents?.length)steps.push({kind:'relic',text:result.relicEvents[0]});
   }
-  const encounter=result.encounterEvents?.[0];
+  const encounter=result.encounterCue===undefined?result.encounterEvents?.[0]:result.encounterCue?`${result.encounterCue.label} · ${result.encounterCue.text}`:null;
   if(encounter){
     if(steps.length>=2)steps[steps.length-1]={...steps.at(-1),text:steps.at(-1).text+' · '+encounter};
     else steps.push({kind:'encounter',text:encounter});

@@ -1,0 +1,97 @@
+{
+  "jade-viper": {
+    "seed": 1,
+    "node": "a1-r3l3",
+    "actions": [
+      {
+        "type": "card",
+        "id": "basic",
+        "aim": 5
+      }
+    ],
+    "method": "Validated roster node fixture. Real engine action/history transitions; Jade QA setup uses pending zone to obtain previous hit, not normal player strategy. Vulcan/Onyx are two actual engine Takes. Hidden pair changes only pending secret fields.",
+    "lastHistory": {
+      "zone": 5,
+      "label": "중전안타",
+      "kind": "hit",
+      "action": "card",
+      "aimZone": 5,
+      "exact": true,
+      "connected": false,
+      "turn": 1,
+      "balls": 0,
+      "strikes": 0
+    },
+    "pitchCount": 1,
+    "pendingKeys": [
+      "zone",
+      "roll",
+      "powerRoll"
+    ],
+    "valid": true
+  },
+  "vulcan-blaze": {
+    "seed": 1,
+    "node": "a2-r3l0",
+    "actions": [
+      {
+        "type": "take"
+      },
+      {
+        "type": "take"
+      }
+    ],
+    "method": "Validated roster node fixture. Real engine action/history transitions; Jade QA setup uses pending zone to obtain previous hit, not normal player strategy. Vulcan/Onyx are two actual engine Takes. Hidden pair changes only pending secret fields.",
+    "lastHistory": {
+      "zone": 5,
+      "label": "루킹 스트라이크",
+      "kind": "called",
+      "action": "take",
+      "aimZone": null,
+      "exact": false,
+      "connected": false,
+      "turn": 1,
+      "balls": 0,
+      "strikes": 1
+    },
+    "pitchCount": 2,
+    "pendingKeys": [
+      "zone",
+      "roll",
+      "powerRoll"
+    ],
+    "valid": true
+  },
+  "onyx-eclipse": {
+    "seed": 1,
+    "node": "a3-boss",
+    "actions": [
+      {
+        "type": "take"
+      },
+      {
+        "type": "take"
+      }
+    ],
+    "method": "Validated roster node fixture. Real engine action/history transitions; Jade QA setup uses pending zone to obtain previous hit, not normal player strategy. Vulcan/Onyx are two actual engine Takes. Hidden pair changes only pending secret fields.",
+    "lastHistory": {
+      "zone": 2,
+      "label": "루킹 스트라이크",
+      "kind": "called",
+      "action": "take",
+      "aimZone": null,
+      "exact": false,
+      "connected": false,
+      "turn": 1,
+      "balls": 0,
+      "strikes": 1
+    },
+    "pitchCount": 2,
+    "pendingKeys": [
+      "zone",
+      "roll",
+      "powerRoll"
+    ],
+    "valid": true
+  }
+}

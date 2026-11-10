@@ -17,6 +17,7 @@ import {forecastFor} from '../SwingForecast.jsx';
 import {formatHitChance} from '../swing-preview.js';
 import {pitcherIntentIcon} from '../intent-icon.js';
 import {pitcherPhase} from '../pitcher-hp.js';
+import {publicEncounterCue,landedEncounterCue} from '../encounter-cues.js';
 
 export const VIEW_PHASES=Object.freeze(['deciding','committing','flight','result','transition']);
 /* BallparkBattle LANDED와 같은 집합: 이 연출 단계부터 공이 도착해 결과를 보여도 된다 */
@@ -236,6 +237,9 @@ export function buildBattleViewModel({
     // the already-judged history/HP while the current ball is still in flight.
     encounter:b.intent?.encounter?{label:b.intent.encounter.label,summary:b.intent.encounter.summary,
       current:b.intent.encounter.current||'',counter:b.intent.encounter.counter}:null,
+    // Execution is ephemeral BEFORE information. Never recalculate the cue
+    // from the judged history while the current pitch is still being shown.
+    encounterCue:judged?(executionMatches?execution.encounterCue:null):publicEncounterCue(s),
   };
   hud.momentumRate=v10MomentumRate(hud.momentum);
 
@@ -251,6 +255,7 @@ export function buildBattleViewModel({
       explanation:resultExplanation(s),damage:Math.max(0,combat?.damage??pitcher?.lastDamage??0),
       precisionBonus:combat?.precisionBonus||0,relicBonus:combat?.relicBonus||0,relicEvents:[...(combat?.relicEvents||[])],
       encounterEvents:[...(combat?.encounter?.events||[])],
+      encounterCue:landedEncounterCue(s,combat),
       hpBefore,hpAfter:pitcher?.hp??null,knockedOut:(pitcher?.hp??1)===0,moves,
       next:s.phase==='pitch'?'pitch':s.phase==='between'?'batter':null};
   }

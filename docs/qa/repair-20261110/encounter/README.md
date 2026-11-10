@@ -1,0 +1,11 @@
+# PR96 R5 — public encounter cues and actual terms
+
+Twenty existing active version1 encounter signatures now show a shape, short conditional rule, and applicable public cycle/limit in the existing opponent frame. Optional full pitcher information remains. This is the first presentation layer, not all legacy gimmick/HP-phase/actor/VFX or human-learning completion.
+
+BEFORE public cue lives only in ephemeral captureExecution, not state/save. Judged HUD requires matching execution and never recalculates from resolved history. Old missing snapshots keep legacy dealt text. Disable version11/defenseLab/zoneFirst/missing appliedDistribution. Actual landed cue uses finalized encounterPlan rate/bonus; baseDamage0 cannot trigger a guard. Both Jade .75 and+8 coexist; bonus text names an additional damage term while final HP loss still clamps to actual endpoints/overkill. No engine/rules/RNG/audio packages changed. CSS stamp uses animation rate, reduced-motion disables movement.
+
+Full242files1650testsPASS, related finalcopy24PASS, smoke10/build/dist52.8MiBPASS. Independent sourcePASS, dev16cases(3representatives×4sizes+3take/no-falseguard+reduced) actual inputs/engineEq/frozenflight/realvisible stamp/mute/info/zone reachability. Normalnewseed3power→firstbattle→next, rotation/reload unchanged; production5360 Jade finalcopy .75+8/HP76→57 visible animatedstamp/engineEqPASS. First result has one clippedfocusframe then actual600ms stamp is visible; .5speed1200ms separately observed. Sound quality/listening not claimed.
+
+Important inherited limitation:568×320 below600 portrait-flow CSS also applies in landscape. Publishedmain1317119 and candidate match: initial actionY356>320; execute scrollY84, BSO aboveviewport, nextbuttonbottom340. This is not a new R5 regression. The earlier wording 'all clipping PASS' is explicitly withdrawn: checks covered cue/opponent internals and9zonecenters, not all criticalHUD/CTA. Separate R6P1 correction will address it. PhysicalSafari/humancomprehension remain unverified.
+
+Fresh independent sealed three same-state decision sheets3.375→3.6875(+.3125),4/8axes,none decline:IMPROVED/notBAR. Static scores certify only these decisions, not animation/sound/fun. Final ARIA and landedcopy corrections do not alter these decision images. Actual motion separately tested.
