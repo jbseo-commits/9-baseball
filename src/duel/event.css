@@ -33,7 +33,9 @@
 .is-result .ev-mark{background:#8a5a12;box-shadow:0 2px 0 #3e2806}
 
 /* choices scroll on short phones; the footer stays put */
-.ev-list{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;display:grid;align-content:start;gap:8px;padding:2px 2px 8px;-webkit-overflow-scrolling:touch}
+/* rows keep their content height: without max-content the scrolling grid sized every row to the button's
+   min-height and the effect line, chips and reason spilled out under the next choice. */
+.ev-list{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;display:grid;grid-auto-rows:max-content;align-content:start;gap:8px;padding:2px 2px 8px;-webkit-overflow-scrolling:touch}
 .ev-choice{--tone:#ffc861;appearance:none;position:relative;display:grid;gap:3px;justify-items:start;width:100%;min-height:64px;
   padding:10px 12px 10px 14px;text-align:left;color:inherit;cursor:pointer;font:inherit;
   border:1px solid #2a3152;border-left:4px solid var(--tone);border-radius:8px;
@@ -74,4 +76,16 @@
   .ev-choice{min-height:56px;padding-top:8px;padding-bottom:8px}.ev-choice strong{font-size:18px}
 }
 @media (min-width:720px){.ev-root{padding-left:max(14px,calc(50% - 300px));padding-right:max(14px,calc(50% - 300px))}}
+/* Phone landscape: the story sits beside the choices so the list gets the full height
+   (three choices fit at 844x390 instead of one and a half). The result view keeps one column. */
+@media (orientation:landscape) and (max-height:540px){
+  .ev-root:not(.is-result){display:grid;grid-template-columns:minmax(190px,34%) minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);
+    grid-template-areas:"head list" "paper list" "foot list";column-gap:14px;
+    padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}
+  .ev-root:not(.is-result)>.ev-head{grid-area:head;min-width:0}
+  .ev-root:not(.is-result)>.ev-paper{grid-area:paper;min-width:0;margin-bottom:8px}
+  .ev-root:not(.is-result)>.ev-list{grid-area:list;padding-bottom:2px}
+  .ev-root:not(.is-result)>.ev-foot{grid-area:foot;align-self:end;justify-items:start;padding-top:0}
+  .ev-root:not(.is-result) .ev-title{font-size:22px}
+}
 @media (prefers-reduced-motion:reduce){.ev-root,.ev-choice,.ev-outcome p,.ev-root .ev-paper{animation:none!important}.ev-choice{transition:none}}

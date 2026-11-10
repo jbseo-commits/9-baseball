@@ -1,0 +1,1944 @@
+{
+  "base": "http://127.0.0.1:5371/",
+  "method": "engine-generated fixtures use hidden pending only during QA setup; touch emulation not human/physical-phone evidence",
+  "checks": [
+    {
+      "name": "568 contract story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 14,
+            "y": 65,
+            "w": 97.484375,
+            "h": 22,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 62,
+            "y": 107.625,
+            "w": 111.171875,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 128.625,
+            "w": 119.140625,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 149.625,
+            "w": 115.09375,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 170.625,
+            "w": 117.328125,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 191.625,
+            "w": 59.5,
+            "h": 20,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "568 contract deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "568 contract deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "568 contract portrait notice",
+      "ok": true
+    },
+    {
+      "name": "568 contract rotate save",
+      "ok": true
+    },
+    {
+      "name": "568 contract safe area unsupported",
+      "ok": null,
+      "detail": "Error: cdpSession.send: Protocol error (Emulation.setSafeAreaInsets): 'Emulation.setSafeAreaInsets' wasn't found"
+    },
+    {
+      "name": "568 contract deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 70.8125,
+          "y": 264,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "568 contract exact effect state",
+      "ok": true
+    },
+    {
+      "name": "568 contract result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 14,
+          "y": 246,
+          "w": 540,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "568 contract return map",
+      "ok": true
+    },
+    {
+      "name": "568 foul-ball-return story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 14,
+            "y": 65,
+            "w": 159.578125,
+            "h": 22,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 62,
+            "y": 107.625,
+            "w": 110.1875,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 128.625,
+            "w": 116.203125,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 149.625,
+            "w": 88.34375,
+            "h": 20,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "568 foul-ball-return deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "568 foul-ball-return deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "568 foul-ball-return deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 70.8125,
+          "y": 264,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "568 foul-ball-return exact effect state",
+      "ok": true
+    },
+    {
+      "name": "568 foul-ball-return result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 14,
+          "y": 246,
+          "w": 540,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "568 foul-ball-return return map",
+      "ok": true
+    },
+    {
+      "name": "568 scout-rumor story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 14,
+            "y": 65,
+            "w": 135.46875,
+            "h": 22,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 62,
+            "y": 107.625,
+            "w": 125.3125,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 128.625,
+            "w": 124.890625,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 149.625,
+            "w": 119,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 170.625,
+            "w": 120.96875,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 191.625,
+            "w": 21.28125,
+            "h": 20,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "568 scout-rumor deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "568 scout-rumor deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "568 scout-rumor deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 70.8125,
+          "y": 264,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "568 scout-rumor exact effect state",
+      "ok": true
+    },
+    {
+      "name": "568 scout-rumor result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 14,
+          "y": 246,
+          "w": 540,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "568 scout-rumor return map",
+      "ok": true
+    },
+    {
+      "name": "568 old-catcher story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 14,
+            "y": 65,
+            "w": 98.5,
+            "h": 22,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 62,
+            "y": 107.625,
+            "w": 124.046875,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 128.625,
+            "w": 120.125,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 149.625,
+            "w": 113.40625,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 170.625,
+            "w": 118.453125,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 191.625,
+            "w": 21.28125,
+            "h": 20,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "568 old-catcher deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "568 old-catcher deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "568 old-catcher deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 70.8125,
+          "y": 264,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "568 old-catcher exact effect state",
+      "ok": true
+    },
+    {
+      "name": "568 old-catcher result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 14,
+          "y": 246,
+          "w": 540,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "568 old-catcher return map",
+      "ok": true
+    },
+    {
+      "name": "568 clubhouse-song story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 14,
+            "y": 65,
+            "w": 135.859375,
+            "h": 22,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 62,
+            "y": 107.625,
+            "w": 120.96875,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 128.625,
+            "w": 30.390625,
+            "h": 20,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "568 clubhouse-song deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "568 clubhouse-song deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "568 clubhouse-song deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 70.8125,
+          "y": 264,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "568 clubhouse-song exact effect state",
+      "ok": true
+    },
+    {
+      "name": "568 clubhouse-song result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 14,
+          "y": 246,
+          "w": 540,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "568 clubhouse-song return map",
+      "ok": true
+    },
+    {
+      "name": "667 contract story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 14,
+            "y": 65,
+            "w": 97.484375,
+            "h": 22,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 62,
+            "y": 107.625,
+            "w": 141.125,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 128.625,
+            "w": 148.40625,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 149.625,
+            "w": 148.40625,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 170.625,
+            "w": 88.625,
+            "h": 20,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "667 contract deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "667 contract deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "667 contract deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 84.4375,
+          "y": 319,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "667 contract exact effect state",
+      "ok": true
+    },
+    {
+      "name": "667 contract result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 14,
+          "y": 301,
+          "w": 639,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "667 contract return map",
+      "ok": true
+    },
+    {
+      "name": "667 foul-ball-return story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 14,
+            "y": 65,
+            "w": 159.578125,
+            "h": 22,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 62,
+            "y": 107.625,
+            "w": 152.328125,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 128.625,
+            "w": 149.8125,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 149.625,
+            "w": 16.953125,
+            "h": 20,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "667 foul-ball-return deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "667 foul-ball-return deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "667 foul-ball-return deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 84.4375,
+          "y": 319,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "667 foul-ball-return exact effect state",
+      "ok": true
+    },
+    {
+      "name": "667 foul-ball-return result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 14,
+          "y": 301,
+          "w": 639,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "667 foul-ball-return return map",
+      "ok": true
+    },
+    {
+      "name": "667 scout-rumor story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 14,
+            "y": 65,
+            "w": 135.46875,
+            "h": 22,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 62,
+            "y": 107.625,
+            "w": 150.640625,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 128.625,
+            "w": 150.921875,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 149.625,
+            "w": 140.703125,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 170.625,
+            "w": 64.828125,
+            "h": 20,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "667 scout-rumor deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "667 scout-rumor deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "667 scout-rumor deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 84.4375,
+          "y": 319,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "667 scout-rumor exact effect state",
+      "ok": true
+    },
+    {
+      "name": "667 scout-rumor result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 14,
+          "y": 301,
+          "w": 639,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "667 scout-rumor return map",
+      "ok": true
+    },
+    {
+      "name": "667 old-catcher story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 14,
+            "y": 65,
+            "w": 98.5,
+            "h": 22,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 62,
+            "y": 107.625,
+            "w": 137.484375,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 128.625,
+            "w": 149.53125,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 149.625,
+            "w": 146.171875,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 170.625,
+            "w": 64.125,
+            "h": 20,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "667 old-catcher deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "667 old-catcher deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "667 old-catcher deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 84.4375,
+          "y": 319,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "667 old-catcher exact effect state",
+      "ok": true
+    },
+    {
+      "name": "667 old-catcher result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 14,
+          "y": 301,
+          "w": 639,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "667 old-catcher return map",
+      "ok": true
+    },
+    {
+      "name": "667 clubhouse-song story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 14,
+            "y": 65,
+            "w": 135.859375,
+            "h": 22,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 62,
+            "y": 107.625,
+            "w": 151.34375,
+            "h": 20,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "667 clubhouse-song deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "667 clubhouse-song deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "667 clubhouse-song deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 84.4375,
+          "y": 319,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "667 clubhouse-song exact effect state",
+      "ok": true
+    },
+    {
+      "name": "667 clubhouse-song result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 14,
+          "y": 301,
+          "w": 639,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "667 clubhouse-song return map",
+      "ok": true
+    },
+    {
+      "name": "844 contract story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 14,
+            "y": 65,
+            "w": 97.484375,
+            "h": 22,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 62,
+            "y": 107.625,
+            "w": 212.53125,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 128.625,
+            "w": 208.609375,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 149.625,
+            "w": 101.09375,
+            "h": 20,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "844 contract deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "844 contract deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "844 contract deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 114.53125,
+          "y": 334,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "844 contract exact effect state",
+      "ok": true
+    },
+    {
+      "name": "844 contract result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 122,
+          "y": 316,
+          "w": 600,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "844 contract return map",
+      "ok": true
+    },
+    {
+      "name": "844 foul-ball-return story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 14,
+            "y": 65,
+            "w": 159.578125,
+            "h": 22,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 62,
+            "y": 107.625,
+            "w": 212.953125,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 128.625,
+            "w": 101.78125,
+            "h": 20,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "844 foul-ball-return deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "844 foul-ball-return deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "844 foul-ball-return deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 114.53125,
+          "y": 334,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "844 foul-ball-return exact effect state",
+      "ok": true
+    },
+    {
+      "name": "844 foul-ball-return result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 122,
+          "y": 316,
+          "w": 600,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "844 foul-ball-return return map",
+      "ok": true
+    },
+    {
+      "name": "844 scout-rumor story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 14,
+            "y": 65,
+            "w": 135.46875,
+            "h": 22,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 62,
+            "y": 107.625,
+            "w": 210.421875,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 128.625,
+            "w": 205.8125,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 149.625,
+            "w": 90.875,
+            "h": 20,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "844 scout-rumor deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "844 scout-rumor deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "844 scout-rumor deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 114.53125,
+          "y": 334,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "844 scout-rumor exact effect state",
+      "ok": true
+    },
+    {
+      "name": "844 scout-rumor result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 122,
+          "y": 316,
+          "w": 600,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "844 scout-rumor return map",
+      "ok": true
+    },
+    {
+      "name": "844 old-catcher story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 14,
+            "y": 65,
+            "w": 98.5,
+            "h": 22,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 62,
+            "y": 107.625,
+            "w": 196.5625,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 128.625,
+            "w": 206.78125,
+            "h": 20,
+            "ok": true
+          },
+          {
+            "x": 62,
+            "y": 149.625,
+            "w": 98.28125,
+            "h": 20,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "844 old-catcher deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "844 old-catcher deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "844 old-catcher deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 114.53125,
+          "y": 334,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "844 old-catcher exact effect state",
+      "ok": true
+    },
+    {
+      "name": "844 old-catcher result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 122,
+          "y": 316,
+          "w": 600,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "844 old-catcher return map",
+      "ok": true
+    },
+    {
+      "name": "844 clubhouse-song story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 14,
+            "y": 65,
+            "w": 135.859375,
+            "h": 22,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 62,
+            "y": 107.625,
+            "w": 151.34375,
+            "h": 20,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "844 clubhouse-song deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "844 clubhouse-song deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "844 clubhouse-song deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 114.53125,
+          "y": 334,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "844 clubhouse-song exact effect state",
+      "ok": true
+    },
+    {
+      "name": "844 clubhouse-song result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 122,
+          "y": 316,
+          "w": 600,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "844 clubhouse-song return map",
+      "ok": true
+    },
+    {
+      "name": "1280 contract story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 340,
+            "y": 111,
+            "w": 132.9375,
+            "h": 30,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 388,
+            "y": 167.59375,
+            "w": 531.90625,
+            "h": 21,
+            "ok": true
+          },
+          {
+            "x": 388,
+            "y": 190.09375,
+            "w": 36.90625,
+            "h": 21,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "1280 contract deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "1280 contract deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "1280 contract deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 601.8125,
+          "y": 664,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "1280 contract exact effect state",
+      "ok": true
+    },
+    {
+      "name": "1280 contract result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 340,
+          "y": 646,
+          "w": 600,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "1280 contract return map",
+      "ok": true
+    },
+    {
+      "name": "1280 foul-ball-return story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 340,
+            "y": 111,
+            "w": 217.59375,
+            "h": 30,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 388,
+            "y": 167.59375,
+            "w": 341.859375,
+            "h": 21,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "1280 foul-ball-return deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "1280 foul-ball-return deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "1280 foul-ball-return deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 601.8125,
+          "y": 664,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "1280 foul-ball-return exact effect state",
+      "ok": true
+    },
+    {
+      "name": "1280 foul-ball-return result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 340,
+          "y": 646,
+          "w": 600,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "1280 foul-ball-return return map",
+      "ok": true
+    },
+    {
+      "name": "1280 scout-rumor story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 340,
+            "y": 111,
+            "w": 184.71875,
+            "h": 30,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 388,
+            "y": 167.59375,
+            "w": 529.8125,
+            "h": 21,
+            "ok": true
+          },
+          {
+            "x": 388,
+            "y": 190.09375,
+            "w": 22.8125,
+            "h": 21,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "1280 scout-rumor deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "1280 scout-rumor deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "1280 scout-rumor deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 601.8125,
+          "y": 664,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "1280 scout-rumor exact effect state",
+      "ok": true
+    },
+    {
+      "name": "1280 scout-rumor result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 340,
+          "y": 646,
+          "w": 600,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "1280 scout-rumor return map",
+      "ok": true
+    },
+    {
+      "name": "1280 old-catcher story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 340,
+            "y": 111,
+            "w": 134.3125,
+            "h": 30,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 388,
+            "y": 167.59375,
+            "w": 519.3125,
+            "h": 21,
+            "ok": true
+          },
+          {
+            "x": 388,
+            "y": 190.09375,
+            "w": 22.8125,
+            "h": 21,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "1280 old-catcher deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "1280 old-catcher deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "1280 old-catcher deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 601.8125,
+          "y": 664,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "1280 old-catcher exact effect state",
+      "ok": true
+    },
+    {
+      "name": "1280 old-catcher result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 340,
+          "y": 646,
+          "w": 600,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "1280 old-catcher return map",
+      "ok": true
+    },
+    {
+      "name": "1280 clubhouse-song story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 340,
+            "y": 111,
+            "w": 185.25,
+            "h": 30,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 388,
+            "y": 167.59375,
+            "w": 162.15625,
+            "h": 21,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "1280 clubhouse-song deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "1280 clubhouse-song deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "1280 clubhouse-song deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 601.8125,
+          "y": 664,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "1280 clubhouse-song exact effect state",
+      "ok": true
+    },
+    {
+      "name": "1280 clubhouse-song result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 340,
+          "y": 646,
+          "w": 600,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "1280 clubhouse-song return map",
+      "ok": true
+    },
+    {
+      "name": "1440 contract story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 420,
+            "y": 120,
+            "w": 132.9375,
+            "h": 30,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 468,
+            "y": 176.59375,
+            "w": 531.90625,
+            "h": 21,
+            "ok": true
+          },
+          {
+            "x": 468,
+            "y": 199.09375,
+            "w": 36.90625,
+            "h": 21,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "1440 contract deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "1440 contract deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "1440 contract deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 681.8125,
+          "y": 844,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "1440 contract exact effect state",
+      "ok": true
+    },
+    {
+      "name": "1440 contract result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 420,
+          "y": 826,
+          "w": 600,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "1440 contract return map",
+      "ok": true
+    },
+    {
+      "name": "1440 foul-ball-return story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 420,
+            "y": 120,
+            "w": 217.59375,
+            "h": 30,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 468,
+            "y": 176.59375,
+            "w": 341.859375,
+            "h": 21,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "1440 foul-ball-return deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "1440 foul-ball-return deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "1440 foul-ball-return deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 681.8125,
+          "y": 844,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "1440 foul-ball-return exact effect state",
+      "ok": true
+    },
+    {
+      "name": "1440 foul-ball-return result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 420,
+          "y": 826,
+          "w": 600,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "1440 foul-ball-return return map",
+      "ok": true
+    },
+    {
+      "name": "1440 scout-rumor story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 420,
+            "y": 120,
+            "w": 184.71875,
+            "h": 30,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 468,
+            "y": 176.59375,
+            "w": 529.8125,
+            "h": 21,
+            "ok": true
+          },
+          {
+            "x": 468,
+            "y": 199.09375,
+            "w": 22.8125,
+            "h": 21,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "1440 scout-rumor deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "1440 scout-rumor deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "1440 scout-rumor deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 681.8125,
+          "y": 844,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "1440 scout-rumor exact effect state",
+      "ok": true
+    },
+    {
+      "name": "1440 scout-rumor result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 420,
+          "y": 826,
+          "w": 600,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "1440 scout-rumor return map",
+      "ok": true
+    },
+    {
+      "name": "1440 old-catcher story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 420,
+            "y": 120,
+            "w": 134.3125,
+            "h": 30,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 468,
+            "y": 176.59375,
+            "w": 519.3125,
+            "h": 21,
+            "ok": true
+          },
+          {
+            "x": 468,
+            "y": 199.09375,
+            "w": 22.8125,
+            "h": 21,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "1440 old-catcher deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "1440 old-catcher deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "1440 old-catcher deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 681.8125,
+          "y": 844,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "1440 old-catcher exact effect state",
+      "ok": true
+    },
+    {
+      "name": "1440 old-catcher result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 420,
+          "y": 826,
+          "w": 600,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "1440 old-catcher return map",
+      "ok": true
+    },
+    {
+      "name": "1440 clubhouse-song story glyph bounds",
+      "ok": true,
+      "detail": [
+        [
+          {
+            "x": 420,
+            "y": 120,
+            "w": 185.25,
+            "h": 30,
+            "ok": true
+          }
+        ],
+        [
+          {
+            "x": 468,
+            "y": 176.59375,
+            "w": 162.15625,
+            "h": 21,
+            "ok": true
+          }
+        ]
+      ]
+    },
+    {
+      "name": "1440 clubhouse-song deck leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "1440 clubhouse-song deck closes to same event",
+      "ok": true
+    },
+    {
+      "name": "1440 clubhouse-song deck bounds/hit",
+      "ok": true,
+      "detail": {
+        "deck": {
+          "x": 681.8125,
+          "y": 844,
+          "w": 76.359375,
+          "h": 44
+        },
+        "ok": true
+      }
+    },
+    {
+      "name": "1440 clubhouse-song exact effect state",
+      "ok": true
+    },
+    {
+      "name": "1440 clubhouse-song result glyph/action bounds",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "go": {
+          "x": 420,
+          "y": 826,
+          "w": 600,
+          "h": 62
+        }
+      }
+    },
+    {
+      "name": "1440 clubhouse-song return map",
+      "ok": true
+    }
+  ],
+  "errors": [],
+  "failed": 0
+}
