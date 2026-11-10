@@ -3,7 +3,9 @@
 import * as E from '../../src/duel/engine.js';
 import {validateV10State} from '../../src/duel/v10-storage.js';
 
-export function utilityQaState(type){
+// claim:true takes the first card reward on the way so the deck exceeds DECK_MIN
+// (the locker offers nothing at the 9-card minimum).
+export function utilityQaState(type,{claim=false}={}){
   for(let seed=1;seed<200;seed++){
     let s=E.createV10Duel(seed),path=null;
     const queue=s.runMap.reachableIds.map(id=>[id]);
@@ -24,9 +26,9 @@ export function utilityQaState(type){
         else{const z=s.battle.pending?.zone;s=Number.isInteger(z)&&z<9?E.playV10Action(E.setAimZone(s,z),{type:'card',id:'basic'}):E.playV10Action(s,{type:'take'});}
       }
       if(s.phase!=='reward')break;
-      s=E.claimV10Reward(s,{type:'skip'});
+      {const kind=claim&&E.v10RewardOptions(s)[0];s=E.claimV10Reward(s,kind?{type:'add',kind}:{type:'skip'});}
     }
-    if(s.phase===type&&validateV10State(s))return {state:s,seed,path,method:'Engine-generated QA fixture; setup reads pending. Not a human/normal input playthrough.'};
+    if(s.phase===type&&validateV10State(s)&&(!claim||E.v10UtilityOptions(s).length))return {state:s,seed,path,method:'Engine-generated QA fixture; setup reads pending. Not a human/normal input playthrough.'};
   }
   throw new Error(`Cannot generate validated ${type} fixture`);
 }

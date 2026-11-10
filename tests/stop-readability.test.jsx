@@ -95,6 +95,17 @@ describe('M01 — shop offers are readable dark tiles and cards',()=>{
     render(<BallparkStop kind="shop" options={STOPS.shop.opts}/>);
     expect(document.querySelector('.bp-offers').dataset.cards).toBe('3');
   });
+  it('locker and training rows keep their content height instead of collapsing on short landscape screens',()=>{
+    /* 2026-11-10: nine or more deck cards were squeezed into 14px strips at 844x390 because the implicit
+       grid rows had no intrinsic size. Real geometry is checked by scripts/qa-facility-layout.mjs. */
+    const rule=css.match(/main\.bp-stop\.bp-choice\.stop-locker>\.bp-offers,main\.bp-stop\.bp-choice\.stop-training>\.bp-offers\{([^}]*)\}/);
+    expect(rule,'locker/training list rule exists').toBeTruthy();
+    expect(rule[1]).toMatch(/grid-auto-rows:max-content/);
+    expect(rule[1]).toMatch(/min-height:0/);
+    const landscape=css.slice(css.indexOf('main.bp-stop.bp-choice.stop-locker,main.bp-stop.bp-choice.stop-training{'));
+    expect(landscape).toMatch(/grid-template-areas:"bar bar" "hero offers" "actions actions"/);
+    expect(css).not.toMatch(/(^|[},])\s*(html|body|#root)[^{]*\{[^}]*stop-(locker|training)/);
+  });
   it('rest renders as a readable tile too',()=>{
     render(<BallparkStop kind="rest" options={STOPS.rest.opts}/>);
     const t=screen.getByTestId('bp-rest-recover');
