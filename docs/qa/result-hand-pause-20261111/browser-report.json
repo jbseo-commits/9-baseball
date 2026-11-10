@@ -1,0 +1,280 @@
+{
+  "base": "http://127.0.0.1:5390/",
+  "method": "Actual touch/mouse controls; explicit paused clock advances measured intervals. Legal engine fixtures; hidden pending used only to construct a between-result QA fixture, not a player policy.",
+  "checks": [
+    {
+      "name": "568 take opening hand keeps exact saved result",
+      "ok": true
+    },
+    {
+      "name": "568 take open hand holds exact result beyond first deadline and retries",
+      "ok": true,
+      "detail": {
+        "handOpen": "true",
+        "phase": "pitch"
+      }
+    },
+    {
+      "name": "568 take nested inspector holds state",
+      "ok": true
+    },
+    {
+      "name": "568 take closing inspector still waits for open hand",
+      "ok": true
+    },
+    {
+      "name": "568 take folded hand waits a fresh full beat",
+      "ok": true
+    },
+    {
+      "name": "568 take auto-next resumes exact engine state",
+      "ok": true
+    },
+    {
+      "name": "568 take old retry cannot advance again",
+      "ok": true
+    },
+    {
+      "name": "568 hit opening hand keeps exact saved result",
+      "ok": true
+    },
+    {
+      "name": "568 hit open hand holds exact result beyond first deadline and retries",
+      "ok": true,
+      "detail": {
+        "handOpen": "true",
+        "phase": "between"
+      }
+    },
+    {
+      "name": "568 hit nested inspector holds state",
+      "ok": true
+    },
+    {
+      "name": "568 hit closing inspector still waits for open hand",
+      "ok": true
+    },
+    {
+      "name": "568 hit folded hand waits a fresh full beat",
+      "ok": true
+    },
+    {
+      "name": "568 hit auto-next resumes exact engine state",
+      "ok": true
+    },
+    {
+      "name": "568 hit old retry cannot advance again",
+      "ok": true
+    },
+    {
+      "name": "667 take opening hand keeps exact saved result",
+      "ok": true
+    },
+    {
+      "name": "667 take open hand holds exact result beyond first deadline and retries",
+      "ok": true,
+      "detail": {
+        "handOpen": "true",
+        "phase": "pitch"
+      }
+    },
+    {
+      "name": "667 take nested inspector holds state",
+      "ok": true
+    },
+    {
+      "name": "667 take closing inspector still waits for open hand",
+      "ok": true
+    },
+    {
+      "name": "667 take folded hand waits a fresh full beat",
+      "ok": true
+    },
+    {
+      "name": "667 take auto-next resumes exact engine state",
+      "ok": true
+    },
+    {
+      "name": "667 take old retry cannot advance again",
+      "ok": true
+    },
+    {
+      "name": "667 hit opening hand keeps exact saved result",
+      "ok": true
+    },
+    {
+      "name": "667 hit open hand holds exact result beyond first deadline and retries",
+      "ok": true,
+      "detail": {
+        "handOpen": "true",
+        "phase": "between"
+      }
+    },
+    {
+      "name": "667 hit nested inspector holds state",
+      "ok": true
+    },
+    {
+      "name": "667 hit closing inspector still waits for open hand",
+      "ok": true
+    },
+    {
+      "name": "667 hit folded hand waits a fresh full beat",
+      "ok": true
+    },
+    {
+      "name": "667 hit auto-next resumes exact engine state",
+      "ok": true
+    },
+    {
+      "name": "667 hit old retry cannot advance again",
+      "ok": true
+    },
+    {
+      "name": "844 take opening hand keeps exact saved result",
+      "ok": true
+    },
+    {
+      "name": "844 take open hand holds exact result beyond first deadline and retries",
+      "ok": true,
+      "detail": {
+        "handOpen": "true",
+        "phase": "pitch"
+      }
+    },
+    {
+      "name": "844 take nested inspector holds state",
+      "ok": true
+    },
+    {
+      "name": "844 take closing inspector still waits for open hand",
+      "ok": true
+    },
+    {
+      "name": "844 take folded hand waits a fresh full beat",
+      "ok": true
+    },
+    {
+      "name": "844 take auto-next resumes exact engine state",
+      "ok": true
+    },
+    {
+      "name": "844 take old retry cannot advance again",
+      "ok": true
+    },
+    {
+      "name": "844 hit opening hand keeps exact saved result",
+      "ok": true
+    },
+    {
+      "name": "844 hit open hand holds exact result beyond first deadline and retries",
+      "ok": true,
+      "detail": {
+        "handOpen": "true",
+        "phase": "between"
+      }
+    },
+    {
+      "name": "844 hit nested inspector holds state",
+      "ok": true
+    },
+    {
+      "name": "844 hit closing inspector still waits for open hand",
+      "ok": true
+    },
+    {
+      "name": "844 hit folded hand waits a fresh full beat",
+      "ok": true
+    },
+    {
+      "name": "844 hit auto-next resumes exact engine state",
+      "ok": true
+    },
+    {
+      "name": "844 hit old retry cannot advance again",
+      "ok": true
+    },
+    {
+      "name": "1280 take opening hand keeps exact saved result",
+      "ok": true
+    },
+    {
+      "name": "1280 take open hand holds exact result beyond first deadline and retries",
+      "ok": true,
+      "detail": {
+        "handOpen": "true",
+        "phase": "pitch"
+      }
+    },
+    {
+      "name": "1280 take nested inspector holds state",
+      "ok": true
+    },
+    {
+      "name": "1280 take closing inspector still waits for open hand",
+      "ok": true
+    },
+    {
+      "name": "1280 take folded hand waits a fresh full beat",
+      "ok": true
+    },
+    {
+      "name": "1280 take auto-next resumes exact engine state",
+      "ok": true
+    },
+    {
+      "name": "1280 take old retry cannot advance again",
+      "ok": true
+    },
+    {
+      "name": "1280 hit opening hand keeps exact saved result",
+      "ok": true
+    },
+    {
+      "name": "1280 hit open hand holds exact result beyond first deadline and retries",
+      "ok": true,
+      "detail": {
+        "handOpen": "true",
+        "phase": "between"
+      }
+    },
+    {
+      "name": "1280 hit nested inspector holds state",
+      "ok": true
+    },
+    {
+      "name": "1280 hit closing inspector still waits for open hand",
+      "ok": true
+    },
+    {
+      "name": "1280 hit folded hand waits a fresh full beat",
+      "ok": true
+    },
+    {
+      "name": "1280 hit auto-next resumes exact engine state",
+      "ok": true
+    },
+    {
+      "name": "1280 hit old retry cannot advance again",
+      "ok": true
+    },
+    {
+      "name": "take manual next advances exactly once with hand open",
+      "ok": true
+    },
+    {
+      "name": "hit manual next advances exactly once with hand open",
+      "ok": true
+    },
+    {
+      "name": "reload keeps exact result and starts folded",
+      "ok": true
+    },
+    {
+      "name": "reload has no stale drawer pause",
+      "ok": true
+    }
+  ],
+  "errors": [],
+  "failed": 0
+}

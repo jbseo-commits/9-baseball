@@ -119,6 +119,8 @@ export default function BallparkBattle({
   const previewFxOptions=()=>{if(!useVnext)return {};const controller=new AbortController();previewFx.current.add(controller);return {rate:validAnimationRate(animationRate),signal:controller.signal,sound:false};};
   useEffect(()=>()=>clearPreviewFx(),[]);
   const handDockRef=useRef(null);
+  const [handOpen,setHandOpen]=useState(false);
+  useEffect(()=>{if(!useVnext)setHandOpen(false);},[useVnext]);
   const [recentResult,setRecentResult]=useState(null);
   const b=s.battle||{},rootRef=useRef(null),sceneRef=useRef(null),pitcherRef=useRef(null),zoneRef=useRef(null),flightRef=useRef(null),stageRef=useRef(null);
   const [supportMode,setSupportMode]=useState(()=>!!vnextReview?.armed);
@@ -491,9 +493,9 @@ export default function BallparkBattle({
     :(call||shot?.title||'결과를 확인한다');
   /* No result step: once the pitch has landed, the in-scene call stays up for a beat and the
      at-bat moves on by itself. The next button only skips the wait. The beat pauses while the
-     info panel is open or the screen is locked (home-run movie), and keeps retrying until the
+     info panel or optional result hand is open, or the screen is locked (home-run movie), and keeps retrying until the
      state actually advances so a momentarily locked act() can never strand the player. */
-  const autoNext=!!onNext&&!autoLesson&&!inspect&&!inFx&&!locked&&!commitBeat&&(s.phase==='pitch'||s.phase==='between');
+  const autoNext=!!onNext&&!autoLesson&&!inspect&&!(useVnext&&handOpen)&&!inFx&&!locked&&!commitBeat&&(s.phase==='pitch'||s.phase==='between');
   const onNextRef=useRef(onNext);onNextRef.current=onNext;
   useEffect(()=>{
     if(!autoNext)return;
@@ -640,7 +642,7 @@ export default function BallparkBattle({
   if(useVnext){
     return <BattleView execution={matchingExecution} model={model} actors={{batter:SAMPLE_ACTORS.batter,pitcher:rosterPitcher||approvedArt||SAMPLE_ACTORS.pitcher}}
       playback={playback} animationRate={animationRate} onAnimationRateChange={onAnimationRateChange} sound={sound} onToggleSound={onToggleSound} rootRef={rootRef} sceneRef={sceneRef} zoneRef={zoneRef} handRef={handDockRef} recent={recentResult?.key===artId+':'+s.runMap?.currentNodeId?recentResult.text:null} title={label} review={!!vnextReview}
-      inspector={inspectorView} menuOpen={!!inspect} onMenu={()=>openInspect('menu')} onPitcherInfo={()=>openInspect('pitcher')}
+      inspector={inspectorView} menuOpen={!!inspect} handOpen={handOpen} onHandOpenChange={setHandOpen} onMenu={()=>openInspect('menu')} onPitcherInfo={()=>openInspect('pitcher')}
       onCardTap={id=>{if(!deciding&&!inspect)return;isSkill(byId(id)?.entry)?pickPrep(id):pickSwing(id);}}
       onCardDetail={id=>{const x=byId(id);openInspect('card',{kind:id==='basic'?'basic':x?.entry.kind,plus:x?.entry.plus,problem:x?.preview?.problem});}}
       onPreviewCardDrop={(id,zone)=>deciding&&!inspect?cardDropPreview(s,selected,stack,id,zone):null} onCardDrop={placeCard} onRemoveSupport={removeSupport} onToggleSupport={toggleSupport} onClearPlan={clearPlan} onPiles={()=>openInspect('pile')} piles={{draw:b.draw?.length||0,discard:b.discard?.length||0}}
