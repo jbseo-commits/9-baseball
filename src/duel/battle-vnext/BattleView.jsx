@@ -26,7 +26,7 @@ import './pitch-focus.css';
 /* Presentation only. BallparkBattle keeps selection, inspector, commit and next
    timers; App still owns the engine, save and pitch presentation lifecycle. */
 export default function BattleView({model,actors,playback=null,execution=null,animationRate=1,onAnimationRateChange=null,rootRef,sceneRef,zoneRef,handRef,title,review=false,
-  inspector=null,menuOpen=false,recent=null,onMenu,onPitcherInfo=null,sound=false,onToggleSound=null,onCardTap,onCardDetail,onPiles,onZoneTap,onZoneHover,
+  inspector=null,menuOpen=false,handOpen:controlledHandOpen,onHandOpenChange=null,recent=null,onMenu,onPitcherInfo=null,sound=false,onToggleSound=null,onCardTap,onCardDetail,onPiles,onZoneTap,onZoneHover,
   onToggleSupport,onClearPlan,onCardDrop=null,onPreviewCardDrop=null,onRemoveSupport=null,onPointerDown,onPointerMove,onPointerUp,onPointerCancel,onTake,onSwing,onNext,piles}){
   const finale=cinemaMoment(model.result,model.scene.fxStage,!!playback);
   const spotlight=model.result&&playback&&!finale?{...model.result,knockedOut:false}:model.result;
@@ -34,7 +34,12 @@ export default function BattleView({model,actors,playback=null,execution=null,an
   const [pitchFocus,setPitchFocus]=useState(false);
   const ownRoot=useRef(null),viewRef=rootRef||ownRoot;
   useAnimationRate(viewRef,playback?.rate||animationRate);
-  const [handOpen,setHandOpen]=useState(false),[placements,setPlacements]=useState([]),[pendingDrop,setPendingDrop]=useState(null),[dragFace,setDragFace]=useState(null),[dropProblem,setDropProblem]=useState('');
+  // The production controller owns drawer inspection so its existing next timer
+  // can pause in the same input update. Standalone views retain local state.
+  const [localHandOpen,setLocalHandOpen]=useState(false);
+  const handOpen=controlledHandOpen??localHandOpen;
+  const setHandOpen=controlledHandOpen==null?setLocalHandOpen:(onHandOpenChange||setLocalHandOpen);
+  const [placements,setPlacements]=useState([]),[pendingDrop,setPendingDrop]=useState(null),[dragFace,setDragFace]=useState(null),[dropProblem,setDropProblem]=useState('');
   const [dragPreview,setDragPreview]=useState(null),dragFaceRef=useRef(null);
   const setPlacement=next=>setPlacements(prev=>next?[...prev.filter(p=>p.id!==next.id),next].slice(-4):[]);
   const finishPlacement=useCallback(seq=>setPlacements(prev=>prev.filter(p=>p.seq!==seq)),[]);
