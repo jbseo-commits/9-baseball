@@ -1,0 +1,1112 @@
+{
+ "url": "http://127.0.0.1:5364",
+ "viewports": [
+  [
+   412,
+   743,
+   "phone-portrait",
+   "legacy"
+  ],
+  [
+   375,
+   667,
+   "phone-small",
+   "legacy"
+  ],
+  [
+   568,
+   320,
+   "landscape-small",
+   "vnext"
+  ],
+  [
+   667,
+   375,
+   "landscape-phone",
+   "vnext"
+  ],
+  [
+   844,
+   390,
+   "landscape-wide",
+   "vnext"
+  ],
+  [
+   1280,
+   720,
+   "desktop-small",
+   "vnext"
+  ],
+  [
+   1440,
+   900,
+   "desktop",
+   "vnext"
+  ]
+ ],
+ "input": "desktop mouse; explicit renderer queries; not touch/default-routing or full-run validation",
+ "failed": 0,
+ "checks": [
+  {
+   "name": "phone-portrait map: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "phone-portrait map: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "phone-portrait map: expected screen present",
+   "ok": true
+  },
+  {
+   "name": "phone-portrait battle: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "phone-portrait battle: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "phone-portrait battle: requested renderer present",
+   "ok": true,
+   "detail": "legacy"
+  },
+  {
+   "name": "phone-portrait battle: nine visible zone targets inside viewport",
+   "ok": true,
+   "detail": [
+    {
+     "x": 127.140625,
+     "y": 211.515625,
+     "w": 62.5,
+     "h": 54.265625
+    },
+    {
+     "x": 189.640625,
+     "y": 211.515625,
+     "w": 62.5,
+     "h": 54.265625
+    },
+    {
+     "x": 252.140625,
+     "y": 211.515625,
+     "w": 62.5,
+     "h": 54.265625
+    },
+    {
+     "x": 127.140625,
+     "y": 265.78125,
+     "w": 62.5,
+     "h": 54.265625
+    },
+    {
+     "x": 189.640625,
+     "y": 265.78125,
+     "w": 62.5,
+     "h": 54.265625
+    },
+    {
+     "x": 252.140625,
+     "y": 265.78125,
+     "w": 62.5,
+     "h": 54.265625
+    },
+    {
+     "x": 127.140625,
+     "y": 320.046875,
+     "w": 62.5,
+     "h": 54.265625
+    },
+    {
+     "x": 189.640625,
+     "y": 320.046875,
+     "w": 62.5,
+     "h": 54.265625
+    },
+    {
+     "x": 252.140625,
+     "y": 320.046875,
+     "w": 62.5,
+     "h": 54.265625
+    }
+   ]
+  },
+  {
+   "name": "phone-portrait battle: fits the screen",
+   "ok": true,
+   "detail": "overflow 0px"
+  },
+  {
+   "name": "phone-portrait battle: no inner scroll",
+   "ok": true,
+   "detail": "app overflow 0px"
+  },
+  {
+   "name": "phone-portrait battle: swing button fully on screen",
+   "ok": true,
+   "detail": {
+    "x": 7,
+    "y": 694,
+    "w": 398,
+    "h": 47
+   }
+  },
+  {
+   "name": "phone-portrait battle: hand cards not clipped",
+   "ok": true,
+   "detail": "hand bottom 635, card bottom 629"
+  },
+  {
+   "name": "phone-portrait battle: pitcher rectangle overlap with visible HUD panels",
+   "ok": true,
+   "detail": {
+    "panelRectangleCoverage": 0,
+    "transparentHudParentCoverage": null,
+    "silhouetteVerified": false
+   }
+  },
+  {
+   "name": "phone-portrait result: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "phone-portrait reward: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "phone-portrait reward: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "phone-portrait reward: expected screen present",
+   "ok": true
+  },
+  {
+   "name": "phone-portrait reward: portrait loaded and top inside its stage",
+   "ok": true,
+   "detail": {
+    "present": true,
+    "loaded": true,
+    "inside": true
+   }
+  },
+  {
+   "name": "phone-small map: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "phone-small map: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "phone-small map: expected screen present",
+   "ok": true
+  },
+  {
+   "name": "phone-small battle: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "phone-small battle: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "phone-small battle: requested renderer present",
+   "ok": true,
+   "detail": "legacy"
+  },
+  {
+   "name": "phone-small battle: nine visible zone targets inside viewport",
+   "ok": true,
+   "detail": [
+    {
+     "x": 100.75,
+     "y": 161,
+     "w": 56.828125,
+     "h": 49.328125
+    },
+    {
+     "x": 157.578125,
+     "y": 161,
+     "w": 56.828125,
+     "h": 49.328125
+    },
+    {
+     "x": 214.40625,
+     "y": 161,
+     "w": 56.828125,
+     "h": 49.328125
+    },
+    {
+     "x": 100.75,
+     "y": 210.328125,
+     "w": 56.828125,
+     "h": 49.328125
+    },
+    {
+     "x": 157.578125,
+     "y": 210.328125,
+     "w": 56.828125,
+     "h": 49.328125
+    },
+    {
+     "x": 214.40625,
+     "y": 210.328125,
+     "w": 56.828125,
+     "h": 49.328125
+    },
+    {
+     "x": 100.75,
+     "y": 259.65625,
+     "w": 56.828125,
+     "h": 49.328125
+    },
+    {
+     "x": 157.578125,
+     "y": 259.65625,
+     "w": 56.828125,
+     "h": 49.328125
+    },
+    {
+     "x": 214.40625,
+     "y": 259.65625,
+     "w": 56.828125,
+     "h": 49.328125
+    }
+   ]
+  },
+  {
+   "name": "phone-small battle: fits the screen",
+   "ok": true,
+   "detail": "overflow 0px"
+  },
+  {
+   "name": "phone-small battle: no inner scroll",
+   "ok": true,
+   "detail": "app overflow 0px"
+  },
+  {
+   "name": "phone-small battle: swing button fully on screen",
+   "ok": true,
+   "detail": {
+    "x": 7,
+    "y": 618,
+    "w": 361,
+    "h": 47
+   }
+  },
+  {
+   "name": "phone-small battle: hand cards not clipped",
+   "ok": true,
+   "detail": "hand bottom 559, card bottom 553"
+  },
+  {
+   "name": "phone-small battle: pitcher rectangle overlap with visible HUD panels",
+   "ok": true,
+   "detail": {
+    "panelRectangleCoverage": 0.08562723795572917,
+    "transparentHudParentCoverage": null,
+    "silhouetteVerified": false
+   }
+  },
+  {
+   "name": "phone-small result: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "phone-small reward: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "phone-small reward: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "phone-small reward: expected screen present",
+   "ok": true
+  },
+  {
+   "name": "phone-small reward: portrait loaded and top inside its stage",
+   "ok": true,
+   "detail": {
+    "present": true,
+    "loaded": true,
+    "inside": true
+   }
+  },
+  {
+   "name": "landscape-small map: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "landscape-small map: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "landscape-small map: expected screen present",
+   "ok": true
+  },
+  {
+   "name": "landscape-small battle: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "landscape-small battle: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "landscape-small battle: requested renderer present",
+   "ok": true,
+   "detail": "vnext"
+  },
+  {
+   "name": "landscape-small battle: nine visible zone targets inside viewport",
+   "ok": true,
+   "detail": [
+    {
+     "x": 217,
+     "y": 166,
+     "w": 44.65625,
+     "h": 44.65625
+    },
+    {
+     "x": 261.65625,
+     "y": 166,
+     "w": 44.671875,
+     "h": 44.65625
+    },
+    {
+     "x": 306.328125,
+     "y": 166,
+     "w": 44.671875,
+     "h": 44.65625
+    },
+    {
+     "x": 217,
+     "y": 210.65625,
+     "w": 44.65625,
+     "h": 44.671875
+    },
+    {
+     "x": 261.65625,
+     "y": 210.65625,
+     "w": 44.671875,
+     "h": 44.671875
+    },
+    {
+     "x": 306.328125,
+     "y": 210.65625,
+     "w": 44.671875,
+     "h": 44.671875
+    },
+    {
+     "x": 217,
+     "y": 255.328125,
+     "w": 44.65625,
+     "h": 44.671875
+    },
+    {
+     "x": 261.65625,
+     "y": 255.328125,
+     "w": 44.671875,
+     "h": 44.671875
+    },
+    {
+     "x": 306.328125,
+     "y": 255.328125,
+     "w": 44.671875,
+     "h": 44.671875
+    }
+   ]
+  },
+  {
+   "name": "landscape-small battle: fits the screen",
+   "ok": true,
+   "detail": "overflow 0px"
+  },
+  {
+   "name": "landscape-small battle: no inner scroll",
+   "ok": true,
+   "detail": "app overflow 0px"
+  },
+  {
+   "name": "landscape-small battle: swing button fully on screen",
+   "ok": true,
+   "detail": {
+    "x": 502,
+    "y": 246,
+    "w": 58,
+    "h": 68
+   }
+  },
+  {
+   "name": "landscape-small battle: folded hand handle on screen",
+   "ok": true,
+   "detail": {
+    "x": 520,
+    "y": 102.390625,
+    "w": 48,
+    "h": 104.1875
+   }
+  },
+  {
+   "name": "landscape-small battle: pitcher rectangle overlap with visible HUD panels",
+   "ok": true,
+   "detail": {
+    "panelRectangleCoverage": 0.14339901930049245,
+    "transparentHudParentCoverage": 1,
+    "silhouetteVerified": false
+   }
+  },
+  {
+   "name": "landscape-small result: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "landscape-small reward: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "landscape-small reward: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "landscape-small reward: expected screen present",
+   "ok": true
+  },
+  {
+   "name": "landscape-small reward: portrait loaded and top inside its stage",
+   "ok": true,
+   "detail": {
+    "present": true,
+    "loaded": true,
+    "inside": true
+   }
+  },
+  {
+   "name": "landscape-phone map: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "landscape-phone map: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "landscape-phone map: expected screen present",
+   "ok": true
+  },
+  {
+   "name": "landscape-phone battle: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "landscape-phone battle: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "landscape-phone battle: requested renderer present",
+   "ok": true,
+   "detail": "vnext"
+  },
+  {
+   "name": "landscape-phone battle: nine visible zone targets inside viewport",
+   "ok": true,
+   "detail": [
+    {
+     "x": 266.5,
+     "y": 221,
+     "w": 44.65625,
+     "h": 44.65625
+    },
+    {
+     "x": 311.15625,
+     "y": 221,
+     "w": 44.671875,
+     "h": 44.65625
+    },
+    {
+     "x": 355.828125,
+     "y": 221,
+     "w": 44.671875,
+     "h": 44.65625
+    },
+    {
+     "x": 266.5,
+     "y": 265.65625,
+     "w": 44.65625,
+     "h": 44.671875
+    },
+    {
+     "x": 311.15625,
+     "y": 265.65625,
+     "w": 44.671875,
+     "h": 44.671875
+    },
+    {
+     "x": 355.828125,
+     "y": 265.65625,
+     "w": 44.671875,
+     "h": 44.671875
+    },
+    {
+     "x": 266.5,
+     "y": 310.328125,
+     "w": 44.65625,
+     "h": 44.671875
+    },
+    {
+     "x": 311.15625,
+     "y": 310.328125,
+     "w": 44.671875,
+     "h": 44.671875
+    },
+    {
+     "x": 355.828125,
+     "y": 310.328125,
+     "w": 44.671875,
+     "h": 44.671875
+    }
+   ]
+  },
+  {
+   "name": "landscape-phone battle: fits the screen",
+   "ok": true,
+   "detail": "overflow 0px"
+  },
+  {
+   "name": "landscape-phone battle: no inner scroll",
+   "ok": true,
+   "detail": "app overflow 0px"
+  },
+  {
+   "name": "landscape-phone battle: swing button fully on screen",
+   "ok": true,
+   "detail": {
+    "x": 591,
+    "y": 301,
+    "w": 68,
+    "h": 68
+   }
+  },
+  {
+   "name": "landscape-phone battle: folded hand handle on screen",
+   "ok": true,
+   "detail": {
+    "x": 619,
+    "y": 120,
+    "w": 48,
+    "h": 104.1875
+   }
+  },
+  {
+   "name": "landscape-phone battle: pitcher rectangle overlap with visible HUD panels",
+   "ok": true,
+   "detail": {
+    "panelRectangleCoverage": 0,
+    "transparentHudParentCoverage": 0.8258821899024085,
+    "silhouetteVerified": false
+   }
+  },
+  {
+   "name": "landscape-phone result: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "landscape-phone reward: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "landscape-phone reward: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "landscape-phone reward: expected screen present",
+   "ok": true
+  },
+  {
+   "name": "landscape-phone reward: portrait loaded and top inside its stage",
+   "ok": true,
+   "detail": {
+    "present": true,
+    "loaded": true,
+    "inside": true
+   }
+  },
+  {
+   "name": "landscape-wide map: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "landscape-wide map: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "landscape-wide map: expected screen present",
+   "ok": true
+  },
+  {
+   "name": "landscape-wide battle: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "landscape-wide battle: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "landscape-wide battle: requested renderer present",
+   "ok": true,
+   "detail": "vnext"
+  },
+  {
+   "name": "landscape-wide battle: nine visible zone targets inside viewport",
+   "ok": true,
+   "detail": [
+    {
+     "x": 348.2890625,
+     "y": 222.5625,
+     "w": 49.140625,
+     "h": 49.140625
+    },
+    {
+     "x": 397.4296875,
+     "y": 222.5625,
+     "w": 49.140625,
+     "h": 49.140625
+    },
+    {
+     "x": 446.5703125,
+     "y": 222.5625,
+     "w": 49.140625,
+     "h": 49.140625
+    },
+    {
+     "x": 348.2890625,
+     "y": 271.703125,
+     "w": 49.140625,
+     "h": 49.140625
+    },
+    {
+     "x": 397.4296875,
+     "y": 271.703125,
+     "w": 49.140625,
+     "h": 49.140625
+    },
+    {
+     "x": 446.5703125,
+     "y": 271.703125,
+     "w": 49.140625,
+     "h": 49.140625
+    },
+    {
+     "x": 348.2890625,
+     "y": 320.84375,
+     "w": 49.140625,
+     "h": 49.140625
+    },
+    {
+     "x": 397.4296875,
+     "y": 320.84375,
+     "w": 49.140625,
+     "h": 49.140625
+    },
+    {
+     "x": 446.5703125,
+     "y": 320.84375,
+     "w": 49.140625,
+     "h": 49.140625
+    }
+   ]
+  },
+  {
+   "name": "landscape-wide battle: fits the screen",
+   "ok": true,
+   "detail": "overflow 0px"
+  },
+  {
+   "name": "landscape-wide battle: no inner scroll",
+   "ok": true,
+   "detail": "app overflow 0px"
+  },
+  {
+   "name": "landscape-wide battle: swing button fully on screen",
+   "ok": true,
+   "detail": {
+    "x": 768,
+    "y": 316,
+    "w": 68,
+    "h": 68
+   }
+  },
+  {
+   "name": "landscape-wide battle: folded hand handle on screen",
+   "ok": true,
+   "detail": {
+    "x": 796,
+    "y": 124.796875,
+    "w": 48,
+    "h": 104.1875
+   }
+  },
+  {
+   "name": "landscape-wide battle: pitcher rectangle overlap with visible HUD panels",
+   "ok": true,
+   "detail": {
+    "panelRectangleCoverage": 0.0845218231588633,
+    "transparentHudParentCoverage": 0.8432160182702306,
+    "silhouetteVerified": false
+   }
+  },
+  {
+   "name": "landscape-wide result: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "landscape-wide reward: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "landscape-wide reward: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "landscape-wide reward: expected screen present",
+   "ok": true
+  },
+  {
+   "name": "landscape-wide reward: portrait loaded and top inside its stage",
+   "ok": true,
+   "detail": {
+    "present": true,
+    "loaded": true,
+    "inside": true
+   }
+  },
+  {
+   "name": "desktop-small map: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "desktop-small map: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "desktop-small map: expected screen present",
+   "ok": true
+  },
+  {
+   "name": "desktop-small battle: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "desktop-small battle: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "desktop-small battle: requested renderer present",
+   "ok": true,
+   "detail": "vnext"
+  },
+  {
+   "name": "desktop-small battle: nine visible zone targets inside viewport",
+   "ok": true,
+   "detail": [
+    {
+     "x": 527.171875,
+     "y": 424.328125,
+     "w": 75.21875,
+     "h": 75.21875
+    },
+    {
+     "x": 602.390625,
+     "y": 424.328125,
+     "w": 75.21875,
+     "h": 75.21875
+    },
+    {
+     "x": 677.609375,
+     "y": 424.328125,
+     "w": 75.21875,
+     "h": 75.21875
+    },
+    {
+     "x": 527.171875,
+     "y": 499.546875,
+     "w": 75.21875,
+     "h": 75.21875
+    },
+    {
+     "x": 602.390625,
+     "y": 499.546875,
+     "w": 75.21875,
+     "h": 75.21875
+    },
+    {
+     "x": 677.609375,
+     "y": 499.546875,
+     "w": 75.21875,
+     "h": 75.21875
+    },
+    {
+     "x": 527.171875,
+     "y": 574.765625,
+     "w": 75.21875,
+     "h": 75.21875
+    },
+    {
+     "x": 602.390625,
+     "y": 574.765625,
+     "w": 75.21875,
+     "h": 75.21875
+    },
+    {
+     "x": 677.609375,
+     "y": 574.765625,
+     "w": 75.21875,
+     "h": 75.21875
+    }
+   ]
+  },
+  {
+   "name": "desktop-small battle: fits the screen",
+   "ok": true,
+   "detail": "overflow 0px"
+  },
+  {
+   "name": "desktop-small battle: no inner scroll",
+   "ok": true,
+   "detail": "app overflow 0px"
+  },
+  {
+   "name": "desktop-small battle: swing button fully on screen",
+   "ok": true,
+   "detail": {
+    "x": 1180.265625,
+    "y": 626.265625,
+    "w": 85.734375,
+    "h": 85.734375
+   }
+  },
+  {
+   "name": "desktop-small battle: folded hand handle on screen",
+   "ok": true,
+   "detail": {
+    "x": 1232,
+    "y": 302.390625,
+    "w": 48,
+    "h": 120
+   }
+  },
+  {
+   "name": "desktop-small battle: pitcher rectangle overlap with visible HUD panels",
+   "ok": true,
+   "detail": {
+    "panelRectangleCoverage": 0,
+    "transparentHudParentCoverage": 0.12115689481319765,
+    "silhouetteVerified": false
+   }
+  },
+  {
+   "name": "desktop-small result: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "desktop-small reward: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "desktop-small reward: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "desktop-small reward: expected screen present",
+   "ok": true
+  },
+  {
+   "name": "desktop-small reward: portrait loaded and top inside its stage",
+   "ok": true,
+   "detail": {
+    "present": true,
+    "loaded": true,
+    "inside": true
+   }
+  },
+  {
+   "name": "desktop map: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "desktop map: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "desktop map: expected screen present",
+   "ok": true
+  },
+  {
+   "name": "desktop battle: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "desktop battle: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "desktop battle: requested renderer present",
+   "ok": true,
+   "detail": "vnext"
+  },
+  {
+   "name": "desktop battle: nine visible zone targets inside viewport",
+   "ok": true,
+   "detail": [
+    {
+     "x": 578.5390625,
+     "y": 526.640625,
+     "w": 94.296875,
+     "h": 94.296875
+    },
+    {
+     "x": 672.8359375,
+     "y": 526.640625,
+     "w": 94.3125,
+     "h": 94.296875
+    },
+    {
+     "x": 767.1484375,
+     "y": 526.640625,
+     "w": 94.296875,
+     "h": 94.296875
+    },
+    {
+     "x": 578.5390625,
+     "y": 620.9375,
+     "w": 94.296875,
+     "h": 94.3125
+    },
+    {
+     "x": 672.8359375,
+     "y": 620.9375,
+     "w": 94.3125,
+     "h": 94.3125
+    },
+    {
+     "x": 767.1484375,
+     "y": 620.9375,
+     "w": 94.296875,
+     "h": 94.3125
+    },
+    {
+     "x": 578.5390625,
+     "y": 715.25,
+     "w": 94.296875,
+     "h": 94.3125
+    },
+    {
+     "x": 672.8359375,
+     "y": 715.25,
+     "w": 94.3125,
+     "h": 94.3125
+    },
+    {
+     "x": 767.1484375,
+     "y": 715.25,
+     "w": 94.296875,
+     "h": 94.3125
+    }
+   ]
+  },
+  {
+   "name": "desktop battle: fits the screen",
+   "ok": true,
+   "detail": "overflow 0px"
+  },
+  {
+   "name": "desktop battle: no inner scroll",
+   "ok": true,
+   "detail": "app overflow 0px"
+  },
+  {
+   "name": "desktop battle: swing button fully on screen",
+   "ok": true,
+   "detail": {
+    "x": 1318.890625,
+    "y": 784.890625,
+    "w": 107.109375,
+    "h": 107.109375
+   }
+  },
+  {
+   "name": "desktop battle: folded hand handle on screen",
+   "ok": true,
+   "detail": {
+    "x": 1392,
+    "y": 378,
+    "w": 48,
+    "h": 120
+   }
+  },
+  {
+   "name": "desktop battle: pitcher rectangle overlap with visible HUD panels",
+   "ok": true,
+   "detail": {
+    "panelRectangleCoverage": 0,
+    "transparentHudParentCoverage": 0.10381552614018043,
+    "silhouetteVerified": false
+   }
+  },
+  {
+   "name": "desktop result: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "desktop reward: no horizontal scroll",
+   "ok": true
+  },
+  {
+   "name": "desktop reward: no console errors",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "desktop reward: expected screen present",
+   "ok": true
+  },
+  {
+   "name": "desktop reward: portrait loaded and top inside its stage",
+   "ok": true,
+   "detail": {
+    "present": true,
+    "loaded": true,
+    "inside": true
+   }
+  }
+ ]
+}
