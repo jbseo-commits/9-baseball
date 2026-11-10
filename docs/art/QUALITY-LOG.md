@@ -25,3 +25,4 @@
 | 2026-11-09 | HELD rest layout candidate1 before environment correction | repair_rest_blind | 3.06 → 2.56 | NOT_IMPROVED | R4 캐릭터 존재감 |
 | 2026-11-09 | Rest final: one out or card upgrade, preserved stadium environment | repair_rest_final_blind | 2.88 → 3.44 | IMPROVED | R4 캐릭터 존재감 |
 | 2026-11-10 | PR96 R5 public motif and conditional rule cues | repair_encounter_blind fresh sealed | 3.38 → 3.69 | IMPROVED | R1 화풍 통일 |
+| 2026-11-10 | R6 small landscape anchoring | repair_small_blind fresh sealed | 2.56 → 3.06 | IMPROVED | R4 캐릭터 존재감 |

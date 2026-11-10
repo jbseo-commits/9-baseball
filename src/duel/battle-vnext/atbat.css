@@ -5,8 +5,8 @@
 .bv-atbat .bv-action-name{font-size:.76em;font-weight:600}
 /* Folded/rotated cards extend outside the field. hidden makes the field a
    focus-scroll container; clip keeps the same crop without moving the camera.
-   Keep the <600px visible-flow fallback and all nested hand/dialog scrolling. */
-@media(orientation:landscape) and (min-width:600px){
+   Keep the portrait visible-flow fallback and all nested hand/dialog scrolling. */
+@media(orientation:landscape){
   .battle-vnext.bv-atbat{overflow:clip}
   /* The legacy inspector's flex contract is scoped to .bp-battle, which this
      view does not mount. Bound the body instead of clipping long information. */
@@ -19,6 +19,16 @@
   .battle-vnext.bv-atbat .bv-inspector-area .bp-inspect-tabs button{flex:1 1 0;min-width:0;min-height:44px;font-size:12px}
   .battle-vnext.bv-atbat .bv-inspector-area .bp-inspect-body{flex:1 1 auto;min-height:0;min-width:0;overflow-y:auto;overscroll-behavior:contain;padding:8px 12px;font-size:13px;line-height:1.5}
   .battle-vnext.bv-atbat .bv-inspector-area .bp-inspect-status{flex-shrink:0;padding:2px 12px 6px;font-size:10px;color:#b4c4cf}
+}
+/* A short landscape phone still uses the on-field canvas. The width-only
+   portrait fallback must not push the scoreboard/actions out of the screen. */
+@media(orientation:landscape) and (max-width:599px){
+  .battle-vnext.bv-atbat{height:100dvh;min-height:0;display:block;overflow:clip}
+  .battle-vnext.bv-atbat.bv-reference{--bv-rail:clamp(200px,35vw,210px)}
+  .battle-vnext.bv-atbat .bv-stage{position:absolute;height:auto}
+  .battle-vnext.bv-atbat .bv-decision{display:flex;flex-direction:column}
+  .battle-vnext.bv-atbat .bv-hand-area{order:0;background:none}
+  .battle-vnext.bv-atbat .bv-inspector-area{height:auto}
 }
 @media(orientation:landscape){
   .battle-vnext.bv-atbat{--bv-rail:clamp(288px,38vw,600px);--bv-field-top:0px;--bv-zone-size:clamp(150px,18vw,288px);min-height:0;background:var(--bv-navy)}

@@ -9,7 +9,7 @@ if(!process.env.PLAYWRIGHT_MODULE)throw new Error('Set PLAYWRIGHT_MODULE to an i
 const {chromium}=await import(pathToFileURL(process.env.PLAYWRIGHT_MODULE).href);
 const base=process.env.BASE_URL||'http://127.0.0.1:5173/';
 const out=process.env.QA_OUT||'/tmp/qa-battle-inspector-scroll';
-const sizes=process.env.QA_SMALL_ONLY?[[667,320]]:[[667,320],[667,375],[844,300],[844,390],[1440,900]];
+const sizes=process.env.QA_VIEWPORTS?JSON.parse(process.env.QA_VIEWPORTS):process.env.QA_SMALL_ONLY?[[667,320]]:[[568,320],[599,320],[600,320],[667,320],[667,375],[844,300],[844,390],[1440,900]];
 await fs.mkdir(out,{recursive:true});
 const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox']});
 const report=[],failures=[];

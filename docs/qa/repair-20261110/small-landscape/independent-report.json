@@ -1,0 +1,4404 @@
+{
+  "cases": [
+    {
+      "size": [
+        568,
+        320
+      ],
+      "steps": [
+        {
+          "label": "initial",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 568,
+            "h": 320,
+            "bottom": 320,
+            "right": 568
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 306.71875,
+            "h": 40,
+            "bottom": 40,
+            "right": 306.71875
+          },
+          "action": {
+            "x": 502,
+            "y": 246,
+            "w": 58,
+            "h": 68,
+            "bottom": 314,
+            "right": 560
+          },
+          "next": null,
+          "handle": {
+            "x": 520,
+            "y": 102.390625,
+            "w": 48,
+            "h": 104.1875,
+            "bottom": 206.578125,
+            "right": 568
+          },
+          "open": "false",
+          "phase": "deciding",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 217,
+                "y": 166,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 261.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 261.65625,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 306.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 306.328125,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 351
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 217,
+                "y": 210.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 261.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 261.65625,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 306.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 306.328125,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 351
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 217,
+                "y": 255.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 261.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 261.65625,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 306.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 306.328125,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 351
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            }
+          ],
+          "handScroll": {
+            "top": 0,
+            "ch": 192,
+            "sh": 540
+          }
+        },
+        {
+          "label": "hand-open",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 568,
+            "h": 320,
+            "bottom": 320,
+            "right": 568
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 306.71875,
+            "h": 40,
+            "bottom": 40,
+            "right": 306.71875
+          },
+          "action": {
+            "x": 502,
+            "y": 246,
+            "w": 58,
+            "h": 68,
+            "bottom": 314,
+            "right": 560
+          },
+          "next": null,
+          "handle": {
+            "x": 324,
+            "y": 96,
+            "w": 44,
+            "h": 44,
+            "bottom": 140,
+            "right": 368
+          },
+          "open": "true",
+          "phase": "deciding",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 217,
+                "y": 166,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 261.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 261.65625,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 306.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 306.328125,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 351
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 217,
+                "y": 210.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 261.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 261.65625,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 306.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 306.328125,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 351
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 217,
+                "y": 255.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 261.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 261.65625,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 306.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 306.328125,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 351
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            }
+          ],
+          "handScroll": {
+            "top": 0,
+            "ch": 192,
+            "sh": 540
+          }
+        },
+        {
+          "label": "hand-scroll",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 568,
+            "h": 320,
+            "bottom": 320,
+            "right": 568
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 306.71875,
+            "h": 40,
+            "bottom": 40,
+            "right": 306.71875
+          },
+          "action": {
+            "x": 502,
+            "y": 246,
+            "w": 58,
+            "h": 68,
+            "bottom": 314,
+            "right": 560
+          },
+          "next": null,
+          "handle": {
+            "x": 324,
+            "y": 96,
+            "w": 44,
+            "h": 44,
+            "bottom": 140,
+            "right": 368
+          },
+          "open": "true",
+          "phase": "deciding",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 217,
+                "y": 166,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 261.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 261.65625,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 306.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 306.328125,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 351
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 217,
+                "y": 210.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 261.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 261.65625,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 306.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 306.328125,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 351
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 217,
+                "y": 255.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 261.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 261.65625,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 306.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 306.328125,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 351
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            }
+          ],
+          "handScroll": {
+            "top": 348,
+            "ch": 192,
+            "sh": 540
+          }
+        },
+        {
+          "label": "planned",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 568,
+            "h": 320,
+            "bottom": 320,
+            "right": 568
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 306.71875,
+            "h": 40,
+            "bottom": 40,
+            "right": 306.71875
+          },
+          "action": {
+            "x": 438,
+            "y": 246,
+            "w": 58,
+            "h": 68,
+            "bottom": 314,
+            "right": 496
+          },
+          "next": null,
+          "handle": {
+            "x": 520,
+            "y": 102.390625,
+            "w": 48,
+            "h": 104.1875,
+            "bottom": 206.578125,
+            "right": 568
+          },
+          "open": "false",
+          "phase": "deciding",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 217,
+                "y": 166,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 261.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 261.65625,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 306.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 306.328125,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 351
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 217,
+                "y": 210.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 261.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 261.65625,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 306.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 306.328125,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 351
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 217,
+                "y": 255.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 261.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 261.65625,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 306.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 306.328125,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 351
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            }
+          ],
+          "handScroll": {
+            "top": 372,
+            "ch": 167,
+            "sh": 540
+          }
+        },
+        {
+          "label": "execute",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 568,
+            "h": 320,
+            "bottom": 320,
+            "right": 568
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 306.71875,
+            "h": 40,
+            "bottom": 40,
+            "right": 306.71875
+          },
+          "action": {
+            "x": 502,
+            "y": 246,
+            "w": 58,
+            "h": 68,
+            "bottom": 314,
+            "right": 560
+          },
+          "next": null,
+          "handle": {
+            "x": 520,
+            "y": 102.390625,
+            "w": 48,
+            "h": 104.1875,
+            "bottom": 206.578125,
+            "right": 568
+          },
+          "open": "false",
+          "phase": "flight",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 217,
+                "y": 166,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 261.65625
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 261.65625,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 306.328125
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 306.328125,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 351
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 217,
+                "y": 210.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 261.65625
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 261.65625,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 306.328125
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 306.328125,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 351
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 217,
+                "y": 255.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 261.65625
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 261.65625,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 306.328125
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 306.328125,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 351
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            }
+          ],
+          "handScroll": {
+            "top": 0,
+            "ch": 169,
+            "sh": 540
+          }
+        },
+        {
+          "label": "result",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 568,
+            "h": 320,
+            "bottom": 320,
+            "right": 568
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 306.71875,
+            "h": 40,
+            "bottom": 40,
+            "right": 306.71875
+          },
+          "action": null,
+          "next": {
+            "x": 502,
+            "y": 246,
+            "w": 58,
+            "h": 68,
+            "bottom": 314,
+            "right": 560
+          },
+          "handle": {
+            "x": 520,
+            "y": 102.390625,
+            "w": 48,
+            "h": 104.1875,
+            "bottom": 206.578125,
+            "right": 568
+          },
+          "open": "false",
+          "phase": "result",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 217,
+                "y": 166,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 261.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 261.65625,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 306.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 306.328125,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 351
+              },
+              "hit": true,
+              "hitClass": "bv-cell"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 217,
+                "y": 210.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 261.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 261.65625,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 306.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 306.328125,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 351
+              },
+              "hit": true,
+              "hitClass": "bv-pitch-mark"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 217,
+                "y": 255.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 261.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 261.65625,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 306.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 306.328125,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 351
+              },
+              "hit": true,
+              "hitClass": "bv-cell"
+            }
+          ],
+          "handScroll": {
+            "top": 0,
+            "ch": 41,
+            "sh": 540
+          }
+        }
+      ],
+      "inspector": {
+        "top": 198,
+        "ch": 139,
+        "sh": 337,
+        "box": {
+          "x": 11,
+          "y": 147,
+          "width": 496,
+          "height": 139,
+          "top": 147,
+          "right": 507,
+          "bottom": 286,
+          "left": 11
+        },
+        "last": {
+          "x": 201.578125,
+          "y": 236.5,
+          "width": 77.84375,
+          "height": 41.5,
+          "top": 236.5,
+          "right": 279.421875,
+          "bottom": 278,
+          "left": 201.578125
+        }
+      },
+      "rotationPreserved": true,
+      "engineEqual": true,
+      "pass": true
+    },
+    {
+      "size": [
+        599,
+        320
+      ],
+      "steps": [
+        {
+          "label": "initial",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 599,
+            "h": 320,
+            "bottom": 320,
+            "right": 599
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 323.453125,
+            "h": 40,
+            "bottom": 40,
+            "right": 323.453125
+          },
+          "action": {
+            "x": 533,
+            "y": 246,
+            "w": 58,
+            "h": 68,
+            "bottom": 314,
+            "right": 591
+          },
+          "next": null,
+          "handle": {
+            "x": 551,
+            "y": 102.390625,
+            "w": 48,
+            "h": 104.1875,
+            "bottom": 206.578125,
+            "right": 599
+          },
+          "open": "false",
+          "phase": "deciding",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 232.5,
+                "y": 166,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 277.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 277.15625,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 321.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 321.828125,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 366.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 232.5,
+                "y": 210.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 277.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 277.15625,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 321.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 321.828125,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 366.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 232.5,
+                "y": 255.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 277.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 277.15625,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 321.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 321.828125,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 366.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            }
+          ],
+          "handScroll": {
+            "top": 0,
+            "ch": 192,
+            "sh": 508
+          }
+        },
+        {
+          "label": "hand-open",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 599,
+            "h": 320,
+            "bottom": 320,
+            "right": 599
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 323.453125,
+            "h": 40,
+            "bottom": 40,
+            "right": 323.453125
+          },
+          "action": {
+            "x": 533,
+            "y": 246,
+            "w": 58,
+            "h": 68,
+            "bottom": 314,
+            "right": 591
+          },
+          "next": null,
+          "handle": {
+            "x": 345.359375,
+            "y": 96,
+            "w": 44,
+            "h": 44,
+            "bottom": 140,
+            "right": 389.359375
+          },
+          "open": "true",
+          "phase": "deciding",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 232.5,
+                "y": 166,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 277.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 277.15625,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 321.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 321.828125,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 366.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 232.5,
+                "y": 210.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 277.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 277.15625,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 321.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 321.828125,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 366.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 232.5,
+                "y": 255.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 277.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 277.15625,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 321.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 321.828125,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 366.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            }
+          ],
+          "handScroll": {
+            "top": 0,
+            "ch": 192,
+            "sh": 508
+          }
+        },
+        {
+          "label": "hand-scroll",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 599,
+            "h": 320,
+            "bottom": 320,
+            "right": 599
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 323.453125,
+            "h": 40,
+            "bottom": 40,
+            "right": 323.453125
+          },
+          "action": {
+            "x": 533,
+            "y": 246,
+            "w": 58,
+            "h": 68,
+            "bottom": 314,
+            "right": 591
+          },
+          "next": null,
+          "handle": {
+            "x": 345.359375,
+            "y": 96,
+            "w": 44,
+            "h": 44,
+            "bottom": 140,
+            "right": 389.359375
+          },
+          "open": "true",
+          "phase": "deciding",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 232.5,
+                "y": 166,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 277.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 277.15625,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 321.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 321.828125,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 366.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 232.5,
+                "y": 210.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 277.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 277.15625,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 321.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 321.828125,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 366.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 232.5,
+                "y": 255.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 277.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 277.15625,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 321.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 321.828125,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 366.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            }
+          ],
+          "handScroll": {
+            "top": 316,
+            "ch": 192,
+            "sh": 508
+          }
+        },
+        {
+          "label": "planned",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 599,
+            "h": 320,
+            "bottom": 320,
+            "right": 599
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 323.453125,
+            "h": 40,
+            "bottom": 40,
+            "right": 323.453125
+          },
+          "action": {
+            "x": 469,
+            "y": 246,
+            "w": 58,
+            "h": 68,
+            "bottom": 314,
+            "right": 527
+          },
+          "next": null,
+          "handle": {
+            "x": 551,
+            "y": 102.390625,
+            "w": 48,
+            "h": 104.1875,
+            "bottom": 206.578125,
+            "right": 599
+          },
+          "open": "false",
+          "phase": "deciding",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 232.5,
+                "y": 166,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 277.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 277.15625,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 321.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 321.828125,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 366.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 232.5,
+                "y": 210.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 277.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 277.15625,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 321.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 321.828125,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 366.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 232.5,
+                "y": 255.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 277.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 277.15625,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 321.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 321.828125,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 366.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            }
+          ],
+          "handScroll": {
+            "top": 338,
+            "ch": 167,
+            "sh": 508
+          }
+        },
+        {
+          "label": "execute",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 599,
+            "h": 320,
+            "bottom": 320,
+            "right": 599
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 323.453125,
+            "h": 40,
+            "bottom": 40,
+            "right": 323.453125
+          },
+          "action": {
+            "x": 533,
+            "y": 246,
+            "w": 58,
+            "h": 68,
+            "bottom": 314,
+            "right": 591
+          },
+          "next": null,
+          "handle": {
+            "x": 551,
+            "y": 102.390625,
+            "w": 48,
+            "h": 104.1875,
+            "bottom": 206.578125,
+            "right": 599
+          },
+          "open": "false",
+          "phase": "flight",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 232.5,
+                "y": 166,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 277.15625
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 277.15625,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 321.828125
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 321.828125,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 366.5
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 232.5,
+                "y": 210.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 277.15625
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 277.15625,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 321.828125
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 321.828125,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 366.5
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 232.5,
+                "y": 255.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 277.15625
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 277.15625,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 321.828125
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 321.828125,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 366.5
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            }
+          ],
+          "handScroll": {
+            "top": 338,
+            "ch": 169,
+            "sh": 508
+          }
+        },
+        {
+          "label": "result",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 599,
+            "h": 320,
+            "bottom": 320,
+            "right": 599
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 323.453125,
+            "h": 40,
+            "bottom": 40,
+            "right": 323.453125
+          },
+          "action": null,
+          "next": {
+            "x": 533,
+            "y": 246,
+            "w": 58,
+            "h": 68,
+            "bottom": 314,
+            "right": 591
+          },
+          "handle": {
+            "x": 551,
+            "y": 102.390625,
+            "w": 48,
+            "h": 104.1875,
+            "bottom": 206.578125,
+            "right": 599
+          },
+          "open": "false",
+          "phase": "result",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 232.5,
+                "y": 166,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 277.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 277.15625,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 321.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 321.828125,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 366.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 232.5,
+                "y": 210.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 277.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 277.15625,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 321.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 321.828125,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 366.5
+              },
+              "hit": true,
+              "hitClass": "bv-pitch-mark"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 232.5,
+                "y": 255.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 277.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 277.15625,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 321.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 321.828125,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 366.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell"
+            }
+          ],
+          "handScroll": {
+            "top": 338,
+            "ch": 41,
+            "sh": 508
+          }
+        }
+      ],
+      "inspector": {
+        "top": 179,
+        "ch": 139,
+        "sh": 318,
+        "box": {
+          "x": 11,
+          "y": 147,
+          "width": 527,
+          "height": 139,
+          "top": 147,
+          "right": 538,
+          "bottom": 286,
+          "left": 11
+        },
+        "last": {
+          "x": 201.578125,
+          "y": 236,
+          "width": 77.84375,
+          "height": 41.5,
+          "top": 236,
+          "right": 279.421875,
+          "bottom": 277.5,
+          "left": 201.578125
+        }
+      },
+      "engineEqual": true,
+      "pass": true
+    },
+    {
+      "size": [
+        600,
+        320
+      ],
+      "steps": [
+        {
+          "label": "initial",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 600,
+            "h": 320,
+            "bottom": 320,
+            "right": 600
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 324,
+            "h": 40,
+            "bottom": 40,
+            "right": 324
+          },
+          "action": {
+            "x": 534,
+            "y": 246,
+            "w": 58,
+            "h": 68,
+            "bottom": 314,
+            "right": 592
+          },
+          "next": null,
+          "handle": {
+            "x": 552,
+            "y": 102.390625,
+            "w": 48,
+            "h": 104.1875,
+            "bottom": 206.578125,
+            "right": 600
+          },
+          "open": "false",
+          "phase": "deciding",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 233,
+                "y": 166,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 277.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 277.65625,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 322.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 322.328125,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 367
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 233,
+                "y": 210.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 277.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 277.65625,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 322.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 322.328125,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 367
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 233,
+                "y": 255.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 277.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 277.65625,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 322.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 322.328125,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 367
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            }
+          ],
+          "handScroll": {
+            "top": 0,
+            "ch": 192,
+            "sh": 474
+          }
+        },
+        {
+          "label": "hand-open",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 600,
+            "h": 320,
+            "bottom": 320,
+            "right": 600
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 324,
+            "h": 40,
+            "bottom": 40,
+            "right": 324
+          },
+          "action": {
+            "x": 534,
+            "y": 246,
+            "w": 58,
+            "h": 68,
+            "bottom": 314,
+            "right": 592
+          },
+          "next": null,
+          "handle": {
+            "x": 308,
+            "y": 96,
+            "w": 44,
+            "h": 44,
+            "bottom": 140,
+            "right": 352
+          },
+          "open": "true",
+          "phase": "deciding",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 233,
+                "y": 166,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 277.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 277.65625,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 322.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 322.328125,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 367
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 233,
+                "y": 210.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 277.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 277.65625,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 322.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 322.328125,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 367
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 233,
+                "y": 255.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 277.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 277.65625,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 322.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 322.328125,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 367
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            }
+          ],
+          "handScroll": {
+            "top": 0,
+            "ch": 192,
+            "sh": 474
+          }
+        },
+        {
+          "label": "hand-scroll",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 600,
+            "h": 320,
+            "bottom": 320,
+            "right": 600
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 324,
+            "h": 40,
+            "bottom": 40,
+            "right": 324
+          },
+          "action": {
+            "x": 534,
+            "y": 246,
+            "w": 58,
+            "h": 68,
+            "bottom": 314,
+            "right": 592
+          },
+          "next": null,
+          "handle": {
+            "x": 308,
+            "y": 96,
+            "w": 44,
+            "h": 44,
+            "bottom": 140,
+            "right": 352
+          },
+          "open": "true",
+          "phase": "deciding",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 233,
+                "y": 166,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 277.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 277.65625,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 322.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 322.328125,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 367
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 233,
+                "y": 210.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 277.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 277.65625,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 322.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 322.328125,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 367
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 233,
+                "y": 255.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 277.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 277.65625,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 322.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 322.328125,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 367
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            }
+          ],
+          "handScroll": {
+            "top": 282,
+            "ch": 192,
+            "sh": 474
+          }
+        },
+        {
+          "label": "planned",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 600,
+            "h": 320,
+            "bottom": 320,
+            "right": 600
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 324,
+            "h": 40,
+            "bottom": 40,
+            "right": 324
+          },
+          "action": {
+            "x": 470,
+            "y": 246,
+            "w": 58,
+            "h": 68,
+            "bottom": 314,
+            "right": 528
+          },
+          "next": null,
+          "handle": {
+            "x": 552,
+            "y": 102.390625,
+            "w": 48,
+            "h": 104.1875,
+            "bottom": 206.578125,
+            "right": 600
+          },
+          "open": "false",
+          "phase": "deciding",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 233,
+                "y": 166,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 277.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 277.65625,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 322.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 322.328125,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 367
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 233,
+                "y": 210.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 277.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 277.65625,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 322.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 322.328125,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 367
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 233,
+                "y": 255.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 277.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 277.65625,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 322.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 322.328125,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 367
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            }
+          ],
+          "handScroll": {
+            "top": 307,
+            "ch": 167,
+            "sh": 474
+          }
+        },
+        {
+          "label": "execute",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 600,
+            "h": 320,
+            "bottom": 320,
+            "right": 600
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 324,
+            "h": 40,
+            "bottom": 40,
+            "right": 324
+          },
+          "action": {
+            "x": 534,
+            "y": 246,
+            "w": 58,
+            "h": 68,
+            "bottom": 314,
+            "right": 592
+          },
+          "next": null,
+          "handle": {
+            "x": 552,
+            "y": 102.390625,
+            "w": 48,
+            "h": 104.1875,
+            "bottom": 206.578125,
+            "right": 600
+          },
+          "open": "false",
+          "phase": "flight",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 233,
+                "y": 166,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 277.65625
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 277.65625,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 322.328125
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 322.328125,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 367
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 233,
+                "y": 210.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 277.65625
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 277.65625,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 322.328125
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 322.328125,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 367
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 233,
+                "y": 255.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 277.65625
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 277.65625,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 322.328125
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 322.328125,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 367
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            }
+          ],
+          "handScroll": {
+            "top": 305,
+            "ch": 169,
+            "sh": 474
+          }
+        },
+        {
+          "label": "result",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 600,
+            "h": 320,
+            "bottom": 320,
+            "right": 600
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 324,
+            "h": 40,
+            "bottom": 40,
+            "right": 324
+          },
+          "action": null,
+          "next": {
+            "x": 534,
+            "y": 246,
+            "w": 58,
+            "h": 68,
+            "bottom": 314,
+            "right": 592
+          },
+          "handle": {
+            "x": 552,
+            "y": 102.390625,
+            "w": 48,
+            "h": 104.1875,
+            "bottom": 206.578125,
+            "right": 600
+          },
+          "open": "false",
+          "phase": "result",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 233,
+                "y": 166,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 277.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 277.65625,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 322.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 322.328125,
+                "y": 166,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 210.65625,
+                "right": 367
+              },
+              "hit": true,
+              "hitClass": "bv-cell"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 233,
+                "y": 210.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 277.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 277.65625,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 322.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 322.328125,
+                "y": 210.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 255.328125,
+                "right": 367
+              },
+              "hit": true,
+              "hitClass": "bv-pitch-mark"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 233,
+                "y": 255.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 277.65625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 277.65625,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 322.328125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 322.328125,
+                "y": 255.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 300,
+                "right": 367
+              },
+              "hit": true,
+              "hitClass": "bv-cell"
+            }
+          ],
+          "handScroll": {
+            "top": 317,
+            "ch": 55,
+            "sh": 474
+          }
+        }
+      ],
+      "inspector": {
+        "top": 179,
+        "ch": 139,
+        "sh": 318,
+        "box": {
+          "x": 11,
+          "y": 147,
+          "width": 528,
+          "height": 139,
+          "top": 147,
+          "right": 539,
+          "bottom": 286,
+          "left": 11
+        },
+        "last": {
+          "x": 201.578125,
+          "y": 236,
+          "width": 77.84375,
+          "height": 41.5,
+          "top": 236,
+          "right": 279.421875,
+          "bottom": 277.5,
+          "left": 201.578125
+        }
+      },
+      "engineEqual": true,
+      "pass": true
+    },
+    {
+      "size": [
+        667,
+        375
+      ],
+      "steps": [
+        {
+          "label": "initial",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 667,
+            "h": 375,
+            "bottom": 375,
+            "right": 667
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 360.171875,
+            "h": 44,
+            "bottom": 44,
+            "right": 360.171875
+          },
+          "action": {
+            "x": 591,
+            "y": 301,
+            "w": 68,
+            "h": 68,
+            "bottom": 369,
+            "right": 659
+          },
+          "next": null,
+          "handle": {
+            "x": 619,
+            "y": 120,
+            "w": 48,
+            "h": 104.1875,
+            "bottom": 224.1875,
+            "right": 667
+          },
+          "open": "false",
+          "phase": "deciding",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 266.5,
+                "y": 221,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 265.65625,
+                "right": 311.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 311.15625,
+                "y": 221,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 265.65625,
+                "right": 355.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 355.828125,
+                "y": 221,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 265.65625,
+                "right": 400.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 266.5,
+                "y": 265.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 310.328125,
+                "right": 311.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 311.15625,
+                "y": 265.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 310.328125,
+                "right": 355.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 355.828125,
+                "y": 265.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 310.328125,
+                "right": 400.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 266.5,
+                "y": 310.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 355,
+                "right": 311.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 311.15625,
+                "y": 310.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 355,
+                "right": 355.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 355.828125,
+                "y": 310.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 355,
+                "right": 400.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            }
+          ],
+          "handScroll": {
+            "top": 0,
+            "ch": 195,
+            "sh": 474
+          }
+        },
+        {
+          "label": "hand-open",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 667,
+            "h": 375,
+            "bottom": 375,
+            "right": 667
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 360.171875,
+            "h": 44,
+            "bottom": 44,
+            "right": 360.171875
+          },
+          "action": {
+            "x": 591,
+            "y": 301,
+            "w": 68,
+            "h": 68,
+            "bottom": 369,
+            "right": 659
+          },
+          "next": null,
+          "handle": {
+            "x": 375,
+            "y": 96,
+            "w": 44,
+            "h": 44,
+            "bottom": 140,
+            "right": 419
+          },
+          "open": "true",
+          "phase": "deciding",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 266.5,
+                "y": 221,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 265.65625,
+                "right": 311.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 311.15625,
+                "y": 221,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 265.65625,
+                "right": 355.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 355.828125,
+                "y": 221,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 265.65625,
+                "right": 400.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 266.5,
+                "y": 265.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 310.328125,
+                "right": 311.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 311.15625,
+                "y": 265.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 310.328125,
+                "right": 355.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 355.828125,
+                "y": 265.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 310.328125,
+                "right": 400.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 266.5,
+                "y": 310.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 355,
+                "right": 311.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 311.15625,
+                "y": 310.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 355,
+                "right": 355.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 355.828125,
+                "y": 310.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 355,
+                "right": 400.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            }
+          ],
+          "handScroll": {
+            "top": 0,
+            "ch": 195,
+            "sh": 474
+          }
+        },
+        {
+          "label": "hand-scroll",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 667,
+            "h": 375,
+            "bottom": 375,
+            "right": 667
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 360.171875,
+            "h": 44,
+            "bottom": 44,
+            "right": 360.171875
+          },
+          "action": {
+            "x": 591,
+            "y": 301,
+            "w": 68,
+            "h": 68,
+            "bottom": 369,
+            "right": 659
+          },
+          "next": null,
+          "handle": {
+            "x": 375,
+            "y": 96,
+            "w": 44,
+            "h": 44,
+            "bottom": 140,
+            "right": 419
+          },
+          "open": "true",
+          "phase": "deciding",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 266.5,
+                "y": 221,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 265.65625,
+                "right": 311.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 311.15625,
+                "y": 221,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 265.65625,
+                "right": 355.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 355.828125,
+                "y": 221,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 265.65625,
+                "right": 400.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 266.5,
+                "y": 265.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 310.328125,
+                "right": 311.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 311.15625,
+                "y": 265.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 310.328125,
+                "right": 355.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 355.828125,
+                "y": 265.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 310.328125,
+                "right": 400.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 266.5,
+                "y": 310.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 355,
+                "right": 311.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 311.15625,
+                "y": 310.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 355,
+                "right": 355.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 355.828125,
+                "y": 310.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 355,
+                "right": 400.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            }
+          ],
+          "handScroll": {
+            "top": 279,
+            "ch": 195,
+            "sh": 474
+          }
+        },
+        {
+          "label": "planned",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 667,
+            "h": 375,
+            "bottom": 375,
+            "right": 667
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 360.171875,
+            "h": 44,
+            "bottom": 44,
+            "right": 360.171875
+          },
+          "action": {
+            "x": 517,
+            "y": 301,
+            "w": 68,
+            "h": 68,
+            "bottom": 369,
+            "right": 585
+          },
+          "next": null,
+          "handle": {
+            "x": 619,
+            "y": 120,
+            "w": 48,
+            "h": 104.1875,
+            "bottom": 224.1875,
+            "right": 667
+          },
+          "open": "false",
+          "phase": "deciding",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 266.5,
+                "y": 221,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 265.65625,
+                "right": 311.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 311.15625,
+                "y": 221,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 265.65625,
+                "right": 355.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 355.828125,
+                "y": 221,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 265.65625,
+                "right": 400.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 266.5,
+                "y": 265.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 310.328125,
+                "right": 311.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 311.15625,
+                "y": 265.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 310.328125,
+                "right": 355.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 355.828125,
+                "y": 265.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 310.328125,
+                "right": 400.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 266.5,
+                "y": 310.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 355,
+                "right": 311.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 311.15625,
+                "y": 310.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 355,
+                "right": 355.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 355.828125,
+                "y": 310.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 355,
+                "right": 400.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            }
+          ],
+          "handScroll": {
+            "top": 312,
+            "ch": 162,
+            "sh": 474
+          }
+        },
+        {
+          "label": "execute",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 667,
+            "h": 375,
+            "bottom": 375,
+            "right": 667
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 360.171875,
+            "h": 44,
+            "bottom": 44,
+            "right": 360.171875
+          },
+          "action": {
+            "x": 591,
+            "y": 301,
+            "w": 68,
+            "h": 68,
+            "bottom": 369,
+            "right": 659
+          },
+          "next": null,
+          "handle": {
+            "x": 619,
+            "y": 120,
+            "w": 48,
+            "h": 104.1875,
+            "bottom": 224.1875,
+            "right": 667
+          },
+          "open": "false",
+          "phase": "flight",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 266.5,
+                "y": 221,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 265.65625,
+                "right": 311.15625
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 311.15625,
+                "y": 221,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 265.65625,
+                "right": 355.828125
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 355.828125,
+                "y": 221,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 265.65625,
+                "right": 400.5
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 266.5,
+                "y": 265.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 310.328125,
+                "right": 311.15625
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 311.15625,
+                "y": 265.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 310.328125,
+                "right": 355.828125
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 355.828125,
+                "y": 265.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 310.328125,
+                "right": 400.5
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 266.5,
+                "y": 310.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 355,
+                "right": 311.15625
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 311.15625,
+                "y": 310.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 355,
+                "right": 355.828125
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 355.828125,
+                "y": 310.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 355,
+                "right": 400.5
+              },
+              "hit": false,
+              "hitClass": "bv-scene"
+            }
+          ],
+          "handScroll": {
+            "top": 310,
+            "ch": 164,
+            "sh": 474
+          }
+        },
+        {
+          "label": "result",
+          "root": {
+            "x": 0,
+            "y": 0,
+            "w": 667,
+            "h": 375,
+            "bottom": 375,
+            "right": 667
+          },
+          "rootScroll": [
+            0,
+            0
+          ],
+          "page": [
+            0,
+            0
+          ],
+          "hud": {
+            "x": 0,
+            "y": 0,
+            "w": 360.171875,
+            "h": 44,
+            "bottom": 44,
+            "right": 360.171875
+          },
+          "action": null,
+          "next": {
+            "x": 591,
+            "y": 301,
+            "w": 68,
+            "h": 68,
+            "bottom": 369,
+            "right": 659
+          },
+          "handle": {
+            "x": 619,
+            "y": 120,
+            "w": 48,
+            "h": 104.1875,
+            "bottom": 224.1875,
+            "right": 667
+          },
+          "open": "false",
+          "phase": "result",
+          "zones": [
+            {
+              "zone": "0",
+              "box": {
+                "x": 266.5,
+                "y": 221,
+                "w": 44.65625,
+                "h": 44.65625,
+                "bottom": 265.65625,
+                "right": 311.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "1",
+              "box": {
+                "x": 311.15625,
+                "y": 221,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 265.65625,
+                "right": 355.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "2",
+              "box": {
+                "x": 355.828125,
+                "y": 221,
+                "w": 44.671875,
+                "h": 44.65625,
+                "bottom": 265.65625,
+                "right": 400.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell"
+            },
+            {
+              "zone": "3",
+              "box": {
+                "x": 266.5,
+                "y": 265.65625,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 310.328125,
+                "right": 311.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "4",
+              "box": {
+                "x": 311.15625,
+                "y": 265.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 310.328125,
+                "right": 355.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell"
+            },
+            {
+              "zone": "5",
+              "box": {
+                "x": 355.828125,
+                "y": 265.65625,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 310.328125,
+                "right": 400.5
+              },
+              "hit": true,
+              "hitClass": "bv-pitch-mark"
+            },
+            {
+              "zone": "6",
+              "box": {
+                "x": 266.5,
+                "y": 310.328125,
+                "w": 44.65625,
+                "h": 44.671875,
+                "bottom": 355,
+                "right": 311.15625
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "7",
+              "box": {
+                "x": 311.15625,
+                "y": 310.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 355,
+                "right": 355.828125
+              },
+              "hit": true,
+              "hitClass": "bv-cell-face"
+            },
+            {
+              "zone": "8",
+              "box": {
+                "x": 355.828125,
+                "y": 310.328125,
+                "w": 44.671875,
+                "h": 44.671875,
+                "bottom": 355,
+                "right": 400.5
+              },
+              "hit": true,
+              "hitClass": "bv-cell"
+            }
+          ],
+          "handScroll": {
+            "top": 317,
+            "ch": 120,
+            "sh": 474
+          }
+        }
+      ],
+      "inspector": {
+        "top": 85,
+        "ch": 194,
+        "sh": 279,
+        "box": {
+          "x": 11,
+          "y": 147,
+          "width": 595,
+          "height": 194,
+          "top": 147,
+          "right": 606,
+          "bottom": 341,
+          "left": 11
+        },
+        "last": {
+          "x": 201.578125,
+          "y": 291,
+          "width": 77.84375,
+          "height": 41.5,
+          "top": 291,
+          "right": 279.421875,
+          "bottom": 332.5,
+          "left": 201.578125
+        }
+      },
+      "engineEqual": true,
+      "pass": true
+    }
+  ],
+  "probe": {
+    "size": [
+      568,
+      230
+    ],
+    "guaranteed": false,
+    "metrics": {
+      "root": {
+        "x": 0,
+        "y": 0,
+        "w": 568,
+        "h": 230,
+        "bottom": 230,
+        "right": 568
+      },
+      "rootScroll": [
+        0,
+        0
+      ],
+      "page": [
+        0,
+        0
+      ],
+      "hud": {
+        "x": 0,
+        "y": 0,
+        "w": 306.71875,
+        "h": 40,
+        "bottom": 40,
+        "right": 306.71875
+      },
+      "action": {
+        "x": 502,
+        "y": 156,
+        "w": 58,
+        "h": 68,
+        "bottom": 224,
+        "right": 560
+      },
+      "next": null,
+      "handle": {
+        "x": 520,
+        "y": 73.59375,
+        "w": 48,
+        "h": 104.1875,
+        "bottom": 177.78125,
+        "right": 568
+      },
+      "open": "false",
+      "phase": "deciding",
+      "zones": [
+        {
+          "zone": "0",
+          "box": {
+            "x": 217,
+            "y": 76,
+            "w": 44.65625,
+            "h": 44.65625,
+            "bottom": 120.65625,
+            "right": 261.65625
+          },
+          "hit": true,
+          "hitClass": "bv-cell-face"
+        },
+        {
+          "zone": "1",
+          "box": {
+            "x": 261.65625,
+            "y": 76,
+            "w": 44.671875,
+            "h": 44.65625,
+            "bottom": 120.65625,
+            "right": 306.328125
+          },
+          "hit": true,
+          "hitClass": "bv-cell-face"
+        },
+        {
+          "zone": "2",
+          "box": {
+            "x": 306.328125,
+            "y": 76,
+            "w": 44.671875,
+            "h": 44.65625,
+            "bottom": 120.65625,
+            "right": 351
+          },
+          "hit": true,
+          "hitClass": "bv-cell-face"
+        },
+        {
+          "zone": "3",
+          "box": {
+            "x": 217,
+            "y": 120.65625,
+            "w": 44.65625,
+            "h": 44.671875,
+            "bottom": 165.328125,
+            "right": 261.65625
+          },
+          "hit": true,
+          "hitClass": "bv-cell-face"
+        },
+        {
+          "zone": "4",
+          "box": {
+            "x": 261.65625,
+            "y": 120.65625,
+            "w": 44.671875,
+            "h": 44.671875,
+            "bottom": 165.328125,
+            "right": 306.328125
+          },
+          "hit": true,
+          "hitClass": "bv-cell-face"
+        },
+        {
+          "zone": "5",
+          "box": {
+            "x": 306.328125,
+            "y": 120.65625,
+            "w": 44.671875,
+            "h": 44.671875,
+            "bottom": 165.328125,
+            "right": 351
+          },
+          "hit": true,
+          "hitClass": "bv-cell-face"
+        },
+        {
+          "zone": "6",
+          "box": {
+            "x": 217,
+            "y": 165.328125,
+            "w": 44.65625,
+            "h": 44.671875,
+            "bottom": 210,
+            "right": 261.65625
+          },
+          "hit": true,
+          "hitClass": "bv-cell-face"
+        },
+        {
+          "zone": "7",
+          "box": {
+            "x": 261.65625,
+            "y": 165.328125,
+            "w": 44.671875,
+            "h": 44.671875,
+            "bottom": 210,
+            "right": 306.328125
+          },
+          "hit": true,
+          "hitClass": "bv-cell-face"
+        },
+        {
+          "zone": "8",
+          "box": {
+            "x": 306.328125,
+            "y": 165.328125,
+            "w": 44.671875,
+            "h": 44.671875,
+            "bottom": 210,
+            "right": 351
+          },
+          "hit": true,
+          "hitClass": "bv-cell-face"
+        }
+      ],
+      "handScroll": {
+        "top": 0,
+        "ch": 102,
+        "sh": 540
+      }
+    }
+  },
+  "failures": [],
+  "errors": [],
+  "pass": true
+}

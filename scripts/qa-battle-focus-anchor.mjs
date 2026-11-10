@@ -9,7 +9,7 @@ if(!process.env.PLAYWRIGHT_MODULE)throw new Error('Set PLAYWRIGHT_MODULE to an i
 const {chromium}=await import(pathToFileURL(process.env.PLAYWRIGHT_MODULE).href);
 const output=process.env.QA_OUT||'/tmp/qa-battle-focus-anchor';
 const base=process.env.BASE_URL||'http://127.0.0.1:5173/';
-const sizes=process.env.QA_SMALL_ONLY?[[844,390]]:[[667,320],[667,375],[844,300],[844,390],[1440,900]];
+const sizes=process.env.QA_VIEWPORTS?JSON.parse(process.env.QA_VIEWPORTS):process.env.QA_SMALL_ONLY?[[844,390]]:[[568,320],[599,320],[600,320],[667,320],[667,375],[844,300],[844,390],[1440,900]];
 await fs.mkdir(output,{recursive:true});
 const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox']});
 const report=[],failures=[];
@@ -25,7 +25,10 @@ try{
     await page.goto(url.href);
     const touch=async locator=>{
       await locator.waitFor({state:'visible'});
-      await page.waitForFunction(e=>{const r=e.getBoundingClientRect(),x=r.x+r.width/2,y=r.y+r.height/2;return x>=0&&y>=0&&x<innerWidth&&y<innerHeight&&e.contains(document.elementFromPoint(x,y));},await locator.elementHandle());
+      // Menu/map may naturally scroll on short phones. The strict field
+      // anchoring contract starts at battle; never auto-scroll that canvas.
+      if(!await page.locator('.battle-vnext').count()){await locator.tap();return;}
+      await page.waitForFunction(e=>{const r=e.getBoundingClientRect(),x=r.x+r.width/2,y=r.y+r.height/2;return x>=0&&y>=0&&x<innerWidth&&y<innerHeight&&e.contains(document.elementFromPoint(x,y));},await locator.elementHandle(),{timeout:5000});
       const r=await locator.boundingBox();assert.ok(r);
       await page.touchscreen.tap(r.x+r.width/2,r.y+r.height/2);
     };
@@ -34,6 +37,7 @@ try{
     await touch(page.getByTestId('start-pack-go'));
     await touch(page.getByTestId('bp-map-go'));
     await page.locator('.battle-vnext[data-phase="deciding"]').waitFor();
+    await page.waitForTimeout(350);
     const capture=async(label,shot=false)=>{
       const state=await page.evaluate(()=>{
         const root=document.querySelector('.battle-vnext'),hand=document.querySelector('.bv-hand-row');
@@ -41,16 +45,20 @@ try{
         const s=JSON.parse(localStorage.getItem('9zone-v10-run'));
         return {rootScroll:[root.scrollLeft,root.scrollTop],pageScroll:[scrollX,scrollY],hud:rect('.bv-hud-bar'),zone:rect('.bv-zone'),
           handScroll:hand?.scrollTop,phase:root.dataset.phase,pitches:s.stats.pitches,active:document.activeElement?.className,
+          actions:[...document.querySelectorAll('.bv-action-dock button')].map(e=>e.getBoundingClientRect().toJSON()),
           zones:[...document.querySelectorAll('.bv-cell')].map(e=>{const r=e.getBoundingClientRect();return e.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));})};
       });
       row.states.push({label,...state});
       if(shot)await page.screenshot({path:path.join(output,`battle-${width}x${height}-${label}.png`)});
       check(state.rootScroll.every(n=>n===0),`${width}x${height} ${label}: field scroll ${state.rootScroll}`);
       check(state.pageScroll.every(n=>n===0),`${width}x${height} ${label}: page scroll ${state.pageScroll}`);
+      check(state.hud.y>=-1&&state.hud.bottom<=height+1,`${width}x${height} ${label}: scoreboard outside viewport`);
+      check(state.actions.every(r=>r.y>=-1&&r.bottom<=height+1&&r.x>=-1&&r.right<=width+1),`${width}x${height} ${label}: action outside viewport`);
       if(label!=='initial')check(Math.abs(state.zone.x-row.states[0].zone.x)<1,`${width}x${height} ${label}: zone moved horizontally`);
       return state;
     };
     await capture('initial');
+    assert.equal(failures.length,0,failures.join('\n'));
     await touch(page.getByRole('button',{name:/^지켜보기/}));
     await page.getByTestId('bp-next').waitFor();
     await touch(page.getByTestId('bp-next'));
@@ -81,7 +89,7 @@ try{
     await page.getByRole('button',{name:/^지켜보기/}).evaluate(e=>e.scrollIntoView({block:'nearest',inline:'nearest'}));
     await capture('action-revealed',true);
     const saved=await page.evaluate(()=>localStorage.getItem('9zone-v10-run'));
-    await page.reload();await touch(page.getByRole('button',{name:'이어하기',exact:true}));
+    await page.reload();await touch(page.getByRole('button',{name:/^이어하기/}));
     await page.locator('.battle-vnext[data-phase="deciding"]').waitFor();
     assert.equal(await page.evaluate(()=>localStorage.getItem('9zone-v10-run')),saved,'focus/navigation does not alter the saved run');
     await capture('resumed');
