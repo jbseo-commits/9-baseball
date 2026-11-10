@@ -1,0 +1,11 @@
+# R6 — small landscape canvas
+
+Base9d45e61 after PR101 merge; independent of HELD99/100. Published1317119 and preR6 candidate exactly reproduce568×320 actionY356 belowviewport, focus scrollY84/BSO offscreen, nextbuttonbottom340. Width-only portrait fallback leaked into landscape.
+
+Fix onlybv-atbatlandscape: existingclip/inspectorflex applies smallwidth too; <=599 resets root100dvh/block, stageabsolute, decisionflex, handorder/background, inspectorheightauto. Reference skin atsmallwidth uses200–210px rail, preserving centralzone/plate alignment and leaving rightcolumn tappable. No globalCSS/rootbrowserlocks, engine/save/RNG/balance changes. Portrait and>=600existingrules preserved.
+
+Three product revisions: first rootfix exposed rightcolumn summary overlap; second railvar lost to later equal-specificityreferenceCSS; third3-classselector wins. Historicalsmall-focus andsmall-focus-final failures preserved externally. No fourth revision or gate reset. Before normal QA had a pack-card center-hit assumption outsidebattle; helper now native-taps menu/map and keeps strict actual hitcenters/page0 checks insidebattle. This is not a claim that that earlier helper failure reproduced the productbug; independent samefixture metrics do.
+
+Full242files1650tests/smoke10/build/dist52.8MiBPASS. Normal actualnewgame focusanchor8sizes568/599/600/667×320,667×375,844×300/390,1440×900 PASS: scoreboard/actionbounds, native touch/cards/keyboard/handscroll/fold/reveal/reload, page/root0,9zonecenters. Inspector3sizes568/599/600×320 six-tabs bodyend/menu/touch/keyboard/save/focus PASS. Independentfixture4sizes androtationplan/savePASS.568×230onlyprobe,9centers/CTAfitobserved; notfullflowguarantee. Final copy/tools audit: last card name wraps2lines and effect fits its110px row; bottom218<card230<list244. Tool bounds fit. Next button box fits; text ink extends3.72px beyond568 exactly as publishedbaseline (same x/font13/wrap), a retained P2 limitation, not new regression.
+
+Fresh sealed same-Jade-action result comparison2.5625→3.0625(+.5),6/8axes improve, worstdrop.5(characterpresence); IMPROVED/notBAR. Static improvement is bounded layout/readability, not proof of commercialpolish orsound/fun. PhysicalSafari/humanlearning unverified.
