@@ -899,6 +899,9 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
   },[modal]);
   useEffect(()=>{if(screen!=='run')cancelCues();},[screen]);
   const current=useRef(s),lock=useRef(false),timers=useRef([]),tourDismissed=useRef(false);
+  // Accepted pitches remain private until their result has reached durable storage.
+  // A retry writes this same next state; it never calls the engine a second time.
+  const pendingPitch=useRef(null),[commitWaiting,setCommitWaiting]=useState(false);
   const [homerVideo,setHomerVideo]=useState(null),homerVideoActive=useRef(false),presentationActive=useRef(false);
   const [cardDetail,setCardDetail]=useState(null),detailOpener=useRef(null);
   const [fxImpactAt,setFxImpactAt]=useState(0);
@@ -937,9 +940,9 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
     if(!v10ShotMode(x)||x.battle?.revealed?.kind!=='hit'||!(c?.damage>0))return;
     playPixelDamage(c.damage,(c.shotRate||1)>1,document,{ko:x.pitcher?.hp<=0});
   },[fxStage]);
-  const toggleShotMode=()=>setShotMode(v=>{try{localStorage.setItem(SHOT_MODE_KEY,v?'0':'1')}catch{}return !v;});
+  const toggleShotMode=()=>{if(pendingPitch.current)return;setShotMode(v=>{try{localStorage.setItem(SHOT_MODE_KEY,v?'0':'1')}catch{}return !v;});};
   useEffect(()=>{const x=current.current;
-    if(!x||x.version!==10||x.defenseLab?.schema===1||autoLesson||initial.preview||!x.v10||!!x.v10.shotMode===shotMode)return;
+    if(pendingPitch.current||!x||x.version!==10||x.defenseLab?.schema===1||autoLesson||initial.preview||!x.v10||!!x.v10.shotMode===shotMode)return;
     persist({...x,v10:{...x.v10,shotMode}});},[shotMode,s,autoLesson]);
   const handleToggleSound=()=>{
     const next=!sound;
@@ -1017,7 +1020,7 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
     detailOpener.current=el;setCardDetail(cardDetailOf(d.kind,d.plus,d.problem,isV10));
   }),[isV10]);
   useEffect(()=>{const close=e=>{
-    if(e.defaultPrevented||homerVideoActive.current||screenRef.current==='practice')return;
+    if(e.defaultPrevented||pendingPitch.current||homerVideoActive.current||screenRef.current==='practice')return;
     const dialog=genericModalRef.current;
     if(dialog){
       if(higherModalIsMounted())return;
@@ -1056,6 +1059,7 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
   },[tour.open,tour.step,tourStep?.target,tourCardTop,showBattle]);
 
   function persist(next){
+    if(pendingPitch.current)return;
     current.current=next;setS(next);
     if(defenseExperiment){
       if(next?.defenseLab?.schema===1){try{saveDefenseLabState(storage,next);setError('')}catch{setError('실험 저장에 실패했습니다.');}}
@@ -1113,6 +1117,25 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
     // A very early skip still waits for the original short result presentation.
     lock.current=presentationActive.current;
   }
+  function clearAcceptedSelection(){
+    setSelected(null);setSwingStack([]);setStackEdit(null);setGrowthChoice(null);setRewardAction(null);setFacilityChoice(null);setDecisionMode(null);
+  }
+  function retryAcceptedPitch(){
+    const job=pendingPitch.current;if(!job||job.saved)return;
+    try{saveV10Duel(storage,job.next);}
+    catch{setError('저장하지 못해 투구를 멈췄습니다. 저장 재시도로 같은 선택을 이어갑니다.');return;}
+    job.saved=true;setError('');
+    const present=()=>{
+      pendingPitch.current=null;setCommitWaiting(false);
+      current.current=job.next;setS(job.next);clearAcceptedSelection();
+      startPresentation(job.next,job.executed);
+    };
+    if(job.resolveMs){
+      revealArena();setStackResolve({plan:job.resolvePlan,token:(job.next.stats?.pitches||0)+'-'+Date.now()});
+      const timer=setTimeout(()=>{setStackResolve(null);present();},job.resolveMs);
+      timers.current=[timer];
+    }else present();
+  }
   function act(fn,animate=false,resolvePlan=null){
     if(lock.current||tour.open)return;
     const before=current.current,next=fn(before);
@@ -1127,7 +1150,17 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
     const executed=animate?captureExecution(before,next,{selected}):null;
     const reduced=next.version!==10||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     const resolveMs=!liveFor(next)&&animate&&!reduced&&resolvePlan?.steps?.length>1?stackResolveDuration(resolvePlan):0;
-    setSelected(null);setSwingStack([]);setStackEdit(null);setGrowthChoice(null);setRewardAction(null);setFacilityChoice(null);setDecisionMode(null);
+    // Preview storage may deliberately fall back to memory. This barrier is for
+    // the ordinary saved run, including old encounters; its schema is unchanged.
+    const durablePitch=animate&&before.version===10&&before.phase==='battle'
+      &&next.stats?.pitches===before.stats?.pitches+1&&!v10ShotMode(before)
+      &&!autoLesson&&!defenseExperiment&&!initial.preview
+      &&new URLSearchParams(window.location.search).get('battlePlay')!=='1';
+    if(durablePitch){
+      lock.current=true;pendingPitch.current={next,executed,resolveMs,resolvePlan};setCommitWaiting(true);
+      retryAcceptedPitch();return;
+    }
+    clearAcceptedSelection();
     if(resolveMs){
       lock.current=true;revealArena();
       const token=(next.stats?.pitches||0)+'-'+Date.now();
@@ -1226,7 +1259,7 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
 
   return <div className={'duel-app diamond-app'+(defenseExperiment?' defense-lab-app':'')+(fxPresentation?' presentation-'+fxPresentation.kind:'')+(fxStage?' presentation-stage-'+fxStage:'')+(stackResolve?' stack-resolving':'')+(showBattle&&isV10?' v14-battle-portrait':'')+(screen==='menu'&&!defenseExperiment?' title-mode':'')}>
     <header className="duel-header"><button className="wordmark" onClick={()=>{if(!lock.current)(autoLesson?exitAutoLesson():setScreen(defenseExperiment?'defense-lab':'menu'))}}>9ZONE<span> HOMEBOUND</span></button><span className="edition">BUILD YOUR BASEBALL · {GAME_VERSION_LABEL}</span><nav><button aria-label={'소리 '+(sound?'켜짐':'꺼짐')} onClick={handleToggleSound}>♪ {sound?'ON':'OFF'}</button><button className="jukebox-header-btn" aria-label="BGM 음악 주크박스" onClick={()=>setModal('jukebox')}>🎧 BGM {getCurrentTrackIndex()+1}</button><button className="dex-header-btn" aria-label="투수 도감" onClick={()=>openPitcher(pitcherRoster[0])}>도감</button>{s&&<button onClick={()=>setModal('deck')}>덱</button>}<button onClick={()=>setModal('help')}>?</button></nav></header>
-    {error&&<div className="save-error" role="alert">{error}{!!s&&<button onClick={()=>persist(s)}>저장 재시도</button>}</div>}
+    {error&&<div className="save-error" role="alert">{error}{!!s&&<button onClick={()=>pendingPitch.current?retryAcceptedPitch():persist(s)}>저장 재시도</button>}</div>}
     {screen==='cinema'?<CinemaLab sound={sound} onBack={()=>setScreen('menu')}/>
     :screen==='menu'&&!defenseExperiment?<TitleScreen key="screen-title" sound={sound} onFeedback={journeyFeedback} run={titleRun||titleTutorial} onNew={()=>titleRun&&!titleRun.ended?setModal('new10'):openPackPick()} onContinue={()=>{setEventResult(null);if(titleRun){persist(titleSave);setScreen('run')}else if(titleTutorial)setScreen('run')}} onDeck={()=>{if(titleRun)persist(titleSave);if(titleRun||titleTutorial)setModal('deck')}} onDex={e=>openPitcher(pitcherRoster[0],e)} onSettings={()=>setModal('settings')} onPractice={openFirstPractice}/>
     :screen==='defense-lab'||(defenseExperiment&&screen==='menu')?<main key="screen-defense-lab" className="defense-lab-lobby stadium" aria-label="3아웃 공방 실험">
@@ -1252,7 +1285,7 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
       <p>전투가 끝나 다음 공의 제약은 적용되지 않습니다.{s.defenseLab.lastEvent?.counterDamage?` 마지막 안타에 반격 +${s.defenseLab.lastEvent.counterDamage} HP 적용.`:''}</p>
       <button className="primary" onClick={()=>{setS(null);current.current=null;setScreen('defense-lab')}}>다른 조건으로 실험</button>
     </main>
-:showBattle&&isV10?<BallparkBattle key="screen-bp-battle" animationRate={rate} onAnimationRateChange={livePresentation&&!isDefenseLab&&!autoLesson?value=>setRate(rememberAnimationRate(value)):null} rosterPitcher={livePresentation&&!isDefenseLab&&!autoLesson?rosterPitcherActor(v10Node?.opponent?.artId,pitcherAtlas):null} s={s} hand={hand} selected={selected} swingStack={swingStack} choice={choice} locked={!!stackResolve||!!homerVideo}
+:showBattle&&isV10?<BallparkBattle key="screen-bp-battle" animationRate={rate} onAnimationRateChange={livePresentation&&!isDefenseLab&&!autoLesson?value=>setRate(rememberAnimationRate(value)):null} rosterPitcher={livePresentation&&!isDefenseLab&&!autoLesson?rosterPitcherActor(v10Node?.opponent?.artId,pitcherAtlas):null} s={s} hand={hand} selected={selected} swingStack={swingStack} choice={choice} locked={commitWaiting||!!stackResolve||!!homerVideo}
       label={v10Node?.act+'막'} pitcher={s.pitcher}
       pitcherArt={pitcherAtlas?<PitcherAtlasSprite atlas={pitcherAtlas} stage={fxStage} shot={fxPresentation} playToken={s.stats.pitches}/>:<Sprite who="pitcher" stage={fxStage} shot={fxPresentation} golden variant={pitcherForm} playToken={s.stats.pitches}/>}
       batterArt={<Sprite who="batter" stage={fxStage} shot={fxPresentation} golden playToken={s.stats.pitches} syncRedRush={redRushEncounter} sheet={BATTER_V15_SHEET}/>}
