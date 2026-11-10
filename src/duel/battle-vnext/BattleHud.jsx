@@ -1,6 +1,7 @@
 import React from 'react';
 import './decision.css';
 import BattleSymbol from './BattleSymbol.jsx';
+import EncounterCue from './EncounterCue.jsx';
 
 /* C04 — 상대 HP · BSO · 주자 · 읽기 + 공개 단서 한 줄. 에너지는 손패 위(C03) 한 곳이라 여기서 그리지 않는다.
    공이 닿기 전 값(던지기 전 HP·카운트)은 view model이 이미 골라 준다. */
@@ -26,6 +27,7 @@ export default function BattleHud({hud=null,forecast=null,sources=[],phase='deci
   const runners=[0,1,2].filter(i=>hud.bases[i]).map(i=>i+1+'루');
   const twoStrike=phase==='deciding'&&c.strikes===2;
   const publicPattern=hud.encounter?[hud.encounter.label,hud.encounter.current||hud.encounter.counter].filter(Boolean).join(' · '):hud.gimmick?[hud.gimmick.label,hud.gimmick.summary].filter(Boolean).join(' · '):'';
+  const cueDescription=[hud.encounterCue?.text,hud.encounterCue?.detail,phase==='result'?result?.encounterCue?.text:null].filter(Boolean).join(' · ');
   const infoReady=!!onPitcherInfo&&phase==='deciding'&&!menuOpen;
   const openPitcherInfo=e=>{if(!infoReady)return;e.currentTarget.focus({preventScroll:true});onPitcherInfo();};
   return <header className="bv-hud" data-testid="bv-hud" data-phase={phase}>
@@ -33,7 +35,7 @@ export default function BattleHud({hud=null,forecast=null,sources=[],phase='deci
       {title&&<span className="bv-hud-title">{title}</span>}
       {p&&<div className="bv-hud-opponent" role={onPitcherInfo?'button':undefined} tabIndex={onPitcherInfo?(infoReady?0:-1):undefined} data-pitcher-info={onPitcherInfo?'true':undefined}
         aria-disabled={onPitcherInfo&&!infoReady?true:undefined} title={infoReady?'투수 이름·패턴을 눌러 고유 규칙과 공략 확인':undefined}
-        onClick={openPitcherInfo} onKeyDown={e=>{if(infoReady&&['Enter',' '].includes(e.key)){e.preventDefault();openPitcherInfo(e);}}} aria-label={`${p.name} 투수 HP ${p.hp} / ${p.maxHp}`+(band?` · ${band.label} 예상`:'')+(onPitcherInfo?[publicPattern,'투수 정보 열기'].filter(Boolean).map(x=>' · '+x).join(''):'')}>
+        onClick={openPitcherInfo} onKeyDown={e=>{if(infoReady&&['Enter',' '].includes(e.key)){e.preventDefault();openPitcherInfo(e);}}} aria-label={`${p.name} 투수 HP ${p.hp} / ${p.maxHp}`+(band?` · ${band.label} 예상`:'')+(onPitcherInfo?[publicPattern,cueDescription,'투수 정보 열기'].filter(Boolean).map(x=>' · '+x).join(''):'')}>
         <b className="bv-hud-name">{p.name}<span className="bv-pitch-state">{phase==='flight'?'투구 중':phase==='result'?'결과':''}</span></b>
         <span key={resultKey} className={'bv-hud-hp'+(changing?' is-damaged':'')} aria-hidden="true" style={{'--hp-from':beforePct+'%','--hp-to':hpPct+'%'}}>
           {changing&&<i className="bv-hud-hp-ghost" style={{width:beforePct+'%'}}/>}
@@ -41,7 +43,7 @@ export default function BattleHud({hud=null,forecast=null,sources=[],phase='deci
           {band&&<i className="bv-hud-hp-forecast" data-testid="bv-hp-forecast" title={band.label+' 예상'} style={{left:band.left+'%',width:band.width+'%'}}/>}
         </span>
         <small key={'hp-'+resultKey} className={changing?'bv-hp-number is-damaged':''} aria-hidden="true">{changing&&<span className="bv-hp-was">{result.hpBefore}</span>}<span className="bv-hp-now">{p.hp}</span> / {p.maxHp}</small>
-        {refined&&hud.encounter?<p className="bv-hud-gimmick" data-testid="bv-encounter"><span className="bv-opponent-tier">{hud.tier===3?'BOSS':hud.tier===2?'ELITE':'PATTERN'}</span><b>{hud.encounter.label}</b><span>{hud.encounter.current||hud.encounter.counter}</span></p>
+        {refined&&hud.encounterCue?<EncounterCue cue={hud.encounterCue} result={result?.encounterCue} phase={phase} token={resultKey} rate={playback?.rate||1}/>:refined&&hud.encounter?<p className="bv-hud-gimmick" data-testid="bv-encounter"><span className="bv-opponent-tier">{hud.tier===3?'BOSS':hud.tier===2?'ELITE':'PATTERN'}</span><b>{hud.encounter.label}</b><span>{hud.encounter.current||hud.encounter.counter}</span></p>
           :refined&&hud.gimmick&&<p className="bv-hud-gimmick"><span className="bv-opponent-tier">{hud.tier===3?'BOSS':'ELITE'}</span><b>{hud.gimmick.label}</b><span>{hud.gimmick.summary}</span></p>}
       </div>}
       <div className="bv-hud-count" role="img" aria-label={`볼 ${c.balls} 스트라이크 ${c.strikes} 아웃 ${c.outs} · 남은 아웃 ${hud.outsLeft}`}>

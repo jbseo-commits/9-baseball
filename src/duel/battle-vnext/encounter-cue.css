@@ -1,0 +1,22 @@
+/* Existing opponent frame only: no new panel, page overflow or pointer target. */
+.battle-vnext.bv-reference .bv-hud-gimmick.bv-encounter-cue{display:grid;grid-template-columns:24px 1fr auto;gap:3px 7px;line-height:1.3;align-items:center;color:#d6dfdf}
+.bv-encounter-cue .bv-encounter-seal{grid-column:1;grid-row:1/4;width:24px;height:30px;display:grid;place-items:center;color:#b8cbd3;align-self:start;padding-top:2px}
+.bv-encounter-mark{width:23px;height:23px;overflow:visible}
+.bv-encounter-cue>b{grid-column:2;grid-row:1;font-size:11px;font-weight:600;color:#b8cbd3}
+.bv-encounter-cue .bv-encounter-rule{grid-column:2/-1;font-size:12px;font-style:normal;font-weight:750;color:#f4e8c9}
+.bv-encounter-cue .bv-encounter-detail{grid-column:2/-1;font-size:10px;color:#b8c6ca}
+.bv-encounter-cue .bv-encounter-steps{grid-column:3;grid-row:1;display:flex;gap:3px;align-items:center}
+.bv-encounter-steps i{display:block;width:5px;height:5px;border:1px solid #81949d;transform:rotate(45deg)}
+.bv-encounter-steps i.past{background:#81949d}
+.bv-encounter-steps i.current{background:#f2d58a;border-color:#f2d58a;outline:1px solid #f2d58a55;outline-offset:2px}
+.bv-encounter-cue[data-ready=true] .bv-encounter-rule,.bv-encounter-cue[data-ready=true] .bv-encounter-seal{color:#f2d58a}
+.bv-encounter-cue .bv-encounter-applied{grid-column:1/-1;border-top:1px solid #b1c7d344;padding-top:4px;margin-top:2px;font-size:12px;color:#eed28d;animation:bv-encounter-resolve var(--encounter-beat) ease-out both}
+.bv-encounter-cue[data-trigger=guard] .bv-encounter-applied{color:#b9d9e9}
+.bv-encounter-seal.is-triggered{animation:bv-encounter-stamp var(--encounter-beat) ease-out both}
+@keyframes bv-encounter-stamp{0%{transform:scale(1.45);filter:brightness(2)}35%{transform:scale(.88)}65%{transform:scale(1.08)}100%{transform:scale(1);filter:none}}
+@keyframes bv-encounter-resolve{0%{opacity:0;transform:translateY(3px)}30%,100%{opacity:1;transform:none}}
+.battle-vnext.bv-reference[data-cinematic-focus=true] .bv-hud-gimmick.bv-encounter-cue{display:flex;gap:5px;white-space:nowrap}
+.battle-vnext.bv-reference[data-cinematic-focus=true] .bv-encounter-cue .bv-encounter-seal{position:static;width:16px;height:16px;margin:0;padding:0;clip-path:none;overflow:visible}
+.battle-vnext.bv-reference[data-cinematic-focus=true] .bv-encounter-mark{width:16px;height:16px}
+.battle-vnext.bv-reference[data-cinematic-focus=true] .bv-encounter-cue :is(.bv-encounter-rule,.bv-encounter-detail,.bv-encounter-steps,.bv-encounter-applied){position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%)}
+@media(prefers-reduced-motion:reduce){.bv-encounter-cue .bv-encounter-seal,.bv-encounter-cue .bv-encounter-applied{animation:none!important}}
