@@ -1,0 +1,68 @@
+{
+  "status": "HELD_NOT_INTAKEN",
+  "generator": "built-in image_gen",
+  "sourceSheet": "/workspace/9zone-next-20261111/batter-contact-experiment/source-sheet.png",
+  "generatedOriginal": "/workspace/generated_images/exec-2b8b6eab-7c32-4e46-822c-4a19dfc099b6.png",
+  "postprocessing": "sprite-gen unpack-atlas --grid 3x1, no fit/warp/redraw",
+  "authoredContactDrawings": 3,
+  "not14or120FrameMotion": true,
+  "worldRegistration": "not established; do not infer all9coverage from rawsheet",
+  "cumulativeCandidate": 2,
+  "files": [
+    {
+      "file": "/workspace/9zone-next-20261111/contact-authoring/reference-standard.png",
+      "size": [
+        828,
+        797
+      ],
+      "sha256": "e81fcbfc41888f6e7a7be0a525cf708ecaa1ebdf2ab843f0a5173e6dfd194516",
+      "redDiagnosticPixelCount": 89
+    },
+    {
+      "file": "/workspace/9zone-next-20261111/batter-contact-experiment/unpacked/frames/row-0/frame-2.png",
+      "size": [
+        724,
+        724
+      ],
+      "sha256": "09cef77b375695a81ae799c65b9c76e2a2c109b75e943fd70269fd1e3b383d19",
+      "redDiagnosticPixelCount": 159
+    },
+    {
+      "file": "/workspace/9zone-next-20261111/batter-contact-experiment/unpacked/frames/row-0/frame-1.png",
+      "size": [
+        724,
+        724
+      ],
+      "sha256": "1040771c236cb3095e93c63080384f4efbdf4f2b2c8daf7b4808ada0b1e157ab",
+      "redDiagnosticPixelCount": 199
+    },
+    {
+      "file": "/workspace/9zone-next-20261111/batter-contact-experiment/unpacked/frames/row-0/frame-0.png",
+      "size": [
+        724,
+        724
+      ],
+      "sha256": "7b05643fbff8011974c1e4ba10a8c1afabaff03376b45bb880abeca3d517e27e",
+      "redDiagnosticPixelCount": 294
+    }
+  ],
+  "colorDiagnosticLimit": "Raw red pixel counts are descriptive only, not a normalized quality score or a proof of unwanted color.",
+  "limit": 3,
+  "candidate2": {
+    "sourceSheet": "/workspace/9zone-next-20261111/batter-contact-experiment/candidate2-source-sheet.png",
+    "sha256": "9eb1d23f5853e4e6bb2f58ee6013f336600fef4ed84a6c8bb181958fb93f70fd",
+    "original": "/workspace/generated_images/exec-cf267b9c-349a-43b9-be60-454faea910e3.png",
+    "cell": [
+      724,
+      724
+    ],
+    "guide": "/workspace/9zone-next-20261111/batter-contact-experiment/candidate2-reference-guide.png",
+    "review": "/workspace/9zone-next-20261111/batter-contact-experiment/CANDIDATE2-REVIEW.md",
+    "conditionalMeasurement": "/workspace/9zone-next-20261111/batter-contact-experiment/candidate2-root-measurement.json",
+    "decision": "HELD: missing intended contacts and visible fringe; no production/physical registration acceptance; no automatic third attempt",
+    "guideSha256": "f0f9276c59880ef0a84882ecfbb4d4bef016445cadf1540d5473d18d58fc5efb"
+  },
+  "promptRecord": "/workspace/9zone-next-20261111/batter-contact-experiment/PROMPTS.md",
+  "candidate1SourceSha256": "a4a937b5f467652b51a46f1cb2d07eea255143adcce48cbb81fc74da6492d6a3",
+  "promptSha256": "a74f69485f0c409ea70c3f138b1256af80f34384305e095312ebb86249e45353"
+}

@@ -1,0 +1,41 @@
+{
+  "status": "HELD_REFERENCE_ARCHIVE_NOT_RUNTIME",
+  "cumulativeCandidateCount": 2,
+  "candidateLimit": 3,
+  "generation": "built-in image_gen; two sheets, each three alternative contact drawings",
+  "notCompleteMotion": true,
+  "publicationAuthorization": "User explicitly requested GitHub upload after the held status was reported. Reference archive only; no game intake/merge approval is inferred.",
+  "baseline": "baseline/reference-standard.png",
+  "poseCoordinateReference": "../contact-plane-contract-20261111/contract.json",
+  "candidate1": {
+    "sheet": "source-sheet.png",
+    "frames": [
+      "unpacked/frames/row-0/frame-0.png",
+      "unpacked/frames/row-0/frame-1.png",
+      "unpacked/frames/row-0/frame-2.png"
+    ],
+    "review": "INDEPENDENT-REVIEW.md"
+  },
+  "candidate2": {
+    "sheet": "candidate2-source-sheet.png",
+    "frames": [
+      "candidate2-unpacked/frames/row-0/frame-0.png",
+      "candidate2-unpacked/frames/row-0/frame-1.png",
+      "candidate2-unpacked/frames/row-0/frame-2.png"
+    ],
+    "guide": "candidate2-reference-guide.png",
+    "guideCoordinates": "candidate2-guide.json",
+    "review": "CANDIDATE2-REVIEW.md",
+    "conditionalMeasurements": "candidate2-root-measurement.json"
+  },
+  "prompts": "PROMPTS.md",
+  "historicalProvenance": "provenance-manifest.json",
+  "limits": [
+    "Neither sheet is approved or imported into the game.",
+    "724/768 canvas mapping is diagnostic, not validated physical registration.",
+    "Target coverage and red/yellow fringe remain unresolved.",
+    "No automatic third generation, no pose stretching or independent fitting.",
+    "Raw reports retain original workspace paths as historical provenance; use relative artifact paths in this manifest on other PCs.",
+    "HELD90 and all earlier issue/revision counts remain unchanged."
+  ]
+}
