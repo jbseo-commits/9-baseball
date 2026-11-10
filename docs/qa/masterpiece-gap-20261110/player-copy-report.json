@@ -1,0 +1,554 @@
+{
+  "method": "engine-generated QA fixtures use private pending only during setup; not human/balance validation",
+  "fixtures": [
+    {
+      "id": "clubhouse-card",
+      "seed": 27,
+      "path": [
+        "a1-entry",
+        "a1-r1l2",
+        "a1-r2l2",
+        "a1-r3l2",
+        "a1-r4l2"
+      ]
+    },
+    {
+      "id": "clubhouse-song",
+      "seed": 9,
+      "path": [
+        "a1-entry",
+        "a1-r1l1"
+      ]
+    },
+    {
+      "id": "clubhouse-tidy",
+      "seed": 98,
+      "path": [
+        "a1-entry",
+        "a1-r1l2",
+        "a1-r2l3",
+        "a1-r3l3",
+        "a1-r4l3"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "name": "568 clubhouse-card localized",
+      "ok": true
+    },
+    {
+      "name": "568 clubhouse-card choices",
+      "ok": true
+    },
+    {
+      "name": "568 clubhouse-card exact engine resolution",
+      "ok": true
+    },
+    {
+      "name": "568 clubhouse-card no errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "568 clubhouse-song localized",
+      "ok": true
+    },
+    {
+      "name": "568 clubhouse-song choices",
+      "ok": true
+    },
+    {
+      "name": "568 hum availability matches engine",
+      "ok": true
+    },
+    {
+      "name": "568 long hum label visible after scroll",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "a": {
+          "x": 34,
+          "y": 227,
+          "w": 140.890625,
+          "h": 18
+        },
+        "b": {
+          "x": 14,
+          "y": 155,
+          "w": 540,
+          "h": 99
+        }
+      }
+    },
+    {
+      "name": "568 clubhouse-song exact engine resolution",
+      "ok": true
+    },
+    {
+      "name": "568 clubhouse-song no errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "568 clubhouse-tidy localized",
+      "ok": true
+    },
+    {
+      "name": "568 clubhouse-tidy choices",
+      "ok": true
+    },
+    {
+      "name": "568 clubhouse-tidy exact engine resolution",
+      "ok": true
+    },
+    {
+      "name": "568 clubhouse-tidy no errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "568 dex20",
+      "ok": true
+    },
+    {
+      "name": "568 dex0 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex1 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex2 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex3 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex4 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex5 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex6 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex7 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex8 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex9 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex10 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex11 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex12 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex13 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex14 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex15 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex16 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex17 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex18 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex19 Korean only",
+      "ok": true
+    },
+    {
+      "name": "568 dex close visible",
+      "ok": true,
+      "detail": {
+        "x": 476.3125,
+        "y": 23.5,
+        "width": 65.6875,
+        "height": 44
+      }
+    },
+    {
+      "name": "568 dex no save writes",
+      "ok": true
+    },
+    {
+      "name": "844 clubhouse-card localized",
+      "ok": true
+    },
+    {
+      "name": "844 clubhouse-card choices",
+      "ok": true
+    },
+    {
+      "name": "844 clubhouse-card exact engine resolution",
+      "ok": true
+    },
+    {
+      "name": "844 clubhouse-card no errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "844 clubhouse-song localized",
+      "ok": true
+    },
+    {
+      "name": "844 clubhouse-song choices",
+      "ok": true
+    },
+    {
+      "name": "844 hum availability matches engine",
+      "ok": true
+    },
+    {
+      "name": "844 long hum label visible after scroll",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "a": {
+          "x": 142,
+          "y": 250,
+          "w": 140.890625,
+          "h": 18
+        },
+        "b": {
+          "x": 122,
+          "y": 155,
+          "w": 600,
+          "h": 169
+        }
+      }
+    },
+    {
+      "name": "844 clubhouse-song exact engine resolution",
+      "ok": true
+    },
+    {
+      "name": "844 clubhouse-song no errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "844 clubhouse-tidy localized",
+      "ok": true
+    },
+    {
+      "name": "844 clubhouse-tidy choices",
+      "ok": true
+    },
+    {
+      "name": "844 clubhouse-tidy exact engine resolution",
+      "ok": true
+    },
+    {
+      "name": "844 clubhouse-tidy no errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "844 dex20",
+      "ok": true
+    },
+    {
+      "name": "844 dex0 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex1 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex2 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex3 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex4 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex5 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex6 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex7 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex8 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex9 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex10 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex11 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex12 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex13 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex14 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex15 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex16 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex17 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex18 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex19 Korean only",
+      "ok": true
+    },
+    {
+      "name": "844 dex close visible",
+      "ok": true,
+      "detail": {
+        "x": 722.3125,
+        "y": 24.5,
+        "width": 65.6875,
+        "height": 44
+      }
+    },
+    {
+      "name": "844 dex no save writes",
+      "ok": true
+    },
+    {
+      "name": "1440 clubhouse-card localized",
+      "ok": true
+    },
+    {
+      "name": "1440 clubhouse-card choices",
+      "ok": true
+    },
+    {
+      "name": "1440 clubhouse-card exact engine resolution",
+      "ok": true
+    },
+    {
+      "name": "1440 clubhouse-card no errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "1440 clubhouse-song localized",
+      "ok": true
+    },
+    {
+      "name": "1440 clubhouse-song choices",
+      "ok": true
+    },
+    {
+      "name": "1440 hum availability matches engine",
+      "ok": true
+    },
+    {
+      "name": "1440 long hum label visible after scroll",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "a": {
+          "x": 440,
+          "y": 374.28125,
+          "w": 156.546875,
+          "h": 20
+        },
+        "b": {
+          "x": 420,
+          "y": 225.09375,
+          "w": 600,
+          "h": 608.90625
+        }
+      }
+    },
+    {
+      "name": "1440 clubhouse-song exact engine resolution",
+      "ok": true
+    },
+    {
+      "name": "1440 clubhouse-song no errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "1440 clubhouse-tidy localized",
+      "ok": true
+    },
+    {
+      "name": "1440 clubhouse-tidy choices",
+      "ok": true
+    },
+    {
+      "name": "1440 clubhouse-tidy exact engine resolution",
+      "ok": true
+    },
+    {
+      "name": "1440 clubhouse-tidy no errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "1440 dex20",
+      "ok": true
+    },
+    {
+      "name": "1440 dex0 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex1 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex2 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex3 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex4 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex5 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex6 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex7 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex8 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex9 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex10 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex11 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex12 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex13 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex14 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex15 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex16 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex17 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex18 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex19 Korean only",
+      "ok": true
+    },
+    {
+      "name": "1440 dex close visible",
+      "ok": true,
+      "detail": {
+        "x": 1020.3125,
+        "y": 24.5,
+        "width": 65.6875,
+        "height": 44
+      }
+    },
+    {
+      "name": "1440 dex no save writes",
+      "ok": true
+    }
+  ],
+  "failed": 0
+}
