@@ -30,6 +30,8 @@ const ARCHETYPES=[
   {key:'closer',label:'반대 코스 승부형',style:'closer',threat:'이전 노림 반대편을 찌르며 2스트라이크에 존을 넓힙니다.',zoneOpen:7,zoneMax:9},
 ];
 const ARCHETYPE_BY_KEY=Object.fromEntries(ARCHETYPES.map(x=>[x.key,x]));
+// Shared player-facing label; roster data keeps its stable internal keys.
+export const pitcherArchetypeLabel=key=>ARCHETYPE_BY_KEY[key]?.label||ARCHETYPES.find(a=>a.label===key)?.label||'';
 /* 막이 오를수록 단순히 숫자만 세지는 게 아니라 상대의 질문 자체가 바뀐다. */
 const ACT_ARCHETYPE_KEYS={
   1:['outside','sinker'],

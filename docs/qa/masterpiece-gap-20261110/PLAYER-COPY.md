@@ -1,0 +1,9 @@
+# M08/M09 — player-facing Korean copy
+
+Before implementation, execution masterpiece-exec-20261110 R4, base844b0ca.
+
+Confirmed: three event titles use `클럽하우시`, one song choice is `있어 만든다`, one description says equipment is `한적이다`; pitcher dex renders internal roster archetype codes such as `high`. Correct these strings and reuse existing run-map archetype labels. Keep all event IDs/ops/probabilities/reward/deck changes, roster order/count and save data unchanged. No new progression/unlock system implied.
+
+9-axis impact: UI text widths need small-landscape/dex/event capture; input/focus unchanged and existing dialog navigation regression retained; game/balance no ops changes; storage/schema none; mobile viewport copy checked within existing boxes; overflow noCSSchanges; flows event resolution/dex navigation unchanged; tests meaningful locale boundary plus existing event/dialog suites; build/deploy unchanged payload, fulltests/smoke/build/dist gates. Rollback independent copy commit. No new art/redesign/commercial-quality claim.
+
+Validation: related3suites22tests PASS; independent code review PASS confirms executable event data identical except5 displayed strings. Full242files1651tests PASS, smoke10/build/dist52.8MiB PASS. Actual production-build browser111/111 checks PASS at568×320/844×390/1440×900: all20dex entries use Korean archetypes, modal close remains insideviewport, save unchanged; all3affected events keep choices and exact engine leave-state. Long humlabel glyphs inside visible scroll list after scrolling. At0outs recovery is correctly disabled, compared against engine choice problem; no rule altered. Initial external harness compared resolve wrapper rather than .state and tried disabled recovery; corrected harness results are separate, not product bugs or hidden failures.

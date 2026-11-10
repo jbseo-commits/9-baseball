@@ -24,6 +24,19 @@ function InspectionHarness(){
 }
 
 describe('pitcher portrait inspection',()=>{
+  it('keeps the complete roster navigable while exposing Korean archetypes instead of internal keys',()=>{
+    const first=pitcherRoster[0];
+    render(<PitcherPortraitDialog opponent={first} src={pitcherPortraits[first.id]} onClose={()=>{}}/>);
+    const before=localStorage.length;
+    for(const pitcher of pitcherRoster){
+      fireEvent.click(screen.getByRole('button',{name:pitcher.name+' 투수 정보 보기'}));
+      const heading=screen.getByRole('heading',{level:2}).textContent;
+      expect(heading).toContain(pitcher.name);
+      expect(heading).toMatch(/제구형|싱커형|수비형|승부형/);
+      expect(heading).not.toMatch(/\b(high|outside|sinker|closer)\b/);
+    }
+    expect(localStorage.length).toBe(before);
+  });
   it('opens the title Dex from its id-only roster entry without changing storage',()=>{
     render(<Duel/>);
     fireEvent.click(screen.getByRole('button',{name:'도감',exact:true}));
