@@ -1,0 +1,272 @@
+{
+  "base": "https://jbseo-commits.github.io/9-baseball/?v=6bfc24f",
+  "method": "Default coarse-pointer route, actual taps, fixed visible center/right aims; engine oracle, no hidden pending used to choose actions. Viewport resize is not physical device rotation.",
+  "checks": [
+    {
+      "name": "568x320 actual map entry exact engine state",
+      "ok": true
+    },
+    {
+      "name": "568x320 default coarse-pointer vnext without iframe",
+      "ok": true,
+      "detail": {
+        "query": "?v=6bfc24f",
+        "coarse": true,
+        "touches": 1
+      }
+    },
+    {
+      "name": "568x320 two cards actually placed in order",
+      "ok": true,
+      "detail": {
+        "count": "2",
+        "overlaps": "0",
+        "pieces": [
+          {
+            "id": "c2",
+            "aim": "4",
+            "order": "1"
+          },
+          {
+            "id": "c1",
+            "aim": "5",
+            "order": "2"
+          }
+        ]
+      }
+    },
+    {
+      "name": "568x320 portrait orientation prompt",
+      "ok": true
+    },
+    {
+      "name": "568x320 portrait preserves exact save",
+      "ok": true
+    },
+    {
+      "name": "568x320 portrait keeps plan mounted",
+      "ok": true
+    },
+    {
+      "name": "568x320 landscape returns to same plan",
+      "ok": true
+    },
+    {
+      "name": "568x320 landscape preserves exact save",
+      "ok": true
+    },
+    {
+      "name": "568x320 no iframe after rotation",
+      "ok": true
+    },
+    {
+      "name": "568x320 accepted two-card action exact durable engine state",
+      "ok": true,
+      "detail": {
+        "phase": "pitch",
+        "energy": 0,
+        "pitches": 1
+      }
+    },
+    {
+      "name": "568x320 formal result appears",
+      "ok": true
+    },
+    {
+      "name": "568x320 presentation does not advance or rewrite accepted state",
+      "ok": true
+    },
+    {
+      "name": "568x320 accepted state unchanged through settle and completion",
+      "ok": true,
+      "detail": {
+        "stages": [
+          "release",
+          "settle"
+        ]
+      }
+    },
+    {
+      "name": "568x320 reload restores same durable result",
+      "ok": true
+    },
+    {
+      "name": "667x375 actual map entry exact engine state",
+      "ok": true
+    },
+    {
+      "name": "667x375 default coarse-pointer vnext without iframe",
+      "ok": true,
+      "detail": {
+        "query": "?v=6bfc24f",
+        "coarse": true,
+        "touches": 1
+      }
+    },
+    {
+      "name": "667x375 two cards actually placed in order",
+      "ok": true,
+      "detail": {
+        "count": "2",
+        "overlaps": "0",
+        "pieces": [
+          {
+            "id": "c2",
+            "aim": "4",
+            "order": "1"
+          },
+          {
+            "id": "c1",
+            "aim": "5",
+            "order": "2"
+          }
+        ]
+      }
+    },
+    {
+      "name": "667x375 portrait orientation prompt",
+      "ok": true
+    },
+    {
+      "name": "667x375 portrait preserves exact save",
+      "ok": true
+    },
+    {
+      "name": "667x375 portrait keeps plan mounted",
+      "ok": true
+    },
+    {
+      "name": "667x375 landscape returns to same plan",
+      "ok": true
+    },
+    {
+      "name": "667x375 landscape preserves exact save",
+      "ok": true
+    },
+    {
+      "name": "667x375 no iframe after rotation",
+      "ok": true
+    },
+    {
+      "name": "667x375 accepted two-card action exact durable engine state",
+      "ok": true,
+      "detail": {
+        "phase": "pitch",
+        "energy": 0,
+        "pitches": 1
+      }
+    },
+    {
+      "name": "667x375 formal result appears",
+      "ok": true
+    },
+    {
+      "name": "667x375 presentation does not advance or rewrite accepted state",
+      "ok": true
+    },
+    {
+      "name": "667x375 accepted state unchanged through settle and completion",
+      "ok": true,
+      "detail": {
+        "stages": [
+          "release",
+          "settle"
+        ]
+      }
+    },
+    {
+      "name": "667x375 reload restores same durable result",
+      "ok": true
+    },
+    {
+      "name": "844x390 actual map entry exact engine state",
+      "ok": true
+    },
+    {
+      "name": "844x390 default coarse-pointer vnext without iframe",
+      "ok": true,
+      "detail": {
+        "query": "?v=6bfc24f",
+        "coarse": true,
+        "touches": 1
+      }
+    },
+    {
+      "name": "844x390 two cards actually placed in order",
+      "ok": true,
+      "detail": {
+        "count": "2",
+        "overlaps": "0",
+        "pieces": [
+          {
+            "id": "c2",
+            "aim": "4",
+            "order": "1"
+          },
+          {
+            "id": "c1",
+            "aim": "5",
+            "order": "2"
+          }
+        ]
+      }
+    },
+    {
+      "name": "844x390 portrait orientation prompt",
+      "ok": true
+    },
+    {
+      "name": "844x390 portrait preserves exact save",
+      "ok": true
+    },
+    {
+      "name": "844x390 portrait keeps plan mounted",
+      "ok": true
+    },
+    {
+      "name": "844x390 landscape returns to same plan",
+      "ok": true
+    },
+    {
+      "name": "844x390 landscape preserves exact save",
+      "ok": true
+    },
+    {
+      "name": "844x390 no iframe after rotation",
+      "ok": true
+    },
+    {
+      "name": "844x390 accepted two-card action exact durable engine state",
+      "ok": true,
+      "detail": {
+        "phase": "pitch",
+        "energy": 0,
+        "pitches": 1
+      }
+    },
+    {
+      "name": "844x390 formal result appears",
+      "ok": true
+    },
+    {
+      "name": "844x390 presentation does not advance or rewrite accepted state",
+      "ok": true
+    },
+    {
+      "name": "844x390 accepted state unchanged through settle and completion",
+      "ok": true,
+      "detail": {
+        "stages": [
+          "release",
+          "settle"
+        ]
+      }
+    },
+    {
+      "name": "844x390 reload restores same durable result",
+      "ok": true
+    }
+  ],
+  "errors": [],
+  "failed": 0
+}
