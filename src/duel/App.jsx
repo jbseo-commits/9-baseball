@@ -19,6 +19,7 @@ import {coverageText} from './information.js';
 import {cue} from './audio.js';
 import {presentationFor,presentationTimeline} from './presentation.js';
 import {captureExecution} from './presentation-snapshot.js';
+import {coursePresentationFor} from './battle-vnext/course-public-snapshot.js';
 import {animationRate,readAnimationRate,rememberAnimationRate} from './animation-speed.js';
 import {battleUiMode} from './battle-ui-mode.js';
 import {rosterPitcherActor,rosterTimeline} from './battle-vnext/roster-actor.js';
@@ -1083,7 +1084,7 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
     if(visible>=r.height*.9)return;
     el.scrollIntoView?.({block:'center',behavior:'auto'});
   }
-  function startPresentation(next,execution=null){
+  function startPresentation(next,execution=null,{durableSaved=false}={}){
     const live=liveFor(next);
     const shot=presentationFor(next),reduced=next.version!==10||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     const withVideo=!live&&isHomerVideoEligible({version:next.version,grade:shot?.grade,reduced});
@@ -1093,13 +1094,15 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
     const nextNode=next.runMap?.nodes?.find(n=>n.id===next.runMap.currentNodeId);
     const liveActor=live&&pitchJudgement?rosterPitcherActor(nextNode?.opponent?.artId,pitcherAtlases[nextNode?.opponent?.artId]):null;
     const baseTimeline=presentationTimeline(shot,reduced);
-    const timeline=withKnockoutHold(liveActor?rosterTimeline(baseTimeline,liveActor,reduced,{delivery:true,contactHold:contactHitstop(shot?.grade)}):pitcherAtlases[nextNode?.opponent?.artId]&&pitchJudgement?redRushTimeline(baseTimeline,reduced,pitcherReleaseFrame(nextNode?.opponent?.artId)):baseTimeline,next.version===10&&pitchJudgement&&!reduced&&next.pitcher?.hp===0);
+    const baseResultTimeline=withKnockoutHold(liveActor?rosterTimeline(baseTimeline,liveActor,reduced,{delivery:true,contactHold:contactHitstop(shot?.grade)}):pitcherAtlases[nextNode?.opponent?.artId]&&pitchJudgement?redRushTimeline(baseTimeline,reduced,pitcherReleaseFrame(nextNode?.opponent?.artId)):baseTimeline,next.version===10&&pitchJudgement&&!reduced&&next.pitcher?.hp===0);
+    const coursePresentation=coursePresentationFor({execution,next,timeline:baseResultTimeline,live,durableSaved});
+    const timeline=coursePresentation?.timeline||baseResultTimeline;
     lock.current=true;revealArena();setFxImpactAt(timeline.impactAt||0);setFx(next.last);setFxStage('windup');setFrame(1);
     cancelCues();
     const speed=live&&!reduced?animationRate(rate):1,emit=kind=>live?cue(kind,{rate:speed,signal:cueAbort.current.signal}):cue(kind);
     if(sound&&!withVideo&&!(pitchJudgement&&Number.isFinite(timeline.pitchReleaseAt)))emit(pitchJudgement?'pitch':shot?.cue||next.last.kind);
     presentationClock.current?.cancel();
-    const playback={rate:speed,...(liveActor?{pitchReleaseAt:timeline.pitchReleaseAt??liveActor.releaseAt}:{}),startedAt:performance.now(),timeline,token:++presentationToken.current,
+    const playback={rate:speed,...(liveActor?{pitchReleaseAt:timeline.pitchReleaseAt??liveActor.releaseAt}:{}),startedAt:performance.now(),timeline,...(coursePresentation?{course:coursePresentation.course}:{}),token:++presentationToken.current,
       action:next.last?.kind==='skill'?'prepare':next.battle?.revealed?.action==='take'?'take':'swing'};
     setFxPlayback(playback);setFxExecution(execution);
     const stakes=stakesFor(next);
@@ -1128,7 +1131,7 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
     const present=()=>{
       pendingPitch.current=null;setCommitWaiting(false);
       current.current=job.next;setS(job.next);clearAcceptedSelection();
-      startPresentation(job.next,job.executed);
+      startPresentation(job.next,job.executed,{durableSaved:true});
     };
     if(job.resolveMs){
       revealArena();setStackResolve({plan:job.resolvePlan,token:(job.next.stats?.pitches||0)+'-'+Date.now()});

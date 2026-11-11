@@ -3,6 +3,7 @@ import {coverage,v10PrepMax} from './engine.js';
 import {cardFaceOf} from './card-face.js';
 import {preparationDrawPreview} from './preparation-feedback.js';
 import {publicEncounterCue} from './encounter-cues.js';
+import {capturePublicCourseSnapshot} from './battle-vnext/course-public-snapshot.js';
 
 function capturePublicHand(state){
   const b=state?.battle;if(!b)return null;
@@ -50,6 +51,7 @@ export function captureExecution(before,next,{selected=null}={}){
   });
   return {pitch:next.stats?.pitches||0,nodeId:next.runMap?.currentNodeId,action,cards,
     committedPlan:captureCommittedPlan(before,r,selected,action),
+    courseSnapshot:capturePublicCourseSnapshot(before,next),
     encounterCue:publicEncounterCue(before),
     handSnapshot:action==='prepare'?null:capturePublicHand(before),
     preparation:prep?{name:cards[0]?.name||'준비',detail:next.last.events?.[0]||next.last.text||'준비 효과 적용'}:null};
