@@ -43,6 +43,8 @@ describe('R2 pitcher source and grounding regression contracts',()=>{
   }
   expect(checks).toBe(120);
  });
+ /* Hashes every preserved source PNG. Alone it runs in well under a second, but inside the full parallel
+    suite it has exceeded the default 5s limit and failed intermittently. Same assertions, longer limit. */
  it('preserves 20 approved identities and the native original source bytes',()=>{
   for(const c of manifest.characters)expect(sha(fs.readFileSync(path.join(root,c.master_png))),c.slug).toBe(c.master_sha256);
   const preservation=read('reports/source-preservation.json');
@@ -54,7 +56,7 @@ describe('R2 pitcher source and grounding regression contracts',()=>{
   expect(amber.source_sheets.keys).toBe('source/regular-03-amber-sinker-keys-G3.png');
   expect(selected.has('source/regular-03-amber-sinker-keys-G2.png')).toBe(false);
   expect(preservation.files.find(f=>f.path==='source/regular-03-amber-sinker-keys-G2.png').current_selected).toBe(false);
- });
+ },30_000);
  it('publishes real 12-pose RGBA files, before images, and the existing release event contracts',()=>{
   for(const c of manifest.characters){
    expect(c.poses,c.slug).toHaveLength(12);expect(c.preview_frames).toHaveLength(12);expect(c.prior_preview_frames).toHaveLength(12);
