@@ -164,3 +164,9 @@ html[data-battle-ui=vnext] body::after{content:none}
 @media(orientation:landscape) and (max-height:600px){
   .battle-vnext[data-phase=result] .bv-cell{height:30px;min-height:30px;aspect-ratio:auto}
 }
+
+/* The HP consequence is the number the player acts on. In the height-capped rail it wrapped to the last
+   row and sat below the panel's scroll edge ("투수 HP -18 (60→42)" cut in half at 844x390). It now shares
+   the heading row; the longer explanation follows and is the part that scrolls. Visual order only. */
+.battle-vnext .bv-command-rail>.bv-plan>.bv-result-line>em{order:1;margin-left:auto}
+.battle-vnext .bv-command-rail>.bv-plan>.bv-result-line>span{order:2}
