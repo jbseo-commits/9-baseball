@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "id": "jade-viper",
+  "inputManifest": "traditional/characters/jade-viper/sequence.json",
+  "status": "candidate_generated_needs_visual_review",
+  "reason": "Automated geometric and pixel checks passed; visual approval remains required.",
+  "releaseFrame": 76,
+  "derivedFrame": 76,
+  "checks": {
+    "automaticWrist": {
+      "method": "minimum opaque cross-section along elbow-to-CV-wrist axis",
+      "widthPx": 12,
+      "forearmMedianWidthPx": 17.5,
+      "t": 0.9100000000000005
+    },
+    "heldFrame": 75,
+    "heldPoseId": "authored-75",
+    "registeredWrist": {
+      "x": 88.80097903173234,
+      "y": 79.53077130211176
+    },
+    "registeredElbow": {
+      "x": 102.75214546622976,
+      "y": 88.90727496355012
+    },
+    "ballSocket": {
+      "x": 69.58863067972501,
+      "y": 74.26608548078102
+    },
+    "ballRadius": 5.616005758131833,
+    "ballMaskRadius": 10,
+    "handLocalDistalHalfPlane": true,
+    "handLocalRadiusPx": 31.920623634720865,
+    "removedHandPixels": 523,
+    "residualWhiteCleanup": {
+      "roiRadiusPx": 29.5366293928527,
+      "removedComponents": [
+        {
+          "area": 1,
+          "center": {
+            "x": 74.5,
+            "y": 64.5
+          },
+          "kind": "low-opacity neutral-white residue"
+        }
+      ]
+    },
+    "guardRadius": 34,
+    "comparison": "final derived RGBA vs preserved original held RGBA",
+    "bodyOutsideHandDifferingChannels": 0,
+    "emptyHandSource": "source/jade-viper-b.png",
+    "emptyHandManualOverride": false,
+    "socketError": 0,
+    "timelineEntries": 24,
+    "directSourceDrawingCount": 22,
+    "sourceEdgeTouchReviewFrames": [],
+    "explicitlyExcludedFrames": []
+  },
+  "outputManifest": "/workspace/9zone-roster-rebuild-20261031/traditional/characters/jade-viper/sequence-release-matched.json",
+  "outputDrawing": "poses/076-matched-empty.png"
+}

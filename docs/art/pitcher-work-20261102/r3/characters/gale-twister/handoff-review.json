@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "id": "gale-twister",
+  "inputManifest": "traditional/characters/gale-twister/sequence.json",
+  "status": "candidate_generated_needs_visual_review",
+  "reason": "Automated geometric and pixel checks passed; visual approval remains required.",
+  "releaseFrame": 76,
+  "derivedFrame": 76,
+  "checks": {
+    "automaticWrist": {
+      "method": "minimum opaque cross-section along elbow-to-CV-wrist axis",
+      "widthPx": 11.5,
+      "forearmMedianWidthPx": 17,
+      "t": 0.9300000000000005
+    },
+    "heldFrame": 75,
+    "heldPoseId": "authored-75",
+    "registeredWrist": {
+      "x": 115.72375077868799,
+      "y": 80.06073417425513
+    },
+    "registeredElbow": {
+      "x": 123.12931427494064,
+      "y": 92.4076224651888
+    },
+    "ballSocket": {
+      "x": 109.79266526921717,
+      "y": 69.42951967255496
+    },
+    "ballRadius": 3.264168217061465,
+    "ballMaskRadius": 10,
+    "handLocalDistalHalfPlane": true,
+    "handLocalRadiusPx": 24.173762651777583,
+    "removedHandPixels": 316,
+    "residualWhiteCleanup": {
+      "roiRadiusPx": 19.437930868839047,
+      "removedComponents": []
+    },
+    "guardRadius": 34,
+    "comparison": "final derived RGBA vs preserved original held RGBA",
+    "bodyOutsideHandDifferingChannels": 0,
+    "emptyHandSource": "source/gale-twister-b.png",
+    "emptyHandManualOverride": false,
+    "socketError": 0,
+    "timelineEntries": 24,
+    "directSourceDrawingCount": 22,
+    "sourceEdgeTouchReviewFrames": [],
+    "explicitlyExcludedFrames": []
+  },
+  "outputManifest": "/workspace/9zone-roster-rebuild-20261031/traditional/characters/gale-twister/sequence-release-matched.json",
+  "outputDrawing": "poses/076-matched-empty.png"
+}

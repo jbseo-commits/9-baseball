@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "id": "boss-01-emerald-tyrant",
+  "inputManifest": "traditional/characters/boss-01-emerald-tyrant/sequence.json",
+  "status": "candidate_generated_needs_visual_review",
+  "reason": "Automated geometric and pixel checks passed; visual approval remains required.",
+  "releaseFrame": 76,
+  "derivedFrame": 76,
+  "checks": {
+    "heldFrame": 75,
+    "heldPoseId": "authored-75",
+    "registeredWrist": {
+      "x": 91.52601390117118,
+      "y": 62.492086061165665
+    },
+    "registeredElbow": {
+      "x": 107.26246270234776,
+      "y": 76.71396917140423
+    },
+    "ballSocket": {
+      "x": 85.32519077306443,
+      "y": 52.536028360695795
+    },
+    "ballRadius": 7.371359098815649,
+    "ballMaskRadius": 10,
+    "handLocalDistalHalfPlane": true,
+    "handLocalRadiusPx": 23.729164181694657,
+    "removedHandPixels": 416,
+    "residualWhiteCleanup": {
+      "roiRadiusPx": 23.10052328051031,
+      "removedComponents": []
+    },
+    "guardRadius": 34,
+    "comparison": "final derived RGBA vs preserved original held RGBA",
+    "bodyOutsideHandDifferingChannels": 0,
+    "emptyHandSource": "source/boss-01-emerald-tyrant-b.png",
+    "emptyHandManualOverride": false,
+    "socketError": 0,
+    "timelineEntries": 24,
+    "directSourceDrawingCount": 22,
+    "sourceEdgeTouchReviewFrames": [
+      {
+        "frame": 0,
+        "poseId": "authored-0",
+        "source": "source/boss-01-emerald-tyrant-a.png"
+      },
+      {
+        "frame": 10,
+        "poseId": "authored-10",
+        "source": "source/boss-01-emerald-tyrant-a.png"
+      },
+      {
+        "frame": 20,
+        "poseId": "authored-20",
+        "source": "source/boss-01-emerald-tyrant-a.png"
+      },
+      {
+        "frame": 64,
+        "poseId": "authored-64",
+        "source": "source/boss-01-emerald-tyrant-a.png"
+      }
+    ],
+    "explicitlyExcludedFrames": []
+  },
+  "outputManifest": "/workspace/9zone-roster-rebuild-20261031/traditional/characters/boss-01-emerald-tyrant/sequence-release-matched.json",
+  "outputDrawing": "poses/076-matched-empty.png"
+}

@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "id": "boss-03-black-eclipse",
+  "inputManifest": "traditional/characters/boss-03-black-eclipse/sequence.json",
+  "status": "candidate_generated_needs_visual_review",
+  "reason": "Automated geometric and pixel checks passed; visual approval remains required.",
+  "releaseFrame": 76,
+  "derivedFrame": 76,
+  "checks": {
+    "automaticWrist": {
+      "method": "minimum opaque cross-section along elbow-to-CV-wrist axis",
+      "widthPx": 13,
+      "forearmMedianWidthPx": 18,
+      "t": 0.8700000000000004
+    },
+    "heldFrame": 75,
+    "heldPoseId": "authored-75",
+    "registeredWrist": {
+      "x": 90.1512197256899,
+      "y": 79.89414588924458
+    },
+    "registeredElbow": {
+      "x": 105.01560848367555,
+      "y": 90.9346131409068
+    },
+    "ballSocket": {
+      "x": 77.706114485076,
+      "y": 70.83120457384554
+    },
+    "ballRadius": 4.21558588929766,
+    "ballMaskRadius": 10,
+    "handLocalDistalHalfPlane": true,
+    "handLocalRadiusPx": 27.395374296727002,
+    "removedHandPixels": 507,
+    "residualWhiteCleanup": {
+      "roiRadiusPx": 23.610960186024663,
+      "removedComponents": []
+    },
+    "guardRadius": 34,
+    "comparison": "final derived RGBA vs preserved original held RGBA",
+    "bodyOutsideHandDifferingChannels": 0,
+    "emptyHandSource": "source/boss-03-black-eclipse-b.png",
+    "emptyHandManualOverride": false,
+    "socketError": 0,
+    "timelineEntries": 24,
+    "directSourceDrawingCount": 22,
+    "sourceEdgeTouchReviewFrames": [],
+    "explicitlyExcludedFrames": []
+  },
+  "outputManifest": "/workspace/9zone-roster-rebuild-20261031/traditional/characters/boss-03-black-eclipse/sequence-release-matched.json",
+  "outputDrawing": "poses/076-matched-empty.png"
+}

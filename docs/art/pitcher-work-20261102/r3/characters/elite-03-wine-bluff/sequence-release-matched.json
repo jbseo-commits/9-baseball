@@ -1,0 +1,5368 @@
+{
+  "id": "elite-03-wine-bluff",
+  "handCalibration": {
+    "wrist": {
+      "x": 690,
+      "y": 123
+    },
+    "elbow": {
+      "x": 731,
+      "y": 140
+    },
+    "ball": {
+      "x": 662,
+      "y": 101,
+      "radius": 17
+    },
+    "method": "manual visual hand-isolation axis, not video biomechanics"
+  },
+  "name": "와인 블러프",
+  "hand": "right",
+  "style": "overhand",
+  "canvas": [
+    256,
+    256
+  ],
+  "anchor": {
+    "x": 128,
+    "y": 238
+  },
+  "characterHeightPixels": 180,
+  "frameCount": 120,
+  "fps": 60,
+  "releaseFrame": 76,
+  "ballResetFrame": 110,
+  "outputHeights": [
+    130,
+    400
+  ],
+  "authoredDrawingCount": 24,
+  "sourceDrawingCount": 24,
+  "status": "traditional_release_handoff_candidate_NOT_ART_APPROVED",
+  "previewBackground": "../../../reference/stadium.avif",
+  "foregroundBatter": "../../../reference/batter-ready.avif",
+  "cameraLayout": {
+    "world": {
+      "width": 1672,
+      "height": 941
+    },
+    "landmarks": {
+      "home": {
+        "x": 834,
+        "y": 874
+      },
+      "mound": {
+        "x": 834,
+        "y": 536
+      }
+    },
+    "actors": {
+      "batter": {
+        "worldFoot": {
+          "x": 200,
+          "y": 960
+        },
+        "worldHeight": 1200
+      },
+      "pitcher": {
+        "worldFoot": {
+          "x": 834,
+          "y": 536
+        },
+        "worldHeight": 376.4705882352941
+      }
+    },
+    "camera": {
+      "focalX": 0.5,
+      "zoneWorldSize": 300,
+      "minZoneSize": 138,
+      "bottomReserve": 18,
+      "zoneGap": 12
+    },
+    "scope": "Foreground batter intentionally extends below viewport; all atlas source drawings remain complete. Sample preview only; real roster approval unchanged."
+  },
+  "drawings": [
+    {
+      "frame": 0,
+      "poseId": "authored-0",
+      "authored": true,
+      "src": "poses/000.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 111,
+        "y": 49,
+        "width": 95,
+        "height": 180
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 143.54643437177026,
+        "y": 97.73719179093459
+      },
+      "ballRadius": 1.727447216890595,
+      "sourceRecord": {
+        "frame": 0,
+        "group": "base-a",
+        "source": "source/elite-03-wine-bluff-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          207,
+          2,
+          276,
+          521
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 521,
+        "referenceWorldHeight": 180,
+        "foot": [
+          233,
+          521
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 345,
+            "y": 64.072265625,
+            "confidence": 0.881085991859436
+          },
+          "leftEye": {
+            "x": 355.17578125,
+            "y": 53.896484375,
+            "confidence": 0.9304952621459961
+          },
+          "rightEye": {
+            "x": 334.82421875,
+            "y": 53.896484375,
+            "confidence": 0.9167013168334961
+          },
+          "leftEar": {
+            "x": 372.9833984375,
+            "y": 60.25634765625,
+            "confidence": 0.9161496162414551
+          },
+          "rightEar": {
+            "x": 320.83251953125,
+            "y": 58.984375,
+            "confidence": 0.9111045002937317
+          },
+          "leftShoulder": {
+            "x": 398.4228515625,
+            "y": 116.22314453125,
+            "confidence": 0.8202847838401794
+          },
+          "rightShoulder": {
+            "x": 299.208984375,
+            "y": 116.22314453125,
+            "confidence": 0.8025704622268677
+          },
+          "leftElbow": {
+            "x": 435.31005859375,
+            "y": 186.181640625,
+            "confidence": 0.8803861141204834
+          },
+          "rightElbow": {
+            "x": 263.59375,
+            "y": 182.36572265625,
+            "confidence": 0.8298311829566956
+          },
+          "leftWrist": {
+            "x": 381.88720703125,
+            "y": 160.7421875,
+            "confidence": 0.8053423166275024
+          },
+          "rightWrist": {
+            "x": 310.65673828125,
+            "y": 150.56640625,
+            "confidence": 0.7554766535758972
+          },
+          "leftHip": {
+            "x": 383.1591796875,
+            "y": 247.236328125,
+            "confidence": 0.7365453243255615
+          },
+          "rightHip": {
+            "x": 314.47265625,
+            "y": 251.05224609375,
+            "confidence": 0.7432807087898254
+          },
+          "leftKnee": {
+            "x": 412.41455078125,
+            "y": 364.2578125,
+            "confidence": 0.853191077709198
+          },
+          "rightKnee": {
+            "x": 283.9453125,
+            "y": 365.52978515625,
+            "confidence": 0.8680895566940308
+          },
+          "leftAnkle": {
+            "x": 455.66162109375,
+            "y": 474.91943359375,
+            "confidence": 0.9145724177360535
+          },
+          "rightAnkle": {
+            "x": 240.6982421875,
+            "y": 472.37548828125,
+            "confidence": 0.9075154066085815
+          }
+        },
+        "ball": {
+          "x": 301.15384615384613,
+          "y": 143.96153846153845,
+          "radius": 5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.345489443378119,
+        "b": 0,
+        "c": 0,
+        "d": 0.345489443378119,
+        "e": 39.50095969289828,
+        "f": 48
+      },
+      "control": null,
+      "uniformScale": 0.345489443378119,
+      "translation": {
+        "x": 39.50095969289828,
+        "y": 48
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        233,
+        521
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 8999,
+        "mainPixels": 66637
+      }
+    },
+    {
+      "frame": 5,
+      "poseId": "authored-5",
+      "authored": true,
+      "src": "poses/005.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 91,
+        "y": 45,
+        "width": 91,
+        "height": 184
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 113.75976924808056,
+        "y": 90.70225646195777
+      },
+      "ballRadius": 2.880142822120061,
+      "sourceRecord": {
+        "frame": 5,
+        "group": "bridge-a",
+        "source": "traditional/source/elite-03-wine-bluff-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          169,
+          5,
+          256,
+          514
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 514,
+        "referenceWorldHeight": 179.0252744121881,
+        "foot": [
+          300,
+          518
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 280.6865234375,
+            "y": 68.748046875,
+            "confidence": 0.90090012550354
+          },
+          "leftEye": {
+            "x": 293.2353515625,
+            "y": 57.4541015625,
+            "confidence": 0.9368485808372498
+          },
+          "rightEye": {
+            "x": 271.90234375,
+            "y": 58.708984375,
+            "confidence": 0.9286431074142456
+          },
+          "leftEar": {
+            "x": 318.3330078125,
+            "y": 59.9638671875,
+            "confidence": 0.9442896842956543
+          },
+          "rightEar": {
+            "x": 264.373046875,
+            "y": 64.9833984375,
+            "confidence": 0.7888646125793457
+          },
+          "leftShoulder": {
+            "x": 357.234375,
+            "y": 121.453125,
+            "confidence": 0.7970765233039856
+          },
+          "rightShoulder": {
+            "x": 253.0791015625,
+            "y": 117.6884765625,
+            "confidence": 0.7606960535049438
+          },
+          "leftElbow": {
+            "x": 372.29296875,
+            "y": 194.236328125,
+            "confidence": 0.836976170539856
+          },
+          "rightElbow": {
+            "x": 209.158203125,
+            "y": 177.9228515625,
+            "confidence": 0.7561246752738953
+          },
+          "leftWrist": {
+            "x": 323.3525390625,
+            "y": 170.3935546875,
+            "confidence": 0.7745593190193176
+          },
+          "rightWrist": {
+            "x": 246.8046875,
+            "y": 150.3154296875,
+            "confidence": 0.7307363152503967
+          },
+          "leftHip": {
+            "x": 335.9013671875,
+            "y": 251.9609375,
+            "confidence": 0.7341480255126953
+          },
+          "rightHip": {
+            "x": 276.921875,
+            "y": 240.6669921875,
+            "confidence": 0.6923431158065796
+          },
+          "leftKnee": {
+            "x": 310.8037109375,
+            "y": 357.37109375,
+            "confidence": 0.8360401391983032
+          },
+          "rightKnee": {
+            "x": 231.74609375,
+            "y": 270.7841796875,
+            "confidence": 0.7638601660728455
+          },
+          "leftAnkle": {
+            "x": 322.09765625,
+            "y": 464.0361328125,
+            "confidence": 0.8314791917800903
+          },
+          "rightAnkle": {
+            "x": 271.90234375,
+            "y": 351.0966796875,
+            "confidence": 0.7811373472213745
+          }
+        },
+        "ball": {
+          "x": 228.76,
+          "y": 142.76,
+          "radius": 8,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.35651418377009114,
+        "b": 0.05010480097029038,
+        "c": -0.05010480097029038,
+        "d": 0.35651418377009114,
+        "e": 39.35654595535317,
+        "f": 28.344317316975946
+      },
+      "control": {
+        "frame": 5,
+        "joints": {
+          "nose": {
+            "x": 139.14446752039348,
+            "y": 70.42003808781189
+          },
+          "leftEye": {
+            "x": 142.64997075935702,
+            "y": 66.47761216410748
+          },
+          "rightEye": {
+            "x": 135.8574256238004,
+            "y": 67.13299619121881
+          },
+          "leftEar": {
+            "x": 149.8769081393954,
+            "y": 67.79470631897792
+          },
+          "rightEar": {
+            "x": 132.34812672444818,
+            "y": 69.10420915307103
+          },
+          "leftShoulder": {
+            "x": 160.16989563339732,
+            "y": 86.41959010616603
+          },
+          "rightShoulder": {
+            "x": 127.95739113483685,
+            "y": 87.73035816038866
+          },
+          "leftElbow": {
+            "x": 169.16350205434262,
+            "y": 111.61223158589252
+          },
+          "rightElbow": {
+            "x": 115.46966845609406,
+            "y": 111.38997458313338
+          },
+          "leftWrist": {
+            "x": 147.48268991422745,
+            "y": 104.15924154270633
+          },
+          "rightWrist": {
+            "x": 125.56570334992803,
+            "y": 102.18296770033588
+          },
+          "leftHip": {
+            "x": 155.78548614443378,
+            "y": 132.6452510196737
+          },
+          "rightHip": {
+            "x": 134.30795270513437,
+            "y": 134.17827607665546
+          },
+          "leftKnee": {
+            "x": 145.98382580074377,
+            "y": 153.73394013915546
+          },
+          "rightKnee": {
+            "x": 129.90836057461613,
+            "y": 173.83364885736563
+          },
+          "leftAnkle": {
+            "x": 163.50375067478407,
+            "y": 191.63782652051344
+          },
+          "rightAnkle": {
+            "x": 126.5884229546545,
+            "y": 211.51527823596447
+          }
+        },
+        "hip": {
+          "x": 145.04671942478407,
+          "y": 133.41176354816457
+        },
+        "foot": {
+          "x": 120,
+          "y": 228
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.36001785276500764,
+          "referenceScale": 0.34829819924550215,
+          "appliedScale": 0.36001785276500764,
+          "desiredRotationDegrees": 13.268733479036664,
+          "appliedRotationDegrees": 8,
+          "hipControlError": 8.99463334846284
+        }
+      },
+      "uniformScale": 0.36001785276500764,
+      "translation": {
+        "x": 39.35654595535317,
+        "y": 28.344317316975946
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        299,
+        518
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 6326,
+        "mainPixels": 64224
+      }
+    },
+    {
+      "frame": 10,
+      "poseId": "authored-10",
+      "authored": true,
+      "src": "poses/010.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 93,
+        "y": 49,
+        "width": 79,
+        "height": 179
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 125.67705313023237,
+        "y": 97.85780209907297
+      },
+      "ballRadius": 4.318618042226487,
+      "sourceRecord": {
+        "frame": 10,
+        "group": "base-a",
+        "source": "source/elite-03-wine-bluff-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          673,
+          3,
+          228,
+          518
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 521,
+        "referenceWorldHeight": 180,
+        "foot": [
+          751.5,
+          520
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 750.3251953125,
+            "y": 64.71484375,
+            "confidence": 0.9064491987228394
+          },
+          "leftEye": {
+            "x": 760.4423828125,
+            "y": 52.068359375,
+            "confidence": 0.9422067403793335
+          },
+          "rightEye": {
+            "x": 741.47265625,
+            "y": 55.8623046875,
+            "confidence": 0.9729418754577637
+          },
+          "leftEar": {
+            "x": 784.470703125,
+            "y": 53.3330078125,
+            "confidence": 0.9713959693908691
+          },
+          "rightEar": {
+            "x": 735.1494140625,
+            "y": 62.185546875,
+            "confidence": 0.7879291772842407
+          },
+          "leftShoulder": {
+            "x": 818.6162109375,
+            "y": 105.18359375,
+            "confidence": 0.8000238537788391
+          },
+          "rightShoulder": {
+            "x": 731.35546875,
+            "y": 112.771484375,
+            "confidence": 0.7274410724639893
+          },
+          "leftElbow": {
+            "x": 833.7919921875,
+            "y": 181.0625,
+            "confidence": 0.818817138671875
+          },
+          "rightElbow": {
+            "x": 694.6806640625,
+            "y": 183.591796875,
+            "confidence": 0.5924630165100098
+          },
+          "leftWrist": {
+            "x": 761.70703125,
+            "y": 163.357421875,
+            "confidence": 0.7472802400588989
+          },
+          "rightWrist": {
+            "x": 706.0625,
+            "y": 162.0927734375,
+            "confidence": 0.5650568008422852
+          },
+          "leftHip": {
+            "x": 808.4990234375,
+            "y": 241.765625,
+            "confidence": 0.6519004106521606
+          },
+          "rightHip": {
+            "x": 752.8544921875,
+            "y": 246.82421875,
+            "confidence": 0.5889639258384705
+          },
+          "leftKnee": {
+            "x": 722.5029296875,
+            "y": 246.82421875,
+            "confidence": 0.782843828201294
+          },
+          "rightKnee": {
+            "x": 757.9130859375,
+            "y": 361.9072265625,
+            "confidence": 0.6721018552780151
+          },
+          "leftAnkle": {
+            "x": 780.6767578125,
+            "y": 355.583984375,
+            "confidence": 0.7942710518836975
+          },
+          "rightAnkle": {
+            "x": 781.94140625,
+            "y": 473.1962890625,
+            "confidence": 0.8206678628921509
+          }
+        },
+        "ball": {
+          "x": 767.931914893617,
+          "y": 143.31063829787234,
+          "radius": 12.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.345489443378119,
+        "b": 0,
+        "c": 0,
+        "d": 0.345489443378119,
+        "e": -139.63531669865642,
+        "f": 48.34548944337811
+      },
+      "control": null,
+      "uniformScale": 0.345489443378119,
+      "translation": {
+        "x": -139.63531669865642,
+        "y": 48.34548944337811
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        751.5,
+        520
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 7653,
+        "mainPixels": 58610
+      }
+    },
+    {
+      "frame": 15,
+      "poseId": "authored-15",
+      "authored": true,
+      "src": "poses/015.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 81,
+        "y": 49,
+        "width": 84,
+        "height": 179
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 117.89766095256905,
+        "y": 98.0023107098686
+      },
+      "ballRadius": 2.278301891984268,
+      "sourceRecord": {
+        "frame": 15,
+        "group": "bridge-a",
+        "source": "traditional/source/elite-03-wine-bluff-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          658,
+          8,
+          240,
+          512
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 514,
+        "referenceWorldHeight": 179.0252744121881,
+        "foot": [
+          773,
+          519
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 766.75,
+            "y": 76.5,
+            "confidence": 0.8359048366546631
+          },
+          "leftEye": {
+            "x": 779.25,
+            "y": 64,
+            "confidence": 0.858035683631897
+          },
+          "rightEye": {
+            "x": 759.25,
+            "y": 65.25,
+            "confidence": 0.8770725131034851
+          },
+          "leftEar": {
+            "x": 804.25,
+            "y": 66.5,
+            "confidence": 0.8994395732879639
+          },
+          "rightEar": {
+            "x": 754.25,
+            "y": 69,
+            "confidence": 0.805017352104187
+          },
+          "leftShoulder": {
+            "x": 839.25,
+            "y": 124,
+            "confidence": 0.8233674168586731
+          },
+          "rightShoulder": {
+            "x": 738,
+            "y": 119,
+            "confidence": 0.8240846395492554
+          },
+          "leftElbow": {
+            "x": 880.5,
+            "y": 192.75,
+            "confidence": 0.8085938692092896
+          },
+          "rightElbow": {
+            "x": 703,
+            "y": 175.25,
+            "confidence": 0.8116797208786011
+          },
+          "leftWrist": {
+            "x": 845.5,
+            "y": 176.5,
+            "confidence": 0.7079423069953918
+          },
+          "rightWrist": {
+            "x": 759.25,
+            "y": 165.25,
+            "confidence": 0.7601921558380127
+          },
+          "leftHip": {
+            "x": 825.5,
+            "y": 246.5,
+            "confidence": 0.671586275100708
+          },
+          "rightHip": {
+            "x": 768,
+            "y": 257.75,
+            "confidence": 0.6193318367004395
+          },
+          "leftKnee": {
+            "x": 744.25,
+            "y": 220.25,
+            "confidence": 0.6987202167510986
+          },
+          "rightKnee": {
+            "x": 775.5,
+            "y": 361.5,
+            "confidence": 0.6411752104759216
+          },
+          "leftAnkle": {
+            "x": 780.5,
+            "y": 341.5,
+            "confidence": 0.7442139387130737
+          },
+          "rightAnkle": {
+            "x": 800.5,
+            "y": 466.5,
+            "confidence": 0.7974656820297241
+          }
+        },
+        "ball": {
+          "x": 763.5396825396825,
+          "y": 148.14285714285714,
+          "radius": 6.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3505052586835556,
+        "b": 0.0013820455227324697,
+        "c": -0.0013820455227324697,
+        "d": 0.3505052586835556,
+        "e": -149.52227281872322,
+        "f": 45.0222136452079
+      },
+      "control": {
+        "frame": 15,
+        "joints": {
+          "nose": {
+            "x": 118.68973803382917,
+            "y": 70.70378478886755
+          },
+          "leftEye": {
+            "x": 121.9666581693858,
+            "y": 66.33455794145873
+          },
+          "rightEye": {
+            "x": 115.41281789827255,
+            "y": 67.86378733805182
+          },
+          "leftEar": {
+            "x": 130.04972783709212,
+            "y": 66.7714806261996
+          },
+          "rightEar": {
+            "x": 112.57282044745679,
+            "y": 70.04840076175623
+          },
+          "leftShoulder": {
+            "x": 142.5020243522073,
+            "y": 85.77761741242801
+          },
+          "rightShoulder": {
+            "x": 109.73282299664106,
+            "y": 88.61761486324374
+          },
+          "leftElbow": {
+            "x": 150.5850940199136,
+            "y": 110.90067178502878
+          },
+          "rightElbow": {
+            "x": 98.3728331933781,
+            "y": 112.21143983925143
+          },
+          "leftWrist": {
+            "x": 126.99126904390593,
+            "y": 104.34683151391553
+          },
+          "rightWrist": {
+            "x": 104.27128943738002,
+            "y": 101.06991137835891
+          },
+          "leftHip": {
+            "x": 138.78818153190977,
+            "y": 133.1837287068138
+          },
+          "rightHip": {
+            "x": 120.00050608805182,
+            "y": 135.8052648152591
+          },
+          "leftKnee": {
+            "x": 109.07743896952972,
+            "y": 127.06681112044146
+          },
+          "rightKnee": {
+            "x": 123.27742622360844,
+            "y": 174.03599973008636
+          },
+          "leftAnkle": {
+            "x": 122.18511951175623,
+            "y": 167.70062080134358
+          },
+          "rightAnkle": {
+            "x": 130.04972783709212,
+            "y": 212.2667346449136
+          }
+        },
+        "hip": {
+          "x": 129.3943438099808,
+          "y": 134.49449676103646
+        },
+        "foot": {
+          "x": 120,
+          "y": 228
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.3505079833821951,
+          "referenceScale": 0.34829819924550215,
+          "appliedScale": 0.3505079833821951,
+          "desiredRotationDegrees": 0.22591662526040515,
+          "appliedRotationDegrees": 0.22591662526040515,
+          "hipControlError": 4.0194366942304644e-14
+        }
+      },
+      "uniformScale": 0.3505079833821951,
+      "translation": {
+        "x": -149.52227281872322,
+        "y": 45.0222136452079
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        771,
+        519
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 6870,
+        "mainPixels": 58574
+      }
+    },
+    {
+      "frame": 20,
+      "poseId": "authored-20",
+      "authored": true,
+      "src": "poses/020.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 90,
+        "y": 49,
+        "width": 80,
+        "height": 179
+      },
+      "ballMode": "hiddenHeld",
+      "ballSocket": {
+        "x": 104.24075545825332,
+        "y": 97.79299124280229
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 20,
+        "group": "base-a",
+        "source": "source/elite-03-wine-bluff-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1122,
+          3,
+          231,
+          518
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 521,
+        "referenceWorldHeight": 180,
+        "foot": [
+          1208.5,
+          520
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 1202.08984375,
+            "y": 64.71484375,
+            "confidence": 0.8793326616287231
+          },
+          "leftEye": {
+            "x": 1210.9423828125,
+            "y": 52.068359375,
+            "confidence": 0.9308716058731079
+          },
+          "rightEye": {
+            "x": 1191.97265625,
+            "y": 57.126953125,
+            "confidence": 0.9629104733467102
+          },
+          "leftEar": {
+            "x": 1233.7060546875,
+            "y": 53.3330078125,
+            "confidence": 0.943064272403717
+          },
+          "rightEar": {
+            "x": 1181.85546875,
+            "y": 63.4501953125,
+            "confidence": 0.8144150972366333
+          },
+          "leftShoulder": {
+            "x": 1271.6455078125,
+            "y": 111.5068359375,
+            "confidence": 0.8009854555130005
+          },
+          "rightShoulder": {
+            "x": 1169.208984375,
+            "y": 120.359375,
+            "confidence": 0.7921976447105408
+          },
+          "leftElbow": {
+            "x": 1303.26171875,
+            "y": 181.0625,
+            "confidence": 0.7924802303314209
+          },
+          "rightElbow": {
+            "x": 1140.1220703125,
+            "y": 186.12109375,
+            "confidence": 0.7578912377357483
+          },
+          "leftWrist": {
+            "x": 1238.7646484375,
+            "y": 160.828125,
+            "confidence": 0.7659781575202942
+          },
+          "rightWrist": {
+            "x": 1162.8857421875,
+            "y": 143.123046875,
+            "confidence": 0.5858241319656372
+          },
+          "leftHip": {
+            "x": 1260.263671875,
+            "y": 249.353515625,
+            "confidence": 0.6567864418029785
+          },
+          "rightHip": {
+            "x": 1207.1484375,
+            "y": 259.470703125,
+            "confidence": 0.5848720073699951
+          },
+          "leftKnee": {
+            "x": 1174.267578125,
+            "y": 208.884765625,
+            "confidence": 0.7841089963912964
+          },
+          "rightKnee": {
+            "x": 1221.0595703125,
+            "y": 365.701171875,
+            "confidence": 0.7177040576934814
+          },
+          "leftAnkle": {
+            "x": 1191.97265625,
+            "y": 335.349609375,
+            "confidence": 0.7585994005203247
+          },
+          "rightAnkle": {
+            "x": 1236.2353515625,
+            "y": 475.7255859375,
+            "confidence": 0.819095253944397
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.345489443378119,
+        "b": 0,
+        "c": 0,
+        "d": 0.345489443378119,
+        "e": -297.5239923224568,
+        "f": 48.34548944337811
+      },
+      "control": null,
+      "uniformScale": 0.345489443378119,
+      "translation": {
+        "x": -297.5239923224568,
+        "y": 48.34548944337811
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        1208.5,
+        520
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 6972,
+        "mainPixels": 57062
+      }
+    },
+    {
+      "frame": 27,
+      "poseId": "authored-27",
+      "authored": true,
+      "src": "poses/027.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 99,
+        "y": 63,
+        "width": 101,
+        "height": 171
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 158.47683898994012,
+        "y": 115.74678617652293
+      },
+      "ballRadius": 11.723510006666759,
+      "sourceRecord": {
+        "frame": 27,
+        "group": "bridge-a",
+        "source": "traditional/source/elite-03-wine-bluff-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1128,
+          11,
+          304,
+          506
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 514,
+        "referenceWorldHeight": 179.0252744121881,
+        "foot": [
+          1271,
+          516
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 1268.8818359375,
+            "y": 79.9326171875,
+            "confidence": 0.9125163555145264
+          },
+          "leftEye": {
+            "x": 1282.470703125,
+            "y": 68.814453125,
+            "confidence": 0.9807390570640564
+          },
+          "rightEye": {
+            "x": 1258.9990234375,
+            "y": 67.5791015625,
+            "confidence": 0.9440281391143799
+          },
+          "leftEar": {
+            "x": 1305.9423828125,
+            "y": 68.814453125,
+            "confidence": 0.9441587924957275
+          },
+          "rightEar": {
+            "x": 1250.3515625,
+            "y": 67.5791015625,
+            "confidence": 0.8260871171951294
+          },
+          "leftShoulder": {
+            "x": 1338.0615234375,
+            "y": 114.5224609375,
+            "confidence": 0.7640231251716614
+          },
+          "rightShoulder": {
+            "x": 1239.2333984375,
+            "y": 109.5810546875,
+            "confidence": 0.7674422264099121
+          },
+          "leftElbow": {
+            "x": 1377.5927734375,
+            "y": 163.9365234375,
+            "confidence": 0.6706565618515015
+          },
+          "rightElbow": {
+            "x": 1228.115234375,
+            "y": 161.4658203125,
+            "confidence": 0.7764787077903748
+          },
+          "leftWrist": {
+            "x": 1372.6513671875,
+            "y": 191.1142578125,
+            "confidence": 0.6323768496513367
+          },
+          "rightWrist": {
+            "x": 1303.4716796875,
+            "y": 186.1728515625,
+            "confidence": 0.7794382572174072
+          },
+          "leftHip": {
+            "x": 1305.9423828125,
+            "y": 244.234375,
+            "confidence": 0.6763237714767456
+          },
+          "rightHip": {
+            "x": 1236.7626953125,
+            "y": 241.763671875,
+            "confidence": 0.6640877723693848
+          },
+          "leftKnee": {
+            "x": 1266.4111328125,
+            "y": 314.6494140625,
+            "confidence": 0.7712504863739014
+          },
+          "rightKnee": {
+            "x": 1235.52734375,
+            "y": 333.1796875,
+            "confidence": 0.5485745668411255
+          },
+          "leftAnkle": {
+            "x": 1282.470703125,
+            "y": 456.71484375,
+            "confidence": 0.7743645906448364
+          },
+          "rightAnkle": {
+            "x": 1245.41015625,
+            "y": 357.88671875,
+            "confidence": 0.6486845016479492
+          }
+        },
+        "ball": {
+          "x": 1306.9640831758034,
+          "y": 162.64177693761815,
+          "radius": 34.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3365048583528802,
+        "b": 0.04729267367432378,
+        "c": -0.04729267367432378,
+        "d": 0.3365048583528802,
+        "e": -273.63116020891255,
+        "f": -0.7927878238260178
+      },
+      "control": {
+        "frame": 27,
+        "joints": {
+          "nose": {
+            "x": 135.92915891914586,
+            "y": 80.81409324016315
+          },
+          "leftEye": {
+            "x": 139.75012371041265,
+            "y": 76.75442358445298
+          },
+          "rightEye": {
+            "x": 132.30641194817656,
+            "y": 77.83660853526872
+          },
+          "leftEar": {
+            "x": 147.43254033709212,
+            "y": 77.59790367082535
+          },
+          "rightEar": {
+            "x": 128.05864623320537,
+            "y": 79.76227357245682
+          },
+          "leftShoulder": {
+            "x": 156.69479516554702,
+            "y": 96.18904825455856
+          },
+          "rightShoulder": {
+            "x": 124.41565574016315,
+            "y": 97.09325890714972
+          },
+          "leftElbow": {
+            "x": 168.19817658349325,
+            "y": 111.12117622360844
+          },
+          "rightElbow": {
+            "x": 114.39089491362762,
+            "y": 113.24505908109406
+          },
+          "leftWrist": {
+            "x": 162.26513765595007,
+            "y": 110.12586972168907
+          },
+          "rightWrist": {
+            "x": 110.61463456693856,
+            "y": 101.44224223248561
+          },
+          "leftHip": {
+            "x": 154.52030350287907,
+            "y": 141.4603114503359
+          },
+          "rightHip": {
+            "x": 133.46957098728404,
+            "y": 141.12460637595967
+          },
+          "leftKnee": {
+            "x": 140.28995096569096,
+            "y": 148.42830044385798
+          },
+          "rightKnee": {
+            "x": 137.95604156669867,
+            "y": 169.47565903910748
+          },
+          "leftAnkle": {
+            "x": 143.7650889215451,
+            "y": 179.23303667826295
+          },
+          "rightAnkle": {
+            "x": 136.20244646713053,
+            "y": 213.48254558541268
+          }
+        },
+        "hip": {
+          "x": 143.99493724508156,
+          "y": 141.29245891314778
+        },
+        "foot": {
+          "x": 130,
+          "y": 233
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.3398118842512104,
+          "referenceScale": 0.34829819924550215,
+          "appliedScale": 0.3398118842512104,
+          "desiredRotationDegrees": 8.812509375751961,
+          "appliedRotationDegrees": 8,
+          "hipControlError": 1.3155461714392152
+        }
+      },
+      "uniformScale": 0.3398118842512104,
+      "translation": {
+        "x": -273.63116020891255,
+        "y": -0.7927878238260178
+      },
+      "plantedFoot": {
+        "x": 130,
+        "y": 233
+      },
+      "registeredSourceFoot": [
+        1272,
+        516
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 6303,
+        "mainPixels": 66999
+      }
+    },
+    {
+      "frame": 34,
+      "poseId": "authored-34",
+      "authored": true,
+      "src": "poses/034.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 101,
+        "y": 68,
+        "width": 115,
+        "height": 171
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 107.68103297853777,
+        "y": 98.60173991076107
+      },
+      "ballRadius": 2.418426103646833,
+      "sourceRecord": {
+        "frame": 34,
+        "group": "base-a",
+        "source": "source/elite-03-wine-bluff-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          180,
+          518,
+          332,
+          494
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 521,
+        "referenceWorldHeight": 180,
+        "foot": [
+          292,
+          1011
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 332.7333984375,
+            "y": 585.2978515625,
+            "confidence": 0.8949745297431946
+          },
+          "leftEye": {
+            "x": 346,
+            "y": 574.443359375,
+            "confidence": 0.9397583603858948
+          },
+          "rightEye": {
+            "x": 321.87890625,
+            "y": 575.6494140625,
+            "confidence": 0.9052797555923462
+          },
+          "leftEar": {
+            "x": 367.708984375,
+            "y": 578.0615234375,
+            "confidence": 0.8916388154029846
+          },
+          "rightEar": {
+            "x": 307.40625,
+            "y": 580.4736328125,
+            "confidence": 0.7873944044113159
+          },
+          "leftShoulder": {
+            "x": 383.3876953125,
+            "y": 627.509765625,
+            "confidence": 0.7261971831321716
+          },
+          "rightShoulder": {
+            "x": 298.9638671875,
+            "y": 623.8916015625,
+            "confidence": 0.7180249691009521
+          },
+          "leftElbow": {
+            "x": 418.36328125,
+            "y": 644.39453125,
+            "confidence": 0.7127110362052917
+          },
+          "rightElbow": {
+            "x": 270.0185546875,
+            "y": 651.630859375,
+            "confidence": 0.7745959758758545
+          },
+          "leftWrist": {
+            "x": 448.5146484375,
+            "y": 658.8671875,
+            "confidence": 0.6782668828964233
+          },
+          "rightWrist": {
+            "x": 225.39453125,
+            "y": 626.3037109375,
+            "confidence": 0.8670005798339844
+          },
+          "leftHip": {
+            "x": 382.181640625,
+            "y": 751.7333984375,
+            "confidence": 0.6643202304840088
+          },
+          "rightHip": {
+            "x": 313.4365234375,
+            "y": 739.6728515625,
+            "confidence": 0.6534477472305298
+          },
+          "leftKnee": {
+            "x": 385.7998046875,
+            "y": 832.5390625,
+            "confidence": 0.7253690958023071
+          },
+          "rightKnee": {
+            "x": 325.4970703125,
+            "y": 797.5634765625,
+            "confidence": 0.7132914066314697
+          },
+          "leftAnkle": {
+            "x": 388.2119140625,
+            "y": 884.3994140625,
+            "confidence": 0.7753050327301025
+          },
+          "rightAnkle": {
+            "x": 300.169921875,
+            "y": 942.2900390625,
+            "confidence": 0.7765300869941711
+          }
+        },
+        "ball": {
+          "x": 198.45454545454544,
+          "y": 607.5194805194806,
+          "radius": 7,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.345489443378119,
+        "b": 0,
+        "c": 0,
+        "d": 0.345489443378119,
+        "e": 39.117082533589254,
+        "f": -111.28982725527828
+      },
+      "control": null,
+      "uniformScale": 0.345489443378119,
+      "translation": {
+        "x": 39.117082533589254,
+        "y": -111.28982725527828
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        292,
+        1011
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 10739,
+        "mainPixels": 71010
+      }
+    },
+    {
+      "frame": 42,
+      "poseId": "authored-42",
+      "authored": true,
+      "src": "poses/042.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 90,
+        "y": 72,
+        "width": 112,
+        "height": 167
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 107.3583319911719,
+        "y": 80.1561954109334
+      },
+      "ballRadius": 4.839585623958618,
+      "sourceRecord": {
+        "frame": 42,
+        "group": "bridge-a",
+        "source": "traditional/source/elite-03-wine-bluff-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          164,
+          530,
+          314,
+          480
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 514,
+        "referenceWorldHeight": 179.0252744121881,
+        "foot": [
+          261.5,
+          1009
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 306.9375,
+            "y": 601.25,
+            "confidence": 0.7672587037086487
+          },
+          "leftEye": {
+            "x": 319.828125,
+            "y": 588.359375,
+            "confidence": 0.8302140235900879
+          },
+          "rightEye": {
+            "x": 296.390625,
+            "y": 589.53125,
+            "confidence": 0.8360002636909485
+          },
+          "leftEar": {
+            "x": 340.921875,
+            "y": 591.875,
+            "confidence": 0.8262262344360352
+          },
+          "rightEar": {
+            "x": 279.984375,
+            "y": 590.703125,
+            "confidence": 0.7806968688964844
+          },
+          "leftShoulder": {
+            "x": 350.296875,
+            "y": 641.09375,
+            "confidence": 0.6840996742248535
+          },
+          "rightShoulder": {
+            "x": 254.203125,
+            "y": 632.890625,
+            "confidence": 0.7127715349197388
+          },
+          "leftElbow": {
+            "x": 383.109375,
+            "y": 655.15625,
+            "confidence": 0.6487075686454773
+          },
+          "rightElbow": {
+            "x": 186.234375,
+            "y": 621.171875,
+            "confidence": 0.8416107892990112
+          },
+          "leftWrist": {
+            "x": 412.40625,
+            "y": 669.21875,
+            "confidence": 0.6618221998214722
+          },
+          "rightWrist": {
+            "x": 190.921875,
+            "y": 563.75,
+            "confidence": 0.8258663415908813
+          },
+          "leftHip": {
+            "x": 346.78125,
+            "y": 755.9375,
+            "confidence": 0.6362600326538086
+          },
+          "rightHip": {
+            "x": 279.984375,
+            "y": 751.25,
+            "confidence": 0.6226980686187744
+          },
+          "leftKnee": {
+            "x": 362.015625,
+            "y": 815.703125,
+            "confidence": 0.6339859962463379
+          },
+          "rightKnee": {
+            "x": 296.390625,
+            "y": 806.328125,
+            "confidence": 0.716865062713623
+          },
+          "leftAnkle": {
+            "x": 366.703125,
+            "y": 859.0625,
+            "confidence": 0.7308085560798645
+          },
+          "rightAnkle": {
+            "x": 262.40625,
+            "y": 949.296875,
+            "confidence": 0.7464303970336914
+          }
+        },
+        "ball": {
+          "x": 224.04093567251462,
+          "y": 543.6900584795321,
+          "radius": 14,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3423205078104977,
+        "b": -0.04811000990343385,
+        "c": 0.04811000990343385,
+        "d": 0.3423205078104977,
+        "e": 4.507591023568828,
+        "f": -95.18144986531996
+      },
+      "control": {
+        "frame": 42,
+        "joints": {
+          "nose": {
+            "x": 145.08694405290305,
+            "y": 89.94014477867083
+          },
+          "leftEye": {
+            "x": 149.2575313399712,
+            "y": 86.60375929702496
+          },
+          "rightEye": {
+            "x": 141.54179724988,
+            "y": 85.9770535928503
+          },
+          "leftEar": {
+            "x": 153.84268908949136,
+            "y": 88.690107290667
+          },
+          "rightEar": {
+            "x": 134.24021188219768,
+            "y": 87.43669588231766
+          },
+          "leftShoulder": {
+            "x": 157.17738761096447,
+            "y": 105.79124430182343
+          },
+          "rightShoulder": {
+            "x": 125.26642724328215,
+            "y": 103.70489630818139
+          },
+          "leftElbow": {
+            "x": 177.83252796605083,
+            "y": 112.88322486804222
+          },
+          "rightElbow": {
+            "x": 105.8617461162428,
+            "y": 104.11271892994242
+          },
+          "leftWrist": {
+            "x": 180.3271203214971,
+            "y": 119.14100362883877
+          },
+          "rightWrist": {
+            "x": 101.07584010616603,
+            "y": 92.43094147372841
+          },
+          "leftHip": {
+            "x": 153.83762820897311,
+            "y": 147.08254671005278
+          },
+          "rightHip": {
+            "x": 131.73296732545583,
+            "y": 147.7130480746161
+          },
+          "leftKnee": {
+            "x": 153.6276016674664,
+            "y": 172.7319326565499
+          },
+          "rightKnee": {
+            "x": 133.1900791746641,
+            "y": 171.7003565109165
+          },
+          "leftAnkle": {
+            "x": 156.13189404390593,
+            "y": 205.28056396952974
+          },
+          "rightAnkle": {
+            "x": 132.15512910868523,
+            "y": 203.59022987643954
+          }
+        },
+        "hip": {
+          "x": 142.78529776721447,
+          "y": 147.39779739233444
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.34568468742561553,
+          "referenceScale": 0.34829819924550215,
+          "appliedScale": 0.34568468742561553,
+          "desiredRotationDegrees": -11.328080330959828,
+          "appliedRotationDegrees": -8,
+          "hipControlError": 5.264461952001634
+        }
+      },
+      "uniformScale": 0.34568468742561553,
+      "translation": {
+        "x": 4.507591023568828,
+        "y": -95.18144986531996
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        254,
+        1009
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 8691,
+        "mainPixels": 73299
+      }
+    },
+    {
+      "frame": 50,
+      "poseId": "authored-50",
+      "authored": true,
+      "src": "poses/050.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 62,
+        "y": 67,
+        "width": 117,
+        "height": 172
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 92.11992851942549,
+        "y": 79.4799126348534
+      },
+      "ballRadius": 1.727447216890595,
+      "sourceRecord": {
+        "frame": 50,
+        "group": "base-a",
+        "source": "source/elite-03-wine-bluff-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          609,
+          521,
+          338,
+          495
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 521,
+        "referenceWorldHeight": 180,
+        "foot": [
+          834,
+          1015
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 822.71435546875,
+            "y": 583.60009765625,
+            "confidence": 0.8063181638717651
+          },
+          "leftEye": {
+            "x": 833.5908203125,
+            "y": 575.140625,
+            "confidence": 0.8341290354728699
+          },
+          "rightEye": {
+            "x": 813.04638671875,
+            "y": 570.306640625,
+            "confidence": 0.8175163269042969
+          },
+          "leftEar": {
+            "x": 838.4248046875,
+            "y": 583.60009765625,
+            "confidence": 0.7159448862075806
+          },
+          "rightEar": {
+            "x": 785.2509765625,
+            "y": 573.93212890625,
+            "confidence": 0.8054546117782593
+          },
+          "leftShoulder": {
+            "x": 842.05029296875,
+            "y": 633.1484375,
+            "confidence": 0.7250908613204956
+          },
+          "rightShoulder": {
+            "x": 741.7451171875,
+            "y": 624.68896484375,
+            "confidence": 0.6947313547134399
+          },
+          "leftElbow": {
+            "x": 926.64501953125,
+            "y": 657.318359375,
+            "confidence": 0.7435747981071472
+          },
+          "rightElbow": {
+            "x": 658.35888671875,
+            "y": 599.310546875,
+            "confidence": 0.7277458906173706
+          },
+          "leftWrist": {
+            "x": 910.9345703125,
+            "y": 679.0712890625,
+            "confidence": 0.7629379034042358
+          },
+          "rightWrist": {
+            "x": 675.27783203125,
+            "y": 557.01318359375,
+            "confidence": 0.7688111066818237
+          },
+          "leftHip": {
+            "x": 823.9228515625,
+            "y": 747.95556640625,
+            "confidence": 0.6407994031906128
+          },
+          "rightHip": {
+            "x": 764.70654296875,
+            "y": 763.666015625,
+            "confidence": 0.6457434892654419
+          },
+          "leftKnee": {
+            "x": 819.0888671875,
+            "y": 815.63134765625,
+            "confidence": 0.7161356806755066
+          },
+          "rightKnee": {
+            "x": 761.0810546875,
+            "y": 844.63525390625,
+            "confidence": 0.5917034149169922
+          },
+          "leftAnkle": {
+            "x": 831.173828125,
+            "y": 952.19140625,
+            "confidence": 0.770092248916626
+          },
+          "rightAnkle": {
+            "x": 780.4169921875,
+            "y": 884.515625,
+            "confidence": 0.668444037437439
+          }
+        },
+        "ball": {
+          "x": 695.4137931034483,
+          "y": 556.1724137931035,
+          "radius": 5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.345489443378119,
+        "b": 0,
+        "c": 0,
+        "d": 0.345489443378119,
+        "e": -148.13819577735126,
+        "f": -112.6717850287908
+      },
+      "control": null,
+      "uniformScale": 0.345489443378119,
+      "translation": {
+        "x": -148.13819577735126,
+        "y": -112.6717850287908
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        834,
+        1015
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 10046,
+        "mainPixels": 77006
+      }
+    },
+    {
+      "frame": 57,
+      "poseId": "authored-57",
+      "authored": true,
+      "src": "poses/057.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 54,
+        "y": 66,
+        "width": 115,
+        "height": 173
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 89.31306176653803,
+        "y": 75.15978304494678
+      },
+      "ballRadius": 4.145678267609899,
+      "sourceRecord": {
+        "frame": 57,
+        "group": "bridge-a",
+        "source": "traditional/source/elite-03-wine-bluff-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          628,
+          539,
+          317,
+          480
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 514,
+        "referenceWorldHeight": 179.0252744121881,
+        "foot": [
+          844,
+          1018
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 782.984375,
+            "y": 600.875,
+            "confidence": 0.8071277141571045
+          },
+          "leftEye": {
+            "x": 795.875,
+            "y": 587.984375,
+            "confidence": 0.843872606754303
+          },
+          "rightEye": {
+            "x": 775.953125,
+            "y": 587.984375,
+            "confidence": 0.9034411907196045
+          },
+          "leftEar": {
+            "x": 821.65625,
+            "y": 591.5,
+            "confidence": 0.8549543023109436
+          },
+          "rightEar": {
+            "x": 767.75,
+            "y": 593.84375,
+            "confidence": 0.7818241119384766
+          },
+          "leftShoulder": {
+            "x": 852.125,
+            "y": 653.609375,
+            "confidence": 0.6889472007751465
+          },
+          "rightShoulder": {
+            "x": 747.828125,
+            "y": 639.546875,
+            "confidence": 0.7155970931053162
+          },
+          "leftElbow": {
+            "x": 930.640625,
+            "y": 696.96875,
+            "confidence": 0.49137550592422485
+          },
+          "rightElbow": {
+            "x": 661.109375,
+            "y": 610.25,
+            "confidence": 0.7997394800186157
+          },
+          "leftWrist": {
+            "x": 911.890625,
+            "y": 698.140625,
+            "confidence": 0.5223652124404907
+          },
+          "rightWrist": {
+            "x": 704.46875,
+            "y": 565.71875,
+            "confidence": 0.7949747443199158
+          },
+          "leftHip": {
+            "x": 831.03125,
+            "y": 767.28125,
+            "confidence": 0.6642782688140869
+          },
+          "rightHip": {
+            "x": 763.0625,
+            "y": 775.484375,
+            "confidence": 0.6725825071334839
+          },
+          "leftKnee": {
+            "x": 822.828125,
+            "y": 821.1875,
+            "confidence": 0.6907942295074463
+          },
+          "rightKnee": {
+            "x": 753.6875,
+            "y": 865.71875,
+            "confidence": 0.7094923257827759
+          },
+          "leftAnkle": {
+            "x": 857.984375,
+            "y": 957.125,
+            "confidence": 0.801912248134613
+          },
+          "rightAnkle": {
+            "x": 752.515625,
+            "y": 880.953125,
+            "confidence": 0.7292535305023193
+          }
+        },
+        "ball": {
+          "x": 730.7465437788019,
+          "y": 559.926267281106,
+          "radius": 11.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.36005888255137436,
+        "b": -0.01770180289642495,
+        "c": 0.01770180289642495,
+        "d": 0.36005888255137436,
+        "e": -183.71042663467742,
+        "f": -113.5111117782343
+      },
+      "control": {
+        "frame": 57,
+        "joints": {
+          "nose": {
+            "x": 128.0969777171305,
+            "y": 89.79093315139156
+          },
+          "leftEye": {
+            "x": 132.27220414467368,
+            "y": 86.65951333073417
+          },
+          "rightEye": {
+            "x": 124.96555789647311,
+            "y": 84.78066143833973
+          },
+          "leftEar": {
+            "x": 134.56857867982245,
+            "y": 88.95588786588291
+          },
+          "rightEar": {
+            "x": 115.78005975587809,
+            "y": 85.40694540247121
+          },
+          "leftShoulder": {
+            "x": 135.1948626439539,
+            "y": 108.37069075395873
+          },
+          "rightShoulder": {
+            "x": 99.28791536708252,
+            "y": 102.94289639815258
+          },
+          "leftElbow": {
+            "x": 163.58640235124759,
+            "y": 119.22627946557101
+          },
+          "rightElbow": {
+            "x": 71.52265962392035,
+            "y": 93.1311142934261
+          },
+          "leftWrist": {
+            "x": 156.6972787458013,
+            "y": 128.20301628478887
+          },
+          "rightWrist": {
+            "x": 85.30090683481286,
+            "y": 77.68277651151631
+          },
+          "leftHip": {
+            "x": 127.47069375299901,
+            "y": 147.20029653011034
+          },
+          "rightHip": {
+            "x": 106.38580029390593,
+            "y": 153.0456135286708
+          },
+          "leftKnee": {
+            "x": 127.0531711102447,
+            "y": 169.74651923884355
+          },
+          "rightKnee": {
+            "x": 104.9244710442658,
+            "y": 180.81086927183298
+          },
+          "leftAnkle": {
+            "x": 141.45770228526868,
+            "y": 216.7178165487044
+          },
+          "rightAnkle": {
+            "x": 112.02235597108924,
+            "y": 193.5453098758397
+          }
+        },
+        "hip": {
+          "x": 116.92824702345247,
+          "y": 150.12295502939057
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.3604937624008608,
+          "referenceScale": 0.34829819924550215,
+          "appliedScale": 0.3604937624008608,
+          "desiredRotationDegrees": -2.8146024675572954,
+          "appliedRotationDegrees": -2.8146024675572954,
+          "hipControlError": 3.1776437161565096e-14
+        }
+      },
+      "uniformScale": 0.3604937624008608,
+      "translation": {
+        "x": -183.71042663467742,
+        "y": -113.5111117782343
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        849,
+        1018
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 8693,
+        "mainPixels": 73496
+      }
+    },
+    {
+      "frame": 64,
+      "poseId": "authored-64",
+      "authored": true,
+      "src": "poses/064.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 51,
+        "y": 67,
+        "width": 111,
+        "height": 171
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 92.98482154422237,
+        "y": 72.94082875075071
+      },
+      "ballRadius": 3.2821497120921306,
+      "sourceRecord": {
+        "frame": 64,
+        "group": "base-a",
+        "source": "source/elite-03-wine-bluff-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1092,
+          525,
+          320,
+          495
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 521,
+        "referenceWorldHeight": 180,
+        "foot": [
+          1349.5,
+          1019
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 1291.88037109375,
+            "y": 592.43408203125,
+            "confidence": 0.7183405160903931
+          },
+          "leftEye": {
+            "x": 1305.173828125,
+            "y": 582.76611328125,
+            "confidence": 0.7898436188697815
+          },
+          "rightEye": {
+            "x": 1283.4208984375,
+            "y": 576.7236328125,
+            "confidence": 0.758407473564148
+          },
+          "leftEar": {
+            "x": 1313.63330078125,
+            "y": 587.60009765625,
+            "confidence": 0.7083742618560791
+          },
+          "rightEar": {
+            "x": 1258.04248046875,
+            "y": 576.7236328125,
+            "confidence": 0.8080123066902161
+          },
+          "leftShoulder": {
+            "x": 1313.63330078125,
+            "y": 650.44189453125,
+            "confidence": 0.6938060522079468
+          },
+          "rightShoulder": {
+            "x": 1206.0771484375,
+            "y": 627.48046875,
+            "confidence": 0.6516827344894409
+          },
+          "leftElbow": {
+            "x": 1393.39404296875,
+            "y": 689.11376953125,
+            "confidence": 0.7428779006004333
+          },
+          "rightElbow": {
+            "x": 1128.7333984375,
+            "y": 596.0595703125,
+            "confidence": 0.7428264021873474
+          },
+          "leftWrist": {
+            "x": 1369.22412109375,
+            "y": 719.326171875,
+            "confidence": 0.781146764755249
+          },
+          "rightWrist": {
+            "x": 1191.5751953125,
+            "y": 548.92822265625,
+            "confidence": 0.710871696472168
+          },
+          "leftHip": {
+            "x": 1287.04638671875,
+            "y": 760.4150390625,
+            "confidence": 0.6112529039382935
+          },
+          "rightHip": {
+            "x": 1224.20458984375,
+            "y": 778.54248046875,
+            "confidence": 0.6334227323532104
+          },
+          "leftKnee": {
+            "x": 1289.46337890625,
+            "y": 823.2568359375,
+            "confidence": 0.713546633720398
+          },
+          "rightKnee": {
+            "x": 1219.37060546875,
+            "y": 858.30322265625,
+            "confidence": 0.6113158464431763
+          },
+          "leftAnkle": {
+            "x": 1360.7646484375,
+            "y": 958.6083984375,
+            "confidence": 0.771647572517395
+          },
+          "rightAnkle": {
+            "x": 1241.12353515625,
+            "y": 892.14111328125,
+            "confidence": 0.7308740615844727
+          }
+        },
+        "ball": {
+          "x": 1213.4171779141104,
+          "y": 541.2453987730062,
+          "radius": 9.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.345489443378119,
+        "b": 0,
+        "c": 0,
+        "d": 0.345489443378119,
+        "e": -326.2380038387716,
+        "f": -114.05374280230325
+      },
+      "control": null,
+      "uniformScale": 0.345489443378119,
+      "translation": {
+        "x": -326.2380038387716,
+        "y": -114.05374280230325
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        1349.5,
+        1019
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 8903,
+        "mainPixels": 80346
+      }
+    },
+    {
+      "frame": 68,
+      "poseId": "authored-68",
+      "authored": true,
+      "src": "poses/068.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 68,
+        "y": 64,
+        "width": 111,
+        "height": 175
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 99.5708902069511,
+        "y": 70.72617067011336
+      },
+      "ballRadius": 1.375987802136331,
+      "sourceRecord": {
+        "frame": 68,
+        "group": "bridge-a",
+        "source": "traditional/source/elite-03-wine-bluff-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1112,
+          531,
+          327,
+          491
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 514,
+        "referenceWorldHeight": 179.0252744121881,
+        "foot": [
+          1373,
+          1021
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 1289.884765625,
+            "y": 601.4853515625,
+            "confidence": 0.8046920299530029
+          },
+          "leftEye": {
+            "x": 1301.8720703125,
+            "y": 589.498046875,
+            "confidence": 0.8526759147644043
+          },
+          "rightEye": {
+            "x": 1280.294921875,
+            "y": 589.498046875,
+            "confidence": 0.8614410161972046
+          },
+          "leftEar": {
+            "x": 1324.64794921875,
+            "y": 588.29931640625,
+            "confidence": 0.8662878274917603
+          },
+          "rightEar": {
+            "x": 1268.3076171875,
+            "y": 588.29931640625,
+            "confidence": 0.7829815149307251
+          },
+          "leftShoulder": {
+            "x": 1357.013671875,
+            "y": 648.23583984375,
+            "confidence": 0.7304460406303406
+          },
+          "rightShoulder": {
+            "x": 1245.53173828125,
+            "y": 637.447265625,
+            "confidence": 0.7071692943572998
+          },
+          "leftElbow": {
+            "x": 1410.95654296875,
+            "y": 720.15966796875,
+            "confidence": 0.662325382232666
+          },
+          "rightElbow": {
+            "x": 1146.037109375,
+            "y": 611.0751953125,
+            "confidence": 0.8063808679580688
+          },
+          "leftWrist": {
+            "x": 1402.5654296875,
+            "y": 704.576171875,
+            "confidence": 0.5163643956184387
+          },
+          "rightWrist": {
+            "x": 1170.01171875,
+            "y": 558.3310546875,
+            "confidence": 0.814417839050293
+          },
+          "leftHip": {
+            "x": 1330.6416015625,
+            "y": 758.51904296875,
+            "confidence": 0.6645330786705017
+          },
+          "rightHip": {
+            "x": 1258.7177734375,
+            "y": 760.91650390625,
+            "confidence": 0.6230307221412659
+          },
+          "leftKnee": {
+            "x": 1319.85302734375,
+            "y": 822.0517578125,
+            "confidence": 0.7435782551765442
+          },
+          "rightKnee": {
+            "x": 1241.935546875,
+            "y": 829.244140625,
+            "confidence": 0.6019090414047241
+          },
+          "leftAnkle": {
+            "x": 1388.1806640625,
+            "y": 956.3095703125,
+            "confidence": 0.7581398487091064
+          },
+          "rightAnkle": {
+            "x": 1250.32666015625,
+            "y": 884.3857421875,
+            "confidence": 0.7426071166992188
+          }
+        },
+        "ball": {
+          "x": 1188.9411764705883,
+          "y": 555.8235294117648,
+          "radius": 4,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3406491958583756,
+        "b": 0.04787512232663453,
+        "c": -0.04787512232663453,
+        "d": 0.3406491958583756,
+        "e": -278.83084601805587,
+        "f": -175.5353719258707
+      },
+      "control": {
+        "frame": 68,
+        "joints": {
+          "nose": {
+            "x": 146.51720991965496,
+            "y": 81.4314189428895
+          },
+          "leftEye": {
+            "x": 150.81882463770128,
+            "y": 76.93161612064627
+          },
+          "rightEye": {
+            "x": 143.69585817904124,
+            "y": 77.15931116981591
+          },
+          "leftEar": {
+            "x": 158.56586235392479,
+            "y": 77.48831297765203
+          },
+          "rightEar": {
+            "x": 140.1574889328098,
+            "y": 79.31429878414518
+          },
+          "leftShoulder": {
+            "x": 169.64865579904674,
+            "y": 100.11814079250736
+          },
+          "rightShoulder": {
+            "x": 131.71015473219302,
+            "y": 96.24240922782758
+          },
+          "leftElbow": {
+            "x": 186.83839365000762,
+            "y": 117.19378596105344
+          },
+          "rightElbow": {
+            "x": 108.64165784022283,
+            "y": 84.92749532039991
+          },
+          "leftWrist": {
+            "x": 187.13346309973488,
+            "y": 120.98099669081503
+          },
+          "rightWrist": {
+            "x": 106.64305577702939,
+            "y": 67.493341399045
+          },
+          "leftHip": {
+            "x": 161.6611371099053,
+            "y": 145.10780850432738
+          },
+          "rightHip": {
+            "x": 136.56846630724507,
+            "y": 144.11686798334287
+          },
+          "leftKnee": {
+            "x": 165.63375002011549,
+            "y": 174.81830990912175
+          },
+          "rightKnee": {
+            "x": 140.01388930542225,
+            "y": 167.77156867729155
+          },
+          "leftAnkle": {
+            "x": 181.23355762436506,
+            "y": 200.87290460345372
+          },
+          "rightAnkle": {
+            "x": 129.28124410249697,
+            "y": 207.6875253729782
+          }
+        },
+        "hip": {
+          "x": 149.1148017085752,
+          "y": 144.61233824383513
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "pose-estimated support foot",
+          "desiredScale": 0.34399695053408275,
+          "referenceScale": 0.34829819924550215,
+          "appliedScale": 0.34399695053408275,
+          "desiredRotationDegrees": 22.260809763287522,
+          "appliedRotationDegrees": 8,
+          "hipControlError": 23.29422287576966
+        }
+      },
+      "uniformScale": 0.34399695053408275,
+      "translation": {
+        "x": -278.83084601805587,
+        "y": -175.5353719258707
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        1373,
+        1021
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 10463,
+        "mainPixels": 81723
+      }
+    },
+    {
+      "frame": 70,
+      "poseId": "authored-70",
+      "authored": true,
+      "src": "poses/070.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 109,
+        "y": 49,
+        "width": 107,
+        "height": 190
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 124.9235875270145,
+        "y": 55.25146650200679
+      },
+      "ballRadius": 3.1097560975609757,
+      "sourceRecord": {
+        "frame": 70,
+        "group": "base-b",
+        "source": "source/elite-03-wine-bluff-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          139,
+          7,
+          293,
+          517
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 492,
+        "referenceWorldHeight": 180,
+        "foot": [
+          377,
+          451
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 277.9267578125,
+            "y": 82.47998046875,
+            "confidence": 0.7938435077667236
+          },
+          "leftEye": {
+            "x": 289.28662109375,
+            "y": 68.595703125,
+            "confidence": 0.8525867462158203
+          },
+          "rightEye": {
+            "x": 270.353515625,
+            "y": 72.38232421875,
+            "confidence": 0.819514811038971
+          },
+          "leftEar": {
+            "x": 317.05517578125,
+            "y": 68.595703125,
+            "confidence": 0.8582732677459717
+          },
+          "rightEar": {
+            "x": 267.8291015625,
+            "y": 81.2177734375,
+            "confidence": 0.6661312580108643
+          },
+          "leftShoulder": {
+            "x": 362.49462890625,
+            "y": 131.7060546875,
+            "confidence": 0.7027828693389893
+          },
+          "rightShoulder": {
+            "x": 257.7314453125,
+            "y": 126.6572265625,
+            "confidence": 0.723139762878418
+          },
+          "leftElbow": {
+            "x": 395.31201171875,
+            "y": 183.45654296875,
+            "confidence": 0.4755287766456604
+          },
+          "rightElbow": {
+            "x": 199.669921875,
+            "y": 95.10205078125,
+            "confidence": 0.7745884656906128
+          },
+          "leftWrist": {
+            "x": 407.93408203125,
+            "y": 184.71875,
+            "confidence": 0.4443572759628296
+          },
+          "rightWrist": {
+            "x": 161.8037109375,
+            "y": 45.8759765625,
+            "confidence": 0.8875514268875122
+          },
+          "leftHip": {
+            "x": 342.29931640625,
+            "y": 264.23779296875,
+            "confidence": 0.7024692296981812
+          },
+          "rightHip": {
+            "x": 269.09130859375,
+            "y": 251.61572265625,
+            "confidence": 0.6631473302841187
+          },
+          "leftKnee": {
+            "x": 357.44580078125,
+            "y": 356.37890625,
+            "confidence": 0.8048808574676514
+          },
+          "rightKnee": {
+            "x": 285.5,
+            "y": 310.939453125,
+            "confidence": 0.7439699769020081
+          },
+          "leftAnkle": {
+            "x": 387.73876953125,
+            "y": 399.2939453125,
+            "confidence": 0.8359216451644897
+          },
+          "rightAnkle": {
+            "x": 231.22509765625,
+            "y": 458.61767578125,
+            "confidence": 0.8177991509437561
+          }
+        },
+        "ball": {
+          "x": 182.7911392405063,
+          "y": 23.4873417721519,
+          "radius": 8.5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.36585365853658536,
+        "b": 0,
+        "c": 0,
+        "d": 0.36585365853658536,
+        "e": 58.048780487804876,
+        "f": 46.65853658536585
+      },
+      "control": null,
+      "uniformScale": 0.36585365853658536,
+      "translation": {
+        "x": 58.048780487804876,
+        "y": 46.65853658536585
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        224,
+        523
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 7239,
+        "mainPixels": 78906
+      }
+    },
+    {
+      "frame": 73,
+      "poseId": "authored-73",
+      "authored": true,
+      "src": "poses/073.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 93,
+        "y": 58,
+        "width": 110,
+        "height": 181
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 102.8199451529749,
+        "y": 80.85953035915091
+      },
+      "ballRadius": 3.6445229342238648,
+      "sourceRecord": {
+        "frame": 73,
+        "group": "bridge-b",
+        "source": "traditional/source/elite-03-wine-bluff-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          146,
+          11,
+          316,
+          501
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 482,
+        "referenceWorldHeight": 174.57718882555673,
+        "foot": [
+          334,
+          511
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 321.1240234375,
+            "y": 84.14404296875,
+            "confidence": 0.8924102783203125
+          },
+          "leftEye": {
+            "x": 333.35546875,
+            "y": 71.91259765625,
+            "confidence": 0.9417909383773804
+          },
+          "rightEye": {
+            "x": 312.56201171875,
+            "y": 73.1357421875,
+            "confidence": 0.9345100522041321
+          },
+          "leftEar": {
+            "x": 362.7109375,
+            "y": 74.35888671875,
+            "confidence": 0.9227500557899475
+          },
+          "rightEar": {
+            "x": 304,
+            "y": 76.80517578125,
+            "confidence": 0.7864543199539185
+          },
+          "leftShoulder": {
+            "x": 396.958984375,
+            "y": 128.17724609375,
+            "confidence": 0.7530727386474609
+          },
+          "rightShoulder": {
+            "x": 294.21484375,
+            "y": 118.39208984375,
+            "confidence": 0.7279520630836487
+          },
+          "leftElbow": {
+            "x": 444.66162109375,
+            "y": 199.11962890625,
+            "confidence": 0.8112149238586426
+          },
+          "rightElbow": {
+            "x": 244.06591796875,
+            "y": 114.72265625,
+            "confidence": 0.8028645515441895
+          },
+          "leftWrist": {
+            "x": 420.19873046875,
+            "y": 183.21875,
+            "confidence": 0.8180251717567444
+          },
+          "rightWrist": {
+            "x": 192.69384765625,
+            "y": 106.16064453125,
+            "confidence": 0.8641723394393921
+          },
+          "leftHip": {
+            "x": 354.14892578125,
+            "y": 239.4833984375,
+            "confidence": 0.7138651013374329
+          },
+          "rightHip": {
+            "x": 279.537109375,
+            "y": 235.81396484375,
+            "confidence": 0.6778706312179565
+          },
+          "leftKnee": {
+            "x": 329.68603515625,
+            "y": 320.2109375,
+            "confidence": 0.7664706707000732
+          },
+          "rightKnee": {
+            "x": 281.9833984375,
+            "y": 321.43408203125,
+            "confidence": 0.6927739977836609
+          },
+          "leftAnkle": {
+            "x": 349.25634765625,
+            "y": 454.7568359375,
+            "confidence": 0.7897275686264038
+          },
+          "rightAnkle": {
+            "x": 291.7685546875,
+            "y": 350.78955078125,
+            "confidence": 0.7161427140235901
+          }
+        },
+        "ball": {
+          "x": 172.96946564885496,
+          "y": 97.22519083969465,
+          "radius": 10,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3609054687558228,
+        "b": 0.05072195582760119,
+        "c": -0.05072195582760119,
+        "d": 0.3609054687558228,
+        "e": 45.32577090763179,
+        "f": 36.997077688111574
+      },
+      "control": {
+        "frame": 73,
+        "joints": {
+          "nose": {
+            "x": 153.38563500381096,
+            "y": 80.91435427782012
+          },
+          "leftEye": {
+            "x": 158.35493878620423,
+            "y": 76.59529820884146
+          },
+          "rightEye": {
+            "x": 150.66584889481706,
+            "y": 76.39834818025915
+          },
+          "leftEar": {
+            "x": 168.10508169778961,
+            "y": 77.2625166730183
+          },
+          "rightEar": {
+            "x": 147.75759813262195,
+            "y": 78.0145888910061
+          },
+          "leftShoulder": {
+            "x": 179.75326910251525,
+            "y": 96.8137147484756
+          },
+          "rightShoulder": {
+            "x": 142.35196741615854,
+            "y": 92.99886861661585
+          },
+          "leftElbow": {
+            "x": 192.65103968178354,
+            "y": 111.84042135099085
+          },
+          "rightElbow": {
+            "x": 124.61396008003047,
+            "y": 82.33364495998475
+          },
+          "leftWrist": {
+            "x": 194.73754882812497,
+            "y": 115.4074052019817
+          },
+          "rightWrist": {
+            "x": 110.79262338033534,
+            "y": 65.32225371570122
+          },
+          "leftHip": {
+            "x": 167.16275843178352,
+            "y": 140.85147318025915
+          },
+          "rightHip": {
+            "x": 139.9818680926067,
+            "y": 138.09774556974085
+          },
+          "leftKnee": {
+            "x": 166.59736447217986,
+            "y": 171.4957364710366
+          },
+          "rightKnee": {
+            "x": 140.9818025914634,
+            "y": 164.7404844702744
+          },
+          "leftAnkle": {
+            "x": 173.4731981230945,
+            "y": 205.8123809070122
+          },
+          "rightAnkle": {
+            "x": 127.49496832126525,
+            "y": 201.31825814596039
+          }
+        },
+        "hip": {
+          "x": 153.5723132621951,
+          "y": 139.474609375
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.3644522934223865,
+          "referenceScale": 0.36219333781235835,
+          "appliedScale": 0.3644522934223865,
+          "desiredRotationDegrees": 11.448014500884398,
+          "appliedRotationDegrees": 8,
+          "hipControlError": 5.984269190040422
+        }
+      },
+      "uniformScale": 0.3644522934223865,
+      "translation": {
+        "x": 45.32577090763179,
+        "y": 36.997077688111574
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        334,
+        510
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 6220,
+        "mainPixels": 73163
+      }
+    },
+    {
+      "frame": 75,
+      "poseId": "authored-75",
+      "authored": true,
+      "src": "poses/075.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 79,
+        "y": 57,
+        "width": 110,
+        "height": 182
+      },
+      "ballMode": "painted",
+      "ballSocket": {
+        "x": 86.91386210133936,
+        "y": 87.46904494126858
+      },
+      "ballRadius": 6.213912404787944,
+      "sourceRecord": {
+        "frame": 75,
+        "group": "bridge-b",
+        "source": "traditional/source/elite-03-wine-bluff-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          641,
+          14,
+          302,
+          497
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 482,
+        "referenceWorldHeight": 174.57718882555673,
+        "foot": [
+          815,
+          510
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 804.1337890625,
+            "y": 88.98681640625,
+            "confidence": 0.9325301647186279
+          },
+          "leftEye": {
+            "x": 817.48095703125,
+            "y": 76.85302734375,
+            "confidence": 0.9953208565711975
+          },
+          "rightEye": {
+            "x": 794.4267578125,
+            "y": 76.85302734375,
+            "confidence": 0.9972612857818604
+          },
+          "leftEar": {
+            "x": 844.17529296875,
+            "y": 76.85302734375,
+            "confidence": 0.9403824210166931
+          },
+          "rightEar": {
+            "x": 782.29296875,
+            "y": 78.06640625,
+            "confidence": 0.8209561705589294
+          },
+          "leftShoulder": {
+            "x": 870.86962890625,
+            "y": 129.0283203125,
+            "confidence": 0.760323166847229
+          },
+          "rightShoulder": {
+            "x": 770.1591796875,
+            "y": 122.96142578125,
+            "confidence": 0.7179586887359619
+          },
+          "leftElbow": {
+            "x": 916.97802734375,
+            "y": 200.61767578125,
+            "confidence": 0.6390697360038757
+          },
+          "rightElbow": {
+            "x": 732.54443359375,
+            "y": 127.81494140625,
+            "confidence": 0.7808501720428467
+          },
+          "leftWrist": {
+            "x": 910.9111328125,
+            "y": 189.697265625,
+            "confidence": 0.6777937412261963
+          },
+          "rightWrist": {
+            "x": 690.076171875,
+            "y": 112.041015625,
+            "confidence": 0.8315383791923523
+          },
+          "leftHip": {
+            "x": 839.32177734375,
+            "y": 235.8056640625,
+            "confidence": 0.7017712593078613
+          },
+          "rightHip": {
+            "x": 765.3056640625,
+            "y": 237.01904296875,
+            "confidence": 0.6699508428573608
+          },
+          "leftKnee": {
+            "x": 818.6943359375,
+            "y": 306.181640625,
+            "confidence": 0.7573312520980835
+          },
+          "rightKnee": {
+            "x": 761.66552734375,
+            "y": 317.10205078125,
+            "confidence": 0.6801732182502747
+          },
+          "leftAnkle": {
+            "x": 836.89501953125,
+            "y": 450.57373046875,
+            "confidence": 0.7966138124465942
+          },
+          "rightAnkle": {
+            "x": 764.09228515625,
+            "y": 343.79638671875,
+            "confidence": 0.7496453523635864
+          }
+        },
+        "ball": {
+          "x": 662,
+          "y": 101,
+          "radius": 17,
+          "detector": "manual visual hand-isolation axis, not video biomechanics"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.36545880600721703,
+        "b": 0.006917015697906158,
+        "c": -0.006917015697906158,
+        "d": 0.36545880600721703,
+        "e": -154.32124888994977,
+        "f": 45.97864114252579
+      },
+      "control": {
+        "frame": 75,
+        "joints": {
+          "nose": {
+            "x": 147.04196836890242,
+            "y": 84.9945693597561
+          },
+          "leftEye": {
+            "x": 152.82452839176824,
+            "y": 81.43607088414635
+          },
+          "rightEye": {
+            "x": 144.3730945121951,
+            "y": 79.65682164634147
+          },
+          "leftEar": {
+            "x": 162.1655868902439,
+            "y": 82.7705078125
+          },
+          "rightEar": {
+            "x": 139.4801591082317,
+            "y": 79.65682164634147
+          },
+          "leftShoulder": {
+            "x": 168.8377715320122,
+            "y": 98.7837509527439
+          },
+          "rightShoulder": {
+            "x": 132.3631621570122,
+            "y": 93.00119092987805
+          },
+          "leftElbow": {
+            "x": 182.626953125,
+            "y": 109.9040586890244
+          },
+          "rightElbow": {
+            "x": 118.12916825457313,
+            "y": 83.21532012195122
+          },
+          "leftWrist": {
+            "x": 182.18214081554873,
+            "y": 116.57624333079269
+          },
+          "rightWrist": {
+            "x": 104.33998666158533,
+            "y": 67.20207698170732
+          },
+          "leftHip": {
+            "x": 151.0452791539634,
+            "y": 138.37204649390245
+          },
+          "rightHip": {
+            "x": 123.4669159679878,
+            "y": 137.482421875
+          },
+          "leftKnee": {
+            "x": 144.3730945121951,
+            "y": 165.95040967987805
+          },
+          "rightKnee": {
+            "x": 119.46360518292681,
+            "y": 169.0640958460366
+          },
+          "leftAnkle": {
+            "x": 147.04196836890242,
+            "y": 218.88307450457316
+          },
+          "rightAnkle": {
+            "x": 112.34660823170731,
+            "y": 188.19102515243904
+          }
+        },
+        "hip": {
+          "x": 137.2560975609756,
+          "y": 137.9272341844512
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.36552425910517317,
+          "referenceScale": 0.36219333781235835,
+          "appliedScale": 0.36552425910517317,
+          "desiredRotationDegrees": 1.084304129608028,
+          "appliedRotationDegrees": 1.084304129608028,
+          "hipControlError": 2.842170943040401e-14
+        }
+      },
+      "uniformScale": 0.36552425910517317,
+      "translation": {
+        "x": -154.32124888994977,
+        "y": 45.97864114252579
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        815,
+        510
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 5444,
+        "mainPixels": 71834
+      }
+    },
+    {
+      "frame": 76,
+      "poseId": "derived-empty-76",
+      "authored": false,
+      "src": "poses/076-matched-empty.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 79,
+        "y": 57,
+        "width": 110,
+        "height": 182
+      },
+      "ballMode": "empty",
+      "ballSocket": {
+        "x": 86.91386210133936,
+        "y": 87.46904494126858
+      },
+      "ballRadius": 6.213912404787944,
+      "sourceRecord": {
+        "frame": 75,
+        "group": "bridge-b",
+        "source": "traditional/source/elite-03-wine-bluff-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          641,
+          14,
+          302,
+          497
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 482,
+        "referenceWorldHeight": 174.57718882555673,
+        "foot": [
+          815,
+          510
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 804.1337890625,
+            "y": 88.98681640625,
+            "confidence": 0.9325301647186279
+          },
+          "leftEye": {
+            "x": 817.48095703125,
+            "y": 76.85302734375,
+            "confidence": 0.9953208565711975
+          },
+          "rightEye": {
+            "x": 794.4267578125,
+            "y": 76.85302734375,
+            "confidence": 0.9972612857818604
+          },
+          "leftEar": {
+            "x": 844.17529296875,
+            "y": 76.85302734375,
+            "confidence": 0.9403824210166931
+          },
+          "rightEar": {
+            "x": 782.29296875,
+            "y": 78.06640625,
+            "confidence": 0.8209561705589294
+          },
+          "leftShoulder": {
+            "x": 870.86962890625,
+            "y": 129.0283203125,
+            "confidence": 0.760323166847229
+          },
+          "rightShoulder": {
+            "x": 770.1591796875,
+            "y": 122.96142578125,
+            "confidence": 0.7179586887359619
+          },
+          "leftElbow": {
+            "x": 916.97802734375,
+            "y": 200.61767578125,
+            "confidence": 0.6390697360038757
+          },
+          "rightElbow": {
+            "x": 732.54443359375,
+            "y": 127.81494140625,
+            "confidence": 0.7808501720428467
+          },
+          "leftWrist": {
+            "x": 910.9111328125,
+            "y": 189.697265625,
+            "confidence": 0.6777937412261963
+          },
+          "rightWrist": {
+            "x": 690.076171875,
+            "y": 112.041015625,
+            "confidence": 0.8315383791923523
+          },
+          "leftHip": {
+            "x": 839.32177734375,
+            "y": 235.8056640625,
+            "confidence": 0.7017712593078613
+          },
+          "rightHip": {
+            "x": 765.3056640625,
+            "y": 237.01904296875,
+            "confidence": 0.6699508428573608
+          },
+          "leftKnee": {
+            "x": 818.6943359375,
+            "y": 306.181640625,
+            "confidence": 0.7573312520980835
+          },
+          "rightKnee": {
+            "x": 761.66552734375,
+            "y": 317.10205078125,
+            "confidence": 0.6801732182502747
+          },
+          "leftAnkle": {
+            "x": 836.89501953125,
+            "y": 450.57373046875,
+            "confidence": 0.7966138124465942
+          },
+          "rightAnkle": {
+            "x": 764.09228515625,
+            "y": 343.79638671875,
+            "confidence": 0.7496453523635864
+          }
+        },
+        "ball": {
+          "x": 662,
+          "y": 101,
+          "radius": 17,
+          "detector": "manual visual hand-isolation axis, not video biomechanics"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.36545880600721703,
+        "b": 0.006917015697906158,
+        "c": -0.006917015697906158,
+        "d": 0.36545880600721703,
+        "e": -154.32124888994977,
+        "f": 45.97864114252579
+      },
+      "control": {
+        "frame": 75,
+        "joints": {
+          "nose": {
+            "x": 147.04196836890242,
+            "y": 84.9945693597561
+          },
+          "leftEye": {
+            "x": 152.82452839176824,
+            "y": 81.43607088414635
+          },
+          "rightEye": {
+            "x": 144.3730945121951,
+            "y": 79.65682164634147
+          },
+          "leftEar": {
+            "x": 162.1655868902439,
+            "y": 82.7705078125
+          },
+          "rightEar": {
+            "x": 139.4801591082317,
+            "y": 79.65682164634147
+          },
+          "leftShoulder": {
+            "x": 168.8377715320122,
+            "y": 98.7837509527439
+          },
+          "rightShoulder": {
+            "x": 132.3631621570122,
+            "y": 93.00119092987805
+          },
+          "leftElbow": {
+            "x": 182.626953125,
+            "y": 109.9040586890244
+          },
+          "rightElbow": {
+            "x": 118.12916825457313,
+            "y": 83.21532012195122
+          },
+          "leftWrist": {
+            "x": 182.18214081554873,
+            "y": 116.57624333079269
+          },
+          "rightWrist": {
+            "x": 104.33998666158533,
+            "y": 67.20207698170732
+          },
+          "leftHip": {
+            "x": 151.0452791539634,
+            "y": 138.37204649390245
+          },
+          "rightHip": {
+            "x": 123.4669159679878,
+            "y": 137.482421875
+          },
+          "leftKnee": {
+            "x": 144.3730945121951,
+            "y": 165.95040967987805
+          },
+          "rightKnee": {
+            "x": 119.46360518292681,
+            "y": 169.0640958460366
+          },
+          "leftAnkle": {
+            "x": 147.04196836890242,
+            "y": 218.88307450457316
+          },
+          "rightAnkle": {
+            "x": 112.34660823170731,
+            "y": 188.19102515243904
+          }
+        },
+        "hip": {
+          "x": 137.2560975609756,
+          "y": 137.9272341844512
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.36552425910517317,
+          "referenceScale": 0.36219333781235835,
+          "appliedScale": 0.36552425910517317,
+          "desiredRotationDegrees": 1.084304129608028,
+          "appliedRotationDegrees": 1.084304129608028,
+          "hipControlError": 2.842170943040401e-14
+        }
+      },
+      "uniformScale": 0.36552425910517317,
+      "translation": {
+        "x": -154.32124888994977,
+        "y": 45.97864114252579
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        815,
+        510
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 5444,
+        "mainPixels": 71834
+      },
+      "drawingId": "elite-03-wine-bluff-matched-empty-76",
+      "derived": true,
+      "sourcePoseId": "authored-75",
+      "handoff": {
+        "heldFrame": 75,
+        "heldPoseId": "authored-75",
+        "registeredWrist": {
+          "x": 96.99453432418753,
+          "y": 95.70281511296872
+        },
+        "registeredElbow": {
+          "x": 111.86075610361897,
+          "y": 102.19921245870557
+        },
+        "ballSocket": {
+          "x": 86.91386210133936,
+          "y": 87.46904494126858
+        },
+        "ballRadius": 6.213912404787944,
+        "ballMaskRadius": 10,
+        "handLocalDistalHalfPlane": true,
+        "handLocalRadiusPx": 25.01594882076914,
+        "removedHandPixels": 415,
+        "residualWhiteCleanup": {
+          "roiRadiusPx": 23.229861225557084,
+          "removedComponents": [
+            {
+              "area": 1,
+              "center": {
+                "x": 92.5,
+                "y": 85.5
+              },
+              "kind": "low-opacity neutral-white residue"
+            },
+            {
+              "area": 1,
+              "center": {
+                "x": 89.5,
+                "y": 94.5
+              },
+              "kind": "low-opacity neutral-white residue"
+            }
+          ]
+        },
+        "guardRadius": 34,
+        "comparison": "final derived RGBA vs preserved original held RGBA",
+        "bodyOutsideHandDifferingChannels": 0,
+        "emptyHandSource": "source/elite-03-wine-bluff-b.png",
+        "emptyHandManualOverride": false,
+        "socketError": 0
+      }
+    },
+    {
+      "frame": 80,
+      "poseId": "authored-80",
+      "authored": true,
+      "src": "poses/080.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 78,
+        "y": 63,
+        "width": 114,
+        "height": 175
+      },
+      "ballMode": "empty",
+      "ballSocket": {
+        "x": 145.2612383164173,
+        "y": 138.77029619442607
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 80,
+        "group": "bridge-b",
+        "source": "traditional/source/elite-03-wine-bluff-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1131,
+          27,
+          316,
+          484
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 482,
+        "referenceWorldHeight": 174.57718882555673,
+        "foot": [
+          1308.5,
+          510
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 1312.6328125,
+            "y": 108.296875,
+            "confidence": 0.9066652655601501
+          },
+          "leftEye": {
+            "x": 1325.630859375,
+            "y": 92.935546875,
+            "confidence": 0.9920065402984619
+          },
+          "rightEye": {
+            "x": 1301.998046875,
+            "y": 96.48046875,
+            "confidence": 0.9398177862167358
+          },
+          "leftEar": {
+            "x": 1352.80859375,
+            "y": 90.572265625,
+            "confidence": 0.9228882789611816
+          },
+          "rightEar": {
+            "x": 1290.181640625,
+            "y": 96.48046875,
+            "confidence": 0.7649755477905273
+          },
+          "leftShoulder": {
+            "x": 1381.16796875,
+            "y": 126.021484375,
+            "confidence": 0.7776565551757812
+          },
+          "rightShoulder": {
+            "x": 1278.365234375,
+            "y": 135.474609375,
+            "confidence": 0.7717411518096924
+          },
+          "leftElbow": {
+            "x": 1418.98046875,
+            "y": 162.65234375,
+            "confidence": 0.6408475637435913
+          },
+          "rightElbow": {
+            "x": 1292.544921875,
+            "y": 191.01171875,
+            "confidence": 0.80838543176651
+          },
+          "leftWrist": {
+            "x": 1418.98046875,
+            "y": 180.376953125,
+            "confidence": 0.6325229406356812
+          },
+          "rightWrist": {
+            "x": 1317.359375,
+            "y": 235.9140625,
+            "confidence": 0.8254119157791138
+          },
+          "leftHip": {
+            "x": 1326.8125,
+            "y": 234.732421875,
+            "confidence": 0.6051971912384033
+          },
+          "rightHip": {
+            "x": 1246.4609375,
+            "y": 232.369140625,
+            "confidence": 0.6424010992050171
+          },
+          "leftKnee": {
+            "x": 1306.724609375,
+            "y": 298.541015625,
+            "confidence": 0.622678279876709
+          },
+          "rightKnee": {
+            "x": 1248.82421875,
+            "y": 297.359375,
+            "confidence": 0.6295633316040039
+          },
+          "leftAnkle": {
+            "x": 1327.994140625,
+            "y": 450.97265625,
+            "confidence": 0.7814551591873169
+          },
+          "rightAnkle": {
+            "x": 1248.82421875,
+            "y": 330.4453125,
+            "confidence": 0.7044483423233032
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3621678147563222,
+        "b": 0.0028643223657300893,
+        "c": -0.0028643223657300893,
+        "d": 0.3621678147563222,
+        "e": -331.16819385047813,
+        "f": 49.55647378699791
+      },
+      "control": {
+        "frame": 80,
+        "joints": {
+          "nose": {
+            "x": 142.8226824504573,
+            "y": 85.50914038681402
+          },
+          "leftEye": {
+            "x": 147.942489996189,
+            "y": 81.0556581078506
+          },
+          "rightEye": {
+            "x": 139.48257074123475,
+            "y": 80.61173899580794
+          },
+          "leftEar": {
+            "x": 157.51577982088415,
+            "y": 81.0543183117378
+          },
+          "rightEar": {
+            "x": 135.03042825838415,
+            "y": 80.16603348894817
+          },
+          "leftShoulder": {
+            "x": 166.42319097751525,
+            "y": 96.6379334984756
+          },
+          "rightShoulder": {
+            "x": 129.68910775533536,
+            "y": 96.42088652820122
+          },
+          "leftElbow": {
+            "x": 180.67192263719514,
+            "y": 111.33505025724085
+          },
+          "rightElbow": {
+            "x": 128.81198790015242,
+            "y": 104.6762635766006
+          },
+          "leftWrist": {
+            "x": 177.3295779344512,
+            "y": 117.56822837271342
+          },
+          "rightWrist": {
+            "x": 130.83150724085363,
+            "y": 108.92654344512195
+          },
+          "leftHip": {
+            "x": 147.49857088414635,
+            "y": 137.8259455983232
+          },
+          "rightHip": {
+            "x": 120.7839295922256,
+            "y": 137.8268387957317
+          },
+          "leftKnee": {
+            "x": 143.0482147961128,
+            "y": 165.8777034108232
+          },
+          "rightKnee": {
+            "x": 115.66233565167681,
+            "y": 171.22304330221039
+          },
+          "leftAnkle": {
+            "x": 147.50259027248475,
+            "y": 218.8635134813262
+          },
+          "rightAnkle": {
+            "x": 106.30966558689025,
+            "y": 184.35215201028964
+          }
+        },
+        "hip": {
+          "x": 134.141250238186,
+          "y": 137.82639219702745
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.36217914129334466,
+          "referenceScale": 0.36219333781235835,
+          "appliedScale": 0.36217914129334466,
+          "desiredRotationDegrees": 0.4531329246287357,
+          "appliedRotationDegrees": 0.4531329246287357,
+          "hipControlError": 0
+        }
+      },
+      "uniformScale": 0.36217914129334466,
+      "translation": {
+        "x": -331.16819385047813,
+        "y": 49.55647378699791
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        1305,
+        510
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 8181,
+        "mainPixels": 71356
+      }
+    },
+    {
+      "frame": 84,
+      "poseId": "authored-84",
+      "authored": true,
+      "src": "poses/084.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 81,
+        "y": 56,
+        "width": 106,
+        "height": 186
+      },
+      "ballMode": "empty",
+      "ballSocket": {
+        "x": 157.32302782012192,
+        "y": 150.6510099085366
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 84,
+        "group": "base-b",
+        "source": "source/elite-03-wine-bluff-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1144,
+          18,
+          288,
+          499
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 492,
+        "referenceWorldHeight": 180,
+        "foot": [
+          1304,
+          516
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 1300.1826171875,
+            "y": 100.59814453125,
+            "confidence": 0.9010508060455322
+          },
+          "leftEye": {
+            "x": 1312.365234375,
+            "y": 85.97900390625,
+            "confidence": 0.9767999649047852
+          },
+          "rightEye": {
+            "x": 1289.21826171875,
+            "y": 88.41552734375,
+            "confidence": 0.9642484188079834
+          },
+          "leftEar": {
+            "x": 1339.1669921875,
+            "y": 82.32421875,
+            "confidence": 0.9386882781982422
+          },
+          "rightEar": {
+            "x": 1278.25390625,
+            "y": 85.97900390625,
+            "confidence": 0.8143143653869629
+          },
+          "leftShoulder": {
+            "x": 1369.62353515625,
+            "y": 123.7451171875,
+            "confidence": 0.776199221611023
+          },
+          "rightShoulder": {
+            "x": 1268.5078125,
+            "y": 138.3642578125,
+            "confidence": 0.7625301480293274
+          },
+          "leftElbow": {
+            "x": 1409.826171875,
+            "y": 173.69384765625,
+            "confidence": 0.6624252796173096
+          },
+          "rightElbow": {
+            "x": 1302.619140625,
+            "y": 210.24169921875,
+            "confidence": 0.7518892288208008
+          },
+          "leftWrist": {
+            "x": 1392.7705078125,
+            "y": 189.53125,
+            "confidence": 0.5889972448348999
+          },
+          "rightWrist": {
+            "x": 1351.349609375,
+            "y": 277.24609375,
+            "confidence": 0.7958093881607056
+          },
+          "leftHip": {
+            "x": 1314.8017578125,
+            "y": 240.6982421875,
+            "confidence": 0.6818884611129761
+          },
+          "rightHip": {
+            "x": 1244.142578125,
+            "y": 243.134765625,
+            "confidence": 0.6909185647964478
+          },
+          "leftKnee": {
+            "x": 1308.71044921875,
+            "y": 318.6669921875,
+            "confidence": 0.6887922286987305
+          },
+          "rightKnee": {
+            "x": 1227.0869140625,
+            "y": 339.37744140625,
+            "confidence": 0.7875949144363403
+          },
+          "leftAnkle": {
+            "x": 1325.76611328125,
+            "y": 463.64013671875,
+            "confidence": 0.7971175909042358
+          },
+          "rightAnkle": {
+            "x": 1195.412109375,
+            "y": 358.86962890625,
+            "confidence": 0.8246705532073975
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.36585365853658536,
+        "b": 0,
+        "c": 0,
+        "d": 0.36585365853658536,
+        "e": -337.0731707317073,
+        "f": 49.21951219512195
+      },
+      "control": null,
+      "uniformScale": 0.36585365853658536,
+      "translation": {
+        "x": -337.0731707317073,
+        "y": 49.21951219512195
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        1304,
+        516
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 8075,
+        "mainPixels": 72853
+      }
+    },
+    {
+      "frame": 90,
+      "poseId": "authored-90",
+      "authored": true,
+      "src": "poses/090.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 71,
+        "y": 77,
+        "width": 130,
+        "height": 162
+      },
+      "ballMode": "empty",
+      "ballSocket": {
+        "x": 172.26087313502666,
+        "y": 166.404691426694
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 90,
+        "group": "bridge-b",
+        "source": "traditional/source/elite-03-wine-bluff-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          117,
+          525,
+          385,
+          479
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 482,
+        "referenceWorldHeight": 174.57718882555673,
+        "foot": [
+          357,
+          1003
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 412.26692708333326,
+            "y": 594.0572916666667,
+            "confidence": 0.80527663230896
+          },
+          "leftEye": {
+            "x": 418.533203125,
+            "y": 581.5247395833333,
+            "confidence": 0.8374748229980469
+          },
+          "rightEye": {
+            "x": 395.974609375,
+            "y": 581.5247395833333,
+            "confidence": 0.8421440124511719
+          },
+          "leftEar": {
+            "x": 433.572265625,
+            "y": 582.7779947916667,
+            "confidence": 0.78142911195755
+          },
+          "rightEar": {
+            "x": 377.17578125,
+            "y": 587.791015625,
+            "confidence": 0.8198015689849854
+          },
+          "leftShoulder": {
+            "x": 451.11783854166674,
+            "y": 612.8561197916667,
+            "confidence": 0.7347056865692139
+          },
+          "rightShoulder": {
+            "x": 367.14973958333326,
+            "y": 646.6940104166667,
+            "confidence": 0.7410487532615662
+          },
+          "leftElbow": {
+            "x": 454.87760416666674,
+            "y": 671.7591145833333,
+            "confidence": 0.5507568120956421
+          },
+          "rightElbow": {
+            "x": 392.21484375,
+            "y": 719.3828125,
+            "confidence": 0.7368417978286743
+          },
+          "leftWrist": {
+            "x": 419.78645833333326,
+            "y": 634.1614583333333,
+            "confidence": 0.50982666015625
+          },
+          "rightWrist": {
+            "x": 429.8125,
+            "y": 784.5520833333333,
+            "confidence": 0.7727302312850952
+          },
+          "leftHip": {
+            "x": 332.05859375,
+            "y": 711.86328125,
+            "confidence": 0.5470833778381348
+          },
+          "rightHip": {
+            "x": 274.40885416666663,
+            "y": 686.7981770833333,
+            "confidence": 0.5830727815628052
+          },
+          "leftKnee": {
+            "x": 332.05859375,
+            "y": 788.3118489583333,
+            "confidence": 0.5451635718345642
+          },
+          "rightKnee": {
+            "x": 202.97330729166663,
+            "y": 708.103515625,
+            "confidence": 0.7347694635391235
+          },
+          "leftAnkle": {
+            "x": 372.16276041666674,
+            "y": 936.1959635416667,
+            "confidence": 0.7327569723129272
+          },
+          "rightAnkle": {
+            "x": 161.61588541666669,
+            "y": 612.8561197916667,
+            "confidence": 0.7879012823104858
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.3407275474066786,
+        "b": 0.034268659381550846,
+        "c": -0.034268659381550846,
+        "d": 0.3407275474066786,
+        "e": 52.69746227612969,
+        "f": -115.6429139007056
+      },
+      "control": {
+        "frame": 90,
+        "joints": {
+          "nose": {
+            "x": 151.89077982088415,
+            "y": 88.04653558498475
+          },
+          "leftEye": {
+            "x": 156.24511718750003,
+            "y": 83.24649271150915
+          },
+          "rightEye": {
+            "x": 147.9718761909299,
+            "y": 83.6921982183689
+          },
+          "leftEar": {
+            "x": 164.97433546112805,
+            "y": 83.42825838414633
+          },
+          "rightEar": {
+            "x": 143.4152296112805,
+            "y": 83.88423566120426
+          },
+          "leftShoulder": {
+            "x": 172.8840451124238,
+            "y": 99.93365329649389
+          },
+          "rightShoulder": {
+            "x": 138.23111185213415,
+            "y": 101.5449814214939
+          },
+          "leftElbow": {
+            "x": 176.62430926067074,
+            "y": 117.36127453315548
+          },
+          "rightElbow": {
+            "x": 147.87228467987805,
+            "y": 129.99912466653961
+          },
+          "leftWrist": {
+            "x": 170.95339891387198,
+            "y": 109.62931116615853
+          },
+          "rightWrist": {
+            "x": 162.52608136432926,
+            "y": 156.711532964939
+          },
+          "leftHip": {
+            "x": 143.93596370045734,
+            "y": 135.14528153582316
+          },
+          "rightHip": {
+            "x": 120.16887385670731,
+            "y": 130.91420541158536
+          },
+          "leftKnee": {
+            "x": 140.05814715129574,
+            "y": 163.43820264862805
+          },
+          "rightKnee": {
+            "x": 105.1444002477134,
+            "y": 154.68442144626522
+          },
+          "leftAnkle": {
+            "x": 147.21712438071648,
+            "y": 218.0183700933689
+          },
+          "rightAnkle": {
+            "x": 94.24828506097562,
+            "y": 141.6687488090701
+          }
+        },
+        "hip": {
+          "x": 132.0524187785823,
+          "y": 133.02974347370426
+        },
+        "foot": {
+          "x": 140,
+          "y": 238
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.34244649593415194,
+          "referenceScale": 0.36219333781235835,
+          "appliedScale": 0.34244649593415194,
+          "desiredRotationDegrees": 5.7432078809462785,
+          "appliedRotationDegrees": 5.7432078809462785,
+          "hipControlError": 0
+        }
+      },
+      "uniformScale": 0.34244649593415194,
+      "translation": {
+        "x": 52.69746227612969,
+        "y": -115.6429139007056
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        357,
+        1002
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 7440,
+        "mainPixels": 72835
+      }
+    },
+    {
+      "frame": 96,
+      "poseId": "authored-96",
+      "authored": true,
+      "src": "poses/096.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 72,
+        "y": 64,
+        "width": 122,
+        "height": 174
+      },
+      "ballMode": "empty",
+      "ballSocket": {
+        "x": 167.7291349085366,
+        "y": 162.77205602134143
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 96,
+        "group": "base-b",
+        "source": "source/elite-03-wine-bluff-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          126,
+          537,
+          332,
+          476
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 492,
+        "referenceWorldHeight": 180,
+        "foot": [
+          311.5,
+          1012
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 380.3203125,
+            "y": 607.65625,
+            "confidence": 0.8495555520057678
+          },
+          "leftEye": {
+            "x": 391.94140625,
+            "y": 596.03515625,
+            "confidence": 0.8876957297325134
+          },
+          "rightEye": {
+            "x": 369.861328125,
+            "y": 596.03515625,
+            "confidence": 0.9074815511703491
+          },
+          "leftEar": {
+            "x": 412.859375,
+            "y": 600.68359375,
+            "confidence": 0.8344653248786926
+          },
+          "rightEar": {
+            "x": 355.916015625,
+            "y": 599.521484375,
+            "confidence": 0.8213804960250854
+          },
+          "leftShoulder": {
+            "x": 425.642578125,
+            "y": 649.4921875,
+            "confidence": 0.6799349784851074
+          },
+          "rightShoulder": {
+            "x": 337.322265625,
+            "y": 643.681640625,
+            "confidence": 0.7589240074157715
+          },
+          "leftElbow": {
+            "x": 405.88671875,
+            "y": 694.814453125,
+            "confidence": 0.5311328768730164
+          },
+          "rightElbow": {
+            "x": 355.916015625,
+            "y": 727.353515625,
+            "confidence": 0.7503740787506104
+          },
+          "leftWrist": {
+            "x": 391.94140625,
+            "y": 636.708984375,
+            "confidence": 0.6050243973731995
+          },
+          "rightWrist": {
+            "x": 387.29296875,
+            "y": 806.376953125,
+            "confidence": 0.8135137557983398
+          },
+          "leftHip": {
+            "x": 322.21484375,
+            "y": 725.029296875,
+            "confidence": 0.5877330303192139
+          },
+          "rightHip": {
+            "x": 262.947265625,
+            "y": 699.462890625,
+            "confidence": 0.6293919086456299
+          },
+          "leftKnee": {
+            "x": 307.107421875,
+            "y": 801.728515625,
+            "confidence": 0.5792961120605469
+          },
+          "rightKnee": {
+            "x": 197.869140625,
+            "y": 733.1640625,
+            "confidence": 0.7768023610115051
+          },
+          "leftAnkle": {
+            "x": 329.1875,
+            "y": 955.126953125,
+            "confidence": 0.7580104470252991
+          },
+          "rightAnkle": {
+            "x": 169.978515625,
+            "y": 642.51953125,
+            "confidence": 0.7822463512420654
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.36585365853658536,
+        "b": 0,
+        "c": 0,
+        "d": 0.36585365853658536,
+        "e": 26.036585365853668,
+        "f": -132.2439024390244
+      },
+      "control": null,
+      "uniformScale": 0.36585365853658536,
+      "translation": {
+        "x": 26.036585365853668,
+        "y": -132.2439024390244
+      },
+      "plantedFoot": {
+        "x": 140,
+        "y": 238
+      },
+      "registeredSourceFoot": [
+        311.5,
+        1012
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 8027,
+        "mainPixels": 64562
+      }
+    },
+    {
+      "frame": 103,
+      "poseId": "authored-103",
+      "authored": true,
+      "src": "poses/103.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 85,
+        "y": 61,
+        "width": 99,
+        "height": 175
+      },
+      "ballMode": "empty",
+      "ballSocket": {
+        "x": 140.6827679259855,
+        "y": 142.42613242801667
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 103,
+        "group": "bridge-b",
+        "source": "traditional/source/elite-03-wine-bluff-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          687,
+          530,
+          273,
+          473
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 482,
+        "referenceWorldHeight": 174.57718882555673,
+        "foot": [
+          869,
+          1002
+        ],
+        "supportSide": "left",
+        "joints": {
+          "nose": {
+            "x": 847.75048828125,
+            "y": 599.05615234375,
+            "confidence": 0.8372554779052734
+          },
+          "leftEye": {
+            "x": 862.7626953125,
+            "y": 589.81787109375,
+            "confidence": 0.9269911050796509
+          },
+          "rightEye": {
+            "x": 841.9765625,
+            "y": 588.6630859375,
+            "confidence": 0.8768384456634521
+          },
+          "leftEar": {
+            "x": 887.01318359375,
+            "y": 593.2822265625,
+            "confidence": 0.9092532992362976
+          },
+          "rightEar": {
+            "x": 833.89306640625,
+            "y": 587.50830078125,
+            "confidence": 0.7607506513595581
+          },
+          "leftShoulder": {
+            "x": 910.10888671875,
+            "y": 624.46142578125,
+            "confidence": 0.7576662302017212
+          },
+          "rightShoulder": {
+            "x": 815.41650390625,
+            "y": 630.2353515625,
+            "confidence": 0.7490963935852051
+          },
+          "leftElbow": {
+            "x": 935.51416015625,
+            "y": 682.20068359375,
+            "confidence": 0.5798007845878601
+          },
+          "rightElbow": {
+            "x": 825.8095703125,
+            "y": 696.05810546875,
+            "confidence": 0.7653798460960388
+          },
+          "leftWrist": {
+            "x": 938.978515625,
+            "y": 691.43896484375,
+            "confidence": 0.5225750803947449
+          },
+          "rightWrist": {
+            "x": 852.36962890625,
+            "y": 752.642578125,
+            "confidence": 0.7183040380477905
+          },
+          "leftHip": {
+            "x": 862.7626953125,
+            "y": 721.46337890625,
+            "confidence": 0.6660968065261841
+          },
+          "rightHip": {
+            "x": 791.166015625,
+            "y": 716.84423828125,
+            "confidence": 0.6691389083862305
+          },
+          "leftKnee": {
+            "x": 859.29833984375,
+            "y": 808.072265625,
+            "confidence": 0.6718149185180664
+          },
+          "rightKnee": {
+            "x": 776.15380859375,
+            "y": 804.60791015625,
+            "confidence": 0.7628263235092163
+          },
+          "leftAnkle": {
+            "x": 885.8583984375,
+            "y": 943.18212890625,
+            "confidence": 0.7616266012191772
+          },
+          "rightAnkle": {
+            "x": 750.74853515625,
+            "y": 850.79931640625,
+            "confidence": 0.807833731174469
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.36762951716840364,
+        "b": 0.05166695920408459,
+        "c": -0.05166695920408459,
+        "d": 0.36762951716840364,
+        "e": -133.78671381858913,
+        "f": -178.30684201195953
+      },
+      "control": {
+        "frame": 103,
+        "joints": {
+          "nose": {
+            "x": 162.97442503976671,
+            "y": 84.88419604984092
+          },
+          "leftEye": {
+            "x": 167.13579293146876,
+            "y": 80.72282815813891
+          },
+          "rightEye": {
+            "x": 159.37631520082186,
+            "y": 81.12406796792152
+          },
+          "leftEar": {
+            "x": 175.0007456256628,
+            "y": 82.30712735286319
+          },
+          "rightEar": {
+            "x": 155.02465742643162,
+            "y": 82.94758872945386
+          },
+          "leftShoulder": {
+            "x": 181.59782401577417,
+            "y": 100.3466082317073
+          },
+          "rightShoulder": {
+            "x": 148.2862208377519,
+            "y": 98.86778400053021
+          },
+          "leftElbow": {
+            "x": 179.11100709172854,
+            "y": 118.30127419141039
+          },
+          "rightElbow": {
+            "x": 150.34352631230118,
+            "y": 127.11767629904557
+          },
+          "leftWrist": {
+            "x": 169.944471599947,
+            "y": 102.30931245029161
+          },
+          "rightWrist": {
+            "x": 162.34157525848357,
+            "y": 145.08974019088015
+          },
+          "leftHip": {
+            "x": 153.00106044538708,
+            "y": 132.27725054679215
+          },
+          "rightHip": {
+            "x": 130.56099010803288,
+            "y": 125.90417053287379
+          },
+          "leftKnee": {
+            "x": 151.9647961128049,
+            "y": 163.1661916755037
+          },
+          "rightKnee": {
+            "x": 111.32322665363205,
+            "y": 145.84981235087486
+          },
+          "leftAnkle": {
+            "x": 161.32923308258222,
+            "y": 215.04682529162247
+          },
+          "rightAnkle": {
+            "x": 100.2124722461559,
+            "y": 135.35233505103395
+          }
+        },
+        "hip": {
+          "x": 141.78102527670998,
+          "y": 129.09071053983297
+        },
+        "foot": {
+          "x": 133.91304347826087,
+          "y": 234.95652173913044
+        },
+        "registrationDiagnostics": {
+          "footMethod": "pose-estimated support foot",
+          "desiredScale": 0.3712424229083607,
+          "referenceScale": 0.36219333781235835,
+          "appliedScale": 0.3712424229083607,
+          "desiredRotationDegrees": 12.703659005271492,
+          "appliedRotationDegrees": 8,
+          "hipControlError": 8.712505796664784
+        }
+      },
+      "uniformScale": 0.3712424229083607,
+      "translation": {
+        "x": -133.78671381858913,
+        "y": -178.30684201195953
+      },
+      "plantedFoot": {
+        "x": 133.91304347826087,
+        "y": 234.95652173913044
+      },
+      "registeredSourceFoot": [
+        869,
+        1002
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 5769,
+        "mainPixels": 64151
+      }
+    },
+    {
+      "frame": 113,
+      "poseId": "authored-113",
+      "authored": true,
+      "src": "poses/113.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 98,
+        "y": 40,
+        "width": 108,
+        "height": 191
+      },
+      "ballMode": "reset",
+      "ballSocket": {
+        "x": 141.18437982041593,
+        "y": 105.9489364061011
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 113,
+        "group": "bridge-b",
+        "source": "traditional/source/elite-03-wine-bluff-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1167,
+          524,
+          262,
+          482
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 482,
+        "referenceWorldHeight": 174.57718882555673,
+        "foot": [
+          1229,
+          1005
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 1301.5302734375,
+            "y": 586.1328125,
+            "confidence": 0.7968405485153198
+          },
+          "leftEye": {
+            "x": 1310.9443359375,
+            "y": 575.5419921875,
+            "confidence": 0.8527927398681641
+          },
+          "rightEye": {
+            "x": 1294.4697265625,
+            "y": 576.71875,
+            "confidence": 0.868921160697937
+          },
+          "leftEar": {
+            "x": 1335.65625,
+            "y": 579.072265625,
+            "confidence": 0.8157618045806885
+          },
+          "rightEar": {
+            "x": 1283.87890625,
+            "y": 582.6025390625,
+            "confidence": 0.7826130390167236
+          },
+          "leftShoulder": {
+            "x": 1368.60546875,
+            "y": 635.556640625,
+            "confidence": 0.8135228157043457
+          },
+          "rightShoulder": {
+            "x": 1262.697265625,
+            "y": 632.0263671875,
+            "confidence": 0.7948918342590332
+          },
+          "leftElbow": {
+            "x": 1401.5546875,
+            "y": 701.455078125,
+            "confidence": 0.8542056083679199
+          },
+          "rightElbow": {
+            "x": 1226.2177734375,
+            "y": 694.39453125,
+            "confidence": 0.8435817360877991
+          },
+          "leftWrist": {
+            "x": 1341.5400390625,
+            "y": 690.8642578125,
+            "confidence": 0.8121143579483032
+          },
+          "rightWrist": {
+            "x": 1275.6416015625,
+            "y": 689.6875,
+            "confidence": 0.7843241691589355
+          },
+          "leftHip": {
+            "x": 1341.5400390625,
+            "y": 754.4091796875,
+            "confidence": 0.7444546222686768
+          },
+          "rightHip": {
+            "x": 1270.9345703125,
+            "y": 750.87890625,
+            "confidence": 0.7461531162261963
+          },
+          "leftKnee": {
+            "x": 1363.8984375,
+            "y": 852.080078125,
+            "confidence": 0.8070067167282104
+          },
+          "rightKnee": {
+            "x": 1275.6416015625,
+            "y": 819.130859375,
+            "confidence": 0.7884472608566284
+          },
+          "leftAnkle": {
+            "x": 1401.5546875,
+            "y": 916.8017578125,
+            "confidence": 0.883549153804779
+          },
+          "rightAnkle": {
+            "x": 1229.748046875,
+            "y": 952.1044921875,
+            "confidence": 0.8579524755477905
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.39260521078144156,
+        "b": -0.016152178464321196,
+        "c": 0.016152178464321196,
+        "d": 0.39260521078144156,
+        "e": -370.7791156272166,
+        "f": -144.22157909977437
+      },
+      "control": {
+        "frame": 113,
+        "joints": {
+          "nose": {
+            "x": 159.82622779692474,
+            "y": 77.47681932661717
+          },
+          "leftEye": {
+            "x": 163.858664584438,
+            "y": 73.44438253910391
+          },
+          "rightEye": {
+            "x": 156.55432918544543,
+            "y": 74.41882207714738
+          },
+          "leftEar": {
+            "x": 172.0265277041358,
+            "y": 74.86246934650052
+          },
+          "rightEar": {
+            "x": 153.27450830129908,
+            "y": 77.02524978459702
+          },
+          "leftShoulder": {
+            "x": 181.36688717855253,
+            "y": 93.16291920731706
+          },
+          "rightShoulder": {
+            "x": 146.6277215336692,
+            "y": 92.60836012062565
+          },
+          "leftElbow": {
+            "x": 185.6528366914104,
+            "y": 113.07951269220571
+          },
+          "rightElbow": {
+            "x": 141.90604702412517,
+            "y": 117.4842962950689
+          },
+          "leftWrist": {
+            "x": 170.67974135074235,
+            "y": 104.61060321116118
+          },
+          "rightWrist": {
+            "x": 154.64506147269358,
+            "y": 119.82928900450688
+          },
+          "leftHip": {
+            "x": 165.9739113865324,
+            "y": 131.22943937234888
+          },
+          "rightHip": {
+            "x": 142.45268383814957,
+            "y": 129.1141925702545
+          },
+          "leftKnee": {
+            "x": 171.35313452743907,
+            "y": 166.1587395612407
+          },
+          "rightKnee": {
+            "x": 129.74535848024925,
+            "y": 159.9397555176299
+          },
+          "leftAnkle": {
+            "x": 187.29082507621956,
+            "y": 206.6086956521739
+          },
+          "rightAnkle": {
+            "x": 125.21739130434783,
+            "y": 213.6086956521739
+          }
+        },
+        "hip": {
+          "x": 154.21329761234097,
+          "y": 130.17181597130167
+        },
+        "foot": {
+          "x": 125.21739130434783,
+          "y": 230.6086956521739
+        },
+        "registrationDiagnostics": {
+          "footMethod": "lowest visible foot",
+          "desiredScale": 0.3929373288475956,
+          "referenceScale": 0.36219333781235835,
+          "appliedScale": 0.3929373288475956,
+          "desiredRotationDegrees": -2.3558781835867477,
+          "appliedRotationDegrees": -2.3558781835867477,
+          "hipControlError": 0
+        }
+      },
+      "uniformScale": 0.3929373288475956,
+      "translation": {
+        "x": -370.7791156272166,
+        "y": -144.22157909977437
+      },
+      "plantedFoot": {
+        "x": 125.21739130434783,
+        "y": 230.6086956521739
+      },
+      "registeredSourceFoot": [
+        1222,
+        1005
+      ],
+      "registrationNote": "similarity registration, planted support foot, rotation limited to8deg; hip control residual recorded; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 7299,
+        "mainPixels": 64931
+      }
+    },
+    {
+      "frame": 117,
+      "poseId": "authored-119",
+      "authored": true,
+      "src": "poses/119.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 113,
+        "y": 46,
+        "width": 94,
+        "height": 184
+      },
+      "ballMode": "reset",
+      "ballSocket": {
+        "x": 150.02715320121956,
+        "y": 104.67301829268291
+      },
+      "ballRadius": null,
+      "sourceRecord": {
+        "frame": 119,
+        "group": "base-b",
+        "source": "source/elite-03-wine-bluff-b.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          1151,
+          518,
+          257,
+          492
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 492,
+        "referenceWorldHeight": 180,
+        "foot": [
+          1171,
+          1005
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 1274.6953125,
+            "y": 581.421875,
+            "confidence": 0.9331133961677551
+          },
+          "leftEye": {
+            "x": 1285.505859375,
+            "y": 570.611328125,
+            "confidence": 0.9983872175216675
+          },
+          "rightEye": {
+            "x": 1266.287109375,
+            "y": 574.21484375,
+            "confidence": 0.9560443758964539
+          },
+          "leftEar": {
+            "x": 1308.328125,
+            "y": 574.21484375,
+            "confidence": 0.9322373270988464
+          },
+          "rightEar": {
+            "x": 1259.080078125,
+            "y": 582.623046875,
+            "confidence": 0.8298666477203369
+          },
+          "leftShoulder": {
+            "x": 1338.357421875,
+            "y": 624.6640625,
+            "confidence": 0.8313546180725098
+          },
+          "rightShoulder": {
+            "x": 1241.0625,
+            "y": 624.6640625,
+            "confidence": 0.8152262568473816
+          },
+          "leftElbow": {
+            "x": 1361.1796875,
+            "y": 682.3203125,
+            "confidence": 0.862916886806488
+          },
+          "rightElbow": {
+            "x": 1217.0390625,
+            "y": 687.125,
+            "confidence": 0.8263464570045471
+          },
+          "leftWrist": {
+            "x": 1310.73046875,
+            "y": 671.509765625,
+            "confidence": 0.7892928123474121
+          },
+          "rightWrist": {
+            "x": 1253.07421875,
+            "y": 667.90625,
+            "confidence": 0.7649547457695007
+          },
+          "leftHip": {
+            "x": 1317.9375,
+            "y": 738.775390625,
+            "confidence": 0.7763631939888
+          },
+          "rightHip": {
+            "x": 1251.873046875,
+            "y": 739.9765625,
+            "confidence": 0.7828618288040161
+          },
+          "leftKnee": {
+            "x": 1343.162109375,
+            "y": 840.875,
+            "confidence": 0.8677383661270142
+          },
+          "rightKnee": {
+            "x": 1227.849609375,
+            "y": 842.076171875,
+            "confidence": 0.8304524421691895
+          },
+          "leftAnkle": {
+            "x": 1376.794921875,
+            "y": 956.1875,
+            "confidence": 0.9165533781051636
+          },
+          "rightAnkle": {
+            "x": 1191.814453125,
+            "y": 954.986328125,
+            "confidence": 0.9065632820129395
+          }
+        },
+        "ball": null
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.36585365853658536,
+        "b": 0,
+        "c": 0,
+        "d": 0.36585365853658536,
+        "e": -308.4146341463414,
+        "f": -139.6829268292683
+      },
+      "control": null,
+      "uniformScale": 0.36585365853658536,
+      "translation": {
+        "x": -308.4146341463414,
+        "y": -139.6829268292683
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        1171,
+        1005
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 6616,
+        "mainPixels": 59012
+      },
+      "originalFrame": 119
+    },
+    {
+      "frame": 119,
+      "poseId": "canonical-ready-reuse",
+      "authored": false,
+      "src": "poses/000.png",
+      "anchor": {
+        "x": 128,
+        "y": 238
+      },
+      "imagePackingOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "requiresLocalRedraw": false,
+      "unpackedBounds": {
+        "x": 111,
+        "y": 49,
+        "width": 95,
+        "height": 180
+      },
+      "ballMode": "reset",
+      "ballSocket": {
+        "x": 143.54643437177026,
+        "y": 97.73719179093459
+      },
+      "ballRadius": 1.727447216890595,
+      "sourceRecord": {
+        "frame": 0,
+        "group": "base-a",
+        "source": "source/elite-03-wine-bluff-a.png",
+        "sourceDimensions": [
+          1536,
+          1024
+        ],
+        "bounds": [
+          207,
+          2,
+          276,
+          521
+        ],
+        "sourceEdgeTouch": false,
+        "referenceUprightHeight": 521,
+        "referenceWorldHeight": 180,
+        "foot": [
+          233,
+          521
+        ],
+        "supportSide": "right",
+        "joints": {
+          "nose": {
+            "x": 345,
+            "y": 64.072265625,
+            "confidence": 0.881085991859436
+          },
+          "leftEye": {
+            "x": 355.17578125,
+            "y": 53.896484375,
+            "confidence": 0.9304952621459961
+          },
+          "rightEye": {
+            "x": 334.82421875,
+            "y": 53.896484375,
+            "confidence": 0.9167013168334961
+          },
+          "leftEar": {
+            "x": 372.9833984375,
+            "y": 60.25634765625,
+            "confidence": 0.9161496162414551
+          },
+          "rightEar": {
+            "x": 320.83251953125,
+            "y": 58.984375,
+            "confidence": 0.9111045002937317
+          },
+          "leftShoulder": {
+            "x": 398.4228515625,
+            "y": 116.22314453125,
+            "confidence": 0.8202847838401794
+          },
+          "rightShoulder": {
+            "x": 299.208984375,
+            "y": 116.22314453125,
+            "confidence": 0.8025704622268677
+          },
+          "leftElbow": {
+            "x": 435.31005859375,
+            "y": 186.181640625,
+            "confidence": 0.8803861141204834
+          },
+          "rightElbow": {
+            "x": 263.59375,
+            "y": 182.36572265625,
+            "confidence": 0.8298311829566956
+          },
+          "leftWrist": {
+            "x": 381.88720703125,
+            "y": 160.7421875,
+            "confidence": 0.8053423166275024
+          },
+          "rightWrist": {
+            "x": 310.65673828125,
+            "y": 150.56640625,
+            "confidence": 0.7554766535758972
+          },
+          "leftHip": {
+            "x": 383.1591796875,
+            "y": 247.236328125,
+            "confidence": 0.7365453243255615
+          },
+          "rightHip": {
+            "x": 314.47265625,
+            "y": 251.05224609375,
+            "confidence": 0.7432807087898254
+          },
+          "leftKnee": {
+            "x": 412.41455078125,
+            "y": 364.2578125,
+            "confidence": 0.853191077709198
+          },
+          "rightKnee": {
+            "x": 283.9453125,
+            "y": 365.52978515625,
+            "confidence": 0.8680895566940308
+          },
+          "leftAnkle": {
+            "x": 455.66162109375,
+            "y": 474.91943359375,
+            "confidence": 0.9145724177360535
+          },
+          "rightAnkle": {
+            "x": 240.6982421875,
+            "y": 472.37548828125,
+            "confidence": 0.9075154066085815
+          }
+        },
+        "ball": {
+          "x": 301.15384615384613,
+          "y": 143.96153846153845,
+          "radius": 5,
+          "detector": "local visible white component estimate; visual review required"
+        }
+      },
+      "sourceRegistrationMatrix": {
+        "a": 0.345489443378119,
+        "b": 0,
+        "c": 0,
+        "d": 0.345489443378119,
+        "e": 39.50095969289828,
+        "f": 48
+      },
+      "control": null,
+      "uniformScale": 0.345489443378119,
+      "translation": {
+        "x": 39.50095969289828,
+        "y": 48
+      },
+      "plantedFoot": {
+        "x": 120,
+        "y": 228
+      },
+      "registeredSourceFoot": [
+        233,
+        521
+      ],
+      "registrationNote": "fixed scale per six-pose source sheet; no per-axis deformation",
+      "alphaCleanup": {
+        "removed": 8999,
+        "mainPixels": 66637
+      },
+      "drawingId": "elite-03-wine-bluff-canonical-ready-reuse",
+      "reused": true,
+      "sourcePoseId": "authored-0"
+    }
+  ],
+  "selectedAuthoredBodyDrawingCount": 22,
+  "directlyUsedSourceDrawingCount": 22,
+  "derivedHandVariantCount": 1,
+  "reusedIdleCount": 1,
+  "timelineDrawingEntries": 24,
+  "unusedSourcePoseIds": [
+    "authored-76",
+    "authored-110"
+  ],
+  "reviewFlags": {
+    "sourceEdgeTouchReviewRequired": false,
+    "sourceEdgeTouchFrames": [],
+    "excludedFrames": []
+  },
+  "releaseHandoffProof": {
+    "source": "same-held-body+character-owned-empty-hand",
+    "sourceHeldFrame": 75,
+    "wrist": {
+      "x": 96.99453432418753,
+      "y": 95.70281511296872
+    },
+    "ballSocket": {
+      "x": 86.91386210133936,
+      "y": 87.46904494126858
+    },
+    "socketError": 0,
+    "bodyOutsideHandDifferingChannels": 0,
+    "removedHeldHandPixels": 415,
+    "guardRadius": 34
+  }
+}

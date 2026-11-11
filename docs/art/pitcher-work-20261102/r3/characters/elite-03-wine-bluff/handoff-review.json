@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "id": "elite-03-wine-bluff",
+  "inputManifest": "traditional/characters/elite-03-wine-bluff/sequence.json",
+  "status": "candidate_generated_needs_visual_review",
+  "reason": "Automated geometric and pixel checks passed; visual approval remains required.",
+  "releaseFrame": 76,
+  "derivedFrame": 76,
+  "checks": {
+    "heldFrame": 75,
+    "heldPoseId": "authored-75",
+    "registeredWrist": {
+      "x": 96.99453432418753,
+      "y": 95.70281511296872
+    },
+    "registeredElbow": {
+      "x": 111.86075610361897,
+      "y": 102.19921245870557
+    },
+    "ballSocket": {
+      "x": 86.91386210133936,
+      "y": 87.46904494126858
+    },
+    "ballRadius": 6.213912404787944,
+    "ballMaskRadius": 10,
+    "handLocalDistalHalfPlane": true,
+    "handLocalRadiusPx": 25.01594882076914,
+    "removedHandPixels": 415,
+    "residualWhiteCleanup": {
+      "roiRadiusPx": 23.229861225557084,
+      "removedComponents": [
+        {
+          "area": 1,
+          "center": {
+            "x": 92.5,
+            "y": 85.5
+          },
+          "kind": "low-opacity neutral-white residue"
+        },
+        {
+          "area": 1,
+          "center": {
+            "x": 89.5,
+            "y": 94.5
+          },
+          "kind": "low-opacity neutral-white residue"
+        }
+      ]
+    },
+    "guardRadius": 34,
+    "comparison": "final derived RGBA vs preserved original held RGBA",
+    "bodyOutsideHandDifferingChannels": 0,
+    "emptyHandSource": "source/elite-03-wine-bluff-b.png",
+    "emptyHandManualOverride": false,
+    "socketError": 0,
+    "timelineEntries": 24,
+    "directSourceDrawingCount": 22,
+    "sourceEdgeTouchReviewFrames": [],
+    "explicitlyExcludedFrames": []
+  },
+  "outputManifest": "/workspace/9zone-roster-rebuild-20261031/traditional/characters/elite-03-wine-bluff/sequence-release-matched.json",
+  "outputDrawing": "poses/076-matched-empty.png"
+}

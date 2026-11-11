@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "id": "regular-01-red-rush",
+  "inputManifest": "traditional/characters/regular-01-red-rush/sequence.json",
+  "status": "candidate_generated_needs_visual_review",
+  "reason": "Automated geometric and pixel checks passed; visual approval remains required.",
+  "releaseFrame": 76,
+  "derivedFrame": 76,
+  "checks": {
+    "automaticWrist": {
+      "method": "minimum opaque cross-section along elbow-to-CV-wrist axis",
+      "widthPx": 11.5,
+      "forearmMedianWidthPx": 17,
+      "t": 0.8900000000000005
+    },
+    "heldFrame": 75,
+    "heldPoseId": "authored-75",
+    "registeredWrist": {
+      "x": 94.02836098823813,
+      "y": 82.63883706773086
+    },
+    "registeredElbow": {
+      "x": 108.86680245705486,
+      "y": 89.17383652341886
+    },
+    "ballSocket": {
+      "x": 82.41611017200171,
+      "y": 77.25989808604184
+    },
+    "ballRadius": 1.9896362282037823,
+    "ballMaskRadius": 10,
+    "handLocalDistalHalfPlane": true,
+    "handLocalRadiusPx": 24.79755264056051,
+    "removedHandPixels": 422,
+    "residualWhiteCleanup": {
+      "roiRadiusPx": 18.78718886876429,
+      "removedComponents": [
+        {
+          "area": 2,
+          "center": {
+            "x": 86.5,
+            "y": 81
+          },
+          "kind": "low-opacity neutral-white residue"
+        }
+      ]
+    },
+    "guardRadius": 34,
+    "comparison": "final derived RGBA vs preserved original held RGBA",
+    "bodyOutsideHandDifferingChannels": 0,
+    "emptyHandSource": "source/regular-01-red-rush-b.png",
+    "emptyHandManualOverride": false,
+    "socketError": 0,
+    "timelineEntries": 24,
+    "directSourceDrawingCount": 22,
+    "sourceEdgeTouchReviewFrames": [
+      {
+        "frame": 20,
+        "poseId": "authored-20",
+        "source": "source/regular-01-red-rush-a.png"
+      }
+    ],
+    "explicitlyExcludedFrames": []
+  },
+  "outputManifest": "/workspace/9zone-roster-rebuild-20261031/traditional/characters/regular-01-red-rush/sequence-release-matched.json",
+  "outputDrawing": "poses/076-matched-empty.png"
+}
