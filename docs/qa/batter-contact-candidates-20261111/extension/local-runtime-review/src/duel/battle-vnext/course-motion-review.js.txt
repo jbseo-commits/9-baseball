@@ -1,0 +1,44 @@
+import {courseFrameAt,courseTarget,courseFlightAt} from './course-presentation.js';
+
+/* Render-only proposal. Inputs are the accepted host presentation and the
+   landed public result; no engine access, timer, selection or RNG. */
+export function courseStateAt(playback,elapsed,reduced=false){
+  if(!playback?.course||playback.action==='prepare')return null;
+  return courseFrameAt({elapsed,timeline:playback.timeline,...playback.course,reduced});
+}
+
+export function courseBatterAt({playback,elapsed=0,state,landed=false,result=null,reduced=false}={}){
+  const t=playback?.timeline;
+  if(!t||reduced||playback.action!=='swing'||!Number.isInteger(state?.targetZone))return null;
+  const row=state.targetZone<9?Math.floor(state.targetZone/3):Math.floor((playback.course?.aimZone??4)/3);
+  if(row<0||row>2)return null;
+  const a=t.impactAt;
+  if(elapsed<a-75)return {kind:'original',frame:Math.min(4,Math.floor(Math.max(0,(elapsed-t.pitchReleaseAt)/Math.max(1,a-75-t.pitchReleaseAt))*5))};
+  if(elapsed<a||!landed)return {kind:'course',frame:row*3,row,phase:'pre'};
+  // A whiff crosses the plate before the late swing, so a same-row miss never
+  // displays a contact drawing colliding with the ball at the impact instant.
+  const missed=result?.kind==='whiff';
+  const swingAt=a+(missed?100:0),hold=Math.max(70,t.freeze||0);
+  if(elapsed<swingAt)return {kind:'course',frame:row*3,row,phase:'pre'};
+  if(elapsed<swingAt+hold)return {kind:'course',frame:row*3+1,row,phase:missed?'late-swing':'contact'};
+  if(elapsed<swingAt+hold+75)return {kind:'course',frame:row*3+2,row,phase:'post'};
+  const returnAt=Math.max(t.releaseAt+90,t.duration-300);
+  return elapsed<returnAt?{kind:'original',frame:10}:null;
+}
+
+export function courseSceneEffect({effect,playback,elapsed,state,origin,landed=false,result=null}={}){
+  if(!playback||!Number.isInteger(state?.targetZone))return effect;
+  const target=courseTarget(state.targetZone),t=playback.timeline;
+  const incoming=courseFlightAt({elapsed,timeline:t,origin,target});
+  if(incoming.stage==='waiting'||incoming.stage==='hidden')return null;
+  if(!landed){
+    const previous=courseFlightAt({elapsed:Math.max(t.pitchReleaseAt,elapsed-26),timeline:t,origin,target});
+    return {kind:'flight',trail:0,ball:incoming.ball,previous:previous.ball||incoming.ball,
+      radius:3+5*incoming.progress,age:Math.max(0,elapsed-t.pitchReleaseAt),spinAge:Math.max(0,elapsed-t.pitchReleaseAt),flash:0,camera:0,opacity:1};
+  }
+  if(['hit','foul','sacrifice','out'].includes(result?.kind)&&playback.action==='swing')return effect?{...effect,radius:effect.radius*2/3}:effect;
+  const age=Math.max(0,elapsed-t.impactAt),p=Math.min(1,age/310);
+  const end={x:target.x+(target.x-origin.x)*.5,y:target.y+330};
+  const at=k=>({x:target.x+(end.x-target.x)*k,y:target.y+(end.y-target.y)*k});
+  return {...effect,ball:at(p),previous:at(Math.max(0,p-.1)),radius:8+6*p,age,flash:0,camera:0,hidden:p>=1};
+}

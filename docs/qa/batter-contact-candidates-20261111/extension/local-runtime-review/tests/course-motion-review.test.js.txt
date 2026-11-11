@@ -1,0 +1,56 @@
+import {describe,it,expect,vi} from 'vitest';
+import {courseStateAt,courseBatterAt,courseSceneEffect} from '../src/duel/battle-vnext/course-motion-review.js';
+import {createCoursePlan,courseTimeline,courseTarget} from '../src/duel/battle-vnext/course-presentation.js';
+import {sceneEffectAt} from '../src/duel/battle-vnext/scene-effects.js';
+const timeline=courseTimeline({pitchReleaseAt:600,impactAt:900,freeze:80,releaseAt:1020,duration:2000});
+const plan=createCoursePlan(Array.from({length:10},(_,zone)=>({zone,weight:1})),{visualSeed:'public'});
+const play=zone=>({timeline,action:'swing',course:{plan,getDestination:()=>zone}});
+
+describe('local course review assembly',()=>{
+ it('never selects a target-dependent drawing or calls the accepted target before public LOCK',()=>{
+  const getter=vi.fn(()=>7),playback={...play(7),course:{plan,getDestination:getter}};
+  for(const elapsed of [0,timeline.courseLockAt-1]){
+   const state=courseStateAt(playback,elapsed);
+   expect(state.targetZone).toBeNull();
+   expect(courseBatterAt({playback,elapsed,state})).toBeNull();
+  }
+  expect(getter).not.toHaveBeenCalled();
+ });
+ it.each([0,1,2])('uses the registered row %i PRE/contact/POST without actor fitting or reversing to old early-follow',row=>{
+  const playback=play(row*3+1),state=courseStateAt(playback,850);
+  expect(courseBatterAt({playback,elapsed:850,state})).toMatchObject({kind:'course',frame:row*3,phase:'pre'});
+  expect(courseBatterAt({playback,elapsed:900,state,landed:false})).toMatchObject({phase:'pre'});
+  expect(courseBatterAt({playback,elapsed:900,state,landed:true,result:{kind:'hit'}})).toMatchObject({frame:row*3+1,phase:'contact'});
+  expect(courseBatterAt({playback,elapsed:980,state,landed:true,result:{kind:'hit'}})).toMatchObject({frame:row*3+2,phase:'post'});
+  expect(courseBatterAt({playback,elapsed:1055,state,landed:true,result:{kind:'hit'}})).toEqual({kind:'original',frame:10});
+ });
+ it('delays the visible same-row whiff swing until after the ball has passed and never swings for a take',()=>{
+  const playback=play(5),state=courseStateAt(playback,900);
+  expect(courseBatterAt({playback,elapsed:900,state,landed:true,result:{kind:'whiff'}})).toMatchObject({phase:'pre'});
+  expect(courseBatterAt({playback,elapsed:1000,state,landed:true,result:{kind:'whiff'}})).toMatchObject({phase:'late-swing'});
+  expect(courseBatterAt({playback:{...playback,action:'take'},elapsed:900,state,landed:true,result:{kind:'ball'}})).toBeNull();
+  expect(courseBatterAt({playback,elapsed:900,state,landed:true,result:{kind:'hit'},reduced:true})).toBeNull();
+ });
+ it('preserves all ten incoming endpoints through late callbacks and starts contact/pass trajectories at exactly the same point',()=>{
+  const origin={x:810,y:325};
+  for(let zone=0;zone<10;zone++)for(const kind of ['hit','foul','sacrifice','out','whiff','ball','called']){
+   const action=['ball','called'].includes(kind)?'take':'swing';
+   const playback={...play(zone),action},state=courseStateAt(playback,900),target=courseTarget(zone);
+   const result={kind,actualZone:zone,coverage:[4]};
+   const composition={release:origin,contact:target,mound:{x:832,y:580}};
+   const before=courseSceneEffect({playback,elapsed:900,state,origin,landed:false,result:null});
+   const late=courseSceneEffect({playback,elapsed:930,state,origin,landed:false,result:null});
+   const base=sceneEffectAt({elapsed:900,playback,result,phase:'result',composition});
+   const after=courseSceneEffect({effect:base,playback,elapsed:900,state,origin,landed:true,result});
+   expect(before.ball).toEqual({x:target.x,y:target.y});
+   expect(late.ball).toEqual(before.ball);
+   expect(after.ball.x).toBeCloseTo(target.x,10);expect(after.ball.y).toBeCloseTo(target.y,10);
+   expect(before.radius).toBe(8);expect(after.radius).toBe(8);
+  }
+ });
+ it('keeps reduced motion private until impact and excludes preparation from the course path',()=>{
+  const getter=vi.fn(()=>1),playback={...play(1),course:{plan,getDestination:getter}};
+  expect(courseStateAt(playback,899,true)).toMatchObject({stage:'hold',targetZone:null});expect(getter).not.toHaveBeenCalled();
+  expect(courseStateAt({...playback,action:'prepare'},901)).toBeNull();expect(getter).not.toHaveBeenCalled();
+ });
+});

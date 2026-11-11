@@ -1,0 +1,152 @@
+[
+  {
+    "patches": {
+      "rear": {
+        "iou": 0.9561097256857856,
+        "boundaryDriftIn724CellPixels": 1.0,
+        "allBoundsDriftIn724CellPixels": 3.0,
+        "anchorEdges": [
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          17,
+          0,
+          95,
+          36
+        ],
+        "referencePatchBounds": [
+          14,
+          0,
+          94,
+          37
+        ],
+        "pass": true
+      },
+      "front": {
+        "iou": 0.9094176851186196,
+        "boundaryDriftIn724CellPixels": 2.0,
+        "allBoundsDriftIn724CellPixels": 2.0,
+        "anchorEdges": [
+          "heelLeft",
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          3,
+          0,
+          121,
+          14
+        ],
+        "referencePatchBounds": [
+          2,
+          0,
+          119,
+          15
+        ],
+        "pass": true
+      }
+    },
+    "pass": true
+  },
+  {
+    "patches": {
+      "rear": {
+        "iou": 0.5575926664009565,
+        "boundaryDriftIn724CellPixels": 16.0,
+        "allBoundsDriftIn724CellPixels": 16.0,
+        "anchorEdges": [
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          0,
+          0,
+          78,
+          36
+        ],
+        "referencePatchBounds": [
+          14,
+          0,
+          94,
+          37
+        ],
+        "pass": false
+      },
+      "front": {
+        "iou": 0.6862361382909328,
+        "boundaryDriftIn724CellPixels": 15.0,
+        "allBoundsDriftIn724CellPixels": 15.0,
+        "anchorEdges": [
+          "heelLeft",
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          0,
+          0,
+          104,
+          14
+        ],
+        "referencePatchBounds": [
+          2,
+          0,
+          119,
+          15
+        ],
+        "pass": false
+      }
+    },
+    "pass": false
+  },
+  {
+    "patches": {
+      "rear": {
+        "iou": 0.544147023571714,
+        "boundaryDriftIn724CellPixels": 16.0,
+        "allBoundsDriftIn724CellPixels": 16.0,
+        "anchorEdges": [
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          3,
+          0,
+          78,
+          35
+        ],
+        "referencePatchBounds": [
+          14,
+          0,
+          94,
+          37
+        ],
+        "pass": false
+      },
+      "front": {
+        "iou": 0.6527777777777778,
+        "boundaryDriftIn724CellPixels": 17.0,
+        "allBoundsDriftIn724CellPixels": 17.0,
+        "anchorEdges": [
+          "heelLeft",
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          0,
+          0,
+          102,
+          13
+        ],
+        "referencePatchBounds": [
+          2,
+          0,
+          119,
+          15
+        ],
+        "pass": false
+      }
+    },
+    "pass": false
+  }
+]
