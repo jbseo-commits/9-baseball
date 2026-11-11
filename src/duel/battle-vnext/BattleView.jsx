@@ -23,6 +23,7 @@ import './thumb-hand.css';
 import './short-landscape.css';
 import './pitch-focus.css';
 import useSceneClock from './use-scene-clock.js';
+import {useCourseAudio} from './course-audio.js';
 import {courseRenderModel} from './course-render-model.js';
 import {courseBatterSampleAt} from './course-batter-sequence.js';
 import {ATBAT_COMPOSITION} from './atbat-composition.js';
@@ -59,6 +60,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
   const capability=sampledCourseModel?.outcome&&['in-zone-contact','outside-foul'].includes(sampledCourseModel.outcome.type)
     ?courseLatch.current.atlas?.contactFor?.(courseLatch.current.atlas,sampledCourseModel.outcome.actualZone):null;
   const courseModel=capability?{...sampledCourseModel,outcome:{...sampledCourseModel.outcome,contact:'registered',registration:capability}}:sampledCourseModel;
+  useCourseAudio(coursePreview?courseModel:null,coursePreview?playback:null,sound);
   const courseSample=coursePreview?courseBatterSampleAt({course:courseModel?.course,playback,elapsed,outcome:courseModel?.outcome}):null;
   const courseBatterFrame=courseSample?.atlas==='course'?courseSample.frame:null;
   const courseOriginalFrame=courseSample?.atlas==='original'?courseSample.frame:null;

@@ -1,0 +1,97 @@
+{
+  "date_kst": "2026-11-12",
+  "scope": "coursePreview in isolated battlePlay only; Draft PR121; no main activation",
+  "tests": {
+    "files": 252,
+    "tests": 1739,
+    "pass": true,
+    "initial_sandbox_attempt": {
+      "failed": 4,
+      "reason": "spawnSync Git/Node EPERM; unchanged full suite rerun with permitted execution and passed"
+    }
+  },
+  "landscape_geometry": {
+    "viewports": 5,
+    "stages": 6,
+    "max_delta_px": 0
+  },
+  "legacy_shots": {
+    "checks": 119,
+    "pass": true
+  },
+  "default_coarse_pointer": {
+    "checks": 42,
+    "pass": true
+  },
+  "preview_edges": {
+    "cases": 5,
+    "pass": true
+  },
+  "portrait_overlay": {
+    "viewports": [
+      [
+        412,
+        743
+      ],
+      [
+        375,
+        667
+      ]
+    ],
+    "targets": [
+      4,
+      9
+    ],
+    "max_same_frame_svg_layout_delta_px": 0,
+    "pass": true
+  },
+  "smoke": {
+    "byte_identical_to": "stable-zone-board-20261111 baseline",
+    "scope": "First pitcher public policy only; not full run balance/fun proof"
+  },
+  "build": {
+    "pass": true,
+    "dist_budget_MiB": 60,
+    "dist_MiB_rounded": 54.8
+  },
+  "blind": {
+    "sheets": 4,
+    "axes": 8,
+    "before": 3.171875,
+    "after": 3.484375,
+    "gain": 0.3125,
+    "improved_axes": 4,
+    "verdict": "IMPROVED",
+    "bar_met": false
+  },
+  "source_hashes": {
+    "src/duel/audio.js": "c829696a98b986b9f7c7fa7fdc323319ba8b7a1b9b48ebdc6860d65b542ed33e",
+    "src/duel/battle-vnext/BattleView.jsx": "b2c7be47a118a29f944663112d56cfe13c3e1f4593972c9dd3e06af4ee675b30",
+    "src/duel/battle-vnext/DecisionPanel.jsx": "aabe89cf9dbea69accb0002e40e7c1065b6f74c7f5ce40b8b646a05ccb9e261f",
+    "src/duel/battle-vnext/course-presentation.js": "c507cc4b3a7f7bc2c11088dc671488a70a1871d76fb39d0a7ad7d1d07fee32d6",
+    "src/duel/battle-vnext/course-render-model.js": "d23484dcb960277950678ddb875eb2d46940b5171c5c0a72afa40cde3f4e46ad",
+    "src/duel/battle-vnext/course-projection.css": "4ffe941698cc700bbff3fb079d8e44e5e203b64012b0a26b3541719d9b47301c",
+    "src/duel/battle-vnext/course-audio.js": "4fb212cec959bfc2937fc23f7b58e6329b3ddf5be89ee195e67e501101c4b43b",
+    "src/duel/battle-vnext/CourseLockFx.jsx": "3e50676862ffe83e1525c2133d009d880f27d9dcecb8b3f01727dcdd3def2f07"
+  },
+  "live_frozen_source": {
+    "pitches": 8,
+    "pass": true,
+    "zones": [
+      4,
+      9
+    ],
+    "rates": [
+      0.25,
+      0.5,
+      1,
+      2
+    ],
+    "lock_sounds_per_pitch": 1,
+    "page_errors": 0,
+    "production_preserved": true,
+    "early_result": false,
+    "exact_engine": true,
+    "audio_listened": false
+  }
+}

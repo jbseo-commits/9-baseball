@@ -72,6 +72,7 @@ export function courseRenderModel(input={}){
   const locationLabel=locationZone===9?'존 밖':ZONE_WORDS[locationZone]||null;
   const course=freeze({phase,scanZone:frame.scanZone,targetZone:frame.targetZone,locationLabel,
     ball:flight?.ball??null,progress:flight?.progress??frame.progress,
+    scanIndex:frame.scanIndex,scanCount:frame.scanCount,scanAge:frame.scanAge,previousZone:frame.previousZone,lockAge:frame.lockAge,
     geometry:!target?'unresolved':flight?'available':'unavailable-origin'});
   const getEvidence=()=>{try{return input.contactEvidence??playback.contactEvidence;}catch{return null;}};
   const result=isLanded?input.result:null;

@@ -22,3 +22,22 @@
 }
 .bv-scene .bv-actor-course-batter{z-index:3}
 .bv-scene .bv-actor-batter.bv-course-underlay{visibility:hidden}
+/* Roulette optics stay inside the existing command surfaces. No camera kick,
+   board transform, layout row, flashing screen or early success message. */
+@media(orientation:landscape){
+.battle-vnext[data-course-ui=stable] .bv-decision-area:has(.bv-decision[data-course-active=true]){opacity:1}
+.battle-vnext[data-course-ui=stable] .bv-decision[data-course-active=true] .bv-cell{opacity:1}
+.battle-vnext[data-course-ui=stable] .bv-decision[data-course-phase=scan] .bv-cell.is-course-scan,
+.battle-vnext[data-course-ui=stable] .bv-decision[data-course-phase=scan] .bv-band.is-course-scan{
+ background-color:#917038a8;box-shadow:inset 0 0 0 2px #fff1bb,inset 0 0 19px #e4b64b66,0 0 12px #eac16866}
+.battle-vnext[data-course-ui=stable] .bv-decision[data-course-phase=scan] .bv-cell.is-course-trail{
+ box-shadow:inset 0 0 0 1px #f8d58d80;background-color:#90714355}
+.battle-vnext[data-course-ui=stable] .bv-decision[data-course-active=true] .bv-cell.is-course-target,
+.battle-vnext[data-course-ui=stable] .bv-decision[data-course-active=true] .bv-band.is-course-target{
+ box-shadow:inset 0 0 0 2px #ffe7a4,inset 0 0 22px #e6b74150,0 0 15px #e6b74150;background-color:#71532588}
+.battle-vnext[data-course-ui=stable] .bv-decision .bv-band{position:relative}
+}
+.battle-vnext[data-course-ui=stable] .bv-course-lock-fx{
+ position:absolute;inset:0;width:100%;height:100%;z-index:3;overflow:hidden;pointer-events:none}
+.battle-vnext[data-course-ui=stable] .bv-course-lock-fx *{pointer-events:none}
+@media(prefers-reduced-motion:reduce){.battle-vnext .bv-course-lock-fx{display:none}}

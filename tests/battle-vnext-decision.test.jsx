@@ -231,3 +231,15 @@ describe('CSS 범위',()=>{
     }
   });
 });
+
+it('keeps course decoration out of query-off UI and makes lock SVG purely decorative',()=>{
+ const model=vmFor('swing-main');
+ const courseModel={phase:'locked',course:{phase:'locked',targetZone:4,lockAge:50}};
+ const r=render(<DecisionPanel {...model} coursePreview={false} courseModel={courseModel}/>);
+ expect(r.container.querySelector('.is-course-target')).toBeNull();
+ expect(r.container.querySelector('.bv-course-lock-fx')).toBeNull();
+ r.rerender(<DecisionPanel {...model} coursePreview courseModel={courseModel}/>);
+ const fx=r.container.querySelector('.bv-course-lock-fx');
+ expect(fx?.getAttribute('aria-hidden')).toBe('true');expect(fx?.getAttribute('focusable')).toBe('false');
+ expect(r.container.querySelectorAll('.bv-zone > button')).toHaveLength(9);
+});
