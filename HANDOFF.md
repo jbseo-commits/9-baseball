@@ -529,3 +529,8 @@ ignore 규칙을 `4bfb400`에서 제거했다. Git 이력으로 복구 가능하
 ## 2026-11-11 — 실제9존·룰렛 연결 후보6
 
 `codex/roulette-course-connection-20261111`은 actual main `fb8e7b1`에서 준비한 opt-in 실제게임 프리뷰다. `?battleUi=vnext&battlePlay=1&coursePreview=1&seed=1&battleSpeed=0.5`로 실행하며 본편 localStorage와 분리한다. 원화3회/누적후보6회 한도를 모두 사용했다. 이전4/5 실패를 보존하고 최종6은1730테스트/23실제호스트/90DOM/5입력실패경계 및 독립 스틸·모션 수정 검수를 통과했다. 소스와 제한은 `docs/qa/roulette-course-connection-20261111/README.md`, 고정 해시는 `material6/FREEZE.json` 및 `FINAL-VALIDATION.json`. 모션은 held-keypose이며 상업 마스터피스/보간 완료로 표현하지 않는다. 원격·공개 상태는 해당 실행 PR을 확인한다.
+
+
+## 2026-11-11 — 사용자 보고: 9존 찌그러짐
+
+PR #121의 확정 후 비균등 투영을 제거했다. 중앙 조작판은 같은 DOM·정사각형·위치를 유지하며 실제 공과 배트의 물리 좌표는 별도로 보존한다. 가로 5종×6단계 위치·크기 변화 0px, 카드 2·3장/회전/리로드/실패 경계 5/5, 기존 7종 119/119, 전체 1,730테스트가 통과했다. `scripts/qa-zone-board-stability.mjs`와 `docs/qa/stable-zone-board-20261111/README.md` 참조. 이전 물리 격자 DOM90·후보6 블라인드 점수는 역사이며 새 조작판의 품질 인증으로 재사용하지 않는다. M22 한도와 과거 실패는 유지하고 새 원화는 만들지 않았다. Draft 프리뷰 수정이며 main 병합은 이 범위가 아니다.

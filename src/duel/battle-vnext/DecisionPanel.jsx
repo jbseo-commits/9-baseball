@@ -1,5 +1,4 @@
 import React,{useEffect,useRef} from 'react';
-import {createPortal} from 'react-dom';
 import {nearCoverage} from './motion-timeline.js';
 import ResultSequence from './ResultSequence.jsx';
 import ResultReadout from './ResultReadout.jsx';
@@ -45,7 +44,7 @@ export function planSummary({hand=[],forecast=null,input=null,energy=null,effect
 
 export default function DecisionPanel({zones=null,forecast=null,input=null,hand=[],energy=null,result=null,phase='deciding',effects=[],scene=null,execution=null,
   dragPreview=null,shotGrade=null,recent=null,showAction=true,showPlan=true,quiet=false,selection=null,sound=false,animationRate=1,onZoneTap,onZoneHover=null,onTake,onSwing,onNext,
-  coursePreview=false,courseModel=null,coursePlaneTarget=null,courseProjection=null}){
+  coursePreview=false,courseModel=null}){
   if(!zones||!input)return null;
   const deciding=phase==='deciding';
   const caption=planCaption(zones),near=result?.kind==='whiff'?nearCoverage(result):null;
@@ -53,7 +52,7 @@ export default function DecisionPanel({zones=null,forecast=null,input=null,hand=
   const courseCaption=coursePreview&&courseModel
     ?courseModel.phase==='scan'?'코스 확인 중':`${courseModel.locationLabel||courseModel.course?.locationLabel||'코스'} · ${courseModel.phase==='landed'?'도착':'확정'}`:null;
   const captionNode=<p className="bv-zone-caption">{courseCaption?<b className="bv-course-state">{courseCaption}</b>:<><span>{deciding&&selection?.supportMode&&!zones.targetingSupport?'겹칠 카드를 고르세요':caption||(deciding?'노릴 코스':'')}</span>{deciding&&zones.clue&&<b>단서 적용</b>}</>}</p>;
-  const zoneNode=<div className="bv-zone" role="group" aria-label="노릴 코스" data-read-level={zones.level} data-drop-role={dragPreview?.role} data-course-projection={coursePlaneTarget?'true':undefined}>
+  const zoneNode=<div className="bv-zone" role="group" aria-label="노릴 코스" data-read-level={zones.level} data-drop-role={dragPreview?.role}>
     {near&&<svg className="bv-near-link" viewBox="0 0 300 300" preserveAspectRatio="none" aria-hidden="true" data-testid="bv-near-link"><path d={`M${pt(near.from).x},${pt(near.from).y}L${pt(near.to).x},${pt(near.to).y}`}/><circle cx={pt(near.from).x} cy={pt(near.from).y} r="20"/></svg>}
     {zones.cells.map(c=>{
       const d=faceDensity(c.face),scan=courseModel?.course?.phase==='scan'&&courseModel.course.scanZone===c.zone,
@@ -73,9 +72,8 @@ export default function DecisionPanel({zones=null,forecast=null,input=null,hand=
     })}
     <StackBoard pieces={zones.pieces} links={zones.links} phase={phase} sound={sound} animationRate={animationRate}/>
   </div>;
-  const projection=<div className="bv-course-projection" data-course-phase={courseModel?.phase||'held'} style={courseProjection||undefined}>{captionNode}{zoneNode}</div>;
   return <section className={'bv-decision'+(zones.targetingSupport?' is-targeting':'')} data-testid="bv-decision" data-course-active={courseCaption?'true':undefined} data-phase={phase} aria-label="코스와 행동">
-    {coursePlaneTarget?createPortal(projection,coursePlaneTarget):<>{captionNode}{zoneNode}</>}
+    {captionNode}{zoneNode}
     <p className={'bv-band'+(zones.band.actual?' is-actual':'')} data-testid="bv-band">
       {zones.band.actual&&<i className="bv-pitch-mark" data-testid="bv-pitch-mark" aria-hidden="true"/>}
       <span>{coursePreview?'존 밖':'존 밖 볼'}</span>{zones.band.face&&<b>{zones.band.face}</b>}

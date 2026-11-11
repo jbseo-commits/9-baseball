@@ -69,19 +69,6 @@ export default function BattleView({model,actors,playback=null,execution=null,an
     ?{phase:'landed',locationLabel:courseTargetHold.current===9?'존 밖':null,course:{phase:'landed',scanZone:null,targetZone:courseTargetHold.current,
       locationLabel:courseTargetHold.current===9?'존 밖':null,ball:null,progress:1,geometry:'held'}}:null;
   const displayCourseModel=courseModel||heldCourseModel;
-  const coursePlaneTarget=coursePreview||heldCourseModel?sceneRef?.current?.querySelector('.bv-scene')||null:null;
-  const camera=field?.camera;
-  const courseProjection=camera?{left:((729+939)/2)*camera.scale+camera.x,top:449.0625*camera.scale+camera.y-24,
-    width:210*camera.scale,height:323.4375*camera.scale+24}:null;
-  const projectionStart=useRef({token:null,box:null});
-  if(coursePreview&&projectionStart.current.token!==courseToken){
-    const z=zoneRef?.current?.querySelector('.bv-zone')?.getBoundingClientRect(),sceneBox=coursePlaneTarget?.getBoundingClientRect();
-    projectionStart.current={token:courseToken,box:z&&sceneBox?{left:z.left-sceneBox.left+z.width/2,top:z.top-sceneBox.top-24,width:z.width,height:z.height+24}:null};
-  }
-  const coursePlaneLocked=displayCourseModel?.course?.targetZone!=null;
-  const morph=playback?Math.max(0,Math.min(1,(elapsed-playback.timeline.courseLockAt)/120)):1;
-  const smooth=morph*morph*(3-2*morph),from=projectionStart.current.box;
-  const renderedProjection=courseProjection&&from&&coursePlaneLocked?Object.fromEntries(Object.keys(courseProjection).map(k=>[k,from[k]+(courseProjection[k]-from[k])*smooth])):courseProjection;
   const ownRoot=useRef(null),viewRef=rootRef||ownRoot;
   useAnimationRate(viewRef,playback?.rate||animationRate);
   // The production controller owns drawer inspection so its existing next timer
@@ -204,7 +191,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
   // A fresh pointer or keyboard gesture always remains immediately usable.
   return <main ref={viewRef} onPointerDownCapture={()=>{handleClick.current=false;}}
     onClickCapture={e=>{if(handleClick.current){handleClick.current=false;e.preventDefault();e.stopPropagation();}}}
-    onKeyDown={()=>{suppressClick.current=false;handleClick.current=false;}} className={'battle-vnext bv-atbat bv-foldable bv-refined bv-reference'+(menuOpen?' inspecting':'')} data-cinematic-focus={pitchFocus&&!menuOpen?'true':undefined} data-animation-rate={animationRate} data-hand-open={shown?'true':'false'} data-phase={model.phase} data-support={hasSupport?'true':'false'} style={{...referenceSkinVars,'--bv-verdict-delay':playback?'120ms':'0ms',...(field?{'--bv-plate-x':field.home.x+'px','--bv-plate-y':field.home.y+'px','--bv-mound-y':field.mound.y+'px','--ref-scale':field.camera.scale,'--ref-zone-size':field.zoneSize+'px'}:{})}} aria-label="타석">
+    onKeyDown={()=>{suppressClick.current=false;handleClick.current=false;}} className={'battle-vnext bv-atbat bv-foldable bv-refined bv-reference'+(menuOpen?' inspecting':'')} data-cinematic-focus={pitchFocus&&!menuOpen?'true':undefined} data-course-ui={coursePreviewScope?'stable':undefined} data-animation-rate={animationRate} data-hand-open={shown?'true':'false'} data-phase={model.phase} data-support={hasSupport?'true':'false'} style={{...referenceSkinVars,'--bv-verdict-delay':playback?'120ms':'0ms',...(field?{'--bv-plate-x':field.home.x+'px','--bv-plate-y':field.home.y+'px','--bv-mound-y':field.mound.y+'px','--ref-scale':field.camera.scale,'--ref-zone-size':field.zoneSize+'px'}:{})}} aria-label="타석">
     <div className="bv-stage" ref={sceneRef}>
       <BattleScene onFocusChange={setPitchFocus} playback={playback} elapsed={coursePreviewScope?elapsed:undefined} result={model.result} finale={finale} scene={model.scene} actors={actors} phase={model.phase} framing="atbat" onLayout={onLayout}
         coursePreview={coursePreview} courseModel={courseModel} courseAtlas={courseLatch.current.atlas||courseAtlas} courseBatterFrame={courseBatterFrame} courseOriginalFrame={courseOriginalFrame}>
@@ -217,7 +204,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
     <div className="bv-decision-area" ref={zoneRef} onPointerDown={onPointerDown} onPointerMove={onPointerMove}
       onPointerUp={onPointerUp} onPointerCancel={onPointerCancel}>
       {main&&model.phase==='deciding'&&<p className="bv-field-choice">{main.name}<span>{main.type==='prepare'?'준비':`${main.coverage?.length||0}존 커버`}</span></p>}
-      <DecisionPanel {...model} coursePreview={coursePreview||!!heldCourseModel} courseModel={displayCourseModel} coursePlaneTarget={coursePlaneLocked&&courseProjection?coursePlaneTarget:null} courseProjection={renderedProjection} dragPreview={dragPreview} animationRate={animationRate} sound={sound} execution={execution} showAction={false} showPlan={false} recent={recent} shotGrade={model.scene.shotGrade} onZoneTap={z=>place(z,model.hand.find(c=>c.selectionRole==='armed')?.id||main?.id)} onZoneHover={onZoneHover}
+      <DecisionPanel {...model} coursePreview={coursePreview||!!heldCourseModel} courseModel={displayCourseModel} dragPreview={dragPreview} animationRate={animationRate} sound={sound} execution={execution} showAction={false} showPlan={false} recent={recent} shotGrade={model.scene.shotGrade} onZoneTap={z=>place(z,model.hand.find(c=>c.selectionRole==='armed')?.id||main?.id)} onZoneHover={onZoneHover}
         onTake={onTake} onSwing={onSwing} onNext={onNext}/>
     </div>
     <button ref={handleRef} type="button" className="bv-hand-handle" aria-label={handOpen?'손패 접기':'손패 펼치기'} aria-expanded={handOpen} aria-controls="bv-folding-hand"

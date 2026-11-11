@@ -1,37 +1,24 @@
-/* Opt-in roulette projection. The same nine buttons are portaled into the
-   scene after LOCK; ordinary planning geometry remains untouched. */
-.bv-scene .bv-course-projection{position:absolute;z-index:6;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:24px minmax(0,1fr);
-  transform:translateX(-50%);pointer-events:none;overflow:visible;container-type:inline-size}
-.bv-scene .bv-course-projection .bv-zone-caption{display:flex;min-width:0;grid-column:1;grid-row:1;height:24px;min-height:24px;margin:0;padding:0 2px;overflow:visible;
-  justify-content:center;gap:6px;color:#fff4d7;font-size:clamp(10px,8cqw,16px);line-height:24px;text-shadow:0 1px 4px #07151c}
-.bv-scene .bv-course-projection .bv-zone-caption>span{overflow:visible;text-overflow:clip}
-.bv-scene .bv-course-projection .bv-course-state{font-size:.82em;color:#cfe8d8}
-.bv-scene .bv-course-projection .bv-zone{grid-column:1;grid-row:2;min-width:0;min-height:0;align-self:stretch;position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));
-  width:100%;height:100%;gap:0;padding:0;border:0;border-radius:0;background:transparent}
-.bv-scene .bv-course-projection .bv-zone > .bv-cell{width:100%;height:100%;min-width:0;min-height:0;aspect-ratio:auto;padding:0;border:0!important;border-radius:0;
-  outline:0!important;box-shadow:inset 0 0 0 .5px #a9c4d440!important;background:transparent!important;opacity:1;color:#e8f0de;pointer-events:none}
-.bv-scene .bv-course-projection .bv-cell-face{visibility:hidden}
-.bv-scene .bv-course-projection .bv-cell.is-cover{box-shadow:inset 0 0 0 1px #edac6380!important}
-.bv-scene .bv-course-projection .bv-cell.is-support{outline:1px dashed #79cbbb!important;outline-offset:-3px}
-.bv-scene .bv-course-projection .bv-cell.is-aim::after{content:"";position:absolute;inset:16%;border:1px solid #fff2cf80;border-radius:50%}
-.bv-scene .bv-course-projection .bv-cell.is-course-target{background:radial-gradient(ellipse at center,#fff2cf32 0 24%,transparent 72%)!important}
-.bv-scene .bv-course-projection .bv-cell.is-course-target::before{content:"";position:absolute;inset:23%;border:1px solid #fff3d6cc;border-radius:50%;box-shadow:0 0 14px #fff0c977}
-.bv-scene .bv-course-projection .bv-cell.is-actual::before{content:"";position:absolute;inset:12%;border:1px solid #fff3d6e0;border-radius:50%;box-shadow:0 0 18px #fff0c977}
-.bv-scene .bv-course-projection .bv-token{top:2px;left:2px;width:clamp(5px,7cqw,11px);height:clamp(5px,7cqw,11px);font-size:clamp(4px,4.5cqw,7px)}
-.bv-scene .bv-course-projection .bv-token+.bv-token{left:calc(2px + clamp(5px,7cqw,11px))}
+/* The 9-zone command board stays in its original screen geometry. World-space
+   pitch/contact geometry is rendered independently by BattleScene. */
+@media(orientation:landscape){
+.battle-vnext[data-course-ui=stable] .bv-decision-area .bv-decision{position:relative}
+.battle-vnext[data-course-ui=stable] .bv-decision-area .bv-zone{
+ width:100%;height:var(--ref-zone-size,var(--bv-zone-size,210px));
+ grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr))}
+.battle-vnext[data-course-ui=stable] .bv-decision-area .bv-zone > .bv-cell{
+ height:100%;min-height:0;aspect-ratio:auto}
+/* Status must not add a row at commit or move the board down. */
+.battle-vnext[data-course-ui=stable] .bv-decision[data-course-active=true] > .bv-zone-caption{
+ position:absolute;bottom:100%;left:50%;transform:translateX(-50%);display:flex;
+ width:max-content;max-width:calc(100vw - 24px);height:24px;min-height:24px;margin:0;padding:0;
+ justify-content:center;align-items:center;white-space:nowrap;overflow:visible;pointer-events:none;
+ font-size:14px;line-height:24px;font-weight:700;color:#fff5dd;
+ text-shadow:0 1px 3px #030b10,0 0 8px #030b10;letter-spacing:.025em}
+.battle-vnext[data-course-ui=stable] .bv-course-state{font-size:14px;line-height:24px;font-weight:700;color:#fff5dd}
+.battle-vnext[data-course-ui=stable] .bv-cell.is-course-scan{
+ box-shadow:inset 0 0 0 2px #fff0b8,0 0 14px #f8cf6b80;background-color:#af853544}
+.battle-vnext[data-course-ui=stable] .bv-cell.is-course-target{
+ box-shadow:inset 0 0 0 2px #fff0b8,0 0 14px #f8cf6b80}
+}
 .bv-scene .bv-actor-course-batter{z-index:3}
 .bv-scene .bv-actor-batter.bv-course-underlay{visibility:hidden}
-.bv-scene .bv-course-ball{position:absolute;z-index:4;display:block;width:16px;height:16px;pointer-events:none}
-
-.bv-scene .bv-course-projection .bv-stack-board{display:none}
-.bv-cell.is-course-scan{box-shadow:inset 0 0 0 2px #fff0b8,0 0 14px #f8cf6b80!important;background-color:#af853544!important}
-
-/* Course state is public after commit. One readable line replaces the locked
-   planning caption; it never enlarges the physical grid's explicit tracks. */
-.bv-decision[data-course-active=true] > .bv-zone-caption,
-.bv-scene .bv-course-projection > .bv-zone-caption{display:flex;justify-content:center;align-items:center;
-  white-space:nowrap;overflow:visible;color:#fff5dd;text-shadow:0 1px 3px #030b10,0 0 8px #030b10;
-  font-size:14px;line-height:24px;font-weight:700;letter-spacing:.025em}
-.bv-scene .bv-course-projection > .bv-zone-caption{width:max-content;max-width:calc(100vw - 24px);justify-self:center}
-.bv-decision[data-course-active=true] .bv-course-state,
-.bv-scene .bv-course-projection .bv-course-state{font-size:14px;line-height:24px;font-weight:700;color:#fff5dd}
