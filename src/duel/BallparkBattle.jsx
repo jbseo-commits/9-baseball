@@ -109,7 +109,7 @@ export default function BallparkBattle({
   batterSheet=batterV14MasterSheet,batterRig=null,
   onSelect,onAim,onStack,onSwing,onTake,onDetail,onPile,onHome,onHelp,onSettings,onToggleSound,sound=false,onJukebox=null,onPractice=null,
   autoLesson=false,autoPlan=null,onExitLesson=null,previewMode=false,coachSignal=0,
-  defenseLab=null,vnextReview=null,
+  defenseLab=null,vnextReview=null,coursePreviewScope=false,
 }){
   const compact=!autoLesson;
   const vnextRequested=battleUiMode().vnext;
@@ -648,6 +648,7 @@ export default function BallparkBattle({
   },[model?.phase,playToken,artId,s.runMap?.currentNodeId]);
   if(useVnext){
     return <BattleView execution={matchingExecution} model={model} actors={{batter:SAMPLE_ACTORS.batter,pitcher:rosterPitcher||approvedArt||SAMPLE_ACTORS.pitcher}}
+      coursePreviewScope={coursePreviewScope}
       playback={playback} animationRate={animationRate} onAnimationRateChange={onAnimationRateChange} sound={sound} onToggleSound={onToggleSound} rootRef={rootRef} sceneRef={sceneRef} zoneRef={zoneRef} handRef={handDockRef} recent={recentResult?.key===artId+':'+s.runMap?.currentNodeId?recentResult.text:null} title={label} review={!!vnextReview}
       inspector={inspectorView} menuOpen={!!inspect} handOpen={handOpen} onHandOpenChange={setHandOpen} onMenu={()=>openInspect('menu')} onPitcherInfo={()=>openInspect('pitcher')}
       onCardTap={id=>{if(!deciding&&!inspect)return;isSkill(byId(id)?.entry)?pickPrep(id):pickSwing(id);}}

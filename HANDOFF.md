@@ -524,3 +524,8 @@ ignore 규칙을 `4bfb400`에서 제거했다. Git 이력으로 복구 가능하
 ---
 
 > v8.7 이하의 이전 인수인계는 [인수인계 아카이브](./docs/history/HANDOFF-archive.md)에 보존한다.
+
+
+## 2026-11-11 — 실제9존·룰렛 연결 후보6
+
+`codex/roulette-course-connection-20261111`은 actual main `fb8e7b1`에서 준비한 opt-in 실제게임 프리뷰다. `?battleUi=vnext&battlePlay=1&coursePreview=1&seed=1&battleSpeed=0.5`로 실행하며 본편 localStorage와 분리한다. 원화3회/누적후보6회 한도를 모두 사용했다. 이전4/5 실패를 보존하고 최종6은1730테스트/23실제호스트/90DOM/5입력실패경계 및 독립 스틸·모션 수정 검수를 통과했다. 소스와 제한은 `docs/qa/roulette-course-connection-20261111/README.md`, 고정 해시는 `material6/FREEZE.json` 및 `FINAL-VALIDATION.json`. 모션은 held-keypose이며 상업 마스터피스/보간 완료로 표현하지 않는다. 원격·공개 상태는 해당 실행 PR을 확인한다.

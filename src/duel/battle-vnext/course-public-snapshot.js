@@ -66,12 +66,12 @@ function acceptedDestination(next){
   };
 }
 
-/** Build gated playback data only after the accepted pitch is durably saved. */
-export function coursePresentationFor({execution,next,timeline,live=false,durableSaved=false}={}){
+/** Build playback after a durable save, or an explicitly accepted isolated preview write. */
+export function coursePresentationFor({execution,next,timeline,live=false,durableSaved=false,previewAccepted=false}={}){
   const snapshot=execution?.courseSnapshot;
   // Reduced motion keeps the existing immediate result presentation. It does
   // not acquire a new scan/lock/flight path or change its impact deadline.
-  if(!live||!durableSaved||timeline?.duration<=60||next?.version!==10||next.last?.kind==='skill'
+  if(!live||(!durableSaved&&!previewAccepted)||timeline?.duration<=60||next?.version!==10||next.last?.kind==='skill'
       ||!next.battle?.revealed||!snapshot?.candidates?.length
       ||snapshot.nodeId!==next.runMap?.currentNodeId
       ||snapshot.pitchCounter!==next.stats?.pitches)return null;

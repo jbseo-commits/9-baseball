@@ -1,0 +1,291 @@
+{
+  "atlas": "batter-course-4x4.webp",
+  "id": "course-source-3897faf6-v2",
+  "status": "STATIC_SOURCE_PASS_RUNTIME_REVIEW_PENDING",
+  "atlasSha256": "3897faf6f6a54f404fce626807cee0825bb94b13da3728d918426fca6ba306fe",
+  "decodedRGBAsha256": "dca273a46a730250c63a896014a53b527b6914de9137ab341ed094cc29553f39",
+  "cell": [
+    1024,
+    768
+  ],
+  "grid": [
+    4,
+    4
+  ],
+  "worldPerSourcePixel": 1.5625,
+  "origin": [
+    -128.125,
+    -133.75
+  ],
+  "ballRadius": 8,
+  "maskAlpha": 128,
+  "contacts": [
+    {
+      "frame": 1,
+      "cellRGBAsha256": "cf64cbcf35c8a9e443d42a3e877ce9df9579af3eaececb595ebc4d44c2455205",
+      "maskSha256": "31d78c5141bc260574482064586e025e118bf067734beb25e69278bf62421b9a",
+      "roi": {
+        "source": "/workspace/9zone-contact-sequence-20261111/corrected-barrels.json",
+        "sourceSha256": "f8f264a006cd8c40b3bd4a775eaafaca2de8f9ca6c3b7f8745aafe8b42a2d968",
+        "canonical724CellROI": [
+          505.1834130781499,
+          375.2791068580542,
+          629.3141945773525,
+          415.6937799043062
+        ],
+        "mapped768CellROI": [
+          535,
+          398,
+          668,
+          441
+        ],
+        "scaleOnlyWholeCell": true,
+        "excludesBodyAndHandsByAuthorAnnotation": true
+      },
+      "targets": [
+        {
+          "zone": 0,
+          "point": [
+            764.0,
+            502.96875
+          ],
+          "distance": 0.0
+        },
+        {
+          "zone": 1,
+          "point": [
+            834.0,
+            502.96875
+          ],
+          "distance": 0.0
+        },
+        {
+          "zone": 2,
+          "point": [
+            904.0,
+            502.96875
+          ],
+          "distance": 3.577954
+        }
+      ]
+    },
+    {
+      "frame": 4,
+      "cellRGBAsha256": "bd7ae2e8e840c92fe0b576b643029f5d6b91c305d7bdbd02c25ae72b88c513a5",
+      "maskSha256": "9ef887dcb1da48f0d8af8d1cbc5e14da2f125d21286e2244cb635c76d33f75eb",
+      "roi": {
+        "source": "/workspace/9zone-contact-sequence-20261111/corrected-barrels.json",
+        "sourceSha256": "f8f264a006cd8c40b3bd4a775eaafaca2de8f9ca6c3b7f8745aafe8b42a2d968",
+        "canonical724CellROI": [
+          506.9154704944179,
+          424.35406698564594,
+          640.8612440191388,
+          479.20255183413076
+        ],
+        "mapped768CellROI": [
+          537,
+          450,
+          680,
+          509
+        ],
+        "scaleOnlyWholeCell": true,
+        "excludesBodyAndHandsByAuthorAnnotation": true
+      },
+      "targets": [
+        {
+          "zone": 3,
+          "point": [
+            764.0,
+            610.78125
+          ],
+          "distance": 0.0
+        },
+        {
+          "zone": 4,
+          "point": [
+            834.0,
+            610.78125
+          ],
+          "distance": 0.0
+        },
+        {
+          "zone": 5,
+          "point": [
+            904.0,
+            610.78125
+          ],
+          "distance": 0.0
+        }
+      ]
+    },
+    {
+      "frame": 7,
+      "cellRGBAsha256": "f323a399d446072b6198b8f9012dafd68472da3e5c8b99c6c58c6c959d09916d",
+      "maskSha256": "4586e62a9c3ec759da6f3529b7697ce741ad64a93128796e9354ad313fb4886a",
+      "roi": {
+        "source": "/workspace/9zone-contact-sequence-20261111/corrected-barrels.json",
+        "sourceSha256": "f8f264a006cd8c40b3bd4a775eaafaca2de8f9ca6c3b7f8745aafe8b42a2d968",
+        "canonical724CellROI": [
+          516.7304625199362,
+          479.20255183413076,
+          643.7480063795854,
+          539.8245614035088
+        ],
+        "mapped768CellROI": [
+          548,
+          508,
+          683,
+          573
+        ],
+        "scaleOnlyWholeCell": true,
+        "excludesBodyAndHandsByAuthorAnnotation": true
+      },
+      "targets": [
+        {
+          "zone": 6,
+          "point": [
+            764.0,
+            718.59375
+          ],
+          "distance": 0.0
+        },
+        {
+          "zone": 7,
+          "point": [
+            834.0,
+            718.59375
+          ],
+          "distance": 0.0
+        },
+        {
+          "zone": 8,
+          "point": [
+            904.0,
+            718.59375
+          ],
+          "distance": 0.0
+        }
+      ]
+    },
+    {
+      "frame": 10,
+      "cellRGBAsha256": "019a02298f3b7a5f963536b16c79d7473962a44b5813dcac448efabbe4de2335",
+      "maskSha256": "8e0376ae1f6fc7eb5be319825fc79b28f43046e99cd20bdc8e413963110bc09e",
+      "roi": {
+        "source": "/workspace/9zone-roulette-connection-20261111/outside-audit/call2/outside-call2-source-validation.json",
+        "sourceSha256": "604cce90926000003730308b6f938b9d305699aa9ddbe6698ad4449150772e2e",
+        "normalizedCellROI": [
+          640,
+          447,
+          775,
+          495
+        ],
+        "manualSemanticAnnotation": "black barrel plus warm rim; wood handle and both hands excluded"
+      },
+      "targets": [
+        {
+          "zone": 9,
+          "point": [
+            1044,
+            610.78125
+          ],
+          "distance": 0.0
+        }
+      ]
+    }
+  ],
+  "outsideContactFrame": 10,
+  "outsidePostFrame": 11,
+  "emptyFrames": [
+    12,
+    13,
+    14,
+    15
+  ],
+  "sources": [
+    {
+      "frame": 0,
+      "sourceRGBAsha256": "8ec8185136d5b127b787c729a984a52a51c9873fabfb55b05a88a3317a964fb1",
+      "decodedAtlasRGBAsha256": "8ec8185136d5b127b787c729a984a52a51c9873fabfb55b05a88a3317a964fb1",
+      "pixelExact": true,
+      "rightPaddingTransparent": true
+    },
+    {
+      "frame": 1,
+      "sourceRGBAsha256": "cf64cbcf35c8a9e443d42a3e877ce9df9579af3eaececb595ebc4d44c2455205",
+      "decodedAtlasRGBAsha256": "cf64cbcf35c8a9e443d42a3e877ce9df9579af3eaececb595ebc4d44c2455205",
+      "pixelExact": true,
+      "rightPaddingTransparent": true
+    },
+    {
+      "frame": 2,
+      "sourceRGBAsha256": "51f292b2e2fa63d0997b5e075316561fc8005fb873dad824d1ce998d692bea45",
+      "decodedAtlasRGBAsha256": "51f292b2e2fa63d0997b5e075316561fc8005fb873dad824d1ce998d692bea45",
+      "pixelExact": true,
+      "rightPaddingTransparent": true
+    },
+    {
+      "frame": 3,
+      "sourceRGBAsha256": "ac1d612a8dee166fc83292dada65654d800a0ec0b6b910d938c95a643fd6e6f2",
+      "decodedAtlasRGBAsha256": "ac1d612a8dee166fc83292dada65654d800a0ec0b6b910d938c95a643fd6e6f2",
+      "pixelExact": true,
+      "rightPaddingTransparent": true
+    },
+    {
+      "frame": 4,
+      "sourceRGBAsha256": "bd7ae2e8e840c92fe0b576b643029f5d6b91c305d7bdbd02c25ae72b88c513a5",
+      "decodedAtlasRGBAsha256": "bd7ae2e8e840c92fe0b576b643029f5d6b91c305d7bdbd02c25ae72b88c513a5",
+      "pixelExact": true,
+      "rightPaddingTransparent": true
+    },
+    {
+      "frame": 5,
+      "sourceRGBAsha256": "1196bc943034cfb0312721e031ffd7ac68e7194fbf435dce7a3fe8549a015fa3",
+      "decodedAtlasRGBAsha256": "1196bc943034cfb0312721e031ffd7ac68e7194fbf435dce7a3fe8549a015fa3",
+      "pixelExact": true,
+      "rightPaddingTransparent": true
+    },
+    {
+      "frame": 6,
+      "sourceRGBAsha256": "e8dd71ce78109f737dfbc051741aa6b58a4f55169bfee9c9d1917591d8783862",
+      "decodedAtlasRGBAsha256": "e8dd71ce78109f737dfbc051741aa6b58a4f55169bfee9c9d1917591d8783862",
+      "pixelExact": true,
+      "rightPaddingTransparent": true
+    },
+    {
+      "frame": 7,
+      "sourceRGBAsha256": "f323a399d446072b6198b8f9012dafd68472da3e5c8b99c6c58c6c959d09916d",
+      "decodedAtlasRGBAsha256": "f323a399d446072b6198b8f9012dafd68472da3e5c8b99c6c58c6c959d09916d",
+      "pixelExact": true,
+      "rightPaddingTransparent": true
+    },
+    {
+      "frame": 8,
+      "sourceRGBAsha256": "a88bc7c14dd2e4c9a81f1f74cd4cd01a6db5bc513dd22dd5f511513f7a8e4b53",
+      "decodedAtlasRGBAsha256": "a88bc7c14dd2e4c9a81f1f74cd4cd01a6db5bc513dd22dd5f511513f7a8e4b53",
+      "pixelExact": true,
+      "rightPaddingTransparent": true
+    },
+    {
+      "frame": 9,
+      "sourceRGBAsha256": "f4bd7a59578e116b369acb773b0d41a5c0046912fb50a207393107efe9fa97d7",
+      "decodedAtlasRGBAsha256": "f4bd7a59578e116b369acb773b0d41a5c0046912fb50a207393107efe9fa97d7",
+      "pixelExact": true,
+      "rightPaddingTransparent": true
+    },
+    {
+      "frame": 10,
+      "sourceRGBAsha256": "019a02298f3b7a5f963536b16c79d7473962a44b5813dcac448efabbe4de2335",
+      "decodedAtlasRGBAsha256": "019a02298f3b7a5f963536b16c79d7473962a44b5813dcac448efabbe4de2335",
+      "pixelExact": true,
+      "sourceValidationSha256": "604cce90926000003730308b6f938b9d305699aa9ddbe6698ad4449150772e2e"
+    },
+    {
+      "frame": 11,
+      "source": "outside-call3-contact-1024x768.png",
+      "sourceRGBAsha256": "5d97d0ebe309d75206ae5b8875c7a864c76f5a1914aee6e7773afd012bde0013",
+      "pixelExact": true,
+      "purpose": "authored outside early follow-through; fixed stance"
+    }
+  ]
+}

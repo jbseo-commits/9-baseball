@@ -1,0 +1,41 @@
+{
+  "material": 6,
+  "materialCeiling": 6,
+  "outsideImageCalls": 3,
+  "imageCeiling": 3,
+  "baseline": "fb8e7b13f043e2c17376138abe6696f48c2d8022",
+  "state": "VALIDATED_LOCAL_PENDING_REMOTE",
+  "unitTests": {
+    "files": 250,
+    "tests": 1730,
+    "pass": true
+  },
+  "domCases": 90,
+  "domMaxCssPx": 0.03217827461577827,
+  "hostCases": 23,
+  "exactStateCases": 23,
+  "earlyResult": 0,
+  "pageErrors": 0,
+  "edgeCases": 5,
+  "blind": {
+    "gain": 0.390625,
+    "wins": 6,
+    "improved": true,
+    "barMet": false
+  },
+  "buildMiB": 54.8,
+  "budgetMiB": 60,
+  "queryOffShots": 119,
+  "touchChecks": 42,
+  "limits": [
+    "held authored key poses, no smooth interpolation",
+    "no physical-device/audio/haptic certification",
+    "true hidden tab not exercised in headless focus",
+    "UI material/text remain below commercial target"
+  ],
+  "sourceSha256": "3897faf6f6a54f404fce626807cee0825bb94b13da3728d918426fca6ba306fe",
+  "entryGuard": "isolated route requires battlePlay=1; coursePreview selects presentation only inside it",
+  "canonicalURL": "?battleUi=vnext&battlePlay=1&coursePreview=1&seed=1&battleSpeed=0.5",
+  "guardedEdgeCases": 5,
+  "productionStorageAccess": 0
+}

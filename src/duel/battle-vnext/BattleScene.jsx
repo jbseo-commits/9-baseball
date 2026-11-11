@@ -11,6 +11,7 @@ import {rosterFrame} from './roster-actor.js';
 import useSceneClock from './use-scene-clock.js';
 import './scene.css';
 import {ATBAT_COMPOSITION} from './atbat-composition.js';
+import {courseSceneEffectAt} from './course-scene-effect.js';
 
 /* Registered authored poses and VFX share one camera and host clock.
    This render-only scene never judges or advances the engine. */
@@ -27,20 +28,26 @@ export function approvedPitcherArt(artId){
 
 const ACTORS=['pitcher','batter'];
 
-export default function BattleScene({scene=null,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,framing='cover',playback=null,result=null,finale=null,onFocusChange=null}){
+export default function BattleScene({scene=null,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,framing='cover',playback=null,result=null,finale=null,onFocusChange=null,
+  elapsed:providedElapsed,coursePreview=false,courseModel=null,courseAtlas=null,courseBatterFrame=null,courseOriginalFrame=null}){
   const rootRef=useRef(null);
-  const elapsed=useSceneClock(playback);
+  const clockElapsed=useSceneClock(playback,providedElapsed===undefined);
+  const elapsed=providedElapsed??clockElapsed;
   const roster=actors.pitcher?.kind==='roster-atlas'?actors.pitcher:null;
   const composition=framing==='atbat'?(roster?{...ATBAT_COMPOSITION,pitcher:roster.meta,release:roster.release}:ATBAT_COMPOSITION):null;
   const reduced=playback?.timeline?.duration<=60;
-  const focus=pitchFocusAt({elapsed,playback,phase,reduced});
+  const focus=pitchFocusAt({elapsed,playback,phase,reduced})
+    ||(coursePreview&&playback&&!reduced&&elapsed>=playback.timeline.courseLockAt&&elapsed<playback.timeline.duration-240);
   useLayoutEffect(()=>{onFocusChange?.(focus);},[focus,onFocusChange]);
-  const effect=sceneEffectAt({elapsed,playback,result,phase,composition});
+  const contactWindow=playback&&elapsed<playback.timeline.impactAt+Math.max(150,playback.timeline.freeze||0);
+  const contactSelectionMatches=!contactWindow||courseBatterFrame===courseModel?.outcome?.registration?.frame;
+  const registeredModel=courseModel?.outcome?.contact==='registered'&&!contactSelectionMatches?{...courseModel,outcome:{...courseModel.outcome,contact:'unsupported'}}:courseModel;
+  const effect=coursePreview?courseSceneEffectAt({courseModel:registeredModel,elapsed,playback,result,phase,composition}):sceneEffectAt({elapsed,playback,result,phase,composition});
   const landingAt=playback?.timeline?.delivery?.landingAt??roster?.landingAt;
   const landingAge=elapsed-landingAt;
   const landing=roster?.landing&&playback&&!reduced&&playback.action!=='prepare'&&elapsed>=landingAt&&elapsed<landingAt+230
     ?{point:roster.landing,progress:(elapsed-landingAt)/230}:null;
-  const batterTweens=actors.batter===SAMPLE_ACTORS.batter;
+  const batterTweens=!coursePreview&&actors.batter===SAMPLE_ACTORS.batter;
   const pose=motionAt({elapsed,timeline:playback?.timeline,action:playback?.action,landed:phase==='result',knockedOut:!!result?.knockedOut,reduced,readyCoil:framing==='atbat'&&(phase==='deciding'||phase==='flight'),authoredBatterTweens:batterTweens});
   const [measured,setMeasured]=useState(null);
   const onLayoutRef=useRef(onLayout);onLayoutRef.current=onLayout;
@@ -62,10 +69,16 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
   useLayoutEffect(()=>{if(snap){const at=p=>({x:p.x*camera.scale+camera.x,y:p.y*camera.scale+camera.y});const pilot=actors.batter===SAMPLE_ACTORS.batter||actors.pitcher===SAMPLE_ACTORS.pitcher;onLayoutRef.current?.(pilot?{...snap,contact:at(composition?.contact||MOTION_CONTACT),release:at(composition?.release||MOTION_RELEASE)}:snap);}},[box.width,box.height,inset,framing,actors.batter,actors.pitcher]);// eslint-disable-line react-hooks/exhaustive-deps
   const authored=actors.batter===SAMPLE_ACTORS.batter||actors.pitcher===SAMPLE_ACTORS.pitcher;
   const at=p=>({x:p.x*camera.scale+camera.x,y:p.y*camera.scale+camera.y});
-  const contact=at(composition?.contact||(authored?MOTION_CONTACT:SCENE.sampleFlight.contact)),release=at(composition?.release||(authored?MOTION_RELEASE:SCENE.sampleFlight.release));
+  const registeredContact=coursePreview&&registeredModel?.outcome?.contact==='registered'?registeredModel.outcome.registration.point:null;
+  const contact=at(registeredContact||composition?.contact||(authored?MOTION_CONTACT:SCENE.sampleFlight.contact)),release=at(composition?.release||(authored?MOTION_RELEASE:SCENE.sampleFlight.release));
   const vars=snap?{'--bv-home-x':snap.home.x+'px','--bv-home-y':snap.home.y+'px','--bv-release-x':release.x+'px','--bv-release-y':release.y+'px',
     '--bv-contact-x':contact.x+'px','--bv-contact-y':contact.y+'px','--bv-world-scale':camera.scale}:{};
-  return <section ref={rootRef} className={'bv-scene'+(className?' '+className:'')} aria-label="승부 구장" style={vars}
+  const courseMeta=courseAtlas?.meta,courseBox=courseMeta?actorBox(courseMeta):null;
+  // A single visibility predicate keeps the source actor and course layer in
+  // lockstep. The decoded course image stays mounted before and between pitches.
+  const visibleCourseFrame=!!coursePreview&&!!courseAtlas&&!!courseBox&&Number.isInteger(courseBatterFrame)
+    &&courseBatterFrame>=0&&courseBatterFrame<courseMeta.frameCount;
+  return <section ref={rootRef} className={'bv-scene'+(className?' '+className:'')} data-course-preview={coursePreview?'true':undefined} aria-label="승부 구장" style={vars}
     data-phase={phase} data-fx-stage={scene?.fxStage||undefined} data-play-token={scene?.playToken??undefined}
     data-shot={scene?.shotGrade||undefined} data-motion={authored?'authored':'static'} data-camera-align={camera.yAlign}>
     {batterTweens&&<img hidden src={SAMPLE_ACTORS.batterTween} alt="" aria-hidden="true"/>}
@@ -75,14 +88,20 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
       {(composition?.shadows||SCENE.shadows).map((s,i)=><i key={i} className="bv-ground-shadow" style={{left:s.x,top:s.y,width:s.width,height:s.height,transform:`rotate(${s.rotation}deg)`}}/>)}
       {ACTORS.map(name=>{
         const live=name==='pitcher'?roster:null,tween=name==='batter'&&batterTweens&&pose.batterTween!=null,url=live?.url||(tween?SAMPLE_ACTORS.batterTween:actors[name])||null,isAtlas=!!live||url===SAMPLE_ACTORS[name]||tween;
-        const originalMeta=live?live.meta:isAtlas?(composition?.[name]||PILOT_MOTION[name]):SCENE[name],meta=tween?{...originalMeta,columns:1,rows:1}:originalMeta,b=actorBox(meta),frame=tween?0:live?rosterFrame(playback,elapsed,live,{knockedOut:!!result?.knockedOut}):pose[name];
+        const originalMeta=live?live.meta:isAtlas?(composition?.[name]||PILOT_MOTION[name]):SCENE[name],meta=tween?{...originalMeta,columns:1,rows:1}:originalMeta,b=actorBox(meta),frame=tween?0:live?rosterFrame(playback,elapsed,live,{knockedOut:!!result?.knockedOut}):name==='batter'&&Number.isInteger(courseOriginalFrame)&&courseOriginalFrame>=0&&courseOriginalFrame<14?courseOriginalFrame:pose[name];
         const readyImage=isAtlas&&!tween&&frame===0&&meta.readyImage;
-        return <div key={name} className={'bv-actor bv-actor-'+name} data-actor={name} data-actor-missing={url?undefined:'true'}
+        return <div key={name} className={'bv-actor bv-actor-'+name+(name==='batter'&&visibleCourseFrame?' bv-course-underlay':'')} data-actor={name} data-actor-missing={url?undefined:'true'}
           data-pose={tween?'swing-bridge':live?'frame-'+frame:isAtlas?meta.frames[frame].name:undefined} data-roster-art={live?.artId} style={{left:b.x,top:b.y,width:b.width,height:b.height}}>
           {url&&(isAtlas?<div className="bv-motion-crop"><img src={url} alt="" width={meta.sourceWidth*meta.columns} height={meta.sourceHeight*meta.rows} draggable="false" decoding="async" style={{width:meta.columns*100+'%',height:meta.rows*100+'%',left:-(frame%meta.columns)*100+'%',top:-Math.floor(frame/meta.columns)*100+'%'}}/></div>:<img src={url} alt="" width={meta.sourceWidth} height={meta.sourceHeight} draggable="false" decoding="async"/>)}
           {readyImage&&<img className="bv-ready-drawing" src={readyImage.url} alt="" draggable="false" decoding="async" style={{position:'absolute',zIndex:1,width:readyImage.width/meta.sourceWidth*100+'%',height:readyImage.height/meta.sourceHeight*100+'%',left:readyImage.x/meta.sourceWidth*100+'%',top:readyImage.y/meta.sourceHeight*100+'%'}}/>}
         </div>;
       })}
+      {courseBox&&<div className="bv-actor bv-actor-course-batter" data-testid="bv-course-batter" data-course-frame={visibleCourseFrame?courseBatterFrame:undefined}
+        aria-hidden="true" style={{left:courseBox.x,top:courseBox.y,width:courseBox.width,height:courseBox.height,visibility:visibleCourseFrame?'visible':'hidden'}}>
+        <div className="bv-motion-crop"><img src={courseAtlas.url} alt="" draggable="false" decoding="sync"
+          width={courseMeta.sourceWidth*courseMeta.columns} height={courseMeta.sourceHeight*courseMeta.rows}
+          style={{width:courseMeta.columns*100+'%',height:courseMeta.rows*100+'%',left:-((visibleCourseFrame?courseBatterFrame:0)%courseMeta.columns)*100+'%',top:-Math.floor((visibleCourseFrame?courseBatterFrame:0)/courseMeta.columns)*100+'%'}}/></div>
+      </div>}
     </div></div>
     <div className="bv-scene-shade" aria-hidden="true"/>
     {/* The light pass uses the exact same projection/jitter as the actors. It
@@ -90,7 +109,7 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
     {effect?.kind==='flight'&&!reduced&&<div className="bv-ball-wake" aria-hidden="true" style={{position:'absolute',inset:0,zIndex:2,pointerEvents:'none'}}><FxSprite kind="wake" age={effect.age} point={at(effect.ball)} scale={camera.scale} size={.35+effect.radius/30} angle={Math.atan2(effect.ball.y-effect.previous.y,effect.ball.x-effect.previous.x)*180/Math.PI} opacity={.6}/></div>}
     <div className="bv-effect-pass" aria-hidden="true" style={{transform:effect?.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:'none'}}>
       <div className="bv-effect-world" style={{width:SCENE.world.width,height:SCENE.world.height,transform:cameraMatrix(camera),visibility:camera.scale?'visible':'hidden'}}>
-        <SceneEffects effect={effect} finale={finale} composition={composition} landing={landing} spriteBall={!reduced} pixelContact={!!effect&&phase==='result'&&contactAtlasPlan(scene?.shotGrade).length>0}/>
+        <SceneEffects effect={effect} finale={finale} composition={registeredContact?{...composition,contact:registeredContact}:composition} landing={landing} spriteBall={!reduced} pixelContact={!!effect&&(!coursePreview||!!registeredContact)&&phase==='result'&&contactAtlasPlan(scene?.shotGrade).length>0}/>
       </div>
     </div>
     {effect&&!effect.hidden&&!reduced&&<div className="bv-ball-sprite" aria-hidden="true" style={{position:'absolute',inset:0,zIndex:2,pointerEvents:'none',transform:effect.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:undefined}}><FxSprite kind="ball" age={effect.spinAge??effect.age} point={at(effect.ball)} scale={camera.scale} size={effect.radius/10}/></div>}

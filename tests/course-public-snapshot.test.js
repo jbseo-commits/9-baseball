@@ -112,6 +112,15 @@ describe('gated durable course playback',()=>{
     expect(coursePresentationFor({execution:{...execution,committedPlan:{cards:[{aimZone:7}]}},next:nextWithLazyZone,timeline,live:true,durableSaved:true}).course.aimZone).toBe(7);
   });
 
+  it('allows a separately accepted isolated memory preview but never treats the URL flag as a save',()=>{
+    const before=battleState(9),next=playV10Action(before,{type:'take'}),execution=captureExecution(before,next);
+    const timeline={pitchReleaseAt:600,impactAt:900,duration:1400};
+    const args={execution,next,timeline,live:true,durableSaved:false};
+    expect(coursePresentationFor(args)).toBeNull();
+    expect(coursePresentationFor({...args,previewAccepted:false})).toBeNull();
+    expect(coursePresentationFor({...args,previewAccepted:true})?.course.plan.valid).toBe(true);
+  });
+
   it('does not attach for preparation, missing snapshots, mismatched pitch/node, or invalid course timelines',()=>{
     const before=battleState(1),next=playV10Action(before,{type:'take'}),execution=captureExecution(before,next);
     const args={execution,next,timeline:{pitchReleaseAt:600,impactAt:900},live:true,durableSaved:true};

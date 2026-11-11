@@ -22,16 +22,66 @@ import './reference.css';
 import './thumb-hand.css';
 import './short-landscape.css';
 import './pitch-focus.css';
+import useSceneClock from './use-scene-clock.js';
+import {courseRenderModel} from './course-render-model.js';
+import {courseBatterSampleAt} from './course-batter-sequence.js';
+import {ATBAT_COMPOSITION} from './atbat-composition.js';
 
 /* Presentation only. BallparkBattle keeps selection, inspector, commit and next
    timers; App still owns the engine, save and pitch presentation lifecycle. */
-export default function BattleView({model,actors,playback=null,execution=null,animationRate=1,onAnimationRateChange=null,rootRef,sceneRef,zoneRef,handRef,title,review=false,
+export default function BattleView({model,actors,playback=null,execution=null,animationRate=1,onAnimationRateChange=null,rootRef,sceneRef,zoneRef,handRef,title,review=false,coursePreviewScope=false,
   inspector=null,menuOpen=false,handOpen:controlledHandOpen,onHandOpenChange=null,recent=null,onMenu,onPitcherInfo=null,sound=false,onToggleSound=null,onCardTap,onCardDetail,onPiles,onZoneTap,onZoneHover,
   onToggleSupport,onClearPlan,onCardDrop=null,onPreviewCardDrop=null,onRemoveSupport=null,onPointerDown,onPointerMove,onPointerUp,onPointerCancel,onTake,onSwing,onNext,piles}){
   const finale=cinemaMoment(model.result,model.scene.fxStage,!!playback);
   const spotlight=model.result&&playback&&!finale?{...model.result,knockedOut:false}:model.result;
   const [field,setField]=useState(null);
   const [pitchFocus,setPitchFocus]=useState(false);
+  // The opt-in preview owns one RAF sampler for both its model and scene.
+  // Query-off scenes retain BattleScene's original clock and render cadence.
+  const elapsed=useSceneClock(playback,coursePreviewScope);
+  const [courseAtlas,setCourseAtlas]=useState(null);
+  useEffect(()=>{
+    if(!coursePreviewScope)return undefined;
+    let active=true;
+    import('./course-batter-atlas.js').then(async atlas=>{
+      if(await atlas.decodeCourseBatterAtlas()&&active)setCourseAtlas({url:atlas.COURSE_BATTER_ATLAS_URL,meta:atlas.COURSE_BATTER_META,contactFor:atlas.registeredCourseContact,image:atlas.retainedCourseImage()});
+    }).catch(()=>{});
+    return()=>{active=false;};
+  },[coursePreviewScope]);
+  const courseLatch=useRef({token:null,ready:false,atlas:null});
+  const courseToken=playback?.token??null;
+  if(courseLatch.current.token!==courseToken){
+    courseLatch.current={token:courseToken,ready:!!coursePreviewScope&&!!courseAtlas&&!!playback?.course&&Array.from({length:10},(_,z)=>courseAtlas.contactFor?.(courseAtlas,z)).every(Boolean),atlas:courseAtlas};
+  }
+  const coursePreview=!!playback&&courseLatch.current.ready&&coursePreviewScope&&!!playback.course;
+  const sampledCourseModel=coursePreview?courseRenderModel({playback,elapsed,landed:model.phase==='result',
+    reduced:playback.timeline.duration<=60,result:model.result,origin:actors.pitcher?.release||ATBAT_COMPOSITION.release}):null;
+  const capability=sampledCourseModel?.outcome&&['in-zone-contact','outside-foul'].includes(sampledCourseModel.outcome.type)
+    ?courseLatch.current.atlas?.contactFor?.(courseLatch.current.atlas,sampledCourseModel.outcome.actualZone):null;
+  const courseModel=capability?{...sampledCourseModel,outcome:{...sampledCourseModel.outcome,contact:'registered',registration:capability}}:sampledCourseModel;
+  const courseSample=coursePreview?courseBatterSampleAt({course:courseModel?.course,playback,elapsed,outcome:courseModel?.outcome}):null;
+  const courseBatterFrame=courseSample?.atlas==='course'?courseSample.frame:null;
+  const courseOriginalFrame=courseSample?.atlas==='original'?courseSample.frame:null;
+  const courseTargetHold=useRef(null);
+  if(model.phase==='deciding'&&!playback)courseTargetHold.current=null;
+  if(coursePreview&&courseModel?.course?.targetZone!=null)courseTargetHold.current=courseModel.course.targetZone;
+  const heldCourseModel=!playback&&coursePreviewScope&&courseAtlas&&model.phase==='result'&&courseTargetHold.current!=null
+    ?{phase:'landed',locationLabel:courseTargetHold.current===9?'존 밖':null,course:{phase:'landed',scanZone:null,targetZone:courseTargetHold.current,
+      locationLabel:courseTargetHold.current===9?'존 밖':null,ball:null,progress:1,geometry:'held'}}:null;
+  const displayCourseModel=courseModel||heldCourseModel;
+  const coursePlaneTarget=coursePreview||heldCourseModel?sceneRef?.current?.querySelector('.bv-scene')||null:null;
+  const camera=field?.camera;
+  const courseProjection=camera?{left:((729+939)/2)*camera.scale+camera.x,top:449.0625*camera.scale+camera.y-24,
+    width:210*camera.scale,height:323.4375*camera.scale+24}:null;
+  const projectionStart=useRef({token:null,box:null});
+  if(coursePreview&&projectionStart.current.token!==courseToken){
+    const z=zoneRef?.current?.querySelector('.bv-zone')?.getBoundingClientRect(),sceneBox=coursePlaneTarget?.getBoundingClientRect();
+    projectionStart.current={token:courseToken,box:z&&sceneBox?{left:z.left-sceneBox.left+z.width/2,top:z.top-sceneBox.top-24,width:z.width,height:z.height+24}:null};
+  }
+  const coursePlaneLocked=displayCourseModel?.course?.targetZone!=null;
+  const morph=playback?Math.max(0,Math.min(1,(elapsed-playback.timeline.courseLockAt)/120)):1;
+  const smooth=morph*morph*(3-2*morph),from=projectionStart.current.box;
+  const renderedProjection=courseProjection&&from&&coursePlaneLocked?Object.fromEntries(Object.keys(courseProjection).map(k=>[k,from[k]+(courseProjection[k]-from[k])*smooth])):courseProjection;
   const ownRoot=useRef(null),viewRef=rootRef||ownRoot;
   useAnimationRate(viewRef,playback?.rate||animationRate);
   // The production controller owns drawer inspection so its existing next timer
@@ -156,7 +206,8 @@ export default function BattleView({model,actors,playback=null,execution=null,an
     onClickCapture={e=>{if(handleClick.current){handleClick.current=false;e.preventDefault();e.stopPropagation();}}}
     onKeyDown={()=>{suppressClick.current=false;handleClick.current=false;}} className={'battle-vnext bv-atbat bv-foldable bv-refined bv-reference'+(menuOpen?' inspecting':'')} data-cinematic-focus={pitchFocus&&!menuOpen?'true':undefined} data-animation-rate={animationRate} data-hand-open={shown?'true':'false'} data-phase={model.phase} data-support={hasSupport?'true':'false'} style={{...referenceSkinVars,'--bv-verdict-delay':playback?'120ms':'0ms',...(field?{'--bv-plate-x':field.home.x+'px','--bv-plate-y':field.home.y+'px','--bv-mound-y':field.mound.y+'px','--ref-scale':field.camera.scale,'--ref-zone-size':field.zoneSize+'px'}:{})}} aria-label="타석">
     <div className="bv-stage" ref={sceneRef}>
-      <BattleScene onFocusChange={setPitchFocus} playback={playback} result={model.result} finale={finale} scene={model.scene} actors={actors} phase={model.phase} framing="atbat" onLayout={onLayout}>
+      <BattleScene onFocusChange={setPitchFocus} playback={playback} elapsed={coursePreviewScope?elapsed:undefined} result={model.result} finale={finale} scene={model.scene} actors={actors} phase={model.phase} framing="atbat" onLayout={onLayout}
+        coursePreview={coursePreview} courseModel={courseModel} courseAtlas={courseLatch.current.atlas||courseAtlas} courseBatterFrame={courseBatterFrame} courseOriginalFrame={courseOriginalFrame}>
         {model.phase==='result'&&model.result&&<ResultReadout finale={finale} result={spotlight} shotGrade={model.scene.shotGrade} variant="spotlight"/>}
       </BattleScene>
     </div>
@@ -166,7 +217,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
     <div className="bv-decision-area" ref={zoneRef} onPointerDown={onPointerDown} onPointerMove={onPointerMove}
       onPointerUp={onPointerUp} onPointerCancel={onPointerCancel}>
       {main&&model.phase==='deciding'&&<p className="bv-field-choice">{main.name}<span>{main.type==='prepare'?'준비':`${main.coverage?.length||0}존 커버`}</span></p>}
-      <DecisionPanel {...model} dragPreview={dragPreview} animationRate={animationRate} sound={sound} execution={execution} showAction={false} showPlan={false} recent={recent} shotGrade={model.scene.shotGrade} onZoneTap={z=>place(z,model.hand.find(c=>c.selectionRole==='armed')?.id||main?.id)} onZoneHover={onZoneHover}
+      <DecisionPanel {...model} coursePreview={coursePreview||!!heldCourseModel} courseModel={displayCourseModel} coursePlaneTarget={coursePlaneLocked&&courseProjection?coursePlaneTarget:null} courseProjection={renderedProjection} dragPreview={dragPreview} animationRate={animationRate} sound={sound} execution={execution} showAction={false} showPlan={false} recent={recent} shotGrade={model.scene.shotGrade} onZoneTap={z=>place(z,model.hand.find(c=>c.selectionRole==='armed')?.id||main?.id)} onZoneHover={onZoneHover}
         onTake={onTake} onSwing={onSwing} onNext={onNext}/>
     </div>
     <button ref={handleRef} type="button" className="bv-hand-handle" aria-label={handOpen?'손패 접기':'손패 펼치기'} aria-expanded={handOpen} aria-controls="bv-folding-hand"

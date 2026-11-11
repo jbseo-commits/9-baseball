@@ -1,0 +1,2940 @@
+{
+  "status": "STRICT_CROP_AND_FOOT_PASS",
+  "cleanup": {
+    "initial32PixelHeuristic": "PASS",
+    "authorisedNarrowCriterion": "each entire alpha>0 8-connected component crossing row768 is detached from the largest subject component, <=128 total pixels, bbox <=16x16, alpha max<=1; otherwise reject",
+    "bottomTouchingComponentCount": 144,
+    "qualifyingComponentCount": 144,
+    "allQualify": true,
+    "removedComponents": [
+      711,
+      728,
+      729,
+      730,
+      731,
+      732,
+      733,
+      734,
+      735,
+      736,
+      737,
+      738,
+      739,
+      740,
+      741,
+      742,
+      743,
+      744,
+      745,
+      746,
+      747,
+      748,
+      749,
+      750,
+      751,
+      752,
+      753,
+      754,
+      755,
+      756,
+      757,
+      758,
+      759,
+      760,
+      761,
+      762,
+      763,
+      764,
+      765,
+      766,
+      767,
+      768,
+      769,
+      770,
+      771,
+      772,
+      773,
+      774,
+      775,
+      776,
+      777,
+      778,
+      779,
+      780,
+      781,
+      782,
+      783,
+      784,
+      785,
+      786,
+      787,
+      788,
+      789,
+      790,
+      791,
+      792,
+      793,
+      794,
+      795,
+      796,
+      797,
+      798,
+      799,
+      800,
+      801,
+      802,
+      803,
+      804,
+      805,
+      806,
+      807,
+      808,
+      809,
+      810,
+      811,
+      812,
+      813,
+      814,
+      815,
+      816,
+      817,
+      818,
+      819,
+      820,
+      821,
+      822,
+      823,
+      824,
+      825,
+      826,
+      827,
+      828,
+      829,
+      830,
+      831,
+      832,
+      833,
+      834,
+      835,
+      836,
+      837,
+      838,
+      839,
+      840,
+      841,
+      842,
+      843,
+      844,
+      845,
+      846,
+      847,
+      848,
+      849,
+      850,
+      851,
+      852,
+      853,
+      854,
+      855,
+      856,
+      857,
+      858,
+      859,
+      860,
+      861,
+      862,
+      863,
+      864,
+      865,
+      866,
+      867,
+      868,
+      869,
+      870
+    ],
+    "removedWholeComponentPixelCount": 328,
+    "sourceNormalizedRGBAUnchanged": true,
+    "largestSubjectRGBAsha256Before": "a328eeceac96176d1fdbf8f635c7a900cf637825f783451f44d43edc25b2cc4f",
+    "largestSubjectRGBAsha256After": "a328eeceac96176d1fdbf8f635c7a900cf637825f783451f44d43edc25b2cc4f",
+    "allChangedPixelsWithinApprovedComponentUnion": true,
+    "components": [
+      {
+        "id": 711,
+        "pixels": 10,
+        "bboxXYXY": [
+          282,
+          760,
+          284,
+          770
+        ],
+        "bboxWH": [
+          2,
+          10
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 728,
+        "pixels": 2,
+        "bboxXYXY": [
+          145,
+          768,
+          146,
+          770
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 729,
+        "pixels": 2,
+        "bboxXYXY": [
+          168,
+          768,
+          169,
+          770
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 730,
+        "pixels": 1,
+        "bboxXYXY": [
+          288,
+          768,
+          289,
+          769
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 731,
+        "pixels": 2,
+        "bboxXYXY": [
+          287,
+          770,
+          289,
+          772
+        ],
+        "bboxWH": [
+          2,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 732,
+        "pixels": 1,
+        "bboxXYXY": [
+          46,
+          772,
+          47,
+          773
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 733,
+        "pixels": 1,
+        "bboxXYXY": [
+          165,
+          772,
+          166,
+          773
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 734,
+        "pixels": 1,
+        "bboxXYXY": [
+          167,
+          772,
+          168,
+          773
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 735,
+        "pixels": 2,
+        "bboxXYXY": [
+          139,
+          773,
+          140,
+          775
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 736,
+        "pixels": 2,
+        "bboxXYXY": [
+          144,
+          773,
+          145,
+          775
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 737,
+        "pixels": 2,
+        "bboxXYXY": [
+          163,
+          773,
+          164,
+          775
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 738,
+        "pixels": 2,
+        "bboxXYXY": [
+          557,
+          773,
+          558,
+          775
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 739,
+        "pixels": 2,
+        "bboxXYXY": [
+          696,
+          773,
+          697,
+          775
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 740,
+        "pixels": 1,
+        "bboxXYXY": [
+          165,
+          774,
+          166,
+          775
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 741,
+        "pixels": 30,
+        "bboxXYXY": [
+          749,
+          774,
+          759,
+          782
+        ],
+        "bboxWH": [
+          10,
+          8
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 742,
+        "pixels": 6,
+        "bboxXYXY": [
+          137,
+          775,
+          138,
+          781
+        ],
+        "bboxWH": [
+          1,
+          6
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 743,
+        "pixels": 11,
+        "bboxXYXY": [
+          139,
+          775,
+          143,
+          781
+        ],
+        "bboxWH": [
+          4,
+          6
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 744,
+        "pixels": 5,
+        "bboxXYXY": [
+          134,
+          776,
+          136,
+          781
+        ],
+        "bboxWH": [
+          2,
+          5
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 745,
+        "pixels": 5,
+        "bboxXYXY": [
+          144,
+          776,
+          146,
+          781
+        ],
+        "bboxWH": [
+          2,
+          5
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 746,
+        "pixels": 2,
+        "bboxXYXY": [
+          132,
+          777,
+          133,
+          779
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 747,
+        "pixels": 1,
+        "bboxXYXY": [
+          168,
+          777,
+          169,
+          778
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 748,
+        "pixels": 2,
+        "bboxXYXY": [
+          554,
+          778,
+          555,
+          780
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 749,
+        "pixels": 8,
+        "bboxXYXY": [
+          760,
+          778,
+          765,
+          783
+        ],
+        "bboxWH": [
+          5,
+          5
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 750,
+        "pixels": 1,
+        "bboxXYXY": [
+          142,
+          779,
+          143,
+          780
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 751,
+        "pixels": 2,
+        "bboxXYXY": [
+          131,
+          780,
+          133,
+          782
+        ],
+        "bboxWH": [
+          2,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 752,
+        "pixels": 3,
+        "bboxXYXY": [
+          557,
+          780,
+          559,
+          783
+        ],
+        "bboxWH": [
+          2,
+          3
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 753,
+        "pixels": 1,
+        "bboxXYXY": [
+          139,
+          782,
+          140,
+          783
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 754,
+        "pixels": 1,
+        "bboxXYXY": [
+          86,
+          786,
+          87,
+          787
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 755,
+        "pixels": 1,
+        "bboxXYXY": [
+          73,
+          787,
+          74,
+          788
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 756,
+        "pixels": 1,
+        "bboxXYXY": [
+          275,
+          794,
+          276,
+          795
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 757,
+        "pixels": 2,
+        "bboxXYXY": [
+          412,
+          794,
+          414,
+          795
+        ],
+        "bboxWH": [
+          2,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 758,
+        "pixels": 1,
+        "bboxXYXY": [
+          446,
+          794,
+          447,
+          795
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 759,
+        "pixels": 1,
+        "bboxXYXY": [
+          537,
+          794,
+          538,
+          795
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 760,
+        "pixels": 1,
+        "bboxXYXY": [
+          971,
+          794,
+          972,
+          795
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 761,
+        "pixels": 2,
+        "bboxXYXY": [
+          976,
+          794,
+          978,
+          796
+        ],
+        "bboxWH": [
+          2,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 762,
+        "pixels": 1,
+        "bboxXYXY": [
+          409,
+          797,
+          410,
+          798
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 763,
+        "pixels": 1,
+        "bboxXYXY": [
+          974,
+          797,
+          975,
+          798
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 764,
+        "pixels": 1,
+        "bboxXYXY": [
+          219,
+          799,
+          220,
+          800
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 765,
+        "pixels": 1,
+        "bboxXYXY": [
+          449,
+          799,
+          450,
+          800
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 766,
+        "pixels": 1,
+        "bboxXYXY": [
+          217,
+          800,
+          218,
+          801
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 767,
+        "pixels": 1,
+        "bboxXYXY": [
+          508,
+          805,
+          509,
+          806
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 768,
+        "pixels": 1,
+        "bboxXYXY": [
+          506,
+          807,
+          507,
+          808
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 769,
+        "pixels": 1,
+        "bboxXYXY": [
+          623,
+          815,
+          624,
+          816
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 770,
+        "pixels": 1,
+        "bboxXYXY": [
+          355,
+          818,
+          356,
+          819
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 771,
+        "pixels": 2,
+        "bboxXYXY": [
+          598,
+          818,
+          599,
+          820
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 772,
+        "pixels": 1,
+        "bboxXYXY": [
+          355,
+          820,
+          356,
+          821
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 773,
+        "pixels": 1,
+        "bboxXYXY": [
+          846,
+          820,
+          847,
+          821
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 774,
+        "pixels": 1,
+        "bboxXYXY": [
+          529,
+          821,
+          530,
+          822
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 775,
+        "pixels": 1,
+        "bboxXYXY": [
+          531,
+          821,
+          532,
+          822
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 776,
+        "pixels": 2,
+        "bboxXYXY": [
+          625,
+          821,
+          626,
+          823
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 777,
+        "pixels": 4,
+        "bboxXYXY": [
+          525,
+          823,
+          528,
+          827
+        ],
+        "bboxWH": [
+          3,
+          4
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 778,
+        "pixels": 1,
+        "bboxXYXY": [
+          628,
+          823,
+          629,
+          824
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 779,
+        "pixels": 1,
+        "bboxXYXY": [
+          690,
+          838,
+          691,
+          839
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 780,
+        "pixels": 2,
+        "bboxXYXY": [
+          432,
+          839,
+          434,
+          840
+        ],
+        "bboxWH": [
+          2,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 781,
+        "pixels": 18,
+        "bboxXYXY": [
+          698,
+          840,
+          703,
+          848
+        ],
+        "bboxWH": [
+          5,
+          8
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 782,
+        "pixels": 6,
+        "bboxXYXY": [
+          696,
+          841,
+          697,
+          847
+        ],
+        "bboxWH": [
+          1,
+          6
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 783,
+        "pixels": 1,
+        "bboxXYXY": [
+          698,
+          846,
+          699,
+          847
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 784,
+        "pixels": 1,
+        "bboxXYXY": [
+          542,
+          848,
+          543,
+          849
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 785,
+        "pixels": 2,
+        "bboxXYXY": [
+          565,
+          850,
+          566,
+          852
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 786,
+        "pixels": 1,
+        "bboxXYXY": [
+          58,
+          852,
+          59,
+          853
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 787,
+        "pixels": 1,
+        "bboxXYXY": [
+          467,
+          852,
+          468,
+          853
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 788,
+        "pixels": 1,
+        "bboxXYXY": [
+          721,
+          853,
+          722,
+          854
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 789,
+        "pixels": 1,
+        "bboxXYXY": [
+          56,
+          854,
+          57,
+          855
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 790,
+        "pixels": 2,
+        "bboxXYXY": [
+          55,
+          856,
+          57,
+          857
+        ],
+        "bboxWH": [
+          2,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 791,
+        "pixels": 1,
+        "bboxXYXY": [
+          256,
+          856,
+          257,
+          857
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 792,
+        "pixels": 1,
+        "bboxXYXY": [
+          259,
+          856,
+          260,
+          857
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 793,
+        "pixels": 1,
+        "bboxXYXY": [
+          895,
+          856,
+          896,
+          857
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 794,
+        "pixels": 1,
+        "bboxXYXY": [
+          53,
+          857,
+          54,
+          858
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 795,
+        "pixels": 1,
+        "bboxXYXY": [
+          381,
+          857,
+          382,
+          858
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 796,
+        "pixels": 4,
+        "bboxXYXY": [
+          256,
+          858,
+          258,
+          860
+        ],
+        "bboxWH": [
+          2,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 797,
+        "pixels": 1,
+        "bboxXYXY": [
+          53,
+          859,
+          54,
+          860
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 798,
+        "pixels": 4,
+        "bboxXYXY": [
+          823,
+          867,
+          826,
+          870
+        ],
+        "bboxWH": [
+          3,
+          3
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 799,
+        "pixels": 1,
+        "bboxXYXY": [
+          802,
+          870,
+          803,
+          871
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 800,
+        "pixels": 3,
+        "bboxXYXY": [
+          821,
+          870,
+          822,
+          873
+        ],
+        "bboxWH": [
+          1,
+          3
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 801,
+        "pixels": 1,
+        "bboxXYXY": [
+          802,
+          872,
+          803,
+          873
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 802,
+        "pixels": 1,
+        "bboxXYXY": [
+          865,
+          872,
+          866,
+          873
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 803,
+        "pixels": 1,
+        "bboxXYXY": [
+          821,
+          874,
+          822,
+          875
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 804,
+        "pixels": 2,
+        "bboxXYXY": [
+          825,
+          874,
+          827,
+          876
+        ],
+        "bboxWH": [
+          2,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 805,
+        "pixels": 1,
+        "bboxXYXY": [
+          821,
+          877,
+          822,
+          878
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 806,
+        "pixels": 1,
+        "bboxXYXY": [
+          823,
+          877,
+          824,
+          878
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 807,
+        "pixels": 1,
+        "bboxXYXY": [
+          859,
+          879,
+          860,
+          880
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 808,
+        "pixels": 1,
+        "bboxXYXY": [
+          178,
+          883,
+          179,
+          884
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 809,
+        "pixels": 1,
+        "bboxXYXY": [
+          184,
+          885,
+          185,
+          886
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 810,
+        "pixels": 2,
+        "bboxXYXY": [
+          432,
+          892,
+          434,
+          893
+        ],
+        "bboxWH": [
+          2,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 811,
+        "pixels": 1,
+        "bboxXYXY": [
+          447,
+          892,
+          448,
+          893
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 812,
+        "pixels": 1,
+        "bboxXYXY": [
+          452,
+          892,
+          453,
+          893
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 813,
+        "pixels": 1,
+        "bboxXYXY": [
+          439,
+          893,
+          440,
+          894
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 814,
+        "pixels": 1,
+        "bboxXYXY": [
+          441,
+          893,
+          442,
+          894
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 815,
+        "pixels": 2,
+        "bboxXYXY": [
+          437,
+          895,
+          439,
+          896
+        ],
+        "bboxWH": [
+          2,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 816,
+        "pixels": 1,
+        "bboxXYXY": [
+          449,
+          895,
+          450,
+          896
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 817,
+        "pixels": 1,
+        "bboxXYXY": [
+          447,
+          896,
+          448,
+          897
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 818,
+        "pixels": 1,
+        "bboxXYXY": [
+          447,
+          898,
+          448,
+          899
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 819,
+        "pixels": 2,
+        "bboxXYXY": [
+          586,
+          901,
+          588,
+          902
+        ],
+        "bboxWH": [
+          2,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 820,
+        "pixels": 2,
+        "bboxXYXY": [
+          586,
+          903,
+          588,
+          904
+        ],
+        "bboxWH": [
+          2,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 821,
+        "pixels": 1,
+        "bboxXYXY": [
+          570,
+          905,
+          571,
+          906
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 822,
+        "pixels": 2,
+        "bboxXYXY": [
+          575,
+          905,
+          577,
+          907
+        ],
+        "bboxWH": [
+          2,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 823,
+        "pixels": 1,
+        "bboxXYXY": [
+          578,
+          905,
+          579,
+          906
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 824,
+        "pixels": 1,
+        "bboxXYXY": [
+          583,
+          905,
+          584,
+          906
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 825,
+        "pixels": 1,
+        "bboxXYXY": [
+          585,
+          905,
+          586,
+          906
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 826,
+        "pixels": 1,
+        "bboxXYXY": [
+          578,
+          907,
+          579,
+          908
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 827,
+        "pixels": 1,
+        "bboxXYXY": [
+          575,
+          908,
+          576,
+          909
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 828,
+        "pixels": 2,
+        "bboxXYXY": [
+          580,
+          908,
+          581,
+          910
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 829,
+        "pixels": 3,
+        "bboxXYXY": [
+          578,
+          909,
+          579,
+          912
+        ],
+        "bboxWH": [
+          1,
+          3
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 830,
+        "pixels": 1,
+        "bboxXYXY": [
+          572,
+          911,
+          573,
+          912
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 831,
+        "pixels": 1,
+        "bboxXYXY": [
+          580,
+          911,
+          581,
+          912
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 832,
+        "pixels": 1,
+        "bboxXYXY": [
+          736,
+          911,
+          737,
+          912
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 833,
+        "pixels": 1,
+        "bboxXYXY": [
+          43,
+          919,
+          44,
+          920
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 834,
+        "pixels": 9,
+        "bboxXYXY": [
+          42,
+          921,
+          44,
+          930
+        ],
+        "bboxWH": [
+          2,
+          9
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 835,
+        "pixels": 2,
+        "bboxXYXY": [
+          843,
+          921,
+          845,
+          923
+        ],
+        "bboxWH": [
+          2,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 836,
+        "pixels": 9,
+        "bboxXYXY": [
+          40,
+          923,
+          41,
+          932
+        ],
+        "bboxWH": [
+          1,
+          9
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 837,
+        "pixels": 1,
+        "bboxXYXY": [
+          646,
+          923,
+          647,
+          924
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 838,
+        "pixels": 4,
+        "bboxXYXY": [
+          45,
+          924,
+          46,
+          928
+        ],
+        "bboxWH": [
+          1,
+          4
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 839,
+        "pixels": 4,
+        "bboxXYXY": [
+          412,
+          924,
+          414,
+          926
+        ],
+        "bboxWH": [
+          2,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 840,
+        "pixels": 2,
+        "bboxXYXY": [
+          644,
+          924,
+          645,
+          926
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 841,
+        "pixels": 1,
+        "bboxXYXY": [
+          841,
+          924,
+          842,
+          925
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 842,
+        "pixels": 2,
+        "bboxXYXY": [
+          843,
+          924,
+          844,
+          926
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 843,
+        "pixels": 2,
+        "bboxXYXY": [
+          656,
+          926,
+          657,
+          928
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 844,
+        "pixels": 2,
+        "bboxXYXY": [
+          46,
+          929,
+          47,
+          931
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 845,
+        "pixels": 6,
+        "bboxXYXY": [
+          585,
+          929,
+          588,
+          933
+        ],
+        "bboxWH": [
+          3,
+          4
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 846,
+        "pixels": 2,
+        "bboxXYXY": [
+          42,
+          931,
+          43,
+          933
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 847,
+        "pixels": 2,
+        "bboxXYXY": [
+          329,
+          931,
+          330,
+          933
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 848,
+        "pixels": 2,
+        "bboxXYXY": [
+          531,
+          931,
+          532,
+          933
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 849,
+        "pixels": 2,
+        "bboxXYXY": [
+          718,
+          934,
+          719,
+          936
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 850,
+        "pixels": 2,
+        "bboxXYXY": [
+          532,
+          937,
+          533,
+          939
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 851,
+        "pixels": 2,
+        "bboxXYXY": [
+          534,
+          937,
+          535,
+          939
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 852,
+        "pixels": 1,
+        "bboxXYXY": [
+          716,
+          937,
+          717,
+          938
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 853,
+        "pixels": 4,
+        "bboxXYXY": [
+          427,
+          943,
+          429,
+          945
+        ],
+        "bboxWH": [
+          2,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 854,
+        "pixels": 4,
+        "bboxXYXY": [
+          419,
+          944,
+          421,
+          946
+        ],
+        "bboxWH": [
+          2,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 855,
+        "pixels": 2,
+        "bboxXYXY": [
+          485,
+          944,
+          486,
+          946
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 856,
+        "pixels": 2,
+        "bboxXYXY": [
+          491,
+          944,
+          492,
+          946
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 857,
+        "pixels": 2,
+        "bboxXYXY": [
+          794,
+          944,
+          795,
+          946
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 858,
+        "pixels": 5,
+        "bboxXYXY": [
+          815,
+          947,
+          817,
+          952
+        ],
+        "bboxWH": [
+          2,
+          5
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 859,
+        "pixels": 2,
+        "bboxXYXY": [
+          482,
+          948,
+          483,
+          950
+        ],
+        "bboxWH": [
+          1,
+          2
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 860,
+        "pixels": 1,
+        "bboxXYXY": [
+          716,
+          956,
+          717,
+          957
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 861,
+        "pixels": 2,
+        "bboxXYXY": [
+          762,
+          963,
+          764,
+          964
+        ],
+        "bboxWH": [
+          2,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 862,
+        "pixels": 1,
+        "bboxXYXY": [
+          656,
+          972,
+          657,
+          973
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 863,
+        "pixels": 1,
+        "bboxXYXY": [
+          362,
+          982,
+          363,
+          983
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 864,
+        "pixels": 2,
+        "bboxXYXY": [
+          269,
+          984,
+          271,
+          985
+        ],
+        "bboxWH": [
+          2,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 865,
+        "pixels": 1,
+        "bboxXYXY": [
+          490,
+          987,
+          491,
+          988
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 866,
+        "pixels": 1,
+        "bboxXYXY": [
+          487,
+          989,
+          488,
+          990
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 867,
+        "pixels": 1,
+        "bboxXYXY": [
+          196,
+          990,
+          197,
+          991
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 868,
+        "pixels": 1,
+        "bboxXYXY": [
+          58,
+          1003,
+          59,
+          1004
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 869,
+        "pixels": 1,
+        "bboxXYXY": [
+          954,
+          1008,
+          955,
+          1009
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      },
+      {
+        "id": 870,
+        "pixels": 1,
+        "bboxXYXY": [
+          649,
+          1023,
+          650,
+          1024
+        ],
+        "bboxWH": [
+          1,
+          1
+        ],
+        "maxAlpha": 1,
+        "intersectsSubjectMainComponent": false,
+        "eligible": true
+      }
+    ]
+  },
+  "source": {
+    "path": "/workspace/9zone-roulette-connection-20261111/outside-audit/call2/outside-call2-contact.png",
+    "sha256": "1aa1053ad624934dacca1f61bc9355bea8e9e78e666adb515cf640962fe4655e",
+    "inputSize": [
+      1254,
+      1254
+    ],
+    "normalizedSize": [
+      1024,
+      1024
+    ],
+    "normalizedPng": "/workspace/9zone-roulette-connection-20261111/outside-audit/call2/outside-call2-contact-1024.png",
+    "normalizedPngSha256": "03a36d15de012d79ae44e22bec9b6abd5b0912392f8a48be85beb44d8653a251"
+  },
+  "reference": {
+    "path": "/workspace/9zone-juice100-implementation/docs/qa/contact-plane-contract-20261111/contact-frame-8.png",
+    "sha256": "31755b9d29416bb935697419bd2130adcd4fafe3e99321303a7c6740a52b7b4d",
+    "size": [
+      768,
+      768
+    ],
+    "padding": "right-only to common 1024x768; original 768x768 pixels unchanged"
+  },
+  "T9FixedMapping": {
+    "world": [
+      1044.0,
+      610.78125
+    ],
+    "worldPerSourcePixel": 1.5625,
+    "originWorld": [
+      -128.125,
+      -133.75
+    ],
+    "cellCoordinates": [
+      750.16,
+      476.5
+    ],
+    "ballRadiusWorldPx": 8.0,
+    "ballRadiusSourcePx": 5.12,
+    "wholeActorDistanceLowerBound": {
+      "16": {
+        "distanceWorldPx": 0.0,
+        "nearestSourcePixelCenter": [
+          750,
+          476
+        ],
+        "diskRadius8Overlaps": true
+      },
+      "128": {
+        "distanceWorldPx": 0.0,
+        "nearestSourcePixelCenter": [
+          750,
+          476
+        ],
+        "diskRadius8Overlaps": true
+      },
+      "240": {
+        "distanceWorldPx": 0.0,
+        "nearestSourcePixelCenter": [
+          750,
+          476
+        ],
+        "diskRadius8Overlaps": true
+      }
+    },
+    "manuallyAnnotatedBarrelROI": [
+      640,
+      447,
+      775,
+      495
+    ],
+    "barrelDistances": {
+      "16": {
+        "distanceWorldPx": 0.0,
+        "nearestSourcePixelCenter": [
+          750,
+          476
+        ],
+        "nearestWorldPixelCenter": [
+          1044.53125,
+          610.78125
+        ],
+        "diskRadius8Overlaps": true,
+        "pixelsInMask": 3573
+      },
+      "128": {
+        "distanceWorldPx": 0.0,
+        "nearestSourcePixelCenter": [
+          750,
+          476
+        ],
+        "nearestWorldPixelCenter": [
+          1044.53125,
+          610.78125
+        ],
+        "diskRadius8Overlaps": true,
+        "pixelsInMask": 3364
+      },
+      "240": {
+        "distanceWorldPx": 0.0,
+        "nearestSourcePixelCenter": [
+          750,
+          476
+        ],
+        "nearestWorldPixelCenter": [
+          1044.53125,
+          610.78125
+        ],
+        "diskRadius8Overlaps": true,
+        "pixelsInMask": 3143
+      }
+    }
+  },
+  "normalization": {
+    "filter": "Pillow LANCZOS uniform square resize to 1024x1024",
+    "bottomRowsStart": 768,
+    "rawAlphaPixelsAtOrBelowRow768": 320,
+    "rawLowerAlphaMax": 1,
+    "rawLowerAlphaBBoxXYXY": [
+      40,
+      768,
+      978,
+      1024
+    ],
+    "cleanedLowerAlphaPixels": 0,
+    "cropAllowed": true,
+    "cleaned1024Path": "/workspace/9zone-roulette-connection-20261111/outside-audit/call2/outside-call2-contact-cleaned-1024.png",
+    "croppedPath": "/workspace/9zone-roulette-connection-20261111/outside-audit/call2/outside-call2-contact-1024x768.png"
+  },
+  "frozenFootCriteria": {
+    "canonicalCell": 724,
+    "comparisonCell": 768,
+    "scale": 1.0607734806629834,
+    "alphaGate": 128,
+    "iouMin": 0.75,
+    "anchoredToeSoleBoundaryMaxCanonicalPx": 4,
+    "maxMappedBoundaryPx": 4.2430939226519335,
+    "rearAnchorEdges": [
+      "toeRight",
+      "soleBottom"
+    ],
+    "frontAnchorEdges": [
+      "heelLeft",
+      "toeRight",
+      "soleBottom"
+    ],
+    "rearHeelPivotUnconstrained": true,
+    "results": {
+      "patches": {
+        "rear": {
+          "patchCanonical724": [
+            130,
+            625,
+            235,
+            665
+          ],
+          "patch768": [
+            137,
+            662,
+            250,
+            706
+          ],
+          "thresholds": {
+            "16": {
+              "iou": 0.933962,
+              "candidateBoundsInPatchPx": [
+                19,
+                0,
+                102,
+                40
+              ],
+              "referenceBoundsInPatchPx": [
+                13,
+                0,
+                102,
+                41
+              ],
+              "anchoredBoundaryDrift": {
+                "anchoredEdgesPx": {
+                  "toeRight": 0,
+                  "soleBottom": 1
+                },
+                "maxAnchoredDriftPx": 1
+              },
+              "gatePassAt128": null
+            },
+            "128": {
+              "iou": 0.940818,
+              "candidateBoundsInPatchPx": [
+                22,
+                0,
+                101,
+                39
+              ],
+              "referenceBoundsInPatchPx": [
+                15,
+                0,
+                101,
+                40
+              ],
+              "anchoredBoundaryDrift": {
+                "anchoredEdgesPx": {
+                  "toeRight": 0,
+                  "soleBottom": 1
+                },
+                "maxAnchoredDriftPx": 1
+              },
+              "gatePassAt128": true
+            },
+            "240": {
+              "iou": 0.94324,
+              "candidateBoundsInPatchPx": [
+                25,
+                0,
+                100,
+                38
+              ],
+              "referenceBoundsInPatchPx": [
+                16,
+                0,
+                100,
+                39
+              ],
+              "anchoredBoundaryDrift": {
+                "anchoredEdgesPx": {
+                  "toeRight": 0,
+                  "soleBottom": 1
+                },
+                "maxAnchoredDriftPx": 1
+              },
+              "gatePassAt128": null
+            }
+          },
+          "passAlpha128": true
+        },
+        "front": {
+          "patchCanonical724": [
+            400,
+            632,
+            550,
+            651
+          ],
+          "patch768": [
+            424,
+            670,
+            584,
+            691
+          ],
+          "thresholds": {
+            "16": {
+              "iou": 0.952055,
+              "candidateBoundsInPatchPx": [
+                2,
+                0,
+                128,
+                17
+              ],
+              "referenceBoundsInPatchPx": [
+                2,
+                0,
+                128,
+                17
+              ],
+              "anchoredBoundaryDrift": {
+                "anchoredEdgesPx": {
+                  "heelLeft": 0,
+                  "toeRight": 0,
+                  "soleBottom": 0
+                },
+                "maxAnchoredDriftPx": 0
+              },
+              "gatePassAt128": null
+            },
+            "128": {
+              "iou": 0.957276,
+              "candidateBoundsInPatchPx": [
+                3,
+                0,
+                127,
+                16
+              ],
+              "referenceBoundsInPatchPx": [
+                3,
+                0,
+                127,
+                16
+              ],
+              "anchoredBoundaryDrift": {
+                "anchoredEdgesPx": {
+                  "heelLeft": 0,
+                  "toeRight": 0,
+                  "soleBottom": 0
+                },
+                "maxAnchoredDriftPx": 0
+              },
+              "gatePassAt128": true
+            },
+            "240": {
+              "iou": 0.946179,
+              "candidateBoundsInPatchPx": [
+                4,
+                0,
+                127,
+                15
+              ],
+              "referenceBoundsInPatchPx": [
+                4,
+                0,
+                126,
+                16
+              ],
+              "anchoredBoundaryDrift": {
+                "anchoredEdgesPx": {
+                  "heelLeft": 0,
+                  "toeRight": 1,
+                  "soleBottom": 1
+                },
+                "maxAnchoredDriftPx": 1
+              },
+              "gatePassAt128": null
+            }
+          },
+          "passAlpha128": true
+        }
+      },
+      "registrationGatePass": true
+    }
+  },
+  "limits": "Source registration diagnostic only. Does not approve identity, hands/grip, bat dimensions, barrel contact, transition, plane, runtime, or commercial quality."
+}

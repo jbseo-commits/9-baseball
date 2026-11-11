@@ -1,0 +1,55 @@
+{
+  "base": "http://127.0.0.1:5397/",
+  "method": "Playwright browser automation with real card input and v10 engine state oracle; isolated coursePreview URL, session namespace, no physical-device claims.",
+  "cases": [
+    {
+      "case": "two-card-hidden-reload",
+      "ok": true,
+      "count": 2,
+      "acceptedOnce": true,
+      "visibility": {
+        "before": "visible",
+        "whileOtherFront": "visible",
+        "afterResume": "visible"
+      },
+      "hiddenActuallyExercised": false,
+      "reloadSession": true,
+      "productionUntouched": true
+    },
+    {
+      "case": "three-card-commit",
+      "ok": true,
+      "count": 3,
+      "acceptedOnce": true,
+      "productionUntouched": true
+    },
+    {
+      "case": "atlas-abort-whole-pitch",
+      "ok": true,
+      "acceptedOnce": true,
+      "samples": 19,
+      "wholePitchFallback": true,
+      "productionUntouched": true
+    },
+    {
+      "case": "atlas-delay-latched-whole-pitch",
+      "ok": true,
+      "acceptedOnce": true,
+      "requestReleasedDuringToken": true,
+      "samples": 19,
+      "wholePitchFallback": true,
+      "productionUntouched": true
+    },
+    {
+      "case": "reduced-motion-no-course",
+      "ok": true,
+      "reducedMotion": true,
+      "noScan": true,
+      "actualBallCount": 0,
+      "productionUntouched": true
+    }
+  ],
+  "pageErrors": [],
+  "failed": 0,
+  "failure": null
+}

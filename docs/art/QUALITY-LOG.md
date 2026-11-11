@@ -30,3 +30,6 @@
 | 2026-11-10 | M06 result-phone candidate1 | gpt-6-luna/high fresh blind | 3.86 → 3.92 | NOT_IMPROVED | R8 마감 |
 | 2026-11-10 | M07 shared modal close candidate1 | gpt-6-luna/high fresh blind | 2.27 → 2.13 | NOT_IMPROVED | R4 캐릭터 존재감 |
 | 2026-11-10 | M07 shared modal close candidate2 | gpt-6-luna/high fresh blind | 3.23 → 3.35 | NOT_IMPROVED | R1 화풍 통일 |
+| 2026-11-11 | M22 material4 (HELD: DOM/motion) | gpt-6.1-sol independent | 2.59 → 2.84 | IMPROVED | R2 UI 그림화 |
+| 2026-11-11 | M22 material5 (HELD) | gpt-6.1-sol independent | 2.89 → 3.13 | NOT_IMPROVED | R6 글자 가독 |
+| 2026-11-11 | M22 material6 | gpt-6.1-sol independent | 2.63 → 3.02 | IMPROVED | R2 UI 그림화 |
