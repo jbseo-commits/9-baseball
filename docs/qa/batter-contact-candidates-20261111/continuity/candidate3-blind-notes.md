@@ -1,0 +1,3 @@
+Independent blind visual notes
+
+Compared each A/B panel with the reference in all six requested triptychs. Scores favor the brighter active swing state for light integration, action presence, and scene flow; the dimmed state makes the target grid and instruction panel more prominent, which helps current-task hierarchy. This tradeoff reverses in z7, where the swing state is B. Across both, the ballpark art and batter read clearly, while the flat translucent zone and dark rectangular instruction panel keep the UI-material scores moderate. Small Korean helper text is generally legible at 1280 and less comfortable at 844. Alignment is mostly clean, with some edge-tab and overlay crowding.

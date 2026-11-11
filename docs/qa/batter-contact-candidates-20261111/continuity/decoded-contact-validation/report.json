@@ -1,0 +1,440 @@
+{
+  "schema": 1,
+  "status": "GEOMETRY_REVIEW_READY",
+  "registrationPass": true,
+  "transparentSourcePass": true,
+  "contactStatus": "NOMINAL_GEOMETRY_PASS",
+  "rows": [
+    {
+      "frame": 0,
+      "registration": {
+        "patches": {
+          "rear": {
+            "iou": 0.9454870420017873,
+            "boundaryDriftIn724CellPixels": 1.8854166666666667,
+            "allBoundsDriftIn724CellPixels": 5.65625,
+            "anchorEdges": [
+              "toeRight",
+              "soleBottom"
+            ],
+            "candidatePatchBounds": [
+              21,
+              0,
+              100,
+              37
+            ],
+            "referencePatchBounds": [
+              15,
+              0,
+              100,
+              39
+            ],
+            "pass": true
+          },
+          "front": {
+            "iou": 0.9474671669793621,
+            "boundaryDriftIn724CellPixels": 0.9427083333333334,
+            "allBoundsDriftIn724CellPixels": 0.9427083333333334,
+            "anchorEdges": [
+              "heelLeft",
+              "toeRight",
+              "soleBottom"
+            ],
+            "candidatePatchBounds": [
+              2,
+              0,
+              126,
+              16
+            ],
+            "referencePatchBounds": [
+              3,
+              0,
+              127,
+              16
+            ],
+            "pass": true
+          }
+        },
+        "pass": true
+      },
+      "alpha": {
+        "alphaMin": 0,
+        "alphaMax": 255,
+        "nearPureRedOrYellow": 581,
+        "nearPureRedOrYellowAlphaAtMost2": 581,
+        "nearPureRedOrYellowAlphaAtLeast128": 0,
+        "interpretation": "Inspect normal source-over composites. Raw RGB at alpha1–2 is not opaque fringe."
+      },
+      "conditionalContact": [
+        {
+          "zone": 0,
+          "alphaThreshold": 16,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 1,
+          "alphaThreshold": 16,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 2,
+          "alphaThreshold": 16,
+          "distanceWorldLayoutPixels": 2.4375,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 0,
+          "alphaThreshold": 128,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 1,
+          "alphaThreshold": 128,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 2,
+          "alphaThreshold": 128,
+          "distanceWorldLayoutPixels": 3.3815041494133937,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 0,
+          "alphaThreshold": 240,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 1,
+          "alphaThreshold": 240,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 2,
+          "alphaThreshold": 240,
+          "distanceWorldLayoutPixels": 4.075579905056457,
+          "diskOverlaps": true
+        }
+      ]
+    },
+    {
+      "frame": 1,
+      "registration": {
+        "patches": {
+          "rear": {
+            "iou": 0.9584264640143049,
+            "boundaryDriftIn724CellPixels": 1.8854166666666667,
+            "allBoundsDriftIn724CellPixels": 1.8854166666666667,
+            "anchorEdges": [
+              "toeRight",
+              "soleBottom"
+            ],
+            "candidatePatchBounds": [
+              16,
+              0,
+              100,
+              37
+            ],
+            "referencePatchBounds": [
+              15,
+              0,
+              100,
+              39
+            ],
+            "pass": true
+          },
+          "front": {
+            "iou": 0.9575530586766542,
+            "boundaryDriftIn724CellPixels": 0.0,
+            "allBoundsDriftIn724CellPixels": 0.0,
+            "anchorEdges": [
+              "heelLeft",
+              "toeRight",
+              "soleBottom"
+            ],
+            "candidatePatchBounds": [
+              3,
+              0,
+              127,
+              16
+            ],
+            "referencePatchBounds": [
+              3,
+              0,
+              127,
+              16
+            ],
+            "pass": true
+          }
+        },
+        "pass": true
+      },
+      "alpha": {
+        "alphaMin": 0,
+        "alphaMax": 255,
+        "nearPureRedOrYellow": 894,
+        "nearPureRedOrYellowAlphaAtMost2": 894,
+        "nearPureRedOrYellowAlphaAtLeast128": 0,
+        "interpretation": "Inspect normal source-over composites. Raw RGB at alpha1–2 is not opaque fringe."
+      },
+      "conditionalContact": [
+        {
+          "zone": 3,
+          "alphaThreshold": 16,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 4,
+          "alphaThreshold": 16,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 5,
+          "alphaThreshold": 16,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 3,
+          "alphaThreshold": 128,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 4,
+          "alphaThreshold": 128,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 5,
+          "alphaThreshold": 128,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 3,
+          "alphaThreshold": 240,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 4,
+          "alphaThreshold": 240,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 5,
+          "alphaThreshold": 240,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        }
+      ]
+    },
+    {
+      "frame": 2,
+      "registration": {
+        "patches": {
+          "rear": {
+            "iou": 0.934675615212528,
+            "boundaryDriftIn724CellPixels": 1.8854166666666667,
+            "allBoundsDriftIn724CellPixels": 2.828125,
+            "anchorEdges": [
+              "toeRight",
+              "soleBottom"
+            ],
+            "candidatePatchBounds": [
+              18,
+              0,
+              99,
+              37
+            ],
+            "referencePatchBounds": [
+              15,
+              0,
+              100,
+              39
+            ],
+            "pass": true
+          },
+          "front": {
+            "iou": 0.9049716803020768,
+            "boundaryDriftIn724CellPixels": 0.9427083333333334,
+            "allBoundsDriftIn724CellPixels": 0.9427083333333334,
+            "anchorEdges": [
+              "heelLeft",
+              "toeRight",
+              "soleBottom"
+            ],
+            "candidatePatchBounds": [
+              3,
+              0,
+              127,
+              15
+            ],
+            "referencePatchBounds": [
+              3,
+              0,
+              127,
+              16
+            ],
+            "pass": true
+          }
+        },
+        "pass": true
+      },
+      "alpha": {
+        "alphaMin": 0,
+        "alphaMax": 255,
+        "nearPureRedOrYellow": 744,
+        "nearPureRedOrYellowAlphaAtMost2": 744,
+        "nearPureRedOrYellowAlphaAtLeast128": 0,
+        "interpretation": "Inspect normal source-over composites. Raw RGB at alpha1–2 is not opaque fringe."
+      },
+      "conditionalContact": [
+        {
+          "zone": 6,
+          "alphaThreshold": 16,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 7,
+          "alphaThreshold": 16,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 8,
+          "alphaThreshold": 16,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 6,
+          "alphaThreshold": 128,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 7,
+          "alphaThreshold": 128,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 8,
+          "alphaThreshold": 128,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 6,
+          "alphaThreshold": 240,
+          "distanceWorldLayoutPixels": 0.78125,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 7,
+          "alphaThreshold": 240,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        },
+        {
+          "zone": 8,
+          "alphaThreshold": 240,
+          "distanceWorldLayoutPixels": 0.0,
+          "diskOverlaps": true
+        }
+      ]
+    }
+  ],
+  "runtimeApproved": false,
+  "manualReview": "Anatomy, identity, full bat dimensions, style, transitions and scene quality require independent review.",
+  "limits": "The proposed plane is not approved. One cell ratio or numeric pass does not prove3D contact or commercial quality.",
+  "reviewedBarrelAnnotations": [
+    {
+      "barrelRoiIn724Cell": [
+        505.1834130781499,
+        375.2791068580542,
+        629.3141945773525,
+        415.6937799043062
+      ],
+      "semantics": "Manually isolated full black barrel plus warm rim; no body/hand; verify independently",
+      "rawRoi": [
+        875,
+        650,
+        1090,
+        720
+      ],
+      "rawCell": 1254
+    },
+    {
+      "barrelRoiIn724Cell": [
+        506.9154704944179,
+        424.35406698564594,
+        640.8612440191388,
+        479.20255183413076
+      ],
+      "semantics": "Manually isolated full black barrel plus warm rim; no body/hand; verify independently",
+      "rawRoi": [
+        878,
+        735,
+        1110,
+        830
+      ],
+      "rawCell": 1254
+    },
+    {
+      "barrelRoiIn724Cell": [
+        516.7304625199362,
+        479.20255183413076,
+        643.7480063795854,
+        539.8245614035088
+      ],
+      "semantics": "Manually isolated full black barrel plus warm rim; no body/hand; verify independently",
+      "rawRoi": [
+        895,
+        830,
+        1115,
+        935
+      ],
+      "rawCell": 1254
+    }
+  ],
+  "sources": {
+    "sheet": {
+      "path": "/workspace/9zone-swing-continuity-20261111/runtime-candidate/decoded-contact-three.png",
+      "sha256": "392a5208d2dfe3a2f4e3603fae686f873227bcba6d337025e879ed4230fe2167"
+    },
+    "reference": {
+      "path": "/workspace/9zone-juice100-implementation/docs/qa/contact-plane-contract-20261111/contact-frame-8.png",
+      "sha256": "31755b9d29416bb935697419bd2130adcd4fafe3e99321303a7c6740a52b7b4d"
+    },
+    "criteria": {
+      "path": "/workspace/9zone-contact-sequence-20261111/correction4-6-criteria.json",
+      "sha256": "617b2ba4572b39a9424636c664a5e7f461275ab78201e39c6547cc79b28e84ad"
+    },
+    "contract": {
+      "path": "/workspace/9zone-juice100-implementation/docs/qa/contact-plane-contract-20261111/contract.json",
+      "sha256": "5360343a1c7b226e6390d11ebd9aa13e9f76d725df166c708d2d9e52ef2a0c11"
+    },
+    "barrels": {
+      "path": "/workspace/9zone-contact-sequence-20261111/corrected-barrels.json",
+      "sha256": "f8f264a006cd8c40b3bd4a775eaafaca2de8f9ca6c3b7f8745aafe8b42a2d968"
+    }
+  },
+  "mapping": {
+    "oneWholeCellRatio": 1.0,
+    "worldPerSourcePixel": 1.5625,
+    "noIndependentPoseFit": true
+  }
+}

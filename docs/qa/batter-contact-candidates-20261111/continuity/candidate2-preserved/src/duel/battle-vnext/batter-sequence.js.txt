@@ -1,0 +1,106 @@
+/* Pure sampler for an offline, existing-drawing sequence proposal. This is
+ * intentionally unwired: it owns no clock, engine outcome, or art resource. */
+
+const GENERIC_PRE = Object.freeze([0,1,2,3,4]);
+const GENERIC_MIN_MS = 56;
+const COURSE_PRE = Object.freeze([0,3,6]);
+const PRE_STEP_MS = 80;
+const POST_MIN_MS = 56;
+const CONTACT_MIN_MS = 70;
+const WHIFF_DELAY_MS = 100;
+const RECOVERY_MS = 80;
+
+const finite=Number.isFinite;
+const clamp=(n,lo,hi)=>Math.max(lo,Math.min(hi,n));
+const sample=(atlas,frame,phase,row)=>Object.freeze({atlas,frame,phase,...(row==null?{}:{row})});
+const unsupported=row=>sample('original',4,'unsupported',row);
+
+function courseRow(courseState,aimZone){
+  if(courseState?.stage!=='locked'&&courseState?.stage!=='impact')return null;
+  const zone=courseState.targetZone;
+  if(zone===9)return Number.isInteger(aimZone)&&aimZone>=0&&aimZone<=8?Math.floor(aimZone/3):1;
+  return Number.isInteger(zone)&&zone>=0&&zone<=8?Math.floor(zone/3):null;
+}
+
+function genericPre(elapsed,preStart){
+  const each=preStart/GENERIC_PRE.length;
+  const index=Math.min(GENERIC_PRE.length-1,Math.floor(Math.max(0,elapsed)/each));
+  return sample('original',GENERIC_PRE[index],'generic-pre');
+}
+
+function preCourse(elapsed,preStart,row){
+  const offset=Math.max(0,elapsed-preStart);
+  const pose=row>=2&&offset>=PRE_STEP_MS*2?COURSE_PRE[2]
+    :row>=1&&offset>=PRE_STEP_MS?COURSE_PRE[1]:COURSE_PRE[0];
+  return sample('course',pose,'course-pre',row);
+}
+
+function postSchedule(row,start,end){
+  const keys=[];
+  for(let r=row;r>=0;r-=1)keys.push({atlas:'course',frame:r*3+2,phase:'course-post'});
+  keys.push({atlas:'original',frame:9,phase:'early-follow'},
+    {atlas:'course',frame:9,phase:'late-follow'},
+    {atlas:'original',frame:10,phase:'follow'});
+  const minimum=keys.length*POST_MIN_MS,budget=end-start;
+  if(!finite(budget)||budget<minimum)return null;
+  const extra=budget-minimum,weights=keys.map((_,i)=>i===keys.length-1?2:1),weightSum=weights.reduce((a,b)=>a+b,0);
+  const durations=weights.map(weight=>POST_MIN_MS+extra*weight/weightSum);
+  return {keys,durations};
+}
+
+/**
+ * Sample only the existing source/target atlas cell. Before LOCK and the
+ * public pre-start, target state is not read. All elapsed values are already
+ * host-clock virtual milliseconds; this function never schedules a callback.
+ */
+export function batterSequenceAt(input={}){
+  if(!input||typeof input!=='object')return null;
+  const {elapsed,timeline,action,landed=false,reduced=false}=input;
+  if(action!=='swing'||reduced||landed!==true&&landed!==false)return null;
+  if(!finite(elapsed)||elapsed<0||!timeline||!finite(timeline.impactAt)||timeline.impactAt<0
+      ||!finite(timeline.courseLockAt)||timeline.courseLockAt<0||timeline.courseLockAt>timeline.impactAt)return null;
+
+  const impactAt=timeline.impactAt,lockAt=timeline.courseLockAt;
+  const preStart=Math.max(280,lockAt+110);
+  if(elapsed<lockAt||elapsed<preStart){
+    if(elapsed>=impactAt&&landed)return unsupported(null);
+    return genericPre(elapsed,preStart);
+  }
+
+  const row=courseRow(input.courseState,input.aimZone);
+  if(row==null){
+    if(elapsed>=impactAt&&landed)return unsupported(null);
+    if(elapsed<impactAt)return sample('original',4,'generic-plant');
+    return sample('original',4,'generic-plant');
+  }
+  if(preStart+row*PRE_STEP_MS>impactAt)return unsupported(row);
+  if(elapsed<impactAt||!landed)return preCourse(Math.min(elapsed,impactAt-Number.EPSILON),preStart,row);
+
+  // Outcome-dependent data is first observed at/after landed impact.
+  const result=input.result;
+  const whiff=result?.kind==='whiff';
+  const contactAt=impactAt+(whiff?WHIFF_DELAY_MS:0);
+  const contactHold=Math.max(CONTACT_MIN_MS,finite(timeline.freeze)?timeline.freeze:0);
+  const contactFrame=row*3+1;
+  if(elapsed<contactAt)return preCourse(impactAt-Number.EPSILON,preStart,row);
+
+  const duration=timeline.duration;
+  if(!finite(duration)||duration<=0)return unsupported(row);
+  const postStart=contactAt+contactHold,postEnd=duration-240;
+  const schedule=postSchedule(row,postStart,postEnd);
+  if(!schedule)return unsupported(row);
+  if(elapsed<postStart)return sample('course',contactFrame,whiff?'late-swing':'contact',row);
+  if(elapsed<postEnd){
+    let cursor=postStart;
+    for(let i=0;i<schedule.keys.length;i+=1){
+      const next=cursor+schedule.durations[i];
+      if(elapsed<next){const pose=schedule.keys[i];return sample(pose.atlas,pose.frame,pose.phase,row);}
+      cursor=next;
+    }
+    return sample('original',10,'follow',row);
+  }
+  if(elapsed<duration-2*RECOVERY_MS)return sample('original',11,'recovery',row);
+  if(elapsed<duration-RECOVERY_MS)return sample('original',12,'recovery',row);
+  if(elapsed<duration)return sample('original',13,'recovery',row);
+  return sample('original',0,'ready',row);
+}

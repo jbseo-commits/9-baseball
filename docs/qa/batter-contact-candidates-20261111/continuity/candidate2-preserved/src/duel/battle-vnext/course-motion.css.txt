@@ -1,0 +1,9 @@
+/* Bounded DEV candidate: preserve field/input geometry and grade the edges,
+   keeping the authored hands, barrel and approaching ball readable. */
+.bv-course-review .bv-scene[data-phase="result"] .bv-scene-shade{background:linear-gradient(90deg,#07121e44,transparent 30%,transparent 72%,#07121e44),linear-gradient(transparent 65%,#07121e55)}
+.bv-course-review .bv-cell.is-course-scan{box-shadow:inset 0 0 0 2px #f2d18e;background-color:#b48b3866}
+.bv-course-review .bv-cell.is-course-locked{box-shadow:inset 0 0 0 3px #ffe1a0;background-color:#ae813a77}
+.bv-course-review .bv-zone-caption[data-course-stage]{color:#ffdfa5}
+.bv-course-review.bv-reference .bv-zone-caption[data-course-stage]{display:flex}
+.bv-course-review[data-cinematic-focus="true"] .bv-zone{opacity:.12;transition:opacity 100ms linear}
+@media(prefers-reduced-motion:reduce){.bv-course-review .bv-zone{transition:none}}

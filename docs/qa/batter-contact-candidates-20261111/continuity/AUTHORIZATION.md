@@ -1,0 +1,3 @@
+# Scoped extension
+
+User selected “최대 4회 추가 제작” for the exact question covering PRE-high chest-detail cleanup and one shared late-follow pose, with necessary corrections within four additional imagegen calls. Bridge counter carries5 prior calls, new ceiling9, no reset. Contact remains6/6. This authorizes the two requested source-art edits/candidates and up to two failing-frame corrections only, not new contact rows, cast redesign, extra providers or automatic production quality acceptance. Existing foot/identity/motion/privacy/visual gates remain. Record each call before execution. Root remains outside the product checkout while the bounded pure-sequence worker is sole repo writer.

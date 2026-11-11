@@ -1,0 +1,28 @@
+{
+  "candidate": "M22-cumulative-3-final",
+  "baseline": "fb8e7b13f043e2c17376138abe6696f48c2d8022",
+  "frozenAt": "2026-11-11T03:35:15.478757+00:00",
+  "sourceCalls": {
+    "contact": 6,
+    "bridge": 7,
+    "bridgeCeiling": 9
+  },
+  "sameStateCapture": "6 pairs:844x390,1280x720 x zones1,4,7; actualhost impact+25ms; no page errors; expectedcoursecontactframes1,4,7",
+  "files": {
+    "src/duel/battle-vnext/BattleView.jsx": "4ce04e8396d4ef7af5070afb6d528c5ffec6e7aaabaacb47001c30da4c4c4394",
+    "src/duel/battle-vnext/BattleScene.jsx": "c33e7ab79151af0cc4945ffc93d8c9442fb8aa04a2f8ca5f185188a99c55c8b4",
+    "src/duel/battle-vnext/DecisionPanel.jsx": "de9b857133cdb43ca45c275b10d72ec1a0cae7958d619d185ec579a3684775f3",
+    "src/duel/battle-vnext/course-playback.jsx": "ae3098385cc8d0e88728664f41e18064baae4dad89bd46d251568fd7b32336c5",
+    "src/duel/battle-vnext/course-motion.js": "be73205a45f6855aac90cd0162d273fdd78607bfc1bcdfedcf4512f2002387c9",
+    "src/duel/battle-vnext/course-motion.css": "0db54da1c01dd0267b8c0e038537d2b49be2d734c863a53a1d156720d3bc70bd",
+    "src/duel/battle-vnext/batter-sequence.js": "50fabcb238a2814065887d11598e386134578e5526fec7c4af5a59b1f201fe90",
+    "assets/production-art/batter-course-v1/batter-courses.webp": "62bb005a24b3d4ad2a46272cfb94fb1e9f1cf26ba8c40fd12164ab670e1f080d",
+    "tests/batter-sequence.test.js": "e076a9ea78fbb6582dc82b34a92488af46f515b075ec84753d2dfc1a45e075e4",
+    "tests/course-motion.test.js": "e9cdead6d268eb2925e5dc550de1ad7641a008c8fb513224ff3d308245bdb850",
+    "tests/course-playback.test.jsx": "036eef5d97ac37e410bd72d5a009da595b98e00139ec0d5c5a323d58d7016434"
+  },
+  "schedule": "generic0..4 equally to max(280,LOCK+110); PRE high0 thenmid3 after80 thenlow6 after160; landedcontact ownrow+1 max70/freeze; POST row2 descending tohigh; original9 ->course9 ->original10, minimum56ms and restweightedfinish2; final240ms old11/12/13each80; whiffcontact delayed100; alloriginalhostdeadlinesunchanged",
+  "reviewOnly": "DEV courseReview=2; physicalplane remainsunapproved; no production permission inferred",
+  "change": "Persistent original4x4/course4x3 layers withentrydecode and one-pitch readinesslatch; landedcontact-only transparentgrid + actualcell + truthfulcaption. Sameart/order/holds/hostdeadlines/camera/inputs. No imagecall8/9used.",
+  "preGateFallbackFix": "Independent reviewer found CSS still active when art readiness latch fell back. Added actual-context data-course-active guards toscenegrading/gridopacity. Successful comparison path remains active=true and paints identical; no sources/order/holds/geometry changed. Freshblind sheets successfulpath only; confirm computedstyle andactualpaint beforeacceptance."
+}

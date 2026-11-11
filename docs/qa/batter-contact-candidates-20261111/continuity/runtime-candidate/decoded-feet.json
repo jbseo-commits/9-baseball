@@ -1,0 +1,522 @@
+[
+  {
+    "frame": 0,
+    "name": "high-pre",
+    "patches": {
+      "rear": {
+        "iou": 0.9561364643331857,
+        "boundaryDriftIn724CellPixels": 0.9427083333333334,
+        "allBoundsDriftIn724CellPixels": 2.828125,
+        "anchorEdges": [
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          18,
+          0,
+          101,
+          39
+        ],
+        "referencePatchBounds": [
+          15,
+          0,
+          100,
+          39
+        ],
+        "pass": true
+      },
+      "front": {
+        "iou": 0.9180633147113594,
+        "boundaryDriftIn724CellPixels": 1.8854166666666667,
+        "allBoundsDriftIn724CellPixels": 1.8854166666666667,
+        "anchorEdges": [
+          "heelLeft",
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          5,
+          0,
+          129,
+          16
+        ],
+        "referencePatchBounds": [
+          3,
+          0,
+          127,
+          16
+        ],
+        "pass": true
+      }
+    },
+    "pass": true
+  },
+  {
+    "frame": 1,
+    "name": "high-contact",
+    "patches": {
+      "rear": {
+        "iou": 0.9454870420017873,
+        "boundaryDriftIn724CellPixels": 1.8854166666666667,
+        "allBoundsDriftIn724CellPixels": 5.65625,
+        "anchorEdges": [
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          21,
+          0,
+          100,
+          37
+        ],
+        "referencePatchBounds": [
+          15,
+          0,
+          100,
+          39
+        ],
+        "pass": true
+      },
+      "front": {
+        "iou": 0.9474671669793621,
+        "boundaryDriftIn724CellPixels": 0.9427083333333334,
+        "allBoundsDriftIn724CellPixels": 0.9427083333333334,
+        "anchorEdges": [
+          "heelLeft",
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          2,
+          0,
+          126,
+          16
+        ],
+        "referencePatchBounds": [
+          3,
+          0,
+          127,
+          16
+        ],
+        "pass": true
+      }
+    },
+    "pass": true
+  },
+  {
+    "frame": 2,
+    "name": "high-post",
+    "patches": {
+      "rear": {
+        "iou": 0.8516360376512775,
+        "boundaryDriftIn724CellPixels": 2.828125,
+        "allBoundsDriftIn724CellPixels": 11.3125,
+        "anchorEdges": [
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          27,
+          0,
+          97,
+          36
+        ],
+        "referencePatchBounds": [
+          15,
+          0,
+          100,
+          39
+        ],
+        "pass": true
+      },
+      "front": {
+        "iou": 0.9144818976279651,
+        "boundaryDriftIn724CellPixels": 0.9427083333333334,
+        "allBoundsDriftIn724CellPixels": 0.9427083333333334,
+        "anchorEdges": [
+          "heelLeft",
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          2,
+          0,
+          127,
+          15
+        ],
+        "referencePatchBounds": [
+          3,
+          0,
+          127,
+          16
+        ],
+        "pass": true
+      }
+    },
+    "pass": true
+  },
+  {
+    "frame": 3,
+    "name": "middle-pre",
+    "patches": {
+      "rear": {
+        "iou": 0.9549910873440285,
+        "boundaryDriftIn724CellPixels": 1.8854166666666667,
+        "allBoundsDriftIn724CellPixels": 1.8854166666666667,
+        "anchorEdges": [
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          15,
+          0,
+          100,
+          37
+        ],
+        "referencePatchBounds": [
+          15,
+          0,
+          100,
+          39
+        ],
+        "pass": true
+      },
+      "front": {
+        "iou": 0.9646401985111662,
+        "boundaryDriftIn724CellPixels": 0.0,
+        "allBoundsDriftIn724CellPixels": 0.0,
+        "anchorEdges": [
+          "heelLeft",
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          3,
+          0,
+          127,
+          16
+        ],
+        "referencePatchBounds": [
+          3,
+          0,
+          127,
+          16
+        ],
+        "pass": true
+      }
+    },
+    "pass": true
+  },
+  {
+    "frame": 4,
+    "name": "middle-contact",
+    "patches": {
+      "rear": {
+        "iou": 0.9584264640143049,
+        "boundaryDriftIn724CellPixels": 1.8854166666666667,
+        "allBoundsDriftIn724CellPixels": 1.8854166666666667,
+        "anchorEdges": [
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          16,
+          0,
+          100,
+          37
+        ],
+        "referencePatchBounds": [
+          15,
+          0,
+          100,
+          39
+        ],
+        "pass": true
+      },
+      "front": {
+        "iou": 0.9575530586766542,
+        "boundaryDriftIn724CellPixels": 0.0,
+        "allBoundsDriftIn724CellPixels": 0.0,
+        "anchorEdges": [
+          "heelLeft",
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          3,
+          0,
+          127,
+          16
+        ],
+        "referencePatchBounds": [
+          3,
+          0,
+          127,
+          16
+        ],
+        "pass": true
+      }
+    },
+    "pass": true
+  },
+  {
+    "frame": 5,
+    "name": "middle-post",
+    "patches": {
+      "rear": {
+        "iou": 0.8416592328278323,
+        "boundaryDriftIn724CellPixels": 3.7708333333333335,
+        "allBoundsDriftIn724CellPixels": 9.427083333333334,
+        "anchorEdges": [
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          25,
+          0,
+          96,
+          36
+        ],
+        "referencePatchBounds": [
+          15,
+          0,
+          100,
+          39
+        ],
+        "pass": true
+      },
+      "front": {
+        "iou": 0.9333748443337484,
+        "boundaryDriftIn724CellPixels": 0.0,
+        "allBoundsDriftIn724CellPixels": 0.0,
+        "anchorEdges": [
+          "heelLeft",
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          3,
+          0,
+          127,
+          16
+        ],
+        "referencePatchBounds": [
+          3,
+          0,
+          127,
+          16
+        ],
+        "pass": true
+      }
+    },
+    "pass": true
+  },
+  {
+    "frame": 6,
+    "name": "low-pre",
+    "patches": {
+      "rear": {
+        "iou": 0.9323241317898486,
+        "boundaryDriftIn724CellPixels": 1.8854166666666667,
+        "allBoundsDriftIn724CellPixels": 2.828125,
+        "anchorEdges": [
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          18,
+          0,
+          99,
+          37
+        ],
+        "referencePatchBounds": [
+          15,
+          0,
+          100,
+          39
+        ],
+        "pass": true
+      },
+      "front": {
+        "iou": 0.9026993094789705,
+        "boundaryDriftIn724CellPixels": 0.9427083333333334,
+        "allBoundsDriftIn724CellPixels": 0.9427083333333334,
+        "anchorEdges": [
+          "heelLeft",
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          2,
+          0,
+          127,
+          15
+        ],
+        "referencePatchBounds": [
+          3,
+          0,
+          127,
+          16
+        ],
+        "pass": true
+      }
+    },
+    "pass": true
+  },
+  {
+    "frame": 7,
+    "name": "low-contact",
+    "patches": {
+      "rear": {
+        "iou": 0.934675615212528,
+        "boundaryDriftIn724CellPixels": 1.8854166666666667,
+        "allBoundsDriftIn724CellPixels": 2.828125,
+        "anchorEdges": [
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          18,
+          0,
+          99,
+          37
+        ],
+        "referencePatchBounds": [
+          15,
+          0,
+          100,
+          39
+        ],
+        "pass": true
+      },
+      "front": {
+        "iou": 0.9049716803020768,
+        "boundaryDriftIn724CellPixels": 0.9427083333333334,
+        "allBoundsDriftIn724CellPixels": 0.9427083333333334,
+        "anchorEdges": [
+          "heelLeft",
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          3,
+          0,
+          127,
+          15
+        ],
+        "referencePatchBounds": [
+          3,
+          0,
+          127,
+          16
+        ],
+        "pass": true
+      }
+    },
+    "pass": true
+  },
+  {
+    "frame": 8,
+    "name": "low-post",
+    "patches": {
+      "rear": {
+        "iou": 0.8571428571428571,
+        "boundaryDriftIn724CellPixels": 2.828125,
+        "allBoundsDriftIn724CellPixels": 11.3125,
+        "anchorEdges": [
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          27,
+          0,
+          98,
+          36
+        ],
+        "referencePatchBounds": [
+          15,
+          0,
+          100,
+          39
+        ],
+        "pass": true
+      },
+      "front": {
+        "iou": 0.8882611424984307,
+        "boundaryDriftIn724CellPixels": 0.9427083333333334,
+        "allBoundsDriftIn724CellPixels": 0.9427083333333334,
+        "anchorEdges": [
+          "heelLeft",
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          3,
+          0,
+          126,
+          15
+        ],
+        "referencePatchBounds": [
+          3,
+          0,
+          127,
+          16
+        ],
+        "pass": true
+      }
+    },
+    "pass": true
+  },
+  {
+    "frame": 9,
+    "name": "late-follow",
+    "patches": {
+      "rear": {
+        "iou": 0.7948717948717948,
+        "boundaryDriftIn724CellPixels": 3.7708333333333335,
+        "allBoundsDriftIn724CellPixels": 12.255208333333334,
+        "anchorEdges": [
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          28,
+          0,
+          98,
+          35
+        ],
+        "referencePatchBounds": [
+          15,
+          0,
+          100,
+          39
+        ],
+        "pass": true
+      },
+      "front": {
+        "iou": 0.9008728179551122,
+        "boundaryDriftIn724CellPixels": 1.8854166666666667,
+        "allBoundsDriftIn724CellPixels": 1.8854166666666667,
+        "anchorEdges": [
+          "heelLeft",
+          "toeRight",
+          "soleBottom"
+        ],
+        "candidatePatchBounds": [
+          1,
+          0,
+          126,
+          15
+        ],
+        "referencePatchBounds": [
+          3,
+          0,
+          127,
+          16
+        ],
+        "pass": true
+      }
+    },
+    "pass": true
+  }
+]

@@ -1,0 +1,45 @@
+import {describe,it,expect,vi} from 'vitest';
+import {courseStateAt,courseBatterAt,courseSceneEffect} from '../src/duel/battle-vnext/course-motion.js';
+import {createCoursePlan,courseTarget} from '../src/duel/battle-vnext/course-presentation.js';
+import {sceneEffectAt} from '../src/duel/battle-vnext/scene-effects.js';
+
+const timeline={pitchReleaseAt:950,courseLockAt:690,impactAt:1250,freeze:90,duration:2100,settleAt:1930};
+const origin={x:834,y:300};
+function playback(zone,action='swing'){
+  return {timeline,pitchReleaseAt:950,action,course:{aimZone:7,plan:createCoursePlan(Array.from({length:10},(_,zone)=>({zone,weight:1})),{visualSeed:'same'}),getDestination:()=>zone}};
+}
+function effectAt(p,elapsed,result=null){
+  const state=courseStateAt(p,elapsed),composition={release:origin,contact:courseTarget(state.targetZone),mound:{x:832,y:580}};
+  const base=sceneEffectAt({elapsed,playback:p,result,phase:result?'result':'flight',composition});
+  return courseSceneEffect({effect:base,playback:p,elapsed,state,origin,landed:!!result,result});
+}
+describe('host course rendering joins',()=>{
+  it('never reads a destination before LOCK or for preparation and uses the same scan for every hidden outcome',()=>{
+    const p=playback(7),read=vi.fn(()=>{throw Error('private destination');});p.course.getDestination=read;
+    const state=courseStateAt(p,689);
+    expect(state).toMatchObject({stage:'scan',targetZone:null});
+    expect(courseStateAt({...p,action:'prepare'},1200)).toBeNull();
+    expect(read).not.toHaveBeenCalled();
+    expect(courseBatterAt({playback:p,elapsed:500,state,landed:false})).not.toHaveProperty('row');
+    expect(courseSceneEffect({effect:null,playback:p,elapsed:500,state,origin})).toBeNull();
+  });
+  it('has one continuous ball at the exact target and radius across contact, take and late-result boundaries',()=>{
+    for(const zone of [0,1,2,3,4,5,6,7,8,9]){
+      const target=courseTarget(zone);
+      for(const [action,kind] of [['swing','hit'],['swing','foul'],['swing','whiff'],['take','ball'],['take','called']]){
+        const p=playback(zone,action),pending=effectAt(p,1250),landed=effectAt(p,1250,{kind,actualZone:zone,coverage:[4]});
+        expect(pending.ball).toMatchObject({x:target.x,y:target.y});
+        expect(landed.ball).toMatchObject({x:target.x,y:target.y});
+        expect(pending.radius).toBe(8);expect(landed.radius).toBe(8);
+        expect(effectAt(p,1300).ball).toEqual(pending.ball); // host callback late: hold T, do not predict contact
+      }
+    }
+  });
+  it('keeps the registered release point and hides a passing ball after its existing exit interval',()=>{
+    const p=playback(9,'take');
+    expect(effectAt(p,949)).toBeNull();
+    expect(effectAt(p,950).ball).toEqual(origin);
+    expect(effectAt(p,1560,{kind:'ball',actualZone:9})).toMatchObject({hidden:true});
+    expect(courseBatterAt({playback:p,elapsed:1260,state:courseStateAt(p,1260),landed:true,result:{kind:'ball'}})).toBeNull();
+  });
+});

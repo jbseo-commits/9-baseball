@@ -1,0 +1,27 @@
+{
+  "status": "PREPARED_NOT_AUTHORIZED_FOR_IMAGEGEN",
+  "existingContactCalls": 6,
+  "existingContactLimit": 6,
+  "existingBridgeCalls": 5,
+  "existingBridgeLimit": 5,
+  "requestedBridgeExtensionMax": 4,
+  "scope": [
+    "PRE-high chest-detail correction with exact same pose/canvas/feet",
+    "one shared whole-body late-follow drawing between extended follow and wrapped finish",
+    "at most two failing-frame corrections within that same scope"
+  ],
+  "unchanged": [
+    "allthreecontactsources",
+    "middle/lowPRE",
+    "allthreePOST",
+    "foot/mask thresholds",
+    "worldcamera",
+    "gameRNG/save/balance"
+  ],
+  "sourceHashes": {
+    "row-0-phase-0.png": "a38fbdddcd38966206fc97dfefa8f4b3068ab212482202ffe7a2e9661beb87aa",
+    "row-0-phase-2.png": "52a617db5fe330a71aa823911332d9d1bcc06ab2b8d66ca3aa27dd895b25b4dc",
+    "old-10.png": "bcef61231b270eb9d3f16c47237d3930e7f81b0b209fbd9170ac7c49b0d2c927",
+    "old-8.png": "31755b9d29416bb935697419bd2130adcd4fafe3e99321303a7c6740a52b7b4d"
+  }
+}

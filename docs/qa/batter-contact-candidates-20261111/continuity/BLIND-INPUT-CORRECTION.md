@@ -1,0 +1,1 @@
+Initial blind directory accidentally included stale work/compare sheets. Judge scored only old battle-1..6, not candidate2 sheets. Those scores are INVALID for this candidate and were not revealed or counted. Corrected isolated directory has exactly the six newly captured names from current key; fresh context judge will score all six. No product/candidate alteration.

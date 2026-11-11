@@ -1,0 +1,135 @@
+import {describe,it,expect} from 'vitest';
+import registration from '../src/duel/battle-vnext/roster-registration.json';
+import {rosterPitcherActor,rosterTimeline} from '../src/duel/battle-vnext/roster-actor.js';
+import {presentationFor,presentationTimeline} from '../src/duel/presentation.js';
+import {presentationElapsed} from '../src/duel/animation-speed.js';
+import {batterSequenceAt} from '../src/duel/battle-vnext/batter-sequence.js';
+import {contactHitstop} from '../src/duel/contact-pixelfx.js';
+
+const locked=targetZone=>({stage:'locked',targetZone});
+const timeline={pitchReleaseAt:600,courseLockAt:340,impactAt:900,freeze:30,duration:1800};
+const call=(elapsed,overrides={})=>batterSequenceAt({elapsed,timeline,action:'swing',landed:false,...overrides});
+
+function state(kind,label,patch={}){
+  const revealed={kind,label,zone:patch.zone??4,aimZone:patch.aimZone??2,coverage:patch.coverage||[],
+    primaryCoverage:patch.coverage||[],strikesBefore:patch.strikesBefore??0,...patch.revealed};
+  return {last:{kind:'result',runs:patch.runs||0},battle:{revealed}};
+}
+
+const gradeStates=[
+  ['hit','안타',{zone:4,aimZone:4}],['hit','안타',{zone:4,aimZone:2}],['hit','2루타'],['hit','홈런'],['hit','바가지'],['hit','땅볼'],
+  ['whiff','헛스윙',{zone:9}],['whiff','헛스윙',{zone:4,coverage:[3]}],['whiff','헛스윙',{zone:4}],
+  ['whiff','삼진',{zone:4,coverage:[3],strikesBefore:2}],['whiff','삼진',{zone:9,strikesBefore:2}],['whiff','삼진',{zone:4,strikesBefore:2}],
+  ['foul','파울'],['foul','파울',{strikesBefore:2}],['foul','삼진',{strikesBefore:2}],
+  ['ball','볼'],['ball','볼넷'],['called','스트라이크'],['called','삼진',{strikesBefore:2}],
+  ['sacrifice','희생타'],['sacrifice','희생타',{runs:1}],['out','아웃'],['hit','홈런',{runs:4}],
+].map(([kind,label,patch])=>({kind,shot:presentationFor(state(kind,label,patch))}));
+
+describe('existing-drawing course sampler privacy and prep',()=>{
+  it('uses only generic original poses before LOCK and never reads result, target row, duration or freeze',()=>{
+    const protectedTimeline=new Proxy({pitchReleaseAt:600,courseLockAt:340,impactAt:900},{get(target,key){
+      if(['duration','freeze','slowmo'].includes(key))throw Error(`premature timing read: ${key}`);
+      return target[key];
+    }});
+    const privateInputs=[
+      {result:new Proxy({}, {get(){throw Error('premature result read');}}),courseState:new Proxy({}, {get(){throw Error('premature row read');}})},
+      {result:{grade:'homer'},courseState:{stage:'locked',targetZone:8}},
+    ];
+    const samples=privateInputs.map(extra=>batterSequenceAt({elapsed:120,timeline:protectedTimeline,action:'swing',landed:false,...extra}));
+    expect(samples[0]).toEqual(samples[1]);
+    expect(samples[0]).toEqual({atlas:'original',frame:1,phase:'generic-pre'});
+    expect(samples[0]).not.toHaveProperty('row');
+  });
+
+  it('does not expose row variants until public pre-start, then follows authored high/middle/low PRE order',()=>{
+    const rows=[0,1,2].map(row=>locked(row*3));
+    for(const row of rows)expect(call(timeline.courseLockAt+1,{courseState:new Proxy({}, {get(){throw Error('read before pre-start');}})})).toEqual({atlas:'original',frame:3,phase:'generic-pre'});
+    expect(call(450,{courseState:rows[0]})).toEqual({atlas:'course',frame:0,phase:'course-pre',row:0});
+    expect(call(450,{courseState:rows[1]})).toEqual({atlas:'course',frame:0,phase:'course-pre',row:1});
+    expect(call(450,{courseState:rows[2]})).toEqual({atlas:'course',frame:0,phase:'course-pre',row:2});
+    expect(call(529,{courseState:rows[2]}).frame).toBe(0);
+    expect(call(530,{courseState:rows[2]}).frame).toBe(3);
+    expect(call(610,{courseState:rows[2]}).frame).toBe(6);
+    expect(call(850,{courseState:null})).toEqual({atlas:'original',frame:4,phase:'generic-plant'});
+  });
+
+  it('holds the last PRE through impact when landing is late, and delays whiff contact by 100ms',()=>{
+    const row=locked(8);
+    const late= batterSequenceAt({elapsed:1300,timeline,action:'swing',landed:false,courseState:row,
+      result:new Proxy({}, {get(){throw Error('result read before landing');}})});
+    expect(late).toEqual({atlas:'course',frame:6,phase:'course-pre',row:2});
+    const whiffResult={kind:'whiff',grade:'near-miss-k'};
+    expect(batterSequenceAt({elapsed:999,timeline,action:'swing',landed:true,courseState:row,result:whiffResult}))
+      .toEqual({atlas:'course',frame:6,phase:'course-pre',row:2});
+    expect(batterSequenceAt({elapsed:1000,timeline,action:'swing',landed:true,courseState:row,result:whiffResult}))
+      .toEqual({atlas:'course',frame:7,phase:'late-swing',row:2});
+    expect(batterSequenceAt({elapsed:900,timeline,action:'swing',landed:true,courseState:row,result:{kind:'hit',grade:'homer'}}))
+      .toEqual({atlas:'course',frame:7,phase:'contact',row:2});
+  });
+
+  it('uses the player committed aim for an outside swing and stays in PRE until that missed swing is late',()=>{
+    const courseState=locked(9),opts={timeline,action:'swing',courseState,aimZone:7,result:{kind:'whiff'}};
+    expect(batterSequenceAt({...opts,elapsed:850,landed:false})).toMatchObject({atlas:'course',frame:6,row:2});
+    expect(batterSequenceAt({...opts,elapsed:900,landed:true})).toMatchObject({phase:'course-pre',row:2});
+    expect(batterSequenceAt({...opts,elapsed:1000,landed:true})).toMatchObject({phase:'late-swing',frame:7,row:2});
+  });
+
+  it('keeps POST low→middle→high, then original 9→10, with minimum holds and final 240ms recovery',()=>{
+    const row=locked(8),base={...timeline,freeze:20,duration:2100};
+    const opts=elapsed=>({elapsed,timeline:base,action:'swing',landed:true,courseState:row,result:{kind:'hit'}});
+    expect(batterSequenceAt(opts(970)).frame).toBe(8); // impact + max(70, freeze)
+    const ordered=[];let prev=null;
+    for(let t=970;t<base.duration-240;t+=4){
+      const s=batterSequenceAt(opts(t));
+      const key=s.atlas+':'+s.frame;
+      if(key!==prev){ordered.push({frame:s.frame,at:t,atlas:s.atlas});prev=key;}
+    }
+    expect(ordered.map(x=>x.atlas+':'+x.frame)).toEqual(['course:8','course:5','course:2','original:9','course:9','original:10']);
+    for(let i=1;i<ordered.length;i++)expect(ordered[i].at-ordered[i-1].at).toBeGreaterThanOrEqual(52); // 4ms sample resolution, minimum is 56
+    expect(ordered.findIndex(x=>x.frame===9)).toBeLessThan(ordered.findIndex(x=>x.frame===10));
+    expect(batterSequenceAt(opts(base.duration-240))).toMatchObject({atlas:'original',frame:11,phase:'recovery'});
+    expect(batterSequenceAt(opts(base.duration-160))).toMatchObject({atlas:'original',frame:12,phase:'recovery'});
+    expect(batterSequenceAt(opts(base.duration-80))).toMatchObject({atlas:'original',frame:13,phase:'recovery'});
+    expect(batterSequenceAt(opts(base.duration))).toMatchObject({atlas:'original',frame:0,phase:'ready'});
+  });
+
+  it('returns null for existing-ready actions and explicit unsupported when prep or post budgets cannot fit',()=>{
+    for(const action of ['take','prepare'])expect(batterSequenceAt({elapsed:300,action,timeline,landed:false})).toBeNull();
+    expect(batterSequenceAt({elapsed:300,action:'swing',timeline,landed:false,reduced:true})).toBeNull();
+    expect(call(900,{timeline:{...timeline,impactAt:500},courseState:locked(8),landed:true,result:{kind:'hit'}}))
+      .toMatchObject({phase:'unsupported'});
+    const short={...timeline,impactAt:900,freeze:900,duration:1200};
+    expect(batterSequenceAt({elapsed:900,timeline:short,action:'swing',landed:true,courseState:locked(8),result:{kind:'hit'}}))
+      .toMatchObject({phase:'unsupported'});
+  });
+});
+
+describe('registered roster timelines and host virtual rates',()=>{
+  it('fits all registered release origins, presentation grades, target rows, and six animation rates without unsupported timing',()=>{
+    const shots=gradeStates.map(x=>({result:{kind:x.kind},shot:x.shot}));
+    expect(shots.every(x=>x.shot?.motion)).toBe(true);
+    const rates=[0.25,0.5,0.75,1,1.5,2];
+    const actors=Object.values(registration).map(entry=>rosterPitcherActor(entry.id,`test:${entry.id}`));
+    expect(actors).toHaveLength(20);
+    const unsupported=[];
+    for(const actor of actors)for(const {shot,result} of shots){
+      const base=presentationTimeline(shot,false);
+      const t=rosterTimeline(base,actor,false,{delivery:true,contactHold:contactHitstop(shot.grade)});
+      const lock=Math.max(0,t.pitchReleaseAt-260),preStart=Math.max(280,lock+110);
+      if(preStart+160>t.impactAt)unsupported.push(`${actor.artId}:${shot.grade}:low-pre`);
+      const courseTimeline={...t,courseLockAt:lock};
+      for(const row of [0,1,2])for(const rate of rates){
+        const playback={startedAt:1000,rate,timeline:courseTimeline};
+        const at=virtual=>presentationElapsed(playback,1000+virtual/rate);
+        const courseState=locked(row*3);
+        const pre=batterSequenceAt({elapsed:at(preStart+row*80+2),timeline:courseTimeline,action:'swing',courseState,landed:false});
+        const landed=batterSequenceAt({elapsed:at(t.impactAt),timeline:courseTimeline,action:'swing',courseState,landed:true,result});
+        const recovery=batterSequenceAt({elapsed:at(t.duration+2),timeline:courseTimeline,action:'swing',courseState,landed:true,result});
+        if(pre?.phase==='unsupported'||landed?.phase==='unsupported')unsupported.push(`${actor.artId}:${shot.grade}:row${row}:rate${rate}`);
+        expect(pre).toMatchObject({atlas:'course',frame:row===2?6:row===1?3:0,phase:'course-pre',row});
+        expect(recovery).toMatchObject({atlas:'original',frame:0,phase:'ready'});
+      }
+    }
+    expect(unsupported).toEqual([]);
+  });
+});
