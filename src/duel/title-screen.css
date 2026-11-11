@@ -89,6 +89,16 @@
   .title-screen .ts-menu{grid-row:2;align-self:start;margin-top:clamp(16px,5dvh,40px)}
   .title-screen .ts-logo{font-size:clamp(56px,11dvh,104px)}
 }
+/* Short landscape phones (568x320 ... 844x390): the wordmark plus five 50px items were taller than
+   the screen, so the page scrolled and the last items sat below the fold. Tighten only the spacing;
+   items keep a 44px touch height. */
+@media (orientation:landscape) and (max-height:430px){
+  .title-screen{padding-top:calc(env(safe-area-inset-top,0px) + 10px);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 8px)}
+  .title-screen .ts-logo{font-size:clamp(40px,14.4dvh,56px)}
+  .title-screen .ts-menu{margin-top:8px}
+  .title-screen .ts-menu ul{gap:2px}
+  .title-screen .ts-item{min-height:44px;padding-top:4px;padding-bottom:4px}
+}
 @media (prefers-reduced-motion:reduce){
   .title-screen .ts-art,.title-screen .ts-brand,.title-screen .ts-ball,.title-screen .ts-menu li,.title-screen .ts-fig{animation:none}
 }
