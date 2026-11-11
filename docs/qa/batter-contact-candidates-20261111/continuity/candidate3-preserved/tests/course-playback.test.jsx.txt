@@ -1,0 +1,44 @@
+// @vitest-environment happy-dom
+import React from 'react';
+import {act,render,cleanup} from '@testing-library/react';
+import {afterEach,describe,it,expect,vi} from 'vitest';
+const sampled=vi.hoisted(()=>vi.fn(()=>500));
+vi.mock('../src/duel/battle-vnext/use-scene-clock.js',()=>({default:sampled}));
+import {CoursePlaybackProvider,useCoursePlayback} from '../src/duel/battle-vnext/course-playback.jsx';
+import {createCoursePlan} from '../src/duel/battle-vnext/course-presentation.js';
+
+let pending=[];
+function installImages(){
+  pending=[];
+  vi.stubGlobal('Image',class {constructor(){this.src='';}decode(){return new Promise((resolve,reject)=>pending.push({resolve,reject}));}});
+  window.history.replaceState({},'','/?courseReview=2');
+}
+const host=()=>({startedAt:100,rate:1,action:'swing',timeline:{pitchReleaseAt:600,courseLockAt:340,impactAt:900,duration:1800},course:{plan:createCoursePlan([{zone:4,weight:1}],{visualSeed:'public'}),getDestination:vi.fn(()=>4)}});
+function Probe(){const p=useCoursePlayback();return <output data-testid="sample">{p?`${p.elapsed}:${p.state.stage}:${p.state.targetZone}`:'existing'}</output>;}
+const tree=p=><CoursePlaybackProvider playback={p}><Probe/></CoursePlaybackProvider>;
+afterEach(()=>{cleanup();vi.unstubAllGlobals();sampled.mockClear();});
+describe('decoded art and unchanged accepted host epoch',()=>{
+  it('decodes both atlases at battle entry and samples a later accepted pitch on its original epoch',async()=>{
+    installImages();const view=render(tree(null));expect(pending).toHaveLength(2);
+    await act(async()=>{pending.forEach(p=>p.resolve());});
+    const p=host();view.rerender(tree(p));
+    expect(view.getByTestId('sample').textContent).toBe('500:locked:4');
+    expect(sampled).toHaveBeenLastCalledWith(p);expect(p.startedAt).toBe(100);
+  });
+  it('keeps a cold pitch entirely on the existing renderer even when decode finishes mid-pitch',async()=>{
+    installImages();const p=host(),view=render(tree(p));
+    expect(view.getByTestId('sample').textContent).toBe('existing');
+    await act(async()=>{pending.forEach(p=>p.resolve());});
+    expect(view.getByTestId('sample').textContent).toBe('existing');
+    expect(p.course.getDestination).not.toHaveBeenCalled();
+    const next={...p,startedAt:200};view.rerender(tree(next));
+    expect(view.getByTestId('sample').textContent).toBe('500:locked:4');
+    expect(sampled).toHaveBeenLastCalledWith(next);expect(next.startedAt).toBe(200);
+  });
+  it('continues existing gameplay after a decode failure without reading an accepted destination',async()=>{
+    installImages();const view=render(tree(null));
+    await act(async()=>{pending[0].resolve();pending[1].reject(Error('missing art'));});
+    const p=host();view.rerender(tree(p));
+    expect(view.getByTestId('sample').textContent).toBe('existing');expect(p.course.getDestination).not.toHaveBeenCalled();
+  });
+});

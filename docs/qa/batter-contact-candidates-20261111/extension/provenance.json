@@ -1,0 +1,67 @@
+{
+  "scope": "reference archive; no product activation",
+  "contactAttempts": {
+    "used": 6,
+    "limit": 6,
+    "userExtension": 3
+  },
+  "bridgeAttempts": {
+    "used": 5,
+    "limit": 5,
+    "userExtension": 2
+  },
+  "contactStatus": "STATIC_SOURCE_PASS",
+  "selectedBridgeStatus": "STATIC_SOURCE_PASS",
+  "motionStatus": "HELD",
+  "visualGate": "NOT_IMPROVED",
+  "visualScores": {
+    "before": 3.49,
+    "after": 3.5,
+    "gain": 0.01,
+    "winningAxes": 1
+  },
+  "hostQaLateRun": "EXCLUDED_MIXED_AFTER_RESTORE",
+  "productionEnabled": false,
+  "planeApproved": false,
+  "newPoseAuthoring": "built-in image_gen",
+  "frameExtraction": "installed sprite-gen explicitgrid",
+  "localEdits": "whole-cell uniform normalization and packaging only; no independent actor fit or pose synthesis",
+  "sourceOutputs": {
+    "candidate3-source-sheet.png": {
+      "originalWorkspacePath": "/workspace/generated_images/exec-4afe8021-9d02-464f-908f-b4af2da7fcb8.png",
+      "sha256": "c4d60448fdb042dc6d40525e887713a4754d7af27b4e1134820114e1ac7d1e45"
+    },
+    "attempt4-high.png": {
+      "originalWorkspacePath": "/workspace/generated_images/exec-88a4fa82-8c91-49d6-b4d1-d09beb7b828c.png",
+      "sha256": "eba3a0ec4aca0b46a12fc1a4588a6cad2448ae13f9c1619b4b488ecae24074cb"
+    },
+    "attempt5-middle.png": {
+      "originalWorkspacePath": "/workspace/generated_images/exec-7c20e065-8776-4ba3-aaf2-d63611ab64d6.png",
+      "sha256": "050b1ce8b9e0ec648e7ed2f0f74e7d673b1ed02ba7cf834cea8259ffe4866348"
+    },
+    "attempt6-low.png": {
+      "originalWorkspacePath": "/workspace/generated_images/exec-9a23d529-d3a6-4b20-92e4-0887db3cfe3a.png",
+      "sha256": "92098e3420539cb187354705d5ed899a182b41d59d66d1d25614e33338aa0ce5"
+    },
+    "bridge-pre-source.png": {
+      "originalWorkspacePath": "/workspace/generated_images/exec-94c2a00c-f6e7-4129-937e-45368aaf436c.png",
+      "sha256": "ea33d6381e0a087ee86b3511d175650474c927f851a17e24e5a4d3b92553fc5b"
+    },
+    "bridge-post-source.png": {
+      "originalWorkspacePath": "/workspace/generated_images/exec-ca235d33-1a63-4c93-a764-a7547511f035.png",
+      "sha256": "2ed71bee3b242e11de5d9e8b41bf9c80da07e1a7284006b87e59aa63b1988aa7"
+    },
+    "bridge-pre-corrected-source.png": {
+      "originalWorkspacePath": "/workspace/generated_images/exec-ba6c8009-068f-4bf9-bf04-37539c561db2.png",
+      "sha256": "185a69e07630d1e30fb5d751ebda523c47b61278c987074456a9839f11dfda59"
+    },
+    "bridge-call4-middle.png": {
+      "originalWorkspacePath": "/workspace/generated_images/exec-1167e2af-67a3-4000-a73c-d0ed2c129ccf.png",
+      "sha256": "5cf0a2774b522c8ca18ad12cb90a6a783541434e8948355676c61d44e81a6b44"
+    },
+    "bridge-call5-low.png": {
+      "originalWorkspacePath": "/workspace/generated_images/exec-06b215ac-4e1e-4b1d-84a4-b037fdc99bbf.png",
+      "sha256": "43caf9280ecec8fdf03a31aefbdb3a878bc4fce3025cd44554b908251f19294f"
+    }
+  }
+}

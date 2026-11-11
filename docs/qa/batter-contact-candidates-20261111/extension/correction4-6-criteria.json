@@ -1,0 +1,86 @@
+{
+  "cumulativeCandidateBeforeCall": 2,
+  "nextCandidateIs": 3,
+  "limit": 3,
+  "status": "PREFLIGHT_NOT_GENERATED",
+  "sourceSheet": "/workspace/9zone-next-20261111/batter-contact-experiment/candidate2-source-sheet.png",
+  "sourceCell": [
+    724,
+    724
+  ],
+  "guide": "/workspace/9zone-contact-sequence-20261111/candidate3-control-guide.png",
+  "oneCommonCanvasMapping": {
+    "atlasToNative": 0.9427083333333334,
+    "worldPerNativePixel": 1.6574585635359116,
+    "originWorld": [
+      -128.125,
+      -133.75
+    ]
+  },
+  "targetSource": "main docs/qa/contact-plane-contract-20261111/contract.json unchanged",
+  "targetAcceptance": "All3targets per intendedrow overlap FULL drawn barrel alpha>=128 using radius8world; nothandle; thresholds16/240 reportedas sensitivity. No target/radius/actor shifting to pass. Registration checked first.",
+  "footPatchesNative": {
+    "rear": [
+      130,
+      625,
+      235,
+      665
+    ],
+    "front": [
+      400,
+      632,
+      550,
+      651
+    ]
+  },
+  "registrationGate": {
+    "footPatchAlpha128IoUMin": 0.75,
+    "toeSoleBoundaryMaxDriftNativePx": 4,
+    "scale": "single whole-sheet ratio only; no independent perpose fit",
+    "body": "same helmet/body proportions, both hands on same bat, no mirroring/limb swaps",
+    "barrelNativeDimensions": "100–120px long and24–36px PERPENDICULAR thickness, not axis-aligned bboxheight of a tilted barrel",
+    "footReference": "approved original atlas8 cell, globally resized768→724 as one common layout reference; never candidate2 self-consistency only",
+    "fullGripToTip": "preserve same physical bat; visible grip-to-tip approx162nativepx reference, ±10% for annotation/projection; no lengthening to reach"
+  },
+  "viewGate": "Inspect proper source-over browser composites on light/dark/checker atnativeandactualgamebitmapscale; rawRGBofalpha1–2isnotvisiblefringeevidence",
+  "limits": "Plane still authoring proposal. Passingstaticposesdoesnotapprovecontinuousmotion/productionroulette orcommercialquality.",
+  "helperGripDestinations": [
+    [
+      468,
+      375
+    ],
+    [
+      468,
+      425
+    ],
+    [
+      468,
+      487
+    ]
+  ],
+  "helperGripLimit": "Natural slight downward barrel inclination allowed; all3fixed targets still must intersect wholebarrel. Helpers are authoring cues, not relocated targets.",
+  "approvedFramePngSha256": "31755b9d29416bb935697419bd2130adcd4fafe3e99321303a7c6740a52b7b4d",
+  "userAuthorizedLimit": 6,
+  "cumulativeBeforeCorrections": 3,
+  "correctionAttempts": [
+    4,
+    5,
+    6
+  ],
+  "candidateExpectedCell": [
+    1024,
+    1024
+  ],
+  "canonicalComparisonCell": 724,
+  "worldPerOutputPixel": 1.171875,
+  "worldRadiusInOutputPixels": 6.826666666666667,
+  "driftLimitInOutputPixels": 5.657458563535911,
+  "barrelLengthInOutputPixels": [
+    141.4364640883978,
+    169.72375690607734
+  ],
+  "barrelThicknessPerpendicularInOutputPixels": [
+    33.94475138121547,
+    50.9171270718232
+  ]
+}

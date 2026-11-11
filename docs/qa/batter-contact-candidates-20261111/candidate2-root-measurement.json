@@ -1,0 +1,145 @@
+{
+  "status": "CANDIDATE2_CONDITIONAL_CANVAS_DIAGNOSTIC_NOT_VALIDATED_ACTOR_REGISTRATION",
+  "outputCell": 724,
+  "guideCell": 768,
+  "oneCommonOutputToWorldScale": 1.6574585635359116,
+  "noFitOrWarp": true,
+  "limits": "Layout aspect/cell geometry do not prove actor registration or a physical plane. Manual ROI includes imperfect drawn edges; no continuous-motion/hit rule claim.",
+  "rows": [
+    {
+      "frame": 0,
+      "manualBarrelRoiRaw": [
+        500,
+        200,
+        630,
+        500
+      ],
+      "maskPixels128": 2719,
+      "barrelBoundsRaw": [
+        500,
+        349,
+        610,
+        379
+      ],
+      "targets": [
+        {
+          "zone": 0,
+          "targetWorld": [
+            764.0,
+            502.96875
+          ],
+          "conditionalDistanceWorldPx": 16.396,
+          "diskOverlapUnderCanvasHypothesis": false
+        },
+        {
+          "zone": 1,
+          "targetWorld": [
+            834.0,
+            502.96875
+          ],
+          "conditionalDistanceWorldPx": 10.199,
+          "diskOverlapUnderCanvasHypothesis": false
+        },
+        {
+          "zone": 2,
+          "targetWorld": [
+            904.0,
+            502.96875
+          ],
+          "conditionalDistanceWorldPx": 29.633,
+          "diskOverlapUnderCanvasHypothesis": false
+        }
+      ]
+    },
+    {
+      "frame": 1,
+      "manualBarrelRoiRaw": [
+        500,
+        200,
+        630,
+        500
+      ],
+      "maskPixels128": 2798,
+      "barrelBoundsRaw": [
+        500,
+        397,
+        608,
+        428
+      ],
+      "targets": [
+        {
+          "zone": 3,
+          "targetWorld": [
+            764.0,
+            610.78125
+          ],
+          "conditionalDistanceWorldPx": 40.111,
+          "diskOverlapUnderCanvasHypothesis": false
+        },
+        {
+          "zone": 4,
+          "targetWorld": [
+            834.0,
+            610.78125
+          ],
+          "conditionalDistanceWorldPx": 35.229,
+          "diskOverlapUnderCanvasHypothesis": false
+        },
+        {
+          "zone": 5,
+          "targetWorld": [
+            904.0,
+            610.78125
+          ],
+          "conditionalDistanceWorldPx": 51.473,
+          "diskOverlapUnderCanvasHypothesis": false
+        }
+      ]
+    },
+    {
+      "frame": 2,
+      "manualBarrelRoiRaw": [
+        500,
+        200,
+        630,
+        500
+      ],
+      "maskPixels128": 2803,
+      "barrelBoundsRaw": [
+        500,
+        443,
+        606,
+        474
+      ],
+      "targets": [
+        {
+          "zone": 6,
+          "targetWorld": [
+            764.0,
+            718.59375
+          ],
+          "conditionalDistanceWorldPx": 71.192,
+          "diskOverlapUnderCanvasHypothesis": false
+        },
+        {
+          "zone": 7,
+          "targetWorld": [
+            834.0,
+            718.59375
+          ],
+          "conditionalDistanceWorldPx": 66.708,
+          "diskOverlapUnderCanvasHypothesis": false
+        },
+        {
+          "zone": 8,
+          "targetWorld": [
+            904.0,
+            718.59375
+          ],
+          "conditionalDistanceWorldPx": 78.047,
+          "diskOverlapUnderCanvasHypothesis": false
+        }
+      ]
+    }
+  ]
+}

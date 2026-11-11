@@ -1,0 +1,26 @@
+// @vitest-environment happy-dom
+import React from 'react';
+import {describe,it,expect,vi,afterEach} from 'vitest';
+import {render,cleanup} from '@testing-library/react';
+import BattleScene,{SAMPLE_ACTORS} from '../src/duel/battle-vnext/BattleScene.jsx';
+import {createCoursePlan,courseTimeline} from '../src/duel/battle-vnext/course-presentation.js';
+const timeline=courseTimeline({pitchReleaseAt:600,impactAt:900,freeze:80,releaseAt:1020,duration:2000});
+const plan=createCoursePlan([{zone:0,weight:1},{zone:7,weight:1}],{visualSeed:'public'});
+afterEach(()=>{cleanup();vi.restoreAllMocks();window.history.replaceState({},'','/');});
+describe('local review scene source isolation',()=>{
+ it('never overlays the original ready drawing on the high PRE cell numbered zero',()=>{
+  window.history.replaceState({},'','/?courseReview=1');vi.spyOn(performance,'now').mockReturnValue(850);
+  const playback={startedAt:0,rate:1,timeline,action:'swing',course:{plan,getDestination:()=>0}};
+  const {container}=render(<BattleScene framing="atbat" size={{width:844,height:390}} actors={SAMPLE_ACTORS} phase="flight" playback={playback}/>);
+  expect(container.querySelector('.bv-actor-batter').dataset.pose).toBe('course-0-pre');
+  expect(container.querySelector('.bv-actor-batter .bv-ready-drawing')).toBeNull();
+ });
+ it('has identical visible image selection for different private destinations before LOCK',()=>{
+  window.history.replaceState({},'','/?courseReview=1');vi.spyOn(performance,'now').mockReturnValue(339);
+  const a=vi.fn(()=>0),b=vi.fn(()=>7),props={framing:'atbat',size:{width:844,height:390},actors:SAMPLE_ACTORS,phase:'flight'};
+  const {container,rerender}=render(<BattleScene {...props} playback={{startedAt:0,rate:1,timeline,action:'swing',course:{plan,getDestination:a}}}/>);
+  const selection=()=>({pose:container.querySelector('.bv-actor-batter').dataset.pose,src:container.querySelector('.bv-actor-batter img').getAttribute('src')});
+  const before=selection();rerender(<BattleScene {...props} playback={{startedAt:0,rate:1,timeline,action:'swing',course:{plan,getDestination:b}}}/>);
+  expect(selection()).toEqual(before);expect(a).not.toHaveBeenCalled();expect(b).not.toHaveBeenCalled();
+ });
+});

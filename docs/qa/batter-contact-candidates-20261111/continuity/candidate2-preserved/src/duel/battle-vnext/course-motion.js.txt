@@ -1,0 +1,31 @@
+import {batterSequenceAt} from './batter-sequence.js';
+import {courseFrameAt,courseTarget,courseFlightAt} from './course-presentation.js';
+
+/* Render-only proposal. Inputs are the accepted host presentation and the
+   landed public result; no engine access, timer, selection or RNG. */
+export function courseStateAt(playback,elapsed,reduced=false){
+  if(!playback?.course||playback.action==='prepare')return null;
+  return courseFrameAt({elapsed,timeline:playback.timeline,...playback.course,reduced});
+}
+
+export function courseBatterAt({playback,elapsed=0,state,landed=false,result=null,reduced=false}={}){
+  return batterSequenceAt({elapsed,timeline:playback?.timeline,action:playback?.action,
+    courseState:state,landed,result,reduced,aimZone:playback?.course?.aimZone});
+}
+
+export function courseSceneEffect({effect,playback,elapsed,state,origin,landed=false,result=null}={}){
+  if(!playback||!Number.isInteger(state?.targetZone))return effect;
+  const target=courseTarget(state.targetZone),t=playback.timeline;
+  const incoming=courseFlightAt({elapsed,timeline:t,origin,target});
+  if(incoming.stage==='waiting'||incoming.stage==='hidden')return null;
+  if(!landed){
+    const previous=courseFlightAt({elapsed:Math.max(t.pitchReleaseAt,elapsed-26),timeline:t,origin,target});
+    return {kind:'flight',trail:0,ball:incoming.ball,previous:previous.ball||incoming.ball,
+      radius:3+5*incoming.progress,age:Math.max(0,elapsed-t.pitchReleaseAt),spinAge:Math.max(0,elapsed-t.pitchReleaseAt),flash:0,camera:0,opacity:1};
+  }
+  if(['hit','foul','sacrifice','out'].includes(result?.kind)&&playback.action==='swing')return effect?{...effect,radius:effect.radius*2/3}:effect;
+  const age=Math.max(0,elapsed-t.impactAt),p=Math.min(1,age/310);
+  const end={x:target.x+(target.x-origin.x)*.5,y:target.y+330};
+  const at=k=>({x:target.x+(end.x-target.x)*k,y:target.y+(end.y-target.y)*k});
+  return {...effect,ball:at(p),previous:at(Math.max(0,p-.1)),radius:8+6*p,age,flash:0,camera:0,hidden:p>=1};
+}

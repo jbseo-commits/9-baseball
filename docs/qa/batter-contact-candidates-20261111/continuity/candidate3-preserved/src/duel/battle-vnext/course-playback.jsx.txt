@@ -1,0 +1,39 @@
+import React,{createContext,useContext,useEffect,useRef,useState} from 'react';
+import useSceneClock from './use-scene-clock.js';
+import {courseStateAt} from './course-motion.js';
+import {PILOT_ACTORS} from './motion-timeline.js';
+import courseBatterUrl from '../../../assets/production-art/batter-course-v1/batter-courses.webp';
+
+const CoursePlayback=createContext(null);
+export function courseReviewEnabled(){
+  return import.meta.env.DEV&&typeof window!=='undefined'&&new URLSearchParams(window.location.search).get('courseReview')==='2';
+}
+/* One RAF samples the existing host epoch. Context updates only its consumers;
+   the hand/deck/input tree does not repaint for every ball frame. */
+export function CoursePlaybackProvider({playback,children}){
+  const enabled=courseReviewEnabled();
+  const [artReady,setArtReady]=useState(false),images=useRef([]),chosen=useRef({playback:null,active:false});
+  useEffect(()=>{
+    if(!enabled)return undefined;
+    let cancelled=false;
+    // Decode on battle entry, before a pitch is accepted. Keep both resources
+    // alive; a hidden preload alone did not guarantee a first painted frame.
+    images.current=[PILOT_ACTORS.batter,courseBatterUrl].map(url=>{const img=new Image();img.src=url;return img;});
+    const decode=img=>typeof img.decode==='function'?img.decode():new Promise((resolve,reject)=>{
+      if(img.complete){img.naturalWidth?resolve():reject(Error('atlas unavailable'));return;}
+      img.onload=resolve;img.onerror=reject;
+    });
+    Promise.all(images.current.map(decode)).then(()=>{if(!cancelled)setArtReady(true);}).catch(()=>{if(!cancelled)setArtReady(false);});
+    return ()=>{cancelled=true;images.current=[];};
+  },[enabled]);
+  // A cold/failed load keeps the entire accepted pitch on the existing
+  // renderer. Never switch modes halfway through it or reset the host epoch.
+  if(chosen.current.playback!==playback)chosen.current={playback,active:enabled&&artReady&&!!playback?.course};
+  const active=chosen.current.active;
+  const elapsed=useSceneClock(active?playback:null);
+  const reduced=playback?.timeline?.duration<=60;
+  const state=active?courseStateAt(playback,elapsed,reduced):null;
+  const value=active&&state?{elapsed,state,reduced,timeline:playback.timeline}:null;
+  return <CoursePlayback.Provider value={value}>{children}</CoursePlayback.Provider>;
+}
+export const useCoursePlayback=()=>useContext(CoursePlayback);

@@ -1,0 +1,19 @@
+import React,{createContext,useContext} from 'react';
+import useSceneClock from './use-scene-clock.js';
+import {courseStateAt} from './course-motion.js';
+
+const CoursePlayback=createContext(null);
+export function courseReviewEnabled(){
+  return import.meta.env.DEV&&typeof window!=='undefined'&&new URLSearchParams(window.location.search).get('courseReview')==='2';
+}
+/* One RAF samples the existing host epoch. Context updates only its consumers;
+   the hand/deck/input tree does not repaint for every ball frame. */
+export function CoursePlaybackProvider({playback,children}){
+  const enabled=courseReviewEnabled();
+  const elapsed=useSceneClock(enabled?playback:null);
+  const reduced=playback?.timeline?.duration<=60;
+  const state=enabled?courseStateAt(playback,elapsed,reduced):null;
+  const value=enabled&&state?{elapsed,state,reduced,timeline:playback.timeline}:null;
+  return <CoursePlayback.Provider value={value}>{children}</CoursePlayback.Provider>;
+}
+export const useCoursePlayback=()=>useContext(CoursePlayback);

@@ -1,0 +1,54 @@
+{
+  "patches": {
+    "rear": {
+      "iou": 0.9303382130237254,
+      "boundaryDriftIn724CellPixels": 2.3094098883572567,
+      "allBoundsDriftIn724CellPixels": 2.3094098883572567,
+      "anchorEdges": [
+        "toeRight",
+        "soleBottom"
+      ],
+      "candidatePatchBounds": [
+        29,
+        0,
+        163,
+        59
+      ],
+      "referencePatchBounds": [
+        25,
+        0,
+        164,
+        63
+      ],
+      "pass": true
+    },
+    "front": {
+      "iou": 0.8892436149312377,
+      "boundaryDriftIn724CellPixels": 1.7320574162679425,
+      "allBoundsDriftIn724CellPixels": 1.7320574162679425,
+      "anchorEdges": [
+        "heelLeft",
+        "toeRight",
+        "soleBottom"
+      ],
+      "candidatePatchBounds": [
+        3,
+        0,
+        206,
+        23
+      ],
+      "referencePatchBounds": [
+        3,
+        0,
+        207,
+        26
+      ],
+      "pass": true
+    }
+  },
+  "pass": true,
+  "actualCell": [
+    1254,
+    1254
+  ]
+}

@@ -1,0 +1,28 @@
+import fs from 'node:fs/promises';
+import {chromium} from '/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs';
+import {createV10Duel,enterV10Node} from '/workspace/9zone-juice100-implementation/src/duel/engine.js';
+const root='/workspace/9zone-swing-continuity-20261111/actual-qa-candidate3-slow25';await fs.mkdir(root,{recursive:true});
+const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox']});
+const cases=JSON.parse(process.env.REVIEW_CASES||'[{"zone":4,"rate":0.5,"aim":4}]'),report=[];
+for(const spec of cases){
+ const {zone,rate,aim=zone===9?4:zone}=spec;let state=enterV10Node(createV10Duel(1),'a1-entry');
+ state.battle.pending={zone,roll:.01,powerRoll:.1};state.battle.intent={...state.battle.intent,repertoire:[0,1,2,3,4,5,6,7,8]};
+ const context=await browser.newContext({viewport:{width:844,height:390},hasTouch:true,recordVideo:{dir:root,size:{width:844,height:390}}});
+ const page=await context.newPage(),errors=[];page.setDefaultTimeout(5000);page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('http://127.0.0.1:5397/?battleUi=vnext&courseReview=2');
+ await page.evaluate(({state,rate})=>{localStorage.clear();localStorage.setItem('9zone-v10-run',JSON.stringify(state));for(const k of ['9zone-hint-chase','9zone-bp-coach-v1'])localStorage.setItem(k,'done');localStorage.setItem('9zone-battle-animation-rate',String(rate));},{state,rate});
+ await page.reload();await page.getByRole('button',{name:'이어하기',exact:true}).click();await page.waitForTimeout(500);
+ // Set the actual persisted speed through the public control where available.
+ const speed=page.getByRole('button',{name:'연출 배속 선택'});if(await speed.count()){await speed.click();}
+ const select=page.locator('select').filter({has:page.locator('option[value="0.5"]')});if(await select.count())await select.first().selectOption(String(rate));
+ if(spec.action!=='take'){await page.locator('.bv-hand-handle').click();await page.getByTestId('bv-basic-chip').click();await page.locator(`.bv-cell[data-zone="${aim}"]`).click();}
+ await page.screenshot({path:root+`/z${zone}-r${rate}-a${aim}-before.png`});
+ await page.evaluate(()=>{window.reviewSamples=[];window.reviewRunning=true;function sample(){const el=document.querySelector('.bv-scene'),d=document.querySelector('.bv-decision'),b=document.querySelector('.bv-actor-batter'),layers=[...(b?.querySelectorAll('[data-atlas-layer]')||[])].map(l=>{const im=l.querySelector('img');const cs=getComputedStyle(l);return{name:l.dataset.atlasLayer,visibility:cs.visibility,display:cs.display,opacity:cs.opacity,src:im?.getAttribute('src'),complete:im?.complete,naturalWidth:im?.naturalWidth,naturalHeight:im?.naturalHeight,rect:(()=>{const r=l.getBoundingClientRect();return{x:r.x,y:r.y,w:r.width,h:r.height}})()}});window.reviewSamples.push({wall:performance.now(),phase:el?.dataset.phase,course:document.querySelector('.bv-zone-caption')?.dataset.courseStage,pose:b?.dataset.pose,layers,locked:[...document.querySelectorAll('.is-course-locked')].map(e=>e.dataset.zone??9),scan:[...document.querySelectorAll('.is-course-scan')].map(e=>e.dataset.zone??9)});if(window.reviewRunning)requestAnimationFrame(sample);}requestAnimationFrame(sample);});
+ await page.getByTestId(spec.action==='take'?'bp-take':'bp-swing').click();
+ await page.waitForTimeout(900);await page.screenshot({path:root+`/z${zone}-r${rate}-a${aim}-during.png`});
+ await page.waitForTimeout(4300);await page.screenshot({path:root+`/z${zone}-r${rate}-a${aim}-result.png`});if(rate===0.25){await page.waitForTimeout(4000);await page.screenshot({path:root+`/z${zone}-r${rate}-a${aim}-complete.png`});}
+ const samples=await page.evaluate(()=>{window.reviewRunning=false;return window.reviewSamples;});
+ const poses=[...new Set(samples.map(s=>s.pose))],courses=[...new Set(samples.map(s=>s.course))];
+ const finalState=await page.evaluate(()=>{try{const s=JSON.parse(localStorage.getItem('9zone-v10-run'));return {kind:s?.battle?.revealed?.kind,label:s?.battle?.revealed?.label,zone:s?.battle?.revealed?.zone,action:s?.battle?.revealed?.action,outs:s?.battle?.outs,strikes:s?.battle?.strikes,pending:s?.battle?.pending}}catch{return null}});report.push({spec,errors,poses,courses,finalState,samples});await fs.writeFile(root+'/report.partial.json',JSON.stringify(report,null,2));await context.close();
+}
+await browser.close();await fs.writeFile(root+'/report.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report.map(({samples,...r})=>r),null,2));

@@ -1,0 +1,50 @@
+{
+  "status": "HELD_REFERENCE_ONLY_NOT_RUNTIME",
+  "baselineMain": "fb8e7b13f043e2c17376138abe6696f48c2d8022",
+  "archiveParent": "762fb661682d9632bc6a80c6204feeefe35320b9",
+  "originalArchiveBlobsMustRemainUnchanged": 154,
+  "contactImageCalls": {
+    "used": 6,
+    "ceiling": 6
+  },
+  "bridgeImageCalls": {
+    "usedBefore": 5,
+    "usedNow": [
+      6,
+      7
+    ],
+    "totalUsed": 7,
+    "ceiling": 9,
+    "unusedCorrectionCalls": 2
+  },
+  "M22MaterialAssemblyCandidates": {
+    "used": 3,
+    "ceiling": 3,
+    "status": "HELD",
+    "candidate2": "NOT_IMPROVED",
+    "candidate3": "NOT_IMPROVED"
+  },
+  "normalization": "one uniform whole-cell scale only, no independent actor fit, pose warp or crossfade",
+  "atlas": {
+    "columns": 4,
+    "rows": 3,
+    "cell": 768,
+    "usedFrames": 10,
+    "newSourceFrames": [
+      0,
+      9
+    ],
+    "contactFrames": [
+      1,
+      4,
+      7
+    ],
+    "not120NewIndependentDrawings": true
+  },
+  "rawSourcesByteIdentical": true,
+  "productChangesPublished": false,
+  "runtimeCodeFormat": "nonexecuting .txt plus compressed tracked patch only",
+  "priorSources": "../extension/sequence-review/ and ../extension/README.md",
+  "sourceStatus": "two new source edits PASS; animation/plane/production/commercial quality not inferred",
+  "visualJudgements": "sealed all96scores per candidate before reveal, fresh isolated context; initial wrong-sheet scores excluded"
+}
