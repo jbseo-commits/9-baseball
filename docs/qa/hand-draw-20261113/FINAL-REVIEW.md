@@ -37,3 +37,20 @@ The final logs completed during review: `full-tests-final.log` reports **255/255
 ## Publication boundary
 
 Continue existing PR 121 as **Draft** only. This review does not authorize Ready status, merge, main activation or deployment. Both the preserved initial rejection and final **NOT_IMPROVED / NOTBAR** blind verdict remain part of the record.
+
+## Subsequent public scroll failure and functional hotfix
+
+Public verification of deployed `d8200cf` matched the four checked asset hashes and passed three-card draw cases at 568 and 844, but **failed the one-card take case at 844**: the new instance `c3` moved above the hand row and produced no landing cue. The original `public/live.log` failure and `public/live/take-844-1-settled.png` are retained. This means the first public check did not establish complete deployed functionality.
+
+The follow-up product diff consists only of a scoped rule in `hand-draw.css`: while `data-hand-dealing=true`, the existing hand row uses `overflow-anchor:none` and `scroll-snap-type:none`. The rule prevents the translated incoming card from becoming a browser scroll anchor or snap target. It changes neither card geometry/art nor engine/save state and is a functional scroll repair, not a fourth visual candidate. The **3/3 exhausted** allowance and final **NOT_IMPROVED / NOTBAR** verdict remain unchanged.
+
+The first follow-up QA check applied a >=95% whole-slot criterion to every viewport and rejected the existing wide 1280 layout's 90.6% decorative slot extent. That was broader than the reproduced single-card scroll defect. The retained failed log is not erased. The refined test keeps >=95% settled vertical slot visibility for one-card take cases and adds a separate >=95% **two-dimensional name/cost/effect intersection** for every drawn receipt ID, clipped against row, card button and viewport. It computes those intersections from exact element rectangles and records nonempty text with visibility fractions. This preserves the reproduced defect's strict requirement and checks the user's readable content across every viewport, rather than changing a threshold to ignore a failure.
+
+Independent inspection of `scroll-verified/report.json` found **8/8 local browser cases passed**, every drawn name/cost/effect intersection fraction **1.0**, and zero page errors. One-card take cases at 568/667/844 have settled vertical slot visibility **1.0** and one landing cue each. Three-card 844 cases at 0.5×/1×/2× and the wide case have three cues; reduced motion has zero. All cases match exact engine IDs/state and preserve the production-save sentinel.
+
+The portable `scripts/qa-hand-draw.mjs` was read for this audit. Its field check uses row/button/viewport clipping and matches receipt IDs. One test-only follow-up was requested: include take667 and the actual take844 reproducer in default cases, so they are covered without a CASES override. At this review point the full suite/build and manual scroll/inspector checks were rerunning, and the repaired source had **not yet completed a new public deployment verification**. Earlier full-suite/build figures above refer to the source before this CSS hotfix; they must not be represented as new-source or public hotfix completion.
+
+
+## 통합 후 실제 결과 — 주작성자 기록
+
+이후 동일 전체255파일/1,751테스트와54.8/60MiB production build 재실행이 통과했다. 단일카드568/667/844의2차원 전체면적/텍스트는각100%, 소리1회이며 수동 정보창/손패 스크롤2화면도 통과했다. QA기본목록에take667/844를 추가했고 실제rect/clip과2D비율을 기록하도록 보강했다. 새 커밋의 Pages검증은 PR121에 따로 기록한다.

@@ -1,0 +1,20 @@
+{"spec":{"rate":1,"kind":"three","width":568,"height":320},"ids":["c8","c7","c6"],"restoredBadges":0,"autoOpened":true,"exactEngine":true,"productionPreserved":true,"animating":true,"landingSounds":3,"errors":[],"pass":true}
+{"spec":{"rate":1,"kind":"three","width":844,"height":390},"ids":["c8","c7","c6"],"restoredBadges":0,"autoOpened":true,"exactEngine":true,"productionPreserved":true,"animating":true,"landingSounds":3,"errors":[],"pass":true}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(reduced?sounds.length===0:sounds.length>0)
+
+    at file:///workspace/9zone-draw-reveal-20261113/live-draw.mjs:32:279 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

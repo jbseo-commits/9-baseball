@@ -40,3 +40,6 @@
 .battle-vnext .bv-hand-dock.is-dealing[data-reveal-layout=grid] .bv-card-strip{grid-template-columns:minmax(0,1fr)}
 .battle-vnext .bv-hand-dock.is-dealing[data-reveal-layout=grid] .bv-card-strip .bv-card-name{font-size:11px}
 }
+/* A translated incoming card must not become the browser's scroll anchor or
+   snap target: that would move a just-revealed single card above the viewport. */
+.battle-vnext[data-hand-dealing=true] .bv-hand-row{overflow-anchor:none;scroll-snap-type:none}
