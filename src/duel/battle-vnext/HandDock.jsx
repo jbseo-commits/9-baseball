@@ -35,7 +35,7 @@ function lockText(input,phase){
 }
 
 const HandDock=forwardRef(function HandDock({hand=[],energy=null,input=null,phase='deciding',piles=null,handCount=null,handKnown=true,selection=null,onToggleSupport=null,
-  onCardTap,onCardDetail=null,onPiles=null,artFor=defaultCardArt,grid=false},ref){
+  drawBatch=null,onDrawLand=null,animationRate=1,onCardTap,onCardDetail=null,onPiles=null,artFor=defaultCardArt,grid=false},ref){
   const rowRef=useRef(null),cardRefs=useRef(new Map()),drag=useRef(null),suppress=useRef(false);
   const [hidden,setHidden]=useState({left:0,right:0});
   const basic=hand.find(x=>x.type==='basic'),cards=hand.filter(x=>x.type!=='basic');
@@ -66,6 +66,14 @@ const HandDock=forwardRef(function HandDock({hand=[],energy=null,input=null,phas
     const ro=new ResizeObserver(measure);ro.observe(row);return ()=>ro.disconnect();
   },[measure,cards.length]);
 
+  useLayoutEffect(()=>{
+    if(!drawBatch)return;
+    const row=rowRef.current,first=drawBatch.ids.find(id=>cardRefs.current.has(id)),el=cardRefs.current.get(first)?.closest('.bv-card-slot');
+    if(!row||!el)return;
+    if(getComputedStyle(row).display==='grid')row.scrollTop=Math.max(0,el.offsetTop-8);else row.scrollLeft=Math.max(0,el.offsetLeft-8);
+    measure();
+  },[drawBatch?.key]);
+
   const onPointerDown=e=>{drag.current={x:e.clientX,y:e.clientY,id:e.pointerId};suppress.current=false;};
   const onPointerMove=e=>{const d=drag.current;if(!d||d.id!==e.pointerId)return;
     if(Math.abs(e.clientX-d.x)>=SWIPE_SLOP_PX||Math.abs(e.clientY-d.y)>=SWIPE_SLOP_PX)suppress.current=true;};
@@ -84,7 +92,7 @@ const HandDock=forwardRef(function HandDock({hand=[],energy=null,input=null,phas
 
   const line=energyLine(energy,phase),pips=energyPips(energy),lock=lockText(input,phase);
   const detailDisabled=phase==='committing'||phase==='flight';
-  return <section className={'bv-hand-dock'+(grid?' bv-hand-grid':'')+(grid==='orbit'?' bv-hand-orbit':'')+(input?.canSelect?'':' is-locked')} data-testid="bv-hand-dock" data-phase={phase} aria-label="손패">
+  return <section data-reveal-layout={drawBatch?.ids.length>=4?'grid':'list'} className={'bv-hand-dock'+(drawBatch?.ids.length>=3?' is-dealing':'')+(grid?' bv-hand-grid':'')+(grid==='orbit'?' bv-hand-orbit':'')+(input?.canSelect?'':' is-locked')} data-testid="bv-hand-dock" data-phase={phase} aria-label="손패">
     <header className="bv-hand-head">
       {energy&&<div className={'bv-energy'+(energy.shortfall>0?' is-short':'')} data-testid="bv-energy" data-energy={energy.current} data-cap={energy.cap}
         role="status" aria-label={`에너지 ${energy.current}/${energy.cap}`+(line?' · '+line:'')}>
@@ -112,7 +120,7 @@ const HandDock=forwardRef(function HandDock({hand=[],energy=null,input=null,phas
       <ol ref={rowRef} className="bv-hand-row" data-testid="bv-hand" aria-label={handKnown?`손패 ${handCountText}장`:'손패 수량을 확인할 수 없음'}
         onScroll={measure} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerEnd} onPointerCancel={onPointerEnd}
         onClickCapture={onClickCapture}>
-        {cards.map((item,i)=><BattleCard key={item.id} item={item} strip={grid==='orbit'} art={artFor?artFor(item):null} dealIndex={i} dealCount={cards.length}
+        {cards.map((item,i)=><BattleCard key={item.id} item={item} strip={grid==='orbit'} art={artFor?artFor(item):null} dealIndex={i} dealCount={cards.length} drawBatch={drawBatch} onDrawLand={onDrawLand} animationRate={animationRate}
           cardRef={el=>{if(el)cardRefs.current.set(item.id,el);else cardRefs.current.delete(item.id);}}
           onTap={onCardTap} onDetail={onCardDetail} detailDisabled={detailDisabled} onKeyDown={e=>onCardKey(e,i)}/>)}
         {handKnown&&!cards.length&&<li className="bv-hand-empty">손패 없음 · 기본 스윙은 언제나 쓸 수 있다</li>}
@@ -120,6 +128,7 @@ const HandDock=forwardRef(function HandDock({hand=[],energy=null,input=null,phas
       {hidden.left>0&&<span className="bv-hand-more left" aria-hidden="true">{grid?'↑':'‹'} {hidden.left}</span>}
       {hidden.right>0&&<span className="bv-hand-more right" data-testid="bv-hand-more" aria-hidden="true">{hidden.right} {grid?'↓':'›'}</span>}
     </div>
+    <span className="bv-hand-draw-status" role="status" aria-live="polite">{drawBatch?.kind==='draw'?'뽑은 카드 · '+drawBatch.ids.map(id=>cards.find(c=>c.id===id)?.name).filter(Boolean).join(', '):''}</span>
     <p className="bv-hand-legend" aria-hidden="true"><i className="k-main"/>메인 <i className="k-support"/>지원</p>
   </section>;
 });

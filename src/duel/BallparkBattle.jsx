@@ -1,7 +1,7 @@
 import React,{useEffect,useLayoutEffect,useRef,useState,useSyncExternalStore} from 'react';
 import {landscapeNoticeActive,subscribeLandscapeNotice} from './orientation-lock.js';
 import {CARDS,LINEUP,bandFor,rangeFor,shadeNameFor,cardCost} from './cards.js';
-import {publicProbabilities,readLevel,readSources,knownPitchZones,v10StackMax,v10PrepMax,v10Energy,v10EnergyCap,v10EnergyBase,v10NextEnergyMax,v10ActionCost,v10TakeDrawPreview,V11_SWING_ENERGY,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM,defenseLabThreat,v10ShotMissed,v10ShotMode,v10ShotRate} from './engine.js';
+import {drawReceiptFor,publicProbabilities,readLevel,readSources,knownPitchZones,v10StackMax,v10PrepMax,v10Energy,v10EnergyCap,v10EnergyBase,v10NextEnergyMax,v10ActionCost,v10TakeDrawPreview,V11_SWING_ENERGY,V10_RUNNER_PRESSURE,v10Shaken,v10MentalCap,v10Momentum,v10MomentumRate,V10_MOMENTUM,defenseLabThreat,v10ShotMissed,v10ShotMode,v10ShotRate} from './engine.js';
 import {probabilityBounds} from './information.js';
 import {intentLines,hpTicks,ZONE_WORDS,runnerMoves} from './ballpark-copy.js';
 import ZoneLinks from './ZoneLinks.jsx';
@@ -109,7 +109,7 @@ export default function BallparkBattle({
   batterSheet=batterV14MasterSheet,batterRig=null,
   onSelect,onAim,onStack,onSwing,onTake,onDetail,onPile,onHome,onHelp,onSettings,onToggleSound,sound=false,onJukebox=null,onPractice=null,
   autoLesson=false,autoPlan=null,onExitLesson=null,previewMode=false,coachSignal=0,
-  defenseLab=null,vnextReview=null,
+  defenseLab=null,vnextReview=null,coursePreviewScope=false,
 }){
   const compact=!autoLesson;
   const vnextRequested=battleUiMode().vnext;
@@ -647,7 +647,8 @@ export default function BallparkBattle({
     setRecentResult({key:artId+':'+s.runMap?.currentNodeId,text:model.result.explanation+(model.result.damage>0?` · 투수 HP −${model.result.damage}`:'')});
   },[model?.phase,playToken,artId,s.runMap?.currentNodeId]);
   if(useVnext){
-    return <BattleView execution={matchingExecution} model={model} actors={{batter:SAMPLE_ACTORS.batter,pitcher:rosterPitcher||approvedArt||SAMPLE_ACTORS.pitcher}}
+    return <BattleView execution={matchingExecution} model={model} drawContext={s.runMap?.currentNodeId||artId||'battle'} drawReceipt={!['flight','committing'].includes(model.phase)?drawReceiptFor(s):null} actors={{batter:SAMPLE_ACTORS.batter,pitcher:rosterPitcher||approvedArt||SAMPLE_ACTORS.pitcher}}
+      coursePreviewScope={coursePreviewScope}
       playback={playback} animationRate={animationRate} onAnimationRateChange={onAnimationRateChange} sound={sound} onToggleSound={onToggleSound} rootRef={rootRef} sceneRef={sceneRef} zoneRef={zoneRef} handRef={handDockRef} recent={recentResult?.key===artId+':'+s.runMap?.currentNodeId?recentResult.text:null} title={label} review={!!vnextReview}
       inspector={inspectorView} menuOpen={!!inspect} handOpen={handOpen} onHandOpenChange={setHandOpen} onMenu={()=>openInspect('menu')} onPitcherInfo={()=>openInspect('pitcher')}
       onCardTap={id=>{if(!deciding&&!inspect)return;isSkill(byId(id)?.entry)?pickPrep(id):pickSwing(id);}}

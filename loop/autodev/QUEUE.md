@@ -36,3 +36,10 @@ PR별로 main0eedc99에서 독립 수정했다. Pages는 후속 브랜치 배포
 | --- | --- | --- | --- |
 | G-020 | P1 | RELEASE_VERIFIED | PR94 mainb466c82/Pages42565875219 공개 실제새런+포커스/터치/키보드/접기/이어하기 통과. rootclip격리,5크기browser/full1631/실제경기/독립review/블라인드 IMPROVED. run read-loop-20261109 R1. |
 | G-021 | P1 | VALIDATED_LOCAL | baseline667×320/844×300·390에서 정보창body11건넘침. boundedflex/bodytabkey복원,5크기6tab production/3크기독립UX/full1631/블라인드 IMPROVED 통과. 게시·정확SHA는 PR 기록. run read-loop-20261109 R2. |
+
+
+## 2026-11-11 — M22 실제 코스/룰렛 연결
+
+| ID | 상태 | 근거 / 한계 | 소유 |
+| --- | --- | --- | --- |
+| M22 | VALIDATED_LOCAL | 추가 허용 누적후보6/6·원화3/3 사용. 최종1730테스트·23호스트·90DOM·5입력실패경계 PASS, 새 스틸IMPROVED+.390625/6축, BAR 미달. 이전4DOM/모션FAIL·5스틸NOT 유지. opt-in 분리프리뷰이며 기존 기본본편renderer 유지. 공개 상태는 실행 PR 참조 | roulette-course-connection-20261111-kst1313 |

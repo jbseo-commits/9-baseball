@@ -1,0 +1,290 @@
+[
+  {
+    "width": 412,
+    "height": 743,
+    "stages": [
+      {
+        "stage": "planning",
+        "fxDelta": 0,
+        "x": 10,
+        "y": 368.828125,
+        "width": 191,
+        "height": 146,
+        "ratio": 1.3082191780821917,
+        "cellWidth": 59,
+        "cellHeight": 44,
+        "fxPosition": null,
+        "fxPointer": null,
+        "sameNode": true,
+        "count": 1,
+        "buttons": 9,
+        "disabled": false,
+        "overflow": false
+      },
+      {
+        "stage": "scan",
+        "fxDelta": 0,
+        "x": 10,
+        "y": 388.5625,
+        "width": 191,
+        "height": 146,
+        "ratio": 1.3082191780821917,
+        "cellWidth": 59,
+        "cellHeight": 44,
+        "fxPosition": null,
+        "fxPointer": null,
+        "sameNode": true,
+        "count": 1,
+        "buttons": 9,
+        "disabled": true,
+        "caption": "코스 확인 중",
+        "overflow": false
+      },
+      {
+        "stage": "lock",
+        "fxDelta": 0,
+        "x": 10,
+        "y": 388.5625,
+        "width": 191,
+        "height": 146,
+        "ratio": 1.3082191780821917,
+        "cellWidth": 59,
+        "cellHeight": 44,
+        "fxPosition": "absolute",
+        "fxPointer": "none",
+        "sameNode": true,
+        "count": 1,
+        "buttons": 9,
+        "disabled": true,
+        "caption": "존 밖 · 확정",
+        "overflow": false
+      },
+      {
+        "stage": "flight",
+        "fxDelta": 0,
+        "x": 10,
+        "y": 388.5625,
+        "width": 191,
+        "height": 146,
+        "ratio": 1.3082191780821917,
+        "cellWidth": 59,
+        "cellHeight": 44,
+        "fxPosition": "absolute",
+        "fxPointer": "none",
+        "sameNode": true,
+        "count": 1,
+        "buttons": 9,
+        "disabled": true,
+        "caption": "존 밖 · 확정",
+        "overflow": false
+      },
+      {
+        "stage": "contact",
+        "fxDelta": 0,
+        "x": 10,
+        "y": 388.5625,
+        "width": 191,
+        "height": 146,
+        "ratio": 1.3082191780821917,
+        "cellWidth": 59,
+        "cellHeight": 44,
+        "fxPosition": null,
+        "fxPointer": null,
+        "sameNode": true,
+        "count": 1,
+        "buttons": 9,
+        "disabled": true,
+        "caption": "존 밖 · 도착",
+        "overflow": false
+      },
+      {
+        "stage": "settled",
+        "fxDelta": 0,
+        "x": 10,
+        "y": 531.828125,
+        "width": 191,
+        "height": 146,
+        "ratio": 1.3082191780821917,
+        "cellWidth": 59,
+        "cellHeight": 44,
+        "fxPosition": null,
+        "fxPointer": null,
+        "sameNode": true,
+        "count": 1,
+        "buttons": 9,
+        "disabled": true,
+        "caption": "존 밖 · 도착",
+        "overflow": false
+      }
+    ],
+    "deltas": [
+      {
+        "stage": "scan",
+        "delta": 19.734375
+      },
+      {
+        "stage": "lock",
+        "delta": 19.734375
+      },
+      {
+        "stage": "flight",
+        "delta": 19.734375
+      },
+      {
+        "stage": "contact",
+        "delta": 19.734375
+      },
+      {
+        "stage": "settled",
+        "delta": 163
+      }
+    ],
+    "exactEngine": true,
+    "errors": [],
+    "pass": true
+  },
+  {
+    "width": 375,
+    "height": 667,
+    "stages": [
+      {
+        "stage": "planning",
+        "fxDelta": 0,
+        "x": 10,
+        "y": 292.828125,
+        "width": 172.5,
+        "height": 146,
+        "ratio": 1.1815068493150684,
+        "cellWidth": 52.828125,
+        "cellHeight": 44,
+        "fxPosition": null,
+        "fxPointer": null,
+        "sameNode": true,
+        "count": 1,
+        "buttons": 9,
+        "disabled": false,
+        "overflow": false
+      },
+      {
+        "stage": "scan",
+        "fxDelta": 0,
+        "x": 10,
+        "y": 312.5625,
+        "width": 172.5,
+        "height": 146,
+        "ratio": 1.1815068493150684,
+        "cellWidth": 52.828125,
+        "cellHeight": 44,
+        "fxPosition": null,
+        "fxPointer": null,
+        "sameNode": true,
+        "count": 1,
+        "buttons": 9,
+        "disabled": true,
+        "caption": "코스 확인 중",
+        "overflow": false
+      },
+      {
+        "stage": "lock",
+        "fxDelta": 0,
+        "x": 10,
+        "y": 312.5625,
+        "width": 172.5,
+        "height": 146,
+        "ratio": 1.1815068493150684,
+        "cellWidth": 52.828125,
+        "cellHeight": 44,
+        "fxPosition": "absolute",
+        "fxPointer": "none",
+        "sameNode": true,
+        "count": 1,
+        "buttons": 9,
+        "disabled": true,
+        "caption": "존 밖 · 확정",
+        "overflow": false
+      },
+      {
+        "stage": "flight",
+        "fxDelta": 0,
+        "x": 10,
+        "y": 312.5625,
+        "width": 172.5,
+        "height": 146,
+        "ratio": 1.1815068493150684,
+        "cellWidth": 52.828125,
+        "cellHeight": 44,
+        "fxPosition": "absolute",
+        "fxPointer": "none",
+        "sameNode": true,
+        "count": 1,
+        "buttons": 9,
+        "disabled": true,
+        "caption": "존 밖 · 확정",
+        "overflow": false
+      },
+      {
+        "stage": "contact",
+        "fxDelta": 0,
+        "x": 10,
+        "y": 312.5625,
+        "width": 172.5,
+        "height": 146,
+        "ratio": 1.1815068493150684,
+        "cellWidth": 52.828125,
+        "cellHeight": 44,
+        "fxPosition": null,
+        "fxPointer": null,
+        "sameNode": true,
+        "count": 1,
+        "buttons": 9,
+        "disabled": true,
+        "caption": "존 밖 · 도착",
+        "overflow": false
+      },
+      {
+        "stage": "settled",
+        "fxDelta": 0,
+        "x": 10,
+        "y": 455.828125,
+        "width": 172.5,
+        "height": 146,
+        "ratio": 1.1815068493150684,
+        "cellWidth": 52.828125,
+        "cellHeight": 44,
+        "fxPosition": null,
+        "fxPointer": null,
+        "sameNode": true,
+        "count": 1,
+        "buttons": 9,
+        "disabled": true,
+        "caption": "존 밖 · 도착",
+        "overflow": false
+      }
+    ],
+    "deltas": [
+      {
+        "stage": "scan",
+        "delta": 19.734375
+      },
+      {
+        "stage": "lock",
+        "delta": 19.734375
+      },
+      {
+        "stage": "flight",
+        "delta": 19.734375
+      },
+      {
+        "stage": "contact",
+        "delta": 19.734375
+      },
+      {
+        "stage": "settled",
+        "delta": 163
+      }
+    ],
+    "exactEngine": true,
+    "errors": [],
+    "pass": true
+  }
+]

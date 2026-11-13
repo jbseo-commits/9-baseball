@@ -835,7 +835,7 @@ function higherModalIsMounted(){
   return !!document.querySelector('.card-detail-backdrop,.pitcher-portrait-backdrop,.bp-homer-video,.wg-backdrop,.tour-card');
 }
 
-export default function Duel({storage:providedStorage,startInRun=false}={}){
+export default function Duel({storage:providedStorage,startInRun=false,coursePreviewScope=false}={}){
   let storage=providedStorage;
   if(!storage){try{storage=globalThis.localStorage;}catch{storage={getItem(){throw Error('저장소 접근 불가')},setItem(){throw Error('저장소 접근 불가')}};}}
   const liveRequested=battleUiMode().vnext;
@@ -1060,16 +1060,16 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
   },[tour.open,tour.step,tourStep?.target,tourCardTop,showBattle]);
 
   function persist(next){
-    if(pendingPitch.current)return;
+    if(pendingPitch.current)return false;
     current.current=next;setS(next);
     if(defenseExperiment){
-      if(next?.defenseLab?.schema===1){try{saveDefenseLabState(storage,next);setError('')}catch{setError('실험 저장에 실패했습니다.');}}
-      return;
+      if(next?.defenseLab?.schema===1){try{saveDefenseLabState(storage,next);setError('');return true}catch{setError('실험 저장에 실패했습니다.');}}
+      return false;
     }
     // The strategy -> auto-battle lesson is a disposable sandbox. Using the real
     // V10 engine here is important, but replacing a player's MAIN RUN save is not.
-    if(autoLesson||initial.preview){setError('');return;}
-    try{next.version===10?saveV10Duel(storage,next):saveDuel(storage,next);setError('')}catch{setError('저장 실패: 이 창을 닫으면 진행을 잃을 수 있습니다.');}
+    if(autoLesson||initial.preview){setError('');return false;}
+    try{next.version===10?saveV10Duel(storage,next):saveDuel(storage,next);setError('');return true}catch{setError('저장 실패: 이 창을 닫으면 진행을 잃을 수 있습니다.');return false;}
   }
   function rememberTour(){tourDismissed.current=true;try{storage.setItem(TOUR_KEY,'done')}catch{}}
   function closeTour(markSeen=true){if(markSeen)rememberTour();setTourRect(null);setTour({open:false,step:0});}
@@ -1084,7 +1084,7 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
     if(visible>=r.height*.9)return;
     el.scrollIntoView?.({block:'center',behavior:'auto'});
   }
-  function startPresentation(next,execution=null,{durableSaved=false}={}){
+  function startPresentation(next,execution=null,{durableSaved=false,previewAccepted=false}={}){
     const live=liveFor(next);
     const shot=presentationFor(next),reduced=next.version!==10||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     const withVideo=!live&&isHomerVideoEligible({version:next.version,grade:shot?.grade,reduced});
@@ -1095,7 +1095,7 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
     const liveActor=live&&pitchJudgement?rosterPitcherActor(nextNode?.opponent?.artId,pitcherAtlases[nextNode?.opponent?.artId]):null;
     const baseTimeline=presentationTimeline(shot,reduced);
     const baseResultTimeline=withKnockoutHold(liveActor?rosterTimeline(baseTimeline,liveActor,reduced,{delivery:true,contactHold:contactHitstop(shot?.grade)}):pitcherAtlases[nextNode?.opponent?.artId]&&pitchJudgement?redRushTimeline(baseTimeline,reduced,pitcherReleaseFrame(nextNode?.opponent?.artId)):baseTimeline,next.version===10&&pitchJudgement&&!reduced&&next.pitcher?.hp===0);
-    const coursePresentation=coursePresentationFor({execution,next,timeline:baseResultTimeline,live,durableSaved});
+    const coursePresentation=coursePresentationFor({execution,next,timeline:baseResultTimeline,live,durableSaved,previewAccepted:coursePreviewScope&&previewAccepted});
     const timeline=coursePresentation?.timeline||baseResultTimeline;
     lock.current=true;revealArena();setFxImpactAt(timeline.impactAt||0);setFx(next.last);setFxStage('windup');setFrame(1);
     cancelCues();
@@ -1158,6 +1158,7 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
     const durablePitch=animate&&before.version===10&&before.phase==='battle'
       &&next.stats?.pitches===before.stats?.pitches+1&&!v10ShotMode(before)
       &&!autoLesson&&!defenseExperiment&&!initial.preview
+      &&!coursePreviewScope
       &&new URLSearchParams(window.location.search).get('battlePlay')!=='1';
     if(durablePitch){
       lock.current=true;pendingPitch.current={next,executed,resolveMs,resolvePlan};setCommitWaiting(true);
@@ -1170,14 +1171,14 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
       setStackResolve({plan:resolvePlan,token});
       const timer=setTimeout(()=>{
         setStackResolve(null);
-        persist(next);
-        startPresentation(next,executed);
+        const accepted=persist(next);
+        startPresentation(next,executed,{previewAccepted:coursePreviewScope&&accepted});
       },resolveMs);
       timers.current=[timer];
       return;
     }
-    persist(next);
-    if(animate)startPresentation(next,executed);
+    const accepted=persist(next),previewAccepted=coursePreviewScope&&accepted;
+    if(animate)startPresentation(next,executed,{previewAccepted});
   }
   function clearActionUi(){cancelCues();setGrowthChoice(null);setRewardAction(null);setFacilityChoice(null);setStackResolve(null);setModal(null);setSelected(null);setSwingStack([]);setStackEdit(null);setDecisionMode(null);setTour({open:false,step:0});setEventResult(null);}
   /* the title reads the live main-run save every time it shows: the mount-time snapshot (initial.v10)
@@ -1299,7 +1300,7 @@ export default function Duel({storage:providedStorage,startInRun=false}={}){
       nextLabel={s.phase==='pitch'?'다음 공':s.phase==='between'?'다음 타자':''}
       onSelect={setSelected} onStack={setSwingStack} onAim={z=>{if(!lock.current)persist(setAimZone(current.current,z));}}
       onSwing={()=>{captureAutoPlan(CARDS[selectedEntry?.kind]?.type==='skill'?'prepare':'swing');act(doPlay,true,choice?.stackPlan)}} onTake={()=>{captureAutoPlan('take');act(doTake,true)}}
-      autoLesson={autoLesson} autoPlan={autoPlan} onExitLesson={exitAutoLesson} previewMode={!!initial.preview} defenseLab={isDefenseLab?s.defenseLab:null}
+      autoLesson={autoLesson} autoPlan={autoPlan} onExitLesson={exitAutoLesson} previewMode={!!initial.preview} defenseLab={isDefenseLab?s.defenseLab:null} coursePreviewScope={coursePreviewScope}
       onDetail={(e,el)=>{detailOpener.current=el;setCardDetail(cardDetailOf(e.kind,e.plus,null,isV10));}} onPile={w=>setModal(w)}
       coachSignal={battleCoach}
       onHome={()=>{if(!lock.current)(autoLesson?exitAutoLesson():setScreen(defenseExperiment?'defense-lab':'menu'))}} onHelp={()=>isV10&&!isDefenseLab?setGuide({start:0}):setModal('help')}

@@ -1,0 +1,91 @@
+{
+  "retrieved_at": "2026-11-11 UTC / 2026-11-12 KST",
+  "method": "Official Steam Store appdetails endpoint was queried live; official first screenshots were downloaded and visually inspected. Store descriptions were read. Existing cached trailer-frame records were reused only where stated. No audio was listened to. Still frames do not establish animation timing.",
+  "references": [
+    {
+      "title": "Luck be a Landlord",
+      "source_url": "https://store.steampowered.com/app/1404850/",
+      "official_source": "Steam Store appdetails and official store screenshots",
+      "observed_medium": "Live official appdetails + first official gameplay screenshot inspected; official 100.104 s Release Date Trailer downloaded; 5 s excerpt 18.0–23.0 s sampled at 2 fps and visually inspected (luck-gameplay-18-23s-frames.jpg). Separate 2.3 s embedded muted store loop was sampled and found to be a title animation.",
+      "evidence": "The page calls it a slot-machine roguelike and says the player inserts a coin into the slot machine; screenshot shows a multi-column symbol reel layout and a prominent SPIN control. The embedded 2.3 s loop is a promotional title animation over changing symbol art, not a gameplay spin. It does not show a wheel/reel stop or payout.",
+      "supports": "Relevant thematic primary source for symbol-board affordance and post-spin symbol/coin value readout. The sampled trailer demonstrates state changes across edited shots, but not a continuous spin-and-stop.",
+      "does_not_establish": "No continuous reel animation, acceleration, staggered stops, outcome-reveal cadence, or sound can be verified from this excerpt. No audio listened.",
+      "adaptation": "Keep the 9-zone board fixed; add one short, readable spin phase and sequential candidate lock only if each stop remains visually tied to its board cell. Keep actual outcome private until reveal.",
+      "official_first_screenshot_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1404850/ss_6419b6d713a5cb51c3b3eae5db669459059ff142.1920x1080.jpg?t=1793287779",
+      "official_embedded_loop_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1404850/extras/cbd6dddf404af267096b7f10fa70244c.mp4?t=1793287779",
+      "official_trailer_url": "https://video.akamai.steamstatic.com/store_trailers/1404850/514371/5d47ad6580c2c93a21e6ba03bbbbc69253c86ae3/1750685337/hls_264_master.m3u8?t=1685154224",
+      "observed_sequence": "In the 18–23 s trailer excerpt, the edited footage shows an Add a symbol choice panel, then a 5-column symbol board with SPIN button; several subsequent shots show different fixed symbol layouts, followed by coin markers on symbols and updated coin counters. Frames are sample stills from an edited trailer; the shots include cuts."
+    },
+    {
+      "title": "Balatro",
+      "source_url": "https://store.steampowered.com/app/2379780/",
+      "official_source": "Steam Store appdetails and official store screenshot; cached official trailer samples from prior research",
+      "observed_medium": "Live official appdetails and first screenshot; official 38.667 s Steam Accolades Gameplay Video downloaded; 6 s excerpt 4.0–10.0 s sampled at 2 fps and visually inspected (balatro-gameplay-04-10s-frames.jpg). Cached 6-frame observations are also retained as prior context.",
+      "evidence": "Current store copy describes poker-hand combinations, scoring chips, blinds and Joker synergies. Screenshot shows a stable result composition: played cards, hand label, score multiplier and run controls in distinct regions. Cached trailer does not constitute continuous animation evidence.",
+      "supports": "A useful adjacent reference for keeping the selected hand and result label visible while score feedback resolves.",
+      "does_not_establish": "No roulette/spin or zone-lock mechanic; no measured animation timing; no audio analyzed.",
+      "adaptation": "After the spin, present the selected zone and its real outcome in a stable, legible state. Never animate a success payout before the result is actually resolved.",
+      "official_first_screenshot_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2379780/96208723dbedef49d71bf1b0a74aee1689018c50/ss_96208723dbedef49d71bf1b0a74aee1689018c50.1920x1080.jpg?t=1790693638",
+      "official_trailer_url": "https://video.akamai.steamstatic.com/store_trailers/2379780/581550014/e9a47276c1efe4165c2e25e35a06d417d78e1724/1758033766/hls_264_3_video.m3u8",
+      "observed_sequence": "In sampled trailer frames, a fixed five-card hand and Straight label are visible while multiplier/score presentation changes; the label Balanced appears as the score presentation settles. The promo edit cuts between gameplay and testimonial/award panels; this is not one uninterrupted play sequence."
+    },
+    {
+      "title": "Dicey Dungeons",
+      "source_url": "https://store.steampowered.com/app/861540/",
+      "official_source": "Steam Store appdetails and official first screenshot",
+      "observed_medium": "Current official store description + first official screenshot directly inspected",
+      "evidence": "Screenshot presents dice faces and multiple action cards with distinct requirements/effects, including a visible 'roll a dice' style action context. Store copy explicitly frames strategic decisions against the unknown of a dice roll.",
+      "supports": "Random resolution can be framed by an explicit pre-result choice and a readable post-roll state.",
+      "does_not_establish": "Screenshot cannot verify dice animation, stopping behavior, timing, or sound. Not a roulette reference.",
+      "adaptation": "Use a calm ready state before spin and a visually distinct locked state after each meaningful reveal; keep controls and result labels outside the 3x3 board.",
+      "official_first_screenshot_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/861540/ss_34c9e63f73c668bcde5dd4671e944c09e1c169b5.1920x1080.jpg?t=1761845135"
+    },
+    {
+      "title": "Peggle Deluxe",
+      "source_url": "https://store.steampowered.com/app/3480/",
+      "official_source": "Steam Store appdetails and official first screenshot",
+      "observed_medium": "Current official store description + first official screenshot directly inspected",
+      "evidence": "Store copy says aim, shoot, clear orange pegs, then cheer; the screenshot shows a ball path through a peg field and a localized 'EXTREME SLIDE'/'EXCELLENT' score callout near a result area.",
+      "supports": "A traversing object and a clear end-of-action result can create anticipation before reward.",
+      "does_not_establish": "Still image does not prove ball trajectory, final-peg event timing, animation duration, or audio.",
+      "adaptation": "Borrow the anticipation arc in miniature: make the spinning marker approach a candidate zone, then pause briefly at the actual stop. Avoid covering cells with a large callout.",
+      "official_first_screenshot_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3480/0000001531.1920x1080.jpg?t=1777394376"
+    },
+    {
+      "title": "Vampire Survivors",
+      "source_url": "https://store.steampowered.com/app/1794680/",
+      "official_source": "Steam Store appdetails and official first screenshot; cached official trailer samples from prior research",
+      "observed_medium": "Live official appdetails and first screenshot; official Refreshed Trailer 3 s opening excerpt downloaded and sampled at 2 fps (vampire-official-opening-excerpt-frames.jpg); cached 6-frame observations from prior research.",
+      "evidence": "Store description identifies time-survival gameplay and choice-driven progression; screenshot shows a dense combat field with player, enemies and effects competing for attention. Cached samples include static frames and do not establish chest opening animation.",
+      "supports": "Use as a caution: preserve a distinct focal object and keep effects local when motion is present.",
+      "does_not_establish": "No chest opening, slot stop, payoff sequence, or sound observed.",
+      "adaptation": "Keep the spinner and candidate cells visually singular; use one localized stop cue instead of adding confetti across the board.",
+      "official_first_screenshot_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1794680/ss_6c55afe36be2a7784bf18cb9b3218321ae2d10e5.1920x1080.jpg?t=1794307910",
+      "official_trailer_url": "https://video.akamai.steamstatic.com/store_trailers/1794680/598026/b3a9771de005c30237b53d84932fd2e792f298c0/1750736849/hls_264_3_video.m3u8",
+      "observed_sequence": "The short opening excerpt shows the character stationary in a field while small projectiles/effects appear and travel around it across successive frames. This is action feedback, not treasure chest or roulette resolution."
+    },
+    {
+      "title": "Tetris Effect: Connected",
+      "source_url": "https://store.steampowered.com/app/1003590/",
+      "official_source": "Steam Store appdetails and official first screenshot",
+      "observed_medium": "Current official store description + first official screenshot directly inspected",
+      "evidence": "The store description says music, backgrounds, sounds, effects and tetrominoes pulse and change in sync with play. Screenshot shows a centered playfield with bright ambient detail surrounding it.",
+      "supports": "The official description supports coordinated audiovisual response as a design direction, while the centered board remains the focal point.",
+      "does_not_establish": "No audio was played and the screenshot does not prove specific sound cues, sync timing, or stop cadence.",
+      "adaptation": "Tie a short visual pulse to the true lock event; if adding sound, treat it as a proposal pending listening and accessibility checks.",
+      "official_first_screenshot_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1003590/ss_8ba09dc00d14f6a454c5bd62e0166cd56176841a.1920x1080.jpg?t=1774036904"
+    },
+    {
+      "title": "Hades",
+      "source_url": "https://store.steampowered.com/app/1145360/",
+      "official_source": "Steam Store appdetails and official first screenshot",
+      "observed_medium": "Current official store description + first official screenshot directly inspected",
+      "evidence": "Screenshot shows combat with a bright localized attack/impact shape on a readable arena floor. Store copy describes action combat and boon choices, not a roulette wheel.",
+      "supports": "A compact contact flash can read against a relatively stable field, and choice presentation can be distinct from action.",
+      "does_not_establish": "Not a spin/lock reference; no sampled impact timing or audio claim.",
+      "adaptation": "Use only the localized contact contrast as a secondary inspiration; do not import combat-scale camera shake or effects into the board.",
+      "official_first_screenshot_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1145360/ss_c0fed447426b69981cf1721756acf75369801b31.1920x1080.jpg?t=1758127023"
+    }
+  ],
+  "candidate_note": "Mario Kart 8 Deluxe was replaced by Hades as an accessible official Steam-source adjacent reference; the accessible evidence set is limited to Steam Store sources, and Hades is explicitly labeled as non-roulette inspiration. No Mario Kart-specific behavior is claimed."
+}

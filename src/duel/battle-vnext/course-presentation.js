@@ -108,6 +108,27 @@ function validPlan(plan) {
   return sequence.size === plan.pool.length && plan.scanSequence.every(zone => plan.pool.some(candidate => candidate.zone === zone));
 }
 
+/** Public-only rhythm. Increasing dwell creates anticipation without steering
+ * toward the private destination or changing a single host boundary. */
+export function courseScanSchedule(plan, timeline) {
+  const end=timeline?.courseLockAt;
+  if(!validPlan(plan)||!finite(end)||end<=0)return Object.freeze([]);
+  const sequence=plan.scanSequence;
+  const count=sequence.length===1?1:Math.max(1,Math.min(18,Math.floor(end/85)));
+  const weights=Array.from({length:count},(_,i)=>1+3*(i/Math.max(1,count-1))**2);
+  const total=weights.reduce((a,b)=>a+b,0);let at=0;
+  return Object.freeze(weights.map((weight,i)=>{
+    const step=Object.freeze({at,zone:sequence[i%sequence.length]});
+    at+=end*weight/total;return step;
+  }));
+}
+const schedules=new WeakMap();
+function scanSchedule(plan,timeline){
+  const end=timeline.courseLockAt,cached=schedules.get(plan);
+  if(cached?.end===end)return cached.schedule;
+  const schedule=courseScanSchedule(plan,timeline);schedules.set(plan,{end,schedule});return schedule;
+}
+
 /**
  * Before the public lock, return scan-only information and never call the
  * destination getter. After lock, reveal only an accepted durable destination
@@ -137,17 +158,18 @@ export function courseFrameAt(input = {}) {
   if (elapsed < lockAt) {
     const end = lockAt;
     const progress = end > 0 ? Math.min(1, elapsed / end) : 0;
-    const sequence = plan.scanSequence;
-    const index = sequence.length > 0
-      ? Math.min(sequence.length - 1, Math.floor(progress * sequence.length))
-      : -1;
-    return frozenFrame('scan', { scanZone: index >= 0 ? sequence[index] : null, targetZone: null, progress });
+    const schedule=scanSchedule(plan,timeline);
+    let index=0;
+    while(index+1<schedule.length&&schedule[index+1].at<=elapsed)index++;
+    return frozenFrame('scan', {scanZone:schedule[index]?.zone??null,targetZone:null,progress,
+      scanIndex:index,scanCount:schedule.length,scanAge:elapsed-(schedule[index]?.at??0),
+      previousZone:index?schedule[index-1].zone:null});
   }
 
   const targetZone = acceptedDestination(plan, getDestination);
   return targetZone == null
     ? frozenFrame('unresolved', { scanZone: null, targetZone: null, progress: 1 })
-    : frozenFrame(elapsed >= impactAt ? 'impact' : 'locked', { scanZone: null, targetZone, progress: 1 });
+    : frozenFrame(elapsed >= impactAt ? 'impact' : 'locked', { scanZone: null, targetZone, progress: 1, lockAge:Math.max(0,elapsed-lockAt) });
 }
 
 /** Map a public zone onto the explicitly unapproved diagnostic plane. */

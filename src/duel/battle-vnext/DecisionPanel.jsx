@@ -3,6 +3,8 @@ import {nearCoverage} from './motion-timeline.js';
 import ResultSequence from './ResultSequence.jsx';
 import ResultReadout from './ResultReadout.jsx';
 import './decision.css';
+import CourseLockFx from './CourseLockFx.jsx';
+import './course-projection.css';
 import {StackBoard} from './StackPlacement.jsx';
 import BattleSymbol,{EnergyText} from './BattleSymbol.jsx';
 
@@ -42,35 +44,44 @@ export function planSummary({hand=[],forecast=null,input=null,energy=null,effect
 }
 
 export default function DecisionPanel({zones=null,forecast=null,input=null,hand=[],energy=null,result=null,phase='deciding',effects=[],scene=null,execution=null,
-  dragPreview=null,shotGrade=null,recent=null,showAction=true,showPlan=true,quiet=false,selection=null,sound=false,animationRate=1,onZoneTap,onZoneHover=null,onTake,onSwing,onNext}){
+  dragPreview=null,shotGrade=null,recent=null,showAction=true,showPlan=true,quiet=false,selection=null,sound=false,animationRate=1,onZoneTap,onZoneHover=null,onTake,onSwing,onNext,
+  coursePreview=false,courseModel=null}){
   if(!zones||!input)return null;
   const deciding=phase==='deciding';
+  const course=coursePreview?courseModel?.course:null;
   const caption=planCaption(zones),near=result?.kind==='whiff'?nearCoverage(result):null;
   const pt=z=>({x:(z%3)*100+50,y:Math.floor(z/3)*100+50});
-  return <section className={'bv-decision'+(zones.targetingSupport?' is-targeting':'')} data-testid="bv-decision" data-phase={phase} aria-label="코스와 행동">
-    <p className="bv-zone-caption"><span>{deciding&&selection?.supportMode&&!zones.targetingSupport?'겹칠 카드를 고르세요':caption||(deciding?'노릴 코스':'')}</span>{deciding&&zones.clue&&<b>단서 적용</b>}</p>
-    <div className="bv-zone" role="group" aria-label="노릴 코스" data-read-level={zones.level} data-drop-role={dragPreview?.role}>
-      {near&&<svg className="bv-near-link" viewBox="0 0 300 300" preserveAspectRatio="none" aria-hidden="true" data-testid="bv-near-link"><path d={`M${pt(near.from).x},${pt(near.from).y}L${pt(near.to).x},${pt(near.to).y}`}/><circle cx={pt(near.from).x} cy={pt(near.from).y} r="20"/></svg>}
-      {zones.cells.map(c=>{
-        const d=faceDensity(c.face);
-        const cls='bv-cell'+(c.live?'':' is-dead')+(c.cover?' is-cover':'')+(c.support?' is-support':'')+(c.aim?' is-aim':'')+(c.actual?' is-actual':'')+(result?.good&&c.actual?' is-good':'')+(deciding&&dragPreview?.coverage?.includes(c.zone)?' is-drop-cover':'')+(deciding&&dragPreview?.zone===c.zone?(dragPreview.ok?' is-drop-target':' is-drop-invalid'):'');
-        return <button key={c.zone} type="button" className={cls} data-zone={c.zone} disabled={!input.canSelect}
-          style={d!=null?{'--bv-density':d}:undefined}
-          aria-pressed={c.aimed} aria-label={[c.word,c.live?c.face:'던지지 않는 코스',c.tokens.length?c.tokens.map(n=>n===1?'메인 노림':n+'번 지원').join(', '):'',c.actual?'실제 공':''].filter(Boolean).join(' · ')}
-          onClick={()=>onZoneTap?.(c.zone)}
-          onPointerEnter={e=>{if(e.pointerType==='mouse')onZoneHover?.(c.zone);}} onPointerLeave={e=>{if(e.pointerType==='mouse')onZoneHover?.(null);}}
-          onFocus={()=>onZoneHover?.(c.zone)} onBlur={()=>onZoneHover?.(null)}>
-          {c.tokens.map(n=><em key={n} className={'bv-token n'+n} aria-hidden="true">{n}</em>)}
-          {c.aim&&<i className="bv-aim-ring" aria-hidden="true"/>}
-          {c.actual&&<i className="bv-pitch-mark" data-testid="bv-pitch-mark" aria-hidden="true"/>}
-          <span className="bv-cell-face" aria-hidden="true">{c.live?c.face??'':quiet?'':'안 던짐'}</span>
-        </button>;
-      })}
-      <StackBoard pieces={zones.pieces} links={zones.links} phase={phase} sound={sound} animationRate={animationRate}/>
-    </div>
-    <p className={'bv-band'+(zones.band.actual?' is-actual':'')} data-testid="bv-band">
+  const courseCaption=coursePreview&&courseModel
+    ?courseModel.phase==='scan'?'코스 확인 중':`${courseModel.locationLabel||courseModel.course?.locationLabel||'코스'} · ${courseModel.phase==='landed'?'도착':'확정'}`:null;
+  const captionNode=<p className="bv-zone-caption">{courseCaption?<b className="bv-course-state">{courseCaption}</b>:<><span>{deciding&&selection?.supportMode&&!zones.targetingSupport?'겹칠 카드를 고르세요':caption||(deciding?'노릴 코스':'')}</span>{deciding&&zones.clue&&<b>단서 적용</b>}</>}</p>;
+  const zoneNode=<div className="bv-zone" role="group" aria-label="노릴 코스" data-read-level={zones.level} data-drop-role={dragPreview?.role}>
+    {near&&<svg className="bv-near-link" viewBox="0 0 300 300" preserveAspectRatio="none" aria-hidden="true" data-testid="bv-near-link"><path d={`M${pt(near.from).x},${pt(near.from).y}L${pt(near.to).x},${pt(near.to).y}`}/><circle cx={pt(near.from).x} cy={pt(near.from).y} r="20"/></svg>}
+    {zones.cells.map(c=>{
+      const d=faceDensity(c.face),scan=course?.phase==='scan'&&course.scanZone===c.zone,
+        target=course?.targetZone===c.zone&&course.phase!=='scan',
+        trail=course?.phase==='scan'&&course.previousZone===c.zone&&course.scanAge<110;
+      const cls='bv-cell'+(c.live?'':' is-dead')+(c.cover?' is-cover':'')+(c.support?' is-support':'')+(c.aim?' is-aim':'')+(c.actual?' is-actual':'')+(result?.good&&c.actual?' is-good':'')+(trail?' is-course-trail':'')+(scan?' is-course-scan':'')+(target?' is-course-target':'')+(deciding&&dragPreview?.coverage?.includes(c.zone)?' is-drop-cover':'')+(deciding&&dragPreview?.zone===c.zone?(dragPreview.ok?' is-drop-target':' is-drop-invalid'):'');
+      return <button key={c.zone} type="button" className={cls} data-zone={c.zone} disabled={!input.canSelect}
+        style={d!=null?{'--bv-density':d}:undefined}
+        aria-pressed={c.aimed} aria-label={[c.word,c.live?c.face:'던지지 않는 코스',c.tokens.length?c.tokens.map(n=>n===1?'메인 노림':n+'번 지원').join(', '):'',c.actual?'실제 공':''].filter(Boolean).join(' · ')}
+        onClick={()=>onZoneTap?.(c.zone)}
+        onPointerEnter={e=>{if(e.pointerType==='mouse')onZoneHover?.(c.zone);}} onPointerLeave={e=>{if(e.pointerType==='mouse')onZoneHover?.(null);}}
+        onFocus={()=>onZoneHover?.(c.zone)} onBlur={()=>onZoneHover?.(null)}>
+        {target&&<CourseLockFx age={course.lockAge}/>}
+        {c.tokens.map(n=><em key={n} className={'bv-token n'+n} aria-hidden="true">{n}</em>)}
+        {c.aim&&<i className="bv-aim-ring" aria-hidden="true"/>}
+        {c.actual&&<i className="bv-pitch-mark" data-testid="bv-pitch-mark" aria-hidden="true"/>}
+        <span className="bv-cell-face" aria-hidden="true">{c.live?c.face??'':quiet?'':'안 던짐'}</span>
+      </button>;
+    })}
+    <StackBoard pieces={zones.pieces} links={zones.links} phase={phase} sound={sound} animationRate={animationRate}/>
+  </div>;
+  return <section className={'bv-decision'+(zones.targetingSupport?' is-targeting':'')} data-testid="bv-decision" data-course-phase={course?.phase} data-course-active={courseCaption?'true':undefined} data-phase={phase} aria-label="코스와 행동">
+    {captionNode}{zoneNode}
+    <p className={'bv-band'+(zones.band.actual?' is-actual':'')+(course?.phase==='scan'&&course.scanZone===9?' is-course-scan':'')+(course?.targetZone===9?' is-course-target':'')} data-testid="bv-band">
+      {course?.targetZone===9&&<CourseLockFx age={course.lockAge}/>}
       {zones.band.actual&&<i className="bv-pitch-mark" data-testid="bv-pitch-mark" aria-hidden="true"/>}
-      <span>존 밖 볼</span>{zones.band.face&&<b>{zones.band.face}</b>}
+      <span>{coursePreview?'존 밖':'존 밖 볼'}</span>{zones.band.face&&<b>{zones.band.face}</b>}
     </p>
 
     {showPlan&&<DecisionSummary {...{hand,forecast,input,energy,effects,phase,result,shotGrade,execution,scene,recent}}/>}

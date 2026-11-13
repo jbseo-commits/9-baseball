@@ -1,0 +1,43 @@
+/* The 9-zone command board stays in its original screen geometry. World-space
+   pitch/contact geometry is rendered independently by BattleScene. */
+@media(orientation:landscape){
+.battle-vnext[data-course-ui=stable] .bv-decision-area .bv-decision{position:relative}
+.battle-vnext[data-course-ui=stable] .bv-decision-area .bv-zone{
+ width:100%;height:var(--ref-zone-size,var(--bv-zone-size,210px));
+ grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr))}
+.battle-vnext[data-course-ui=stable] .bv-decision-area .bv-zone > .bv-cell{
+ height:100%;min-height:0;aspect-ratio:auto}
+/* Status must not add a row at commit or move the board down. */
+.battle-vnext[data-course-ui=stable] .bv-decision[data-course-active=true] > .bv-zone-caption{
+ position:absolute;bottom:100%;left:50%;transform:translateX(-50%);display:flex;
+ width:max-content;max-width:calc(100vw - 24px);height:24px;min-height:24px;margin:0;padding:0;
+ justify-content:center;align-items:center;white-space:nowrap;overflow:visible;pointer-events:none;
+ font-size:14px;line-height:24px;font-weight:700;color:#fff5dd;
+ text-shadow:0 1px 3px #030b10,0 0 8px #030b10;letter-spacing:.025em}
+.battle-vnext[data-course-ui=stable] .bv-course-state{font-size:14px;line-height:24px;font-weight:700;color:#fff5dd}
+.battle-vnext[data-course-ui=stable] .bv-cell.is-course-scan{
+ box-shadow:inset 0 0 0 2px #fff0b8,0 0 14px #f8cf6b80;background-color:#af853544}
+.battle-vnext[data-course-ui=stable] .bv-cell.is-course-target{
+ box-shadow:inset 0 0 0 2px #fff0b8,0 0 14px #f8cf6b80}
+}
+.bv-scene .bv-actor-course-batter{z-index:3}
+.bv-scene .bv-actor-batter.bv-course-underlay{visibility:hidden}
+/* Roulette optics stay inside the existing command surfaces. No camera kick,
+   board transform, layout row, flashing screen or early success message. */
+@media(orientation:landscape){
+.battle-vnext[data-course-ui=stable] .bv-decision-area:has(.bv-decision[data-course-active=true]){opacity:1}
+.battle-vnext[data-course-ui=stable] .bv-decision[data-course-active=true] .bv-cell{opacity:1}
+.battle-vnext[data-course-ui=stable] .bv-decision[data-course-phase=scan] .bv-cell.is-course-scan,
+.battle-vnext[data-course-ui=stable] .bv-decision[data-course-phase=scan] .bv-band.is-course-scan{
+ background-color:#917038a8;box-shadow:inset 0 0 0 2px #fff1bb,inset 0 0 19px #e4b64b66,0 0 12px #eac16866}
+.battle-vnext[data-course-ui=stable] .bv-decision[data-course-phase=scan] .bv-cell.is-course-trail{
+ box-shadow:inset 0 0 0 1px #f8d58d80;background-color:#90714355}
+.battle-vnext[data-course-ui=stable] .bv-decision[data-course-active=true] .bv-cell.is-course-target,
+.battle-vnext[data-course-ui=stable] .bv-decision[data-course-active=true] .bv-band.is-course-target{
+ box-shadow:inset 0 0 0 2px #ffe7a4,inset 0 0 22px #e6b74150,0 0 15px #e6b74150;background-color:#71532588}
+.battle-vnext[data-course-ui=stable] .bv-decision .bv-band{position:relative}
+}
+.battle-vnext[data-course-ui=stable] .bv-course-lock-fx{
+ position:absolute;inset:0;width:100%;height:100%;z-index:3;overflow:hidden;pointer-events:none}
+.battle-vnext[data-course-ui=stable] .bv-course-lock-fx *{pointer-events:none}
+@media(prefers-reduced-motion:reduce){.battle-vnext .bv-course-lock-fx{display:none}}

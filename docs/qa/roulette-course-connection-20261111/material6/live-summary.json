@@ -1,0 +1,531 @@
+{
+  "cases": [
+    {
+      "spec": {
+        "rate": 0.25,
+        "zone": 1
+      },
+      "tag": "z1-r0.25-swing-0.01",
+      "errors": [],
+      "expectedKind": "hit",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "1",
+        "2",
+        "9"
+      ],
+      "sampleCount": 515,
+      "visibleBallSamples": 262,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 0.25,
+        "zone": 4
+      },
+      "tag": "z4-r0.25-swing-0.01",
+      "errors": [],
+      "expectedKind": "hit",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "3",
+        "4",
+        "5",
+        "2",
+        "9"
+      ],
+      "sampleCount": 515,
+      "visibleBallSamples": 263,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 0.25,
+        "zone": 7
+      },
+      "tag": "z7-r0.25-swing-0.01",
+      "errors": [],
+      "expectedKind": "hit",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "3",
+        "6",
+        "7",
+        "8",
+        "5",
+        "2",
+        "9"
+      ],
+      "sampleCount": 516,
+      "visibleBallSamples": 263,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 0.5,
+        "zone": 1
+      },
+      "tag": "z1-r0.5-swing-0.01",
+      "errors": [],
+      "expectedKind": "hit",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "1",
+        "2",
+        "9"
+      ],
+      "sampleCount": 270,
+      "visibleBallSamples": 131,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 0.5,
+        "zone": 4
+      },
+      "tag": "z4-r0.5-swing-0.01",
+      "errors": [],
+      "expectedKind": "hit",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "3",
+        "4",
+        "5",
+        "2",
+        "9"
+      ],
+      "sampleCount": 271,
+      "visibleBallSamples": 131,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 0.5,
+        "zone": 7
+      },
+      "tag": "z7-r0.5-swing-0.01",
+      "errors": [],
+      "expectedKind": "hit",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "3",
+        "6",
+        "7",
+        "8",
+        "5",
+        "2",
+        "9"
+      ],
+      "sampleCount": 270,
+      "visibleBallSamples": 131,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 0.75,
+        "zone": 1
+      },
+      "tag": "z1-r0.75-swing-0.01",
+      "errors": [],
+      "expectedKind": "hit",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "1",
+        "2",
+        "9"
+      ],
+      "sampleCount": 189,
+      "visibleBallSamples": 87,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 0.75,
+        "zone": 4
+      },
+      "tag": "z4-r0.75-swing-0.01",
+      "errors": [],
+      "expectedKind": "hit",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "3",
+        "4",
+        "5",
+        "2",
+        "9"
+      ],
+      "sampleCount": 187,
+      "visibleBallSamples": 87,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 0.75,
+        "zone": 7
+      },
+      "tag": "z7-r0.75-swing-0.01",
+      "errors": [],
+      "expectedKind": "hit",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "3",
+        "6",
+        "7",
+        "8",
+        "5",
+        "2",
+        "9"
+      ],
+      "sampleCount": 188,
+      "visibleBallSamples": 87,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 1,
+        "zone": 1
+      },
+      "tag": "z1-r1-swing-0.01",
+      "errors": [],
+      "expectedKind": "hit",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "1",
+        "2",
+        "9"
+      ],
+      "sampleCount": 147,
+      "visibleBallSamples": 65,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 1,
+        "zone": 4
+      },
+      "tag": "z4-r1-swing-0.01",
+      "errors": [],
+      "expectedKind": "hit",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "3",
+        "4",
+        "5",
+        "2",
+        "9"
+      ],
+      "sampleCount": 144,
+      "visibleBallSamples": 65,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 1,
+        "zone": 7
+      },
+      "tag": "z7-r1-swing-0.01",
+      "errors": [],
+      "expectedKind": "hit",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "3",
+        "6",
+        "7",
+        "8",
+        "5",
+        "2",
+        "9"
+      ],
+      "sampleCount": 147,
+      "visibleBallSamples": 65,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 1.5,
+        "zone": 1
+      },
+      "tag": "z1-r1.5-swing-0.01",
+      "errors": [],
+      "expectedKind": "hit",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "1",
+        "2",
+        "9"
+      ],
+      "sampleCount": 106,
+      "visibleBallSamples": 43,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 1.5,
+        "zone": 4
+      },
+      "tag": "z4-r1.5-swing-0.01",
+      "errors": [],
+      "expectedKind": "hit",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "3",
+        "4",
+        "5",
+        "2",
+        "9"
+      ],
+      "sampleCount": 104,
+      "visibleBallSamples": 42,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 1.5,
+        "zone": 7
+      },
+      "tag": "z7-r1.5-swing-0.01",
+      "errors": [],
+      "expectedKind": "hit",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "3",
+        "6",
+        "7",
+        "8",
+        "5",
+        "2",
+        "9"
+      ],
+      "sampleCount": 106,
+      "visibleBallSamples": 43,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 2,
+        "zone": 1
+      },
+      "tag": "z1-r2-swing-0.01",
+      "errors": [],
+      "expectedKind": "hit",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "1",
+        "2",
+        "9"
+      ],
+      "sampleCount": 86,
+      "visibleBallSamples": 32,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 2,
+        "zone": 4
+      },
+      "tag": "z4-r2-swing-0.01",
+      "errors": [],
+      "expectedKind": "hit",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "3",
+        "4",
+        "5",
+        "2",
+        "9"
+      ],
+      "sampleCount": 84,
+      "visibleBallSamples": 32,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 2,
+        "zone": 7
+      },
+      "tag": "z7-r2-swing-0.01",
+      "errors": [],
+      "expectedKind": "hit",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "3",
+        "6",
+        "7",
+        "8",
+        "5",
+        "2",
+        "9"
+      ],
+      "sampleCount": 85,
+      "visibleBallSamples": 32,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 0.5,
+        "zone": 9
+      },
+      "tag": "z9-r0.5-swing-0.01",
+      "errors": [],
+      "expectedKind": "foul",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "3",
+        "10",
+        "11",
+        "5",
+        "2",
+        "9"
+      ],
+      "sampleCount": 270,
+      "visibleBallSamples": 130,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 2,
+        "zone": 9
+      },
+      "tag": "z9-r2-swing-0.01",
+      "errors": [],
+      "expectedKind": "foul",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "3",
+        "10",
+        "11",
+        "5",
+        "2",
+        "9"
+      ],
+      "sampleCount": 86,
+      "visibleBallSamples": 31,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 1,
+        "zone": 9,
+        "roll": 0.5
+      },
+      "tag": "z9-r1-swing-0.5",
+      "errors": [],
+      "expectedKind": "whiff",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [
+        "0",
+        "3",
+        "10",
+        "11",
+        "5",
+        "9"
+      ],
+      "sampleCount": 142,
+      "visibleBallSamples": 37,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 1,
+        "zone": 9,
+        "action": "take"
+      },
+      "tag": "z9-r1-take-0.01",
+      "errors": [],
+      "expectedKind": "ball",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [],
+      "sampleCount": 144,
+      "visibleBallSamples": 37,
+      "source": "live-host-samples.json.gz"
+    },
+    {
+      "spec": {
+        "rate": 1,
+        "zone": 4,
+        "action": "take"
+      },
+      "tag": "z4-r1-take-0.01",
+      "errors": [],
+      "expectedKind": "called",
+      "exactResult": true,
+      "productionPreserved": true,
+      "earlyResult": false,
+      "visibleFrames": [],
+      "sampleCount": 146,
+      "visibleBallSamples": 37,
+      "source": "live-host-samples.json.gz"
+    }
+  ],
+  "total": 23,
+  "pageErrors": 0,
+  "exactAcceptedState": 23,
+  "earlyResult": 0,
+  "productionSavePreserved": 23,
+  "rawReportSHA256": "87bd307da3f792833fe9626266bdb6e70c37cd2ee2b0c0031cb003fbf99b66c8",
+  "method": "Real RAF Chromium touch emulation; same fixed source material6; not physical-device/audio/haptic proof"
+}

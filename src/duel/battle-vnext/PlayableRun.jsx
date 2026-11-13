@@ -12,7 +12,7 @@ export function startPlayableRun(storage,search=''){
  const initial=createV10Duel(seed),node=initial.runMap.nodes.find(n=>initial.runMap.reachableIds.includes(n.id)&&n.opponent);
  const run=node?enterV10Node(initial,node.id):initial;saveV10Duel(storage,run);return run;
 }
-export default function PlayableRun(){
+export default function PlayableRun({coursePreviewScope=false}={}){
  const [storage]=useState(()=>{let backing;try{backing=window.sessionStorage;}catch{}const params=new URLSearchParams(window.location.search),prefix=params.get('previewRun')==='encounters-v1'?ENCOUNTER_PLAYABLE_PREFIX:PLAYABLE_PREFIX,own=playableStorage(backing,prefix);startPlayableRun(own,window.location.search);return own;});
- return <MemoryPreviewBoundary><div className="vnext-shell bv-playable-run"><Duel storage={storage} startInRun/></div></MemoryPreviewBoundary>;
+ return <MemoryPreviewBoundary><div className="vnext-shell bv-playable-run"><Duel storage={storage} startInRun coursePreviewScope={coursePreviewScope}/></div></MemoryPreviewBoundary>;
 }

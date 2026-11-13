@@ -1,0 +1,122 @@
+[
+  {
+    "width": 844,
+    "height": 390,
+    "stages": [
+      {
+        "stage": "planning",
+        "x": 346.2890625,
+        "y": 220.5625,
+        "width": 151.421875,
+        "height": 151.421875,
+        "ratio": 1,
+        "cellWidth": 49.140625,
+        "cellHeight": 49.140625,
+        "sameNode": true,
+        "count": 1,
+        "disabled": false,
+        "overflow": false
+      },
+      {
+        "stage": "scan",
+        "x": 346.2890625,
+        "y": 244.5625,
+        "width": 151.421875,
+        "height": 151.421875,
+        "ratio": 1,
+        "cellWidth": 49.140625,
+        "cellHeight": 49.140625,
+        "sameNode": true,
+        "count": 1,
+        "disabled": true,
+        "caption": "코스 확인 중",
+        "overflow": false
+      },
+      {
+        "stage": "lock",
+        "x": 369,
+        "y": 164.671875,
+        "width": 106,
+        "height": 163.265625,
+        "ratio": 0.6492487319360705,
+        "cellWidth": 35.328125,
+        "cellHeight": 54.421875,
+        "sameNode": false,
+        "count": 1,
+        "disabled": true,
+        "caption": "가운데 · 확정",
+        "overflow": false
+      },
+      {
+        "stage": "flight",
+        "x": 369,
+        "y": 164.671875,
+        "width": 106,
+        "height": 163.265625,
+        "ratio": 0.6492487319360705,
+        "cellWidth": 35.328125,
+        "cellHeight": 54.421875,
+        "sameNode": false,
+        "count": 1,
+        "disabled": true,
+        "caption": "가운데 · 확정",
+        "overflow": false
+      },
+      {
+        "stage": "contact",
+        "x": 369,
+        "y": 164.671875,
+        "width": 106,
+        "height": 163.265625,
+        "ratio": 0.6492487319360705,
+        "cellWidth": 35.328125,
+        "cellHeight": 54.421875,
+        "sameNode": false,
+        "count": 1,
+        "disabled": true,
+        "caption": "가운데 · 도착",
+        "overflow": false
+      },
+      {
+        "stage": "settled",
+        "x": 369,
+        "y": 164.671875,
+        "width": 106,
+        "height": 163.265625,
+        "ratio": 0.6492487319360705,
+        "cellWidth": 35.328125,
+        "cellHeight": 54.421875,
+        "sameNode": false,
+        "count": 1,
+        "disabled": true,
+        "caption": "코스 · 도착",
+        "overflow": false
+      }
+    ],
+    "deltas": [
+      {
+        "stage": "scan",
+        "delta": 24
+      },
+      {
+        "stage": "lock",
+        "delta": 55.890625
+      },
+      {
+        "stage": "flight",
+        "delta": 55.890625
+      },
+      {
+        "stage": "contact",
+        "delta": 55.890625
+      },
+      {
+        "stage": "settled",
+        "delta": 55.890625
+      }
+    ],
+    "exactEngine": true,
+    "errors": [],
+    "pass": false
+  }
+]

@@ -91,7 +91,7 @@ for(const [w,h,label,mode] of VIEWPORTS){
     check(`${label} battle: swing button fully on screen`,inside(m.swing,w,h),m.swing);
     if(m.vnext){
       check(`${label} battle: folded hand handle on screen`,inside(m.handHandle,w,h),m.handHandle);
-      await p.locator('.bv-hand-handle').click();await p.getByTestId('bv-basic-chip').click();await p.locator('.bv-cell[data-zone="4"]').click();
+      {const open=p.getByRole('button',{name:'손패 펼치기',exact:true});if(await open.count())await open.click();}await p.getByTestId('bv-basic-chip').click();await p.locator('.bv-cell[data-zone="4"]').click();
     }else{
       check(`${label} battle: hand cards not clipped`,!!m.hand&&m.cards.every(b=>b<=m.hand.y+m.hand.h+1),m.hand?`hand bottom ${Math.round(m.hand.y+m.hand.h)}, card bottom ${Math.round(Math.max(...m.cards))}`:'missing');
       await p.locator('.bp-card.basic').first().click();await p.locator('.bp-cell').nth(4).click();

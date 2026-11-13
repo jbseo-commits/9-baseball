@@ -524,3 +524,33 @@ ignore 규칙을 `4bfb400`에서 제거했다. Git 이력으로 복구 가능하
 ---
 
 > v8.7 이하의 이전 인수인계는 [인수인계 아카이브](./docs/history/HANDOFF-archive.md)에 보존한다.
+
+
+## 2026-11-11 — 실제9존·룰렛 연결 후보6
+
+`codex/roulette-course-connection-20261111`은 actual main `fb8e7b1`에서 준비한 opt-in 실제게임 프리뷰다. `?battleUi=vnext&battlePlay=1&coursePreview=1&seed=1&battleSpeed=0.5`로 실행하며 본편 localStorage와 분리한다. 원화3회/누적후보6회 한도를 모두 사용했다. 이전4/5 실패를 보존하고 최종6은1730테스트/23실제호스트/90DOM/5입력실패경계 및 독립 스틸·모션 수정 검수를 통과했다. 소스와 제한은 `docs/qa/roulette-course-connection-20261111/README.md`, 고정 해시는 `material6/FREEZE.json` 및 `FINAL-VALIDATION.json`. 모션은 held-keypose이며 상업 마스터피스/보간 완료로 표현하지 않는다. 원격·공개 상태는 해당 실행 PR을 확인한다.
+
+
+## 2026-11-11 — 사용자 보고: 9존 찌그러짐
+
+PR #121의 확정 후 비균등 투영을 제거했다. 중앙 조작판은 같은 DOM·정사각형·위치를 유지하며 실제 공과 배트의 물리 좌표는 별도로 보존한다. 가로 5종×6단계 위치·크기 변화 0px, 카드 2·3장/회전/리로드/실패 경계 5/5, 기존 7종 119/119, 전체 1,730테스트가 통과했다. `scripts/qa-zone-board-stability.mjs`와 `docs/qa/stable-zone-board-20261111/README.md` 참조. 이전 물리 격자 DOM90·후보6 블라인드 점수는 역사이며 새 조작판의 품질 인증으로 재사용하지 않는다. M22 한도와 과거 실패는 유지하고 새 원화는 만들지 않았다. Draft 프리뷰 수정이며 main 병합은 이 범위가 아니다.
+
+## 2026-11-12 KST — 룰렛 탐색/확정 게임쥬스
+
+- 요청: 7개 게임 레퍼런스 검색 후 룰렛·LOCK 개선. `codex/roulette-course-connection-20261111`, Draft PR121 이어서 작업; main 활성화/병합 범위 아님.
+- 공개 후보 전용 증가 dwell, 최신 렌더 표본 기반 중복 없는 tick/neutral lock음, 셀 내부 모서리 정착·국소 펄스/잔광, 기존 존 밖 밴드 강조. 단일 후보에는 가짜 회전 없음. 기존 호스트 경계/엔진/RNG/저장/원화/물리 접점 불변.
+- `useCourseAudio`는 기존 `useSceneClock`과 atlas capability latch를 공유. mute/hidden/late 이벤트는 소비하며 재생하지 않고 hide/unmount/token교체 시 꼬리를 취소. 목적지/결과를 새로 읽거나 샘플링하지 않음.
+- 7공식 출처, 그중 실제 짧은 트레일러 발췌3. 연속 룰렛 정지/오디오 전부를 관찰했다고 주장하지 않음. `docs/qa/roulette-juice-20261112/`에 출처·관찰/제안 구분과 증거.
+- 새 블라인드 4시트×8축 gain+.3125/4축 IMPROVED, NOT BAR_MET. 이전 M22 원화3/3·시각후보6/6은 역사로 유지. 이번 별도 요청 후보1회, 새 캐릭터 제작 없음.
+- 가로5종×6단계 동일 보드/9버튼/좌표크기0px. 원래7뷰포트119, 기본coarse42, opt-in엣지5 PASS. 세로 SVG 기본 position 규칙 누락을 독립 검토에서 발견해 수정; 2세로×존4/9에서 동일 LOCK 프레임 SVG 유무 영향0px.
+- 전체252파일/1739테스트 PASS. 첫sandbox전체4실패는 spawnSync Git/Node EPERM, 허용된 환경에서 동일 전체 재실행 PASS. smoke 이전과 바이트 동일. build54.8/60MiB.
+- 실제8투구(4/9×.25/.5/1/2) 검증/녹음. 2x에서 개별 탐색칸은 일부 프레임표본에 생략되나 단계는 구분. 오디오 발생/중복/취소/녹음신호 검사이며 청취 품질 인증 아님. 최종 소스 고정 후 재녹화 자료와 Pages 배포 후 확인은 PR121에 남긴다.
+
+## 2026-11-13 KST — 자동 손패 공개·상단 순차 드로우
+
+- PR121/483bddc 기반 후속 사용자 요청. 실제 VNext deciding에 자동으로 손패를 공개하고 위에서 카드가 순차 착지한다. 새 인스턴스만 `뽑음`, 신규 위치로1회 스크롤. 기본판정/카드 비용/드로우/RNG/저장 형태 불변. `engine.draw()`의 비직렬 WeakMap 영수증만 추가했다.
+- `hand-draw.js` tracker가 결과 드로우를 다음 deciding까지 보존/합산한다. Flight/committing에서는 영수증을 읽지 않음. 재로드 손패는 hand모드이며 새 드로우로 조작하지 않음. 실제 카드 key/회전 transform 유지, WAAPI translate와 완료 효과음. 수동 닫기/aim/스택/자동 다음 공 보존.
+- 시각후보3/3소진. 후보1 세 번째 카드30.5%가시, 후보2 잘못된 thumb 열, 후보3 교정 후568/844에서3장각100%가시·착지음3회. 작은 화면4장 이상은2열이라 큰 그림·범위glyph를 접는 가독성 절충. 과거 M22카운터/실패 보존.
+- 실제7사례/메뉴→경로5장 및 공격1+다음타자3장 흐름2개 PASS. 최종255파일1751테스트·119화면·5엣지·54.8/60MiB build PASS. 상태JSON10시드30개SHA및public-policy smoke이전과동일.
+- 최종 새 블라인드gain+.020833/3축으로NOT_IMPROVED/NOTBAR. 기능 검수로 미감 판정을 덮어쓰지 않으며 기존 DraftPR121의 기능프리뷰까지만 게시. Ready/main 활성화 안함. 자료 `docs/qa/hand-draw-20261113/`. 공개Pages확인은PR설명에 기록.
+- 첫공개 d8200cf 검수에서 한장 추가의 native scroll-snap/anchor 드리프트를 발견해 손패 행 한정으로 보정. 기능 회귀이며 시각3/3을 초기화하지 않음. `scripts/qa-hand-draw.mjs` 추가: 단일카드 전체≥95%, 모든신규카드 이름/비용/효과≥95% 실제 클립 검사. 최종8사례100%·정확한소리횟수·엔진동일 통과, 최초공개실패/과도한프레임검사실패 로그 보존.
