@@ -2,6 +2,7 @@ import {animationRate} from './animation-speed.js';
 // Synthesized judgement cues. No network assets: impact, air, crowd-like swell and UI tones are layered in Web Audio.
 let context,master;
 const CUES={
+  handLand:{type:'triangle',gain:.043,noise:.012,noiseDur:.016,notes:[[1480,0,.055,.75,-.06],[2220,.012,.065,.85,.06]]},
   courseTick:{type:'triangle',gain:.023,noise:.007,noiseDur:.014,notes:[[1160,0,.025,.62,0]]},
   courseLock:{type:'triangle',gain:.058,noise:.028,noiseDur:.034,notes:[[196,0,.082,.6,0],[784,.018,.105,.8,0]]},
   deadCenter:{type:'triangle',gain:.078,noise:.072,noiseDur:.06,crack:.085,echo:.10,notes:[[188,0,.05,.72,-.18],[96,.035,.12,.54,.02],[720,.09,.13,.84,.2]]},

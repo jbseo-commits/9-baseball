@@ -1,0 +1,37 @@
+[
+  {
+    "case": "actual-menu-map-first-battle",
+    "autoOpen": true,
+    "drawnIds": [
+      "c2",
+      "c4",
+      "c6",
+      "c7",
+      "c1"
+    ],
+    "exactEngine": true,
+    "noHandleClick": true,
+    "pass": true
+  },
+  {
+    "case": "attack-draw-result-then-next-batter",
+    "attackDraws": [
+      "c8"
+    ],
+    "nextDraws": [
+      "c7",
+      "c6",
+      "c5"
+    ],
+    "displayed": [
+      "c8",
+      "c7",
+      "c6",
+      "c5"
+    ],
+    "noEarlyDrawFaces": true,
+    "exactEngine": true,
+    "noHandleClick": true,
+    "pass": true
+  }
+]

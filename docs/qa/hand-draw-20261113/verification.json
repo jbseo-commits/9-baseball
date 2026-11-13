@@ -1,0 +1,63 @@
+{
+  "date_kst": "2026-11-13",
+  "candidate": 3,
+  "candidate_limit": 3,
+  "quality": "NOT_IMPROVED",
+  "ready": false,
+  "main_merged": false,
+  "source_sha256": {
+    "src/duel/engine.js": "9baab55517e49776b9f63024fa4a77a59abbef5da5caccc31e47fac13848b2e8",
+    "src/duel/BallparkBattle.jsx": "3c78f5fdf5e8be226440e195ae549b299b99f48b4ccd99c5f274c1c017d6ff98",
+    "src/duel/audio.js": "273b1148fce2ecaa0207efab56fe86320649cff9cda95af21c0c703084f06f82",
+    "src/duel/battle-vnext/BattleView.jsx": "e293e9e5401b6b349b613897e233f85224bd3b6b4d870ccbea2259fa92cbde8d",
+    "src/duel/battle-vnext/BattleCard.jsx": "a0a8e309c7ad113f142182127da649b75c8b7e41baea6151d9af25c4dcd65c23",
+    "src/duel/battle-vnext/HandDock.jsx": "984ca51194ec3d590facfbad1c7cce6d899a5fff489fac335286827852e65bcc",
+    "src/duel/battle-vnext/hand-draw.js": "70392d2b87a27c558dd9be9e02318ef5bdcbb51c2c46aa64feb07073be92fcae",
+    "src/duel/battle-vnext/use-hand-draw.js": "a28367cae4b32eba37ef5c582be35cb2449703f59d84609716e097bc358edd24",
+    "src/duel/battle-vnext/hand-draw.css": "0f25601f8f64e1416da87457d12dbeb8a3f701f61de4d5a0c57dc57adbdbadd2"
+  },
+  "tests": {
+    "files": 255,
+    "tests": 1751,
+    "pass": true
+  },
+  "build": {
+    "pass": true,
+    "dist_MiB": 54.8,
+    "budget_MiB": 60
+  },
+  "legacy_screen_checks": 119,
+  "actual_draw_cases": 7,
+  "actual_flow_cases": 2,
+  "edges": 5,
+  "small_three_card_visibility": {
+    "viewports": [
+      [
+        568,
+        320
+      ],
+      [
+        844,
+        390
+      ]
+    ],
+    "each_card_visible_fraction": 1.0,
+    "landing_cues": 3
+  },
+  "engine_json_unchanged": {
+    "seeds": 10,
+    "states_per_seed": 3,
+    "all_sha256_equal": true
+  },
+  "audio_listened": false,
+  "physical_phone_tested": false,
+  "geometry": {
+    "viewports": 5,
+    "max_delta_px": 0,
+    "pass": true
+  },
+  "default_coarse_touch": {
+    "checks": 42,
+    "pass": true
+  }
+}

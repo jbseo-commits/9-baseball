@@ -20,7 +20,19 @@ const playerName=id=>LINEUP.find(p=>p.id===id)?.name||'선수';
 function shuffle(s,a){for(let i=a.length-1;i>0;i--){const j=Math.floor(unit(s,'seed')*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 /* 손패: 보통 최대 5장. 지켜보기 추가 드로우만 6장까지 허용해 기존 카드 보존을 유지한다. */
 export const HAND_OPEN=5,HAND_REFILL=4,HAND_MAX=5,V10_TAKE_HAND_MAX=HAND_MAX+1;
-function draw(s,n,maxHand=HAND_MAX){const b=s.battle;let drawn=0;while(n-->0&&b.hand.length<maxHand){if(!b.draw.length)b.draw=shuffle(s,b.discard.splice(0));if(!b.draw.length)break;b.hand.push(b.draw.pop());drawn++;}return drawn;}
+// Presentation-only receipt: never serialized, never changes RNG or hand state.
+// Record actual pushed instance IDs, including consume→reshuffle→same-ID redraw.
+const drawReceipts=new WeakMap();
+export function drawReceiptFor(state){return state&&typeof state==='object'?drawReceipts.get(state)||null:null;}
+function draw(s,n,maxHand=HAND_MAX){
+  const b=s.battle,ids=[];let drawn=0;
+  while(n-->0&&b.hand.length<maxHand){
+    if(!b.draw.length)b.draw=shuffle(s,b.discard.splice(0));if(!b.draw.length)break;
+    const id=b.draw.pop();b.hand.push(id);ids.push(id);drawn++;
+  }
+  if(ids.length)drawReceipts.set(s,Object.freeze({ids:Object.freeze([...(drawReceipts.get(s)?.ids||[]),...ids])}));
+  return drawn;
+}
 export function v10TakeDrawPreview(state){
   const b=state?.battle;
   if(state?.version!==10||!['pitch','between'].includes(state.phase)||b?.takeEnergyBonus!==1)return {count:0,reason:null};

@@ -22,6 +22,8 @@ import './reference.css';
 import './thumb-hand.css';
 import './short-landscape.css';
 import './pitch-focus.css';
+import useHandDraw from './use-hand-draw.js';
+import './hand-draw.css';
 import useSceneClock from './use-scene-clock.js';
 import {useCourseAudio} from './course-audio.js';
 import {courseRenderModel} from './course-render-model.js';
@@ -30,7 +32,7 @@ import {ATBAT_COMPOSITION} from './atbat-composition.js';
 
 /* Presentation only. BallparkBattle keeps selection, inspector, commit and next
    timers; App still owns the engine, save and pitch presentation lifecycle. */
-export default function BattleView({model,actors,playback=null,execution=null,animationRate=1,onAnimationRateChange=null,rootRef,sceneRef,zoneRef,handRef,title,review=false,coursePreviewScope=false,
+export default function BattleView({model,actors,drawReceipt=null,drawContext=null,playback=null,execution=null,animationRate=1,onAnimationRateChange=null,rootRef,sceneRef,zoneRef,handRef,title,review=false,coursePreviewScope=false,
   inspector=null,menuOpen=false,handOpen:controlledHandOpen,onHandOpenChange=null,recent=null,onMenu,onPitcherInfo=null,sound=false,onToggleSound=null,onCardTap,onCardDetail,onPiles,onZoneTap,onZoneHover,
   onToggleSupport,onClearPlan,onCardDrop=null,onPreviewCardDrop=null,onRemoveSupport=null,onPointerDown,onPointerMove,onPointerUp,onPointerCancel,onTake,onSwing,onNext,piles}){
   const finale=cinemaMoment(model.result,model.scene.fxStage,!!playback);
@@ -84,6 +86,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
   const finishPlacement=useCallback(seq=>setPlacements(prev=>prev.filter(p=>p.seq!==seq)),[]);
   const [landscape,setLandscape]=useState(()=>typeof window==='undefined'||window.innerWidth>=window.innerHeight);
   const shown=handOpen||!landscape;
+  const handDraw=useHandDraw({enabled:!review,context:drawContext,phase:model.phase,receipt:drawReceipt,hand:model.hand,shown,menuOpen,setHandOpen,sound,animationRate});
   const source=useRef(null),drag=useRef(null),sequence=useRef(0),suppressClick=useRef(false),handleRef=useRef(null);
   const cancelDrag=useCallback(()=>{drag.current=null;source.current=null;setDragFace(null);setDragPreview(null);},[]);
   // Touch browsers may leave keyboard focus on body. Capture the field's
@@ -193,7 +196,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
   // A fresh pointer or keyboard gesture always remains immediately usable.
   return <main ref={viewRef} onPointerDownCapture={()=>{handleClick.current=false;}}
     onClickCapture={e=>{if(handleClick.current){handleClick.current=false;e.preventDefault();e.stopPropagation();}}}
-    onKeyDown={()=>{suppressClick.current=false;handleClick.current=false;}} className={'battle-vnext bv-atbat bv-foldable bv-refined bv-reference'+(menuOpen?' inspecting':'')} data-cinematic-focus={pitchFocus&&!menuOpen?'true':undefined} data-course-ui={coursePreviewScope?'stable':undefined} data-animation-rate={animationRate} data-hand-open={shown?'true':'false'} data-phase={model.phase} data-support={hasSupport?'true':'false'} style={{...referenceSkinVars,'--bv-verdict-delay':playback?'120ms':'0ms',...(field?{'--bv-plate-x':field.home.x+'px','--bv-plate-y':field.home.y+'px','--bv-mound-y':field.mound.y+'px','--ref-scale':field.camera.scale,'--ref-zone-size':field.zoneSize+'px'}:{})}} aria-label="타석">
+    onKeyDown={()=>{suppressClick.current=false;handleClick.current=false;}} className={'battle-vnext bv-atbat bv-foldable bv-refined bv-reference'+(menuOpen?' inspecting':'')} data-cinematic-focus={pitchFocus&&!menuOpen?'true':undefined} data-course-ui={coursePreviewScope?'stable':undefined} data-animation-rate={animationRate} data-hand-dealing={handDraw.batch&&shown&&model.phase==='deciding'?'true':undefined} data-hand-open={shown?'true':'false'} data-phase={model.phase} data-support={hasSupport?'true':'false'} style={{...referenceSkinVars,'--bv-verdict-delay':playback?'120ms':'0ms',...(field?{'--bv-plate-x':field.home.x+'px','--bv-plate-y':field.home.y+'px','--bv-mound-y':field.mound.y+'px','--ref-scale':field.camera.scale,'--ref-zone-size':field.zoneSize+'px'}:{})}} aria-label="타석">
     <div className="bv-stage" ref={sceneRef}>
       <BattleScene onFocusChange={setPitchFocus} playback={playback} elapsed={coursePreviewScope?elapsed:undefined} result={model.result} finale={finale} scene={model.scene} actors={actors} phase={model.phase} framing="atbat" onLayout={onLayout}
         coursePreview={coursePreview} courseModel={courseModel} courseAtlas={courseLatch.current.atlas||courseAtlas} courseBatterFrame={courseBatterFrame} courseOriginalFrame={courseOriginalFrame}>
@@ -226,7 +229,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
       onClickCapture={e=>{if(suppressClick.current){e.preventDefault();e.stopPropagation();suppressClick.current=false;}}}>
       <HandDock selection={model.selection} onToggleSupport={onToggleSupport} ref={handRef} hand={menuOpen?model.hand.map(c=>({...c,disabled:false})):model.hand} energy={model.energy}
         input={menuOpen?{...model.input,canSelect:true}:model.input} phase={model.phase}
-        piles={model.piles??piles} handCount={model.handCount} handKnown={model.handKnown} onCardTap={id=>{if(!model.selection?.supportMode)setPlacement(null);setDropProblem('');remember(id);onCardTap?.(id);}} onCardDetail={onCardDetail} onPiles={onPiles} artFor={atbatCardArt} grid="orbit"/>
+        drawBatch={handDraw.batch} onDrawLand={handDraw.onLand} animationRate={animationRate} piles={model.piles??piles} handCount={model.handCount} handKnown={model.handKnown} onCardTap={id=>{if(!model.selection?.supportMode)setPlacement(null);setDropProblem('');remember(id);onCardTap?.(id);}} onCardDetail={onCardDetail} onPiles={onPiles} artFor={atbatCardArt} grid="orbit"/>
     </div>
     <StackTray pieces={model.zones?.pieces} links={model.zones?.links} hand={model.hand} energy={model.energy} phase={model.phase} canStack={model.selection?.canStack} canAdd={model.selection?.canAddSupport} blockedReason={model.selection?.supportBlockReason} canSelect={model.input.canSelect&&!menuOpen} onAdd={()=>{if(!model.selection?.supportMode)onToggleSupport?.();setHandOpen(true);}} onRemove={onRemoveSupport}/>
     {dropProblem&&<p className="bv-drop-problem" role="status">{dropProblem}</p>}

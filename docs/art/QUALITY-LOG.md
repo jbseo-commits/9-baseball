@@ -34,3 +34,5 @@
 | 2026-11-11 | M22 material5 (HELD) | gpt-6.1-sol independent | 2.89 → 3.13 | NOT_IMPROVED | R6 글자 가독 |
 | 2026-11-11 | M22 material6 | gpt-6.1-sol independent | 2.63 → 3.02 | IMPROVED | R2 UI 그림화 |
 | 2026-11-11 | 블라인드 정지 이미지 비교: 변경 내용 및 A/B 정체 미확인 | roulette_blind_visual_judge | 3.17 → 3.48 | IMPROVED | R2 UI 그림화 |
+| 2026-11-13 | 변경 내용을 추정하지 않은 블라인드 정지 화면 비교 | hand_draw_blind_judge | 3.46 → 3.40 | NOT_IMPROVED | R5 구도 |
+| 2026-11-13 | 지정된 정지 비교 시트 3장의 시각 완성도 블라인드 판정 | fresh_blind_final | 3.58 → 3.60 | NOT_IMPROVED | R2 UI 그림화 |
