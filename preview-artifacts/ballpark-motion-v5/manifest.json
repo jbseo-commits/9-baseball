@@ -1,0 +1,30 @@
+{
+  "version": 5,
+  "kind": "standalone-battle-preview",
+  "entry": "index.html",
+  "bytes": 9531610,
+  "sha256": "3fc2506eccb9be40f67263d35d57e41ff2bbcb828f687c26d4a0740743b86b4b",
+  "frozenEngineSHA256": "0e5f908063c769fb492a390f417296446c8d36a40a960b702dceec8df4860b32",
+  "runtimeExternalDependencies": 0,
+  "referenceVideo": "https://www.mlb.com/video/field-view-paul-skenes-pitching-in-slow-mo",
+  "assets": {
+    "newDrawingsTotal": 13,
+    "pitcher": 10,
+    "batter": 3,
+    "newInV5": 2,
+    "additionalPoses": [
+      "right-foot landing",
+      "grounded fielding finish"
+    ],
+    "provider": "built-in image_gen",
+    "sourcePNGEditedByCode": false
+  },
+  "priorValidation": {
+    "adapter": 39,
+    "ui": 30,
+    "renderer": 37,
+    "totalPassed": 106,
+    "failed": 0,
+    "scope": "Local v5 implementation tests, before publishing. Publication verifies an identical byte-for-byte artifact."
+  }
+}
