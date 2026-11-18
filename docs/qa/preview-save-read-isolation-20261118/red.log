@@ -1,0 +1,45 @@
+
+ RUN  v4.1.11 /workspace/9-baseball
+
+·xxxxx·····
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/v10-relic-preview-isolation.test.js > relic UI ignores memory-only VNext previews > does not install the relic observer or read the main save on standalone fixture
+ FAIL  tests/v10-relic-preview-isolation.test.js > relic UI ignores memory-only VNext previews > does not install the relic observer or read the main save on comparison page
+ FAIL  tests/v10-relic-preview-isolation.test.js > relic UI ignores memory-only VNext previews > does not install the relic observer or read the main save on embedded legacy child
+ FAIL  tests/v10-relic-preview-isolation.test.js > relic UI ignores memory-only VNext previews > does not install the relic observer or read the main save on embedded VNext child
+ FAIL  tests/v10-relic-preview-isolation.test.js > relic UI ignores memory-only VNext previews > does not install the relic observer or read the main save on standalone legacy child
+AssertionError: expected { observerCount: 1, saveReads: 1 } to deeply equal { observerCount: +0, saveReads: +0 }
+
+- Expected
++ Received
+
+  {
+-   "observerCount": 0,
+-   "saveReads": 0,
++   "observerCount": 1,
++   "saveReads": 1,
+  }
+
+ ❯ tests/v10-relic-preview-isolation.test.js:40:40
+     38|     ['standalone legacy child','?battleUi=vnext&battleFixture=cinema-h…
+     39|   ])('does not install the relic observer or read the main save on %s'…
+     40|     expect(await observeRoute(search)).toEqual({observerCount:0,saveRe…
+       |                                        ^
+     41|   });
+     42|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  5 failed | 6 passed (11)
+   Start at  07:12:10
+   Duration  259ms (transform 73ms, setup 0ms, import 27ms, tests 101ms, environment 0ms)
+
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.3
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.3
+npm notice To update run: npm install -g npm@12.2.3
+npm notice

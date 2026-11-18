@@ -1,9 +1,15 @@
 import {V10_ALL_RELICS} from './v10-relics.js';
 import {relicArtFor} from './relic-art.js';
+import {battleUiMode} from './battle-ui-mode.js';
+import {comparisonMode} from './battle-vnext/compare-config.js';
 const SAVE='9zone-v10-run';
 let scheduled=false,lastTrigger='';
 const isPlayable=()=>new URLSearchParams(globalThis.location?.search||'').get('battlePlay')==='1';
-const state=()=>{if(isPlayable())return null;try{return JSON.parse(localStorage.getItem(SAVE)||'null')}catch{return null}};
+const isMemoryPreview=()=>{
+  const search=globalThis.location?.search||'',compare=comparisonMode(search);
+  return isPlayable()||!!(battleUiMode(search).fixture||compare.page||compare.child||compare.standalone);
+};
+const state=()=>{if(isMemoryPreview())return null;try{return JSON.parse(localStorage.getItem(SAVE)||'null')}catch{return null}};
 const owned=s=>(s?.relics||[]).filter(k=>V10_ALL_RELICS[k]);
 function rack(){
   const combat=document.querySelector('.duel-combat');if(!combat)return;
@@ -30,4 +36,4 @@ function trigger(){
 }
 function refresh(){scheduled=false;rack();shop();trigger()}
 function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(refresh)}
-if(typeof document!=='undefined'&&!isPlayable()){new MutationObserver(schedule).observe(document.documentElement,{subtree:true,childList:true,characterData:true});window.addEventListener('storage',schedule);schedule()}
+if(typeof document!=='undefined'&&!isMemoryPreview()){new MutationObserver(schedule).observe(document.documentElement,{subtree:true,childList:true,characterData:true});window.addEventListener('storage',schedule);schedule()}

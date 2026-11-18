@@ -1,0 +1,218 @@
+{
+  "base": "http://127.0.0.1:5199/",
+  "seed": {
+    "relics": [
+      "firstPitch"
+    ],
+    "v10": {
+      "lastCombat": {
+        "relicEvents": [
+          "probe"
+        ]
+      }
+    }
+  },
+  "method": "preload localStorage sentinel, instrument getItem in every frame, inspect DOM after 800ms",
+  "results": [
+    {
+      "name": "integration-fixture",
+      "url": "?battleUi=vnext&battleFixture=cinema-homer",
+      "reads": [],
+      "combat": false,
+      "battle": true,
+      "rack": null,
+      "trigger": null,
+      "reward": false,
+      "fixture": true,
+      "title": null
+    },
+    {
+      "name": "comparison-legacy-child",
+      "url": "?battleUi=vnext&battleFixture=cinema-homer&battleCompareChild=legacy",
+      "reads": [],
+      "combat": false,
+      "battle": true,
+      "rack": null,
+      "trigger": null,
+      "reward": false,
+      "fixture": true,
+      "title": null
+    },
+    {
+      "name": "comparison-vnext-child",
+      "url": "?battleUi=vnext&battleFixture=cinema-homer&battleCompareChild=vnext",
+      "reads": [],
+      "combat": false,
+      "battle": true,
+      "rack": null,
+      "trigger": null,
+      "reward": false,
+      "fixture": true,
+      "title": null
+    },
+    {
+      "name": "standalone-legacy",
+      "url": "?battleUi=vnext&battleFixture=cinema-homer&battleCompareVariant=legacy",
+      "reads": [],
+      "combat": false,
+      "battle": true,
+      "rack": null,
+      "trigger": null,
+      "reward": false,
+      "fixture": true,
+      "title": null
+    },
+    {
+      "name": "comparison-page",
+      "url": "?battleUi=vnext&battleCompare=1",
+      "reads": [],
+      "combat": false,
+      "battle": false,
+      "rack": null,
+      "trigger": null,
+      "reward": false,
+      "fixture": false,
+      "title": "9ZONE 두 버전 비교"
+    },
+    {
+      "name": "playable-memory",
+      "url": "?battleUi=vnext&battlePlay=1&seed=3",
+      "reads": [],
+      "combat": false,
+      "battle": true,
+      "rack": null,
+      "trigger": null,
+      "reward": false,
+      "fixture": false,
+      "title": null
+    },
+    {
+      "name": "ordinary-vnext-main",
+      "url": "?battleUi=vnext",
+      "reads": [
+        {
+          "at": 965.0999999977648,
+          "stack": [
+            "    at Storage.getItem (<anonymous>:2:340)",
+            "    at state (http://127.0.0.1:5199/src/duel/v10-relic-ui.js?t=1794985943866:12:86)",
+            "    at trigger (http://127.0.0.1:5199/src/duel/v10-relic-ui.js?t=1794985943866:31:11)",
+            "    at refresh (http://127.0.0.1:5199/src/duel/v10-relic-ui.js?t=1794985943866:37:50)"
+          ]
+        },
+        {
+          "at": 981.6999999992549,
+          "stack": [
+            "    at Storage.getItem (<anonymous>:2:340)",
+            "    at readV10State (http://127.0.0.1:5199/src/duel/v10-storage.js:67:21)",
+            "    at readV10Duel (http://127.0.0.1:5199/src/duel/engine.js:1398:62)",
+            "    at http://127.0.0.1:5199/src/duel/App.jsx?t=1794984821903:4516:10"
+          ]
+        },
+        {
+          "at": 988.8000000007451,
+          "stack": [
+            "    at Storage.getItem (<anonymous>:2:340)",
+            "    at http://127.0.0.1:5199/src/duel/App.jsx?t=1794984821903:4519:28",
+            "    at mountState (http://127.0.0.1:5199/node_modules/.vite/deps/react-dom-HRo8IxYQ.js?v=b146b8bc:9969:59)",
+            "    at Object.useState (http://127.0.0.1:5199/node_modules/.vite/deps/react-dom-HRo8IxYQ.js?v=b146b8bc:10426:13)"
+          ]
+        },
+        {
+          "at": 989.8999999985099,
+          "stack": [
+            "    at Storage.getItem (<anonymous>:2:340)",
+            "    at readV10State (http://127.0.0.1:5199/src/duel/v10-storage.js:67:21)",
+            "    at readV10Duel (http://127.0.0.1:5199/src/duel/engine.js:1398:62)",
+            "    at http://127.0.0.1:5199/src/duel/App.jsx?t=1794984821903:5272:11"
+          ]
+        },
+        {
+          "at": 990.3000000007451,
+          "stack": [
+            "    at Storage.getItem (<anonymous>:2:340)",
+            "    at readV10State (http://127.0.0.1:5199/src/duel/v10-storage.js:67:21)",
+            "    at readV10Duel (http://127.0.0.1:5199/src/duel/engine.js:1398:62)",
+            "    at http://127.0.0.1:5199/src/duel/App.jsx?t=1794984821903:4516:10"
+          ]
+        },
+        {
+          "at": 990.3000000007451,
+          "stack": [
+            "    at Storage.getItem (<anonymous>:2:340)",
+            "    at http://127.0.0.1:5199/src/duel/App.jsx?t=1794984821903:4519:28",
+            "    at mountState (http://127.0.0.1:5199/node_modules/.vite/deps/react-dom-HRo8IxYQ.js?v=b146b8bc:9969:59)",
+            "    at Object.useState (http://127.0.0.1:5199/node_modules/.vite/deps/react-dom-HRo8IxYQ.js?v=b146b8bc:10426:13)"
+          ]
+        },
+        {
+          "at": 990.3999999985099,
+          "stack": [
+            "    at Storage.getItem (<anonymous>:2:340)",
+            "    at readV10State (http://127.0.0.1:5199/src/duel/v10-storage.js:67:21)",
+            "    at readV10Duel (http://127.0.0.1:5199/src/duel/engine.js:1398:62)",
+            "    at http://127.0.0.1:5199/src/duel/App.jsx?t=1794984821903:5272:11"
+          ]
+        },
+        {
+          "at": 1064,
+          "stack": [
+            "    at Storage.getItem (<anonymous>:2:340)",
+            "    at state (http://127.0.0.1:5199/src/duel/v10-relic-ui.js?t=1794985943866:12:86)",
+            "    at trigger (http://127.0.0.1:5199/src/duel/v10-relic-ui.js?t=1794985943866:31:11)",
+            "    at refresh (http://127.0.0.1:5199/src/duel/v10-relic-ui.js?t=1794985943866:37:50)"
+          ]
+        }
+      ],
+      "combat": false,
+      "battle": false,
+      "rack": null,
+      "trigger": null,
+      "reward": false,
+      "fixture": false,
+      "title": "9\nZ\nNE"
+    },
+    {
+      "name": "ordinary-legacy-with-stale-flag",
+      "url": "?battleUi=legacy&battlePlay=1",
+      "reads": [],
+      "combat": false,
+      "battle": false,
+      "rack": null,
+      "trigger": null,
+      "reward": false,
+      "fixture": false,
+      "title": null
+    },
+    {
+      "name": "ordinary-legacy-main",
+      "url": "?battleUi=legacy",
+      "reads": [
+        {
+          "at": 832.4000000022352,
+          "stack": [
+            "    at Storage.getItem (<anonymous>:2:340)",
+            "    at state (http://127.0.0.1:5199/src/duel/v10-relic-ui.js?t=1794985943866:12:86)",
+            "    at trigger (http://127.0.0.1:5199/src/duel/v10-relic-ui.js?t=1794985943866:31:11)",
+            "    at refresh (http://127.0.0.1:5199/src/duel/v10-relic-ui.js?t=1794985943866:37:50)"
+          ]
+        },
+        {
+          "at": 849.5,
+          "stack": [
+            "    at Storage.getItem (<anonymous>:2:340)",
+            "    at state (http://127.0.0.1:5199/src/duel/v10-relic-ui.js?t=1794985943866:12:86)",
+            "    at trigger (http://127.0.0.1:5199/src/duel/v10-relic-ui.js?t=1794985943866:31:11)",
+            "    at refresh (http://127.0.0.1:5199/src/duel/v10-relic-ui.js?t=1794985943866:37:50)"
+          ]
+        }
+      ],
+      "combat": false,
+      "battle": false,
+      "rack": null,
+      "trigger": null,
+      "reward": false,
+      "fixture": false,
+      "title": null
+    }
+  ]
+}

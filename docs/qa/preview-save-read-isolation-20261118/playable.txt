@@ -1,0 +1,17 @@
+played 0 0 60 battle
+played 1 1 48 battle
+played 2 2 26 battle
+played 3 3 24 battle
+played 4 4 4 battle
+played 5 4 4 battle
+played 6 5 3 battle
+played 7 6 0 reward
+AssertionError [ERR_ASSERTION]: actual main presentation uses .5x host clock
+    at /tmp/route-contract-20261118/qa-playable-pr126.cjs:46:516 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
