@@ -1,0 +1,289 @@
+{
+  "label": "G026 after candidate build; same route matrix and synthetic fixture. Verify exact build/guard source via parent status before interpreting.",
+  "fixture": {
+    "valid": true,
+    "key": "9zone-v10-run",
+    "rawBytes": 32638,
+    "relic": [
+      "firstPitch"
+    ],
+    "event": [
+      "초구 노림표 · +3 HP"
+    ]
+  },
+  "rows": [
+    {
+      "route": "memory",
+      "url": "http://127.0.0.1:5198/?battleUi=vnext&battleFixture=cinema-homer",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:5198/?battleUi=vnext&battleFixture=cinema-homer",
+          "op": [],
+          "rack": null,
+          "trigger": null,
+          "combat": false,
+          "body": "메모리 검수 \n3장 배치 · 정상 스타터 · 실제 지켜보기 후 에너지3\n2장 배치 · 정상 스타터 · 기본 에너지2\n목업 아트 검수 · 실제 1막 보스 · HP78 설정\n무선택 · 읽기 0\n공격 카드 선택 · 가운데 노림\n맨손 스윙 선택\n준비 카드 선택\n준비 사용 후 ",
+          "rawUnchanged": true
+        }
+      ]
+    },
+    {
+      "route": "unknown",
+      "url": "http://127.0.0.1:5198/?battleUi=vnext&battleFixture=not-a-fixture",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:5198/?battleUi=vnext&battleFixture=not-a-fixture",
+          "op": [],
+          "rack": null,
+          "trigger": null,
+          "combat": false,
+          "body": "메모리 검수 \n3장 배치 · 정상 스타터 · 실제 지켜보기 후 에너지3\n2장 배치 · 정상 스타터 · 기본 에너지2\n목업 아트 검수 · 실제 1막 보스 · HP78 설정\n무선택 · 읽기 0\n공격 카드 선택 · 가운데 노림\n맨손 스윙 선택\n준비 카드 선택\n준비 사용 후 ",
+          "rawUnchanged": true
+        }
+      ]
+    },
+    {
+      "route": "emptyFixture",
+      "url": "http://127.0.0.1:5198/?battleUi=vnext&battleFixture=",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:5198/?battleUi=vnext&battleFixture=",
+          "op": [
+            {
+              "m": "getItem",
+              "key": "9zone-v10-run",
+              "t": 326
+            },
+            {
+              "m": "getItem",
+              "key": "9zone-v10-run",
+              "t": 364.1000000014901
+            },
+            {
+              "m": "getItem",
+              "key": "9zone-v10-run",
+              "t": 375.20000000298023
+            },
+            {
+              "m": "getItem",
+              "key": "9zone-v10-run",
+              "t": 468.6000000014901
+            }
+          ],
+          "rack": null,
+          "trigger": null,
+          "combat": false,
+          "body": "9\nZ\nNE\n\nBASEBALL ROGUELIKE\n\n새로운 게임\n투수를 끌어내리는 3막 원정\n이어하기\n1막 · 덱 9장\n덱 관리\n현재 덱 9장\n도감\n만난 투수와 카드\n설정\n사운드 · 도움말 · 튜토리얼",
+          "rawUnchanged": true
+        }
+      ]
+    },
+    {
+      "route": "standalone",
+      "url": "http://127.0.0.1:5198/?battleUi=vnext&battleFixture=cinema-homer&battleCompareVariant=vnext",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:5198/?battleUi=vnext&battleFixture=cinema-homer&battleCompareVariant=vnext",
+          "op": [],
+          "rack": null,
+          "trigger": null,
+          "combat": false,
+          "body": "메모리 검수 \n3장 배치 · 정상 스타터 · 실제 지켜보기 후 에너지3\n2장 배치 · 정상 스타터 · 기본 에너지2\n목업 아트 검수 · 실제 1막 보스 · HP78 설정\n무선택 · 읽기 0\n공격 카드 선택 · 가운데 노림\n맨손 스윙 선택\n준비 카드 선택\n준비 사용 후 ",
+          "rawUnchanged": true
+        }
+      ]
+    },
+    {
+      "route": "childVnext",
+      "url": "http://127.0.0.1:5198/?battleUi=vnext&battleFixture=cinema-homer&battleCompareVariant=vnext&battleCompareChild=vnext",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:5198/?battleUi=vnext&battleFixture=cinema-homer&battleCompareVariant=vnext&battleCompareChild=vnext",
+          "op": [],
+          "rack": null,
+          "trigger": null,
+          "combat": false,
+          "body": "홈런\n읽었다!\n1막\n청록 미라주\n결과\n60\n30 / 60\nB\nS\nO\n\n낮게 떨어뜨린다\n\n안 던짐\n안 던짐\n안 던짐\n안 던짐\n\n존 밖 볼\n\n‹\n손패 4\n펼치기\n0\n\n정확 적중\n몸쪽 낮게 노림 → 실제 몸쪽 낮게 → 정확 적중 · 홈런\n투수 HP −30 (60→30)\n\n당",
+          "rawUnchanged": true
+        }
+      ]
+    },
+    {
+      "route": "childLegacy",
+      "url": "http://127.0.0.1:5198/?battleUi=vnext&battleFixture=cinema-homer&battleCompareVariant=legacy&battleCompareChild=legacy",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:5198/?battleUi=vnext&battleFixture=cinema-homer&battleCompareVariant=legacy&battleCompareChild=legacy",
+          "op": [],
+          "rack": null,
+          "trigger": null,
+          "combat": false,
+          "body": "검수\nB\nS\n남은 아웃\n3/3\n0/2\n☰\n청록 미라주\n60 / 60\n안 던짐\n안 던짐\n안 던짐\n안 던짐\n1\n볼 10~15%\n맨손 스윙\n솔로포 각\n정타 노림\n힘 모으기\n\n먼저 투구 결과를 확인하고 다음 공/타자를 진행하세요.\n\n작전 확인\n\n먼저 투구 결과를 확인하고 다음",
+          "rawUnchanged": true
+        }
+      ]
+    },
+    {
+      "route": "compare",
+      "url": "http://127.0.0.1:5198/?battleUi=vnext&battleCompare=1&compareScenario=cinema-homer",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:5198/?battleUi=vnext&battleCompare=1&compareScenario=cinema-homer",
+          "op": [],
+          "rack": null,
+          "trigger": null,
+          "combat": false,
+          "body": "9ZONE 두 버전 비교\n장면\n직접 플레이\n준비 카드\n카드 겹치기\n정확 적중\n한 칸 차이\n홈런\n강판 · HP 1 검수\n함께 다시 시작\n한 화면씩 보기\n크게 열기 ↗\n\n같은 시작 상태 · 조작은 각각 독립 · 비교 화면은 무음\n\nA\n기존 전투 UI\n크게 열기 ↗\n↓ 아래",
+          "rawUnchanged": true
+        },
+        {
+          "url": "http://127.0.0.1:5198/?battleUi=vnext&battleFixture=cinema-homer&battleCompareVariant=legacy&battleCompareChild=legacy",
+          "op": [],
+          "rack": null,
+          "trigger": null,
+          "combat": false,
+          "body": "검수\nB\nS\n남은 아웃\n3/3\n0/2\n☰\n청록 미라주\n-30\n30 / 60\n흔들림\n1/3\n볼 증가 · 읽기 +1\n홈런\n강한결 홈인\n×1.2\n1\n맨손 스윙\n솔로포 각\n정타 노림\n힘 모으기\n\n먼저 투구 결과를 확인하고 다음 공/타자를 진행하세요.\n\n작전 확인\n\n먼저 투구 ",
+          "rawUnchanged": true
+        },
+        {
+          "url": "http://127.0.0.1:5198/?battleUi=vnext&battleFixture=cinema-homer&battleCompareVariant=vnext&battleCompareChild=vnext",
+          "op": [],
+          "rack": null,
+          "trigger": null,
+          "combat": false,
+          "body": "비교 화면 준비 중…",
+          "rawUnchanged": true
+        }
+      ]
+    },
+    {
+      "route": "invalidChildOrdinary",
+      "url": "http://127.0.0.1:5198/?battleUi=vnext&battleCompareChild=invalid",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:5198/?battleUi=vnext&battleCompareChild=invalid",
+          "op": [
+            {
+              "m": "getItem",
+              "key": "9zone-v10-run",
+              "t": 602.3999999985099
+            },
+            {
+              "m": "getItem",
+              "key": "9zone-v10-run",
+              "t": 616.3999999985099
+            },
+            {
+              "m": "getItem",
+              "key": "9zone-v10-run",
+              "t": 654.5
+            },
+            {
+              "m": "getItem",
+              "key": "9zone-v10-run",
+              "t": 872
+            }
+          ],
+          "rack": null,
+          "trigger": null,
+          "combat": false,
+          "body": "9\nZ\nNE\n\nBASEBALL ROGUELIKE\n\n새로운 게임\n투수를 끌어내리는 3막 원정\n이어하기\n1막 · 덱 9장\n덱 관리\n현재 덱 9장\n도감\n만난 투수와 카드\n설정\n사운드 · 도움말 · 튜토리얼",
+          "rawUnchanged": true
+        }
+      ]
+    },
+    {
+      "route": "legacy",
+      "url": "http://127.0.0.1:5198/?battleUi=legacy",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:5198/?battleUi=legacy",
+          "op": [
+            {
+              "m": "getItem",
+              "key": "9zone-v10-run",
+              "t": 446
+            },
+            {
+              "m": "getItem",
+              "key": "9zone-v10-run",
+              "t": 462.30000000074506
+            }
+          ],
+          "rack": null,
+          "trigger": null,
+          "combat": false,
+          "body": "",
+          "rawUnchanged": true
+        },
+        {
+          "url": "http://127.0.0.1:5198/?battleUi=legacy",
+          "op": [
+            {
+              "m": "getItem",
+              "key": "9zone-v10-run",
+              "t": 252
+            },
+            {
+              "m": "getItem",
+              "key": "9zone-v10-run",
+              "t": 279.8999999985099
+            },
+            {
+              "m": "getItem",
+              "key": "9zone-v10-run",
+              "t": 291.19999999925494
+            },
+            {
+              "m": "getItem",
+              "key": "9zone-v10-run",
+              "t": 444.19999999925494
+            }
+          ],
+          "rack": null,
+          "trigger": null,
+          "combat": false,
+          "body": "9\nZ\nNE\n\nBASEBALL ROGUELIKE\n\n새로운 게임\n투수를 끌어내리는 3막 원정\n이어하기\n1막 · 덱 9장\n덱 관리\n현재 덱 9장\n도감\n만난 투수와 카드\n설정\n사운드 · 도움말 · 튜토리얼",
+          "rawUnchanged": true
+        }
+      ]
+    },
+    {
+      "route": "noOptIn",
+      "url": "http://127.0.0.1:5198/",
+      "frames": [
+        {
+          "url": "http://127.0.0.1:5198/",
+          "op": [
+            {
+              "m": "getItem",
+              "key": "9zone-v10-run",
+              "t": 659.5
+            },
+            {
+              "m": "getItem",
+              "key": "9zone-v10-run",
+              "t": 737.1999999992549
+            },
+            {
+              "m": "getItem",
+              "key": "9zone-v10-run",
+              "t": 761
+            },
+            {
+              "m": "getItem",
+              "key": "9zone-v10-run",
+              "t": 824.6000000014901
+            }
+          ],
+          "rack": null,
+          "trigger": null,
+          "combat": false,
+          "body": "9\nZ\nNE\n\nBASEBALL ROGUELIKE\n\n새로운 게임\n투수를 끌어내리는 3막 원정\n이어하기\n1막 · 덱 9장\n덱 관리\n현재 덱 9장\n도감\n만난 투수와 카드\n설정\n사운드 · 도움말 · 튜토리얼",
+          "rawUnchanged": true
+        }
+      ]
+    }
+  ],
+  "build": "G026 fresh production build on independent branch review/preview-save-read-isolation; parent-provided source hash 1d8f6f82f707e92fedae23f9040bb756aa6c5eda0c036e5a87afb6b16f78f197. G025 one-line audio fix is intentionally absent. Before matrix was captured on G025 build with unchanged main v10-relic-ui observer, not a full-main baseline."
+}
