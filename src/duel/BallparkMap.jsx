@@ -4,6 +4,7 @@ import stadium from '../../assets/duel/stadium.png';
 import mapIslandCity from '../../assets/production-art/mockup-world-v15/map-island-city.png';
 import {landscapeMedia} from './layout-mode.js';
 import {battleUiMode} from './battle-ui-mode.js';
+import {DECK_MAX} from './cards.js';
 import {JourneyBurst,useMenuFeedback} from './JourneyJuice.jsx';
 import './ballpark.css';
 import './map-journey.css';
@@ -41,6 +42,7 @@ function useLandscape(){
 
 export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reachableIds=[],completedIds=[],deckCount=0,relicCount=0,runOuts=0,portraits={},figures={},onEnter,onInspect,sound=false}){
   const wide=useLandscape();
+  const deckFull=deckCount>=DECK_MAX;
   const feedback=useMenuFeedback(sound),entering=useRef(false);
   const reach=useMemo(()=>new Set(reachableIds),[reachableIds]),done=useMemo(()=>new Set(completedIds),[completedIds]);
   const byId=useMemo(()=>new Map(nodes.map(n=>[n.id,n])),[nodes]);
@@ -93,12 +95,12 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
       <div key={'info-'+d.id} className="bp-minfo">
         <span className="bp-mtag">{TAG[d.type]||d.name}</span>
         <strong className="bp-mname">{fight?o?.name:TAG[d.type]||d.name}</strong>
-        <em className="bp-mline">{fight?HABIT[o?.archetypeKey]||o?.archetype:PLACE[d.type]||d.reward}</em>
+        <em className="bp-mline">{fight?HABIT[o?.archetypeKey]||o?.archetype:d.type==='shop'&&deckFull?'덱이 가득 차 카드 추가 불가':PLACE[d.type]||d.reward}</em>
         {fight&&o&&<span className="bp-mhp" aria-label={'HP '+o.maxHp}>{Array.from({length:12},(_,i)=><i key={i} className={i<hpTicks(o.maxHp,actMax)?'':'lost'}/>)}<b>HP {o.maxHp}</b></span>}
         {fight&&o?.encounter&&<span className="bp-mgm" data-testid="bp-map-encounter"><b>{o.encounter.label}</b><br/>{o.encounter.counter}</span>}
         {fight&&o?.encounter&&<details className="bp-mgm" data-testid="bp-map-encounter-rule"><summary>고유 규칙 자세히</summary>{o.encounter.summary}</details>}
         {fight&&o?.gimmick&&(o.encounter?<details className="bp-mgm"><summary>추가 승부 규칙</summary><span data-testid="bp-map-gimmick"><b>{o.gimmick.label}</b> {o.gimmick.summary}{o.gimmick.phases&&<><br/>{o.gimmick.phases.pressured}<br/>{o.gimmick.phases.critical}</>}</span></details>:<span className="bp-mgm" data-testid="bp-map-gimmick"><b>{o.gimmick.label}</b> {o.gimmick.summary}{o.gimmick.phases&&<><br/>{o.gimmick.phases.pressured}<br/>{o.gimmick.phases.critical}</>}</span>)}
-        {fight&&<span className="bp-mrw">{d.type==='boss'&&d.act===3?'이기면 런 완주':REWARD[d.type]}</span>}
+        {fight&&<span className="bp-mrw">{d.type==='boss'&&d.act===3?'이기면 런 완주':deckFull?d.type==='boss'?'이기면 다음 막 · 카드 추가 불가':'덱이 가득 차 카드 추가 불가':REWARD[d.type]}</span>}
         {d.type!=='boss'&&!done.has(d.id)&&<span className="bp-mahead" data-testid="bp-map-ahead">{aheadCount.length?<><b>이 길 너머</b>{aheadCount.map(([t,label,n])=><i key={t} className={'t-'+t}>{label} {n}</i>)}</>:<b>이 길 너머 · 곧장 막 보스</b>}</span>}
       </div>
       <button type="button" className="bp-mgo" data-testid="bp-map-go" disabled={!can} onClick={()=>enter(d.id)}>{!can?(done.has(d.id)?'지나온 곳':'아직 길이 없다'):fight?'이 구장으로 간다':'들른다'}</button>

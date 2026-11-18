@@ -1,0 +1,414 @@
+{
+  "base": "http://127.0.0.1:5199/",
+  "fixtures": [
+    "/tmp/route-contract-20261118/synthetic-map-deck17-seed0.json",
+    "/tmp/route-contract-20261118/synthetic-map-deck18-seed0.json"
+  ],
+  "method": "Playwright Chromium touch emulation; localStorage receives labeled synthetic boundary saves; previews are read from actual map UI; viewport resizing is not physical rotation.",
+  "previews": [
+    {
+      "tag": "deck17 568x320",
+      "kind": "regular",
+      "nodeId": "a1-entry",
+      "nodeType": "battle",
+      "expected": "이기면 카드 3장 중 1장",
+      "line": "이기면 카드 3장 중 1장",
+      "previewText": "정규전 앰버 싱커 낮게, 더 낮게. HP 60 낮은 갑옷 낮은 곳은 좁게 노리세요. 고유 규칙 자세히 이기면 카드 3장 중 1장 이 길 너머 강적 2 이벤트 1 상점 2 휴식 3 훈련 2",
+      "shown": true
+    },
+    {
+      "tag": "deck17 568x320",
+      "kind": "elite",
+      "nodeId": "a1-r3l2",
+      "nodeType": "elite",
+      "expected": "이기면 카드 4장 중 1장 · 시그니처",
+      "line": "이기면 카드 4장 중 1장 · 시그니처",
+      "previewText": "강적 코퍼 시로코 낮게, 더 낮게. HP 88 모래 폭풍 볼카운트를 활용하세요. 고유 규칙 자세히 추가 승부 규칙 이기면 카드 4장 중 1장 · 시그니처 이 길 너머 휴식 3",
+      "shown": true
+    },
+    {
+      "tag": "deck17 568x320",
+      "kind": "boss",
+      "nodeId": "a1-boss",
+      "nodeType": "boss",
+      "expected": "이기면 다음 막 · 시그니처",
+      "line": "이기면 다음 막 · 시그니처",
+      "previewText": "막 보스 에메랄드 타이런트 낮게, 더 낮게. HP 112 낮은 성벽 낮은 코스를 좁게 공략하세요. 고유 규칙 자세히 추가 승부 규칙 이기면 다음 막 · 시그니처",
+      "shown": true
+    },
+    {
+      "tag": "deck17 568x320",
+      "kind": "shop",
+      "nodeId": "a1-r2l1",
+      "nodeType": "shop",
+      "expected": "새 카드를 들인다.",
+      "line": "새 카드를 들인다.",
+      "previewText": "장비 상점 장비 상점 새 카드를 들인다. 이 길 너머 강적 2 상점 1 휴식 3 훈련 1",
+      "shown": true
+    },
+    {
+      "tag": "deck17 844x390",
+      "kind": "regular",
+      "nodeId": "a1-entry",
+      "nodeType": "battle",
+      "expected": "이기면 카드 3장 중 1장",
+      "line": "이기면 카드 3장 중 1장",
+      "previewText": "정규전 앰버 싱커 낮게, 더 낮게. HP 60 낮은 갑옷 낮은 곳은 좁게 노리세요. 고유 규칙 자세히 이기면 카드 3장 중 1장 이 길 너머 강적 2 이벤트 1 상점 2 휴식 3 훈련 2",
+      "shown": true
+    },
+    {
+      "tag": "deck17 844x390",
+      "kind": "elite",
+      "nodeId": "a1-r3l2",
+      "nodeType": "elite",
+      "expected": "이기면 카드 4장 중 1장 · 시그니처",
+      "line": "이기면 카드 4장 중 1장 · 시그니처",
+      "previewText": "강적 코퍼 시로코 낮게, 더 낮게. HP 88 모래 폭풍 볼카운트를 활용하세요. 고유 규칙 자세히 추가 승부 규칙 이기면 카드 4장 중 1장 · 시그니처 이 길 너머 휴식 3",
+      "shown": true
+    },
+    {
+      "tag": "deck17 844x390",
+      "kind": "boss",
+      "nodeId": "a1-boss",
+      "nodeType": "boss",
+      "expected": "이기면 다음 막 · 시그니처",
+      "line": "이기면 다음 막 · 시그니처",
+      "previewText": "막 보스 에메랄드 타이런트 낮게, 더 낮게. HP 112 낮은 성벽 낮은 코스를 좁게 공략하세요. 고유 규칙 자세히 추가 승부 규칙 이기면 다음 막 · 시그니처",
+      "shown": true
+    },
+    {
+      "tag": "deck17 844x390",
+      "kind": "shop",
+      "nodeId": "a1-r2l1",
+      "nodeType": "shop",
+      "expected": "새 카드를 들인다.",
+      "line": "새 카드를 들인다.",
+      "previewText": "장비 상점 장비 상점 새 카드를 들인다. 이 길 너머 강적 2 상점 1 휴식 3 훈련 1",
+      "shown": true
+    },
+    {
+      "tag": "deck18 568x320",
+      "kind": "regular",
+      "nodeId": "a1-entry",
+      "nodeType": "battle",
+      "expected": "이기면 카드 3장 중 1장",
+      "line": "이기면 카드 3장 중 1장",
+      "previewText": "정규전 앰버 싱커 낮게, 더 낮게. HP 60 낮은 갑옷 낮은 곳은 좁게 노리세요. 고유 규칙 자세히 이기면 카드 3장 중 1장 이 길 너머 강적 2 이벤트 1 상점 2 휴식 3 훈련 2",
+      "shown": true
+    },
+    {
+      "tag": "deck18 568x320",
+      "kind": "elite",
+      "nodeId": "a1-r3l2",
+      "nodeType": "elite",
+      "expected": "이기면 카드 4장 중 1장 · 시그니처",
+      "line": "이기면 카드 4장 중 1장 · 시그니처",
+      "previewText": "강적 코퍼 시로코 낮게, 더 낮게. HP 88 모래 폭풍 볼카운트를 활용하세요. 고유 규칙 자세히 추가 승부 규칙 이기면 카드 4장 중 1장 · 시그니처 이 길 너머 휴식 3",
+      "shown": true
+    },
+    {
+      "tag": "deck18 568x320",
+      "kind": "boss",
+      "nodeId": "a1-boss",
+      "nodeType": "boss",
+      "expected": "이기면 다음 막 · 시그니처",
+      "line": "이기면 다음 막 · 시그니처",
+      "previewText": "막 보스 에메랄드 타이런트 낮게, 더 낮게. HP 112 낮은 성벽 낮은 코스를 좁게 공략하세요. 고유 규칙 자세히 추가 승부 규칙 이기면 다음 막 · 시그니처",
+      "shown": true
+    },
+    {
+      "tag": "deck18 568x320",
+      "kind": "shop",
+      "nodeId": "a1-r2l1",
+      "nodeType": "shop",
+      "expected": "새 카드를 들인다.",
+      "line": "새 카드를 들인다.",
+      "previewText": "장비 상점 장비 상점 새 카드를 들인다. 이 길 너머 강적 2 상점 1 휴식 3 훈련 1",
+      "shown": true
+    },
+    {
+      "tag": "deck18 844x390",
+      "kind": "regular",
+      "nodeId": "a1-entry",
+      "nodeType": "battle",
+      "expected": "이기면 카드 3장 중 1장",
+      "line": "이기면 카드 3장 중 1장",
+      "previewText": "정규전 앰버 싱커 낮게, 더 낮게. HP 60 낮은 갑옷 낮은 곳은 좁게 노리세요. 고유 규칙 자세히 이기면 카드 3장 중 1장 이 길 너머 강적 2 이벤트 1 상점 2 휴식 3 훈련 2",
+      "shown": true
+    },
+    {
+      "tag": "deck18 844x390",
+      "kind": "elite",
+      "nodeId": "a1-r3l2",
+      "nodeType": "elite",
+      "expected": "이기면 카드 4장 중 1장 · 시그니처",
+      "line": "이기면 카드 4장 중 1장 · 시그니처",
+      "previewText": "강적 코퍼 시로코 낮게, 더 낮게. HP 88 모래 폭풍 볼카운트를 활용하세요. 고유 규칙 자세히 추가 승부 규칙 이기면 카드 4장 중 1장 · 시그니처 이 길 너머 휴식 3",
+      "shown": true
+    },
+    {
+      "tag": "deck18 844x390",
+      "kind": "boss",
+      "nodeId": "a1-boss",
+      "nodeType": "boss",
+      "expected": "이기면 다음 막 · 시그니처",
+      "line": "이기면 다음 막 · 시그니처",
+      "previewText": "막 보스 에메랄드 타이런트 낮게, 더 낮게. HP 112 낮은 성벽 낮은 코스를 좁게 공략하세요. 고유 규칙 자세히 추가 승부 규칙 이기면 다음 막 · 시그니처",
+      "shown": true
+    },
+    {
+      "tag": "deck18 844x390",
+      "kind": "shop",
+      "nodeId": "a1-r2l1",
+      "nodeType": "shop",
+      "expected": "새 카드를 들인다.",
+      "line": "새 카드를 들인다.",
+      "previewText": "장비 상점 장비 상점 새 카드를 들인다. 이 길 너머 강적 2 상점 1 휴식 3 훈련 1",
+      "shown": true
+    }
+  ],
+  "checks": [
+    {
+      "name": "deck17 568x320 title 이어하기 loads map save",
+      "ok": true,
+      "detail": {
+        "phase": "map",
+        "deck": 17
+      }
+    },
+    {
+      "name": "deck17 568x320 map graph preserved on load",
+      "ok": true
+    },
+    {
+      "name": "deck17 568x320 regular map preview copy visible",
+      "ok": true,
+      "detail": {
+        "nodeId": "a1-entry",
+        "line": "이기면 카드 3장 중 1장",
+        "previewText": "정규전 앰버 싱커 낮게, 더 낮게. HP 60 낮은 갑옷 낮은 곳은 좁게 노리세요. 고유 규칙 자세히 이기면 카드 3장 중 1장 이 길 너머 강적 2 이벤트 1 상점 2 휴식 3 훈련 2"
+      }
+    },
+    {
+      "name": "deck17 568x320 elite map preview copy visible",
+      "ok": true,
+      "detail": {
+        "nodeId": "a1-r3l2",
+        "line": "이기면 카드 4장 중 1장 · 시그니처",
+        "previewText": "강적 코퍼 시로코 낮게, 더 낮게. HP 88 모래 폭풍 볼카운트를 활용하세요. 고유 규칙 자세히 추가 승부 규칙 이기면 카드 4장 중 1장 · 시그니처 이 길 너머 휴식 3"
+      }
+    },
+    {
+      "name": "deck17 568x320 boss map preview copy visible",
+      "ok": true,
+      "detail": {
+        "nodeId": "a1-boss",
+        "line": "이기면 다음 막 · 시그니처",
+        "previewText": "막 보스 에메랄드 타이런트 낮게, 더 낮게. HP 112 낮은 성벽 낮은 코스를 좁게 공략하세요. 고유 규칙 자세히 추가 승부 규칙 이기면 다음 막 · 시그니처"
+      }
+    },
+    {
+      "name": "deck17 568x320 shop map preview copy visible",
+      "ok": true,
+      "detail": {
+        "nodeId": "a1-r2l1",
+        "line": "새 카드를 들인다.",
+        "previewText": "장비 상점 장비 상점 새 카드를 들인다. 이 길 너머 강적 2 상점 1 휴식 3 훈련 1"
+      }
+    },
+    {
+      "name": "deck17 568x320 portrait rotation prompt appears",
+      "ok": true
+    },
+    {
+      "name": "deck17 568x320 portrait prompt leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "deck17 568x320 landscape return leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "deck17 844x390 title 이어하기 loads map save",
+      "ok": true,
+      "detail": {
+        "phase": "map",
+        "deck": 17
+      }
+    },
+    {
+      "name": "deck17 844x390 map graph preserved on load",
+      "ok": true
+    },
+    {
+      "name": "deck17 844x390 regular map preview copy visible",
+      "ok": true,
+      "detail": {
+        "nodeId": "a1-entry",
+        "line": "이기면 카드 3장 중 1장",
+        "previewText": "정규전 앰버 싱커 낮게, 더 낮게. HP 60 낮은 갑옷 낮은 곳은 좁게 노리세요. 고유 규칙 자세히 이기면 카드 3장 중 1장 이 길 너머 강적 2 이벤트 1 상점 2 휴식 3 훈련 2"
+      }
+    },
+    {
+      "name": "deck17 844x390 elite map preview copy visible",
+      "ok": true,
+      "detail": {
+        "nodeId": "a1-r3l2",
+        "line": "이기면 카드 4장 중 1장 · 시그니처",
+        "previewText": "강적 코퍼 시로코 낮게, 더 낮게. HP 88 모래 폭풍 볼카운트를 활용하세요. 고유 규칙 자세히 추가 승부 규칙 이기면 카드 4장 중 1장 · 시그니처 이 길 너머 휴식 3"
+      }
+    },
+    {
+      "name": "deck17 844x390 boss map preview copy visible",
+      "ok": true,
+      "detail": {
+        "nodeId": "a1-boss",
+        "line": "이기면 다음 막 · 시그니처",
+        "previewText": "막 보스 에메랄드 타이런트 낮게, 더 낮게. HP 112 낮은 성벽 낮은 코스를 좁게 공략하세요. 고유 규칙 자세히 추가 승부 규칙 이기면 다음 막 · 시그니처"
+      }
+    },
+    {
+      "name": "deck17 844x390 shop map preview copy visible",
+      "ok": true,
+      "detail": {
+        "nodeId": "a1-r2l1",
+        "line": "새 카드를 들인다.",
+        "previewText": "장비 상점 장비 상점 새 카드를 들인다. 이 길 너머 강적 2 상점 1 휴식 3 훈련 1"
+      }
+    },
+    {
+      "name": "deck17 844x390 portrait rotation prompt appears",
+      "ok": true
+    },
+    {
+      "name": "deck17 844x390 portrait prompt leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "deck17 844x390 landscape return leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "deck18 568x320 title 이어하기 loads map save",
+      "ok": true,
+      "detail": {
+        "phase": "map",
+        "deck": 18
+      }
+    },
+    {
+      "name": "deck18 568x320 map graph preserved on load",
+      "ok": true
+    },
+    {
+      "name": "deck18 568x320 regular map preview copy visible",
+      "ok": true,
+      "detail": {
+        "nodeId": "a1-entry",
+        "line": "이기면 카드 3장 중 1장",
+        "previewText": "정규전 앰버 싱커 낮게, 더 낮게. HP 60 낮은 갑옷 낮은 곳은 좁게 노리세요. 고유 규칙 자세히 이기면 카드 3장 중 1장 이 길 너머 강적 2 이벤트 1 상점 2 휴식 3 훈련 2"
+      }
+    },
+    {
+      "name": "deck18 568x320 elite map preview copy visible",
+      "ok": true,
+      "detail": {
+        "nodeId": "a1-r3l2",
+        "line": "이기면 카드 4장 중 1장 · 시그니처",
+        "previewText": "강적 코퍼 시로코 낮게, 더 낮게. HP 88 모래 폭풍 볼카운트를 활용하세요. 고유 규칙 자세히 추가 승부 규칙 이기면 카드 4장 중 1장 · 시그니처 이 길 너머 휴식 3"
+      }
+    },
+    {
+      "name": "deck18 568x320 boss map preview copy visible",
+      "ok": true,
+      "detail": {
+        "nodeId": "a1-boss",
+        "line": "이기면 다음 막 · 시그니처",
+        "previewText": "막 보스 에메랄드 타이런트 낮게, 더 낮게. HP 112 낮은 성벽 낮은 코스를 좁게 공략하세요. 고유 규칙 자세히 추가 승부 규칙 이기면 다음 막 · 시그니처"
+      }
+    },
+    {
+      "name": "deck18 568x320 shop map preview copy visible",
+      "ok": true,
+      "detail": {
+        "nodeId": "a1-r2l1",
+        "line": "새 카드를 들인다.",
+        "previewText": "장비 상점 장비 상점 새 카드를 들인다. 이 길 너머 강적 2 상점 1 휴식 3 훈련 1"
+      }
+    },
+    {
+      "name": "deck18 568x320 portrait rotation prompt appears",
+      "ok": true
+    },
+    {
+      "name": "deck18 568x320 portrait prompt leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "deck18 568x320 landscape return leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "deck18 844x390 title 이어하기 loads map save",
+      "ok": true,
+      "detail": {
+        "phase": "map",
+        "deck": 18
+      }
+    },
+    {
+      "name": "deck18 844x390 map graph preserved on load",
+      "ok": true
+    },
+    {
+      "name": "deck18 844x390 regular map preview copy visible",
+      "ok": true,
+      "detail": {
+        "nodeId": "a1-entry",
+        "line": "이기면 카드 3장 중 1장",
+        "previewText": "정규전 앰버 싱커 낮게, 더 낮게. HP 60 낮은 갑옷 낮은 곳은 좁게 노리세요. 고유 규칙 자세히 이기면 카드 3장 중 1장 이 길 너머 강적 2 이벤트 1 상점 2 휴식 3 훈련 2"
+      }
+    },
+    {
+      "name": "deck18 844x390 elite map preview copy visible",
+      "ok": true,
+      "detail": {
+        "nodeId": "a1-r3l2",
+        "line": "이기면 카드 4장 중 1장 · 시그니처",
+        "previewText": "강적 코퍼 시로코 낮게, 더 낮게. HP 88 모래 폭풍 볼카운트를 활용하세요. 고유 규칙 자세히 추가 승부 규칙 이기면 카드 4장 중 1장 · 시그니처 이 길 너머 휴식 3"
+      }
+    },
+    {
+      "name": "deck18 844x390 boss map preview copy visible",
+      "ok": true,
+      "detail": {
+        "nodeId": "a1-boss",
+        "line": "이기면 다음 막 · 시그니처",
+        "previewText": "막 보스 에메랄드 타이런트 낮게, 더 낮게. HP 112 낮은 성벽 낮은 코스를 좁게 공략하세요. 고유 규칙 자세히 추가 승부 규칙 이기면 다음 막 · 시그니처"
+      }
+    },
+    {
+      "name": "deck18 844x390 shop map preview copy visible",
+      "ok": true,
+      "detail": {
+        "nodeId": "a1-r2l1",
+        "line": "새 카드를 들인다.",
+        "previewText": "장비 상점 장비 상점 새 카드를 들인다. 이 길 너머 강적 2 상점 1 휴식 3 훈련 1"
+      }
+    },
+    {
+      "name": "deck18 844x390 portrait rotation prompt appears",
+      "ok": true
+    },
+    {
+      "name": "deck18 844x390 portrait prompt leaves save unchanged",
+      "ok": true
+    },
+    {
+      "name": "deck18 844x390 landscape return leaves save unchanged",
+      "ok": true
+    }
+  ],
+  "errors": [],
+  "failed": 0
+}

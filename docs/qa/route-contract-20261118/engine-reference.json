@@ -1,0 +1,51 @@
+{
+  "syntheticFixture": true,
+  "fixtureNote": "Synthetic boundary-only test save. Not evidence that a normal run reaches this deck size.",
+  "seed": 0,
+  "nodes": 46,
+  "edges": 68,
+  "previewCopy": {
+    "battle": "이기면 카드 3장 중 1장",
+    "elite": "이기면 카드 4장 중 1장 · 시그니처",
+    "boss": "이기면 다음 막 · 시그니처",
+    "shop": "새 카드를 들인다."
+  },
+  "engine": {
+    "rewardChoices": [
+      "scoreSheet",
+      "momentum",
+      "thirdCoach"
+    ],
+    "states": {
+      "17": {
+        "valid": true,
+        "deck": 17,
+        "rewardOptionCount": 3,
+        "rewardOptions": [
+          "scoreSheet",
+          "momentum",
+          "thirdCoach"
+        ],
+        "shopOptionCount": 5,
+        "shopCardCount": 3,
+        "shopCardNames": [
+          "참을성",
+          "리드오프",
+          "투구 수 늘리기"
+        ],
+        "shopRelicCount": 2
+      },
+      "18": {
+        "valid": true,
+        "deck": 18,
+        "rewardOptionCount": 0,
+        "rewardOptions": [],
+        "shopOptionCount": 2,
+        "shopCardCount": 0,
+        "shopCardNames": [],
+        "shopRelicCount": 2
+      }
+    },
+    "shop": {}
+  }
+}

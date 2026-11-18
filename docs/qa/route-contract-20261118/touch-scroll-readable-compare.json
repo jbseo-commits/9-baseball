@@ -1,0 +1,273 @@
+{
+  "method": "Chromium CDP Input.dispatchTouchEvent finger-drag scroll in the map detail scroller; state/selection unchanged. Touch emulation, not a physical handset.",
+  "rows": [
+    {
+      "label": "before",
+      "kind": "regular",
+      "initial": {
+        "scrollTop": 0,
+        "textRect": {
+          "x": 363,
+          "y": 266.859375,
+          "right": 550,
+          "bottom": 283.359375,
+          "width": 187,
+          "height": 16.5
+        },
+        "go": {
+          "x": 363,
+          "y": 234,
+          "right": 554,
+          "bottom": 286,
+          "disabled": false
+        },
+        "chosen": "a1-entry"
+      },
+      "after": {
+        "scrollTop": 63,
+        "scrollHeight": 180,
+        "clientHeight": 80,
+        "text": "이기면 카드 3장 중 1장",
+        "textRect": {
+          "x": 363,
+          "y": 203.859375,
+          "right": 550,
+          "bottom": 220.359375,
+          "width": 187,
+          "height": 16.5
+        },
+        "textRange": [
+          {
+            "x": 363,
+            "y": 203.859375,
+            "right": 466.953125,
+            "bottom": 219.859375,
+            "width": 103.953125,
+            "height": 16
+          }
+        ],
+        "infoRect": {
+          "x": 363,
+          "y": 147,
+          "right": 554,
+          "bottom": 227
+        },
+        "goRect": {
+          "x": 363,
+          "y": 234,
+          "right": 554,
+          "bottom": 286,
+          "disabled": false
+        },
+        "fullyInsideInfo": true,
+        "noGoOverlap": true,
+        "centerHit": "bp-mrw",
+        "chosen": "a1-entry"
+      },
+      "unchanged": true,
+      "dragCount": 1,
+      "screenshot": "/tmp/route-contract-20261118/compare-before/regular-568-after-readable-drag.png"
+    },
+    {
+      "label": "before",
+      "kind": "elite",
+      "initial": {
+        "scrollTop": 0,
+        "textRect": {
+          "x": 371,
+          "y": 286.65625,
+          "right": 558,
+          "bottom": 303.15625,
+          "width": 187,
+          "height": 16.5
+        },
+        "go": {
+          "x": 363,
+          "y": 234,
+          "right": 554,
+          "bottom": 286,
+          "disabled": true
+        },
+        "chosen": "a1-r3l2"
+      },
+      "after": {
+        "scrollTop": 90,
+        "scrollHeight": 177,
+        "clientHeight": 80,
+        "text": "이기면 카드 4장 중 1장 · 시그니처",
+        "textRect": {
+          "x": 363,
+          "y": 196.65625,
+          "right": 550,
+          "bottom": 213.15625,
+          "width": 187,
+          "height": 16.5
+        },
+        "textRange": [
+          {
+            "x": 363,
+            "y": 196.65625,
+            "right": 517.109375,
+            "bottom": 212.65625,
+            "width": 154.109375,
+            "height": 16
+          }
+        ],
+        "infoRect": {
+          "x": 363,
+          "y": 147,
+          "right": 554,
+          "bottom": 227
+        },
+        "goRect": {
+          "x": 363,
+          "y": 234,
+          "right": 554,
+          "bottom": 286,
+          "disabled": true
+        },
+        "fullyInsideInfo": true,
+        "noGoOverlap": true,
+        "centerHit": "bp-mrw",
+        "chosen": "a1-r3l2"
+      },
+      "unchanged": true,
+      "dragCount": 2,
+      "screenshot": "/tmp/route-contract-20261118/compare-before/elite-568-after-readable-drag.png"
+    },
+    {
+      "label": "after",
+      "kind": "regular",
+      "initial": {
+        "scrollTop": 0,
+        "textRect": {
+          "x": 363.424560546875,
+          "y": 266.859375,
+          "right": 550.424560546875,
+          "bottom": 283.359375,
+          "width": 187,
+          "height": 16.5
+        },
+        "go": {
+          "x": 363,
+          "y": 234,
+          "right": 554,
+          "bottom": 286,
+          "disabled": false
+        },
+        "chosen": "a1-entry"
+      },
+      "after": {
+        "scrollTop": 100,
+        "scrollHeight": 180,
+        "clientHeight": 80,
+        "text": "덱이 가득 차 카드 추가 불가",
+        "textRect": {
+          "x": 363,
+          "y": 166.859375,
+          "right": 550,
+          "bottom": 183.359375,
+          "width": 187,
+          "height": 16.5
+        },
+        "textRange": [
+          {
+            "x": 363,
+            "y": 166.859375,
+            "right": 491.15625,
+            "bottom": 182.859375,
+            "width": 128.15625,
+            "height": 16
+          }
+        ],
+        "infoRect": {
+          "x": 363,
+          "y": 147,
+          "right": 554,
+          "bottom": 227
+        },
+        "goRect": {
+          "x": 363,
+          "y": 234,
+          "right": 554,
+          "bottom": 286,
+          "disabled": false
+        },
+        "fullyInsideInfo": true,
+        "noGoOverlap": true,
+        "centerHit": "bp-mrw",
+        "chosen": "a1-entry"
+      },
+      "unchanged": true,
+      "dragCount": 2,
+      "screenshot": "/tmp/route-contract-20261118/compare-after/regular-568-after-readable-drag.png"
+    },
+    {
+      "label": "after",
+      "kind": "elite",
+      "initial": {
+        "scrollTop": 0,
+        "textRect": {
+          "x": 371,
+          "y": 286.65625,
+          "right": 558,
+          "bottom": 303.15625,
+          "width": 187,
+          "height": 16.5
+        },
+        "go": {
+          "x": 363,
+          "y": 234,
+          "right": 554,
+          "bottom": 286,
+          "disabled": true
+        },
+        "chosen": "a1-r3l2"
+      },
+      "after": {
+        "scrollTop": 90,
+        "scrollHeight": 177,
+        "clientHeight": 80,
+        "text": "덱이 가득 차 카드 추가 불가",
+        "textRect": {
+          "x": 363,
+          "y": 196.65625,
+          "right": 550,
+          "bottom": 213.15625,
+          "width": 187,
+          "height": 16.5
+        },
+        "textRange": [
+          {
+            "x": 363,
+            "y": 196.65625,
+            "right": 491.15625,
+            "bottom": 212.65625,
+            "width": 128.15625,
+            "height": 16
+          }
+        ],
+        "infoRect": {
+          "x": 363,
+          "y": 147,
+          "right": 554,
+          "bottom": 227
+        },
+        "goRect": {
+          "x": 363,
+          "y": 234,
+          "right": 554,
+          "bottom": 286,
+          "disabled": true
+        },
+        "fullyInsideInfo": true,
+        "noGoOverlap": true,
+        "centerHit": "bp-mrw",
+        "chosen": "a1-r3l2"
+      },
+      "unchanged": true,
+      "dragCount": 2,
+      "screenshot": "/tmp/route-contract-20261118/compare-after/elite-568-after-readable-drag.png"
+    }
+  ]
+}
