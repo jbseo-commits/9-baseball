@@ -1,0 +1,1120 @@
+{
+  "source": {
+    "baseline": "fb8e7b13f043e2c17376138abe6696f48c2d8022",
+    "node": "v24.19.0",
+    "policyHash": "509813734029cf6bf1e6a060da5ed121cd7e2be3c4ea888d46d02545d3eb0ed8",
+    "engineHash": "48b740887410becea575b5b76d4ffd6123d44e4421e10fd9e3e07ea7ddeecd4e",
+    "mapHash": "2e2afcf810b1253d7144f7be085732e7b3b465f3e064a1edb36833403cde835f"
+  },
+  "counts": {
+    "runs": 20,
+    "repeats": 20,
+    "deterministic": 20,
+    "terminal": 20,
+    "choicePairs": 10,
+    "divergedPairs": 10
+  },
+  "scope": "energy deltas are NET; declaredActionEnergyCosts is separate preview-reported action cost. Node choice alternatives are unchosen at this fork, not permanently forfeited.",
+  "pairs": [
+    {
+      "seed": 0,
+      "fork": {
+        "index": 1,
+        "alternatives": [
+          {
+            "id": "a1-r1l0",
+            "type": "event",
+            "hp": null
+          },
+          {
+            "id": "a1-r1l2",
+            "type": "battle",
+            "hp": 60
+          },
+          {
+            "id": "a1-r1l3",
+            "type": "battle",
+            "hp": 60
+          }
+        ],
+        "chosen": [
+          "a1-r1l0",
+          "a1-r1l2"
+        ]
+      },
+      "runs": [
+        {
+          "preference": "utility-first",
+          "selected": "a1-r1l0",
+          "selectedType": "event",
+          "returnedToMap": true,
+          "actions": 2,
+          "pitchActions": 0,
+          "declaredActionEnergyCosts": 0,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 1,
+            "runOutsAfter": 1
+          },
+          "lastResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 1,
+            "runOutsAfter": 1
+          },
+          "terminal": "lost",
+          "lastNode": "a1-boss",
+          "maxNodeAct": 1,
+          "pitches": 30,
+          "deckSize": 12,
+          "finalStateHash": "f55d758e3d4a59effde4bbe3d57f353c8b579145b44e9c46957adb07b0967632",
+          "traceHash": "9db3552bca51db0ad1bdcb8ebfebe2aaa0875b43afd3834a6bc1b5e960573621"
+        },
+        {
+          "preference": "combat-first",
+          "selected": "a1-r1l2",
+          "selectedType": "battle",
+          "returnedToMap": true,
+          "actions": 14,
+          "pitchActions": 7,
+          "declaredActionEnergyCosts": 11,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": 2,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 1,
+            "runOutsAfter": 1
+          },
+          "lastResources": {
+            "energyBefore": 0,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 11,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 1,
+            "runOutsAfter": 1
+          },
+          "terminal": "lost",
+          "lastNode": "a1-r3l2",
+          "maxNodeAct": 1,
+          "pitches": 26,
+          "deckSize": 11,
+          "finalStateHash": "b8708e5799a064686d89fdd77b0660ee2a43b80f6674a095fc15997864535731",
+          "traceHash": "91931115cd8f78d409cad62560df204449cb40ba668478e60d2673cc8843b8b5"
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "fork": {
+        "index": 1,
+        "alternatives": [
+          {
+            "id": "a1-r1l0",
+            "type": "training",
+            "hp": null
+          },
+          {
+            "id": "a1-r1l1",
+            "type": "battle",
+            "hp": 60
+          },
+          {
+            "id": "a1-r1l2",
+            "type": "battle",
+            "hp": 60
+          },
+          {
+            "id": "a1-r1l3",
+            "type": "battle",
+            "hp": 60
+          }
+        ],
+        "chosen": [
+          "a1-r1l0",
+          "a1-r1l1"
+        ]
+      },
+      "runs": [
+        {
+          "preference": "utility-first",
+          "selected": "a1-r1l0",
+          "selectedType": "training",
+          "returnedToMap": true,
+          "actions": 2,
+          "pitchActions": 0,
+          "declaredActionEnergyCosts": 0,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 0,
+            "runOutsAfter": 0
+          },
+          "lastResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 1,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 0,
+            "runOutsAfter": 0
+          },
+          "terminal": "lost",
+          "lastNode": "a2-r3l3",
+          "maxNodeAct": 2,
+          "pitches": 37,
+          "deckSize": 16,
+          "finalStateHash": "eed50d154b9883ea9750140ed30c2b010976899f8456b2397f7977965ad1d690",
+          "traceHash": "a01df15a5781f5dda2af1a6395efca324ea884b0365ea8ede644a6ea4aca962a"
+        },
+        {
+          "preference": "combat-first",
+          "selected": "a1-r1l1",
+          "selectedType": "battle",
+          "returnedToMap": true,
+          "actions": 17,
+          "pitchActions": 9,
+          "declaredActionEnergyCosts": 11,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": 2,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 0,
+            "runOutsAfter": 0
+          },
+          "lastResources": {
+            "energyBefore": 0,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 11,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 0,
+            "runOutsAfter": 0
+          },
+          "terminal": "lost",
+          "lastNode": "a1-r3l2",
+          "maxNodeAct": 1,
+          "pitches": 29,
+          "deckSize": 12,
+          "finalStateHash": "7c208cddaf7779b3f9940c055713853f61f39079effb141564289c3fc4391226",
+          "traceHash": "ec68935ed252cf2448a6fc48798b86f13e2ef8cdb0a984c34962eb9b880844c5"
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "fork": {
+        "index": 1,
+        "alternatives": [
+          {
+            "id": "a1-r1l0",
+            "type": "battle",
+            "hp": 60
+          },
+          {
+            "id": "a1-r1l1",
+            "type": "battle",
+            "hp": 60
+          },
+          {
+            "id": "a1-r1l3",
+            "type": "event",
+            "hp": null
+          }
+        ],
+        "chosen": [
+          "a1-r1l3",
+          "a1-r1l0"
+        ]
+      },
+      "runs": [
+        {
+          "preference": "utility-first",
+          "selected": "a1-r1l3",
+          "selectedType": "event",
+          "returnedToMap": true,
+          "actions": 2,
+          "pitchActions": 0,
+          "declaredActionEnergyCosts": 0,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 0,
+            "runOutsAfter": 0
+          },
+          "lastResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 11,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 0,
+            "runOutsAfter": 0
+          },
+          "terminal": "lost",
+          "lastNode": "a2-entry",
+          "maxNodeAct": 2,
+          "pitches": 44,
+          "deckSize": 14,
+          "finalStateHash": "72031e6e68d08334875d5b7df50c51c989a32e99d13f6e55e95e2d2f19af276b",
+          "traceHash": "3ac593dad6c153e66cacb53f2f79824965afeaac4b8b719b55483819c7555e0b"
+        },
+        {
+          "preference": "combat-first",
+          "selected": "a1-r1l0",
+          "selectedType": "battle",
+          "returnedToMap": true,
+          "actions": 17,
+          "pitchActions": 9,
+          "declaredActionEnergyCosts": 12,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": 2,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 0,
+            "runOutsAfter": 0
+          },
+          "lastResources": {
+            "energyBefore": 0,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 11,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 1,
+            "runOutsAfter": 1
+          },
+          "terminal": "lost",
+          "lastNode": "a1-r4l1",
+          "maxNodeAct": 1,
+          "pitches": 30,
+          "deckSize": 13,
+          "finalStateHash": "b6c4ff25f47fc39b1f7ead909f65fe5b174a698802b1647f2d43a42e94924322",
+          "traceHash": "4c730557b9c44e2c1480d20157ae9b4ecc8d2443c76b8aa5b37367b81ef74e09"
+        }
+      ]
+    },
+    {
+      "seed": 3,
+      "fork": {
+        "index": 1,
+        "alternatives": [
+          {
+            "id": "a1-r1l1",
+            "type": "battle",
+            "hp": 60
+          },
+          {
+            "id": "a1-r1l2",
+            "type": "event",
+            "hp": null
+          },
+          {
+            "id": "a1-r1l3",
+            "type": "training",
+            "hp": null
+          }
+        ],
+        "chosen": [
+          "a1-r1l3",
+          "a1-r1l1"
+        ]
+      },
+      "runs": [
+        {
+          "preference": "utility-first",
+          "selected": "a1-r1l3",
+          "selectedType": "training",
+          "returnedToMap": true,
+          "actions": 2,
+          "pitchActions": 0,
+          "declaredActionEnergyCosts": 0,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 0,
+            "runOutsAfter": 0
+          },
+          "lastResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 1,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 0,
+            "runOutsAfter": 0
+          },
+          "terminal": "lost",
+          "lastNode": "a2-boss",
+          "maxNodeAct": 2,
+          "pitches": 47,
+          "deckSize": 12,
+          "finalStateHash": "7f8acac00b5d83d70248a995de3ddfb01544e4f2d75d7d24227562e9eedcc15c",
+          "traceHash": "125d0de2c1aa5998882259f77a31c4ba5ebd2e034561507ee9f0cc85d9dd41c0"
+        },
+        {
+          "preference": "combat-first",
+          "selected": "a1-r1l1",
+          "selectedType": "battle",
+          "returnedToMap": true,
+          "actions": 14,
+          "pitchActions": 7,
+          "declaredActionEnergyCosts": 12,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": 2,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 0,
+            "runOutsAfter": 0
+          },
+          "lastResources": {
+            "energyBefore": 0,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 11,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 0,
+            "runOutsAfter": 0
+          },
+          "terminal": "lost",
+          "lastNode": "a1-boss",
+          "maxNodeAct": 1,
+          "pitches": 38,
+          "deckSize": 13,
+          "finalStateHash": "af57fcdc05162b4a2a186d4bff393815b052cbc2b938337d1c530c55f371a47d",
+          "traceHash": "2f1fa3ede5282c74e17b95179d60a4968b06c1aff6c4b2deeb83acf5f63412d4"
+        }
+      ]
+    },
+    {
+      "seed": 4,
+      "fork": {
+        "index": 1,
+        "alternatives": [
+          {
+            "id": "a1-r1l1",
+            "type": "battle",
+            "hp": 60
+          },
+          {
+            "id": "a1-r1l2",
+            "type": "battle",
+            "hp": 60
+          },
+          {
+            "id": "a1-r1l3",
+            "type": "event",
+            "hp": null
+          }
+        ],
+        "chosen": [
+          "a1-r1l3",
+          "a1-r1l1"
+        ]
+      },
+      "runs": [
+        {
+          "preference": "utility-first",
+          "selected": "a1-r1l3",
+          "selectedType": "event",
+          "returnedToMap": true,
+          "actions": 2,
+          "pitchActions": 0,
+          "declaredActionEnergyCosts": 0,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 2,
+            "runOutsAfter": 2
+          },
+          "lastResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 1,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 2,
+            "runOutsAfter": 2
+          },
+          "terminal": "lost",
+          "lastNode": "a1-boss",
+          "maxNodeAct": 1,
+          "pitches": 26,
+          "deckSize": 12,
+          "finalStateHash": "894a36e302038f4cbfec36c35ff73a0d7ba016357bbdb078dd941bb7e57da55b",
+          "traceHash": "602f9e2ab60c58db9fd0db66d5fef828dae3ea3ee0a523917083c71eb8d6e167"
+        },
+        {
+          "preference": "combat-first",
+          "selected": "a1-r1l1",
+          "selectedType": "battle",
+          "returnedToMap": true,
+          "actions": 23,
+          "pitchActions": 12,
+          "declaredActionEnergyCosts": 12,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": 2,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 2,
+            "runOutsAfter": 2
+          },
+          "lastResources": {
+            "energyBefore": 1,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 11,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 2,
+            "runOutsAfter": 2
+          },
+          "terminal": "lost",
+          "lastNode": "a1-r2l0",
+          "maxNodeAct": 1,
+          "pitches": 25,
+          "deckSize": 11,
+          "finalStateHash": "13e864ebe8f02c387d59b389c5de6853d1f2b0d481008e04145b78d468a64bcc",
+          "traceHash": "7974f11d5f968cd16e45d0291402924a856c35b511c34ca7e8520d119e4acdd7"
+        }
+      ]
+    },
+    {
+      "seed": 5,
+      "fork": {
+        "index": 1,
+        "alternatives": [
+          {
+            "id": "a1-r1l0",
+            "type": "battle",
+            "hp": 60
+          },
+          {
+            "id": "a1-r1l1",
+            "type": "locker",
+            "hp": null
+          },
+          {
+            "id": "a1-r1l2",
+            "type": "locker",
+            "hp": null
+          }
+        ],
+        "chosen": [
+          "a1-r1l1",
+          "a1-r1l0"
+        ]
+      },
+      "runs": [
+        {
+          "preference": "utility-first",
+          "selected": "a1-r1l1",
+          "selectedType": "locker",
+          "returnedToMap": true,
+          "actions": 2,
+          "pitchActions": 0,
+          "declaredActionEnergyCosts": 0,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 2,
+            "runOutsAfter": 2
+          },
+          "lastResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 9,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 2,
+            "runOutsAfter": 2
+          },
+          "terminal": "lost",
+          "lastNode": "a1-boss",
+          "maxNodeAct": 1,
+          "pitches": 23,
+          "deckSize": 12,
+          "finalStateHash": "219bb1b98a7e0793adb95028189d381a10f7969025034573c965f5345866c174",
+          "traceHash": "35d3807290c67b451f04b389b444b32367fd13cb5375ac60dc70f8e5e4780a6a"
+        },
+        {
+          "preference": "combat-first",
+          "selected": "a1-r1l0",
+          "selectedType": "battle",
+          "returnedToMap": false,
+          "actions": 8,
+          "pitchActions": 4,
+          "declaredActionEnergyCosts": 6,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": 2,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 2,
+            "runOutsAfter": 2
+          },
+          "lastResources": {
+            "energyBefore": 2,
+            "energyAfter": 1,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 2,
+            "runOutsAfter": 2
+          },
+          "terminal": "lost",
+          "lastNode": "a1-r1l0",
+          "maxNodeAct": 1,
+          "pitches": 14,
+          "deckSize": 10,
+          "finalStateHash": "045c67f0d93b58bb3ace20d0243109bcd31cc47f01018c8ada9d281b9d11ef99",
+          "traceHash": "04875ddd0ad1ac9f12b5af1f25a656c442553c6fae95a6ffc52c63f53597e09a"
+        }
+      ]
+    },
+    {
+      "seed": 6,
+      "fork": {
+        "index": 1,
+        "alternatives": [
+          {
+            "id": "a1-r1l1",
+            "type": "locker",
+            "hp": null
+          },
+          {
+            "id": "a1-r1l2",
+            "type": "battle",
+            "hp": 60
+          },
+          {
+            "id": "a1-r1l3",
+            "type": "battle",
+            "hp": 60
+          }
+        ],
+        "chosen": [
+          "a1-r1l1",
+          "a1-r1l2"
+        ]
+      },
+      "runs": [
+        {
+          "preference": "utility-first",
+          "selected": "a1-r1l1",
+          "selectedType": "locker",
+          "returnedToMap": true,
+          "actions": 2,
+          "pitchActions": 0,
+          "declaredActionEnergyCosts": 0,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 1,
+            "runOutsAfter": 1
+          },
+          "lastResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 9,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 1,
+            "runOutsAfter": 1
+          },
+          "terminal": "lost",
+          "lastNode": "a2-entry",
+          "maxNodeAct": 2,
+          "pitches": 39,
+          "deckSize": 12,
+          "finalStateHash": "d2fc6306444bf19098a9c35a82de71fc5f957cb0f8a42c5fa2b041713fc925b2",
+          "traceHash": "2b282b2289304a036d1e24e865c601a1ab3258a57dc1b0135ab6943d3a79f7a6"
+        },
+        {
+          "preference": "combat-first",
+          "selected": "a1-r1l2",
+          "selectedType": "battle",
+          "returnedToMap": true,
+          "actions": 14,
+          "pitchActions": 7,
+          "declaredActionEnergyCosts": 12,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": 2,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 1,
+            "runOutsAfter": 1
+          },
+          "lastResources": {
+            "energyBefore": 0,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 11,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 1,
+            "runOutsAfter": 1
+          },
+          "terminal": "lost",
+          "lastNode": "a1-boss",
+          "maxNodeAct": 1,
+          "pitches": 45,
+          "deckSize": 14,
+          "finalStateHash": "fabc4475d85b6c76fcb043368d3ccf94a9fea4c9210485a5b53858fe1bbc37e3",
+          "traceHash": "a288da71d41a568e3c56e0749a206a51f7841ad24f1d6b11c2fa818f96d38d20"
+        }
+      ]
+    },
+    {
+      "seed": 7,
+      "fork": {
+        "index": 1,
+        "alternatives": [
+          {
+            "id": "a1-r1l0",
+            "type": "battle",
+            "hp": 60
+          },
+          {
+            "id": "a1-r1l1",
+            "type": "event",
+            "hp": null
+          },
+          {
+            "id": "a1-r1l3",
+            "type": "event",
+            "hp": null
+          }
+        ],
+        "chosen": [
+          "a1-r1l1",
+          "a1-r1l0"
+        ]
+      },
+      "runs": [
+        {
+          "preference": "utility-first",
+          "selected": "a1-r1l1",
+          "selectedType": "event",
+          "returnedToMap": true,
+          "actions": 2,
+          "pitchActions": 0,
+          "declaredActionEnergyCosts": 0,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 1,
+            "runOutsAfter": 1
+          },
+          "lastResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 11,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 1,
+            "runOutsAfter": 1
+          },
+          "terminal": "lost",
+          "lastNode": "a2-entry",
+          "maxNodeAct": 2,
+          "pitches": 40,
+          "deckSize": 16,
+          "finalStateHash": "8dc2c552fb4e6e25ef1a95b6a9ff857adce52961b6549ef47d00e095d08d1721",
+          "traceHash": "c04caa30dff22ceb60d326b301668e2d06379a6e3c96ed0092c3ec16bc614ec6"
+        },
+        {
+          "preference": "combat-first",
+          "selected": "a1-r1l0",
+          "selectedType": "battle",
+          "returnedToMap": true,
+          "actions": 16,
+          "pitchActions": 8,
+          "declaredActionEnergyCosts": 12,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": 2,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 1,
+            "runOutsAfter": 1
+          },
+          "lastResources": {
+            "energyBefore": 0,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 11,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 2,
+            "runOutsAfter": 2
+          },
+          "terminal": "lost",
+          "lastNode": "a1-r3l0",
+          "maxNodeAct": 1,
+          "pitches": 22,
+          "deckSize": 12,
+          "finalStateHash": "9f5a244655b20cdb7e21511b650e86fe7ec474041169783adc03ebe62fbab6c5",
+          "traceHash": "b3b6a37e1d9ca77dac4350d5c55228f17b7f1f34af29a145cceabcf020d7a78c"
+        }
+      ]
+    },
+    {
+      "seed": 8,
+      "fork": {
+        "index": 1,
+        "alternatives": [
+          {
+            "id": "a1-r1l0",
+            "type": "event",
+            "hp": null
+          },
+          {
+            "id": "a1-r1l1",
+            "type": "battle",
+            "hp": 60
+          },
+          {
+            "id": "a1-r1l3",
+            "type": "battle",
+            "hp": 60
+          }
+        ],
+        "chosen": [
+          "a1-r1l0",
+          "a1-r1l1"
+        ]
+      },
+      "runs": [
+        {
+          "preference": "utility-first",
+          "selected": "a1-r1l0",
+          "selectedType": "event",
+          "returnedToMap": true,
+          "actions": 2,
+          "pitchActions": 0,
+          "declaredActionEnergyCosts": 0,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 0,
+            "runOutsAfter": 0
+          },
+          "lastResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 1,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 0,
+            "runOutsAfter": 0
+          },
+          "terminal": "lost",
+          "lastNode": "a1-r2l0",
+          "maxNodeAct": 1,
+          "pitches": 15,
+          "deckSize": 10,
+          "finalStateHash": "e7af58b3d4a7a8e5a08f47839ccd16d3198dec766b7ab4db61fa59a31040b02b",
+          "traceHash": "7e2da76d57a86fbf0573acb14212aff4cffd49d70987c63c555397c7465fef66"
+        },
+        {
+          "preference": "combat-first",
+          "selected": "a1-r1l1",
+          "selectedType": "battle",
+          "returnedToMap": true,
+          "actions": 10,
+          "pitchActions": 5,
+          "declaredActionEnergyCosts": 7,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": 2,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 0,
+            "runOutsAfter": 0
+          },
+          "lastResources": {
+            "energyBefore": 0,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 11,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 0,
+            "runOutsAfter": 0
+          },
+          "terminal": "lost",
+          "lastNode": "a1-r2l0",
+          "maxNodeAct": 1,
+          "pitches": 25,
+          "deckSize": 11,
+          "finalStateHash": "971c2ca76fa285e18bc58b6579a8973fcb4422f6770665041a3c165e0894e45c",
+          "traceHash": "2f311cfdc560b332064679abddb0f2c9eaca8dfaa6683f8e63557be4112d03a7"
+        }
+      ]
+    },
+    {
+      "seed": 9,
+      "fork": {
+        "index": 1,
+        "alternatives": [
+          {
+            "id": "a1-r1l0",
+            "type": "locker",
+            "hp": null
+          },
+          {
+            "id": "a1-r1l1",
+            "type": "event",
+            "hp": null
+          },
+          {
+            "id": "a1-r1l2",
+            "type": "battle",
+            "hp": 60
+          },
+          {
+            "id": "a1-r1l3",
+            "type": "battle",
+            "hp": 60
+          }
+        ],
+        "chosen": [
+          "a1-r1l0",
+          "a1-r1l2"
+        ]
+      },
+      "runs": [
+        {
+          "preference": "utility-first",
+          "selected": "a1-r1l0",
+          "selectedType": "locker",
+          "returnedToMap": true,
+          "actions": 2,
+          "pitchActions": 0,
+          "declaredActionEnergyCosts": 0,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 0,
+            "runOutsAfter": 0
+          },
+          "lastResources": {
+            "energyBefore": null,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 9,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 0,
+            "runOutsAfter": 0
+          },
+          "terminal": "lost",
+          "lastNode": "a1-r2l0",
+          "maxNodeAct": 1,
+          "pitches": 18,
+          "deckSize": 9,
+          "finalStateHash": "bca747e0ef414571a7f5099ca6e0e2ef966365ac18c7c1c7fd66a6e7f7cd5520",
+          "traceHash": "d5539c25c3b576b0dd1e220526e7127daaf08444440ea373a164190b1e2e2a1e"
+        },
+        {
+          "preference": "combat-first",
+          "selected": "a1-r1l2",
+          "selectedType": "battle",
+          "returnedToMap": true,
+          "actions": 23,
+          "pitchActions": 12,
+          "declaredActionEnergyCosts": 17,
+          "firstResources": {
+            "energyBefore": null,
+            "energyAfter": 2,
+            "deckBefore": 10,
+            "deckAfter": 10,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 0,
+            "runOutsAfter": 0
+          },
+          "lastResources": {
+            "energyBefore": 1,
+            "energyAfter": null,
+            "deckBefore": 10,
+            "deckAfter": 11,
+            "upgradedBefore": 0,
+            "upgradedAfter": 0,
+            "relicsBefore": [],
+            "relicsAfter": [],
+            "runOutsBefore": 1,
+            "runOutsAfter": 1
+          },
+          "terminal": "lost",
+          "lastNode": "a1-r2l1",
+          "maxNodeAct": 1,
+          "pitches": 24,
+          "deckSize": 11,
+          "finalStateHash": "e158648769a847f917b7d1d38fcb3cf39ec55213a7bec6164cdae8f97f91119c",
+          "traceHash": "73f122932c451c43f9e51185ea498560d945adc3e7054369efb659c29af63148"
+        }
+      ]
+    }
+  ]
+}
