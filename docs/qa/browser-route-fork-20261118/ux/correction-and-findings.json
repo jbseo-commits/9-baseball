@@ -1,0 +1,49 @@
+{
+  "firstRun": "/tmp/browser-route-fork-20261118/g028/report.json",
+  "corrections": {
+    "rotationSaveFlagsInFirstRun": "Invalid comparison: firstRun compared resumed localStorage bytes with the pretty-printed source fixture bytes, not with the actual serialized map bytes after Continue. Do not read saveSamePortrait/saveSameBack=false as save mutation.",
+    "corrected568RotationCheck": {
+      "viewportStart": [568, 320],
+      "afterContinueMapRawLength": 30522,
+      "selectedNode": "a1-r1l3",
+      "portraitAndBackSelectionPreserved": true,
+      "portraitAndBackPreviewTextPreserved": true,
+      "portraitAndBackRawSaveEqualsAfterContinueMapRaw": true,
+      "evidence": "Observed directly in Chromium; compare against the actual resumed serialized bytes."
+    },
+    "goButtonWithinViewportFlagsInFirstRun": "Invalid collector calculation: Playwright boundingBox provides x,y,width,height, not right,bottom. Correct arithmetic: at 568x320 map Go rect x363 y234 w191 h52 => right554,bottom286, within viewport; at 844x390 x614.25 y304 w215.75 h52 => right830,bottom356, within viewport."
+  },
+  "observations": {
+    "fixture": {
+      "path": "/tmp/browser-route-fork-20261118/accepted-seed3.json",
+      "sha256StartAndEnd": "f2e7ca37fb14e913afd78db85f418e8f35ff5c7d4659d9f25ea93b1934e1c3c0",
+      "validV10MapSeed": 3,
+      "currentNode": "a1-entry",
+      "reachableTrainingNode": "a1-r1l3",
+      "deckSize": 9
+    },
+    "touch": {
+      "scrollLeftDelta": {"568x320": 251, "844x390": 81},
+      "previewAtoB": "Training to Event and back; serialized map state stayed at actual after-Continue baseline.",
+      "nativeTouchCancel": "CDP touchcancel reached the map-node glyph; selected node unchanged and no additional click/entry occurred. Browser emulation, not device touch sensor."
+    },
+    "trainingAndFacility": {
+      "trainingPreview": "타격 훈련 · 카드 한 장을 단련한다.",
+      "trainingEnterMatchedEngine": true,
+      "upgradeSelectionDidNotCommitBeforeGo": true,
+      "upgradeResultMatchedEngine": true,
+      "offerCardBoundingHeight": {"568x320": 14, "844x390": 14},
+      "visibleIssue": "Facility upgrade cards are vertically compressed/clipped; screenshots show only narrow artwork strips, hiding the card text visually. This duplicates existing PR103 M01 facility-compression issue, Draft/HELD after two visual candidates. No new fix or art judgment."
+    },
+    "rapidGo": {
+      "singleTap": "Training upgrade returned to map; no further node entry.",
+      "doubleTap80msSameCoordinate": "Second click landed on reachable Rest map node preview, not the map Go button; state remained on the map and did not enter another node. This is observed input routing, not a confirmed bug or new debounce requirement."
+    },
+    "limits": [
+      "Viewport resize is browser emulation, not physical device rotation.",
+      "No human comprehension or fun study.",
+      "No new art/visual quality verdict."
+    ],
+    "pageErrors": []
+  }
+}

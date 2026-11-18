@@ -1,0 +1,73 @@
+{
+  "base": "http://127.0.0.1:5198/",
+  "seed": 3,
+  "previewPolicy": "exact engine preview; technical oracle only, not a human public-information policy",
+  "mapBootstrap": "full Chrome-generated seed-3 battle checkpoint; subsequent transitions independently advanced by imported engine and deep-compared",
+  "firstBattle": {
+    "turns": 8,
+    "pitches": 6,
+    "hp": 0,
+    "won": true
+  },
+  "accepted": {
+    "rewardProtocol": "first-match reward skipped; distinct from G027 first-eligible card-add checkpoint; fork pair only, no cross-cycle state equivalence claim",
+    "canonicalJsonSha256": "6a719b580b0e185ec409857dd477759e5c1de33b52a75864420601486f429306",
+    "prettyFileSha256": "f2e7ca37fb14e913afd78db85f418e8f35ff5c7d4659d9f25ea93b1934e1c3c0",
+    "sessionSerializedSha256": "6a719b580b0e185ec409857dd477759e5c1de33b52a75864420601486f429306",
+    "phase": "map",
+    "reachable": [
+      {
+        "id": "a1-r1l1",
+        "type": "battle"
+      },
+      {
+        "id": "a1-r1l2",
+        "type": "event"
+      },
+      {
+        "id": "a1-r1l3",
+        "type": "training"
+      }
+    ],
+    "validated": true
+  },
+  "forks": {
+    "identicalAcceptedStart": true,
+    "training": {
+      "node": "a1-r1l3",
+      "option": {
+        "type": "upgrade",
+        "id": "c0",
+        "kind": "place",
+        "name": "정타 노림"
+      },
+      "utilityHistory": {
+        "nodeId": "a1-r1l3",
+        "kind": "training",
+        "action": {
+          "type": "upgrade",
+          "id": "c0",
+          "kind": "place",
+          "name": "정타 노림"
+        }
+      },
+      "deckCountBefore": 9,
+      "deckCountAfter": 9
+    },
+    "battle": {
+      "node": "a1-r1l1",
+      "outcome": "reward",
+      "pitches": 13,
+      "rewardAdded": "counterPrep",
+      "deckCountBefore": 9,
+      "deckCountAfter": 10,
+      "interpretation": "reward card addition verified"
+    }
+  },
+  "productionStorage": {
+    "first": [],
+    "training": [],
+    "battle": []
+  },
+  "errors": []
+}
