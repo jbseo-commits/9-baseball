@@ -1,0 +1,24 @@
+.pt-preview{box-sizing:border-box;min-height:100dvh;padding:24px;background:#101e24;color:#eceddb;font:14px/1.5 system-ui,sans-serif;overflow:auto}
+.pt-preview *{box-sizing:border-box}
+.pt-heading{display:flex;justify-content:space-between;align-items:center;gap:18px;max-width:1600px;margin:0 auto 20px}
+.pt-heading h1{font-size:clamp(22px,3vw,34px);line-height:1.2;margin:4px 0 10px;letter-spacing:-.04em}
+.pt-heading p{margin:0;color:#a9bdbb}.pt-heading .pt-eyebrow{font-size:11px;color:#d9bb79;letter-spacing:.14em}
+.pt-status{border:1px solid #685e40;padding:6px 10px;color:#e6cd92;white-space:nowrap;font-size:12px;border-radius:4px}
+.pt-controls,.pt-toggles{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:12px auto;max-width:1600px}
+.pt-preview button,.pt-preview select{font:inherit;color:#e9edde;background:#253a3d;border:1px solid #52666a;border-radius:5px;min-height:36px;padding:5px 10px;cursor:pointer}
+.pt-preview button:hover{background:#365454}.pt-preview button:focus-visible,.pt-preview select:focus-visible,.pt-preview input:focus-visible{outline:2px solid #edc780;outline-offset:3px}
+.pt-controls label,.pt-toggles label{display:flex;gap:7px;align-items:center}.pt-toggles{font-size:12px;color:#bbcecb}.pt-toggles input{accent-color:#d7bb80;width:16px;height:16px}
+.pt-scrub{display:flex;gap:16px;align-items:center;max-width:1600px;margin:auto}.pt-scrub input{flex:1;min-width:0;accent-color:#dfbf7a}.pt-scrub output{font-variant-numeric:tabular-nums;width:95px;text-align:right;color:#dfbf7a}
+.pt-panels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:1600px;margin:20px auto}
+.pt-panel{min-width:0;border:1px solid #3a5053;border-radius:8px;overflow:hidden;background:#16292e}
+.pt-panel>header{padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px}.pt-panel h2,.pt-baseline h2{margin:0;font-size:17px}.pt-panel header span{font-size:11px;color:#b6c8c5}
+.pt-stage{height:350px;position:relative}.pt-solo{grid-template-columns:1fr;max-width:1000px}.pt-solo .pt-stage{height:460px}
+.pt-baseline{max-width:1000px;margin:22px auto}.pt-baseline p{font-size:12px;color:#b6c8c5}.pt-baseline .pt-stage{height:460px;border:1px solid #52666a}
+.pt-preview footer,.pt-preview details{max-width:1600px;margin:18px auto;color:#99b0b0;font-size:12px}.pt-preview footer p{margin:5px 0}.pt-preview pre{overflow:auto;max-height:260px;background:#15282e;padding:12px}
+@media(max-width:900px){.pt-preview{padding:14px}.pt-heading{align-items:flex-start;flex-direction:column;gap:10px}.pt-panels{grid-template-columns:1fr}.pt-stage{height:340px}.pt-panel>header{padding:8px 12px}.pt-solo .pt-stage,.pt-baseline .pt-stage{height:340px}}
+@media(min-width:901px) and (max-width:1200px){.pt-panel>header{flex-direction:column;align-items:flex-start;gap:2px}.pt-stage{height:310px}}
+/* Diagnostic viewport keeps the whole batter readable on narrow phones. */
+@media(max-width:500px){.pt-stage,.pt-solo .pt-stage,.pt-baseline .pt-stage{height:250px}}
+
+/* Only this standalone editor supports both phone orientations. */
+body:has(.pt-preview)::before,body:has(.pt-preview)::after{display:none!important}

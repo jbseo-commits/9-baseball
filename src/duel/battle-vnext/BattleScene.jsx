@@ -27,15 +27,17 @@ export function approvedPitcherArt(artId){
 
 const ACTORS=['pitcher','batter'];
 
-export default function BattleScene({scene=null,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,framing='cover',playback=null,result=null,finale=null,onFocusChange=null}){
+export default function BattleScene({scene=null,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,framing='cover',playback=null,result=null,finale=null,onFocusChange=null,reviewFrame=null}){
   const rootRef=useRef(null);
-  const elapsed=useSceneClock(playback);
+  // Explicit review time disables the production RAF; live callers retain their clock.
+  const clockElapsed=useSceneClock(reviewFrame?null:playback);
+  const elapsed=reviewFrame?.elapsed??clockElapsed;
   const roster=actors.pitcher?.kind==='roster-atlas'?actors.pitcher:null;
   const composition=framing==='atbat'?(roster?{...ATBAT_COMPOSITION,pitcher:roster.meta,release:roster.release}:ATBAT_COMPOSITION):null;
   const reduced=playback?.timeline?.duration<=60;
   const focus=pitchFocusAt({elapsed,playback,phase,reduced});
   useLayoutEffect(()=>{onFocusChange?.(focus);},[focus,onFocusChange]);
-  const effect=sceneEffectAt({elapsed,playback,result,phase,composition});
+  const effect=reviewFrame&&Object.hasOwn(reviewFrame,'effect')?reviewFrame.effect:sceneEffectAt({elapsed,playback,result,phase,composition});
   const landingAt=playback?.timeline?.delivery?.landingAt??roster?.landingAt;
   const landingAge=elapsed-landingAt;
   const landing=roster?.landing&&playback&&!reduced&&playback.action!=='prepare'&&elapsed>=landingAt&&elapsed<landingAt+230
@@ -90,11 +92,12 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
     {effect?.kind==='flight'&&!reduced&&<div className="bv-ball-wake" aria-hidden="true" style={{position:'absolute',inset:0,zIndex:2,pointerEvents:'none'}}><FxSprite kind="wake" age={effect.age} point={at(effect.ball)} scale={camera.scale} size={.35+effect.radius/30} angle={Math.atan2(effect.ball.y-effect.previous.y,effect.ball.x-effect.previous.x)*180/Math.PI} opacity={.6}/></div>}
     <div className="bv-effect-pass" aria-hidden="true" style={{transform:effect?.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:'none'}}>
       <div className="bv-effect-world" style={{width:SCENE.world.width,height:SCENE.world.height,transform:cameraMatrix(camera),visibility:camera.scale?'visible':'hidden'}}>
+        {reviewFrame?.overlay}
         <SceneEffects effect={effect} finale={finale} composition={composition} landing={landing} spriteBall={!reduced} pixelContact={!!effect&&phase==='result'&&contactAtlasPlan(scene?.shotGrade).length>0}/>
       </div>
     </div>
     {effect&&!effect.hidden&&!reduced&&<div className="bv-ball-sprite" aria-hidden="true" style={{position:'absolute',inset:0,zIndex:2,pointerEvents:'none',transform:effect.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:undefined}}><FxSprite kind="ball" age={effect.spinAge??effect.age} point={at(effect.ball)} scale={camera.scale} size={effect.radius/10}/></div>}
-    {roster?.landing&&playback&&!reduced&&playback.action!=='prepare'&&landingAge>=0&&landingAge<850&&<div className="bv-plant-pixelfx" aria-hidden="true" style={{position:'absolute',inset:0,zIndex:2,pointerEvents:'none',transform:effect?.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:undefined}}><FxSprite kind="plant" age={landingAge} point={at(roster.landing)} scale={camera.scale} size={1.1} opacity={.65*Math.min(1,(850-landingAge)/200)}/></div>}
+    {!reviewFrame?.overlay&&roster?.landing&&playback&&!reduced&&playback.action!=='prepare'&&landingAge>=0&&landingAge<850&&<div className="bv-plant-pixelfx" aria-hidden="true" style={{position:'absolute',inset:0,zIndex:2,pointerEvents:'none',transform:effect?.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:undefined}}><FxSprite kind="plant" age={landingAge} point={at(roster.landing)} scale={camera.scale} size={1.1} opacity={.65*Math.min(1,(850-landingAge)/200)}/></div>}
     <ContactPixelFx sceneRef={rootRef} active={!!effect&&['contact','exact','homer','foul'].includes(effect.kind)&&effect.age>=0} grade={scene?.shotGrade} token={scene?.playToken} contact={snap?contact:null} age={effect?.age??0} freeze={playback?.timeline?.freeze||0} scale={camera.scale} cameraOffset={{x:(effect?.camera||0)*camera.scale,y:-(effect?.camera||0)*.25*camera.scale}}/>
     {reviewNotice&&<p className="bv-scene-notice" role="note">그림 포즈 모션 검수{actors.pitcher&&actors.pitcher===SAMPLE_ACTORS.pitcher?' · 샘플 투수':''}</p>}
     {effect?.kind==='exact'&&effect.flash>0&&<div className="bv-contact-focus" style={{opacity:effect.flash*.65}} aria-hidden="true"/>}
