@@ -1,0 +1,30 @@
+{
+  "name": "9zone-showdown",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "report:zones": "node scripts/zone-report.js 100",
+    "report:growth": "node scripts/growth-report.js 30",
+    "report:v9": "node scripts/v9-report.js 20",
+    "check:dist": "node scripts/check-dist-budget.mjs",
+    "report:art": "node scripts/card-art-audit.mjs"
+  },
+  "dependencies": {
+    "pixi.js": "^8.21.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^8.2.2"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.3.3",
+    "autoprefixer": "^10.5.4",
+    "happy-dom": "^20.12.0",
+    "postcss": "^8.5.26",
+    "vitest": "^4.1.11"
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "sourceCommit": "06aa22d",
+  "sourceHashes": {
+    "prototype": "344115b6bc26786768b32b78b3499a9aad36f337",
+    "trajectory": "a339c593958db339b8cc803038f7fe866e355045"
+  },
+  "descriptor": {
+    "release": {
+      "x": 800,
+      "y": 350
+    },
+    "target": {
+      "x": 550,
+      "y": 700
+    },
+    "releaseAt": 1317,
+    "impactAt": 1617,
+    "flightMs": 300,
+    "seed": 23
+  },
+  "model": {
+    "swingLeadMs": 160,
+    "commitDeadlineMsAfterRelease": 140,
+    "contactRadius": 22,
+    "multipliers": {
+      "small": 1,
+      "medium": 1.5,
+      "large": 3
+    },
+    "grid": "every integer contactAt from release through impact+700ms at same registered T target for all swipe classes; no engine pending or forecast inputs"
+  },
+  "gridPointsPerProfile": 1001,
+  "gridComparisons": 3003,
+  "geometricDiscord": 0,
+  "scoreOrderViolations": 0,
+  "resultDifferences": 36,
+  "summaries": [
+    {
+      "profile": "fastball",
+      "windows": {
+        "small": {
+          "firstMs": -7,
+          "lastMs": 7,
+          "count": 15
+        },
+        "medium": {
+          "firstMs": -7,
+          "lastMs": 7,
+          "count": 15
+        },
+        "large": {
+          "firstMs": -7,
+          "lastMs": 7,
+          "count": 15
+        }
+      },
+      "sizeResults": {
+        "small": {
+          "contact": 0,
+          "cut-foul": 15,
+          "miss": 986
+        },
+        "medium": {
+          "contact": 15,
+          "cut-foul": 0,
+          "miss": 986
+        },
+        "large": {
+          "contact": 15,
+          "cut-foul": 0,
+          "miss": 986
+        }
+      },
+      "geometrySameAcrossSizes": true,
+      "largeVsMediumDominanceViolations": 0,
+      "largeVsSmallDominanceViolations": 0,
+      "at140msDeltaFromFastball": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "profile": "slider",
+      "windows": {
+        "small": {
+          "firstMs": -5,
+          "lastMs": 4,
+          "count": 10
+        },
+        "medium": {
+          "firstMs": -5,
+          "lastMs": 4,
+          "count": 10
+        },
+        "large": {
+          "firstMs": -5,
+          "lastMs": 4,
+          "count": 10
+        }
+      },
+      "sizeResults": {
+        "small": {
+          "contact": 0,
+          "cut-foul": 10,
+          "miss": 991
+        },
+        "medium": {
+          "contact": 10,
+          "cut-foul": 0,
+          "miss": 991
+        },
+        "large": {
+          "contact": 10,
+          "cut-foul": 0,
+          "miss": 991
+        }
+      },
+      "geometrySameAcrossSizes": true,
+      "largeVsMediumDominanceViolations": 0,
+      "largeVsSmallDominanceViolations": 0,
+      "at140msDeltaFromFastball": {
+        "x": 34.94654010059446,
+        "y": 0
+      }
+    },
+    {
+      "profile": "curve",
+      "windows": {
+        "small": {
+          "firstMs": -5,
+          "lastMs": 5,
+          "count": 11
+        },
+        "medium": {
+          "firstMs": -5,
+          "lastMs": 5,
+          "count": 11
+        },
+        "large": {
+          "firstMs": -5,
+          "lastMs": 5,
+          "count": 11
+        }
+      },
+      "sizeResults": {
+        "small": {
+          "contact": 0,
+          "cut-foul": 11,
+          "miss": 990
+        },
+        "medium": {
+          "contact": 11,
+          "cut-foul": 0,
+          "miss": 990
+        },
+        "large": {
+          "contact": 11,
+          "cut-foul": 0,
+          "miss": 990
+        }
+      },
+      "geometrySameAcrossSizes": true,
+      "largeVsMediumDominanceViolations": 0,
+      "largeVsSmallDominanceViolations": 0,
+      "at140msDeltaFromFastball": {
+        "x": 0,
+        "y": -105.5288888888889
+      }
+    }
+  ],
+  "interpretation": "Conditional rule dominance only for an identical target/time/input-class comparison; no gesture-duration, motor-effort, human reaction, or engine reward cost is represented."
+}
