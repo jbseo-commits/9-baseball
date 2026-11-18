@@ -1,0 +1,27 @@
+AssertionError [ERR_ASSERTION]: pre-action oracle parity 0
++ actual - expected
+... Skipped lines
+
+  {
+    battle: {
+      aim: 0,
+      aimZone: 4,
+      balls: 0,
+...
+      outs: 0,
++     pitches: 0,
+-     pitches: 1,
+      runs: 0,
+      totalBases: 0,
+      walks: 0,
+      whiffs: 0
+    },
+
+    at /tmp/nonvisual-audit-20261118/divergence-probe.cjs:20:36 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: [Object],
+  expected: [Object],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}

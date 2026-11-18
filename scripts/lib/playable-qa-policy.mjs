@@ -1,4 +1,4 @@
-/* QA only: chooses from public previews; never peeks at the resolved pitch. */
+/* QA regression policy only: deterministically maximizes exact engine-preview hit/EV scores; not a human limited-information strategy. */
 import{createV10Duel,enterV10Node,setAimZone,previewCard,previewV10Stack,playV10Action,advanceV10Pitch,advanceV10Batter}from'../../src/duel/engine.js';
 import{CARDS}from'../../src/duel/cards.js';
 export function choose(s){

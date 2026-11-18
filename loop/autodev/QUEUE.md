@@ -36,3 +36,11 @@ PR별로 main0eedc99에서 독립 수정했다. Pages는 후속 브랜치 배포
 | --- | --- | --- | --- |
 | G-020 | P1 | RELEASE_VERIFIED | PR94 mainb466c82/Pages42565875219 공개 실제새런+포커스/터치/키보드/접기/이어하기 통과. rootclip격리,5크기browser/full1631/실제경기/독립review/블라인드 IMPROVED. run read-loop-20261109 R1. |
 | G-021 | P1 | VALIDATED_LOCAL | baseline667×320/844×300·390에서 정보창body11건넘침. boundedflex/bodytabkey복원,5크기6tab production/3크기독립UX/full1631/블라인드 IMPROVED 통과. 게시·정확SHA는 PR 기록. run read-loop-20261109 R2. |
+
+## 2026-11-18 independent nonvisual continuation
+
+| ID | Priority | Status | Evidence / next action |
+| --- | --- | --- | --- |
+| G-022 | P1 | VALIDATED_LOCAL | Original real-play QA stops at obsolete11-pitch assertion (actual6) before recovery checks. QA-only accumulated-oracle repair; `docs/qa/nonvisual-audit-20261118`. Cross-runtime map-edge generation excluded explicitly. |
+
+G-003 remains NEEDS_HUMAN / visual correction3/3 HELD as recorded in [PR125](https://github.com/jbseo-commits/9-baseball/pull/125). Its local failed candidate071f057 is untouched; this continuation does not reset that gate.
