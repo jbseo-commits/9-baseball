@@ -1,0 +1,188 @@
+{
+  "test": "single native Playwright tap on seed-3 real playable first pitch; stage changes observed via MutationObserver and RAF sampling",
+  "thresholdFromPriorQA": {
+    "minMs": 4000,
+    "maxMs": 5500
+  },
+  "cpuThrottle": "Chrome Emulation.setCPUThrottlingRate rate=4 only; not a physical-device benchmark",
+  "records": [
+    {
+      "condition": "cpu8x",
+      "index": 1,
+      "cpuThrottleRate": 8,
+      "base": "http://127.0.0.1:5198/",
+      "requestedSpeed": "0.5x",
+      "tapIssuedAt": 3684.2999999970198,
+      "tapReturnedAt": 4513.699999999255,
+      "tapDurationMs": 829.4000000022352,
+      "tapEvents": [
+        {
+          "type": "pointerdown",
+          "at": 3796.5,
+          "eventTime": 3763.099999997765,
+          "pointerType": "touch"
+        },
+        {
+          "type": "pointerup",
+          "at": 3805.2999999970198,
+          "eventTime": 3763.099999997765,
+          "pointerType": "touch"
+        }
+      ],
+      "observerStartedAt": 3676,
+      "mutationRecords": [
+        {
+          "callbackAt": 4104.29999999702,
+          "mutationType": "attributes",
+          "attribute": "data-phase",
+          "oldValue": "deciding",
+          "currentValue": "flight",
+          "playToken": "1",
+          "phase": "flight"
+        },
+        {
+          "callbackAt": 4104.29999999702,
+          "mutationType": "attributes",
+          "attribute": "data-fx-stage",
+          "oldValue": null,
+          "currentValue": "windup",
+          "playToken": "1",
+          "phase": "flight"
+        },
+        {
+          "callbackAt": 4104.29999999702,
+          "mutationType": "attributes",
+          "attribute": "data-play-token",
+          "oldValue": "0",
+          "currentValue": "1",
+          "playToken": "1",
+          "phase": "flight"
+        },
+        {
+          "callbackAt": 6445,
+          "mutationType": "attributes",
+          "attribute": "data-phase",
+          "oldValue": "flight",
+          "currentValue": "result",
+          "playToken": "1",
+          "phase": "result"
+        },
+        {
+          "callbackAt": 6445,
+          "mutationType": "attributes",
+          "attribute": "data-fx-stage",
+          "oldValue": "windup",
+          "currentValue": "impact",
+          "playToken": "1",
+          "phase": "result"
+        },
+        {
+          "callbackAt": 6573.79999999702,
+          "mutationType": "attributes",
+          "attribute": "data-fx-stage",
+          "oldValue": "impact",
+          "currentValue": "release",
+          "playToken": "1",
+          "phase": "result"
+        },
+        {
+          "callbackAt": 7570.79999999702,
+          "mutationType": "attributes",
+          "attribute": "data-fx-stage",
+          "oldValue": "release",
+          "currentValue": "settle",
+          "playToken": "1",
+          "phase": "result"
+        },
+        {
+          "callbackAt": 8076.89999999851,
+          "mutationType": "attributes",
+          "attribute": "data-fx-stage",
+          "oldValue": "settle",
+          "currentValue": null,
+          "playToken": "1",
+          "phase": "result"
+        }
+      ],
+      "rafStageTransitions": [
+        {
+          "at": 4123.79999999702,
+          "stage": "windup",
+          "phase": "flight",
+          "token": "1"
+        },
+        {
+          "at": 6447.199999999255,
+          "stage": "impact",
+          "phase": "result",
+          "token": "1"
+        },
+        {
+          "at": 6577.599999997765,
+          "stage": "release",
+          "phase": "result",
+          "token": "1"
+        },
+        {
+          "at": 7575.39999999851,
+          "stage": "settle",
+          "phase": "result",
+          "token": "1"
+        },
+        {
+          "at": 8077,
+          "stage": null,
+          "phase": "result",
+          "token": "1"
+        }
+      ],
+      "firstStage": {
+        "at": 4123.79999999702,
+        "stage": "windup",
+        "phase": "flight",
+        "token": "1"
+      },
+      "lastObservedMutation": {
+        "callbackAt": 8076.89999999851,
+        "mutationType": "attributes",
+        "attribute": "data-fx-stage",
+        "oldValue": "settle",
+        "currentValue": null,
+        "playToken": "1",
+        "phase": "result"
+      },
+      "elapsedMutationMs": 3953.10000000149,
+      "elapsedRafMs": 3953.2000000029802,
+      "mutationDeliveryAfterStartMs": -19.5,
+      "initial": {
+        "phase": "battle",
+        "seed": 3,
+        "pitches": 0,
+        "stage": "windup"
+      },
+      "final": {
+        "phase": "pitch",
+        "pitches": 1,
+        "outs": 0,
+        "strikes": 1,
+        "last": {
+          "kind": "pitch",
+          "text": "강한결 · 루킹 스트라이크",
+          "events": [
+            "실제 코스: 바깥 높음",
+            "지켜보기 보상 · 다음 실제 공 에너지 +1",
+            "같은 타자 · 다음 공에서 승부가 이어집니다."
+          ],
+          "growthEvents": [],
+          "runs": 0,
+          "outs": 0
+        },
+        "fxStage": null
+      },
+      "errors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    }
+  ]
+}
