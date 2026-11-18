@@ -1,0 +1,93 @@
+{
+  "method": "Chromium CDP Input.dispatchTouchEvent drag in map detail scroll container; touch emulation only, not physical device.",
+  "rows": [
+    {
+      "label": "before",
+      "kind": "regular",
+      "before": {
+        "scrollTop": 0,
+        "scrollHeight": 180,
+        "clientHeight": 80,
+        "textY": 266.859375,
+        "textBottom": 283.359375,
+        "hit": "bp-mgo"
+      },
+      "after": {
+        "scrollTop": 45,
+        "scrollHeight": 180,
+        "clientHeight": 80,
+        "textY": 221.859375,
+        "textBottom": 238.359375,
+        "visibleHit": "bp-msheet",
+        "scrollable": true
+      },
+      "screenshot": "/tmp/route-contract-20261118/compare-before/regular-568-after-drag.png"
+    },
+    {
+      "label": "before",
+      "kind": "elite",
+      "before": {
+        "scrollTop": 0,
+        "scrollHeight": 177,
+        "clientHeight": 80,
+        "textY": 286.65625,
+        "textBottom": 303.15625,
+        "hit": "bp-msheet"
+      },
+      "after": {
+        "scrollTop": 45,
+        "scrollHeight": 177,
+        "clientHeight": 80,
+        "textY": 241.65625,
+        "textBottom": 258.15625,
+        "visibleHit": "bp-mgo",
+        "scrollable": true
+      },
+      "screenshot": "/tmp/route-contract-20261118/compare-before/elite-568-after-drag.png"
+    },
+    {
+      "label": "after",
+      "kind": "regular",
+      "before": {
+        "scrollTop": 0,
+        "scrollHeight": 180,
+        "clientHeight": 80,
+        "textY": 266.859375,
+        "textBottom": 283.359375,
+        "hit": "bp-mgo"
+      },
+      "after": {
+        "scrollTop": 45,
+        "scrollHeight": 180,
+        "clientHeight": 80,
+        "textY": 221.859375,
+        "textBottom": 238.359375,
+        "visibleHit": "bp-msheet",
+        "scrollable": true
+      },
+      "screenshot": "/tmp/route-contract-20261118/compare-after/regular-568-after-drag.png"
+    },
+    {
+      "label": "after",
+      "kind": "elite",
+      "before": {
+        "scrollTop": 0,
+        "scrollHeight": 177,
+        "clientHeight": 80,
+        "textY": 286.65625,
+        "textBottom": 303.15625,
+        "hit": "bp-msheet"
+      },
+      "after": {
+        "scrollTop": 45,
+        "scrollHeight": 177,
+        "clientHeight": 80,
+        "textY": 241.65625,
+        "textBottom": 258.15625,
+        "visibleHit": "bp-mgo",
+        "scrollable": true
+      },
+      "screenshot": "/tmp/route-contract-20261118/compare-after/elite-568-after-drag.png"
+    }
+  ]
+}

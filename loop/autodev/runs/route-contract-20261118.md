@@ -1,0 +1,12 @@
+# G-024 — Full-deck route promises
+
+- Continuing authorized autonomous batch from G022 (14:39KST, deadline16:39KST, max6cycles); G022/G023 complete, this is cycle3. Latest user explicitly replaced one-cycle-stop instruction; continue independent work within remaining budget, no routine permission questions.
+- Start ~15:24KST. Fresh mainfb8e7b1; branch review/route-contract-audit-20261118. G023/PR127, G022/PR126 and G0033/3HELD/PR125 preserved separately; no dependent changes carried over.
+- Historical route feedback used only as audit direction. Actual finding: map's unconditional card reward/shop promise conflicts with DECK_MAX18. Main engine boundary reproduced with17/18 synthetic fixture; not a natural full-run claim. Independent reviewer agrees scope and checked PR118/119/103 duplication (none). HABIT/encounter inconsistency not established; no change proposed there.
+- Intended contract: a full deck must not be promised card addition before choosing a node. Reuse public deckCount and shared DECK_MAX. Preserve entry, relic/skip/recovery, next-act and final-boss completion. No new availability promise or hidden future information.
+- Impact9axes: UI textual condition only, no layout/CSS/art change; input unchanged; logic/balance none; save/schema none; mobile text fit needs before/after checks; overflow check; flow map→node/reward boundary verification; tests meaningful17/18+node types; fulltest/smoke/build/dist required. Existing visual-candidate gate is not restarted or renamed; factual copy correction only.
+- Roles: root coordinator/docs; existingworker sole product editor after handoff; reviewer independent read-only; explorer actual DOM/engine comparison. Main push/merge/production deployment prohibited; separate Draft authorized.
+
+- Final correction2/3; no third header addition. Initial hidden-line concern corrected after actual touch scrolling established full access, unchanged geometry/save/selection. Earlier raw measurements retained. G0033/3HELD unchanged.
+- Technical evidence:249/1732,119screen,42touch,116capacity,fullplayPR126diagnostic,smoke10,build52.8/60MiB. No new deploy; independent reviewer approved Draft posting. See docs/qa/route-contract-20261118.
+- Next independent reproduced candidate: IntegrationPreview1x/reduced omits cue AbortSignal; native source instrumentation confirms finite scheduled audio continues after mute/reset. G025 planned freshmain, no main/liveApp/audio.js or save/rule change. Remain within original16:39KST deadline and max6cycles.
