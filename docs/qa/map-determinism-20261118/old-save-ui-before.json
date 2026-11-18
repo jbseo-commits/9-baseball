@@ -1,0 +1,452 @@
+{
+  "base": "http://127.0.0.1:5199/",
+  "fixtures": [
+    "/tmp/map-determinism-20261118/node-stage-fixture-seed3.json",
+    "/tmp/map-determinism-20261118/chromium-stage-fixture-seed3.json"
+  ],
+  "method": "Playwright Chromium touch emulation, direct pre-change localStorage fixture injection, UI continue/reload/reward-skip/next-node; landscape viewport resize is not physical device rotation.",
+  "checks": [
+    {
+      "name": "node-stage-fixture-seed3.json map 568x320 continue restores phase",
+      "ok": true,
+      "detail": {
+        "phase": "map"
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json map 568x320 continue preserves saved graph",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 66
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json map 568x320 reload then continue preserves phase and graph",
+      "ok": true,
+      "detail": {
+        "phase": "map"
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json map 844x390 continue restores phase",
+      "ok": true,
+      "detail": {
+        "phase": "map"
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json map 844x390 continue preserves saved graph",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 66
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json map 844x390 reload then continue preserves phase and graph",
+      "ok": true,
+      "detail": {
+        "phase": "map"
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json battle 568x320 continue restores phase",
+      "ok": true,
+      "detail": {
+        "phase": "battle"
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json battle 568x320 continue preserves saved graph",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 66
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json battle 568x320 reload then continue preserves phase and graph",
+      "ok": true,
+      "detail": {
+        "phase": "battle"
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json battle 844x390 continue restores phase",
+      "ok": true,
+      "detail": {
+        "phase": "battle"
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json battle 844x390 continue preserves saved graph",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 66
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json battle 844x390 reload then continue preserves phase and graph",
+      "ok": true,
+      "detail": {
+        "phase": "battle"
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 568x320 continue restores phase",
+      "ok": true,
+      "detail": {
+        "phase": "reward"
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 568x320 continue preserves saved graph",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 66
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 568x320 reload then continue preserves phase and graph",
+      "ok": true,
+      "detail": {
+        "phase": "reward"
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 568x320 portrait orientation prompt appears",
+      "ok": true
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 568x320 portrait prompt preserves save",
+      "ok": true
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 568x320 landscape return preserves reward graph",
+      "ok": true
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 568x320 reward skip returns to map",
+      "ok": true,
+      "detail": {
+        "phase": "map"
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 568x320 reward skip leaves nodes and edges unchanged",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 66
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 568x320 next reachable node enters battle",
+      "ok": true,
+      "detail": {
+        "phase": "battle",
+        "node": "a1-r1l1",
+        "expected": "a1-r1l1"
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 568x320 next-node entry leaves nodes and edges unchanged",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 66
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 844x390 continue restores phase",
+      "ok": true,
+      "detail": {
+        "phase": "reward"
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 844x390 continue preserves saved graph",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 66
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 844x390 reload then continue preserves phase and graph",
+      "ok": true,
+      "detail": {
+        "phase": "reward"
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 844x390 portrait orientation prompt appears",
+      "ok": true
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 844x390 portrait prompt preserves save",
+      "ok": true
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 844x390 landscape return preserves reward graph",
+      "ok": true
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 844x390 reward skip returns to map",
+      "ok": true,
+      "detail": {
+        "phase": "map"
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 844x390 reward skip leaves nodes and edges unchanged",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 66
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 844x390 next reachable node enters battle",
+      "ok": true,
+      "detail": {
+        "phase": "battle",
+        "node": "a1-r1l1",
+        "expected": "a1-r1l1"
+      }
+    },
+    {
+      "name": "node-stage-fixture-seed3.json reward 844x390 next-node entry leaves nodes and edges unchanged",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 66
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json map 568x320 continue restores phase",
+      "ok": true,
+      "detail": {
+        "phase": "map"
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json map 568x320 continue preserves saved graph",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 64
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json map 568x320 reload then continue preserves phase and graph",
+      "ok": true,
+      "detail": {
+        "phase": "map"
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json map 844x390 continue restores phase",
+      "ok": true,
+      "detail": {
+        "phase": "map"
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json map 844x390 continue preserves saved graph",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 64
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json map 844x390 reload then continue preserves phase and graph",
+      "ok": true,
+      "detail": {
+        "phase": "map"
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json battle 568x320 continue restores phase",
+      "ok": true,
+      "detail": {
+        "phase": "battle"
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json battle 568x320 continue preserves saved graph",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 64
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json battle 568x320 reload then continue preserves phase and graph",
+      "ok": true,
+      "detail": {
+        "phase": "battle"
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json battle 844x390 continue restores phase",
+      "ok": true,
+      "detail": {
+        "phase": "battle"
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json battle 844x390 continue preserves saved graph",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 64
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json battle 844x390 reload then continue preserves phase and graph",
+      "ok": true,
+      "detail": {
+        "phase": "battle"
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 568x320 continue restores phase",
+      "ok": true,
+      "detail": {
+        "phase": "reward"
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 568x320 continue preserves saved graph",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 64
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 568x320 reload then continue preserves phase and graph",
+      "ok": true,
+      "detail": {
+        "phase": "reward"
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 568x320 portrait orientation prompt appears",
+      "ok": true
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 568x320 portrait prompt preserves save",
+      "ok": true
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 568x320 landscape return preserves reward graph",
+      "ok": true
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 568x320 reward skip returns to map",
+      "ok": true,
+      "detail": {
+        "phase": "map"
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 568x320 reward skip leaves nodes and edges unchanged",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 64
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 568x320 next reachable node enters battle",
+      "ok": true,
+      "detail": {
+        "phase": "battle",
+        "node": "a1-r1l1",
+        "expected": "a1-r1l1"
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 568x320 next-node entry leaves nodes and edges unchanged",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 64
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 844x390 continue restores phase",
+      "ok": true,
+      "detail": {
+        "phase": "reward"
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 844x390 continue preserves saved graph",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 64
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 844x390 reload then continue preserves phase and graph",
+      "ok": true,
+      "detail": {
+        "phase": "reward"
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 844x390 portrait orientation prompt appears",
+      "ok": true
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 844x390 portrait prompt preserves save",
+      "ok": true
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 844x390 landscape return preserves reward graph",
+      "ok": true
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 844x390 reward skip returns to map",
+      "ok": true,
+      "detail": {
+        "phase": "map"
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 844x390 reward skip leaves nodes and edges unchanged",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 64
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 844x390 next reachable node enters battle",
+      "ok": true,
+      "detail": {
+        "phase": "battle",
+        "node": "a1-r1l1",
+        "expected": "a1-r1l1"
+      }
+    },
+    {
+      "name": "chromium-stage-fixture-seed3.json reward 844x390 next-node entry leaves nodes and edges unchanged",
+      "ok": true,
+      "detail": {
+        "nodes": 43,
+        "edges": 64
+      }
+    }
+  ],
+  "errors": [],
+  "failed": 0
+}

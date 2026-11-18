@@ -1,0 +1,18 @@
+{
+  "sourceCommit": "05898d68ee4249c7fd08a65df0446ae56cb22f94",
+  "sourcePR": 126,
+  "sourcePath": "scripts/qa-playable-run.cjs",
+  "executedScriptSha256": "eaef79b7f80cc062bff7aa7b5701d10c3fb570cb0428119975ee5488b5d1bd94",
+  "changes": [
+    "Relative engine/policy imports replaced with absolute file URLs for the temporary script",
+    "Oracle initialization changed from normal plus browser edges to normal only",
+    "Initial assertion label updated; no other executable changes"
+  ],
+  "exitCode": 0,
+  "environment": {
+    "NODE_PATH": "/opt/codex/cua_node/lib/node_modules",
+    "QA_BASE": "http://127.0.0.1:5198/",
+    "QA_OUT": "/tmp/map-determinism-20261118/strict-playthrough"
+  },
+  "note": "Exact executed artifact retains an inherited topology-bootstrap comment; executable oracle=normal removes that exception. This does not modify or merge PR126."
+}
