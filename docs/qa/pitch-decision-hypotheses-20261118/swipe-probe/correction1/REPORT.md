@@ -26,5 +26,5 @@ With 300ms from release to impact and 160ms lead from pointer release to bat con
 
 - `src/duel/battle-vnext/pitch-swing-prototype.js`: multiplier, contact radius, actual contact sample, small cut-foul and scoring rules (source lines 3–7, 33–50).
 - `src/duel/battle-vnext/pitch-trajectory.js`: sampled synthetic profiles and flight.
-- Machine-readable result and reproducible evaluator: `result.json`, `evaluate.mjs`; no separate execution-output log was retained for correction1.
+- Machine-readable result and reproducible evaluator: `result.json`, `evaluate.mjs`; execution output: `run.log` (explicitly tracked despite the repository log ignore rule).
 - The original uncorrected probe remains preserved in the parent `/tmp/g030-swipe-dominance/` directory.
