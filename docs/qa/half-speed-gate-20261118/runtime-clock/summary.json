@@ -1,0 +1,586 @@
+{
+  "task": "G029 read-only inspection of existing presentation playback fields and DOM stage times",
+  "scope": "default TAKE action; seed 3; 0.5x; two normal runs and one Chrome 4x CPU-throttled browser run",
+  "results": [
+    {
+      "label": "normal-1",
+      "cpuThrottleRate": 1,
+      "browserUrl": "http://127.0.0.1:5198/",
+      "requestedAnimationRate": "0.5",
+      "actionButtonLabel": "지켜보기 · 다음 공 ⚡+1",
+      "selectionAtTap": false,
+      "action": "take (default no-selection button)",
+      "pointerEvents": [
+        {
+          "type": "pointerdown",
+          "at": 810.6000000014901,
+          "timeStamp": 788
+        },
+        {
+          "type": "pointerup",
+          "at": 812.1000000014901,
+          "timeStamp": 788.1000000014901
+        }
+      ],
+      "tapIssuedAt": 714.5,
+      "tapReturnedAt": 909.3999999985099,
+      "tapDispatchMs": 194.89999999850988,
+      "runtimeFiberAvailable": true,
+      "runtimeClock": {
+        "component": "By",
+        "prop": "playback",
+        "startedAt": 826,
+        "rate": 0.5,
+        "action": "take",
+        "token": 1,
+        "timeline": {
+          "duration": 2042,
+          "impactAt": 1217,
+          "releaseAt": 1259,
+          "settleAt": 1830,
+          "freeze": 42,
+          "slowmo": 0,
+          "pitchReleaseAt": 917
+        },
+        "observedAt": 871.1000000014901,
+        "currentStage": "windup"
+      },
+      "firstWindup": {
+        "callbackAt": 865.3999999985099,
+        "oldValue": null,
+        "newValue": "windup",
+        "playToken": "1",
+        "phase": "flight"
+      },
+      "completion": {
+        "callbackAt": 4922.5,
+        "oldValue": "settle",
+        "newValue": null,
+        "playToken": "1",
+        "phase": "result"
+      },
+      "derived": {
+        "runtimeStartedAtToWindupMs": 39.399999998509884,
+        "runtimeStartedAtToCompletionMs": 4096.5,
+        "observedWindupToCompletionMs": 4057.10000000149,
+        "timelineExpectedMs": 4084
+      },
+      "final": {
+        "phase": "pitch",
+        "pitches": 1,
+        "action": "take",
+        "lastKind": "pitch",
+        "sceneStage": null
+      },
+      "stageRecords": [
+        {
+          "callbackAt": 865.3999999985099,
+          "oldValue": null,
+          "newValue": "windup",
+          "playToken": "1",
+          "phase": "flight"
+        },
+        {
+          "callbackAt": 3277.39999999851,
+          "oldValue": "windup",
+          "newValue": "impact",
+          "playToken": "1",
+          "phase": "result"
+        },
+        {
+          "callbackAt": 3351.5,
+          "oldValue": "impact",
+          "newValue": "release",
+          "playToken": "1",
+          "phase": "result"
+        },
+        {
+          "callbackAt": 4493.5,
+          "oldValue": "release",
+          "newValue": "settle",
+          "playToken": "1",
+          "phase": "result"
+        },
+        {
+          "callbackAt": 4922.5,
+          "oldValue": "settle",
+          "newValue": null,
+          "playToken": "1",
+          "phase": "result"
+        }
+      ],
+      "fiberReads": [
+        {
+          "component": "By",
+          "prop": "playback",
+          "startedAt": 826,
+          "rate": 0.5,
+          "action": "take",
+          "token": 1,
+          "timeline": {
+            "duration": 2042,
+            "impactAt": 1217,
+            "releaseAt": 1259,
+            "settleAt": 1830,
+            "freeze": 42,
+            "slowmo": 0,
+            "pitchReleaseAt": 917
+          },
+          "observedAt": 871.1000000014901,
+          "currentStage": "windup"
+        },
+        {
+          "component": "By",
+          "prop": "playback",
+          "startedAt": 826,
+          "rate": 0.5,
+          "action": "take",
+          "token": 1,
+          "timeline": {
+            "duration": 2042,
+            "impactAt": 1217,
+            "releaseAt": 1259,
+            "settleAt": 1830,
+            "freeze": 42,
+            "slowmo": 0,
+            "pitchReleaseAt": 917
+          },
+          "observedAt": 3277.800000000745,
+          "currentStage": "impact"
+        },
+        {
+          "component": "By",
+          "prop": "playback",
+          "startedAt": 826,
+          "rate": 0.5,
+          "action": "take",
+          "token": 1,
+          "timeline": {
+            "duration": 2042,
+            "impactAt": 1217,
+            "releaseAt": 1259,
+            "settleAt": 1830,
+            "freeze": 42,
+            "slowmo": 0,
+            "pitchReleaseAt": 917
+          },
+          "observedAt": 3355.5,
+          "currentStage": "release"
+        },
+        {
+          "component": "By",
+          "prop": "playback",
+          "startedAt": 826,
+          "rate": 0.5,
+          "action": "take",
+          "token": 1,
+          "timeline": {
+            "duration": 2042,
+            "impactAt": 1217,
+            "releaseAt": 1259,
+            "settleAt": 1830,
+            "freeze": 42,
+            "slowmo": 0,
+            "pitchReleaseAt": 917
+          },
+          "observedAt": 4505.699999999255,
+          "currentStage": "settle"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "normal-2",
+      "cpuThrottleRate": 1,
+      "browserUrl": "http://127.0.0.1:5198/",
+      "requestedAnimationRate": "0.5",
+      "actionButtonLabel": "지켜보기 · 다음 공 ⚡+1",
+      "selectionAtTap": false,
+      "action": "take (default no-selection button)",
+      "pointerEvents": [
+        {
+          "type": "pointerdown",
+          "at": 651.7000000029802,
+          "timeStamp": 645.2000000029802
+        },
+        {
+          "type": "pointerup",
+          "at": 653.5,
+          "timeStamp": 645.3000000007451
+        }
+      ],
+      "tapIssuedAt": 584.9000000022352,
+      "tapReturnedAt": 704.4000000022352,
+      "tapDispatchMs": 119.5,
+      "runtimeFiberAvailable": true,
+      "runtimeClock": {
+        "component": "By",
+        "prop": "playback",
+        "startedAt": 666.9000000022352,
+        "rate": 0.5,
+        "action": "take",
+        "token": 1,
+        "timeline": {
+          "duration": 2042,
+          "impactAt": 1217,
+          "releaseAt": 1259,
+          "settleAt": 1830,
+          "freeze": 42,
+          "slowmo": 0,
+          "pitchReleaseAt": 917
+        },
+        "observedAt": 694.9000000022352,
+        "currentStage": "windup"
+      },
+      "firstWindup": {
+        "callbackAt": 689.8000000007451,
+        "oldValue": null,
+        "newValue": "windup",
+        "playToken": "1",
+        "phase": "flight"
+      },
+      "completion": {
+        "callbackAt": 4762.900000002235,
+        "oldValue": "settle",
+        "newValue": null,
+        "playToken": "1",
+        "phase": "result"
+      },
+      "derived": {
+        "runtimeStartedAtToWindupMs": 22.899999998509884,
+        "runtimeStartedAtToCompletionMs": 4096,
+        "observedWindupToCompletionMs": 4073.10000000149,
+        "timelineExpectedMs": 4084
+      },
+      "final": {
+        "phase": "pitch",
+        "pitches": 1,
+        "action": "take",
+        "lastKind": "pitch",
+        "sceneStage": null
+      },
+      "stageRecords": [
+        {
+          "callbackAt": 689.8000000007451,
+          "oldValue": null,
+          "newValue": "windup",
+          "playToken": "1",
+          "phase": "flight"
+        },
+        {
+          "callbackAt": 3112.7000000029802,
+          "oldValue": "windup",
+          "newValue": "impact",
+          "playToken": "1",
+          "phase": "result"
+        },
+        {
+          "callbackAt": 3197.2000000029802,
+          "oldValue": "impact",
+          "newValue": "release",
+          "playToken": "1",
+          "phase": "result"
+        },
+        {
+          "callbackAt": 4330,
+          "oldValue": "release",
+          "newValue": "settle",
+          "playToken": "1",
+          "phase": "result"
+        },
+        {
+          "callbackAt": 4762.900000002235,
+          "oldValue": "settle",
+          "newValue": null,
+          "playToken": "1",
+          "phase": "result"
+        }
+      ],
+      "fiberReads": [
+        {
+          "component": "By",
+          "prop": "playback",
+          "startedAt": 666.9000000022352,
+          "rate": 0.5,
+          "action": "take",
+          "token": 1,
+          "timeline": {
+            "duration": 2042,
+            "impactAt": 1217,
+            "releaseAt": 1259,
+            "settleAt": 1830,
+            "freeze": 42,
+            "slowmo": 0,
+            "pitchReleaseAt": 917
+          },
+          "observedAt": 694.9000000022352,
+          "currentStage": "windup"
+        },
+        {
+          "component": "By",
+          "prop": "playback",
+          "startedAt": 666.9000000022352,
+          "rate": 0.5,
+          "action": "take",
+          "token": 1,
+          "timeline": {
+            "duration": 2042,
+            "impactAt": 1217,
+            "releaseAt": 1259,
+            "settleAt": 1830,
+            "freeze": 42,
+            "slowmo": 0,
+            "pitchReleaseAt": 917
+          },
+          "observedAt": 3115.5,
+          "currentStage": "impact"
+        },
+        {
+          "component": "By",
+          "prop": "playback",
+          "startedAt": 666.9000000022352,
+          "rate": 0.5,
+          "action": "take",
+          "token": 1,
+          "timeline": {
+            "duration": 2042,
+            "impactAt": 1217,
+            "releaseAt": 1259,
+            "settleAt": 1830,
+            "freeze": 42,
+            "slowmo": 0,
+            "pitchReleaseAt": 917
+          },
+          "observedAt": 3197.7000000029802,
+          "currentStage": "release"
+        },
+        {
+          "component": "By",
+          "prop": "playback",
+          "startedAt": 666.9000000022352,
+          "rate": 0.5,
+          "action": "take",
+          "token": 1,
+          "timeline": {
+            "duration": 2042,
+            "impactAt": 1217,
+            "releaseAt": 1259,
+            "settleAt": 1830,
+            "freeze": 42,
+            "slowmo": 0,
+            "pitchReleaseAt": 917
+          },
+          "observedAt": 4331.10000000149,
+          "currentStage": "settle"
+        },
+        {
+          "component": "By",
+          "prop": "playback",
+          "startedAt": 666.9000000022352,
+          "rate": 0.5,
+          "action": "take",
+          "token": 1,
+          "timeline": {
+            "duration": 2042,
+            "impactAt": 1217,
+            "releaseAt": 1259,
+            "settleAt": 1830,
+            "freeze": 42,
+            "slowmo": 0,
+            "pitchReleaseAt": 917
+          },
+          "observedAt": 4764.70000000298,
+          "currentStage": null
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "cpu4x-1",
+      "cpuThrottleRate": 4,
+      "browserUrl": "http://127.0.0.1:5198/",
+      "requestedAnimationRate": "0.5",
+      "actionButtonLabel": "지켜보기 · 다음 공 ⚡+1",
+      "selectionAtTap": false,
+      "action": "take (default no-selection button)",
+      "pointerEvents": [
+        {
+          "type": "pointerdown",
+          "at": 1551.1000000014901,
+          "timeStamp": 1537.1000000014901
+        },
+        {
+          "type": "pointerup",
+          "at": 1558.699999999255,
+          "timeStamp": 1537.199999999255
+        }
+      ],
+      "tapIssuedAt": 1464.300000000745,
+      "tapReturnedAt": 1848.1000000014901,
+      "tapDispatchMs": 383.80000000074506,
+      "runtimeFiberAvailable": true,
+      "runtimeClock": {
+        "component": "By",
+        "prop": "playback",
+        "startedAt": 1599.3999999985099,
+        "rate": 0.5,
+        "action": "take",
+        "token": 1,
+        "timeline": {
+          "duration": 2042,
+          "impactAt": 1217,
+          "releaseAt": 1259,
+          "settleAt": 1830,
+          "freeze": 42,
+          "slowmo": 0,
+          "pitchReleaseAt": 917
+        },
+        "observedAt": 1724.1000000014901,
+        "currentStage": "windup"
+      },
+      "firstWindup": {
+        "callbackAt": 1702.5,
+        "oldValue": null,
+        "newValue": "windup",
+        "playToken": "1",
+        "phase": "flight"
+      },
+      "completion": {
+        "callbackAt": 5861,
+        "oldValue": "settle",
+        "newValue": null,
+        "playToken": "1",
+        "phase": "result"
+      },
+      "derived": {
+        "runtimeStartedAtToWindupMs": 103.10000000149012,
+        "runtimeStartedAtToCompletionMs": 4261.60000000149,
+        "observedWindupToCompletionMs": 4158.5,
+        "timelineExpectedMs": 4084
+      },
+      "final": {
+        "phase": "pitch",
+        "pitches": 1,
+        "action": "take",
+        "lastKind": "pitch",
+        "sceneStage": null
+      },
+      "stageRecords": [
+        {
+          "callbackAt": 1702.5,
+          "oldValue": null,
+          "newValue": "windup",
+          "playToken": "1",
+          "phase": "flight"
+        },
+        {
+          "callbackAt": 4095.5,
+          "oldValue": "windup",
+          "newValue": "impact",
+          "playToken": "1",
+          "phase": "result"
+        },
+        {
+          "callbackAt": 4166.800000000745,
+          "oldValue": "impact",
+          "newValue": "release",
+          "playToken": "1",
+          "phase": "result"
+        },
+        {
+          "callbackAt": 5275.800000000745,
+          "oldValue": "release",
+          "newValue": "settle",
+          "playToken": "1",
+          "phase": "result"
+        },
+        {
+          "callbackAt": 5861,
+          "oldValue": "settle",
+          "newValue": null,
+          "playToken": "1",
+          "phase": "result"
+        }
+      ],
+      "fiberReads": [
+        {
+          "component": "By",
+          "prop": "playback",
+          "startedAt": 1599.3999999985099,
+          "rate": 0.5,
+          "action": "take",
+          "token": 1,
+          "timeline": {
+            "duration": 2042,
+            "impactAt": 1217,
+            "releaseAt": 1259,
+            "settleAt": 1830,
+            "freeze": 42,
+            "slowmo": 0,
+            "pitchReleaseAt": 917
+          },
+          "observedAt": 1724.1000000014901,
+          "currentStage": "windup"
+        },
+        {
+          "component": "By",
+          "prop": "playback",
+          "startedAt": 1599.3999999985099,
+          "rate": 0.5,
+          "action": "take",
+          "token": 1,
+          "timeline": {
+            "duration": 2042,
+            "impactAt": 1217,
+            "releaseAt": 1259,
+            "settleAt": 1830,
+            "freeze": 42,
+            "slowmo": 0,
+            "pitchReleaseAt": 917
+          },
+          "observedAt": 4096.699999999255,
+          "currentStage": "impact"
+        },
+        {
+          "component": "By",
+          "prop": "playback",
+          "startedAt": 1599.3999999985099,
+          "rate": 0.5,
+          "action": "take",
+          "token": 1,
+          "timeline": {
+            "duration": 2042,
+            "impactAt": 1217,
+            "releaseAt": 1259,
+            "settleAt": 1830,
+            "freeze": 42,
+            "slowmo": 0,
+            "pitchReleaseAt": 917
+          },
+          "observedAt": 4167.800000000745,
+          "currentStage": "release"
+        },
+        {
+          "component": "By",
+          "prop": "playback",
+          "startedAt": 1599.3999999985099,
+          "rate": 0.5,
+          "action": "take",
+          "token": 1,
+          "timeline": {
+            "duration": 2042,
+            "impactAt": 1217,
+            "releaseAt": 1259,
+            "settleAt": 1830,
+            "freeze": 42,
+            "slowmo": 0,
+            "pitchReleaseAt": 917
+          },
+          "observedAt": 5278.60000000149,
+          "currentStage": "settle"
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

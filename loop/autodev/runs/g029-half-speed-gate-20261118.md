@@ -1,0 +1,21 @@
+# G029 — Half-speed observed-stage QA diagnosis
+
+Batch2 cycle2 of6, same16:39–18:39KST budget (07:39–09:39UTC); continuous batches authorized but individual correction limits preserved. Previous G028QA-only Draft132 published7cbca29+1659fa1. Mainfb8e7b1 unchanged. Existing PR126 branch review/nonvisual-boundary-audit-20261118 at05898d6 owns qa-playable-run.cjs; followup here avoids a duplicate QA PR. No main/merge/production deploy. Singleeditor root, worker only/tmp diagnosis, reviewer independent.
+
+Evidence before edit: native seed3 default TAKE at.5x on normal browser yields observed windupDOM→clear4060–4079ms, at4x CPU3974.9/4015.6ms and one8x3953.1ms. Existing4000..5500 bound therefore fails despite exactlyonepitch and naturalphasepitchcompletion. G026 prior failure still has no recordedelapsed and is not retrospectively explained. MO/RAF agreement only means observations align; exacthoststart unknown. Pointerup→windup grows40–299ms. No productbug established.
+
+Plan: obtain existing runtime playback.startedAt/timeline/rate via read-only inspection and compare its expected deadline to actualfirstDOM/clear. Do not simply lower a threshold. Preserve originaltraces. Defaultaction is TAKE despite bp-swing testid; not a chosen swing. At mostnormal+one4x additional diagnostic cases. Stopifhoststart inaccessible ratherthan fabricateproof.
+
+Impact BEFORE implementation: UI/layout none, input none(product), engine/balance none, saveschema none, mobile nochange/emulatedonly, scroll none, flows onlymanualQA assertions, regression relevantgate/existingclocktests/fulltests/smoke/build, deploymentnone. If safe correction exists it must retain slow-clock behavior, inputlock, eventualcompletion and exactlyonepitch assertions, with reviewer-approved measurementcontract. Productsrc/assets forbidden. Issuecorrections0/3 atdiagnosisstart; G0283/3 andvisualG0033/3HELD untouched.
+
+## Diagnosis and correction1/3
+
+Readonlyfiber inspection found runtime2042ms timeline/rate.5 in all3observations. Capturepointerup precedesstartedAt precedesDOMwindup. NormalstartedAt→windup23–39ms andhost→clear4096ms;4x103ms/4262ms. Latest4x did not reproduce priorunder4000, so all historical failures' cause remainsunproven. Structuralmeasurement mismatch is confirmed: DOMfirststage is nothoststart. No gameplayclockbugestablished.
+
+Reviewer approved fixedscenario4084ms input→clear minimum andexisting5500msmaximum; captures nativepointerup ratherthanclick because BattleAction commits ontouchpointerup/preventsduplicateclick. Exactsourceadapter timing remainscovered inexisting realApp tests/playable-run.test.jsx35–45. No newduplicatemath/testorfiber dependency inmanualgate. Addedseed/actor/watch/rate/normalmotion, nativepointerpair, finaltake/pitch1/phase/unlock assertions; preserved2200msintermediatelock. OldMOelapsed retained asdiagnosticrealHalfSpeedMs plus explicitinputToClearMs. Standalonehalf-speed.json writtenbeforetimeassert. CPUthrottleoption affects onlythismanualQApage.
+
+Normalfinalscript exit0 input→clear4102.2ms (MO4077.6);4x exit0 input→clear4166.1ms (MO4056.7). Bothfullmanualplaythroughs wonnaturally6pitches, recovery/defeat/threecard/native/layoutchecks passed. Independentdiffreview no blocker; whole suite/build pending at thischeckpoint. No src/assets/UI changes; G029correction1/3, G028/G003limitsremainfrozen.
+
+Full248files/1706testsPASS exit0 (93.54s), smoke10exit0, buildexit0/checkdist52.8/60PASS. Reviewer approved actualdiff before finalruns. Evidence docs/qa/half-speed-gate-20261118, correction1/3. G028latestDraft132head1659fa1 bothPRVerify/ImpactGate successconfirmed08:12UTC. G029readyforPR126followup; no newpreviewneededforQAonly. Next-priority read-only triage delegated, avoids existing savebarrier coverage andheld/duplicateissues; no speculativeproductfix.
+
+Published G029commit771a1cc25ddf8916c7676cc222bba65f98c9784b to existing Draft https://github.com/jbseo-commits/9-baseball/pull/126; PR title/body updated for finaloracle+timing scope, draft=true confirmed. Independentfinalreview verified18/18SHA andreport/logconsistency. CI pending on thishead. Cycle2 complete REVIEW_READY; batch2remaining4cycles until09:39UTC. Productsource unchanged/mainnotmodified; no deployment. Nextread-onlyprioritytriage active, mustfind concrete independent evidence before nextimplementation.

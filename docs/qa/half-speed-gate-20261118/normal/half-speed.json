@@ -1,0 +1,43 @@
+{
+  "action": "take",
+  "cpuRate": 1,
+  "expectedFixtureMs": 4084,
+  "inputToClearMs": 4102.199999999255,
+  "observedWindupToClearMs": 4077.599999997765,
+  "clock": [
+    {
+      "stage": "windup",
+      "at": 756.1000000014901
+    },
+    {
+      "stage": "impact",
+      "at": 3187.300000000745
+    },
+    {
+      "stage": "release",
+      "at": 3264.60000000149
+    },
+    {
+      "stage": "settle",
+      "at": 4409.39999999851
+    },
+    {
+      "stage": null,
+      "at": 4833.699999999255
+    }
+  ],
+  "pointer": [
+    {
+      "type": "pointerdown",
+      "at": 730.6999999992549,
+      "pointerType": "touch",
+      "id": 2
+    },
+    {
+      "type": "pointerup",
+      "at": 731.5,
+      "pointerType": "touch",
+      "id": 2
+    }
+  ]
+}
