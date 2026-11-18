@@ -35,6 +35,6 @@ Reproduce with `NODE_PATH=/opt/codex/cua_node/lib/node_modules QA_BASE=http://12
 
 ## Deployment
 
-An isolated owner-private Sites project is being prepared. Official Pages workflow is deliberately not used because it rebuilds/redeploys the production root. Vercel403 was not bypassed and SSO request was paused per parent instruction. Deployment URL/status will be recorded separately after native confirmation and access check.
+An isolated owner-private Sites project deployed successfully; see [deployment record and access-check blocker](DEPLOYMENT.md). Official Pages workflow is deliberately not used because it rebuilds/redeploys the production root. Vercel403 was not bypassed and SSO request was paused per parent instruction. The managed browser cannot reach the deployed host (ERR_TUNNEL_CONNECTION_FAILED); deployed gameplay verification remains blocked.
 
 Independent review: gpt-6.1-sol/high separately examined implementation and FX-off boundary captures. Found pitcher-clock coupling and radius handoff issues; both fixed and regression-checked. Final review found no remaining technical blocker for a Draft; explicitly withheld human reaction, strategy/balance and art BAR claims.
