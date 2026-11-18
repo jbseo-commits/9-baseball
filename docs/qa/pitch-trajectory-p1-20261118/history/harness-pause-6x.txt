@@ -1,0 +1,38 @@
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  [
+    {
+      profile: 'fastball',
+      r: NaN,
++     time: 1268.3999999998614,
+-     time: 467.9999999998581,
+      x: NaN,
+      y: NaN
+    },
+    {
+      profile: 'slider',
+      r: NaN,
++     time: 1268.3999999998614,
+-     time: 467.9999999998581,
+      x: NaN,
+      y: NaN
+    },
+    {
+      profile: 'curve',
+      r: NaN,
++     time: 1268.3999999998614,
+-     time: 467.9999999998581,
+      x: NaN,
+      y: NaN
+    }
+  ]
+
+    at /workspace/9-baseball/scripts/qa-pitch-trajectory.cjs:34:205 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [Array],
+  expected: [Array],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}

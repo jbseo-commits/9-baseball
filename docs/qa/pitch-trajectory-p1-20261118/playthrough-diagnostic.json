@@ -1,0 +1,163 @@
+{
+  "base": "http://127.0.0.1:5173/",
+  "normalSeed": 3,
+  "actions": [
+    {
+      "turn": 0,
+      "action": {
+        "type": "card",
+        "id": "c6"
+      },
+      "pitch": 0,
+      "hp": 60,
+      "energy": 2,
+      "phase": "battle"
+    },
+    {
+      "turn": 1,
+      "action": {
+        "type": "card",
+        "id": "c4",
+        "zone": 2
+      },
+      "pitch": 1,
+      "hp": 48,
+      "energy": 0,
+      "phase": "between"
+    },
+    {
+      "turn": 2,
+      "action": {
+        "type": "card",
+        "id": "c2",
+        "zone": 5,
+        "supports": [
+          {
+            "id": "c1",
+            "aimZone": 8
+          }
+        ]
+      },
+      "pitch": 2,
+      "hp": 26,
+      "energy": 0,
+      "phase": "between"
+    },
+    {
+      "turn": 3,
+      "action": {
+        "type": "card",
+        "id": "c5",
+        "zone": 2
+      },
+      "pitch": 3,
+      "hp": 24,
+      "energy": 0,
+      "phase": "pitch"
+    },
+    {
+      "turn": 4,
+      "action": {
+        "type": "card",
+        "id": "c3",
+        "zone": 5,
+        "supports": [
+          {
+            "id": "c0",
+            "aimZone": 8
+          }
+        ]
+      },
+      "pitch": 4,
+      "hp": 4,
+      "energy": 0,
+      "phase": "between"
+    },
+    {
+      "turn": 5,
+      "action": {
+        "type": "card",
+        "id": "c6"
+      },
+      "pitch": 4,
+      "hp": 4,
+      "energy": 2,
+      "phase": "battle"
+    },
+    {
+      "turn": 6,
+      "action": {
+        "type": "card",
+        "id": "c5",
+        "zone": 2
+      },
+      "pitch": 5,
+      "hp": 3,
+      "energy": 0,
+      "phase": "pitch"
+    },
+    {
+      "turn": 7,
+      "action": {
+        "type": "card",
+        "id": "c0",
+        "zone": 8
+      },
+      "pitch": 6,
+      "hp": 0,
+      "energy": 1,
+      "phase": "reward"
+    }
+  ],
+  "actualThreeCardCommit": true,
+  "escapeKeepsActualPlan": true,
+  "naturalDefeatAndReload": true,
+  "realHalfSpeedMs": 4077.8000000000466,
+  "firstMatchWon": true,
+  "pitches": 6,
+  "hp": 0,
+  "rewardToMap": true,
+  "reloadResume": true,
+  "titleResume": true,
+  "nextNode": "a1-r1l1",
+  "productionReadWriteDelete": false,
+  "layouts": [
+    {
+      "w": 667,
+      "h": 375,
+      "art": "regular-02-teal-mirage",
+      "fullHeight": true
+    },
+    {
+      "w": 740,
+      "h": 360,
+      "art": "regular-02-teal-mirage",
+      "fullHeight": true
+    },
+    {
+      "w": 844,
+      "h": 390,
+      "art": "regular-02-teal-mirage",
+      "fullHeight": true
+    },
+    {
+      "w": 1024,
+      "h": 768,
+      "art": "regular-02-teal-mirage",
+      "fullHeight": true
+    },
+    {
+      "w": 1440,
+      "h": 900,
+      "art": "regular-02-teal-mirage",
+      "fullHeight": true
+    },
+    {
+      "w": 1920,
+      "h": 1080,
+      "art": "regular-02-teal-mirage",
+      "fullHeight": true
+    }
+  ],
+  "errors": []
+}
