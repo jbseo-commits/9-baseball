@@ -45,3 +45,12 @@ Private preview / Draft PR and final independent UX: recorded in the run checkpo
 Final production reruns: default touch routing/rotation **42/42**,0page errors; real Duel QA diagnostic completed first match→reward→map→reload/title resume→next node, natural defeat and six layouts. This latter diagnostic uses the exact-preview policy noted above. Isolated Site artifact root also normalized to the lab, loaded the actual violet roster, and accepted a native tap attack showing the authoritative whiff/pressure HP60→58 result locally.
 
 Storage-read correction2/3: an inherited relic decorator read the live save nine times before correction. Exact lab observer/read guard and behavioral ordinary-route regression added. Final full suite250/1717, build/dist, five viewport boundary (now monitoring reads), actual lab match/reset, and default touch42/42 rerun passed. No production-save or animation-rate reads/writes; BGM preference read remains allowed. The119layout pass predates this non-layout guard; no rendering code changed afterward. Independent UX/code findings in `independent-review.md`.
+
+## Delivery
+
+- Draft PR: https://github.com/jbseo-commits/9-baseball/pull/125
+- Owner-private Site: https://ninezone-card-decision-lab-20261118.credin1.chatgpt.site/?showcase=card-decision
+- Runtime source commit: `a4b36ad2f6ae90172f4c1793166d1806f2a0f293` (following implementation `0c842b496c789fdf4b0aa1b6bbc590015390e410`). Subsequent docs-only checkpoint does not change runtime.
+- Site source commit: `41c22eebe732dd3ca6c634b5ba588dcd33bf3b3a`; site `appgprj_6afd2f651dfc81919f53012bc805fdd1`; deployment `appgdep_6afd322775248191a5277847056d5aa1`; saved version `appgprj_6afd2f651dfc81919f53012bc805fdd1~appgver_232d080228048191b82bc95ef74f0f21`.
+- Native deployment status **succeeded**, owner-only audience confirmed (owner1,groups0). Managed Chromium access to the deployed URL failed `ERR_TUNNEL_CONNECTION_FAILED` before loading the page; see `deployed-access.json`. Remote gameplay is **not verified**. The same static artifact was played locally, including default-root redirect and real result. No authentication or network-policy bypass attempted.
+- Status: technically validated isolated experiment / Draft / visual HELD / NEEDS_HUMAN. Main remains `fb8e7b1`; #123 `dc67424`, #124 `92a5839` unchanged. No merge or production-root deployment.
