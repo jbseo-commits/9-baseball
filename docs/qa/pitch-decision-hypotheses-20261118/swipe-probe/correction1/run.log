@@ -1,0 +1,303 @@
+{
+  "candidateBranch": "review/pitch-swing-prototype-20261118",
+  "sourceCommit": "06aa22d",
+  "branchHead": "92a583942eb07a1be13f124620dfdc52af13561c",
+  "sourceIdentity": [
+    {
+      "path": "src/duel/battle-vnext/pitch-swing-prototype.js",
+      "gitBlobSha1": "344115b6bc26786768b32b78b3499a9aad36f337",
+      "sha256": "55e36fc51e5636fe6663fa29badfd6e9b026a86e668119599f69d2ef0aa05f35"
+    },
+    {
+      "path": "src/duel/battle-vnext/pitch-trajectory.js",
+      "gitBlobSha1": "a339c593958db339b8cc803038f7fe866e355045",
+      "sha256": "fb6cb3654cce31ac389a65c1d72dcec720c0f4a3dfa56deeacb45ffdffd6505b"
+    }
+  ],
+  "descriptor": {
+    "release": {
+      "x": 800,
+      "y": 350
+    },
+    "target": {
+      "x": 550,
+      "y": 700
+    },
+    "releaseAt": 1317,
+    "impactAt": 1617,
+    "flightMs": 300,
+    "seed": 23,
+    "targetQualification": "synthetic registered-T descriptor for this sampler probe; not a calibrated current UI/batter target"
+  },
+  "model": {
+    "leadMs": 160,
+    "inputTimeAfterReleaseMs": 140,
+    "inputTimeBeforeContactMs": 160,
+    "contactRadiusWorldUnits": 22,
+    "swipeMultipliers": {
+      "small": 1,
+      "medium": 1.5,
+      "large": 3
+    },
+    "grid": "each integer contactAt from release through impact+700ms; all swipe classes share profile, descriptor, target, and contactAt"
+  },
+  "sampleCounts": {
+    "timeSamplesPerProfile": 1001,
+    "profileTimeSamples": 3003,
+    "geometricSizeComparisons": 3003,
+    "outcomesEvaluatedAcrossThreeStartingStrikeCounts": 27027
+  },
+  "findings": {
+    "geometryDependsOnSwipeSize": false,
+    "conditionalWeakDominanceViolations": 0,
+    "result": "For this fixed-target, fixed-time rule comparison, increasing swipe size is weakly better on prototype score and strikes: misses tie; contacts give large > medium > small in points, while small overlap is a cut-foul. This is not strict dominance at every sample, does not model gesture cost/error, and says nothing about human preferences or engine rewards."
+  },
+  "profiles": [
+    {
+      "profile": "fastball",
+      "integerContactSamples": 1001,
+      "windows": {
+        "small": {
+          "firstMsFromImpact": -7,
+          "lastMsFromImpact": 7,
+          "integerSamples": 15
+        },
+        "medium": {
+          "firstMsFromImpact": -7,
+          "lastMsFromImpact": 7,
+          "integerSamples": 15
+        },
+        "large": {
+          "firstMsFromImpact": -7,
+          "lastMsFromImpact": 7,
+          "integerSamples": 15
+        }
+      },
+      "outcomesByStartingStrikes": {
+        "0": {
+          "small": {
+            "contact": 0,
+            "cut-foul": 15,
+            "miss": 986
+          },
+          "medium": {
+            "contact": 15,
+            "cut-foul": 0,
+            "miss": 986
+          },
+          "large": {
+            "contact": 15,
+            "cut-foul": 0,
+            "miss": 986
+          }
+        },
+        "1": {
+          "small": {
+            "contact": 0,
+            "cut-foul": 15,
+            "miss": 986
+          },
+          "medium": {
+            "contact": 15,
+            "cut-foul": 0,
+            "miss": 986
+          },
+          "large": {
+            "contact": 15,
+            "cut-foul": 0,
+            "miss": 986
+          }
+        },
+        "2": {
+          "small": {
+            "contact": 0,
+            "cut-foul": 15,
+            "miss": 986
+          },
+          "medium": {
+            "contact": 15,
+            "cut-foul": 0,
+            "miss": 986
+          },
+          "large": {
+            "contact": 15,
+            "cut-foul": 0,
+            "miss": 986
+          }
+        }
+      },
+      "atInputDeadline": {
+        "inputMsAfterRelease": 140,
+        "inputMsBeforeContact": 160,
+        "profilePositionDeltaFromFastball": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    },
+    {
+      "profile": "slider",
+      "integerContactSamples": 1001,
+      "windows": {
+        "small": {
+          "firstMsFromImpact": -5,
+          "lastMsFromImpact": 4,
+          "integerSamples": 10
+        },
+        "medium": {
+          "firstMsFromImpact": -5,
+          "lastMsFromImpact": 4,
+          "integerSamples": 10
+        },
+        "large": {
+          "firstMsFromImpact": -5,
+          "lastMsFromImpact": 4,
+          "integerSamples": 10
+        }
+      },
+      "outcomesByStartingStrikes": {
+        "0": {
+          "small": {
+            "contact": 0,
+            "cut-foul": 10,
+            "miss": 991
+          },
+          "medium": {
+            "contact": 10,
+            "cut-foul": 0,
+            "miss": 991
+          },
+          "large": {
+            "contact": 10,
+            "cut-foul": 0,
+            "miss": 991
+          }
+        },
+        "1": {
+          "small": {
+            "contact": 0,
+            "cut-foul": 10,
+            "miss": 991
+          },
+          "medium": {
+            "contact": 10,
+            "cut-foul": 0,
+            "miss": 991
+          },
+          "large": {
+            "contact": 10,
+            "cut-foul": 0,
+            "miss": 991
+          }
+        },
+        "2": {
+          "small": {
+            "contact": 0,
+            "cut-foul": 10,
+            "miss": 991
+          },
+          "medium": {
+            "contact": 10,
+            "cut-foul": 0,
+            "miss": 991
+          },
+          "large": {
+            "contact": 10,
+            "cut-foul": 0,
+            "miss": 991
+          }
+        }
+      },
+      "atInputDeadline": {
+        "inputMsAfterRelease": 140,
+        "inputMsBeforeContact": 160,
+        "profilePositionDeltaFromFastball": {
+          "x": 34.94654010059446,
+          "y": 0
+        }
+      }
+    },
+    {
+      "profile": "curve",
+      "integerContactSamples": 1001,
+      "windows": {
+        "small": {
+          "firstMsFromImpact": -5,
+          "lastMsFromImpact": 5,
+          "integerSamples": 11
+        },
+        "medium": {
+          "firstMsFromImpact": -5,
+          "lastMsFromImpact": 5,
+          "integerSamples": 11
+        },
+        "large": {
+          "firstMsFromImpact": -5,
+          "lastMsFromImpact": 5,
+          "integerSamples": 11
+        }
+      },
+      "outcomesByStartingStrikes": {
+        "0": {
+          "small": {
+            "contact": 0,
+            "cut-foul": 11,
+            "miss": 990
+          },
+          "medium": {
+            "contact": 11,
+            "cut-foul": 0,
+            "miss": 990
+          },
+          "large": {
+            "contact": 11,
+            "cut-foul": 0,
+            "miss": 990
+          }
+        },
+        "1": {
+          "small": {
+            "contact": 0,
+            "cut-foul": 11,
+            "miss": 990
+          },
+          "medium": {
+            "contact": 11,
+            "cut-foul": 0,
+            "miss": 990
+          },
+          "large": {
+            "contact": 11,
+            "cut-foul": 0,
+            "miss": 990
+          }
+        },
+        "2": {
+          "small": {
+            "contact": 0,
+            "cut-foul": 11,
+            "miss": 990
+          },
+          "medium": {
+            "contact": 11,
+            "cut-foul": 0,
+            "miss": 990
+          },
+          "large": {
+            "contact": 11,
+            "cut-foul": 0,
+            "miss": 990
+          }
+        }
+      },
+      "atInputDeadline": {
+        "inputMsAfterRelease": 140,
+        "inputMsBeforeContact": 160,
+        "profilePositionDeltaFromFastball": {
+          "x": 0,
+          "y": -105.5288888888889
+        }
+      }
+    }
+  ]
+}
