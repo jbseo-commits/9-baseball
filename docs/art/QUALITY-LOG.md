@@ -30,3 +30,4 @@
 | 2026-11-10 | M06 result-phone candidate1 | gpt-6-luna/high fresh blind | 3.86 → 3.92 | NOT_IMPROVED | R8 마감 |
 | 2026-11-10 | M07 shared modal close candidate1 | gpt-6-luna/high fresh blind | 2.27 → 2.13 | NOT_IMPROVED | R4 캐릭터 존재감 |
 | 2026-11-10 | M07 shared modal close candidate2 | gpt-6-luna/high fresh blind | 3.23 → 3.35 | NOT_IMPROVED | R1 화풍 통일 |
+| 2026-11-18 | Card-first memory decision lab; held visual candidate | independent gpt-6-luna/high blind call | 3.00 → 2.94 | NOT_IMPROVED | R1 화풍 통일 |

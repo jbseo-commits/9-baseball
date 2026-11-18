@@ -109,7 +109,7 @@ export default function BallparkBattle({
   batterSheet=batterV14MasterSheet,batterRig=null,
   onSelect,onAim,onStack,onSwing,onTake,onDetail,onPile,onHome,onHelp,onSettings,onToggleSound,sound=false,onJukebox=null,onPractice=null,
   autoLesson=false,autoPlan=null,onExitLesson=null,previewMode=false,coachSignal=0,
-  defenseLab=null,vnextReview=null,
+  defenseLab=null,vnextReview=null,autoAdvance=true,
 }){
   const compact=!autoLesson;
   const vnextRequested=battleUiMode().vnext;
@@ -499,7 +499,7 @@ export default function BallparkBattle({
      info panel or optional result hand is open, a rotation notice covers the game, or the
      screen is locked (home-run movie), and keeps retrying until the
      state actually advances so a momentarily locked act() can never strand the player. */
-  const autoNext=!!onNext&&!autoLesson&&!inspect&&!(useVnext&&handOpen)&&!rotationNotice&&!inFx&&!locked&&!commitBeat&&(s.phase==='pitch'||s.phase==='between');
+  const autoNext=autoAdvance&&!!onNext&&!autoLesson&&!inspect&&!(useVnext&&handOpen)&&!rotationNotice&&!inFx&&!locked&&!commitBeat&&(s.phase==='pitch'||s.phase==='between');
   const onNextRef=useRef(onNext);onNextRef.current=onNext;
   useEffect(()=>{
     if(!autoNext)return;

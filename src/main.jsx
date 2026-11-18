@@ -50,10 +50,15 @@ import './duel/battle-vnext/layout.css';
 import './duel/orientation-lock.css';
 import {installOrientationLock} from './duel/orientation-lock.js';
 
+const params=new URLSearchParams(window.location.search);
+const cardDecisionLab=params.get('showcase')==='card-decision';
+if(cardDecisionLab&&params.get('battleUi')!=='vnext'){
+  params.set('battleUi','vnext');
+  window.history.replaceState(window.history.state,'',`${window.location.pathname}?${params.toString()}${window.location.hash}`);
+}
 const battleUi=battleUiMode(),compare=comparisonMode(window.location.search);
 if(battleUi.vnext){document.documentElement.dataset.battleUi='vnext';installOrientationLock();}
 watchLayoutMode();
-const params=new URLSearchParams(window.location.search);
 const PlayableRun=React.lazy(()=>import('./duel/battle-vnext/PlayableRun.jsx'));
 const BattleComparison=React.lazy(()=>import('./duel/battle-vnext/BattleComparison.jsx'));
 const BattleIntegrationPreview=React.lazy(()=>import('./duel/battle-vnext/IntegrationPreview.jsx'));
@@ -90,7 +95,7 @@ function HomerQa(){
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {battleUi.vnext&&params.get('battlePlay')==='1'?<MemoryPreviewBoundary><React.Suspense fallback={<p role="status">경기 준비 중…</p>}><PlayableRun/></React.Suspense></MemoryPreviewBoundary>:compare.page?<MemoryPreviewBoundary><React.Suspense fallback={<p role="status">비교 화면 준비 중…</p>}><BattleComparison/></React.Suspense></MemoryPreviewBoundary>:compare.child||compare.standalone?<MemoryPreviewBoundary><React.Suspense fallback={<p role="status">비교 화면 준비 중…</p>}><BattleIntegrationPreview fixture={battleUi.fixture} variant={compare.child||compare.standalone||'vnext'} embedded={!!compare.child}/></React.Suspense></MemoryPreviewBoundary>:battleUi.fixture ? <ErrorBoundary><React.Suspense fallback={<p role="status">검수 화면 준비 중…</p>}><BattleIntegrationPreview fixture={battleUi.fixture}/></React.Suspense></ErrorBoundary> : zoneFirstPreview ? <ErrorBoundary><React.Suspense fallback={<p role="status">전투 프리뷰 준비 중…</p>}><ZoneFirstPreview /></React.Suspense></ErrorBoundary> : homerPreview ? <ErrorBoundary><HomerunVideoPreview /></ErrorBoundary> : homerV3Qa ? <ErrorBoundary><HomerV3 /></ErrorBoundary> : homerQa ? <ErrorBoundary><HomerQa /></ErrorBoundary> : showcase ? (
+    {cardDecisionLab?<MemoryPreviewBoundary><React.Suspense fallback={<p role="status">카드 판단 실험실 준비 중…</p>}><BattleIntegrationPreview decisionLab/></React.Suspense></MemoryPreviewBoundary>:battleUi.vnext&&params.get('battlePlay')==='1'?<MemoryPreviewBoundary><React.Suspense fallback={<p role="status">경기 준비 중…</p>}><PlayableRun/></React.Suspense></MemoryPreviewBoundary>:compare.page?<MemoryPreviewBoundary><React.Suspense fallback={<p role="status">비교 화면 준비 중…</p>}><BattleComparison/></React.Suspense></MemoryPreviewBoundary>:compare.child||compare.standalone?<MemoryPreviewBoundary><React.Suspense fallback={<p role="status">비교 화면 준비 중…</p>}><BattleIntegrationPreview fixture={battleUi.fixture} variant={compare.child||compare.standalone||'vnext'} embedded={!!compare.child}/></React.Suspense></MemoryPreviewBoundary>:battleUi.fixture ? <ErrorBoundary><React.Suspense fallback={<p role="status">검수 화면 준비 중…</p>}><BattleIntegrationPreview fixture={battleUi.fixture}/></React.Suspense></ErrorBoundary> : zoneFirstPreview ? <ErrorBoundary><React.Suspense fallback={<p role="status">전투 프리뷰 준비 중…</p>}><ZoneFirstPreview /></React.Suspense></ErrorBoundary> : homerPreview ? <ErrorBoundary><HomerunVideoPreview /></ErrorBoundary> : homerV3Qa ? <ErrorBoundary><HomerV3 /></ErrorBoundary> : homerQa ? <ErrorBoundary><HomerQa /></ErrorBoundary> : showcase ? (
       <ErrorBoundary><React.Suspense fallback={<p role="status">연출 검수 화면 준비 중…</p>}><CinematicV2Showcase /></React.Suspense></ErrorBoundary>
     ) : layoutMode() === "frame" ? <PortraitFrame /> : (
       <ErrorBoundary>
