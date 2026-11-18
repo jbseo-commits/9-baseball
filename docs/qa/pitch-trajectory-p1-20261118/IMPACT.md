@@ -17,3 +17,7 @@
 
 독립 reviewer (gpt-6.1-sol/high): 계획 승인, 실제 baseline 및 효과 없는 접점 영상, 단일 시계, 결과 선택, 정확한 handoff를 조건으로 제시.
 외부 PXF 파일 반입 없음. 독자적인 짧은 wake와 접촉 표식만 작성. 기존 아트 검수 실패를 승격하지 않음. 단일 접점 진단이며 9존 실전/사람 선호/완성 그래픽 승인 아님.
+
+## PXF follow-up (2026-11-18, before implementation)
+
+User supplied verified CC0 PNG bytes + license. Replace (do not stack) four-chip marker with eight-frame sprite,200ms absolute-time sampling. UI/layout and build affected:80-world-pixel cell (actual ink much smaller), low opacity behind ball, same registered contact; validate on/off and all viewports, asset budget. Input, RNG/rules, saves, public LOCK and live gameplay unaffected: preview-only import. Reduced-motion and off disable sprite entirely. Scroll/orientation/live flows retain previous isolation; full tests/smoke/build and preview QA rerun. PNG only; no graph/program source import. SHA256, RGBA/grid and source/license preserved before use.

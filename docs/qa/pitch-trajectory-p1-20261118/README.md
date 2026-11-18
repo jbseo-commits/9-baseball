@@ -1,5 +1,7 @@
 # P0/P1 구종 비교 — 검토 후보
 
+**최신 후속:** [실제 PXF Hit spark PNG 적용·CC0·on/off 검증](PXF-FOLLOWUP.md). 아래 초기 검증/영상은52f88cb의 독자 표식 버전이며, 후속에서는 검증된 PNG로 교체했다.
+
 계획 [#122](https://github.com/jbseo-commits/9-baseball/pull/122)의 첫 단일 접점 프리뷰. **P2 공간 승인 / 실제 9존 / 실전 구종 연결 / 마스터피스 완성 아님.** main 병합·배포하지 않았다.
 
 ## 재현

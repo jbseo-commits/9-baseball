@@ -1,0 +1,35 @@
+Final80-world-cell verification:
+
+final-tests
+at HTMLDivElement.[appendChild] (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/element/Element.js:1102:62)
+    at HTMLDivElement.appendChild (file:///workspace/9-baseball/node_modules/.pnpm/happy-dom@20.12.0/node_modules/happy-dom/lib/nodes/node/Node.js:314:48)
+    at appendChild (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:11059:18)
+    at insertOrAppendPlacementNode (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:23941:7)
+    at commitPlacement (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:23883:9)
+    at commitReconciliationEffects (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:24630:7)
+
+ Test Files  251 passed (251)
+      Tests  1732 passed (1732)
+   Start at  02:03:55
+   Duration  96.48s (transform 13.53s, setup 0ms, import 64.49s, tests 155.86s, environment 29.88s)
+
+final-build
+dist/assets/GraphicsContext-p36Lb61R.js                              62.25 kB │ gzip:  20.87 kB
+dist/assets/Geometry-LDTUjmJI.js                                     68.23 kB │ gzip:  22.14 kB
+dist/assets/vendor-BGJMiX-T.js                                      139.83 kB │ gzip:  45.33 kB
+dist/assets/lib-xqvkZvVi.js                                         629.29 kB │ gzip: 177.51 kB
+dist/assets/index-pI6OjULg.js                                       964.96 kB │ gzip: 323.08 kB
+
+✓ built in 2.47s
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+
+final-dist
+$ node scripts/check-dist-budget.mjs
+dist 52.9MiB / 60MiB — .webp 37.7MiB, .png 5.5MiB, .woff2 5.2MiB, .js 2.0MiB, .css 1.0MiB
+
+built-check
+Production lazy route + coarse portrait PASS. Before contact0 / contact3 / off0. Built PNG SHA256 41798938d05224cc3af7c104e009fa5e51467b66cad9580e380121131cee4015. pageerror0.

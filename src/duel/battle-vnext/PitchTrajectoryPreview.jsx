@@ -6,6 +6,7 @@ import {pitcherAtlases} from '../pitcher-visuals.js';
 import {pitchDescriptor,samplePitchFlight,samplePitchScene,PITCH_PROFILES} from './pitch-trajectory.js';
 import ballUrl from '../../../assets/production-art/asset-led-battle-v1/ball.svg';
 import './pitch-trajectory-preview.css';
+import PitchContactSpark from './PitchContactSpark.jsx';
 
 const ART='regular-01-red-rush';
 const actor=rosterPitcherActor(ART,pitcherAtlases[ART]);
@@ -15,7 +16,7 @@ const actors={pitcher:actor,batter:SAMPLE_ACTORS.batter};
 const outcomes={hit:{kind:'hit',exact:false,label:'안타',actualZone:4},foul:{kind:'foul',label:'파울',actualZone:4},take:{kind:'called',label:'지켜보기',actualZone:4}};
 const line=points=>points.map((p,i)=>`${i?'L':'M'}${p.x},${p.y}`).join(' ');
 
-function FlightArt({descriptor,elapsed,result,trail,effects,debug}){
+function FlightArt({descriptor,elapsed,result,trail,effects,debug,reduced}){
   const s=samplePitchScene(descriptor,elapsed,{result,trail});
   const path=debug?Array.from({length:61},(_,i)=>samplePitchFlight(descriptor,releaseAt+i*5).position):[];
   return <svg className="bv-world-effects pt-flight" viewBox="0 0 1672 941" width="1672" height="941" aria-hidden="true"
@@ -23,9 +24,9 @@ function FlightArt({descriptor,elapsed,result,trail,effects,debug}){
     {debug&&<g fill="none" stroke="#b9e5e3" strokeWidth="1.5" opacity=".6"><path d={line(path)} strokeDasharray="4 8"/>{[descriptor.release,descriptor.target].map((p,i)=><circle key={i} cx={p.x} cy={p.y} r="14"/>)}</g>}
     {s&&!s.hidden&&<g>
       {s.wake.length>0&&<><path d={line(s.wake)} fill="none" stroke="#96c9cd" strokeWidth="8" strokeLinecap="round" opacity=".17"/><path d={line(s.wake)} fill="none" stroke="#e5eee1" strokeWidth="2.5" strokeLinecap="round" opacity=".65"/></>}
+      <PitchContactSpark age={s.age} point={descriptor.target} result={result} enabled={effects} reduced={reduced}/>
       <image data-testid="trajectory-ball" href={ballUrl} x={s.position.x-s.radius} y={s.position.y-s.radius} width={s.radius*2} height={s.radius*2} transform={`rotate(${s.rotation*180/Math.PI} ${s.position.x} ${s.position.y})`}/>
-      {/* Original four short chips: empty core preserves the visible ball/barrel contact. */}
-      {effects&&s.contact&&<g data-testid="trajectory-contact" fill="#edca8c" opacity={.6*(1-s.age/80)}>{[-1,1].flatMap(x=>[-1,1].map(y=><rect key={`${x},${y}`} x={descriptor.target.x+x*(18+s.age*.15)-2} y={descriptor.target.y+y*(15+s.age*.08)-2} width="5" height="3"/>))}</g>}
+
     </g>}
   </svg>;
 }
@@ -71,7 +72,7 @@ export default function PitchTrajectoryPreview(){
       <label><input type="checkbox" checked={debug} onChange={e=>setDebug(e.target.checked)}/>개발 검수선</label>
     </div>
     <section className={'pt-panels'+(focus!=='all'?' pt-solo':'')} aria-label="동일 조건 구종 비교">
-      {shown.map(d=><article className="pt-panel" key={d.profile}><header><h2>{PITCH_PROFILES[d.profile].label}</h2><span>{d.profile==='fastball'?'곧게 파고드는 접근':d.profile==='slider'?'후반에 읽히는 횡변화':'위쪽 호에서 감기는 낙차'}</span></header><div className="pt-stage"><BattleScene actors={actors} framing="atbat" playback={playback} phase={phase} result={phase==='result'?outcomes[result]:null} reviewFrame={{elapsed,effect:null,overlay:<FlightArt descriptor={d} elapsed={elapsed} result={result} trail={trail} effects={effects} debug={debug}/>}}/></div></article>)}
+      {shown.map(d=><article className="pt-panel" key={d.profile}><header><h2>{PITCH_PROFILES[d.profile].label}</h2><span>{d.profile==='fastball'?'곧게 파고드는 접근':d.profile==='slider'?'후반에 읽히는 횡변화':'위쪽 호에서 감기는 낙차'}</span></header><div className="pt-stage"><BattleScene actors={actors} framing="atbat" playback={playback} phase={phase} result={phase==='result'?outcomes[result]:null} reviewFrame={{elapsed,effect:null,overlay:<FlightArt descriptor={d} elapsed={elapsed} result={result} trail={trail} effects={effects} debug={debug} reduced={reduced}/>}}/></div></article>)}
     </section>
     {baseline&&<section className="pt-baseline"><h2>main 기준 · 동일 배우 / 시각 / 결과</h2><p>기존 직선 보간과 기존 효과를 그대로 재생합니다. 위 잔상·접촉 표식 설정은 후보에만 적용됩니다.</p><div className="pt-stage"><BattleScene actors={actors} framing="atbat" playback={playback} phase={phase} result={phase==='result'?outcomes[result]:null} scene={{shotGrade:result==='hit'?'hit':result==='foul'?'foul':'take',playToken:1}} reviewFrame={{elapsed}}/></div></section>}
     <footer><p>저장하지 않는 연출 비교입니다. 실제 판정·구종 상성은 추가하지 않습니다. 헛스윙의 비접촉·9존·outside와 실제 투구 연결은 후속 검수 대상입니다.</p><p>현재 배우의 접촉 작화 검수와 기존 #121 시각 품질 미달 이력은 유지됩니다. 무음 · 자동 재생 없음 · 효과를 끄고 접점을 확인할 수 있습니다.</p></footer>

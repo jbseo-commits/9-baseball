@@ -20,6 +20,9 @@ fs.mkdirSync(out,{recursive:true});
  for(const rate of ['0.25','0.5','0.75','1','1.5','2','6']){await p.getByRole('combobox',{name:'재생 배속'}).selectOption(rate);await seek(at);assert.deepEqual(await sample(),expected);report.rates.push(rate);}
  await p.getByRole('button',{name:'다음 프레임',exact:true}).click();assert.ok(Math.abs((await sample())[0].time-at-1000/60)<.01);
  await p.getByRole('button',{name:'이전 프레임',exact:true}).click();assert.ok(Math.abs((await sample())[0].time-at)<.01);
+ for(const age of [-1,0,25,50,75,100,175,199.9,200]){await seek(impact+age);const frames=await p.locator('[data-pxf-frame]').evaluateAll(es=>es.map(e=>Number(e.dataset.pxfFrame)));assert.deepEqual(frames,age>=0&&age<200?Array(3).fill(Math.floor(age/25)):[]);}
+ report.pxf200msEightFrames=true;
+ await seek(impact+50);assert.ok(await p.locator('.pt-flight').evaluateAll(es=>es.every(e=>!!(e.querySelector('[data-pxf-frame]').compareDocumentPosition(e.querySelector('[data-testid=trajectory-ball]'))&Node.DOCUMENT_POSITION_FOLLOWING))));
  await p.getByRole('checkbox',{name:'짧은 잔상',exact:true}).uncheck();assert.equal(await p.locator('.pt-flight path').count(),0);
  await p.getByRole('checkbox',{name:'접촉 표식',exact:true}).uncheck();await seek(impact);assert.equal(await p.getByTestId('trajectory-contact').count(),0);
  const navigationStart=navigations;
@@ -27,6 +30,7 @@ fs.mkdirSync(out,{recursive:true});
    await p.setViewportSize({width:w,height:h});await seek(impact);await p.locator('.bv-actor img').evaluateAll(es=>Promise.all(es.map(e=>e.decode())));await p.waitForTimeout(120);
    const layout=await p.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth+1,balls:[...document.querySelectorAll('[data-testid=trajectory-ball]')].map(e=>{const r=e.getBoundingClientRect(),s=e.closest('.pt-stage').getBoundingClientRect();return {visible:r.left>=s.left&&r.right<=s.right&&r.top>=s.top&&r.bottom<=s.bottom};})}));
    assert.equal(layout.overflow,false,`${w}: horizontal overflow`);assert.equal(layout.balls.length,3,`${w}: balls missing; samples=${JSON.stringify(await sample())}`);assert.ok(layout.balls.every(b=>b.visible));report.viewports.push({w,h,...layout});await p.screenshot({path:`${out}/contact-no-fx-${w}x${h}.png`,fullPage:true});
+   await seek(impact+50);await p.getByRole('checkbox',{name:'접촉 표식',exact:true}).check();await p.screenshot({path:`${out}/pxf-on-${w}x${h}.png`,fullPage:true});await p.getByRole('checkbox',{name:'접촉 표식',exact:true}).uncheck();await p.screenshot({path:`${out}/pxf-off-${w}x${h}.png`,fullPage:true});
  }
  assert.equal(navigations,navigationStart,'rotation must preserve the preview, never reload');report.rotationPreservesSession=true;
  await p.setViewportSize({width:1440,height:900});await p.getByRole('checkbox',{name:'짧은 잔상',exact:true}).check();
@@ -40,7 +44,7 @@ fs.mkdirSync(out,{recursive:true});
    await p.getByRole('combobox',{name:'비교 결과'}).selectOption(result);
    for(const offset of [-1,0,1,80]){await seek(impact+offset);const name=`${result}-${offset}`;await p.locator('.pt-panel .pt-stage').screenshot({path:`${out}/candidate-${name}.png`});await p.locator('.pt-baseline .pt-stage').screenshot({path:`${out}/baseline-${name}.png`});}
  }
- await p.emulateMedia({reducedMotion:'reduce'});await p.reload();await p.getByRole('button',{name:'재생',exact:true}).waitFor();await p.waitForTimeout(100);assert.equal((await sample())[0].time,0);report.reducedMotionNoAutoplay=true;await p.getByRole('button',{name:'재생',exact:true}).click();assert.equal((await sample())[0].time,impact);report.reducedMotionPlaySeeksImpact=true;
+ await p.emulateMedia({reducedMotion:'reduce'});await p.reload();await p.getByRole('button',{name:'재생',exact:true}).waitFor();await p.waitForTimeout(100);assert.equal((await sample())[0].time,0);report.reducedMotionNoAutoplay=true;await p.getByRole('button',{name:'재생',exact:true}).click();assert.equal((await sample())[0].time,impact);report.reducedMotionPlaySeeksImpact=true;assert.equal(await p.getByTestId('trajectory-contact').count(),0);report.reducedMotionNoSpark=true;
  report.storage=await p.evaluate(()=>window.__storage);assert.equal(report.storage.filter(e=>e.name!=='getItem').length,0);
  const touch=await browser.newContext({viewport:{width:390,height:844},hasTouch:true,isMobile:true});
  await touch.addInitScript(()=>{window.__fullscreenRequests=0;Element.prototype.requestFullscreen=()=>{window.__fullscreenRequests++;return Promise.resolve();};});
