@@ -1,0 +1,12 @@
+{
+  "sourceSha256": "2e2afcf810b1253d7144f7be085732e7b3b465f3e064a1edb36833403cde835f",
+  "sortMethod": "native Array.sort vs temporary stable insertion-sort only for row/lane object lists",
+  "interceptedSortCalls": 3256,
+  "sampleCount": 101,
+  "equal": 0,
+  "different": 101,
+  "seed3Edges": {
+    "native": 66,
+    "insertion": 63
+  }
+}

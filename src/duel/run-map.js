@@ -100,6 +100,19 @@ const routeFor=(act,type)=>act===1?ROUTE_BY_TYPE[type]:type==='elite'?(act===2?'
 const makeRng=seed=>{let s=seed>>>0;return ()=>{s=mix(s+0x9e3779b9>>>0);return s/0x100000000;};};
 const pickWeighted=(rng,table)=>{const total=table.reduce((a,[,w])=>a+w,0);let r=rng()*total;for(const [k,w] of table){r-=w;if(r<0)return k;}return table[0][0];};
 const shuffle=(rng,list)=>{const a=[...list];for(let i=a.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+/* Distance is a strict deterministic sort key. Randomness applies only within
+   equal-distance groups, with fixed Fisher–Yates draws independent of sort calls. */
+export function nearestLanesByDistance(center,list,rng){
+  const distance=item=>Math.abs(item.lane-center.lane);
+  const sorted=[...list].sort((a,b)=>distance(a)-distance(b)||a.lane-b.lane);
+  const groups=[];
+  for(const item of sorted){
+    const group=groups.at(-1);
+    if(group&&distance(group[0])===distance(item))group.push(item);
+    else groups.push([item]);
+  }
+  return groups.flatMap(group=>group.length>1?shuffle(rng,group):group);
+}
 /* 같은 정비·강적 칸이 한 길에서 연달아 나오면 고를 이유가 사라진다(슬더스 규칙). 1막에서만 강제한다. */
 const NO_REPEAT=new Set(['elite','shop','rest']);
 
@@ -127,7 +140,7 @@ function linkRows(rng,rows,key,branch){
     const from=rows[r],to=rows[r+1],has=new Set();
     const link=(a,b)=>{const k=key(a)+'>'+key(b);if(!has.has(k)){has.add(k);edges.push([key(a),key(b)]);}};
     if(from.length===1||to.length===1){for(const a of from)for(const b of to)link(a,b);continue;}
-    const nearest=(c,list)=>[...list].sort((x,y)=>Math.abs(x.lane-c.lane)-Math.abs(y.lane-c.lane)||(rng()<.5?-1:1));
+    const nearest=(c,list)=>nearestLanesByDistance(c,list,rng);
     for(const a of from){
       const near=nearest(a,to);link(a,near[0]);
       if(rng()<branch)link(a,near[1]);

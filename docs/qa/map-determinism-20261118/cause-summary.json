@@ -1,0 +1,341 @@
+{
+  "source": {
+    "beforeSha256": "2e2afcf810b1253d7144f7be085732e7b3b465f3e064a1edb36833403cde835f",
+    "beforeCopy": "/tmp/map-determinism-20261118/run-map-before.js",
+    "afterSha256": "60dc421615a5757b71ba99bffddff753d8a52980a362e3795dfa6f14e4ce30e0"
+  },
+  "runtime": {
+    "node": "v24.19.0",
+    "chromium": "151.0.7922.173",
+    "browserUserAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36"
+  },
+  "originalComparator": {
+    "seed3": {
+      "nodeEdges": 66,
+      "chromiumEdges": 64,
+      "nodeComparatorCalls": 82,
+      "chromiumComparatorCalls": 85,
+      "nodeNearestSorts": 30,
+      "chromiumNearestSorts": 29,
+      "firstComparatorInputReturnDifference": {
+        "index": 3,
+        "node": {
+          "sortIndex": 1,
+          "centerRow": 1,
+          "centerLane": 2,
+          "candidateRow": 2,
+          "leftLane": 3,
+          "rightLane": 2,
+          "distance": 1,
+          "draw": null,
+          "result": 1
+        },
+        "chromium": {
+          "sortIndex": 1,
+          "centerRow": 1,
+          "centerLane": 2,
+          "candidateRow": 2,
+          "leftLane": 3,
+          "rightLane": 0,
+          "distance": -1,
+          "draw": null,
+          "result": -1
+        }
+      },
+      "firstRngConsumptionDifference": {
+        "tieDrawIndex": 6,
+        "node": {
+          "sortIndex": 15,
+          "centerRow": 1,
+          "centerLane": 2,
+          "candidateRow": 2,
+          "leftLane": 3,
+          "rightLane": 1,
+          "distance": 0,
+          "draw": 0.39942639297805727,
+          "result": -1
+        },
+        "chromium": {
+          "sortIndex": 18,
+          "centerRow": 2,
+          "centerLane": 1,
+          "candidateRow": 3,
+          "leftLane": 2,
+          "rightLane": 0,
+          "distance": 0,
+          "draw": 0.06533352588303387,
+          "result": -1
+        },
+        "totalTieDraws": {
+          "node": 11,
+          "chromium": 10
+        },
+        "repeatedPair": {
+          "node": [
+            {
+              "sortIndex": 15,
+              "centerRow": 1,
+              "centerLane": 2,
+              "candidateRow": 2,
+              "leftLane": 3,
+              "rightLane": 1,
+              "distance": 0,
+              "draw": 0.6071249230299145,
+              "result": 1
+            },
+            {
+              "sortIndex": 15,
+              "centerRow": 1,
+              "centerLane": 2,
+              "candidateRow": 2,
+              "leftLane": 3,
+              "rightLane": 1,
+              "distance": 0,
+              "draw": 0.39942639297805727,
+              "result": -1
+            }
+          ],
+          "chromium": [
+            {
+              "sortIndex": 15,
+              "centerRow": 1,
+              "centerLane": 2,
+              "candidateRow": 2,
+              "leftLane": 3,
+              "rightLane": 1,
+              "distance": 0,
+              "draw": 0.6071249230299145,
+              "result": 1
+            }
+          ]
+        }
+      }
+    },
+    "baseline": {
+      "representativeSeeds": [
+        0,
+        1,
+        2,
+        3,
+        10,
+        100
+      ],
+      "repeatCount": 5,
+      "withinRuntimeAllStable": true,
+      "crossRuntimeSameCount": 4,
+      "crossRuntimeDifferentSeeds": [
+        1,
+        3
+      ],
+      "rawMapSampleUniqueSeeds": 101,
+      "originalNodeVsChromiumDifferent": 34,
+      "optionsMatrix": [
+        {
+          "options": {},
+          "total": 11,
+          "different": 6
+        },
+        {
+          "options": {
+            "tutorial": true
+          },
+          "total": 11,
+          "different": 6
+        },
+        {
+          "options": {
+            "encounters": false
+          },
+          "total": 11,
+          "different": 6
+        },
+        {
+          "options": {
+            "tutorial": true,
+            "encounters": false
+          },
+          "total": 11,
+          "different": 6
+        }
+      ]
+    },
+    "red": {
+      "source": "/tmp/map-determinism-20261118/prechange-sort-metamorphic.json",
+      "nativeVsInsertionSort": {
+        "samples": 101,
+        "equal": 0,
+        "different": 101,
+        "seed3Edges": {
+          "native": 66,
+          "insertionSort": 63
+        }
+      }
+    }
+  },
+  "newTieGroupAlgorithm": {
+    "parity": {
+      "comparisons": 432,
+      "equal": 432,
+      "different": 0
+    },
+    "validateRunMap": {
+      "validNode": 432,
+      "validChromium": 432
+    },
+    "repeatStability": {
+      "0": {
+        "nodeStable": true,
+        "chromiumStable": true,
+        "crossRuntimeSame": true,
+        "allValid": true
+      },
+      "1": {
+        "nodeStable": true,
+        "chromiumStable": true,
+        "crossRuntimeSame": true,
+        "allValid": true
+      },
+      "2": {
+        "nodeStable": true,
+        "chromiumStable": true,
+        "crossRuntimeSame": true,
+        "allValid": true
+      },
+      "3": {
+        "nodeStable": true,
+        "chromiumStable": true,
+        "crossRuntimeSame": true,
+        "allValid": true
+      },
+      "10": {
+        "nodeStable": true,
+        "chromiumStable": true,
+        "crossRuntimeSame": true,
+        "allValid": true
+      },
+      "100": {
+        "nodeStable": true,
+        "chromiumStable": true,
+        "crossRuntimeSame": true,
+        "allValid": true
+      }
+    },
+    "metamorphic": {
+      "total": 432,
+      "nodeInsertionSortCalls": 13944,
+      "chromiumInsertionSortCalls": 13944,
+      "equal": 432,
+      "different": 0,
+      "failures": []
+    },
+    "baselineChange": {
+      "nodeVsNodeOld": {
+        "sampleCount": 101,
+        "changeRates": {
+          "fullMapSame": {
+            "changed": 34,
+            "unchanged": 67
+          },
+          "edgesSame": {
+            "changed": 33,
+            "unchanged": 68
+          },
+          "nodeIdsSame": {
+            "changed": 0,
+            "unchanged": 101
+          },
+          "positionsSame": {
+            "changed": 0,
+            "unchanged": 101
+          },
+          "allTypesSame": {
+            "changed": 6,
+            "unchanged": 95
+          },
+          "act1TypesSame": {
+            "changed": 6,
+            "unchanged": 95
+          },
+          "routesSame": {
+            "changed": 6,
+            "unchanged": 95
+          },
+          "opponentsSame": {
+            "changed": 6,
+            "unchanged": 95
+          }
+        },
+        "edgeSymDiffTotal": 124,
+        "maxEdgeSymDiff": 9,
+        "changedTypeSeeds": [
+          15,
+          46,
+          72,
+          73,
+          77,
+          84
+        ]
+      },
+      "chromiumVsChromiumOld": {
+        "sampleCount": 101,
+        "changeRates": {
+          "fullMapSame": {
+            "changed": 0,
+            "unchanged": 101
+          },
+          "edgesSame": {
+            "changed": 0,
+            "unchanged": 101
+          },
+          "nodeIdsSame": {
+            "changed": 0,
+            "unchanged": 101
+          },
+          "positionsSame": {
+            "changed": 0,
+            "unchanged": 101
+          },
+          "allTypesSame": {
+            "changed": 0,
+            "unchanged": 101
+          },
+          "act1TypesSame": {
+            "changed": 0,
+            "unchanged": 101
+          },
+          "routesSame": {
+            "changed": 0,
+            "unchanged": 101
+          },
+          "opponentsSame": {
+            "changed": 0,
+            "unchanged": 101
+          }
+        },
+        "edgeSymDiffTotal": 0,
+        "maxEdgeSymDiff": 0,
+        "changedTypeSeeds": []
+      }
+    }
+  },
+  "oldSaveFixtures": {
+    "node": "tests/fixtures/run-map-legacy-node-seed3.json",
+    "chromium": "tests/fixtures/run-map-legacy-chromium-seed3.json"
+  },
+  "evidenceFiles": [
+    "/tmp/map-determinism-20261118/capture.json",
+    "/tmp/map-determinism-20261118/trace-results.json",
+    "/tmp/map-determinism-20261118/prechange-sort-metamorphic.json",
+    "/tmp/map-determinism-20261118/qa-map-determinism-final.json"
+  ],
+  "setupFailures": [
+    {
+      "attempt": "Initial trace plugin query matching",
+      "issue": "Transform id suffix did not strip query; browser instrumentation did not execute and this result was excluded."
+    },
+    {
+      "attempt": "Initial trace dev page",
+      "issue": "Temporary Vite appType custom returned 404/CSP default-src none; corrected to spa before successful trace."
+    }
+  ]
+}

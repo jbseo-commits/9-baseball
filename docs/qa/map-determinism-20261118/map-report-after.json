@@ -1,0 +1,40 @@
+{
+  "seeds": 100,
+  "validMaps": 100,
+  "topologyVariants": 100,
+  "bossPaths": 300,
+  "expectedBossPaths": 300,
+  "committedActs": 73,
+  "expectedCommittedActs": 300,
+  "opponentArchetypes": {
+    "sinker": 862,
+    "outside": 1328,
+    "high": 465,
+    "closer": 151
+  },
+  "damage": {
+    "homeRun": 30,
+    "triple": 22,
+    "double": 18,
+    "single": 12,
+    "inPlayOut": 4,
+    "walk": 6,
+    "hardFoul": 3,
+    "foul": 2,
+    "nearMiss": 2,
+    "whiff": 1,
+    "ball": 1,
+    "calledStrike": 0
+  },
+  "hardFoulDecay": [
+    3,
+    2,
+    1,
+    0
+  ],
+  "failPolicy": {
+    "whiffDamage": 1,
+    "whiffsBeforeThreeStrikeouts": 9,
+    "maxChipBeforeLoss": 9
+  }
+}
