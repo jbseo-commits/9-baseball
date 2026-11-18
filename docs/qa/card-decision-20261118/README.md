@@ -14,7 +14,7 @@ PXF assets/license/source in #123/#124 remain untouched. This independent main-b
 
 ## Verification
 
-- `pnpm test --maxWorkers=3`: **249 files / 1,714 tests PASS**, exit 0. New tests cover genuine seed/reset/illegal action/preparation, actual delivered timeline parity, reduced/KO branches, and default automatic vs opt-in manual next.
+- `pnpm test --maxWorkers=3`: **250 files / 1,717 tests PASS**, exit 0. New tests cover genuine seed/reset/illegal action/preparation, actual delivered timeline parity, reduced/KO branches, and default automatic vs opt-in manual next.
 - `node scripts/zone-report.js 10`: exit 0, byte-identical to baseline; no balance changes.
 - `pnpm build`: exit 0. Existing >500kB index chunk warning retained.
 - `pnpm check:dist`: **52.8MiB / 60MiB**, exit 0.
@@ -41,3 +41,7 @@ Earlier generic `qa-playable-run.cjs` expected11pitches but current main reaches
 No human comprehension/fun study, physical touch hardware, latency/performance validation, or commercial/art-quality acceptance. Fixed one-seed first opponent cannot establish deck diversity, repeatability across encounters, or pitch identity. The next useful experiment is a contextual instruction inside the existing hand/decision UI (without a permanent banner), followed by people trying two choices and explaining the outcome. Keep alternate-outcome counterfactuals and new reaction rules deferred.
 
 Private preview / Draft PR and final independent UX: recorded in the run checkpoint after publication. No main push/merge/production-root deployment.
+
+Final production reruns: default touch routing/rotation **42/42**,0page errors; real Duel QA diagnostic completed first match→reward→map→reload/title resume→next node, natural defeat and six layouts. This latter diagnostic uses the exact-preview policy noted above. Isolated Site artifact root also normalized to the lab, loaded the actual violet roster, and accepted a native tap attack showing the authoritative whiff/pressure HP60→58 result locally.
+
+Storage-read correction2/3: an inherited relic decorator read the live save nine times before correction. Exact lab observer/read guard and behavioral ordinary-route regression added. Final full suite250/1717, build/dist, five viewport boundary (now monitoring reads), actual lab match/reset, and default touch42/42 rerun passed. No production-save or animation-rate reads/writes; BGM preference read remains allowed. The119layout pass predates this non-layout guard; no rendering code changed afterward. Independent UX/code findings in `independent-review.md`.
