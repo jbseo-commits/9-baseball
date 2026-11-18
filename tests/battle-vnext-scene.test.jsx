@@ -98,3 +98,14 @@ it('keeps the light pass on the actor projection and jitter, above result gradin
     expect(pass.querySelector('.bv-contact-burst')).not.toBeNull();
   }
 });
+
+it('keeps the review pitcher release clock independent of an early batter swing',async()=>{
+  const {rosterPitcherActor,rosterFrame}=await import('../src/duel/battle-vnext/roster-actor.js');
+  const {pitcherAtlases}=await import('../src/duel/pitcher-visuals.js');
+  const actor=rosterPitcherActor('regular-01-red-rush',pitcherAtlases['regular-01-red-rush']);
+  const pitcherPlayback={timeline:{duration:3000},action:'take'};
+  const playback={timeline:{impactAt:160,freeze:35,duration:3000,delivery:{pitchReleaseAt:0}},action:'swing'};
+  const {container}=render(<BattleScene size={{width:844,height:390}} actors={{pitcher:actor,batter:SAMPLE_ACTORS.batter}} framing="atbat" phase="result" playback={playback} reviewFrame={{elapsed:actor.releaseAt,effect:null,pitcherPlayback,overlay:<svg/>}}/>);
+  expect(container.querySelector('[data-actor=pitcher]').dataset.pose).toBe('frame-'+rosterFrame(pitcherPlayback,actor.releaseAt,actor));
+  expect(rosterFrame(playback,actor.releaseAt,actor)).not.toBe(rosterFrame(pitcherPlayback,actor.releaseAt,actor));
+});

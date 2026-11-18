@@ -53,11 +53,13 @@ import {installOrientationLock} from './duel/orientation-lock.js';
 const battleUi=battleUiMode(),compare=comparisonMode(window.location.search);
 const params=new URLSearchParams(window.location.search);
 const trajectoryPreview=params.get('showcase')==='pitch-trajectory';
+const pitchSwingPreview=params.get('showcase')==='pitch-swing';
 // The standalone editor owns its layout/time, including touch portrait and rotation.
-if(!trajectoryPreview){
+if(!trajectoryPreview&&!pitchSwingPreview){
   if(battleUi.vnext){document.documentElement.dataset.battleUi='vnext';installOrientationLock();}
   watchLayoutMode();
 }
+const PitchSwingPrototype=React.lazy(()=>import('./duel/battle-vnext/PitchSwingPrototype.jsx'));
 const PitchTrajectoryPreview=React.lazy(()=>import('./duel/battle-vnext/PitchTrajectoryPreview.jsx'));
 const PlayableRun=React.lazy(()=>import('./duel/battle-vnext/PlayableRun.jsx'));
 const BattleComparison=React.lazy(()=>import('./duel/battle-vnext/BattleComparison.jsx'));
@@ -95,7 +97,7 @@ function HomerQa(){
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {trajectoryPreview?<MemoryPreviewBoundary><React.Suspense fallback={<p role="status">궤적 비교 준비 중…</p>}><PitchTrajectoryPreview/></React.Suspense></MemoryPreviewBoundary>:battleUi.vnext&&params.get('battlePlay')==='1'?<MemoryPreviewBoundary><React.Suspense fallback={<p role="status">경기 준비 중…</p>}><PlayableRun/></React.Suspense></MemoryPreviewBoundary>:compare.page?<MemoryPreviewBoundary><React.Suspense fallback={<p role="status">비교 화면 준비 중…</p>}><BattleComparison/></React.Suspense></MemoryPreviewBoundary>:compare.child||compare.standalone?<MemoryPreviewBoundary><React.Suspense fallback={<p role="status">비교 화면 준비 중…</p>}><BattleIntegrationPreview fixture={battleUi.fixture} variant={compare.child||compare.standalone||'vnext'} embedded={!!compare.child}/></React.Suspense></MemoryPreviewBoundary>:battleUi.fixture ? <ErrorBoundary><React.Suspense fallback={<p role="status">검수 화면 준비 중…</p>}><BattleIntegrationPreview fixture={battleUi.fixture}/></React.Suspense></ErrorBoundary> : zoneFirstPreview ? <ErrorBoundary><React.Suspense fallback={<p role="status">전투 프리뷰 준비 중…</p>}><ZoneFirstPreview /></React.Suspense></ErrorBoundary> : homerPreview ? <ErrorBoundary><HomerunVideoPreview /></ErrorBoundary> : homerV3Qa ? <ErrorBoundary><HomerV3 /></ErrorBoundary> : homerQa ? <ErrorBoundary><HomerQa /></ErrorBoundary> : showcase ? (
+    {pitchSwingPreview?<MemoryPreviewBoundary><React.Suspense fallback={<p role="status">스윙 프로토타입 준비 중…</p>}><PitchSwingPrototype/></React.Suspense></MemoryPreviewBoundary>:trajectoryPreview?<MemoryPreviewBoundary><React.Suspense fallback={<p role="status">궤적 비교 준비 중…</p>}><PitchTrajectoryPreview/></React.Suspense></MemoryPreviewBoundary>:battleUi.vnext&&params.get('battlePlay')==='1'?<MemoryPreviewBoundary><React.Suspense fallback={<p role="status">경기 준비 중…</p>}><PlayableRun/></React.Suspense></MemoryPreviewBoundary>:compare.page?<MemoryPreviewBoundary><React.Suspense fallback={<p role="status">비교 화면 준비 중…</p>}><BattleComparison/></React.Suspense></MemoryPreviewBoundary>:compare.child||compare.standalone?<MemoryPreviewBoundary><React.Suspense fallback={<p role="status">비교 화면 준비 중…</p>}><BattleIntegrationPreview fixture={battleUi.fixture} variant={compare.child||compare.standalone||'vnext'} embedded={!!compare.child}/></React.Suspense></MemoryPreviewBoundary>:battleUi.fixture ? <ErrorBoundary><React.Suspense fallback={<p role="status">검수 화면 준비 중…</p>}><BattleIntegrationPreview fixture={battleUi.fixture}/></React.Suspense></ErrorBoundary> : zoneFirstPreview ? <ErrorBoundary><React.Suspense fallback={<p role="status">전투 프리뷰 준비 중…</p>}><ZoneFirstPreview /></React.Suspense></ErrorBoundary> : homerPreview ? <ErrorBoundary><HomerunVideoPreview /></ErrorBoundary> : homerV3Qa ? <ErrorBoundary><HomerV3 /></ErrorBoundary> : homerQa ? <ErrorBoundary><HomerQa /></ErrorBoundary> : showcase ? (
       <ErrorBoundary><React.Suspense fallback={<p role="status">연출 검수 화면 준비 중…</p>}><CinematicV2Showcase /></React.Suspense></ErrorBoundary>
     ) : layoutMode() === "frame" ? <PortraitFrame /> : (
       <ErrorBoundary>
