@@ -1,0 +1,10 @@
+{
+  "method": "Chromium Playwright native WebAudio instrumentation; active sound cue created, then keyed IntegrationPreview restart remounted PreviewSession. Nodes tagged by epoch at AudioContext.createBufferSource/createOscillator.",
+  "cases": [
+    {"rate": 0.25, "reducedMotion": false, "oldNodes": 12, "newGenerationStarts": 12, "oldGenerationStartsAfterReset": 0, "oldGenerationAbortStops": 9, "oldGenerationDisconnects": 14},
+    {"rate": 1, "reducedMotion": false, "oldNodes": 12, "newGenerationStarts": 12, "oldGenerationStartsAfterReset": 0, "oldGenerationAbortStops": 12, "oldGenerationDisconnects": 17},
+    {"rate": 0.25, "reducedMotion": true, "oldNodes": 16, "newGenerationStarts": 16, "oldGenerationStartsAfterReset": 0, "oldGenerationAbortStops": 16, "oldGenerationDisconnects": 25},
+    {"rate": 1, "reducedMotion": true, "oldNodes": 16, "newGenerationStarts": 16, "oldGenerationStartsAfterReset": 0, "oldGenerationAbortStops": 16, "oldGenerationDisconnects": 25}
+  ],
+  "limits": ["Browser emulation only; no physical device or listening-quality judgment.", "This tested PreviewSession keyed reset unmount/remount, not an independent React-root unmount." ]
+}

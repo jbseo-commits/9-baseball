@@ -66,7 +66,7 @@ function PreviewSession({fixture,onChange,sound,setSound,variant,embedded,animat
     const isPitch=next.last?.kind!=='skill';
     const timeline=withKnockoutHold(presentationTimeline(shot,reduced),isPitch&&!reduced&&next.pitcher?.hp===0);
     cancelCues();
-    const speed=reduced?1:animationRate(rate),emit=kind=>speed===1?cue(kind):cue(kind,{rate:speed,signal:cueAbort.current.signal});
+    const speed=reduced?1:animationRate(rate),emit=kind=>cue(kind,{rate:speed,signal:cueAbort.current.signal});
     const play={timeline,rate:speed,startedAt:performance.now(),token:++token.current,action:isPitch?(executed?.action==='take'?'take':'swing'):'prepare'};
     busy.current=true;clock.current?.cancel();setPlayback(play);
     if(!embedded&&activeRef.current&&soundRef.current){audio();emit(isPitch?'pitch':shot?.cue||'skill');}

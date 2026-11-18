@@ -1,0 +1,870 @@
+{
+  "url": "http://127.0.0.1:5198/",
+  "method": "Chromium Playwright instrumentation of native WebAudio start/stop/disconnect and Storage API. Browser automation only; no physical-device or listening-quality claim.",
+  "cases": [
+    {
+      "rate": 0.25,
+      "reduced": false,
+      "selectedRate": "0.25",
+      "before": {
+        "starts": 12,
+        "events": 47,
+        "tail": [
+          {
+            "t": 2310.2000000029802,
+            "id": 12,
+            "k": "OscillatorNode",
+            "m": "stop",
+            "a": [
+              0.9339070294784582
+            ],
+            "ct": 0.24090702947845805
+          },
+          {
+            "t": 2355.900000002235,
+            "id": 5,
+            "k": "OscillatorNode",
+            "m": "disconnect",
+            "a": [],
+            "ct": 0.29024943310657597
+          },
+          {
+            "t": 2356,
+            "id": 7,
+            "k": "OscillatorNode",
+            "m": "disconnect",
+            "a": [],
+            "ct": 0.29024943310657597
+          },
+          {
+            "t": 2356,
+            "id": 9,
+            "k": "OscillatorNode",
+            "m": "disconnect",
+            "a": [],
+            "ct": 0.29024943310657597
+          },
+          {
+            "t": 2356,
+            "id": 6,
+            "k": "OscillatorNode",
+            "m": "disconnect",
+            "a": [],
+            "ct": 0.29024943310657597
+          },
+          {
+            "t": 2356,
+            "id": 8,
+            "k": "OscillatorNode",
+            "m": "disconnect",
+            "a": [],
+            "ct": 0.29024943310657597
+          }
+        ]
+      },
+      "afterMute": {
+        "starts": 12,
+        "startsAfterMark": 0,
+        "abortStops": 3,
+        "disconnects": 4,
+        "events": 55,
+        "storage": [
+          {
+            "t": 334.30000000074506,
+            "method": "getItem",
+            "key": "9zone-bgm-track",
+            "kind": "local"
+          },
+          {
+            "t": 357.20000000298023,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 455.9000000022352,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 1085.5,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 1187.5,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 1229.7000000029802,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 1828.2000000029802,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2078.400000002235,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2236.800000000745,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2332.2000000029802,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2354.800000000745,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2490.60000000149,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2605.300000000745,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2958.900000002235,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2989.2000000029802,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 3521.800000000745,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 3998,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          }
+        ]
+      },
+      "afterNext": {
+        "starts": 15,
+        "events": 61
+      }
+    },
+    {
+      "rate": 1,
+      "reduced": false,
+      "selectedRate": "1",
+      "before": {
+        "starts": 12,
+        "events": 26,
+        "tail": [
+          {
+            "t": 2396.199999999255,
+            "id": 10,
+            "k": "OscillatorNode",
+            "m": "stop",
+            "a": [
+              0.7051541950113379
+            ],
+            "ct": 0.42086167800453517
+          },
+          {
+            "t": 2396.39999999851,
+            "id": 11,
+            "k": "OscillatorNode",
+            "m": "start",
+            "a": [
+              0.6201541950113378
+            ],
+            "ct": 0.42086167800453517
+          },
+          {
+            "t": 2396.39999999851,
+            "id": 11,
+            "k": "OscillatorNode",
+            "m": "stop",
+            "a": [
+              0.8651541950113378
+            ],
+            "ct": 0.42086167800453517
+          },
+          {
+            "t": 2396.800000000745,
+            "id": 12,
+            "k": "OscillatorNode",
+            "m": "start",
+            "a": [
+              0.760154195011338
+            ],
+            "ct": 0.42086167800453517
+          },
+          {
+            "t": 2396.800000000745,
+            "id": 12,
+            "k": "OscillatorNode",
+            "m": "stop",
+            "a": [
+              1.065154195011338
+            ],
+            "ct": 0.42086167800453517
+          },
+          {
+            "t": 2411.10000000149,
+            "id": 3,
+            "k": "OscillatorNode",
+            "m": "disconnect",
+            "a": [],
+            "ct": 0.44117913832199546
+          }
+        ]
+      },
+      "afterMute": {
+        "starts": 12,
+        "startsAfterMark": 0,
+        "abortStops": 12,
+        "disconnects": 17,
+        "events": 55,
+        "storage": [
+          {
+            "t": 333.1000000014901,
+            "method": "getItem",
+            "key": "9zone-bgm-track",
+            "kind": "local"
+          },
+          {
+            "t": 363.3999999985099,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 400.80000000074506,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 914.5,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 1008.1999999992549,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 1036,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 1205.800000000745,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 1282.8999999985099,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 1369.300000000745,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 1637.3999999985099,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 1963.800000000745,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2101.300000000745,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2144.800000000745,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2167.199999999255,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2263.300000000745,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2277,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2435.5,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2501.39999999851,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2534.5,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2588.800000000745,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2640.699999999255,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2728.39999999851,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 3433.5,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 3847.199999999255,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 3879.89999999851,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          }
+        ]
+      },
+      "afterNext": {
+        "starts": 15,
+        "events": 61
+      }
+    },
+    {
+      "rate": 0.25,
+      "reduced": true,
+      "selectedRate": "0.25",
+      "before": {
+        "starts": 16,
+        "events": 36,
+        "tail": [
+          {
+            "t": 1853.199999999255,
+            "id": 16,
+            "k": "OscillatorNode",
+            "m": "start",
+            "a": [
+              0.3901995464852608
+            ],
+            "ct": 0.23219954648526078
+          },
+          {
+            "t": 1853.199999999255,
+            "id": 16,
+            "k": "OscillatorNode",
+            "m": "stop",
+            "a": [
+              0.5251995464852608
+            ],
+            "ct": 0.23219954648526078
+          },
+          {
+            "t": 1970,
+            "id": 2,
+            "k": "OscillatorNode",
+            "m": "disconnect",
+            "a": [],
+            "ct": 0.3308843537414966
+          },
+          {
+            "t": 2002.6000000014901,
+            "id": 14,
+            "k": "OscillatorNode",
+            "m": "disconnect",
+            "a": [],
+            "ct": 0.36281179138321995
+          },
+          {
+            "t": 2033.699999999255,
+            "id": 8,
+            "k": "OscillatorNode",
+            "m": "disconnect",
+            "a": [],
+            "ct": 0.39183673469387753
+          },
+          {
+            "t": 2041.699999999255,
+            "id": 3,
+            "k": "OscillatorNode",
+            "m": "disconnect",
+            "a": [],
+            "ct": 0.4005442176870748
+          }
+        ]
+      },
+      "afterMute": {
+        "starts": 16,
+        "startsAfterMark": 0,
+        "abortStops": 16,
+        "disconnects": 22,
+        "events": 74,
+        "storage": [
+          {
+            "t": 248.89999999850988,
+            "method": "getItem",
+            "key": "9zone-bgm-track",
+            "kind": "local"
+          },
+          {
+            "t": 296.80000000074506,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 341.19999999925494,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 615,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 955.3999999985099,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 1624.8999999985099,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 1795.300000000745,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 1966.699999999255,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2101.699999999255,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 3064.10000000149,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 3086.60000000149,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          }
+        ]
+      },
+      "afterNext": {
+        "starts": 32,
+        "events": 108
+      }
+    },
+    {
+      "rate": 1,
+      "reduced": true,
+      "selectedRate": "1",
+      "before": {
+        "starts": 16,
+        "events": 37,
+        "tail": [
+          {
+            "t": 1533.699999999255,
+            "id": 16,
+            "k": "OscillatorNode",
+            "m": "stop",
+            "a": [
+              0.47585714285714287
+            ],
+            "ct": 0.18285714285714286
+          },
+          {
+            "t": 1659.199999999255,
+            "id": 2,
+            "k": "OscillatorNode",
+            "m": "disconnect",
+            "a": [],
+            "ct": 0.31056689342403626
+          },
+          {
+            "t": 1692.300000000745,
+            "id": 14,
+            "k": "OscillatorNode",
+            "m": "disconnect",
+            "a": [],
+            "ct": 0.34249433106575966
+          },
+          {
+            "t": 1695.3999999985099,
+            "id": 8,
+            "k": "OscillatorNode",
+            "m": "disconnect",
+            "a": [],
+            "ct": 0.34249433106575966
+          },
+          {
+            "t": 1715.699999999255,
+            "id": 15,
+            "k": "OscillatorNode",
+            "m": "disconnect",
+            "a": [],
+            "ct": 0.3686167800453515
+          },
+          {
+            "t": 1716,
+            "id": 3,
+            "k": "OscillatorNode",
+            "m": "disconnect",
+            "a": [],
+            "ct": 0.37151927437641724
+          }
+        ]
+      },
+      "afterMute": {
+        "starts": 16,
+        "startsAfterMark": 0,
+        "abortStops": 16,
+        "disconnects": 21,
+        "events": 74,
+        "storage": [
+          {
+            "t": 204.89999999850988,
+            "method": "getItem",
+            "key": "9zone-bgm-track",
+            "kind": "local"
+          },
+          {
+            "t": 250,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 271,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 525.1000000014901,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 788.3000000007451,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 1368.699999999255,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 1488.5,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 1651.800000000745,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 1694.699999999255,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2033.800000000745,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2822.89999999851,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          },
+          {
+            "t": 2868.60000000149,
+            "method": "getItem",
+            "key": "9zone-v10-run",
+            "kind": "local"
+          }
+        ]
+      },
+      "afterNext": {
+        "starts": 32,
+        "events": 107
+      }
+    }
+  ],
+  "hidden": {
+    "mode": "synthetic visibilitychange: document.hidden=true and visibilityState=hidden; not physical backgrounding",
+    "abortStops": 12,
+    "disconnects": 17,
+    "events": 55
+  },
+  "embedded": {
+    "frameFound": true,
+    "childUrl": "http://127.0.0.1:5198/?battleUi=vnext&battleFixture=cinema-homer&battleCompareVariant=vnext&battleCompareChild=vnext",
+    "before": {
+      "starts": 0,
+      "buttons": [
+        "다시 시작",
+        "소리 꺼짐",
+        "",
+        "안 던짐",
+        "안 던짐",
+        "안 던짐",
+        "안 던짐",
+        "",
+        "",
+        "1",
+        "",
+        "",
+        "‹손패 4펼치기0",
+        "기본 스윙 0",
+        "더미 4 · 버림 1",
+        "2솔로포 각파워 +36 · 빈 루 안타 +6 HP",
+        "",
+        "1정타 노림정타 HP +50%",
+        "",
+        "1힘 모으기파워 +18",
+        "",
+        "1작전 확인뽑기 2장",
+        "",
+        "해제",
+        "다음 타자"
+      ],
+      "storage": [
+        {
+          "t": 151.59999999776483,
+          "method": "getItem",
+          "key": "9zone-bgm-track",
+          "kind": "local"
+        },
+        {
+          "t": 158,
+          "method": "getItem",
+          "key": "9zone-v10-run",
+          "kind": "local"
+        },
+        {
+          "t": 189,
+          "method": "getItem",
+          "key": "9zone-v10-run",
+          "kind": "local"
+        },
+        {
+          "t": 729.5999999977648,
+          "method": "getItem",
+          "key": "9zone-v10-run",
+          "kind": "local"
+        },
+        {
+          "t": 763.5999999977648,
+          "method": "getItem",
+          "key": "9zone-v10-run",
+          "kind": "local"
+        },
+        {
+          "t": 915.1999999992549,
+          "method": "getItem",
+          "key": "9zone-v10-run",
+          "kind": "local"
+        },
+        {
+          "t": 1043.5,
+          "method": "getItem",
+          "key": "9zone-v10-run",
+          "kind": "local"
+        },
+        {
+          "t": 1148.2999999970198,
+          "method": "getItem",
+          "key": "9zone-v10-run",
+          "kind": "local"
+        },
+        {
+          "t": 1167,
+          "method": "getItem",
+          "key": "9zone-v10-run",
+          "kind": "local"
+        },
+        {
+          "t": 1202.5,
+          "method": "getItem",
+          "key": "9zone-v10-run",
+          "kind": "local"
+        },
+        {
+          "t": 1351.2999999970198,
+          "method": "getItem",
+          "key": "9zone-v10-run",
+          "kind": "local"
+        },
+        {
+          "t": 2077.89999999851,
+          "method": "getItem",
+          "key": "9zone-v10-run",
+          "kind": "local"
+        },
+        {
+          "t": 2469.89999999851,
+          "method": "getItem",
+          "key": "9zone-v10-run",
+          "kind": "local"
+        },
+        {
+          "t": 2510.2999999970198,
+          "method": "getItem",
+          "key": "9zone-v10-run",
+          "kind": "local"
+        }
+      ]
+    },
+    "after": {
+      "starts": 0,
+      "storage": [
+        {
+          "t": 195.80000000074506,
+          "method": "getItem",
+          "key": "9zone-bgm-track",
+          "kind": "local"
+        },
+        {
+          "t": 198.60000000149012,
+          "method": "getItem",
+          "key": "9zone-v10-run",
+          "kind": "local"
+        },
+        {
+          "t": 204.20000000298023,
+          "method": "getItem",
+          "key": "9zone-v10-run",
+          "kind": "local"
+        },
+        {
+          "t": 408.6000000014901,
+          "method": "getItem",
+          "key": "9zone-v10-run",
+          "kind": "local"
+        },
+        {
+          "t": 448.9000000022352,
+          "method": "getItem",
+          "key": "9zone-v10-run",
+          "kind": "local"
+        },
+        {
+          "t": 548,
+          "method": "getItem",
+          "key": "9zone-v10-run",
+          "kind": "local"
+        }
+      ]
+    }
+  },
+  "pageErrors": []
+}

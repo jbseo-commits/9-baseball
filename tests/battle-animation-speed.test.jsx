@@ -51,6 +51,7 @@ it('embedded and legacy comparisons stay on normal time and expose no preference
 });
 
 it('cancels slow scheduled judgement audio on mute, fixture reset and unmount',()=>{
+ cue.mockClear();
  const v=render(<IntegrationPreview fixture="swing-main"/>);fireEvent.change(speed(),{target:{value:'0.25'}});
  const sound=()=>screen.getByRole('button',{name:/효과음 (켜기|끄기)/});
  fireEvent.click(sound());fireEvent.click(screen.getByTestId('bp-swing'));
@@ -60,4 +61,39 @@ it('cancels slow scheduled judgement audio on mute, fixture reset and unmount',(
  const reset=cue.mock.calls.findLast(c=>c[1]?.signal)[1].signal;expect(reset.aborted).toBe(false);
  fireEvent.click(screen.getByRole('button',{name:'다시 시작',exact:true}));expect(reset.aborted).toBe(true);
  fireEvent.click(screen.getByTestId('bp-swing'));const last=cue.mock.calls.findLast(c=>c[1]?.signal)[1].signal;expect(last.aborted).toBe(false);v.unmount();expect(last.aborted).toBe(true);
+});
+
+it.each([
+ {label:'normal 1x',rate:1,reduced:false},
+ {label:'reduced motion at selected 0.25x',rate:.25,reduced:true},
+])('passes cancellable audio ownership at $label and restores a fresh cue after reset',({rate,reduced})=>{
+ cue.mockClear();if(reduced)vi.spyOn(window,'matchMedia').mockReturnValue({matches:true});
+ const view=render(<IntegrationPreview fixture="swing-main"/>);
+ if(rate!==1)fireEvent.change(speed(),{target:{value:String(rate)}});
+ const sound=()=>screen.getByRole('button',{name:/효과음 (켜기|끄기)/});
+ fireEvent.click(sound());fireEvent.click(screen.getByTestId('bp-swing'));
+ const first=cue.mock.calls.findLast(c=>c[0]==='pitch');expect(first).toBeTruthy();
+ expect(first[1]?.rate??1).toBe(1);expect(first[1]?.signal).toBeInstanceOf(AbortSignal);expect(first[1]?.signal.aborted).toBe(false);
+ const firstSignal=first[1].signal;fireEvent.click(sound());expect(firstSignal.aborted).toBe(true);
+ act(()=>vi.advanceTimersByTime(2000));expect(cue).toHaveBeenCalledTimes(1);
+
+ fireEvent.click(screen.getByRole('button',{name:'다시 시작',exact:true}));fireEvent.click(sound());fireEvent.click(screen.getByTestId('bp-swing'));
+ const next=cue.mock.calls.findLast(c=>c[0]==='pitch');expect(next[1].signal).not.toBe(firstSignal);expect(next[1].signal.aborted).toBe(false);
+ view.unmount();expect(next[1].signal.aborted).toBe(true);
+});
+
+it('aborts the active cue on document hide and keeps embedded playback silent',()=>{
+ cue.mockClear();const view=render(<IntegrationPreview fixture="swing-main"/>);
+ fireEvent.click(screen.getByRole('button',{name:/효과음 (켜기|끄기)/}));fireEvent.click(screen.getByTestId('bp-swing'));
+ const cueCall=cue.mock.calls.findLast(c=>c[0]==='pitch');expect(cueCall?.[1]?.signal).toBeInstanceOf(AbortSignal);const signal=cueCall?.[1]?.signal;expect(signal?.aborted).toBe(false);
+ const hidden=vi.spyOn(document,'hidden','get').mockReturnValue(true);act(()=>document.dispatchEvent(new Event('visibilitychange')));expect(signal.aborted).toBe(true);hidden.mockReturnValue(false);view.unmount();
+
+ cue.mockClear();const parent={postMessage:vi.fn()},original=window.parent;Object.defineProperty(window,'parent',{configurable:true,value:parent});
+ try{
+  render(<IntegrationPreview embedded fixture="swing-main"/>);
+  act(()=>window.dispatchEvent(new MessageEvent('message',{source:parent,origin:location.origin,data:{type:'9zone-battle-compare-activity',version:1,active:true}})));
+  fireEvent.click(screen.getByRole('button',{name:/소리 꺼짐/}));fireEvent.click(screen.getByRole('button',{name:'다시 시작',exact:true}));
+  act(()=>window.dispatchEvent(new MessageEvent('message',{source:parent,origin:location.origin,data:{type:'9zone-battle-compare-activity',version:1,active:true}})));
+  fireEvent.click(screen.getByTestId('bp-swing'));expect(document.querySelector('.bv-scene').dataset.playToken).toBe('1');act(()=>vi.advanceTimersByTime(2000));expect(cue).not.toHaveBeenCalled();
+ }finally{cleanup();Object.defineProperty(window,'parent',{configurable:true,value:original});}
 });

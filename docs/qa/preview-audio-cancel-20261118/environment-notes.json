@@ -1,0 +1,9 @@
+{
+  "candidate": "http://127.0.0.1:5198/?battleUi=vnext&battleFixture=cinema-homer",
+  "browser": "Chromium via Playwright, /usr/bin/chromium",
+  "hidden": "Synthetic visibilitychange with both document.hidden and document.visibilityState overridden; produced abort-stop/disconnect cleanup. Not physical tab backgrounding.",
+  "hiddenEmulation": "Page.setWebLifecycleState(hidden) and Emulation.setPageVisibilityState(hidden) unsupported by this Chromium; Page.setWebLifecycleState(frozen) succeeds but document remains visible. Switching between headless tabs also leaves visibilityState=visible.",
+  "storage": "Standalone and embedded preview contexts performed localStorage reads of 9zone-v10-run from unchanged v10-relic-ui.js decorator and 9zone-bgm-track preference reads. Instrumented setItem/removeItem count was zero. The preview route does not use battlePlay=1, so the decorator's existing read guard does not cover it. This is a pre-existing read-boundary issue, not a no-storage-access PASS.",
+  "embedded": "Comparison vnext iframe produced zero WebAudio source starts before/after replay; no pageerrors.",
+  "source": "Only IntegrationPreview.jsx's cue argument line differs from HEAD; v10-relic-ui.js is unchanged at HEAD fb8e7b13f043e2c17376138abe6696f48c2d8022."
+}
