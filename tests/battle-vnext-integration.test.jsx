@@ -97,6 +97,13 @@ describe('C05 existing controller on new view',()=>{
     expect(document.querySelector('.bv-card[data-selection=main]')?.closest('.bv-card-slot')?.dataset.cardId).toBe(main);
     fireEvent.click(pitcher);expect(screen.getByRole('tab',{name:'투수',exact:true}).getAttribute('aria-selected')).toBe('true');
   });
+  it('keeps automatic next by default and allows the lab to wait for manual next',()=>{
+    vi.useFakeTimers();
+    const regular=open('result-take');act(()=>vi.advanceTimersByTime(AUTO_NEXT_MS));expect(regular.onNext).toHaveBeenCalledTimes(1);
+    cleanup();
+    const manual=open('result-take',{autoAdvance:false});act(()=>vi.advanceTimersByTime(AUTO_NEXT_MS*2));expect(manual.onNext).not.toHaveBeenCalled();
+    const next=screen.queryByTestId('bp-next');if(next)fireEvent.click(next);expect(manual.onNext).toHaveBeenCalledTimes(1);
+  });
   it('pauses auto-next for inspector, resumes after close, and manual next executes once',()=>{
     vi.useFakeTimers();const v=open('result-take');
     fireEvent.click(screen.getByRole('button',{name:'경기 정보 및 메뉴'}));
@@ -114,6 +121,19 @@ describe('C05 existing controller on new view',()=>{
   });
 });
 describe('memory-only sandbox uses engine and preserves production save',()=>{
+  it('decision lab renders the real first opponent, starts with no selection, and resets in memory only',()=>{
+    localStorage.setItem('9zone-v10-run','production-sentinel');
+    render(<IntegrationPreview decisionLab/>);
+    expect(screen.getByRole('navigation',{name:'카드 선택 실험 안내'})).toBeTruthy();
+    expect(screen.getByText(/손패 펼치기.*카드\/존 선택.*공개 결과 확인/)).toBeTruthy();
+    expect(document.querySelector('.bv-actor-pitcher')?.dataset.rosterArt).toBe('regular-05-violet-sting');
+    expect(document.querySelector('.bv-card[data-selection=main]')).toBeNull();
+    expect(document.querySelector('.bv-pitch-mark')).toBeNull();
+    fireEvent.click(screen.getByRole('button',{name:'같은 시드 다시 시작'}));
+    expect(document.querySelector('.bv-actor-pitcher')?.dataset.rosterArt).toBe('regular-05-violet-sting');
+    expect(document.querySelector('.bv-card[data-selection=main]')).toBeNull();
+    expect(localStorage.getItem('9zone-v10-run')).toBe('production-sentinel');
+  });
   it('long press opens detail, swallows the release click, and keeps the selected plan',()=>{
     vi.useFakeTimers();render(<IntegrationPreview fixture="swing-main"/>);
     const target=card('scout');
