@@ -29,3 +29,11 @@ Independent reviewer verified every packedcell equals supplied4×pixels, public 
 Local pixel SKILL.md unavailable in checkout/.agents/.codex; repositoryAGENTS/codex-loop independent review used. Library skill used for output delivery when supported. Art/camera review is not masterpiece approval.
 
 Delivery: current Library prepared upload for ZIP+GIF failed before tool discovery with `library upload failed: hosted apps tools/list request failed: network`; no confirmed Library IDs, no direct fallback/retry. Exact ZIP preserved locally at/workspace/fox-three-fixes-playable.zip and in this QA folder. GIF is12fps browser capture excerpt with loading trimmed; PNGs preserve full-color inspection.
+
+## Narrow follow-up: confirmed outside
+
+Prior8e8eded incorrectly showed?when earned public knownPitchZones was[9]: no in-zone face can say확정 for a ball. VM now publishes deciding&&known.length===1&&known[0]===9 as band.confirmedOutside. Only literaltrue reaches볼!; no rounded100%,95~100%,outside-column tendency,private target,orprobability inference. No highlighted in-zone cell. Hidden flight/result then nonstale nextdecision.
+
+Targeted tests include deterministic outside-pitch test setup before a legal scout: unscouted remainsfalse, earned scout becomestrue, flightfalse. Browser screenshot resumes this earned teststate through the existing route (not claimed naturally drawn during user play). build-earned-outside-fixture.mjs+verify-outside.py reproduce it. Existing real seed card/hit/take/reload/rotation/reduced flows separately rerun on extracted final ZIP. Original8e8eded build remains immutable and local/workspace/fox-three-fixes-playable.zip retained. New ZIP:/workspace/fox-confirmed-outside-playable.zip. No Library retry,main/deploy/Site mutation.
+
+Follow-up validation:251files1713testsPASS,smoke/build/budgetPASS. Extracted full ZIP normal3contexts and earned-outside fixturePASS. Initial natural-case test searched100openingseeds without finding the required case; replaced with explicit controlled-draw+legal-scout fixture, not a claim of natural gameplay occurrence. Screenshot waits for both actualactorimages before capture. Independent reviewer targeted2files5testsPASS. Latestpackage.json records finalZIPbytes/hash.

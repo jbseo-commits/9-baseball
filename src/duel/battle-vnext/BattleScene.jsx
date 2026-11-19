@@ -28,7 +28,7 @@ export function approvedPitcherArt(artId){
 
 const ACTORS=['pitcher','batter'];
 
-export default function BattleScene({scene=null,publicIntentFaces=[],actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,framing='cover',playback=null,result=null,finale=null,onFocusChange=null}){
+export default function BattleScene({scene=null,publicIntentFaces=[],publicOutsideConfirmed=false,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,framing='cover',playback=null,result=null,finale=null,onFocusChange=null}){
   const rootRef=useRef(null);
   const elapsed=useSceneClock(playback);
   const roster=actors.pitcher?.kind==='roster-atlas'?actors.pitcher:null;
@@ -85,7 +85,7 @@ export default function BattleScene({scene=null,publicIntentFaces=[],actors={},s
         </div>;
       })}
     </div></div>
-    {roster?.artId==='regular-07-red-fox'&&<PublicIntentBadge faces={publicIntentFaces} phase={playback&&playback.action!=='prepare'?'flight':phase} point={at({x:roster.meta.worldFoot.x+(126-roster.meta.anchor.x)*roster.meta.worldHeight/256,y:roster.meta.worldFoot.y+(56-roster.meta.anchor.y)*roster.meta.worldHeight/256})}/>}
+    {roster?.artId==='regular-07-red-fox'&&<PublicIntentBadge confirmedOutside={publicOutsideConfirmed} faces={publicIntentFaces} phase={playback&&playback.action!=='prepare'?'flight':phase} point={at({x:roster.meta.worldFoot.x+(126-roster.meta.anchor.x)*roster.meta.worldHeight/256,y:roster.meta.worldFoot.y+(56-roster.meta.anchor.y)*roster.meta.worldHeight/256})}/>}
     <div className="bv-scene-shade" aria-hidden="true"/>
     {/* The light pass uses the exact same projection/jitter as the actors. It
         sits above result grading so the contact light is not darkened twice. */}

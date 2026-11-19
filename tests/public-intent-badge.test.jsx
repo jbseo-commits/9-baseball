@@ -22,3 +22,12 @@ describe('actual game overhead public intent',()=>{
   rerender(<PublicIntentBadge faces={Array(9).fill('가끔')} phase="deciding" point={{x:430,y:35}}/>);expect(container.textContent).toBe('');
  });
 });
+
+it('uses only explicit public outside confirmation, never percentages or outside-column hints',()=>{
+ const faces=Array(9).fill('단서 밖');
+ expect(publicIntentBadge(faces,'deciding',true)).toMatchObject({zones:[],certain:true,outside:true});
+ for(const value of [false,undefined,'100%','95~100%','바깥쪽 공략'])expect(publicIntentBadge(faces,'deciding',value).certain).toBe(false);
+ expect(publicIntentBadge(faces,'flight',true)).toBeNull();
+ const v=render(<PublicIntentBadge faces={faces} phase="deciding" confirmedOutside point={{x:430,y:110}}/>);
+ expect(v.container.textContent).toBe('볼!');expect(v.getByRole('img').getAttribute('aria-label')).toContain('존 밖 볼 확정');
+});

@@ -212,7 +212,7 @@ export function buildBattleViewModel({
     ...(choice?.supportCoverages||[]).map((x,i)=>({id:stack[i]?.id,role:'support',order:i+2,aimZone:stack[i]?.aimZone,coverage:[...x.coverage]})),
   ]:[];
   const zones={level,aimWord:deciding?ZONE_WORDS[b.aimZone]||'':null,sources:readSources(displayState).map(x=>x.label),cells,pieces,
-    band:{face:deciding?bandFace(s,{level,probs}):null,actual:landed&&r.zone===9},
+    band:{face:deciding?bandFace(s,{level,probs}):null,confirmedOutside:deciding&&known.length===1&&known[0]===9,actual:landed&&r.zone===9},
     clue:known.length<10,targetingSupport:!!liveArmed,links:judged?r.stackLinks||[]:stack.length?choice?.stackPlan?.links||[]:[]};
 
   /* ── 예측: 선택 중에만, 실제 판정과 같은 함수의 공개 구간 ── */
