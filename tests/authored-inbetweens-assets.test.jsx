@@ -67,14 +67,14 @@ it('connects all20 sheets, retains original keys except explicit low-slot revisi
   expect(im.getAttribute('width')).toBe(String(r.columns*256));expect(im.getAttribute('height')).toBe(String(r.rows*256));view.unmount();
  }
 });
-it('preloads and renders the one authored bat bridge without changing world scale or contact8',()=>{
+it('keeps the supplied pixel batter across swing and contact without flashing the former smooth bridge',()=>{
  vi.spyOn(performance,'now').mockReturnValue(1150);
  const timeline={duration:2100,impactAt:1200,freeze:95,releaseAt:1400,settleAt:1800,delivery:{pitchReleaseAt:900}};
  const props={size:{width:844,height:390},framing:'atbat',actors:{batter:SAMPLE_ACTORS.batter},playback:{action:'swing',startedAt:0,timeline}};
  const view=render(<BattleScene {...props}/>),actor=view.container.querySelector('.bv-actor-batter');
- expect(view.container.querySelector('img[hidden]').getAttribute('src')).toBe(SAMPLE_ACTORS.batterTween);
- expect(actor.dataset.pose).toBe('swing-bridge');
- expect(actor.querySelector('img').style.width).toBe('100%');expect(actor.querySelector('img').style.height).toBe('100%');
+ expect(view.container.querySelector('img[hidden]')).toBeNull();expect(SAMPLE_ACTORS.batterTween).toBeNull();
+ expect(actor.dataset.pose).toBe('barrel-lag');
+ expect(actor.querySelector('img').style.width).toBe('400%');expect(actor.querySelector('img').style.height).toBe('400%');
  expect(actor.querySelector('.bv-ready-drawing')).toBeNull();
  const box=actor.getAttribute('style');
  vi.mocked(performance.now).mockReturnValue(1200);view.rerender(<BattleScene {...props} phase="result"/>);

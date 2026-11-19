@@ -41,7 +41,7 @@ export default function BattleScene({scene=null,publicIntentFaces=[],actors={},s
   const landingAge=elapsed-landingAt;
   const landing=roster?.landing&&playback&&!reduced&&playback.action!=='prepare'&&elapsed>=landingAt&&elapsed<landingAt+230
     ?{point:roster.landing,progress:(elapsed-landingAt)/230}:null;
-  const batterTweens=actors.batter===SAMPLE_ACTORS.batter;
+  const batterTweens=actors.batter===SAMPLE_ACTORS.batter&&!!SAMPLE_ACTORS.batterTween;
   const pose=motionAt({elapsed,timeline:playback?.timeline,action:playback?.action,landed:phase==='result',knockedOut:!!result?.knockedOut,reduced,readyCoil:framing==='atbat'&&(phase==='deciding'||phase==='flight'),authoredBatterTweens:batterTweens});
   const [measured,setMeasured]=useState(null);
   const onLayoutRef=useRef(onLayout);onLayoutRef.current=onLayout;

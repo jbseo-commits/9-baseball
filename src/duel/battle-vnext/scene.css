@@ -25,3 +25,6 @@
    stays fixed; atlas images are never mirrored/rotated to fabricate a swing. */
 .bv-scene .bv-motion-crop{position:absolute;inset:0;overflow:hidden}
 .bv-scene .bv-motion-crop img{position:absolute;max-width:none;max-height:none;display:block}
+
+/* Supplied native pixel batter and Red Fox: keep sampled edges crisp. */
+.bv-scene .bv-actor-batter img,.bv-scene .bv-actor-pitcher[data-roster-art="regular-07-red-fox"] img{image-rendering:pixelated}
