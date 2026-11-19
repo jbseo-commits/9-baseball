@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {markerPlan} from './public-marker.js';
+assert.deepEqual(markerPlan(['안 던짐','가끔','가끔'],'deciding').zones,[1,2]);
+assert.deepEqual(markerPlan(['가끔'],'deciding').zones,[]);
+assert.deepEqual(markerPlan(['안 던짐','확정'],'deciding'),{visible:true,zones:[1],certain:true});
+for(const phase of ['flight','result','committing'])assert.equal(markerPlan(['확정'],phase).visible,false);
+assert.equal(markerPlan(['확정','확정'],'deciding').certain,false);
+assert.equal(markerPlan(['100%'],'deciding').certain,false);
+const faces=['가끔','자주'];Object.defineProperty(faces,'pending',{get(){throw Error('private access')}});
+assert.deepEqual(markerPlan(faces,'deciding').zones,[0,1]);
+console.log('PASS public-face projection; no certainty inferred from rounded100% or lone candidate');
