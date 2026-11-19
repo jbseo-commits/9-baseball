@@ -10,3 +10,7 @@
 - GIF is real browser capture with measured capture intervals, low frame rate under automation; not source animation-rate evidence. See export-verification.json.
 - Physical Android, full manual campaign completion, aesthetic/motion approval remain unverified. Existing full regression suite covers reward/facilities/nextmap/save flows; not claimed manually replayed in this pass.
 - Original6poses remain stepped with high/backrelease. Nonuniform background mapping stretches plate/ground and pixels; technical pass is not art approval. Existing main actor style is mixed withpixel background/newFox by explicit scope.
+
+## Delivery
+
+Library output used current bundled prepared-upload helper for ZIP/GIF/screenshot as one batch. It failed before tools discovery with `library upload failed: hosted apps tools/list request failed: network`. No confirmed Library ID and no direct-write fallback/repeated upload attempted. Full playable ZIP is therefore committed as a portable repo artifact, also retained at /workspace/night-stadium-red-fox-playable.zip. Source/runtime build corresponds to3e1561d; subsequent delivery-only commit does not change runtime bytes.
