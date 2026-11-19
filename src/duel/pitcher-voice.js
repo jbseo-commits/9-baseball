@@ -5,6 +5,13 @@
    strike), walk, foul, out, hit, extra (2B/3B), homer, knockout (her HP hits 0). */
 
 export const PITCHER_VOICE={
+  // New ordinary roster identity; neutral lines satisfy the existing voice contract.
+  'regular-07-red-fox':{
+    entry:['승부를 시작하자.'],chase:['존 밖이었어.'],whiff:['다음 공을 봐.'],
+    strikeout:['이번 타석은 여기까지.'],looking:['스트라이크.'],walk:['볼넷이야.'],
+    foul:['다시 승부하자.'],out:['아웃.'],hit:['잘 맞혔네.'],extra:['좋은 타구였어.'],
+    homer:['이번 공은 네 승리야.'],knockout:['좋은 승부였어.'],
+  },
   // 레드 러시 — 27, scarlet high ponytail, gold eyes, power pitcher. Fiery, direct, loves a fight.
   'regular-01-red-rush':{
     entry:['첫 타석부터 불 붙여볼까?','내 공, 눈으로 따라올 수 있으면 해봐.'],

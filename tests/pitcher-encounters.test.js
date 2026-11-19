@@ -9,9 +9,9 @@ describe('unique pitcher encounters',()=>{
  it('covers all 20 roster slugs with distinct public signatures',()=>{
   const map=createRunMap(1234),seen=new Set();
   for(let seed=0;seed<120;seed++)for(const n of createRunMap(seed,{tutorial:true}).nodes)if(n.opponent?.artId)seen.add(n.opponent.artId);
-  expect(seen.size).toBe(20);expect(Object.keys(PITCHER_ENCOUNTERS)).toHaveLength(20);
+  expect(seen.size).toBe(21);expect(Object.keys(PITCHER_ENCOUNTERS)).toHaveLength(20);
   expect(new Set(Object.values(PITCHER_ENCOUNTERS).map(x=>x.label)).size).toBe(20);
-  expect(map.nodes.filter(n=>n.opponent).every(n=>n.opponent.encounter?.version===1)).toBe(true);
+  expect(map.nodes.filter(n=>n.opponent).every(n=>n.opponent.artId==='regular-07-red-fox'?n.opponent.encounter===null:n.opponent.encounter?.version===1)).toBe(true);
   expect(map.nodes.filter(n=>n.opponent).every(n=>n.opponent.style)).toBe(true);
  });
  it('keeps final advertised encounter odds normalized and outside live zones closed',()=>{
