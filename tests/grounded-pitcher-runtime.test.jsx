@@ -23,7 +23,7 @@ afterEach(cleanup);
 
 describe('approved grounded pitcher drawings in actual runtime renderers',()=>{
  it('ships the selected 20 compact atlases and retains the complete source export with verified hashes',()=>{
-  expect(Object.keys(pitcherAtlases)).toHaveLength(20);expect(runtime.characters).toHaveLength(20);
+  expect(Object.keys(pitcherAtlases)).toHaveLength(21);expect(runtime.characters).toHaveLength(20);
   for(const c of runtime.characters){
    expect(String(pitcherAtlases[c.id])).toContain('pitcher-inbetweens-v1/runtime/');
    expect(sha(read(c.runtimeFile))).toBe(c.runtimeSHA256);expect(sha(read(c.file))).toBe(c.atlasSHA256);
@@ -80,7 +80,7 @@ describe('approved grounded pitcher drawings in actual runtime renderers',()=>{
    expect(motionAt({elapsed:t.impactAt-1,timeline:t,action:'swing'}).batter).toBe(7);
    const atContact=rosterFrame(play,t.impactAt,actor);
    for(const dt of [1,30,80,94])expect(rosterFrame(play,t.impactAt+dt,actor)).toBe(atContact);
-   expect(rosterFrame(play,t.duration-1,actor)).toBe(0);
+   expect(rosterFrame(play,t.duration-1,actor)).toBe(id==='regular-07-red-fox'?5:0); // New six-pose source ends in empty-hand RECOVER.
   }
  });
  it('scales the reviewed anatomical pivot, hand and landing together, including left-handed Onyx',()=>{

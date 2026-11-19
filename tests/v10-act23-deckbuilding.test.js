@@ -63,7 +63,8 @@ describe('V10 three-act deckbuilding arc',()=>{
       for(const node of map.nodes.filter(n=>n.opponent)){
         const identity=roster.find(p=>p.id===node.opponent.artId);
         expect(node.opponent.archetypeKey).toBe(identity.archetype);
-        expect(node.opponent.encounter.id).toBe(identity.id);
+        if(identity.id==='regular-07-red-fox')expect(node.opponent.encounter).toBeNull();
+        else expect(node.opponent.encounter.id).toBe(identity.id);
       }
       expect(getRunNode(map,'a1-boss').opponent.archetypeKey).toBe('sinker');
       expect(getRunNode(map,'a2-boss').opponent.archetypeKey).toBe('high');

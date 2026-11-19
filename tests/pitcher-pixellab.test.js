@@ -60,7 +60,7 @@ describe('PixelLab pitch animations',()=>{
       expect(String(pitcherAtlases[id])).toContain('pitcher-inbetweens-v1/runtime');
     }
     expect(visuals).not.toMatch(/import\.meta\.glob\(['"]\.\.\/\.\.\/assets\/pitcher-(?:pixellab|sd)-/);
-    expect(Object.keys(pitcherAtlases)).toHaveLength(20);
+    expect(Object.keys(pitcherAtlases)).toHaveLength(21);
   });
 
   it('uses the reviewed pivot, front-foot landing and hand points for the new runtime revision',()=>{

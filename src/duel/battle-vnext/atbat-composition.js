@@ -1,6 +1,6 @@
 import motion from '../../../assets/production-art/mockup-rebuild/motion.json';
 import layout from '../../../assets/production-art/mockup-rebuild/layout.json';
-import stadium from '../../../assets/production-art/mockup-rebuild/stadium.avif';
+import stadium from '../../../assets/production-art/night-stadium/stadium-registered.webp';
 import ready from '../../../assets/production-art/mockup-rebuild/batter-ready.avif';
 
 /* Measured landmarks of the new background, not an actor-only camera trick.

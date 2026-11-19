@@ -54,7 +54,7 @@ it('uses different actual roster release frames and starts the ball at its regis
   expect(actor.releaseAt).toBe(Math.round(f*1000/60));expect(timeline.impactAt-actor.releaseAt).toBe(300);expect(rosterFrame(playback,actor.releaseAt)).toBe(f);
   const composition={release:actor.release,contact:{x:300,y:600}};expect(sceneEffectAt({elapsed:actor.releaseAt-1,playback,composition})).toBeNull();expect(sceneEffectAt({elapsed:actor.releaseAt,playback,composition}).ball).toEqual(actor.release);
  }
- expect(rosterPitcherActor('unknown','some-art')).toBeNull();expect(Object.keys(registration)).toHaveLength(20);
+ expect(rosterPitcherActor('unknown','some-art')).toBeNull();expect(Object.keys(registration)).toHaveLength(21);
 });
 
 it('prefers newer in-memory writes over an old readable backing after quota failure, including removal',()=>{
