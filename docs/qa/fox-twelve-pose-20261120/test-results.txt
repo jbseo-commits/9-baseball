@@ -1,0 +1,22 @@
+velopment.js:11059:18)
+    at insertOrAppendPlacementNode (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:23941:7)
+    at commitPlacement (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:23883:9)
+    at commitReconciliationEffects (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:24630:7)
+
+ Test Files  251 passed (251)
+      Tests  1713 passed (1713)
+   Start at  00:52:14
+   Duration  96.18s (transform 8.94s, setup 0ms, import 67.70s, tests 144.70s, environment 34.06s)
+
+$ vitest run tests/red-fox-twelve-pose.test.js
+
+ RUN  v4.1.11 /workspace/9-baseball
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  00:54:21
+   Duration  484ms (transform 106ms, setup 0ms, import 154ms, tests 7ms, environment 0ms)
+
+PASS final export: card/hit/take/12pose source/badge lifecycle/rotation/resume/no404
+{'firstBallPose': 'frame-8', 'handScreen': [479.14245867729187, 132.06863629817963], 'ballScreen': [479.02004, 132.17629], 'distancePx': 0.16302040383191638, 'observedPoses': ['frame-0', 'frame-1', 'frame-10', 'frame-11', 'frame-2', 'frame-3', 'frame-4', 'frame-5', 'frame-6', 'frame-7', 'frame-8', 'frame-9'], 'plantedPreImpactBoxes': [(378.036, 106.133, 112.535, 112.535)], 'sourceLeadCell': [194, 248], 'realBrowserClock': True}

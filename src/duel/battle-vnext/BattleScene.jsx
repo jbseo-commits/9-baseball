@@ -85,7 +85,7 @@ export default function BattleScene({scene=null,publicIntentFaces=[],publicOutsi
         </div>;
       })}
     </div></div>
-    {roster?.artId==='regular-07-red-fox'&&<PublicIntentBadge confirmedOutside={publicOutsideConfirmed} faces={publicIntentFaces} phase={playback&&playback.action!=='prepare'?'flight':phase} point={at({x:roster.meta.worldFoot.x+(126-roster.meta.anchor.x)*roster.meta.worldHeight/256,y:roster.meta.worldFoot.y+(56-roster.meta.anchor.y)*roster.meta.worldHeight/256})}/>}
+    {roster?.artId==='regular-07-red-fox'&&<PublicIntentBadge confirmedOutside={publicOutsideConfirmed} faces={publicIntentFaces} phase={playback&&playback.action!=='prepare'?'flight':phase} point={at({x:roster.meta.worldFoot.x+(136-roster.meta.anchor.x)*roster.meta.worldHeight/256,y:roster.meta.worldFoot.y+(26-roster.meta.anchor.y)*roster.meta.worldHeight/256})}/>}
     <div className="bv-scene-shade" aria-hidden="true"/>
     {/* The light pass uses the exact same projection/jitter as the actors. It
         sits above result grading so the contact light is not darkened twice. */}
