@@ -1,0 +1,23 @@
+velopment.js:11059:18)
+    at insertOrAppendPlacementNode (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:23941:7)
+    at commitPlacement (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:23883:9)
+    at commitReconciliationEffects (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:24630:7)
+
+ Test Files  253 passed (253)
+      Tests  1720 passed (1720)
+   Start at  10:40:45
+   Duration  89.71s (transform 9.97s, setup 0ms, import 61.08s, tests 140.13s, environment 29.15s)
+
+$ vitest run tests/fox-flight.test.js tests/battle-vnext-effects.test.jsx
+
+ RUN  v4.1.11 /workspace/9-baseball
+
+
+ Test Files  2 passed (2)
+      Tests  13 passed (13)
+   Start at  10:40:44
+   Duration  879ms (transform 172ms, setup 0ms, import 337ms, tests 155ms, environment 316ms)
+
+PASS final export: card/hit/take/12pose source/badge lifecycle/rotation/resume/no404
+{'hit': {'firstX': [479.13506, 477.2111, 475.302495], 'width': [7.265625, 7.484375, 7.6875], 'rayResidual': 0.017293602321518328, 'last': 'hit'}, 'take': {'firstX': [479.091815, 477.675175, 476.288995], 'width': [7.265625, 7.5, 7.71875], 'rayResidual': 0.020354443907838814, 'last': 'pitch'}, 'miss': {'firstX': [477.462655, 474.84412, 473.438445], 'width': [7.453125, 7.75, 7.90625], 'rayResidual': 0.017352065899798208, 'last': 'pitch'}}
+PASS exact whole accepted engine state, baseline vs new, hit/take/miss
