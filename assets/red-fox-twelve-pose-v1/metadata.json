@@ -1,0 +1,43 @@
+{
+  "cell_width": 128,
+  "cell_height": 112,
+  "columns": 4,
+  "rows": 3,
+  "pixel_sampling": "nearest",
+  "durations_ms": [
+    170,
+    100,
+    120,
+    80,
+    70,
+    55,
+    50,
+    45,
+    40,
+    65,
+    130,
+    180
+  ],
+  "duration_total_ms": 1105,
+  "release_frame_index": 8,
+  "lead_foot_anchor_pixels": {
+    "frame_index_start": 5,
+    "frame_index_end": 11,
+    "x": 82,
+    "y": 96
+  },
+  "frames": [
+    "set",
+    "gather",
+    "leg_lift",
+    "hand_break",
+    "stride",
+    "lead_heel_plant",
+    "hip_rotation",
+    "shoulder_rotation",
+    "release",
+    "follow_through",
+    "finish",
+    "recover"
+  ]
+}
