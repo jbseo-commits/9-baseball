@@ -155,7 +155,7 @@ describe('diagnostic target plane and continuous incoming flight',()=>{
     const timeline={pitchReleaseAt:600,impactAt:900,duration:1400};
     const targets=Array.from({length:10},(_,zone)=>courseTarget(zone)),rates=[0.25,0.5,0.75,1,1.5,2];
     const entries=Object.entries(roster);
-    expect(entries).toHaveLength(20);
+    expect(entries).toHaveLength(21);
     for(const [artId,registered] of entries){
       const anchor=registered.anchor,k=(registered.visibleWorldHeight||300)/registered.visibleHeight;
       const foot=registered.worldFoot||layout.actors.pitcher.worldFoot;

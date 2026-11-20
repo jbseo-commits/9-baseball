@@ -1,3 +1,4 @@
+import PublicIntentBadge from './PublicIntentBadge.jsx';
 import React,{useLayoutEffect,useRef,useState} from 'react';
 import {SCENE,worldCamera,atbatCamera,actorBox,cameraMatrix,sceneSnapshot} from './scene-geometry.js';
 import coverage from '../../../assets/production-art/mockup-v1-intake/actor-coverage.json';
@@ -27,11 +28,11 @@ export function approvedPitcherArt(artId){
 
 const ACTORS=['pitcher','batter'];
 
-export default function BattleScene({scene=null,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,framing='cover',playback=null,result=null,finale=null,onFocusChange=null}){
+export default function BattleScene({scene=null,publicIntentFaces=[],publicOutsideConfirmed=false,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,framing='cover',playback=null,result=null,finale=null,onFocusChange=null}){
   const rootRef=useRef(null);
   const elapsed=useSceneClock(playback);
   const roster=actors.pitcher?.kind==='roster-atlas'?actors.pitcher:null;
-  const composition=framing==='atbat'?(roster?{...ATBAT_COMPOSITION,pitcher:roster.meta,release:roster.release}:ATBAT_COMPOSITION):null;
+  const composition=framing==='atbat'?(roster?{...ATBAT_COMPOSITION,pitcher:roster.meta,release:roster.release,...(roster.artId==='regular-07-red-fox'?{flightProfile:'fox-depth'}:{})}:ATBAT_COMPOSITION):null;
   const reduced=playback?.timeline?.duration<=60;
   const focus=pitchFocusAt({elapsed,playback,phase,reduced});
   useLayoutEffect(()=>{onFocusChange?.(focus);},[focus,onFocusChange]);
@@ -40,7 +41,7 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
   const landingAge=elapsed-landingAt;
   const landing=roster?.landing&&playback&&!reduced&&playback.action!=='prepare'&&elapsed>=landingAt&&elapsed<landingAt+230
     ?{point:roster.landing,progress:(elapsed-landingAt)/230}:null;
-  const batterTweens=actors.batter===SAMPLE_ACTORS.batter;
+  const batterTweens=actors.batter===SAMPLE_ACTORS.batter&&!!SAMPLE_ACTORS.batterTween;
   const pose=motionAt({elapsed,timeline:playback?.timeline,action:playback?.action,landed:phase==='result',knockedOut:!!result?.knockedOut,reduced,readyCoil:framing==='atbat'&&(phase==='deciding'||phase==='flight'),authoredBatterTweens:batterTweens});
   const [measured,setMeasured]=useState(null);
   const onLayoutRef=useRef(onLayout);onLayoutRef.current=onLayout;
@@ -84,16 +85,17 @@ export default function BattleScene({scene=null,actors={},size=null,phase='decid
         </div>;
       })}
     </div></div>
+    {roster?.artId==='regular-07-red-fox'&&<PublicIntentBadge confirmedOutside={publicOutsideConfirmed} faces={publicIntentFaces} phase={playback&&playback.action!=='prepare'?'flight':phase} point={at({x:roster.meta.worldFoot.x+(136-roster.meta.anchor.x)*roster.meta.worldHeight/256,y:roster.meta.worldFoot.y+(26-roster.meta.anchor.y)*roster.meta.worldHeight/256})}/>}
     <div className="bv-scene-shade" aria-hidden="true"/>
     {/* The light pass uses the exact same projection/jitter as the actors. It
         sits above result grading so the contact light is not darkened twice. */}
-    {effect?.kind==='flight'&&!reduced&&<div className="bv-ball-wake" aria-hidden="true" style={{position:'absolute',inset:0,zIndex:2,pointerEvents:'none'}}><FxSprite kind="wake" age={effect.age} point={at(effect.ball)} scale={camera.scale} size={.35+effect.radius/30} angle={Math.atan2(effect.ball.y-effect.previous.y,effect.ball.x-effect.previous.x)*180/Math.PI} opacity={.6}/></div>}
+    {effect?.kind==='flight'&&!effect.hidden&&!reduced&&<div className="bv-ball-wake" aria-hidden="true" style={{position:'absolute',inset:0,zIndex:2,pointerEvents:'none'}}><FxSprite kind="wake" age={effect.age} point={at(effect.ball)} scale={camera.scale} size={.35+effect.radius/30} angle={Math.atan2(effect.ball.y-effect.previous.y,effect.ball.x-effect.previous.x)*180/Math.PI} opacity={.6}/></div>}
     <div className="bv-effect-pass" aria-hidden="true" style={{transform:effect?.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:'none'}}>
       <div className="bv-effect-world" style={{width:SCENE.world.width,height:SCENE.world.height,transform:cameraMatrix(camera),visibility:camera.scale?'visible':'hidden'}}>
         <SceneEffects effect={effect} finale={finale} composition={composition} landing={landing} spriteBall={!reduced} pixelContact={!!effect&&phase==='result'&&contactAtlasPlan(scene?.shotGrade).length>0}/>
       </div>
     </div>
-    {effect&&!effect.hidden&&!reduced&&<div className="bv-ball-sprite" aria-hidden="true" style={{position:'absolute',inset:0,zIndex:2,pointerEvents:'none',transform:effect.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:undefined}}><FxSprite kind="ball" age={effect.spinAge??effect.age} point={at(effect.ball)} scale={camera.scale} size={effect.radius/10}/></div>}
+    {effect&&!effect.hidden&&!reduced&&<div className="bv-ball-sprite" aria-hidden="true" style={{position:'absolute',inset:0,zIndex:2,pointerEvents:'none',filter:composition?.flightProfile==='fox-depth'?'drop-shadow(1px 1px 0 #111827)':undefined,transform:effect.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:undefined}}><FxSprite kind="ball" age={effect.spinAge??effect.age} point={at(effect.ball)} scale={camera.scale} size={effect.radius/10}/></div>}
     {roster?.landing&&playback&&!reduced&&playback.action!=='prepare'&&landingAge>=0&&landingAge<850&&<div className="bv-plant-pixelfx" aria-hidden="true" style={{position:'absolute',inset:0,zIndex:2,pointerEvents:'none',transform:effect?.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:undefined}}><FxSprite kind="plant" age={landingAge} point={at(roster.landing)} scale={camera.scale} size={1.1} opacity={.65*Math.min(1,(850-landingAge)/200)}/></div>}
     <ContactPixelFx sceneRef={rootRef} active={!!effect&&['contact','exact','homer','foul'].includes(effect.kind)&&effect.age>=0} grade={scene?.shotGrade} token={scene?.playToken} contact={snap?contact:null} age={effect?.age??0} freeze={playback?.timeline?.freeze||0} scale={camera.scale} cameraOffset={{x:(effect?.camera||0)*camera.scale,y:-(effect?.camera||0)*.25*camera.scale}}/>
     {reviewNotice&&<p className="bv-scene-notice" role="note">그림 포즈 모션 검수{actors.pitcher&&actors.pitcher===SAMPLE_ACTORS.pitcher?' · 샘플 투수':''}</p>}

@@ -4,7 +4,8 @@ import {createRunMap} from '../src/duel/run-map.js';
 
 const root=new URL('../assets/pitcher-sd-v2/',import.meta.url);
 const roster=JSON.parse(fs.readFileSync(new URL('../assets/pitcher-mobs-v1/roster.json',import.meta.url),'utf8'));
-const remaining=roster.filter(entry=>entry.id!=='regular-01-red-rush'&&entry.id!=='tide-vesper'&&entry.id!=='sky-phantom'&&entry.id!=='gale-twister'&&entry.id!=='vulcan-blaze'&&entry.id!=='jade-viper'&&entry.id!=='copper-sirocco'&&entry.id!=='onyx-eclipse'&&entry.id!=='emerald-tempest');
+// Historical SD-v2 source pack excludes the separately tested six-pose Red Fox addition.
+const remaining=roster.filter(entry=>entry.id!=='regular-07-red-fox'&&entry.id!=='regular-01-red-rush'&&entry.id!=='tide-vesper'&&entry.id!=='sky-phantom'&&entry.id!=='gale-twister'&&entry.id!=='vulcan-blaze'&&entry.id!=='jade-viper'&&entry.id!=='copper-sirocco'&&entry.id!=='onyx-eclipse'&&entry.id!=='emerald-tempest');
 const expectedFacingCorrections={
   'elite-01-cobalt-impact':['keys:0','keys:1','keys:2','keys:3','bridges:0','bridges:1','bridges:2','bridges:3'],
   'elite-02-neon-trick':['keys:0','keys:1','keys:2','bridges:0','bridges:1'],

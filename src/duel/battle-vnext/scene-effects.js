@@ -1,3 +1,4 @@
+import {foxFlightAt} from './fox-flight.js';
 import {MOTION_CONTACT as DEFAULT_CONTACT,MOTION_RELEASE as DEFAULT_RELEASE,nearCoverage} from './motion-timeline.js';
 const clamp=n=>Math.max(0,Math.min(1,n));
 const lerp=(a,b,p)=>({x:a.x+(b.x-a.x)*p,y:a.y+(b.y-a.y)*p});
@@ -15,6 +16,7 @@ export function sceneEffectAt({elapsed=0,playback=null,result=null,phase='decidi
     if(elapsed<throwAt)return null;
     const linear=clamp((elapsed-throwAt)/Math.max(1,a-throwAt)),p=linear*linear;
     const contact=playback.action==='take'?{x:C.x+40,y:C.y+10}:C;
+    if(composition?.flightProfile==='fox-depth')return {kind:'flight',trail,spinAge:elapsed-throwAt,...foxFlightAt(elapsed,throwAt,a,R,C),age:elapsed-throwAt,flash:0,camera:0,opacity:1};
     return {kind:'flight',trail,spinAge:elapsed-throwAt,ball:lerp(R,contact,p),previous:lerp(R,contact,Math.max(0,p-.16)),radius:3+9*p,age:elapsed-throwAt,flash:0,camera:0,opacity:1};
   }
   const near=result.kind==='whiff'?nearCoverage(result):null;
@@ -30,6 +32,9 @@ export function sceneEffectAt({elapsed=0,playback=null,result=null,phase='decidi
     return {trail,kind:power?'homer':result.kind==='foul'?'foul':result.exact?'exact':'contact',ball,previous,
       radius:Math.max(1.7,12*(1-p)),age,spinAge:a-throwAt+effectAge,flash:age>=0&&age<180?(1-age/180):0,
       camera:result.exact&&age>=0&&age<150?Math.sin(age*.1)*(1-age/150)*5:0,power,progress:p};
+  }
+  if(composition?.flightProfile==='fox-depth'){
+    return {trail,kind:near?'near':'pass',...foxFlightAt(elapsed,throwAt,a,R,C),age,spinAge:elapsed-throwAt,flash:0,camera:0,near};
   }
   const z=result.actualZone;
   const dc=near?z%3-near.from%3:0,dr=near?Math.floor(z/3)-Math.floor(near.from/3):0;

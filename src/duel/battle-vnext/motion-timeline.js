@@ -1,12 +1,13 @@
 import motion from '../../../assets/production-art/mockup-rebuild/motion.json';
-import batterAtlas from '../../../assets/production-art/mockup-rebuild/batter-atlas.avif';
+import batterAtlas from '../../../assets/pixel-batter-review-v1/batter-runtime.webp';
+import pixelBatter from '../../../assets/pixel-batter-review-v1/batter-runtime.json';
 import pitcherAtlas from '../../../assets/production-art/mockup-rebuild/pitcher-atlas.avif';
-import batterTween from '../../../assets/production-art/batter-inbetweens-v1/swing-bridge.webp';
+const batterTween=null; // Six provided pixel drawings; never flash the old smooth bridge.
 
-export const PILOT_MOTION=motion;
+export const PILOT_MOTION={...motion,batter:pixelBatter};
 export const PILOT_ACTORS=Object.freeze({batter:batterAtlas,pitcher:pitcherAtlas,batterTween});
 export function actorEvent(actor){
-  const m=motion[actor],k=m.worldHeight/m.sourceHeight;
+  const m=PILOT_MOTION[actor],k=m.worldHeight/m.sourceHeight;
   return {x:m.worldFoot.x+(m.event.x-m.anchor.x)*k,y:m.worldFoot.y+(m.event.y-m.anchor.y)*k};
 }
 export const MOTION_CONTACT=Object.freeze(actorEvent('batter'));

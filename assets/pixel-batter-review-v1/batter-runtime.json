@@ -1,0 +1,281 @@
+{
+  "file": "batter-runtime.webp",
+  "sourceWidth": 768,
+  "sourceHeight": 768,
+  "columns": 4,
+  "rows": 4,
+  "frames": [
+    {
+      "id": 0,
+      "name": "ready",
+      "sourcePose": 0,
+      "alphaBounds": [
+        154,
+        112,
+        526,
+        712
+      ],
+      "foot": [
+        210,
+        700
+      ]
+    },
+    {
+      "id": 1,
+      "name": "half-load",
+      "sourcePose": 1,
+      "alphaBounds": [
+        146,
+        108,
+        462,
+        712
+      ],
+      "foot": [
+        210,
+        700
+      ]
+    },
+    {
+      "id": 2,
+      "name": "load",
+      "sourcePose": 1,
+      "alphaBounds": [
+        146,
+        108,
+        462,
+        712
+      ],
+      "foot": [
+        210,
+        700
+      ]
+    },
+    {
+      "id": 3,
+      "name": "stride",
+      "sourcePose": 1,
+      "alphaBounds": [
+        146,
+        108,
+        462,
+        712
+      ],
+      "foot": [
+        210,
+        700
+      ]
+    },
+    {
+      "id": 4,
+      "name": "plant",
+      "sourcePose": 1,
+      "alphaBounds": [
+        146,
+        108,
+        462,
+        712
+      ],
+      "foot": [
+        210,
+        700
+      ]
+    },
+    {
+      "id": 5,
+      "name": "hip-drive",
+      "sourcePose": 2,
+      "alphaBounds": [
+        166,
+        196,
+        634,
+        712
+      ],
+      "foot": [
+        210,
+        700
+      ]
+    },
+    {
+      "id": 6,
+      "name": "barrel-lag",
+      "sourcePose": 2,
+      "alphaBounds": [
+        166,
+        196,
+        634,
+        712
+      ],
+      "foot": [
+        210,
+        700
+      ]
+    },
+    {
+      "id": 7,
+      "name": "downswing",
+      "sourcePose": 2,
+      "alphaBounds": [
+        166,
+        196,
+        634,
+        712
+      ],
+      "foot": [
+        210,
+        700
+      ]
+    },
+    {
+      "id": 8,
+      "name": "contact",
+      "sourcePose": 3,
+      "alphaBounds": [
+        178,
+        156,
+        702,
+        716
+      ],
+      "foot": [
+        210,
+        700
+      ],
+      "contact": {
+        "x": 642,
+        "y": 344
+      }
+    },
+    {
+      "id": 9,
+      "name": "early-follow",
+      "sourcePose": 4,
+      "alphaBounds": [
+        158,
+        124,
+        590,
+        716
+      ],
+      "foot": [
+        210,
+        700
+      ]
+    },
+    {
+      "id": 10,
+      "name": "follow",
+      "sourcePose": 4,
+      "alphaBounds": [
+        158,
+        124,
+        590,
+        716
+      ],
+      "foot": [
+        210,
+        700
+      ]
+    },
+    {
+      "id": 11,
+      "name": "recover",
+      "sourcePose": 5,
+      "alphaBounds": [
+        162,
+        152,
+        598,
+        712
+      ],
+      "foot": [
+        210,
+        700
+      ]
+    },
+    {
+      "id": 12,
+      "name": "return-low",
+      "sourcePose": 5,
+      "alphaBounds": [
+        162,
+        152,
+        598,
+        712
+      ],
+      "foot": [
+        210,
+        700
+      ]
+    },
+    {
+      "id": 13,
+      "name": "return-high",
+      "sourcePose": 0,
+      "alphaBounds": [
+        154,
+        112,
+        526,
+        712
+      ],
+      "foot": [
+        210,
+        700
+      ]
+    }
+  ],
+  "anchor": {
+    "x": 210,
+    "y": 700
+  },
+  "worldFoot": {
+    "x": 520,
+    "y": 909
+  },
+  "worldHeight": 971.0933333333334,
+  "event": {
+    "x": 642,
+    "y": 344
+  },
+  "ready": null,
+  "runtimeBytes": 542325,
+  "authoredDrawings": 6,
+  "sourceAnchors": [
+    [
+      49,
+      152
+    ],
+    [
+      45,
+      152
+    ],
+    [
+      24,
+      152
+    ],
+    [
+      36,
+      149
+    ],
+    [
+      31,
+      150
+    ],
+    [
+      22,
+      151
+    ]
+  ],
+  "slotMapping": [
+    0,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    2,
+    3,
+    4,
+    4,
+    5,
+    5,
+    0
+  ]
+}

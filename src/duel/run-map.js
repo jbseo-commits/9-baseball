@@ -213,10 +213,14 @@ export function createRunMap(seed=0,{tutorial=false,encounters=true}={}){
   // Same-tier authored characters, shuffled per seed so faces and order change every run.
   // Pool repeats receive numbered names to preserve unique names per run.
   const crng=makeRng(mix((seed>>>0)^0x2c1b3c6d));
-  const pools=Object.fromEntries(['battle','elite','boss'].map(type=>[type,shuffle(crng,pitcherRoster.filter(p=>p.tier===type))]));
+  const pools=Object.fromEntries(['battle','elite','boss'].map(type=>[type,shuffle(crng,pitcherRoster.filter(p=>p.tier===type&&p.id!=='regular-07-red-fox'))]));
   // Red Rush is the tutorial's teaching pitcher only: first battle of a tutorial map, absent from main runs.
   const shuffledBattle=pools.battle.filter(p=>p.id!==RED_RUSH_ID);
   pools.battle=tutorial?[...pitcherRoster.filter(p=>p.id===RED_RUSH_ID),...shuffledBattle]:shuffledBattle;
+  // Additive roster expansion keeps the existing shuffle RNG draws/first cycle stable.
+  // Reserved review seed uses the same existing run flow, with the new identity first.
+  const redFox=pitcherRoster.find(p=>p.id==='regular-07-red-fox');
+  if(redFox){if(!tutorial&&(seed>>>0)===20261119)pools.battle.unshift(redFox);else pools.battle.push(redFox);}
   const counts={battle:0,elite:0,boss:0};
   const repeats=new Map();
   for(const node of nodes){
