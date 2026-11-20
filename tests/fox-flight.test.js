@@ -40,3 +40,12 @@ it('deep-compares every other roster output against the unchanged baseline acros
   const k=(r.visibleWorldHeight||300)/r.visibleHeight,release={x:834+(r.release.x-r.anchor.x)*k,y:536+(r.release.y-r.anchor.y)*k};const args={elapsed,phase,result,playback:{...playback,action},composition:{release,contact:C,mound:{x:834,y:536}}};expect(sceneEffectAt(args)).toEqual(baselineEffect(args));
  }
 });
+
+it('uses one action-independent Fox incoming ray and a continuous shared pass endpoint',()=>{
+ for(const elapsed of [950,966.667,1000,1100,1249.99,1250]){
+  const swing=effect(elapsed,'flight',null,'swing'),take=effect(elapsed,'flight',null,'take');expect(take.ball).toEqual(swing.ball);expect(take.radius).toBe(swing.radius);
+ }
+ for(const elapsed of [1250,1250.01,1300]){
+  const swing=effect(elapsed,'result',{kind:'whiff',actualZone:2,coverage:[6]},'swing'),take=effect(elapsed,'result',{kind:'strike',actualZone:2},'take');expect(take.ball).toEqual(swing.ball);expect(take.radius).toBe(swing.radius);
+ }
+});

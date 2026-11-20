@@ -1,0 +1,23 @@
+lopment.js:11059:18)
+    at insertOrAppendPlacementNode (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:23941:7)
+    at commitPlacement (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:23883:9)
+    at commitReconciliationEffects (/workspace/9-baseball/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:24630:7)
+
+ Test Files  254 passed (254)
+      Tests  1722 passed (1722)
+   Start at  13:50:00
+   Duration  104.80s (transform 10.52s, setup 0ms, import 70.07s, tests 163.48s, environment 37.41s)
+
+$ vitest run tests/fox-flight.test.js tests/fox-v5-registration.test.js
+
+ RUN  v4.1.11 /workspace/9-baseball
+
+
+ Test Files  2 passed (2)
+      Tests  7 passed (7)
+   Start at  13:47:48
+   Duration  843ms (transform 258ms, setup 0ms, import 386ms, tests 170ms, environment 0ms)
+
+PASS final export: card/hit/take/12pose source/badge lifecycle/rotation/resume/no404
+{'phone-hit': {'firstX': [419.592425, 419.460745, 419.32104], 'width': [7.265625, 7.4375, 7.640625], 'rayResidual': 0.019132534335674977, 'last': 'hit'}, 'phone-take': {'firstX': [419.52731, 419.347935, 419.20794], 'width': [7.359375, 7.59375, 7.78125], 'rayResidual': 0.020593743186882008, 'last': 'pitch'}, 'phone-miss': {'firstX': [419.54554, 419.37504, 419.20864], 'width': [7.328125, 7.5625, 7.78125], 'rayResidual': 0.018147432265906347, 'last': 'pitch'}, 'desktop-hit': {'firstX': [715.384465, 715.07479, 714.676885], 'width': [13.859375, 14.265625, 14.8125], 'rayResidual': 0.01978175281030505, 'last': 'hit'}, 'desktop-take': {'firstX': [715.31956, 714.81417, 714.65], 'width': [13.9375, 14.625, 14.859375], 'rayResidual': 0.021066996415320876, 'last': 'pitch'}, 'desktop-miss': {'firstX': [715.30129, 714.98197, 714.78288], 'width': [13.96875, 14.390625, 14.6875], 'rayResidual': 0.018525889438098887, 'last': 'pitch'}}
+PASS exact whole accepted engine state, baseline vs new, hit/take/miss
