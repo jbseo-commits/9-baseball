@@ -1,0 +1,22 @@
+{
+  "launch": {
+    "before": {
+      "phase": "flight",
+      "pose": "frame-8"
+    },
+    "after": {
+      "phase": "flight",
+      "pose": "frame-9"
+    }
+  },
+  "forward": {
+    "before": {
+      "phase": "flight",
+      "pose": "frame-9"
+    },
+    "after": {
+      "phase": "flight",
+      "pose": "frame-10"
+    }
+  }
+}

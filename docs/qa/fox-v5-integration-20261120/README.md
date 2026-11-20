@@ -31,3 +31,5 @@ Actual game capture inspected at1×; phone-launch-visible.png explicitlywaitsfor
 
 ## Failure/provenance record
 Initial WebP save dropped invisibleRGB underalpha0; exactRGBAassertion failed. Enabledlossless exactRGBpreservation, reranall12cell comparisons; no visiblepixel orsource resampling. Library'scurrenthelper failedproxy403; officialGitinput transfer superseded it andwasdirectlyverified. No LibraryID fornewoutputs. UsedcurrentLibraryskill, repoAGENTS impactanalysis andCodex independentreview. No localpixelSKILL.md found. No stagingmerge/cherrypick,main,merge,Sites or deployment.
+
+Capture correction: the initial Playwright screenshot waited long enough to capture a result despite being requested during launch. Replaced it with direct browser/CDP capture, with phase/pose bracketing in launch-capture-timing.json. Launch capture is bounded byflight/pose8→flight/pose9; forward byflight/pose9→flight/pose10. These are real renderedframes, not an exact950msfreeze. The RAF trace and timingtests remain the precise event evidence. No runtime/build bytes changed for this capture correction.
