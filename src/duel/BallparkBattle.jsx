@@ -107,7 +107,7 @@ const isSkill=entry=>CARDS[entry?.kind]?.type==='skill';
 const noNotice=()=>false,noNoticeSubscription=()=>()=>{};
 const CardGlyph=({zones})=><span className="bp-glyph" aria-hidden="true">{Array.from({length:9},(_,z)=><i key={z} className={zones?.includes(z)?'on':''}/>)}</span>;
 
-export default function BallparkBattle({storage,reviewRun=false,
+export default function BallparkBattle({storage,reviewRun=false,sluggerRunCandidate,
   s,hand,selected,swingStack,choice,locked=false,
   pitcher,label,pitcherArt,batterArt,
   animationRate=1,onAnimationRateChange=null,rosterPitcher=null,fxStage=null,shot=null,impactAt=0,playToken=0,playback=null,execution=null,onNext=null,nextLabel='',vfx=null,pitcherAtlas=null,artId=null,batterPoses=null,
@@ -190,7 +190,7 @@ export default function BallparkBattle({storage,reviewRun=false,
     return ()=>{if(window.__bpInspect===reg)delete window.__bpInspect;};
   },[]);
   const r=b.revealed,inFx=!!fxStage,deciding=s.phase==='battle'&&!inFx&&!locked&&!commitBeat;
-  const sluggerBatter=useSluggerMotion(useVnext&&!autoLesson&&!defenseLab&&!previewMode&&reviewSluggerEligible(reviewRun,s.v10?.hitterClass),deciding&&!playback);
+  const sluggerBatter=useSluggerMotion(useVnext&&!autoLesson&&!defenseLab&&!previewMode&&reviewSluggerEligible(reviewRun,s.v10?.hitterClass),deciding&&!playback,sluggerRunCandidate);
   const fieldReview=useVnext&&!autoLesson&&!defenseLab&&!previewMode&&privateFieldReview(reviewRun);
   const contactBatter=usePrivateFieldArt(fieldReview&&contactMotionEligible(reviewRun,s.v10?.hitterClass)?'contact':null,deciding&&!playback);
   const emeraldReady=usePrivateFieldArt(fieldReview&&rosterPitcher?.artId==='boss-01-emerald-tyrant'?'emerald':null,deciding&&!playback);

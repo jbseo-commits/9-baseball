@@ -1,0 +1,202 @@
+[
+  {
+    "viewport": [
+      667,
+      375
+    ],
+    "reduced": true,
+    "initial": {
+      "seed": 1668568682,
+      "deck": [
+        "slug",
+        "slug",
+        "soloShot",
+        "place",
+        "gapHunter",
+        "loadPower",
+        "setup",
+        "watch",
+        "scout"
+      ],
+      "hitter": {
+        "version": 1,
+        "id": "slugger-v1",
+        "ids": [
+          "c0",
+          "c1",
+          "c2",
+          "c4",
+          "c5",
+          "c6",
+          "c7"
+        ],
+        "buildVersion": 1
+      }
+    },
+    "secondEncounterReached": true,
+    "encounters": [
+      "a1-entry",
+      "a1-r4l0"
+    ],
+    "resourceRequests": [
+      "http://127.0.0.1:4262/slugger-motion-v2/slugger.json",
+      "http://127.0.0.1:4262/slugger-motion-v2/slugger.webp"
+    ],
+    "actorUrls": [
+      "blob:http://127.0.0.1:4262/977bbfd8-a5e9-4442-bee1-fe5db0046ff9"
+    ],
+    "terminal": "battle",
+    "act": 1,
+    "stats": {
+      "cards": 10,
+      "pitches": 6,
+      "runs": 0,
+      "outs": 1,
+      "appearances": 4,
+      "hits": 3,
+      "walks": 0,
+      "fouls": 1,
+      "whiffs": 2,
+      "totalBases": 3
+    },
+    "last": {
+      "kind": "start",
+      "text": "1번 강한결 입장 · 경향을 읽고 노릴 존과 스윙을 고르세요.",
+      "events": [],
+      "runs": 0,
+      "outs": 0
+    },
+    "events": [
+      {
+        "pitch": 0,
+        "prepare": "loadPower"
+      },
+      {
+        "pitch": 0,
+        "action": "basic",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "자주",
+          "안 던짐",
+          "1드묾",
+          "가끔",
+          "안 던짐",
+          "안 던짐",
+          "가끔"
+        ],
+        "aim": 2
+      },
+      {
+        "pitch": 1,
+        "prepare": "setup"
+      },
+      {
+        "pitch": 1,
+        "action": "slug",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "1자주",
+          "안 던짐",
+          "드묾",
+          "가끔",
+          "안 던짐",
+          "안 던짐",
+          "가끔"
+        ],
+        "aim": 2
+      },
+      {
+        "pitch": 2,
+        "action": "slug",
+        "publicCells": [
+          "안 던짐",
+          "드묾",
+          "1드묾",
+          "안 던짐",
+          "드묾",
+          "드묾",
+          "안 던짐",
+          "드묾",
+          "자주"
+        ],
+        "aim": 8
+      },
+      {
+        "pitch": 3,
+        "prepare": "scout"
+      },
+      {
+        "pitch": 3,
+        "action": "gapHunter",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "단서 밖",
+          "안 던짐",
+          "단서 밖",
+          "단서 밖",
+          "안 던짐",
+          "안 던짐",
+          "1자주"
+        ],
+        "aim": 8
+      },
+      {
+        "pitch": 4,
+        "prepare": "setup"
+      },
+      {
+        "pitch": 4,
+        "action": "soloShot",
+        "publicCells": [
+          "안 던짐",
+          "자주",
+          "가끔",
+          "안 던짐",
+          "드묾",
+          "가끔",
+          "안 던짐",
+          "안 던짐",
+          "1가끔"
+        ],
+        "aim": 1
+      },
+      {
+        "pitch": 5,
+        "prepare": "scout"
+      },
+      {
+        "pitch": 5,
+        "prepare": "loadPower"
+      },
+      {
+        "pitch": 5,
+        "action": "basic",
+        "publicCells": [
+          "안 던짐",
+          "1가끔",
+          "자주",
+          "안 던짐",
+          "단서 밖",
+          "단서 밖",
+          "안 던짐",
+          "안 던짐",
+          "단서 밖"
+        ],
+        "aim": 2
+      },
+      {
+        "reward": [
+          "예고포1준비힘 모으기이번 타석 파워 +18장타 · COMMON",
+          "주자 청소1테이블 세터가로 2존 · 단타빈 베이스 +3 HP · 카드 +1연결 · COMMON",
+          "1준비거포 본능이번 타석 파워 +36장타 · UNCOMMON"
+        ]
+      }
+    ],
+    "resumeExact": true,
+    "errors": [],
+    "video": "/workspace/slugger-run-cache-qa/videos/page@7993917edad3d87c9f7b73c4a4b509bd.webm"
+  }
+]

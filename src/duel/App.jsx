@@ -1,3 +1,5 @@
+import {useSluggerMotionResource} from './battle-vnext/use-slugger-motion.js';
+import {reviewSluggerEligible} from './battle-vnext/slugger-motion.js';
 import {canStartHitter,defaultNewHitter} from './new-run-selection.js';
 import {readHitterCareer,registerCareer,recordCareerPitch,reconcileCareer} from './hitter-career.js';
 import {classRewardLabel} from './hitter-builds.js';
@@ -1193,6 +1195,8 @@ export default function Duel({storage:providedStorage,startInRun=false,reviewRun
      went stale once a run was played, and 이어하기 restored that old snapshot over newer progress */
   const titleSave=!defenseExperiment&&['menu','practice'].includes(screen)?(()=>{try{return readV10Duel(storage)}catch{return null}})():null;
   /* a finished run stays reachable as its result screen; only a run in progress needs the overwrite confirm */
+  const sluggerRunCandidate=useSluggerMotionResource(reviewSluggerEligible(reviewRun,
+    packSeed!=null?{id:'slugger-v1',version:1}:(['menu','practice'].includes(screen)?titleSave:s)?.v10?.hitterClass));
   const titleRun=titleSave?{act:titleSave.runMap?.nodes?.find(n=>n.id===titleSave.runMap.currentNodeId)?.act||1,deck:titleSave.deck?.length||0,ended:['won','lost'].includes(titleSave.phase)}:null;
   /* no main run: 이어하기 picks up a tutorial run in progress instead */
   const titleTutorial=!titleRun&&s&&s.version!==10&&!autoLesson&&!['won','lost'].includes(s.phase)?{tutorial:true,deck:s.deck?.length||0}:null;
@@ -1300,7 +1304,7 @@ export default function Duel({storage:providedStorage,startInRun=false,reviewRun
       <p>전투가 끝나 다음 공의 제약은 적용되지 않습니다.{s.defenseLab.lastEvent?.counterDamage?` 마지막 안타에 반격 +${s.defenseLab.lastEvent.counterDamage} HP 적용.`:''}</p>
       <button className="primary" onClick={()=>{setS(null);current.current=null;setScreen('defense-lab')}}>다른 조건으로 실험</button>
     </main>
-:showBattle&&isV10?<BallparkBattle reviewRun={reviewRun} storage={storage} key="screen-bp-battle" animationRate={rate} onAnimationRateChange={livePresentation&&!isDefenseLab&&!autoLesson?value=>setRate(isolatedPlaytest?animationRate(value):rememberAnimationRate(value)):null} rosterPitcher={livePresentation&&!isDefenseLab&&!autoLesson?rosterPitcherActor(v10Node?.opponent?.artId,pitcherAtlas):null} s={s} hand={hand} selected={selected} swingStack={swingStack} choice={choice} locked={commitWaiting||!!stackResolve||!!homerVideo}
+:showBattle&&isV10?<BallparkBattle sluggerRunCandidate={sluggerRunCandidate} reviewRun={reviewRun} storage={storage} key="screen-bp-battle" animationRate={rate} onAnimationRateChange={livePresentation&&!isDefenseLab&&!autoLesson?value=>setRate(isolatedPlaytest?animationRate(value):rememberAnimationRate(value)):null} rosterPitcher={livePresentation&&!isDefenseLab&&!autoLesson?rosterPitcherActor(v10Node?.opponent?.artId,pitcherAtlas):null} s={s} hand={hand} selected={selected} swingStack={swingStack} choice={choice} locked={commitWaiting||!!stackResolve||!!homerVideo}
       label={v10Node?.act+'막'} pitcher={s.pitcher}
       pitcherArt={pitcherAtlas?<PitcherAtlasSprite atlas={pitcherAtlas} stage={fxStage} shot={fxPresentation} playToken={s.stats.pitches}/>:<Sprite who="pitcher" stage={fxStage} shot={fxPresentation} golden variant={pitcherForm} playToken={s.stats.pitches}/>}
       batterArt={<Sprite who="batter" stage={fxStage} shot={fxPresentation} golden playToken={s.stats.pitches} syncRedRush={redRushEncounter} sheet={BATTER_V15_SHEET}/>}
