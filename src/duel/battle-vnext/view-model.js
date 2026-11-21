@@ -148,7 +148,7 @@ export function buildBattleViewModel({
   const canAddSupport=canStack&&stack.length<stackMax-1&&supportCandidates.some(x=>v10ActionCost(s,selected,[...stack,{id:x.id,aimZone:b.aimZone}])<=energyLimit);
   const supportBlockReason=!canStack||canAddSupport?'':stack.length>=stackMax-1?`이번 공 최대 ${stackMax}장`
     :!supportCandidates.length?'추가 타격 카드 없음'
-    :`에너지 ${Math.max(0,stackCost+Math.min(...supportCandidates.map(x=>cardCost(x.entry)))-energyLimit)} 부족`;
+    :`추가 카드: 에너지 ${Math.max(0,stackCost+Math.min(...supportCandidates.map(x=>cardCost(x.entry)))-energyLimit)} 부족`;
   const takeDraw=v10TakeDrawPreview(s);
   const drawHint=takeDraw.count===1?'카드+1':takeDraw.reason==='full'?'6장 한도':'추가 0';
   const nextEnergyAction=landed&&hasNext&&['pitch','between'].includes(s.phase);

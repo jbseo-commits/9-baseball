@@ -17,7 +17,7 @@ export const COACH_STEPS=[
 ];
 export const coachSeen=()=>{try{return localStorage.getItem(COACH_KEY)==='done'}catch{return true}};
 
-export default function BallparkCoach({rootRef,onDone}){
+export default function BallparkCoach({rootRef,onDone,storage}){
   const [i,setI]=useState(0),[rect,setRect]=useState(null);
   const steps=COACH_STEPS,step=steps[i],last=i===steps.length-1;
   useLayoutEffect(()=>{
@@ -25,7 +25,7 @@ export default function BallparkCoach({rootRef,onDone}){
       const r=el.getBoundingClientRect();setRect({x:r.left,y:r.top,w:r.width,h:r.height});};
     find();window.addEventListener('resize',find);return ()=>window.removeEventListener('resize',find);
   },[i,rootRef,step.sel]);
-  const finish=()=>{try{localStorage.setItem(COACH_KEY,'done')}catch{}onDone?.();};
+  const finish=()=>{try{(storage||globalThis.localStorage).setItem(COACH_KEY,'done')}catch{}onDone?.();};
   const vh=typeof window!=='undefined'?window.innerHeight:800;
   /* the line sits on the roomier side of the piece */
   const below=rect?rect.y+rect.h/2<vh/2:true;

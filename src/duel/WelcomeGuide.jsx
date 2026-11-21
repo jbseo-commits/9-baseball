@@ -77,13 +77,13 @@ export const WELCOME_INTRO_CHAPTERS=[
   ]},
 ];
 
-export default function WelcomeGuide({start=0,mode='full',onClose,onCards}){
+export default function WelcomeGuide({start=0,mode='full',onClose,onCards,storage}){
   const chapters=mode==='intro'?WELCOME_INTRO_CHAPTERS:WELCOME_CHAPTERS;
   const [i,setI]=useState(Math.max(0,Math.min(chapters.length-1,start)));
   const c=chapters[i],last=i===chapters.length-1;
   const drag=useRef(null),closeRef=useRef(null);
   useEffect(()=>{closeRef.current?.focus();},[]);
-  const done=()=>{try{localStorage.setItem(WELCOME_SEEN_KEY,'seen')}catch{}onClose?.();};
+  const done=()=>{try{(storage||globalThis.localStorage).setItem(WELCOME_SEEN_KEY,'seen')}catch{}onClose?.();};
   const go=d=>setI(x=>Math.max(0,Math.min(chapters.length-1,x+d)));
   const onKeyDown=e=>{if(e.key==='ArrowRight')go(1);else if(e.key==='ArrowLeft')go(-1);else if(e.key==='Escape')done();};
   /* swipe between pages */
@@ -104,7 +104,7 @@ export default function WelcomeGuide({start=0,mode='full',onClose,onCards}){
       <footer className="wg-foot">
         <button type="button" className="wg-prev" onClick={()=>go(-1)} disabled={i===0}>이전</button>
         <span className="wg-dots" aria-hidden="true">{chapters.map((_,k)=><i key={k} className={k===i?'on':''} onClick={()=>setI(k)}/>)}</span>
-        {last?<span className="wg-end">{onCards&&<button type="button" className="wg-cards" onClick={()=>{try{localStorage.setItem(WELCOME_SEEN_KEY,'seen')}catch{}onCards?.()}}>카드 도감</button>}<button type="button" className="wg-next primary" onClick={done}>플레이 시작</button></span>
+        {last?<span className="wg-end">{onCards&&<button type="button" className="wg-cards" onClick={()=>{try{(storage||globalThis.localStorage).setItem(WELCOME_SEEN_KEY,'seen')}catch{}onCards?.()}}>카드 도감</button>}<button type="button" className="wg-next primary" onClick={done}>플레이 시작</button></span>
           :<button type="button" className="wg-next primary" onClick={()=>go(1)}>다음</button>}
       </footer>
     </section>

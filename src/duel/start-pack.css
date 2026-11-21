@@ -5,7 +5,8 @@
   --sp-ko:"Gowun Dodum","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;
   --sp-impact:"Black Han Sans","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;
   --sp-led:"Silkscreen",ui-monospace,Menlo,monospace;
-  position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;overflow:hidden;
+  /* Above the persistent run header (z80), including restart from terminal. */
+  position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;overflow:hidden;
   background:var(--sp-ink);color:var(--sp-bone);font:15px/1.5 var(--sp-ko);
   padding:max(10px,env(safe-area-inset-top)) 14px max(12px,env(safe-area-inset-bottom));
   animation:sp-in .32s ease-out both;

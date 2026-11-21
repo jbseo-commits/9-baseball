@@ -32,13 +32,19 @@ export function damageText(result,tone){
   return base+hp+why;
 }
 
+export function recentResultText(result){
+ if(!result)return '';
+ const tone=resultTone(result);
+ return [tone.label,result.damage>0?`HP −${actualHpLoss(result)}`:'',result.explanation].filter(Boolean).join(' · ');
+}
+
 const MOVES_SHOWN=3;
 
 export default function ResultReadout({result=null,shotGrade=null,variant='stage',recent=null,finale=null}){
   /* 다음 선택 중: 부모가 남긴 최근 결과 한 줄만 */
   if(!result){
     if(!recent)return null;
-    return <p className="bv-result-recent" data-testid="bv-result-recent" role="status">{recent}</p>;
+    return <p className="bv-result-recent" data-testid="bv-result-recent" role="status" title={recent}>{recent}</p>;
   }
   const tone=variant==='spotlight'&&finale?{key:finale,label:finale==='homer'?'홈런':'강판'}:resultTone(result,shotGrade),dmg=damageText(result,tone);
   const moves=result.moves||[],extra=moves.length-MOVES_SHOWN;
@@ -51,7 +57,7 @@ export default function ResultReadout({result=null,shotGrade=null,variant='stage
   }
   if(variant==='line'){
     return <p className={'bv-result-line t-'+tone.key} data-testid="bv-result-line" role="status" title={result.explanation}>
-      <b>{tone.label}</b><span>{result.explanation}</span>{dmg&&<em>{dmg}</em>}
+      <b>{tone.label}</b>{dmg&&<em>{dmg}</em>}<span>{result.explanation}</span>
     </p>;
   }
   return <section className={'bv-result t-'+tone.key+(result.good?' is-good':'')} data-testid="bv-result" data-tone={tone.key} role="status" aria-live="polite"

@@ -2,6 +2,7 @@ import React from 'react';
 import stadium from '../../assets/duel/stadium.png';
 import endingKeyart from '../../assets/production-art/mockup-world-v15/ending-keyart.png';
 import './ballpark.css';
+import './run-end-layout.css';
 import {EndingHero} from './phone-art-v18.jsx';
 
 /* V13 BALLPARK BP-5 — the end of a run. Players said the old screen had "too many strange options":
