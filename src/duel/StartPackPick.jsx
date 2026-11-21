@@ -1,5 +1,6 @@
 import React,{useEffect,useRef,useState} from 'react';
 import {HITTER_CLASSES} from './hitter-classes.js';
+import {canStartHitter,defaultNewHitter,sluggerReviewOnly} from './new-run-selection.js';
 import {careerProgress} from './hitter-career.js';
 import {HITTER_BUILDS} from './hitter-builds.js';
 import './hitter-select.css';
@@ -12,19 +13,20 @@ function Portrait({id}){
   {src&&!failed&&<img src={src} alt="" draggable="false" style={{opacity:ready?1:0}} onLoad={e=>{const img=e.currentTarget;img.decode().then(()=>{if(img.naturalWidth>0&&img.naturalHeight>0)setReady(true);else setFailed(true);}).catch(()=>setFailed(true));}} onError={()=>setFailed(true)}/>}
  </span>;
 }
-export default function StartPackPick({onPick,onClose,career={version:1,runs:{}}}){
- const [chosen,setChosen]=useState('contact-v1'),committed=useRef(false);
+export default function StartPackPick({onPick,onClose,reviewRun=false,career={version:1,runs:{}}}){
+ const [chosen,setChosen]=useState(()=>defaultNewHitter(reviewRun)),committed=useRef(false);
+ const reviewOnly=sluggerReviewOnly(reviewRun);
  const pack=HITTER_CLASSES.find(c=>c.id===chosen),build=HITTER_BUILDS[chosen];
  useEffect(()=>{const f=e=>{if(e.key==='Escape')onClose?.();};window.addEventListener('keydown',f);return()=>window.removeEventListener('keydown',f);},[onClose]);
  return <div className="hc-root" role="dialog" aria-modal="true" aria-label="타자 선택">
   <header className="hc-head"><div><small>새 원정 · 타자 선택</small><h2>누구의 야구로 승부할까</h2></div><button onClick={onClose} aria-label="닫기">×</button></header>
   <div className="hc-roster" role="radiogroup" aria-label="타자">
-   {HITTER_CLASSES.map(c=>{const p=careerProgress(career,c.id),on=c.id===chosen;return <button key={c.id} type="button" role="radio" aria-label={c.name} aria-checked={on} aria-disabled={!p.unlocked} data-testid="start-pack" data-pack={c.id} className={'hc-player '+(on?'selected ':'')+(!p.unlocked?'locked':'')} onClick={()=>{if(p.unlocked)setChosen(c.id);}}>
+   {HITTER_CLASSES.map(c=>{const p=careerProgress(career,c.id),allowed=canStartHitter(career,c.id,reviewRun),on=c.id===chosen;return <button key={c.id} type="button" role="radio" aria-label={c.name} aria-checked={on} aria-disabled={!allowed} data-testid="start-pack" data-pack={c.id} className={'hc-player '+(on?'selected ':'')+(!allowed?'locked':'')} onClick={()=>{if(allowed)setChosen(c.id);}}>
     <Portrait id={c.id}/><strong>{c.name}</strong><span className="hc-style">{({'slugger-v1':'준비한 한 칸에 장타','contact-v1':'단타를 잇고, 두 스트라이크를 버틴다','bad-ball-v1':'밖에 걸거나, 볼을 골라 압박','spray-v1':'코스를 골라 치고 주자를 보낸다'})[c.id]}</span>
-    <span className="hc-unlock">{p.unlocked?(on?'선택됨':'출전 가능'):`잠김 · ${p.label}`}</span>
-    {!p.unlocked&&<><progress value={p.value} max={p.target} aria-label={p.label}/><small>{p.value} / {p.target}</small></>}
+    <span className="hc-unlock">{allowed?(on?'선택됨':'출전 가능'):reviewOnly?'이번 검수 잠김':`잠김 · ${p.label}`}</span>
+    {!allowed&&!reviewOnly&&<><progress value={p.value} max={p.target} aria-label={p.label}/><small>{p.value} / {p.target}</small></>}
    </button>;})}
   </div>
-  <footer className="hc-foot"><div><b>{build.passive}</b><span>{build.branches.map(b=>b.name).join(' / ')} · 경기 보상에서 발전</span><small>전신 실루엣은 중립 검수 표시 · 전투는 기존 승인 타자</small></div><button data-testid="start-pack-go" disabled={!careerProgress(career,chosen).unlocked} onClick={()=>{if(!committed.current&&careerProgress(career,chosen).unlocked){committed.current=true;onPick?.(chosen);}}}>{pack.name}로 출발 →</button></footer>
+  <footer className="hc-foot"><div><b>{build.passive}</b><span>{build.branches.map(b=>b.name).join(' / ')} · 경기 보상에서 발전</span><small>전신 실루엣은 중립 검수 표시 · 전투는 기존 승인 타자</small></div><button data-testid="start-pack-go" disabled={!canStartHitter(career,chosen,reviewRun)} onClick={()=>{if(!committed.current&&canStartHitter(career,chosen,reviewRun)){committed.current=true;onPick?.(chosen);}}}>{pack.name}로 출발 →</button></footer>
  </div>;
 }
