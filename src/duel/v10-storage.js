@@ -1,3 +1,4 @@
+import {validCareerReceipt} from './hitter-career.js';
 import {hitterClass} from './hitter-classes.js';
 import {validateRunMap} from './run-map.js';
 import {isPitcherHp} from './pitcher-hp.js';
@@ -32,6 +33,8 @@ export function validateV10State(s){
   if(['battle','pitch','between'].includes(s.phase)&&(!s.battle||typeof s.battle!=='object'))return false;
   if(!s.v10||typeof s.v10!=='object')return false;
   if(s.v10.hitterClass!==undefined){const c=s.v10.hitterClass;if(!c||c.version!==1||!hitterClass(c.id)||!Array.isArray(c.ids)||c.ids.length!==7||new Set(c.ids).size!==7||c.ids.some(id=>typeof id!=='string'))return false;}
+  if(s.v10.career!==undefined&&(!validCareerReceipt(s.v10.career)||s.v10.career.pitch!==s.stats?.pitches))return false;
+  if(s.v10.hitterClass?.buildVersion!==undefined&&s.v10.hitterClass.buildVersion!==1)return false;
   if(s.v10.relicChoices!==undefined&&!Array.isArray(s.v10.relicChoices))return false;
   if(!Array.isArray(s.rewards)||!Array.isArray(s.v10.utilityHistory))return false;
   const validBonus=b=>b===null||b===undefined||(b&&Number.isInteger(b.technique)&&b.technique>=0&&b.technique<=100&&typeof b.source==='string');

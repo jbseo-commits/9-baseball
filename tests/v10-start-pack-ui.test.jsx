@@ -1,106 +1,26 @@
 // @vitest-environment happy-dom
 import React from 'react';
 import {render,screen,fireEvent,cleanup} from '@testing-library/react';
-import {afterEach,beforeEach,describe,it,expect} from 'vitest';
+import {afterEach,beforeEach,it,expect,vi} from 'vitest';
 import Duel from '../src/duel/App.jsx';
-import {createV10Duel,enterV10Node,saveV10Duel,readV10Duel} from '../src/duel/engine.js';
-import {HITTER_CLASSES as START_PACKS,START_PACK_COMMON} from '../src/duel/engine.js';
-import {CARDS} from '../src/duel/cards.js';
-
+import StartPackPick from '../src/duel/StartPackPick.jsx';
+import {createV10Duel,enterV10Node,applyHitterClass,saveV10Duel,readV10Duel} from '../src/duel/engine.js';
+import {HITTER_CLASSES} from '../src/duel/hitter-classes.js';
 beforeEach(()=>{localStorage.clear();localStorage.setItem('9zone-bp-coach-v1','done');});
-afterEach(()=>{cleanup();});
-
-const packs=()=>[...screen.getAllByTestId('start-pack')];
-function newGame(){fireEvent.click(screen.getByRole('button',{name:'새로운 게임',exact:true}));}
-function pickFirst(){
-  const first=packs()[0],name=first.getAttribute('aria-label');
-  fireEvent.click(first);
-  fireEvent.click(screen.getByTestId('start-pack-go'));
-  return START_PACKS.find(p=>p.name===name);
-}
-
-describe('V10 start-pack pick',()=>{
-  it('a fresh run starts with the picked direction in deck and record',()=>{
-    render(<Duel/>);newGame();
-    expect(packs()).toHaveLength(4);
-    const pack=pickFirst();
-    const s=readV10Duel(localStorage);
-    expect(s.deck).toHaveLength(9);
-    for(const kind of pack.kinds)expect(s.deck.map(c=>c.kind)).toContain(kind);
-    expect(s.v10.hitterClass.id).toBe(pack.id);
-    expect(s.v10.hitterClass.ids).toHaveLength(7);
-    expect(s.phase).toBe('map');
-  });
-
-  it('tapping a pack only selects it; the gold button commits the run',()=>{
-    render(<Duel/>);newGame();
-    const go=screen.getByTestId('start-pack-go');
-    expect(go.disabled).toBe(true);
-    const second=packs()[1];
-    fireEvent.click(second);
-    expect(second.getAttribute('aria-checked')).toBe('true');
-    expect(packs()[0].getAttribute('aria-checked')).toBe('false');
-    expect(readV10Duel(localStorage)).toBeNull();
-    expect(go.disabled).toBe(false);
-    expect(go.textContent).toContain(second.getAttribute('aria-label'));
-    // Every pack keeps its three representative artworks.
-    for(const p of packs())expect(p.querySelectorAll('.sp-mini-cost')).toHaveLength(3);
-  });
-
-  it('shows the full nine-card composition and duplicate counts beside the representative art',()=>{
-    render(<Duel/>);newGame();
-    for(const button of packs()){
-      const pack=START_PACKS.find(p=>p.id===button.dataset.pack),counts=new Map();
-      for(const k of [...START_PACK_COMMON,...pack.kinds])counts.set(k,(counts.get(k)||0)+1);
-      expect(button.querySelectorAll('.sp-cards>span')).toHaveLength(3);
-      fireEvent.click(button);
-      const labels=[...button.querySelectorAll('.sp-cards>span')].map(x=>x.textContent);
-      expect(labels).toHaveLength(counts.size);
-      for(const [kind,count] of counts){
-        const name=CARDS[kind]?.name||kind;
-        expect(labels.some(label=>label.includes(name)&&(count===1?!label.includes('×'):label.includes(`×${count}`)))).toBe(true);
-      }
-    }
-    expect(document.querySelector('.sp-rule').textContent).toContain('공통 2장');
-    expect(document.querySelector('.sp-rule').textContent).toContain('직업 7장');
-  });
-
-  it('keeps the chosen full deck available in a dedicated preview and updates it when selection changes',()=>{
-    render(<Duel/>);newGame();
-    expect(document.querySelector('.sp-deck-preview')).toBeNull();
-    const [first,second]=packs();
-    fireEvent.click(first);
-    let preview=document.querySelector('.sp-deck-preview');
-    expect(preview.getAttribute('aria-label')).toBe(`${START_PACKS.find(p=>p.id===first.dataset.pack).name} 전체 9장 구성`);
-    const expectedCards=packButton=>{
-      const p=START_PACKS.find(x=>x.id===packButton.dataset.pack),counts=new Map();
-      for(const kind of [...START_PACK_COMMON,...p.kinds])counts.set(kind,(counts.get(kind)||0)+1);
-      return [...counts].map(([kind,count])=>`${CARDS[kind]?.name||kind}${count>1?` ×${count}`:''}`);
-    };
-    const cardLabels=()=>[...preview.querySelectorAll('.sp-deck-cards>span')].map(x=>[...x.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim());
-    expect(cardLabels()).toEqual(expectedCards(first));
-    expect(preview.textContent).toContain('공통 2장 + 직업 7장');
-    fireEvent.click(second);
-    preview=document.querySelector('.sp-deck-preview');
-    expect(preview.getAttribute('aria-label')).toBe(`${START_PACKS.find(p=>p.id===second.dataset.pack).name} 전체 9장 구성`);
-    expect(cardLabels()).toEqual(expectedCards(second));
-    expect(second.getAttribute('aria-checked')).toBe('true');
-    expect(first.getAttribute('aria-checked')).toBe('false');
-  });
-
-  it('overwriting a run goes through pack pick, cancelling keeps the old run',()=>{
-    let s=createV10Duel(3);s=enterV10Node(s,'a1-entry');saveV10Duel(localStorage,s);
-    render(<Duel/>);newGame();
-    fireEvent.click(screen.getByRole('button',{name:'처음부터 시작'}));
-    expect(packs()).toHaveLength(4);
-    fireEvent.click(screen.getByRole('button',{name:'닫기'}));
-    const kept=readV10Duel(localStorage);
-    expect(kept.battle).toBeTruthy();
-    newGame();
-    fireEvent.click(screen.getByRole('button',{name:'처음부터 시작'}));
-    const pack=pickFirst();
-    const fresh=readV10Duel(localStorage);
-    expect(fresh.v10.hitterClass.id).toBe(pack.id);
-    expect(fresh.rewards).toEqual([]);
-  });
+afterEach(()=>{cleanup();vi.unstubAllEnvs();});
+const open=()=>fireEvent.click(screen.getByRole('button',{name:'새로운 게임',exact:true}));
+it('fresh UI selects Contact, visible locked silhouettes cannot change the chosen class, no card tiles',()=>{
+ render(<Duel/>);open();expect(screen.getAllByRole('radio')).toHaveLength(4);expect(screen.getByRole('radio',{name:'컨택 히터'}).getAttribute('aria-checked')).toBe('true');
+ for(const name of ['슬러거','배드볼 히터','스프레이 히터']){const r=screen.getByRole('radio',{name});expect(r.getAttribute('aria-disabled')).toBe('true');fireEvent.click(r);expect(r.getAttribute('aria-checked')).toBe('false');}
+ expect(document.querySelectorAll('.hc-silhouette')).toHaveLength(4);expect(document.querySelectorAll('.sp-mini,.sp-cards,.sp-deck-preview')).toHaveLength(0);expect(readV10Duel(localStorage)).toBeNull();
+ fireEvent.click(screen.getByTestId('start-pack-go'));const s=readV10Duel(localStorage);expect(s.phase).toBe('map');expect(s.v10.hitterClass).toMatchObject({id:'contact-v1',buildVersion:1});expect(s.deck.map(c=>c.kind).sort()).toEqual(['place','scout',...HITTER_CLASSES.find(c=>c.id==='contact-v1').kinds].sort());expect(s.v10.career.id).toBeTruthy();
+});
+it('unlocked class selection confirms once and exposes only fixed review portrait paths',()=>{
+ vi.stubEnv('VITE_NORMAL_REVIEW','1');const pick=vi.fn(),career={version:1,runs:{r:{longHits:3,takenBalls:5,runs:3}}};render(<StartPackPick career={career} onPick={pick}/>);
+ expect([...document.querySelectorAll('.hc-portrait img')].map(i=>i.getAttribute('src'))).toEqual(['slugger','contact','bad-ball','spray'].map(id=>import.meta.env.BASE_URL+'roster-v2/'+id+'.webp'));
+ fireEvent.click(screen.getByRole('radio',{name:'슬러거'}));fireEvent.click(screen.getByTestId('start-pack-go'));fireEvent.click(screen.getByTestId('start-pack-go'));expect(pick).toHaveBeenCalledTimes(1);expect(pick).toHaveBeenCalledWith('slugger-v1');
+});
+it('production selection never attempts owner portraits even if normalRun query is present',()=>{vi.stubEnv('VITE_NORMAL_REVIEW','');render(<StartPackPick/>);expect(document.querySelectorAll('.hc-portrait img')).toHaveLength(0);});
+it('locked previous class save resumes without mutation; cancelling overwrite retains it',()=>{
+ const s=enterV10Node(applyHitterClass(createV10Duel(3),'slugger-v1'),'a1-entry');saveV10Duel(localStorage,s);render(<Duel/>);open();fireEvent.click(screen.getByRole('button',{name:'처음부터 시작'}));fireEvent.click(screen.getByRole('button',{name:'닫기'}));expect(readV10Duel(localStorage)).toEqual(s);fireEvent.click(screen.getByRole('button',{name:'이어하기'}));expect(readV10Duel(localStorage)).toEqual(s);
 });

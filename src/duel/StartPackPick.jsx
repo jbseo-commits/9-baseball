@@ -1,80 +1,30 @@
 import React,{useEffect,useRef,useState} from 'react';
-import {CARDS,cardCost} from './cards.js';
-import {START_PACK_COMMON,HITTER_CLASSES} from './engine.js';
-import {cardArtFor,cardArtFocusFor} from './card-art.js';
-import plate from '../../assets/production-art/phone-assets-v18/A06-title-stadium-plate.png';
-import coach from '../../assets/production-art/phone-assets-v18/A05-title-coach.png';
-import './start-pack.css';
-import {JourneyBurst,useMenuFeedback} from './JourneyJuice.jsx';
-
-/* Start-pack pick: before the first battle, seven direction cards join the common two.
-   Packs are tastes, not locked builds — later rewards can shift or mix freely.
-   Masterpiece pass (2026-10-10): a full-screen locker-room beat instead of a text modal. Each pack
-   shows its three real card illustrations, costs and roles; tap selects, the gold button commits —
-   the run's first decision is never a mis-tap. */
-const PACK_LOOK={
-  power:{tone:'power',tag:'장타'},
-  link:{tone:'link',tag:'진루'},
-  hold:{tone:'hold',tag:'생존'},
-};
-
-export default function StartPackPick({seed,onPick,onClose,sound=false}){
-  const offers=HITTER_CLASSES;
-  const [chosen,setChosen]=useState(null);
-  const confirmRef=useRef(null),committed=useRef(false);
-  const feedback=useMenuFeedback(sound);
-  const pack=offers.find(p=>p.id===chosen);
-  const deckCounts=new Map();
-  if(pack)for(const k of [...START_PACK_COMMON,...pack.kinds])deckCounts.set(k,(deckCounts.get(k)||0)+1);
-  useEffect(()=>{const esc=e=>{if(e.key==='Escape')onClose?.()};window.addEventListener('keydown',esc);return()=>window.removeEventListener('keydown',esc)},[onClose]);
-  useEffect(()=>{if(chosen)confirmRef.current?.scrollIntoView?.({block:'nearest'})},[chosen]);
-  return <div className="sp-root" role="dialog" aria-modal="true" aria-label="타자 직업 선택">
-    <div className="sp-bg" style={{backgroundImage:`url(${plate})`}} aria-hidden="true"/>
-    <button type="button" className="sp-close" aria-label="닫기" onClick={onClose}>×</button>
-    <header className="sp-head">
-      <img className="sp-coach" src={coach} alt="" aria-hidden="true"/>
-      <div className="sp-bubble">
-        <span className="sp-eyebrow">MAIN RUN · HITTER CLASS</span>
-        <p>“첫 경기다.<br/>어떤 야구로 갈래?”</p>
-      </div>
-    </header>
-    <h2 className="sp-title">어떤 타자로 시작할까</h2>
-    <p className="sp-rule"><b>공통 2장</b><i>+</i><b>직업 7장</b><i>=</i><b>9장 덱</b><span>덱은 보상으로 발전 · 직업별 그림은 준비 중</span></p>
-    <div className="sp-list" role="radiogroup" aria-label="타자 직업">
-      {offers.map((p,i)=>{const look={tone:p.tone,tag:p.tag},on=chosen===p.id;
-        const complete=[...START_PACK_COMMON,...p.kinds],counts=new Map();
-        for(const k of complete)counts.set(k,(counts.get(k)||0)+1);
-        return <button key={p.id} type="button" role="radio" aria-checked={on} aria-label={p.name}
-          className={'start-pack sp-pack t-'+look.tone+(on?' on':'')} data-testid="start-pack" data-pack={p.id}
-          style={{'--i':i}} onClick={()=>{if(chosen!==p.id){setChosen(p.id);feedback('expand')}}}>
-          <span className="sp-fan" aria-hidden="true">
-            {p.featured.map((k,j)=>{const art=cardArtFor(k),focus=cardArtFocusFor(k);
-              return <span key={k+j} className={'sp-mini c'+j}>
-                <span className="sp-mini-art" style={art?{backgroundImage:`url(${art})`,backgroundPosition:focus?.objectPosition||'center 25%'}:undefined}/>
-                <span className="sp-mini-cost">{cardCost(k)}</span>
-              </span>;})}
-          </span>
-          <span className="sp-info">
-            <span className="sp-tag">{on?'선택됨':'대표 3종'} · {look.tag}</span>
-            <strong>{p.name}</strong>
-            <em>{p.desc}</em>
-            <span className="sp-cards" aria-label={on?'전체 9장 구성':'대표 카드 3종'}>{(on?[...counts]:p.featured.map(k=>[k,1])).map(([k,n])=><span key={k} className={(CARDS[k]?.type==='skill'?'skill ':'')+(on&&START_PACK_COMMON.includes(k)?'common':'')}>
-              {CARDS[k]?.name||k}{on&&n>1?` ×${n}`:''}<small>{on&&START_PACK_COMMON.includes(k)?'공통':CARDS[k]?.role}</small></span>)}</span>
-          </span>
-          <span className="sp-check" aria-hidden="true"/>{on&&<JourneyBurst key={p.id}/>}
-        </button>;})}
-    </div>
-    {pack&&<section className="sp-deck-preview" aria-label={`${pack.name} 전체 9장 구성`}>
-      <strong>선택 덱 <span>공통 2장 + 직업 7장</span></strong>
-      <div className="sp-deck-cards">{[...deckCounts].map(([k,n])=><span key={k} className={(CARDS[k]?.type==='skill'?'skill ':'')+(START_PACK_COMMON.includes(k)?'common':'')}>
-        {CARDS[k]?.name||k}{n>1?` ×${n}`:''}<small>{START_PACK_COMMON.includes(k)?'공통':CARDS[k]?.role}</small>
-      </span>)}</div>
-    </section>}
-    <footer className="sp-foot">
-      <button ref={confirmRef} type="button" className="sp-go" data-testid="start-pack-go" disabled={!pack} onClick={()=>{if(pack&&!committed.current){committed.current=true;feedback('cardGet');onPick?.(pack.id)}}}>
-        <span>{pack?pack.name+'로 출발':'직업을 고르세요'}</span>
-        {pack&&<small>공통 2장 + 직업 7장 · 총 9장 덱</small>}
-      </button>
-    </footer>
-  </div>;
+import {HITTER_CLASSES} from './hitter-classes.js';
+import {careerProgress} from './hitter-career.js';
+import {HITTER_BUILDS} from './hitter-builds.js';
+import './hitter-select.css';
+const PORTRAITS=Object.freeze({'contact-v1':'roster-v2/contact.webp','slugger-v1':'roster-v2/slugger.webp','bad-ball-v1':'roster-v2/bad-ball.webp','spray-v1':'roster-v2/spray.webp'});
+function Portrait({id}){
+ const [ready,setReady]=useState(false),[failed,setFailed]=useState(false);
+ const src=import.meta.env.VITE_NORMAL_REVIEW==='1'?import.meta.env.BASE_URL+PORTRAITS[id]:null;
+ return <span className="hc-portrait" data-art={ready&&!failed?'owner-portrait':'neutral-silhouette'}>
+  <svg viewBox="0 0 120 200" aria-hidden="true" className="hc-silhouette"><ellipse cx="60" cy="192" rx="40" ry="5"/><path d="M48 21h24l9 9-5 16-10 8 12 8 7 35 14 33-10 5-19-33-1 19 13 60-15 8-12-55-8 54-16-4 7-67-3-23-13 32-11-5 21-50 17-17-10-9-2-16z"/><path d="M28 85L11 13l5-2 21 71z"/><path className="hc-silhouette-edge" d="M43 28h40M42 65l18 9 15-10M45 118h23"/></svg>
+  {src&&!failed&&<img src={src} alt="" draggable="false" style={{opacity:ready?1:0}} onLoad={e=>{const img=e.currentTarget;img.decode().then(()=>{if(img.naturalWidth>0&&img.naturalHeight>0)setReady(true);else setFailed(true);}).catch(()=>setFailed(true));}} onError={()=>setFailed(true)}/>}
+ </span>;
+}
+export default function StartPackPick({onPick,onClose,career={version:1,runs:{}}}){
+ const [chosen,setChosen]=useState('contact-v1'),committed=useRef(false);
+ const pack=HITTER_CLASSES.find(c=>c.id===chosen),build=HITTER_BUILDS[chosen];
+ useEffect(()=>{const f=e=>{if(e.key==='Escape')onClose?.();};window.addEventListener('keydown',f);return()=>window.removeEventListener('keydown',f);},[onClose]);
+ return <div className="hc-root" role="dialog" aria-modal="true" aria-label="타자 선택">
+  <header className="hc-head"><div><small>새 원정 · 타자 선택</small><h2>누구의 야구로 승부할까</h2></div><button onClick={onClose} aria-label="닫기">×</button></header>
+  <div className="hc-roster" role="radiogroup" aria-label="타자">
+   {HITTER_CLASSES.map(c=>{const p=careerProgress(career,c.id),on=c.id===chosen;return <button key={c.id} type="button" role="radio" aria-label={c.name} aria-checked={on} aria-disabled={!p.unlocked} data-testid="start-pack" data-pack={c.id} className={'hc-player '+(on?'selected ':'')+(!p.unlocked?'locked':'')} onClick={()=>{if(p.unlocked)setChosen(c.id);}}>
+    <Portrait id={c.id}/><strong>{c.name}</strong><span className="hc-style">{({'slugger-v1':'준비한 한 칸에 장타','contact-v1':'단타를 잇고, 두 스트라이크를 버틴다','bad-ball-v1':'밖에 걸거나, 볼을 골라 압박','spray-v1':'코스를 골라 치고 주자를 보낸다'})[c.id]}</span>
+    <span className="hc-unlock">{p.unlocked?(on?'선택됨':'출전 가능'):`잠김 · ${p.label}`}</span>
+    {!p.unlocked&&<><progress value={p.value} max={p.target} aria-label={p.label}/><small>{p.value} / {p.target}</small></>}
+   </button>;})}
+  </div>
+  <footer className="hc-foot"><div><b>{build.passive}</b><span>{build.branches.map(b=>b.name).join(' / ')} · 경기 보상에서 발전</span><small>전신 실루엣은 중립 검수 표시 · 전투는 기존 승인 타자</small></div><button data-testid="start-pack-go" disabled={!careerProgress(career,chosen).unlocked} onClick={()=>{if(!committed.current&&careerProgress(career,chosen).unlocked){committed.current=true;onPick?.(chosen);}}}>{pack.name}로 출발 →</button></footer>
+ </div>;
 }

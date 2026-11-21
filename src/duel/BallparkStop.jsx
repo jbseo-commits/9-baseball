@@ -88,6 +88,7 @@ function Offer({o,on,count,onClick,plus=false,reveal=null}){
   const cost=cardCost(o.kind),fam=FAMILIES[def?.family]?.name;
   return <button type="button" className={'bp-offer reward-card'+(skill?' skill':'')+(rare?' rare':'')+' r-'+tier+(on?' on':'')} aria-pressed={on} onClick={onClick} data-card-kind={o.kind} {...rv}>
     {reveal!=null&&<Back/>}
+    {o.branch&&<em className="bp-class-branch">{o.branch}</em>}
     <span className="bp-offer-cost" aria-label={`코스트 ${cost}`}>{cost}</span>
     <div className="bp-offer-art" style={{backgroundImage:`url(${art})`}}/>
     {rare&&<em className="bp-rare-tag">{tier==='signature'?'시그니처':'희귀'}</em>}
