@@ -18,3 +18,10 @@ export function intentBadgePosition(point,bounds){
  if(!point||!bounds||point.y<46||point.y>bounds.height||point.x<18||point.x>bounds.width-18)return null;
  return {left:Math.round(Math.max(20,Math.min(bounds.width-28,point.x))),top:Math.round(point.y-6)};
 }
+
+// The compact map and HP share one screen-pixel stack. Reserve room for the
+// certainty marker at the top edge; never move actors/camera or input targets.
+export function pitcherOverheadPosition(head,bounds){
+ if(!head||!bounds||!(bounds.width>0)||!(bounds.height>0))return null;
+ return {left:Math.round(Math.max(4,Math.min(bounds.width-76,head.x-36))),top:Math.round(Math.max(48,Math.min(bounds.height-11,head.y-14)))};
+}
