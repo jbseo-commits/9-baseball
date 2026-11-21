@@ -1,0 +1,1551 @@
+{
+  "after-844-pitch-3-take": {
+    "cue": "vulcan-vent",
+    "actualZone": 6,
+    "result": {
+      "zone": 6,
+      "label": "루킹 스트라이크",
+      "kind": "called",
+      "coverage": [],
+      "primaryCoverage": [],
+      "supportCoverages": [],
+      "supportKinds": [],
+      "supportZones": [],
+      "stackCardCount": 0,
+      "stackConnectCount": 0,
+      "stackConnectBonus": 0,
+      "stackBaseDamageRate": 1,
+      "stackOrderedDamageRate": 1,
+      "stackLinks": [],
+      "stackSteps": [],
+      "assistCoverage": [],
+      "assistZone": null,
+      "assistKind": null,
+      "assistOnly": false,
+      "aimZone": null,
+      "action": "take",
+      "takeEnergyBonus": 1,
+      "takeDrawBonus": 0,
+      "takeDrawReason": "full",
+      "ballsBefore": 1,
+      "strikesBefore": 1,
+      "outsBefore": 0,
+      "growthEvents": [],
+      "basesBefore": [
+        null,
+        null,
+        null
+      ]
+    },
+    "last": {
+      "kind": "pitch",
+      "text": "강한결 · 루킹 스트라이크",
+      "events": [
+        "삼구 과열 · 기본 피해 ×0.85 (추가 HP 별도)",
+        "실제 코스: 몸쪽 낮음",
+        "지켜보기 보상 · 다음 실제 공 에너지 +1",
+        "같은 타자 · 다음 공에서 승부가 이어집니다."
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 0
+    },
+    "combat": {
+      "hpBefore": 115,
+      "choice": "take",
+      "shotRate": 1,
+      "choiceLabel": "한 구 지켜보기",
+      "aimZone": null,
+      "aimLabel": "노림 없음",
+      "actualPitch": 6,
+      "pitchLabel": "몸쪽 낮음",
+      "pitchName": "삼구 과열 · 몸쪽 낮음 선호",
+      "verdict": "루킹 스트라이크",
+      "damage": 0,
+      "baseDamage": 0,
+      "damageRate": 0.85,
+      "baseStackDamageRate": 1,
+      "orderedStackDamageRate": 1,
+      "connectCount": 0,
+      "connectBonus": 0,
+      "stackLinks": [],
+      "stackSteps": [],
+      "relicBonus": 0,
+      "precisionRate": 0,
+      "precisionBonus": 0,
+      "cardFxBonus": 0,
+      "totalDamageBonus": 0,
+      "runnersBefore": 0,
+      "runnerRate": 0,
+      "runnerBonus": 0,
+      "runsScored": 0,
+      "shakenBefore": 0,
+      "shakenAfter": 0,
+      "momentumBefore": 0,
+      "momentumAfter": 0,
+      "momentumRate": 1,
+      "stackRate": 1,
+      "relicEvents": [],
+      "encounterPlan": {
+        "rate": 0.85,
+        "bonus": 0,
+        "events": [
+          "삼구 과열 · 기본 피해 ×0.85 (추가 HP 별도)"
+        ]
+      },
+      "encounter": {
+        "rate": 0.85,
+        "bonus": 0,
+        "events": [
+          "삼구 과열 · 기본 피해 ×0.85 (추가 HP 별도)"
+        ]
+      },
+      "encounterEvents": [
+        "삼구 과열 · 기본 피해 ×0.85 (추가 HP 별도)"
+      ],
+      "cardCount": 1,
+      "hpAfter": 115,
+      "takeEnergyBonus": 1,
+      "takeDrawBonus": 0,
+      "takeDrawReason": "full"
+    },
+    "trace": [
+      {
+        "t": 3725.1,
+        "phase": "flight",
+        "x": 419.31355,
+        "y": 120.5948,
+        "width": 7.3771,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3741.8,
+        "phase": "flight",
+        "x": 419.277505,
+        "y": 122.558755,
+        "width": 7.58626,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3758.4,
+        "phase": "flight",
+        "x": 419.8003,
+        "y": 124.45655,
+        "width": 7.78811,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3775.1,
+        "phase": "flight",
+        "x": 421.51504,
+        "y": 127.905665,
+        "width": 8.15509,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3791.7,
+        "phase": "flight",
+        "x": 423.53539,
+        "y": 131.22289,
+        "width": 8.50827,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3808.5,
+        "phase": "flight",
+        "x": 424.73547,
+        "y": 133.219845,
+        "width": 8.72094,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3825.1,
+        "phase": "flight",
+        "x": 426.6501,
+        "y": 136.915725,
+        "width": 9.1127,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3841.7,
+        "phase": "flight",
+        "x": 427.07905,
+        "y": 137.9228,
+        "width": 9.22059,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3858.5,
+        "phase": "flight",
+        "x": 428.027955,
+        "y": 140.777955,
+        "width": 9.52466,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3875.1,
+        "phase": "flight",
+        "x": 428.646035,
+        "y": 144.771035,
+        "width": 9.94831,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3908.5,
+        "phase": "flight",
+        "x": 426.584315,
+        "y": 154.178065,
+        "width": 10.9499,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3925.1,
+        "phase": "flight",
+        "x": 425.06213,
+        "y": 156.99963,
+        "width": 11.2493,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3941.8,
+        "phase": "flight",
+        "x": 422.727705,
+        "y": 160.39958000000001,
+        "width": 11.6117,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3958.5,
+        "phase": "flight",
+        "x": 416.618435,
+        "y": 167.16531,
+        "width": 12.3306,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3975.1,
+        "phase": "flight",
+        "x": 410.99515,
+        "y": 172.18265,
+        "width": 12.8653,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3991.8,
+        "phase": "flight",
+        "x": 395.24012,
+        "y": 183.849495,
+        "width": 14.1052,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4008.4,
+        "phase": "result",
+        "x": 386.135245,
+        "y": 189.80712,
+        "width": 14.7392,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4025.1,
+        "phase": "result",
+        "x": 364.61399,
+        "y": 204.973365,
+        "width": 16.353,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4041.8,
+        "phase": "result",
+        "x": 361.385435,
+        "y": 207.43231,
+        "width": 16.6146,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4058.5,
+        "phase": "result",
+        "x": 354.037715,
+        "y": 213.24084,
+        "width": 17.2317,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4075.1,
+        "phase": "result",
+        "x": 345.5237,
+        "y": 220.320575,
+        "width": 17.9849,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4091.7,
+        "phase": "result",
+        "x": 322.594075,
+        "y": 241.32845,
+        "width": 20.2195,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4108.4,
+        "phase": "result",
+        "x": 316.569425,
+        "y": 247.33505,
+        "width": 20.8577,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4125,
+        "phase": "result",
+        "x": 289.398725,
+        "y": 277.023725,
+        "width": 24.0162,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4141.8,
+        "phase": "result",
+        "x": 279.36765,
+        "y": 289.070775,
+        "width": 25.2978,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4158.4,
+        "phase": "result",
+        "x": 260.2643,
+        "y": 313.5768,
+        "width": 27.9036,
+        "cue": false,
+        "balls": 1
+      }
+    ],
+    "video": "/workspace/vulcan-qa/videos/page@de831071c2ba653ffbed824801d204fd.webm"
+  },
+  "after-844-pitch-3-hit": {
+    "cue": "vulcan-vent",
+    "actualZone": 6,
+    "result": {
+      "zone": 6,
+      "label": "땅볼 안타",
+      "kind": "hit",
+      "coverage": [
+        6
+      ],
+      "primaryCoverage": [
+        6
+      ],
+      "supportCoverages": [],
+      "supportKinds": [],
+      "supportZones": [],
+      "stackCardCount": 1,
+      "stackConnectCount": 0,
+      "stackConnectBonus": 0,
+      "stackBaseDamageRate": 1,
+      "stackOrderedDamageRate": 1,
+      "stackLinks": [],
+      "stackSteps": [
+        {
+          "order": 1,
+          "id": "basic",
+          "kind": "basic",
+          "aimZone": 6,
+          "main": true
+        }
+      ],
+      "assistCoverage": [],
+      "assistZone": null,
+      "assistKind": null,
+      "assistOnly": false,
+      "aimZone": 6,
+      "action": "basic",
+      "takeEnergyBonus": 0,
+      "takeDrawBonus": 0,
+      "takeDrawReason": null,
+      "ballsBefore": 1,
+      "strikesBefore": 1,
+      "outsBefore": 0,
+      "growthEvents": [],
+      "basesBefore": [
+        null,
+        null,
+        null
+      ]
+    },
+    "last": {
+      "kind": "hit",
+      "text": "강한결 · 땅볼 안타",
+      "events": [
+        "삼구 과열 · 추가 피해 +8 HP",
+        "기세 상승 0 → 1 · 다음 공부터 ×1.1",
+        "유물 · 압도 · 안타 +5 HP",
+        "실제 코스: 몸쪽 낮음",
+        "존 적중 → 안타 확정 · 타격 58 vs 변화 82 / 파워 52 vs 구위 72"
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 0
+    },
+    "combat": {
+      "hpBefore": 115,
+      "choice": "basic",
+      "shotRate": 1,
+      "choiceLabel": "기본 스윙",
+      "aimZone": 6,
+      "aimLabel": "몸쪽 낮음",
+      "actualPitch": 6,
+      "pitchLabel": "몸쪽 낮음",
+      "pitchName": "삼구 과열 · 몸쪽 낮음 선호",
+      "verdict": "땅볼 안타",
+      "damage": 25,
+      "baseDamage": 12,
+      "damageRate": 1,
+      "baseStackDamageRate": 1,
+      "orderedStackDamageRate": 1,
+      "connectCount": 0,
+      "connectBonus": 0,
+      "stackLinks": [],
+      "stackSteps": [
+        {
+          "order": 1,
+          "id": "basic",
+          "kind": "basic",
+          "aimZone": 6,
+          "main": true
+        }
+      ],
+      "relicBonus": 5,
+      "precisionRate": 0,
+      "precisionBonus": 0,
+      "cardFxBonus": 0,
+      "totalDamageBonus": 13,
+      "runnersBefore": 0,
+      "runnerRate": 0,
+      "runnerBonus": 0,
+      "runsScored": 0,
+      "shakenBefore": 0,
+      "shakenAfter": 0,
+      "momentumBefore": 0,
+      "momentumAfter": 1,
+      "momentumRate": 1,
+      "stackRate": 1,
+      "relicEvents": [
+        "압도 · 안타 +5 HP"
+      ],
+      "encounterPlan": {
+        "rate": 1,
+        "bonus": 8,
+        "events": [
+          "삼구 과열 · 추가 피해 +8 HP"
+        ]
+      },
+      "encounter": {
+        "rate": 1,
+        "bonus": 8,
+        "events": [
+          "삼구 과열 · 추가 피해 +8 HP"
+        ]
+      },
+      "encounterEvents": [
+        "삼구 과열 · 추가 피해 +8 HP"
+      ],
+      "cardCount": 1,
+      "hpAfter": 90,
+      "takeEnergyBonus": 0,
+      "takeDrawBonus": 0
+    },
+    "trace": [
+      {
+        "t": 4421,
+        "phase": "flight",
+        "x": 419.276685,
+        "y": 120.776685,
+        "width": 7.39712,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4437.6,
+        "phase": "flight",
+        "x": 419.521245,
+        "y": 123.614995,
+        "width": 7.69875,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4454.3,
+        "phase": "flight",
+        "x": 420.529105,
+        "y": 126.10723,
+        "width": 7.96446,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4471,
+        "phase": "flight",
+        "x": 421.290685,
+        "y": 127.509435,
+        "width": 8.11261,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4487.6,
+        "phase": "flight",
+        "x": 422.628255,
+        "y": 129.73763,
+        "width": 8.35026,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4504.3,
+        "phase": "flight",
+        "x": 424.203655,
+        "y": 132.328655,
+        "width": 8.62607,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4520.9,
+        "phase": "flight",
+        "x": 425.9125,
+        "y": 135.38125,
+        "width": 8.95001,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4537.6,
+        "phase": "flight",
+        "x": 427.721425,
+        "y": 139.721425,
+        "width": 9.41161,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4554.2,
+        "phase": "flight",
+        "x": 428.621195,
+        "y": 144.29307,
+        "width": 9.89864,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4587.6,
+        "phase": "flight",
+        "x": 427.40236,
+        "y": 152.230485,
+        "width": 10.7422,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4604.3,
+        "phase": "flight",
+        "x": 423.6746,
+        "y": 159.1121,
+        "width": 11.4742,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4621,
+        "phase": "flight",
+        "x": 422.94666,
+        "y": 160.118535,
+        "width": 11.5808,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4637.6,
+        "phase": "flight",
+        "x": 421.819875,
+        "y": 161.55425,
+        "width": 11.7335,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4654.3,
+        "phase": "flight",
+        "x": 415.993725,
+        "y": 167.75935,
+        "width": 12.3937,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4670.9,
+        "phase": "flight",
+        "x": 410.5161,
+        "y": 172.5786,
+        "width": 12.9072,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4704.2,
+        "phase": "result",
+        "x": 390.39911850585935,
+        "y": 187.57227524414063,
+        "width": 14.5378,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4821,
+        "phase": "result",
+        "x": 426.40859,
+        "y": 214.017965,
+        "width": 9.31717,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5004.3,
+        "phase": "result",
+        "x": 434.33464,
+        "y": 218.225265,
+        "width": 7.48177,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5020.9,
+        "phase": "result",
+        "x": 436.07763,
+        "y": 218.937005,
+        "width": 6.96776,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5037.6,
+        "phase": "result",
+        "x": 437.084655,
+        "y": 219.28778,
+        "width": 6.63806,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5054.3,
+        "phase": "result",
+        "x": 437.242305,
+        "y": 219.336055,
+        "width": 6.57835,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5071,
+        "phase": "result",
+        "x": 438.139955,
+        "y": 219.59308,
+        "width": 6.24866,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5087.6,
+        "phase": "result",
+        "x": 439.59535,
+        "y": 219.829725,
+        "width": 5.62821,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5104.3,
+        "phase": "result",
+        "x": 440.133535,
+        "y": 219.852285,
+        "width": 5.36081,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5121,
+        "phase": "result",
+        "x": 440.740845,
+        "y": 219.78772,
+        "width": 5.01294,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5137.6,
+        "phase": "result",
+        "x": 441.273985,
+        "y": 219.617735,
+        "width": 4.64171,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5154.2,
+        "phase": "result",
+        "x": 441.75904,
+        "y": 219.29029,
+        "width": 4.20558,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5171,
+        "phase": "result",
+        "x": 442.0852,
+        "y": 218.8352,
+        "width": 3.7954,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5187.6,
+        "phase": "result",
+        "x": 442.319545,
+        "y": 217.569545,
+        "width": 2.98284,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5204.3,
+        "phase": "result",
+        "x": 442.319745,
+        "y": 217.319745,
+        "width": 2.85824,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5221,
+        "phase": "result",
+        "x": 442.15773,
+        "y": 216.298355,
+        "width": 2.37797,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5237.6,
+        "phase": "result",
+        "x": 441.795385,
+        "y": 215.014135,
+        "width": 2.05952,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5270.9,
+        "phase": "result",
+        "x": 441.27976,
+        "y": 213.670385,
+        "width": 2.05952,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5287.6,
+        "phase": "result",
+        "x": 439.357885,
+        "y": 209.77976,
+        "width": 2.05952,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5304.3,
+        "phase": "result",
+        "x": 439.12351,
+        "y": 209.389135,
+        "width": 2.05952,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5321,
+        "phase": "result",
+        "x": 438.65476,
+        "y": 208.56101,
+        "width": 2.05952,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5337.6,
+        "phase": "result",
+        "x": 438.65476,
+        "y": 208.56101,
+        "width": 2.05952,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5354.3,
+        "phase": "result",
+        "x": 438.65476,
+        "y": 208.56101,
+        "width": 2.05952,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5371,
+        "phase": "result",
+        "x": 438.65476,
+        "y": 208.56101,
+        "width": 2.05952,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5387.6,
+        "phase": "result",
+        "x": 438.65476,
+        "y": 208.56101,
+        "width": 2.05952,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5404.3,
+        "phase": "result",
+        "x": 438.65476,
+        "y": 208.56101,
+        "width": 2.05952,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5420.9,
+        "phase": "result",
+        "x": 438.65476,
+        "y": 208.56101,
+        "width": 2.05952,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5437.5,
+        "phase": "result",
+        "x": 438.65476,
+        "y": 208.56101,
+        "width": 2.05952,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5454.2,
+        "phase": "result",
+        "x": 438.65476,
+        "y": 208.56101,
+        "width": 2.05952,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5470.9,
+        "phase": "result",
+        "x": 438.65476,
+        "y": 208.56101,
+        "width": 2.05952,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5487.6,
+        "phase": "result",
+        "x": 438.65476,
+        "y": 208.56101,
+        "width": 2.05952,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5504.2,
+        "phase": "result",
+        "x": 438.65476,
+        "y": 208.56101,
+        "width": 2.05952,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 5520.9,
+        "phase": "result",
+        "x": 438.65476,
+        "y": 208.56101,
+        "width": 2.05952,
+        "cue": false,
+        "balls": 1
+      }
+    ],
+    "video": "/workspace/vulcan-qa/videos/page@dabcdc19ff10d9ed7e2260f203431643.webm"
+  },
+  "after-844-pitch-3-whiff": {
+    "cue": "vulcan-vent",
+    "actualZone": 6,
+    "result": {
+      "zone": 6,
+      "label": "헛스윙",
+      "kind": "whiff",
+      "coverage": [
+        1
+      ],
+      "primaryCoverage": [
+        1
+      ],
+      "supportCoverages": [],
+      "supportKinds": [],
+      "supportZones": [],
+      "stackCardCount": 1,
+      "stackConnectCount": 0,
+      "stackConnectBonus": 0,
+      "stackBaseDamageRate": 1,
+      "stackOrderedDamageRate": 1,
+      "stackLinks": [],
+      "stackSteps": [
+        {
+          "order": 1,
+          "id": "basic",
+          "kind": "basic",
+          "aimZone": 1,
+          "main": true
+        }
+      ],
+      "assistCoverage": [],
+      "assistZone": null,
+      "assistKind": null,
+      "assistOnly": false,
+      "aimZone": 1,
+      "action": "basic",
+      "takeEnergyBonus": 0,
+      "takeDrawBonus": 0,
+      "takeDrawReason": null,
+      "ballsBefore": 1,
+      "strikesBefore": 1,
+      "outsBefore": 0,
+      "growthEvents": [],
+      "basesBefore": [
+        null,
+        null,
+        null
+      ]
+    },
+    "last": {
+      "kind": "pitch",
+      "text": "강한결 · 헛스윙",
+      "events": [
+        "삼구 과열 · 기본 피해 ×0.85 (추가 HP 별도)",
+        "실제 코스: 몸쪽 낮음",
+        "같은 타자 · 다음 공에서 승부가 이어집니다."
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 0
+    },
+    "combat": {
+      "hpBefore": 115,
+      "choice": "basic",
+      "shotRate": 1,
+      "choiceLabel": "기본 스윙",
+      "aimZone": 1,
+      "aimLabel": "가운데 높음",
+      "actualPitch": 6,
+      "pitchLabel": "몸쪽 낮음",
+      "pitchName": "삼구 과열 · 몸쪽 낮음 선호",
+      "verdict": "헛스윙",
+      "damage": 1,
+      "baseDamage": 1,
+      "damageRate": 0.85,
+      "baseStackDamageRate": 1,
+      "orderedStackDamageRate": 1,
+      "connectCount": 0,
+      "connectBonus": 0,
+      "stackLinks": [],
+      "stackSteps": [
+        {
+          "order": 1,
+          "id": "basic",
+          "kind": "basic",
+          "aimZone": 1,
+          "main": true
+        }
+      ],
+      "relicBonus": 0,
+      "precisionRate": 0,
+      "precisionBonus": 0,
+      "cardFxBonus": 0,
+      "totalDamageBonus": 0,
+      "runnersBefore": 0,
+      "runnerRate": 0,
+      "runnerBonus": 0,
+      "runsScored": 0,
+      "shakenBefore": 0,
+      "shakenAfter": 0,
+      "momentumBefore": 0,
+      "momentumAfter": 0,
+      "momentumRate": 1,
+      "stackRate": 1,
+      "relicEvents": [],
+      "encounterPlan": {
+        "rate": 0.85,
+        "bonus": 0,
+        "events": [
+          "삼구 과열 · 기본 피해 ×0.85 (추가 HP 별도)"
+        ]
+      },
+      "encounter": {
+        "rate": 0.85,
+        "bonus": 0,
+        "events": [
+          "삼구 과열 · 기본 피해 ×0.85 (추가 HP 별도)"
+        ]
+      },
+      "encounterEvents": [
+        "삼구 과열 · 기본 피해 ×0.85 (추가 HP 별도)"
+      ],
+      "cardCount": 1,
+      "hpAfter": 114,
+      "takeEnergyBonus": 0,
+      "takeDrawBonus": 0
+    },
+    "trace": [
+      {
+        "t": 3846.7,
+        "phase": "flight",
+        "x": 419.22382,
+        "y": 121.25507,
+        "width": 7.44764,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3863.3,
+        "phase": "flight",
+        "x": 420.12444,
+        "y": 125.26506499999999,
+        "width": 7.87388,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3880,
+        "phase": "flight",
+        "x": 420.598165,
+        "y": 126.23879,
+        "width": 7.97757,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3896.7,
+        "phase": "flight",
+        "x": 422.012875,
+        "y": 128.74725,
+        "width": 8.2445,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3913.3,
+        "phase": "flight",
+        "x": 423.36425,
+        "y": 130.942375,
+        "width": 8.4785,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3930,
+        "phase": "flight",
+        "x": 424.94136,
+        "y": 133.56636,
+        "width": 8.75771,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3946.6,
+        "phase": "flight",
+        "x": 427.645765,
+        "y": 139.47389,
+        "width": 9.38528,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3963.3,
+        "phase": "flight",
+        "x": 428.12382,
+        "y": 141.108195,
+        "width": 9.56015,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3980,
+        "phase": "flight",
+        "x": 428.622315,
+        "y": 144.32544000000001,
+        "width": 9.90088,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3996.7,
+        "phase": "flight",
+        "x": 428.405515,
+        "y": 148.468015,
+        "width": 10.3423,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4013.3,
+        "phase": "flight",
+        "x": 427.497225,
+        "y": 151.95035000000001,
+        "width": 10.7132,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4046.7,
+        "phase": "flight",
+        "x": 424.961475,
+        "y": 157.1646,
+        "width": 11.2667,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4079.9,
+        "phase": "flight",
+        "x": 414.25129,
+        "y": 169.360665,
+        "width": 12.5651,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4096.7,
+        "phase": "flight",
+        "x": 399.626505,
+        "y": 180.82963,
+        "width": 13.7843,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4113.4,
+        "phase": "flight",
+        "x": 394.78737,
+        "y": 184.146745,
+        "width": 14.1372,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4130,
+        "phase": "result",
+        "x": 384.203105,
+        "y": 191.078105,
+        "width": 14.875,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4180,
+        "phase": "result",
+        "x": 324.287125,
+        "y": 239.67775,
+        "width": 20.0429,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4213.3,
+        "phase": "result",
+        "x": 299.327075,
+        "y": 265.68645,
+        "width": 22.8104,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4229.9,
+        "phase": "result",
+        "x": 295.552075,
+        "y": 269.927075,
+        "width": 23.2605,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4263.3,
+        "phase": "result",
+        "x": 266.30895,
+        "y": 305.605825,
+        "width": 27.0555,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4280,
+        "phase": "result",
+        "x": 243.75835,
+        "y": 336.38335,
+        "width": 30.3292,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 4296.6,
+        "phase": "result",
+        "x": 220.98825,
+        "y": 370.082,
+        "width": 33.914,
+        "cue": false,
+        "balls": 1
+      }
+    ],
+    "video": "/workspace/vulcan-qa/videos/page@b899738ee1bcfb3fcb42d83cc93a6b02.webm"
+  },
+  "after-667-pitch-3-take": {
+    "cue": "vulcan-vent",
+    "actualZone": 6,
+    "result": {
+      "zone": 6,
+      "label": "루킹 스트라이크",
+      "kind": "called",
+      "coverage": [],
+      "primaryCoverage": [],
+      "supportCoverages": [],
+      "supportKinds": [],
+      "supportZones": [],
+      "stackCardCount": 0,
+      "stackConnectCount": 0,
+      "stackConnectBonus": 0,
+      "stackBaseDamageRate": 1,
+      "stackOrderedDamageRate": 1,
+      "stackLinks": [],
+      "stackSteps": [],
+      "assistCoverage": [],
+      "assistZone": null,
+      "assistKind": null,
+      "assistOnly": false,
+      "aimZone": null,
+      "action": "take",
+      "takeEnergyBonus": 1,
+      "takeDrawBonus": 0,
+      "takeDrawReason": "full",
+      "ballsBefore": 1,
+      "strikesBefore": 1,
+      "outsBefore": 0,
+      "growthEvents": [],
+      "basesBefore": [
+        null,
+        null,
+        null
+      ]
+    },
+    "last": {
+      "kind": "pitch",
+      "text": "강한결 · 루킹 스트라이크",
+      "events": [
+        "삼구 과열 · 기본 피해 ×0.85 (추가 HP 별도)",
+        "실제 코스: 몸쪽 낮음",
+        "지켜보기 보상 · 다음 실제 공 에너지 +1",
+        "같은 타자 · 다음 공에서 승부가 이어집니다."
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 0
+    },
+    "combat": {
+      "hpBefore": 115,
+      "choice": "take",
+      "shotRate": 1,
+      "choiceLabel": "한 구 지켜보기",
+      "aimZone": null,
+      "aimLabel": "노림 없음",
+      "actualPitch": 6,
+      "pitchLabel": "몸쪽 낮음",
+      "pitchName": "삼구 과열 · 몸쪽 낮음 선호",
+      "verdict": "루킹 스트라이크",
+      "damage": 0,
+      "baseDamage": 0,
+      "damageRate": 0.85,
+      "baseStackDamageRate": 1,
+      "orderedStackDamageRate": 1,
+      "connectCount": 0,
+      "connectBonus": 0,
+      "stackLinks": [],
+      "stackSteps": [],
+      "relicBonus": 0,
+      "precisionRate": 0,
+      "precisionBonus": 0,
+      "cardFxBonus": 0,
+      "totalDamageBonus": 0,
+      "runnersBefore": 0,
+      "runnerRate": 0,
+      "runnerBonus": 0,
+      "runsScored": 0,
+      "shakenBefore": 0,
+      "shakenAfter": 0,
+      "momentumBefore": 0,
+      "momentumAfter": 0,
+      "momentumRate": 1,
+      "stackRate": 1,
+      "relicEvents": [],
+      "encounterPlan": {
+        "rate": 0.85,
+        "bonus": 0,
+        "events": [
+          "삼구 과열 · 기본 피해 ×0.85 (추가 HP 별도)"
+        ]
+      },
+      "encounter": {
+        "rate": 0.85,
+        "bonus": 0,
+        "events": [
+          "삼구 과열 · 기본 피해 ×0.85 (추가 HP 별도)"
+        ]
+      },
+      "encounterEvents": [
+        "삼구 과열 · 기본 피해 ×0.85 (추가 HP 별도)"
+      ],
+      "cardCount": 1,
+      "hpAfter": 115,
+      "takeEnergyBonus": 1,
+      "takeDrawBonus": 0,
+      "takeDrawReason": "full"
+    },
+    "trace": [
+      {
+        "t": 2914.9,
+        "phase": "flight",
+        "x": 331.35942,
+        "y": 137.60942,
+        "width": 5.84384,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 2931.5,
+        "phase": "flight",
+        "x": 331.33101,
+        "y": 138.83101,
+        "width": 5.97452,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 2948.2,
+        "phase": "flight",
+        "x": 331.600835,
+        "y": 140.08521,
+        "width": 6.10792,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 2964.8,
+        "phase": "flight",
+        "x": 332.36987,
+        "y": 141.916745,
+        "width": 6.30225,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 2981.5,
+        "phase": "flight",
+        "x": 333.592665,
+        "y": 144.04579,
+        "width": 6.52907,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 2998.2,
+        "phase": "flight",
+        "x": 334.67055,
+        "y": 145.811175,
+        "width": 6.71609,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3014.9,
+        "phase": "flight",
+        "x": 335.751865,
+        "y": 147.626865,
+        "width": 6.90998,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3031.5,
+        "phase": "flight",
+        "x": 337.05682,
+        "y": 150.134945,
+        "width": 7.17614,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3048.1,
+        "phase": "flight",
+        "x": 338.22496,
+        "y": 153.28746,
+        "width": 7.51242,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3064.8,
+        "phase": "flight",
+        "x": 338.75302,
+        "y": 157.34677,
+        "width": 7.94353,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3081.5,
+        "phase": "flight",
+        "x": 338.546595,
+        "y": 159.640345,
+        "width": 8.18693,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3098.2,
+        "phase": "flight",
+        "x": 338.216605,
+        "y": 161.060355,
+        "width": 8.33946,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3114.8,
+        "phase": "flight",
+        "x": 337.16617,
+        "y": 163.931795,
+        "width": 8.64484,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3131.5,
+        "phase": "flight",
+        "x": 334.305595,
+        "y": 168.618095,
+        "width": 9.14244,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3148.2,
+        "phase": "flight",
+        "x": 330.67141,
+        "y": 172.843285,
+        "width": 9.59282,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3164.9,
+        "phase": "flight",
+        "x": 327.75897,
+        "y": 175.66522,
+        "width": 9.89293,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3181.5,
+        "phase": "flight",
+        "x": 320.93521,
+        "y": 181.34146,
+        "width": 10.4954,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3198.2,
+        "phase": "flight",
+        "x": 314.22466,
+        "y": 186.19341,
+        "width": 11.0118,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3214.9,
+        "phase": "result",
+        "x": 298.59085,
+        "y": 196.606475,
+        "width": 12.1192,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3298.1,
+        "phase": "result",
+        "x": 228.12028,
+        "y": 261.792155,
+        "width": 19.0531,
+        "cue": false,
+        "balls": 1
+      },
+      {
+        "t": 3364.9,
+        "phase": "result",
+        "x": 213.673025,
+        "y": 279.5324,
+        "width": 20.9398,
+        "cue": false,
+        "balls": 1
+      }
+    ],
+    "video": "/workspace/vulcan-qa/videos/page@7ad360fda07327f6a2acf8026abc43e4.webm"
+  }
+}
