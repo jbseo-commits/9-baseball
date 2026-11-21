@@ -1,0 +1,13 @@
+// @vitest-environment happy-dom
+import React from 'react';import {it,expect,afterEach} from 'vitest';import {render,renderHook,cleanup} from '@testing-library/react';
+import JadeFoldPlate,{jadeGuard,useJadeGuard,jadePlateKey} from '../src/duel/battle-vnext/JadeFoldPlate.jsx';
+afterEach(cleanup);
+it('only exact Jade public ready can activate, never unrelated/private properties',()=>{const cue={id:'jade-viper',ready:true};Object.defineProperty(cue,'pending',{get(){throw Error('private')}});expect(jadeGuard(cue,'jade-viper')).toBe(true);for(const value of [false,'true',1,undefined])expect(jadeGuard({...cue,ready:value},'jade-viper')).toBe(false);expect(jadeGuard(cue,'other')).toBe(false);});
+it('freezes public pre-action through prep/throw and drops prior identity snapshot',()=>{const v=renderHook(({id,ready,deciding})=>useJadeGuard({id,ready},id,deciding),{initialProps:{id:'jade-viper',ready:true,deciding:true}});v.rerender({id:'jade-viper',ready:false,deciding:false});expect(v.result.current).toBe(true);v.rerender({id:'other',ready:true,deciding:false});expect(v.result.current).toBe(false);v.rerender({id:'jade-viper',ready:true,deciding:false});expect(v.result.current).toBe(false);v.rerender({id:'jade-viper',ready:true,deciding:true});expect(v.result.current).toBe(true);v.rerender({id:'jade-viper',ready:false,deciding:true});expect(v.result.current).toBe(false);});
+it('few discrete fold keys cannot survive drawing2/release/recovery/result/KO; reduced is static only',()=>{
+ const base={guarded:true,frame:0,phase:'flight',action:'swing',releaseAt:917};
+ expect([0,80,145,190,230].map(elapsed=>jadePlateKey({...base,elapsed}))).toEqual(['open','fold','tuck','seam',null]);
+ for(const overrides of [{frame:2,elapsed:180},{elapsed:917},{elapsed:1900},{phase:'result'},{knockedOut:true},{reduced:true}])expect(jadePlateKey({...base,...overrides})).toBeNull();
+ expect(jadePlateKey({...base,action:'prepare',elapsed:1000})).toBe('open');expect(jadePlateKey({...base,phase:'deciding',action:null,reduced:true})).toBe('open');
+});
+it('native40x38 reference plate is noninteractive and has transparent mitt cutout, no alpha trick',()=>{const r=render(<JadeFoldPlate guarded phase="deciding" frame={0}/>);const svg=r.container.querySelector('svg');expect(svg.getAttribute('viewBox')).toBe('0 0 40 38');expect(svg.style.pointerEvents).toBe('none');expect(svg.style.opacity).toBe('');expect(svg.querySelector('[fill-rule="evenodd"]')).toBeTruthy();expect(svg.querySelectorAll('text,circle,ellipse,image')).toHaveLength(0);r.rerender(<JadeFoldPlate guarded phase="flight" action="swing" frame={2} elapsed={200} releaseAt={917}/>);expect(r.container.firstChild).toBeNull();});
