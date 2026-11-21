@@ -7,6 +7,7 @@ import {tidePlaytestEnabled} from './tide-playtest.js';
 import './tide-playtest.css';
 import intentHeadAnchors from './intent-head-anchors.json';
 import PublicIntentBadge from './PublicIntentBadge.jsx';
+import PitcherInteraction from './PitcherInteraction.jsx';
 import React,{useLayoutEffect,useRef,useState} from 'react';
 import {SCENE,worldCamera,atbatCamera,actorBox,cameraMatrix,sceneSnapshot} from './scene-geometry.js';
 import coverage from '../../../assets/production-art/mockup-v1-intake/actor-coverage.json';
@@ -36,7 +37,7 @@ export function approvedPitcherArt(artId){
 
 const ACTORS=['pitcher','batter'];
 
-export default function BattleScene({scene=null,sluggerReview=false,execution=null,publicEncounterCue=null,publicIntentFaces=[],publicOutsideConfirmed=false,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,framing='cover',playback=null,result=null,finale=null,onFocusChange=null}){
+export default function BattleScene({scene=null,pitcherHud=null,onPitcherInfo=null,infoOpen=false,sluggerReview=false,execution=null,publicEncounterCue=null,publicIntentFaces=[],publicOutsideConfirmed=false,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,framing='cover',playback=null,result=null,finale=null,onFocusChange=null}){
   const rootRef=useRef(null);
   const [failedBatter,setFailedBatter]=useState(null);
   const optionalBatter=isReviewSluggerActor(actors.batter);
@@ -101,7 +102,9 @@ export default function BattleScene({scene=null,sluggerReview=false,execution=nu
         </div>;
       })}
     </div></div>
-    {roster&&intentHeadAnchors[roster.artId]&&<PublicIntentBadge personality={personality} tideCue={tidePilot?publicEncounterCue:null} bounds={box} confirmedOutside={publicOutsideConfirmed} faces={publicIntentFaces} phase={playback&&playback.action!=='prepare'?'flight':phase} point={at({x:roster.meta.worldFoot.x+(intentHeadAnchors[roster.artId].x-roster.meta.anchor.x)*roster.meta.worldHeight/256,y:roster.meta.worldFoot.y+(intentHeadAnchors[roster.artId].y-roster.meta.anchor.y)*roster.meta.worldHeight/256})}/>}
+    {!onPitcherInfo&&roster&&intentHeadAnchors[roster.artId]&&<PublicIntentBadge personality={personality} tideCue={tidePilot?publicEncounterCue:null} bounds={box} confirmedOutside={publicOutsideConfirmed} faces={publicIntentFaces} phase={playback&&playback.action!=='prepare'?'flight':phase} point={at({x:roster.meta.worldFoot.x+(intentHeadAnchors[roster.artId].x-roster.meta.anchor.x)*roster.meta.worldHeight/256,y:roster.meta.worldFoot.y+(intentHeadAnchors[roster.artId].y-roster.meta.anchor.y)*roster.meta.worldHeight/256})}/>}
+    {onPitcherInfo&&roster&&<PitcherInteraction pitcher={pitcherHud} onOpen={onPitcherInfo} enabled={phase==='deciding'&&!playback&&!infoOpen} bounds={box}
+      head={at({x:roster.meta.worldFoot.x+((intentHeadAnchors[roster.artId]?.x??128)-roster.meta.anchor.x)*roster.meta.worldHeight/256,y:roster.meta.worldFoot.y+((intentHeadAnchors[roster.artId]?.y??0)-roster.meta.anchor.y)*roster.meta.worldHeight/256})} foot={at(roster.meta.worldFoot)}/>}
     <div className="bv-scene-shade" aria-hidden="true"/>
     {/* The light pass uses the exact same projection/jitter as the actors. It
         sits above result grading so the contact light is not darkened twice. */}

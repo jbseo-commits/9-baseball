@@ -2,6 +2,7 @@ import useSluggerCardArt from './use-slugger-card-art.js';
 import React,{useState,useCallback,useRef,useEffect,useLayoutEffect} from 'react';
 import BattleScene from './BattleScene.jsx';
 import BattleHud from './BattleHud.jsx';
+import InspectorDialog from './InspectorDialog.jsx';
 import HandDock from './HandDock.jsx';
 import DecisionPanel,{BattleAction,DecisionSummary} from './DecisionPanel.jsx';
 import {atbatCardArt} from './atbat-card-art.js';
@@ -27,7 +28,7 @@ import './pitch-focus.css';
 /* Presentation only. BallparkBattle keeps selection, inspector, commit and next
    timers; App still owns the engine, save and pitch presentation lifecycle. */
 export default function BattleView({model,actors,sluggerReview=false,playback=null,execution=null,animationRate=1,onAnimationRateChange=null,rootRef,sceneRef,zoneRef,handRef,title,review=false,
-  inspector=null,menuOpen=false,handOpen:controlledHandOpen,onHandOpenChange=null,recent=null,onMenu,onPitcherInfo=null,sound=false,onToggleSound=null,onCardTap,onCardDetail,onPiles,onZoneTap,onZoneHover,
+  inspector=null,menuOpen=false,handOpen:controlledHandOpen,onHandOpenChange=null,recent=null,onMenu,onPitcherInfo=null,onCloseInfo=null,sound=false,onToggleSound=null,onCardTap,onCardDetail,onPiles,onZoneTap,onZoneHover,
   onToggleSupport,onClearPlan,onCardDrop=null,onPreviewCardDrop=null,onRemoveSupport=null,onPointerDown,onPointerMove,onPointerUp,onPointerCancel,onTake,onSwing,onNext,piles}){
   const privateArt=useSluggerCardArt(sluggerReview);
   const cardArt=item=>privateArt[item.kind]||atbatCardArt(item);
@@ -159,12 +160,12 @@ export default function BattleView({model,actors,sluggerReview=false,playback=nu
     onClickCapture={e=>{if(handleClick.current){handleClick.current=false;e.preventDefault();e.stopPropagation();}}}
     onKeyDown={()=>{suppressClick.current=false;handleClick.current=false;}} className={'battle-vnext bv-atbat bv-foldable bv-refined bv-reference'+(menuOpen?' inspecting':'')} data-cinematic-focus={pitchFocus&&!menuOpen?'true':undefined} data-animation-rate={animationRate} data-hand-open={shown?'true':'false'} data-phase={model.phase} data-support={hasSupport?'true':'false'} style={{...referenceSkinVars,'--bv-verdict-delay':playback?'120ms':'0ms',...(field?{'--bv-plate-x':field.home.x+'px','--bv-plate-y':field.home.y+'px','--bv-mound-y':field.mound.y+'px','--ref-scale':field.camera.scale,'--ref-zone-size':field.zoneSize+'px'}:{})}} aria-label="타석">
     <div className="bv-stage" ref={sceneRef}>
-      <BattleScene sluggerReview={sluggerReview} execution={execution} publicEncounterCue={model.hud.encounterCue} publicOutsideConfirmed={model.zones.band.confirmedOutside===true} publicIntentFaces={model.zones.cells.map(c=>c.face)} onFocusChange={setPitchFocus} playback={playback} result={model.result} finale={finale} scene={model.scene} actors={actors} phase={model.phase} framing="atbat" onLayout={onLayout}>
+      <BattleScene pitcherHud={model.hud.pitcher} onPitcherInfo={onPitcherInfo} infoOpen={menuOpen} sluggerReview={sluggerReview} execution={execution} publicEncounterCue={model.hud.encounterCue} publicOutsideConfirmed={model.zones.band.confirmedOutside===true} publicIntentFaces={model.zones.cells.map(c=>c.face)} onFocusChange={setPitchFocus} playback={playback} result={model.result} finale={finale} scene={model.scene} actors={actors} phase={model.phase} framing="atbat" onLayout={onLayout}>
         {model.phase==='result'&&model.result&&<ResultReadout finale={finale} result={spotlight} shotGrade={model.scene.shotGrade} variant="spotlight"/>}
       </BattleScene>
     </div>
     <AnimationSpeed rate={animationRate} onChange={onAnimationRateChange} disabled={!!playback||model.phase==='committing'||!!placements.length||!!pendingDrop||menuOpen}/>
-    <BattleHud result={model.result} playback={playback} resultKey={model.scene.playToken} hud={model.hud} forecast={model.forecast} sources={model.zones?.sources} phase={model.phase}
+    <BattleHud compactPitcher={!!onPitcherInfo&&actors.pitcher?.kind==='roster-atlas'} result={model.result} playback={playback} resultKey={model.scene.playToken} hud={model.hud} forecast={model.forecast} sources={model.zones?.sources} phase={model.phase}
       title={model.hud.actLabel||title} sound={sound} onToggleSound={onToggleSound} onMenu={onMenu} onPitcherInfo={onPitcherInfo} menuOpen={menuOpen} refined/>
     <div className="bv-decision-area" ref={zoneRef} onPointerDown={onPointerDown} onPointerMove={onPointerMove}
       onPointerUp={onPointerUp} onPointerCancel={onPointerCancel}>
@@ -204,7 +205,7 @@ export default function BattleView({model,actors,sluggerReview=false,playback=nu
     </div>
     {placements.filter(p=>model.zones?.pieces?.some(piece=>piece.id===p.id)).map(request=><CoverageInsert key={request.id+':'+request.seq} request={request} pieces={model.zones?.pieces} rootRef={viewRef} phase={model.phase} sound={sound} menuOpen={menuOpen} onFinish={finishPlacement} animationRate={animationRate}/>)}
     {dragFace&&<div ref={dragFaceRef} className="bv-drag-face" aria-hidden="true" style={{left:dragFace.x,top:dragFace.y,width:dragFace.w,height:dragFace.h}}><span className="bv-drag-art" style={{backgroundImage:dragFace.art?`url(${dragFace.art})`:undefined,...(dragFace.artSize?{backgroundSize:dragFace.artSize,backgroundPosition:'center',backgroundRepeat:'no-repeat'}:{})}}/><b>{dragFace.cost}</b><strong>{dragFace.name}</strong><small>{dragFace.summary}</small></div>}
-    {menuOpen&&<div className="bv-inspector-area">{inspector}</div>}
+    {menuOpen&&(onCloseInfo?<InspectorDialog onClose={onCloseInfo}>{inspector}</InspectorDialog>:<div className="bv-inspector-area">{inspector}</div>)}
     {review&&<p className="bv-review-notice">메모리 검수 · 샘플 배우</p>}
   </main>;
 }

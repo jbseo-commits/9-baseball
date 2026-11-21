@@ -21,7 +21,10 @@ it('opens the new encounter preview in its own namespace and preserves the previ
  localStorage.setItem(V10_SAVE_KEY,'production-sentinel');
  window.history.replaceState({},'','/?battleUi=vnext&battlePlay=1&seed=3&previewRun=encounters-v1');
  render(<PlayableRun/>);
- expect(screen.getByTestId('bv-encounter').textContent).toContain('청록 왕복');
+ expect(screen.queryByTestId('bv-encounter')).toBeNull();
+ fireEvent.click(screen.getByRole('button',{name:'경기 정보 및 메뉴'}));
+ fireEvent.click(screen.getByRole('tab',{name:'투수',exact:true}));
+ expect(screen.getByTestId('bp-inspect-encounter').textContent).toContain('청록 왕복');
  expect(sessionStorage.getItem(PLAYABLE_PREFIX+V10_SAVE_KEY)).toBe(bytes);
  expect(readV10Duel(playableStorage(sessionStorage,ENCOUNTER_PLAYABLE_PREFIX)).v10.opponent.encounter.version).toBe(1);
  expect(localStorage.getItem(V10_SAVE_KEY)).toBe('production-sentinel');

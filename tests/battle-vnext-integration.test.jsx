@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
 import React from 'react';
-import {render,screen,fireEvent,cleanup,act} from '@testing-library/react';
+import {render,screen,fireEvent,cleanup,act,waitFor} from '@testing-library/react';
 import {afterEach,beforeEach,describe,it,expect,vi} from 'vitest';
 import BallparkBattle,{AUTO_NEXT_MS,STACK_COMMIT_MS} from '../src/duel/BallparkBattle.jsx';
 import IntegrationPreview from '../src/duel/battle-vnext/IntegrationPreview.jsx';
@@ -71,7 +71,7 @@ describe('C05 existing controller on new view',()=>{
     expect(v.onSwing).not.toHaveBeenCalled();act(()=>vi.advanceTimersByTime(STACK_COMMIT_MS));
     expect(v.onSwing).toHaveBeenCalledTimes(1);
   });
-  it('opens details without changing selection; preserves hand scroll/focus and execution lock',()=>{
+  it('opens details without changing selection; preserves hand scroll/focus and execution lock',async()=>{
     const v=open('swing-main'),row=screen.getByTestId('bv-hand');row.scrollLeft=68;
     const button=screen.getByRole('button',{name:'경기 정보 및 메뉴'});button.focus();fireEvent.click(button);
     expect(document.querySelector('.bv-stage').hasAttribute('inert')).toBe(true);
@@ -80,7 +80,7 @@ describe('C05 existing controller on new view',()=>{
     fireEvent.click(screen.getByRole('tab',{name:'카드',exact:true}));
     expect(screen.getByTestId('bp-inspect').textContent).toContain('간파');
     row.scrollLeft=0;fireEvent.click(screen.getByTestId('bp-inspect-back'));
-    expect(row.scrollLeft).toBe(68);expect(document.activeElement).toBe(button);
+    expect(row.scrollLeft).toBe(68);await waitFor(()=>expect(document.activeElement).toBe(button));
     expect(document.querySelector('.bv-stage').hasAttribute('inert')).toBe(false);
     expect(screen.getByTestId('bp-swing').disabled).toBe(false);
   });

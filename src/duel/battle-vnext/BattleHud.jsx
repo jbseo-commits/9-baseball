@@ -18,7 +18,7 @@ export function hpForecastBand(hud,forecast){
   return {left:pct(lo),width:pct(p.hp)-pct(lo),label:forecast.damageLabel};
 }
 
-export default function BattleHud({hud=null,forecast=null,sources=[],phase='deciding',result=null,playback=null,resultKey=0,title='',onMenu=null,menuOpen=false,refined=false,sound=false,onToggleSound=null,onPitcherInfo=null}){
+export default function BattleHud({hud=null,forecast=null,sources=[],phase='deciding',result=null,playback=null,resultKey=0,title='',onMenu=null,menuOpen=false,refined=false,sound=false,onToggleSound=null,onPitcherInfo=null,compactPitcher=false}){
   if(!hud)return null;
   const p=hud.pitcher,c=hud.count,band=phase==='deciding'?hpForecastBand(hud,forecast):null;
   const hpPct=p&&p.maxHp>0?Math.max(0,Math.min(100,p.hp/p.maxHp*100)):0;
@@ -33,7 +33,7 @@ export default function BattleHud({hud=null,forecast=null,sources=[],phase='deci
   return <header className="bv-hud" data-testid="bv-hud" data-phase={phase}>
     <div className="bv-hud-bar">
       {title&&<span className="bv-hud-title">{title}</span>}
-      {p&&<div className="bv-hud-opponent" role={onPitcherInfo?'button':undefined} tabIndex={onPitcherInfo?(infoReady?0:-1):undefined} data-pitcher-info={onPitcherInfo?'true':undefined}
+      {p&&!compactPitcher&&<div className="bv-hud-opponent" role={onPitcherInfo?'button':undefined} tabIndex={onPitcherInfo?(infoReady?0:-1):undefined} data-pitcher-info={onPitcherInfo?'true':undefined}
         aria-disabled={onPitcherInfo&&!infoReady?true:undefined} title={infoReady?'투수 이름·패턴을 눌러 고유 규칙과 공략 확인':undefined}
         onClick={openPitcherInfo} onKeyDown={e=>{if(infoReady&&['Enter',' '].includes(e.key)){e.preventDefault();openPitcherInfo(e);}}} aria-label={`${p.name} 투수 HP ${p.hp} / ${p.maxHp}`+(band?` · ${band.label} 예상`:'')+(onPitcherInfo?[publicPattern,cueDescription,'투수 정보 열기'].filter(Boolean).map(x=>' · '+x).join(''):'')}>
         <b className="bv-hud-name">{p.name}<span className="bv-pitch-state">{phase==='flight'?'투구 중':phase==='result'?'결과':''}</span></b>
@@ -56,13 +56,13 @@ export default function BattleHud({hud=null,forecast=null,sources=[],phase='deci
       {onMenu&&<button type="button" className="bv-hud-menu" aria-label="경기 정보 및 메뉴" aria-expanded={menuOpen} disabled={phase==='committing'||phase==='flight'||phase==='transition'} onClick={onMenu}>{refined?<BattleSymbol kind="menu"/>:'•••'}</button>}
     </div>
     <div className="bv-hud-notes">
-      {hud.tell&&<p className="bv-hud-tell" data-testid="bv-tell" title={hud.tellDetail||undefined}><span aria-hidden="true">{refined?<BattleSymbol kind="aim"/>:'↘'}</span>{hud.tell}</p>}
+      {!compactPitcher&&hud.tell&&<p className="bv-hud-tell" data-testid="bv-tell" title={hud.tellDetail||undefined}><span aria-hidden="true">{refined?<BattleSymbol kind="aim"/>:'↘'}</span>{hud.tell}</p>}
       <p className="bv-hud-bases" aria-label={runners.length?'주자 '+runners.join(', '):'주자 없음'}>
         <span className="bv-hud-diamond" aria-hidden="true">{[1,2,0].map(i=><i key={i} className={'b'+(i+1)+(hud.bases[i]?' on':'')}/>)}</span>
         <span aria-hidden="true">{runners.length?runners.join(' · '):'주자 없음'}</span>
       </p>
       {twoStrike&&<p className="bv-hud-warn" role="status">2스트라이크 · 존 안을 지켜보면 삼진</p>}
-      {!refined&&(hud.encounter||hud.gimmick)&&<p className="bv-hud-gimmick">{hud.encounter?.label||hud.gimmick.label}</p>}
+      {!compactPitcher&&!refined&&(hud.encounter||hud.gimmick)&&<p className="bv-hud-gimmick">{hud.encounter?.label||hud.gimmick.label}</p>}
     </div>
   </header>;
 }

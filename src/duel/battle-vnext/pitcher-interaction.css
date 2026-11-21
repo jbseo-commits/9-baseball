@@ -1,0 +1,6 @@
+.bv-scene .bv-pitcher-health{position:absolute;z-index:5;width:72px;height:7px;box-sizing:border-box;border:1px solid #e6dfc6;background:#132136;box-shadow:1px 1px 0 #070e18;pointer-events:none}
+.bv-scene .bv-pitcher-health i{display:block;height:100%;background:#e9c96e}
+.bv-scene .bv-pitcher-touch{position:absolute;z-index:5;margin:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:help;color:transparent}
+.bv-scene .bv-pitcher-touch:focus-visible{outline:2px dashed #e9c96e;outline-offset:3px}
+.bv-pitcher-dialog-backdrop{position:absolute;inset:0;z-index:30;background:#07101c70}
+.battle-vnext .bv-pitcher-dialog-backdrop .bv-inspector-area{position:absolute;inset:8% 8%;width:auto;height:auto;max-height:84%;z-index:1;pointer-events:auto}
