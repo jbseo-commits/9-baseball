@@ -1,0 +1,958 @@
+{
+  "seed": 3624441963,
+  "phase": "battle",
+  "stats": {
+    "cards": 36,
+    "pitches": 53,
+    "runs": 10,
+    "outs": 3,
+    "appearances": 24,
+    "hits": 21,
+    "walks": 0,
+    "fouls": 3,
+    "whiffs": 28,
+    "totalBases": 27
+  },
+  "last": {
+    "kind": "start",
+    "text": "1번 강한결 입장 · 경향을 읽고 노릴 존과 스윙을 고르세요.",
+    "events": [],
+    "runs": 0,
+    "outs": 0
+  },
+  "runOuts": 2,
+  "currentNode": "a3-r2l0",
+  "completedNodes": [
+    "a1-entry",
+    "a1-r1l1",
+    "a1-r2l2",
+    "a1-r3l1",
+    "a1-r4l1",
+    "a1-r5l1",
+    "a1-boss",
+    "a2-entry",
+    "a2-r1l2",
+    "a2-r2l1",
+    "a2-r3l2",
+    "a2-r4l2",
+    "a2-boss",
+    "a3-entry",
+    "a3-r1l1"
+  ],
+  "events": [
+    {
+      "phase": "map",
+      "act": null,
+      "choices": [
+        [
+          99,
+          4,
+          "a1-entry",
+          "",
+          "정규전 청록 미라주 · 갈 수 있음"
+        ]
+      ],
+      "chosen": [
+        99,
+        4,
+        "a1-entry",
+        "",
+        "정규전 청록 미라주 · 갈 수 있음"
+      ]
+    },
+    {
+      "pitch": 0,
+      "prepare": "scout"
+    },
+    {
+      "pitch": 0,
+      "action": "place",
+      "aim": 2,
+      "publicForecast": "적중 72–100%\n안타 시 −24~51",
+      "publicOutside": "존 밖 볼\n희박",
+      "compared": 27
+    },
+    {
+      "pitch": 1,
+      "action": "gapHunter",
+      "aim": 7,
+      "publicForecast": "적중 28–72%\n안타 시 −19~47",
+      "publicOutside": "존 밖 볼\n드묾",
+      "compared": 27
+    },
+    {
+      "pitch": 2,
+      "action": "slug",
+      "aim": 2,
+      "publicForecast": "적중 28–72%\n안타 시 −19~44",
+      "publicOutside": "존 밖 볼\n드묾",
+      "compared": 27
+    },
+    {
+      "phase": "reward",
+      "visible": "9ZONE\nHOMEBOUND\n♪ OFF\n🎧 BGM 1\n도감\n덱\n?\n승리\n덱 9\n이번엔 네 눈이 맞았어.\n청록 미라주 강판\n예고포\n1\n준비\n힘 모으기\n이번 타석 파워 +18\n장타\n · \nCOMMON\n주자 청소\n1\n테이블 세터\n가로 2존 · 단타\n빈 베이스 +3 HP · 카드 +1\n연결\n · \nCOMMON\n2\n갭 공략\n가로 3존 커버\n파워 +18\n장타\n · \nCOMMON\n챙긴다\n카드를 고르세요\n그냥 간다"
+    },
+    {
+      "phase": "map",
+      "act": 1,
+      "choices": [
+        [
+          99,
+          4,
+          "a1-r1l0",
+          "",
+          "정규전 아이보리 에이스 · 갈 수 있음"
+        ],
+        [
+          99,
+          2,
+          "a1-r1l1",
+          "",
+          "이벤트 · 갈 수 있음"
+        ],
+        [
+          99,
+          4,
+          "a1-r1l2",
+          "",
+          "정규전 스카이 팬텀 · 갈 수 있음"
+        ],
+        [
+          99,
+          4,
+          "a1-r1l3",
+          "",
+          "정규전 로즈 페인트 · 갈 수 있음"
+        ]
+      ],
+      "chosen": [
+        99,
+        2,
+        "a1-r1l1",
+        "",
+        "이벤트 · 갈 수 있음"
+      ]
+    },
+    {
+      "phase": "event",
+      "visible": "9ZONE\nHOMEBOUND\n♪ OFF\n🎧 BGM 1\n도감\n덱\n?\nROAD EVENT · 길 위의 사건\n관중이 되돌려 준다\n?\n\n던진 파울볼이 다시 넘어왔다. 누군가 손을 내밀고 있다.\n\n이득\n받아 든다\n무작위 강화 가능 카드 1장을 강화한다\n좌중간 가르기 강화\n이득\n줄인다\n이어지는 아웃 -1\n✕ 줄일 아웃이 없다\n그냥 간다\n떠난다\n아무 일도 없었다\n덱 보기\n원정 중간 정비\n낯선 만남"
+    },
+    {
+      "phase": "map",
+      "act": 1,
+      "choices": [
+        [
+          99,
+          4,
+          "a1-r2l1",
+          "",
+          "정규전 앰버 싱커 · 갈 수 있음"
+        ],
+        [
+          99,
+          2,
+          "a1-r2l2",
+          "",
+          "이벤트 · 갈 수 있음"
+        ]
+      ],
+      "chosen": [
+        99,
+        2,
+        "a1-r2l2",
+        "",
+        "이벤트 · 갈 수 있음"
+      ]
+    },
+    {
+      "phase": "event",
+      "visible": "9ZONE\nHOMEBOUND\n♪ OFF\n🎧 BGM 1\n도감\n덱\n?\nROAD EVENT · 길 위의 사건\n더그아웃 냉장고\n?\n\n냉장고 문을 열면 전이 낌새가 난다.\n\n이득\n문자를 꺼낸다\n무작위 카드 1장 획득\n주자 연결 획득\n이득\n문 닫는다\n이어지는 아웃 -1\n✕ 줄일 아웃이 없다\n그냥 간다\n떠난다\n아무 일도 없었다\n덱 보기\n원정 중간 정비\n낯선 만남"
+    },
+    {
+      "phase": "map",
+      "act": 1,
+      "choices": [
+        [
+          99,
+          1,
+          "a1-r3l1",
+          "",
+          "타격 훈련 · 갈 수 있음"
+        ],
+        [
+          99,
+          4,
+          "a1-r3l2",
+          "",
+          "정규전 바이올렛 스팅 · 갈 수 있음"
+        ]
+      ],
+      "chosen": [
+        99,
+        1,
+        "a1-r3l1",
+        "",
+        "타격 훈련 · 갈 수 있음"
+      ]
+    },
+    {
+      "phase": "training",
+      "visible": "9ZONE\nHOMEBOUND\n♪ OFF\n🎧 BGM 1\n도감\n덱\n?\n쉬어 가는 곳\n덱 11\n타격 훈련\n\n한 장을 단련한다.\n\n2\n당겨 넘기기+\n파워 +18\n장타\n · \nCOMMON\n2\n당겨 넘기기+\n파워 +18\n장타\n · \nCOMMON\n2\n솔로포 각+\n파워 +18\n장타\n · \nCOMMON\n1\n정타 노림+\n파워 +18\n정밀\n · \nCOMMON\n0\n준비\n타이밍 맞추기+\n집중 +2\n정밀\n · \nCOMMON\n1\n준비\n작전 확인+\n카드 3장\n속공\n · \nCOMMON\n1\n준비\n릴리스 간파+\n행 + 열 정보\n분석\n · \nCOMMON\n2\n주자 연결+\n파워 +18\n연결\n · \nCOMMON\n단련한다\n단련할 카드를 고르세요\n그냥 간다\n원정 중간 정비\n타격 훈련"
+    },
+    {
+      "phase": "map",
+      "act": 1,
+      "choices": [
+        [
+          99,
+          5,
+          "a1-r4l1",
+          "",
+          "강적 네온 트릭 · 갈 수 있음"
+        ]
+      ],
+      "chosen": [
+        99,
+        5,
+        "a1-r4l1",
+        "",
+        "강적 네온 트릭 · 갈 수 있음"
+      ]
+    },
+    {
+      "pitch": 3,
+      "action": "place",
+      "aim": 7,
+      "publicForecast": "적중 30–35%\n안타 시 −18~45",
+      "publicOutside": "존 밖 볼\n5~10%",
+      "compared": 36
+    },
+    {
+      "pitch": 4,
+      "action": "gapHunter",
+      "aim": 6,
+      "publicForecast": "적중 35–45%\n안타 시 −18~39",
+      "publicOutside": "존 밖 볼\n5~10%",
+      "compared": 27
+    },
+    {
+      "pitch": 5,
+      "action": "slug",
+      "aim": 7,
+      "publicForecast": "적중 30–35%\n안타 시 −20~42",
+      "publicOutside": "존 밖 볼\n5~10%",
+      "compared": 18
+    },
+    {
+      "pitch": 6,
+      "action": "slug",
+      "aim": 4,
+      "publicForecast": "적중 20–25%\n안타 시 −20~42",
+      "publicOutside": "존 밖 볼\n5~10%",
+      "compared": 27
+    },
+    {
+      "pitch": 7,
+      "action": "soloShot",
+      "aim": 4,
+      "publicForecast": "적중 25–30%\n안타 시 −14~36",
+      "publicOutside": "존 밖 볼\n10~15%",
+      "compared": 18
+    },
+    {
+      "pitch": 8,
+      "prepare": "scout"
+    },
+    {
+      "pitch": 8,
+      "action": "basic",
+      "aim": 7,
+      "publicForecast": "적중 100%\n안타 시 −29",
+      "publicOutside": "존 밖 볼\n0~5%",
+      "compared": 9
+    },
+    {
+      "pitch": 9,
+      "action": "rally",
+      "aim": 6,
+      "publicForecast": "적중 40–55%\n안타 시 −27~36",
+      "publicOutside": "존 밖 볼\n5~10%",
+      "compared": 18
+    },
+    {
+      "phase": "reward",
+      "visible": "9ZONE\nHOMEBOUND\n♪ OFF\n🎧 BGM 1\n도감\n덱\n?\n승리\n덱 11\n막 내릴게. 다음엔 더 화려한 거 준비할게.\n네온 트릭 강판\n예고포\n2\n희귀\n준비\n예고 홈런\n파워 +36\n이번 타석 안타 +6 HP\n장타\n · \nRARE\n주자 청소\n2\n희귀\n만루 작전\n가로 3존 · 주자 전원 홈인\n주자 1명당 +5 HP\n연결\n · \nRARE\n2\n어퍼컷\n가로 3존 · 파워 +18\n낮은 공 파워 +18\n장타\n · \nUNCOMMON\n2\n시그니처\n존 봉쇄\n십자 5존 커버\n연계\n · \nEPIC\n엘리트 유물 하나를 고른다\nGRIT\n끈질긴 손목\nEYE\n매의 눈\n+15%\n사냥꾼의 표식\n\n유물을 눌러 효과를 확인한다.\n\n챙긴다\n유물을 고르세요"
+    },
+    {
+      "phase": "map",
+      "act": 1,
+      "choices": [
+        [
+          99,
+          0,
+          "a1-r5l1",
+          "",
+          "휴식일 · 갈 수 있음"
+        ]
+      ],
+      "chosen": [
+        99,
+        0,
+        "a1-r5l1",
+        "",
+        "휴식일 · 갈 수 있음"
+      ]
+    },
+    {
+      "phase": "rest",
+      "visible": "9ZONE\nHOMEBOUND\n♪ OFF\n🎧 BGM 1\n도감\n덱\n?\n쉬어 가는 곳\n덱 12\n휴식일\n\n회복 또는 강화.\n\n0\n→\n0\n아웃 1 회복\n회복할 아웃이 없습니다\n＋\n카드 1장 강화\n강화할 카드를 직접 고릅니다\n고른다\n휴식을 고르세요\n그냥 간다"
+    },
+    {
+      "phase": "map",
+      "act": 1,
+      "choices": [
+        [
+          99,
+          5,
+          "a1-boss",
+          "",
+          "막 보스 에메랄드 타이런트 · 갈 수 있음"
+        ]
+      ],
+      "chosen": [
+        99,
+        5,
+        "a1-boss",
+        "",
+        "막 보스 에메랄드 타이런트 · 갈 수 있음"
+      ]
+    },
+    {
+      "pitch": 10,
+      "action": "gapHunter",
+      "aim": 6,
+      "publicForecast": "적중 50–60%\n안타 시 −12~33",
+      "publicOutside": "존 밖 볼\n5~10%",
+      "compared": 36
+    },
+    {
+      "pitch": 11,
+      "action": "place",
+      "aim": 6,
+      "publicForecast": "적중 25–30%\n안타 시 −29~61",
+      "publicOutside": "존 밖 볼\n5~10%",
+      "compared": 27
+    },
+    {
+      "pitch": 12,
+      "action": "rally",
+      "aim": 6,
+      "publicForecast": "적중 75–90%\n안타 시 −10~15",
+      "publicOutside": "존 밖 볼\n5~10%",
+      "compared": 27
+    },
+    {
+      "pitch": 13,
+      "prepare": "scout"
+    },
+    {
+      "pitch": 13,
+      "action": "basic",
+      "aim": 8,
+      "publicForecast": "적중 100%\n안타 시 −31",
+      "publicOutside": "존 밖 볼\n0~5%",
+      "compared": 9
+    },
+    {
+      "pitch": 14,
+      "action": "slug",
+      "aim": 6,
+      "publicForecast": "적중 27%\n안타 시 −27~55",
+      "publicOutside": "존 밖 볼\n8%",
+      "compared": 18
+    },
+    {
+      "pitch": 15,
+      "action": "slug",
+      "aim": 6,
+      "publicForecast": "적중 27%\n안타 시 −27~55",
+      "publicOutside": "존 밖 볼\n8%",
+      "compared": 18
+    },
+    {
+      "pitch": 16,
+      "action": "basic",
+      "aim": 6,
+      "publicForecast": "적중 23%\n안타 시 −27",
+      "publicOutside": "존 밖 볼\n10%",
+      "compared": 9
+    },
+    {
+      "pitch": 17,
+      "action": "basic",
+      "aim": 6,
+      "publicForecast": "적중 25–30%\n안타 시 −22",
+      "publicOutside": "존 밖 볼\n5~10%",
+      "compared": 9
+    },
+    {
+      "pitch": 18,
+      "action": "basic",
+      "aim": 6,
+      "publicForecast": "적중 25–30%\n안타 시 −25",
+      "publicOutside": "존 밖 볼\n0~5%",
+      "compared": 9
+    },
+    {
+      "pitch": 19,
+      "action": "soloShot",
+      "aim": 6,
+      "publicForecast": "적중 25–30%\n안타 시 −25~51",
+      "publicOutside": "존 밖 볼\n0~5%",
+      "compared": 18
+    },
+    {
+      "pitch": 20,
+      "action": "basic",
+      "aim": 6,
+      "publicForecast": "적중 20–25%\n안타 시 −25",
+      "publicOutside": "존 밖 볼\n5~10%",
+      "compared": 9
+    },
+    {
+      "phase": "reward",
+      "visible": "9ZONE\nHOMEBOUND\n♪ OFF\n🎧 BGM 1\n도감\n덱\n?\n승리\n덱 12\n왕좌를 내주마. 하지만 다시 빼앗으러 오겠다.\n에메랄드 타이런트 강판\n예고포\n1\n한 칸의 인내\n1존 · 정확 HP +40%\n안타 시 카드 +1\n정밀\n · \nUNCOMMON\n주자 청소\n2\n희귀\n끝내기 본능\n세로 2존 · 파워 +36\n투스트라이크 +6 · 주자당 +3 HP\n클러치\n · \nRARE\n2\n희귀\n준비\n예고 홈런\n파워 +36\n이번 타석 안타 +6 HP\n장타\n · \nRARE\n1\n시그니처\n라인드라이브\n세로 3존 커버\n파워 +18\n코스\n · \nEPIC\n보스 유물 하나를 고른다\n+25%\n거인의 벨트\nNET\n그물 그립\nWIN\n압도\n\n이어지는 아웃 1/2 · 보스 보상 대신 0으로 회복할 수 있다.\n\n유물을 눌러 효과를 확인한다.\n\n챙긴다\n유물을 고르세요\n아웃 회복\n보상 포기 · 아웃 1→0"
+    },
+    {
+      "phase": "map",
+      "act": 1,
+      "choices": [
+        [
+          1,
+          4,
+          "a2-entry",
+          "휴식까지 최소 1경기",
+          "정규전 스카이 팬텀 2 · 갈 수 있음"
+        ]
+      ],
+      "chosen": [
+        1,
+        4,
+        "a2-entry",
+        "휴식까지 최소 1경기",
+        "정규전 스카이 팬텀 2 · 갈 수 있음"
+      ]
+    },
+    {
+      "pitch": 21,
+      "prepare": "scout"
+    },
+    {
+      "pitch": 21,
+      "action": "take",
+      "aim": null,
+      "publicForecast": "적중 0%",
+      "publicOutside": "존 밖 볼\n100%",
+      "compared": 18
+    },
+    {
+      "pitch": 22,
+      "action": "gapHunter",
+      "aim": 0,
+      "publicForecast": "적중 30–40%\n안타 시 −15~49",
+      "publicOutside": "존 밖 볼\n25~30%",
+      "compared": 36
+    },
+    {
+      "pitch": 23,
+      "action": "soloShot",
+      "aim": 0,
+      "publicForecast": "적중 15–20%\n안타 시 −27~58",
+      "publicOutside": "존 밖 볼\n25~30%",
+      "compared": 27
+    },
+    {
+      "pitch": 24,
+      "action": "slug",
+      "aim": 0,
+      "publicForecast": "적중 15–20%\n안타 시 −19~53",
+      "publicOutside": "존 밖 볼\n25~30%",
+      "compared": 18
+    },
+    {
+      "pitch": 25,
+      "action": "place",
+      "aim": 0,
+      "publicForecast": "적중 15–20%\n안타 시 −27~74",
+      "publicOutside": "존 밖 볼\n25~30%",
+      "compared": 27
+    },
+    {
+      "pitch": 26,
+      "action": "slug",
+      "aim": 0,
+      "publicForecast": "적중 15–20%\n안타 시 −19~53",
+      "publicOutside": "존 밖 볼\n20~25%",
+      "compared": 18
+    },
+    {
+      "pitch": 27,
+      "action": "basic",
+      "aim": 0,
+      "publicForecast": "적중 15–20%\n안타 시 −19",
+      "publicOutside": "존 밖 볼\n20~25%",
+      "compared": 9
+    },
+    {
+      "pitch": 28,
+      "action": "basic",
+      "aim": 0,
+      "publicForecast": "적중 15–20%\n안타 시 −17",
+      "publicOutside": "존 밖 볼\n20~25%",
+      "compared": 9
+    },
+    {
+      "pitch": 29,
+      "action": "onePatience",
+      "aim": 0,
+      "publicForecast": "적중 15–20%\n안타 시 −23~65",
+      "publicOutside": "존 밖 볼\n20~25%",
+      "compared": 18
+    },
+    {
+      "pitch": 30,
+      "action": "rally",
+      "aim": 0,
+      "publicForecast": "적중 35–50%\n안타 시 −17~50",
+      "publicOutside": "존 밖 볼\n15~20%",
+      "compared": 18
+    },
+    {
+      "pitch": 31,
+      "action": "basic",
+      "aim": 0,
+      "publicForecast": "적중 15–20%\n안타 시 −20",
+      "publicOutside": "존 밖 볼\n20~25%",
+      "compared": 9
+    },
+    {
+      "phase": "reward",
+      "visible": "9ZONE\nHOMEBOUND\n♪ OFF\n🎧 BGM 1\n도감\n덱\n?\n승리\n덱 13\n유령도 지칠 때가 있지. 다음엔 더 높이서 떨어뜨려 줄게.\n스카이 팬텀 2 강판\n2\n밀어서 넘기기\n세로 3존 · 파워 +18\n바깥 공 파워 +18\n장타\n · \nUNCOMMON\n1\n준비\n존 마킹\n정확 HP +25%\n카드 +1\n정밀\n · \nCOMMON\n2\n끈질긴 타석\n가로 3존 · 단타\n파울 40% · 파울 +3 HP\n소모전\n · \nUNCOMMON\n챙긴다\n카드를 고르세요\n그냥 간다"
+    },
+    {
+      "phase": "map",
+      "act": 2,
+      "choices": [
+        [
+          99,
+          1,
+          "a2-r1l0",
+          "이 막에서 닿는 휴식 없음",
+          "타격 훈련 · 갈 수 있음"
+        ],
+        [
+          0,
+          1,
+          "a2-r1l2",
+          "전투 없이 휴식 가능",
+          "타격 훈련 · 갈 수 있음"
+        ],
+        [
+          2,
+          4,
+          "a2-r1l3",
+          "휴식까지 최소 2경기",
+          "정규전 로즈 페인트 2 · 갈 수 있음"
+        ]
+      ],
+      "chosen": [
+        0,
+        1,
+        "a2-r1l2",
+        "전투 없이 휴식 가능",
+        "타격 훈련 · 갈 수 있음"
+      ]
+    },
+    {
+      "phase": "training",
+      "visible": "9ZONE\nHOMEBOUND\n♪ OFF\n🎧 BGM 1\n도감\n덱\n?\n쉬어 가는 곳\n덱 14\n타격 훈련\n\n한 장을 단련한다.\n\n2\n당겨 넘기기+\n파워 +18\n장타\n · \nCOMMON\n2\n당겨 넘기기+\n파워 +18\n장타\n · \nCOMMON\n2\n솔로포 각+\n파워 +18\n장타\n · \nCOMMON\n0\n준비\n타이밍 맞추기+\n집중 +2\n정밀\n · \nCOMMON\n1\n준비\n작전 확인+\n카드 3장\n속공\n · \nCOMMON\n2\n주자 연결+\n파워 +18\n연결\n · \nCOMMON\n1\n한 칸의 인내+\n파워 +18\n정밀\n · \nUNCOMMON\n2\n밀어서 넘기기+\n파워 +18\n장타\n · \nUNCOMMON\n단련한다\n단련할 카드를 고르세요\n그냥 간다\n원정 중간 정비\n타격 훈련"
+    },
+    {
+      "phase": "map",
+      "act": 2,
+      "choices": [
+        [
+          0,
+          1,
+          "a2-r2l1",
+          "전투 없이 휴식 가능",
+          "타격 훈련 · 갈 수 있음"
+        ],
+        [
+          1,
+          4,
+          "a2-r2l2",
+          "휴식까지 최소 1경기",
+          "정규전 앰버 싱커 2 · 갈 수 있음"
+        ]
+      ],
+      "chosen": [
+        0,
+        1,
+        "a2-r2l1",
+        "전투 없이 휴식 가능",
+        "타격 훈련 · 갈 수 있음"
+      ]
+    },
+    {
+      "phase": "training",
+      "visible": "9ZONE\nHOMEBOUND\n♪ OFF\n🎧 BGM 1\n도감\n덱\n?\n쉬어 가는 곳\n덱 14\n타격 훈련\n\n한 장을 단련한다.\n\n2\n당겨 넘기기+\n파워 +18\n장타\n · \nCOMMON\n2\n당겨 넘기기+\n파워 +18\n장타\n · \nCOMMON\n2\n솔로포 각+\n파워 +18\n장타\n · \nCOMMON\n1\n준비\n작전 확인+\n카드 3장\n속공\n · \nCOMMON\n2\n주자 연결+\n파워 +18\n연결\n · \nCOMMON\n1\n한 칸의 인내+\n파워 +18\n정밀\n · \nUNCOMMON\n2\n밀어서 넘기기+\n파워 +18\n장타\n · \nUNCOMMON\n단련한다\n단련할 카드를 고르세요\n그냥 간다\n원정 중간 정비\n타격 훈련"
+    },
+    {
+      "phase": "map",
+      "act": 2,
+      "choices": [
+        [
+          99,
+          5,
+          "a2-r3l1",
+          "이 막에서 닿는 휴식 없음",
+          "강적 와인 블러프 · 갈 수 있음"
+        ],
+        [
+          0,
+          3,
+          "a2-r3l2",
+          "전투 없이 휴식 가능",
+          "장비 상점 · 갈 수 있음"
+        ]
+      ],
+      "chosen": [
+        0,
+        3,
+        "a2-r3l2",
+        "전투 없이 휴식 가능",
+        "장비 상점 · 갈 수 있음"
+      ]
+    },
+    {
+      "phase": "shop",
+      "visible": "9ZONE\nHOMEBOUND\n♪ OFF\n🎧 BGM 1\n도감\n덱\n?\n쉬어 가는 곳\n덱 14\n장비 상점\n\n하나만 들일 수 있다.\n\n1\n준비\n거포 본능\n이번 타석 파워 +36\n장타\n · \nUNCOMMON\n2\n히트 앤드 런\n세로 3존 · 주자 +2베이스\n주자 1명당 +2 HP\n연결\n · \nCOMMON\n1\n준비\n투혼\n파울 생존\n카드 +2\n클러치\n · \nCOMMON\n장비\n초구 노림표\n타석 첫 공에서 HP 피해가 발생하면 +3 HP.\n장비\n더블 그립\n2장 SWING STACK의 HP 피해 효율 +10%p.\n들인다\n하나를 고르세요\n그냥 간다\n원정 중간 정비\n장비 상점"
+    },
+    {
+      "phase": "map",
+      "act": 2,
+      "choices": [
+        [
+          0,
+          0,
+          "a2-r4l2",
+          "지금 휴식",
+          "휴식일 · 갈 수 있음"
+        ]
+      ],
+      "chosen": [
+        0,
+        0,
+        "a2-r4l2",
+        "지금 휴식",
+        "휴식일 · 갈 수 있음"
+      ]
+    },
+    {
+      "phase": "rest",
+      "visible": "9ZONE\nHOMEBOUND\n♪ OFF\n🎧 BGM 1\n도감\n덱\n?\n쉬어 가는 곳\n덱 15\n휴식일\n\n회복 또는 강화.\n\n2\n→\n1\n아웃 1 회복\n다음 상대에게 이어지는 아웃을 줄입니다\n＋\n카드 1장 강화\n강화할 카드를 직접 고릅니다\n고른다\n휴식을 고르세요\n그냥 간다"
+    },
+    {
+      "phase": "map",
+      "act": 2,
+      "choices": [
+        [
+          99,
+          5,
+          "a2-boss",
+          "이 막에서 닿는 휴식 없음",
+          "막 보스 플래티넘 헤일로 · 갈 수 있음"
+        ]
+      ],
+      "chosen": [
+        99,
+        5,
+        "a2-boss",
+        "이 막에서 닿는 휴식 없음",
+        "막 보스 플래티넘 헤일로 · 갈 수 있음"
+      ]
+    },
+    {
+      "pitch": 32,
+      "action": "place",
+      "aim": 1,
+      "publicForecast": "적중 15–20%\n안타 시 −23~67",
+      "publicOutside": "존 밖 볼\n25~30%",
+      "compared": 36
+    },
+    {
+      "pitch": 33,
+      "action": "soloShot",
+      "aim": 0,
+      "publicForecast": "적중 15–20%\n안타 시 −21~54",
+      "publicOutside": "존 밖 볼\n25~30%",
+      "compared": 27
+    },
+    {
+      "pitch": 34,
+      "prepare": "scout"
+    },
+    {
+      "pitch": 34,
+      "action": "onePatience",
+      "aim": 1,
+      "publicForecast": "적중 100%\n안타 시 −27",
+      "publicOutside": "존 밖 볼\n0~5%",
+      "compared": 18
+    },
+    {
+      "pitch": 35,
+      "action": "slug",
+      "aim": 0,
+      "publicForecast": "적중 15–20%\n안타 시 −19~55",
+      "publicOutside": "존 밖 볼\n25~30%",
+      "compared": 18
+    },
+    {
+      "pitch": 36,
+      "action": "basic",
+      "aim": 0,
+      "publicForecast": "적중 15–20%\n안타 시 −19",
+      "publicOutside": "존 밖 볼\n25~30%",
+      "compared": 9
+    },
+    {
+      "pitch": 37,
+      "action": "basic",
+      "aim": 0,
+      "publicForecast": "적중 15–20%\n안타 시 −22",
+      "publicOutside": "존 밖 볼\n20~25%",
+      "compared": 9
+    },
+    {
+      "pitch": 38,
+      "action": "basic",
+      "aim": 0,
+      "publicForecast": "적중 15–20%\n안타 시 −22",
+      "publicOutside": "존 밖 볼\n20~25%",
+      "compared": 9
+    },
+    {
+      "pitch": 39,
+      "action": "basic",
+      "aim": 0,
+      "publicForecast": "적중 15–20%\n안타 시 −22",
+      "publicOutside": "존 밖 볼\n15~20%",
+      "compared": 9
+    },
+    {
+      "pitch": 40,
+      "action": "basic",
+      "aim": 0,
+      "publicForecast": "적중 15–20%\n안타 시 −18",
+      "publicOutside": "존 밖 볼\n20~25%",
+      "compared": 9
+    },
+    {
+      "pitch": 41,
+      "action": "basic",
+      "aim": 0,
+      "publicForecast": "적중 15–20%\n안타 시 −18",
+      "publicOutside": "존 밖 볼\n20~25%",
+      "compared": 9
+    },
+    {
+      "pitch": 42,
+      "action": "basic",
+      "aim": 0,
+      "publicForecast": "적중 15–20%\n안타 시 −18",
+      "publicOutside": "존 밖 볼\n15~20%",
+      "compared": 9
+    },
+    {
+      "pitch": 43,
+      "action": "basic",
+      "aim": 1,
+      "publicForecast": "적중 15–20%\n안타 시 −22",
+      "publicOutside": "존 밖 볼\n30~35%",
+      "compared": 9
+    },
+    {
+      "pitch": 44,
+      "action": "basic",
+      "aim": 1,
+      "publicForecast": "적중 15–20%\n안타 시 −22",
+      "publicOutside": "존 밖 볼\n30~35%",
+      "compared": 9
+    },
+    {
+      "pitch": 45,
+      "action": "basic",
+      "aim": 1,
+      "publicForecast": "적중 15%\n안타 시 −23",
+      "publicOutside": "존 밖 볼\n35%",
+      "compared": 9
+    },
+    {
+      "pitch": 46,
+      "action": "basic",
+      "aim": 1,
+      "publicForecast": "적중 15%\n안타 시 −23",
+      "publicOutside": "존 밖 볼\n35%",
+      "compared": 9
+    },
+    {
+      "phase": "reward",
+      "visible": "9ZONE\nHOMEBOUND\n♪ OFF\n🎧 BGM 1\n도감\n덱\n?\n승리\n덱 15\n내 빛이 꺼졌네. 네 것이 더 밝았어.\n플래티넘 헤일로 강판\n2\n밀어서 넘기기\n세로 3존 · 파워 +18\n바깥 공 파워 +18\n장타\n · \nUNCOMMON\n1\n준비\n참을성\n파울 생존\n이번 타석 볼 +1 HP\n선구안\n · \nCOMMON\n2\n희귀\n준비\n완전 분석\n높이·안팎 확인\n카드 +2\n분석\n · \nRARE\n1\n시그니처\n끝장 승부\n1존 커버\n파워 +54\n장타\n · \nEPIC\n보스 유물 하나를 고른다\nCROWN\n왕관의 배트\nNET\n그물 그립\nWIN\n압도\n\n이어지는 아웃 2/2 · 보스 보상 대신 0으로 회복할 수 있다.\n\n유물을 눌러 효과를 확인한다.\n\n챙긴다\n유물을 고르세요\n아웃 회복\n보상 포기 · 아웃 2→0"
+    },
+    {
+      "phase": "map",
+      "act": 2,
+      "choices": [
+        [
+          2,
+          4,
+          "a3-entry",
+          "휴식까지 최소 2경기",
+          "정규전 붉은 여우 2 · 갈 수 있음"
+        ]
+      ],
+      "chosen": [
+        2,
+        4,
+        "a3-entry",
+        "휴식까지 최소 2경기",
+        "정규전 붉은 여우 2 · 갈 수 있음"
+      ]
+    },
+    {
+      "pitch": 47,
+      "action": "oppoPower",
+      "aim": 2,
+      "publicForecast": "적중 35–50%\n안타 시 −15~58",
+      "publicOutside": "존 밖 볼\n30~35%",
+      "compared": 36
+    },
+    {
+      "pitch": 48,
+      "action": "oppoPower",
+      "aim": 2,
+      "publicForecast": "적중 35–50%\n안타 시 −19~65",
+      "publicOutside": "존 밖 볼\n30~35%",
+      "compared": 36
+    },
+    {
+      "pitch": 49,
+      "action": "onePatience",
+      "aim": 5,
+      "publicForecast": "적중 15–20%\n안타 시 −32~99",
+      "publicOutside": "존 밖 볼\n25~30%",
+      "compared": 27
+    },
+    {
+      "pitch": 50,
+      "action": "slug",
+      "aim": 5,
+      "publicForecast": "적중 15–20%\n안타 시 −24~79",
+      "publicOutside": "존 밖 볼\n25~30%",
+      "compared": 18
+    },
+    {
+      "pitch": 51,
+      "action": "slug",
+      "aim": 3,
+      "publicForecast": "적중 15–20%\n안타 시 −24~79",
+      "publicOutside": "존 밖 볼\n25~30%",
+      "compared": 18
+    },
+    {
+      "pitch": 52,
+      "action": "basic",
+      "aim": 5,
+      "publicForecast": "적중 15%\n안타 시 −25",
+      "publicOutside": "존 밖 볼\n34%",
+      "compared": 9
+    },
+    {
+      "phase": "reward",
+      "visible": "9ZONE\nHOMEBOUND\n♪ OFF\n🎧 BGM 1\n도감\n덱\n?\n승리\n덱 16\n좋은 승부였어.\n붉은 여우 2 강판\n1\n좌중간 가르기\n가로 2존 · 파워 +18\n장타 +3 HP\n장타\n · \nCOMMON\n1\n파울팁\n세로 2존 · 단타\n파울 55% · 파울 +2 HP\n소모전\n · \nCOMMON\n2\nX 스윙\nX 5존 커버\n연계\n · \nCOMMON\n챙긴다\n카드를 고르세요\n그냥 간다"
+    },
+    {
+      "phase": "map",
+      "act": 3,
+      "choices": [
+        [
+          1,
+          5,
+          "a3-r1l1",
+          "휴식까지 최소 1경기",
+          "라커룸 · 갈 수 있음"
+        ],
+        [
+          2,
+          4,
+          "a3-r1l2",
+          "휴식까지 최소 2경기",
+          "정규전 청록 미라주 3 · 갈 수 있음"
+        ],
+        [
+          99,
+          5,
+          "a3-r1l3",
+          "이 막에서 닿는 휴식 없음",
+          "라커룸 · 갈 수 있음"
+        ]
+      ],
+      "chosen": [
+        1,
+        5,
+        "a3-r1l1",
+        "휴식까지 최소 1경기",
+        "라커룸 · 갈 수 있음"
+      ]
+    },
+    {
+      "phase": "locker",
+      "visible": "9ZONE\nHOMEBOUND\n♪ OFF\n🎧 BGM 1\n도감\n덱\n?\n쉬어 가는 곳\n덱 17\n라커룸\n\n손에 안 붙는 배트는 두고 간다.\n\n2\n당겨 넘기기+\n파워 +36\n장타\n · \nCOMMON\n2\n당겨 넘기기\n파워 +36\n장타\n · \nCOMMON\n2\n솔로포 각\n1존 · 파워 +36\n빈 베이스 안타 +6 HP\n장타\n · \nCOMMON\n1\n정타 노림+\n1존 커버\n정확 적중 HP +50%\n정밀\n · \nCOMMON\n1\n좌중간 가르기+\n가로 2존 · 파워 +18\n장타 +3 HP\n장타\n · \nCOMMON\n1\n준비\n힘 모으기\n이번 타석 파워 +18\n장타\n · \nCOMMON\n0\n준비\n타이밍 맞추기+\n집중 +1\n정밀\n · \nCOMMON\n1\n준비\n작전 확인\n카드 +2\n속공\n · \nCOMMON\n1\n준비\n릴리스 간파+\n행 정보\n카드 +1\n분석\n · \nCOMMON\n1\n준비\n힘 모으기\n이번 타석 파워 +18\n장타\n · \nCOMMON\n2\n주자 연결\n가로 3존 커버\n주자 +2베이스 (2·3루 홈인)\n연결\n · \nCOMMON\n2\n희귀\n준비\n예고 홈런\n파워 +36\n이번 타석 안타 +6 HP\n장타\n · \nRARE\n1\n한 칸의 인내\n1존 · 정확 HP +40%\n안타 시 카드 +1\n정밀\n · \nUNCOMMON\n2\n밀어서 넘기기\n세로 3존 · 파워 +18\n바깥 공 파워 +18\n장타\n · \nUNCOMMON\n1\n준비\n거포 본능\n이번 타석 파워 +36\n장타\n · \nUNCOMMON\n2\n밀어서 넘기기\n세로 3존 · 파워 +18\n바깥 공 파워 +18\n장타\n · \nUNCOMMON\n1\n좌중간 가르기\n가로 2존 · 파워 +18\n장타 +3 HP\n장타\n · \nCOMMON\n뺀다\n뺄 카드를 고르세요\n그냥 간다"
+    },
+    {
+      "phase": "map",
+      "act": 3,
+      "choices": [
+        [
+          1,
+          4,
+          "a3-r2l0",
+          "휴식까지 최소 1경기",
+          "정규전 아이보리 에이스 3 · 갈 수 있음"
+        ],
+        [
+          1,
+          4,
+          "a3-r2l1",
+          "휴식까지 최소 1경기",
+          "정규전 스카이 팬텀 3 · 갈 수 있음"
+        ]
+      ],
+      "chosen": [
+        1,
+        4,
+        "a3-r2l0",
+        "휴식까지 최소 1경기",
+        "정규전 아이보리 에이스 3 · 갈 수 있음"
+      ]
+    },
+    {
+      "timeboxSeconds": 480
+    }
+  ],
+  "resumeExact": true,
+  "errors": [],
+  "video": "/workspace/rest-route-qa/videos/page@97ed2d744513a8ee5f857bc9047a6609.webm"
+}
