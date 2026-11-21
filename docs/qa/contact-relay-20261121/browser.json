@@ -1,0 +1,370 @@
+[
+  {
+    "label": "667-normal-twoStrikeRelay-hit",
+    "fx": [],
+    "result": {
+      "kind": "hit",
+      "text": "강한결 · 중전안타",
+      "events": [
+        "컨택 · 단타 순환 · 피해 +2 HP",
+        "기세 상승 0 → 1 · 다음 공부터 ×1.1",
+        "주자 1명 압박 · +10% · +1 HP",
+        "투수 흔들림 1/3 · 볼 증가 · 읽기 +1",
+        "실제 코스: 바깥 높음",
+        "존 적중 → 안타 확정 · 타격 58 vs 변화 46 / 파워 52 vs 구위 48",
+        "박도윤 홈인 · +1점"
+      ],
+      "growthEvents": [],
+      "runs": 1,
+      "outs": 0
+    },
+    "bases": [
+      "p1",
+      null,
+      null
+    ],
+    "shaken": 1,
+    "errors": [],
+    "video": "/workspace/contact-relay-qa/videos/page@ff62835b9b8cf65126fa99e542e13614.webm"
+  },
+  {
+    "label": "667-normal-twoStrikeRelay-whiff",
+    "fx": [],
+    "result": {
+      "kind": "pitch",
+      "text": "강한결 · 헛스윙 삼진",
+      "events": [
+        "실제 코스: 바깥 높음"
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 1
+    },
+    "bases": [
+      null,
+      "p3",
+      null
+    ],
+    "shaken": 0,
+    "errors": [],
+    "video": "/workspace/contact-relay-qa/videos/page@a9b78017c055b07ed94a0cc3b93948ec.webm"
+  },
+  {
+    "label": "667-normal-twoStrikeRelay-take",
+    "fx": [],
+    "result": {
+      "kind": "pitch",
+      "text": "강한결 · 루킹 삼진",
+      "events": [
+        "실제 코스: 바깥 높음"
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 1
+    },
+    "bases": [
+      null,
+      "p3",
+      null
+    ],
+    "shaken": 0,
+    "errors": [],
+    "video": "/workspace/contact-relay-qa/videos/page@49a750cfc23dc99403a7ad5b87880437.webm"
+  },
+  {
+    "label": "667-normal-cutMaster-hit",
+    "fx": [],
+    "result": {
+      "kind": "hit",
+      "text": "강한결 · 중전안타",
+      "events": [
+        "컨택 · 단타 순환 · 피해 +2 HP",
+        "기세 상승 0 → 1 · 다음 공부터 ×1.1",
+        "주자 1명 압박 · +10% · +1 HP",
+        "실제 코스: 바깥 높음",
+        "존 적중 → 안타 확정 · 타격 58 vs 변화 46 / 파워 52 vs 구위 48",
+        "박도윤: 2루 → 3루"
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 0
+    },
+    "bases": [
+      "p1",
+      null,
+      "p3"
+    ],
+    "shaken": 0,
+    "errors": [],
+    "video": "/workspace/contact-relay-qa/videos/page@ca80aa812e32e5b205740ebd80703737.webm"
+  },
+  {
+    "label": "667-normal-cutMaster-whiff",
+    "fx": [],
+    "result": {
+      "kind": "pitch",
+      "text": "강한결 · 헛스윙 삼진",
+      "events": [
+        "실제 코스: 바깥 높음"
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 1
+    },
+    "bases": [
+      null,
+      "p3",
+      null
+    ],
+    "shaken": 0,
+    "errors": [],
+    "video": "/workspace/contact-relay-qa/videos/page@077666b4a4efe499d3924fc340e57300.webm"
+  },
+  {
+    "label": "667-normal-cutMaster-take",
+    "fx": [],
+    "result": {
+      "kind": "pitch",
+      "text": "강한결 · 루킹 삼진",
+      "events": [
+        "실제 코스: 바깥 높음"
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 1
+    },
+    "bases": [
+      null,
+      "p3",
+      null
+    ],
+    "shaken": 0,
+    "errors": [],
+    "video": "/workspace/contact-relay-qa/videos/page@81f1add8f14b45014a81f1e2c611eeb4.webm"
+  },
+  {
+    "label": "667-normal-twoStrikeRelay-foul",
+    "fx": [],
+    "result": {
+      "kind": "pitch",
+      "text": "강한결 · 파울",
+      "events": [
+        "컨택 · 풀카운트 생존 · 파울 피해 최소 2 HP",
+        "실제 코스: 바깥 높음",
+        "같은 타자 · 다음 공에서 승부가 이어집니다."
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 0
+    },
+    "bases": [
+      null,
+      "p3",
+      null
+    ],
+    "shaken": null,
+    "errors": [],
+    "video": "/workspace/contact-relay-qa/videos/page@40ae3f7e7f5bb14f740c7a92c98fcc54.webm"
+  },
+  {
+    "label": "667-normal-cutMaster-foul",
+    "fx": [],
+    "result": {
+      "kind": "pitch",
+      "text": "강한결 · 파울",
+      "events": [
+        "컨택 · 풀카운트 생존 · 파울 피해 최소 2 HP",
+        "커트 장인 · 파울 +2 HP",
+        "실제 코스: 바깥 높음",
+        "같은 타자 · 다음 공에서 승부가 이어집니다."
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 0
+    },
+    "bases": [
+      null,
+      "p3",
+      null
+    ],
+    "shaken": null,
+    "errors": [],
+    "video": "/workspace/contact-relay-qa/videos/page@9366c272e27695bdd511e4ed485483a6.webm"
+  },
+  {
+    "label": "667-normal-twoStrikeRelay-support-only",
+    "fx": [],
+    "result": {
+      "kind": "hit",
+      "text": "강한결 · 겹친 카드 단타",
+      "events": [
+        "기세 상승 0 → 1 · 다음 공부터 ×1.1",
+        "주자 1명 압박 · +10% · +1 HP",
+        "실제 코스: 가운데 높음",
+        "겹친 카드 적중 → 단타 확정 · 커트 장인이 메인 스윙의 빈 곳을 막았습니다.",
+        "박도윤: 2루 → 3루"
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 0
+    },
+    "bases": [
+      "p1",
+      null,
+      "p3"
+    ],
+    "shaken": 0,
+    "errors": [],
+    "video": "/workspace/contact-relay-qa/videos/page@cf1da1096fe8f26e7986dd20c50bc985.webm"
+  },
+  {
+    "label": "844-normal-twoStrikeRelay-hit",
+    "fx": [],
+    "result": {
+      "kind": "hit",
+      "text": "강한결 · 중전안타",
+      "events": [
+        "컨택 · 단타 순환 · 피해 +2 HP",
+        "기세 상승 0 → 1 · 다음 공부터 ×1.1",
+        "주자 1명 압박 · +10% · +1 HP",
+        "투수 흔들림 1/3 · 볼 증가 · 읽기 +1",
+        "실제 코스: 바깥 높음",
+        "존 적중 → 안타 확정 · 타격 58 vs 변화 46 / 파워 52 vs 구위 48",
+        "박도윤 홈인 · +1점"
+      ],
+      "growthEvents": [],
+      "runs": 1,
+      "outs": 0
+    },
+    "bases": [
+      "p1",
+      null,
+      null
+    ],
+    "shaken": 1,
+    "errors": [],
+    "video": "/workspace/contact-relay-qa/videos/page@c0916aa629e3fdf35af54e63ced4b678.webm"
+  },
+  {
+    "label": "844-normal-twoStrikeRelay-whiff",
+    "fx": [],
+    "result": {
+      "kind": "pitch",
+      "text": "강한결 · 헛스윙 삼진",
+      "events": [
+        "실제 코스: 바깥 높음"
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 1
+    },
+    "bases": [
+      null,
+      "p3",
+      null
+    ],
+    "shaken": 0,
+    "errors": [],
+    "video": "/workspace/contact-relay-qa/videos/page@28e2c169b64b2cced0b863dbd3a211a3.webm"
+  },
+  {
+    "label": "1440-normal-twoStrikeRelay-hit",
+    "fx": [],
+    "result": {
+      "kind": "hit",
+      "text": "강한결 · 중전안타",
+      "events": [
+        "컨택 · 단타 순환 · 피해 +2 HP",
+        "기세 상승 0 → 1 · 다음 공부터 ×1.1",
+        "주자 1명 압박 · +10% · +1 HP",
+        "투수 흔들림 1/3 · 볼 증가 · 읽기 +1",
+        "실제 코스: 바깥 높음",
+        "존 적중 → 안타 확정 · 타격 58 vs 변화 46 / 파워 52 vs 구위 48",
+        "박도윤 홈인 · +1점"
+      ],
+      "growthEvents": [],
+      "runs": 1,
+      "outs": 0
+    },
+    "bases": [
+      "p1",
+      null,
+      null
+    ],
+    "shaken": 1,
+    "errors": [],
+    "video": "/workspace/contact-relay-qa/videos/page@7ccc1396a69f57d3e0232646109a3b81.webm"
+  },
+  {
+    "label": "1440-normal-twoStrikeRelay-whiff",
+    "fx": [],
+    "result": {
+      "kind": "pitch",
+      "text": "강한결 · 헛스윙 삼진",
+      "events": [
+        "실제 코스: 바깥 높음"
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 1
+    },
+    "bases": [
+      null,
+      "p3",
+      null
+    ],
+    "shaken": 0,
+    "errors": [],
+    "video": "/workspace/contact-relay-qa/videos/page@86eda67ae5e3b814903342f000fe6ed5.webm"
+  },
+  {
+    "label": "667-reduced-twoStrikeRelay-hit",
+    "fx": [],
+    "result": {
+      "kind": "hit",
+      "text": "강한결 · 중전안타",
+      "events": [
+        "컨택 · 단타 순환 · 피해 +2 HP",
+        "기세 상승 0 → 1 · 다음 공부터 ×1.1",
+        "주자 1명 압박 · +10% · +1 HP",
+        "투수 흔들림 1/3 · 볼 증가 · 읽기 +1",
+        "실제 코스: 바깥 높음",
+        "존 적중 → 안타 확정 · 타격 58 vs 변화 46 / 파워 52 vs 구위 48",
+        "박도윤 홈인 · +1점"
+      ],
+      "growthEvents": [],
+      "runs": 1,
+      "outs": 0
+    },
+    "bases": [
+      "p1",
+      null,
+      null
+    ],
+    "shaken": 1,
+    "errors": [],
+    "video": "/workspace/contact-relay-qa/videos/page@c2d01b04ecb417f6a33fa9d5431ea4ea.webm"
+  },
+  {
+    "label": "667-reduced-twoStrikeRelay-whiff",
+    "fx": [],
+    "result": {
+      "kind": "pitch",
+      "text": "강한결 · 헛스윙 삼진",
+      "events": [
+        "실제 코스: 바깥 높음"
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 1
+    },
+    "bases": [
+      null,
+      "p3",
+      null
+    ],
+    "shaken": 0,
+    "errors": [],
+    "video": "/workspace/contact-relay-qa/videos/page@9fc1d5806bc6b2c6814ea98da683dd0a.webm"
+  }
+]
