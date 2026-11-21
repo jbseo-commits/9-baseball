@@ -1,0 +1,3 @@
+import fs from 'node:fs';import * as E from '/workspace/9-baseball/src/duel/engine.js';
+let contact;for(let seed=1;seed<1000;seed++){let s=E.enterV10Node(E.applyHitterClass(E.createV10Duel(seed),'contact-v1',{buildVersion:1}),'a1-entry');let a=E.playV10Action(E.setAimZone(s,4),{type:'card',id:'basic'});if(a.battle.revealed.zone===4&&a.battle.revealed.kind==='hit'){contact=s;break;}}
+if(!contact)throw Error('no centre');const emerald=JSON.parse(fs.readFileSync('/workspace/emerald-qa/cases.json')).hit.state;const slugger=JSON.parse(fs.readFileSync('/workspace/slugger-qa/old-cases.json'))['slugger-v1'];fs.writeFileSync('/workspace/private-field-qa/fixtures.json',JSON.stringify({contact,emerald,slugger}));console.log('contact seed',contact.initialSeed);
