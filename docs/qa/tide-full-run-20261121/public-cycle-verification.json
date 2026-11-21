@@ -1,0 +1,118 @@
+[
+  {
+    "sequence": [],
+    "count": 0,
+    "before": {
+      "id": "tide-vesper",
+      "label": "밀물과 썰물",
+      "motif": "wave",
+      "text": "지켜본 다음 공 안타 +5",
+      "detail": "낮은 코스 선호",
+      "ready": false,
+      "steps": null
+    },
+    "actualHit": {
+      "kind": "hit",
+      "text": "강한결 · 중전안타",
+      "events": [
+        "기세 상승 0 → 1 · 다음 공부터 ×1.1",
+        "실제 코스: 바깥 중간",
+        "존 적중 → 안타 확정 · 타격 58 vs 변화 46 / 파워 52 vs 구위 48"
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 0
+    },
+    "bonus": 0
+  },
+  {
+    "sequence": [
+      "take"
+    ],
+    "count": 1,
+    "before": {
+      "id": "tide-vesper",
+      "label": "밀물과 썰물",
+      "motif": "wave",
+      "text": "이번 안타 +5",
+      "detail": "높은 코스 선호",
+      "ready": true,
+      "steps": null
+    },
+    "actualHit": {
+      "kind": "hit",
+      "text": "강한결 · 바가지 안타 · 행운의 단타",
+      "events": [
+        "밀물과 썰물 · 추가 피해 +5 HP",
+        "기세 상승 0 → 1 · 다음 공부터 ×1.1",
+        "실제 코스: 바깥 중간",
+        "존 적중 → 안타 확정 · 타격 58 vs 변화 46 / 파워 52 vs 구위 48"
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 0
+    },
+    "bonus": 5
+  },
+  {
+    "sequence": [
+      "hit"
+    ],
+    "count": 1,
+    "before": {
+      "id": "tide-vesper",
+      "label": "밀물과 썰물",
+      "motif": "wave",
+      "text": "지켜본 다음 공 안타 +5",
+      "detail": "높은 코스 선호",
+      "ready": false,
+      "steps": null
+    },
+    "actualHit": {
+      "kind": "hit",
+      "text": "이민준 · 바가지 안타 · 행운의 단타",
+      "events": [
+        "기세 1단계 · 피해 ×1.1",
+        "기세 상승 1 → 2 · 다음 공부터 ×1.2",
+        "주자 1명 압박 · +10% · +1 HP",
+        "실제 코스: 바깥 중간",
+        "존 적중 → 안타 확정 · 타격 62 vs 변화 46 / 파워 49 vs 구위 48",
+        "강한결: 1루 → 2루"
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 0
+    },
+    "bonus": 0
+  },
+  {
+    "sequence": [
+      "take",
+      "take"
+    ],
+    "count": 2,
+    "before": {
+      "id": "tide-vesper",
+      "label": "밀물과 썰물",
+      "motif": "wave",
+      "text": "이번 안타 +5",
+      "detail": "낮은 코스 선호",
+      "ready": true,
+      "steps": null
+    },
+    "actualHit": {
+      "kind": "hit",
+      "text": "강한결 · 중전안타",
+      "events": [
+        "밀물과 썰물 · 추가 피해 +5 HP",
+        "기세 상승 0 → 1 · 다음 공부터 ×1.1",
+        "실제 코스: 바깥 중간",
+        "존 적중 → 안타 확정 · 타격 58 vs 변화 46 / 파워 52 vs 구위 48"
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 0
+    },
+    "bonus": 5
+  }
+]

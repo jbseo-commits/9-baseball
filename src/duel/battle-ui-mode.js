@@ -6,7 +6,7 @@
    Legacy landscape sidecars intentionally keep using landscapeMedia() and remain disabled. */
 export function battleUiMode(search=globalThis.location?.search||'',win=globalThis){
   const params=new URLSearchParams(search),choice=params.get('battleUi');
-  const forced=choice==='vnext';
+  const forced=choice==='vnext'||params.get('tidePlaytest')==='1';
   const mm=q=>!!win?.matchMedia?.(q)?.matches;
   const auto=choice!=='legacy'&&!forced&&(mm('(orientation: landscape)')||mm('(pointer: coarse)'));
   return {vnext:forced||auto,fixture:forced?params.get('battleFixture'):null};

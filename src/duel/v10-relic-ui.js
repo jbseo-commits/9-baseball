@@ -2,7 +2,8 @@ import {V10_ALL_RELICS} from './v10-relics.js';
 import {relicArtFor} from './relic-art.js';
 const SAVE='9zone-v10-run';
 let scheduled=false,lastTrigger='';
-const isPlayable=()=>new URLSearchParams(globalThis.location?.search||'').get('battlePlay')==='1';
+const isTidePlaytest=()=>new URLSearchParams(globalThis.location?.search||'').get('tidePlaytest')==='1';
+const isPlayable=()=>isTidePlaytest()||new URLSearchParams(globalThis.location?.search||'').get('battlePlay')==='1';
 const state=()=>{if(isPlayable())return null;try{return JSON.parse(localStorage.getItem(SAVE)||'null')}catch{return null}};
 const owned=s=>(s?.relics||[]).filter(k=>V10_ALL_RELICS[k]);
 function rack(){

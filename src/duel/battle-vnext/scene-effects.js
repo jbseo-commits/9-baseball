@@ -1,3 +1,4 @@
+import {tideFlightAt} from './tide-flight.js';
 import {foxFlightAt} from './fox-flight.js';
 import {MOTION_CONTACT as DEFAULT_CONTACT,MOTION_RELEASE as DEFAULT_RELEASE,nearCoverage} from './motion-timeline.js';
 const clamp=n=>Math.max(0,Math.min(1,n));
@@ -16,6 +17,7 @@ export function sceneEffectAt({elapsed=0,playback=null,result=null,phase='decidi
     if(elapsed<throwAt)return null;
     const linear=clamp((elapsed-throwAt)/Math.max(1,a-throwAt)),p=linear*linear;
     const contact=playback.action==='take'?{x:C.x+40,y:C.y+10}:C;
+    if(composition?.flightProfile==='tide-drop')return {kind:'flight',trail,spinAge:elapsed-throwAt,...tideFlightAt(elapsed,throwAt,a,R,C),age:elapsed-throwAt,flash:0,camera:0,opacity:1};
     if(composition?.flightProfile==='fox-depth')return {kind:'flight',trail,spinAge:elapsed-throwAt,...foxFlightAt(elapsed,throwAt,a,R,C),age:elapsed-throwAt,flash:0,camera:0,opacity:1};
     return {kind:'flight',trail,spinAge:elapsed-throwAt,ball:lerp(R,contact,p),previous:lerp(R,contact,Math.max(0,p-.16)),radius:3+9*p,age:elapsed-throwAt,flash:0,camera:0,opacity:1};
   }
@@ -33,6 +35,7 @@ export function sceneEffectAt({elapsed=0,playback=null,result=null,phase='decidi
       radius:Math.max(1.7,12*(1-p)),age,spinAge:a-throwAt+effectAge,flash:age>=0&&age<180?(1-age/180):0,
       camera:result.exact&&age>=0&&age<150?Math.sin(age*.1)*(1-age/150)*5:0,power,progress:p};
   }
+  if(composition?.flightProfile==='tide-drop')return {trail,kind:near?'near':'pass',...tideFlightAt(elapsed,throwAt,a,R,C),age,spinAge:elapsed-throwAt,flash:0,camera:0,near};
   if(composition?.flightProfile==='fox-depth'){
     return {trail,kind:near?'near':'pass',...foxFlightAt(elapsed,throwAt,a,R,C),age,spinAge:elapsed-throwAt,flash:0,camera:0,near};
   }

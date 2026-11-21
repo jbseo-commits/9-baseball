@@ -1,3 +1,5 @@
+import {tidePlaytestEnabled} from './tide-playtest.js';
+import './tide-playtest.css';
 import intentHeadAnchors from './intent-head-anchors.json';
 import PublicIntentBadge from './PublicIntentBadge.jsx';
 import React,{useLayoutEffect,useRef,useState} from 'react';
@@ -29,11 +31,12 @@ export function approvedPitcherArt(artId){
 
 const ACTORS=['pitcher','batter'];
 
-export default function BattleScene({scene=null,publicIntentFaces=[],publicOutsideConfirmed=false,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,framing='cover',playback=null,result=null,finale=null,onFocusChange=null}){
+export default function BattleScene({scene=null,publicEncounterCue=null,publicIntentFaces=[],publicOutsideConfirmed=false,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,framing='cover',playback=null,result=null,finale=null,onFocusChange=null}){
   const rootRef=useRef(null);
   const elapsed=useSceneClock(playback);
   const roster=actors.pitcher?.kind==='roster-atlas'?actors.pitcher:null;
-  const composition=framing==='atbat'?(roster?{...ATBAT_COMPOSITION,pitcher:roster.meta,release:roster.release,...(roster.artId==='regular-07-red-fox'?{flightProfile:'fox-depth'}:{})}:ATBAT_COMPOSITION):null;
+  const tidePilot=tidePlaytestEnabled()&&roster?.artId==='tide-vesper'&&publicEncounterCue?.id==='tide-vesper';
+  const composition=framing==='atbat'?(roster?{...ATBAT_COMPOSITION,pitcher:roster.meta,release:roster.release,...(roster.artId==='regular-07-red-fox'?{flightProfile:'fox-depth'}:tidePilot?{flightProfile:'tide-drop'}:{})}:ATBAT_COMPOSITION):null;
   const reduced=playback?.timeline?.duration<=60;
   const focus=pitchFocusAt({elapsed,playback,phase,reduced});
   useLayoutEffect(()=>{onFocusChange?.(focus);},[focus,onFocusChange]);
@@ -86,7 +89,7 @@ export default function BattleScene({scene=null,publicIntentFaces=[],publicOutsi
         </div>;
       })}
     </div></div>
-    {roster&&intentHeadAnchors[roster.artId]&&<PublicIntentBadge bounds={box} confirmedOutside={publicOutsideConfirmed} faces={publicIntentFaces} phase={playback&&playback.action!=='prepare'?'flight':phase} point={at({x:roster.meta.worldFoot.x+(intentHeadAnchors[roster.artId].x-roster.meta.anchor.x)*roster.meta.worldHeight/256,y:roster.meta.worldFoot.y+(intentHeadAnchors[roster.artId].y-roster.meta.anchor.y)*roster.meta.worldHeight/256})}/>}
+    {roster&&intentHeadAnchors[roster.artId]&&<PublicIntentBadge tideCue={tidePilot?publicEncounterCue:null} bounds={box} confirmedOutside={publicOutsideConfirmed} faces={publicIntentFaces} phase={playback&&playback.action!=='prepare'?'flight':phase} point={at({x:roster.meta.worldFoot.x+(intentHeadAnchors[roster.artId].x-roster.meta.anchor.x)*roster.meta.worldHeight/256,y:roster.meta.worldFoot.y+(intentHeadAnchors[roster.artId].y-roster.meta.anchor.y)*roster.meta.worldHeight/256})}/>}
     <div className="bv-scene-shade" aria-hidden="true"/>
     {/* The light pass uses the exact same projection/jitter as the actors. It
         sits above result grading so the contact light is not darkened twice. */}
