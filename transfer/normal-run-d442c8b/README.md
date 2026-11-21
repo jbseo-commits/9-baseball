@@ -1,0 +1,3 @@
+Transfer representation of already committed official review dist only. No deployment.
+
+Fetch manifests and numbered UTF-8 chunks at this commit. Validate chunk SHA256, concatenate in order, strip whitespace, Base64-decode, validate overlay SHA256. Extract into staging dist. Reuse Site runtime v4 / d9d974a files only when size and SHA256 match the final manifest. Validate all 634 files, then remove obsolete files within staging only. Open / with NO query. Missing or mismatched paths require targeted extraction from the exact committed source ZIP; do not rebuild or guess. Existing owner-private permissions must remain unchanged.
