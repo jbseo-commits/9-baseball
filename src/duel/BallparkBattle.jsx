@@ -140,7 +140,7 @@ export default function BallparkBattle({storage,reviewRun=false,
     /* Entries stay locked while the pitch/commit is in flight; the landed
        result (복기) and deciding states may inspect. */
     if(locked||commitBeat||inFx)return false;
-    inspectOpener.current=document.activeElement;
+    if(!inspectRef.current)inspectOpener.current=document.activeElement;
     const handEl=rootRef.current?.querySelector('.bp-hand');
     inspectScroll.current=useVnext?handDockRef.current?.getScroll()||0:handEl?handEl.scrollLeft:0;
     setInspectTab(tab);
@@ -160,7 +160,17 @@ export default function BallparkBattle({storage,reviewRun=false,
   useLayoutEffect(()=>{
     if(!useVnext||inspect||!restoreInspect.current)return;
     restoreInspect.current=false;handDockRef.current?.setScroll(inspectScroll.current||0);
-    inspectOpener.current?.focus?.({preventScroll:true});
+    // Restore scene accessibility before returning focus to its pitcher target.
+    sceneRef.current?.removeAttribute('inert');sceneRef.current?.removeAttribute('aria-hidden');
+    const opener=inspectOpener.current;let frame=null,attempts=0;
+    const restore=()=>{
+      if(inspectRef.current||!opener?.isConnected)return;
+      if(getComputedStyle(opener).visibility!=='hidden')opener.focus?.({preventScroll:true});
+      // Chromium may retain inherited hidden visibility for a paint after inert
+      // is removed, especially with reduced motion. Keep one bounded owner.
+      if(document.activeElement!==opener&&++attempts<10)frame=requestAnimationFrame(restore);
+    };
+    restore();return()=>{if(frame!==null)cancelAnimationFrame(frame);};
   },[inspect,useVnext]);
   /* The global card-detail gestures route battle targets here through one
      dispatch point (App.jsx); the registered object always sees live state. */
@@ -653,7 +663,7 @@ export default function BallparkBattle({storage,reviewRun=false,
   if(useVnext){
     return <BattleView sluggerReview={!autoLesson&&!defenseLab&&!previewMode&&reviewSluggerEligible(reviewRun,s.v10?.hitterClass)} execution={matchingExecution} model={model} actors={{batter:sluggerBatter||SAMPLE_ACTORS.batter,pitcher:rosterPitcher||approvedArt||SAMPLE_ACTORS.pitcher}}
       playback={playback} animationRate={animationRate} onAnimationRateChange={onAnimationRateChange} sound={sound} onToggleSound={onToggleSound} rootRef={rootRef} sceneRef={sceneRef} zoneRef={zoneRef} handRef={handDockRef} recent={recentResult?.key===artId+':'+s.runMap?.currentNodeId?recentResult.text:null} title={label} review={!!vnextReview}
-      inspector={inspectorView} menuOpen={!!inspect} handOpen={handOpen} onHandOpenChange={setHandOpen} onMenu={()=>openInspect('menu')} onPitcherInfo={()=>openInspect('pitcher')}
+      inspector={inspectorView} menuOpen={!!inspect} handOpen={handOpen} onHandOpenChange={setHandOpen} onMenu={()=>openInspect('menu')} onPitcherInfo={()=>openInspect('pitcher')} onCloseInfo={closeInspect}
       onCardTap={id=>{if(!deciding&&!inspect)return;isSkill(byId(id)?.entry)?pickPrep(id):pickSwing(id);}}
       onCardDetail={id=>{const x=byId(id);openInspect('card',{kind:id==='basic'?'basic':x?.entry.kind,plus:x?.entry.plus,problem:x?.preview?.problem});}}
       onPreviewCardDrop={(id,zone)=>deciding&&!inspect?cardDropPreview(s,selected,stack,id,zone):null} onCardDrop={placeCard} onRemoveSupport={removeSupport} onToggleSupport={toggleSupport} onClearPlan={clearPlan} onPiles={()=>openInspect('pile')} piles={{draw:b.draw?.length||0,discard:b.discard?.length||0}}
