@@ -1,5 +1,5 @@
-/* Public-only host plumbing for the still-gated course presentation. No UI
- * consumes this snapshot yet; exact engine probabilities never enter its plan. */
+/* Public candidate snapshot plus durable execution accessors. The scene reads
+ * destination only after release and contact only at impact; never pending. */
 import {knownPitchZones} from '../engine.js';
 import {zoneFace,bandFace} from './view-model.js';
 import {courseTimeline,createCoursePlan} from './course-presentation.js';
@@ -81,6 +81,7 @@ export function coursePresentationFor({execution,next,timeline,live=false,durabl
   const aimed=execution?.committedPlan?.cards?.[0]?.aimZone;
   return Object.freeze({
     timeline:timed,
-    course:Object.freeze({plan,aimZone:Number.isInteger(aimed)&&aimed>=0&&aimed<=8?aimed:4,getDestination:acceptedDestination(next)}),
+    course:Object.freeze({plan,aimZone:Number.isInteger(aimed)&&aimed>=0&&aimed<=8?aimed:4,getDestination:acceptedDestination(next),
+      getContact:()=>next.battle.revealed.action!=='take'&&['hit','foul','sacrifice','out'].includes(next.battle.revealed.kind)}),
   });
 }
