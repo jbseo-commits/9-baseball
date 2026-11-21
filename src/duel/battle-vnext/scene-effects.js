@@ -1,3 +1,4 @@
+import {personalityFlightAt} from './pitch-personality.js';
 import {releasedContact} from './committed-flight.js';
 import {tideFlightAt} from './tide-flight.js';
 import {foxFlightAt} from './fox-flight.js';
@@ -14,7 +15,7 @@ export function sceneEffectAt({elapsed=0,playback=null,result=null,phase='decidi
   if(!playback||playback.timeline.duration<=60||playback.action==='prepare')return null;
   const t=playback.timeline,a=t.impactAt,age=elapsed-a,landed=phase==='result'&&!!result;
   const throwAt=playback.pitchReleaseAt??a*.54;
-  const committedFlight=composition?.flightProfile==='tide-drop'?tideFlightAt:foxFlightAt;
+  const committedFlight=composition?.personality?(...args)=>personalityFlightAt(...args,composition.personality):composition?.flightProfile==='tide-drop'?tideFlightAt:foxFlightAt;
   // RAF may cross impact before the host result render. Noncontact must keep
   // travelling; contact holds at T instead of overshooting and rewinding. The
   // durable accessor is read only at the already-locked impact deadline.

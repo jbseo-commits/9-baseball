@@ -9,3 +9,6 @@
 .bv-public-intent[data-certain=false]{border-color:#8291a5;box-shadow:1px 1px 0 #070b14}
 .bv-public-intent[data-certain=false] .bv-intent-nine i[data-active=true]{background:#8c9bae;outline:1px dotted #d1dae5}
 .bv-public-intent[data-knowledge=unknown] .bv-intent-nine{opacity:.4}
+
+.bv-public-intent .bv-pitch-personality{position:absolute;top:5px;display:flex;align-items:center;gap:4px;background:#111b2b;color:#fff0c9;border:1px solid #8c9bae;padding:1px 5px;white-space:nowrap;font:700 11px/18px system-ui;box-shadow:2px 2px #070b14}
+.bv-pitch-personality strong{font:900 19px/18px monospace}.bv-pitch-personality[data-ready=true]{border:2px double #fff0c9;padding:0 4px}

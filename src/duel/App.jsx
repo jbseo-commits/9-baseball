@@ -1,3 +1,4 @@
+import {pitchPersonality} from './battle-vnext/pitch-personality.js';
 import {tidePlaytestEnabled,TIDE_PLAYTEST_SEED} from './battle-vnext/tide-playtest.js';
 import React,{useEffect,useLayoutEffect,useRef,useState} from 'react';
 import {flushSync} from 'react-dom';
@@ -1110,7 +1111,7 @@ export default function Duel({storage:providedStorage,startInRun=false,reviewRun
     const stakes=stakesFor(next);
     presentationClock.current=startPresentationClock(timeline,{startedAt:playback.startedAt,rate:speed,
       onStage:stage=>{setFxStage(stage);setFrame(stage==='windup'?1:stage?2:0);},
-      onPitchRelease:({audible})=>{if(audible&&soundRef.current&&pitchJudgement&&!withVideo)emit('pitch');},
+      onPitchRelease:({audible})=>{if(audible&&soundRef.current&&pitchJudgement&&!withVideo)emit((!reduced&&live?pitchPersonality(execution?.encounterCue,liveActor?.artId)?.sound:null)||'pitch');},
       onImpact:({audible})=>{if(!audible)return;if(soundRef.current&&pitchJudgement&&!withVideo)emit(shot?.cue||next.last.kind);haptic(timeline.haptic);},
       onSettle:({audible})=>{if(!audible)return;if(soundRef.current&&stakes&&!withVideo)emit(stakes);if(stakes==='game-win')haptic([12,22,28]);if(stakes==='champion'||stakes==='rival-champion')haptic([18,18,38,24,58]);},
       onComplete:()=>{setFx(null);setFxPlayback(null);setFrame(0);presentationActive.current=false;lock.current=homerVideoActive.current;}

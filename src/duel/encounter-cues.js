@@ -35,7 +35,7 @@ export function publicEncounterCue(s){
  case 'onyx-eclipse':motif='limit';steps={count:3,current:count%3};text=`이번 연결 ${v10StackMax(s)}장까지`;detail=third?'이번 본 정타 +10':'3구째 본 정타 +10';ready=third;break;
  default:return null;
  }
- return {id:e.id,label:e.label,motif,text,detail,ready,steps};
+ return {id:e.id,label:e.label,motif,text,detail,ready,steps,...(e.id==='tide-vesper'?{flightPreference:count%2?'high':'low'}:{})};
 }
 
 export function landedEncounterCue(s,combat){
