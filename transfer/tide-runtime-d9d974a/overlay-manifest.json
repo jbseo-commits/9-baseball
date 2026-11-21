@@ -1,0 +1,54 @@
+{
+  "compression": "zip",
+  "encoding": "concatenate ASCII chunks in listed order, strip whitespace, base64 decode",
+  "overlay_sha256": "e3a5ff22782104f35ba0ba8d7c0bc2f94b7facec6c13e16827e9e2ae52145222",
+  "overlay_bytes": 754879,
+  "changed_files": [
+    "assets/BattleComparison-CHlTmH1L.js",
+    "assets/BitmapFont-3LpoQHiN.js",
+    "assets/CanvasRenderer-BRFm9Csa.js",
+    "assets/IntegrationPreview-DJZTH5l2.js",
+    "assets/PlayableRun-MKRPA2E4.js",
+    "assets/TidePlaytest-BJS0RwYO.js",
+    "assets/WebGLRenderer-D1G7IZ34.js",
+    "assets/WebGPURenderer-DJmqYjg6.js",
+    "assets/ZoneFirstPreview-B9r2J-tw.js",
+    "assets/browserAll-Cq9ZkbC8.js",
+    "assets/index-BXVijMvI.css",
+    "assets/index-DE4Tvk3-.js",
+    "assets/init-Cq4AgqFO.js",
+    "assets/lib-COTmcGeu.js",
+    "assets/playable-storage-C1vgdd81.js",
+    "assets/webworkerAll-Bbv_d8FD.js",
+    "index.html"
+  ],
+  "remove_after_verification": [
+    "assets/BattleComparison-D5qsZLp0.js",
+    "assets/BitmapFont-CvIptFtd.js",
+    "assets/CanvasRenderer-CMxRi9Y-.js",
+    "assets/IntegrationPreview-BM9CBFHO.js",
+    "assets/PlayableRun-BkKNNQmQ.js",
+    "assets/WebGLRenderer-DHJuGEd4.js",
+    "assets/WebGPURenderer-4YDA7z0f.js",
+    "assets/ZoneFirstPreview-14RI57kk.js",
+    "assets/browserAll-BnEJu5Xm.js",
+    "assets/index-C-rJhDmI.css",
+    "assets/index-C4bxz-MG.js",
+    "assets/init-DsvgTxN0.js",
+    "assets/lib-DtkC-Ov9.js",
+    "assets/webworkerAll-CoMBHU0O.js"
+  ],
+  "chunks": [
+    {
+      "path": "overlay.001.b64",
+      "bytes": 512001,
+      "sha256": "54aecbdebed94fae2266e33978c08c9bdf94365685976ab96460cea8ea0ab207"
+    },
+    {
+      "path": "overlay.002.b64",
+      "bytes": 494509,
+      "sha256": "a01ecff4ddc17d3facef389c71b60e53f14fcc1757105b359c0c6cd6dc26aa69"
+    }
+  ],
+  "baseline_note": "Compared against preserved #141 extracted build; verify each reused V3 file against final manifest, not its filename."
+}
