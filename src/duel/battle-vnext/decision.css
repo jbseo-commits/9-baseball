@@ -139,3 +139,7 @@
   .bv-result-copy{display:none}
 }
 @media (prefers-reduced-motion:reduce){.bv-hud-hp-fill{transition:none}}
+/* Active preparation belongs in the existing decision rail. Give its scoped
+   explanation room at short landscape heights instead of clipping mid-line. */
+.bv-atbat .bv-command-rail>.bv-plan:has(.bv-preparation-status),
+.bv-atbat .bv-command-rail>.bv-plan:has([data-testid="take-energy-payoff"]){max-height:min(116px,31vh)}

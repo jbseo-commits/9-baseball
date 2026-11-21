@@ -82,14 +82,14 @@ export default function DecisionPanel({zones=null,forecast=null,input=null,hand=
 }
 
 /* One causal readout, also usable outside the field's touch/slide surface. */
-export function DecisionSummary({hand=[],forecast,input,energy,effects=[],phase='deciding',result,shotGrade,execution,scene,recent,compact=false}){
+export function DecisionSummary({hand=[],forecast,input,energy,effects=[],phase='deciding',result,shotGrade,execution,scene,recent,compact=false,preparation=[]}){
   const deciding=phase==='deciding',sum=deciding?planSummary({hand,forecast,input,energy,effects}):null;
   return <div className="bv-plan" data-testid="bv-plan" aria-live="polite">
       {deciding&&sum&&!(compact&&input.actionKind==='watch')&&<>
         <p className="bv-plan-title">{sum.title}{sum.cost>0&&<small> · ⚡{sum.cost}</small>}</p>
         {sum.chance&&<p className="bv-plan-metrics"><strong>{sum.chance}</strong>{sum.damage&&<span>{sum.damage}</span>}</p>}
         {sum.reasons?.length>0&&<p className="bv-plan-reasons">{sum.reasons.join(' · ')}</p>}
-        {sum.detail&&<p className="bv-plan-detail">{sum.detail}</p>}
+        {sum.detail&&!preparation.length&&<p className="bv-plan-detail">{sum.detail}</p>}
         {sum.hint&&<p className="bv-plan-hint">{sum.hint}</p>}
         {sum.problem&&<p className="bv-plan-problem" role="status">{sum.problem}</p>}
       </>}
@@ -98,7 +98,9 @@ export function DecisionSummary({hand=[],forecast,input,energy,effects=[],phase=
         :execution?.preparation&&['impact','slowmo','release','settle'].includes(scene?.fxStage)?<div className="bv-preparation-confirm" role="status"><b>{execution.preparation.name} · 적용</b><span>{execution.preparation.detail}</span></div>
         :<p className="bv-plan-detail">{phase==='flight'||phase==='committing'?(execution?.action==='prepare'?'준비 효과 적용 중':'공을 기다린다'):''}</p>)}
       {result&&<ResultSequence hideHp result={result} execution={execution}/>}
-      {normalReviewEnabled()&&deciding&&compact&&input?.actionKind==='watch'&&!recent&&<p className="bv-plan-detail bv-first-step">손패 펼치기 → 카드 → 노릴 칸</p>}
+      {deciding&&preparation.length>0&&<p className="bv-plan-detail bv-preparation-status" data-testid="active-preparation">{preparation.join(' · ')}</p>}
+      {deciding&&input?.actionKind==='watch'&&energy?.takeDetail&&<p className="bv-plan-detail" data-testid="take-energy-payoff">{energy.takeDetail}</p>}
+      {normalReviewEnabled()&&deciding&&compact&&input?.actionKind==='watch'&&!recent&&!preparation.length&&<p className="bv-plan-detail bv-first-step">손패 펼치기 → 카드 → 노릴 칸</p>}
       {deciding&&<ResultReadout recent={recent}/>}
     </div>;
 }

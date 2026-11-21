@@ -23,9 +23,9 @@ it('the strip separates the real cost, illustration and coverage, while details 
   expect(detail).toHaveBeenCalledTimes(1);expect(tap).not.toHaveBeenCalled();
 });
 
-it('the quiet watch state has one reward hint and keeps the real action accessible',()=>{
+it('the quiet watch state scopes next-pitch energy and keeps the real action accessible',()=>{
   const model=vm('watch-read0'),take=vi.fn();render(<BattleView model={model} actors={{}} onTake={take}/>);
-  expect(screen.getByTestId('bv-plan').textContent).toBe('');
+  expect(screen.getByTestId('take-energy-payoff').textContent).toBe(model.energy.takeDetail);
   expect(document.querySelector('.bv-action small').textContent).toBe(model.energy.nextTakeHint.replaceAll('⚡',''));
   fireEvent.click(screen.getByTestId('bp-swing'));expect(take).toHaveBeenCalledTimes(1);
 });
