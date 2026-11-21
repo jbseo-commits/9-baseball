@@ -1,0 +1,12 @@
+from pathlib import Path
+from playwright.sync_api import sync_playwright
+import json,os
+out=Path(__file__).resolve().parent/'evidence';key='9zone-normal-review-v1:9zone-v10-run';url=os.environ.get('QA_URL','http://127.0.0.1:4215/');tag=os.environ.get('QA_TAG','after');width=int(os.environ.get('QA_WIDTH','844'));height=int(os.environ.get('QA_HEIGHT','390'));runs=[]
+with sync_playwright() as p:
+ b=p.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
+ for n in range(5):
+  c=b.new_context(viewport={'width':width,'height':height},record_video_dir=str(out/(tag+'-video')),record_video_size={'width':width,'height':height});a=c.new_page();bad=[];errors=[];a.on('response',lambda r:bad.append(r.url) if r.status>=400 else None);a.on('pageerror',lambda e:errors.append(str(e)));a.goto(url);a.evaluate('([k,s])=>{localStorage.setItem(k,s);localStorage.setItem("9zone-normal-review-v1:9zone-welcome-v1","done")}',[key,(out/f'pre-{n}.json').read_text()]);a.reload();a.get_by_role('button',name='이어하기',exact=True).click();a.wait_for_timeout(1000)
+  if n%2:
+   a.locator('.bv-hand-handle').click();a.wait_for_timeout(400);a.locator('.bv-card.t-swing:not(:disabled)').first.click();a.locator('.bv-cell[data-zone="4"]').click()
+  a.evaluate('''()=>{window.trace=[];let end=performance.now()+3500;function f(t){let s=document.querySelector('.bv-scene'),b=document.querySelector('.bv-ball-sprite .fx-ball');if(b){let r=b.getBoundingClientRect(),p=b.style.transformOrigin.split(' ').map(parseFloat),v=k=>parseFloat(s.style.getPropertyValue(k));trace.push({t,phase:s.dataset.phase,x:r.x+p[0],y:r.y+p[1],width:parseFloat(b.style.width),scale:v('--bv-world-scale'),release:[v('--bv-release-x'),v('--bv-release-y')],contact:[v('--bv-contact-x'),v('--bv-contact-y')]})}if(t<end)requestAnimationFrame(f)}requestAnimationFrame(f)}''');a.get_by_test_id('bp-swing').click();a.wait_for_timeout(100);post=a.evaluate('(k)=>JSON.parse(localStorage.getItem(k))',key);a.wait_for_selector('.bv-ball-sprite');a.screenshot(path=str(out/f'{tag}-{n}-release.png'));a.wait_for_selector('.bv-scene[data-phase="result"]');a.screenshot(path=str(out/f'{tag}-{n}-impact.png'));a.wait_for_timeout(2200);trace=a.evaluate('trace');assert not bad and not errors,(bad,errors);runs.append({'n':n,'result':post['battle']['revealed'],'last':post['last'],'trace':trace,'video':a.video.path(),'no404':True});c.close()
+ b.close();(out/(tag+'.json')).write_text(json.dumps(runs,ensure_ascii=False,indent=2));print([(r['n'],r['result']['zone'],r['result']['kind']) for r in runs])

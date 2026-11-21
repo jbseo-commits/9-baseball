@@ -1,3 +1,4 @@
+import {releasedContact} from './committed-flight.js';
 import {tideFlightAt} from './tide-flight.js';
 import {foxFlightAt} from './fox-flight.js';
 import {MOTION_CONTACT as DEFAULT_CONTACT,MOTION_RELEASE as DEFAULT_RELEASE,nearCoverage} from './motion-timeline.js';
@@ -5,18 +6,26 @@ const clamp=n=>Math.max(0,Math.min(1,n));
 const lerp=(a,b,p)=>({x:a.x+(b.x-a.x)*p,y:a.y+(b.y-a.y)*p});
 const quadratic=(a,b,c,p)=>({x:(1-p)**2*a.x+2*(1-p)*p*b.x+p*p*c.x,y:(1-p)**2*a.y+2*(1-p)*p*b.y+p*p*c.y});
 
-/* All flight before impact is outcome-independent. Actual course/result is
-   accepted ONLY through the landed result, never scene.pitchZone/pending. */
+/* Committed flight consumes only the host-authorized durable course after
+   release. Missing authorization preserves legacy preview, never aim/RNG. */
 export function sceneEffectAt({elapsed=0,playback=null,result=null,phase='deciding',composition=null}={}){
-  const C=composition?.contact||DEFAULT_CONTACT,R=composition?.release||DEFAULT_RELEASE;
+  const authoredContact=composition?.contact||DEFAULT_CONTACT,R=composition?.release||DEFAULT_RELEASE;
+  const resolved=releasedContact(playback,elapsed,phase,authoredContact),C=resolved||authoredContact;
   if(!playback||playback.timeline.duration<=60||playback.action==='prepare')return null;
   const t=playback.timeline,a=t.impactAt,age=elapsed-a,landed=phase==='result'&&!!result;
   const throwAt=playback.pitchReleaseAt??a*.54;
+  const committedFlight=composition?.flightProfile==='tide-drop'?tideFlightAt:foxFlightAt;
+  // RAF may cross impact before the host result render. Noncontact must keep
+  // travelling; contact holds at T instead of overshooting and rewinding. The
+  // durable accessor is read only at the already-locked impact deadline.
+  let crosses=false;
+  if(resolved&&elapsed>=a){try{crosses=playback.course.getContact?.()===false;}catch{/* hold unknown */}}
   const trail=playback.action==='swing'?Math.max(0,1-Math.abs(elapsed-(a-8))/120):0;
   if(!landed){
     if(elapsed<throwAt)return null;
     const linear=clamp((elapsed-throwAt)/Math.max(1,a-throwAt)),p=linear*linear;
     const contact=playback.action==='take'?{x:C.x+40,y:C.y+10}:C;
+    if(resolved)return {kind:'flight',trail,spinAge:elapsed-throwAt,...committedFlight(crosses?elapsed:Math.min(elapsed,a),throwAt,a,R,C),age:elapsed-throwAt,flash:0,camera:0,opacity:1,committed:true,contactPoint:C};
     if(composition?.flightProfile==='tide-drop')return {kind:'flight',trail,spinAge:elapsed-throwAt,...tideFlightAt(elapsed,throwAt,a,R,C),age:elapsed-throwAt,flash:0,camera:0,opacity:1};
     if(composition?.flightProfile==='fox-depth')return {kind:'flight',trail,spinAge:elapsed-throwAt,...foxFlightAt(elapsed,throwAt,a,R,C),age:elapsed-throwAt,flash:0,camera:0,opacity:1};
     return {kind:'flight',trail,spinAge:elapsed-throwAt,ball:lerp(R,contact,p),previous:lerp(R,contact,Math.max(0,p-.16)),radius:3+9*p,age:elapsed-throwAt,flash:0,camera:0,opacity:1};
@@ -32,9 +41,10 @@ export function sceneEffectAt({elapsed=0,playback=null,result=null,phase='decidi
     const control=fieldPoint(power?{x:1040,y:-110}:ground?{x:900,y:640}:{x:810,y:350});
     const ball=quadratic(C,control,end,p),previous=quadratic(C,control,end,Math.max(0,p-.1));
     return {trail,kind:power?'homer':result.kind==='foul'?'foul':result.exact?'exact':'contact',ball,previous,
-      radius:Math.max(1.7,12*(1-p)),age,spinAge:a-throwAt+effectAge,flash:age>=0&&age<180?(1-age/180):0,
+      ...(resolved?{committed:true,contactPoint:C}:{}),radius:Math.max(1.7,12*(1-p)),age,spinAge:a-throwAt+effectAge,flash:age>=0&&age<180?(1-age/180):0,
       camera:result.exact&&age>=0&&age<150?Math.sin(age*.1)*(1-age/150)*5:0,power,progress:p};
   }
+  if(resolved)return {trail,kind:near?'near':'pass',...committedFlight(elapsed,throwAt,a,R,C),age,spinAge:elapsed-throwAt,flash:0,camera:0,near,committed:true,contactPoint:C};
   if(composition?.flightProfile==='tide-drop')return {trail,kind:near?'near':'pass',...tideFlightAt(elapsed,throwAt,a,R,C),age,spinAge:elapsed-throwAt,flash:0,camera:0,near};
   if(composition?.flightProfile==='fox-depth'){
     return {trail,kind:near?'near':'pass',...foxFlightAt(elapsed,throwAt,a,R,C),age,spinAge:elapsed-throwAt,flash:0,camera:0,near};
