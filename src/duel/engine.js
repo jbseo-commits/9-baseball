@@ -1,3 +1,4 @@
+import {classRewardPool,classDamagePlan,classRewardLabel} from './hitter-builds.js';
 import {HITTER_CLASSES,hitterClass} from './hitter-classes.js';
 import {CARDS,SAVE_KEY,STAGES,LINEUP,BUILDS,ZONES,GROWTHS,growthCost,rewardChoices,cardPower,cardText,cardCost,DECK_MIN,DECK_MAX,
   ZONE_ORDER,WIDEN_EVERY,PUTAWAY_REACH,READ_THRESHOLDS,observeScore,RELICS,RELIC_OFFERS,DECKBUILDER_BUILD,FACILITY_ROUTES,ROUTE_CHOICES,routeChoice,canUpgrade} from './cards.js';
@@ -841,7 +842,7 @@ const v10RewardPool=s=>{
   const act=node?.act||1,picks=v16DraftChoices({deck:s.deck,act,tier,seed:(s.initialSeed^(node?.seed||0))>>>0,count:3});
   // elite/boss keep the act signature (wall / laser / commit) as the fourth candidate
   const sig=tier>=2?routeChoice(v10StageForNode(node),v10RouteForNode(node)?.id)?.rewardBonus:null;
-  return sig&&!picks.includes(sig)?[...picks,sig]:tier>=2?v16DraftChoices({deck:s.deck,act,tier,seed:(s.initialSeed^(node?.seed||0))>>>0,count:4}):picks;
+  return classRewardPool(s,sig&&!picks.includes(sig)?[...picks,sig]:tier>=2?v16DraftChoices({deck:s.deck,act,tier,seed:(s.initialSeed^(node?.seed||0))>>>0,count:4}):picks);
 };
 const v10ShopPool=s=>{
   const node=currentV10Node(s);
@@ -938,7 +939,7 @@ export function applyStartPack(state,packId){
   return s;
 }
 
-export function applyHitterClass(state,classId){
+export function applyHitterClass(state,classId,{buildVersion=0}={}){
   const cls=hitterClass(classId);
   if(!cls||state?.v10?.hitterClass)return state;
   // Reuse the original fresh-deck guard and replacement IDs, never mutate old saves.
@@ -946,7 +947,7 @@ export function applyHitterClass(state,classId){
   const ids=seeded.v10.startPack.ids;
   ids.forEach((id,i)=>{seeded.deck.find(c=>c.id===id).kind=cls.kinds[i];});
   delete seeded.v10.startPack;
-  seeded.v10.hitterClass={version:1,id:classId,ids:[...ids]};
+  seeded.v10.hitterClass={version:1,id:classId,ids:[...ids],...(buildVersion===1?{buildVersion:1}:{})};
   return seeded;
 }
 export {HITTER_CLASSES};
@@ -1184,6 +1185,7 @@ export function v10DamageTerms(state,{action,choice,r,outcome,stackCardCount=1,s
   const shotRate=action.type==='card'&&v10ShotMode(state)?v10ShotRate(state):1;
   const relicPlan={...relicPlan0,damageRate:relicPlan0.damageRate*momentumRate*shotRate};
   const encounter=encounterPlan(state,{action,choice,r,outcome,stackCardCount});
+  const classPlan=classDamagePlan(state,{action,choice,r,outcome});
   const damageMultiplier=relicPlan.damageRate*encounter.rate;
   const precisionRate=action.type==='card'&&r.kind==='hit'&&!r.assistOnly&&Array.isArray(r.primaryCoverage)&&r.primaryCoverage.includes(r.zone)
     ?(CARDS[choice]?.pressure||0)+(state.battle?.bonusPressure||0):0;
@@ -1196,8 +1198,8 @@ export function v10DamageTerms(state,{action,choice,r,outcome,stackCardCount=1,s
   const runnersBefore=(state.battle?.bases||[]).filter(Boolean).length;
   const runnerRate=r.kind==='hit'?runnersBefore*V10_RUNNER_PRESSURE:0;
   const runnerBonus=runnerRate?Math.max(0,Math.round(damageForOutcome(outcome,0).damage*damageMultiplier*runnerRate)):0;
-  return {relicPlan0,relicPlan,momentumBefore,momentumRate,shotRate,precisionRate,precisionBonus,runnersBefore,runnerRate,runnerBonus,fxPlan,labCounter,encounterPlan:encounter,
-    damageCap:CARDS[choice]?.outsideBet&&r.kind==='hit'?8:undefined,damageMultiplier,damageBonus:relicPlan.damageBonus+precisionBonus+runnerBonus+fxPlan.bonus+(labCounter?8:0)+encounter.bonus};
+  return {relicPlan0,relicPlan,momentumBefore,momentumRate,shotRate,precisionRate,precisionBonus,runnersBefore,runnerRate,runnerBonus,fxPlan,labCounter,classPlan,encounterPlan:encounter,
+    minimumDamage:classPlan.minimumDamage,damageCap:CARDS[choice]?.outsideBet&&r.kind==='hit'?8:undefined,damageMultiplier,damageBonus:relicPlan.damageBonus+precisionBonus+runnerBonus+fxPlan.bonus+(labCounter?8:0)+encounter.bonus+classPlan.bonus};
 }
 export function playV10Action(state,action){
   if(!(state?.version===10||state?.version===11)||state.phase!=='battle'||!state.pitcher||state.pitcher.hp<=0||!action)return state;
@@ -1235,7 +1237,7 @@ export function playV10Action(state,action){
   const counterEarnedBefore=!!(lab&&(lab.counterEarned===true
     ||(lab.counterEarned===undefined&&(lab.counterReady||lab.protectionUsed))));
   const applied=applyPitcherOutcome(next.pitcher,outcome,{pitchId:next.stats.pitches,damageMultiplier:terms.damageMultiplier,
-    damageBonus:terms.damageBonus,damageCap:terms.damageCap});
+    damageBonus:terms.damageBonus,damageCap:terms.damageCap,minimumDamage:terms.minimumDamage});
   // 멘탈: 타석이 끝날 때만 갱신. 실점이면 흔들림 누적, 무실점이면 1단계 회복.
   const runsScored=Math.max(0,(next.battle?.runs||0)-(state.battle?.runs||0));
   const shakenBefore=v10Shaken(state),paEnded=(next.battle?.results?.length||0)>(state.battle?.results?.length||0);
@@ -1289,11 +1291,12 @@ export function playV10Action(state,action){
     relicBonus:relicPlan.damageBonus,precisionRate,precisionBonus,cardFxBonus:fxPlan.bonus,totalDamageBonus:terms.damageBonus,
     runnersBefore,runnerRate,runnerBonus,runsScored,shakenBefore,shakenAfter,
     momentumBefore,momentumAfter,momentumRate,stackRate:relicPlan0.damageRate,
-    relicEvents:relicPlan.events,encounterPlan:terms.encounterPlan,encounter:terms.encounterPlan,encounterEvents:terms.encounterPlan.events,cardCount:stackCardCount,hpAfter:applied.result.hpAfter,takeEnergyBonus:r.takeEnergyBonus||0,
+    relicEvents:relicPlan.events,...(terms.classPlan.bonus?{classBonus:terms.classPlan.bonus,classEvents:terms.classPlan.events}:{}),encounterPlan:terms.encounterPlan,encounter:terms.encounterPlan,encounterEvents:terms.encounterPlan.events,cardCount:stackCardCount,hpAfter:applied.result.hpAfter,takeEnergyBonus:r.takeEnergyBonus||0,
     takeDrawBonus:r.takeDrawBonus||0,...(r.takeDrawReason?{takeDrawReason:r.takeDrawReason}:{}),
     ...(labEvent?{defenseLab:labEvent}:{}),
   }};
   const pressureEvents=[
+    ...terms.classPlan.events,
     ...terms.encounterPlan.events,
     ...fxPlan.events,
     ...(labCounter?['버티기 반격 · 다음 안타 피해 +8 HP']:[]),
@@ -1397,7 +1400,7 @@ export function claimV10Reward(state,action){
     const moved=applyRewardToDeck(s.deck,{type:'add',kind:action.kind},s.nextId);
     s.deck=moved.deck;s.nextId=moved.nextId;
   }
-  s.rewards.push({nodeId:s.runMap.currentNodeId,type:action.type,...(action.type==='add'?{kind:action.kind}:{}),...(relic?{relic}:{})});
+  s.rewards.push({nodeId:s.runMap.currentNodeId,type:action.type,...(action.type==='add'?{kind:action.kind,...(classRewardLabel(s,action.kind)?{classBranch:classRewardLabel(s,action.kind)}:{})}:{}),...(relic?{relic}:{})});
   s.runMap=completeRunNode(s.runMap);
   const here=getRunNode(s.runMap,s.runMap.currentNodeId);
   const finished=here?.type==='boss'&&here.act===3&&s.runMap.reachableIds.length===0;

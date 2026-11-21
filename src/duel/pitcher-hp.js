@@ -72,7 +72,8 @@ export function pitcherDamageFor(outcome,foulStreak=0,opts={}){
   const damageMultiplier=Number.isFinite(opts.damageMultiplier)?clamp(opts.damageMultiplier,0,2):1;
   const damageBonus=Number.isFinite(opts.damageBonus)?clamp(Math.round(opts.damageBonus),0,99):0;
   const rawDamage=calc.damage>0?Math.max(1,Math.round(calc.damage*damageMultiplier)+damageBonus):0;
-  const damage=Number.isFinite(opts.damageCap)?Math.min(rawDamage,Math.max(0,opts.damageCap)):rawDamage;
+  const withFloor=Math.max(rawDamage,Number.isFinite(opts.minimumDamage)?clamp(opts.minimumDamage,0,2):0);
+  const damage=Number.isFinite(opts.damageCap)?Math.min(withFloor,Math.max(0,opts.damageCap)):withFloor;
   return {calc,damageMultiplier,damageBonus,damage};
 }
 

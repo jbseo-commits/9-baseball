@@ -98,7 +98,7 @@ export function previewSwing(s,{id='basic',supports=[]}={},probabilities=v10Pitc
     if(p<=EPS)return;
     const terms=v10DamageTerms(s,{action,choice:k,r:{...r,label:outcome.label,bases:outcome.bases},outcome,stackCardCount,stackDamageRate,pitchInPA,
       handAfter:handAfterFor(s,id,items,r.kind==='hit'),foulStreak});
-    const {damage}=pitcherDamageFor(outcome,foulStreak,{damageMultiplier:terms.damageMultiplier,damageBonus:terms.damageBonus,damageCap:terms.damageCap});
+    const {damage}=pitcherDamageFor(outcome,foulStreak,{damageMultiplier:terms.damageMultiplier,damageBonus:terms.damageBonus,damageCap:terms.damageCap,minimumDamage:terms.minimumDamage});
     outcomes.push({p,kind:r.kind,bases:outcome.bases||0,zone:outcome.zone,label:outcome.label,damage,terms});
   };
   const base={aimZone:b.aimZone,primaryCoverage:main,coverage:combined,supportKinds:items.map(x=>x.kind),stackLinks:plan.links||[]};

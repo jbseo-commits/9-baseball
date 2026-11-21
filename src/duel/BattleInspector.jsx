@@ -1,3 +1,5 @@
+import {classBuild} from './hitter-builds.js';
+import {hitterClass} from './hitter-classes.js';
 import React from 'react';
 import {READ_LEVELS} from './cards.js';
 import {cardDetailOf} from './CardDetailSheet.jsx';
@@ -103,6 +105,7 @@ export default function BattleInspector({tab,setTab,pileKind,inspectCard,inspect
       {tab==='pitch'&&<PitchBody lastCombat={lastCombat} r={r}/>}
       {tab==='pile'&&<PileBody piles={piles}/>}
       {tab==='menu'&&<div className="bp-inline-menu">
+        {classBuild(s)&&<aside aria-label="타자 특성"><strong>{hitterClass(s.v10.hitterClass.id)?.name}</strong><p>{classBuild(s).passive}</p><small>{classBuild(s).branches.map(b=>b.name).join(' / ')}</small></aside>}
         <strong>카드 → 코스 → 실행</strong>
         <p>카드를 고르지 않고 실행하면 지켜봅니다. 공격 카드는 조준해 타격하고 준비 카드는 공을 소비하지 않고 사용합니다. 고른 카드를 다시 누르면 선택과 지원을 비웁니다.</p>
         <p>다른 공격 카드를 더 고르면 지원 코스를 정합니다. 무료 맨손 스윙은 에너지가 없어도 쓸 수 있습니다.</p>
