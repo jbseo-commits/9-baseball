@@ -301,6 +301,8 @@ export function stackSupportProblem(s,primaryId,supports=[]){
     seen.add(support.id);
     const entry=card(s,support.id);
     if(!entry||!s.battle.hand.includes(support.id))return '겹칠 카드가 손패에 없습니다.';
+    // Contact reward conditions also apply when it is offered as coverage.
+    if(CARDS[entry.kind]?.rewardClass){const problem=cardProblem(s,support.id);if(problem)return problem;}
     if(CARDS[entry.kind]?.type!=='attack')return '스윙 카드만 겹칠 수 있습니다.';
     if(CARDS[entry.kind]?.bunt)return '희생 번트는 겹치기 카드로 사용할 수 없습니다.';
   }
@@ -321,6 +323,7 @@ export function comboCoverage(s,primaryId,assistId=null,assistZone=s.battle.aimZ
 }
 export function cardProblem(s,id){
   const classDef=CARDS[card(s,id)?.kind];
+  if(classDef?.rewardClass&&s.v10?.hitterClass?.id!==classDef.rewardClass)return '이 직업의 전용 카드가 아닙니다';
   if(classDef?.starterOnly&&s.v10?.hitterClass?.id!==(classDef.outsideBet?'bad-ball-v1':'spray-v1'))return '이 직업의 전용 카드가 아닙니다';
   if(s.phase!=='battle')return '먼저 투구 결과를 확인하고 다음 공/타자를 진행하세요.';
   if(id==='basic')return null;const c=card(s,id),b=s.battle;
@@ -823,7 +826,7 @@ export function v16DeckFamilies(deck=[]){
 }
 export function v16DraftChoices({deck=[],act=1,tier=1,seed=0,count=3}={}){
   const w={...(V16_RARITY_WEIGHTS[act]||V16_RARITY_WEIGHTS[1])};if(tier>=2){w.rare+=2;if(act>=2)w.signature+=.3;}
-  const pool=Object.keys(CARDS).filter(k=>!CARDS[k].starterOnly&&!V16_STARTER_KINDS.includes(k)&&w[rarityOf(CARDS[k])]>0
+  const pool=Object.keys(CARDS).filter(k=>!CARDS[k].starterOnly&&!CARDS[k].rewardClass&&!V16_STARTER_KINDS.includes(k)&&w[rarityOf(CARDS[k])]>0
     &&!(CARDS[k].rarity==='signature'&&CARDS[k].act>act));
   let r=draftMix(seed>>>0)||1;const rnd=()=>{r=draftMix(r+0x9e3779b9);return r/4294967296;};
   const pick=cands=>{const tot=cands.reduce((a,k)=>a+w[rarityOf(CARDS[k])],0);let x=rnd()*tot;

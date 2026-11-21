@@ -10,7 +10,7 @@ const memory=()=>{const data=new Map();return {getItem:k=>data.get(k)??null,setI
 
 describe('V10 MAIN RUN energy',()=>{
   it('assigns one explicit card cost to every playable card and preserves setup zero',()=>{
-    expect(Object.keys(CARDS).length).toBe(155);
+    expect(Object.keys(CARDS).length).toBe(156);
     for(const [kind,def] of Object.entries(CARDS)){expect(Number.isInteger(def.cost),kind).toBe(true);expect(def.cost).toBeGreaterThanOrEqual(0);expect(def.cost).toBeLessThanOrEqual(2);}
     expect(cardCost('setup')).toBe(0);expect(cardCost({kind:'setup',plus:true})).toBe(0);expect(cardCost('strike')).toBe(2);expect(cardCost('laser')).toBe(1);expect(cardCost('commit')).toBe(1);expect(cardCost('wall')).toBe(2);expect(cardCost('thunder')).toBe(2);expect(cardCost('slug')).toBe(2);
     for(const [kind,shape] of Object.entries(CARDS))if(shape.type==='attack'&&['row','column','diag','cross','x','box','corners','all'].includes(shape.shape)&&!shape.bunt&&shape.rarity!=='signature')expect(cardCost(kind),kind).toBe(2);
