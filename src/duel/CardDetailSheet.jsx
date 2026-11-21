@@ -37,10 +37,10 @@ export function cardDetailOf(kind,plus=false,problem=null,mainRun=false){
   return {
     kind,plus:!!plus,name:c.name+(plus?'+':''),kindLabel:c.type==='skill'?'준비 카드':'스윙 카드',
     ...(mainRun?{energyCost:cardCost(kind)}:{}),
-    role:c.role,axis:c.axis?AXIS_NAMES[c.axis]:'타석 준비',rule:cardText(kind,plus),
+    role:c.role,axis:c.outsideBet?'존 밖 베팅':c.axis?AXIS_NAMES[c.axis]:'타석 준비',rule:cardText(kind,plus),
     upgrade:up?(plus?'강화됨 · ':'강화하면 · ')+up:null,
     gives:c.gives,needs:c.needs,flavor:c.flavor||null,problem:problem||null,
-    stack:c.type==='skill'?STACK.none:(CARDS[kind]?.bunt?STACK.bunt:STACK.attack),
+    stack:c.outsideBet?'단독 전용 · 메인만 가능 · 지원 불가':c.type==='skill'?STACK.none:(CARDS[kind]?.bunt?STACK.bunt:STACK.attack),
   };
 }
 

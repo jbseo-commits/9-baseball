@@ -13,10 +13,10 @@ it('opens canonical title, creates a variable normal map only after pack confirm
  window.history.replaceState({},'','/?normalRun=1&tidePlaytest=1&seed=4');localStorage.setItem(V10_SAVE_KEY,'personal');localStorage.setItem(WELCOME_SEEN_KEY,'personal');
  let n=120;vi.spyOn(globalThis.crypto,'getRandomValues').mockImplementation(a=>{a[0]=n++;return a;});
  render(<NormalReview/>);expect(screen.getByRole('button',{name:'새로운 게임'}).className).toContain('lead');expect(screen.queryByRole('button',{name:'새 타이드 런 시작'})).toBeNull();expect(localStorage.getItem(NORMAL_REVIEW_PREFIX+V10_SAVE_KEY)).toBeNull();
- fireEvent.click(screen.getByRole('button',{name:'새로운 게임'}));fireEvent.click(screen.getByRole('radio',{name:'버티기'}));fireEvent.click(screen.getByTestId('start-pack-go'));
+ fireEvent.click(screen.getByRole('button',{name:'새로운 게임'}));fireEvent.click(screen.getByRole('radio',{name:'컨택 히터'}));fireEvent.click(screen.getByTestId('start-pack-go'));
  const first=JSON.parse(localStorage.getItem(NORMAL_REVIEW_PREFIX+V10_SAVE_KEY));expect(first.initialSeed).toBe(120);expect(first.phase).toBe('map');expect(screen.getByRole('dialog',{name:'게임 방법'})).toBeTruthy();fireEvent.click(screen.getByRole('button',{name:'건너뛰기'}));
  expect(localStorage.getItem(NORMAL_REVIEW_PREFIX+WELCOME_SEEN_KEY)).toBe('seen');expect(localStorage.getItem(WELCOME_SEEN_KEY)).toBe('personal');expect(localStorage.getItem(V10_SAVE_KEY)).toBe('personal');
- cleanup();render(<NormalReview/>);fireEvent.click(screen.getByRole('button',{name:'새로운 게임'}));fireEvent.click(screen.getByRole('button',{name:'처음부터 시작'}));fireEvent.click(screen.getByRole('radio',{name:'버티기'}));fireEvent.click(screen.getByTestId('start-pack-go'));
+ cleanup();render(<NormalReview/>);fireEvent.click(screen.getByRole('button',{name:'새로운 게임'}));fireEvent.click(screen.getByRole('button',{name:'처음부터 시작'}));fireEvent.click(screen.getByRole('radio',{name:'컨택 히터'}));fireEvent.click(screen.getByTestId('start-pack-go'));
  expect(JSON.parse(localStorage.getItem(NORMAL_REVIEW_PREFIX+V10_SAVE_KEY)).initialSeed).toBe(121);expect(screen.queryByRole('dialog',{name:'게임 방법'})).toBeNull();
 });
 it('keeps customer settings free of alternate rules and legacy/debug entry',()=>{

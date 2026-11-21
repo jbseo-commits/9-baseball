@@ -18,7 +18,7 @@ it('completes practice into real starter selection, a saved run and its first ba
   fireEvent.click(document.querySelector('[data-kind="setup"]'));fireEvent.click(screen.getByRole('button',{name:'준비 사용',exact:true}));
   swing();impact();expect(localStorage.getItem(V10_SAVE_KEY)).toBeNull();
   fireEvent.click(screen.getByRole('button',{name:/시작 덱 고르기/}));
-  expect(screen.getByRole('dialog',{name:'시작 팩 선택'})).toBeTruthy();
+  expect(screen.getByRole('dialog',{name:'타자 직업 선택'})).toBeTruthy();
   fireEvent.click(screen.getAllByTestId('start-pack')[0]);fireEvent.click(screen.getByTestId('start-pack-go'));
   expect(readV10Duel(localStorage).phase).toBe('map');expect(readV10Duel(localStorage).deck.length).toBe(9);
   const guide=screen.queryByRole('dialog',{name:'게임 방법'});
@@ -39,12 +39,12 @@ it('leaves a saved run intact when exiting a flying practice and resumes it when
   fireEvent.click(screen.getByRole('button',{name:'첫 타격 연습',exact:true}));
   await act(async()=>{});fireEvent.click(screen.getByRole('button',{name:'건너뛰기'}));impact();
   expect(screen.getByTestId('bp-swing')).toBeTruthy();expect(readV10Duel(localStorage)).toEqual(saved);
-  expect(screen.queryByRole('dialog',{name:'시작 팩 선택'})).toBeNull();
+  expect(screen.queryByRole('dialog',{name:'타자 직업 선택'})).toBeNull();
 });
 
 it('skips without an existing run into starter selection and allows cancellation back to title',async()=>{
   render(<Duel/>);await enter();fireEvent.click(screen.getByRole('button',{name:'건너뛰기'}));
-  expect(screen.getByRole('dialog',{name:'시작 팩 선택'})).toBeTruthy();
+  expect(screen.getByRole('dialog',{name:'타자 직업 선택'})).toBeTruthy();
   fireEvent.click(screen.getByRole('button',{name:'닫기',exact:true}));
   expect(screen.getByRole('button',{name:'첫 타격 연습',exact:true})).toBeTruthy();
   expect(localStorage.getItem(V10_SAVE_KEY)).toBeNull();

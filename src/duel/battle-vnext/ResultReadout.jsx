@@ -10,6 +10,7 @@ export function resultTone(result,shotGrade=null){
   if(!result)return null;
   if(result.knockedOut)return {key:'knockout',label:'강판'};
   if(result.kind==='hit'){
+    if(result.outsideBet)return {key:'range',label:'존 밖 베팅 성공'};
     if(result.exact)return {key:'exact',label:'정확 적중'};
     if(result.assistOnly)return {key:'assist',label:'지원 적중'};
     return {key:'range',label:'범위 적중'};

@@ -1,3 +1,4 @@
+import {CLASS_CARDS} from './hitter-classes.js';
 import {CARDS_V16,CORE_FAMILY} from './cards-v16.js';
 export {FAMILIES} from './cards-v16.js';
 // Right-handed batter: screen-left is inside. Cards shape coverage, not a contact threshold.
@@ -24,10 +25,10 @@ const CORE_CARDS={
 /* the 16 core cards keep their V9 rules; V16 adds 124 keyword cards for the MAIN RUN draft */
 export const CORE_KINDS=Object.freeze(Object.keys(CORE_CARDS));
 for(const [k,fam] of Object.entries(CORE_FAMILY))CORE_CARDS[k].family=fam;
-export const CARDS={...CORE_CARDS,...CARDS_V16};
+export const CARDS={...CORE_CARDS,...CARDS_V16,...CLASS_CARDS};
 // Fixed V10 cost overrides. Keep this list in sync with docs/CARD-ENERGY.md.
 // setup is the free preparation card; upgrades keep the same cost.
-const V10_COST_TWO=new Set(['slug','wall','laser','commit','needle','perfectRead','fullSwing','moonshot','cleanup','soloShot','calledShot',
+const V10_COST_TWO=new Set(['chaseBall','sprayPull','slug','wall','laser','commit','needle','perfectRead','fullSwing','moonshot','cleanup','soloShot','calledShot',
   'thunder','basesLoaded','homeRush','shieldBat','attrition','timeOut','threeOh','hawkEye','lastChance','edgeSwing','walkOff','hotStart',
   'allIn','fullStack','teamwork','analyst','fullScout','killerInstinct','collapse','laneMaster','sinkerBuster']);
 const WIDE_ATTACK_SHAPES=new Set(['row','column','diag','cross','x','box','corners','all']);
@@ -65,7 +66,7 @@ export const UPGRADES={
    it names no foul chance, it has no bunt table), so it stays out of the upgrade pool
    instead of offering a '+' that does nothing. Every other singles/bunt attack above
    has a real plus effect named in UPGRADES. */
-export const upgradeText=kind=>UPGRADES[kind]||(CARDS[kind]?.type==='attack'&&!CARDS[kind]?.singles&&!CARDS[kind]?.bunt?'파워 +18':null);
+export const upgradeText=kind=>CARDS[kind]?.starterOnly?null:UPGRADES[kind]||(CARDS[kind]?.type==='attack'&&!CARDS[kind]?.singles&&!CARDS[kind]?.bunt?'파워 +18':null);
 export const canUpgrade=entry=>!!entry&&!entry.plus&&!!upgradeText(entry.kind);
 
 export const cardPower=entry=>{const d=CARDS[entry?.kind];return (d?.power||0)+(entry?.plus&&d.type==='attack'&&!d.bunt&&!d.singles?1:0);};

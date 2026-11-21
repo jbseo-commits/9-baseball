@@ -1,6 +1,6 @@
 import React,{useEffect,useRef,useState} from 'react';
 import {CARDS,cardCost} from './cards.js';
-import {START_PACK_COMMON,startPackOffers} from './engine.js';
+import {START_PACK_COMMON,HITTER_CLASSES} from './engine.js';
 import {cardArtFor,cardArtFocusFor} from './card-art.js';
 import plate from '../../assets/production-art/phone-assets-v18/A06-title-stadium-plate.png';
 import coach from '../../assets/production-art/phone-assets-v18/A05-title-coach.png';
@@ -19,7 +19,7 @@ const PACK_LOOK={
 };
 
 export default function StartPackPick({seed,onPick,onClose,sound=false}){
-  const offers=startPackOffers(seed);
+  const offers=HITTER_CLASSES;
   const [chosen,setChosen]=useState(null);
   const confirmRef=useRef(null),committed=useRef(false);
   const feedback=useMenuFeedback(sound);
@@ -28,20 +28,20 @@ export default function StartPackPick({seed,onPick,onClose,sound=false}){
   if(pack)for(const k of [...START_PACK_COMMON,...pack.kinds])deckCounts.set(k,(deckCounts.get(k)||0)+1);
   useEffect(()=>{const esc=e=>{if(e.key==='Escape')onClose?.()};window.addEventListener('keydown',esc);return()=>window.removeEventListener('keydown',esc)},[onClose]);
   useEffect(()=>{if(chosen)confirmRef.current?.scrollIntoView?.({block:'nearest'})},[chosen]);
-  return <div className="sp-root" role="dialog" aria-modal="true" aria-label="시작 팩 선택">
+  return <div className="sp-root" role="dialog" aria-modal="true" aria-label="타자 직업 선택">
     <div className="sp-bg" style={{backgroundImage:`url(${plate})`}} aria-hidden="true"/>
     <button type="button" className="sp-close" aria-label="닫기" onClick={onClose}>×</button>
     <header className="sp-head">
       <img className="sp-coach" src={coach} alt="" aria-hidden="true"/>
       <div className="sp-bubble">
-        <span className="sp-eyebrow">MAIN RUN · START PACK</span>
+        <span className="sp-eyebrow">MAIN RUN · HITTER CLASS</span>
         <p>“첫 경기다.<br/>어떤 야구로 갈래?”</p>
       </div>
     </header>
-    <h2 className="sp-title">어떤 야구로 시작할까</h2>
-    <p className="sp-rule"><b>공통 2장</b><i>+</i><b>방향 7장</b><i>=</i><b>9장 덱</b><span>보상에서 언제든 바꾸거나 섞을 수 있다</span></p>
-    <div className="sp-list" role="radiogroup" aria-label="시작 팩">
-      {offers.map((p,i)=>{const look=PACK_LOOK[p.id]||{tone:'power',tag:''},on=chosen===p.id;
+    <h2 className="sp-title">어떤 타자로 시작할까</h2>
+    <p className="sp-rule"><b>공통 2장</b><i>+</i><b>직업 7장</b><i>=</i><b>9장 덱</b><span>덱은 보상으로 발전 · 직업별 그림은 준비 중</span></p>
+    <div className="sp-list" role="radiogroup" aria-label="타자 직업">
+      {offers.map((p,i)=>{const look={tone:p.tone,tag:p.tag},on=chosen===p.id;
         const complete=[...START_PACK_COMMON,...p.kinds],counts=new Map();
         for(const k of complete)counts.set(k,(counts.get(k)||0)+1);
         return <button key={p.id} type="button" role="radio" aria-checked={on} aria-label={p.name}
@@ -65,15 +65,15 @@ export default function StartPackPick({seed,onPick,onClose,sound=false}){
         </button>;})}
     </div>
     {pack&&<section className="sp-deck-preview" aria-label={`${pack.name} 전체 9장 구성`}>
-      <strong>선택 덱 <span>공통 2장 + 방향 7장</span></strong>
+      <strong>선택 덱 <span>공통 2장 + 직업 7장</span></strong>
       <div className="sp-deck-cards">{[...deckCounts].map(([k,n])=><span key={k} className={(CARDS[k]?.type==='skill'?'skill ':'')+(START_PACK_COMMON.includes(k)?'common':'')}>
         {CARDS[k]?.name||k}{n>1?` ×${n}`:''}<small>{START_PACK_COMMON.includes(k)?'공통':CARDS[k]?.role}</small>
       </span>)}</div>
     </section>}
     <footer className="sp-foot">
       <button ref={confirmRef} type="button" className="sp-go" data-testid="start-pack-go" disabled={!pack} onClick={()=>{if(pack&&!committed.current){committed.current=true;feedback('cardGet');onPick?.(pack.id)}}}>
-        <span>{pack?pack.name+'로 출발':'팩을 고르세요'}</span>
-        {pack&&<small>공통 2장 + 방향 7장 · 총 9장 덱</small>}
+        <span>{pack?pack.name+'로 출발':'직업을 고르세요'}</span>
+        {pack&&<small>공통 2장 + 직업 7장 · 총 9장 덱</small>}
       </button>
     </footer>
   </div>;

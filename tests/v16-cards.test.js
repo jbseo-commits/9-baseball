@@ -5,7 +5,7 @@ import {createV10Duel,enterV10Node,playV10Action,coverageAt,swingOdds,playCard,k
   v16DraftChoices,V16_STARTER_KINDS,v10Shaken} from '../src/duel/engine.js';
 import {cardArtFor} from '../src/duel/card-art.js';
 
-const NEW=Object.keys(CARDS).filter(k=>!CORE_KINDS.includes(k));
+const NEW=Object.keys(CARDS).filter(k=>!CORE_KINDS.includes(k)&&!CARDS[k].starterOnly);
 const clone=s=>JSON.parse(JSON.stringify(s));
 function battle(){return enterV10Node(createV10Duel(7),'a1-entry');}
 /* put one card in hand and fix the pitch */
@@ -125,7 +125,7 @@ describe('V16 reward draft',()=>{
   });
   it('over a whole pool of seeds the draft reaches nearly every card',()=>{
     const seen=new Set();for(let act=1;act<=3;act++)for(let i=1;i<400;i++)for(const k of v16DraftChoices({act,tier:2,seed:i,count:4}))seen.add(k);
-    const eligible=Object.keys(CARDS).filter(k=>!V16_STARTER_KINDS.includes(k));
+    const eligible=Object.keys(CARDS).filter(k=>!V16_STARTER_KINDS.includes(k)&&!CARDS[k].starterOnly);
     expect(seen.size/eligible.length).toBeGreaterThan(.95);
   });
 });

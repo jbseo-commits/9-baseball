@@ -30,10 +30,10 @@ export function resultExplanation(s){
   const r=s.battle?.revealed;
   if(!r)return '';
   const actual=r.zone===9?'존 밖':ZONE_WORDS[r.zone];
-  const choice=r.action==='take'?'지켜봄':`${ZONE_WORDS[r.aimZone]||'코스'} 노림`;
+  const choice=r.outsideBet?'존 밖 베팅':r.action==='take'?'지켜봄':`${ZONE_WORDS[r.aimZone]||'코스'} 노림`;
   const covered=(r.primaryCoverage||r.coverage||[]).includes(r.zone);
   const reason=r.action==='take'?(r.zone===9?'볼':'스트라이크'):
-    r.kind==='hit'?(r.assistOnly||!covered?'지원 적중':isExactRead(s)?'정확 적중':'범위 적중'):
+    r.kind==='hit'?(r.outsideBet?'위험 베팅 성공':r.assistOnly||!covered?'지원 적중':isExactRead(s)?'정확 적중':'범위 적중'):
     r.kind==='sacrifice'?'번트 성공':r.zone===9?'유인구에 스윙':!covered?'범위 밖':'';
   return `${choice} → 실제 ${actual} → ${[reason,r.label].filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).join(' · ')}`;
 }
@@ -86,7 +86,7 @@ export function resultFeedback(s){
   if(r.kind==='hit'){
     const homer=/홈런/.test(r.label||'');
     const mainHit=(r.primaryCoverage||r.coverage||[]).includes(r.zone);
-    const title=homer?'넘겼다!':mainHit&&r.zone===r.aimZone?'정확히 읽었다!':mainHit?'노린 범위다!':'지원이 받쳤다!';
+    const title=r.outsideBet?'존 밖을 건드렸다!':homer?'넘겼다!':mainHit&&r.zone===r.aimZone?'정확히 읽었다!':mainHit?'노린 범위다!':'지원이 받쳤다!';
     return {tone:homer?'big':'good',title,detail:[r.label,damageText].filter(Boolean).join(' · ')};
   }
   if(r.kind==='ball')return {tone:'good',title:r.label==='볼넷'?'끝까지 잘 참았다!':'잘 참았다.',detail:r.label==='볼넷'?'볼넷 · 출루':'볼 +1'};

@@ -4,7 +4,7 @@ import {render,screen,fireEvent,cleanup} from '@testing-library/react';
 import {afterEach,beforeEach,describe,it,expect} from 'vitest';
 import Duel from '../src/duel/App.jsx';
 import {createV10Duel,enterV10Node,saveV10Duel,readV10Duel} from '../src/duel/engine.js';
-import {START_PACKS,START_PACK_COMMON} from '../src/duel/engine.js';
+import {HITTER_CLASSES as START_PACKS,START_PACK_COMMON} from '../src/duel/engine.js';
 import {CARDS} from '../src/duel/cards.js';
 
 beforeEach(()=>{localStorage.clear();localStorage.setItem('9zone-bp-coach-v1','done');});
@@ -22,13 +22,13 @@ function pickFirst(){
 describe('V10 start-pack pick',()=>{
   it('a fresh run starts with the picked direction in deck and record',()=>{
     render(<Duel/>);newGame();
-    expect(packs()).toHaveLength(3);
+    expect(packs()).toHaveLength(4);
     const pack=pickFirst();
     const s=readV10Duel(localStorage);
     expect(s.deck).toHaveLength(9);
     for(const kind of pack.kinds)expect(s.deck.map(c=>c.kind)).toContain(kind);
-    expect(s.v10.startPack.pack).toBe(pack.id);
-    expect(s.v10.startPack.ids).toHaveLength(7);
+    expect(s.v10.hitterClass.id).toBe(pack.id);
+    expect(s.v10.hitterClass.ids).toHaveLength(7);
     expect(s.phase).toBe('map');
   });
 
@@ -62,7 +62,7 @@ describe('V10 start-pack pick',()=>{
       }
     }
     expect(document.querySelector('.sp-rule').textContent).toContain('공통 2장');
-    expect(document.querySelector('.sp-rule').textContent).toContain('방향 7장');
+    expect(document.querySelector('.sp-rule').textContent).toContain('직업 7장');
   });
 
   it('keeps the chosen full deck available in a dedicated preview and updates it when selection changes',()=>{
@@ -79,7 +79,7 @@ describe('V10 start-pack pick',()=>{
     };
     const cardLabels=()=>[...preview.querySelectorAll('.sp-deck-cards>span')].map(x=>[...x.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim());
     expect(cardLabels()).toEqual(expectedCards(first));
-    expect(preview.textContent).toContain('공통 2장 + 방향 7장');
+    expect(preview.textContent).toContain('공통 2장 + 직업 7장');
     fireEvent.click(second);
     preview=document.querySelector('.sp-deck-preview');
     expect(preview.getAttribute('aria-label')).toBe(`${START_PACKS.find(p=>p.id===second.dataset.pack).name} 전체 9장 구성`);
@@ -92,7 +92,7 @@ describe('V10 start-pack pick',()=>{
     let s=createV10Duel(3);s=enterV10Node(s,'a1-entry');saveV10Duel(localStorage,s);
     render(<Duel/>);newGame();
     fireEvent.click(screen.getByRole('button',{name:'처음부터 시작'}));
-    expect(packs()).toHaveLength(3);
+    expect(packs()).toHaveLength(4);
     fireEvent.click(screen.getByRole('button',{name:'닫기'}));
     const kept=readV10Duel(localStorage);
     expect(kept.battle).toBeTruthy();
@@ -100,7 +100,7 @@ describe('V10 start-pack pick',()=>{
     fireEvent.click(screen.getByRole('button',{name:'처음부터 시작'}));
     const pack=pickFirst();
     const fresh=readV10Duel(localStorage);
-    expect(fresh.v10.startPack.pack).toBe(pack.id);
+    expect(fresh.v10.hitterClass.id).toBe(pack.id);
     expect(fresh.rewards).toEqual([]);
   });
 });

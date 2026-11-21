@@ -132,8 +132,8 @@ export function buildBattleViewModel({
   }:s;
   const byId=id=>hand.find(x=>x.id===id);
   const mainEntry=selected&&selected!=='basic'?byId(selected)?.entry:null;
-  const mainIsSkill=isSkillKind(mainEntry?.kind);
-  const canStack=!!(mainEntry&&!mainIsSkill&&!isBuntKind(mainEntry.kind)&&b.growthMode!=='patience');
+  const mainIsSkill=isSkillKind(mainEntry?.kind),outsideBet=!!CARDS[mainEntry?.kind]?.outsideBet;
+  const canStack=!!(mainEntry&&!mainIsSkill&&!isBuntKind(mainEntry.kind)&&!CARDS[mainEntry.kind]?.outsideBet&&b.growthMode!=='patience');
   const stack=canStack?swingStack.filter(x=>x.id!==selected&&byId(x.id)):[];
   const liveArmed=deciding&&canStack&&armed&&byId(armed)?armed:null;
   const shownCount=countShown(b,r,landed);
@@ -143,7 +143,7 @@ export function buildBattleViewModel({
   const stackCost=selected&&!mainIsSkill?(selected==='basic'?0:cardCost(mainEntry))+stack.reduce((n,x)=>n+cardCost(byId(x.id)?.entry),0):0;
   const selectedCost=deciding&&selected?(choice?.cost??v10ActionCost(s,selected,stack)):0;
   const armedCost=liveArmed?cardCost(byId(liveArmed)?.entry):0;
-  const supportCandidates=hand.filter(x=>x.id!==selected&&!stack.some(y=>y.id===x.id)&&!isSkillKind(x.entry?.kind)&&!isBuntKind(x.entry?.kind));
+  const supportCandidates=hand.filter(x=>x.id!==selected&&!stack.some(y=>y.id===x.id)&&!isSkillKind(x.entry?.kind)&&!isBuntKind(x.entry?.kind)&&!CARDS[x.entry?.kind]?.outsideBet);
   const stackMax=v10StackMax(s);
   const canAddSupport=canStack&&stack.length<stackMax-1&&supportCandidates.some(x=>v10ActionCost(s,selected,[...stack,{id:x.id,aimZone:b.aimZone}])<=energyLimit);
   const supportBlockReason=!canStack||canAddSupport?'':stack.length>=stackMax-1?`이번 공 최대 ${stackMax}장`
@@ -180,7 +180,7 @@ export function buildBattleViewModel({
     const kind=x.entry.kind,isPrep=def.type==='skill',cost=cardCost(x.entry);
     const problem=deciding?x.preview?.problem||null:null;
     const face=pre&&x.presentation?x.presentation.face:cardFaceOf(x.entry,{strikes:shownCount.strikes,drawPreview:preparationDrawPreview(s,x.id)});
-    const supportCandidate=(supportMode||!!liveArmed)&&canStack&&!mainIsSkill&&selected!==x.id&&!stack.some(y=>y.id===x.id)&&!isBuntKind(kind)&&!isPrep;
+    const supportCandidate=(supportMode||!!liveArmed)&&canStack&&!mainIsSkill&&selected!==x.id&&!stack.some(y=>y.id===x.id)&&!isBuntKind(kind)&&!CARDS[kind]?.outsideBet&&!isPrep;
     const overBudget=deciding&&supportCandidate&&stackCost+cost>energyLimit;
     const exhausted=isPrep&&!prepLeft;
     const warning=pre&&x.presentation?x.presentation.warning:shortCardProblem(problem)||(exhausted?'준비 횟수 소진':'');
@@ -203,15 +203,15 @@ export function buildBattleViewModel({
       tokens:[selected&&!mainIsSkill?{z:b.aimZone,n:1}:null,...stack.map((x,i)=>({z:x.aimZone,n:i+2}))].filter(Boolean)};
   const cells=ZONE_WORDS.map((word,z)=>({zone:z,word,live:live.includes(z),
     face:deciding?zoneFace(s,z,{level,known,probs}):null,
-    aimed:b.aimZone===z,aim:plan.aim===z,cover:plan.cover.includes(z),support:plan.support.includes(z),
-    tokens:plan.tokens.filter(t=>t.z===z).map(t=>t.n),actual:landed&&r.zone===z}));
+    aimed:!outsideBet&&b.aimZone===z,aim:!outsideBet&&plan.aim===z,cover:plan.cover.includes(z),support:plan.support.includes(z),
+    tokens:outsideBet?[]:plan.tokens.filter(t=>t.z===z).map(t=>t.n),actual:landed&&r.zone===z}));
   // Only player-authored coverage: never the hidden incoming pitch. Supports
   // retain their own placed aim rather than the main card's preview glyph.
   const pieces=!judged&&selected&&!mainIsSkill?[
     {id:selected,role:'main',order:1,aimZone:b.aimZone,coverage:[...plan.cover]},
     ...(choice?.supportCoverages||[]).map((x,i)=>({id:stack[i]?.id,role:'support',order:i+2,aimZone:stack[i]?.aimZone,coverage:[...x.coverage]})),
   ]:[];
-  const zones={level,aimWord:deciding?ZONE_WORDS[b.aimZone]||'':null,sources:readSources(displayState).map(x=>x.label),cells,pieces,
+  const zones={level,outsideBet,aimWord:deciding?ZONE_WORDS[b.aimZone]||'':null,sources:readSources(displayState).map(x=>x.label),cells,pieces,
     band:{face:deciding?bandFace(s,{level,probs}):null,confirmedOutside:deciding&&known.length===1&&known[0]===9,actual:landed&&r.zone===9},
     clue:known.length<10,targetingSupport:!!liveArmed,links:judged?r.stackLinks||[]:stack.length?choice?.stackPlan?.links||[]:[]};
 
@@ -248,9 +248,9 @@ export function buildBattleViewModel({
   if(landed){
     const call=resultCall(r,shot),swung=!!r.coverage?.length,outside=r.zone===9;
     const moves=Array.isArray(r.basesBefore)?runnerMoves(r.basesBefore,b.bases||[],LINEUP[b.batterIndex]?.id,r.label,id=>LINEUP.find(p=>p.id===id)?.name):[];
-    result={call,label:r.label||'',kind:r.kind,action:r.action==='take'?'take':'swing',
+    result={call,label:r.label||'',kind:r.kind,outsideBet:!!r.outsideBet,battedDirection:r.battedDirection||null,action:r.action==='take'?'take':'swing',
       good:r.kind==='hit'||r.kind==='sacrifice'||call==='볼넷',exact:isExactRead(s),assistOnly:!!r.assistOnly,
-      aimZone:swung?r.aimZone:null,actualZone:r.zone,outside,outsideNote:outside?(swung?'볼에 손이 나갔다':'볼을 골라냈다'):'',
+      aimZone:swung?r.aimZone:null,actualZone:r.zone,outside,outsideNote:outside?(r.outsideBet?'존 밖 베팅':swung?'볼에 손이 나갔다':'볼을 골라냈다'):'',
       coverage:[...(r.coverage||[])],primaryCoverage:[...(r.primaryCoverage||[])],supportCoverages:(r.supportCoverages||[]).map(x=>({...x,coverage:[...(x.coverage||[])]})),
       explanation:resultExplanation(s),damage:Math.max(0,combat?.damage??pitcher?.lastDamage??0),
       precisionBonus:combat?.precisionBonus||0,relicBonus:combat?.relicBonus||0,relicEvents:[...(combat?.relicEvents||[])],

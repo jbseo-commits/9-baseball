@@ -59,8 +59,8 @@ export function cardFaceOf(entry,{strikes=0,drawPreview=null}={}){
     }
   }
   summary=summary.replace(/정확 적중/g,'정타').replace(/이번 타석 /g,'').replace(/베이스/g,'루');
-  const condition=d.bunt?`희생 ${Math.round((entry.plus?d.bunt.plusSac:d.bunt.sac)*100)}%${strikes===2?' · 파울도 삼진':''}`:REQUIREMENTS[d.requires]||'';
-  return {summary,condition,axis:AXIS_NAMES[d.axis]||'준비',drawNote};
+  const condition=d.outsideBet?'존 안 헛스윙 · 단독 · 피해 최대8':d.bunt?`희생 ${Math.round((entry.plus?d.bunt.plusSac:d.bunt.sac)*100)}%${strikes===2?' · 파울도 삼진':''}`:REQUIREMENTS[d.requires]||'';
+  return {summary,condition,axis:d.outsideBet?'존 밖':AXIS_NAMES[d.axis]||'준비',drawNote};
 }
 
 export function shortCardProblem(problem){
