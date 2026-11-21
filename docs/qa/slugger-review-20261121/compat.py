@@ -1,0 +1,13 @@
+from pathlib import Path
+from playwright.sync_api import sync_playwright
+import json
+q=Path('/workspace/slugger-qa');cases=json.loads((q/'old-cases.json').read_text());key='9zone-normal-review-v1:9zone-v10-run';ck='9zone-normal-review-v1:9zone-hitter-career-v1';profile={'version':1,'runs':{'old-achievement-fixture-2026':{'version':1,'id':'old-achievement-fixture-2026','seed':13,'pitch':15,'longHits':3,'takenBalls':5,'runs':3}}};results=[]
+with sync_playwright() as p:
+ b=p.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
+ for name,s in cases.items():
+  c=b.new_context(viewport={'width':667,'height':375});a=c.new_page();a.goto('http://127.0.0.1:4226/');a.evaluate('([k,s,ck,p])=>{localStorage.setItem(k,JSON.stringify(s));localStorage.setItem(ck,JSON.stringify(p));localStorage.setItem("9zone-normal-review-v1:9zone-welcome-v1","seen")}',[key,s,ck,profile]);a.reload();before=a.evaluate('Object.fromEntries(Object.entries(localStorage))');a.get_by_role('button',name='새로운 게임',exact=True).click();a.get_by_role('button',name='처음부터 시작',exact=True).click();assert a.get_by_role('radio',name='슬러거',exact=True).get_attribute('aria-checked')=='true'
+  for title in ['컨택 히터','배드볼 히터','스프레이 히터']:
+   r=a.get_by_role('radio',name=title,exact=True);r.evaluate('(e)=>e.setAttribute("aria-disabled","false")');r.click();assert r.get_attribute('aria-checked')=='false'
+  a.get_by_role('button',name='닫기',exact=True).click();assert a.evaluate('Object.fromEntries(Object.entries(localStorage))')==before;a.get_by_role('button',name='이어하기',exact=True).click();a.wait_for_timeout(500);assert a.evaluate('(k)=>JSON.parse(localStorage.getItem(k))',key)==s;assert a.evaluate('(k)=>JSON.parse(localStorage.getItem(k))',ck)==profile;a.set_viewport_size({'width':390,'height':844});a.wait_for_timeout(100);a.set_viewport_size({'width':667,'height':375});a.reload();a.get_by_role('button',name='이어하기',exact=True).click();assert a.evaluate('(k)=>JSON.parse(localStorage.getItem(k))',key)==s;results.append({'class':name,'exactResume':True,'cancelPreservedAllStorage':True,'earnedClassesStillTemporarilyLocked':True});c.close()
+ c=b.new_context(viewport={'width':844,'height':390});a=c.new_page();a.goto('http://127.0.0.1:4227/?normalRun=1');a.get_by_role('button',name='새로운 게임',exact=True).click();assert a.get_by_role('radio',name='컨택 히터',exact=True).get_attribute('aria-checked')=='true';assert a.get_by_role('radio',name='슬러거',exact=True).get_attribute('aria-disabled')=='true';assert not a.get_by_text('이번 검수 잠김',exact=True).count();results.append({'productionQueryUnaffected':True});c.close();b.close()
+(q/'compat.json').write_text(json.dumps(results,indent=2));print('PASS',results)

@@ -1,0 +1,988 @@
+[
+  {
+    "viewport": [
+      844,
+      390
+    ],
+    "reduced": false,
+    "initial": {
+      "seed": 3379291951,
+      "deck": [
+        "slug",
+        "slug",
+        "soloShot",
+        "place",
+        "gapHunter",
+        "loadPower",
+        "setup",
+        "watch",
+        "scout"
+      ],
+      "hitter": {
+        "version": 1,
+        "id": "slugger-v1",
+        "ids": [
+          "c0",
+          "c1",
+          "c2",
+          "c4",
+          "c5",
+          "c6",
+          "c7"
+        ],
+        "buildVersion": 1
+      }
+    },
+    "terminal": "lost",
+    "act": 2,
+    "stats": {
+      "cards": 31,
+      "pitches": 23,
+      "runs": 5,
+      "outs": 4,
+      "appearances": 12,
+      "hits": 8,
+      "walks": 0,
+      "fouls": 0,
+      "whiffs": 13,
+      "totalBases": 17
+    },
+    "last": {
+      "kind": "pitch",
+      "text": "강한결 · 헛스윙 삼진",
+      "events": [
+        "실제 코스: 존 밖 볼"
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 1
+    },
+    "events": [
+      {
+        "pitch": 0,
+        "prepare": "scout"
+      },
+      {
+        "pitch": 0,
+        "prepare": "setup"
+      },
+      {
+        "pitch": 0,
+        "action": "basic",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "안 던짐",
+          "안 던짐",
+          "1자주",
+          "자주",
+          "단서 밖",
+          "단서 밖",
+          "단서 밖"
+        ],
+        "aim": 4
+      },
+      {
+        "pitch": 1,
+        "action": "slug",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "안 던짐",
+          "안 던짐",
+          "1가끔",
+          "가끔",
+          "가끔",
+          "가끔",
+          "가끔"
+        ],
+        "aim": 4
+      },
+      {
+        "pitch": 2,
+        "prepare": "loadPower"
+      },
+      {
+        "pitch": 2,
+        "action": "basic",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "안 던짐",
+          "안 던짐",
+          "1가끔",
+          "가끔",
+          "가끔",
+          "가끔",
+          "가끔"
+        ],
+        "aim": 4
+      },
+      {
+        "pitch": 3,
+        "action": "slug",
+        "publicCells": [
+          "안 던짐",
+          "드묾",
+          "안 던짐",
+          "자주",
+          "1가끔",
+          "가끔",
+          "가끔",
+          "드묾",
+          "드묾"
+        ],
+        "aim": 3
+      },
+      {
+        "reward": [
+          "예고포1준비힘 모으기이번 타석 파워 +18장타 · COMMON",
+          "주자 청소1테이블 세터가로 2존 · 단타빈 베이스 +3 HP · 카드 +1연결 · COMMON",
+          "2잡아당기기세로 3존 · 파워 +18몸쪽 공 파워 +18장타 · COMMON"
+        ]
+      },
+      {
+        "pitch": 4,
+        "prepare": "setup"
+      },
+      {
+        "pitch": 4,
+        "action": "slug",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "자주",
+          "안 던짐",
+          "1드묾",
+          "가끔",
+          "안 던짐",
+          "안 던짐",
+          "가끔"
+        ],
+        "aim": 2
+      },
+      {
+        "pitch": 5,
+        "prepare": "loadPower"
+      },
+      {
+        "pitch": 5,
+        "action": "gapHunter",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "1가끔",
+          "안 던짐",
+          "드묾",
+          "가끔",
+          "안 던짐",
+          "안 던짐",
+          "자주"
+        ],
+        "aim": 8
+      },
+      {
+        "pitch": 6,
+        "prepare": "scout"
+      },
+      {
+        "pitch": 6,
+        "action": "take",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "100%",
+          "안 던짐",
+          "단서 밖",
+          "단서 밖",
+          "안 던짐",
+          "안 던짐",
+          "단서 밖"
+        ],
+        "aim": null
+      },
+      {
+        "pitch": 7,
+        "prepare": "loadPower"
+      },
+      {
+        "pitch": 7,
+        "action": "slug",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "10~15%",
+          "안 던짐",
+          "10~15%",
+          "20~25%",
+          "안 던짐",
+          "안 던짐",
+          "135~40%"
+        ],
+        "aim": 4
+      },
+      {
+        "pitch": 8,
+        "action": "slug",
+        "publicCells": [
+          "안 던짐",
+          "5~10%",
+          "30~35%",
+          "안 던짐",
+          "15~10%",
+          "10~15%",
+          "안 던짐",
+          "5~10%",
+          "10~15%"
+        ],
+        "aim": 4
+      },
+      {
+        "pitch": 9,
+        "action": "gapHunter",
+        "publicCells": [
+          "안 던짐",
+          "드묾",
+          "가끔",
+          "안 던짐",
+          "1드묾",
+          "가끔",
+          "안 던짐",
+          "안 던짐",
+          "자주"
+        ],
+        "aim": 8
+      },
+      {
+        "reward": [
+          "예고포2희귀준비예고 홈런파워 +36이번 타석 안타 +6 HP장타 · RARE",
+          "주자 청소2희귀만루 작전가로 3존 · 주자 전원 홈인주자 1명당 +5 HP연결 · RARE",
+          "2풀스윙1존 · 파워 +36홈런 상한 해제장타 · COMMON"
+        ]
+      },
+      {
+        "pitch": 10,
+        "prepare": "scout"
+      },
+      {
+        "pitch": 10,
+        "prepare": "loadPower"
+      },
+      {
+        "pitch": 10,
+        "action": "basic",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "안 던짐",
+          "안 던짐",
+          "1단서 밖",
+          "단서 밖",
+          "자주",
+          "자주",
+          "자주"
+        ],
+        "aim": 6
+      },
+      {
+        "pitch": 11,
+        "action": "slug",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "안 던짐",
+          "안 던짐",
+          "드묾",
+          "드묾",
+          "1자주",
+          "자주",
+          "자주"
+        ],
+        "aim": 6
+      },
+      {
+        "pitch": 12,
+        "action": "slug",
+        "publicCells": [
+          "안 던짐",
+          "드묾",
+          "안 던짐",
+          "가끔",
+          "드묾",
+          "드묾",
+          "1가끔",
+          "가끔",
+          "가끔"
+        ],
+        "aim": 3
+      },
+      {
+        "pitch": 13,
+        "prepare": "loadPower"
+      },
+      {
+        "pitch": 13,
+        "prepare": "setup"
+      },
+      {
+        "pitch": 13,
+        "action": "gapHunter",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "안 던짐",
+          "1안 던짐",
+          "드묾",
+          "드묾",
+          "자주",
+          "자주",
+          "자주"
+        ],
+        "aim": 6
+      },
+      {
+        "pitch": 14,
+        "action": "soloShot",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "안 던짐",
+          "드묾",
+          "드묾",
+          "드묾",
+          "1자주",
+          "가끔",
+          "자주"
+        ],
+        "aim": 6
+      },
+      {
+        "pitch": 15,
+        "prepare": "loadPower"
+      },
+      {
+        "pitch": 15,
+        "action": "place",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "안 던짐",
+          "드묾",
+          "드묾",
+          "드묾",
+          "1자주",
+          "가끔",
+          "자주"
+        ],
+        "aim": 6
+      },
+      {
+        "pitch": 16,
+        "prepare": "scout"
+      },
+      {
+        "pitch": 16,
+        "action": "basic",
+        "publicCells": [
+          "안 던짐",
+          "단서 밖",
+          "안 던짐",
+          "단서 밖",
+          "단서 밖",
+          "단서 밖",
+          "1자주",
+          "자주",
+          "자주"
+        ],
+        "aim": 6
+      },
+      {
+        "pitch": 17,
+        "prepare": "loadPower"
+      },
+      {
+        "pitch": 17,
+        "action": "basic",
+        "publicCells": [
+          "안 던짐",
+          "0~5%",
+          "안 던짐",
+          "0~5%",
+          "0~5%",
+          "0~5%",
+          "125~30%",
+          "25~30%",
+          "25~30%"
+        ],
+        "aim": 4
+      },
+      {
+        "pitch": 18,
+        "action": "take",
+        "publicCells": [
+          "안 던짐",
+          "0~5%",
+          "안 던짐",
+          "0~5%",
+          "0~5%",
+          "0~5%",
+          "25~30%",
+          "25~30%",
+          "25~30%"
+        ],
+        "aim": null
+      },
+      {
+        "pitch": 19,
+        "action": "slug",
+        "publicCells": [
+          "5~10%",
+          "0~5%",
+          "0~5%",
+          "10~15%",
+          "10~5%",
+          "0~5%",
+          "20~25%",
+          "15~20%",
+          "15~20%"
+        ],
+        "aim": 4
+      },
+      {
+        "reward": [
+          "예고포1한 칸의 인내1존 · 정확 HP +40%안타 시 카드 +1정밀 · UNCOMMON",
+          "주자 청소2희귀끝내기 본능세로 2존 · 파워 +36투스트라이크 +6 · 주자당 +3 HP클러치 · RARE",
+          "1좌중간 가르기가로 2존 · 파워 +18장타 +3 HP장타 · COMMON",
+          "1시그니처라인드라이브세로 3존 커버파워 +18코스 · EPIC"
+        ]
+      },
+      {
+        "pitch": 20,
+        "prepare": "scout"
+      },
+      {
+        "pitch": 20,
+        "prepare": "setup"
+      },
+      {
+        "pitch": 20,
+        "action": "basic",
+        "publicCells": [
+          "안 던짐",
+          "가끔",
+          "자주",
+          "안 던짐",
+          "1단서 밖",
+          "단서 밖",
+          "안 던짐",
+          "안 던짐",
+          "단서 밖"
+        ],
+        "aim": 2
+      },
+      {
+        "pitch": 21,
+        "action": "slug",
+        "publicCells": [
+          "안 던짐",
+          "드묾",
+          "1드묾",
+          "안 던짐",
+          "드묾",
+          "가끔",
+          "안 던짐",
+          "안 던짐",
+          "자주"
+        ],
+        "aim": 8
+      },
+      {
+        "pitch": 22,
+        "action": "slug",
+        "publicCells": [
+          "안 던짐",
+          "드묾",
+          "자주",
+          "가끔",
+          "드묾",
+          "드묾",
+          "안 던짐",
+          "드묾",
+          "1드묾"
+        ],
+        "aim": 2
+      }
+    ],
+    "resumeExact": true,
+    "errors": [],
+    "video": "/workspace/slugger-qa/videos/page@af2e2f37bfe6b868a2ad168d4f1daf17.webm"
+  },
+  {
+    "viewport": [
+      667,
+      375
+    ],
+    "reduced": true,
+    "initial": {
+      "seed": 3342695564,
+      "deck": [
+        "slug",
+        "slug",
+        "soloShot",
+        "place",
+        "gapHunter",
+        "loadPower",
+        "setup",
+        "watch",
+        "scout"
+      ],
+      "hitter": {
+        "version": 1,
+        "id": "slugger-v1",
+        "ids": [
+          "c0",
+          "c1",
+          "c2",
+          "c4",
+          "c5",
+          "c6",
+          "c7"
+        ],
+        "buildVersion": 1
+      }
+    },
+    "terminal": "lost",
+    "act": 1,
+    "stats": {
+      "cards": 25,
+      "pitches": 21,
+      "runs": 5,
+      "outs": 3,
+      "appearances": 9,
+      "hits": 6,
+      "walks": 0,
+      "fouls": 1,
+      "whiffs": 10,
+      "totalBases": 13
+    },
+    "last": {
+      "kind": "pitch",
+      "text": "이민준 · 헛스윙 삼진",
+      "events": [
+        "기세 1단계 · 피해 ×1.1",
+        "기세 꺼짐 · 삼진",
+        "실제 코스: 존 밖 볼"
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 1
+    },
+    "events": [
+      {
+        "pitch": 0,
+        "prepare": "loadPower"
+      },
+      {
+        "pitch": 0,
+        "action": "basic",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "가끔",
+          "안 던짐",
+          "1드묾",
+          "가끔",
+          "안 던짐",
+          "안 던짐",
+          "자주"
+        ],
+        "aim": 8
+      },
+      {
+        "pitch": 1,
+        "prepare": "scout"
+      },
+      {
+        "pitch": 1,
+        "action": "basic",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "단서 밖",
+          "안 던짐",
+          "자주",
+          "자주",
+          "안 던짐",
+          "안 던짐",
+          "1단서 밖"
+        ],
+        "aim": 4
+      },
+      {
+        "pitch": 2,
+        "action": "slug",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "가끔",
+          "안 던짐",
+          "1드묾",
+          "가끔",
+          "안 던짐",
+          "안 던짐",
+          "자주"
+        ],
+        "aim": 8
+      },
+      {
+        "pitch": 3,
+        "action": "slug",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "자주",
+          "안 던짐",
+          "드묾",
+          "가끔",
+          "안 던짐",
+          "안 던짐",
+          "1가끔"
+        ],
+        "aim": 2
+      },
+      {
+        "pitch": 4,
+        "prepare": "setup"
+      },
+      {
+        "pitch": 4,
+        "action": "gapHunter",
+        "publicCells": [
+          "안 던짐",
+          "드묾",
+          "1드묾",
+          "안 던짐",
+          "드묾",
+          "드묾",
+          "안 던짐",
+          "가끔",
+          "가끔"
+        ],
+        "aim": 7
+      },
+      {
+        "pitch": 5,
+        "prepare": "scout"
+      },
+      {
+        "pitch": 5,
+        "prepare": "loadPower"
+      },
+      {
+        "pitch": 5,
+        "action": "basic",
+        "publicCells": [
+          "안 던짐",
+          "단서 밖",
+          "단서 밖",
+          "안 던짐",
+          "자주",
+          "자주",
+          "안 던짐",
+          "1안 던짐",
+          "단서 밖"
+        ],
+        "aim": 4
+      },
+      {
+        "pitch": 6,
+        "action": "slug",
+        "publicCells": [
+          "안 던짐",
+          "드묾",
+          "가끔",
+          "안 던짐",
+          "1드묾",
+          "가끔",
+          "안 던짐",
+          "안 던짐",
+          "자주"
+        ],
+        "aim": 8
+      },
+      {
+        "reward": [
+          "예고포1준비힘 모으기이번 타석 파워 +18장타 · COMMON",
+          "주자 청소1테이블 세터가로 2존 · 단타빈 베이스 +3 HP · 카드 +1연결 · COMMON",
+          "1준비거포 본능이번 타석 파워 +36장타 · UNCOMMON"
+        ]
+      },
+      {
+        "pitch": 7,
+        "prepare": "scout"
+      },
+      {
+        "pitch": 7,
+        "prepare": "loadPower"
+      },
+      {
+        "pitch": 7,
+        "action": "basic",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "단서 밖",
+          "안 던짐",
+          "1단서 밖",
+          "단서 밖",
+          "안 던짐",
+          "안 던짐",
+          "확정"
+        ],
+        "aim": 8
+      },
+      {
+        "pitch": 8,
+        "prepare": "setup"
+      },
+      {
+        "pitch": 8,
+        "action": "slug",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "10~15%",
+          "안 던짐",
+          "10~15%",
+          "20~25%",
+          "안 던짐",
+          "안 던짐",
+          "135~40%"
+        ],
+        "aim": 4
+      },
+      {
+        "pitch": 9,
+        "action": "take",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "35~40%",
+          "안 던짐",
+          "10~15%",
+          "20~25%",
+          "안 던짐",
+          "안 던짐",
+          "15~20%"
+        ],
+        "aim": null
+      },
+      {
+        "pitch": 10,
+        "prepare": "loadPower"
+      },
+      {
+        "pitch": 10,
+        "action": "slug",
+        "publicCells": [
+          "안 던짐",
+          "5~10%",
+          "10~15%",
+          "안 던짐",
+          "15~10%",
+          "10~15%",
+          "안 던짐",
+          "5~10%",
+          "30~35%"
+        ],
+        "aim": 4
+      },
+      {
+        "pitch": 11,
+        "action": "gapHunter",
+        "publicCells": [
+          "안 던짐",
+          "5~10%",
+          "30~35%",
+          "안 던짐",
+          "110~15%",
+          "15~20%",
+          "안 던짐",
+          "안 던짐",
+          "15~20%"
+        ],
+        "aim": 4
+      },
+      {
+        "pitch": 12,
+        "action": "take",
+        "publicCells": [
+          "안 던짐",
+          "5~10%",
+          "10~15%",
+          "안 던짐",
+          "10~15%",
+          "15~20%",
+          "안 던짐",
+          "안 던짐",
+          "35~40%"
+        ],
+        "aim": null
+      },
+      {
+        "pitch": 13,
+        "prepare": "setup"
+      },
+      {
+        "pitch": 13,
+        "action": "slug",
+        "publicCells": [
+          "안 던짐",
+          "5~10%",
+          "25~30%",
+          "20~25%",
+          "15~10%",
+          "5~10%",
+          "안 던짐",
+          "5~10%",
+          "5~10%"
+        ],
+        "aim": 4
+      },
+      {
+        "pitch": 14,
+        "action": "gapHunter",
+        "publicCells": [
+          "안 던짐",
+          "5~10%",
+          "10~15%",
+          "안 던짐",
+          "110~15%",
+          "15~20%",
+          "안 던짐",
+          "안 던짐",
+          "35~40%"
+        ],
+        "aim": 4
+      },
+      {
+        "pitch": 15,
+        "prepare": "loadPower"
+      },
+      {
+        "pitch": 15,
+        "action": "take",
+        "publicCells": [
+          "안 던짐",
+          "5~10%",
+          "30~35%",
+          "안 던짐",
+          "10~15%",
+          "15~20%",
+          "안 던짐",
+          "안 던짐",
+          "15~20%"
+        ],
+        "aim": null
+      },
+      {
+        "pitch": 16,
+        "prepare": "scout"
+      },
+      {
+        "pitch": 16,
+        "action": "slug",
+        "publicCells": [
+          "안 던짐",
+          "단서 밖",
+          "단서 밖",
+          "단서 밖",
+          "1단서 밖",
+          "확정",
+          "안 던짐",
+          "단서 밖",
+          "단서 밖"
+        ],
+        "aim": 5
+      },
+      {
+        "reward": [
+          "예고포2희귀준비예고 홈런파워 +36이번 타석 안타 +6 HP장타 · RARE",
+          "주자 청소2희귀만루 작전가로 3존 · 주자 전원 홈인주자 1명당 +5 HP연결 · RARE",
+          "2잡아당기기세로 3존 · 파워 +18몸쪽 공 파워 +18장타 · COMMON"
+        ]
+      },
+      {
+        "pitch": 17,
+        "prepare": "scout"
+      },
+      {
+        "pitch": 17,
+        "action": "basic",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "확정",
+          "안 던짐",
+          "1단서 밖",
+          "단서 밖",
+          "안 던짐",
+          "안 던짐",
+          "단서 밖"
+        ],
+        "aim": 2
+      },
+      {
+        "pitch": 18,
+        "action": "take",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "15~20%",
+          "안 던짐",
+          "10~15%",
+          "25~30%",
+          "안 던짐",
+          "안 던짐",
+          "20~25%"
+        ],
+        "aim": null
+      },
+      {
+        "pitch": 19,
+        "action": "slug",
+        "publicCells": [
+          "안 던짐",
+          "안 던짐",
+          "115~20%",
+          "안 던짐",
+          "10~15%",
+          "25~30%",
+          "안 던짐",
+          "안 던짐",
+          "20~25%"
+        ],
+        "aim": 4
+      },
+      {
+        "pitch": 20,
+        "action": "gapHunter",
+        "publicCells": [
+          "안 던짐",
+          "10~15%",
+          "10~15%",
+          "안 던짐",
+          "110~15%",
+          "10~15%",
+          "안 던짐",
+          "10~15%",
+          "10~15%"
+        ],
+        "aim": 4
+      }
+    ],
+    "resumeExact": true,
+    "errors": [],
+    "video": "/workspace/slugger-qa/videos/page@f381c1215c05be424176a07bb9188bf3.webm"
+  }
+]
