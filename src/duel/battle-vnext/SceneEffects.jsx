@@ -43,7 +43,7 @@ export default function SceneEffects({effect=null,finale=null,composition=null,l
       <circle cx={C.x} cy={C.y} r={5+e.flash*9} fill="#fff3cd"/>
       {[0,1,2,3,4,5,6,7].map(i=>{const a=i*Math.PI/4,len=(i%2?45:70)*(1.4-e.flash*.5);return <path key={i} d={`M${C.x+Math.cos(a)*18},${C.y+Math.sin(a)*10}l${Math.cos(a)*len},${Math.sin(a)*len*.6}`} stroke={i%2?'#fff6d6':'#f7ad65'} strokeWidth={e.flash*3} strokeLinecap="round"/>;})}
     </g>}
-    {e.kind==='near'&&composition?.flightProfile!=='fox-depth'&&e.age<380&&<g opacity={Math.max(0,1-e.age/380)}>
+    {e.kind==='near'&&!['fox-depth','tide-drop'].includes(composition?.flightProfile)&&e.age<380&&<g opacity={Math.max(0,1-e.age/380)}>
       <path d={`M${e.ball.x-26},${e.ball.y-36}q40 5 30 58`} fill="none" stroke="#c2e5e7" strokeWidth="2.5" opacity=".7"/>
       <path d={`M${C.x-18},${C.y-8}q30 15 58 8`} fill="none" stroke="#adcdd0" strokeWidth="2" strokeDasharray="4 7"/>
       <circle cx={C.x} cy={C.y} r="18" fill="none" stroke="#f0cf96" strokeWidth="1.5" strokeDasharray="4 5"/>

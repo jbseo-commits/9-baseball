@@ -1,0 +1,11 @@
+from pathlib import Path
+from playwright.sync_api import sync_playwright
+import json,os
+out=Path(__file__).resolve().parent;url=os.environ.get('QA_URL','http://127.0.0.1:4212/');key='9zone-tide-playtest-v1:9zone-v10-run'
+with sync_playwright() as pw:
+ b=pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox']);a=b.new_page(viewport={'width':844,'height':390});a.goto(url);a.evaluate("localStorage.setItem('9zone-v10-run','personal');localStorage.setItem('ninezone.shotMode.v1','0');localStorage.setItem('ninezone.shotFx.v1','pixel');sessionStorage.setItem('9zone-animation-rate','0.5')");before=a.evaluate('Object.fromEntries(Object.entries(localStorage))')
+ a.goto(url+'?tidePlaytest=1');a.get_by_role('button',name='새 타이드 런 시작').click();a.get_by_role('button',name='이 구장으로 간다').click();a.wait_for_selector('.bv-tide-wave');a.get_by_role('combobox',name='애니메이션 배속').select_option('2');assert a.evaluate("sessionStorage.getItem('9zone-animation-rate')")=='0.5'
+ a.get_by_role('button',name='경기 정보 및 메뉴').click();a.get_by_role('button',name='타이틀로',exact=True).click();a.get_by_role('button',name='설정',exact=True).click();a.get_by_test_id('shot-mode-toggle').click();a.get_by_test_id('shot-fx-toggle').click();assert before==a.evaluate('Object.fromEntries(Object.entries(localStorage))');assert a.evaluate("sessionStorage.getItem('9zone-tide-playtest-v1:ninezone.shotMode.v1')")=='1';assert a.evaluate("sessionStorage.getItem('9zone-tide-playtest-v1:ninezone.shotFx.v1')")=='css'
+ # Normal Tide outside the gate retains its old renderer/trajectory contract.
+ a.goto(url+'?battleUi=vnext&battlePlay=1&seed=4&battleSpeed=1');a.wait_for_selector('.bv-public-intent');assert a.locator('.bv-actor-pitcher').get_attribute('data-roster-art')=='tide-vesper';assert a.locator('.bv-tide-wave').count()==0;a.get_by_test_id('bp-swing').click();a.wait_for_selector('.bv-ball-sprite');a.screenshot(path=str(out/'normal-tide-flight.png'));a.wait_for_timeout(2400);assert before==a.evaluate('Object.fromEntries(Object.entries(localStorage))')
+ (out/'settings-verification.json').write_text(json.dumps({'pilotRateNotGlobal':True,'shotModeAndFxNamespaced':True,'normalLocalStorageUnchanged':True,'normalTideNoPilotCue':True,'normalTideTakeRuns':True},indent=2));b.close();print('PASS settingsisolation andnormalTideoutsidegate')
