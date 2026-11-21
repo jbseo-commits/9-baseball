@@ -1,3 +1,5 @@
+import {sluggerFeedback} from './slugger-feedback.js';
+import SluggerFeedback from './SluggerFeedback.jsx';
 import {isReviewSluggerActor} from './slugger-motion.js';
 import VulcanBrace from './VulcanBrace.jsx';
 import {pitchPersonality} from './pitch-personality.js';
@@ -34,7 +36,7 @@ export function approvedPitcherArt(artId){
 
 const ACTORS=['pitcher','batter'];
 
-export default function BattleScene({scene=null,publicEncounterCue=null,publicIntentFaces=[],publicOutsideConfirmed=false,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,framing='cover',playback=null,result=null,finale=null,onFocusChange=null}){
+export default function BattleScene({scene=null,sluggerReview=false,execution=null,publicEncounterCue=null,publicIntentFaces=[],publicOutsideConfirmed=false,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,framing='cover',playback=null,result=null,finale=null,onFocusChange=null}){
   const rootRef=useRef(null);
   const [failedBatter,setFailedBatter]=useState(null);
   const optionalBatter=isReviewSluggerActor(actors.batter);
@@ -49,6 +51,7 @@ export default function BattleScene({scene=null,publicEncounterCue=null,publicIn
   const focus=pitchFocusAt({elapsed,playback,phase,reduced});
   useLayoutEffect(()=>{onFocusChange?.(focus);},[focus,onFocusChange]);
   const effect=sceneEffectAt({elapsed,playback,result,phase,composition});
+  const signature=sluggerFeedback({enabled:sluggerReview,execution,playback,result,phase,elapsed,effect,reduced});
   const landingAt=playback?.timeline?.delivery?.landingAt??roster?.landingAt;
   const landingAge=elapsed-landingAt;
   const landing=roster?.landing&&playback&&!reduced&&playback.action!=='prepare'&&elapsed>=landingAt&&elapsed<landingAt+230
@@ -105,6 +108,7 @@ export default function BattleScene({scene=null,publicEncounterCue=null,publicIn
     {effect?.kind==='flight'&&!effect.hidden&&!reduced&&<div className="bv-ball-wake" aria-hidden="true" style={{position:'absolute',inset:0,zIndex:2,pointerEvents:'none'}}><FxSprite kind="wake" age={effect.age} point={at(effect.ball)} scale={camera.scale} size={.35+effect.radius/30} angle={Math.atan2(effect.ball.y-effect.previous.y,effect.ball.x-effect.previous.x)*180/Math.PI} opacity={.6}/></div>}
     <div className="bv-effect-pass" aria-hidden="true" style={{transform:effect?.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:'none'}}>
       <div className="bv-effect-world" style={{width:SCENE.world.width,height:SCENE.world.height,transform:cameraMatrix(camera),visibility:camera.scale?'visible':'hidden'}}>
+        <SluggerFeedback feedback={signature} foot={ATBAT_COMPOSITION.batter.worldFoot}/>
         <SceneEffects effect={effect} finale={finale} composition={composition} landing={landing} spriteBall={!reduced} pixelContact={!!effect&&phase==='result'&&contactAtlasPlan(scene?.shotGrade).length>0}/>
       </div>
     </div>

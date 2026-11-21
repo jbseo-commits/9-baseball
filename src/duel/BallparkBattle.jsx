@@ -651,7 +651,7 @@ export default function BallparkBattle({storage,reviewRun=false,
     setRecentResult({key:artId+':'+s.runMap?.currentNodeId,text:recentResultText(model.result)});
   },[model?.phase,playToken,artId,s.runMap?.currentNodeId]);
   if(useVnext){
-    return <BattleView execution={matchingExecution} model={model} actors={{batter:sluggerBatter||SAMPLE_ACTORS.batter,pitcher:rosterPitcher||approvedArt||SAMPLE_ACTORS.pitcher}}
+    return <BattleView sluggerReview={!autoLesson&&!defenseLab&&!previewMode&&reviewSluggerEligible(reviewRun,s.v10?.hitterClass)} execution={matchingExecution} model={model} actors={{batter:sluggerBatter||SAMPLE_ACTORS.batter,pitcher:rosterPitcher||approvedArt||SAMPLE_ACTORS.pitcher}}
       playback={playback} animationRate={animationRate} onAnimationRateChange={onAnimationRateChange} sound={sound} onToggleSound={onToggleSound} rootRef={rootRef} sceneRef={sceneRef} zoneRef={zoneRef} handRef={handDockRef} recent={recentResult?.key===artId+':'+s.runMap?.currentNodeId?recentResult.text:null} title={label} review={!!vnextReview}
       inspector={inspectorView} menuOpen={!!inspect} handOpen={handOpen} onHandOpenChange={setHandOpen} onMenu={()=>openInspect('menu')} onPitcherInfo={()=>openInspect('pitcher')}
       onCardTap={id=>{if(!deciding&&!inspect)return;isSkill(byId(id)?.entry)?pickPrep(id):pickSwing(id);}}
