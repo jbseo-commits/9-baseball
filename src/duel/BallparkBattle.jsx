@@ -1,3 +1,5 @@
+import usePrivateFieldArt from './battle-vnext/use-private-field-art.js';
+import {contactMotionEligible,privateFieldReview} from './battle-vnext/private-field-art.js';
 import useSluggerMotion from './battle-vnext/use-slugger-motion.js';
 import {reviewSluggerEligible} from './battle-vnext/slugger-motion.js';
 import {recentResultText} from './battle-vnext/ResultReadout.jsx';
@@ -189,6 +191,9 @@ export default function BallparkBattle({storage,reviewRun=false,
   },[]);
   const r=b.revealed,inFx=!!fxStage,deciding=s.phase==='battle'&&!inFx&&!locked&&!commitBeat;
   const sluggerBatter=useSluggerMotion(useVnext&&!autoLesson&&!defenseLab&&!previewMode&&reviewSluggerEligible(reviewRun,s.v10?.hitterClass),deciding&&!playback);
+  const fieldReview=useVnext&&!autoLesson&&!defenseLab&&!previewMode&&privateFieldReview(reviewRun);
+  const contactBatter=usePrivateFieldArt(fieldReview&&contactMotionEligible(reviewRun,s.v10?.hitterClass)?'contact':null,deciding&&!playback);
+  const emeraldReady=usePrivateFieldArt(fieldReview&&rosterPitcher?.artId==='boss-01-emerald-tyrant'?'emerald':null,deciding&&!playback);
   useEffect(()=>{if(useVnext&&!inFx)clearPreviewFx();},[inFx,useVnext]);
   const judged=!!r&&s.last?.kind!=='skill'&&(inFx||s.phase!=='battle');
   const landed=!inFx||LANDED.has(fxStage);
@@ -661,7 +666,7 @@ export default function BallparkBattle({storage,reviewRun=false,
     setRecentResult({key:artId+':'+s.runMap?.currentNodeId,text:recentResultText(model.result)});
   },[model?.phase,playToken,artId,s.runMap?.currentNodeId]);
   if(useVnext){
-    return <BattleView sluggerReview={!autoLesson&&!defenseLab&&!previewMode&&reviewSluggerEligible(reviewRun,s.v10?.hitterClass)} execution={matchingExecution} model={model} actors={{batter:sluggerBatter||SAMPLE_ACTORS.batter,pitcher:rosterPitcher||approvedArt||SAMPLE_ACTORS.pitcher}}
+    return <BattleView sluggerReview={!autoLesson&&!defenseLab&&!previewMode&&reviewSluggerEligible(reviewRun,s.v10?.hitterClass)} execution={matchingExecution} model={model} actors={{batter:contactBatter||sluggerBatter||SAMPLE_ACTORS.batter,pitcher:rosterPitcher||approvedArt||SAMPLE_ACTORS.pitcher,pitcherReady:emeraldReady}}
       playback={playback} animationRate={animationRate} onAnimationRateChange={onAnimationRateChange} sound={sound} onToggleSound={onToggleSound} rootRef={rootRef} sceneRef={sceneRef} zoneRef={zoneRef} handRef={handDockRef} recent={recentResult?.key===artId+':'+s.runMap?.currentNodeId?recentResult.text:null} title={label} review={!!vnextReview}
       inspector={inspectorView} menuOpen={!!inspect} handOpen={handOpen} onHandOpenChange={setHandOpen} onMenu={()=>openInspect('menu')} onPitcherInfo={()=>openInspect('pitcher')} onCloseInfo={closeInspect}
       onCardTap={id=>{if(!deciding&&!inspect)return;isSkill(byId(id)?.entry)?pickPrep(id):pickSwing(id);}}

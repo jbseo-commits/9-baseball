@@ -1,3 +1,4 @@
+import {isReviewContactActor} from './private-field-art.js';
 import {sluggerFeedback} from './slugger-feedback.js';
 import SluggerFeedback from './SluggerFeedback.jsx';
 import {isReviewSluggerActor} from './slugger-motion.js';
@@ -40,7 +41,8 @@ const ACTORS=['pitcher','batter'];
 export default function BattleScene({scene=null,pitcherHud=null,onPitcherInfo=null,infoOpen=false,sluggerReview=false,execution=null,publicEncounterCue=null,publicIntentFaces=[],publicOutsideConfirmed=false,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,framing='cover',playback=null,result=null,finale=null,onFocusChange=null}){
   const rootRef=useRef(null);
   const [failedBatter,setFailedBatter]=useState(null);
-  const optionalBatter=isReviewSluggerActor(actors.batter);
+  const optionalBatter=isReviewSluggerActor(actors.batter)||isReviewContactActor(actors.batter);
+  const [failedReady,setFailedReady]=useState(null);
   const customBatter=optionalBatter&&actors.batter!==failedBatter?actors.batter:null;
   const authoredBatter=optionalBatter||actors.batter===SAMPLE_ACTORS.batter;
   const elapsed=useSceneClock(playback);
@@ -94,9 +96,10 @@ export default function BattleScene({scene=null,pitcherHud=null,onPitcherInfo=nu
         const live=name==='pitcher'?roster:null,custom=name==='batter'?customBatter:null,tween=name==='batter'&&batterTweens&&pose.batterTween!=null,url=custom?.url||live?.url||(tween?SAMPLE_ACTORS.batterTween:name==='batter'&&optionalBatter?SAMPLE_ACTORS.batter:actors[name])||null,isAtlas=!!custom||!!live||url===SAMPLE_ACTORS[name]||tween;
         const originalMeta=custom?custom.meta:live?live.meta:isAtlas?(composition?.[name]||PILOT_MOTION[name]):SCENE[name],meta=tween?{...originalMeta,columns:1,rows:1}:originalMeta,b=actorBox(meta),frame=tween?0:live?rosterFrame(playback,elapsed,live,{knockedOut:!!result?.knockedOut}):pose[name];
         const readyImage=isAtlas&&!tween&&frame===0&&meta.readyImage;
+        const candidateReady=live?.artId==='boss-01-emerald-tyrant'&&actors.pitcherReady?.kind==='review-emerald-ready'&&actors.pitcherReady?.artId===live.artId&&actors.pitcherReady!==failedReady&&phase==='deciding'&&!playback&&frame===0?actors.pitcherReady:null;
         return <div key={name} className={'bv-actor bv-actor-'+name} data-actor={name} data-actor-missing={url?undefined:'true'}
           data-pose={tween?'swing-bridge':live?'frame-'+frame:isAtlas?meta.frames[frame].name:undefined} data-roster-art={live?.artId} data-batter-kind={custom?.kind} data-frame={isAtlas?frame:undefined} style={{left:b.x,top:b.y,width:b.width,height:b.height}}>
-          {url&&(isAtlas?<div className="bv-motion-crop"><img src={url} onError={custom?()=>setFailedBatter(custom):undefined} alt="" width={meta.sourceWidth*meta.columns} height={meta.sourceHeight*meta.rows} draggable="false" decoding="async" style={{width:meta.columns*100+'%',height:meta.rows*100+'%',left:-(frame%meta.columns)*100+'%',top:-Math.floor(frame/meta.columns)*100+'%'}}/></div>:<img src={url} alt="" width={meta.sourceWidth} height={meta.sourceHeight} draggable="false" decoding="async"/>)}
+          {candidateReady?<img className="bv-private-ready" src={candidateReady.url} alt="" width={256} height={256} draggable="false" onError={()=>setFailedReady(candidateReady)}/>:url&&(isAtlas?<div className="bv-motion-crop"><img src={url} onError={custom?()=>setFailedBatter(custom):undefined} alt="" width={meta.sourceWidth*meta.columns} height={meta.sourceHeight*meta.rows} draggable="false" decoding="async" style={{width:meta.columns*100+'%',height:meta.rows*100+'%',left:-(frame%meta.columns)*100+'%',top:-Math.floor(frame/meta.columns)*100+'%'}}/></div>:<img src={url} alt="" width={meta.sourceWidth} height={meta.sourceHeight} draggable="false" decoding="async"/>)}
           {live?.artId==='vulcan-blaze'&&<VulcanBrace profile={personality} frame={frame} phase={phase} action={playback?.action}/> }
           {readyImage&&<img className="bv-ready-drawing" src={readyImage.url} alt="" draggable="false" decoding="async" style={{position:'absolute',zIndex:1,width:readyImage.width/meta.sourceWidth*100+'%',height:readyImage.height/meta.sourceHeight*100+'%',left:readyImage.x/meta.sourceWidth*100+'%',top:readyImage.y/meta.sourceHeight*100+'%'}}/>}
         </div>;
