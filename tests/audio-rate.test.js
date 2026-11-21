@@ -19,3 +19,12 @@ it('releases the abort listener and source nodes after a scoped cue finishes',as
  const {cue}=await import('../src/duel/audio.js'),c=new AbortController(),remove=vi.spyOn(c.signal,'removeEventListener');cue('homer',{rate:.25,signal:c.signal});
  vi.advanceTimersByTime(5000);expect(remove).toHaveBeenCalledWith('abort',expect.any(Function));expect(sources.every(n=>n.disconnect.mock.calls.length>0)).toBe(true);
 });
+it('personality release voices are short, scoped and cancel without extra impact sounds',async()=>{
+ const {cue}=await import('../src/duel/audio.js');
+ for(const name of ['pitchFloat','pitchSweep','pitchRush']){
+  sources=[];const abort=new AbortController();cue(name,{signal:abort.signal});
+  expect(sources.filter(n=>n.frequency.setValueAtTime.mock.calls.length)).toHaveLength(2);
+  expect(Math.max(...sources.map(n=>n.stop.mock.calls[0][0]))).toBeLessThan(10.4);
+  abort.abort();expect(sources.every(n=>n.disconnect.mock.calls.length)).toBe(true);
+ }
+});

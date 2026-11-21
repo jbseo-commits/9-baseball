@@ -18,6 +18,9 @@ export default function SceneEffects({effect=null,finale=null,composition=null,l
       <ellipse rx={8+landing.progress*29} ry={2+landing.progress*5} fill="#d7ad77"/>
       {[-1,1].map(side=><path key={side} d={`M${side*(4+landing.progress*12)} -1q${side*12} ${-8-landing.progress*5} ${side*(13+landing.progress*15)} ${-3-landing.progress*6}`} fill="none" stroke="#efcea0" strokeWidth={2*(1-landing.progress)} strokeLinecap="round"/>)}
     </g>}
+    {e.personality&&e.kind==='flight'&&e.releaseBeat>0&&<g transform={`translate(${e.releasePoint.x} ${e.releasePoint.y})`} opacity={e.releaseBeat*.65} fill="none" stroke="#fff1c2" strokeWidth="3">
+      {e.personality==='float-drop'?<path d="M-20 -8l8 -8 12 8 12 -8 8 8"/>:e.personality==='sweep'?<path d="M-24 10q-12 -32 20 -32m-8 -5l9 5 -5 9"/>:<path d={`M${-28*e.releaseBeat-8} -13v26m${56*e.releaseBeat+16} -26v26`}/>}
+    </g>}
     {e.trail>0&&<g className="bv-bat-ribbon" opacity={e.trail}>
       <path d={`M${bat.x-210},${bat.y-105}Q${bat.x-190},${bat.y+85} ${bat.x+34},${bat.y+18}Q${bat.x-128},${bat.y+50} ${bat.x-210},${bat.y-105}`} fill={`url(#${trail})`}/>
       <path d={`M${bat.x-210},${bat.y-105}Q${bat.x-190},${bat.y+85} ${bat.x+34},${bat.y+18}`} fill="none" stroke="#fff2cb" strokeWidth="2.5" opacity=".6"/>
