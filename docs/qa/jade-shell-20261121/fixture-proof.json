@@ -1,0 +1,108 @@
+[
+  {
+    "key": "onA",
+    "seed": 1,
+    "aim": 5,
+    "priorHit": {
+      "zone": 5,
+      "label": "중전안타",
+      "kind": "hit",
+      "coverage": [
+        5
+      ],
+      "primaryCoverage": [
+        5
+      ],
+      "supportCoverages": [],
+      "supportKinds": [],
+      "supportZones": [],
+      "stackCardCount": 1,
+      "stackConnectCount": 0,
+      "stackConnectBonus": 0,
+      "stackBaseDamageRate": 1,
+      "stackOrderedDamageRate": 1,
+      "stackLinks": [],
+      "stackSteps": [
+        {
+          "order": 1,
+          "id": "basic",
+          "kind": "basic",
+          "aimZone": 5,
+          "main": true
+        }
+      ],
+      "assistCoverage": [],
+      "assistZone": null,
+      "assistKind": null,
+      "assistOnly": false,
+      "aimZone": 5,
+      "action": "basic",
+      "takeEnergyBonus": 0,
+      "takeDrawBonus": 0,
+      "takeDrawReason": null,
+      "ballsBefore": 0,
+      "strikesBefore": 0,
+      "outsBefore": 0,
+      "growthEvents": [],
+      "basesBefore": [
+        null,
+        null,
+        null
+      ]
+    },
+    "zone": 5
+  },
+  {
+    "key": "onB",
+    "seed": 2,
+    "aim": 4,
+    "priorHit": {
+      "zone": 4,
+      "label": "땅볼 안타",
+      "kind": "hit",
+      "coverage": [
+        4
+      ],
+      "primaryCoverage": [
+        4
+      ],
+      "supportCoverages": [],
+      "supportKinds": [],
+      "supportZones": [],
+      "stackCardCount": 1,
+      "stackConnectCount": 0,
+      "stackConnectBonus": 0,
+      "stackBaseDamageRate": 1,
+      "stackOrderedDamageRate": 1,
+      "stackLinks": [],
+      "stackSteps": [
+        {
+          "order": 1,
+          "id": "basic",
+          "kind": "basic",
+          "aimZone": 4,
+          "main": true
+        }
+      ],
+      "assistCoverage": [],
+      "assistZone": null,
+      "assistKind": null,
+      "assistOnly": false,
+      "aimZone": 4,
+      "action": "basic",
+      "takeEnergyBonus": 0,
+      "takeDrawBonus": 0,
+      "takeDrawReason": null,
+      "ballsBefore": 0,
+      "strikesBefore": 0,
+      "outsBefore": 0,
+      "growthEvents": [],
+      "basesBefore": [
+        null,
+        null,
+        null
+      ]
+    },
+    "zone": 7
+  }
+]

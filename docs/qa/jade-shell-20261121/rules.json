@@ -1,0 +1,72 @@
+[
+  {
+    "name": "off",
+    "publicCue": {
+      "id": "jade-viper",
+      "label": "허물 방패",
+      "motif": "armor",
+      "text": "안타 뒤 다음 공 방패",
+      "detail": "연속 본 정타 +8 별도",
+      "ready": false,
+      "steps": null
+    },
+    "rate": 1,
+    "bonus": 0
+  },
+  {
+    "name": "on-exact",
+    "publicCue": {
+      "id": "jade-viper",
+      "label": "허물 방패",
+      "motif": "armor",
+      "text": "이번 기본 피해 ×0.75",
+      "detail": "연속 본 정타 +8 별도",
+      "ready": true,
+      "steps": null
+    },
+    "rate": 0.75,
+    "bonus": 8
+  },
+  {
+    "name": "on-assist",
+    "publicCue": {
+      "id": "jade-viper",
+      "label": "허물 방패",
+      "motif": "armor",
+      "text": "이번 기본 피해 ×0.75",
+      "detail": "연속 본 정타 +8 별도",
+      "ready": true,
+      "steps": null
+    },
+    "rate": 0.75,
+    "bonus": 0
+  },
+  {
+    "name": "on-whiff",
+    "publicCue": {
+      "id": "jade-viper",
+      "label": "허물 방패",
+      "motif": "armor",
+      "text": "이번 기본 피해 ×0.75",
+      "detail": "연속 본 정타 +8 별도",
+      "ready": true,
+      "steps": null
+    },
+    "rate": 0.75,
+    "bonus": 0
+  },
+  {
+    "name": "on-take",
+    "publicCue": {
+      "id": "jade-viper",
+      "label": "허물 방패",
+      "motif": "armor",
+      "text": "이번 기본 피해 ×0.75",
+      "detail": "연속 본 정타 +8 별도",
+      "ready": true,
+      "steps": null
+    },
+    "rate": 0.75,
+    "bonus": 0
+  }
+]
