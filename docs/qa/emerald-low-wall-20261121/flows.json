@@ -1,0 +1,61 @@
+[
+  {
+    "mode": "fresh",
+    "loadedNextDecision": true,
+    "noMidflightSwap": false,
+    "result": {
+      "kind": "entry",
+      "text": "강한결 · 다음 공을 읽으세요.",
+      "events": [],
+      "runs": 0,
+      "outs": 0
+    },
+    "requests": [
+      "http://127.0.0.1:4230/slugger-motion-v2/slugger.json",
+      "http://127.0.0.1:4230/slugger-motion-v2/slugger.webp"
+    ],
+    "errors": [],
+    "video": "/workspace/slugger-motion-qa/videos/page@64d98441b35d6d3a13c607201d2b9039.webm"
+  },
+  {
+    "mode": "late",
+    "loadedNextDecision": true,
+    "noMidflightSwap": true,
+    "result": {
+      "kind": "entry",
+      "text": "2번 이민준 타석 입장",
+      "events": [],
+      "runs": 0,
+      "outs": 0
+    },
+    "requests": [
+      "http://127.0.0.1:4230/slugger-motion-v2/slugger.json",
+      "http://127.0.0.1:4230/slugger-motion-v2/slugger.webp"
+    ],
+    "errors": [],
+    "video": "/workspace/slugger-motion-qa/videos/page@288e04acfc8e1d6ee26d0a2028819c46.webm"
+  },
+  {
+    "mode": "reduced",
+    "loadedNextDecision": true,
+    "noMidflightSwap": false,
+    "result": {
+      "kind": "hit",
+      "text": "강한결 · 땅볼 안타",
+      "events": [
+        "기세 상승 0 → 1 · 다음 공부터 ×1.1",
+        "실제 코스: 한가운데",
+        "존 적중 → 안타 확정 · 타격 58 vs 변화 46 / 파워 52 vs 구위 48"
+      ],
+      "growthEvents": [],
+      "runs": 0,
+      "outs": 0
+    },
+    "requests": [
+      "http://127.0.0.1:4230/slugger-motion-v2/slugger.json",
+      "http://127.0.0.1:4230/slugger-motion-v2/slugger.webp"
+    ],
+    "errors": [],
+    "video": "/workspace/slugger-motion-qa/videos/page@91e4d75afff88268b64cee1a7c953b95.webm"
+  }
+]

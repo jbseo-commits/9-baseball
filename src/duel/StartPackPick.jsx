@@ -27,6 +27,6 @@ export default function StartPackPick({onPick,onClose,reviewRun=false,career={ve
     {!allowed&&!reviewOnly&&<><progress value={p.value} max={p.target} aria-label={p.label}/><small>{p.value} / {p.target}</small></>}
    </button>;})}
   </div>
-  <footer className="hc-foot"><div><b>{build.passive}</b><span>{build.branches.map(b=>b.name).join(' / ')} · 경기 보상에서 발전</span><small>전신 실루엣은 중립 검수 표시 · 전투는 기존 승인 타자</small></div><button data-testid="start-pack-go" disabled={!canStartHitter(career,chosen,reviewRun)} onClick={()=>{if(!committed.current&&canStartHitter(career,chosen,reviewRun)){committed.current=true;onPick?.(chosen);}}}>{pack.name}로 출발 →</button></footer>
+  <footer className="hc-foot"><div><b>{build.passive}</b><span>{build.branches.map(b=>b.name).join(' / ')} · 경기 보상에서 발전</span></div><button data-testid="start-pack-go" disabled={!canStartHitter(career,chosen,reviewRun)} onClick={()=>{if(!committed.current&&canStartHitter(career,chosen,reviewRun)){committed.current=true;onPick?.(chosen);}}}>{pack.name}로 출발 →</button></footer>
  </div>;
 }

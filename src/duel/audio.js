@@ -29,6 +29,7 @@ const CUES={
   signal:{type:'square',gain:.032,noise:.014,noiseDur:.035,notes:[[320,0,.05,.9,-.2],[480,.06,.07,.95,0],[640,.13,.08,1,.2]]},
   reset:{type:'sine',gain:.038,noise:.008,noiseDur:.03,notes:[[520,0,.05,.82,.12],[390,.055,.08,.92,0],[300,.13,.11,1.02,-.1]]},
   draw:{type:'sine',gain:.032,noise:.006,noiseDur:.025,notes:[[500,0,.04,1.04,-.18],[600,.045,.045,1.04,0],[700,.095,.05,1.04,.18]]},
+  pitchWall:{type:'triangle',gain:.032,noise:.018,noiseDur:.06,notes:[[220,0,.16,.28,0]]},
   pitchVent:{type:'sine',gain:.025,noise:.045,noiseDur:.085,notes:[[170,0,.08,.45,0]]},
   pitchCompression:{type:'triangle',gain:.03,noise:.015,noiseDur:.035,notes:[[140,0,.055,.55,0]]},
   pitchFloat:{type:'sine',gain:.04,noise:.012,noiseDur:.045,notes:[[380,0,.12,1.15,0],[430,.15,.12,.24,0]]},
