@@ -1,3 +1,4 @@
+import {decodePrivateTexture} from './private-field-art.js';
 import {ATBAT_COMPOSITION} from './atbat-composition.js';
 export const reviewSluggerEligible=(reviewRun,hitter)=>import.meta.env.VITE_NORMAL_REVIEW==='1'&&reviewRun===true&&hitter?.version===1&&hitter.id==='slugger-v1';
 export const sluggerMotionPaths=(enabled,base='./')=>enabled?{json:base+'slugger-motion-v2/slugger.json',texture:base+'slugger-motion-v2/slugger.webp'}:null;
@@ -26,11 +27,4 @@ export async function loadSluggerMotion({enabled=false,base='./',signal,fetcher=
   return {kind:'review-slugger-atlas',classId:'slugger-v1',url:texture.url,meta};
  }catch{return null;}
 }
-async function decodeTexture(url,signal){
- const response=await fetch(url,{signal,credentials:'same-origin',redirect:'error'});
- if(!response.ok||response.redirected)throw Error('texture unavailable');
- const blob=await response.blob();if(blob.type!=='image/webp'||blob.size>8*1024*1024)throw Error('texture format');
- const objectUrl=URL.createObjectURL(blob);
- try{const image=new Image();image.src=objectUrl;await image.decode();return {width:image.naturalWidth,height:image.naturalHeight,url:objectUrl};}
- catch(e){URL.revokeObjectURL(objectUrl);throw e;}
-}
+const decodeTexture=(url,signal)=>decodePrivateTexture(url,signal,'image/webp');
