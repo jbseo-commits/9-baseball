@@ -24,7 +24,8 @@ it('before zone placement card taps compare the main; unavailable stacking remai
  fireEvent.click(card('strike'));expect(main()).toBe(id);expect(screen.getByTestId('bp-swing').dataset.actionKind).toBe('swing');
  expect(screen.getByRole('button',{name:'카드 겹치기'}).getAttribute('aria-pressed')).toBe('false');
  expect(screen.getByRole('button',{name:'+ 카드 추가',exact:true}).disabled).toBe(true);
- expect(screen.getByTestId('bv-stack-tray').textContent).toContain('에너지 1 부족');
+ expect(screen.getByTestId('bv-stack-tray').textContent).toContain('추가 카드: 에너지 1 부족');
+ expect(screen.getByTestId('bp-swing').disabled).toBe(false);
 });
 it('explicitly clears the plan to watch without executing a pitch or changing the aim',()=>{
  render(<IntegrationPreview fixture="swing-main"/>);fireEvent.click(zone(7));fireEvent.click(clear());

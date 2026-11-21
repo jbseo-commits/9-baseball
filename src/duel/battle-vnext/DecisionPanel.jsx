@@ -1,3 +1,4 @@
+import {normalReviewEnabled} from '../normal-review.js';
 import React,{useEffect,useRef} from 'react';
 import {nearCoverage} from './motion-timeline.js';
 import ResultSequence from './ResultSequence.jsx';
@@ -96,6 +97,7 @@ export function DecisionSummary({hand=[],forecast,input,energy,effects=[],phase=
         :execution?.preparation&&['impact','slowmo','release','settle'].includes(scene?.fxStage)?<div className="bv-preparation-confirm" role="status"><b>{execution.preparation.name} · 적용</b><span>{execution.preparation.detail}</span></div>
         :<p className="bv-plan-detail">{phase==='flight'||phase==='committing'?(execution?.action==='prepare'?'준비 효과 적용 중':'공을 기다린다'):''}</p>)}
       {result&&<ResultSequence hideHp result={result} execution={execution}/>}
+      {normalReviewEnabled()&&deciding&&compact&&input?.actionKind==='watch'&&!recent&&<p className="bv-plan-detail bv-first-step">손패 펼치기 → 카드 → 노릴 칸</p>}
       {deciding&&<ResultReadout recent={recent}/>}
     </div>;
 }

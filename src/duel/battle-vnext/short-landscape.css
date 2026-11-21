@@ -21,3 +21,9 @@
   .battle-vnext.bv-atbat .bv-hud-opponent{top:46px}
   .battle-vnext.bv-atbat .bv-hud-bar{height:40px;min-height:40px}
 }
+/* At 667×375 the old explanation wrapped above HP loss, pushing the consequence
+   below the result rail during the short result beat. Keep verdict/damage first;
+   the full explanation remains in the accessible text/title and result inspector. */
+@media (orientation:landscape) and (max-height:440px){
+ .battle-vnext .bv-result-line span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+}

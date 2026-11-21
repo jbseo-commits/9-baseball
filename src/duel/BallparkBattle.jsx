@@ -1,3 +1,4 @@
+import {recentResultText} from './battle-vnext/ResultReadout.jsx';
 import React,{useEffect,useLayoutEffect,useRef,useState,useSyncExternalStore} from 'react';
 import {landscapeNoticeActive,subscribeLandscapeNotice} from './orientation-lock.js';
 import {CARDS,LINEUP,bandFor,rangeFor,shadeNameFor,cardCost} from './cards.js';
@@ -102,7 +103,7 @@ const isSkill=entry=>CARDS[entry?.kind]?.type==='skill';
 const noNotice=()=>false,noNoticeSubscription=()=>()=>{};
 const CardGlyph=({zones})=><span className="bp-glyph" aria-hidden="true">{Array.from({length:9},(_,z)=><i key={z} className={zones?.includes(z)?'on':''}/>)}</span>;
 
-export default function BallparkBattle({
+export default function BallparkBattle({storage,
   s,hand,selected,swingStack,choice,locked=false,
   pitcher,label,pitcherArt,batterArt,
   animationRate=1,onAnimationRateChange=null,rosterPitcher=null,fxStage=null,shot=null,impactAt=0,playToken=0,playback=null,execution=null,onNext=null,nextLabel='',vfx=null,pitcherAtlas=null,artId=null,batterPoses=null,
@@ -459,7 +460,7 @@ export default function BallparkBattle({
   const swung=!!r?.coverage?.length,outside=judged&&r.zone===9;
   const outNote=outside?(swung?'볼에 손이 나갔다':'볼을 골라냈다'):'';
   /* the first time a player swings at a ball, say once what a ball is (playtest: "유인구고 뭐고 못 알아보겠음") */
-  const [chaseHint,setChaseHint]=useState(()=>{if(vnextReview)return false;try{return localStorage.getItem('9zone-hint-chase')!=='done';}catch{return true;}});
+  const [chaseHint,setChaseHint]=useState(()=>{if(vnextReview)return false;try{return (storage||globalThis.localStorage).getItem('9zone-hint-chase')!=='done';}catch{return true;}});
   const [hintAt,setHintAt]=useState(null);
   const chased=!deciding&&outNote==='볼에 손이 나갔다'&&landed;
   const firstChase=chased&&(chaseHint||hintAt===playToken);
@@ -472,7 +473,7 @@ export default function BallparkBattle({
     scene.style.setProperty('--cam-y',Math.round(bat.offsetTop+bat.offsetHeight*.52)+'px');
     for(const el of scene.querySelectorAll('.bp-cam')){el.style.setProperty('--ox',el.offsetLeft+'px');el.style.setProperty('--oy',el.offsetTop+'px');}
   },[cam,playToken]);
-  useLayoutEffect(()=>{if(!vnextReview&&chased&&chaseHint){setHintAt(playToken);setChaseHint(false);try{localStorage.setItem('9zone-hint-chase','done');}catch{}}},[chased,chaseHint,playToken]);
+  useLayoutEffect(()=>{if(!vnextReview&&chased&&chaseHint){setHintAt(playToken);setChaseHint(false);try{(storage||globalThis.localStorage).setItem('9zone-hint-chase','done');}catch{}}},[chased,chaseHint,playToken]);
   /* First-chase guidance now lives in the plan summary input line, not a coach row. */
   const firstChaseGuide=firstChase?'볼은 참으면 볼넷이 된다. 바깥 띠로 올 것 같으면 지켜본다.':'';
   const good=judged&&(r.kind==='hit'||r.kind==='sacrifice'||call==='볼넷');
@@ -644,7 +645,7 @@ export default function BallparkBattle({
       artId,defenseLab,armed,supportMode,commitBeat,inspectOpen:!!inspect,hoverZone,hoverSkill,lastSwing:lastSwing.current,execution:matchingExecution,piles:currentPiles}):null;
   useEffect(()=>{
     if(!model?.result)return;
-    setRecentResult({key:artId+':'+s.runMap?.currentNodeId,text:model.result.explanation+(model.result.damage>0?` · 투수 HP −${model.result.damage}`:'')});
+    setRecentResult({key:artId+':'+s.runMap?.currentNodeId,text:recentResultText(model.result)});
   },[model?.phase,playToken,artId,s.runMap?.currentNodeId]);
   if(useVnext){
     return <BattleView execution={matchingExecution} model={model} actors={{batter:SAMPLE_ACTORS.batter,pitcher:rosterPitcher||approvedArt||SAMPLE_ACTORS.pitcher}}
@@ -931,6 +932,6 @@ export default function BallparkBattle({
       <button type="button" className="bp-verb wait" data-testid="bp-take" disabled={!deciding||!!inspect} onClick={()=>{if(!inspect)onTake?.();}}><span className="bp-verb-word">지켜본다</span>{s.version===10&&<small>{b.strikes===2?(defenseLab?'루킹은 삼진 · 보호 제외':'볼 +1 · 삼진 0'):'다음 공 +1'}</small>}</button>
       {!compact&&mainEntry&&deciding&&<button type="button" className="bp-info" aria-label={mainName+' 카드 검사'} onClick={()=>openInspect('card',{kind:mainEntry.kind,plus:mainEntry.plus,problem:byId(selected)?.preview?.problem||null})}>ⓘ</button>}
     </div>}
-    {coachOn&&<BallparkCoach rootRef={rootRef} onDone={()=>setCoachOn(false)}/>}
+    {coachOn&&<BallparkCoach storage={storage} rootRef={rootRef} onDone={()=>setCoachOn(false)}/>}
   </main>;
 }

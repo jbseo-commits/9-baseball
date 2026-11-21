@@ -10,11 +10,11 @@ export default class ErrorBoundary extends React.Component{
   componentDidCatch(error,info){try{console.error('9ZONE 화면 오류',error,info);}catch{}}
 
   clearRun(){
-    try{globalThis.localStorage?.removeItem(V10_SAVE_KEY);}catch{}
+    try{(this.props.storage||globalThis.localStorage)?.removeItem(V10_SAVE_KEY);}catch{}
     /* The V9 deck save can crash the same render. Clearing only the V10 key left the run in
        a loop: press "start over" and the same V9 save crashed it again. */
-    try{globalThis.localStorage?.removeItem(SAVE_KEY);}catch{}
-    for(const key of LEGACY_SAVE_KEYS){try{globalThis.localStorage?.removeItem(key);}catch{}}
+    try{(this.props.storage||globalThis.localStorage)?.removeItem(SAVE_KEY);}catch{}
+    for(const key of LEGACY_SAVE_KEYS){try{(this.props.storage||globalThis.localStorage)?.removeItem(key);}catch{}}
     try{globalThis.location?.reload();}catch{this.setState({error:null});}
   }
 
