@@ -1,0 +1,3 @@
+Transfer representation only; no release or deployment.
+
+Fetch dist-manifest.json and overlay-manifest.json through GitHub fetch_file UTF-8 at this immutable ref. Fetch numbered .b64 chunks in listed order, verify chunk hashes, join stripping whitespace and decode once. Verify overlay SHA256. Copy the exact #147 a7afc20 dist, remove listed removed files, extract the overlay ZIP into its root. Verify ALL634 per-path hashes, not just changed files. No query: open / for normal campaign. Missing unchanged files must be retrieved from existing #147 by exact manifest path/hash; never assume similar filenames suffice. All bytes derive from the two official committed ZIPs.
