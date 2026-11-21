@@ -1,0 +1,6 @@
+.bv-scene .bv-emerald-ground-tell{position:absolute;width:156px;height:54px;z-index:1;pointer-events:none;user-select:none;animation:bv-wall-reveal 240ms ease-out both}
+.bv-scene .bv-emerald-ground-tell img{display:block;width:156px;height:30px;image-rendering:pixelated}
+@keyframes bv-wall-reveal{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.bv-scene .bv-emerald-ground-tell{animation:none}}
+
+.bv-scene .bv-emerald-ground-tell span{display:block;width:120px;margin:0 auto;color:#e1d6a0;background:#102a29;font:600 22px/24px sans-serif;text-align:center;white-space:nowrap}
