@@ -1,3 +1,4 @@
+import useSluggerCardArt from './use-slugger-card-art.js';
 import React,{useState,useCallback,useRef,useEffect,useLayoutEffect} from 'react';
 import BattleScene from './BattleScene.jsx';
 import BattleHud from './BattleHud.jsx';
@@ -25,9 +26,11 @@ import './pitch-focus.css';
 
 /* Presentation only. BallparkBattle keeps selection, inspector, commit and next
    timers; App still owns the engine, save and pitch presentation lifecycle. */
-export default function BattleView({model,actors,playback=null,execution=null,animationRate=1,onAnimationRateChange=null,rootRef,sceneRef,zoneRef,handRef,title,review=false,
+export default function BattleView({model,actors,sluggerReview=false,playback=null,execution=null,animationRate=1,onAnimationRateChange=null,rootRef,sceneRef,zoneRef,handRef,title,review=false,
   inspector=null,menuOpen=false,handOpen:controlledHandOpen,onHandOpenChange=null,recent=null,onMenu,onPitcherInfo=null,sound=false,onToggleSound=null,onCardTap,onCardDetail,onPiles,onZoneTap,onZoneHover,
   onToggleSupport,onClearPlan,onCardDrop=null,onPreviewCardDrop=null,onRemoveSupport=null,onPointerDown,onPointerMove,onPointerUp,onPointerCancel,onTake,onSwing,onNext,piles}){
+  const privateArt=useSluggerCardArt(sluggerReview);
+  const cardArt=item=>privateArt[item.kind]||atbatCardArt(item);
   const finale=cinemaMoment(model.result,model.scene.fxStage,!!playback);
   const spotlight=model.result&&playback&&!finale?{...model.result,knockedOut:false}:model.result;
   const [field,setField]=useState(null);
@@ -84,7 +87,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
       // Refresh after hand scrolling. A drag carries its release location; a
       // folded-hand re-aim starts from the visible zone rather than off-screen.
       const origin=source.current?.drag?source.current:shown?cardSource(id):null;
-      setPlacement({seq:++sequence.current,id,name:item.name,cost:item.cost,summary:item.summary,art:atbatCardArt(item)?.url,
+      setPlacement({seq:++sequence.current,id,name:item.name,cost:item.cost,summary:item.summary,art:cardArt(item)?.url,artSize:cardArt(item)?.privateSlugger?'contain':undefined,
         source:origin||{x:b?b.left+b.width/2:0,y:b?b.top+b.height/2:0,w:b?.width||76,h:b?.height||76,angle:0}});
       source.current=null;setHandOpen(false);cell?.focus({preventScroll:true});
     }
@@ -114,7 +117,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
     // existing main comparison or support-mode removal contract.
     if(!item||item.type==='prepare')return;
     const row=el.closest('.bv-hand-row');
-    drag.current={id,name:item.name,x:e.clientX,y:e.clientY,pointer:e.pointerId,type:e.pointerType,row,scroll:row?.scrollTop||0,mode:null};suppressClick.current=false;
+    drag.current={id,name:item.name,art:cardArt(item),x:e.clientX,y:e.clientY,pointer:e.pointerId,type:e.pointerType,row,scroll:row?.scrollTop||0,mode:null};suppressClick.current=false;
   };
   const pointerMove=e=>{
     const d=drag.current;if(!d||d.pointer!==e.pointerId)return;
@@ -127,7 +130,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
     if(d.mode==='drag'){
       e.preventDefault();const item=model.hand.find(c=>c.id===d.id),z=viewRef.current?.querySelector('.bv-zone')?.getBoundingClientRect();
       const box=dragPreviewBox({x:e.clientX,y:e.clientY},{width:window.innerWidth,height:window.innerHeight},z?{x:z.x,y:z.y,w:z.width,h:z.height}:null);
-      setDragFace({...box,name:d.name,cost:item.cost,summary:item.summary,art:atbatCardArt(item)?.url});
+      setDragFace({...box,name:d.name,cost:item.cost,summary:item.summary,art:d.art?.url,artSize:d.art?.privateSlugger?'contain':undefined});
       const cell=document.elementFromPoint(e.clientX,e.clientY)?.closest('.bv-cell'),zone=cell&&viewRef.current?.contains(cell)?Number(cell.dataset.zone):null;
       if(zone!==d.zone){d.zone=zone;setDragPreview(zone===null?null:onPreviewCardDrop?.(d.id,zone)||null);}
     }
@@ -144,7 +147,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
     if(onCardDrop){
       const outcome=onCardDrop(d.id,Number(cell.dataset.zone));
       if(!outcome?.ok){source.current=null;setDropProblem(outcome?.reason||'카드를 놓을 수 없습니다.');return;}
-      setPendingDrop({id:d.id,zone:Number(cell.dataset.zone),direct:true,receipt:{seq:++sequence.current,id:d.id,name:item.name,cost:item.cost,summary:item.summary,art:atbatCardArt(item)?.url,source:source.current}});return;
+      setPendingDrop({id:d.id,zone:Number(cell.dataset.zone),direct:true,receipt:{seq:++sequence.current,id:d.id,name:item.name,cost:item.cost,summary:item.summary,art:d.art?.url,artSize:d.art?.privateSlugger?'contain':undefined,source:source.current}});return;
     }
     if(item?.selectionRole==='main'||item?.selectionRole==='armed')place(Number(cell.dataset.zone),d.id);
     else{setPlacement(null);onCardTap?.(d.id);setPendingDrop({id:d.id,zone:Number(cell.dataset.zone)});}
@@ -156,7 +159,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
     onClickCapture={e=>{if(handleClick.current){handleClick.current=false;e.preventDefault();e.stopPropagation();}}}
     onKeyDown={()=>{suppressClick.current=false;handleClick.current=false;}} className={'battle-vnext bv-atbat bv-foldable bv-refined bv-reference'+(menuOpen?' inspecting':'')} data-cinematic-focus={pitchFocus&&!menuOpen?'true':undefined} data-animation-rate={animationRate} data-hand-open={shown?'true':'false'} data-phase={model.phase} data-support={hasSupport?'true':'false'} style={{...referenceSkinVars,'--bv-verdict-delay':playback?'120ms':'0ms',...(field?{'--bv-plate-x':field.home.x+'px','--bv-plate-y':field.home.y+'px','--bv-mound-y':field.mound.y+'px','--ref-scale':field.camera.scale,'--ref-zone-size':field.zoneSize+'px'}:{})}} aria-label="타석">
     <div className="bv-stage" ref={sceneRef}>
-      <BattleScene publicEncounterCue={model.hud.encounterCue} publicOutsideConfirmed={model.zones.band.confirmedOutside===true} publicIntentFaces={model.zones.cells.map(c=>c.face)} onFocusChange={setPitchFocus} playback={playback} result={model.result} finale={finale} scene={model.scene} actors={actors} phase={model.phase} framing="atbat" onLayout={onLayout}>
+      <BattleScene sluggerReview={sluggerReview} execution={execution} publicEncounterCue={model.hud.encounterCue} publicOutsideConfirmed={model.zones.band.confirmedOutside===true} publicIntentFaces={model.zones.cells.map(c=>c.face)} onFocusChange={setPitchFocus} playback={playback} result={model.result} finale={finale} scene={model.scene} actors={actors} phase={model.phase} framing="atbat" onLayout={onLayout}>
         {model.phase==='result'&&model.result&&<ResultReadout finale={finale} result={spotlight} shotGrade={model.scene.shotGrade} variant="spotlight"/>}
       </BattleScene>
     </div>
@@ -186,7 +189,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
       onClickCapture={e=>{if(suppressClick.current){e.preventDefault();e.stopPropagation();suppressClick.current=false;}}}>
       <HandDock selection={model.selection} onToggleSupport={onToggleSupport} ref={handRef} hand={menuOpen?model.hand.map(c=>({...c,disabled:false})):model.hand} energy={model.energy}
         input={menuOpen?{...model.input,canSelect:true}:model.input} phase={model.phase}
-        piles={model.piles??piles} handCount={model.handCount} handKnown={model.handKnown} onCardTap={id=>{if(!model.selection?.supportMode)setPlacement(null);setDropProblem('');remember(id);onCardTap?.(id);}} onCardDetail={onCardDetail} onPiles={onPiles} artFor={atbatCardArt} grid="orbit"/>
+        piles={model.piles??piles} handCount={model.handCount} handKnown={model.handKnown} onCardTap={id=>{if(!model.selection?.supportMode)setPlacement(null);setDropProblem('');remember(id);onCardTap?.(id);}} onCardDetail={onCardDetail} onPiles={onPiles} artFor={cardArt} grid="orbit"/>
     </div>
     <StackTray pieces={model.zones?.pieces} links={model.zones?.links} hand={model.hand} energy={model.energy} phase={model.phase} canStack={model.selection?.canStack} canAdd={model.selection?.canAddSupport} blockedReason={model.selection?.supportBlockReason} canSelect={model.input.canSelect&&!menuOpen} onAdd={()=>{if(!model.selection?.supportMode)onToggleSupport?.();setHandOpen(true);}} onRemove={onRemoveSupport}/>
     {dropProblem&&<p className="bv-drop-problem" role="status">{dropProblem}</p>}
@@ -200,7 +203,7 @@ export default function BattleView({model,actors,playback=null,execution=null,an
     </footer>
     </div>
     {placements.filter(p=>model.zones?.pieces?.some(piece=>piece.id===p.id)).map(request=><CoverageInsert key={request.id+':'+request.seq} request={request} pieces={model.zones?.pieces} rootRef={viewRef} phase={model.phase} sound={sound} menuOpen={menuOpen} onFinish={finishPlacement} animationRate={animationRate}/>)}
-    {dragFace&&<div ref={dragFaceRef} className="bv-drag-face" aria-hidden="true" style={{left:dragFace.x,top:dragFace.y,width:dragFace.w,height:dragFace.h}}><span className="bv-drag-art" style={{backgroundImage:dragFace.art?`url(${dragFace.art})`:undefined}}/><b>{dragFace.cost}</b><strong>{dragFace.name}</strong><small>{dragFace.summary}</small></div>}
+    {dragFace&&<div ref={dragFaceRef} className="bv-drag-face" aria-hidden="true" style={{left:dragFace.x,top:dragFace.y,width:dragFace.w,height:dragFace.h}}><span className="bv-drag-art" style={{backgroundImage:dragFace.art?`url(${dragFace.art})`:undefined,...(dragFace.artSize?{backgroundSize:dragFace.artSize,backgroundPosition:'center',backgroundRepeat:'no-repeat'}:{})}}/><b>{dragFace.cost}</b><strong>{dragFace.name}</strong><small>{dragFace.summary}</small></div>}
     {menuOpen&&<div className="bv-inspector-area">{inspector}</div>}
     {review&&<p className="bv-review-notice">메모리 검수 · 샘플 배우</p>}
   </main>;

@@ -23,7 +23,7 @@ export default function CoverageInsert({request,pieces,rootRef,phase,sound=false
     const view={left:Math.max(8,8-box.left),top:Math.max(52,8-box.top),right:Math.min(box.width-8,window.innerWidth-box.left-8),bottom:Math.min(box.height-8,window.innerHeight-box.top-8)};
     const geometry=placementGeometry(cells,source,view);if(!geometry){setEffect(null);return;}
     const rate=validRate(animationRate),timing=placementTimeline(cells.length);
-    setEffect({...geometry,rate,timing,seq:request.seq,role:piece.role,order:piece.order||1,name:request.name,cost:request.cost,summary:request.summary,art:request.art,source,rootLeft:box.left,viewportWidth:window.innerWidth,startedAt:performance.now()});
+    setEffect({...geometry,rate,timing,seq:request.seq,role:piece.role,order:piece.order||1,name:request.name,cost:request.cost,summary:request.summary,art:request.art,artSize:request.artSize,source,rootLeft:box.left,viewportWidth:window.innerWidth,startedAt:performance.now()});
     const clear=()=>{setEffect(null);onFinish?.(request.seq);};
     const timer=setTimeout(clear,timing.duration/rate);window.addEventListener('resize',clear);document.addEventListener('visibilitychange',clear);
     return ()=>{clearTimeout(timer);window.removeEventListener('resize',clear);document.removeEventListener('visibilitychange',clear);};
@@ -42,7 +42,7 @@ export default function CoverageInsert({request,pieces,rootRef,phase,sound=false
   const vars={'--place-duration':t.duration+'ms','--place-lock':t.lockAt+'ms','--place-stagger':t.stagger+'ms',
     '--stage-x':e.stage.x+'px','--stage-y':e.stage.y+'px','--read-scale':e.readScale,'--from-x':e.from.x+'px','--from-y':e.from.y+'px','--mid-x':e.mid.x+'px','--mid-y':e.mid.y+'px','--start-scale':e.scale,'--start-angle':(s.angle||0)+'deg',
     '--source-art':(s.artFraction||.4)*100+'%','--source-copy-x':((s.w||190)*(s.artFraction||.4)+12)/e.scale+'px','--source-w':(s.w||190)/e.scale+'px','--source-h':(s.h||76)/e.scale+'px','--source-font':(s.font||18)/e.scale+'px','--source-small':(s.small||12)/e.scale+'px'};
-  const card=<span className="bv-insert-card"><span className="bv-insert-card-art" style={{backgroundImage:e.art?`url(${e.art})`:undefined}}/>
+  const card=<span className="bv-insert-card"><span className="bv-insert-card-art" style={{backgroundImage:e.art?`url(${e.art})`:undefined,...(e.artSize?{backgroundSize:e.artSize,backgroundPosition:'center',backgroundRepeat:'no-repeat'}:{})}}/>
     <b>{e.cost}</b><strong>{e.name}</strong><small>{e.summary}</small><i/></span>;
   return <div key={e.seq} className={'bv-insert-fx is-readable'+(wide?' is-wide':'')+' r-'+e.role+' q-'+e.order} style={vars} aria-hidden="true" data-testid="bv-coverage-insert" data-card-name={e.name} data-card-id={request.id} data-insert-order={e.order} data-insert-seq={e.seq} data-animation-rate={e.rate} data-art-side={s.artSide||'left'} data-cell-count={e.cells.length} data-lock-at={t.lockAt}>
     <div className="bv-insert-receiver" style={{left:b.x,top:b.y,width:b.w,height:b.h}}>
