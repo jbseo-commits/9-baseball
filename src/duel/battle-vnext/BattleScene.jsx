@@ -1,3 +1,4 @@
+import JadeFoldPlate,{useJadeGuard} from './JadeFoldPlate.jsx';
 import {isReviewContactActor} from './private-field-art.js';
 import {sluggerFeedback} from './slugger-feedback.js';
 import SluggerFeedback from './SluggerFeedback.jsx';
@@ -48,6 +49,7 @@ export default function BattleScene({scene=null,pitcherHud=null,onPitcherInfo=nu
   const authoredBatter=optionalBatter||actors.batter===SAMPLE_ACTORS.batter;
   const elapsed=useSceneClock(playback);
   const roster=actors.pitcher?.kind==='roster-atlas'?actors.pitcher:null;
+  const jadeGuarded=useJadeGuard(publicEncounterCue,roster?.artId,phase==='deciding'&&!playback);
   const personality=pitchPersonality(publicEncounterCue,roster?.artId);
   const tidePilot=tidePlaytestEnabled()&&roster?.artId==='tide-vesper'&&publicEncounterCue?.id==='tide-vesper';
   const composition=framing==='atbat'?(roster?{...ATBAT_COMPOSITION,pitcher:roster.meta,release:roster.release,personality,...(roster.artId==='regular-07-red-fox'?{flightProfile:'fox-depth'}:tidePilot?{flightProfile:'tide-drop'}:{})}:ATBAT_COMPOSITION):null;
@@ -104,6 +106,7 @@ export default function BattleScene({scene=null,pitcherHud=null,onPitcherInfo=nu
         return <div key={name} className={'bv-actor bv-actor-'+name} data-actor={name} data-actor-missing={url?undefined:'true'}
           data-pose={tween?'swing-bridge':live?'frame-'+frame:isAtlas?meta.frames[frame].name:undefined} data-roster-art={live?.artId} data-batter-kind={custom?.kind} data-frame={isAtlas?frame:undefined} style={{left:b.x,top:b.y,width:b.width,height:b.height}}>
           {candidateReady?<img className="bv-private-ready" src={candidateReady.url} alt="" width={256} height={256} draggable="false" onError={()=>setFailedReady(candidateReady)}/>:url&&(isAtlas?<div className="bv-motion-crop"><img src={url} onError={custom?()=>setFailedBatter(custom):undefined} alt="" width={meta.sourceWidth*meta.columns} height={meta.sourceHeight*meta.rows} draggable="false" decoding="async" style={{width:meta.columns*100+'%',height:meta.rows*100+'%',left:-(frame%meta.columns)*100+'%',top:-Math.floor(frame/meta.columns)*100+'%'}}/></div>:<img src={url} alt="" width={meta.sourceWidth} height={meta.sourceHeight} draggable="false" decoding="async"/>)}
+          {live?.artId==='jade-viper'&&<JadeFoldPlate guarded={jadeGuarded} frame={frame} phase={phase} action={playback?.action} elapsed={elapsed} releaseAt={playback?.timeline?.delivery?.pitchReleaseAt??0} reduced={reduced} knockedOut={!!result?.knockedOut||!!finale}/> }
           {live?.artId==='vulcan-blaze'&&<VulcanBrace profile={personality} frame={frame} phase={phase} action={playback?.action}/> }
           {readyImage&&<img className="bv-ready-drawing" src={readyImage.url} alt="" draggable="false" decoding="async" style={{position:'absolute',zIndex:1,width:readyImage.width/meta.sourceWidth*100+'%',height:readyImage.height/meta.sourceHeight*100+'%',left:readyImage.x/meta.sourceWidth*100+'%',top:readyImage.y/meta.sourceHeight*100+'%'}}/>}
         </div>;
