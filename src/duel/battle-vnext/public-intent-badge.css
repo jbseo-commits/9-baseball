@@ -5,3 +5,7 @@
 .bv-public-intent>b{position:absolute;right:-8px;top:-7px;background:#111b2b;color:#fff3ce;border:1px solid #f4dfad;font:900 12px/13px monospace;width:11px;text-align:center}
 
 .bv-public-intent .bv-intent-outside{display:flex;align-items:center;justify-content:center;height:100%;border:1px solid #f4dfad;color:#fff3ce;font:900 17px/1 system-ui}
+
+.bv-public-intent[data-certain=false]{border-color:#8291a5;box-shadow:1px 1px 0 #070b14}
+.bv-public-intent[data-certain=false] .bv-intent-nine i[data-active=true]{background:#8c9bae;outline:1px dotted #d1dae5}
+.bv-public-intent[data-knowledge=unknown] .bv-intent-nine{opacity:.4}
