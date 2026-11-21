@@ -70,7 +70,7 @@ export function resultSequence(result,execution){
     const support=!(result.primaryCoverage||[]).includes(result.actualZone)
       ?(result.supportCoverages||[]).find(x=>x.coverage.includes(result.actualZone)):null;
     const card=execution?.cards?.find(c=>support?c.id===support.id:c.role==='main');
-    if(card)steps.push({kind:support?'support':'main',text:card.name+' · '+(support?'지원 커버 적중':'메인 커버 적중')});
+    if(card)steps.push({kind:support?'support':'main',text:card.name+' · '+(result.outsideBet?'존 밖 베팅 성공':support?'지원 커버 적중':'메인 커버 적중')});
     if(result.precisionBonus>0)steps.push({kind:'precision',text:`정확 적중 +${result.precisionBonus} HP`});
     else if(result.relicBonus>0&&result.relicEvents?.length)steps.push({kind:'relic',text:result.relicEvents[0]});
   }

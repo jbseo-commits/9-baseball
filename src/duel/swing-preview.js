@@ -91,14 +91,14 @@ export function previewSwing(s,{id='basic',supports=[]}={},probabilities=v10Pitc
   const plan=v11StackPlan(s,id,supports),stackCardCount=1+items.length,stackDamageRate=plan.orderedDamageRate??plan.damageRate;
   const pitchInPA=1+(b.history||[]).filter(h=>h.turn===b.turn).length;
   const action={type:'card',id,supports},foulStreak=s.pitcher.foulStreak||0;
-  const shotMiss=v10ShotMode(s)&&b.strikes<2&&!CARDS[k]?.bunt;
+  const shotMiss=v10ShotMode(s)&&b.strikes<2&&!CARDS[k]?.bunt&&!CARDS[k]?.outsideBet;
   const makeOutcomes=distribution=>{
   const outcomes=[];
   const push=(p,r,outcome)=>{
     if(p<=EPS)return;
     const terms=v10DamageTerms(s,{action,choice:k,r:{...r,label:outcome.label,bases:outcome.bases},outcome,stackCardCount,stackDamageRate,pitchInPA,
       handAfter:handAfterFor(s,id,items,r.kind==='hit'),foulStreak});
-    const {damage}=pitcherDamageFor(outcome,foulStreak,{damageMultiplier:terms.damageMultiplier,damageBonus:terms.damageBonus});
+    const {damage}=pitcherDamageFor(outcome,foulStreak,{damageMultiplier:terms.damageMultiplier,damageBonus:terms.damageBonus,damageCap:terms.damageCap});
     outcomes.push({p,kind:r.kind,bases:outcome.bases||0,zone:outcome.zone,label:outcome.label,damage,terms});
   };
   const base={aimZone:b.aimZone,primaryCoverage:main,coverage:combined,supportKinds:items.map(x=>x.kind),stackLinks:plan.links||[]};
@@ -110,7 +110,7 @@ export function previewSwing(s,{id='basic',supports=[]}={},probabilities=v10Pitc
         const outcome={kind:'hit',label:t.label,bases:t.bases,zone:z,aimZone:b.aimZone,covered:true};
         push(p*o.hit*t.p,{...base,kind:'hit',zone:z,assistOnly:false},outcome);
       }
-      return;
+      if(o.hit>=1-EPS)return;
     }
     const saver=z!==9&&!main.includes(z)?items.find(x=>x.coverage.includes(z)):null;
     if(saver){
@@ -149,7 +149,7 @@ export function previewSwing(s,{id='basic',supports=[]}={},probabilities=v10Pitc
   if(precision)reasons.push({key:'precision',label:'정확 적중 +'+Math.round(precision*100)+'%'});
   if(runners)reasons.push({key:'runners',label:'+'+Math.round(runners*V10_RUNNER_PRESSURE*100)+'% (주자 '+runners+'명)'});
   const shakenHp=shaken?(CARDS[k]?.fx?.shaken||0)*shaken:0;
-  return {hitChance,hitBounds:sacrifice?[0,0]:v10HitBounds(publicView,combined),dmgMin,dmgMax,missMin,missMax,expected,
+  return {hitChance,hitBounds:sacrifice?[0,0]:CARDS[k]?.outsideBet?publicMassBounds(publicPitchBounds(publicView),[9]).map(p=>p*swingOdds(s,id,9).hit):v10HitBounds(publicView,combined),dmgMin,dmgMax,missMin,missMax,expected,
     sacrifice,sacBounds,sacMin,sacMax,
     multiplier,multiplierReason:reasons.map(x=>x.label).join(' · '),reasons,
     runners,shaken,shakenHp,coverage:combined.sort((a,c)=>a-c),cardCount:stackCardCount,outcomes};

@@ -175,3 +175,11 @@
   .sp-root{overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain}
   .sp-list{min-height:136px}
 }
+
+/* Four classes: scoped grid only, normal route overflow is untouched. */
+@media (orientation:landscape) and (min-width:600px){
+ .sp-list{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .sp-info strong{font-size:clamp(14px,2.8vh,23px)}
+ .sp-info em{font-size:10px;line-height:1.2}
+ .sp-fan{transform:scale(.8);transform-origin:left top}
+}

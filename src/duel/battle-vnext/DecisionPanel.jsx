@@ -22,6 +22,7 @@ export function faceDensity(face){
 const ORDER=['','①','②','③','④'];
 export function planCaption(zones){
   if(!zones)return '';
+  if(zones.outsideBet)return '존 밖 베팅 · 안쪽은 헛스윙';
   const steps=zones.cells.flatMap(c=>c.tokens.map(n=>({n,word:c.word}))).sort((a,b)=>a.n-b.n);
   if(!steps.length&&zones.aimWord)return '노림 · '+zones.aimWord;
   return steps.map(s=>(steps.length>1?ORDER[s.n]+' ':'')+s.word).join(' → ');
@@ -71,7 +72,7 @@ export default function DecisionPanel({zones=null,forecast=null,input=null,hand=
     </div>
     <p className={'bv-band'+(zones.band.actual?' is-actual':'')} data-testid="bv-band">
       {zones.band.actual&&<i className="bv-pitch-mark" data-testid="bv-pitch-mark" aria-hidden="true"/>}
-      <span>존 밖 볼</span>{zones.band.face&&<b>{zones.band.face}</b>}
+      <span>{zones.outsideBet?'노림: 존 밖 볼':'존 밖 볼'}</span>{zones.band.face&&<b>{zones.band.face}</b>}
     </p>
 
     {showPlan&&<DecisionSummary {...{hand,forecast,input,energy,effects,phase,result,shotGrade,execution,scene,recent}}/>}

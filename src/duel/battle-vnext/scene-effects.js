@@ -38,8 +38,12 @@ export function sceneEffectAt({elapsed=0,playback=null,result=null,phase='decidi
     const effectAge=Math.max(0,age-(t.freeze||0)),p=clamp(effectAge/Math.max(250,(power?t.settleAt-a:560)));
     const ground=/땅볼/.test(result.label||result.call||'');
     const fieldPoint=p=>composition?{x:p.x+composition.mound.x-832,y:p.y+composition.mound.y-580}:p;
-    const end=fieldPoint(power?{x:1180,y:90}:result.kind==='foul'?{x:350,y:610}:ground?{x:865,y:580}:{x:865,y:360});
-    const control=fieldPoint(power?{x:1040,y:-110}:ground?{x:900,y:640}:{x:810,y:350});
+    let end=fieldPoint(power?{x:1180,y:90}:result.kind==='foul'?{x:350,y:610}:ground?{x:865,y:580}:{x:865,y:360});
+    let control=fieldPoint(power?{x:1040,y:-110}:ground?{x:900,y:640}:{x:810,y:350});
+    if(result.kind==='hit'&&['left','center','right'].includes(result.battedDirection)){
+      const x={left:460,center:832,right:1210}[result.battedDirection];
+      end={...end,x:fieldPoint({x,y:0}).x};control={...control,x:C.x+(end.x-C.x)*.6};
+    }
     const ball=quadratic(C,control,end,p),previous=quadratic(C,control,end,Math.max(0,p-.1));
     return {trail,kind:power?'homer':result.kind==='foul'?'foul':result.exact?'exact':'contact',ball,previous,
       ...(resolved?{committed:true,contactPoint:C}:{}),radius:Math.max(1.7,12*(1-p)),age,spinAge:a-throwAt+effectAge,flash:age>=0&&age<180?(1-age/180):0,

@@ -232,7 +232,7 @@ export default function BallparkBattle({storage,
   const mainEntry=selected&&selected!=='basic'?byId(selected)?.entry:null;
   const mainIsSkill=isSkill(mainEntry);
   const isBuntKind=k=>!!CARDS[k]?.bunt;
-  const canStack=!!(mainEntry&&!mainIsSkill&&!isBuntKind(mainEntry.kind)&&b.growthMode!=='patience');
+  const canStack=!!(mainEntry&&!mainIsSkill&&!isBuntKind(mainEntry.kind)&&!CARDS[mainEntry.kind]?.outsideBet&&b.growthMode!=='patience');
   const stack=canStack?swingStack.filter(x=>x.id!==selected&&byId(x.id)):[];
   useEffect(()=>{if(useVnext&&(!deciding||!canStack)){setSupportMode(false);setArmed(null);}if(!deciding)coursePicked.current=false;},[useVnext,deciding,canStack]);
   /* P1 스윙 예측: 확정 전 hover/터치 슬라이드 존과 고른 준비 카드로 결과를 미리 계산한다 (판정은 바꾸지 않음) */
@@ -356,13 +356,13 @@ export default function BallparkBattle({storage,
         onStack([]);onSelect(id);
         // A course picked before the first attack is already a placed plan.
         const kind=byId(id)?.entry?.kind;
-        setSupportMode(!!(coursePicked.current&&!canStack&&CARDS[kind]?.type==='attack'&&!isBuntKind(kind)&&b.growthMode!=='patience'));
+        setSupportMode(!!(coursePicked.current&&!canStack&&CARDS[kind]?.type==='attack'&&!isBuntKind(kind)&&!CARDS[kind]?.outsideBet&&b.growthMode!=='patience'));
       }return;}
       if(id===selected){setArmed(null);setSupportMode(false);return;}
       if(armed===id){setArmed(null);return;}
       if(stack.some(x=>x.id===id)){setArmed(null);onStack(stack.filter(x=>x.id!==id));return;}
       const kind=byId(id)?.entry?.kind,nextStack=[...stack,{id,aimZone:b.aimZone}];
-      if(canStack&&id!=='basic'&&kind&&!isBuntKind(kind)&&stack.length<v10StackMax(s)-1
+      if(canStack&&id!=='basic'&&kind&&!isBuntKind(kind)&&!CARDS[kind]?.outsideBet&&stack.length<v10StackMax(s)-1
         &&v10ActionCost(s,selected,nextStack)<=energy)setArmed(id);
       return; // invalid support never silently replaces the main card
     }
@@ -372,7 +372,7 @@ export default function BallparkBattle({storage,
     const kind=byId(id)?.entry?.kind;
     /* with a main card on the board, another swing card becomes a support: it waits for a zone */
     const nextStack=[...stack,{id,aimZone:b.aimZone}];
-    if(canStack&&id!=='basic'&&!isBuntKind(kind)&&stack.length<v10StackMax(s)-1
+    if(canStack&&id!=='basic'&&!isBuntKind(kind)&&!CARDS[kind]?.outsideBet&&stack.length<v10StackMax(s)-1
       &&v10ActionCost(s,selected,nextStack)<=energy){setArmed(id);return;}
     onSelect(id);onStack([]);
   }
@@ -528,7 +528,7 @@ export default function BallparkBattle({storage,
     /* A support candidate that would overflow tells so on its face, shortly:
        exact sums belong to the plan summary after a real tap, and a tap that
        would replace the main must never read as a support join. */
-    const supportCandidate=canStack&&selected&&!mainIsSkill&&selected!==x.id&&inStack<0&&!isBuntKind(x.entry.kind);
+    const supportCandidate=canStack&&selected&&!mainIsSkill&&selected!==x.id&&inStack<0&&!isBuntKind(x.entry.kind)&&!CARDS[x.entry.kind]?.outsideBet;
     const overBudget=supportCandidate&&stackCost+cost>energyLimit;
     const roleTag=def.role||(isSkillCard?'집중':'정확');
     const face=cardFaceOf(x.entry,{strikes:shownCount.strikes,drawPreview:preparationDrawPreview(s,x.id)});
