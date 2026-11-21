@@ -1,4 +1,5 @@
 import React,{useEffect,useLayoutEffect,useMemo,useRef,useState} from 'react';
+import {minimumCombatsToRest,restRouteCaption} from './route-rest-preview.js';
 import {hpTicks} from './ballpark-copy.js';
 import stadium from '../../assets/duel/stadium.png';
 import mapIslandCity from '../../assets/production-art/mockup-world-v15/map-island-city.png';
@@ -74,6 +75,8 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
     while(walk.length){const id=walk.pop();for(const to of next.get(id)||[]){lines.add(id+'>'+to);if(!out.has(to)){out.add(to);walk.push(to);}}}
     return {out,lines};
   },[chosen,edges,byId,act]);
+  const restDistance=useMemo(()=>chosen?minimumCombatsToRest(nodes,edges,chosen.id):null,[nodes,edges,chosen]);
+  const aheadHasFight=here.some(n=>ahead.out.has(n.id)&&FIGHTS.has(n.type)&&n.type!=='boss');
   const aheadCount=AHEAD.map(([t,label])=>[t,label,here.filter(n=>n.type===t&&ahead.out.has(n.id)).length]).filter(x=>x[2]);
   /* a tall act (Act 1 has seven rows) gets a taller board; keep the next stop on screen */
   const routeRef=useRef(null);
@@ -93,13 +96,14 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
       <div key={'info-'+d.id} className="bp-minfo">
         <span className="bp-mtag">{TAG[d.type]||d.name}</span>
         <strong className="bp-mname">{fight?o?.name:TAG[d.type]||d.name}</strong>
+        {can&&runOuts>0&&!done.has(d.id)&&<span className="bp-mahead" data-testid="bp-map-rest-distance"><i className="t-rest">{restRouteCaption(restDistance,d.type==='rest')}</i></span>}
         <em className="bp-mline">{fight?HABIT[o?.archetypeKey]||o?.archetype:PLACE[d.type]||d.reward}</em>
         {fight&&o&&<span className="bp-mhp" aria-label={'HP '+o.maxHp}>{Array.from({length:12},(_,i)=><i key={i} className={i<hpTicks(o.maxHp,actMax)?'':'lost'}/>)}<b>HP {o.maxHp}</b></span>}
         {fight&&o?.encounter&&<span className="bp-mgm" data-testid="bp-map-encounter"><b>{o.encounter.label}</b><br/>{o.encounter.counter}</span>}
         {fight&&o?.encounter&&<details className="bp-mgm" data-testid="bp-map-encounter-rule"><summary>고유 규칙 자세히</summary>{o.encounter.summary}</details>}
         {fight&&o?.gimmick&&(o.encounter?<details className="bp-mgm"><summary>추가 승부 규칙</summary><span data-testid="bp-map-gimmick"><b>{o.gimmick.label}</b> {o.gimmick.summary}{o.gimmick.phases&&<><br/>{o.gimmick.phases.pressured}<br/>{o.gimmick.phases.critical}</>}</span></details>:<span className="bp-mgm" data-testid="bp-map-gimmick"><b>{o.gimmick.label}</b> {o.gimmick.summary}{o.gimmick.phases&&<><br/>{o.gimmick.phases.pressured}<br/>{o.gimmick.phases.critical}</>}</span>)}
         {fight&&<span className="bp-mrw">{d.type==='boss'&&d.act===3?'이기면 런 완주':REWARD[d.type]}</span>}
-        {d.type!=='boss'&&!done.has(d.id)&&<span className="bp-mahead" data-testid="bp-map-ahead">{aheadCount.length?<><b>이 길 너머</b>{aheadCount.map(([t,label,n])=><i key={t} className={'t-'+t}>{label} {n}</i>)}</>:<b>이 길 너머 · 곧장 막 보스</b>}</span>}
+        {d.type!=='boss'&&!done.has(d.id)&&<span className="bp-mahead" data-testid="bp-map-ahead">{aheadCount.length?<><b>이 길 너머</b>{aheadCount.map(([t,label,n])=><i key={t} className={'t-'+t}>{label} {n}</i>)}</>:<b>{aheadHasFight?'이 길 너머 · 남은 경기':'이 길 너머 · 막 보스'}</b>}</span>}
       </div>
       <button type="button" className="bp-mgo" data-testid="bp-map-go" disabled={!can} onClick={()=>enter(d.id)}>{!can?(done.has(d.id)?'지나온 곳':'아직 길이 없다'):fight?'이 구장으로 간다':'들른다'}</button>
     </>;
