@@ -1,3 +1,4 @@
+import {isReviewSluggerActor} from './slugger-motion.js';
 import VulcanBrace from './VulcanBrace.jsx';
 import {pitchPersonality} from './pitch-personality.js';
 import {tidePlaytestEnabled} from './tide-playtest.js';
@@ -35,6 +36,10 @@ const ACTORS=['pitcher','batter'];
 
 export default function BattleScene({scene=null,publicEncounterCue=null,publicIntentFaces=[],publicOutsideConfirmed=false,actors={},size=null,phase='deciding',reviewNotice=false,onLayout=null,children=null,className='',reserveHand=false,framing='cover',playback=null,result=null,finale=null,onFocusChange=null}){
   const rootRef=useRef(null);
+  const [failedBatter,setFailedBatter]=useState(null);
+  const optionalBatter=isReviewSluggerActor(actors.batter);
+  const customBatter=optionalBatter&&actors.batter!==failedBatter?actors.batter:null;
+  const authoredBatter=optionalBatter||actors.batter===SAMPLE_ACTORS.batter;
   const elapsed=useSceneClock(playback);
   const roster=actors.pitcher?.kind==='roster-atlas'?actors.pitcher:null;
   const personality=pitchPersonality(publicEncounterCue,roster?.artId);
@@ -48,7 +53,7 @@ export default function BattleScene({scene=null,publicEncounterCue=null,publicIn
   const landingAge=elapsed-landingAt;
   const landing=roster?.landing&&playback&&!reduced&&playback.action!=='prepare'&&elapsed>=landingAt&&elapsed<landingAt+230
     ?{point:roster.landing,progress:(elapsed-landingAt)/230}:null;
-  const batterTweens=actors.batter===SAMPLE_ACTORS.batter&&!!SAMPLE_ACTORS.batterTween;
+  const batterTweens=authoredBatter&&!customBatter&&!!SAMPLE_ACTORS.batterTween;
   const pose=motionAt({elapsed,timeline:playback?.timeline,action:playback?.action,landed:phase==='result',knockedOut:!!result?.knockedOut,reduced,readyCoil:framing==='atbat'&&(phase==='deciding'||phase==='flight'),authoredBatterTweens:batterTweens});
   const [measured,setMeasured]=useState(null);
   const onLayoutRef=useRef(onLayout);onLayoutRef.current=onLayout;
@@ -67,8 +72,8 @@ export default function BattleScene({scene=null,publicEncounterCue=null,publicIn
   const inset=reserveHand&&box.width>=box.height&&box.height<=540?Math.min(30,box.height*.09):0;
   const camera=(framing==='atbat'?atbatCamera:worldCamera)(box.width,Math.max(1,box.height-inset));
   const snap=box.width>0&&box.height>0?sceneSnapshot(box.width,box.height,inset,framing):null;
-  useLayoutEffect(()=>{if(snap){const at=p=>({x:p.x*camera.scale+camera.x,y:p.y*camera.scale+camera.y});const pilot=actors.batter===SAMPLE_ACTORS.batter||actors.pitcher===SAMPLE_ACTORS.pitcher;onLayoutRef.current?.(pilot?{...snap,contact:at(composition?.contact||MOTION_CONTACT),release:at(composition?.release||MOTION_RELEASE)}:snap);}},[box.width,box.height,inset,framing,actors.batter,actors.pitcher]);// eslint-disable-line react-hooks/exhaustive-deps
-  const authored=actors.batter===SAMPLE_ACTORS.batter||actors.pitcher===SAMPLE_ACTORS.pitcher;
+  useLayoutEffect(()=>{if(snap){const at=p=>({x:p.x*camera.scale+camera.x,y:p.y*camera.scale+camera.y});const pilot=authoredBatter||actors.pitcher===SAMPLE_ACTORS.pitcher;onLayoutRef.current?.(pilot?{...snap,contact:at(composition?.contact||MOTION_CONTACT),release:at(composition?.release||MOTION_RELEASE)}:snap);}},[box.width,box.height,inset,framing,actors.batter,actors.pitcher]);// eslint-disable-line react-hooks/exhaustive-deps
+  const authored=authoredBatter||actors.pitcher===SAMPLE_ACTORS.pitcher;
   const at=p=>({x:p.x*camera.scale+camera.x,y:p.y*camera.scale+camera.y});
   const contact=at(composition?.contact||(authored?MOTION_CONTACT:SCENE.sampleFlight.contact)),release=at(composition?.release||(authored?MOTION_RELEASE:SCENE.sampleFlight.release));
   const vars=snap?{'--bv-home-x':snap.home.x+'px','--bv-home-y':snap.home.y+'px','--bv-release-x':release.x+'px','--bv-release-y':release.y+'px',
@@ -82,12 +87,12 @@ export default function BattleScene({scene=null,publicEncounterCue=null,publicIn
       <img className="bv-stadium" src={composition?.stadium||stadiumUrl} alt="" width={SCENE.world.width} height={SCENE.world.height} draggable="false" decoding="async"/>
       {(composition?.shadows||SCENE.shadows).map((s,i)=><i key={i} className="bv-ground-shadow" style={{left:s.x,top:s.y,width:s.width,height:s.height,transform:`rotate(${s.rotation}deg)`}}/>)}
       {ACTORS.map(name=>{
-        const live=name==='pitcher'?roster:null,tween=name==='batter'&&batterTweens&&pose.batterTween!=null,url=live?.url||(tween?SAMPLE_ACTORS.batterTween:actors[name])||null,isAtlas=!!live||url===SAMPLE_ACTORS[name]||tween;
-        const originalMeta=live?live.meta:isAtlas?(composition?.[name]||PILOT_MOTION[name]):SCENE[name],meta=tween?{...originalMeta,columns:1,rows:1}:originalMeta,b=actorBox(meta),frame=tween?0:live?rosterFrame(playback,elapsed,live,{knockedOut:!!result?.knockedOut}):pose[name];
+        const live=name==='pitcher'?roster:null,custom=name==='batter'?customBatter:null,tween=name==='batter'&&batterTweens&&pose.batterTween!=null,url=custom?.url||live?.url||(tween?SAMPLE_ACTORS.batterTween:name==='batter'&&optionalBatter?SAMPLE_ACTORS.batter:actors[name])||null,isAtlas=!!custom||!!live||url===SAMPLE_ACTORS[name]||tween;
+        const originalMeta=custom?custom.meta:live?live.meta:isAtlas?(composition?.[name]||PILOT_MOTION[name]):SCENE[name],meta=tween?{...originalMeta,columns:1,rows:1}:originalMeta,b=actorBox(meta),frame=tween?0:live?rosterFrame(playback,elapsed,live,{knockedOut:!!result?.knockedOut}):pose[name];
         const readyImage=isAtlas&&!tween&&frame===0&&meta.readyImage;
         return <div key={name} className={'bv-actor bv-actor-'+name} data-actor={name} data-actor-missing={url?undefined:'true'}
-          data-pose={tween?'swing-bridge':live?'frame-'+frame:isAtlas?meta.frames[frame].name:undefined} data-roster-art={live?.artId} style={{left:b.x,top:b.y,width:b.width,height:b.height}}>
-          {url&&(isAtlas?<div className="bv-motion-crop"><img src={url} alt="" width={meta.sourceWidth*meta.columns} height={meta.sourceHeight*meta.rows} draggable="false" decoding="async" style={{width:meta.columns*100+'%',height:meta.rows*100+'%',left:-(frame%meta.columns)*100+'%',top:-Math.floor(frame/meta.columns)*100+'%'}}/></div>:<img src={url} alt="" width={meta.sourceWidth} height={meta.sourceHeight} draggable="false" decoding="async"/>)}
+          data-pose={tween?'swing-bridge':live?'frame-'+frame:isAtlas?meta.frames[frame].name:undefined} data-roster-art={live?.artId} data-batter-kind={custom?.kind} data-frame={isAtlas?frame:undefined} style={{left:b.x,top:b.y,width:b.width,height:b.height}}>
+          {url&&(isAtlas?<div className="bv-motion-crop"><img src={url} onError={custom?()=>setFailedBatter(custom):undefined} alt="" width={meta.sourceWidth*meta.columns} height={meta.sourceHeight*meta.rows} draggable="false" decoding="async" style={{width:meta.columns*100+'%',height:meta.rows*100+'%',left:-(frame%meta.columns)*100+'%',top:-Math.floor(frame/meta.columns)*100+'%'}}/></div>:<img src={url} alt="" width={meta.sourceWidth} height={meta.sourceHeight} draggable="false" decoding="async"/>)}
           {live?.artId==='vulcan-blaze'&&<VulcanBrace profile={personality} frame={frame} phase={phase} action={playback?.action}/> }
           {readyImage&&<img className="bv-ready-drawing" src={readyImage.url} alt="" draggable="false" decoding="async" style={{position:'absolute',zIndex:1,width:readyImage.width/meta.sourceWidth*100+'%',height:readyImage.height/meta.sourceHeight*100+'%',left:readyImage.x/meta.sourceWidth*100+'%',top:readyImage.y/meta.sourceHeight*100+'%'}}/>}
         </div>;

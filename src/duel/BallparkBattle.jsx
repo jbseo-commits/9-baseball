@@ -1,3 +1,5 @@
+import useSluggerMotion from './battle-vnext/use-slugger-motion.js';
+import {reviewSluggerEligible} from './battle-vnext/slugger-motion.js';
 import {recentResultText} from './battle-vnext/ResultReadout.jsx';
 import React,{useEffect,useLayoutEffect,useRef,useState,useSyncExternalStore} from 'react';
 import {landscapeNoticeActive,subscribeLandscapeNotice} from './orientation-lock.js';
@@ -103,7 +105,7 @@ const isSkill=entry=>CARDS[entry?.kind]?.type==='skill';
 const noNotice=()=>false,noNoticeSubscription=()=>()=>{};
 const CardGlyph=({zones})=><span className="bp-glyph" aria-hidden="true">{Array.from({length:9},(_,z)=><i key={z} className={zones?.includes(z)?'on':''}/>)}</span>;
 
-export default function BallparkBattle({storage,
+export default function BallparkBattle({storage,reviewRun=false,
   s,hand,selected,swingStack,choice,locked=false,
   pitcher,label,pitcherArt,batterArt,
   animationRate=1,onAnimationRateChange=null,rosterPitcher=null,fxStage=null,shot=null,impactAt=0,playToken=0,playback=null,execution=null,onNext=null,nextLabel='',vfx=null,pitcherAtlas=null,artId=null,batterPoses=null,
@@ -176,6 +178,7 @@ export default function BallparkBattle({storage,
     return ()=>{if(window.__bpInspect===reg)delete window.__bpInspect;};
   },[]);
   const r=b.revealed,inFx=!!fxStage,deciding=s.phase==='battle'&&!inFx&&!locked&&!commitBeat;
+  const sluggerBatter=useSluggerMotion(useVnext&&!autoLesson&&!defenseLab&&!previewMode&&reviewSluggerEligible(reviewRun,s.v10?.hitterClass),deciding&&!playback);
   useEffect(()=>{if(useVnext&&!inFx)clearPreviewFx();},[inFx,useVnext]);
   const judged=!!r&&s.last?.kind!=='skill'&&(inFx||s.phase!=='battle');
   const landed=!inFx||LANDED.has(fxStage);
@@ -648,7 +651,7 @@ export default function BallparkBattle({storage,
     setRecentResult({key:artId+':'+s.runMap?.currentNodeId,text:recentResultText(model.result)});
   },[model?.phase,playToken,artId,s.runMap?.currentNodeId]);
   if(useVnext){
-    return <BattleView execution={matchingExecution} model={model} actors={{batter:SAMPLE_ACTORS.batter,pitcher:rosterPitcher||approvedArt||SAMPLE_ACTORS.pitcher}}
+    return <BattleView execution={matchingExecution} model={model} actors={{batter:sluggerBatter||SAMPLE_ACTORS.batter,pitcher:rosterPitcher||approvedArt||SAMPLE_ACTORS.pitcher}}
       playback={playback} animationRate={animationRate} onAnimationRateChange={onAnimationRateChange} sound={sound} onToggleSound={onToggleSound} rootRef={rootRef} sceneRef={sceneRef} zoneRef={zoneRef} handRef={handDockRef} recent={recentResult?.key===artId+':'+s.runMap?.currentNodeId?recentResult.text:null} title={label} review={!!vnextReview}
       inspector={inspectorView} menuOpen={!!inspect} handOpen={handOpen} onHandOpenChange={setHandOpen} onMenu={()=>openInspect('menu')} onPitcherInfo={()=>openInspect('pitcher')}
       onCardTap={id=>{if(!deciding&&!inspect)return;isSkill(byId(id)?.entry)?pickPrep(id):pickSwing(id);}}
