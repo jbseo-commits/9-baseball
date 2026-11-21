@@ -9,7 +9,7 @@ import {createV10Duel,enterV10Node,playV10Action,advanceV10Pitch,advanceV10Batte
 import {sceneEffectAt} from '../src/duel/battle-vnext/scene-effects.js';
 import {encounterPlan,encounterFor} from '../src/duel/pitcher-encounters.js';
 import {captureExecution} from '../src/duel/presentation-snapshot.js';
-const profile=i=>pitchPersonality({id:'vulcan-blaze',steps:{count:3,current:i}},'vulcan-blaze');
+const profile=i=>pitchPersonality({id:'vulcan-blaze',steps:{count:3,current:i},ready:i===2},'vulcan-blaze');
 afterEach(cleanup);
 it('only a valid matching public three-step cue selects the equipment and flight',()=>{
  for(const cue of [null,{id:'vulcan-blaze'},{id:'vulcan-blaze',steps:{count:3,current:3}}])expect(pitchPersonality(cue,'vulcan-blaze')).toBeNull();
@@ -50,7 +50,7 @@ it('preparation cannot advance/skip the public cycle and hidden pitch cannot alt
 
 it('third bonus is earned only by real hit; waiting at two strikes carries the normal risk',()=>{
  const s={version:10,v10:{opponent:{artId:'vulcan-blaze',encounter:encounterFor('vulcan-blaze')}},battle:{pitchCount:2,history:[],strikes:2}};
- for(const kind of ['hit','whiff','called','ball','foul']){const p=encounterPlan(s,{action:{type:kind==='called'||kind==='ball'?'take':'card'},r:{kind}});expect(p.bonus).toBe(kind==='hit'?8:0);}
+ for(const kind of ['hit','whiff','called','ball','foul']){const p=encounterPlan(s,{action:{type:kind==='called'||kind==='ball'?'take':'card'},r:{kind}});expect(p.bonus).toBe(kind==='hit'?8:0);expect(p.rate).toBe(kind==='hit'?1:.85);}
 });
 it('all committed cells have one shared incoming center across hit/take/whiff and continuous pass',()=>{
  for(const i of [0,2])for(let z=0;z<10;z++){
@@ -59,4 +59,19 @@ it('all committed cells have one shared incoming center across hit/take/whiff an
   for(const t of [917,934,967,1000,1216,1217,1234])expect(at('take',t).ball).toEqual(at('swing',t).ball);
   expect(at('take',1217,true).ball).toEqual(at('take',1217).ball);expect(at('swing',1217,true).radius).toEqual(at('swing',1217).radius);expect(at('swing',1234,true).flash).toBe(0);
  }
+});
+
+it('20→21 uses pitchCount after18history saturation, frozen ready cue survives resume and result',()=>{
+ let s;for(let seed=1;seed<100&&!s;seed++){let r=createV10Duel(seed),n=r.runMap.nodes.find(n=>n.opponent?.artId==='vulcan-blaze');if(n){r.runMap.reachableIds=[n.id];s=enterV10Node(r,n.id);}}
+ s.battle.pitchCount=19;s.battle.history=Array.from({length:18},()=>({action:'take',kind:'called'}));
+ const cue20=publicEncounterCue(s);expect(cue20.ready).toBe(false);
+ const a=playV10Action(s,{type:'take'});expect(captureExecution(s,a,{selected:null}).encounterCue.ready).toBe(false);
+ s=a.phase==='between'?advanceV10Batter(a):advanceV10Pitch(a);s=JSON.parse(JSON.stringify(s));
+ expect(s.battle.pitchCount).toBe(20);expect(s.battle.history).toHaveLength(18);const cue21=publicEncounterCue(s);expect(cue21.ready).toBe(true);expect(pitchPersonality(cue21,'vulcan-blaze').id).toBe('vulcan-vent');
+ const next=playV10Action(s,{type:'take'}),locked=captureExecution(s,next,{selected:null});expect(locked.encounterCue).toEqual(cue21);expect(locked.encounterCue.ready).toBe(true);
+ const after=next.phase==='between'?advanceV10Batter(next):advanceV10Pitch(next);expect(publicEncounterCue(after).ready).toBe(false);
+});
+it('reduced motion retains static deciding open silhouette; inconsistent public ready fails closed',()=>{
+ const v=render(<VulcanBrace profile={profile(2)} frame={0} phase="deciding"/>);expect(v.container.querySelector('[data-mode="vent"]')).toBeTruthy();
+ expect(pitchPersonality({id:'vulcan-blaze',steps:{count:3,current:2},ready:false},'vulcan-blaze')).toBeNull();
 });

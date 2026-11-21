@@ -5,7 +5,8 @@ export function pitchPersonality(cue,artId=null){
  switch(cue.id){
  case 'vulcan-blaze':{
   if(cue.steps?.count!==3||![0,1,2].includes(cue.steps.current))return null;
-  const vent=cue.steps.current===2;
+  if(cue.ready!==(cue.steps.current===2))return null;
+  const vent=cue.ready;
   return {id:vent?'vulcan-vent':'vulcan-brace',label:vent?'3구 · 빈틈':`${cue.steps.current+1}구 · 압축`,glyph:vent?'⌁':'Ⅱ',sound:vent?'pitchVent':'pitchCompression',amplitude:vent?300:0,ready:vent,description:vent?'배기판 열림 · 이번 안타에만 +8 HP · 중간 선호는 확정 코스가 아님':'브레이스 닫힘 · 기본 피해 ×0.85 · 높은 선호는 확정 코스가 아님'};
  }
  case 'tide-vesper':return {id:'float-drop',label:'낙차',glyph:'≈',sound:'pitchFloat',amplitude:cue.flightPreference==='high'?260:360,ready:cue.ready,description:'떠올랐다 급강하 · 선호는 확정 코스가 아님'};
