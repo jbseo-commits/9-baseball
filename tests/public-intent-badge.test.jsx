@@ -13,13 +13,13 @@ describe('actual game overhead public intent',()=>{
  });
  it('reads face strings only and hides outside decision phase',()=>{
   const faces=Array(9).fill('가끔');Object.defineProperty(faces,'pending',{get(){throw Error('private access')}});
-  expect(publicIntentBadge(faces,'deciding').zones).toHaveLength(9);
+  expect(publicIntentBadge(faces,'deciding').zones).toHaveLength(0);
   for(const phase of ['committing','flight','result','between'])expect(publicIntentBadge(faces,phase)).toBeNull();
  });
  it('provides noncolor certainty and unknown cues without clipping the top edge',()=>{
-  const {container,rerender}=render(<PublicIntentBadge faces={Array(9).fill('가끔')} phase="deciding" point={{x:430,y:110}}/>);
-  expect(container.querySelector('[role=img]').getAttribute('aria-label')).toContain('범위');expect(container.textContent).toBe('?');
-  rerender(<PublicIntentBadge faces={Array(9).fill('가끔')} phase="deciding" point={{x:430,y:35}}/>);expect(container.textContent).toBe('');
+  const {container,rerender}=render(<PublicIntentBadge faces={Array(9).fill('가끔')} phase="deciding" bounds={{width:844,height:390}} point={{x:430,y:110}}/>);
+  expect(container.querySelector('[role=img]').getAttribute('aria-label')).toContain('알 수 없음');expect(container.textContent).toBe('?');
+  rerender(<PublicIntentBadge faces={Array(9).fill('가끔')} phase="deciding" bounds={{width:844,height:390}} point={{x:430,y:35}}/>);expect(container.textContent).toBe('');
  });
 });
 
@@ -28,6 +28,6 @@ it('uses only explicit public outside confirmation, never percentages or outside
  expect(publicIntentBadge(faces,'deciding',true)).toMatchObject({zones:[],certain:true,outside:true});
  for(const value of [false,undefined,'100%','95~100%','바깥쪽 공략'])expect(publicIntentBadge(faces,'deciding',value).certain).toBe(false);
  expect(publicIntentBadge(faces,'flight',true)).toBeNull();
- const v=render(<PublicIntentBadge faces={faces} phase="deciding" confirmedOutside point={{x:430,y:110}}/>);
+ const v=render(<PublicIntentBadge faces={faces} phase="deciding" confirmedOutside bounds={{width:844,height:390}} point={{x:430,y:110}}/>);
  expect(v.container.textContent).toBe('볼!');expect(v.getByRole('img').getAttribute('aria-label')).toContain('존 밖 볼 확정');
 });
