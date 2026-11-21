@@ -13,6 +13,7 @@ import {intentLines,ZONE_WORDS,runnerMoves} from '../ballpark-copy.js';
 import {resultExplanation,isExactRead} from '../zone-first-model.js';
 import {cardFaceOf,shortCardProblem} from '../card-face.js';
 import {preparationDrawPreview,activePreparationFeedback} from '../preparation-feedback.js';
+import {classBuild} from '../hitter-builds.js';
 import {forecastFor} from '../SwingForecast.jsx';
 import {formatHitChance} from '../swing-preview.js';
 import {pitcherIntentIcon} from '../intent-icon.js';
@@ -157,6 +158,7 @@ export function buildBattleViewModel({
     selectedCost,armedCost,
     remainingIfExecuted:Math.max(0,energyNow-selectedCost),
     shortfall:Math.max(0,selectedCost-energyNow),
+    takeDetail:`${shownCount.strikes===2?'스트라이크면 삼진 · ':''}삼진·경기 종료 제외, 다음 실제 공 ⚡${v10EnergyBase(s)+1} (기본 ${v10EnergyBase(s)}+1 · 잔량 이월 아님)`,
     nextTakeHint:shownCount.strikes===2?'스트라이크면 삼진'+(defenseLab?' · 보호 제외':''):`다음 공 ⚡+1`,
     upcoming:nextEnergyAction&&b.takeEnergyBonus===1?`${s.phase==='between'?'다음 타자':'다음 공'} ${v10NextEnergyMax(s)} · ${drawHint}`:'',
     refill:nextEnergyAction&&b.takeEnergyBonus!==1?`다음 ${s.phase==='between'?'타자':'공'}에 ${v10EnergyBase(s)} 충전`:'',
@@ -264,7 +266,14 @@ export function buildBattleViewModel({
     pitchZone:landed?r.zone:null,knockedOut:landed&&(pitcher?.hp??1)===0,motionEnabled:false};
   /* 준비 유지 효과: 선택 중, 그리고 같은 타자의 다음 공을 기다리는 동안 (BallparkBattle prepEffects와 같다) */
   const effects=deciding||(landed&&!fxStage&&!locked&&s.phase==='pitch')?activePreparationFeedback(b,s.phase):[];
-  return {phase,input,selection:{canClear:input.canSelect&&!!selected,canStack:input.canSelect&&canStack,canAddSupport:input.canSelect&&canAddSupport,supportBlockReason,supportMode:!!(supportMode||liveArmed)},energy,hand:ordered,handKnown,handCount:handKnown?ordered.filter(x=>x.type!=='basic').length:null,prepLeft,piles:displayPiles,zones,forecast,hud,result,scene,effects};
+  const preparation=deciding?effects.map(x=>x.startsWith('파워 +')?x+' · 이번 타석':x):[];
+  if(deciding&&classBuild(s)&&s.v10.hitterClass.id==='slugger-v1'&&b.preparations>0){
+    preparation.push(selected&&!mainIsSkill&&plan.cover.length!==1
+      ?'슬러거 +6 제외 · 주공격 1칸만'
+      :'슬러거 · 1칸 주공격 안타 +6 · 지원만 적중 제외');
+    if(selected==='basic'&&plan.cover.length===1)preparation.push('기본 스윙 0 에너지에도 적용');
+  }
+  return {phase,input,selection:{canClear:input.canSelect&&!!selected,canStack:input.canSelect&&canStack,canAddSupport:input.canSelect&&canAddSupport,supportBlockReason,supportMode:!!(supportMode||liveArmed)},energy,hand:ordered,handKnown,handCount:handKnown?ordered.filter(x=>x.type!=='basic').length:null,prepLeft,piles:displayPiles,zones,forecast,hud,result,scene,effects,preparation};
 }
 
 function countShown(b,r,landed){
