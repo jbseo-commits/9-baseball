@@ -1,3 +1,4 @@
+import EmeraldGroundTell from './EmeraldGroundTell.jsx';
 import {isReviewContactActor} from './private-field-art.js';
 import {sluggerFeedback} from './slugger-feedback.js';
 import SluggerFeedback from './SluggerFeedback.jsx';
@@ -92,6 +93,7 @@ export default function BattleScene({scene=null,pitcherHud=null,onPitcherInfo=nu
     <div className="bv-world" aria-hidden="true" style={{width:SCENE.world.width,height:SCENE.world.height,transform:cameraMatrix(camera),visibility:camera.scale?'visible':'hidden'}}>
       <img className="bv-stadium" src={composition?.stadium||stadiumUrl} alt="" width={SCENE.world.width} height={SCENE.world.height} draggable="false" decoding="async"/>
       {(composition?.shadows||SCENE.shadows).map((s,i)=><i key={i} className="bv-ground-shadow" style={{left:s.x,top:s.y,width:s.width,height:s.height,transform:`rotate(${s.rotation}deg)`}}/>)}
+      <EmeraldGroundTell profile={personality} foot={roster?.meta.worldFoot} scale={camera.scale} visible={!result?.knockedOut&&!finale&&((phase==='deciding'&&!playback)||(playback?.action==='prepare'&&['deciding','committing','flight','result'].includes(phase)))}/>
       {ACTORS.map(name=>{
         const live=name==='pitcher'?roster:null,custom=name==='batter'?customBatter:null,tween=name==='batter'&&batterTweens&&pose.batterTween!=null,url=custom?.url||live?.url||(tween?SAMPLE_ACTORS.batterTween:name==='batter'&&optionalBatter?SAMPLE_ACTORS.batter:actors[name])||null,isAtlas=!!custom||!!live||url===SAMPLE_ACTORS[name]||tween;
         const originalMeta=custom?custom.meta:live?live.meta:isAtlas?(composition?.[name]||PILOT_MOTION[name]):SCENE[name],meta=tween?{...originalMeta,columns:1,rows:1}:originalMeta,b=actorBox(meta),frame=tween?0:live?rosterFrame(playback,elapsed,live,{knockedOut:!!result?.knockedOut}):pose[name];
