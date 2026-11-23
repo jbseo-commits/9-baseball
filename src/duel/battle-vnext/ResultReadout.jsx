@@ -58,7 +58,7 @@ export default function ResultReadout({result=null,shotGrade=null,variant='stage
   }
   if(variant==='line'){
     return <p className={'bv-result-line t-'+tone.key} data-testid="bv-result-line" role="status" title={result.explanation}>
-      <b>{tone.label}</b>{dmg&&<em>{dmg}</em>}<span>{result.explanation}</span>
+      <b>{tone.label}</b>{result.lesson&&<span>{result.lesson}</span>}{dmg&&<em>{dmg}</em>}<span>{result.explanation}</span>
     </p>;
   }
   return <section className={'bv-result t-'+tone.key+(result.good?' is-good':'')} data-testid="bv-result" data-tone={tone.key} role="status" aria-live="polite"
@@ -66,7 +66,7 @@ export default function ResultReadout({result=null,shotGrade=null,variant='stage
     <span className="bv-result-tag">{tone.label}</span>
     <strong className="bv-result-call">{result.call||tone.label}</strong>
     {dmg&&<b className="bv-result-damage">{dmg}</b>}
-    <p className="bv-result-copy">{result.explanation}{result.outsideNote?' · '+result.outsideNote:''}</p>
+    <p className="bv-result-copy">{result.explanation}{result.lesson?' · '+result.lesson:''}{result.outsideNote?' · '+result.outsideNote:''}</p>
     {moves.length>0&&<ul className="bv-result-moves">
       {moves.slice(0,MOVES_SHOWN).map((m,i)=><li key={i}>{m}</li>)}
       {extra>0&&<li>외 {extra}명</li>}

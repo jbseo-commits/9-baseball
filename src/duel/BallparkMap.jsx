@@ -1,3 +1,4 @@
+import EmeraldPassage,{EMERALD} from './EmeraldPassage.jsx';
 import React,{useEffect,useLayoutEffect,useMemo,useRef,useState} from 'react';
 import {minimumCombatsToRest,restRouteCaption} from './route-rest-preview.js';
 import {hpTicks} from './ballpark-copy.js';
@@ -38,6 +39,13 @@ function useLandscape(){
   const [on,setOn]=useState(()=>media().matches);
   useEffect(()=>{const m=media();const f=()=>setOn(m.matches);f();m.addEventListener?.('change',f);return()=>m.removeEventListener?.('change',f);},[]);
   return on;
+}
+
+// A persisted route milestone, not a new unlock or a one-shot event.
+export function firstHomewardStep({nodes=[],edges=[],currentNodeId,reachableIds=[],completedIds=[]}){
+ return currentNodeId==='a1-entry'&&completedIds.length===1&&completedIds[0]==='a1-entry'
+  &&nodes.some(n=>n.id==='a1-entry'&&n.act===1&&n.type==='battle')
+  &&reachableIds.some(id=>nodes.some(n=>n.id===id&&n.act===1)&&edges.some(e=>e.from==='a1-entry'&&e.to===id));
 }
 
 export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reachableIds=[],completedIds=[],deckCount=0,relicCount=0,runOuts=0,portraits={},figures={},onEnter,onInspect,sound=false}){
@@ -86,6 +94,7 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
     return {k,lo:Math.min(...hp),hi:Math.max(...hp)};
   });
   const first=!completedIds.length;
+  const homeward=firstHomewardStep({nodes,edges,currentNodeId,reachableIds,completedIds});
   const actMax=Math.max(1,...here.map(n=>n.opponent?.maxHp||0));
 
   const sheet=d=>{
@@ -97,7 +106,7 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
         <span className="bp-mtag">{TAG[d.type]||d.name}</span>
         <strong className="bp-mname">{fight?o?.name:TAG[d.type]||d.name}</strong>
         {can&&runOuts>0&&!done.has(d.id)&&<span className="bp-mahead" data-testid="bp-map-rest-distance"><i className="t-rest">{restRouteCaption(restDistance,d.type==='rest')}</i></span>}
-        <em className="bp-mline">{fight?HABIT[o?.archetypeKey]||o?.archetype:PLACE[d.type]||d.reward}</em>
+        <em className="bp-mline">{d.act===1&&o?.artId===EMERALD?<span className="emerald-passage-line"><EmeraldPassage/>문 너머 동료가 기다린다. 수문장을 이겨야 길이 열린다.</span>:fight?HABIT[o?.archetypeKey]||o?.archetype:PLACE[d.type]||d.reward}</em>
         {fight&&o&&<span className="bp-mhp" aria-label={'HP '+o.maxHp}>{Array.from({length:12},(_,i)=><i key={i} className={i<hpTicks(o.maxHp,actMax)?'':'lost'}/>)}<b>HP {o.maxHp}</b></span>}
         {fight&&o?.encounter&&<span className="bp-mgm" data-testid="bp-map-encounter"><b>{o.encounter.label}</b><br/>{o.encounter.counter}</span>}
         {fight&&o?.encounter&&<details className="bp-mgm" data-testid="bp-map-encounter-rule"><summary>고유 규칙 자세히</summary>{o.encounter.summary}</details>}
@@ -114,7 +123,7 @@ export default function BallparkMap({nodes=[],edges=[],currentNodeId=null,reacha
     <div className="bp-mbody">
       <div className="bp-mleft">
         <header className="bp-mhead" style={{'--bp-sky':`url(${stadium})`}}>
-          <h1>{first?'어느 마운드부터 무너뜨릴까.':'다음 마운드.'}</h1>
+          <h1>{first?'어느 마운드부터 무너뜨릴까.':homeward?'동료에게 한 걸음 가까워졌다.':'다음 마운드.'}</h1>
         </header>
         <div className="bp-route-scroll" role={wide?'region':undefined} tabIndex={wide?0:undefined} aria-label={wide?'경로 지도 · 좌우로 스크롤':undefined}>
         <div ref={routeRef} className={'bp-route'+(chosen?' previewing':'')} style={{'--bp-map-bg':`url(${mapIslandCity})`,'--bp-rows':rows}}>
