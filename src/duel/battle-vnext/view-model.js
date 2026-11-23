@@ -1,3 +1,4 @@
+import {firstPitchLesson} from './first-pitch-lesson.js';
 /* battle-vnext 표시 모델 (C01, docs/design/mockup-v1/CONTRACTS.md).
    App의 실제 엔진 상태 + 기존 선택/지원/연출 상태 → 화면이 그릴 값만.
    - 상태를 바꾸지 않는다. 엔진 함수(playV10Action 등)를 실행 경로로 부르지 않는다.
@@ -254,15 +255,15 @@ export function buildBattleViewModel({
       good:r.kind==='hit'||r.kind==='sacrifice'||call==='볼넷',exact:isExactRead(s),assistOnly:!!r.assistOnly,
       aimZone:swung?r.aimZone:null,actualZone:r.zone,outside,outsideNote:outside?(r.outsideBet?'존 밖 베팅':swung?'볼에 손이 나갔다':'볼을 골라냈다'):'',
       coverage:[...(r.coverage||[])],primaryCoverage:[...(r.primaryCoverage||[])],supportCoverages:(r.supportCoverages||[]).map(x=>({...x,coverage:[...(x.coverage||[])]})),
-      explanation:resultExplanation(s),damage:Math.max(0,combat?.damage??pitcher?.lastDamage??0),
+      explanation:resultExplanation(s),lesson:firstPitchLesson(s),damage:Math.max(0,combat?.damage??pitcher?.lastDamage??0),
       precisionBonus:combat?.precisionBonus||0,relicBonus:combat?.relicBonus||0,relicEvents:[...(combat?.relicEvents||[])],
-      encounterEvents:[...(combat?.encounter?.events||[])],
+      encounterBonus:combat?.encounter?.bonus||0,encounterEvents:[...(combat?.encounter?.events||[])],
       encounterCue:landedEncounterCue(s,combat),
       hpBefore,hpAfter:pitcher?.hp??null,knockedOut:(pitcher?.hp??1)===0,moves,
       next:s.phase==='pitch'?'pitch':s.phase==='between'?'batter':null};
   }
 
-  const scene={artId,playToken,fxStage,shotGrade:landed?(shot?.grade||shot?.kind||null):null,
+  const scene={artId,act:s.runMap?.nodes?.find(n=>n.id===s.runMap.currentNodeId)?.act,playToken,fxStage,shotGrade:landed?(shot?.grade||shot?.kind||null):null,
     pitchZone:landed?r.zone:null,knockedOut:landed&&(pitcher?.hp??1)===0,motionEnabled:false};
   /* 준비 유지 효과: 선택 중, 그리고 같은 타자의 다음 공을 기다리는 동안 (BallparkBattle prepEffects와 같다) */
   const effects=deciding||(landed&&!fxStage&&!locked&&s.phase==='pitch')?activePreparationFeedback(b,s.phase):[];

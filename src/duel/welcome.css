@@ -100,3 +100,11 @@
 @keyframes wg-page{from{transform:translateX(14px);opacity:0}to{transform:none;opacity:1}}
 @keyframes wg-drain{0%{width:100%}70%,100%{width:0}}
 @media (prefers-reduced-motion:reduce){.wg-backdrop,.wg-sheet,.wg-page,.wg-hp i b{animation:none}}
+
+/* Short landscape introduction: instructions before decorative diagrams. Full rulebook unchanged. */
+@media(orientation:landscape) and (max-height:430px){
+ .wg-intro .wg-art{display:none}
+ .wg-intro .wg-sheet{width:min(100%,640px);padding:8px 16px}
+ .wg-intro .wg-page h2{font-size:22px;margin:4px 0 8px}
+ .wg-intro .wg-body{gap:5px}
+}

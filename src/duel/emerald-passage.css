@@ -1,0 +1,10 @@
+.emerald-passage{width:64px;height:36px;flex:none;pointer-events:none;vertical-align:middle;image-rendering:pixelated}
+.emerald-passage.in-field{position:absolute;left:635px;top:485px;width:128px;height:72px;z-index:1}
+.emerald-passage[data-echo=true] .passage-light{animation:emerald-lantern-echo 1s steps(1,end) both}
+@keyframes emerald-lantern-echo{0%,75%{fill:#ffe3a0}100%{fill:#58605b}}
+.emerald-passage-line{display:flex;align-items:center;gap:8px}
+@media(prefers-reduced-motion:reduce){.emerald-passage[data-echo=true] .passage-light{animation:none;fill:#ffe3a0}}
+
+/* Existing reward cards overlap the title by100px. Only this passage payoff
+   reserves its existing header row; all choices remain in the normal scroll. */
+@media(orientation:landscape){main.bp-stop.bp-choice.stop-reward[data-emerald-passage=true]>.bp-offers{margin-top:0}}

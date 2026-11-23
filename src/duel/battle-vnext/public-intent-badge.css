@@ -12,3 +12,7 @@
 
 .bv-public-intent .bv-pitch-personality{position:absolute;top:5px;display:flex;align-items:center;gap:4px;background:#111b2b;color:#fff0c9;border:1px solid #8c9bae;padding:1px 5px;white-space:nowrap;font:700 11px/18px system-ui;box-shadow:2px 2px #070b14}
 .bv-pitch-personality strong{font:900 19px/18px monospace}.bv-pitch-personality[data-ready=true]{border:2px double #fff0c9;padding:0 4px}
+
+/* Persistent public map reserves the central overhead slot through results.
+   Move only the decorative verdict beside it; damage/controls stay in their rail. */
+.battle-vnext[data-phase] .bv-scene[data-public-intent] .bv-result-spotlight{left:var(--bv-intent-safe-left);transform:translate(0,-50%);max-width:calc(100% - var(--bv-intent-safe-left) - 12px)}

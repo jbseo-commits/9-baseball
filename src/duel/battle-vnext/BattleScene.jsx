@@ -1,3 +1,4 @@
+import EmeraldPassage,{EMERALD,emeraldEcho,isEmeraldPassage} from '../EmeraldPassage.jsx';
 import {isReviewContactActor} from './private-field-art.js';
 import {sluggerFeedback} from './slugger-feedback.js';
 import SluggerFeedback from './SluggerFeedback.jsx';
@@ -7,7 +8,8 @@ import {pitchPersonality} from './pitch-personality.js';
 import {tidePlaytestEnabled} from './tide-playtest.js';
 import './tide-playtest.css';
 import intentHeadAnchors from './intent-head-anchors.json';
-import PublicIntentBadge from './PublicIntentBadge.jsx';
+import PersistentPublicIntent from './PersistentPublicIntent.jsx';
+import {pitcherOverheadPosition} from './public-intent-badge.js';
 import PitcherInteraction from './PitcherInteraction.jsx';
 import React,{useLayoutEffect,useRef,useState} from 'react';
 import {SCENE,worldCamera,atbatCamera,actorBox,cameraMatrix,sceneSnapshot} from './scene-geometry.js';
@@ -82,15 +84,17 @@ export default function BattleScene({scene=null,pitcherHud=null,onPitcherInfo=nu
   const authored=authoredBatter||actors.pitcher===SAMPLE_ACTORS.pitcher;
   const at=p=>({x:p.x*camera.scale+camera.x,y:p.y*camera.scale+camera.y});
   const contact=at(composition?.contact||(authored?MOTION_CONTACT:SCENE.sampleFlight.contact)),release=at(composition?.release||(authored?MOTION_RELEASE:SCENE.sampleFlight.release));
+  const overhead=roster&&intentHeadAnchors[roster.artId]?pitcherOverheadPosition(at({x:roster.meta.worldFoot.x+(intentHeadAnchors[roster.artId].x-roster.meta.anchor.x)*roster.meta.worldHeight/256,y:roster.meta.worldFoot.y+(intentHeadAnchors[roster.artId].y-roster.meta.anchor.y)*roster.meta.worldHeight/256}),box):null;
   const vars=snap?{'--bv-home-x':snap.home.x+'px','--bv-home-y':snap.home.y+'px','--bv-release-x':release.x+'px','--bv-release-y':release.y+'px',
     '--bv-contact-x':contact.x+'px','--bv-contact-y':contact.y+'px','--bv-world-scale':camera.scale}:{};
-  return <section ref={rootRef} className={'bv-scene'+(className?' '+className:'')} aria-label="승부 구장" style={vars}
+  return <section ref={rootRef} className={'bv-scene'+(className?' '+className:'')} aria-label="승부 구장" data-public-intent={overhead?'true':undefined} style={{...vars,...(overhead?{'--bv-intent-safe-left':overhead.left+84+'px'}:{})}}
     data-phase={phase} data-fx-stage={scene?.fxStage||undefined} data-play-token={scene?.playToken??undefined}
     data-shot={scene?.shotGrade||undefined} data-motion={authored?'authored':'static'} data-camera-align={camera.yAlign}>
     {batterTweens&&<img hidden src={SAMPLE_ACTORS.batterTween} alt="" aria-hidden="true"/>}
     <div className="bv-world-camera" style={{transform:effect?.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:'none'}}>
     <div className="bv-world" aria-hidden="true" style={{width:SCENE.world.width,height:SCENE.world.height,transform:cameraMatrix(camera),visibility:camera.scale?'visible':'hidden'}}>
       <img className="bv-stadium" src={composition?.stadium||stadiumUrl} alt="" width={SCENE.world.width} height={SCENE.world.height} draggable="false" decoding="async"/>
+      {isEmeraldPassage(roster?.artId,scene?.act)&&publicEncounterCue?.id===EMERALD&&<EmeraldPassage key={'passage-'+scene?.playToken} field echo={phase==='result'&&emeraldEcho(roster.artId,result)}/>}
       {(composition?.shadows||SCENE.shadows).map((s,i)=><i key={i} className="bv-ground-shadow" style={{left:s.x,top:s.y,width:s.width,height:s.height,transform:`rotate(${s.rotation}deg)`}}/>)}
       {ACTORS.map(name=>{
         const live=name==='pitcher'?roster:null,custom=name==='batter'?customBatter:null,tween=name==='batter'&&batterTweens&&pose.batterTween!=null,url=custom?.url||live?.url||(tween?SAMPLE_ACTORS.batterTween:name==='batter'&&optionalBatter?SAMPLE_ACTORS.batter:actors[name])||null,isAtlas=!!custom||!!live||url===SAMPLE_ACTORS[name]||tween;
@@ -107,7 +111,7 @@ export default function BattleScene({scene=null,pitcherHud=null,onPitcherInfo=nu
         </div>;
       })}
     </div></div>
-    {!onPitcherInfo&&roster&&intentHeadAnchors[roster.artId]&&<PublicIntentBadge personality={personality} tideCue={tidePilot?publicEncounterCue:null} bounds={box} confirmedOutside={publicOutsideConfirmed} faces={publicIntentFaces} phase={playback&&playback.action!=='prepare'?'flight':phase} point={at({x:roster.meta.worldFoot.x+(intentHeadAnchors[roster.artId].x-roster.meta.anchor.x)*roster.meta.worldHeight/256,y:roster.meta.worldFoot.y+(intentHeadAnchors[roster.artId].y-roster.meta.anchor.y)*roster.meta.worldHeight/256})}/>}
+    {roster&&intentHeadAnchors[roster.artId]&&<PersistentPublicIntent key={roster.artId} bounds={box} confirmedOutside={publicOutsideConfirmed} faces={publicIntentFaces} deciding={phase==='deciding'&&!playback} head={at({x:roster.meta.worldFoot.x+(intentHeadAnchors[roster.artId].x-roster.meta.anchor.x)*roster.meta.worldHeight/256,y:roster.meta.worldFoot.y+(intentHeadAnchors[roster.artId].y-roster.meta.anchor.y)*roster.meta.worldHeight/256})}/>}
     {onPitcherInfo&&roster&&<PitcherInteraction pitcher={pitcherHud} onOpen={onPitcherInfo} enabled={phase==='deciding'&&!playback&&!infoOpen} bounds={box}
       head={at({x:roster.meta.worldFoot.x+((intentHeadAnchors[roster.artId]?.x??128)-roster.meta.anchor.x)*roster.meta.worldHeight/256,y:roster.meta.worldFoot.y+((intentHeadAnchors[roster.artId]?.y??0)-roster.meta.anchor.y)*roster.meta.worldHeight/256})} foot={at(roster.meta.worldFoot)}/>}
     <div className="bv-scene-shade" aria-hidden="true"/>

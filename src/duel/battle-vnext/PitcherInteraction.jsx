@@ -1,5 +1,6 @@
 import React,{useEffect,useRef} from 'react';
 import './pitcher-interaction.css';
+import {pitcherOverheadPosition} from './public-intent-badge.js';
 
 // Public presentation only: screen-projected authored head/foot + frozen HUD HP.
 export default function PitcherInteraction({head,foot,bounds,pitcher,enabled,onOpen}){
@@ -8,7 +9,7 @@ export default function PitcherInteraction({head,foot,bounds,pitcher,enabled,onO
  useEffect(()=>{if(!enabled)cancel();},[enabled]);
  useEffect(()=>{const stop=()=>cancel();window.addEventListener('blur',stop);window.addEventListener('resize',stop);window.addEventListener('scroll',stop,true);return()=>{cancel();window.removeEventListener('blur',stop);window.removeEventListener('resize',stop);window.removeEventListener('scroll',stop,true);};},[]);
  if(!head||!foot||!pitcher||!(bounds?.width>0))return null;
- const left=Math.max(4,Math.min(bounds.width-76,head.x-36)),top=Math.max(4,head.y-14);
+ const {left,top}=pitcherOverheadPosition(head,bounds);
  const height=Math.max(44,foot.y-head.y),width=Math.max(44,Math.min(80,height*.62));
  const open=el=>{if(!latest.current.enabled)return;el.focus({preventScroll:true});latest.current.onOpen?.();};
  return <>
