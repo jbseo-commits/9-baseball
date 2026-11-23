@@ -1,3 +1,4 @@
+import EmeraldPassage,{EMERALD,emeraldEcho,isEmeraldPassage} from '../EmeraldPassage.jsx';
 import {isReviewContactActor} from './private-field-art.js';
 import {sluggerFeedback} from './slugger-feedback.js';
 import SluggerFeedback from './SluggerFeedback.jsx';
@@ -93,6 +94,7 @@ export default function BattleScene({scene=null,pitcherHud=null,onPitcherInfo=nu
     <div className="bv-world-camera" style={{transform:effect?.camera?`translate(${effect.camera*camera.scale}px,${-effect.camera*.25*camera.scale}px)`:'none'}}>
     <div className="bv-world" aria-hidden="true" style={{width:SCENE.world.width,height:SCENE.world.height,transform:cameraMatrix(camera),visibility:camera.scale?'visible':'hidden'}}>
       <img className="bv-stadium" src={composition?.stadium||stadiumUrl} alt="" width={SCENE.world.width} height={SCENE.world.height} draggable="false" decoding="async"/>
+      {isEmeraldPassage(roster?.artId,scene?.act)&&publicEncounterCue?.id===EMERALD&&<EmeraldPassage key={'passage-'+scene?.playToken} field echo={phase==='result'&&emeraldEcho(roster.artId,result)}/>}
       {(composition?.shadows||SCENE.shadows).map((s,i)=><i key={i} className="bv-ground-shadow" style={{left:s.x,top:s.y,width:s.width,height:s.height,transform:`rotate(${s.rotation}deg)`}}/>)}
       {ACTORS.map(name=>{
         const live=name==='pitcher'?roster:null,custom=name==='batter'?customBatter:null,tween=name==='batter'&&batterTweens&&pose.batterTween!=null,url=custom?.url||live?.url||(tween?SAMPLE_ACTORS.batterTween:name==='batter'&&optionalBatter?SAMPLE_ACTORS.batter:actors[name])||null,isAtlas=!!custom||!!live||url===SAMPLE_ACTORS[name]||tween;

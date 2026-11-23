@@ -66,14 +66,20 @@ export const WELCOME_CHAPTERS=[
    keeps its nine chapters and the existing seen key so returning players are
    never sent through the introduction again. */
 export const WELCOME_INTRO_CHAPTERS=[
-  {...WELCOME_CHAPTERS[0],body:[
-    <><b>3아웃</b>이 되기 전에 투수 <b>HP를 0</b>으로 만들면 강판 · 승리.</>,
-    <>3아웃이면 <b>런이 끝납니다</b>. 승리해도 아웃은 <b>다음 상대로 이어집니다</b>.</>,
+  {...WELCOME_CHAPTERS[0],title:'동료와 집으로 가는 길',body:[
+    <>길 너머 <b>동료가 기다립니다</b>. 승부를 이겨 집으로 갈 길을 잇습니다.</>,
+    <><b>3아웃 전에 투수 HP 0</b>이면 승리. 안타로 HP를 깎습니다.</>,
+    <>3아웃이면 런 종료. 아웃은 <b>다음 상대에게 이어집니다</b>.</>,
   ]},
-  WELCOME_CHAPTERS[1],
-  {...WELCOME_CHAPTERS[3],body:[
-    <>카드의 작은 3×3 그림만큼 덮습니다. <b>덮은 칸에 오면 안타</b>. <b>희생 번트</b>는 작전 성공을 노립니다.</>,
-    <>카드 비용은 남은 에너지 안에서. <b>볼은 지켜보면 볼</b>, 휘두르면 대부분 헛스윙입니다.</>,
+  {...WELCOME_CHAPTERS[1],body:[
+    <><b>머리 위 9칸은 의도</b>입니다. 후보는 확정 코스가 아니며, 조작판도 아닙니다.</>,
+    <><b>손패 → 카드 → 아래 노릴 칸</b> 순서로 놓습니다. 덮는 범위와 예상 안타·피해를 비교하세요.</>,
+    <>선택 뒤 <b>스윙</b>. 준비 카드는 공을 쓰지 않습니다. 선택 없이 <b>지켜보기</b>도 가능합니다.</>,
+  ]},
+  {...WELCOME_CHAPTERS[3],eyebrow:'결과와 다음 선택',title:'한 공의 결과를 보고 다음 선택',body:[
+    <>지켜본 <b>볼은 볼 +1</b>, 스트라이크는 <b>스트라이크 +1</b>. 4볼은 진루, 3스트라이크는 아웃입니다.</>,
+    <>안타는 <b>투수 HP를 깎아</b> 승리에 다가갑니다. 투수 HP 0이 승리 조건입니다.</>,
+    <>실행 뒤 <b>내 선택 → 실제 공 → 판정</b>을 봅니다. 다음 공에 선택을 바꿀 수 있습니다.</>,
   ]},
 ];
 

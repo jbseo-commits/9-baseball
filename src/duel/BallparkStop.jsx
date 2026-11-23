@@ -1,3 +1,4 @@
+import EmeraldPassage from './EmeraldPassage.jsx';
 import React,{useRef,useState} from 'react';
 import {CARDS,cardCost,upgradeText,FAMILIES,DECK_MAX} from './cards.js';
 import {shapeHas} from './engine.js';
@@ -101,7 +102,7 @@ function Offer({o,on,count,onClick,plus=false,reveal=null}){
   </button>;
 }
 
-export default function BallparkStop({kind,opponent=null,portrait=null,options=[],relics=[],relicTier='elite',runOuts=0,canRecover=false,onRecover,deck=[],deckCount=0,onPick,onSkip,onDeck,onInspect}){
+export default function BallparkStop({kind,emeraldPassage=false,opponent=null,portrait=null,options=[],relics=[],relicTier='elite',runOuts=0,canRecover=false,onRecover,deck=[],deckCount=0,onPick,onSkip,onDeck,onInspect}){
   const [sel,setSel]=useState(null),[selR,setSelR]=useState(null),[restMode,setRestMode]=useState(null);
   /* 강적·보스 보상: 전용 유물을 반드시 하나 고른다. 카드는 고르거나 넘길 수 있다. */
   const needRelic=kind==='reward'&&relics.length>0;
@@ -130,11 +131,11 @@ export default function BallparkStop({kind,opponent=null,portrait=null,options=[
     const relic=needRelic&&root.querySelector('.bp-relic-offers .bp-offer.on');
     if(relic)playAcquire(relic,deckBtn,relicTier==='boss'?'signature':'rare');
   };
-  return <main ref={rootRef} className={'bp-stop bp-choice stop-'+kind} aria-label={c.title(opponent)} style={{'--bp-sky':`url(${stadium})`}}>
+  return <main ref={rootRef} className={'bp-stop bp-choice stop-'+kind} aria-label={c.title(opponent)} data-emerald-passage={kind==='reward'&&emeraldPassage?'true':undefined} style={{'--bp-sky':`url(${stadium})`}}>
     <div className="bp-bar"><span>{kind==='reward'?'승리':'쉬어 가는 곳'}</span><span className="bp-piles"><button type="button" onClick={onDeck}>덱 {deckCount}{after!==deckCount&&<> → <b>{after}</b></>}</button></span></div>
     <header className="bp-shead">
       {portrait&&<button type="button" className="bp-sport" aria-label={opponent?.name+' 초상 크게 보기'} onClick={e=>onInspect?.(opponent,e)}><img alt="" src={portrait}/></button>}
-      <div className={'bp-stitle'+(voice?' has-voice':'')}>{voice&&<q className="bp-kovoice" data-testid="bp-kovoice">{voice}</q>}<h1>{c.title(opponent)}</h1><p>{options.length?c.line:EMPTY[kind]||''}</p></div>
+      <div className={'bp-stitle'+(voice||emeraldPassage?' has-voice':'')}>{(voice||emeraldPassage)&&<q className="bp-kovoice" data-testid="bp-kovoice">{kind==='reward'&&emeraldPassage?<span className="emerald-passage-line"><EmeraldPassage open/>문이 열렸다. 동료와 함께, 집으로 한 걸음 더.</span>:voice}</q>}<h1>{c.title(opponent)}</h1><p>{options.length?c.line:EMPTY[kind]||''}</p></div>
     </header>
     <div className={'bp-offers'+(kind==='reward'?' reveal':'')} data-cards={cards} data-many={cards>3?'':undefined} style={{'--n':Math.max(1,Math.min(cards,3))}}>
       {kind==='rest'&&(restMode==='upgrade'

@@ -84,7 +84,7 @@ export default function DecisionPanel({zones=null,forecast=null,input=null,hand=
 /* One causal readout, also usable outside the field's touch/slide surface. */
 export function DecisionSummary({hand=[],forecast,input,energy,effects=[],phase='deciding',result,shotGrade,execution,scene,recent,compact=false,preparation=[]}){
   const deciding=phase==='deciding',sum=deciding?planSummary({hand,forecast,input,energy,effects}):null;
-  return <div className="bv-plan" data-testid="bv-plan" aria-live="polite">
+  return <div className="bv-plan" data-testid="bv-plan" aria-live="polite" tabIndex={phase==='result'?0:undefined} role={phase==='result'?'region':undefined} aria-label={phase==='result'?'투구 결과 · 위아래로 스크롤':undefined}>
       {deciding&&sum&&!(compact&&input.actionKind==='watch')&&<>
         <p className="bv-plan-title">{sum.title}{sum.cost>0&&<small> · ⚡{sum.cost}</small>}</p>
         {sum.chance&&<p className="bv-plan-metrics"><strong>{sum.chance}</strong>{sum.damage&&<span>{sum.damage}</span>}</p>}
